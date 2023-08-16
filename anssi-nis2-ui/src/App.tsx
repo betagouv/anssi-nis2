@@ -1,33 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { Col, Container, Header, HeaderBody, HeaderOperator, Icon, Logo, Row, Service, Tool, ToolItem, ToolItemGroup } from '@dataesr/react-dsfr';
+import AnssiLogo from './assets/anssi.png'
+import '@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Header>
+        <HeaderBody>
+          <Logo>République Française</Logo>
+          <HeaderOperator>
+            <img
+              alt="Logotype ANSSI"
+              src={AnssiLogo}
+            />
+          </HeaderOperator>
+          <Service
+            description=""
+            title="MonParcoursNIS2"
+          />
+
+          <Tool>
+            <ToolItemGroup>
+              <ToolItem icon="ri-live-fill" link="/">
+                Webinaire de présentation
+              </ToolItem>
+              <ToolItem icon="ri-arrow-right-line" link="/">
+                FAQ NIS2
+              </ToolItem>
+            </ToolItemGroup>
+          </Tool>
+        </HeaderBody>
+      </Header>
+      <Container>
+        <Row>
+          <Col>
+            <Icon
+              name="ri-alert-fill"
+              size="2x"
+              title="Here is a title"
+            />
+          </Col>
+        </Row>
+      </Container>
     </>
   )
 }
