@@ -2,3 +2,13 @@
     background: #F3F6FE;
     background-image: url(./assets/habillage-accueil-01.svg);
 }
+
+.limiter {
+    width: 960px;
+    margin: 0 auto;
+}
+
+.appel-a-action h1 {
+    color: #000091;
+    margin-bottom: 0;
+}
