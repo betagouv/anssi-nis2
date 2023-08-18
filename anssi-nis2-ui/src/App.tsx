@@ -20,7 +20,16 @@ const useStyles = makeStyles()((theme) => ({
     background: "#F3F6FE",
     backgroundImage: `url(${FondHabillageAccueil})`,
     backgroundPosition: "bottom",
-    backgroundRepeat: "no-repeat"
+    backgroundRepeat: "no-repeat",
+    "& .limiter": {
+      width: "calc(1440px - 176px - 158px)",
+      margin: "0 auto",
+      display: "flex"
+    },
+    "& > div": {
+      paddingTop: fr.spacing("12w"),
+      paddingBottom: fr.spacing("8w"),
+    }
   },
   "appel_a_action": {
     "& *": {
@@ -31,23 +40,44 @@ const useStyles = makeStyles()((theme) => ({
       lineHeight: "120%"
     },
     display: "flex",
-    width: "754px",
-    paddingTop: fr.spacing("12w"),
-    paddingBottom: fr.spacing("8w"),
+    alignItems: "flex-start",
     flexDirection: "column",
-    gap: "40px"
+    width: "754px",
+
+    fontWeight: "500",
+    gap: fr.spacing("5w")
   },
   "gros": {
-    fontWeight: "500",
     fontSize: "22px"
   },
   "mea_gratuit": {
-    background: "var(--light-accent-green-emeraude-950, #C3FAD5)",
-    display: "flex",
-    alignItems: "flex-start",
+    backgroundColor: "var(--light-accent-green-emeraude-950, #C3FAD5)",
     padding: "2px 4px",
     fontWeight: "700",
-    fontSize: "1.5rem"
+    fontSize: "18px",
+    width: "217px"
+  },
+  description: {
+    width: "509px"
+  },
+  "cool-illustration": {
+    color: theme.decisions.text.default.grey.default,
+    fontSize: "32px",
+    lineHeight: "125%",
+    textAlign: "center",
+    fontWeight: 500,
+    display: "flex",
+    width: "336px",
+    height: "364px",
+    padding: "8px",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: fr.spacing("1w"),
+    flexShrink: 0,
+    background: "var(--primary-white, #FFF)",
+    opacity: 0.3,
+    border: "2px dashed #2F3A43",
+    borderRadius: fr.spacing("2w"),
   }
 }));
 
@@ -63,19 +93,24 @@ function App(props: Props) {
       <div className={cx(classes.block_accueil_nis2, className)}>
         <div className="limiter">
           <div className={cx(classes.appel_a_action, className)}>
-            <h1>MonParcoursNIS2</h1>
-            <p className={cx(classes.gros, className)}>
-              Accompagner les organisations dans la compréhension<br />
-              et la mise en conformité à NIS2
+            <div>
+              <h1>MonParcoursNIS2</h1>
+              <p className={cx(classes.gros, className)}>
+                Accompagner les organisations dans la compréhension<br />
+                et la mise en conformité à NIS2
+              </p>
+            </div>
+            <p className={cx(classes.mea_gratuit, className)}>
+              Gratuit et 100% en ligne
             </p>
-            <p className={cx(classes.mea_gratuit, className)}>Gratuit et 100% en ligne</p>
-            <p>
+            <p className={cx(classes.description, className)}>
               Au regard de la nouvelle directive NIS2, renforcez la sécurisation<br />
               de vos systèmes d’information grâce à l’accompagnement et aux services de l’ANSSI.
             </p>
-            <Button onClick={function noRefCheck() { }}>
-              Label button
-            </Button>
+            <Button onClick={function noRefCheck() { }}>S’inscrire</Button>
+          </div>
+          <div className={cx(classes['cool-illustration'], className)}>
+            Insert cool illustration here
           </div>
         </div>
       </div>
