@@ -6,11 +6,13 @@ import EnTete from './Components/EnTete'
 import PiedDePage from './Components/PiedDePage'
 import {BandeauAccueil} from "./BandeauAccueil.tsx"
 import {Props} from "./Props.ts"
+import {BandeauConcerne} from "./BandeauConcerne.tsx"
 
 const App = (props: Props) => <>
   <EnTete/>
   <main className="homepage" role="main">
     <BandeauAccueil className={props.className}/>
+    <BandeauConcerne className={props.className}/>
   </main>
   <PiedDePage/>
 </>
