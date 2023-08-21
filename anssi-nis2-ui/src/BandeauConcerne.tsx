@@ -5,21 +5,28 @@ import {Button} from "@codegouvfr/react-dsfr/Button"
 
 const useStyles = makeStyles()((theme) => ({
     "bandeau-suis-je-concerne": {
-        backgroundColor: theme.decisions.background.flat.blueFrance.default, // was #101070
+        backgroundColor: theme.decisions.background.flat.blueFrance.default, // TODO: was #101070
         color: "var(--grey-1000-100)",
         "& .limiter": {
-            padding: "80px 120px 104px 120px",
-            width: "1200px",
-            margin: "0 auto",
+            padding: [
+                fr.spacing("10w"),
+                fr.spacing("15w"),
+                fr.spacing("13w"),
+                fr.spacing("15w"),
+            ].join(" "),
+            width: "1200px", // TODO: passage sur grid system
             textAlign: "center",
             gap: fr.spacing("5w"),
         },
         "& h1": {
             color: "var(--grey-1000-100)",
+            textTransform: "uppercase",
+        },
+        "& p, & h1": {
+            marginBottom: fr.spacing("5w"),
         },
         "& Button": {
-            backgroundColor: theme.decisions.background.open.blueFrance.default, // was #E3E3FD
-            color: "#101070",
+            backgroundColor: theme.decisions.background.open.blueFrance.default, // TODO: was #E3E3FD
         },
     },
 }))
@@ -31,13 +38,13 @@ export const BandeauConcerne = (props: Props) => {
 
     return <>
         <div className={cx(classes["bandeau-suis-je-concerne"], className)}>
-            <div className="limiter">
+            <div className="limiter fr-my-0 fr-mx-auto">
                 <h1>Suis-je concerné ?</h1>
-                <p>
+                <p className="fr-text--lead">
                     Simulez dès à présent votre potentielle éligibilité à la directive NIS2 <br/>
                     et débutons ensemble l’accompagnement de votre structure.
                 </p>
-                <Button>Simuler mon éligibilité</Button>
+                <Button className="fr-btn fr-btn--tertiary fr-px-3w fr-py-2v">Simuler mon éligibilité</Button>
             </div>
         </div>
     </>
