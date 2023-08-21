@@ -1,4 +1,4 @@
-import {Props} from "./Props.ts"
+import {Props} from "../../Props.ts"
 import {makeStyles} from "tss-react/dsfr"
 import {fr} from "@codegouvfr/react-dsfr"
 
