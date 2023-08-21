@@ -5,7 +5,7 @@ import {fr} from "@codegouvfr/react-dsfr";
 import {Props} from "./Props.ts";
 import {CoolIllustration} from "./CoolIllustration.tsx"
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles()(() => ({
     "block_accueil_nis2": {
         background: "#F3F6FE",
         backgroundImage: `url(${FondHabillageAccueil})`,
