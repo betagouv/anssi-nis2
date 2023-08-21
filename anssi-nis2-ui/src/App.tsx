@@ -8,12 +8,14 @@ import PiedDePage from './Components/PiedDePage'
 import {BandeauAccueil} from "./Components/BandeauAccueil.tsx"
 import {Props} from "./Props.ts"
 import {BandeauConcerne} from "./Components/BandeauConcerne.tsx"
+import {BandeauNis2EU} from "./Components/BandeauNis2EU.tsx"
 
 const App = (props: Props) => <>
   <EnTete/>
   <main className="homepage" role="main">
-    <BandeauAccueil className={props.className}/>
-    <BandeauConcerne className={props.className}/>
+    <BandeauAccueil className={props.className} />
+    <BandeauConcerne className={props.className} />
+    <BandeauNis2EU className={props.className} />
   </main>
   <PiedDePage/>
 </>

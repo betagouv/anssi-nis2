@@ -7,7 +7,7 @@ const useStyles = makeStyles()((theme) => ({
     "bandeau-suis-je-concerne": {
         backgroundColor: theme.decisions.background.flat.blueFrance.default, // TODO: was #101070
         textAlign: "center",
-        "& h1": {textTransform: "uppercase"},
+        "& h2": {textTransform: "uppercase"},
     },
 }))
 
@@ -19,9 +19,9 @@ export const BandeauConcerne = (props: Props) => {
     return <>
         <div className={cx([classes["bandeau-suis-je-concerne"]], className)}>
             <div className="fr-my-0 fr-mx-auto fr-px-15w fr-pt-10w fr-pb-13w">
-                <h1 className="fr-text-inverted--grey fr-mb-5w">
+                <h2 className="fr-text-inverted--grey fr-mb-5w fr-h1">
                     Suis-je concerné ?
-                </h1>
+                </h2>
                 <p className="fr-text--lead fr-text-inverted--grey fr-mb-5w">
                     Simulez dès à présent votre potentielle éligibilité à la directive NIS2 <br/>
                     et débutons ensemble l’accompagnement de votre structure.
