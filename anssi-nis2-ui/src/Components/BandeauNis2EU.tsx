@@ -10,7 +10,7 @@ import ObligationIncidents from "../assets/obligation-incidents.svg"
 import {fr} from "@codegouvfr/react-dsfr"
 
 
-const useStyles = makeStyles()((theme, params, classes) => ({
+const useStyles = makeStyles()(() => ({
     "bandeau-nis2-eu": {
         "& h2": {
             textAlign: "center",
@@ -55,10 +55,9 @@ const useStyles = makeStyles()((theme, params, classes) => ({
     },
 }))
 
-const ElementObligation = (props: { imageSrc: string, title: string, className?: string, }) => {
-    const {imageSrc, title, className} = props
+const ElementObligation = (props: { imageSrc: string, title: string }) => {
+    const {imageSrc, title} = props
 
-    const {classes, cx} = useStyles()
     return <>
         <li className="fr-col">
             <img src={imageSrc} alt={title}/>

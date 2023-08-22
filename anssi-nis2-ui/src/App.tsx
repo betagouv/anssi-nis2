@@ -9,6 +9,7 @@ import {BandeauAccueil} from "./Components/BandeauAccueil.tsx"
 import {Props} from "./Props.ts"
 import {BandeauConcerne} from "./Components/BandeauConcerne.tsx"
 import {BandeauNis2EU} from "./Components/BandeauNis2EU.tsx"
+import {BandeauQuandSePreparer} from "./Components/BandeauQuandSePreparer.tsx"
 
 const App = (props: Props) => <>
   <EnTete/>
@@ -16,6 +17,7 @@ const App = (props: Props) => <>
     <BandeauAccueil className={props.className} />
     <BandeauConcerne className={props.className} />
     <BandeauNis2EU className={props.className} />
+    <BandeauQuandSePreparer className={props.className} />
   </main>
   <PiedDePage/>
 </>
