@@ -3,14 +3,21 @@ import {makeStyles} from "tss-react/dsfr";
 import {Props} from "../Props.ts";
 import {noRefClick} from "./Echaffaudages/AssistantsEchaffaudages.ts"
 import FondEuLogo from "../assets/EU-logo.svg"
+import ObligationNotifier from "../assets/obligation-notifier.svg"
+import ObligationMesuresSecurite from "../assets/obligation-mesures-securite.svg"
+import ObligationMaj from "../assets/obligation-maj.svg"
+import ObligationIncidents from "../assets/obligation-incidents.svg"
+import {fr} from "@codegouvfr/react-dsfr"
 
-const useStyles = makeStyles()(() => ({
+
+const useStyles = makeStyles()((theme, params, classes) => ({
     "bandeau-nis2-eu": {
         "& h2": {
             textAlign: "center",
             textTransform: "uppercase",
         },
     },
+    "eu": {},
     "boite-faits": {},
     "mea-faits": {
         backgroundColor: "#FCEEAC",
@@ -31,7 +38,34 @@ const useStyles = makeStyles()(() => ({
         },
         textAlign: "center",
     },
+    "obligations": {
+        "& h3": {
+            textAlign: "center",
+        },
+        "& li": {
+            listStyle: "none",
+            textAlign: "center",
+        },
+        "& img": {
+            float: "none",
+        },
+        paddingTop: fr.spacing("8v"),
+        // TODO bordure autour, pas en travers du titre pour le haut. Espacement à revoir
+        border: `2px solid ${fr.colors.decisions.border.plain.grey.default}`, // TODO was #2F3A43
+    },
 }))
+
+const ElementObligation = (props: { imageSrc: string, title: string, className?: string, }) => {
+    const {imageSrc, title, className} = props
+
+    const {classes, cx} = useStyles()
+    return <>
+        <li className="fr-col">
+            <img src={imageSrc} alt={title}/>
+            <p className="fr-text--lead">{title}</p>
+        </li>
+    </>
+}
 
 export const BandeauNis2EU = (props: Props) => {
     const {className} = props
@@ -39,7 +73,7 @@ export const BandeauNis2EU = (props: Props) => {
     const {classes, cx} = useStyles()
 
     return <>
-        <div className={cx(classes["bandeau-nis2-eu"], className)}>
+        <div className={cx([classes["bandeau-nis2-eu"], "fr-pb-13w"], className)}>
             <div className="fr-container">
                 <div className="fr-grid-row--center fr-pt-10w fr-pb-5w">
                     <h2 className="fr-h1">
@@ -47,7 +81,7 @@ export const BandeauNis2EU = (props: Props) => {
                         européenne cyber
                     </h2>
                 </div>
-                <div className="fr-grid-row">
+                <div className={cx([classes["eu"], "fr-grid-row", "fr-pb-4w"], className)}>
                     <div className={cx([classes["boite-faits"], "fr-col"], className)}>
                         <div>
                             <p className="fr-h4 fr-mb-4w">
@@ -82,14 +116,29 @@ export const BandeauNis2EU = (props: Props) => {
                                 NIS2
                             </p>
                         </div>
-                        <p className="fr-definition fr-text--bold fr-mb-0">NIS : Network and and Information Security</p>
-                        <p className="fr-definition fr-text--bold fr-mb-0">SRI : Sécurité des Réseau et de l’Information</p>
+                        <p className="fr-definition fr-text--bold fr-mb-0">
+                            NIS : Network and and Information Security
+                        </p>
+                        <p className="fr-definition fr-text--bold fr-mb-0">
+                            SRI : Sécurité des Réseau et de l’Information
+                        </p>
                     </div>
                 </div>
-                <div className="fr-grid-row">
-                    {/* TODO: utiliser mise en avant adéquate */}
-                    {/* TODO: ajouter les tiles/cards des obligations */}
-                    <h3>Les entités concernées devront se conformer à certaines obligations auprès de l’ANSSI</h3>
+                <div className={cx([classes["obligations"], "fr-pt-4w"], className)}>
+                    <div className={cx(["fr-col--middle"], className)}>
+                        {/* TODO: utiliser mise en avant adéquate */}
+                        <h3 className="fr-h4">
+                            Les entités concernées devront se conformer à certaines obligations auprès de l’ANSSI
+                        </h3>
+                    </div>
+                    <ul className={cx(["fr-grid-row"], className)}>
+                        {/* TODO: améliorer les tiles/cards des obligations */}
+                        <ElementObligation title="Se notifier à l'ANSSI" imageSrc={ObligationNotifier}/>
+                        <ElementObligation title="Mettre en œuvre des mesures de sécurité"
+                                           imageSrc={ObligationMesuresSecurite}/>
+                        <ElementObligation title="Mettre à jour ses systèmes d'information" imageSrc={ObligationMaj}/>
+                        <ElementObligation title="Notifier les incidents de sécurité" imageSrc={ObligationIncidents}/>
+                    </ul>
                 </div>
             </div>
         </div>
