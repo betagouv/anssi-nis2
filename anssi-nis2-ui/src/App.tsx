@@ -11,17 +11,19 @@ import {BandeauConcerne} from "./Components/BandeauConcerne.tsx"
 import {BandeauNis2EU} from "./Components/BandeauNis2EU.tsx"
 import {BandeauQuandSePreparer} from "./Components/BandeauQuandSePreparer.tsx"
 import {BandeauQuiEstANSSI} from "./Components/BandeauQuiEstANSSI.tsx"
+import {BandeauInformation} from "./Components/BandeauInformationRS.tsx"
 
 const App = (props: Props) => <>
-  <EnTete/>
-  <main className="homepage" role="main">
-    <BandeauAccueil className={props.className} />
-    <BandeauConcerne className={props.className} />
-    <BandeauNis2EU className={props.className} />
-    <BandeauQuandSePreparer className={props.className} />
-    <BandeauQuiEstANSSI className={props.className} />
-  </main>
-  <PiedDePage/>
+    <EnTete/>
+    <main className="homepage" role="main">
+        <BandeauAccueil className={props.className}/>
+        <BandeauConcerne className={props.className}/>
+        <BandeauNis2EU className={props.className}/>
+        <BandeauQuandSePreparer className={props.className}/>
+        <BandeauQuiEstANSSI className={props.className}/>
+        <BandeauInformation className={props.className}/>
+    </main>
+    <PiedDePage/>
 </>
 
 export default App
