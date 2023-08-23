@@ -10,12 +10,14 @@
     "preview": "vite preview",
     "postinstall": "copy-dsfr-to-public",
     "predev": "only-include-used-icons",
-    "prebuild": "only-include-used-icons"
+    "prebuild": "only-include-used-icons",
+    "start": "node server.cjs"
   },
   "dependencies": {
     "@codegouvfr/react-dsfr": "^0.74.2",
     "@emotion/react": "^11.11.1",
     "@gouvfr/dsfr": "^1.10.0",
+    "express": "^4.18.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
