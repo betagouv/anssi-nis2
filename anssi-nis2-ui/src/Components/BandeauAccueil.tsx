@@ -24,7 +24,7 @@ const useStyles = makeStyles()(() => ({
     },
 }))
 
-export const BandeauAccueil = (props: Props) => {
+const BandeauAccueil = (props: Props) => {
     const {className} = props
 
     const {classes, cx} = useStyles()
@@ -54,3 +54,5 @@ export const BandeauAccueil = (props: Props) => {
         </div>
     </div>
 }
+
+export default BandeauAccueil

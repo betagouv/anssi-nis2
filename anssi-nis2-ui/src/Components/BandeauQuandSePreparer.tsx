@@ -22,7 +22,7 @@ const useStyles = makeStyles()(() => ({
     },
 }))
 
-export const BandeauQuandSePreparer = (props: Props) => {
+const BandeauQuandSePreparer = (props: Props) => {
     const {className} = props
 
     const {classes, cx} = useStyles()
@@ -67,3 +67,5 @@ export const BandeauQuandSePreparer = (props: Props) => {
         </div>
     </>
 }
+
+export default BandeauQuandSePreparer

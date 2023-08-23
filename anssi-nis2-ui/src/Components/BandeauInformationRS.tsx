@@ -1,7 +1,7 @@
 import {Props} from "../Props.ts"
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const BandeauInformation = (_props: Props) => {
+const BandeauInformation = (_props: Props) => {
 
     return <div className="fr-follow">
         <div className="fr-container">
@@ -42,3 +42,5 @@ export const BandeauInformation = (_props: Props) => {
         </div>
     </div>
 }
+
+export default BandeauInformation

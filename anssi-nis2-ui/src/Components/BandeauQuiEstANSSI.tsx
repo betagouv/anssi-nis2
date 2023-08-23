@@ -20,7 +20,7 @@ const useStyles = makeStyles()(() => ({
     },
 }))
 
-export const BandeauQuiEstANSSI = (props: Props) => {
+const BandeauQuiEstANSSI = (props: Props) => {
     const {className} = props
 
     const {classes, cx} = useStyles()
@@ -52,3 +52,5 @@ export const BandeauQuiEstANSSI = (props: Props) => {
         </div>
     </>
 }
+
+export default BandeauQuiEstANSSI

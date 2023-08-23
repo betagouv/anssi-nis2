@@ -66,7 +66,7 @@ const ElementObligation = (props: { imageSrc: string, title: string }) => {
     </>
 }
 
-export const BandeauNis2EU = (props: Props) => {
+const BandeauNis2EU = (props: Props) => {
     const {className} = props
 
     const {classes, cx} = useStyles()
@@ -143,3 +143,5 @@ export const BandeauNis2EU = (props: Props) => {
         </div>
     </>
 }
+
+export default BandeauNis2EU
