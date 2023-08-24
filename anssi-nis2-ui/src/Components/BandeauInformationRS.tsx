@@ -53,3 +53,5 @@ export const BandeauInformation = (props: Props) => {
         </div>
     </div>
 }
+
+export default BandeauInformation

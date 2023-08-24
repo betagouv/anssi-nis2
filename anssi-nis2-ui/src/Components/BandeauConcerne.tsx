@@ -11,7 +11,7 @@ const useStyles = makeStyles()((theme) => ({
     },
 }))
 
-export const BandeauConcerne = (props: Props) => {
+const BandeauConcerne = (props: Props) => {
     const {className} = props
 
     const {classes, cx} = useStyles()
@@ -36,3 +36,5 @@ export const BandeauConcerne = (props: Props) => {
         </div>
     </>
 }
+
+export default BandeauConcerne
