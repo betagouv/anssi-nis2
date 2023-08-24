@@ -1,7 +1,7 @@
-import {Props} from "../Props.ts"
+import {Props} from "../../Props.ts"
 import {makeStyles} from "tss-react/dsfr"
 import {Button} from "@codegouvfr/react-dsfr/Button"
-import {noRefClick} from "./Echaffaudages/AssistantsEchaffaudages.ts"
+import {noRefClick} from "../Echaffaudages/AssistantsEchaffaudages.ts"
 
 const useStyles = makeStyles()((theme) => ({
     "bandeau-suis-je-concerne": {
