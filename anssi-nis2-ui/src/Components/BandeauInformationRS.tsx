@@ -5,7 +5,6 @@ const useStyles = makeStyles()(() => ({
     "root": {},
 }))
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const BandeauInformation = (props: Props) => {
     const {className} = props
 

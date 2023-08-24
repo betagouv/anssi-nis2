@@ -1,5 +1,6 @@
 import Header from "@codegouvfr/react-dsfr/Header";
 import AnssiLogo from '../assets/ANSSI.svg'
+import {noRefClick} from "./Echaffaudages/AssistantsEchaffaudages.ts"
 
 const EnTete = () => <Header
         brandTop={<>R&Eacute;PUBLIQUE<br />FRAN&Ccedil;AISE</>}
@@ -16,7 +17,7 @@ const EnTete = () => <Header
         quickAccessItems={[
           {
             iconId: 'fr-icon-live-fill',
-            linkProps: { href: '#' },
+            linkProps: { href: 'https://www.dailymotion.com/video/x8l50hd' },
             text: 'Webinaire de présentation'
           },
           {
@@ -25,7 +26,7 @@ const EnTete = () => <Header
             text: 'FAQ NIS2'
           },
           {
-            buttonProps: { onClick: () => { } },
+            buttonProps: { onClick: noRefClick },
             iconId: "fr-icon-arrow-right-line",
             text: 'Je m\'inscrits'
           }

@@ -3,7 +3,6 @@
     line-height: 200%;
 }
 
-
 .fr-follow .fr-link--dailymotion::before {
     flex: 0 0 auto;
     display: inline-block;
@@ -13,8 +12,8 @@
     height: var(--icon-size);
     -webkit-mask-size: 100% 100%;
     mask-size: 100% 100%;
-    -webkit-mask-image: url(/dsfr/icons/logo/fr--dailymotion-line.svg);
-    mask-image: url(/dsfr/icons/logo/fr--dailymotion-line.svg);
+    -webkit-mask-image: url(@gouvfr/dsfr/dist/icons/logo/fr--dailymotion-line.svg);
+    mask-image: url(@gouvfr/dsfr/dist/icons/logo/fr--dailymotion-line.svg);
     content: "";
 }
 
@@ -27,7 +26,7 @@
     height: var(--icon-size);
     -webkit-mask-size: 100% 100%;
     mask-size: 100% 100%;
-    -webkit-mask-image: url(/dsfr/icons/logo/github-fill.svg);
-    mask-image: url(/dsfr/icons/logo/github-fill.svg);
+    -webkit-mask-image: url(@gouvfr/dsfr/dist/icons/logo/github-fill.svg);
+    mask-image: url(@gouvfr/dsfr/dist/icons/logo/github-fill.svg);
     content: "";
 }
