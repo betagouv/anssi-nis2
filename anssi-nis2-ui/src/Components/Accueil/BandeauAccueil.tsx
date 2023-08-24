@@ -1,10 +1,10 @@
 import {Button} from "@codegouvfr/react-dsfr/Button";
 import {makeStyles} from "tss-react/dsfr";
-import FondHabillageAccueil from "../assets/habillage-accueil-01.svg";
+import FondHabillageAccueil from "../../assets/habillage-accueil-01.svg";
 import {fr} from "@codegouvfr/react-dsfr";
-import {Props} from "../Props.ts";
-import {CoolIllustration} from "./Echaffaudages/CoolIllustration.tsx"
-import {noRefClick} from "./Echaffaudages/AssistantsEchaffaudages.ts"
+import {Props} from "../../Props.ts";
+import {CoolIllustration} from "../Echaffaudages/CoolIllustration.tsx"
+import {noRefClick} from "../Echaffaudages/AssistantsEchaffaudages.ts"
 
 const useStyles = makeStyles()(() => ({
     "block_accueil_nis2": {

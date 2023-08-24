@@ -1,8 +1,8 @@
-import {Props} from "../Props.ts"
+import {Props} from "../../Props.ts"
 import {makeStyles} from "tss-react/dsfr"
 import {Button} from "@codegouvfr/react-dsfr/Button"
-import {noRefClick} from "./Echaffaudages/AssistantsEchaffaudages.ts"
-import CalendrierOctobre2024 from "../assets/calendrier-oct-2024.svg"
+import {noRefClick} from "../Echaffaudages/AssistantsEchaffaudages.ts"
+import CalendrierOctobre2024 from "../../assets/calendrier-oct-2024.svg"
 
 const useStyles = makeStyles()(() => ({
     "root": {
