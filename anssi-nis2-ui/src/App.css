@@ -2,3 +2,31 @@
     font-style: italic;
     line-height: 200%;
 }
+
+.fr-follow .fr-link--dailymotion::before {
+    flex: 0 0 auto;
+    display: inline-block;
+    vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+    background-color: currentColor;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-image: url(@gouvfr/dsfr/dist/icons/logo/fr--dailymotion-line.svg);
+    mask-image: url(@gouvfr/dsfr/dist/icons/logo/fr--dailymotion-line.svg);
+    content: "";
+}
+
+.fr-follow .fr-link--github::before {
+    flex: 0 0 auto;
+    display: inline-block;
+    vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+    background-color: currentColor;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-image: url(@gouvfr/dsfr/dist/icons/logo/github-fill.svg);
+    mask-image: url(@gouvfr/dsfr/dist/icons/logo/github-fill.svg);
+    content: "";
+}

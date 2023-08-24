@@ -24,6 +24,7 @@ const useStyles = makeStyles()(() => ({
         width: "fit-content",
     },
     "logo-eu": {
+        textAlign: "center",
         "& > div": {
             backgroundImage: `url(${FondEuLogo})`,
             backgroundPosition: "center",
@@ -33,25 +34,18 @@ const useStyles = makeStyles()(() => ({
             alignItems: "center",
             display: "flex",
         },
-        "& div p": {
-            textAlign: "center",
-        },
-        textAlign: "center",
+        "& div p": {textAlign: "center"},
     },
     "obligations": {
-        "& h3": {
-            textAlign: "center",
-        },
+        paddingTop: fr.spacing("8v"),
+        // TODO bordure autour, pas en travers du titre pour le haut. Espacement à revoir
+        border: `2px solid ${fr.colors.decisions.border.plain.grey.default}`, // TODO was #2F3A43
+        "& h3": {textAlign: "center"},
         "& li": {
             listStyle: "none",
             textAlign: "center",
         },
-        "& img": {
-            float: "none",
-        },
-        paddingTop: fr.spacing("8v"),
-        // TODO bordure autour, pas en travers du titre pour le haut. Espacement à revoir
-        border: `2px solid ${fr.colors.decisions.border.plain.grey.default}`, // TODO was #2F3A43
+        "& img": {float: "none"},
     },
 }))
 
