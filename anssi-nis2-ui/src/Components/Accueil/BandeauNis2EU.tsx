@@ -1,12 +1,12 @@
 import {Button} from "@codegouvfr/react-dsfr/Button";
 import {makeStyles} from "tss-react/dsfr";
-import {Props} from "../Props.ts";
-import {noRefClick} from "./Echaffaudages/AssistantsEchaffaudages.ts"
-import FondEuLogo from "../assets/EU-logo.svg"
-import ObligationNotifier from "../assets/obligation-notifier.svg"
-import ObligationMesuresSecurite from "../assets/obligation-mesures-securite.svg"
-import ObligationMaj from "../assets/obligation-maj.svg"
-import ObligationIncidents from "../assets/obligation-incidents.svg"
+import {Props} from "../../Props.ts";
+import {noRefClick} from "../Echaffaudages/AssistantsEchaffaudages.ts"
+import FondEuLogo from "../../assets/EU-logo.svg"
+import ObligationNotifier from "../../assets/obligation-notifier.svg"
+import ObligationMesuresSecurite from "../../assets/obligation-mesures-securite.svg"
+import ObligationMaj from "../../assets/obligation-maj.svg"
+import ObligationIncidents from "../../assets/obligation-incidents.svg"
 import {fr} from "@codegouvfr/react-dsfr"
 
 

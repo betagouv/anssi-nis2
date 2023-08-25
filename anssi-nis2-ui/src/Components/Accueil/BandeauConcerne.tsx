@@ -1,7 +1,8 @@
-import {Props} from "../Props.ts"
+import {Props} from "../../Props.ts"
 import {makeStyles} from "tss-react/dsfr"
 import {Button} from "@codegouvfr/react-dsfr/Button"
-import {noRefClick} from "./Echaffaudages/AssistantsEchaffaudages.ts"
+import {noRefClick} from "../Echaffaudages/AssistantsEchaffaudages.ts"
+import {Link} from "react-router-dom"
 
 const useStyles = makeStyles()((theme) => ({
     "bandeau-suis-je-concerne": {
@@ -26,12 +27,14 @@ const BandeauConcerne = (props: Props) => {
                     Simulez dès à présent votre potentielle éligibilité à la directive NIS2 <br/>
                     et débutons ensemble l’accompagnement de votre structure.
                 </p>
-                <Button
-                    className="fr-btn fr-btn--secondary fr-background-alt--blue-france fr-px-3w fr-py-2v"
-                    onClick={noRefClick}
-                >
-                    Simuler mon éligibilité
-                </Button>
+                <Link to={"/simulateur"}>
+                    <Button
+                        className="fr-btn fr-btn--secondary fr-background-alt--blue-france fr-px-3w fr-py-2v"
+                        onClick={noRefClick}
+                    >
+                        Simuler mon éligibilité
+                    </Button>
+                </Link>
             </div>
         </div>
     </>
