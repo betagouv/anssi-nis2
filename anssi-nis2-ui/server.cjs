@@ -1,8 +1,8 @@
 const express = require('express');
 const basicAuth = require('express-basic-auth')
 
-var app = express();
-var directory = '/' + (process.env.STATIC_DIR || 'dist')
+const app = express();
+const directory = '/' + (process.env.STATIC_DIR || 'dist');
 
 if (process.env.PASSWORD_NIS2_BASIC_AUTH) {
     var staticUserAuth = basicAuth({
