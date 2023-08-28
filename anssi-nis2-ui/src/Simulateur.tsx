@@ -1,6 +1,6 @@
 import {DefaultComponent} from "./Props.ts"
 import MiseEnPage from "./Components/MiseEnPage.tsx"
-import {SimulateurAvantDebuter} from "./Components/Simulateur"
+import SimulateurEtape1Localisation from "./Components/Simulateur/SimulateurEtape1Localisation.tsx"
 
 const Simulateur: DefaultComponent = () => {
     return <MiseEnPage page={"simulateur"}>
@@ -8,7 +8,7 @@ const Simulateur: DefaultComponent = () => {
             <div className="fr-grid-row fr-grid-row-gutters fr-grid-row--center">
                 <div className="fr-col-12 fr-col-md-10 fr-col-lg-8">
                     <div className="fr-container fr-background-alt--blue-france fr-px-md-0 fr-py-10v fr-py-md-14v">
-                        <SimulateurAvantDebuter/>
+                        <SimulateurEtape1Localisation />
                     </div>
                 </div>
             </div>
