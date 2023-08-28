@@ -1,9 +1,10 @@
-import Checkbox from "@codegouvfr/react-dsfr/Checkbox"
 import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup"
 import Stepper from "@codegouvfr/react-dsfr/Stepper"
+import {DefaultComponent} from "../../Props.ts"
+import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons"
 
-const SimulateurEtape1Localisation = () =>
-    <div className="fr-grid-row fr-grid-row-gutters fr-grid-row--center">
+const SimulateurEtape1Localisation : DefaultComponent = () => {
+    return <div className="fr-grid-row fr-grid-row-gutters fr-grid-row--center">
         <div className="fr-col-12 fr-col-md-10 fr-col-lg-9">
             <Stepper
                 currentStep={1}
@@ -11,12 +12,12 @@ const SimulateurEtape1Localisation = () =>
                 stepCount={6}
                 title="Localisation de l’activité"
             />
-
+            <hr />
             <form className="fr-mb-0" id="login-1797">
                 <fieldset className="fr-mb-0 fr-fieldset" id="login-1797-fieldset"
                           aria-labelledby="login-1797-fieldset-legend login-1797-fieldset-messages">
                     <div className="fr-fieldset__element">
-                        <Checkbox
+                        <RadioButtons
                             legend={"Dans quel état membre de l’Union Européenne êtes-vous implanté"
                                 + " et/ou exercez-vous votre activité principale ?"}
                             hintText={"Là où sont principalement prises les décisions cyber," +
@@ -48,30 +49,40 @@ const SimulateurEtape1Localisation = () =>
                             className="fr-checkbox-group--sm"
                         />
                     </div>
-                    <div className="fr-fieldset__element">
-                        <ButtonsGroup
-                            alignment="right"
-                            buttons={[
-                                {
-                                    children: "Précédent",
-                                    linkProps: {
-                                        href: "#",
-                                    },
-                                    priority: "secondary",
-                                },
-                                {
-                                    children: "Suivant",
-                                    linkProps: {
-                                        href: "#",
-                                    },
-                                },
-                            ]}
-                            inlineLayoutWhen="sm and up"
-                        />
+
+                    <div className="fr-grid-row fr-mr-auto" style={{ width: "100%" }}>
+                        <div className="fr-col fr-right fr-my-1w fr-text--sm fr-text-mention--grey" style={{textAlign: "right"}}>
+                            Sélectionnez une réponse
+                        </div>
+                        <div className="fr-col-5">
+                            <div className="fr-fieldset__element">
+                                <ButtonsGroup
+                                    alignment="right"
+                                    // style={{float: "right"}}
+                                    buttons={[
+                                        {
+                                            children: "Précédent",
+                                            linkProps: {
+                                                href: "#",
+                                            },
+                                            priority: "secondary",
+                                        },
+                                        {
+                                            children: "Suivant",
+                                            linkProps: {
+                                                href: "#",
+                                            },
+                                        },
+                                    ]}
+                                    inlineLayoutWhen="sm and up"
+                                />
+                            </div>
+                        </div>
                     </div>
                 </fieldset>
             </form>
         </div>
     </div>
+}
 
 export default SimulateurEtape1Localisation
