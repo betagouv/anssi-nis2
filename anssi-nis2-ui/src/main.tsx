@@ -7,7 +7,7 @@ import {
 import Accueil from './Accueil.tsx'
 import {startReactDsfr} from "@codegouvfr/react-dsfr/spa";
 import Simulateur from "./Simulateur.tsx"
-import {loadSimulateur} from "./Utilitaires/LoadSimulateur.tsx"
+import {loadSimulateur} from "./Components/Simulateur/LoadSimulateur.tsx"
 
 startReactDsfr({defaultColorScheme: "system"});
 

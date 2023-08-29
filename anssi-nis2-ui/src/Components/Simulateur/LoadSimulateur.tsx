@@ -1,5 +1,5 @@
 import {LoaderFunction, LoaderFunctionArgs} from "react-router-dom"
-import SimulateurEtape1Localisation from "../Components/Simulateur/SimulateurEtape1Localisation.tsx"
+import SimulateurEtape1Localisation from "./SimulateurEtape1Localisation.tsx"
 
 export const loadSimulateur: LoaderFunction = ({params}: LoaderFunctionArgs) => {
     const etape = params?.etape || "1"
