@@ -1,19 +1,15 @@
-import {transformePaysUnionEuropeennePourSelect} from "../../Services/simulateurFrontServices.ts"
-import {paysUnionEuropeenneLocalisation} from "../../Domaine/DomaineSimulateur.ts"
-import Checkbox from "@codegouvfr/react-dsfr/Checkbox"
+import {transformeTypeStructureVersOptions} from "../../Services/simulateurFrontServices.ts"
+import {typesStructure} from "../../Domaine/DomaineSimulateur.ts"
+import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons"
 
 const SimulateurEtape2 = () => {
-    const paysUnionEuropeenneOptions =
-        transformePaysUnionEuropeennePourSelect(paysUnionEuropeenneLocalisation)
+    const optionsTypeStructure =
+        transformeTypeStructureVersOptions(typesStructure)
 
     return <div className="fr-fieldset__element">
-        <Checkbox
-            legend={"Dans quel état membre de l’Union Européenne êtes-vous implanté"
-                + " et/ou exercez-vous votre activité principale ?"}
-            hintText={"Là où sont principalement prises les décisions cyber," +
-                " ou à défaut là où les opérations cyber son effectuées." +
-                " Si indéterminé : là où se trouve le plus grand nombre de salariés."}
-            options={paysUnionEuropeenneOptions}
+        <RadioButtons
+            legend="Quel type de structure qualifie votre organisation ?"
+            options={optionsTypeStructure}
             className="fr-checkbox-group--sm"
         />
     </div>

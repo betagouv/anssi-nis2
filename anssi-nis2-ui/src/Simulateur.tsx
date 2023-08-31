@@ -30,6 +30,25 @@ const Simulateur: DefaultComponent = () => {
             indicationReponses: "Sélectionnez une réponse",
             contenu: <SimulateurEtape2 />
         },
+        {
+            titre: "Taille de l’organisation",
+            indicationReponses: "Sélectionnez une réponse pour chaque critère",
+            contenu: <></>
+        },
+        {
+            titre: "Secteurs d’activité",
+            indicationReponses: "Sélectionnez au moins une réponse",
+            contenu: <></>
+        },
+        {
+            titre: "Activités pratiquées",
+            indicationReponses: "Sélectionnez une réponse",
+            contenu: <></>
+        },
+        {
+            titre: "Resultat",
+            contenu: <></>
+        },
     ]
 
     return <MiseEnPage page={"simulateur"}>

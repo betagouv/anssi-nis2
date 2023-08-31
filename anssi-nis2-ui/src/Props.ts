@@ -15,7 +15,7 @@ export type DefaultComponentExtensible<AdditionalProps extends DefaultProps> = (
 export type DefaultComponent = DefaultComponentExtensible<DefaultProps>
 export type InformationsEtape = {
     titre: string,
-    indicationReponses: string,
+    indicationReponses?: string,
     contenu: React.ReactNode,
 }
 

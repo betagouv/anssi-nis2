@@ -1,10 +1,13 @@
-
 export type ValeursClePaysUnionEuropeenne = "france" | "autre" | "horsue"
-// Useless ?
-// type LibellePaysUnionEuropeene = "France" | "Autre état membre" | "Hors Union Européenne"
-
 export const paysUnionEuropeenneLocalisation: Record<ValeursClePaysUnionEuropeenne, string> = {
     france: "France",
     autre: "Autre état membre",
     horsue: "Hors Union Européenne",
+}
+
+export type ValeursTypeStructure = "publique" | "privee" | "association"
+export const typesStructure: Record<ValeursTypeStructure, string> = {
+    publique: "Publique",
+    privee: "Privée",
+    association: "Association",
 }
