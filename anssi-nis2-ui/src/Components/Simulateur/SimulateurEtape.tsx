@@ -8,8 +8,6 @@ export const SimulateurEtape: DefaultComponentExtensible<SimulateurEtapeProps> =
          nombreEtapes,
          etape,
          suivante,
-         indicationReponses,
-         children,
          etapePrecedente,
          etapeSuivante,
      }: SimulateurEtapeProps) => {
@@ -26,12 +24,11 @@ export const SimulateurEtape: DefaultComponentExtensible<SimulateurEtapeProps> =
                 <form className="fr-mb-0" id="login-1797">
                     <fieldset className="fr-mb-0 fr-fieldset" id="login-1797-fieldset"
                               aria-labelledby="login-1797-fieldset-legend login-1797-fieldset-messages">
-                        {children}
-
+                        {etape.contenu}
                         <div className="fr-grid-row fr-mr-auto" style={{width: "100%"}}>
                             <div className="fr-col fr-right fr-my-1w fr-text--sm fr-text-mention--grey"
                                  style={{textAlign: "right"}}>
-                                {indicationReponses}
+                                {etape.indicationReponses}
                             </div>
                             <div className="fr-col-5">
                                 <div className="fr-fieldset__element">
