@@ -10,7 +10,6 @@ const { makeStyles } = createMakeAndWithStyles({
     useTheme: function (): ColorTheme {
         return useColors()
     },
-
 })
 
 const BandeauConcerne = (props: Props) => {

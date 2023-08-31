@@ -4,23 +4,22 @@ import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup"
 
 export const SimulateurEtape: DefaultComponentExtensible<SimulateurEtapeProps> =
     ({
-         numero,
-         total,
+         etapeCourante,
+         nombreEtapes,
          etape,
          suivante,
          indicationReponses,
          children,
+         etapePrecedente,
+         etapeSuivante
      }: SimulateurEtapeProps) => {
-        const etapeSuivante = () => numero + 1
-        const etapePrecedente = () => numero - 1
-
         return <div
             className="fr-grid-row fr-grid-row-gutters fr-grid-row--center">
             <div className="fr-col-12 fr-col-md-10 fr-col-lg-9">
                 <Stepper
-                    currentStep={numero}
+                    currentStep={etapeCourante}
                     nextTitle={suivante.titre}
-                    stepCount={total}
+                    stepCount={nombreEtapes}
                     title={etape.titre}
                 />
                 <hr/>
@@ -41,16 +40,12 @@ export const SimulateurEtape: DefaultComponentExtensible<SimulateurEtapeProps> =
                                         buttons={[
                                             {
                                                 children: "Précédent",
-                                                linkProps: {
-                                                    href: `simulateur/${(etapePrecedente())}`,
-                                                },
+                                                onClick: etapePrecedente,
                                                 priority: "secondary",
                                             },
                                             {
                                                 children: "Suivant",
-                                                linkProps: {
-                                                    href: `simulateur/${(etapeSuivante())}`,
-                                                },
+                                                onClick: etapeSuivante,
                                             },
                                         ]}
                                         inlineLayoutWhen="sm and up"

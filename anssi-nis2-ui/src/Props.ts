@@ -16,9 +16,11 @@ export type DefaultComponent = DefaultComponentExtensible<DefaultProps>
 export type InformationsEtape = { titre: string }
 
 export interface SimulateurEtapeProps extends DefaultProps {
-    numero: number,
-    total: number,
+    etapeCourante: number,
+    nombreEtapes: number,
     etape: InformationsEtape,
     suivante: InformationsEtape,
-    indicationReponses: string
+    indicationReponses: string,
+    etapePrecedente: () => void,
+    etapeSuivante: () => void
 }
