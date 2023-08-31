@@ -5,6 +5,7 @@ import MiseEnPage from "./Components/MiseEnPage.tsx"
 import {SimulateurEtape} from "./Components/Simulateur/SimulateurEtape.tsx"
 import {FormContainer} from "./Components/FormContainer.tsx"
 import {SimulateurEtape1, SimulateurEtape2} from "./Components/Simulateur"
+import SimulateurEtape3 from "./Components/Simulateur/SimulateurEtape3.tsx"
 
 const Simulateur: DefaultComponent = () => {
     const [etapeCourante, setEtapeCourante] = useState(0)
@@ -33,7 +34,7 @@ const Simulateur: DefaultComponent = () => {
         {
             titre: "Taille de l’organisation",
             indicationReponses: "Sélectionnez une réponse pour chaque critère",
-            contenu: <></>
+            contenu: <SimulateurEtape3 />
         },
         {
             titre: "Secteurs d’activité",
