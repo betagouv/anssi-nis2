@@ -21,6 +21,6 @@ export interface SimulateurEtapeProps extends DefaultProps {
     etape: InformationsEtape,
     suivante: InformationsEtape,
     indicationReponses: string,
-    etapePrecedente: () => void,
-    etapeSuivante: () => void
+    etapePrecedente: (e: React.MouseEvent) => void,
+    etapeSuivante: (e: React.MouseEvent) => void
 }

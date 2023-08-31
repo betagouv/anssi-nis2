@@ -14,17 +14,16 @@ import {
 } from "./Components/Accueil"
 import MiseEnPage from "./Components/MiseEnPage.tsx"
 
-const Accueil: DefaultComponent = ({className}) => {
+const Accueil: DefaultComponent = () => {
     return <>
         <MiseEnPage
-            className={className}
             page="Accueil">
-            <BandeauAccueil className={className}/>
-            <BandeauConcerne className={className}/>
-            <BandeauNis2EU className={className}/>
-            <BandeauQuandSePreparer className={className}/>
-            <BandeauQuiEstANSSI className={className}/>
-            <BandeauInformation className={className}/>
+            <BandeauAccueil/>
+            <BandeauConcerne/>
+            <BandeauNis2EU/>
+            <BandeauQuandSePreparer/>
+            <BandeauQuiEstANSSI/>
+            <BandeauInformation/>
         </MiseEnPage>
     </>
 }

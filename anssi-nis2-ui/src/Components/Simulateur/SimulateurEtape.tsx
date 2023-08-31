@@ -11,7 +11,7 @@ export const SimulateurEtape: DefaultComponentExtensible<SimulateurEtapeProps> =
          indicationReponses,
          children,
          etapePrecedente,
-         etapeSuivante
+         etapeSuivante,
      }: SimulateurEtapeProps) => {
         return <div
             className="fr-grid-row fr-grid-row-gutters fr-grid-row--center">
@@ -46,6 +46,7 @@ export const SimulateurEtape: DefaultComponentExtensible<SimulateurEtapeProps> =
                                             {
                                                 children: "Suivant",
                                                 onClick: etapeSuivante,
+                                                type: "submit",
                                             },
                                         ]}
                                         inlineLayoutWhen="sm and up"
