@@ -1,40 +1,18 @@
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons"
 import {DefaultComponent} from "../../Props.ts"
 import {SimulateurEtape} from "./SimulateurEtape.tsx"
+import {transformePaysUnionEuropeennePourSelect} from "../../Services/simulateurFrontServices.ts"
+import {paysUnionEuropeenneLocalisation} from "../../Domaine/DomaineSimulateur.ts"
 
 const SimulateurEtape1Localisation: DefaultComponent = () => {
-    const paysUnionEuropeenneOptions = [
-        {
-            label: "France",
-            nativeInputProps: {
-                name: "etatMembre",
-                value: "france",
-            },
-        },
-        {
-            label: "Autre état membre",
-            nativeInputProps: {
-                name: "etatMembre",
-                value: "autre",
-            },
-        },
-        {
-            label: "Hors Union Européenne",
-            nativeInputProps: {
-                name: "etatMembre",
-                value: "horsue",
-            },
-        },
-    ]
+    const paysUnionEuropeenneOptions =
+        transformePaysUnionEuropeennePourSelect(paysUnionEuropeenneLocalisation)
+
     return <SimulateurEtape
         numero={1}
         total={6}
-        etape={{
-            titre: "Localisation de l’activité",
-        }}
-        suivante={{
-            titre: "Type de structure",
-        }}
+        etape={{titre: "Localisation de l’activité"}}
+        suivante={{titre: "Type de structure"}}
         indicationReponses="Sélectionnez une réponse"
     >
         <div className="fr-fieldset__element">
