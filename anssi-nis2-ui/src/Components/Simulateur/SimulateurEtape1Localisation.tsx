@@ -8,21 +8,21 @@ const SimulateurEtape1Localisation: DefaultComponent = () => {
             label: "France",
             nativeInputProps: {
                 name: "etatMembre",
-                value: "France",
+                value: "france",
             },
         },
         {
             label: "Autre état membre",
             nativeInputProps: {
                 name: "etatMembre",
-                value: "Autre",
+                value: "autre",
             },
         },
         {
             label: "Hors Union Européenne",
             nativeInputProps: {
                 name: "etatMembre",
-                value: "HorsUE",
+                value: "horsue",
             },
         },
     ]

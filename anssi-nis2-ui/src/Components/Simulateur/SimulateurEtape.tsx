@@ -11,6 +11,9 @@ export const SimulateurEtape: DefaultComponentExtensible<SimulateurEtapeProps> =
          indicationReponses,
          children,
      }: SimulateurEtapeProps) => {
+        const etapeSuivante = () => numero + 1
+        const etapePrecedente = () => numero - 1
+
         return <div
             className="fr-grid-row fr-grid-row-gutters fr-grid-row--center">
             <div className="fr-col-12 fr-col-md-10 fr-col-lg-9">
@@ -35,19 +38,18 @@ export const SimulateurEtape: DefaultComponentExtensible<SimulateurEtapeProps> =
                                 <div className="fr-fieldset__element">
                                     <ButtonsGroup
                                         alignment="right"
-                                        // style={{float: "right"}}
                                         buttons={[
                                             {
                                                 children: "Précédent",
                                                 linkProps: {
-                                                    href: "#",
+                                                    href: `simulateur/${(etapePrecedente())}`,
                                                 },
                                                 priority: "secondary",
                                             },
                                             {
                                                 children: "Suivant",
                                                 linkProps: {
-                                                    href: "#",
+                                                    href: `simulateur/${(etapeSuivante())}`,
                                                 },
                                             },
                                         ]}

@@ -1,11 +1,18 @@
 import {Button} from "@codegouvfr/react-dsfr/Button";
-import {makeStyles} from "tss-react/dsfr";
 import FondHabillageAccueil from "../../assets/habillage-accueil-01.svg";
 import {fr} from "@codegouvfr/react-dsfr";
 import {Props} from "../../Props.ts";
 import {CoolIllustration} from "../Echaffaudages/CoolIllustration.tsx"
 import {noRefClick} from "../Echaffaudages/AssistantsEchaffaudages.ts"
+import {createMakeAndWithStyles} from "tss-react"
+import {ColorTheme, useColors} from "@codegouvfr/react-dsfr/useColors"
 
+const { makeStyles } = createMakeAndWithStyles({
+    useTheme: function (): ColorTheme {
+        return useColors()
+    },
+
+})
 const useStyles = makeStyles()(() => ({
     "block_accueil_nis2": {
         background: "#F3F6FE",
