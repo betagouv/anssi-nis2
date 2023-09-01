@@ -1,4 +1,3 @@
-import React from 'react'
 import {DefaultComponent, DefaultProps} from "../Props.ts";
 
 export const FormContainer: DefaultComponent = ({ children }: DefaultProps) => (

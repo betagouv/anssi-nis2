@@ -1,4 +1,3 @@
-import React from 'react'
 import Header from "@codegouvfr/react-dsfr/Header";
 import AnssiLogo from "../assets/ANSSI.svg";
 import { noRefClick } from "./Echaffaudages/AssistantsEchaffaudages.ts";

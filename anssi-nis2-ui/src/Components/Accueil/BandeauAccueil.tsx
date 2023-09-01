@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button } from "@codegouvfr/react-dsfr/Button";
 import FondHabillageAccueil from "../../assets/habillage-accueil-01.svg";
 import { fr } from "@codegouvfr/react-dsfr";

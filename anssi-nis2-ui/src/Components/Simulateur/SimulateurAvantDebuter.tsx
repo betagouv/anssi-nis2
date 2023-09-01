@@ -1,4 +1,3 @@
-import React from 'react'
 import Input from "@codegouvfr/react-dsfr/Input";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";

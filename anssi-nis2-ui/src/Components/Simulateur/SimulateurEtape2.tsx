@@ -1,4 +1,3 @@
-import React from 'react'
 import { transformeTypeStructureVersOptions } from "../../Services/simulateurFrontServices.ts";
 import { typesStructure } from "../../Domaine/DomaineSimulateur.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";

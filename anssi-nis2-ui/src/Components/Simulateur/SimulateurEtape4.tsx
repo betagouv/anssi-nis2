@@ -1,4 +1,3 @@
-import React from 'react'
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { transformeSecteursActiviteVersOptions } from "../../Services/simulateurFrontServices.ts";
 import { secteursActivite } from "../../Domaine/DomaineSimulateur.ts";

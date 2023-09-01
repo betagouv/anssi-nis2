@@ -1,4 +1,3 @@
-import React from 'react'
 import { Props } from "../../Props.ts";
 import { fr } from "@codegouvfr/react-dsfr";
 

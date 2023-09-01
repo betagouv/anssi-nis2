@@ -1,4 +1,3 @@
-import React from "react";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { detailsDesSecteurs } from "../../Domaine/DomaineSimulateur.ts";
 import { genereTransformateurValeursVersOptions } from "../../Services/simulateurFrontServices.ts";

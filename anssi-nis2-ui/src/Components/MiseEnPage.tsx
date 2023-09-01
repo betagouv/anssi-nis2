@@ -1,4 +1,3 @@
-import React from 'react'
 import {DefaultComponent, DefaultProps} from "../Props.ts";
 import EnTete from "./EnTete.tsx";
 import PiedDePage from "./PiedDePage.tsx";

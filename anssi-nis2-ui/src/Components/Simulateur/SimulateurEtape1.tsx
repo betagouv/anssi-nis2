@@ -1,4 +1,3 @@
-import React from 'react'
 import { transformePaysUnionEuropeennePourSelect } from "../../Services/simulateurFrontServices.ts";
 import { paysUnionEuropeenneLocalisation } from "../../Domaine/DomaineSimulateur.ts";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";

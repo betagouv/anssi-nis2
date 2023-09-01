@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button } from "@codegouvfr/react-dsfr/Button";
 import { Props } from "../../Props.ts";
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";

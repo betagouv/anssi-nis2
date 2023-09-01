@@ -1,4 +1,3 @@
-import React from 'react'
 import { Props } from "../../Props.ts";
 import { createMakeAndWithStyles } from "tss-react";
 import { ColorTheme, useColors } from "@codegouvfr/react-dsfr/useColors";
