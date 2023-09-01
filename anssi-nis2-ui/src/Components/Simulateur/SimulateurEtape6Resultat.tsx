@@ -20,13 +20,14 @@ const SimulateurEtape6Resultat = () => {
         </IconeEligible>
       </div>
       <h4>
-        La directive s&apos;appliquerait à votre entité au vu des éléments saisis
+        La directive s&apos;appliquerait à votre entité au vu des éléments
+        saisis
       </h4>
       <p>
-        Sous réserve des mécanismes d&apos;exemption ou de désignation pouvant être
-        mis en place au cas par cas par le gouvernement français pour certaines
-        entités. Ces exemptions ou désignation seront connues au plus tard le 18
-        octobre 2024.
+        Sous réserve des mécanismes d&apos;exemption ou de désignation pouvant
+        être mis en place au cas par cas par le gouvernement français pour
+        certaines entités. Ces exemptions ou désignation seront connues au plus
+        tard le 18 octobre 2024.
       </p>
     </ResultDiv>
   );

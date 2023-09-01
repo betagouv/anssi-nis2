@@ -1,4 +1,4 @@
-import {DefaultComponent, DefaultProps} from "../Props.ts";
+import { DefaultComponent, DefaultProps } from "../Props.ts";
 
 export const FormContainer: DefaultComponent = ({ children }: DefaultProps) => (
   <div className="fr-container fr-container--fluid fr-mb-md-14v">
