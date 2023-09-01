@@ -1,5 +1,5 @@
 import {
-    ValeursClePaysUnionEuropeenne, ValeursTrancheCA, ValeursTrancheNombreEmployes,
+    ValeursClePaysUnionEuropeenne, ValeursSecteurActivite, ValeursTrancheCA, ValeursTrancheNombreEmployes,
     ValeursTypeStructure,
 } from "../Domaine/DomaineSimulateur.ts"
 
@@ -13,30 +13,27 @@ type TransformeRecordToSelect<ValeursCles extends string> =
         label: string
     }[]
 
-function genereTransformateurValeursVersOptions<T extends string>(generateurLabel: (value: string, valeursMetier: Record<T, string>) => string, name: string): TransformeRecordToSelect<T> {
-    return (valeursMetier) => {
-        const selectOptions: Array<{
-            nativeInputProps: {
-                name: string;
-                value: string
-            };
-            label: string
-        }>
-            = []
-        for (const key in valeursMetier) {
-            selectOptions.push()
-            selectOptions.push({
-                    label: generateurLabel(key, valeursMetier),
-                    nativeInputProps: {
-                        name: name,
-                        value: key,
-                    },
-                }
-
-            )
-        }
-        return selectOptions
+export const genereTransformateurValeursVersOptions = <T extends string>(generateurLabel: (value: string, valeursMetier: Record<T, string>) => string, name: string): TransformeRecordToSelect<T> => (valeursMetier) => {
+    const selectOptions: Array<{
+        nativeInputProps: {
+            name: string;
+            value: string
+        };
+        label: string
+    }>
+        = []
+    for (const key in valeursMetier) {
+        selectOptions.push()
+        selectOptions.push({
+                label: generateurLabel(key, valeursMetier),
+                nativeInputProps: {
+                    name: name,
+                    value: key,
+                },
+            }
+        )
     }
+    return selectOptions
 }
 
 const getPaysUnionEuropeenneElement =
@@ -52,3 +49,7 @@ export const transformeTranchesNombreEmployesVersOptions: TransformeRecordToSele
 
 const getCALabel = (value: string, tranchesCA: Record<ValeursTrancheCA, string>) => tranchesCA[value as ValeursTrancheCA]
 export const transformeTranchesCAVersOptions: TransformeRecordToSelect<ValeursTrancheCA> = genereTransformateurValeursVersOptions(getCALabel, "trancheCA")
+
+
+const getSecteurActiviteLabel = (value: string, tranchesCA: Record<ValeursSecteurActivite, string>) => tranchesCA[value as ValeursSecteurActivite]
+export const transformeSecteursActiviteVersOptions: TransformeRecordToSelect<ValeursSecteurActivite> = genereTransformateurValeursVersOptions(getSecteurActiviteLabel, "secteurActivite")

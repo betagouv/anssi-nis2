@@ -4,8 +4,13 @@ import React, {useState} from "react"
 import MiseEnPage from "./Components/MiseEnPage.tsx"
 import {SimulateurEtape} from "./Components/Simulateur/SimulateurEtape.tsx"
 import {FormContainer} from "./Components/FormContainer.tsx"
-import {SimulateurEtape1, SimulateurEtape2} from "./Components/Simulateur"
-import SimulateurEtape3 from "./Components/Simulateur/SimulateurEtape3.tsx"
+import {
+    SimulateurEtape1,
+    SimulateurEtape2,
+    SimulateurEtape3,
+    SimulateurEtape4,
+    SimulateurEtape5,
+} from "./Components/Simulateur"
 
 const Simulateur: DefaultComponent = () => {
     const [etapeCourante, setEtapeCourante] = useState(0)
@@ -24,31 +29,31 @@ const Simulateur: DefaultComponent = () => {
         {
             titre: "Localisation de l’activité",
             indicationReponses: "Sélectionnez une réponse",
-            contenu: <SimulateurEtape1 />
+            contenu: <SimulateurEtape1/>,
         },
         {
             titre: "Type de structure",
             indicationReponses: "Sélectionnez une réponse",
-            contenu: <SimulateurEtape2 />
+            contenu: <SimulateurEtape2/>,
         },
         {
             titre: "Taille de l’organisation",
             indicationReponses: "Sélectionnez une réponse pour chaque critère",
-            contenu: <SimulateurEtape3 />
+            contenu: <SimulateurEtape3/>,
         },
         {
             titre: "Secteurs d’activité",
             indicationReponses: "Sélectionnez au moins une réponse",
-            contenu: <></>
+            contenu: <SimulateurEtape4/>,
         },
         {
             titre: "Activités pratiquées",
             indicationReponses: "Sélectionnez une réponse",
-            contenu: <></>
+            contenu: <SimulateurEtape5/>,
         },
         {
             titre: "Resultat",
-            contenu: <></>
+            contenu: <></>,
         },
     ]
 
