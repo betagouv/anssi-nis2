@@ -1,6 +1,14 @@
 import {Props} from "../../Props.ts"
-import {makeStyles} from "tss-react/dsfr"
 import {fr} from "@codegouvfr/react-dsfr"
+
+import {ColorTheme, useColors} from "@codegouvfr/react-dsfr/useColors"
+import {createMakeAndWithStyles} from "tss-react"
+const { makeStyles } = createMakeAndWithStyles({
+    useTheme: function (): ColorTheme {
+        return useColors()
+    },
+
+})
 
 const useStyles = makeStyles()((theme) => ({
     "cool-illustration": {

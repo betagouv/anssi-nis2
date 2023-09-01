@@ -1,18 +1,74 @@
-import {DefaultComponent} from "./Props.ts"
+import {DefaultComponent, InformationsEtape} from "./Props.ts"
+import React, {useState} from "react"
+
 import MiseEnPage from "./Components/MiseEnPage.tsx"
-import {SimulateurAvantDebuter} from "./Components/Simulateur"
+import {SimulateurEtape} from "./Components/Simulateur/SimulateurEtape.tsx"
+import {FormContainer} from "./Components/FormContainer.tsx"
+import {
+    SimulateurEtape1,
+    SimulateurEtape2,
+    SimulateurEtape3,
+    SimulateurEtape4,
+    SimulateurEtape5,
+    SimulateurEtape6Resultat,
+} from "./Components/Simulateur"
 
 const Simulateur: DefaultComponent = () => {
+    const [etapeCourante, setEtapeCourante] = useState(0)
+
+    const soumissionEtape = (limitConditions: (i: number) => boolean, valeur: number) => ((e: React.MouseEvent) => {
+        e.preventDefault()
+        if (limitConditions(valeur)) {
+            setEtapeCourante(valeur)
+        }
+    })
+
+    const etapeSuivante = soumissionEtape((etape) => (etape < 6), etapeCourante + 1)
+    const etapePrecedente = soumissionEtape((etape) => (etape >= 0), etapeCourante - 1)
+
+    const etapesQuestionnaire: InformationsEtape[] = [
+        {
+            titre: "Localisation de l’activité",
+            indicationReponses: "Sélectionnez une réponse",
+            contenu: <SimulateurEtape1/>,
+        },
+        {
+            titre: "Type de structure",
+            indicationReponses: "Sélectionnez une réponse",
+            contenu: <SimulateurEtape2/>,
+        },
+        {
+            titre: "Taille de l’organisation",
+            indicationReponses: "Sélectionnez une réponse pour chaque critère",
+            contenu: <SimulateurEtape3/>,
+        },
+        {
+            titre: "Secteurs d’activité",
+            indicationReponses: "Sélectionnez au moins une réponse",
+            contenu: <SimulateurEtape4/>,
+        },
+        {
+            titre: "Activités pratiquées",
+            indicationReponses: "Sélectionnez une réponse",
+            contenu: <SimulateurEtape5/>,
+        },
+        {
+            titre: "Resultat",
+            contenu: <SimulateurEtape6Resultat/>,
+        },
+    ]
+
     return <MiseEnPage page={"simulateur"}>
-        <div className="fr-container fr-container--fluid fr-mb-md-14v">
-            <div className="fr-grid-row fr-grid-row-gutters fr-grid-row--center">
-                <div className="fr-col-12 fr-col-md-10 fr-col-lg-8">
-                    <div className="fr-container fr-background-alt--blue-france fr-px-md-0 fr-py-10v fr-py-md-14v">
-                        <SimulateurAvantDebuter/>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <FormContainer>
+            <SimulateurEtape
+                etapeCourante={etapeCourante + 1}
+                nombreEtapes={6}
+                etape={etapesQuestionnaire[etapeCourante]}
+                suivante={etapesQuestionnaire[etapeCourante + 1] || ""}
+                etapePrecedente={etapePrecedente}
+                etapeSuivante={etapeSuivante}
+            />
+        </FormContainer>
     </MiseEnPage>
 }
 

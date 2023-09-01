@@ -1,9 +1,16 @@
 import {Props} from "../../Props.ts"
-import {makeStyles} from "tss-react/dsfr"
 import {Button} from "@codegouvfr/react-dsfr/Button"
 import {noRefClick} from "../Echaffaudages/AssistantsEchaffaudages.ts"
 import AnssiLogo from '../../assets/ANSSI-180.svg'
 
+import {ColorTheme, useColors} from "@codegouvfr/react-dsfr/useColors"
+import {createMakeAndWithStyles} from "tss-react"
+const { makeStyles } = createMakeAndWithStyles({
+    useTheme: function (): ColorTheme {
+        return useColors()
+    },
+
+})
 const useStyles = makeStyles()(() => ({
     "root": {
         borderTop: "4px solid var(--light-primary-blue-france-975, #F5F5FE)",

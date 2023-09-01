@@ -11,4 +11,19 @@ export type DefaultProps = {
     page?: string
 }
 
-export type DefaultComponent = (props: DefaultProps) => React.ReactNode
+export type DefaultComponentExtensible<AdditionalProps extends DefaultProps> = (props: AdditionalProps) => React.ReactNode
+export type DefaultComponent = DefaultComponentExtensible<DefaultProps>
+export type InformationsEtape = {
+    titre: string,
+    indicationReponses?: string,
+    contenu: React.ReactNode,
+}
+
+export interface SimulateurEtapeProps extends DefaultProps {
+    etapeCourante: number,
+    nombreEtapes: number,
+    etape: InformationsEtape,
+    suivante: InformationsEtape,
+    etapePrecedente: (e: React.MouseEvent) => void,
+    etapeSuivante: (e: React.MouseEvent) => void
+}

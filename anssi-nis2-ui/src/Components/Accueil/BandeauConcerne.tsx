@@ -1,16 +1,16 @@
 import {Props} from "../../Props.ts"
-import {makeStyles} from "tss-react/dsfr"
 import {Button} from "@codegouvfr/react-dsfr/Button"
 import {noRefClick} from "../Echaffaudages/AssistantsEchaffaudages.ts"
 import {Link} from "react-router-dom"
+import {fr} from "@codegouvfr/react-dsfr"
 
-const useStyles = makeStyles()((theme) => ({
-    "bandeau-suis-je-concerne": {
-        backgroundColor: theme.decisions.background.flat.blueFrance.default, // TODO: was #101070
-        textAlign: "center",
-        "& h2": {textTransform: "uppercase"},
+import {ColorTheme, useColors} from "@codegouvfr/react-dsfr/useColors"
+import {createMakeAndWithStyles} from "tss-react"
+const { makeStyles } = createMakeAndWithStyles({
+    useTheme: function (): ColorTheme {
+        return useColors()
     },
-}))
+})
 
 const BandeauConcerne = (props: Props) => {
     const {className} = props
@@ -39,5 +39,13 @@ const BandeauConcerne = (props: Props) => {
         </div>
     </>
 }
+
+const useStyles = makeStyles()(() => ({
+    "bandeau-suis-je-concerne": {
+        backgroundColor: fr.colors.decisions.background.flat.blueFrance.default, // TODO: was #101070
+        textAlign: "center",
+        "& h2": {textTransform: "uppercase"},
+    },
+}))
 
 export default BandeauConcerne

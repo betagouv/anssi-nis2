@@ -1,13 +1,19 @@
 import {Props} from "../../Props.ts"
-import {makeStyles} from "tss-react/dsfr"
 import {Button} from "@codegouvfr/react-dsfr/Button"
 import {noRefClick} from "../Echaffaudages/AssistantsEchaffaudages.ts"
 import CalendrierOctobre2024 from "../../assets/calendrier-oct-2024.svg"
+import {ColorTheme, useColors} from "@codegouvfr/react-dsfr/useColors"
+import {createMakeAndWithStyles} from "tss-react"
+import styled from "@emotion/styled"
+const { makeStyles } = createMakeAndWithStyles({
+    useTheme: function (): ColorTheme {
+        return useColors()
+    },
 
+})
 const useStyles = makeStyles()(() => ({
     "root": {
-        borderTop: "4px solid var(--light-primary-blue-france-975, #F5F5FE)",
-        backgroundColor: "#F3F6FE", // TODO: was ##F3F6FE
+
         "& h2": {
             textTransform: "uppercase",
             textAlign: "center",
@@ -22,13 +28,17 @@ const useStyles = makeStyles()(() => ({
     },
 }))
 
+const StyledDiv = styled.div`
+  border-top: 4px solid var(--light-primary-blue-france-975, #F5F5FE);
+  background-color: #F3F6FE;
+`
 const BandeauQuandSePreparer = (props: Props) => {
     const {className} = props
 
     const {classes, cx} = useStyles()
 
     return <>
-        <div className={cx([classes["root"], "fr-pt-10w", "fr-pb-13w"], className)}>
+        <StyledDiv className="fr-pt-10w fr-pb-13w">
             <div className={"fr-container"}>
                 <div className="fr-grid-row--center">
                     <h2 className="fr-mb-7w">
@@ -64,7 +74,7 @@ const BandeauQuandSePreparer = (props: Props) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </StyledDiv>
     </>
 }
 
