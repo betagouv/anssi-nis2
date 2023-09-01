@@ -1,6 +1,6 @@
 import {test, expect} from "vitest"
-import {transformePaysUnionEuropeennePourSelect} from "./simulateurFrontServices.ts"
-import {paysUnionEuropeenneLocalisation} from '../Domaine/DomaineSimulateur'
+import {transformePaysUnionEuropeennePourSelect} from "../../src/Services/simulateurFrontServices"
+import {paysUnionEuropeenneLocalisation} from '../../src/Domaine/DomaineSimulateur'
 
 test("transforme la liste de pays de l'UE par défaut", () => {
     const attendu = [
