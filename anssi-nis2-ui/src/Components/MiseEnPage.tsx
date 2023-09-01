@@ -1,20 +1,18 @@
-import {DefaultComponent} from "../Props.ts"
-import EnTete from "./EnTete.tsx"
-import PiedDePage from "./PiedDePage.tsx"
+import React from 'react'
+import {DefaultComponent, DefaultProps} from "../Props.ts";
+import EnTete from "./EnTete.tsx";
+import PiedDePage from "./PiedDePage.tsx";
 
-const MiseEnPage: DefaultComponent = (
-    {
-        children,
-        page,
-    }) => {
-
-    return <>
-        <EnTete/>
-        <main className={page} role="main">
-            {children}
-        </main>
-        <PiedDePage/>
+const MiseEnPage: DefaultComponent = ({ children, page }: DefaultProps) => {
+  return (
+    <>
+      <EnTete />
+      <main className={page} role="main">
+        {children}
+      </main>
+      <PiedDePage />
     </>
-}
+  );
+};
 
-export default MiseEnPage
+export default MiseEnPage;

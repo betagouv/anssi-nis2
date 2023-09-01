@@ -1,31 +1,33 @@
-import './App.css'
+import React from 'react'
+import "./App.css";
 
-import '@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css'
-import '@gouvfr/dsfr/dist/utility/utility.css'
+import "@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css";
+import "@gouvfr/dsfr/dist/utility/utility.css";
 
-import {DefaultComponent} from "./Props.ts"
+import { DefaultComponent } from "./Props.ts";
 import {
-    BandeauAccueil,
-    BandeauConcerne,
-    BandeauNis2EU,
-    BandeauQuiEstANSSI,
-    BandeauInformation,
-    BandeauQuandSePreparer,
-} from "./Components/Accueil"
-import MiseEnPage from "./Components/MiseEnPage.tsx"
+  BandeauAccueil,
+  BandeauConcerne,
+  BandeauNis2EU,
+  BandeauQuiEstANSSI,
+  BandeauInformation,
+  BandeauQuandSePreparer,
+} from "./Components/Accueil";
+import MiseEnPage from "./Components/MiseEnPage.tsx";
 
 const Accueil: DefaultComponent = () => {
-    return <>
-        <MiseEnPage
-            page="Accueil">
-            <BandeauAccueil/>
-            <BandeauConcerne/>
-            <BandeauNis2EU/>
-            <BandeauQuandSePreparer/>
-            <BandeauQuiEstANSSI/>
-            <BandeauInformation/>
-        </MiseEnPage>
+  return (
+    <>
+      <MiseEnPage page="Accueil">
+        <BandeauAccueil />
+        <BandeauConcerne />
+        <BandeauNis2EU />
+        <BandeauQuandSePreparer />
+        <BandeauQuiEstANSSI />
+        <BandeauInformation />
+      </MiseEnPage>
     </>
-}
+  );
+};
 
-export default Accueil
+export default Accueil;
