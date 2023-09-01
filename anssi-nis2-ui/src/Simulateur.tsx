@@ -10,6 +10,7 @@ import {
     SimulateurEtape3,
     SimulateurEtape4,
     SimulateurEtape5,
+    SimulateurEtape6Resultat,
 } from "./Components/Simulateur"
 
 const Simulateur: DefaultComponent = () => {
@@ -53,7 +54,7 @@ const Simulateur: DefaultComponent = () => {
         },
         {
             titre: "Resultat",
-            contenu: <></>,
+            contenu: <SimulateurEtape6Resultat/>,
         },
     ]
 
