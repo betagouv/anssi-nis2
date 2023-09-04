@@ -14,13 +14,15 @@ const SimulateurEtape5 = ({
   const transformateurSecteurActivite =
     genereTransformateurValeursVersOptions<string>(
       (cle: string, valeurs: Record<string, string>) => valeurs[cle],
-      "activiteSousSecteurElectricite",
+      "secteurActivite",
     );
   const optionsSecteurActivite =
     transformateurSecteurActivite(
         valeursActivites,
-    handleChange,
-        formData,);
+        handleChange,
+        formData,
+        "energie",
+        );
   return (
     <div className="fr-fieldset__element">
       <p>

@@ -1,10 +1,11 @@
 import { describe, it, expect } from "vitest";
 import {
+  emptySimulateurFormData,
   genereTransformateurValeursVersOptions,
   SimulateurFormData,
   transformePaysUnionEuropeennePourSelect,
 } from "../../src/Services/simulateurFrontServices";
-import { paysUnionEuropeenneLocalisation } from "../../src/Domaine/DomaineSimulateur";
+import {paysUnionEuropeenneLocalisation} from "../../src/Domaine/DomaineSimulateur";
 
 describe(genereTransformateurValeursVersOptions, () => {
   const onChange: React.ChangeEventHandler<HTMLInputElement> = () => {};
@@ -64,4 +65,35 @@ describe(genereTransformateurValeursVersOptions, () => {
     );
     expect(optionsPaysUEObtenu).toStrictEqual(attendu);
   });
+
+  it("genere une liste d'option avec des valeurs préfixées", () => {
+    const attendu =     [{
+          label: "Entreprise d’électricité remplissant une fonction de fourniture",
+          nativeInputProps: {
+            checked: false,
+            onChange: onChange,
+            name: "secteurActivite",
+            value: "energie[entrepriseElectriciteRemplissantUneFonctionDeFourniture]",
+          },
+        },
+        ];
+    type SousEnsembleActivites = "entrepriseElectriciteRemplissantUneFonctionDeFourniture"
+    const getSousEnsembleActiviteLabel = (
+        value: string,
+        secteurActivite: Record<SousEnsembleActivites, string>,
+    ) => secteurActivite[value as SousEnsembleActivites];
+    const activites = {
+      entrepriseElectriciteRemplissantUneFonctionDeFourniture:
+          "Entreprise d’électricité remplissant une fonction de fourniture",
+    }
+    const groupOfActivite = "energie"
+    const transformateur = genereTransformateurValeursVersOptions(getSousEnsembleActiviteLabel, "secteurActivite")
+    const optionsActivitesObtenues = transformateur(
+        activites,
+        onChange,
+        emptySimulateurFormData,
+        groupOfActivite,
+    );
+    expect(optionsActivitesObtenues).toStrictEqual(attendu)
+  })
 });

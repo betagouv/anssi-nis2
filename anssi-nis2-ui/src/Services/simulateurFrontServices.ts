@@ -55,10 +55,13 @@ type TransformeRecordToSelect<ValeursCles extends string> = (
     valeurs: Record<ValeursCles, string>,
     onChange?: React.ChangeEventHandler<HTMLInputElement>,
     formData?: SimulateurFormData,
+    group?: string,
 ) => {
     nativeInputProps: NativeInputProps;
     label: string;
 }[];
+
+export const getValueContent = (group: string | undefined, key: string) => group ? `${group}[${key}]` : key
 
 export const genereTransformateurValeursVersOptions =
     <T extends string>(
@@ -68,7 +71,10 @@ export const genereTransformateurValeursVersOptions =
         ) => string,
         name: SimulateurFieldNames,
     ): TransformeRecordToSelect<T> =>
-        (valeursMetier, onChange?, formData?) => {
+        (valeursMetier,
+         onChange?,
+         formData?,
+         group?: string) => {
             const selectOptions: Array<{
                 nativeInputProps: NativeInputProps;
                 label: string;
@@ -80,7 +86,7 @@ export const genereTransformateurValeursVersOptions =
                     label: generateurLabel(key, valeursMetier),
                     nativeInputProps: {
                         name: name,
-                        value: key,
+                        value: getValueContent(group, key),
                         onChange: onChange || (() => {
                         }),
                         checked: checkedValue.indexOf(key) !== -1,
@@ -127,10 +133,10 @@ const getCALabel = (
 export const transformeTranchesCAVersOptions: TransformeRecordToSelect<ValeursTrancheCA> =
     genereTransformateurValeursVersOptions(getCALabel, "trancheCA");
 
-const getSecteurActiviteLabel = (
+export const getSecteurActiviteLabel = (
     value: string,
-    tranchesCA: Record<ValeursSecteurActivite, string>,
-) => tranchesCA[value as ValeursSecteurActivite];
+    secteurActivite: Record<ValeursSecteurActivite, string>,
+) => secteurActivite[value as ValeursSecteurActivite];
 export const transformeSecteursActiviteVersOptions: TransformeRecordToSelect<ValeursSecteurActivite> =
     genereTransformateurValeursVersOptions(
         getSecteurActiviteLabel,
