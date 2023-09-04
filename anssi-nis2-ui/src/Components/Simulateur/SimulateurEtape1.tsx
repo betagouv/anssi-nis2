@@ -12,7 +12,7 @@ const SimulateurEtape1: SimulateurEtapeNode = ({
 }: SimulateurContenuEtapeProps) => {
   const paysUnionEuropeenneOptions = transformePaysUnionEuropeennePourSelect(
     paysUnionEuropeenneLocalisation,
-    handleChange,
+      handleChange,
     formData,
   );
 

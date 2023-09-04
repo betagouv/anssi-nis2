@@ -15,3 +15,4 @@ export type DefaultComponentExtensible<AdditionalProps extends DefaultProps> = (
 ) => React.ReactNode;
 
 export type DefaultComponent = DefaultComponentExtensible<DefaultProps>;
+

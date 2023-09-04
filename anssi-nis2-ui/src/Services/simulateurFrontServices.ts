@@ -14,6 +14,27 @@ type NativeInputProps = {
   checked: boolean;
 };
 
+export interface SimulateurContenuEtapeProps extends DefaultProps {
+  handleChange?: React.ChangeEventHandler<HTMLInputElement>;
+  formData: SimulateurFormData;
+}
+
+export type SimulateurEtapeNode =   DefaultComponentExtensible<SimulateurContenuEtapeProps>;
+export type InformationsEtape = {
+  titre: string;
+  indicationReponses?: string;
+  contenu: SimulateurEtapeNode;
+};
+
+export interface SimulateurEtapeProps extends DefaultProps {
+  etapeCourante: number;
+  nombreEtapes: number;
+  etape: InformationsEtape;
+  suivante: InformationsEtape;
+  etapePrecedente: (e: React.MouseEvent) => void;
+  etapeSuivante: (e: React.MouseEvent) => void;
+}
+
 export type SimulateurFieldNames =
   | "etatMembre"
   | "typeStructure"
@@ -115,24 +136,3 @@ export const transformeSecteursActiviteVersOptions: TransformeRecordToSelect<Val
     "secteurActivite",
   );
 
-export interface SimulateurContenuEtapeProps extends DefaultProps {
-  handleChange?: React.ChangeEventHandler<HTMLInputElement>;
-  formData: SimulateurFormData;
-}
-
-export type SimulateurEtapeNode =
-  DefaultComponentExtensible<SimulateurContenuEtapeProps>;
-export type InformationsEtape = {
-  titre: string;
-  indicationReponses?: string;
-  contenu: SimulateurEtapeNode;
-};
-
-export interface SimulateurEtapeProps extends DefaultProps {
-  etapeCourante: number;
-  nombreEtapes: number;
-  etape: InformationsEtape;
-  suivante: InformationsEtape;
-  etapePrecedente: (e: React.MouseEvent) => void;
-  etapeSuivante: (e: React.MouseEvent) => void;
-}
