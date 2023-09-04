@@ -66,17 +66,7 @@ describe(genereTransformateurValeursVersOptions, () => {
     expect(optionsPaysUEObtenu).toStrictEqual(attendu);
   });
 
-  it("genere une liste d'option avec des valeurs préfixées", () => {
-    const attendu =     [{
-          label: "Entreprise d’électricité remplissant une fonction de fourniture",
-          nativeInputProps: {
-            checked: false,
-            onChange: onChange,
-            name: "secteurActivite",
-            value: "energie[entrepriseElectriciteRemplissantUneFonctionDeFourniture]",
-          },
-        },
-        ];
+  describe("avec des groupes", () => {
     type SousEnsembleActivites = "entrepriseElectriciteRemplissantUneFonctionDeFourniture"
     const getSousEnsembleActiviteLabel = (
         value: string,
@@ -88,12 +78,56 @@ describe(genereTransformateurValeursVersOptions, () => {
     }
     const groupOfActivite = "energie"
     const transformateur = genereTransformateurValeursVersOptions(getSousEnsembleActiviteLabel, "secteurActivite")
-    const optionsActivitesObtenues = transformateur(
-        activites,
-        onChange,
-        emptySimulateurFormData,
-        groupOfActivite,
-    );
-    expect(optionsActivitesObtenues).toStrictEqual(attendu)
+
+    it("genere une liste d'option avec des valeurs préfixées", () => {
+      const attendu = [{
+        label: "Entreprise d’électricité remplissant une fonction de fourniture",
+        nativeInputProps: {
+          checked: false,
+          onChange: onChange,
+          name: "secteurActivite",
+          value: "energie[entrepriseElectriciteRemplissantUneFonctionDeFourniture]",
+        },
+      },
+      ];
+
+      const optionsActivitesObtenues = transformateur(
+          activites,
+          onChange,
+          emptySimulateurFormData,
+          groupOfActivite,
+      );
+      expect(optionsActivitesObtenues).toStrictEqual(attendu)
+    })
+
+    it("genere une liste d'option avec la bonne option cochée", () => {
+      const valeurSelectionnee = "energie[entrepriseElectriciteRemplissantUneFonctionDeFourniture]"
+      const attendu = [{
+        label: "Entreprise d’électricité remplissant une fonction de fourniture",
+        nativeInputProps: {
+          checked: true,
+          onChange: onChange,
+          name: "secteurActivite",
+          value: valeurSelectionnee,
+        },
+      },
+      ];
+      const currentDataForm: SimulateurFormData = {
+        secteurActivite: [valeurSelectionnee],
+        trancheCA: [],
+        trancheNombreEmployes: [],
+        typeStructure: [],
+        etatMembre: [],
+      }
+
+      const optionsActivitesObtenues = transformateur(
+          activites,
+          onChange,
+          currentDataForm,
+          groupOfActivite,
+      );
+      expect(optionsActivitesObtenues).toStrictEqual(attendu)
+    })
+
   })
 });

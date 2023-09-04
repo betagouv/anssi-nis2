@@ -89,7 +89,7 @@ export const genereTransformateurValeursVersOptions =
                         value: getValueContent(group, key),
                         onChange: onChange || (() => {
                         }),
-                        checked: checkedValue.indexOf(key) !== -1,
+                        checked: checkedValue.indexOf(getValueContent(group, key)) !== -1,
                     },
                 });
             }
