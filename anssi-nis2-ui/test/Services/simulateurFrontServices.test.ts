@@ -5,7 +5,7 @@ import {
   SimulateurFormData,
   transformePaysUnionEuropeennePourSelect,
 } from "../../src/Services/simulateurFrontServices";
-import {paysUnionEuropeenneLocalisation} from "../../src/Domaine/DomaineSimulateur";
+import { paysUnionEuropeenneLocalisation } from "../../src/Domaine/DomaineSimulateur";
 
 describe(genereTransformateurValeursVersOptions, () => {
   const onChange: React.ChangeEventHandler<HTMLInputElement> = () => {};
@@ -67,50 +67,60 @@ describe(genereTransformateurValeursVersOptions, () => {
   });
 
   describe("avec des groupes", () => {
-    type SousEnsembleActivites = "entrepriseElectriciteRemplissantUneFonctionDeFourniture"
+    type SousEnsembleActivites =
+      "entrepriseElectriciteRemplissantUneFonctionDeFourniture";
     const getSousEnsembleActiviteLabel = (
-        value: string,
-        secteurActivite: Record<SousEnsembleActivites, string>,
+      value: string,
+      secteurActivite: Record<SousEnsembleActivites, string>,
     ) => secteurActivite[value as SousEnsembleActivites];
     const activites = {
       entrepriseElectriciteRemplissantUneFonctionDeFourniture:
-          "Entreprise d’électricité remplissant une fonction de fourniture",
-    }
-    const groupOfActivite = "energie"
-    const transformateur = genereTransformateurValeursVersOptions(getSousEnsembleActiviteLabel, "secteurActivite")
+        "Entreprise d’électricité remplissant une fonction de fourniture",
+    };
+    const groupOfActivite = "energie";
+    const transformateur = genereTransformateurValeursVersOptions(
+      getSousEnsembleActiviteLabel,
+      "secteurActivite",
+    );
 
     it("genere une liste d'option avec des valeurs préfixées", () => {
-      const attendu = [{
-        label: "Entreprise d’électricité remplissant une fonction de fourniture",
-        nativeInputProps: {
-          checked: false,
-          onChange: onChange,
-          name: "secteurActivite",
-          value: "energie[entrepriseElectriciteRemplissantUneFonctionDeFourniture]",
+      const attendu = [
+        {
+          label:
+            "Entreprise d’électricité remplissant une fonction de fourniture",
+          nativeInputProps: {
+            checked: false,
+            onChange: onChange,
+            name: "secteurActivite",
+            value:
+              "energie[entrepriseElectriciteRemplissantUneFonctionDeFourniture]",
+          },
         },
-      },
       ];
 
       const optionsActivitesObtenues = transformateur(
-          activites,
-          onChange,
-          emptySimulateurFormData,
-          groupOfActivite,
+        activites,
+        onChange,
+        emptySimulateurFormData,
+        groupOfActivite,
       );
-      expect(optionsActivitesObtenues).toStrictEqual(attendu)
-    })
+      expect(optionsActivitesObtenues).toStrictEqual(attendu);
+    });
 
     it("genere une liste d'option avec la bonne option cochée", () => {
-      const valeurSelectionnee = "energie[entrepriseElectriciteRemplissantUneFonctionDeFourniture]"
-      const attendu = [{
-        label: "Entreprise d’électricité remplissant une fonction de fourniture",
-        nativeInputProps: {
-          checked: true,
-          onChange: onChange,
-          name: "secteurActivite",
-          value: valeurSelectionnee,
+      const valeurSelectionnee =
+        "energie[entrepriseElectriciteRemplissantUneFonctionDeFourniture]";
+      const attendu = [
+        {
+          label:
+            "Entreprise d’électricité remplissant une fonction de fourniture",
+          nativeInputProps: {
+            checked: true,
+            onChange: onChange,
+            name: "secteurActivite",
+            value: valeurSelectionnee,
+          },
         },
-      },
       ];
       const currentDataForm: SimulateurFormData = {
         secteurActivite: [valeurSelectionnee],
@@ -118,16 +128,15 @@ describe(genereTransformateurValeursVersOptions, () => {
         trancheNombreEmployes: [],
         typeStructure: [],
         etatMembre: [],
-      }
+      };
 
       const optionsActivitesObtenues = transformateur(
-          activites,
-          onChange,
-          currentDataForm,
-          groupOfActivite,
+        activites,
+        onChange,
+        currentDataForm,
+        groupOfActivite,
       );
-      expect(optionsActivitesObtenues).toStrictEqual(attendu)
-    })
-
-  })
+      expect(optionsActivitesObtenues).toStrictEqual(attendu);
+    });
+  });
 });

@@ -16,3 +16,9 @@ export type DefaultComponentExtensible<AdditionalProps extends DefaultProps> = (
 
 export type DefaultComponent = DefaultComponentExtensible<DefaultProps>;
 
+export type NativeInputProps = {
+  name: string;
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  checked: boolean;
+};

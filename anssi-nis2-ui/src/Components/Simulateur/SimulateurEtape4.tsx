@@ -1,20 +1,19 @@
 import {
-    SimulateurContenuEtapeProps,
-    transformeSecteursActiviteVersOptions,
+  SimulateurContenuEtapeProps,
+  transformeSecteursActiviteVersOptions,
 } from "../../Services/simulateurFrontServices.ts";
 import { secteursActivite } from "../../Domaine/DomaineSimulateur.ts";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 
 const SimulateurEtape4 = ({
-                              handleChange,
-                              formData,
-                          }: SimulateurContenuEtapeProps) => {
-  const optionsSecteurActivite =
-    transformeSecteursActiviteVersOptions(
-        secteursActivite,
-        handleChange,
-        formData,
-);
+  handleChange,
+  formData,
+}: SimulateurContenuEtapeProps) => {
+  const optionsSecteurActivite = transformeSecteursActiviteVersOptions(
+    secteursActivite,
+    handleChange,
+    formData,
+  );
 
   return (
     <div className="fr-fieldset__element">
