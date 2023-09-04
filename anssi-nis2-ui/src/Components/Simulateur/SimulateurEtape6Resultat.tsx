@@ -1,6 +1,7 @@
 import { fr } from "@codegouvfr/react-dsfr";
 import styled from "@emotion/styled";
 import { Icon } from "@mui/material";
+import SimulateurAvantDebuter from "./SimulateurAvantDebuter.tsx"
 
 
 const ResultDiv = styled.div`
@@ -23,7 +24,7 @@ const HeaderResult = styled.h4`
 `
 
 const SimulateurEtape6Resultat = () => {
-  return (
+  return <>
     <ResultDiv className="fr-px-4w fr-py-3w">
       <div className="fr-grid-row">
         <IconeEligible className="fr-col">
@@ -41,7 +42,8 @@ const SimulateurEtape6Resultat = () => {
         tard le 18 octobre 2024.
       </p>
     </ResultDiv>
-  );
+    <SimulateurAvantDebuter />
+  </>;
 };
 
 export default SimulateurEtape6Resultat;

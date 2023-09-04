@@ -5,6 +5,7 @@ import {
 } from "../../Services/simulateurFrontServices.ts";
 import { typesStructure } from "../../Domaine/DomaineSimulateur.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
+import {FormSimulateur} from "./index.ts"
 
 const SimulateurEtape2: SimulateurEtapeNode = ({
   handleChange,
@@ -17,13 +18,15 @@ const SimulateurEtape2: SimulateurEtapeNode = ({
   );
 
   return (
-    <div className="fr-fieldset__element">
-      <RadioButtons
-        legend="Quel type de structure qualifie votre organisation ?"
-        options={optionsTypeStructure}
-        className="fr-checkbox-group--sm"
-      />
-    </div>
+      <FormSimulateur>
+        <div className="fr-fieldset__element">
+          <RadioButtons
+              legend="Quel type de structure qualifie votre organisation ?"
+              options={optionsTypeStructure}
+              className="fr-checkbox-group--sm"
+          />
+        </div>
+      </FormSimulateur>
   );
 };
 

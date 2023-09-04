@@ -4,6 +4,7 @@ import {
   genereTransformateurValeursVersOptions,
   SimulateurContenuEtapeProps,
 } from "../../Services/simulateurFrontServices.ts";
+import {FormSimulateur} from "./index.ts"
 
 const SimulateurEtape5 = ({
   handleChange,
@@ -23,20 +24,22 @@ const SimulateurEtape5 = ({
     "energie",
   );
   return (
-    <div className="fr-fieldset__element">
-      <p>
-        Quelles sont les activités pratiquées dans les secteurs sélectionnés ?
-      </p>
-      <p className="fr-text-mention--grey fr-text--sm">
-        Cliquez sur les info-bulles pour obtenir plus d’informations sur les
-        définitions des activités.
-      </p>
+      <FormSimulateur>
+          <div className="fr-fieldset__element">
+              <p>
+                  Quelles sont les activités pratiquées dans les secteurs sélectionnés ?
+              </p>
+              <p className="fr-text-mention--grey fr-text--sm">
+                  Cliquez sur les info-bulles pour obtenir plus d’informations sur les
+                  définitions des activités.
+              </p>
 
-      <Checkbox
-        legend="Énergie / Électricité"
-        options={optionsSecteurActivite}
-      />
-    </div>
+              <Checkbox
+                  legend="Énergie / Électricité"
+                  options={optionsSecteurActivite}
+              />
+          </div>
+      </FormSimulateur>
   );
 };
 
