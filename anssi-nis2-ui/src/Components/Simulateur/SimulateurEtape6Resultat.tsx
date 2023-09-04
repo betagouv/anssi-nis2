@@ -1,7 +1,7 @@
 import { fr } from "@codegouvfr/react-dsfr";
 import styled from "@emotion/styled";
 import { Icon } from "@mui/material";
-import SimulateurAvantDebuter from "./SimulateurAvantDebuter.tsx"
+import SimulateurResterInformee from "./SimulateurResterInformee.tsx"
 
 
 const ResultDiv = styled.div`
@@ -42,7 +42,7 @@ const SimulateurEtape6Resultat = () => {
         tard le 18 octobre 2024.
       </p>
     </ResultDiv>
-    <SimulateurAvantDebuter />
+    <SimulateurResterInformee />
   </>;
 };
 

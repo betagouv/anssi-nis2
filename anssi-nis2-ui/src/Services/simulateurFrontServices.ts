@@ -26,12 +26,10 @@ export type InformationsEtape = {
 };
 
 export interface SimulateurEtapeProps extends DefaultProps {
-  etapeCourante: number;
-  nombreEtapes: number;
-  etape: InformationsEtape;
-  suivante: InformationsEtape;
-  etapePrecedente: (e: React.MouseEvent) => void;
-  etapeSuivante: (e: React.MouseEvent) => void;
+  etapeCourante: number,
+  etapePrecedenteHandler: (e: React.MouseEvent) => void,
+  etapeSuivanteHandler: (e: React.MouseEvent) => void,
+  listeEtapes: InformationsEtape[]
 }
 
 export type SimulateurFieldNames =

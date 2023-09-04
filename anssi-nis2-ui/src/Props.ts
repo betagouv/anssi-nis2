@@ -22,3 +22,4 @@ export type NativeInputProps = {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   checked: boolean;
 };
+export type FormValueHandler = (value: string) => string[];

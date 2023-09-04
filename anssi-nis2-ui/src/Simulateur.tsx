@@ -3,7 +3,6 @@ import React, { useState } from "react";
 
 import MiseEnPage from "./Components/MiseEnPage.tsx";
 import { SimulateurEtape } from "./Components/Simulateur/SimulateurEtape.tsx";
-import { FormContainer } from "./Components/FormContainer.tsx";
 import {
   SimulateurEtape1,
   SimulateurEtape2,
@@ -70,16 +69,14 @@ const Simulateur: DefaultComponent = () => {
 
   return (
     <MiseEnPage page={"simulateur"}>
-      <FormContainer backgroundClass={etapesQuestionnaire[etapeCourante].backgroundClass}>
+
         <SimulateurEtape
-          etapeCourante={etapeCourante + 1}
-          nombreEtapes={6}
-          etape={etapesQuestionnaire[etapeCourante]}
-          suivante={etapesQuestionnaire[etapeCourante + 1] || ""}
-          etapePrecedente={etapePrecedente}
-          etapeSuivante={etapeSuivante}
+          etapeCourante={etapeCourante}
+          listeEtapes={etapesQuestionnaire}
+          etapePrecedenteHandler={etapePrecedente}
+          etapeSuivanteHandler={etapeSuivante}
         />
-      </FormContainer>
+
     </MiseEnPage>
   );
 };
