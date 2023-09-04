@@ -5,14 +5,37 @@ import {
   ValeursTrancheNombreEmployes,
   ValeursTypeStructure,
 } from "../Domaine/DomaineSimulateur.ts";
+import { DefaultComponentExtensible, DefaultProps } from "../Props.ts";
+
+type NativeInputProps = {
+  name: string;
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  checked: boolean;
+};
+
+export type SimulateurFieldNames =
+  | "etatMembre"
+  | "typeStructure"
+  | "trancheNombreEmployes"
+  | "trancheCA"
+  | "secteurActivite";
+
+export type SimulateurFormData = Record<SimulateurFieldNames, string[]>;
+export const emptySimulateurFormData: SimulateurFormData = {
+  etatMembre: [],
+  secteurActivite: [],
+  trancheCA: [],
+  trancheNombreEmployes: [],
+  typeStructure: [],
+};
 
 type TransformeRecordToSelect<ValeursCles extends string> = (
   valeurs: Record<ValeursCles, string>,
+  onChange?: React.ChangeEventHandler<HTMLInputElement>,
+  formData?: SimulateurFormData,
 ) => {
-  nativeInputProps: {
-    name: string;
-    value: string;
-  };
+  nativeInputProps: NativeInputProps;
   label: string;
 }[];
 
@@ -22,16 +45,14 @@ export const genereTransformateurValeursVersOptions =
       value: string,
       valeursMetier: Record<T, string>,
     ) => string,
-    name: string,
+    name: SimulateurFieldNames,
   ): TransformeRecordToSelect<T> =>
-  (valeursMetier) => {
+  (valeursMetier, onChange?, formData?) => {
     const selectOptions: Array<{
-      nativeInputProps: {
-        name: string;
-        value: string;
-      };
+      nativeInputProps: NativeInputProps;
       label: string;
     }> = [];
+    const checkedValue = formData?.[name as SimulateurFieldNames] || [];
     for (const key in valeursMetier) {
       selectOptions.push();
       selectOptions.push({
@@ -39,6 +60,8 @@ export const genereTransformateurValeursVersOptions =
         nativeInputProps: {
           name: name,
           value: key,
+          onChange: onChange || (() => {}),
+          checked: checkedValue.indexOf(key) !== -1,
         },
       });
     }
@@ -91,3 +114,25 @@ export const transformeSecteursActiviteVersOptions: TransformeRecordToSelect<Val
     getSecteurActiviteLabel,
     "secteurActivite",
   );
+
+export interface SimulateurContenuEtapeProps extends DefaultProps {
+  handleChange?: React.ChangeEventHandler<HTMLInputElement>;
+  formData: SimulateurFormData;
+}
+
+export type SimulateurEtapeNode =
+  DefaultComponentExtensible<SimulateurContenuEtapeProps>;
+export type InformationsEtape = {
+  titre: string;
+  indicationReponses?: string;
+  contenu: SimulateurEtapeNode;
+};
+
+export interface SimulateurEtapeProps extends DefaultProps {
+  etapeCourante: number;
+  nombreEtapes: number;
+  etape: InformationsEtape;
+  suivante: InformationsEtape;
+  etapePrecedente: (e: React.MouseEvent) => void;
+  etapeSuivante: (e: React.MouseEvent) => void;
+}

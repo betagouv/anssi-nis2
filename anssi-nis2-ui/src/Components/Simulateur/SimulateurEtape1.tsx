@@ -1,10 +1,19 @@
-import { transformePaysUnionEuropeennePourSelect } from "../../Services/simulateurFrontServices.ts";
+import {
+  SimulateurContenuEtapeProps,
+  SimulateurEtapeNode,
+  transformePaysUnionEuropeennePourSelect,
+} from "../../Services/simulateurFrontServices.ts";
 import { paysUnionEuropeenneLocalisation } from "../../Domaine/DomaineSimulateur.ts";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 
-const SimulateurEtape1 = () => {
+const SimulateurEtape1: SimulateurEtapeNode = ({
+  handleChange,
+  formData,
+}: SimulateurContenuEtapeProps) => {
   const paysUnionEuropeenneOptions = transformePaysUnionEuropeennePourSelect(
     paysUnionEuropeenneLocalisation,
+    handleChange,
+    formData,
   );
 
   return (

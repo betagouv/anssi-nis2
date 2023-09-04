@@ -1,10 +1,18 @@
-import { transformeTypeStructureVersOptions } from "../../Services/simulateurFrontServices.ts";
+import {
+  SimulateurContenuEtapeProps,
+  SimulateurEtapeNode,
+  transformeTypeStructureVersOptions,
+} from "../../Services/simulateurFrontServices.ts";
 import { typesStructure } from "../../Domaine/DomaineSimulateur.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 
-const SimulateurEtape2 = () => {
-  const optionsTypeStructure =
-    transformeTypeStructureVersOptions(typesStructure);
+const SimulateurEtape2: SimulateurEtapeNode = ({
+  handleChange,
+}: SimulateurContenuEtapeProps) => {
+  const optionsTypeStructure = transformeTypeStructureVersOptions(
+    typesStructure,
+    handleChange,
+  );
 
   return (
     <div className="fr-fieldset__element">
