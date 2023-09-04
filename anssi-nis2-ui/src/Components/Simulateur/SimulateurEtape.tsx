@@ -76,8 +76,9 @@ export const SimulateurEtape: DefaultComponentExtensible<
           nextTitle={suivante.titre}
           stepCount={nombreEtapes}
           title={etape.titre}
+          className="fr-mb-5w"
         />
-        <hr />
+        <hr className="fr-pb-5w" />
         <form className="fr-mb-0" id="login-1797">
           <fieldset
             className="fr-mb-0 fr-fieldset"
@@ -85,34 +86,36 @@ export const SimulateurEtape: DefaultComponentExtensible<
             aria-labelledby="login-1797-fieldset-legend login-1797-fieldset-messages"
           >
             <EtapeCourante handleChange={handleChange} formData={inputs} />
-            <div className="fr-grid-row fr-mr-auto" style={{ width: "100%" }}>
-              <div
-                className="fr-col fr-right fr-my-1w fr-text--sm fr-text-mention--grey"
-                style={{ textAlign: "right" }}
-              >
-                {etape.indicationReponses}
-              </div>
-              <div className="fr-col-5">
-                <div className="fr-fieldset__element">
-                  <ButtonsGroup
-                    alignment="right"
-                    buttons={[
-                      {
-                        children: "Précédent",
-                        onClick: etapePrecedente,
-                        priority: "secondary",
-                      },
-                      {
-                        children: "Suivant",
-                        onClick: etapeSuivante,
-                        type: "submit",
-                      },
-                    ]}
-                    inlineLayoutWhen="sm and up"
-                  />
+            {etape.indicationReponses && (
+              <div className="fr-grid-row fr-mr-auto" style={{ width: "100%" }}>
+                <div
+                  className="fr-col fr-right fr-my-1w fr-text--sm fr-text-mention--grey"
+                  style={{ textAlign: "right" }}
+                >
+                  {etape.indicationReponses}
+                </div>
+                <div className="fr-col-5">
+                  <div className="fr-fieldset__element">
+                    <ButtonsGroup
+                      alignment="right"
+                      buttons={[
+                        {
+                          children: "Précédent",
+                          onClick: etapePrecedente,
+                          priority: "secondary",
+                        },
+                        {
+                          children: "Suivant",
+                          onClick: etapeSuivante,
+                          type: "submit",
+                        },
+                      ]}
+                      inlineLayoutWhen="sm and up"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </fieldset>
         </form>
       </div>

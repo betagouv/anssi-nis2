@@ -64,12 +64,13 @@ const Simulateur: DefaultComponent = () => {
     {
       titre: "Resultat",
       contenu: SimulateurEtape6Resultat,
+      backgroundClass: "white",
     },
   ];
 
   return (
     <MiseEnPage page={"simulateur"}>
-      <FormContainer>
+      <FormContainer backgroundClass={etapesQuestionnaire[etapeCourante].backgroundClass}>
         <SimulateurEtape
           etapeCourante={etapeCourante + 1}
           nombreEtapes={6}

@@ -22,6 +22,7 @@ export type InformationsEtape = {
   titre: string;
   indicationReponses?: string;
   contenu: SimulateurEtapeNode;
+  backgroundClass?: string;
 };
 
 export interface SimulateurEtapeProps extends DefaultProps {
