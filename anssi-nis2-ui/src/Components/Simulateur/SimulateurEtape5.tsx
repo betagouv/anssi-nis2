@@ -1,8 +1,14 @@
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { detailsDesSecteurs } from "../../Domaine/DomaineSimulateur.ts";
-import { genereTransformateurValeursVersOptions } from "../../Services/simulateurFrontServices.ts";
+import {
+    genereTransformateurValeursVersOptions,
+    SimulateurContenuEtapeProps,
+} from "../../Services/simulateurFrontServices.ts";
 
-const SimulateurEtape5 = () => {
+const SimulateurEtape5 = ({
+                              handleChange,
+                              formData,
+                          }: SimulateurContenuEtapeProps) => {
   const valeursActivites =
     detailsDesSecteurs.energie.sousSecteurs?.electricite.activites || {};
   const transformateurSecteurActivite =
@@ -11,7 +17,10 @@ const SimulateurEtape5 = () => {
       "activiteSousSecteurElectricite",
     );
   const optionsSecteurActivite =
-    transformateurSecteurActivite(valeursActivites);
+    transformateurSecteurActivite(
+        valeursActivites,
+    handleChange,
+        formData,);
   return (
     <div className="fr-fieldset__element">
       <p>
