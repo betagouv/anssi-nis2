@@ -48,7 +48,7 @@ export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
   const [result, setResult] = useState("");
   useEffect(() => {
     handleSendFormData(formData).then((response) => setResult(response));
-  }, [result]);
+  }, [formData, handleSendFormData, result]);
 
   return (
     <>
