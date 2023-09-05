@@ -12,7 +12,6 @@ export const RowContainer: DefaultComponent = ({
             className={fr.cx(
                 "fr-container",
                 "fr-container--fluid",
-                "fr-mb-md-14v",
             )}
         >
           <div

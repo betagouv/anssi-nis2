@@ -9,6 +9,7 @@ import ImageGuideTPEPME from "../../assets/GuideTPE-PME.png";
 import ImageGuideHygieneCyber from "../../assets/GuideHygieneCyber.png";
 import PdfCard from "./PdfCard.tsx";
 import { PdfCardContainer } from "../PdfCardContainer.tsx";
+import ReseauxSociaux from "../ReseauxSociaux.tsx";
 
 const ResultDiv = styled.div`
   background-color: ${fr.colors.decisions.background.alt.greenMenthe.default};
@@ -91,6 +92,14 @@ export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = () => {
               title="Guide d’hygiène cyber"
             />
           </PdfCardContainer>
+        </CenteredContainer>
+      </RowContainer>
+      <RowContainer className="fr-background-alt--blue-france">
+        <CenteredContainer>
+            <div className="fr-follow__newsletter">
+
+                <ReseauxSociaux />
+            </div>
         </CenteredContainer>
       </RowContainer>
     </>
