@@ -1,34 +1,27 @@
-import {
-  SimulateurEtapeProps,
-  SimulateurFormData,
-} from "../../Services/simulateurFrontServices.ts";
 import { FormContainer } from "../FormContainer.tsx";
 import { StepperNavigation } from "./StepperNavigation.tsx";
 
 import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
-import { DefaultComponentExtensible } from "../../Props.ts";
+import {
+  InformationEtapeForm,
+  SimulateurEtapeRenderedComponent,
+  SimulateurEtapeRenderedProps,
+} from "./simulateurProps.ts"
 
-interface SimulateurEtapeFormProps extends SimulateurEtapeProps {
-  handleChange: React.ChangeEventHandler<HTMLInputElement>;
-  inputs: SimulateurFormData;
-}
-
-export const SimulateurEtapeForm: DefaultComponentExtensible<
-  SimulateurEtapeFormProps
-> = ({
+export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   listeEtapes,
   etapeCourante,
   handleChange,
-  inputs,
+  formData,
   etapePrecedenteHandler,
   etapeSuivanteHandler,
-}: SimulateurEtapeFormProps) => {
-  const informationsEtape = listeEtapes[etapeCourante];
-  const EtapeCourante = informationsEtape.contenu || <></>;
+}: SimulateurEtapeRenderedProps) => {
+  const informationsEtape = listeEtapes[etapeCourante] as InformationEtapeForm;
+  const EtapeCourante = informationsEtape.contenu;
   const suivante = listeEtapes[etapeCourante + 1] || "";
 
   return (
-    <FormContainer backgroundClass={informationsEtape.backgroundClass}>
+    <FormContainer>
       <div className="fr-grid-row fr-grid-row-gutters fr-grid-row--center">
         <div className="fr-col-12 fr-col-md-10 fr-col-lg-9">
           <Stepper
@@ -41,15 +34,13 @@ export const SimulateurEtapeForm: DefaultComponentExtensible<
 
           <hr className="fr-pb-5w" />
 
-          <EtapeCourante handleChange={handleChange} formData={inputs} />
+          <EtapeCourante handleChange={handleChange} formData={formData} />
 
-          {informationsEtape.indicationReponses && (
-            <StepperNavigation
-              indicationReponses={informationsEtape.indicationReponses}
-              onClick={etapePrecedenteHandler}
-              onClick1={etapeSuivanteHandler}
-            />
-          )}
+          <StepperNavigation
+            indicationReponses={informationsEtape.indicationReponses}
+            onClick={etapePrecedenteHandler}
+            onClick1={etapeSuivanteHandler}
+          />
         </div>
       </div>
     </FormContainer>

@@ -1,5 +1,4 @@
 import {
-  SimulateurContenuEtapeProps,
   transformeTranchesCAVersOptions,
   transformeTranchesNombreEmployesVersOptions,
 } from "../../Services/simulateurFrontServices.ts";
@@ -9,6 +8,7 @@ import {
 } from "../../Domaine/DomaineSimulateur.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import {FormSimulateur} from "./index.ts"
+import {SimulateurContenuEtapeProps} from "./simulateurProps.ts"
 
 const SimulateurEtape3 = ({
   handleChange,

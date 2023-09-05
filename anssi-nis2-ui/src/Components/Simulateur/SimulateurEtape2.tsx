@@ -1,13 +1,12 @@
 import {
-  SimulateurContenuEtapeProps,
-  SimulateurEtapeNode,
   transformeTypeStructureVersOptions,
 } from "../../Services/simulateurFrontServices.ts";
 import { typesStructure } from "../../Domaine/DomaineSimulateur.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import {FormSimulateur} from "./index.ts"
+import {SimulateurContenuEtapeProps, SimulateurEtapeNodeComponent} from "./simulateurProps.ts"
 
-const SimulateurEtape2: SimulateurEtapeNode = ({
+const SimulateurEtape2: SimulateurEtapeNodeComponent = ({
   handleChange,
   formData,
 }: SimulateurContenuEtapeProps) => {

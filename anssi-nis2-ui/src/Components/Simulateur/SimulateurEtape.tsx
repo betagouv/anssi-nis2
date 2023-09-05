@@ -2,12 +2,11 @@ import { DefaultComponentExtensible, FormValueHandler } from "../../Props.ts";
 import React, { useState } from "react";
 import {
   emptySimulateurFormData,
-  SimulateurEtapeProps,
   SimulateurFieldNames,
   SimulateurFormData,
 } from "../../Services/simulateurFrontServices.ts";
-import { SimulateurEtapeForm } from "./SimulateurEtapeForm.tsx";
-import { SimulateurEtape6Resultat } from "./index.ts";
+import {SimulateurEtapeProps} from "./simulateurProps.ts"
+
 
 export const SimulateurEtape: DefaultComponentExtensible<
   SimulateurEtapeProps
@@ -45,16 +44,17 @@ export const SimulateurEtape: DefaultComponentExtensible<
     setInputs({ ...inputs, [fieldName]: fieldHandlers[fieldName](value) });
   };
 
-  if(etapeCourante === 5) {
-    return <SimulateurEtape6Resultat />
-  }
+  // if(etapeCourante === 5) {
+  //   return <SimulateurEtape6Resultat />
+  // }
 
+  const ElementRendered = listeEtapes[etapeCourante].elementToRender
   return (
-    <SimulateurEtapeForm
+    <ElementRendered
       listeEtapes={listeEtapes}
       etapeCourante={etapeCourante}
       handleChange={handleChange}
-      inputs={inputs}
+      formData={inputs}
       etapePrecedenteHandler={etapePrecedenteHandler}
       etapeSuivanteHandler={etapeSuivanteHandler}
     />

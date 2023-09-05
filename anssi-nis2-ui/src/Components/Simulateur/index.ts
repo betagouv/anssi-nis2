@@ -3,7 +3,6 @@ import SimulateurEtape2 from "./SimulateurEtape2.tsx";
 import SimulateurEtape3 from "./SimulateurEtape3.tsx";
 import SimulateurEtape4 from "./SimulateurEtape4.tsx";
 import SimulateurEtape5 from "./SimulateurEtape5.tsx";
-import SimulateurEtape6Resultat from "./SimulateurEtape6Resultat.tsx";
 import FormSimulateur from "./FormSimulateur.tsx";
 
 export {
@@ -12,6 +11,5 @@ export {
   SimulateurEtape3,
   SimulateurEtape4,
   SimulateurEtape5,
-  SimulateurEtape6Resultat,
   FormSimulateur,
 };

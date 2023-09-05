@@ -2,9 +2,10 @@ import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { detailsDesSecteurs } from "../../Domaine/DomaineSimulateur.ts";
 import {
   genereTransformateurValeursVersOptions,
-  SimulateurContenuEtapeProps,
+
 } from "../../Services/simulateurFrontServices.ts";
 import {FormSimulateur} from "./index.ts"
+import {SimulateurContenuEtapeProps} from "./simulateurProps.ts"
 
 const SimulateurEtape5 = ({
   handleChange,

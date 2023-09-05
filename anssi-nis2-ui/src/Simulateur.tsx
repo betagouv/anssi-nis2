@@ -9,9 +9,12 @@ import {
   SimulateurEtape3,
   SimulateurEtape4,
   SimulateurEtape5,
-  SimulateurEtape6Resultat,
 } from "./Components/Simulateur";
-import {InformationEtapeResult, InformationsEtape, InformationsEtapeForm} from "./Services/simulateurFrontServices.ts";
+import {
+  InformationEtapeForm,
+  InformationEtapeResult,
+  InformationsEtape,
+} from "./Components/Simulateur/simulateurProps.ts"
 
 const Simulateur: DefaultComponent = () => {
   const [etapeCourante, setEtapeCourante] = useState(0);
@@ -35,48 +38,42 @@ const Simulateur: DefaultComponent = () => {
   );
 
   const etapesQuestionnaire: InformationsEtape[] = [
-    new InformationsEtapeForm(
+    new InformationEtapeForm(
       "Localisation de l’activité",
       "Sélectionnez une réponse",
       SimulateurEtape1,
     ),
-    new InformationsEtapeForm(
+    new InformationEtapeForm(
       "Type de structure",
       "Sélectionnez une réponse",
       SimulateurEtape2,
     ),
-    new InformationsEtapeForm(
+    new InformationEtapeForm(
       "Taille de l’organisation",
       "Sélectionnez une réponse pour chaque critère",
       SimulateurEtape3,
     ),
-    new InformationsEtapeForm(
+    new InformationEtapeForm(
       "Secteurs d’activité",
       "Sélectionnez au moins une réponse",
       SimulateurEtape4,
     ),
-    new InformationsEtapeForm(
+    new InformationEtapeForm(
       "Activités pratiquées",
       "Sélectionnez une réponse",
       SimulateurEtape5,
     ),
-    new InformationEtapeResult(
-      "Resultat",
-      SimulateurEtape6Resultat,
-      "white",
-),
+    new InformationEtapeResult("Resultat"),
   ];
 
   return (
     <MiseEnPage page={"simulateur"}>
-
-        <SimulateurEtape
-          etapeCourante={etapeCourante}
-          listeEtapes={etapesQuestionnaire}
-          etapePrecedenteHandler={etapePrecedente}
-          etapeSuivanteHandler={etapeSuivante}
-        />
-
+      <SimulateurEtape
+        etapeCourante={etapeCourante}
+        listeEtapes={etapesQuestionnaire}
+        etapePrecedenteHandler={etapePrecedente}
+        etapeSuivanteHandler={etapeSuivante}
+      />
     </MiseEnPage>
   );
 };

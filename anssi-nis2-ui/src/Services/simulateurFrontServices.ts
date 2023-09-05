@@ -5,48 +5,7 @@ import {
   ValeursTrancheNombreEmployes,
   ValeursTypeStructure,
 } from "../Domaine/DomaineSimulateur.ts";
-import {
-  DefaultComponentExtensible,
-  DefaultProps,
-  NativeInputProps,
-} from "../Props.ts";
-
-export interface SimulateurContenuEtapeProps extends DefaultProps {
-  handleChange?: React.ChangeEventHandler<HTMLInputElement>;
-  formData: SimulateurFormData;
-}
-
-export type SimulateurEtapeNode =
-  DefaultComponentExtensible<SimulateurContenuEtapeProps>;
-
-export type InformationsEtape = {
-  titre: string;
-  contenu: SimulateurEtapeNode;
-  backgroundClass?: string;
-};
-
-export class InformationsEtapeForm implements InformationsEtape {
-  public constructor(
-    public readonly titre: string,
-    public readonly indicationReponses: string,
-    public readonly contenu: SimulateurEtapeNode,
-  ) {}
-}
-
-export class InformationEtapeResult implements InformationsEtape {
-  public constructor(
-      public readonly titre: string,
-      public readonly contenu: SimulateurEtapeNode,
-      public readonly backgroundClass: string,
-  ) {}
-}
-
-export interface SimulateurEtapeProps extends DefaultProps {
-  etapeCourante: number;
-  etapePrecedenteHandler: (e: React.MouseEvent) => void;
-  etapeSuivanteHandler: (e: React.MouseEvent) => void;
-  listeEtapes: InformationsEtape[];
-}
+import { NativeInputProps } from "../Props.ts";
 
 export type SimulateurFieldNames =
   | "etatMembre"
