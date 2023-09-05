@@ -38,13 +38,12 @@ const Simulateur: DefaultComponent = () => {
   );
 
   const etapesQuestionnaire: InformationsEtape[] = [
-    new InformationEtapeResult("Resultat"),
-
     new InformationEtapeForm(
       "Localisation de l’activité",
       "Sélectionnez une réponse",
       SimulateurEtape1,
     ),
+
     new InformationEtapeForm(
       "Type de structure",
       "Sélectionnez une réponse",
@@ -65,6 +64,7 @@ const Simulateur: DefaultComponent = () => {
       "Sélectionnez une réponse",
       SimulateurEtape5,
     ),
+    new InformationEtapeResult("Resultat"),
   ];
 
   return (

@@ -5,8 +5,10 @@ import {
   SimulateurFieldNames,
   SimulateurFormData,
 } from "../../Services/simulateurFrontServices.ts";
-import {SimulateurEtapeProps} from "./simulateurProps.ts"
-
+import {
+  SimulateurEtapeProps,
+  SimulateurEtapeRenderedComponent,
+} from "./simulateurProps.ts";
 
 export const SimulateurEtape: DefaultComponentExtensible<
   SimulateurEtapeProps
@@ -44,12 +46,20 @@ export const SimulateurEtape: DefaultComponentExtensible<
     setInputs({ ...inputs, [fieldName]: fieldHandlers[fieldName](value) });
   };
 
-  const ElementRendered = listeEtapes[etapeCourante].elementToRender
+  const sendFormData = async (formData: SimulateurFormData) => {
+    const data = JSON.stringify(formData);
+    console.log(data);
+    return data;
+  };
+
+  const ElementRendered: SimulateurEtapeRenderedComponent =
+    listeEtapes[etapeCourante].elementToRender;
   return (
     <ElementRendered
       listeEtapes={listeEtapes}
       etapeCourante={etapeCourante}
       handleChange={handleChange}
+      handleSendFormData={sendFormData}
       formData={inputs}
       etapePrecedenteHandler={etapePrecedenteHandler}
       etapeSuivanteHandler={etapeSuivanteHandler}

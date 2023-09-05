@@ -1,51 +1,51 @@
-import {DefaultComponentExtensible, DefaultProps} from "../../Props.ts";
-import {SimulateurEtapeResult} from "./SimulateurEtapeResult.tsx";
-import {SimulateurEtapeForm} from "./SimulateurEtapeForm.tsx";
-import {SimulateurFormData} from "../../Services/simulateurFrontServices.ts";
+import { DefaultComponentExtensible, DefaultProps } from "../../Props.ts";
+import { SimulateurEtapeResult } from "./SimulateurEtapeResult.tsx";
+import { SimulateurEtapeForm } from "./SimulateurEtapeForm.tsx";
+import { SimulateurFormData } from "../../Services/simulateurFrontServices.ts";
 
 export interface SimulateurContenuEtapeProps extends DefaultProps {
-    handleChange?: React.ChangeEventHandler<HTMLInputElement>;
-    formData: SimulateurFormData;
+  handleChange?: React.ChangeEventHandler<HTMLInputElement>;
+  formData: SimulateurFormData;
 }
+
 export type SimulateurEtapeNodeComponent =
-    DefaultComponentExtensible<SimulateurContenuEtapeProps>;
+  DefaultComponentExtensible<SimulateurContenuEtapeProps>;
 
 export interface SimulateurEtapeRenderedProps extends SimulateurEtapeProps {
-    handleChange: React.ChangeEventHandler<HTMLInputElement>;
-    formData: SimulateurFormData;
+  handleChange: React.ChangeEventHandler<HTMLInputElement>;
+  formData: SimulateurFormData;
+  handleSendFormData: (formData: SimulateurFormData) => Promise<string>;
 }
+
 export type SimulateurEtapeRenderedComponent =
-    DefaultComponentExtensible<SimulateurEtapeRenderedProps>;
+  DefaultComponentExtensible<SimulateurEtapeRenderedProps>;
 
 export type InformationsEtape = {
-    titre: string;
-    elementToRender: SimulateurEtapeRenderedComponent;
+  titre: string;
+  elementToRender: SimulateurEtapeRenderedComponent;
 };
 
 export class InformationEtapeForm implements InformationsEtape {
-    public readonly elementToRender: SimulateurEtapeRenderedComponent =
-        SimulateurEtapeForm;
+  public readonly elementToRender: SimulateurEtapeRenderedComponent =
+    SimulateurEtapeForm;
 
-    public constructor(
-        public readonly titre: string,
-        public readonly indicationReponses: string,
-        public readonly contenu: SimulateurEtapeNodeComponent,
-    ) {
-    }
+  public constructor(
+    public readonly titre: string,
+    public readonly indicationReponses: string,
+    public readonly contenu: SimulateurEtapeNodeComponent,
+  ) {}
 }
 
 export class InformationEtapeResult implements InformationsEtape {
-    public readonly elementToRender: SimulateurEtapeRenderedComponent =
-        SimulateurEtapeResult;
+  public readonly elementToRender: SimulateurEtapeRenderedComponent =
+    SimulateurEtapeResult;
 
-    public constructor(
-        public readonly titre: string,
-    ) {
-    }
+  public constructor(public readonly titre: string) {}
 }
+
 export interface SimulateurEtapeProps extends DefaultProps {
-    etapeCourante: number;
-    etapePrecedenteHandler: (e: React.MouseEvent) => void;
-    etapeSuivanteHandler: (e: React.MouseEvent) => void;
-    listeEtapes: InformationsEtape[];
+  etapeCourante: number;
+  etapePrecedenteHandler: (e: React.MouseEvent) => void;
+  etapeSuivanteHandler: (e: React.MouseEvent) => void;
+  listeEtapes: InformationsEtape[];
 }
