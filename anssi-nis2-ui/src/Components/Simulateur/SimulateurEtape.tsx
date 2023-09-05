@@ -44,10 +44,6 @@ export const SimulateurEtape: DefaultComponentExtensible<
     setInputs({ ...inputs, [fieldName]: fieldHandlers[fieldName](value) });
   };
 
-  // if(etapeCourante === 5) {
-  //   return <SimulateurEtape6Resultat />
-  // }
-
   const ElementRendered = listeEtapes[etapeCourante].elementToRender
   return (
     <ElementRendered

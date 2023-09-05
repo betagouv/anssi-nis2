@@ -1,4 +1,4 @@
-import { FormContainer } from "../FormContainer.tsx";
+import { RowContainer } from "../RowContainer.tsx";
 import { StepperNavigation } from "./StepperNavigation.tsx";
 
 import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
@@ -21,7 +21,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   const suivante = listeEtapes[etapeCourante + 1] || "";
 
   return (
-    <FormContainer>
+    <RowContainer className="fr-background-alt--blue-france">
       <div className="fr-grid-row fr-grid-row-gutters fr-grid-row--center">
         <div className="fr-col-12 fr-col-md-10 fr-col-lg-9">
           <Stepper
@@ -43,6 +43,6 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
           />
         </div>
       </div>
-    </FormContainer>
+    </RowContainer>
   );
 };
