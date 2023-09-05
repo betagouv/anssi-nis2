@@ -11,7 +11,7 @@ import {
   SimulateurEtape5,
   SimulateurEtape6Resultat,
 } from "./Components/Simulateur";
-import { InformationsEtape } from "./Services/simulateurFrontServices.ts";
+import {InformationEtapeResult, InformationsEtape, InformationsEtapeForm} from "./Services/simulateurFrontServices.ts";
 
 const Simulateur: DefaultComponent = () => {
   const [etapeCourante, setEtapeCourante] = useState(0);
@@ -35,36 +35,36 @@ const Simulateur: DefaultComponent = () => {
   );
 
   const etapesQuestionnaire: InformationsEtape[] = [
-    {
-      titre: "Localisation de l’activité",
-      indicationReponses: "Sélectionnez une réponse",
-      contenu: SimulateurEtape1,
-    },
-    {
-      titre: "Type de structure",
-      indicationReponses: "Sélectionnez une réponse",
-      contenu: SimulateurEtape2,
-    },
-    {
-      titre: "Taille de l’organisation",
-      indicationReponses: "Sélectionnez une réponse pour chaque critère",
-      contenu: SimulateurEtape3,
-    },
-    {
-      titre: "Secteurs d’activité",
-      indicationReponses: "Sélectionnez au moins une réponse",
-      contenu: SimulateurEtape4,
-    },
-    {
-      titre: "Activités pratiquées",
-      indicationReponses: "Sélectionnez une réponse",
-      contenu: SimulateurEtape5,
-    },
-    {
-      titre: "Resultat",
-      contenu: SimulateurEtape6Resultat,
-      backgroundClass: "white",
-    },
+    new InformationsEtapeForm(
+      "Localisation de l’activité",
+      "Sélectionnez une réponse",
+      SimulateurEtape1,
+    ),
+    new InformationsEtapeForm(
+      "Type de structure",
+      "Sélectionnez une réponse",
+      SimulateurEtape2,
+    ),
+    new InformationsEtapeForm(
+      "Taille de l’organisation",
+      "Sélectionnez une réponse pour chaque critère",
+      SimulateurEtape3,
+    ),
+    new InformationsEtapeForm(
+      "Secteurs d’activité",
+      "Sélectionnez au moins une réponse",
+      SimulateurEtape4,
+    ),
+    new InformationsEtapeForm(
+      "Activités pratiquées",
+      "Sélectionnez une réponse",
+      SimulateurEtape5,
+    ),
+    new InformationEtapeResult(
+      "Resultat",
+      SimulateurEtape6Resultat,
+      "white",
+),
   ];
 
   return (

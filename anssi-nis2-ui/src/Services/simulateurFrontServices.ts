@@ -18,18 +18,34 @@ export interface SimulateurContenuEtapeProps extends DefaultProps {
 
 export type SimulateurEtapeNode =
   DefaultComponentExtensible<SimulateurContenuEtapeProps>;
+
 export type InformationsEtape = {
   titre: string;
-  indicationReponses?: string;
   contenu: SimulateurEtapeNode;
   backgroundClass?: string;
 };
 
+export class InformationsEtapeForm implements InformationsEtape {
+  public constructor(
+    public readonly titre: string,
+    public readonly indicationReponses: string,
+    public readonly contenu: SimulateurEtapeNode,
+  ) {}
+}
+
+export class InformationEtapeResult implements InformationsEtape {
+  public constructor(
+      public readonly titre: string,
+      public readonly contenu: SimulateurEtapeNode,
+      public readonly backgroundClass: string,
+  ) {}
+}
+
 export interface SimulateurEtapeProps extends DefaultProps {
-  etapeCourante: number,
-  etapePrecedenteHandler: (e: React.MouseEvent) => void,
-  etapeSuivanteHandler: (e: React.MouseEvent) => void,
-  listeEtapes: InformationsEtape[]
+  etapeCourante: number;
+  etapePrecedenteHandler: (e: React.MouseEvent) => void;
+  etapeSuivanteHandler: (e: React.MouseEvent) => void;
+  listeEtapes: InformationsEtape[];
 }
 
 export type SimulateurFieldNames =
