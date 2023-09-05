@@ -14,7 +14,7 @@ import {
   InformationEtapeForm,
   InformationEtapeResult,
   InformationsEtape,
-} from "./Components/Simulateur/simulateurProps.ts"
+} from "./Components/Simulateur/simulateurProps.ts";
 
 const Simulateur: DefaultComponent = () => {
   const [etapeCourante, setEtapeCourante] = useState(0);

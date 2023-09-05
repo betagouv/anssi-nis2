@@ -13,7 +13,8 @@ import ImageGuideHygieneCyber from "../../assets/GuideHygieneCyber.png";
 import PdfCard from "./PdfCard.tsx";
 import { PdfCardContainer } from "../PdfCardContainer.tsx";
 import ReseauxSociaux from "../ReseauxSociaux.tsx";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AppContext } from "../../AppContext.tsx";
 
 const ResultDiv = styled.div`
   background-color: ${fr.colors.decisions.background.alt.greenMenthe.default};
@@ -43,12 +44,13 @@ const Hidden = styled.div`
 
 export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
   formData,
-  handleSendFormData,
 }: SimulateurEtapeRenderedProps) => {
   const [result, setResult] = useState("");
+  const {sendFormData} = useContext(AppContext);
+
   useEffect(() => {
-    handleSendFormData(formData).then((response) => setResult(response));
-  }, [formData, handleSendFormData, result]);
+    sendFormData(formData).then((response) => setResult(response));
+  }, [formData, sendFormData, result]);
 
   return (
     <>

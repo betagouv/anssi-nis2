@@ -13,11 +13,11 @@ import {
 export const SimulateurEtape: DefaultComponentExtensible<
   SimulateurEtapeProps
 > = ({
-  etapeCourante,
-  etapePrecedenteHandler,
-  etapeSuivanteHandler,
-  listeEtapes,
-}: SimulateurEtapeProps) => {
+                                     etapeCourante,
+                                     etapePrecedenteHandler,
+                                     etapeSuivanteHandler,
+                                     listeEtapes,
+                                   }: SimulateurEtapeProps) => {
   const [inputs, setInputs] = useState<SimulateurFormData>(
     emptySimulateurFormData,
   );
@@ -46,12 +46,6 @@ export const SimulateurEtape: DefaultComponentExtensible<
     setInputs({ ...inputs, [fieldName]: fieldHandlers[fieldName](value) });
   };
 
-  const sendFormData = async (formData: SimulateurFormData) => {
-    const data = JSON.stringify(formData);
-    console.log(data);
-    return data;
-  };
-
   const ElementRendered: SimulateurEtapeRenderedComponent =
     listeEtapes[etapeCourante].elementToRender;
   return (
@@ -59,7 +53,6 @@ export const SimulateurEtape: DefaultComponentExtensible<
       listeEtapes={listeEtapes}
       etapeCourante={etapeCourante}
       handleChange={handleChange}
-      handleSendFormData={sendFormData}
       formData={inputs}
       etapePrecedenteHandler={etapePrecedenteHandler}
       etapeSuivanteHandler={etapeSuivanteHandler}

@@ -14,7 +14,6 @@ export type SimulateurEtapeNodeComponent =
 export interface SimulateurEtapeRenderedProps extends SimulateurEtapeProps {
   handleChange: React.ChangeEventHandler<HTMLInputElement>;
   formData: SimulateurFormData;
-  handleSendFormData: (formData: SimulateurFormData) => Promise<string>;
 }
 
 export type SimulateurEtapeRenderedComponent =
@@ -44,8 +43,8 @@ export class InformationEtapeResult implements InformationsEtape {
 }
 
 export interface SimulateurEtapeProps extends DefaultProps {
-  etapeCourante: number;
-  etapePrecedenteHandler: (e: React.MouseEvent) => void;
-  etapeSuivanteHandler: (e: React.MouseEvent) => void;
-  listeEtapes: InformationsEtape[];
+  etapeCourante: number,
+  etapePrecedenteHandler: (e: React.MouseEvent) => void,
+  etapeSuivanteHandler: (e: React.MouseEvent) => void,
+  listeEtapes: InformationsEtape[],
 }
