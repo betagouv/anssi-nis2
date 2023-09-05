@@ -1,17 +1,20 @@
-import { DefaultComponent, InformationsEtape } from "./Props.ts";
+import { DefaultComponent } from "./Props.ts";
 import React, { useState } from "react";
 
 import MiseEnPage from "./Components/MiseEnPage.tsx";
 import { SimulateurEtape } from "./Components/Simulateur/SimulateurEtape.tsx";
-import { FormContainer } from "./Components/FormContainer.tsx";
 import {
   SimulateurEtape1,
   SimulateurEtape2,
   SimulateurEtape3,
   SimulateurEtape4,
   SimulateurEtape5,
-  SimulateurEtape6Resultat,
 } from "./Components/Simulateur";
+import {
+  InformationEtapeForm,
+  InformationEtapeResult,
+  InformationsEtape,
+} from "./Components/Simulateur/simulateurProps.ts"
 
 const Simulateur: DefaultComponent = () => {
   const [etapeCourante, setEtapeCourante] = useState(0);
@@ -35,49 +38,43 @@ const Simulateur: DefaultComponent = () => {
   );
 
   const etapesQuestionnaire: InformationsEtape[] = [
-    {
-      titre: "Localisation de l’activité",
-      indicationReponses: "Sélectionnez une réponse",
-      contenu: <SimulateurEtape1 />,
-    },
-    {
-      titre: "Type de structure",
-      indicationReponses: "Sélectionnez une réponse",
-      contenu: <SimulateurEtape2 />,
-    },
-    {
-      titre: "Taille de l’organisation",
-      indicationReponses: "Sélectionnez une réponse pour chaque critère",
-      contenu: <SimulateurEtape3 />,
-    },
-    {
-      titre: "Secteurs d’activité",
-      indicationReponses: "Sélectionnez au moins une réponse",
-      contenu: <SimulateurEtape4 />,
-    },
-    {
-      titre: "Activités pratiquées",
-      indicationReponses: "Sélectionnez une réponse",
-      contenu: <SimulateurEtape5 />,
-    },
-    {
-      titre: "Resultat",
-      contenu: <SimulateurEtape6Resultat />,
-    },
+    new InformationEtapeResult("Resultat"),
+
+    new InformationEtapeForm(
+      "Localisation de l’activité",
+      "Sélectionnez une réponse",
+      SimulateurEtape1,
+    ),
+    new InformationEtapeForm(
+      "Type de structure",
+      "Sélectionnez une réponse",
+      SimulateurEtape2,
+    ),
+    new InformationEtapeForm(
+      "Taille de l’organisation",
+      "Sélectionnez une réponse pour chaque critère",
+      SimulateurEtape3,
+    ),
+    new InformationEtapeForm(
+      "Secteurs d’activité",
+      "Sélectionnez au moins une réponse",
+      SimulateurEtape4,
+    ),
+    new InformationEtapeForm(
+      "Activités pratiquées",
+      "Sélectionnez une réponse",
+      SimulateurEtape5,
+    ),
   ];
 
   return (
     <MiseEnPage page={"simulateur"}>
-      <FormContainer>
-        <SimulateurEtape
-          etapeCourante={etapeCourante + 1}
-          nombreEtapes={6}
-          etape={etapesQuestionnaire[etapeCourante]}
-          suivante={etapesQuestionnaire[etapeCourante + 1] || ""}
-          etapePrecedente={etapePrecedente}
-          etapeSuivante={etapeSuivante}
-        />
-      </FormContainer>
+      <SimulateurEtape
+        etapeCourante={etapeCourante}
+        listeEtapes={etapesQuestionnaire}
+        etapePrecedenteHandler={etapePrecedente}
+        etapeSuivanteHandler={etapeSuivante}
+      />
     </MiseEnPage>
   );
 };

@@ -1,6 +1,7 @@
 import { Props } from "../../Props.ts";
 import { createMakeAndWithStyles } from "tss-react";
 import { ColorTheme, useColors } from "@codegouvfr/react-dsfr/useColors";
+import ReseauxSociaux from "../ReseauxSociaux.tsx";
 
 const { makeStyles } = createMakeAndWithStyles({
   useTheme: function (): ColorTheme {
@@ -44,61 +45,7 @@ export const BandeauInformation = (props: Props) => {
             </div>
           </div>
           <div className="fr-col-12 fr-col-md-4">
-            <div className="fr-follow__social">
-              <p className="fr-h5">
-                Suivez-nous <br /> sur les réseaux sociaux
-              </p>
-              <ul className="fr-links-group">
-                <li>
-                  <a
-                    className="fr-link--twitter fr-link"
-                    title="S'abonner à notre compte Twitter - nouvelle fenêtre"
-                    href="https://www.twitter.com/anssi_fr"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {" "}
-                    twitter{" "}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="fr-link--linkedin fr-link"
-                    title="Nous suivre sur LinkedIn - nouvelle fenêtre"
-                    href="https://www.linkedin.com/company/anssi-fr"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {" "}
-                    linkedin{" "}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className={cx(["fr-link--dailymotion fr-link"], className)}
-                    title="Nos vidéos sur Dailymotion - nouvelle fenêtre"
-                    href="https://www.dailymotion.com/ANSSI_FR"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {" "}
-                    dailymotion{" "}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="fr-link--github fr-link"
-                    title="Github de l'ANSSI - nouvelle fenêtre"
-                    href="https://github.com/ANSSI-FR"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {" "}
-                    dailymotion{" "}
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <ReseauxSociaux />
           </div>
         </div>
       </div>

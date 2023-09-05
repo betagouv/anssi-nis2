@@ -5,40 +5,61 @@ import {
   ValeursTrancheNombreEmployes,
   ValeursTypeStructure,
 } from "../Domaine/DomaineSimulateur.ts";
+import { NativeInputProps } from "../Props.ts";
+
+export type SimulateurFieldNames =
+  | "etatMembre"
+  | "typeStructure"
+  | "trancheNombreEmployes"
+  | "trancheCA"
+  | "secteurActivite";
+
+export type SimulateurFormData = Record<SimulateurFieldNames, string[]>;
+export const emptySimulateurFormData: SimulateurFormData = {
+  etatMembre: [],
+  secteurActivite: [],
+  trancheCA: [],
+  trancheNombreEmployes: [],
+  typeStructure: [],
+};
 
 type TransformeRecordToSelect<ValeursCles extends string> = (
   valeurs: Record<ValeursCles, string>,
+  onChange?: React.ChangeEventHandler<HTMLInputElement>,
+  formData?: SimulateurFormData,
+  group?: string,
 ) => {
-  nativeInputProps: {
-    name: string;
-    value: string;
-  };
+  nativeInputProps: NativeInputProps;
   label: string;
 }[];
 
+export const getValueContent = (group: string | undefined, key: string) =>
+  group ? `${group}[${key}]` : key;
+
+type labelGenerator<T extends string> = (
+  value: string,
+  valeursMetier: Record<T, string>,
+) => string;
 export const genereTransformateurValeursVersOptions =
   <T extends string>(
-    generateurLabel: (
-      value: string,
-      valeursMetier: Record<T, string>,
-    ) => string,
-    name: string,
+    generateurLabel: labelGenerator<T>,
+    name: SimulateurFieldNames,
   ): TransformeRecordToSelect<T> =>
-  (valeursMetier) => {
+  (valeursMetier, onChange?, formData?, group?) => {
     const selectOptions: Array<{
-      nativeInputProps: {
-        name: string;
-        value: string;
-      };
+      nativeInputProps: NativeInputProps;
       label: string;
     }> = [];
+    const checkedValue = formData?.[name as SimulateurFieldNames] || [];
     for (const key in valeursMetier) {
       selectOptions.push();
       selectOptions.push({
         label: generateurLabel(key, valeursMetier),
         nativeInputProps: {
           name: name,
-          value: key,
+          value: getValueContent(group, key),
+          onChange: onChange || (() => {}),
+          checked: checkedValue.indexOf(getValueContent(group, key)) !== -1,
         },
       });
     }
@@ -82,10 +103,10 @@ const getCALabel = (
 export const transformeTranchesCAVersOptions: TransformeRecordToSelect<ValeursTrancheCA> =
   genereTransformateurValeursVersOptions(getCALabel, "trancheCA");
 
-const getSecteurActiviteLabel = (
+export const getSecteurActiviteLabel = (
   value: string,
-  tranchesCA: Record<ValeursSecteurActivite, string>,
-) => tranchesCA[value as ValeursSecteurActivite];
+  secteurActivite: Record<ValeursSecteurActivite, string>,
+) => secteurActivite[value as ValeursSecteurActivite];
 export const transformeSecteursActiviteVersOptions: TransformeRecordToSelect<ValeursSecteurActivite> =
   genereTransformateurValeursVersOptions(
     getSecteurActiviteLabel,

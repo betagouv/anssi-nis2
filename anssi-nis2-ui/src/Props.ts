@@ -15,17 +15,11 @@ export type DefaultComponentExtensible<AdditionalProps extends DefaultProps> = (
 ) => React.ReactNode;
 
 export type DefaultComponent = DefaultComponentExtensible<DefaultProps>;
-export type InformationsEtape = {
-  titre: string;
-  indicationReponses?: string;
-  contenu: React.ReactNode;
-};
 
-export interface SimulateurEtapeProps extends DefaultProps {
-  etapeCourante: number;
-  nombreEtapes: number;
-  etape: InformationsEtape;
-  suivante: InformationsEtape;
-  etapePrecedente: (e: React.MouseEvent) => void;
-  etapeSuivante: (e: React.MouseEvent) => void;
-}
+export type NativeInputProps = {
+  name: string;
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  checked: boolean;
+};
+export type FormValueHandler = (value: string) => string[];
