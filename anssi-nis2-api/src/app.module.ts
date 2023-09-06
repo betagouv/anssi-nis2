@@ -5,6 +5,7 @@ import { SimulateurService } from './simulateur.service';
 import { SimulateurDepotToken } from './Domaine/simulateur';
 import { InMemorySimulateurDepot } from './simulateur.depot';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { AuthModule } from './auth/auth.module';
 import * as path from 'path';
 
 const databaseConnectionUrl =
@@ -35,6 +36,7 @@ const getStaticFrontPath: () => string = () => {
     ServeStaticModule.forRoot({
       rootPath: getStaticFrontPath(),
     }),
+    AuthModule,
   ],
   controllers: [SimulateurController],
   providers: [
