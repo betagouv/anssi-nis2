@@ -16,7 +16,7 @@
     "predev": "only-include-used-icons",
     "prebuild": "only-include-used-icons",
     "test": "vitest run",
-    "start": "node server.cjs"
+    "start": "node ../server.cjs"
   },
   "dependencies": {
     "@codegouvfr/react-dsfr": "^0.74.2",

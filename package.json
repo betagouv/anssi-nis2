@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "workspaces": ["anssi-nis2-ui", "anssi-nis2-api"],
+  "workspaces": [
+    "anssi-nis2-ui",
+    "anssi-nis2-api"
+  ],
   "scripts": {
     "test": "npm run test --workspaces --if-present",
     "build": "npm run build --workspaces --if-present",
-    "start": "npm run start --workspaces --if-present"
+    "start": "cd anssi-nis2-api && node dist/main.js"
   },
   "repository": {
     "type": "git",
