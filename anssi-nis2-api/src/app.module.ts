@@ -4,9 +4,8 @@ import { SimulateurController } from './simulateurController';
 import { SimulateurService } from './simulateur.service';
 import { SimulateurDepotToken } from './Domaine/simulateur';
 import { InMemorySimulateurDepot } from './simulateur.depot';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { AuthModule } from './auth/auth.module';
 import * as path from 'path';
+import { MyServeStaticModule } from './my-serve-static.module';
 
 const databaseConnectionUrl =
   process.env.SCALINGO_POSTGRESQL_URL ||
@@ -22,7 +21,7 @@ const serverOptions: TypeOrmModuleOptions = {
 const getStaticFrontPath: () => string = () => {
   const currentPathParts = __dirname.split(path.sep);
   const targetPath = [
-    ...currentPathParts.slice(0, currentPathParts.length - 1),
+    ...currentPathParts.slice(0, currentPathParts.length - 2),
     'anssi-nis2-ui',
     'dist',
   ].join(path.sep);
@@ -33,10 +32,9 @@ const getStaticFrontPath: () => string = () => {
 @Module({
   imports: [
     TypeOrmModule.forRoot(serverOptions),
-    ServeStaticModule.forRoot({
+    MyServeStaticModule.forRoot({
       rootPath: getStaticFrontPath(),
     }),
-    AuthModule,
   ],
   controllers: [SimulateurController],
   providers: [
