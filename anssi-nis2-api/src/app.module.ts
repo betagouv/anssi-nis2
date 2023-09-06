@@ -1,23 +1,23 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { SimulateurController } from './simulateurController';
 import { SimulateurService } from './simulateur.service';
 import { SimulateurDepotToken } from './Domaine/simulateur';
 import { InMemorySimulateurDepot } from './simulateur.depot';
 
+const databaseConnectionUrl =
+  process.env.SCALINGO_POSTGRESQL_URL ||
+  'postgres://postgres:secret@localhost:5432/anssi-nis2';
+
+const serverOptions: TypeOrmModuleOptions = {
+  url: databaseConnectionUrl,
+  type: 'postgres',
+  synchronize: true,
+  entities: [],
+};
+
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      port: 5432,
-      username: 'postgres',
-      password: 'secret',
-      database: 'anssi-nis2',
-      host: 'localhost',
-      synchronize: true,
-      entities: [],
-    }),
-  ],
+  imports: [TypeOrmModule.forRoot(serverOptions)],
   controllers: [SimulateurController],
   providers: [
     SimulateurService,
