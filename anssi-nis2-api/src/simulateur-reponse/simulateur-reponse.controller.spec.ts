@@ -5,30 +5,11 @@ import { SimulateurReponseService } from './simulateur-reponse.service';
 import { provideSimulateurRepouseRepositoryKey } from '../constantes';
 import { Repository } from 'typeorm';
 import { SimulateurReponse } from './simulateur-reponse.entity';
+import { MockFactory } from '../test/mock.factory';
 
 export type MockType<T> = {
   [P in keyof T]?: jest.Mock<unknown>;
 };
-
-export class MockFactory {
-  static getMock<T>(
-    type: new (...args: any[]) => T,
-    includes?: string[],
-  ): MockType<T> {
-    const mock: MockType<T> = {};
-
-    Object.getOwnPropertyNames(type.prototype)
-      .filter(
-        (key: string) =>
-          key !== 'constructor' && (!includes || includes.includes(key)),
-      )
-      .map((key: string) => {
-        mock[key] = jest.fn();
-      });
-
-    return mock;
-  }
-}
 
 describe('SimulateurReponseController', () => {
   let controller: SimulateurReponseController;
