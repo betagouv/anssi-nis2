@@ -18,7 +18,7 @@ const Simulateur: DefaultComponent = () => {
     };
 
   const etapeSuivante = soumissionEtape(
-    (etape) => etape < 6,
+    (etape) => etape < etapesQuestionnaire.length,
     etapeCourante + 1,
   );
   const etapePrecedente = soumissionEtape(

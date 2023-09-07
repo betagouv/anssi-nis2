@@ -37,6 +37,6 @@ export const etapesQuestionnaire: InformationsEtape[] = [
     "Activités pratiquées",
     "Sélectionnez une réponse",
     SimulateurEtape5,
-  ),
+  ) /* */,
   new InformationEtapeResult("Resultat"),
 ];

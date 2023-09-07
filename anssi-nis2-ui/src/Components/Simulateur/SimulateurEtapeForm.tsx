@@ -8,6 +8,8 @@ import {
   SimulateurEtapeRenderedProps,
 } from "./simulateurProps.ts";
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
+import { useContext } from "react";
+import { AppContext } from "../../AppContext.tsx";
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   listeEtapes,
@@ -20,9 +22,19 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   const informationsEtape = listeEtapes[etapeCourante] as InformationEtapeForm;
   const EtapeCourante = informationsEtape.contenu;
   const suivante = listeEtapes[etapeCourante + 1] || "";
+  const { sendFormData } = useContext(AppContext);
 
   const etapePrecedenteHandlerConcret =
     etapeCourante == 0 ? noRefClick : etapePrecedenteHandler;
+  const sauvePuisEtapeSuivante = (e: React.MouseEvent<Element, MouseEvent>) => {
+    console.log(`Envoie les données à l'API ${JSON.stringify(formData)}`);
+    sendFormData(formData).then(() => etapeSuivanteHandler(e));
+  };
+
+  const etapeSuivantHandlerConcret =
+    etapeCourante < listeEtapes.length - 2
+      ? etapeSuivanteHandler
+      : sauvePuisEtapeSuivante;
 
   return (
     <RowContainer className="fr-background-alt--blue-france">
@@ -43,7 +55,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
           <StepperNavigation
             indicationReponses={informationsEtape.indicationReponses}
             onClickPrevious={etapePrecedenteHandlerConcret}
-            onClickNext={etapeSuivanteHandler}
+            onClickNext={etapeSuivantHandlerConcret}
           />
         </div>
       </div>

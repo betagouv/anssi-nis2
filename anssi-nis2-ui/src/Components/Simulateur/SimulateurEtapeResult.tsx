@@ -1,8 +1,5 @@
 import styled from "@emotion/styled";
-import {
-  SimulateurEtapeRenderedComponent,
-  SimulateurEtapeRenderedProps,
-} from "./simulateurProps.ts";
+import { SimulateurEtapeRenderedComponent } from "./simulateurProps.ts";
 import SimulateurResterInformee from "./SimulateurResterInformee.tsx";
 import { fr } from "@codegouvfr/react-dsfr";
 import Icon from "@mui/material/Icon";
@@ -13,8 +10,6 @@ import ImageGuideHygieneCyber from "../../assets/GuideHygieneCyber.png";
 import PdfCard from "./PdfCard.tsx";
 import { PdfCardContainer } from "../PdfCardContainer.tsx";
 import ReseauxSociaux from "../ReseauxSociaux.tsx";
-import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../AppContext.tsx";
 
 const ResultDiv = styled.div`
   background-color: ${fr.colors.decisions.background.alt.greenMenthe.default};
@@ -38,20 +33,7 @@ const HeaderResult = styled.h4`
   color: ${fr.colors.decisions.text.actionHigh.greenMenthe.default};
 `;
 
-const Hidden = styled.div`
-  display: none;
-`;
-
-export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
-  formData,
-}: SimulateurEtapeRenderedProps) => {
-  const [result, setResult] = useState("");
-  const { sendFormData } = useContext(AppContext);
-
-  useEffect(() => {
-    sendFormData(formData).then((response) => setResult(response));
-  }, [formData]);
-
+export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = () => {
   return (
     <>
       <RowContainer>
@@ -72,7 +54,6 @@ export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
               français pour certaines entités. Ces exemptions ou désignation
               seront connues au plus tard le 18 octobre 2024.
             </p>
-            <Hidden>{result}</Hidden>
           </ResultDiv>
         </CenteredContainer>
       </RowContainer>
