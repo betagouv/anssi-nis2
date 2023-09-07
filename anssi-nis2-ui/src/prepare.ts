@@ -1,8 +1,15 @@
 import axios from "axios";
 
-const simulationApiBaseurl =
-  process.env.SIMULATION_API_BASEURL || "http://localhost:3000/";
+const simulationApiBaseurl = "/api";
 export const simulationApi = axios.create({
   baseURL: simulationApiBaseurl,
   timeout: 1000,
 });
+
+export const generateSimulationApi = () => {
+  console.log(`generateSimulationApi Using URL : ${simulationApiBaseurl}`);
+  return axios.create({
+    baseURL: simulationApiBaseurl,
+    timeout: 1000,
+  });
+};
