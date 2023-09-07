@@ -13,11 +13,7 @@ export class SimulateurReponseController {
   async enregistreDonneesSimulateur(
     @Body() formData: SimulateurFormData,
   ): Promise<string> {
-    return this.simulateurReponseService
-      .save(formData)
-      .then((simulateurReponse) => {
-        return simulateurReponse.reponseJson;
-      });
+    return (await this.simulateurReponseService.save(formData)).reponseJson;
   }
 
   @Get()
