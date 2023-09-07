@@ -6,24 +6,12 @@ export const RowContainer: DefaultComponent = ({
   children,
 }: DefaultProps) => {
   return (
-      <div className={fr.cx(
-              className as FrCxArg)}>
-        <div
-            className={fr.cx(
-                "fr-container",
-                "fr-container--fluid",
-            )}
-        >
-          <div
-              className={fr.cx(
-                  "fr-grid-row",
-                  "fr-grid-row--gutters",
-                  "fr-grid-row--center",
-              )}
-          >
-            {children}
-          </div>
+    <div className={fr.cx(className as FrCxArg)}>
+      <div className={fr.cx("fr-container", "fr-container--fluid")}>
+        <div className={fr.cx("fr-grid-row", "fr-grid-row--center")}>
+          {children}
         </div>
       </div>
+    </div>
   );
 };

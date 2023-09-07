@@ -5,8 +5,12 @@ import {
   SimulateurFieldNames,
   SimulateurFormData,
 } from "../../Services/simulateurFrontServices.ts";
-import {SimulateurEtapeProps} from "./simulateurProps.ts"
+import {
+  SimulateurEtapeProps,
+  SimulateurEtapeRenderedComponent,
+} from "./simulateurProps.ts";
 
+const handleSingleValue = (value: string) => [value];
 
 export const SimulateurEtape: DefaultComponentExtensible<
   SimulateurEtapeProps
@@ -28,8 +32,6 @@ export const SimulateurEtape: DefaultComponentExtensible<
       return inputs[name].filter((content) => content !== value);
     };
 
-  const handleSingleValue = (value: string) => [value];
-
   const fieldHandlers: Record<SimulateurFieldNames, FormValueHandler> = {
     etatMembre: generateHandlerMultipleValues("etatMembre"),
     secteurActivite: generateHandlerMultipleValues("secteurActivite"),
@@ -44,7 +46,8 @@ export const SimulateurEtape: DefaultComponentExtensible<
     setInputs({ ...inputs, [fieldName]: fieldHandlers[fieldName](value) });
   };
 
-  const ElementRendered = listeEtapes[etapeCourante].elementToRender
+  const ElementRendered: SimulateurEtapeRenderedComponent =
+    listeEtapes[etapeCourante].elementToRender;
   return (
     <ElementRendered
       listeEtapes={listeEtapes}

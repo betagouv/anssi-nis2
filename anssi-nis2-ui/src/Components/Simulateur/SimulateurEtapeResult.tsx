@@ -96,10 +96,9 @@ export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = () => {
       </RowContainer>
       <RowContainer className="fr-background-alt--blue-france">
         <CenteredContainer>
-            <div className="fr-follow__newsletter">
-
-                <ReseauxSociaux />
-            </div>
+          <div className="fr-follow__newsletter">
+            <ReseauxSociaux />
+          </div>
         </CenteredContainer>
       </RowContainer>
     </>
