@@ -46,11 +46,11 @@ export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
   formData,
 }: SimulateurEtapeRenderedProps) => {
   const [result, setResult] = useState("");
-  const {sendFormData} = useContext(AppContext);
+  const { sendFormData } = useContext(AppContext);
 
   useEffect(() => {
     sendFormData(formData).then((response) => setResult(response));
-  }, [formData, sendFormData, result]);
+  }, [formData]);
 
   return (
     <>
