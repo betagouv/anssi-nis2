@@ -10,14 +10,16 @@ import {
   SimulateurEtapeRenderedComponent,
 } from "./simulateurProps.ts";
 
+const handleSingleValue = (value: string) => [value];
+
 export const SimulateurEtape: DefaultComponentExtensible<
   SimulateurEtapeProps
 > = ({
-                                     etapeCourante,
-                                     etapePrecedenteHandler,
-                                     etapeSuivanteHandler,
-                                     listeEtapes,
-                                   }: SimulateurEtapeProps) => {
+  etapeCourante,
+  etapePrecedenteHandler,
+  etapeSuivanteHandler,
+  listeEtapes,
+}: SimulateurEtapeProps) => {
   const [inputs, setInputs] = useState<SimulateurFormData>(
     emptySimulateurFormData,
   );
@@ -29,8 +31,6 @@ export const SimulateurEtape: DefaultComponentExtensible<
       }
       return inputs[name].filter((content) => content !== value);
     };
-
-  const handleSingleValue = (value: string) => [value];
 
   const fieldHandlers: Record<SimulateurFieldNames, FormValueHandler> = {
     etatMembre: generateHandlerMultipleValues("etatMembre"),

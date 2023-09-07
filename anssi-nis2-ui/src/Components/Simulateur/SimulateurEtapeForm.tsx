@@ -6,7 +6,8 @@ import {
   InformationEtapeForm,
   SimulateurEtapeRenderedComponent,
   SimulateurEtapeRenderedProps,
-} from "./simulateurProps.ts"
+} from "./simulateurProps.ts";
+import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   listeEtapes,
@@ -19,6 +20,9 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   const informationsEtape = listeEtapes[etapeCourante] as InformationEtapeForm;
   const EtapeCourante = informationsEtape.contenu;
   const suivante = listeEtapes[etapeCourante + 1] || "";
+
+  const etapePrecedenteHandlerConcret =
+    etapeCourante == 0 ? noRefClick : etapePrecedenteHandler;
 
   return (
     <RowContainer className="fr-background-alt--blue-france">
@@ -38,8 +42,8 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
 
           <StepperNavigation
             indicationReponses={informationsEtape.indicationReponses}
-            onClick={etapePrecedenteHandler}
-            onClick1={etapeSuivanteHandler}
+            onClickPrevious={etapePrecedenteHandlerConcret}
+            onClickNext={etapeSuivanteHandler}
           />
         </div>
       </div>

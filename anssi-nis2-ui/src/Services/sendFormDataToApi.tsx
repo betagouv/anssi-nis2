@@ -7,7 +7,7 @@ export const sendFormDataToApi: SendFormData = async (
 ) => {
   const simulationApi = generateSimulationApi();
   const data = JSON.stringify(formData);
-  console.log(`Calling to API Simulation ${JSON.stringify(simulationApi)}`);
+  console.log(`Calling to API Simulation ${data}`);
   simulationApi
     .post("/", formData)
     .then((response) => console.log(JSON.stringify(response)));
