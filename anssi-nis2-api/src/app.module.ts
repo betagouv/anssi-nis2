@@ -9,10 +9,6 @@ import { MyServeStaticModule } from './my-serve-static.module';
 import { DataSource } from 'typeorm';
 import { SimulateurReponseModule } from './simulateur-reponse/simulateur-reponse.module';
 import { DatabaseModule } from './database/database.module';
-import { SimulateurReponse } from './simulateur-reponse/simulateur-reponse.entity';
-import { SimulateurReponseController } from './simulateur-reponse/simulateur-reponse.controller';
-import { SimulateurReponseService } from './simulateur-reponse/simulateur-reponse.service';
-import { provideSimulateurRepouseRepositoryKey } from './constantes';
 
 const databaseConnectionUrl =
   process.env.SCALINGO_POSTGRESQL_URL ||

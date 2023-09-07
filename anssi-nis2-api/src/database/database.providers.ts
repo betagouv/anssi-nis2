@@ -1,4 +1,3 @@
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { datasourceKey } from '../constantes';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
