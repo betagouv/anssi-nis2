@@ -7,7 +7,7 @@ const listeningPort = process.env.PORT || 3000;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
-  //app.setGlobalPrefix('api');
+  app.setGlobalPrefix('api');
   await app.listen(listeningPort);
 }
 

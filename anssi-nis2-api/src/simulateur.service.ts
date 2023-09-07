@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import {
-  SimulateurDepot,
+  SimulateurRepository,
   SimulateurDepotToken,
   SimulateurFormData,
 } from './Domaine/simulateur';
@@ -9,7 +9,7 @@ import {
 export class SimulateurService {
   constructor(
     @Inject(SimulateurDepotToken)
-    private readonly simulateurDepot: SimulateurDepot,
+    private readonly simulateurDepot: SimulateurRepository,
   ) {}
 
   async processData(formData: SimulateurFormData) {

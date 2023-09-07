@@ -25,7 +25,7 @@ describe('SimulateurController', () => {
   describe('root', () => {
     it('should return "OK"', async () => {
       expect(
-        await simulateurController.processData(emptySimulateurFormData),
+        await simulateurController.sauvegarde(emptySimulateurFormData),
       ).toBe('OK');
     });
   });

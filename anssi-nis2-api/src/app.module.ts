@@ -6,6 +6,13 @@ import { SimulateurDepotToken } from './Domaine/simulateur';
 import { InMemorySimulateurDepot } from './simulateur.depot';
 import * as path from 'path';
 import { MyServeStaticModule } from './my-serve-static.module';
+import { DataSource } from 'typeorm';
+import { SimulateurReponseModule } from './simulateur-reponse/simulateur-reponse.module';
+import { DatabaseModule } from './database/database.module';
+import { SimulateurReponse } from './simulateur-reponse/simulateur-reponse.entity';
+import { SimulateurReponseController } from './simulateur-reponse/simulateur-reponse.controller';
+import { SimulateurReponseService } from './simulateur-reponse/simulateur-reponse.service';
+import { provideSimulateurRepouseRepositoryKey } from './constantes';
 
 const databaseConnectionUrl =
   process.env.SCALINGO_POSTGRESQL_URL ||
@@ -35,6 +42,8 @@ const getStaticFrontPath: () => string = () => {
     MyServeStaticModule.forRoot({
       rootPath: getStaticFrontPath(),
     }),
+    SimulateurReponseModule,
+    DatabaseModule,
   ],
   controllers: [SimulateurController],
   providers: [
@@ -42,4 +51,6 @@ const getStaticFrontPath: () => string = () => {
     { provide: SimulateurDepotToken, useClass: InMemorySimulateurDepot },
   ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private dataSource: DataSource) {}
+}

@@ -2,14 +2,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { SimulateurService } from './simulateur.service';
 import {
   emptySimulateurFormData,
-  SimulateurDepot,
+  SimulateurRepository,
   SimulateurDepotToken,
 } from './Domaine/simulateur';
 import { InMemorySimulateurDepot } from './simulateur.depot';
 
 describe('SimulateurService', () => {
   let simulateurService: SimulateurService;
-  let simulateurDepot: SimulateurDepot;
+  let simulateurDepot: SimulateurRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -20,7 +20,7 @@ describe('SimulateurService', () => {
     }).compile();
 
     simulateurService = module.get<SimulateurService>(SimulateurService);
-    simulateurDepot = module.get<SimulateurDepot>(SimulateurDepotToken);
+    simulateurDepot = module.get<SimulateurRepository>(SimulateurDepotToken);
   });
 
   it('should return all users', async () => {

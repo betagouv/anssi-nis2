@@ -14,7 +14,7 @@ export const emptySimulateurFormData: SimulateurFormData = {
   typeStructure: [],
 };
 
-export interface SimulateurDepot {
+export interface SimulateurRepository {
   save(data: SimulateurFormData): Promise<boolean>;
 }
 
