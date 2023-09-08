@@ -2,7 +2,7 @@ import Input from "@codegouvfr/react-dsfr/Input";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
 
-const SimulateurResterInformee = () => (
+const ResterInformee = () => (
   <div>
     <h2 className="fr-text-action-high--blue-france fr-h1">Restez informé·e</h2>
     <p className="fr-text">
@@ -68,4 +68,4 @@ const SimulateurResterInformee = () => (
   </div>
 );
 
-export default SimulateurResterInformee;
+export default ResterInformee;
