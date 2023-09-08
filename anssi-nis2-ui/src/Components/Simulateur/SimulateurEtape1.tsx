@@ -6,16 +6,28 @@ import {
   SimulateurContenuEtapeProps,
   SimulateurEtapeNodeComponent,
 } from "./simulateurProps.ts";
+import { NativeInputProps } from "../../Props.ts";
+import { useEffect, useState } from "react";
 
+type InputPropsList = {
+  nativeInputProps: NativeInputProps;
+  label: string;
+}[];
 const SimulateurEtape1: SimulateurEtapeNodeComponent = ({
   handleChange,
   formData,
 }: SimulateurContenuEtapeProps) => {
-  const paysUnionEuropeenneOptions = transformePaysUnionEuropeennePourSelect(
-    paysUnionEuropeenneLocalisation,
-    handleChange,
-    formData,
-  );
+  const [paysUnionEuropeenneOptions, setPaysUnionEuropeenneOptions] =
+    useState<InputPropsList>([]);
+  useEffect(() => {
+    setPaysUnionEuropeenneOptions(
+      transformePaysUnionEuropeennePourSelect(
+        paysUnionEuropeenneLocalisation,
+        handleChange,
+        formData,
+      ),
+    );
+  }, [formData]);
 
   return (
     <FormSimulateur>

@@ -1,4 +1,4 @@
-import { DefaultComponentExtensible, FormValueHandler } from "../../Props.ts";
+import { DefaultComponentExtensible } from "../../Props.ts";
 import React, { useState } from "react";
 import {
   emptySimulateurFormData,
@@ -9,8 +9,7 @@ import {
   SimulateurEtapeProps,
   SimulateurEtapeRenderedComponent,
 } from "./simulateurProps.ts";
-
-const handleSingleValue = (value: string) => [value];
+import { fieldHandlers } from "./HandleValue.ts";
 
 export const SimulateurEtape: DefaultComponentExtensible<
   SimulateurEtapeProps
@@ -24,26 +23,13 @@ export const SimulateurEtape: DefaultComponentExtensible<
     emptySimulateurFormData,
   );
 
-  const generateHandlerMultipleValues =
-    (name: SimulateurFieldNames) => (value: string) => {
-      if (inputs[name].indexOf(value) === -1) {
-        return [...inputs[name], value];
-      }
-      return inputs[name].filter((content) => content !== value);
-    };
-
-  const fieldHandlers: Record<SimulateurFieldNames, FormValueHandler> = {
-    etatMembre: generateHandlerMultipleValues("etatMembre"),
-    secteurActivite: generateHandlerMultipleValues("secteurActivite"),
-    trancheCA: handleSingleValue,
-    trancheNombreEmployes: handleSingleValue,
-    typeStructure: handleSingleValue,
-  };
-
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
     const { name, value } = evt.target;
     const fieldName = name as SimulateurFieldNames;
-    setInputs({ ...inputs, [fieldName]: fieldHandlers[fieldName](value) });
+    setInputs({
+      ...inputs,
+      [fieldName]: fieldHandlers[fieldName](value, inputs),
+    });
   };
 
   const ElementRendered: SimulateurEtapeRenderedComponent =
