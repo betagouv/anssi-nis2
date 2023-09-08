@@ -16,6 +16,7 @@ import { SimulateurFormData } from "../../Services/simulateurFrontServices.ts";
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   listeEtapes,
   etapeCourante,
+  propageActionSimulateur,
   handleChange,
   formData,
   etapePrecedenteHandler,
@@ -54,7 +55,11 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
         <hr className="fr-pb-5w" />
 
         {formData && (
-          <EtapeCourante handleChange={handleChange} formData={formData} />
+          <EtapeCourante
+            propageActionSimulateur={propageActionSimulateur}
+            handleChange={handleChange}
+            formData={formData}
+          />
         )}
 
         <StepperNavigation

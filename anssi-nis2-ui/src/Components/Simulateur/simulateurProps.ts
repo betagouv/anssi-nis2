@@ -1,10 +1,15 @@
 import { DefaultComponentExtensible, DefaultProps } from "../../Props.ts";
 import { SimulateurEtapeResult } from "./SimulateurEtapeResult.tsx";
 import { SimulateurEtapeForm } from "./SimulateurEtapeForm.tsx";
-import { SimulateurFormData } from "../../Services/simulateurFrontServices.ts";
+import {
+  SimulateurFieldNames,
+  SimulateurFormData,
+} from "../../Services/simulateurFrontServices.ts";
+import { Dispatch } from "react";
 
 export interface SimulateurContenuEtapeProps extends DefaultProps {
   handleChange?: React.ChangeEventHandler<HTMLInputElement>;
+  propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>;
   formData: SimulateurFormData;
 }
 
@@ -13,6 +18,7 @@ export type SimulateurEtapeNodeComponent =
 
 export interface SimulateurEtapeRenderedProps extends SimulateurEtapeProps {
   handleChange: React.ChangeEventHandler<HTMLInputElement>;
+  propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>;
   formData?: SimulateurFormData;
 }
 
@@ -48,3 +54,10 @@ export interface SimulateurEtapeProps extends DefaultProps {
   etapeSuivanteHandler: (e: React.MouseEvent) => void;
   listeEtapes: InformationsEtape[];
 }
+
+type SimulateurDonneesFormulaireActionType = "checkSingle" | "checkMulti";
+export type SimulateurDonneesFormulaireActions = {
+  type: SimulateurDonneesFormulaireActionType;
+  name: SimulateurFieldNames;
+  newValue: string;
+};

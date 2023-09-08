@@ -1,4 +1,7 @@
-import { transformePaysUnionEuropeennePourSelect } from "../../Services/simulateurFrontServices.ts";
+import {
+  SimulateurFieldNames,
+  transformePaysUnionEuropeennePourSelect,
+} from "../../Services/simulateurFrontServices.ts";
 import { paysUnionEuropeenneLocalisation } from "../../Domaine/DomaineSimulateur.ts";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { FormSimulateur } from "./index.ts";
@@ -7,23 +10,29 @@ import {
   SimulateurEtapeNodeComponent,
 } from "./simulateurProps.ts";
 import { NativeInputProps } from "../../Props.ts";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type InputPropsList = {
   nativeInputProps: NativeInputProps;
   label: string;
 }[];
 const SimulateurEtape1: SimulateurEtapeNodeComponent = ({
-  handleChange,
   formData,
+  propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
   const [paysUnionEuropeenneOptions, setPaysUnionEuropeenneOptions] =
     useState<InputPropsList>([]);
+  const changeMulti: React.ChangeEventHandler<HTMLInputElement> = (evt) =>
+    propageActionSimulateur({
+      type: "checkMulti",
+      name: evt.target.name as SimulateurFieldNames,
+      newValue: evt.target.value,
+    });
   useEffect(() => {
     setPaysUnionEuropeenneOptions(
       transformePaysUnionEuropeennePourSelect(
         paysUnionEuropeenneLocalisation,
-        handleChange,
+        changeMulti,
         formData,
       ),
     );
