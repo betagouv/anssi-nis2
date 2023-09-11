@@ -18,7 +18,8 @@
     "test": "vitest run",
     "start": "node server.cjs",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test-storybook": "test-storybook"
   },
   "dependencies": {
     "@codegouvfr/react-dsfr": "^0.74.2",
@@ -43,6 +44,7 @@
     "@storybook/jest": "^0.2.2",
     "@storybook/react": "^7.4.0",
     "@storybook/react-vite": "^7.4.0",
+    "@storybook/test-runner": "^0.13.0",
     "@storybook/testing-library": "^0.2.0",
     "@testing-library/jest-dom": "^6.1.2",
     "@testing-library/react": "^14.0.0",

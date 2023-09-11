@@ -24,7 +24,7 @@ const SimulateurEtape1: SimulateurEtapeNodeComponent = ({
     useState<InputPropsList>([]);
   const changeMulti: React.ChangeEventHandler<HTMLInputElement> = (evt) =>
     propageActionSimulateur({
-      type: "checkMulti",
+      type: "checkSingle",
       name: evt.target.name as SimulateurFieldNames,
       newValue: evt.target.value,
     });
