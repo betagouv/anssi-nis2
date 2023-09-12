@@ -4,6 +4,7 @@ import { StepperNavigation } from "../StepperNavigation.tsx";
 import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
 import {
   InformationEtapeForm,
+  InformationsEtape,
   SimulateurEtapeRenderedComponent,
   SimulateurEtapeRenderedProps,
 } from "./simulateurProps.ts";
@@ -14,6 +15,26 @@ import { CenteredContainer } from "../CenteredContainer.tsx";
 
 import { SimulateurFormData } from "../../Services/Simulateur/FormData.ts";
 
+const getEtapePrecedenteHandlerConcret = (
+  precedentHandler: React.MouseEventHandler,
+  numeroEtapeCourante: number,
+) => (numeroEtapeCourante == 0 ? noRefClick : precedentHandler);
+
+const getSauvePuisEtapeSuivante =
+  (suivantHandler: React.MouseEventHandler, sauveHandler: Promise<string>) =>
+  (e: React.MouseEvent<Element, MouseEvent>) => {
+    sauveHandler.then(() => suivantHandler(e));
+  };
+const getEtapeSuivantHandlerConcret = (
+  numeroEtapeCourante: number,
+  collectionEtapes: InformationsEtape[],
+  suivantHandler: React.MouseEventHandler,
+  sauveHandler: () => Promise<string>,
+) =>
+  numeroEtapeCourante < collectionEtapes.length - 2
+    ? suivantHandler
+    : getSauvePuisEtapeSuivante(suivantHandler, sauveHandler());
+
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   listeEtapes,
   etapeCourante,
@@ -22,23 +43,24 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   gereClickBouton,
 }: SimulateurEtapeRenderedProps) => {
   const informationsEtape = listeEtapes[etapeCourante] as InformationEtapeForm;
+
   const EtapeCourante = informationsEtape.contenu;
+
   const suivante = listeEtapes[etapeCourante + 1] || "";
+
   const { sendFormData } = useContext(AppContext);
 
-  const etapePrecedenteHandlerConcret =
-    etapeCourante == 0 ? noRefClick : gereClickBouton.precedent;
-  const sauvePuisEtapeSuivante = (e: React.MouseEvent<Element, MouseEvent>) => {
-    console.log(`Envoie les données à l'API ${JSON.stringify(formData)}`);
-    sendFormData(formData as SimulateurFormData).then(() =>
-      gereClickBouton.suivant(e),
-    );
-  };
+  const etapePrecedenteHandlerConcret = getEtapePrecedenteHandlerConcret(
+    gereClickBouton.precedent,
+    etapeCourante,
+  );
 
-  const etapeSuivantHandlerConcret =
-    etapeCourante < listeEtapes.length - 2
-      ? gereClickBouton.suivant
-      : sauvePuisEtapeSuivante;
+  const etapeSuivantHandlerConcret = getEtapeSuivantHandlerConcret(
+    etapeCourante,
+    listeEtapes,
+    gereClickBouton.suivant,
+    () => sendFormData(formData as SimulateurFormData),
+  );
 
   return (
     <RowContainer className="fr-py-7w">
@@ -53,12 +75,10 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
 
         <hr className="fr-pb-5w" />
 
-        {formData && (
-          <EtapeCourante
-            propageActionSimulateur={propageActionSimulateur}
-            formData={formData}
-          />
-        )}
+        <EtapeCourante
+          propageActionSimulateur={propageActionSimulateur}
+          formData={formData}
+        />
 
         <StepperNavigation
           indicationReponses={informationsEtape.indicationReponses}
