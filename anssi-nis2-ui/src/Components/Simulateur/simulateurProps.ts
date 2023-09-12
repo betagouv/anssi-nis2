@@ -40,6 +40,13 @@ export type InformationsEtape = {
   elementToRender: SimulateurEtapeRenderedComponent;
 };
 
+export class SousEtapeConditionnelle {
+  constructor(
+    public readonly condition: (formData: SimulateurFormData) => boolean,
+    public readonly sousEtape: SimulateurEtapeNodeComponent,
+  ) {}
+}
+
 export class InformationEtapeForm implements InformationsEtape {
   public readonly elementToRender: SimulateurEtapeRenderedComponent =
     SimulateurEtapeForm;
@@ -48,6 +55,7 @@ export class InformationEtapeForm implements InformationsEtape {
     public readonly titre: string,
     public readonly indicationReponses: string,
     public readonly contenu: SimulateurEtapeNodeComponent,
+    public readonly sousEtapeConditionnelle?: SousEtapeConditionnelle,
   ) {}
 }
 

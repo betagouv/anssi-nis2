@@ -2,6 +2,7 @@ import {
   InformationEtapeForm,
   InformationEtapeResult,
   InformationsEtape,
+  SousEtapeConditionnelle,
 } from "./Components/Simulateur/simulateurProps.ts";
 import {
   SimulateurEtape1,
@@ -32,6 +33,10 @@ export const etapesQuestionnaire: InformationsEtape[] = [
     "Secteurs d’activité",
     "Sélectionnez au moins une réponse",
     SimulateurEtape4,
+    new SousEtapeConditionnelle(
+      ({ secteurActivite }) => secteurActivite.includes("energie"),
+      SimulateurEtape2,
+    ),
   ),
   new InformationEtapeForm(
     "Activités pratiquées",
