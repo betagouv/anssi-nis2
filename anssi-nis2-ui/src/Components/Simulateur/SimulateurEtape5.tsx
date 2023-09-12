@@ -1,11 +1,8 @@
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { detailsDesSecteurs } from "../../Domaine/DomaineSimulateur.ts";
-import {
-  genereTransformateurValeursVersOptions,
-
-} from "../../Services/simulateurFrontServices.ts";
-import {FormSimulateur} from "./index.ts"
-import {SimulateurContenuEtapeProps} from "./simulateurProps.ts"
+import { genereTransformateurValeursVersOptions } from "../../Services/simulateurFrontServices.ts";
+import { FormSimulateur } from "./index.ts";
+import { SimulateurContenuEtapeProps } from "./simulateurProps.ts";
 
 const SimulateurEtape5 = ({
   handleChange,
@@ -16,7 +13,7 @@ const SimulateurEtape5 = ({
   const transformateurSecteurActivite =
     genereTransformateurValeursVersOptions<string>(
       (cle: string, valeurs: Record<string, string>) => valeurs[cle],
-      "secteurActivite",
+      "activites",
     );
   const optionsSecteurActivite = transformateurSecteurActivite(
     valeursActivites,
@@ -25,22 +22,22 @@ const SimulateurEtape5 = ({
     "energie",
   );
   return (
-      <FormSimulateur>
-          <div className="fr-fieldset__element">
-              <p>
-                  Quelles sont les activités pratiquées dans les secteurs sélectionnés ?
-              </p>
-              <p className="fr-text-mention--grey fr-text--sm">
-                  Cliquez sur les info-bulles pour obtenir plus d’informations sur les
-                  définitions des activités.
-              </p>
+    <FormSimulateur>
+      <div className="fr-fieldset__element">
+        <p>
+          Quelles sont les activités pratiquées dans les secteurs sélectionnés ?
+        </p>
+        <p className="fr-text-mention--grey fr-text--sm">
+          Cliquez sur les info-bulles pour obtenir plus d’informations sur les
+          définitions des activités.
+        </p>
 
-              <Checkbox
-                  legend="Énergie / Électricité"
-                  options={optionsSecteurActivite}
-              />
-          </div>
-      </FormSimulateur>
+        <Checkbox
+          legend="Énergie / Électricité"
+          options={optionsSecteurActivite}
+        />
+      </div>
+    </FormSimulateur>
   );
 };
 

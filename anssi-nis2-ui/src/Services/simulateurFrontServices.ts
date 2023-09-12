@@ -12,7 +12,8 @@ export type SimulateurFieldNames =
   | "typeStructure"
   | "trancheNombreEmployes"
   | "trancheCA"
-  | "secteurActivite";
+  | "secteurActivite"
+  | "activites";
 
 export type SimulateurFormData = Record<SimulateurFieldNames, string[]>;
 export const emptySimulateurFormData: SimulateurFormData = {
@@ -21,6 +22,7 @@ export const emptySimulateurFormData: SimulateurFormData = {
   trancheCA: [],
   trancheNombreEmployes: [],
   typeStructure: [],
+  activites: [],
 };
 
 type TransformeRecordToSelect<ValeursCles extends string> = (

@@ -2,36 +2,22 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { SimulateurEtape1 } from "../../../Components/Simulateur";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import {
-  emptySimulateurFormData,
-  SimulateurFormData,
-} from "../../../Services/simulateurFrontServices.ts";
+import { emptySimulateurFormData } from "../../../Services/simulateurFrontServices.ts";
 import { ValeursClePaysUnionEuropeenne } from "../../../Domaine/DomaineSimulateur.ts";
+import {
+  CollectionParametresDonnees,
+  ParametresDonneesSpecifiqueField,
+} from "../../utilitaires/parametresFormulaire.ts";
 
-class ParametresDonneesFormulaire {
-  constructor(
-    public libelle: string,
-    public donnees: SimulateurFormData,
-  ) {}
-}
-
-class ParametresDonneesEtatMembre extends ParametresDonneesFormulaire {
-  constructor(
-    libelle: string,
+class ParametresDonneesEtatMembre extends ParametresDonneesSpecifiqueField<ValeursClePaysUnionEuropeenne> {
+  static construitDonnees<ValeursClePaysUnionEuropeenne>(
     listeEtatsMembres: ValeursClePaysUnionEuropeenne[],
   ) {
-    super(libelle, {
-      ...emptySimulateurFormData,
-      etatMembre: listeEtatsMembres,
-    });
+    return this.construitDonneesPourField("etatMembre", listeEtatsMembres);
   }
 }
 
-class CollectionParametresDonneesEtatMembre extends Array<ParametresDonneesEtatMembre> {
-  getOptions = () => Object.keys(this);
-  getDonnees = () => this.map(({ donnees }) => donnees);
-  getLibelles = () => this.map(({ libelle }) => libelle);
-}
+class CollectionParametresDonneesEtatMembre extends CollectionParametresDonnees<ParametresDonneesEtatMembre> {}
 
 const donneesFormulaireOptions: CollectionParametresDonneesEtatMembre =
   new CollectionParametresDonneesEtatMembre(
