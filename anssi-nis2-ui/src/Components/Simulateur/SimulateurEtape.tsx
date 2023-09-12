@@ -1,16 +1,40 @@
-import { DefaultComponentExtensible, FormValueHandler } from "../../Props.ts";
-import React, { useState } from "react";
+import { DefaultComponentExtensible } from "../../Props.ts";
+import React, { Reducer, useReducer } from "react";
 import {
   emptySimulateurFormData,
   SimulateurFieldNames,
   SimulateurFormData,
 } from "../../Services/simulateurFrontServices.ts";
 import {
+  SimulateurDonneesFormulaireActions,
   SimulateurEtapeProps,
   SimulateurEtapeRenderedComponent,
 } from "./simulateurProps.ts";
+import { fieldHandlers } from "./HandleValue.ts";
 
-const handleSingleValue = (value: string) => [value];
+const generateNewStateFrom = (
+  state: SimulateurFormData,
+  fieldName: SimulateurFieldNames,
+  newFieldValue: string[],
+) => ({ ...state, [fieldName]: newFieldValue });
+
+const reducer: Reducer<
+  SimulateurFormData,
+  SimulateurDonneesFormulaireActions
+> = (state, { name, newValue, type }) => {
+  switch (type) {
+    case "checkSingle":
+      return generateNewStateFrom(state, name, [newValue]);
+    case "checkMulti":
+      return generateNewStateFrom(
+        state,
+        name,
+        fieldHandlers[name](newValue, state),
+      );
+    default:
+      throw Error(`Unknown action: ${type}`);
+  }
+};
 
 export const SimulateurEtape: DefaultComponentExtensible<
   SimulateurEtapeProps
@@ -20,30 +44,19 @@ export const SimulateurEtape: DefaultComponentExtensible<
   etapeSuivanteHandler,
   listeEtapes,
 }: SimulateurEtapeProps) => {
-  const [inputs, setInputs] = useState<SimulateurFormData>(
+  const [inputsState, propageActionSimulateur] = useReducer(
+    reducer,
     emptySimulateurFormData,
   );
-
-  const generateHandlerMultipleValues =
-    (name: SimulateurFieldNames) => (value: string) => {
-      if (inputs[name].indexOf(value) === -1) {
-        return [...inputs[name], value];
-      }
-      return inputs[name].filter((content) => content !== value);
-    };
-
-  const fieldHandlers: Record<SimulateurFieldNames, FormValueHandler> = {
-    etatMembre: generateHandlerMultipleValues("etatMembre"),
-    secteurActivite: generateHandlerMultipleValues("secteurActivite"),
-    trancheCA: handleSingleValue,
-    trancheNombreEmployes: handleSingleValue,
-    typeStructure: handleSingleValue,
-  };
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
     const { name, value } = evt.target;
     const fieldName = name as SimulateurFieldNames;
-    setInputs({ ...inputs, [fieldName]: fieldHandlers[fieldName](value) });
+    propageActionSimulateur({
+      type: "checkMulti",
+      name: fieldName,
+      newValue: value,
+    });
   };
 
   const ElementRendered: SimulateurEtapeRenderedComponent =
@@ -52,8 +65,9 @@ export const SimulateurEtape: DefaultComponentExtensible<
     <ElementRendered
       listeEtapes={listeEtapes}
       etapeCourante={etapeCourante}
+      propageActionSimulateur={propageActionSimulateur}
       handleChange={handleChange}
-      formData={inputs}
+      formData={inputsState}
       etapePrecedenteHandler={etapePrecedenteHandler}
       etapeSuivanteHandler={etapeSuivanteHandler}
     />

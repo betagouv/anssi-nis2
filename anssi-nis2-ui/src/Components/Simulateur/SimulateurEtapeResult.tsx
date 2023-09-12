@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
 import { SimulateurEtapeRenderedComponent } from "./simulateurProps.ts";
-import SimulateurResterInformee from "./SimulateurResterInformee.tsx";
+import ResterInformee from "../ResterInformee.tsx";
 import { fr } from "@codegouvfr/react-dsfr";
 import Icon from "@mui/material/Icon";
 import { RowContainer } from "../RowContainer.tsx";
 import { CenteredContainer } from "../CenteredContainer.tsx";
 import ImageGuideTPEPME from "../../assets/GuideTPE-PME.png";
 import ImageGuideHygieneCyber from "../../assets/GuideHygieneCyber.png";
-import PdfCard from "./PdfCard.tsx";
+import PdfCard from "../PdfCard.tsx";
 import { PdfCardContainer } from "../PdfCardContainer.tsx";
 import ReseauxSociaux from "../ReseauxSociaux.tsx";
 
@@ -59,7 +59,7 @@ export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = () => {
       </RowContainer>
       <RowContainer className="fr-background-alt--blue-france">
         <CenteredContainer>
-          <SimulateurResterInformee />
+          <ResterInformee />
         </CenteredContainer>
       </RowContainer>
       <RowContainer>

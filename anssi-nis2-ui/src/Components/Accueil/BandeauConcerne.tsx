@@ -4,8 +4,9 @@ import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
 import { Link } from "react-router-dom";
 import { fr } from "@codegouvfr/react-dsfr";
 
-import { ColorTheme, useColors } from "@codegouvfr/react-dsfr/useColors";
 import { createMakeAndWithStyles } from "tss-react";
+import { ColorTheme, useColors } from "@codegouvfr/react-dsfr/useColors";
+
 const { makeStyles } = createMakeAndWithStyles({
   useTheme: function (): ColorTheme {
     return useColors();
