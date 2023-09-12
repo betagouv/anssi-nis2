@@ -9,20 +9,35 @@ import {
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { FormSimulateur } from "./index.ts";
 import { SimulateurContenuEtapeProps } from "./simulateurProps.ts";
+import React from "react";
 
 const SimulateurEtape3 = ({
-  handleChange,
   formData,
+  propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
+  const gereChangementNombreEmployes = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) =>
+    propageActionSimulateur({
+      type: "checkSingle",
+      name: "trancheNombreEmployes",
+      newValue: event.target.value,
+    });
+  const gereChangementCA = (event: React.ChangeEvent<HTMLInputElement>) =>
+    propageActionSimulateur({
+      type: "checkSingle",
+      name: "trancheCA",
+      newValue: event.target.value,
+    });
   const optionsTranchesNombreEmployes =
     transformeTranchesNombreEmployesVersOptions(
       tranchesNombreEmployes,
-      handleChange,
+      gereChangementNombreEmployes,
       formData,
     );
   const optionsTranchesCA = transformeTranchesCAVersOptions(
     tranchesCA,
-    handleChange,
+    gereChangementCA,
     formData,
   );
 
