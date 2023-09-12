@@ -6,17 +6,12 @@ import { paysUnionEuropeenneLocalisation } from "../../Domaine/DomaineSimulateur
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { FormSimulateur } from "./index.ts";
 import {
+  InputPropsList,
   SimulateurContenuEtapeProps,
-  SimulateurEtapeNodeComponent,
 } from "./simulateurProps.ts";
-import { NativeInputProps } from "../../Props.ts";
 import React, { useEffect, useState } from "react";
 
-type InputPropsList = {
-  nativeInputProps: NativeInputProps;
-  label: string;
-}[];
-const SimulateurEtape1: SimulateurEtapeNodeComponent = ({
+const SimulateurEtape1 = ({
   formData,
   propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {

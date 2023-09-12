@@ -1,4 +1,8 @@
-import { DefaultComponentExtensible, DefaultProps } from "../../Props.ts";
+import {
+  DefaultComponentExtensible,
+  DefaultProps,
+  NativeInputProps,
+} from "../../Props.ts";
 import { SimulateurEtapeResult } from "./SimulateurEtapeResult.tsx";
 import { SimulateurEtapeForm } from "./SimulateurEtapeForm.tsx";
 import {
@@ -61,3 +65,7 @@ export type SimulateurDonneesFormulaireActions = {
   name: SimulateurFieldNames;
   newValue: string;
 };
+export type InputPropsList = {
+  nativeInputProps: NativeInputProps;
+  label: string;
+}[];

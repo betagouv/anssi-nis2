@@ -1,13 +1,22 @@
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { detailsDesSecteurs } from "../../Domaine/DomaineSimulateur.ts";
-import { genereTransformateurValeursVersOptions } from "../../Services/simulateurFrontServices.ts";
+import {
+  genereTransformateurValeursVersOptions,
+  SimulateurFieldNames,
+} from "../../Services/simulateurFrontServices.ts";
 import { FormSimulateur } from "./index.ts";
-import { SimulateurContenuEtapeProps } from "./simulateurProps.ts";
+import {
+  InputPropsList,
+  SimulateurContenuEtapeProps,
+} from "./simulateurProps.ts";
+import React, { useEffect, useState } from "react";
 
 const SimulateurEtape5 = ({
-  handleChange,
+  propageActionSimulateur,
   formData,
 }: SimulateurContenuEtapeProps) => {
+  const [optionsSecteurActivite, setOptionsSecteurActivite] =
+    useState<InputPropsList>([]);
   const valeursActivites =
     detailsDesSecteurs.energie.sousSecteurs?.electricite.activites || {};
   const transformateurSecteurActivite =
@@ -15,12 +24,22 @@ const SimulateurEtape5 = ({
       (cle: string, valeurs: Record<string, string>) => valeurs[cle],
       "activites",
     );
-  const optionsSecteurActivite = transformateurSecteurActivite(
-    valeursActivites,
-    handleChange,
-    formData,
-    "energie",
-  );
+  const changeMulti: React.ChangeEventHandler<HTMLInputElement> = (evt) =>
+    propageActionSimulateur({
+      type: "checkMulti",
+      name: evt.target.name as SimulateurFieldNames,
+      newValue: evt.target.value,
+    });
+  useEffect(() => {
+    setOptionsSecteurActivite(
+      transformateurSecteurActivite(
+        valeursActivites,
+        changeMulti,
+        formData,
+        "energie",
+      ),
+    );
+  }, [formData]);
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
