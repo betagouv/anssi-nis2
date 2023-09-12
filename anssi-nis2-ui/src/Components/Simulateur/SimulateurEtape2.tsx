@@ -6,14 +6,21 @@ import {
   SimulateurContenuEtapeProps,
   SimulateurEtapeNodeComponent,
 } from "./simulateurProps.ts";
+import React from "react";
 
 const SimulateurEtape2: SimulateurEtapeNodeComponent = ({
-  handleChange,
   formData,
+  propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
+  const gereChangement = (event: React.ChangeEvent<HTMLInputElement>) =>
+    propageActionSimulateur({
+      type: "checkSingle",
+      name: "typeStructure",
+      newValue: event.target.value,
+    });
   const optionsTypeStructure = transformeTypeStructureVersOptions(
     typesStructure,
-    handleChange,
+    gereChangement,
     formData,
   );
 
