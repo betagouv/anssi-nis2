@@ -4,7 +4,7 @@ import { fr } from "@codegouvfr/react-dsfr";
 
 const Row = styled.div`
   column-gap: ${fr.spacing("5w")};
-`
+`;
 
 export const PdfCardContainer: DefaultComponent = ({
   children,

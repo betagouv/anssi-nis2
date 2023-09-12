@@ -17,13 +17,14 @@ const SimulateurEtape1 = ({
 }: SimulateurContenuEtapeProps) => {
   const [paysUnionEuropeenneOptions, setPaysUnionEuropeenneOptions] =
     useState<InputPropsList>([]);
-  const changeMulti: React.ChangeEventHandler<HTMLInputElement> = (evt) =>
-    propageActionSimulateur({
-      type: "checkMulti",
-      name: evt.target.name as SimulateurFieldNames,
-      newValue: evt.target.value,
-    });
+
   useEffect(() => {
+    const changeMulti: React.ChangeEventHandler<HTMLInputElement> = (evt) =>
+      propageActionSimulateur({
+        type: "checkMulti",
+        name: evt.target.name as SimulateurFieldNames,
+        newValue: evt.target.value,
+      });
     setPaysUnionEuropeenneOptions(
       transformePaysUnionEuropeennePourSelect(
         paysUnionEuropeenneLocalisation,
@@ -31,7 +32,7 @@ const SimulateurEtape1 = ({
         formData,
       ),
     );
-  }, [changeMulti, formData]);
+  }, [formData, propageActionSimulateur]);
 
   return (
     <FormSimulateur>

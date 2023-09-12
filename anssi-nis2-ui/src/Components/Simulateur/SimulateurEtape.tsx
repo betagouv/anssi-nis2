@@ -68,16 +68,6 @@ export const SimulateurEtape: DefaultComponentExtensible<
     emptySimulateurFormData,
   );
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
-    const { name, value } = evt.target;
-    const fieldName = name as SimulateurFieldNames;
-    propageActionSimulateur({
-      type: "checkMulti",
-      name: fieldName,
-      newValue: value,
-    });
-  };
-
   const [gereClickBouton, propageHandlerClickBouton] = useReducer(
     reducerBoutons,
     {
@@ -111,7 +101,6 @@ export const SimulateurEtape: DefaultComponentExtensible<
       listeEtapes={listeEtapes}
       etapeCourante={etapeCourante}
       propageActionSimulateur={propageActionSimulateur}
-      handleChange={handleChange}
       formData={inputsState}
       gereClickBouton={gereClickBouton}
     />
