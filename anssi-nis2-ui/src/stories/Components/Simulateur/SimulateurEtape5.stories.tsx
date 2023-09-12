@@ -38,10 +38,7 @@ const creeActionPropagationFormulaireActivite = (newValue: string) => {
     type: "checkMulti",
     name: "activites",
   };
-  return {
-    ...actionTypique,
-    newValue: newValue,
-  };
+  return { ...actionTypique, newValue: newValue };
 };
 
 export const CliqueSurLesOptions: Story = {

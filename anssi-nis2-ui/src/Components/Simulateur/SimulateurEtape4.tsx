@@ -5,12 +5,18 @@ import { FormSimulateur } from "./index.ts";
 import { SimulateurContenuEtapeProps } from "./simulateurProps.ts";
 
 const SimulateurEtape4 = ({
-  handleChange,
+  propageActionSimulateur,
   formData,
 }: SimulateurContenuEtapeProps) => {
+  const gereChangement = (event: React.ChangeEvent<HTMLInputElement>) =>
+    propageActionSimulateur({
+      type: "checkMulti",
+      name: "secteurActivite",
+      newValue: event.target.value,
+    });
   const optionsSecteurActivite = transformeSecteursActiviteVersOptions(
     secteursActivite,
-    handleChange,
+    gereChangement,
     formData,
   );
 
