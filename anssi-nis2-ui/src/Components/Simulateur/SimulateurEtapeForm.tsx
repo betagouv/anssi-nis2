@@ -11,7 +11,8 @@ import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
 import React, { useContext } from "react";
 import { AppContext } from "../../AppContext.tsx";
 import { CenteredContainer } from "../CenteredContainer.tsx";
-import { SimulateurFormData } from "../../Services/simulateurFrontServices.ts";
+
+import { SimulateurFormData } from "../../Services/Simulateur/FormData.ts";
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   listeEtapes,

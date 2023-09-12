@@ -1,8 +1,8 @@
+import { FormValueHandler } from "../../Props.ts";
 import {
   SimulateurFieldNames,
   SimulateurFormData,
-} from "../../Services/simulateurFrontServices.ts";
-import { FormValueHandler } from "../../Props.ts";
+} from "../../Services/Simulateur/FormData.ts";
 
 export const handleSingleValue = (value: string) => [value];
 export const generateHandlerMultipleValues =

@@ -1,11 +1,6 @@
 import { DefaultComponentExtensible } from "../../Props.ts";
 import React, { Reducer, useEffect, useReducer } from "react";
 import {
-  emptySimulateurFormData,
-  SimulateurFieldNames,
-  SimulateurFormData,
-} from "../../Services/simulateurFrontServices.ts";
-import {
   BoutonsNavigation,
   SimulateurDonneesFormulaireActions,
   SimulateurEtapeRenderedComponent,
@@ -14,6 +9,11 @@ import {
 import { fieldHandlers } from "./HandleValue.ts";
 import { etapesQuestionnaire } from "../../EtapesQuestionnaire.ts";
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
+import {
+  emptySimulateurFormData,
+  SimulateurFieldNames,
+  SimulateurFormData,
+} from "../../Services/Simulateur/FormData.ts";
 
 const generateNewStateFrom = (
   state: SimulateurFormData,

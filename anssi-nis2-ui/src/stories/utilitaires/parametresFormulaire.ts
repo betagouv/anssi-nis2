@@ -1,7 +1,7 @@
 import {
   emptySimulateurFormData,
   SimulateurFormData,
-} from "../../Services/simulateurFrontServices.ts";
+} from "../../Services/Simulateur/FormData.ts";
 
 export class ParametresDonneesFormulaire {
   constructor(

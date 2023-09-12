@@ -5,11 +5,11 @@ import {
 } from "../../Props.ts";
 import { SimulateurEtapeResult } from "./SimulateurEtapeResult.tsx";
 import { SimulateurEtapeForm } from "./SimulateurEtapeForm.tsx";
+import React, { Dispatch } from "react";
 import {
   SimulateurFieldNames,
   SimulateurFormData,
-} from "../../Services/simulateurFrontServices.ts";
-import React, { Dispatch } from "react";
+} from "../../Services/Simulateur/FormData.ts";
 
 export interface SimulateurContenuEtapeProps extends DefaultProps {
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>;

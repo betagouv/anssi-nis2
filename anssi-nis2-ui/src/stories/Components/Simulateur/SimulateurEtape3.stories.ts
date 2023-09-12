@@ -6,11 +6,11 @@ import {
   ValeursTrancheCA,
   ValeursTrancheNombreEmployes,
 } from "../../../Domaine/DomaineSimulateur.ts";
-import { SimulateurFormData } from "../../../Services/simulateurFrontServices.ts";
 import { SimulateurEtape3 } from "../../../Components/Simulateur";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { SimulateurFormData } from "../../../Services/Simulateur/FormData.ts";
 
 class ParametresDonneesTrancheNombreEmployes extends ParametresDonneesSpecifiqueField<ValeursTrancheNombreEmployes> {
   protected construitDonnees<ValeursTrancheNombreEmployes>(

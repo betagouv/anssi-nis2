@@ -2,7 +2,8 @@ import { describe, it } from "vitest";
 import { SimulateurEtape1 } from "../../../src/Components/Simulateur";
 import { render, screen } from "@testing-library/react";
 import { expect } from "../../testUtils";
-import { emptySimulateurFormData } from "../../../src/Services/simulateurFrontServices";
+
+import { emptySimulateurFormData } from "../../../src/Services/Simulateur/FormData";
 
 describe("Simulateur", () => {
   it('affiche un libellé contenant "Union Européenne"', () => {

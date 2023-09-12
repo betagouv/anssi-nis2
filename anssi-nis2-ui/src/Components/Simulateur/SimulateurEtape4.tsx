@@ -1,9 +1,9 @@
-import { transformeSecteursActiviteVersOptions } from "../../Services/simulateurFrontServices.ts";
 import { secteursActivite } from "../../Domaine/DomaineSimulateur.ts";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { FormSimulateur } from "./index.ts";
 import { SimulateurContenuEtapeProps } from "./simulateurProps.ts";
 import React from "react";
+import { transformeSecteursActiviteVersOptions } from "../../Services/Simulateur/Transformateurs.ts";
 
 const SimulateurEtape4 = ({
   propageActionSimulateur,

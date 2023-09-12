@@ -3,11 +3,11 @@ import {
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
 import { ValeursTypeStructure } from "../../../Domaine/DomaineSimulateur.ts";
-import { SimulateurFormData } from "../../../Services/simulateurFrontServices.ts";
 import { SimulateurEtape2 } from "../../../Components/Simulateur";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { SimulateurFormData } from "../../../Services/Simulateur/FormData.ts";
 
 class ParametresDonneesTypeStructure extends ParametresDonneesSpecifiqueField<ValeursTypeStructure> {
   protected construitDonnees<ValeursTypeStructure>(

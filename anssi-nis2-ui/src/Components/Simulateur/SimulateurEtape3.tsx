@@ -1,8 +1,4 @@
 import {
-  transformeTranchesCAVersOptions,
-  transformeTranchesNombreEmployesVersOptions,
-} from "../../Services/simulateurFrontServices.ts";
-import {
   tranchesCA,
   tranchesNombreEmployes,
 } from "../../Domaine/DomaineSimulateur.ts";
@@ -10,6 +6,10 @@ import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { FormSimulateur } from "./index.ts";
 import { SimulateurContenuEtapeProps } from "./simulateurProps.ts";
 import React from "react";
+import {
+  transformeTranchesCAVersOptions,
+  transformeTranchesNombreEmployesVersOptions,
+} from "../../Services/Simulateur/Transformateurs.ts";
 
 const SimulateurEtape3 = ({
   formData,

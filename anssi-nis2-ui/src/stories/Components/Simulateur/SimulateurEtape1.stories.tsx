@@ -2,12 +2,12 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { SimulateurEtape1 } from "../../../Components/Simulateur";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { emptySimulateurFormData } from "../../../Services/simulateurFrontServices.ts";
 import { ValeursClePaysUnionEuropeenne } from "../../../Domaine/DomaineSimulateur.ts";
 import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
+import { emptySimulateurFormData } from "../../../Services/Simulateur/FormData.ts";
 
 class ParametresDonneesEtatMembre extends ParametresDonneesSpecifiqueField<ValeursClePaysUnionEuropeenne> {
   protected construitDonnees<ValeursClePaysUnionEuropeenne>(

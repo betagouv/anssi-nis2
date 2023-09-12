@@ -1,5 +1,6 @@
 import React from "react";
-import { SimulateurFormData } from "./Services/simulateurFrontServices.ts";
+
+import { SimulateurFormData } from "./Services/Simulateur/FormData.ts";
 
 export type Props = {
   className?: string;

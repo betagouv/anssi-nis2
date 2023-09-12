@@ -1,4 +1,3 @@
-import { transformeTypeStructureVersOptions } from "../../Services/simulateurFrontServices.ts";
 import { typesStructure } from "../../Domaine/DomaineSimulateur.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { FormSimulateur } from "./index.ts";
@@ -7,6 +6,7 @@ import {
   SimulateurEtapeNodeComponent,
 } from "./simulateurProps.ts";
 import React from "react";
+import { transformeTypeStructureVersOptions } from "../../Services/Simulateur/Transformateurs.ts";
 
 const SimulateurEtape2: SimulateurEtapeNodeComponent = ({
   formData,

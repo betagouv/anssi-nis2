@@ -1,7 +1,3 @@
-import {
-  SimulateurFieldNames,
-  transformePaysUnionEuropeennePourSelect,
-} from "../../Services/simulateurFrontServices.ts";
 import { paysUnionEuropeenneLocalisation } from "../../Domaine/DomaineSimulateur.ts";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { FormSimulateur } from "./index.ts";
@@ -10,6 +6,8 @@ import {
   SimulateurContenuEtapeProps,
 } from "./simulateurProps.ts";
 import React, { useEffect, useState } from "react";
+import { transformePaysUnionEuropeennePourSelect } from "../../Services/Simulateur/Transformateurs.ts";
+import { SimulateurFieldNames } from "../../Services/Simulateur/FormData.ts";
 
 const SimulateurEtape1 = ({
   formData,
