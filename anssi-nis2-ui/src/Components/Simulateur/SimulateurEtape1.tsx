@@ -31,7 +31,7 @@ const SimulateurEtape1 = ({
         formData,
       ),
     );
-  }, [formData]);
+  }, [changeMulti, formData]);
 
   return (
     <FormSimulateur>

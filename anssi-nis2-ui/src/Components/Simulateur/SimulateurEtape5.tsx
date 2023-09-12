@@ -19,11 +19,7 @@ const SimulateurEtape5 = ({
     useState<InputPropsList>([]);
   const valeursActivites =
     detailsDesSecteurs.energie.sousSecteurs?.electricite.activites || {};
-  const transformateurSecteurActivite =
-    genereTransformateurValeursVersOptions<string>(
-      (cle: string, valeurs: Record<string, string>) => valeurs[cle],
-      "activites",
-    );
+
   const changeMulti: React.ChangeEventHandler<HTMLInputElement> = (evt) =>
     propageActionSimulateur({
       type: "checkMulti",
@@ -31,6 +27,11 @@ const SimulateurEtape5 = ({
       newValue: evt.target.value,
     });
   useEffect(() => {
+    const transformateurSecteurActivite =
+      genereTransformateurValeursVersOptions<string>(
+        (cle: string, valeurs: Record<string, string>) => valeurs[cle],
+        "activites",
+      );
     setOptionsSecteurActivite(
       transformateurSecteurActivite(
         valeursActivites,
@@ -39,7 +40,7 @@ const SimulateurEtape5 = ({
         "energie",
       ),
     );
-  }, [formData]);
+  }, [changeMulti, formData, valeursActivites]);
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">

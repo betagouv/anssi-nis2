@@ -17,7 +17,6 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   listeEtapes,
   etapeCourante,
   propageActionSimulateur,
-  handleChange,
   formData,
   gereClickBouton,
 }: SimulateurEtapeRenderedProps) => {
@@ -56,7 +55,6 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
         {formData && (
           <EtapeCourante
             propageActionSimulateur={propageActionSimulateur}
-            handleChange={handleChange}
             formData={formData}
           />
         )}

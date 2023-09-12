@@ -12,7 +12,6 @@ import {
 import React, { Dispatch } from "react";
 
 export interface SimulateurContenuEtapeProps extends DefaultProps {
-  handleChange?: React.ChangeEventHandler<HTMLInputElement>;
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>;
   formData: SimulateurFormData;
 }
@@ -25,11 +24,15 @@ export type BoutonsNavigation = {
   suivant: React.MouseEventHandler;
 };
 
+export interface SimulateurEtapeProps extends DefaultProps {
+  etapeCourante: number;
+  listeEtapes: InformationsEtape[];
+}
+
 export interface SimulateurEtapeRenderedProps extends SimulateurEtapeProps {
-  handleChange: React.ChangeEventHandler<HTMLInputElement>;
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>;
   gereClickBouton: BoutonsNavigation;
-  formData?: SimulateurFormData;
+  formData: SimulateurFormData;
 }
 
 export type SimulateurEtapeRenderedComponent =
@@ -64,11 +67,6 @@ export class InformationEtapeResult implements InformationsEtape {
     SimulateurEtapeResult;
 
   public constructor(public readonly titre: string) {}
-}
-
-export interface SimulateurEtapeProps extends DefaultProps {
-  etapeCourante: number;
-  listeEtapes: InformationsEtape[];
 }
 
 export type GenerateurSoumissionEtape = (
