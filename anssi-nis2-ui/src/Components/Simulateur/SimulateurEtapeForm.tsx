@@ -19,8 +19,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   propageActionSimulateur,
   handleChange,
   formData,
-  etapePrecedenteHandler,
-  etapeSuivanteHandler,
+  gereClickBouton,
 }: SimulateurEtapeRenderedProps) => {
   const informationsEtape = listeEtapes[etapeCourante] as InformationEtapeForm;
   const EtapeCourante = informationsEtape.contenu;
@@ -28,17 +27,17 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   const { sendFormData } = useContext(AppContext);
 
   const etapePrecedenteHandlerConcret =
-    etapeCourante == 0 ? noRefClick : etapePrecedenteHandler;
+    etapeCourante == 0 ? noRefClick : gereClickBouton.precedent;
   const sauvePuisEtapeSuivante = (e: React.MouseEvent<Element, MouseEvent>) => {
     console.log(`Envoie les données à l'API ${JSON.stringify(formData)}`);
     sendFormData(formData as SimulateurFormData).then(() =>
-      etapeSuivanteHandler(e),
+      gereClickBouton.suivant(e),
     );
   };
 
   const etapeSuivantHandlerConcret =
     etapeCourante < listeEtapes.length - 2
-      ? etapeSuivanteHandler
+      ? gereClickBouton.suivant
       : sauvePuisEtapeSuivante;
 
   return (

@@ -1,16 +1,19 @@
 import { DefaultComponentExtensible } from "../../Props.ts";
-import React, { Reducer, useReducer } from "react";
+import React, { Reducer, useEffect, useReducer } from "react";
 import {
   emptySimulateurFormData,
   SimulateurFieldNames,
   SimulateurFormData,
 } from "../../Services/simulateurFrontServices.ts";
 import {
+  BoutonsNavigation,
   SimulateurDonneesFormulaireActions,
-  SimulateurEtapeProps,
   SimulateurEtapeRenderedComponent,
+  SimulateurEtapeSwitcherProps,
 } from "./simulateurProps.ts";
 import { fieldHandlers } from "./HandleValue.ts";
+import { etapesQuestionnaire } from "../../EtapesQuestionnaire.ts";
+import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
 
 const generateNewStateFrom = (
   state: SimulateurFormData,
@@ -18,7 +21,7 @@ const generateNewStateFrom = (
   newFieldValue: string[],
 ) => ({ ...state, [fieldName]: newFieldValue });
 
-const reducer: Reducer<
+const reducerFormData: Reducer<
   SimulateurFormData,
   SimulateurDonneesFormulaireActions
 > = (state, { name, newValue, type }) => {
@@ -36,16 +39,32 @@ const reducer: Reducer<
   }
 };
 
+const reducerBoutons: Reducer<
+  BoutonsNavigation,
+  {
+    bouton: "precedent" | "suivant";
+    newHandler: React.MouseEventHandler;
+  }
+> = (state, { bouton, newHandler }) => {
+  switch (bouton) {
+    case "precedent":
+      return { ...state, precedent: newHandler };
+    case "suivant":
+      return { ...state, suivant: newHandler };
+    default:
+      throw Error(`Unknown action: ${bouton}`);
+  }
+};
+
 export const SimulateurEtape: DefaultComponentExtensible<
-  SimulateurEtapeProps
+  SimulateurEtapeSwitcherProps
 > = ({
   etapeCourante,
-  etapePrecedenteHandler,
-  etapeSuivanteHandler,
   listeEtapes,
-}: SimulateurEtapeProps) => {
+  soumissionEtape,
+}: SimulateurEtapeSwitcherProps) => {
   const [inputsState, propageActionSimulateur] = useReducer(
-    reducer,
+    reducerFormData,
     emptySimulateurFormData,
   );
 
@@ -59,8 +78,34 @@ export const SimulateurEtape: DefaultComponentExtensible<
     });
   };
 
+  const [gereClickBouton, propageHandlerClickBouton] = useReducer(
+    reducerBoutons,
+    {
+      suivant: noRefClick,
+      precedent: noRefClick,
+    },
+  );
+
+  useEffect(() => {
+    propageHandlerClickBouton({
+      bouton: "suivant",
+      newHandler: soumissionEtape(
+        (etape) => etape < etapesQuestionnaire.length,
+        (etape) => etape + 1,
+      ),
+    });
+    propageHandlerClickBouton({
+      bouton: "precedent",
+      newHandler: soumissionEtape(
+        (etape) => etape >= 0,
+        (etape) => etape - 1,
+      ),
+    });
+  }, [etapeCourante, soumissionEtape]);
+
   const ElementRendered: SimulateurEtapeRenderedComponent =
     listeEtapes[etapeCourante].elementToRender;
+
   return (
     <ElementRendered
       listeEtapes={listeEtapes}
@@ -68,8 +113,7 @@ export const SimulateurEtape: DefaultComponentExtensible<
       propageActionSimulateur={propageActionSimulateur}
       handleChange={handleChange}
       formData={inputsState}
-      etapePrecedenteHandler={etapePrecedenteHandler}
-      etapeSuivanteHandler={etapeSuivanteHandler}
+      gereClickBouton={gereClickBouton}
     />
   );
 };

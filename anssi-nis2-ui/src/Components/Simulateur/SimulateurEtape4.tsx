@@ -3,6 +3,7 @@ import { secteursActivite } from "../../Domaine/DomaineSimulateur.ts";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { FormSimulateur } from "./index.ts";
 import { SimulateurContenuEtapeProps } from "./simulateurProps.ts";
+import React from "react";
 
 const SimulateurEtape4 = ({
   propageActionSimulateur,

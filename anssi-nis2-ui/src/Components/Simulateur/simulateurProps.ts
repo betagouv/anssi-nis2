@@ -9,7 +9,7 @@ import {
   SimulateurFieldNames,
   SimulateurFormData,
 } from "../../Services/simulateurFrontServices.ts";
-import { Dispatch } from "react";
+import React, { Dispatch } from "react";
 
 export interface SimulateurContenuEtapeProps extends DefaultProps {
   handleChange?: React.ChangeEventHandler<HTMLInputElement>;
@@ -20,9 +20,15 @@ export interface SimulateurContenuEtapeProps extends DefaultProps {
 export type SimulateurEtapeNodeComponent =
   DefaultComponentExtensible<SimulateurContenuEtapeProps>;
 
+export type BoutonsNavigation = {
+  precedent: React.MouseEventHandler;
+  suivant: React.MouseEventHandler;
+};
+
 export interface SimulateurEtapeRenderedProps extends SimulateurEtapeProps {
   handleChange: React.ChangeEventHandler<HTMLInputElement>;
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>;
+  gereClickBouton: BoutonsNavigation;
   formData?: SimulateurFormData;
 }
 
@@ -54,9 +60,16 @@ export class InformationEtapeResult implements InformationsEtape {
 
 export interface SimulateurEtapeProps extends DefaultProps {
   etapeCourante: number;
-  etapePrecedenteHandler: (e: React.MouseEvent) => void;
-  etapeSuivanteHandler: (e: React.MouseEvent) => void;
   listeEtapes: InformationsEtape[];
+}
+
+export type GenerateurSoumissionEtape = (
+  limiteConditions: (i: number) => boolean,
+  nouvelleEtape: (etape: number) => number,
+) => (e: React.MouseEvent) => void;
+
+export interface SimulateurEtapeSwitcherProps extends SimulateurEtapeProps {
+  soumissionEtape: GenerateurSoumissionEtape;
 }
 
 type SimulateurDonneesFormulaireActionType = "checkSingle" | "checkMulti";
