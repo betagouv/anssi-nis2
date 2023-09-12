@@ -10,7 +10,7 @@ import {
 } from "../../utilitaires/parametresFormulaire.ts";
 
 class ParametresDonneesEtatMembre extends ParametresDonneesSpecifiqueField<ValeursClePaysUnionEuropeenne> {
-  static construitDonnees<ValeursClePaysUnionEuropeenne>(
+  protected construitDonnees<ValeursClePaysUnionEuropeenne>(
     listeEtatsMembres: ValeursClePaysUnionEuropeenne[],
   ) {
     return this.construitDonneesPourField("etatMembre", listeEtatsMembres);
@@ -34,14 +34,7 @@ const meta: Meta<typeof SimulateurEtape1> = {
   component: SimulateurEtape1,
   argTypes: {
     propageActionSimulateur: { action: true },
-    formData: {
-      options: donneesFormulaireOptions.getOptions(),
-      mapping: donneesFormulaireOptions.getDonnees(),
-      control: {
-        type: "select",
-        labels: donneesFormulaireOptions.getLibelles(),
-      },
-    },
+    formData: donneesFormulaireOptions.getFormData(), //CollectionParametresDonneesEtatMembre
   },
 };
 

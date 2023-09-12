@@ -10,29 +10,25 @@ export class ParametresDonneesFormulaire {
   ) {}
 }
 
-export class ParametresDonneesSpecifiqueField<
+export abstract class ParametresDonneesSpecifiqueField<
   TypeValeurs,
 > extends ParametresDonneesFormulaire {
-  constructor(libelle: string, listeEtatsMembres: TypeValeurs[]) {
-    super(
-      libelle,
-      ParametresDonneesSpecifiqueField.construitDonnees(listeEtatsMembres),
-    );
+  constructor(libelle: string, listeValeurs: TypeValeurs[]) {
+    super(libelle, emptySimulateurFormData);
+    this.donnees = this.construitDonnees(listeValeurs);
   }
 
-  protected static construitDonnees<TypeValeurs>(
-    listeEtatsMembres: TypeValeurs[],
-  ) {
-    return this.construitDonneesPourField("etatMembre", listeEtatsMembres);
-  }
+  protected abstract construitDonnees<TypeValeurs>(
+    valeurs: TypeValeurs[],
+  ): SimulateurFormData;
 
-  protected static construitDonneesPourField<TypeField, TypeValeurs>(
+  protected construitDonneesPourField<TypeField, TypeValeurs>(
     fieldName: TypeField,
-    listeEtatsMembres: TypeValeurs[],
+    listeValeurs: TypeValeurs[],
   ): SimulateurFormData {
     return {
       ...emptySimulateurFormData,
-      [fieldName as string]: listeEtatsMembres,
+      [fieldName as string]: listeValeurs,
     };
   }
 }
@@ -40,7 +36,26 @@ export class ParametresDonneesSpecifiqueField<
 export class CollectionParametresDonnees<TypeDonnees> extends Array<
   ParametresDonneesSpecifiqueField<TypeDonnees>
 > {
-  getOptions = () => Object.keys(this);
-  getDonnees = () => this.map(({ donnees }) => donnees);
-  getLibelles = () => this.map(({ libelle }) => libelle);
+  public getOptions() {
+    return Object.keys(this);
+  }
+
+  public getDonnees() {
+    return this.map(({ donnees }) => donnees);
+  }
+
+  public getLibelles() {
+    return this.map(({ libelle }) => libelle);
+  }
+
+  public getFormData() {
+    return {
+      options: this.getOptions(),
+      mapping: this.getDonnees(),
+      control: {
+        type: "select",
+        labels: this.getLibelles(),
+      },
+    };
+  }
 }

@@ -90,8 +90,9 @@ type ValeursSousSecteurEnergie =
     petrole: "Pétrole",
     reseauxDeChaleurEtDeFroid: "Réseaux de chaleur et de froid",
 }*/
+type ValeursActivites = string;
 
-type ListeActivites = Record<string, string>;
+type ListeActivites = Record<ValeursActivites, string>;
 
 type DescriptionSousSecteur = {
   libelle: string;
