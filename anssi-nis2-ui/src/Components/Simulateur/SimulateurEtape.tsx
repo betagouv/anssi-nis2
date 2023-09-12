@@ -1,5 +1,5 @@
 import { DefaultComponentExtensible } from "../../Props.ts";
-import React, { Reducer, useEffect, useReducer } from "react";
+import React, { Reducer, useReducer } from "react";
 import {
   emptySimulateurFormData,
   SimulateurFieldNames,
@@ -12,34 +12,27 @@ import {
 } from "./simulateurProps.ts";
 import { fieldHandlers } from "./HandleValue.ts";
 
-function generateNewStateFrom(
+const generateNewStateFrom = (
   state: SimulateurFormData,
-  fieldName:
-    | "etatMembre"
-    | "typeStructure"
-    | "trancheNombreEmployes"
-    | "trancheCA"
-    | "secteurActivite",
+  fieldName: SimulateurFieldNames,
   newFieldValue: string[],
-) {
-  return { ...state, [fieldName]: newFieldValue };
-}
+) => ({ ...state, [fieldName]: newFieldValue });
 
 const reducer: Reducer<
   SimulateurFormData,
   SimulateurDonneesFormulaireActions
-> = (state, action) => {
-  switch (action.type) {
+> = (state, { name, newValue, type }) => {
+  switch (type) {
     case "checkSingle":
-      return generateNewStateFrom(state, action.name, [action.newValue]);
+      return generateNewStateFrom(state, name, [newValue]);
     case "checkMulti":
       return generateNewStateFrom(
         state,
-        action.name,
-        fieldHandlers[action.name](action.newValue, state),
+        name,
+        fieldHandlers[name](newValue, state),
       );
     default:
-      throw Error("Unknown action: " + action.type);
+      throw Error(`Unknown action: ${type}`);
   }
 };
 
@@ -65,10 +58,6 @@ export const SimulateurEtape: DefaultComponentExtensible<
       newValue: value,
     });
   };
-
-  useEffect(() => {
-    console.log(`after reducer : ${JSON.stringify(inputsState)}`);
-  }, [inputsState]);
 
   const ElementRendered: SimulateurEtapeRenderedComponent =
     listeEtapes[etapeCourante].elementToRender;

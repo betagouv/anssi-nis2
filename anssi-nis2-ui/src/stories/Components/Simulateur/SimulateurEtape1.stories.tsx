@@ -2,29 +2,58 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { SimulateurEtape1 } from "../../../Components/Simulateur";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { emptySimulateurFormData } from "../../../Services/simulateurFrontServices.ts";
+import {
+  emptySimulateurFormData,
+  SimulateurFormData,
+} from "../../../Services/simulateurFrontServices.ts";
+import { ValeursClePaysUnionEuropeenne } from "../../../Domaine/DomaineSimulateur.ts";
 
-const values = [
-  {
-    ...emptySimulateurFormData,
-    etatMembre: ["france"],
-  },
-  {
-    ...emptySimulateurFormData,
-    etatMembre: ["france", "autre"],
-  },
-];
-//👇 This default export determines where your story goes in the story list
+class ParametresDonneesFormulaire {
+  constructor(
+    public libelle: string,
+    public donnees: SimulateurFormData,
+  ) {}
+}
+
+class ParametresDonneesEtatMembre extends ParametresDonneesFormulaire {
+  constructor(
+    libelle: string,
+    listeEtatsMembres: ValeursClePaysUnionEuropeenne[],
+  ) {
+    super(libelle, {
+      ...emptySimulateurFormData,
+      etatMembre: listeEtatsMembres,
+    });
+  }
+}
+
+class CollectionParametresDonneesEtatMembre extends Array<ParametresDonneesEtatMembre> {
+  getOptions = () => Object.keys(this);
+  getDonnees = () => this.map(({ donnees }) => donnees);
+  getLibelles = () => this.map(({ libelle }) => libelle);
+}
+
+const donneesFormulaireOptions: CollectionParametresDonneesEtatMembre =
+  new CollectionParametresDonneesEtatMembre(
+    new ParametresDonneesEtatMembre("France Uniquement", ["france"]),
+    new ParametresDonneesEtatMembre("France et autre", ["france", "autre"]),
+    new ParametresDonneesEtatMembre("France et Hors UE", ["france", "horsue"]),
+    new ParametresDonneesEtatMembre("Tous", ["france", "autre", "horsue"]),
+    new ParametresDonneesEtatMembre("Autre et Hors UE", ["autre", "horsue"]),
+    new ParametresDonneesEtatMembre("Autre Uniquement", ["autre"]),
+    new ParametresDonneesEtatMembre("Hors UE Uniquement", ["horsue"]),
+  );
+
 const meta: Meta<typeof SimulateurEtape1> = {
   component: SimulateurEtape1,
   argTypes: {
     propageActionSimulateur: { action: true },
     formData: {
-      options: Object.keys(values),
-      mapping: values,
+      options: donneesFormulaireOptions.getOptions(),
+      mapping: donneesFormulaireOptions.getDonnees(),
       control: {
         type: "select",
-        labels: ["France seulement", "France et autre"],
+        labels: donneesFormulaireOptions.getLibelles(),
       },
     },
   },
@@ -33,15 +62,21 @@ const meta: Meta<typeof SimulateurEtape1> = {
 export default meta;
 type Story = StoryObj<typeof SimulateurEtape1>;
 
+const creeActionPropagationFormulaireSimu = (newValue: string) => {
+  const actionTypique = {
+    type: "checkMulti",
+    name: "etatMembre",
+  };
+  return {
+    ...actionTypique,
+    newValue: newValue,
+  };
+};
+
 export const CliqueSurLesOptions: Story = {
   play: async ({ args, canvasElement, step }) => {
     const canvas = within(canvasElement);
     const { propageActionSimulateur } = args;
-    const actionTypique = {
-      type: "checkMulti",
-      name: "etatMembre",
-      newValue: "",
-    };
 
     const optionsATester = [
       { libelle: "France", newValue: "france" },
@@ -50,15 +85,14 @@ export const CliqueSurLesOptions: Story = {
     ];
 
     for (const { libelle, newValue } of optionsATester) {
+      const actionPropagee = creeActionPropagationFormulaireSimu(newValue);
       await step(
-        `Clique sur '${libelle}' déclanche le dispatch d'action '${actionTypique.type}' sur le champs '${actionTypique.name}' pour une valeur '${newValue}'`,
+        `Clique sur '${libelle}' déclanche le dispatch d'action '${actionPropagee.type}' sur le champs '${actionPropagee.name}' pour une valeur '${newValue}'`,
         async () => {
           await userEvent.click(await canvas.findByText(libelle));
-
-          await expect(propageActionSimulateur).toHaveBeenCalledWith({
-            ...actionTypique,
-            newValue: newValue,
-          });
+          await expect(propageActionSimulateur).toHaveBeenCalledWith(
+            actionPropagee,
+          );
         },
       );
     }
@@ -81,9 +115,9 @@ export const CocheFrance: Story = {
       const casesCochees = await canvas.findAllByRole("checkbox", {
         checked: true,
       });
-      expect(casesCochees.length).toBe(1);
+      await expect(casesCochees.length).toBe(1);
 
-      expect(casesCochees[0].getAttribute("value")).toBe("france");
+      await expect(casesCochees[0].getAttribute("value")).toBe("france");
     });
   },
 };
@@ -104,10 +138,10 @@ export const CocheFranceEtHorsUE: Story = {
       const casesCochees = await canvas.findAllByRole("checkbox", {
         checked: true,
       });
-      expect(casesCochees.length).toBe(2);
+      await expect(casesCochees.length).toBe(2);
 
-      expect(casesCochees[0].getAttribute("value")).toBe("france");
-      expect(casesCochees[1].getAttribute("value")).toBe("horsue");
+      await expect(casesCochees[0].getAttribute("value")).toBe("france");
+      await expect(casesCochees[1].getAttribute("value")).toBe("horsue");
     });
   },
 };
