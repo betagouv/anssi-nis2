@@ -3,14 +3,14 @@ import {
   InformationEtapeResult,
   InformationsEtape,
   SousEtapeConditionnelle,
-} from "./Components/Simulateur/simulateurProps.ts";
+} from "./simulateurProps.ts";
 import {
   SimulateurEtape1,
   SimulateurEtape2,
   SimulateurEtape3,
   SimulateurEtape4,
   SimulateurEtape5,
-} from "./Components/Simulateur";
+} from "./index.ts";
 
 export const etapesQuestionnaire: InformationsEtape[] = [
   new InformationEtapeForm(

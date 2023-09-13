@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import MiseEnPage from "./Components/MiseEnPage.tsx";
 import { SimulateurEtape } from "./Components/Simulateur/SimulateurEtape.tsx";
-import { etapesQuestionnaire } from "./EtapesQuestionnaire.ts";
+import { etapesQuestionnaire } from "./Components/Simulateur/EtapesQuestionnaire.ts";
 import { GenerateurSoumissionEtape } from "./Components/Simulateur/simulateurProps.ts";
 
 const Simulateur: DefaultComponent = () => {

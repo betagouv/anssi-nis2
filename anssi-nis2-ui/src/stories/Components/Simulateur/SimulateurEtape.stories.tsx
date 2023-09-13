@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { SimulateurEtape } from "../../../Components/Simulateur/SimulateurEtape.tsx";
-import { etapesQuestionnaire } from "../../../EtapesQuestionnaire.ts";
+import { etapesQuestionnaire } from "../../../Components/Simulateur/EtapesQuestionnaire.ts";
 import { AppContext, Context } from "../../../AppContext.tsx";
 import { defaultContext } from "../../../.storybook/PageDecorator.tsx";
 import {
@@ -62,7 +62,7 @@ export const AfficheEtape: Story = {
   },
 };
 
-export const EtapeSousActiviteConditionnelle: Story = {
+export const MiseEnPlaceReducerSurNavigation: Story = {
   args: {
     etapeCourante: 3,
   },
@@ -98,9 +98,25 @@ export const EtapeSousActiviteConditionnelle: Story = {
         newHandler: undefined,
       },
     );
-    // await userEvent.click(
-    //   await canvas.findByRole("button", { name: "Suivant" }),
-    // );
-    // await expect(mock)
+    await userEvent.click(
+      await canvas.findByRole("button", { name: "Suivant" }),
+    );
+  },
+};
+
+export const EtapeSousActiviteConditionnelle: Story = {
+  args: {
+    etapeCourante: 3,
+  },
+
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(await canvas.findByText("Énergie"));
+    await userEvent.click(
+      await canvas.findByRole("button", { name: "Suivant" }),
+    );
+    await canvas.findByText(
+      "Quel type de structure qualifie votre organisation ?",
+    );
   },
 };

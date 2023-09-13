@@ -4,7 +4,7 @@ import {
   SimulateurEtapeRenderedComponent,
   SimulateurEtapeSwitcherProps,
 } from "./simulateurProps.ts";
-import { etapesQuestionnaire } from "../../EtapesQuestionnaire.ts";
+import { etapesQuestionnaire } from "./EtapesQuestionnaire.ts";
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
 import { emptySimulateurFormData } from "../../Services/Simulateur/FormData.ts";
 import { AppContext } from "../../AppContext.tsx";

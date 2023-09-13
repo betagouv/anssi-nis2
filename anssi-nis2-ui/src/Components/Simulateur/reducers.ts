@@ -48,7 +48,7 @@ export const reducerBoutons: Reducer<
   BoutonsNavigation,
   ActionsBoutonNavigation
 > = (state, { bouton, newHandler }) => {
-  if (newHandler !== undefined)
+  if (newHandler === undefined)
     throw Error(`Handler can't be undefined for button "${bouton}"`);
   return { ...state, [bouton]: newHandler };
 };
