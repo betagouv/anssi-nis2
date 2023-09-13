@@ -43,6 +43,15 @@ export const reducerBoutons: Reducer<
   BoutonsNavigation,
   ActionsBoutonNavigation
 > = (state, { bouton, newHandler }) => {
-  if (newHandler === undefined) return state;
+  console.log(
+    `VVV reducerBoutons params = [state=${JSON.stringify(
+      state,
+    )}, bouton=${bouton}, newHandler=${newHandler}`,
+  );
+  if (newHandler === undefined) {
+    console.log("undef");
+    return state;
+  }
+  console.log("def");
   return { ...state, [bouton]: newHandler };
 };

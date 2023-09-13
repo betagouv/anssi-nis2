@@ -10,7 +10,7 @@ const meta: Meta<typeof Simulateur> = {
 export default meta;
 type Story = StoryObj<typeof Simulateur>;
 
-export const FirstStory: Story = {
+export const AffichageSimple: Story = {
   args: {
     //👇 The args you need here will depend on your component
   },

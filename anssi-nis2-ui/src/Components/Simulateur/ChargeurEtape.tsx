@@ -1,21 +1,18 @@
 import { DefaultComponentExtensible } from "../../Props.ts";
-import { useContext, useEffect, useReducer } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import {
+  GenerateurSoumissionEtape,
   SimulateurEtapeRenderedComponent,
   SimulateurEtapeSwitcherProps,
 } from "./props.ts";
 import { etapesQuestionnaire } from "./EtapesQuestionnaire.ts";
-import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
 import { emptySimulateurFormData } from "../../Services/Simulateur/FormData.ts";
 import { AppContext } from "../../AppContext.tsx";
+import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
 
 export const ChargeurEtape: DefaultComponentExtensible<
   SimulateurEtapeSwitcherProps
-> = ({
-  etapeCourante,
-  listeEtapes,
-  soumissionEtape,
-}: SimulateurEtapeSwitcherProps) => {
+> = ({ listeEtapes }: SimulateurEtapeSwitcherProps) => {
   const {
     simulateur: { reducerFormData, reducerBoutons },
   } = useContext(AppContext);
@@ -23,6 +20,7 @@ export const ChargeurEtape: DefaultComponentExtensible<
     reducerFormData,
     emptySimulateurFormData,
   );
+  const [numeroEtapeCourante, setNumeroEtapeCourante] = useState(0);
 
   const [gereClickBouton, propageHandlerClickBouton] = useReducer(
     reducerBoutons,
@@ -33,29 +31,44 @@ export const ChargeurEtape: DefaultComponentExtensible<
   );
 
   useEffect(() => {
+    const soumissionEtape: GenerateurSoumissionEtape = (
+      limiteConditions,
+      nouvelleEtape,
+    ) => {
+      return (e: React.MouseEvent) => {
+        const valeur = nouvelleEtape(numeroEtapeCourante);
+        e.preventDefault();
+        if (limiteConditions(valeur)) {
+          setNumeroEtapeCourante(valeur);
+        }
+      };
+    };
+    const gestionSuivantParDefaut = soumissionEtape(
+      (etape) => etape < etapesQuestionnaire.length,
+      (etape) => etape + 1,
+    );
+
+    const gestionPrecedentParDefaut = soumissionEtape(
+      (etape) => etape >= 0,
+      (etape) => etape - 1,
+    );
     propageHandlerClickBouton({
       bouton: "suivant",
-      newHandler: soumissionEtape(
-        (etape) => etape < etapesQuestionnaire.length,
-        (etape) => etape + 1,
-      ),
+      newHandler: gestionSuivantParDefaut,
     });
     propageHandlerClickBouton({
       bouton: "precedent",
-      newHandler: soumissionEtape(
-        (etape) => etape >= 0,
-        (etape) => etape - 1,
-      ),
+      newHandler: gestionPrecedentParDefaut,
     });
-  }, [etapeCourante, soumissionEtape]);
+  }, [numeroEtapeCourante]);
 
   const ElementRendered: SimulateurEtapeRenderedComponent =
-    listeEtapes[etapeCourante].elementToRender;
+    listeEtapes[numeroEtapeCourante].elementToRender;
 
   return (
     <ElementRendered
+      numeroEtapeCourante={numeroEtapeCourante}
       listeEtapes={listeEtapes}
-      etapeCourante={etapeCourante}
       propageActionSimulateur={propageActionSimulateur}
       formData={inputsState}
       gereClickBouton={gereClickBouton}

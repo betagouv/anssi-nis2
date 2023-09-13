@@ -25,7 +25,6 @@ export type BoutonsNavigation = {
 };
 
 export interface SimulateurEtapeProps extends DefaultProps {
-  etapeCourante: number;
   listeEtapes: InformationsEtape[];
 }
 
@@ -33,6 +32,7 @@ export interface SimulateurEtapeRenderedProps extends SimulateurEtapeProps {
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>;
   gereClickBouton: BoutonsNavigation;
   formData: SimulateurFormData;
+  numeroEtapeCourante: number;
 }
 
 export type SimulateurEtapeRenderedComponent =
@@ -74,9 +74,7 @@ export type GenerateurSoumissionEtape = (
   nouvelleEtape: (etape: number) => number,
 ) => (e: React.MouseEvent) => void;
 
-export interface SimulateurEtapeSwitcherProps extends SimulateurEtapeProps {
-  soumissionEtape: GenerateurSoumissionEtape;
-}
+export interface SimulateurEtapeSwitcherProps extends SimulateurEtapeProps {}
 
 type SimulateurDonneesFormulaireActionType = "checkSingle" | "checkMulti";
 export type SimulateurDonneesFormulaireActions = {

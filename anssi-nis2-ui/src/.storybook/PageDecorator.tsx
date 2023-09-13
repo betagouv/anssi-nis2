@@ -2,6 +2,10 @@ import { AppContext, Context } from "../AppContext.tsx";
 import { Args, Globals } from "@storybook/types";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ReactRenderer } from "@storybook/react";
+import {
+  reducerBoutons,
+  reducerFormData,
+} from "../Components/Simulateur/reducers.ts";
 
 const defaultAsyncStringFonctionInjected = async () => {
   return "";
@@ -11,8 +15,8 @@ const defaultAsyncStringFonctionInjected = async () => {
 export const defaultContext: Context = {
   sendFormData: defaultAsyncStringFonctionInjected,
   simulateur: {
-    reducerBoutons: (state) => state,
-    reducerFormData: (state) => state,
+    reducerBoutons: reducerBoutons,
+    reducerFormData: reducerFormData,
   },
 };
 type StoryContextUpdate<TArgs = Args> = {

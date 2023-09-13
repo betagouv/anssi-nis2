@@ -7,7 +7,7 @@ import {
   SimulateurEtapeRenderedComponent,
   SimulateurEtapeRenderedProps,
 } from "./props.ts";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { AppContext } from "../../AppContext.tsx";
 import { CenteredContainer } from "../CenteredContainer.tsx";
 
@@ -19,26 +19,28 @@ import {
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   listeEtapes,
-  etapeCourante,
+  numeroEtapeCourante,
   propageActionSimulateur,
   formData,
   gereClickBouton,
 }: SimulateurEtapeRenderedProps) => {
-  const informationsEtape = listeEtapes[etapeCourante] as InformationEtapeForm;
+  const informationsEtape = listeEtapes[
+    numeroEtapeCourante
+  ] as InformationEtapeForm;
 
   const EtapeCourante = informationsEtape.contenu;
 
-  const suivante = listeEtapes[etapeCourante + 1] || "";
+  const suivante = listeEtapes[numeroEtapeCourante + 1] || "";
 
   const { sendFormData } = useContext(AppContext);
 
   const etapePrecedenteHandlerConcret = genereGestionEtapePrecedenteSiExiste(
     gereClickBouton.precedent,
-    etapeCourante,
+    numeroEtapeCourante,
   );
 
   const etapeSuivantHandlerConcret = genereGestionEtapeSuivanteSiExiste(
-    etapeCourante,
+    numeroEtapeCourante,
     listeEtapes,
     gereClickBouton.suivant,
     () => sendFormData(formData as SimulateurFormData),
@@ -48,7 +50,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
     <RowContainer className="fr-py-7w">
       <CenteredContainer className="fr-background-alt--grey">
         <Stepper
-          currentStep={etapeCourante + 1}
+          currentStep={numeroEtapeCourante + 1}
           nextTitle={suivante.titre}
           stepCount={listeEtapes.length}
           title={informationsEtape.titre}
