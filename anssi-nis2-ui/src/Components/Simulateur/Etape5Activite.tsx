@@ -6,7 +6,7 @@ import { InputPropsList, SimulateurContenuEtapeProps } from "./props.ts";
 import React, { useEffect, useState } from "react";
 import { SimulateurFieldNames } from "../../Services/Simulateur/FormData.ts";
 
-const SimulateurEtape5 = ({
+const Etape5Activite = ({
   propageActionSimulateur,
   formData,
 }: SimulateurContenuEtapeProps) => {
@@ -58,4 +58,4 @@ const SimulateurEtape5 = ({
   );
 };
 
-export default SimulateurEtape5;
+export default Etape5Activite;

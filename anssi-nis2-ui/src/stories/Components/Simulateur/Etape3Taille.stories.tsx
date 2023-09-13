@@ -6,7 +6,7 @@ import {
   ValeursTrancheCA,
   ValeursTrancheNombreEmployes,
 } from "../../../Domaine/DomaineSimulateur.ts";
-import { SimulateurEtape3 } from "../../../Components/Simulateur";
+import { Etape3Taille } from "../../../Components/Simulateur";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
@@ -25,8 +25,8 @@ class CollectionParametresDonneesTrancheNombreEmployes extends CollectionParamet
 const donneesFormulaireOptions: CollectionParametresDonneesTrancheNombreEmployes =
   new CollectionParametresDonneesTrancheNombreEmployes();
 
-const meta: Meta<typeof SimulateurEtape3> = {
-  component: SimulateurEtape3,
+const meta: Meta<typeof Etape3Taille> = {
+  component: Etape3Taille,
   argTypes: {
     propageActionSimulateur: { action: true },
     formData: donneesFormulaireOptions.getFormData(),
@@ -34,7 +34,7 @@ const meta: Meta<typeof SimulateurEtape3> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof SimulateurEtape3>;
+type Story = StoryObj<typeof Etape3Taille>;
 
 const creeActionPropagationFormulaireTrancheNombreEmployes = (
   newValue: ValeursTrancheNombreEmployes,

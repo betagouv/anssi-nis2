@@ -5,7 +5,7 @@ import { SimulateurContenuEtapeProps } from "./props.ts";
 import React from "react";
 import { transformeSecteursActiviteVersOptions } from "../../Services/Simulateur/Transformateurs.ts";
 
-const SimulateurEtape4 = ({
+const Etape4Secteur = ({
   propageActionSimulateur,
   formData,
 }: SimulateurContenuEtapeProps) => {
@@ -33,4 +33,4 @@ const SimulateurEtape4 = ({
   );
 };
 
-export default SimulateurEtape4;
+export default Etape4Secteur;

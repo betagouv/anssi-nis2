@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { transformeTypeStructureVersOptions } from "../../Services/Simulateur/Transformateurs.ts";
 
-const SimulateurEtape2: SimulateurEtapeNodeComponent = ({
+const Etape2TypeStructure: SimulateurEtapeNodeComponent = ({
   formData,
   propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
@@ -36,4 +36,4 @@ const SimulateurEtape2: SimulateurEtapeNodeComponent = ({
   );
 };
 
-export default SimulateurEtape2;
+export default Etape2TypeStructure;

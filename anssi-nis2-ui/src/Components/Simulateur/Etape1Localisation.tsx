@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { transformePaysUnionEuropeennePourSelect } from "../../Services/Simulateur/Transformateurs.ts";
 import { SimulateurFieldNames } from "../../Services/Simulateur/FormData.ts";
 
-const SimulateurEtape1 = ({
+const Etape1Localisation = ({
   formData,
   propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
@@ -49,4 +49,4 @@ const SimulateurEtape1 = ({
   );
 };
 
-export default SimulateurEtape1;
+export default Etape1Localisation;

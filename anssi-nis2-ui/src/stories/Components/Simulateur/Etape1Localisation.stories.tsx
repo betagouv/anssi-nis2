@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { SimulateurEtape1 } from "../../../Components/Simulateur";
+import { Etape1Localisation } from "../../../Components/Simulateur";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { ValeursClePaysUnionEuropeenne } from "../../../Domaine/DomaineSimulateur.ts";
@@ -30,8 +30,8 @@ const donneesFormulaireOptions: CollectionParametresDonneesEtatMembre =
     new ParametresDonneesEtatMembre("Hors UE Uniquement", ["horsue"]),
   );
 
-const meta: Meta<typeof SimulateurEtape1> = {
-  component: SimulateurEtape1,
+const meta: Meta<typeof Etape1Localisation> = {
+  component: Etape1Localisation,
   argTypes: {
     propageActionSimulateur: { action: true },
     formData: donneesFormulaireOptions.getFormData(), //CollectionParametresDonneesEtatMembre
@@ -39,7 +39,7 @@ const meta: Meta<typeof SimulateurEtape1> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof SimulateurEtape1>;
+type Story = StoryObj<typeof Etape1Localisation>;
 
 const creeActionPropagationFormulaireSimu = (newValue: string) => {
   const actionTypique = {

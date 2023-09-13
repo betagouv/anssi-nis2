@@ -1,15 +1,15 @@
-import SimulateurEtape1 from "./SimulateurEtape1.tsx";
-import SimulateurEtape2 from "./SimulateurEtape2.tsx";
-import SimulateurEtape3 from "./SimulateurEtape3.tsx";
-import SimulateurEtape4 from "./SimulateurEtape4.tsx";
-import SimulateurEtape5 from "./SimulateurEtape5.tsx";
+import Etape1Localisation from "./Etape1Localisation.tsx";
+import Etape2TypeStructure from "./Etape2TypeStructure.tsx";
+import Etape3Taille from "./Etape3Taille.tsx";
+import Etape4Secteur from "./Etape4Secteur.tsx";
+import Etape5Activite from "./Etape5Activite.tsx";
 import FormSimulateur from "./FormSimulateur.tsx";
 
 export {
-  SimulateurEtape1,
-  SimulateurEtape2,
-  SimulateurEtape3,
-  SimulateurEtape4,
-  SimulateurEtape5,
+  Etape1Localisation,
+  Etape2TypeStructure,
+  Etape3Taille,
+  Etape4Secteur,
+  Etape5Activite,
   FormSimulateur,
 };

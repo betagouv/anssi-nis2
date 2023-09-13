@@ -2,28 +2,28 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { ValeursTypeStructure } from "../../../Domaine/DomaineSimulateur.ts";
-import { SimulateurEtape2 } from "../../../Components/Simulateur";
+import { ValeursSecteurActivite } from "../../../Domaine/DomaineSimulateur.ts";
+import { Etape4Secteur } from "../../../Components/Simulateur";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { SimulateurFormData } from "../../../Services/Simulateur/FormData.ts";
 
-class ParametresDonneesTypeStructure extends ParametresDonneesSpecifiqueField<ValeursTypeStructure> {
-  protected construitDonnees<ValeursTypeStructure>(
-    valeurs: ValeursTypeStructure[],
+class ParametresDonneesSecteurActivite extends ParametresDonneesSpecifiqueField<ValeursSecteurActivite> {
+  protected construitDonnees<ValeursSecteurActivite>(
+    valeurs: ValeursSecteurActivite[],
   ): SimulateurFormData {
-    return this.construitDonneesPourField("typeStructure", valeurs);
+    return this.construitDonneesPourField("secteurActivite", valeurs);
   }
 }
 
-class CollectionParametresDonneesTypeStructure extends CollectionParametresDonnees<ParametresDonneesTypeStructure> {}
+class CollectionParametresDonneesSecteurActivites extends CollectionParametresDonnees<ParametresDonneesSecteurActivite> {}
 
-const donneesFormulaireOptions: CollectionParametresDonneesTypeStructure =
-  new CollectionParametresDonneesTypeStructure();
+const donneesFormulaireOptions: CollectionParametresDonneesSecteurActivites =
+  new CollectionParametresDonneesSecteurActivites();
 
-const meta: Meta<typeof SimulateurEtape2> = {
-  component: SimulateurEtape2,
+const meta: Meta<typeof Etape4Secteur> = {
+  component: Etape4Secteur,
   argTypes: {
     propageActionSimulateur: { action: true },
     formData: donneesFormulaireOptions.getFormData(),
@@ -31,14 +31,14 @@ const meta: Meta<typeof SimulateurEtape2> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof SimulateurEtape2>;
+type Story = StoryObj<typeof Etape4Secteur>;
 
 const creeActionPropagationFormulaireActivite = (
-  newValue: ValeursTypeStructure,
+  newValue: ValeursSecteurActivite,
 ) => {
   const actionTypique = {
-    type: "checkSingle",
-    name: "typeStructure",
+    type: "checkMulti",
+    name: "secteurActivite",
   };
   return { ...actionTypique, newValue: newValue };
 };
@@ -50,11 +50,11 @@ export const CliqueSurLesOptions: Story = {
 
     const optionsATester: {
       libelle: string;
-      newValue: ValeursTypeStructure;
+      newValue: ValeursSecteurActivite;
     }[] = [
       {
-        libelle: "Publique",
-        newValue: "publique",
+        libelle: "Énergie",
+        newValue: "energie",
       },
     ];
 

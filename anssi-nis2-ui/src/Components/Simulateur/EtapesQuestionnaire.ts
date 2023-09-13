@@ -5,43 +5,43 @@ import {
   SousEtapeConditionnelle,
 } from "./props.ts";
 import {
-  SimulateurEtape1,
-  SimulateurEtape2,
-  SimulateurEtape3,
-  SimulateurEtape4,
-  SimulateurEtape5,
+  Etape1Localisation,
+  Etape2TypeStructure,
+  Etape3Taille,
+  Etape4Secteur,
+  Etape5Activite,
 } from "./index.ts";
 
 export const etapesQuestionnaire: InformationsEtape[] = [
   new InformationEtapeForm(
     "Localisation de l’activité",
     "Sélectionnez une réponse",
-    SimulateurEtape1,
+    Etape1Localisation,
   ),
 
   new InformationEtapeForm(
     "Type de structure",
     "Sélectionnez une réponse",
-    SimulateurEtape2,
+    Etape2TypeStructure,
   ),
   new InformationEtapeForm(
     "Taille de l’organisation",
     "Sélectionnez une réponse pour chaque critère",
-    SimulateurEtape3,
+    Etape3Taille,
   ),
   new InformationEtapeForm(
     "Secteurs d’activité",
     "Sélectionnez au moins une réponse",
-    SimulateurEtape4,
+    Etape4Secteur,
     new SousEtapeConditionnelle(
       ({ secteurActivite }) => secteurActivite.includes("energie"),
-      SimulateurEtape2,
+      Etape2TypeStructure,
     ),
   ),
   new InformationEtapeForm(
     "Activités pratiquées",
     "Sélectionnez une réponse",
-    SimulateurEtape5,
+    Etape5Activite,
   ) /* */,
   new InformationEtapeResult("Resultat"),
 ];
