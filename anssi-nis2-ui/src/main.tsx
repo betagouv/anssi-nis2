@@ -6,6 +6,10 @@ import { startReactDsfr } from "@codegouvfr/react-dsfr/spa";
 import Simulateur from "./Simulateur.tsx";
 import { AppContext, Context } from "./AppContext.tsx";
 import { sendFormDataToApi } from "./Services/sendFormDataToApi.tsx";
+import {
+  reducerBoutons,
+  reducerFormData,
+} from "./Components/Simulateur/reducers.ts";
 
 startReactDsfr({ defaultColorScheme: "system" });
 
@@ -22,6 +26,10 @@ const router = createBrowserRouter([
 
 const defaultContext: Context = {
   sendFormData: sendFormDataToApi,
+  simulateur: {
+    reducerFormData: reducerFormData,
+    reducerBoutons: reducerBoutons,
+  },
 };
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

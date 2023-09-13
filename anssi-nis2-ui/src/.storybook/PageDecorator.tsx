@@ -3,9 +3,16 @@ import { Args, Globals } from "@storybook/types";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ReactRenderer } from "@storybook/react";
 
-const defaultContext: Context = {
-  sendFormData: async () => {
-    return "";
+const defaultAsyncStringFonctionInjected = async () => {
+  return "";
+};
+
+// reducerFormData: Reducer<SimulateurFormData, SimulateurDonneesFormulaireActions>; reducerBoutons: Reducer<BoutonsNavigation, ActionsBoutonNavigation>;
+export const defaultContext: Context = {
+  sendFormData: defaultAsyncStringFonctionInjected,
+  simulateur: {
+    reducerBoutons: (state) => state,
+    reducerFormData: (state) => state,
   },
 };
 type StoryContextUpdate<TArgs = Args> = {
