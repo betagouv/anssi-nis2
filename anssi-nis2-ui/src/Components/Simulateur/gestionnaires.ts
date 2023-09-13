@@ -5,7 +5,8 @@ import {
 } from "../../Services/Simulateur/FormData.ts";
 import React from "react";
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
-import { InformationsEtape } from "./props.ts";
+
+import { CollectionInformationsEtapes } from "./props.ts";
 
 export const handleSingleValue = (value: string) => [value];
 export const generateHandlerMultipleValues =
@@ -37,10 +38,11 @@ const genereGestionSauvePuisEtapeSuivante =
   };
 export const genereGestionEtapeSuivanteSiExiste = (
   numeroEtapeCourante: number,
-  collectionEtapes: InformationsEtape[],
+  collectionEtapes: CollectionInformationsEtapes,
   suivantHandler: React.MouseEventHandler,
   sauveHandler: () => Promise<string>,
-) =>
-  numeroEtapeCourante < collectionEtapes.length - 2
-    ? suivantHandler
-    : genereGestionSauvePuisEtapeSuivante(suivantHandler, sauveHandler());
+) => {
+  return collectionEtapes.estAvantDerniereEtape(numeroEtapeCourante)
+    ? genereGestionSauvePuisEtapeSuivante(suivantHandler, sauveHandler())
+    : suivantHandler;
+};

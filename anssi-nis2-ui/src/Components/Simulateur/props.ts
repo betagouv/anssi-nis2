@@ -24,8 +24,14 @@ export type BoutonsNavigation = {
   suivant: React.MouseEventHandler;
 };
 
+export class CollectionInformationsEtapes extends Array<InformationsEtape> {
+  estAvantDerniereEtape(numeroEtape: number) {
+    return numeroEtape >= this.length - 2;
+  }
+}
+
 export interface SimulateurEtapeProps extends DefaultProps {
-  listeEtapes: InformationsEtape[];
+  listeEtapes: CollectionInformationsEtapes;
 }
 
 export interface SimulateurEtapeRenderedProps extends SimulateurEtapeProps {

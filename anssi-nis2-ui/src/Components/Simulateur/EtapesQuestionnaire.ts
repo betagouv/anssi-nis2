@@ -1,7 +1,7 @@
 import {
+  CollectionInformationsEtapes,
   InformationEtapeForm,
   InformationEtapeResult,
-  InformationsEtape,
   SousEtapeConditionnelle,
 } from "./props.ts";
 import {
@@ -12,36 +12,37 @@ import {
   Etape5Activite,
 } from "./index.ts";
 
-export const etapesQuestionnaire: InformationsEtape[] = [
-  new InformationEtapeForm(
-    "Localisation de l’activité",
-    "Sélectionnez une réponse",
-    Etape1Localisation,
-  ),
+export const etapesQuestionnaire: CollectionInformationsEtapes =
+  new CollectionInformationsEtapes(
+    new InformationEtapeForm(
+      "Localisation de l’activité",
+      "Sélectionnez une réponse",
+      Etape1Localisation,
+    ),
 
-  new InformationEtapeForm(
-    "Type de structure",
-    "Sélectionnez une réponse",
-    Etape2TypeStructure,
-  ),
-  new InformationEtapeForm(
-    "Taille de l’organisation",
-    "Sélectionnez une réponse pour chaque critère",
-    Etape3Taille,
-  ),
-  new InformationEtapeForm(
-    "Secteurs d’activité",
-    "Sélectionnez au moins une réponse",
-    Etape4Secteur,
-    new SousEtapeConditionnelle(
-      ({ secteurActivite }) => secteurActivite.includes("energie"),
+    new InformationEtapeForm(
+      "Type de structure",
+      "Sélectionnez une réponse",
       Etape2TypeStructure,
     ),
-  ),
-  new InformationEtapeForm(
-    "Activités pratiquées",
-    "Sélectionnez une réponse",
-    Etape5Activite,
-  ) /* */,
-  new InformationEtapeResult("Resultat"),
-];
+    new InformationEtapeForm(
+      "Taille de l’organisation",
+      "Sélectionnez une réponse pour chaque critère",
+      Etape3Taille,
+    ),
+    new InformationEtapeForm(
+      "Secteurs d’activité",
+      "Sélectionnez au moins une réponse",
+      Etape4Secteur,
+      new SousEtapeConditionnelle(
+        ({ secteurActivite }) => secteurActivite.includes("energie"),
+        Etape2TypeStructure,
+      ),
+    ),
+    new InformationEtapeForm(
+      "Activités pratiquées",
+      "Sélectionnez une réponse",
+      Etape5Activite,
+    ) /* */,
+    new InformationEtapeResult("Resultat"),
+  );
