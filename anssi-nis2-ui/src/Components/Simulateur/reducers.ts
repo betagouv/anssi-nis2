@@ -6,8 +6,8 @@ import {
 import {
   BoutonsNavigation,
   SimulateurDonneesFormulaireActions,
-} from "./simulateurProps.ts";
-import { fieldHandlers } from "./HandleValue.ts";
+} from "./props.ts";
+import { fieldHandlers } from "./gestionnaires.ts";
 
 const generateNewStateFrom = (
   state: SimulateurFormData,
@@ -33,22 +33,16 @@ export const reducerFormData: Reducer<
 };
 
 export class ActionsBoutonNavigation {
-  public readonly action?: "set" | "addBefore";
-
   constructor(
     public readonly bouton: "precedent" | "suivant",
     public readonly newHandler: React.MouseEventHandler,
-    action?: "set" | "addBefore",
-  ) {
-    this.action = action || "set";
-  }
+  ) {}
 }
 
 export const reducerBoutons: Reducer<
   BoutonsNavigation,
   ActionsBoutonNavigation
 > = (state, { bouton, newHandler }) => {
-  if (newHandler === undefined)
-    throw Error(`Handler can't be undefined for button "${bouton}"`);
+  if (newHandler === undefined) return state;
   return { ...state, [bouton]: newHandler };
 };

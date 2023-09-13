@@ -3,7 +3,7 @@ import {
   InformationEtapeResult,
   InformationsEtape,
   SousEtapeConditionnelle,
-} from "./simulateurProps.ts";
+} from "./props.ts";
 import {
   SimulateurEtape1,
   SimulateurEtape2,

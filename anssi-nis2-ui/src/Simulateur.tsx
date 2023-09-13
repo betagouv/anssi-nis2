@@ -2,9 +2,9 @@ import { DefaultComponent } from "./Props.ts";
 import React, { useState } from "react";
 
 import MiseEnPage from "./Components/MiseEnPage.tsx";
-import { SimulateurEtape } from "./Components/Simulateur/SimulateurEtape.tsx";
+import { ChargeurEtape } from "./Components/Simulateur/ChargeurEtape.tsx";
 import { etapesQuestionnaire } from "./Components/Simulateur/EtapesQuestionnaire.ts";
-import { GenerateurSoumissionEtape } from "./Components/Simulateur/simulateurProps.ts";
+import { GenerateurSoumissionEtape } from "./Components/Simulateur/props.ts";
 
 const Simulateur: DefaultComponent = () => {
   const [etapeCourante, setEtapeCourante] = useState(0);
@@ -24,7 +24,7 @@ const Simulateur: DefaultComponent = () => {
 
   return (
     <MiseEnPage page={"simulateur"}>
-      <SimulateurEtape
+      <ChargeurEtape
         etapeCourante={etapeCourante}
         listeEtapes={etapesQuestionnaire}
         soumissionEtape={soumissionEtape}

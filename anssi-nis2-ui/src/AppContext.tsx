@@ -4,7 +4,7 @@ import { SimulateurFormData } from "./Services/Simulateur/FormData.ts";
 import {
   BoutonsNavigation,
   SimulateurDonneesFormulaireActions,
-} from "./Components/Simulateur/simulateurProps.ts";
+} from "./Components/Simulateur/props.ts";
 import { ActionsBoutonNavigation } from "./Components/Simulateur/reducers.ts";
 
 export type SendFormData = (formData: SimulateurFormData) => Promise<string>;

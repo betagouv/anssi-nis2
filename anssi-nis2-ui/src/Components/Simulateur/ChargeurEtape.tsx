@@ -3,13 +3,13 @@ import { useContext, useEffect, useReducer } from "react";
 import {
   SimulateurEtapeRenderedComponent,
   SimulateurEtapeSwitcherProps,
-} from "./simulateurProps.ts";
+} from "./props.ts";
 import { etapesQuestionnaire } from "./EtapesQuestionnaire.ts";
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
 import { emptySimulateurFormData } from "../../Services/Simulateur/FormData.ts";
 import { AppContext } from "../../AppContext.tsx";
 
-export const SimulateurEtape: DefaultComponentExtensible<
+export const ChargeurEtape: DefaultComponentExtensible<
   SimulateurEtapeSwitcherProps
 > = ({
   etapeCourante,

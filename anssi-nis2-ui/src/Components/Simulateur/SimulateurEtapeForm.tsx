@@ -4,36 +4,18 @@ import { StepperNavigation } from "../StepperNavigation.tsx";
 import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
 import {
   InformationEtapeForm,
-  InformationsEtape,
   SimulateurEtapeRenderedComponent,
   SimulateurEtapeRenderedProps,
-} from "./simulateurProps.ts";
-import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
+} from "./props.ts";
 import React, { useContext } from "react";
 import { AppContext } from "../../AppContext.tsx";
 import { CenteredContainer } from "../CenteredContainer.tsx";
 
 import { SimulateurFormData } from "../../Services/Simulateur/FormData.ts";
-
-const getEtapePrecedenteHandlerConcret = (
-  precedentHandler: React.MouseEventHandler,
-  numeroEtapeCourante: number,
-) => (numeroEtapeCourante == 0 ? noRefClick : precedentHandler);
-
-const getSauvePuisEtapeSuivante =
-  (suivantHandler: React.MouseEventHandler, sauveHandler: Promise<string>) =>
-  (e: React.MouseEvent<Element, MouseEvent>) => {
-    sauveHandler.then(() => suivantHandler(e));
-  };
-const getEtapeSuivantHandlerConcret = (
-  numeroEtapeCourante: number,
-  collectionEtapes: InformationsEtape[],
-  suivantHandler: React.MouseEventHandler,
-  sauveHandler: () => Promise<string>,
-) =>
-  numeroEtapeCourante < collectionEtapes.length - 2
-    ? suivantHandler
-    : getSauvePuisEtapeSuivante(suivantHandler, sauveHandler());
+import {
+  genereGestionEtapePrecedenteSiExiste,
+  genereGestionEtapeSuivanteSiExiste,
+} from "./gestionnaires.ts";
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   listeEtapes,
@@ -50,12 +32,12 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
 
   const { sendFormData } = useContext(AppContext);
 
-  const etapePrecedenteHandlerConcret = getEtapePrecedenteHandlerConcret(
+  const etapePrecedenteHandlerConcret = genereGestionEtapePrecedenteSiExiste(
     gereClickBouton.precedent,
     etapeCourante,
   );
 
-  const etapeSuivantHandlerConcret = getEtapeSuivantHandlerConcret(
+  const etapeSuivantHandlerConcret = genereGestionEtapeSuivanteSiExiste(
     etapeCourante,
     listeEtapes,
     gereClickBouton.suivant,

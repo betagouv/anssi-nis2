@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { SimulateurEtapeRenderedComponent } from "./simulateurProps.ts";
+import { SimulateurEtapeRenderedComponent } from "./props.ts";
 import ResterInformee from "../ResterInformee.tsx";
 import { fr } from "@codegouvfr/react-dsfr";
 import Icon from "@mui/material/Icon";

@@ -4,7 +4,7 @@ import {
 } from "../../Domaine/DomaineSimulateur.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { FormSimulateur } from "./index.ts";
-import { SimulateurContenuEtapeProps } from "./simulateurProps.ts";
+import { SimulateurContenuEtapeProps } from "./props.ts";
 import React from "react";
 import {
   transformeTranchesCAVersOptions,

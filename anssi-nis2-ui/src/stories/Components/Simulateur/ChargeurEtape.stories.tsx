@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { SimulateurEtape } from "../../../Components/Simulateur/SimulateurEtape.tsx";
+import { ChargeurEtape } from "../../../Components/Simulateur/ChargeurEtape.tsx";
 import { etapesQuestionnaire } from "../../../Components/Simulateur/EtapesQuestionnaire.ts";
 import { AppContext, Context } from "../../../AppContext.tsx";
 import { defaultContext } from "../../../.storybook/PageDecorator.tsx";
@@ -9,7 +9,7 @@ import {
   reducerFormData,
 } from "../../../Components/Simulateur/reducers.ts";
 import { Reducer } from "react";
-import { BoutonsNavigation } from "../../../Components/Simulateur/simulateurProps.ts";
+import { BoutonsNavigation } from "../../../Components/Simulateur/props.ts";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { jest } from "@storybook/jest";
@@ -26,8 +26,8 @@ const mockBoutonsReducer = jest.fn(
   >,
 );
 
-const meta: Meta<typeof SimulateurEtape> = {
-  component: SimulateurEtape,
+const meta: Meta<typeof ChargeurEtape> = {
+  component: ChargeurEtape,
   argTypes: {
     soumissionEtape: { action: true },
   },
@@ -54,7 +54,7 @@ const meta: Meta<typeof SimulateurEtape> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof SimulateurEtape>;
+type Story = StoryObj<typeof ChargeurEtape>;
 
 export const AfficheEtape: Story = {
   argTypes: {

@@ -4,7 +4,7 @@ import { FormSimulateur } from "./index.ts";
 import {
   SimulateurContenuEtapeProps,
   SimulateurEtapeNodeComponent,
-} from "./simulateurProps.ts";
+} from "./props.ts";
 import React from "react";
 import { transformeTypeStructureVersOptions } from "../../Services/Simulateur/Transformateurs.ts";
 
