@@ -3,33 +3,25 @@ import { ChargeurEtape } from "../../../Components/Simulateur/ChargeurEtape.tsx"
 import { etapesQuestionnaire } from "../../../Components/Simulateur/EtapesQuestionnaire.ts";
 import { AppContext, Context } from "../../../AppContext.tsx";
 import { defaultContext } from "../../../.storybook/PageDecorator.tsx";
-import {
-  reducerBoutons,
-  reducerFormData,
-} from "../../../Components/Simulateur/reducers.ts";
 import { userEvent, within } from "@storybook/testing-library";
+import { expect, jest } from "@storybook/jest";
+
+function genereDecorateurPourContexte(context: Context) {
+  return (Story: unknown) => {
+    return (
+      <AppContext.Provider value={context}>
+        <Story />
+      </AppContext.Provider>
+    );
+  };
+}
 
 const meta: Meta<typeof ChargeurEtape> = {
   component: ChargeurEtape,
   args: {
     listeEtapes: etapesQuestionnaire,
   },
-  decorators: [
-    (Story) => {
-      const simulateurContext: Context = {
-        ...defaultContext,
-        simulateur: {
-          reducerBoutons: reducerBoutons,
-          reducerFormData: reducerFormData,
-        },
-      };
-      return (
-        <AppContext.Provider value={simulateurContext}>
-          <Story />
-        </AppContext.Provider>
-      );
-    },
-  ],
+  decorators: [genereDecorateurPourContexte(defaultContext)],
 };
 
 export default meta;
@@ -46,6 +38,31 @@ type CanvasFindByRole = {
 const cliqueSurSuivant = async (canvas: CanvasFindByRole) => {
   const element = await canvas.findByRole("button", { name: "Suivant" });
   await userEvent.click(element as HTMLElement);
+};
+
+const mockSendFormData = jest.fn(async () => "");
+const simulateurContext: Context = {
+  ...defaultContext,
+  sendFormData: mockSendFormData,
+};
+
+export const DerniereEtapeEstResultat: Story = {
+  decorators: [genereDecorateurPourContexte(simulateurContext)],
+
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await cliqueSurSuivant(canvas);
+    await cliqueSurSuivant(canvas);
+    await cliqueSurSuivant(canvas);
+    await cliqueSurSuivant(canvas);
+    await cliqueSurSuivant(canvas);
+
+    await canvas.findByText(
+      "La directive s'appliquerait à votre entité au vu des éléments saisis",
+    );
+    await expect(mockSendFormData).toHaveBeenCalled();
+  },
 };
 
 export const EtapeSousActiviteConditionnelle: Story = {
