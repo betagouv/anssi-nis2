@@ -1,12 +1,10 @@
 import { typesStructure } from "../../Domaine/DomaineSimulateur.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { FormSimulateur } from "./index.ts";
-import {
-  SimulateurContenuEtapeProps,
-  SimulateurEtapeNodeComponent,
-} from "./props.ts";
+import { SimulateurContenuEtapeProps } from "./props.ts";
 import React from "react";
 import { transformeTypeStructureVersOptions } from "../../Services/Simulateur/Transformateurs.ts";
+import { SimulateurEtapeNodeComponent } from "./component.ts";
 
 const Etape2TypeStructure: SimulateurEtapeNodeComponent = ({
   formData,

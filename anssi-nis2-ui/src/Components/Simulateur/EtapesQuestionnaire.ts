@@ -1,16 +1,16 @@
 import {
-  CollectionInformationsEtapes,
-  InformationEtapeForm,
-  InformationEtapeResult,
-  SousEtapeConditionnelle,
-} from "./props.ts";
-import {
   Etape1Localisation,
   Etape2TypeStructure,
   Etape3Taille,
   Etape4Secteur,
   Etape5Activite,
 } from "./index.ts";
+import { CollectionInformationsEtapes } from "./collectionInformationsEtapes.ts";
+import {
+  InformationEtapeForm,
+  InformationEtapeResult,
+  SousEtapeConditionnelle,
+} from "./informationsEtape.ts";
 
 export const etapesQuestionnaire: CollectionInformationsEtapes =
   new CollectionInformationsEtapes(

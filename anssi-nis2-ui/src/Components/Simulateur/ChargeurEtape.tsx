@@ -1,14 +1,12 @@
 import { DefaultComponentExtensible } from "../../Props.ts";
 import React, { useContext, useEffect, useReducer, useState } from "react";
-import {
-  GenerateurSoumissionEtape,
-  SimulateurEtapeRenderedComponent,
-  SimulateurEtapeSwitcherProps,
-} from "./props.ts";
+import { SimulateurEtapeSwitcherProps } from "./props.ts";
 import { etapesQuestionnaire } from "./EtapesQuestionnaire.ts";
-import { emptySimulateurFormData } from "../../Services/Simulateur/FormData.ts";
+import { donneesFormulaireSimulateurVide } from "../../Services/Simulateur/donneesFormulaire.ts";
 import { AppContext } from "../../AppContext.tsx";
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
+import { SimulateurEtapeRenderedComponent } from "./component.ts";
+import { GenerateurSoumissionEtape } from "./gestionnaires.ts";
 
 export const ChargeurEtape: DefaultComponentExtensible<
   SimulateurEtapeSwitcherProps
@@ -18,7 +16,7 @@ export const ChargeurEtape: DefaultComponentExtensible<
   } = useContext(AppContext);
   const [inputsState, propageActionSimulateur] = useReducer(
     reducerFormData,
-    emptySimulateurFormData,
+    donneesFormulaireSimulateurVide,
   );
   const [numeroEtapeCourante, setNumeroEtapeCourante] = useState(0);
 

@@ -7,12 +7,12 @@ import { Etape2TypeStructure } from "../../../Components/Simulateur";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { SimulateurFormData } from "../../../Services/Simulateur/FormData.ts";
+import { DonneesFormulaireSimulateur } from "../../../Services/Simulateur/donneesFormulaire.ts";
 
 class ParametresDonneesTypeStructure extends ParametresDonneesSpecifiqueField<ValeursTypeStructure> {
   protected construitDonnees<ValeursTypeStructure>(
     valeurs: ValeursTypeStructure[],
-  ): SimulateurFormData {
+  ): DonneesFormulaireSimulateur {
     return this.construitDonneesPourField("typeStructure", valeurs);
   }
 }

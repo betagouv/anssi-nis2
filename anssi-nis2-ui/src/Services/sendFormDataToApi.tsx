@@ -1,9 +1,9 @@
 import { SendFormData } from "../AppContext.tsx";
 import { generateSimulationApi } from "../prepare.ts";
-import { SimulateurFormData } from "./Simulateur/FormData.ts";
+import { DonneesFormulaireSimulateur } from "./Simulateur/donneesFormulaire.ts";
 
 export const sendFormDataToApi: SendFormData = async (
-  formData: SimulateurFormData,
+  formData: DonneesFormulaireSimulateur,
 ) => {
   const simulationApi = generateSimulationApi();
   const data = JSON.stringify(formData);

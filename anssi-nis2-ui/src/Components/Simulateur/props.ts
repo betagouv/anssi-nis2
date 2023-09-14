@@ -1,34 +1,20 @@
-import {
-  DefaultComponentExtensible,
-  DefaultProps,
-  NativeInputProps,
-} from "../../Props.ts";
-import { SimulateurEtapeResult } from "./SimulateurEtapeResult.tsx";
-import { SimulateurEtapeForm } from "./SimulateurEtapeForm.tsx";
+import { DefaultProps, NativeInputProps } from "../../Props.ts";
 import React, { Dispatch } from "react";
 import {
-  SimulateurFieldNames,
-  SimulateurFormData,
-} from "../../Services/Simulateur/FormData.ts";
+  NomsChampsSimulateur,
+  DonneesFormulaireSimulateur,
+} from "../../Services/Simulateur/donneesFormulaire.ts";
+import { CollectionInformationsEtapes } from "./collectionInformationsEtapes.ts";
 
 export interface SimulateurContenuEtapeProps extends DefaultProps {
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>;
-  formData: SimulateurFormData;
+  formData: DonneesFormulaireSimulateur;
 }
-
-export type SimulateurEtapeNodeComponent =
-  DefaultComponentExtensible<SimulateurContenuEtapeProps>;
 
 export type BoutonsNavigation = {
   precedent: React.MouseEventHandler;
   suivant: React.MouseEventHandler;
 };
-
-export class CollectionInformationsEtapes extends Array<InformationsEtape> {
-  estAvantDerniereEtape(numeroEtape: number) {
-    return numeroEtape >= this.length - 2;
-  }
-}
 
 export interface SimulateurEtapeProps extends DefaultProps {
   listeEtapes: CollectionInformationsEtapes;
@@ -37,58 +23,19 @@ export interface SimulateurEtapeProps extends DefaultProps {
 export interface SimulateurEtapeRenderedProps extends SimulateurEtapeProps {
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>;
   gereClickBouton: BoutonsNavigation;
-  formData: SimulateurFormData;
+  formData: DonneesFormulaireSimulateur;
   numeroEtapeCourante: number;
 }
-
-export type SimulateurEtapeRenderedComponent =
-  DefaultComponentExtensible<SimulateurEtapeRenderedProps>;
-
-export type InformationsEtape = {
-  titre: string;
-  elementToRender: SimulateurEtapeRenderedComponent;
-};
-
-export class SousEtapeConditionnelle {
-  constructor(
-    public readonly condition: (formData: SimulateurFormData) => boolean,
-    public readonly sousEtape: SimulateurEtapeNodeComponent,
-  ) {}
-}
-
-export class InformationEtapeForm implements InformationsEtape {
-  public readonly elementToRender: SimulateurEtapeRenderedComponent =
-    SimulateurEtapeForm;
-
-  public constructor(
-    public readonly titre: string,
-    public readonly indicationReponses: string,
-    public readonly contenu: SimulateurEtapeNodeComponent,
-    public readonly sousEtapeConditionnelle?: SousEtapeConditionnelle,
-  ) {}
-}
-
-export class InformationEtapeResult implements InformationsEtape {
-  public readonly elementToRender: SimulateurEtapeRenderedComponent =
-    SimulateurEtapeResult;
-
-  public constructor(public readonly titre: string) {}
-}
-
-export type GenerateurSoumissionEtape = (
-  limiteConditions: (i: number) => boolean,
-  nouvelleEtape: (etape: number) => number,
-) => (e: React.MouseEvent) => void;
 
 export interface SimulateurEtapeSwitcherProps extends SimulateurEtapeProps {}
 
 type SimulateurDonneesFormulaireActionType = "checkSingle" | "checkMulti";
 export type SimulateurDonneesFormulaireActions = {
   type: SimulateurDonneesFormulaireActionType;
-  name: SimulateurFieldNames;
+  name: NomsChampsSimulateur;
   newValue: string;
 };
-export type InputPropsList = {
+export type ListeOptionsChampFormulaire = {
   nativeInputProps: NativeInputProps;
   label: string;
 }[];

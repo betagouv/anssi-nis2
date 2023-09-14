@@ -7,7 +7,7 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { emptySimulateurFormData } from "../../../Services/Simulateur/FormData.ts";
+import { donneesFormulaireSimulateurVide } from "../../../Services/Simulateur/donneesFormulaire.ts";
 
 class ParametresDonneesEtatMembre extends ParametresDonneesSpecifiqueField<ValeursClePaysUnionEuropeenne> {
   protected construitDonnees<ValeursClePaysUnionEuropeenne>(
@@ -81,7 +81,7 @@ export const CliqueSurLesOptions: Story = {
 export const CocheFrance: Story = {
   args: {
     formData: {
-      ...emptySimulateurFormData,
+      ...donneesFormulaireSimulateurVide,
       etatMembre: ["france"],
     },
   },
@@ -104,7 +104,7 @@ export const CocheFrance: Story = {
 export const CocheFranceEtHorsUE: Story = {
   args: {
     formData: {
-      ...emptySimulateurFormData,
+      ...donneesFormulaireSimulateurVide,
       etatMembre: ["france", "horsue"],
     },
   },

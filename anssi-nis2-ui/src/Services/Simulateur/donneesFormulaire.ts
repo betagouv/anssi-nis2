@@ -1,4 +1,4 @@
-export type SimulateurFieldNames =
+export type NomsChampsSimulateur =
   | "etatMembre"
   | "typeStructure"
   | "trancheNombreEmployes"
@@ -6,8 +6,13 @@ export type SimulateurFieldNames =
   | "secteurActivite"
   | "sousSecteurActivite"
   | "activites";
-export type SimulateurFormData = Record<SimulateurFieldNames, string[]>;
-export const emptySimulateurFormData: SimulateurFormData = {
+
+export type DonneesFormulaireSimulateur = Record<
+  NomsChampsSimulateur,
+  string[]
+>;
+
+export const donneesFormulaireSimulateurVide: DonneesFormulaireSimulateur = {
   etatMembre: [],
   secteurActivite: [],
   sousSecteurActivite: [],

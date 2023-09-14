@@ -3,9 +3,9 @@ import { genereTransformateurValeursVersOptions } from "../../src/Services/Utili
 import { paysUnionEuropeenneLocalisation } from "../../src/Domaine/DomaineSimulateur";
 import { transformePaysUnionEuropeennePourSelect } from "../../src/Services/Simulateur/Transformateurs";
 import {
-  emptySimulateurFormData,
-  SimulateurFormData,
-} from "../../src/Services/Simulateur/FormData";
+  donneesFormulaireSimulateurVide,
+  DonneesFormulaireSimulateur,
+} from "../../src/Services/Simulateur/donneesFormulaire";
 
 describe(genereTransformateurValeursVersOptions, () => {
   const onChange: React.ChangeEventHandler<HTMLInputElement> = () => {};
@@ -51,7 +51,7 @@ describe(genereTransformateurValeursVersOptions, () => {
 
   it("génère un champ d'option avec les bons états checked", () => {
     const attendu = optionsPaysUE([true, false, false]);
-    const defaultDataForm: SimulateurFormData = {
+    const defaultDataForm: DonneesFormulaireSimulateur = {
       secteurActivite: [],
       trancheCA: [],
       trancheNombreEmployes: [],
@@ -101,7 +101,7 @@ describe(genereTransformateurValeursVersOptions, () => {
       const optionsActivitesObtenues = transformateur(
         activites,
         onChange,
-        emptySimulateurFormData,
+        donneesFormulaireSimulateurVide,
         groupOfActivite,
       );
       expect(optionsActivitesObtenues).toStrictEqual(attendu);
@@ -122,7 +122,7 @@ describe(genereTransformateurValeursVersOptions, () => {
           },
         },
       ];
-      const currentDataForm: SimulateurFormData = {
+      const currentDataForm: DonneesFormulaireSimulateur = {
         secteurActivite: [valeurSelectionnee],
         trancheCA: [],
         trancheNombreEmployes: [],

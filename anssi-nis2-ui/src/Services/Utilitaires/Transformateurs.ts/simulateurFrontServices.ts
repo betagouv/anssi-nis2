@@ -1,14 +1,14 @@
 import { NativeInputProps } from "../../../Props.ts";
 import React from "react";
 import {
-  SimulateurFieldNames,
-  SimulateurFormData,
-} from "../../Simulateur/FormData.ts";
+  NomsChampsSimulateur,
+  DonneesFormulaireSimulateur,
+} from "../../Simulateur/donneesFormulaire.ts";
 
 export type TransformeRecordToSelect<ValeursCles extends string> = (
   valeurs: Record<ValeursCles, string>,
   onChange?: React.ChangeEventHandler<HTMLInputElement>,
-  formData?: SimulateurFormData,
+  formData?: DonneesFormulaireSimulateur,
   group?: string,
 ) => {
   nativeInputProps: NativeInputProps;
@@ -26,14 +26,14 @@ export type labelGenerator<T extends string> = (
 export const genereTransformateurValeursVersOptions =
   <T extends string>(
     generateurLabel: labelGenerator<T>,
-    name: SimulateurFieldNames,
+    name: NomsChampsSimulateur,
   ): TransformeRecordToSelect<T> =>
   (valeursMetier, onChange?, formData?, group?) => {
     const selectOptions: Array<{
       nativeInputProps: NativeInputProps;
       label: string;
     }> = [];
-    const checkedValue = formData?.[name as SimulateurFieldNames] || [];
+    const checkedValue = formData?.[name as NomsChampsSimulateur] || [];
     for (const key in valeursMetier) {
       selectOptions.push();
       selectOptions.push({

@@ -2,20 +2,18 @@ import { RowContainer } from "../RowContainer.tsx";
 import { StepperNavigation } from "../StepperNavigation.tsx";
 
 import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
-import {
-  InformationEtapeForm,
-  SimulateurEtapeRenderedComponent,
-  SimulateurEtapeRenderedProps,
-} from "./props.ts";
+import { SimulateurEtapeRenderedProps } from "./props.ts";
 import { useContext, useMemo } from "react";
 import { AppContext } from "../../AppContext.tsx";
 import { CenteredContainer } from "../CenteredContainer.tsx";
 
-import { SimulateurFormData } from "../../Services/Simulateur/FormData.ts";
+import { DonneesFormulaireSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
 import {
   genereGestionEtapePrecedenteSiExiste,
   genereGestionEtapeSuivanteSiExiste,
 } from "./gestionnaires.ts";
+import { InformationEtapeForm } from "./informationsEtape.ts";
+import { SimulateurEtapeRenderedComponent } from "./component.ts";
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   listeEtapes,
@@ -30,7 +28,8 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
 
   const EtapeCourante = informationsEtape.contenu;
 
-  const informationsEtapeSuivante = listeEtapes[numeroEtapeCourante + 1] || "";
+  const informationsEtapeSuivante =
+    listeEtapes.recupereInformationsEtapeSuivante(numeroEtapeCourante);
 
   const { sendFormData } = useContext(AppContext);
 
@@ -49,7 +48,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
         numeroEtapeCourante,
         listeEtapes,
         gereClickBouton.suivant,
-        () => sendFormData(formData as SimulateurFormData),
+        () => sendFormData(formData as DonneesFormulaireSimulateur),
       ),
     [
       numeroEtapeCourante,

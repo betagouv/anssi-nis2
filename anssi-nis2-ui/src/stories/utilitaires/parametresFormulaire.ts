@@ -1,12 +1,12 @@
 import {
-  emptySimulateurFormData,
-  SimulateurFormData,
-} from "../../Services/Simulateur/FormData.ts";
+  donneesFormulaireSimulateurVide,
+  DonneesFormulaireSimulateur,
+} from "../../Services/Simulateur/donneesFormulaire.ts";
 
 export class ParametresDonneesFormulaire {
   constructor(
     public libelle: string,
-    public donnees: SimulateurFormData,
+    public donnees: DonneesFormulaireSimulateur,
   ) {}
 }
 
@@ -14,20 +14,20 @@ export abstract class ParametresDonneesSpecifiqueField<
   TypeValeurs,
 > extends ParametresDonneesFormulaire {
   constructor(libelle: string, listeValeurs: TypeValeurs[]) {
-    super(libelle, emptySimulateurFormData);
+    super(libelle, donneesFormulaireSimulateurVide);
     this.donnees = this.construitDonnees(listeValeurs);
   }
 
   protected abstract construitDonnees<TypeValeurs>(
     valeurs: TypeValeurs[],
-  ): SimulateurFormData;
+  ): DonneesFormulaireSimulateur;
 
   protected construitDonneesPourField<TypeField, TypeValeurs>(
     fieldName: TypeField,
     listeValeurs: TypeValeurs[],
-  ): SimulateurFormData {
+  ): DonneesFormulaireSimulateur {
     return {
-      ...emptySimulateurFormData,
+      ...donneesFormulaireSimulateurVide,
       [fieldName as string]: listeValeurs,
     };
   }

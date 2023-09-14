@@ -2,16 +2,19 @@ import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { detailsDesSecteurs } from "../../Domaine/DomaineSimulateur.ts";
 import { genereTransformateurValeursVersOptions } from "../../Services/Utilitaires/Transformateurs.ts/simulateurFrontServices.ts";
 import { FormSimulateur } from "./index.ts";
-import { InputPropsList, SimulateurContenuEtapeProps } from "./props.ts";
+import {
+  ListeOptionsChampFormulaire,
+  SimulateurContenuEtapeProps,
+} from "./props.ts";
 import React, { useEffect, useState } from "react";
-import { SimulateurFieldNames } from "../../Services/Simulateur/FormData.ts";
+import { NomsChampsSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
 
 const Etape5Activite = ({
   propageActionSimulateur,
   formData,
 }: SimulateurContenuEtapeProps) => {
   const [optionsSecteurActivite, setOptionsSecteurActivite] =
-    useState<InputPropsList>([]);
+    useState<ListeOptionsChampFormulaire>([]);
 
   useEffect(() => {
     const valeursActivites =
@@ -20,7 +23,7 @@ const Etape5Activite = ({
     const changeMulti: React.ChangeEventHandler<HTMLInputElement> = (evt) =>
       propageActionSimulateur({
         type: "checkMulti",
-        name: evt.target.name as SimulateurFieldNames,
+        name: evt.target.name as NomsChampsSimulateur,
         newValue: evt.target.value,
       });
 

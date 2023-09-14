@@ -7,12 +7,12 @@ import { Etape4Secteur } from "../../../Components/Simulateur";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { SimulateurFormData } from "../../../Services/Simulateur/FormData.ts";
+import { DonneesFormulaireSimulateur } from "../../../Services/Simulateur/donneesFormulaire.ts";
 
 class ParametresDonneesSecteurActivite extends ParametresDonneesSpecifiqueField<ValeursSecteurActivite> {
   protected construitDonnees<ValeursSecteurActivite>(
     valeurs: ValeursSecteurActivite[],
-  ): SimulateurFormData {
+  ): DonneesFormulaireSimulateur {
     return this.construitDonneesPourField("secteurActivite", valeurs);
   }
 }
