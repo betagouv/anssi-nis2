@@ -9,33 +9,33 @@ export class BoutonsNavigation {
   ) {}
 }
 
-export const prepareGestionBoutonSuivant = (
+const prepareGestionBouton = (
+  bouton: "precedent" | "suivant",
+  nouveauNumeroEtape: number,
   listeEtapes: CollectionInformationsEtapes,
-  numeroEtape: number,
   action: (val: number) => void,
 ): ActionsBoutonNavigation => {
   const gestionSuivantParDefaut = (e: React.MouseEvent) => {
     e.preventDefault();
-    listeEtapes.siExiste(numeroEtape + 1, (val) => action(val));
+    listeEtapes.siExiste(nouveauNumeroEtape, (val) => action(val));
   };
 
   return {
-    bouton: "suivant",
+    bouton: bouton,
     newHandler: gestionSuivantParDefaut,
   };
 };
+
+export const prepareGestionBoutonSuivant = (
+  listeEtapes: CollectionInformationsEtapes,
+  numeroEtape: number,
+  action: (val: number) => void,
+): ActionsBoutonNavigation =>
+  prepareGestionBouton("suivant", numeroEtape + 1, listeEtapes, action);
 
 export const prepareGestionBoutonPrecedent = (
   listeEtapes: CollectionInformationsEtapes,
   numeroEtape: number,
   action: (val: number) => void,
-): ActionsBoutonNavigation => {
-  const gestionPrecedentParDefaut = (e: React.MouseEvent) => {
-    e.preventDefault();
-    listeEtapes.siExiste(numeroEtape - 1, (val) => action(val));
-  };
-  return {
-    bouton: "precedent",
-    newHandler: gestionPrecedentParDefaut,
-  };
-};
+): ActionsBoutonNavigation =>
+  prepareGestionBouton("precedent", numeroEtape - 1, listeEtapes, action);
