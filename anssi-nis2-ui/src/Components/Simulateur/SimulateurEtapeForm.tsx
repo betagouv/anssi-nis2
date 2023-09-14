@@ -7,7 +7,7 @@ import {
   SimulateurEtapeRenderedComponent,
   SimulateurEtapeRenderedProps,
 } from "./props.ts";
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { AppContext } from "../../AppContext.tsx";
 import { CenteredContainer } from "../CenteredContainer.tsx";
 
@@ -30,20 +30,34 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
 
   const EtapeCourante = informationsEtape.contenu;
 
-  const suivante = listeEtapes[numeroEtapeCourante + 1] || "";
+  const informationsEtapeSuivante = listeEtapes[numeroEtapeCourante + 1] || "";
 
   const { sendFormData } = useContext(AppContext);
 
-  const etapePrecedenteHandlerConcret = genereGestionEtapePrecedenteSiExiste(
-    gereClickBouton.precedent,
-    numeroEtapeCourante,
+  const etapePrecedenteHandlerConcret = useMemo(
+    () =>
+      genereGestionEtapePrecedenteSiExiste(
+        gereClickBouton.precedent,
+        numeroEtapeCourante,
+      ),
+    [gereClickBouton.precedent, numeroEtapeCourante],
   );
 
-  const etapeSuivantHandlerConcret = genereGestionEtapeSuivanteSiExiste(
-    numeroEtapeCourante,
-    listeEtapes,
-    gereClickBouton.suivant,
-    () => sendFormData(formData as SimulateurFormData),
+  const etapeSuivantHandlerConcret = useMemo(
+    () =>
+      genereGestionEtapeSuivanteSiExiste(
+        numeroEtapeCourante,
+        listeEtapes,
+        gereClickBouton.suivant,
+        () => sendFormData(formData as SimulateurFormData),
+      ),
+    [
+      numeroEtapeCourante,
+      listeEtapes,
+      gereClickBouton.suivant,
+      sendFormData,
+      formData,
+    ],
   );
 
   return (
@@ -51,7 +65,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
       <CenteredContainer className="fr-background-alt--grey">
         <Stepper
           currentStep={numeroEtapeCourante + 1}
-          nextTitle={suivante.titre}
+          nextTitle={informationsEtapeSuivante.titre}
           stepCount={listeEtapes.length}
           title={informationsEtape.titre}
           className="fr-mb-5w"

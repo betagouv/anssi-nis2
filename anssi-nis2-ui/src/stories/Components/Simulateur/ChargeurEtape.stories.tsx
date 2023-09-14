@@ -7,14 +7,14 @@ import { userEvent, within } from "@storybook/testing-library";
 import { expect, jest } from "@storybook/jest";
 import { Component } from "@storybook/blocks";
 
-const genereDecorateurPourContexte = (context: Context) => {
-  const storyDecoree = (Story: Component) => (
-    <AppContext.Provider value={context}>
-      <Story />
-    </AppContext.Provider>
-  );
-  return storyDecoree;
-};
+const genereDecorateurPourContexte = (context: Context) =>
+  function StoryDecoree(StoryADecorer: Component) {
+    return (
+      <AppContext.Provider value={context}>
+        <StoryADecorer />
+      </AppContext.Provider>
+    );
+  };
 
 const meta: Meta<typeof ChargeurEtape> = {
   component: ChargeurEtape,
