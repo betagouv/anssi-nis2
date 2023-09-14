@@ -1,33 +1,52 @@
-import { secteursActivite } from "../../Domaine/DomaineSimulateur.ts";
+import {
+  secteursActivite,
+  ValeursSecteurActivite,
+} from "../../Domaine/DomaineSimulateur.ts";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { FormSimulateur } from "./index.ts";
 import { SimulateurContenuEtapeProps } from "./props.ts";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { transformeSecteursActiviteVersOptions } from "../../Services/Simulateur/Transformateurs.ts";
+import { SelectOptions } from "../../Services/Utilitaires/Transformateurs.ts/simulateurFrontServices.ts";
 
 const Etape4Secteur = ({
   propageActionSimulateur,
   formData,
 }: SimulateurContenuEtapeProps) => {
-  const gereChangement = (event: React.ChangeEvent<HTMLInputElement>) =>
-    propageActionSimulateur({
-      type: "checkMulti",
-      name: "secteurActivite",
-      newValue: event.target.value,
-    });
-  const optionsSecteurActivite = transformeSecteursActiviteVersOptions(
-    secteursActivite,
-    gereChangement,
-    formData,
+  const gereChangement = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = event.target.value as ValeursSecteurActivite;
+      propageActionSimulateur({
+        type: "checkMulti",
+        name: "secteurActivite",
+        newValue: newValue,
+      });
+    },
+    [propageActionSimulateur],
   );
+
+  const [optionsSecteurActivite, setOptionsSecteurActivite] =
+    useState<SelectOptions>();
+
+  useEffect(() => {
+    setOptionsSecteurActivite(
+      transformeSecteursActiviteVersOptions(
+        secteursActivite,
+        gereChangement,
+        formData,
+      ),
+    );
+  }, [formData, gereChangement]);
 
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
-        <Checkbox
-          legend="Dans quels secteurs d’activités votre organisation produit-elle des biens et/ou des services ?"
-          options={optionsSecteurActivite}
-        />
+        {optionsSecteurActivite && (
+          <Checkbox
+            legend="Dans quels secteurs d’activités votre organisation produit-elle des biens et/ou des services ?"
+            options={optionsSecteurActivite}
+          />
+        )}
       </div>
     </FormSimulateur>
   );

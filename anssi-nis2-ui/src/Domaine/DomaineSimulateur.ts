@@ -83,6 +83,7 @@ type ValeursSousSecteurEnergie =
   | "hydrogene"
   | "petrole"
   | "reseauxDeChaleurEtDeFroid";
+
 /*const sousSecteursEnergie: Record<ValeursSousSecteurEnergie, string> = {
     electricite: "Électricité",
     gaz: "Gaz",
@@ -91,7 +92,6 @@ type ValeursSousSecteurEnergie =
     reseauxDeChaleurEtDeFroid: "Réseaux de chaleur et de froid",
 }*/
 type ValeursActivites = string;
-
 type ListeActivites = Record<ValeursActivites, string>;
 
 type DescriptionSousSecteur = {

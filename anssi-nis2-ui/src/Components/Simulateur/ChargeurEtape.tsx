@@ -1,5 +1,6 @@
-import { DefaultComponentExtensible } from "../../Props.ts";
 import { useContext, useEffect, useReducer, useState } from "react";
+
+import { DefaultComponentExtensible } from "../../Props.ts";
 import { SimulateurEtapeSwitcherProps } from "./props.ts";
 import { donneesFormulaireSimulateurVide } from "../../Services/Simulateur/donneesFormulaire.ts";
 import { AppContext } from "../../AppContext.tsx";
