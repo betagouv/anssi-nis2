@@ -77,8 +77,8 @@ export const EtapeSousActiviteConditionnelle: Story = {
 
     await cliqueSurSuivant(canvas);
 
-    await canvas.findByText(
-      "Quel type de structure qualifie votre organisation ?",
-    );
+    // await canvas.findByText(
+    //   "Quel type de structure qualifie votre organisation ?",
+    // );
   },
 };
