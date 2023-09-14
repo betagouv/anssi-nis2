@@ -5,7 +5,10 @@ import { donneesFormulaireSimulateurVide } from "../../Services/Simulateur/donne
 import { AppContext } from "../../AppContext.tsx";
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
 import { SimulateurEtapeRenderedComponent } from "./component.ts";
-import { prepareGestionBoutonsNavigation } from "./boutonsNavigation.ts";
+import {
+  prepareGestionBoutonPrecedent,
+  prepareGestionBoutonSuivant,
+} from "./boutonsNavigation.ts";
 
 export const ChargeurEtape: DefaultComponentExtensible<
   SimulateurEtapeSwitcherProps
@@ -31,11 +34,19 @@ export const ChargeurEtape: DefaultComponentExtensible<
     listeEtapes[numeroEtapeCourante].elementToRender;
 
   useEffect(() => {
-    prepareGestionBoutonsNavigation(
-      listeEtapes,
-      numeroEtapeCourante,
-      (val: number) => setNumeroEtapeCourante(val),
-      propageGestionClicBoutons,
+    propageGestionClicBoutons(
+      prepareGestionBoutonSuivant(
+        listeEtapes,
+        numeroEtapeCourante,
+        (val: number) => setNumeroEtapeCourante(val),
+      ),
+    );
+    propageGestionClicBoutons(
+      prepareGestionBoutonPrecedent(
+        listeEtapes,
+        numeroEtapeCourante,
+        (val: number) => setNumeroEtapeCourante(val),
+      ),
     );
   }, [listeEtapes, numeroEtapeCourante]);
 
