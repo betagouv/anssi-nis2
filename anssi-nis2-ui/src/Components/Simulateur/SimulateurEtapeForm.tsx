@@ -20,7 +20,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   numeroEtapeCourante,
   propageActionSimulateur,
   formData,
-  gereClickBouton,
+  informationsBoutonsNavigation,
 }: SimulateurEtapeRenderedProps) => {
   const informationsEtape = listeEtapes[
     numeroEtapeCourante
@@ -36,10 +36,10 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   const etapePrecedenteHandlerConcret = useMemo(
     () =>
       genereGestionEtapePrecedenteSiExiste(
-        gereClickBouton.precedent,
+        informationsBoutonsNavigation.precedent,
         numeroEtapeCourante,
       ),
-    [gereClickBouton.precedent, numeroEtapeCourante],
+    [informationsBoutonsNavigation.precedent, numeroEtapeCourante],
   );
 
   const etapeSuivantHandlerConcret = useMemo(
@@ -47,13 +47,13 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
       genereGestionEtapeSuivanteSiExiste(
         numeroEtapeCourante,
         listeEtapes,
-        gereClickBouton.suivant,
+        informationsBoutonsNavigation.suivant,
         () => sendFormData(formData as DonneesFormulaireSimulateur),
       ),
     [
       numeroEtapeCourante,
       listeEtapes,
-      gereClickBouton.suivant,
+      informationsBoutonsNavigation.suivant,
       sendFormData,
       formData,
     ],

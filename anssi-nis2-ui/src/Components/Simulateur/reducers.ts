@@ -3,11 +3,9 @@ import {
   NomsChampsSimulateur,
   DonneesFormulaireSimulateur,
 } from "../../Services/Simulateur/donneesFormulaire.ts";
-import {
-  BoutonsNavigation,
-  SimulateurDonneesFormulaireActions,
-} from "./props.ts";
+import { SimulateurDonneesFormulaireActions } from "./props.ts";
 import { fieldHandlers } from "./gestionnaires.ts";
+import { BoutonsNavigation } from "./boutonsNavigation.ts";
 
 const generateNewStateFrom = (
   state: DonneesFormulaireSimulateur,
@@ -43,15 +41,8 @@ export const reducerBoutons: Reducer<
   BoutonsNavigation,
   ActionsBoutonNavigation
 > = (state, { bouton, newHandler }) => {
-  console.log(
-    `VVV reducerBoutons params = [state=${JSON.stringify(
-      state,
-    )}, bouton=${bouton}, newHandler=${newHandler}`,
-  );
   if (newHandler === undefined) {
-    console.log("undef");
     return state;
   }
-  console.log("def");
   return { ...state, [bouton]: newHandler };
 };

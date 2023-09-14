@@ -1,20 +1,16 @@
 import { DefaultProps, NativeInputProps } from "../../Props.ts";
-import React, { Dispatch } from "react";
+import { Dispatch } from "react";
 import {
-  NomsChampsSimulateur,
   DonneesFormulaireSimulateur,
+  NomsChampsSimulateur,
 } from "../../Services/Simulateur/donneesFormulaire.ts";
 import { CollectionInformationsEtapes } from "./collectionInformationsEtapes.ts";
+import { BoutonsNavigation } from "./boutonsNavigation.ts";
 
 export interface SimulateurContenuEtapeProps extends DefaultProps {
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>;
   formData: DonneesFormulaireSimulateur;
 }
-
-export type BoutonsNavigation = {
-  precedent: React.MouseEventHandler;
-  suivant: React.MouseEventHandler;
-};
 
 export interface SimulateurEtapeProps extends DefaultProps {
   listeEtapes: CollectionInformationsEtapes;
@@ -22,7 +18,7 @@ export interface SimulateurEtapeProps extends DefaultProps {
 
 export interface SimulateurEtapeRenderedProps extends SimulateurEtapeProps {
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>;
-  gereClickBouton: BoutonsNavigation;
+  informationsBoutonsNavigation: BoutonsNavigation;
   formData: DonneesFormulaireSimulateur;
   numeroEtapeCourante: number;
 }
