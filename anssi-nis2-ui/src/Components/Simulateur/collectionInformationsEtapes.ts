@@ -1,9 +1,4 @@
-import {
-  InformationEtapeForm,
-  InformationsEtape,
-} from "./informationsEtape.ts";
-import { DonneesFormulaireSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
-// import { DonneesFormulaireSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
+import { InformationsEtape } from "./informationsEtape.ts";
 
 const dansIntervale = (x: number, debut: number, fin: number) =>
   (x - debut) * (x - fin) <= 0;
@@ -23,10 +18,7 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
     }
   }
 
-  recupereEtapeCourante<T extends InformationsEtape>(
-    numeroEtape: number,
-    // donneesFormulaire: DonneesFormulaireSimulateur,
-  ): T {
+  recupereEtapeCourante<T extends InformationsEtape>(numeroEtape: number): T {
     return this[numeroEtape] as T;
   }
 
@@ -34,18 +26,8 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
     return numeroEtapeCourante + 1;
   }
 
-  recupereElement(
-    numeroEtapeCourante: number,
-    inputsState: DonneesFormulaireSimulateur,
-  ) {
+  recupereElement(numeroEtapeCourante: number) {
     const informationsEtape = this[numeroEtapeCourante];
-    if (
-      numeroEtapeCourante === 3 &&
-      inputsState.secteurActivite.includes("energie")
-    ) {
-      return (informationsEtape as InformationEtapeForm).sousEtapeConditionnelle
-        ?.sousEtape;
-    }
     return informationsEtape.elementToRender;
   }
 }

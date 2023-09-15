@@ -12,6 +12,8 @@ export type InformationsEtape = {
 };
 
 export class SousEtapeConditionnelle {
+  existe: boolean = true;
+
   constructor(
     public readonly condition: (
       formData: DonneesFormulaireSimulateur,
@@ -27,9 +29,16 @@ export class InformationEtapeForm implements InformationsEtape {
   public constructor(
     public readonly titre: string,
     public readonly indicationReponses: string,
-    public readonly contenu: SimulateurEtapeNodeComponent,
+    protected readonly contenu: SimulateurEtapeNodeComponent,
     public readonly sousEtapeConditionnelle?: SousEtapeConditionnelle,
   ) {}
+
+  getContenu(donneeesFormulaire: DonneesFormulaireSimulateur) {
+    if (this.sousEtapeConditionnelle?.condition(donneeesFormulaire)) {
+      return this.sousEtapeConditionnelle.sousEtape;
+    }
+    return this.contenu;
+  }
 }
 
 export class InformationEtapeResult implements InformationsEtape {
