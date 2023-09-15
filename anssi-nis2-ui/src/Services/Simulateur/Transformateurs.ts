@@ -1,14 +1,14 @@
 import {
+  genereTransformateurValeursVersOptions,
+  TransformeRecordToSelect,
+} from "../Utilitaires/Transformateurs.ts/simulateurFrontServices.ts";
+import {
   ValeursClePaysUnionEuropeenne,
   ValeursSecteurActivite,
   ValeursTrancheCA,
   ValeursTrancheNombreEmployes,
   ValeursTypeStructure,
-} from "../../Domaine/DomaineSimulateur.ts";
-import {
-  genereTransformateurValeursVersOptions,
-  TransformeRecordToSelect,
-} from "../Utilitaires/Transformateurs.ts/simulateurFrontServices.ts";
+} from "../../Domaine/Simulateur/ValeursCles.ts";
 
 const getPaysUnionEuropeenneElement = (
   value: string,

@@ -1,4 +1,4 @@
-import { paysUnionEuropeenneLocalisation } from "../../Domaine/DomaineSimulateur.ts";
+import { paysUnionEuropeenneLocalisation } from "../../Domaine/Simulateur/Libelles.ts";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { FormSimulateur } from "./index.ts";
 import {

@@ -2,12 +2,12 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { ValeursSecteurActivite } from "../../../Domaine/DomaineSimulateur.ts";
 import { Etape4Secteur } from "../../../Components/Simulateur";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { DonneesFormulaireSimulateur } from "../../../Services/Simulateur/donneesFormulaire.ts";
+import { ValeursSecteurActivite } from "../../../Domaine/Simulateur/ValeursCles.ts";
 
 class ParametresDonneesSecteurActivite extends ParametresDonneesSpecifiqueField<ValeursSecteurActivite> {
   protected construitDonnees<ValeursSecteurActivite>(

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { genereTransformateurValeursVersOptions } from "../../src/Services/Utilitaires/Transformateurs.ts/simulateurFrontServices";
-import { paysUnionEuropeenneLocalisation } from "../../src/Domaine/DomaineSimulateur";
+import { paysUnionEuropeenneLocalisation } from "../../src/Domaine/Simulateur/Libelles";
 import { transformePaysUnionEuropeennePourSelect } from "../../src/Services/Simulateur/Transformateurs";
 import {
   donneesFormulaireSimulateurVide,

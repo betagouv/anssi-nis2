@@ -1,5 +1,4 @@
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
-import { detailsDesSecteurs } from "../../Domaine/DomaineSimulateur.ts";
 import { genereTransformateurValeursVersOptions } from "../../Services/Utilitaires/Transformateurs.ts/simulateurFrontServices.ts";
 import { FormSimulateur } from "./index.ts";
 import {
@@ -8,6 +7,7 @@ import {
 } from "./props.ts";
 import React, { useEffect, useState } from "react";
 import { NomsChampsSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
+import { detailsDesSecteurs } from "../../Domaine/Simulateur/SecteursActivite.ts";
 
 const Etape5Activite = ({
   propageActionSimulateur,

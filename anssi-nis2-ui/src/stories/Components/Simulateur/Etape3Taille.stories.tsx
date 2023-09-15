@@ -2,15 +2,15 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import {
-  ValeursTrancheCA,
-  ValeursTrancheNombreEmployes,
-} from "../../../Domaine/DomaineSimulateur.ts";
 import { Etape3Taille } from "../../../Components/Simulateur";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { DonneesFormulaireSimulateur } from "../../../Services/Simulateur/donneesFormulaire.ts";
+import {
+  ValeursTrancheCA,
+  ValeursTrancheNombreEmployes,
+} from "../../../Domaine/Simulateur/ValeursCles.ts";
 
 class ParametresDonneesTrancheNombreEmployes extends ParametresDonneesSpecifiqueField<ValeursTrancheNombreEmployes> {
   protected construitDonnees<ValeursTrancheNombreEmployes>(

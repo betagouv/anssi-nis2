@@ -1,7 +1,7 @@
 import {
   tranchesCA,
   tranchesNombreEmployes,
-} from "../../Domaine/DomaineSimulateur.ts";
+} from "../../Domaine/Simulateur/Libelles.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { FormSimulateur } from "./index.ts";
 import { SimulateurContenuEtapeProps } from "./props.ts";
