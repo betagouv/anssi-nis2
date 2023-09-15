@@ -32,7 +32,7 @@ export const ChargeurEtape: DefaultComponentExtensible<
   );
 
   const ElementRendered: SimulateurEtapeRenderedComponent =
-    listeEtapes.recupereEtapeCourante(numeroEtapeCourante).elementToRender;
+    listeEtapes.recupereElement(numeroEtapeCourante, inputsState); //.elementToRender;
 
   useEffect(() => {
     propageGestionClicBoutons(
