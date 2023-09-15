@@ -35,7 +35,7 @@ const EnTete = () => (
       {
         buttonProps: { onClick: noRefClick },
         iconId: "fr-icon-arrow-right-line",
-        text: "Je m'inscrits",
+        text: "Je m'inscris",
       },
     ]}
     serviceTagline=""
