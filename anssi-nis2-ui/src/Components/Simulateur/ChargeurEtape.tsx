@@ -32,21 +32,21 @@ export const ChargeurEtape: DefaultComponentExtensible<
   );
 
   const ElementRendered: SimulateurEtapeRenderedComponent =
-    listeEtapes[numeroEtapeCourante].elementToRender;
+    listeEtapes.recupereEtapeCourante(numeroEtapeCourante).elementToRender;
 
   useEffect(() => {
     propageGestionClicBoutons(
       prepareGestionBoutonSuivant(
         listeEtapes,
         numeroEtapeCourante,
-        (val: number) => setNumeroEtapeCourante(val),
+        setNumeroEtapeCourante,
       ),
     );
     propageGestionClicBoutons(
       prepareGestionBoutonPrecedent(
         listeEtapes,
         numeroEtapeCourante,
-        (val: number) => setNumeroEtapeCourante(val),
+        setNumeroEtapeCourante,
       ),
     );
   }, [listeEtapes, numeroEtapeCourante]);

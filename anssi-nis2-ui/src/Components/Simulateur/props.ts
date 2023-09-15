@@ -6,6 +6,7 @@ import {
 } from "../../Services/Simulateur/donneesFormulaire.ts";
 import { CollectionInformationsEtapes } from "./collectionInformationsEtapes.ts";
 import { BoutonsNavigation } from "./boutonsNavigation.ts";
+import { SimulateurEtapeNodeComponent } from "./component.ts";
 
 export interface SimulateurContenuEtapeProps extends DefaultProps {
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>;
@@ -21,6 +22,7 @@ export interface SimulateurEtapeRenderedProps extends SimulateurEtapeProps {
   informationsBoutonsNavigation: BoutonsNavigation;
   formData: DonneesFormulaireSimulateur;
   numeroEtapeCourante: number;
+  sousEtape?: SimulateurEtapeNodeComponent;
 }
 
 export interface SimulateurEtapeSwitcherProps extends SimulateurEtapeProps {}

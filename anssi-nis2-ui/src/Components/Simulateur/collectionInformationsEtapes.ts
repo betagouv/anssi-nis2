@@ -1,4 +1,5 @@
 import { InformationsEtape } from "./informationsEtape.ts";
+// import { DonneesFormulaireSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
 
 const dansIntervale = (x: number, debut: number, fin: number) =>
   (x - debut) * (x - fin) <= 0;
@@ -16,5 +17,16 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
     if (dansIntervale(numeroEtape, 0, this.length - 1)) {
       action(numeroEtape);
     }
+  }
+
+  recupereEtapeCourante<T extends InformationsEtape>(
+    numeroEtape: number,
+    // donneesFormulaire: DonneesFormulaireSimulateur,
+  ): T {
+    return this[numeroEtape] as T;
+  }
+
+  numeroCourante(numeroEtapeCourante: number) {
+    return numeroEtapeCourante + 1;
   }
 }

@@ -12,8 +12,8 @@ import {
   genereGestionEtapePrecedenteSiExiste,
   genereGestionEtapeSuivanteSiExiste,
 } from "./gestionnaires.ts";
-import { InformationEtapeForm } from "./informationsEtape.ts";
 import { SimulateurEtapeRenderedComponent } from "./component.ts";
+import { InformationEtapeForm } from "./informationsEtape.ts";
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   listeEtapes,
@@ -22,9 +22,8 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   formData,
   informationsBoutonsNavigation,
 }: SimulateurEtapeRenderedProps) => {
-  const informationsEtape = listeEtapes[
-    numeroEtapeCourante
-  ] as InformationEtapeForm;
+  const informationsEtape: InformationEtapeForm =
+    listeEtapes.recupereEtapeCourante(numeroEtapeCourante);
 
   const EtapeCourante = informationsEtape.contenu;
 
@@ -63,7 +62,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
     <RowContainer className="fr-py-7w">
       <CenteredContainer className="fr-background-alt--grey">
         <Stepper
-          currentStep={numeroEtapeCourante + 1}
+          currentStep={listeEtapes.numeroCourante(numeroEtapeCourante)}
           nextTitle={informationsEtapeSuivante.titre}
           stepCount={listeEtapes.length}
           title={informationsEtape.titre}
