@@ -10,10 +10,12 @@ export enum EtapeInexistante {
   HorsDePortee = "Hors de portee",
 }
 
-export type EtapeExistante = {
-  titre: string;
-  elementToRender: SimulateurEtapeRenderedComponent;
-};
+export class EtapeExistante {
+  constructor(
+    public readonly titre: string,
+    public readonly elementToRender: SimulateurEtapeRenderedComponent,
+  ) {}
+}
 
 export type InformationsEtape = EtapeExistante | EtapeInexistante;
 
@@ -26,7 +28,7 @@ export class SousEtapeConditionnelle {
   ) {}
 }
 
-export class InformationEtapeForm implements EtapeExistante {
+export class InformationEtapeForm extends EtapeExistante {
   public readonly elementToRender: SimulateurEtapeRenderedComponent =
     SimulateurEtapeForm;
 
@@ -35,7 +37,9 @@ export class InformationEtapeForm implements EtapeExistante {
     public readonly indicationReponses: string,
     protected readonly contenu: SimulateurEtapeNodeComponent,
     public readonly sousEtapeConditionnelle?: SousEtapeConditionnelle,
-  ) {}
+  ) {
+    super(titre, SimulateurEtapeForm);
+  }
 
   recupereContenuOuSousElement(
     donneeesFormulaire: DonneesFormulaireSimulateur,
