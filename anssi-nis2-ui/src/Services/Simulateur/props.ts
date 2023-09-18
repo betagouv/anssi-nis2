@@ -7,6 +7,7 @@ import {
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
 import { BoutonsNavigation } from "./boutonsNavigation.ts";
 import { SimulateurEtapeNodeComponent } from "./component.ts";
+import { EtatEtapes } from "./EtatEtapes.ts";
 
 export interface SimulateurContenuEtapeProps extends DefaultProps {
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>;
@@ -15,6 +16,7 @@ export interface SimulateurContenuEtapeProps extends DefaultProps {
 
 export interface SimulateurEtapeProps extends DefaultProps {
   listeEtapes: CollectionInformationsEtapes;
+  etatEtapes: EtatEtapes;
 }
 
 export interface SimulateurEtapeRenderedProps extends SimulateurEtapeProps {

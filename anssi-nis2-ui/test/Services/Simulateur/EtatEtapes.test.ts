@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { EtatEtapes } from "../../../src/Services/Simulateur/EtatEtapes";
 import {
-  etapeInexistante,
   InformationEtapeForm,
   InformationsEtape,
   SousEtapeConditionnelle,

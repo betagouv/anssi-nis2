@@ -36,7 +36,11 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
       Etape4Secteur,
       new SousEtapeConditionnelle(
         ({ secteurActivite }) => secteurActivite.includes("energie"),
-        Etape2TypeStructure,
+        new InformationEtapeForm(
+          "Sous-secteur d'activité",
+          "Sélectionnez au moins une réponse",
+          Etape2TypeStructure,
+        ),
       ),
     ),
     new InformationEtapeForm(

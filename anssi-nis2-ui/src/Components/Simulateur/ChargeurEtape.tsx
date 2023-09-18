@@ -13,7 +13,7 @@ import {
 
 export const ChargeurEtape: DefaultComponentExtensible<
   SimulateurEtapeSwitcherProps
-> = ({ listeEtapes }: SimulateurEtapeSwitcherProps) => {
+> = ({ listeEtapes, etatEtapes }: SimulateurEtapeSwitcherProps) => {
   const {
     simulateur: { reducerFormData, reducerBoutons },
   } = useContext(AppContext);
@@ -32,7 +32,7 @@ export const ChargeurEtape: DefaultComponentExtensible<
   );
 
   const ElementRendered: SimulateurEtapeRenderedComponent =
-    listeEtapes.recupereElement(numeroEtapeCourante, inputsState); //.elementToRender;
+    listeEtapes.recupereElement(numeroEtapeCourante); //, inputsState); //.elementToRender;
 
   useEffect(() => {
     propageGestionClicBoutons(
@@ -58,6 +58,7 @@ export const ChargeurEtape: DefaultComponentExtensible<
       propageActionSimulateur={propageActionSimulateur}
       formData={inputsState}
       informationsBoutonsNavigation={gestionClicBoutons}
+      etatEtapes={etatEtapes}
     />
   );
 };

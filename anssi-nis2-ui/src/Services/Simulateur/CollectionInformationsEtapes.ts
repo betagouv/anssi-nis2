@@ -1,6 +1,6 @@
 import {
   EtapeExistante,
-  EtapeInexistante,
+  etapeInexistante,
   InformationsEtape,
 } from "./informationsEtape.ts";
 import { dansIntervalle } from "../../utilitaires/calculs.ts";
@@ -27,7 +27,7 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   recupereInformationsEtapeSuivante(
     indiceEtapeCourante: number,
   ): InformationsEtape {
-    return this[indiceEtapeCourante + 1] || EtapeInexistante.HorsDePortee;
+    return this[indiceEtapeCourante + 1] || etapeInexistante;
   }
 
   recupereElement(indiceEtapeCourante: number) {
