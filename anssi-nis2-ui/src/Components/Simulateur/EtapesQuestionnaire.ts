@@ -11,6 +11,7 @@ import {
   InformationEtapeResult,
   SousEtapeConditionnelle,
 } from "../../Services/Simulateur/informationsEtape.ts";
+import { EtatEtapes } from "../../Services/Simulateur/EtatEtapes.ts";
 
 export const etapesQuestionnaire: CollectionInformationsEtapes =
   new CollectionInformationsEtapes(
@@ -50,3 +51,4 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
     ) /* */,
     new InformationEtapeResult("Resultat"),
   );
+export const etatEtapesInitial = new EtatEtapes(etapesQuestionnaire, 1);

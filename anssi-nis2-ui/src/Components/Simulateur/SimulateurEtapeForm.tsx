@@ -16,14 +16,16 @@ import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/comp
 import { InformationEtapeForm } from "../../Services/Simulateur/informationsEtape.ts";
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
-  listeEtapes,
   numeroEtapeCourante,
   propageActionSimulateur,
   formData,
   informationsBoutonsNavigation,
+  etatEtapes,
 }: SimulateurEtapeRenderedProps) => {
+  const listeEtapes = etatEtapes.collectionEtapes;
   const informationsEtape: InformationEtapeForm =
-    listeEtapes.recupereEtapeCourante(numeroEtapeCourante);
+    etatEtapes.contenuEtapeCourante() as InformationEtapeForm;
+  // listeEtapes.recupereEtapeCourante(numeroEtapeCourante);
 
   const EtapeCourante =
     informationsEtape.recupereContenuOuSousElement(formData);

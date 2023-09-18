@@ -15,7 +15,6 @@ export interface SimulateurContenuEtapeProps extends DefaultProps {
 }
 
 export interface SimulateurEtapeProps extends DefaultProps {
-  listeEtapes: CollectionInformationsEtapes;
   etatEtapes: EtatEtapes;
 }
 
