@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { CollectionInformationsEtapes } from "../../../src/Services/Simulateur/CollectionInformationsEtapes";
 import {
-  EtapeInexistante,
+  etapeInexistante,
   InformationEtapeForm,
 } from "../../../src/Services/Simulateur/informationsEtape";
 import {
@@ -36,7 +36,7 @@ describe(CollectionInformationsEtapes, () => {
     {
       etapeCourante: informationEtapeForm2,
       indiceEtapeCourante: 1,
-      informationEtapeSuivante: EtapeInexistante,
+      informationEtapeSuivante: etapeInexistante,
       estAvantDernier: false,
       numeroEtape: 2,
     },
