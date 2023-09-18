@@ -64,7 +64,7 @@ const Etape4bisSousSecteur = ({
       <div className="fr-fieldset__element">
         {optionsSousSecteurActivite && (
           <Checkbox
-            legend="Dans quels secteurs d’activités votre organisation produit-elle des biens et/ou des services ?"
+            legend="Précisez les sous-secteurs concernés :"
             options={optionsSousSecteurActivite}
           />
         )}

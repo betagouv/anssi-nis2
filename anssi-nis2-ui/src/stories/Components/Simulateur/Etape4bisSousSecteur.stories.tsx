@@ -13,7 +13,7 @@ class ParametresDonneesSousSecteurActivite extends ParametresDonneesSpecifiqueFi
   protected construitDonnees<ValeursSecteurActivite>(
     valeurs: ValeursSecteurActivite[],
   ): DonneesFormulaireSimulateur {
-    return this.construitDonneesPourField("secteurActivite", valeurs);
+    return this.construitDonneesPourField("sousSecteurActivite", valeurs);
   }
 }
 

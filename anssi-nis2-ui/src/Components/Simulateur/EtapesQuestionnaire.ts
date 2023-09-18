@@ -2,6 +2,7 @@ import {
   Etape1Localisation,
   Etape2TypeStructure,
   Etape3Taille,
+  Etape4bisSousSecteur,
   Etape4Secteur,
   Etape5Activite,
 } from ".";
@@ -39,8 +40,8 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
         ({ secteurActivite }) => secteurActivite.includes("energie"),
         new InformationEtapeForm(
           "Sous-secteur d'activité",
-          "Sélectionnez au moins une réponse",
-          Etape2TypeStructure,
+          "Sélectionnez au moins une réponse par secteur",
+          Etape4bisSousSecteur,
         ),
       ),
     ),

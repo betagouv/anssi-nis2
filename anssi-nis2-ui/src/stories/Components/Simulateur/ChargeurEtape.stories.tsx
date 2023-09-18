@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { ChargeurEtape } from "../../../Components/Simulateur/ChargeurEtape.tsx";
-import { etatEtapesInitial } from "../../../Components/Simulateur/EtapesQuestionnaire.ts";
 import { AppContext, Context } from "../../../AppContext.tsx";
 import { defaultContext } from "../../../.storybook/PageDecorator.tsx";
 import { userEvent, within } from "@storybook/testing-library";
@@ -18,9 +17,6 @@ const genereDecorateurPourContexte = (context: Context) =>
 
 const meta: Meta<typeof ChargeurEtape> = {
   component: ChargeurEtape,
-  args: {
-    etatEtapes: etatEtapesInitial,
-  },
   decorators: [genereDecorateurPourContexte(defaultContext)],
 };
 
@@ -77,8 +73,6 @@ export const EtapeSousActiviteConditionnelle: Story = {
 
     await cliqueSurSuivant(canvas);
 
-    await canvas.findByText(
-      "Quel type de structure qualifie votre organisation ?",
-    );
+    await canvas.findByText("Précisez les sous-secteurs concernés :");
   },
 };
