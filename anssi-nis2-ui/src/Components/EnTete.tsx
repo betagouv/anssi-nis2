@@ -1,6 +1,6 @@
 import Header from "@codegouvfr/react-dsfr/Header";
 import AnssiLogo from "../assets/ANSSI.svg";
-import { noRefClick } from "./Echaffaudages/AssistantsEchaffaudages.ts";
+import { noRefClick } from "../Services/Echaffaudages/AssistantsEchaffaudages.ts";
 
 const EnTete = () => (
   <Header
@@ -35,7 +35,7 @@ const EnTete = () => (
       {
         buttonProps: { onClick: noRefClick },
         iconId: "fr-icon-arrow-right-line",
-        text: "Je m'inscrits",
+        text: "Je m'inscris",
       },
     ]}
     serviceTagline=""

@@ -1,6 +1,6 @@
-import { Props } from "../../Props.ts";
+import { Props } from "../../Services/Props.ts";
 import { Button } from "@codegouvfr/react-dsfr/Button";
-import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
+import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
 import { Link } from "react-router-dom";
 import { fr } from "@codegouvfr/react-dsfr";
 

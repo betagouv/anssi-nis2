@@ -1,11 +1,11 @@
 import { describe, it, expect } from "vitest";
+import { genereTransformateurValeursVersOptions } from "../../../src/Services/Simulateur/simulateurFrontServices";
+import { paysUnionEuropeenneLocalisation } from "../../../src/Domaine/Simulateur/Libelles";
+import { transformePaysUnionEuropeennePourSelect } from "../../../src/Services/Simulateur/Transformateurs";
 import {
-  emptySimulateurFormData,
-  genereTransformateurValeursVersOptions,
-  SimulateurFormData,
-  transformePaysUnionEuropeennePourSelect,
-} from "../../src/Services/simulateurFrontServices";
-import { paysUnionEuropeenneLocalisation } from "../../src/Domaine/DomaineSimulateur";
+  donneesFormulaireSimulateurVide,
+  DonneesFormulaireSimulateur,
+} from "../../../src/Services/Simulateur/donneesFormulaire";
 
 describe(genereTransformateurValeursVersOptions, () => {
   const onChange: React.ChangeEventHandler<HTMLInputElement> = () => {};
@@ -51,11 +51,8 @@ describe(genereTransformateurValeursVersOptions, () => {
 
   it("génère un champ d'option avec les bons états checked", () => {
     const attendu = optionsPaysUE([true, false, false]);
-    const defaultDataForm: SimulateurFormData = {
-      secteurActivite: [],
-      trancheCA: [],
-      trancheNombreEmployes: [],
-      typeStructure: [],
+    const defaultDataForm: DonneesFormulaireSimulateur = {
+      ...donneesFormulaireSimulateurVide,
       etatMembre: ["france"],
     };
     const optionsPaysUEObtenu = transformePaysUnionEuropeennePourSelect(
@@ -101,7 +98,7 @@ describe(genereTransformateurValeursVersOptions, () => {
       const optionsActivitesObtenues = transformateur(
         activites,
         onChange,
-        emptySimulateurFormData,
+        donneesFormulaireSimulateurVide,
         groupOfActivite,
       );
       expect(optionsActivitesObtenues).toStrictEqual(attendu);
@@ -122,12 +119,9 @@ describe(genereTransformateurValeursVersOptions, () => {
           },
         },
       ];
-      const currentDataForm: SimulateurFormData = {
+      const currentDataForm: DonneesFormulaireSimulateur = {
+        ...donneesFormulaireSimulateurVide,
         secteurActivite: [valeurSelectionnee],
-        trancheCA: [],
-        trancheNombreEmployes: [],
-        typeStructure: [],
-        etatMembre: [],
       };
 
       const optionsActivitesObtenues = transformateur(

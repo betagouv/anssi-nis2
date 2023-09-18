@@ -2,51 +2,75 @@ import { RowContainer } from "../RowContainer.tsx";
 import { StepperNavigation } from "../StepperNavigation.tsx";
 
 import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
-import {
-  InformationEtapeForm,
-  SimulateurEtapeRenderedComponent,
-  SimulateurEtapeRenderedProps,
-} from "./simulateurProps.ts";
-import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
-import { useContext } from "react";
+import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/props.ts";
+import { useContext, useMemo } from "react";
 import { AppContext } from "../../AppContext.tsx";
 import { CenteredContainer } from "../CenteredContainer.tsx";
-import { SimulateurFormData } from "../../Services/simulateurFrontServices.ts";
+
+import {
+  DonneesFormulaireSimulateur,
+  donneesFormulaireSimulateurVide,
+} from "../../Services/Simulateur/donneesFormulaire.ts";
+import {
+  genereGestionEtapePrecedenteSiExiste,
+  genereGestionEtapeSuivanteSiExiste,
+} from "../../Services/Simulateur/gestionnaires.ts";
+import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/component.ts";
+import { InformationEtapeForm } from "../../Services/Simulateur/informationsEtape.ts";
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
-  listeEtapes,
-  etapeCourante,
   propageActionSimulateur,
-  handleChange,
   formData,
-  etapePrecedenteHandler,
-  etapeSuivanteHandler,
+  informationsBoutonsNavigation,
+  etatEtapes,
 }: SimulateurEtapeRenderedProps) => {
-  const informationsEtape = listeEtapes[etapeCourante] as InformationEtapeForm;
-  const EtapeCourante = informationsEtape.contenu;
-  const suivante = listeEtapes[etapeCourante + 1] || "";
+  const listeEtapes = etatEtapes.collectionEtapes;
+  const informationsEtape: InformationEtapeForm =
+    etatEtapes.contenuEtapeCourante() as InformationEtapeForm;
+  // listeEtapes.recupereEtapeCourante(numeroEtapeCourante);
+
+  const EtapeCourante =
+    informationsEtape.recupereContenuOuSousElement(formData);
+  // const EtapeCourante = informationsEtape.recupereContenu();
+
+  const etatSuivant = etatEtapes.suivant(donneesFormulaireSimulateurVide);
+  const informationsEtapeSuivante = etatSuivant.contenuEtapeCourante();
+  //listeEtapes.recupereInformationsEtapeSuivante(numeroEtapeCourante);
+
   const { sendFormData } = useContext(AppContext);
 
-  const etapePrecedenteHandlerConcret =
-    etapeCourante == 0 ? noRefClick : etapePrecedenteHandler;
-  const sauvePuisEtapeSuivante = (e: React.MouseEvent<Element, MouseEvent>) => {
-    console.log(`Envoie les données à l'API ${JSON.stringify(formData)}`);
-    sendFormData(formData as SimulateurFormData).then(() =>
-      etapeSuivanteHandler(e),
-    );
-  };
+  const etapePrecedenteHandlerConcret = useMemo(
+    () =>
+      genereGestionEtapePrecedenteSiExiste(
+        informationsBoutonsNavigation.precedent,
+        etatEtapes.numeroEtapeCourante,
+      ),
+    [informationsBoutonsNavigation.precedent, etatEtapes.numeroEtapeCourante],
+  );
 
-  const etapeSuivantHandlerConcret =
-    etapeCourante < listeEtapes.length - 2
-      ? etapeSuivanteHandler
-      : sauvePuisEtapeSuivante;
+  const etapeSuivantHandlerConcret = useMemo(
+    () =>
+      genereGestionEtapeSuivanteSiExiste(
+        etatEtapes.numeroEtapeCourante,
+        listeEtapes,
+        informationsBoutonsNavigation.suivant,
+        () => sendFormData(formData as DonneesFormulaireSimulateur),
+      ),
+    [
+      etatEtapes.numeroEtapeCourante,
+      listeEtapes,
+      informationsBoutonsNavigation.suivant,
+      sendFormData,
+      formData,
+    ],
+  );
 
   return (
     <RowContainer className="fr-py-7w">
       <CenteredContainer className="fr-background-alt--grey">
         <Stepper
-          currentStep={etapeCourante + 1}
-          nextTitle={suivante.titre}
+          currentStep={etatEtapes.numeroEtapeCourante}
+          nextTitle={informationsEtapeSuivante.titre}
           stepCount={listeEtapes.length}
           title={informationsEtape.titre}
           className="fr-mb-5w"
@@ -54,13 +78,10 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
 
         <hr className="fr-pb-5w" />
 
-        {formData && (
-          <EtapeCourante
-            propageActionSimulateur={propageActionSimulateur}
-            handleChange={handleChange}
-            formData={formData}
-          />
-        )}
+        <EtapeCourante
+          propageActionSimulateur={propageActionSimulateur}
+          formData={formData}
+        />
 
         <StepperNavigation
           indicationReponses={informationsEtape.indicationReponses}

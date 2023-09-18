@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { SimulateurEtapeRenderedComponent } from "./simulateurProps.ts";
 import ResterInformee from "../ResterInformee.tsx";
 import { fr } from "@codegouvfr/react-dsfr";
 import Icon from "@mui/material/Icon";
@@ -10,6 +9,7 @@ import ImageGuideHygieneCyber from "../../assets/GuideHygieneCyber.png";
 import PdfCard from "../PdfCard.tsx";
 import { PdfCardContainer } from "../PdfCardContainer.tsx";
 import ReseauxSociaux from "../ReseauxSociaux.tsx";
+import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/component.ts";
 
 const ResultDiv = styled.div`
   background-color: ${fr.colors.decisions.background.alt.greenMenthe.default};

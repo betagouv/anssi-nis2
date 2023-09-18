@@ -1,34 +1,28 @@
-import {
-  SimulateurFieldNames,
-  transformePaysUnionEuropeennePourSelect,
-} from "../../Services/simulateurFrontServices.ts";
-import { paysUnionEuropeenneLocalisation } from "../../Domaine/DomaineSimulateur.ts";
+import { paysUnionEuropeenneLocalisation } from "../../Domaine/Simulateur/Libelles.ts";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { FormSimulateur } from "./index.ts";
 import {
+  ListeOptionsChampFormulaire,
   SimulateurContenuEtapeProps,
-  SimulateurEtapeNodeComponent,
-} from "./simulateurProps.ts";
-import { NativeInputProps } from "../../Props.ts";
+} from "../../Services/Simulateur/props.ts";
 import React, { useEffect, useState } from "react";
+import { transformePaysUnionEuropeennePourSelect } from "../../Services/Simulateur/Transformateurs.ts";
+import { NomsChampsSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
 
-type InputPropsList = {
-  nativeInputProps: NativeInputProps;
-  label: string;
-}[];
-const SimulateurEtape1: SimulateurEtapeNodeComponent = ({
+const Etape1Localisation = ({
   formData,
   propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
   const [paysUnionEuropeenneOptions, setPaysUnionEuropeenneOptions] =
-    useState<InputPropsList>([]);
-  const changeMulti: React.ChangeEventHandler<HTMLInputElement> = (evt) =>
-    propageActionSimulateur({
-      type: "checkMulti",
-      name: evt.target.name as SimulateurFieldNames,
-      newValue: evt.target.value,
-    });
+    useState<ListeOptionsChampFormulaire>([]);
+
   useEffect(() => {
+    const changeMulti: React.ChangeEventHandler<HTMLInputElement> = (evt) =>
+      propageActionSimulateur({
+        type: "checkMulti",
+        name: evt.target.name as NomsChampsSimulateur,
+        newValue: evt.target.value,
+      });
     setPaysUnionEuropeenneOptions(
       transformePaysUnionEuropeennePourSelect(
         paysUnionEuropeenneLocalisation,
@@ -36,7 +30,7 @@ const SimulateurEtape1: SimulateurEtapeNodeComponent = ({
         formData,
       ),
     );
-  }, [formData]);
+  }, [formData, propageActionSimulateur]);
 
   return (
     <FormSimulateur>
@@ -58,4 +52,4 @@ const SimulateurEtape1: SimulateurEtapeNodeComponent = ({
   );
 };
 
-export default SimulateurEtape1;
+export default Etape1Localisation;

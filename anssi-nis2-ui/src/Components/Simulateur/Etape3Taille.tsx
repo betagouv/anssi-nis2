@@ -1,28 +1,43 @@
 import {
-  transformeTranchesCAVersOptions,
-  transformeTranchesNombreEmployesVersOptions,
-} from "../../Services/simulateurFrontServices.ts";
-import {
   tranchesCA,
   tranchesNombreEmployes,
-} from "../../Domaine/DomaineSimulateur.ts";
+} from "../../Domaine/Simulateur/Libelles.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { FormSimulateur } from "./index.ts";
-import { SimulateurContenuEtapeProps } from "./simulateurProps.ts";
+import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/props.ts";
+import React from "react";
+import {
+  transformeTranchesCAVersOptions,
+  transformeTranchesNombreEmployesVersOptions,
+} from "../../Services/Simulateur/Transformateurs.ts";
 
-const SimulateurEtape3 = ({
-  handleChange,
+const Etape3Taille = ({
   formData,
+  propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
+  const gereChangementNombreEmployes = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) =>
+    propageActionSimulateur({
+      type: "checkSingle",
+      name: "trancheNombreEmployes",
+      newValue: event.target.value,
+    });
+  const gereChangementCA = (event: React.ChangeEvent<HTMLInputElement>) =>
+    propageActionSimulateur({
+      type: "checkSingle",
+      name: "trancheCA",
+      newValue: event.target.value,
+    });
   const optionsTranchesNombreEmployes =
     transformeTranchesNombreEmployesVersOptions(
       tranchesNombreEmployes,
-      handleChange,
+      gereChangementNombreEmployes,
       formData,
     );
   const optionsTranchesCA = transformeTranchesCAVersOptions(
     tranchesCA,
-    handleChange,
+    gereChangementCA,
     formData,
   );
 
@@ -46,4 +61,4 @@ const SimulateurEtape3 = ({
   );
 };
 
-export default SimulateurEtape3;
+export default Etape3Taille;

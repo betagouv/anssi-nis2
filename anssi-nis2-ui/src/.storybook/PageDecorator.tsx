@@ -2,10 +2,21 @@ import { AppContext, Context } from "../AppContext.tsx";
 import { Args, Globals } from "@storybook/types";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ReactRenderer } from "@storybook/react";
+import {
+  reducerBoutons,
+  reducerFormData,
+} from "../Services/Simulateur/reducers.ts";
 
-const defaultContext: Context = {
-  sendFormData: async () => {
-    return "";
+const defaultAsyncStringFonctionInjected = async () => {
+  return "";
+};
+
+// reducerFormData: Reducer<SimulateurFormData, SimulateurDonneesFormulaireActions>; reducerBoutons: Reducer<BoutonsNavigation, ActionsBoutonNavigation>;
+export const defaultContext: Context = {
+  sendFormData: defaultAsyncStringFonctionInjected,
+  simulateur: {
+    reducerBoutons: reducerBoutons,
+    reducerFormData: reducerFormData,
   },
 };
 type StoryContextUpdate<TArgs = Args> = {

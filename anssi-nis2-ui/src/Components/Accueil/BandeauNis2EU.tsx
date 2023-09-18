@@ -1,6 +1,6 @@
 import { Button } from "@codegouvfr/react-dsfr/Button";
-import { Props } from "../../Props.ts";
-import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
+import { Props } from "../../Services/Props.ts";
+import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
 import FondEuLogo from "../../assets/EU-logo.svg";
 import ObligationNotifier from "../../assets/obligation-notifier.svg";
 import ObligationMesuresSecurite from "../../assets/obligation-mesures-securite.svg";
@@ -9,6 +9,7 @@ import ObligationIncidents from "../../assets/obligation-incidents.svg";
 import { fr } from "@codegouvfr/react-dsfr";
 import { ColorTheme, useColors } from "@codegouvfr/react-dsfr/useColors";
 import { createMakeAndWithStyles } from "tss-react";
+
 const { makeStyles } = createMakeAndWithStyles({
   useTheme: function (): ColorTheme {
     return useColors();
