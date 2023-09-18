@@ -50,6 +50,9 @@ export class EtatEtapes {
 
   precedent(donneesFormulaire: DonneesFormulaireSimulateur) {
     const informationsEtape = this.informationEtapeForm();
+    if (this.numeroEtapeCourante === 1) {
+      return this;
+    }
 
     if (
       this.numeroSousEtape != EtatEtapes.numeroSousEtapeInitial &&

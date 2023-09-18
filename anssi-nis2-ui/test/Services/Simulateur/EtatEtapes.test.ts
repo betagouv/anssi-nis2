@@ -95,6 +95,21 @@ describe(EtatEtapes, () => {
         contenuEtapeAttendu,
       );
     });
+
+    it("renvoie l'étape courtante avant l'étape 1", () => {
+      const numeroEtapePrecedenteAttendu = 1;
+      const contenuEtapeAttendu = informationEtapeForm1;
+
+      const etatEtapes = etatEtapesInitial.precedent(
+        donneesFormulaireSimulateurVide,
+      );
+
+      attendUneEtapeCourante(
+        etatEtapes,
+        numeroEtapePrecedenteAttendu,
+        contenuEtapeAttendu,
+      );
+    });
   });
 
   describe("Sous-étapes conditionnelles", () => {
@@ -178,7 +193,7 @@ describe(EtatEtapes, () => {
       attendUneEtapeCourante(etatEtapeResultant, 2, informationEtapeForm2);
     });
 
-    it("renvoie aucune etape après l'étape 3 bis", () => {
+    it("renvoie l'étape courante  après l'étape 3 bis", () => {
       const etatEtapeResultant = etatEtapes3SousEtapeAttendu.suivant(
         donneesFormulaireSimulateurVide,
       );
