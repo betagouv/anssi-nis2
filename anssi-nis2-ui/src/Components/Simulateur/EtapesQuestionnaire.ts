@@ -5,7 +5,7 @@ import {
   Etape4Secteur,
   Etape5Activite,
 } from ".";
-import { CollectionInformationsEtapes } from "../../Services/Simulateur/collectionInformationsEtapes.ts";
+import { CollectionInformationsEtapes } from "../../Services/Simulateur/CollectionInformationsEtapes.ts";
 import {
   InformationEtapeForm,
   InformationEtapeResult,

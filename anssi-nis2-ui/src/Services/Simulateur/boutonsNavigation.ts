@@ -1,5 +1,5 @@
 import React from "react";
-import { CollectionInformationsEtapes } from "./collectionInformationsEtapes.ts";
+import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
 import { ActionsBoutonNavigation } from "./reducers.ts";
 
 export class BoutonsNavigation {

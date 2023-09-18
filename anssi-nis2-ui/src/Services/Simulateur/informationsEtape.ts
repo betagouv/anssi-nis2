@@ -6,10 +6,16 @@ import {
   SimulateurEtapeRenderedComponent,
 } from "./component.ts";
 
-export type InformationsEtape = {
+export enum EtapeInexistante {
+  HorsDePortee = "Hors de portee",
+}
+
+export type EtapeExistante = {
   titre: string;
   elementToRender: SimulateurEtapeRenderedComponent;
 };
+
+export type InformationsEtape = EtapeExistante | EtapeInexistante;
 
 export class SousEtapeConditionnelle {
   constructor(
@@ -20,7 +26,7 @@ export class SousEtapeConditionnelle {
   ) {}
 }
 
-export class InformationEtapeForm implements InformationsEtape {
+export class InformationEtapeForm implements EtapeExistante {
   public readonly elementToRender: SimulateurEtapeRenderedComponent =
     SimulateurEtapeForm;
 
@@ -45,7 +51,7 @@ export class InformationEtapeForm implements InformationsEtape {
   }
 }
 
-export class InformationEtapeResult implements InformationsEtape {
+export class InformationEtapeResult implements EtapeExistante {
   public readonly elementToRender: SimulateurEtapeRenderedComponent =
     SimulateurEtapeResult;
 

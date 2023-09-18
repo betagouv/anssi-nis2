@@ -1,13 +1,19 @@
-import { InformationsEtape } from "./informationsEtape.ts";
+import {
+  EtapeExistante,
+  EtapeInexistante,
+  InformationsEtape,
+} from "./informationsEtape.ts";
 import { dansIntervalle } from "../../utilitaires/calculs.ts";
 
 export class CollectionInformationsEtapes extends Array<InformationsEtape> {
-  estAvantDerniereEtape(numeroEtape: number) {
-    return numeroEtape >= this.length - 2;
+  estAvantDerniereEtape(numeroEtape: number): boolean {
+    return numeroEtape == this.length - 2;
   }
 
-  recupereInformationsEtapeSuivante(numeroEtapeCourante: number) {
-    return this[numeroEtapeCourante + 1] || "";
+  recupereInformationsEtapeSuivante(
+    numeroEtapeCourante: number,
+  ): InformationsEtape {
+    return this[numeroEtapeCourante + 1] || EtapeInexistante.HorsDePortee;
   }
 
   siExiste(numeroEtape: number, action: (val: number) => void) {
@@ -26,6 +32,6 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
 
   recupereElement(numeroEtapeCourante: number) {
     const informationsEtape = this[numeroEtapeCourante];
-    return informationsEtape.elementToRender;
+    return (informationsEtape as EtapeExistante).elementToRender;
   }
 }

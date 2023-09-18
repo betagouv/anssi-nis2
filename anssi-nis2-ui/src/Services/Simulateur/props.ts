@@ -4,7 +4,7 @@ import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "./donneesFormulaire.ts";
-import { CollectionInformationsEtapes } from "./collectionInformationsEtapes.ts";
+import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
 import { BoutonsNavigation } from "./boutonsNavigation.ts";
 import { SimulateurEtapeNodeComponent } from "./component.ts";
 

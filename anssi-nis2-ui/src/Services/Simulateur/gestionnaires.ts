@@ -5,7 +5,7 @@ import {
 } from "./donneesFormulaire.ts";
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
 
-import { CollectionInformationsEtapes } from "./collectionInformationsEtapes.ts";
+import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
 
 export type GenerateurSoumissionEtape = (
   limiteConditions: (i: number) => boolean,
