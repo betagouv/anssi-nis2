@@ -25,7 +25,9 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   const informationsEtape: InformationEtapeForm =
     listeEtapes.recupereEtapeCourante(numeroEtapeCourante);
 
-  const EtapeCourante = informationsEtape.getContenu(formData);
+  const EtapeCourante =
+    informationsEtape.recupereContenuOuSousElement(formData);
+  // const EtapeCourante = informationsEtape.recupereContenu();
 
   const informationsEtapeSuivante =
     listeEtapes.recupereInformationsEtapeSuivante(numeroEtapeCourante);

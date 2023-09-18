@@ -52,10 +52,7 @@ describe(genereTransformateurValeursVersOptions, () => {
   it("génère un champ d'option avec les bons états checked", () => {
     const attendu = optionsPaysUE([true, false, false]);
     const defaultDataForm: DonneesFormulaireSimulateur = {
-      secteurActivite: [],
-      trancheCA: [],
-      trancheNombreEmployes: [],
-      typeStructure: [],
+      ...donneesFormulaireSimulateurVide,
       etatMembre: ["france"],
     };
     const optionsPaysUEObtenu = transformePaysUnionEuropeennePourSelect(
@@ -123,11 +120,8 @@ describe(genereTransformateurValeursVersOptions, () => {
         },
       ];
       const currentDataForm: DonneesFormulaireSimulateur = {
+        ...donneesFormulaireSimulateurVide,
         secteurActivite: [valeurSelectionnee],
-        trancheCA: [],
-        trancheNombreEmployes: [],
-        typeStructure: [],
-        etatMembre: [],
       };
 
       const optionsActivitesObtenues = transformateur(

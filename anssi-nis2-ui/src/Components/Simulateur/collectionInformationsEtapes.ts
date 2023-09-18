@@ -1,7 +1,5 @@
 import { InformationsEtape } from "./informationsEtape.ts";
-
-const dansIntervale = (x: number, debut: number, fin: number) =>
-  (x - debut) * (x - fin) <= 0;
+import { dansIntervalle } from "../../utilitaires/calculs.ts";
 
 export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   estAvantDerniereEtape(numeroEtape: number) {
@@ -13,7 +11,7 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   }
 
   siExiste(numeroEtape: number, action: (val: number) => void) {
-    if (dansIntervale(numeroEtape, 0, this.length - 1)) {
+    if (dansIntervalle(numeroEtape, 0, this.length - 1)) {
       action(numeroEtape);
     }
   }
