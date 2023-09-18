@@ -5,11 +5,11 @@ import Accueil from "./Accueil.tsx";
 import { startReactDsfr } from "@codegouvfr/react-dsfr/spa";
 import Simulateur from "./Simulateur.tsx";
 import { AppContext, Context } from "./AppContext.tsx";
-import { sendFormDataToApi } from "./Services/sendFormDataToApi.tsx";
+import { sendFormDataToApi } from "./Services/sendFormDataToApi.ts";
 import {
   reducerBoutons,
   reducerFormData,
-} from "./Components/Simulateur/reducers.ts";
+} from "./Services/Simulateur/reducers.ts";
 
 startReactDsfr({ defaultColorScheme: "system" });
 

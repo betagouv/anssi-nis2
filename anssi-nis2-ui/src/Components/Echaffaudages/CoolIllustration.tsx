@@ -1,4 +1,4 @@
-import { Props } from "../../Props.ts";
+import { Props } from "../../Services/Props.ts";
 import { fr } from "@codegouvfr/react-dsfr";
 
 import { ColorTheme, useColors } from "@codegouvfr/react-dsfr/useColors";

@@ -1,6 +1,6 @@
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { FormSimulateur } from "./index.ts";
-import { SimulateurContenuEtapeProps } from "./props.ts";
+import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/props.ts";
 import React, { useCallback, useEffect, useState } from "react";
 import { transformeSecteursActiviteVersOptions } from "../../Services/Simulateur/Transformateurs.ts";
 import { SelectOptions } from "../../Services/Utilitaires/Transformateurs.ts/simulateurFrontServices.ts";

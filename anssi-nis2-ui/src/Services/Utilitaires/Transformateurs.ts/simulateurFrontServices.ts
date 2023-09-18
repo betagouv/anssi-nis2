@@ -1,4 +1,4 @@
-import { NativeInputProps } from "../../../Props.ts";
+import { NativeInputProps } from "../../Props.ts";
 import React from "react";
 import {
   NomsChampsSimulateur,

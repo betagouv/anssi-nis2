@@ -3,7 +3,7 @@ import "./App.css";
 import "@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css";
 import "@gouvfr/dsfr/dist/utility/utility.css";
 
-import { DefaultComponent } from "./Props.ts";
+import { DefaultComponent } from "./Services/Props.ts";
 import {
   BandeauAccueil,
   BandeauConcerne,

@@ -1,15 +1,15 @@
 import { useContext, useEffect, useReducer, useState } from "react";
 
-import { DefaultComponentExtensible } from "../../Props.ts";
-import { SimulateurEtapeSwitcherProps } from "./props.ts";
+import { DefaultComponentExtensible } from "../../Services/Props.ts";
+import { SimulateurEtapeSwitcherProps } from "../../Services/Simulateur/props.ts";
 import { donneesFormulaireSimulateurVide } from "../../Services/Simulateur/donneesFormulaire.ts";
 import { AppContext } from "../../AppContext.tsx";
-import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
-import { SimulateurEtapeRenderedComponent } from "./component.ts";
+import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
+import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/component.ts";
 import {
   prepareGestionBoutonPrecedent,
   prepareGestionBoutonSuivant,
-} from "./boutonsNavigation.ts";
+} from "../../Services/Simulateur/boutonsNavigation.ts";
 
 export const ChargeurEtape: DefaultComponentExtensible<
   SimulateurEtapeSwitcherProps

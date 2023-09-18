@@ -1,9 +1,9 @@
-import { DefaultProps, NativeInputProps } from "../../Props.ts";
+import { DefaultProps, NativeInputProps } from "../Props.ts";
 import { Dispatch } from "react";
 import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "../../Services/Simulateur/donneesFormulaire.ts";
+} from "./donneesFormulaire.ts";
 import { CollectionInformationsEtapes } from "./collectionInformationsEtapes.ts";
 import { BoutonsNavigation } from "./boutonsNavigation.ts";
 import { SimulateurEtapeNodeComponent } from "./component.ts";

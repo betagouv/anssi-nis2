@@ -9,7 +9,7 @@ import ImageGuideHygieneCyber from "../../assets/GuideHygieneCyber.png";
 import PdfCard from "../PdfCard.tsx";
 import { PdfCardContainer } from "../PdfCardContainer.tsx";
 import ReseauxSociaux from "../ReseauxSociaux.tsx";
-import { SimulateurEtapeRenderedComponent } from "./component.ts";
+import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/component.ts";
 
 const ResultDiv = styled.div`
   background-color: ${fr.colors.decisions.background.alt.greenMenthe.default};

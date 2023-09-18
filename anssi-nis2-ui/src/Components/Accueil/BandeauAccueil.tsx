@@ -1,9 +1,9 @@
 import { Button } from "@codegouvfr/react-dsfr/Button";
 import FondHabillageAccueil from "../../assets/habillage-accueil-01.svg";
 import { fr } from "@codegouvfr/react-dsfr";
-import { Props } from "../../Props.ts";
+import { Props } from "../../Services/Props.ts";
 import { CoolIllustration } from "../Echaffaudages/CoolIllustration.tsx";
-import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
+import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
 import { createMakeAndWithStyles } from "tss-react";
 import { ColorTheme, useColors } from "@codegouvfr/react-dsfr/useColors";
 

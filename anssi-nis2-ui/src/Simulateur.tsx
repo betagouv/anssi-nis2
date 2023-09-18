@@ -1,8 +1,8 @@
-import { DefaultComponent } from "./Props.ts";
+import { DefaultComponent } from "./Services/Props.ts";
 
 import MiseEnPage from "./Components/MiseEnPage.tsx";
 import { ChargeurEtape } from "./Components/Simulateur/ChargeurEtape.tsx";
-import { etapesQuestionnaire } from "./Components/Simulateur/EtapesQuestionnaire.ts";
+import { etapesQuestionnaire } from "./Services/Simulateur/EtapesQuestionnaire.ts";
 
 const Simulateur: DefaultComponent = () => {
   return (

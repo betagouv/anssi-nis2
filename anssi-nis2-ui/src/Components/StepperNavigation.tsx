@@ -1,5 +1,5 @@
 import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
-import { noRefClick } from "./Echaffaudages/AssistantsEchaffaudages.ts";
+import { noRefClick } from "../Services/Echaffaudages/AssistantsEchaffaudages.ts";
 
 export const StepperNavigation = ({
   indicationReponses,

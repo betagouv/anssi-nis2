@@ -1,4 +1,4 @@
-import { DefaultComponent, DefaultProps } from "../../Props.ts";
+import { DefaultComponent, DefaultProps } from "../../Services/Props.ts";
 
 const FormSimulateur: DefaultComponent = ({ children }: DefaultProps) => (
   <form className="fr-mb-0" id="login-1797">

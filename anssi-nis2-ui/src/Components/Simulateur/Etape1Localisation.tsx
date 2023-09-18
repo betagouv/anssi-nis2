@@ -4,7 +4,7 @@ import { FormSimulateur } from "./index.ts";
 import {
   ListeOptionsChampFormulaire,
   SimulateurContenuEtapeProps,
-} from "./props.ts";
+} from "../../Services/Simulateur/props.ts";
 import React, { useEffect, useState } from "react";
 import { transformePaysUnionEuropeennePourSelect } from "../../Services/Simulateur/Transformateurs.ts";
 import { NomsChampsSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";

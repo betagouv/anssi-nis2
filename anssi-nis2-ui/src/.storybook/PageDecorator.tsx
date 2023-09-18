@@ -5,7 +5,7 @@ import { ReactRenderer } from "@storybook/react";
 import {
   reducerBoutons,
   reducerFormData,
-} from "../Components/Simulateur/reducers.ts";
+} from "../Services/Simulateur/reducers.ts";
 
 const defaultAsyncStringFonctionInjected = async () => {
   return "";

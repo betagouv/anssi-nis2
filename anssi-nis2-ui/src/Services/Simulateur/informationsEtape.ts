@@ -1,6 +1,6 @@
-import { SimulateurEtapeResult } from "./SimulateurEtapeResult.tsx";
-import { SimulateurEtapeForm } from "./SimulateurEtapeForm.tsx";
-import { DonneesFormulaireSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
+import { SimulateurEtapeResult } from "../../Components/Simulateur/SimulateurEtapeResult.tsx";
+import { SimulateurEtapeForm } from "../../Components/Simulateur/SimulateurEtapeForm.tsx";
+import { DonneesFormulaireSimulateur } from "./donneesFormulaire.ts";
 import {
   SimulateurEtapeNodeComponent,
   SimulateurEtapeRenderedComponent,

@@ -1,6 +1,6 @@
 import Header from "@codegouvfr/react-dsfr/Header";
 import AnssiLogo from "../assets/ANSSI.svg";
-import { noRefClick } from "./Echaffaudages/AssistantsEchaffaudages.ts";
+import { noRefClick } from "../Services/Echaffaudages/AssistantsEchaffaudages.ts";
 
 const EnTete = () => (
   <Header

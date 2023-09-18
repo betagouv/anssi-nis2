@@ -1,5 +1,5 @@
 import { FrCxArg, fr } from "@codegouvfr/react-dsfr";
-import { DefaultComponent, DefaultProps } from "../Props.ts";
+import { DefaultComponent, DefaultProps } from "../Services/Props.ts";
 
 export const CenteredContainer: DefaultComponent = ({
   children,

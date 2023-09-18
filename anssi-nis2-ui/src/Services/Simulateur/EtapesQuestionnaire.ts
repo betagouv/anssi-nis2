@@ -4,7 +4,7 @@ import {
   Etape3Taille,
   Etape4Secteur,
   Etape5Activite,
-} from "./index.ts";
+} from "../../Components/Simulateur";
 import { CollectionInformationsEtapes } from "./collectionInformationsEtapes.ts";
 import {
   InformationEtapeForm,
