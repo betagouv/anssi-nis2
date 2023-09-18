@@ -3,6 +3,12 @@ import { InformationEtapeForm } from "./informationsEtape.ts";
 import { DonneesFormulaireSimulateur } from "./donneesFormulaire.ts";
 
 export class EtatEtapes {
+  static readonly numeroSousEtapeInitial = 0;
+
+  get indiceCourant(): number {
+    return this.numeroEtapeCourante - 1;
+  }
+
   constructor(
     public readonly collectionEtapes: CollectionInformationsEtapes,
     public readonly numeroEtapeCourante: number,
@@ -10,10 +16,8 @@ export class EtatEtapes {
   ) {}
 
   contenuEtapeCourante() {
-    if (this.numeroSousEtape == 0) {
-      return this.collectionEtapes.recupereEtapeCourante(
-        this.numeroEtapeCourante - 1,
-      );
+    if (this.numeroSousEtape === EtatEtapes.numeroSousEtapeInitial) {
+      return this.collectionEtapes.recupereEtapeCourante(this.indiceCourant);
     }
     return (
       this.collectionEtapes.recupereEtapeCourante(
@@ -22,18 +26,48 @@ export class EtatEtapes {
     ).sousEtapeConditionnelle?.sousEtape;
   }
 
-  suivante(donneesFormulaire: DonneesFormulaireSimulateur) {
-    const truc = this.collectionEtapes.recupereEtapeCourante(
-      this.numeroEtapeCourante - 1,
-    ) as InformationEtapeForm;
+  suivant(donneesFormulaire: DonneesFormulaireSimulateur) {
+    const informationsEtape = this.informationEtapeForm();
 
-    if (truc.sousEtapeConditionnelle?.condition(donneesFormulaire)) {
-      return new EtatEtapes(this.collectionEtapes, this.numeroEtapeCourante, 1);
+    if (
+      this.numeroSousEtape == EtatEtapes.numeroSousEtapeInitial &&
+      informationsEtape.sousEtapeConditionnelle?.condition(donneesFormulaire)
+    ) {
+      return new EtatEtapes(
+        this.collectionEtapes,
+        this.numeroEtapeCourante,
+        EtatEtapes.numeroSousEtapeInitial + 1,
+      );
     }
-    return new EtatEtapes(this.collectionEtapes, this.numeroEtapeCourante + 1);
+    if (this.collectionEtapes.length > this.numeroEtapeCourante) {
+      return new EtatEtapes(
+        this.collectionEtapes,
+        this.numeroEtapeCourante + 1,
+      );
+    }
+    return this;
   }
 
-  precedent() {
+  precedent(donneesFormulaire: DonneesFormulaireSimulateur) {
+    const informationsEtape = this.informationEtapeForm();
+
+    if (
+      this.numeroSousEtape != EtatEtapes.numeroSousEtapeInitial &&
+      informationsEtape.sousEtapeConditionnelle?.condition(donneesFormulaire)
+    ) {
+      return new EtatEtapes(
+        this.collectionEtapes,
+        this.numeroEtapeCourante,
+        EtatEtapes.numeroSousEtapeInitial,
+      );
+    }
+
     return new EtatEtapes(this.collectionEtapes, this.numeroEtapeCourante - 1);
+  }
+
+  private informationEtapeForm() {
+    return this.collectionEtapes.recupereEtapeCourante(
+      this.indiceCourant,
+    ) as InformationEtapeForm;
   }
 }

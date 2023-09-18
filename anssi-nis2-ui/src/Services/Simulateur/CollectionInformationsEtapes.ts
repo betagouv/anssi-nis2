@@ -6,32 +6,32 @@ import {
 import { dansIntervalle } from "../../utilitaires/calculs.ts";
 
 export class CollectionInformationsEtapes extends Array<InformationsEtape> {
-  recupereEtapeCourante<T extends InformationsEtape>(numeroEtape: number): T {
-    return this[numeroEtape] as T;
+  recupereEtapeCourante<T extends InformationsEtape>(indiceEtape: number): T {
+    return this[indiceEtape] as T;
   }
 
-  siExiste(numeroEtape: number, action: (val: number) => void) {
-    if (dansIntervalle(numeroEtape, 0, this.length - 1)) {
-      action(numeroEtape);
+  siExiste(indiceEtape: number, action: (val: number) => void) {
+    if (dansIntervalle(indiceEtape, 0, this.length - 1)) {
+      action(indiceEtape);
     }
   }
 
-  numeroCourante(numeroEtapeCourante: number) {
-    return numeroEtapeCourante + 1;
+  numeroCourante(indiceEtapeCourante: number) {
+    return indiceEtapeCourante + 1;
   }
 
-  estAvantDerniereEtape(numeroEtape: number): boolean {
-    return numeroEtape == this.length - 2;
+  estAvantDerniereEtape(indiceEtape: number): boolean {
+    return indiceEtape == this.length - 2;
   }
 
   recupereInformationsEtapeSuivante(
-    numeroEtapeCourante: number,
+    indiceEtapeCourante: number,
   ): InformationsEtape {
-    return this[numeroEtapeCourante + 1] || EtapeInexistante.HorsDePortee;
+    return this[indiceEtapeCourante + 1] || EtapeInexistante.HorsDePortee;
   }
 
-  recupereElement(numeroEtapeCourante: number) {
-    const informationsEtape = this[numeroEtapeCourante];
+  recupereElement(indiceEtapeCourante: number) {
+    const informationsEtape = this[indiceEtapeCourante];
     return (informationsEtape as EtapeExistante).elementToRender;
   }
 }

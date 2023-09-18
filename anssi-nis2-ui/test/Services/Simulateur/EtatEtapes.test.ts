@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { EtatEtapes } from "../../../src/Services/Simulateur/EtatEtapes";
 import {
+  etapeInexistante,
   InformationEtapeForm,
   InformationsEtape,
   SousEtapeConditionnelle,
@@ -38,7 +39,7 @@ describe(EtatEtapes, () => {
   const attendUneEtapeCourante = (
     etatEtapes: EtatEtapes,
     numeroEtapeCouranteAttendue: number,
-    contenuEtapeAttendu: InformationEtapeForm,
+    contenuEtapeAttendu: InformationsEtape,
   ) => {
     expect(etatEtapes.numeroEtapeCourante).toStrictEqual(
       numeroEtapeCouranteAttendue,
@@ -69,7 +70,7 @@ describe(EtatEtapes, () => {
       const numeroEtapeSuivanteAttendu = 2;
       const contenuEtapeAttendu = informationEtapeForm2;
 
-      const etatEtapes = etatEtapesInitial.suivante(
+      const etatEtapes = etatEtapesInitial.suivant(
         donneesFormulaireSimulateurVide,
       );
 
@@ -85,8 +86,8 @@ describe(EtatEtapes, () => {
       const contenuEtapeAttendu = informationEtapeForm1;
 
       const etatEtapes = etatEtapesInitial
-        .suivante(donneesFormulaireSimulateurVide)
-        .precedent();
+        .suivant(donneesFormulaireSimulateurVide)
+        .precedent(donneesFormulaireSimulateurVide);
 
       attendUneEtapeCourante(
         etatEtapes,
@@ -126,7 +127,7 @@ describe(EtatEtapes, () => {
     );
 
     it("renvoie l'étape 3 après l'étape 2", () => {
-      const etatEtapeResultant = etatEtapes2AvecConditionnelle3.suivante(
+      const etatEtapeResultant = etatEtapes2AvecConditionnelle3.suivant(
         donneesFormulaireSimulateurVide,
       );
 
@@ -137,20 +138,56 @@ describe(EtatEtapes, () => {
       );
     });
 
+    const etatEtapes3 = new EtatEtapes(
+      collectionInformationsEtapesAvecConditionnelle,
+      3,
+    );
+    const etatEtapes3SousEtapeAttendu = new EtatEtapes(
+      collectionInformationsEtapesAvecConditionnelle,
+      3,
+      1,
+    );
     it("renvoie l'étape 3 bis après l'étape 3", () => {
-      const etatEtapes3 = new EtatEtapes(
-        collectionInformationsEtapesAvecConditionnelle,
-        3,
+      const etatEtapeResultant = etatEtapes3.suivant(
+        donneesFormulaireSimulateurVide,
       );
-      const etatEtapes3SousEtapeAttendu = new EtatEtapes(
+      expect(etatEtapeResultant).toStrictEqual(etatEtapes3SousEtapeAttendu);
+
+      attendUneEtapeCourante(etatEtapeResultant, 3, informationSousEtape4);
+    });
+
+    it("renvoie l'étape 3 avant l'étape 3 bis", () => {
+      const etatEtapeResultant = etatEtapes3SousEtapeAttendu.precedent(
+        donneesFormulaireSimulateurVide,
+      );
+      expect(etatEtapeResultant).toStrictEqual(etatEtapes3);
+
+      attendUneEtapeCourante(
+        etatEtapeResultant,
+        3,
+        informationEtape3AvecSousEtape,
+      );
+    });
+
+    it("renvoie l'étape 2 avant l'étape 3", () => {
+      const etatEtapeResultant = etatEtapes3.precedent(
+        donneesFormulaireSimulateurVide,
+      );
+      expect(etatEtapeResultant).toStrictEqual(etatEtapes2AvecConditionnelle3);
+
+      attendUneEtapeCourante(etatEtapeResultant, 2, informationEtapeForm2);
+    });
+
+    it("renvoie aucune etape après l'étape 3 bis", () => {
+      const etatEtapeResultant = etatEtapes3SousEtapeAttendu.suivant(
+        donneesFormulaireSimulateurVide,
+      );
+      const etatEtapeInexistanteAttendue = new EtatEtapes(
         collectionInformationsEtapesAvecConditionnelle,
         3,
         1,
       );
-      const etatEtapeResultant = etatEtapes3.suivante(
-        donneesFormulaireSimulateurVide,
-      );
-      expect(etatEtapeResultant).toStrictEqual(etatEtapes3SousEtapeAttendu);
+      expect(etatEtapeResultant).toStrictEqual(etatEtapeInexistanteAttendue);
 
       attendUneEtapeCourante(etatEtapeResultant, 3, informationSousEtape4);
     });

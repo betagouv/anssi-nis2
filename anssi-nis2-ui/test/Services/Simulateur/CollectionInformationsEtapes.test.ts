@@ -36,7 +36,7 @@ describe(CollectionInformationsEtapes, () => {
     {
       etapeCourante: informationEtapeForm2,
       indiceEtapeCourante: 1,
-      informationEtapeSuivante: EtapeInexistante.HorsDePortee,
+      informationEtapeSuivante: EtapeInexistante,
       estAvantDernier: false,
       numeroEtape: 2,
     },

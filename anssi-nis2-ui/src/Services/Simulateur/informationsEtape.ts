@@ -6,9 +6,15 @@ import {
   SimulateurEtapeRenderedComponent,
 } from "./component.ts";
 
-export enum EtapeInexistante {
-  HorsDePortee = "Hors de portee",
+export interface InformationsEtape {
+  titre: string;
 }
+
+export class EtapeInexistante implements InformationsEtape {
+  titre = "Hors de portee";
+}
+
+export const etapeInexistante = new EtapeInexistante();
 
 export class EtapeExistante {
   constructor(
@@ -16,8 +22,6 @@ export class EtapeExistante {
     public readonly elementToRender: SimulateurEtapeRenderedComponent,
   ) {}
 }
-
-export type InformationsEtape = EtapeExistante | EtapeInexistante;
 
 export class SousEtapeConditionnelle {
   constructor(
