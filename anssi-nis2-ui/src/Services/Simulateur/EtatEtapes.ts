@@ -1,5 +1,5 @@
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
-import { InformationEtapeForm } from "./informationsEtape.ts";
+import { EtapeExistante, InformationEtapeForm } from "./informationsEtape.ts";
 import { DonneesFormulaireSimulateur } from "./donneesFormulaire.ts";
 
 export class EtatEtapes {
@@ -15,15 +15,18 @@ export class EtatEtapes {
     public readonly numeroSousEtape: number = 0,
   ) {}
 
-  contenuEtapeCourante() {
+  contenuEtapeCourante(): EtapeExistante {
     if (this.numeroSousEtape === EtatEtapes.numeroSousEtapeInitial) {
       return this.collectionEtapes.recupereEtapeCourante(this.indiceCourant);
     }
     return (
-      this.collectionEtapes.recupereEtapeCourante(
-        this.numeroEtapeCourante - 1,
-      ) as InformationEtapeForm
-    ).sousEtapeConditionnelle?.sousEtape;
+      (
+        this.collectionEtapes.recupereEtapeCourante(
+          this.numeroEtapeCourante - 1,
+        ) as InformationEtapeForm
+      ).sousEtapeConditionnelle?.sousEtape ||
+      this.collectionEtapes.recupereEtapeCourante(this.indiceCourant)
+    );
   }
 
   suivant(donneesFormulaire: DonneesFormulaireSimulateur) {

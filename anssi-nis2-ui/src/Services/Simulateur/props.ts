@@ -4,9 +4,7 @@ import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "./donneesFormulaire.ts";
-import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
 import { BoutonsNavigation } from "./boutonsNavigation.ts";
-import { SimulateurEtapeNodeComponent } from "./component.ts";
 import { EtatEtapes } from "./EtatEtapes.ts";
 
 export interface SimulateurContenuEtapeProps extends DefaultProps {
@@ -14,16 +12,13 @@ export interface SimulateurContenuEtapeProps extends DefaultProps {
   formData: DonneesFormulaireSimulateur;
 }
 
-export interface SimulateurEtapeProps extends DefaultProps {
-  etatEtapes: EtatEtapes;
-}
+export interface SimulateurEtapeProps extends DefaultProps {}
 
 export interface SimulateurEtapeRenderedProps extends SimulateurEtapeProps {
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>;
   informationsBoutonsNavigation: BoutonsNavigation;
   formData: DonneesFormulaireSimulateur;
-  numeroEtapeCourante: number;
-  sousEtape?: SimulateurEtapeNodeComponent;
+  etatEtapes: EtatEtapes;
 }
 
 export interface SimulateurEtapeSwitcherProps extends SimulateurEtapeProps {}

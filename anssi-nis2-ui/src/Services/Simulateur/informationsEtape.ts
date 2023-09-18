@@ -16,7 +16,7 @@ export class EtapeInexistante implements InformationsEtape {
 
 export const etapeInexistante = new EtapeInexistante();
 
-export class EtapeExistante {
+export class EtapeExistante implements InformationsEtape {
   constructor(
     public readonly titre: string,
     public readonly elementToRender: SimulateurEtapeRenderedComponent,

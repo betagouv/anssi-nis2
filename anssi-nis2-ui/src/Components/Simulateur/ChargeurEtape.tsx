@@ -1,4 +1,4 @@
-import { useContext, useEffect, useReducer, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 
 import { DefaultComponentExtensible } from "../../Services/Props.ts";
 import { SimulateurEtapeSwitcherProps } from "../../Services/Simulateur/props.ts";
@@ -6,22 +6,21 @@ import { donneesFormulaireSimulateurVide } from "../../Services/Simulateur/donne
 import { AppContext } from "../../AppContext.tsx";
 import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/component.ts";
-import {
-  prepareGestionBoutonPrecedent,
-  prepareGestionBoutonSuivant,
-} from "../../Services/Simulateur/boutonsNavigation.ts";
+import { etatEtapesInitial } from "./EtapesQuestionnaire.ts";
 
 export const ChargeurEtape: DefaultComponentExtensible<
   SimulateurEtapeSwitcherProps
-> = ({ etatEtapes }: SimulateurEtapeSwitcherProps) => {
+> = () => {
   const {
     simulateur: { reducerFormData, reducerBoutons },
   } = useContext(AppContext);
+
+  const [etatEtapes, setEtatEtape] = useState(etatEtapesInitial);
   const [inputsState, propageActionSimulateur] = useReducer(
     reducerFormData,
     donneesFormulaireSimulateurVide,
   );
-  const [numeroEtapeCourante, setNumeroEtapeCourante] = useState(0);
+  // const [numeroEtapeCourante, setNumeroEtapeCourante] = useState(0);
 
   const [gestionClicBoutons, propageGestionClicBoutons] = useReducer(
     reducerBoutons,
@@ -32,28 +31,28 @@ export const ChargeurEtape: DefaultComponentExtensible<
   );
 
   const ElementRendered: SimulateurEtapeRenderedComponent =
-    etatEtapes.collectionEtapes.recupereElement(numeroEtapeCourante); //, inputsState); //.elementToRender;
+    etatEtapes.contenuEtapeCourante().elementToRender;
+  // etatEtapes.collectionEtapes.recupereElement(numeroEtapeCourante); //, inputsState); //.elementToRender;
 
   useEffect(() => {
-    propageGestionClicBoutons(
-      prepareGestionBoutonSuivant(
-        etatEtapes.collectionEtapes,
-        numeroEtapeCourante,
-        setNumeroEtapeCourante,
-      ),
-    );
-    propageGestionClicBoutons(
-      prepareGestionBoutonPrecedent(
-        etatEtapes.collectionEtapes,
-        numeroEtapeCourante,
-        setNumeroEtapeCourante,
-      ),
-    );
-  }, [etatEtapes.collectionEtapes, numeroEtapeCourante]);
+    propageGestionClicBoutons({
+      bouton: "suivant",
+      newHandler: (e: React.MouseEvent) => {
+        e.preventDefault();
+        setEtatEtape(etatEtapes.suivant(inputsState));
+      },
+    });
+    propageGestionClicBoutons({
+      bouton: "precedent",
+      newHandler: (e: React.MouseEvent) => {
+        e.preventDefault();
+        setEtatEtape(etatEtapes.precedent(inputsState));
+      },
+    });
+  }, [etatEtapes, inputsState]);
 
   return (
     <ElementRendered
-      numeroEtapeCourante={numeroEtapeCourante}
       propageActionSimulateur={propageActionSimulateur}
       formData={inputsState}
       informationsBoutonsNavigation={gestionClicBoutons}
