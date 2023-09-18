@@ -28,11 +28,11 @@ export const secteursActivite: Record<ValeursSecteurActivite, string> = {
   autre: "Autre ou je ne sais pas",
 };
 type ListeActivites = Record<ValeursActivites, string>;
-type DescriptionSousSecteur = {
+export type DescriptionSousSecteur = {
   libelle: string;
   activites: ListeActivites;
 };
-const sousSecteursEnergie: Record<
+export const sousSecteursEnergie: Record<
   ValeursSousSecteurEnergie,
   DescriptionSousSecteur
 > = {
