@@ -24,7 +24,7 @@ export class SousEtapeConditionnelle {
     public readonly condition: (
       formData: DonneesFormulaireSimulateur,
     ) => boolean,
-    public readonly sousEtape: SimulateurEtapeNodeComponent,
+    public readonly sousEtape: InformationEtapeForm,
   ) {}
 }
 
@@ -45,9 +45,18 @@ export class InformationEtapeForm extends EtapeExistante {
     donneeesFormulaire: DonneesFormulaireSimulateur,
   ) {
     if (this.sousEtapeConditionnelle?.condition(donneeesFormulaire)) {
-      return this.sousEtapeConditionnelle.sousEtape;
+      return this.sousEtapeConditionnelle.sousEtape.contenu;
     }
     return this.contenu;
+  }
+
+  recupereInformationSousElementOuCourante(
+    donneeesFormulaire: DonneesFormulaireSimulateur,
+  ) {
+    if (this.sousEtapeConditionnelle?.condition(donneeesFormulaire)) {
+      return this.sousEtapeConditionnelle.sousEtape;
+    }
+    return this;
   }
 
   recupereContenu() {
