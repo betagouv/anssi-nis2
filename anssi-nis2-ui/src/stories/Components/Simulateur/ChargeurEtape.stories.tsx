@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { ChargeurEtape } from "../../../Components/Simulateur/ChargeurEtape.tsx";
-import { etapesQuestionnaire } from "../../../Services/Simulateur/EtapesQuestionnaire.ts";
+import { etapesQuestionnaire } from "../../../Components/Simulateur/EtapesQuestionnaire.ts";
 import { AppContext, Context } from "../../../AppContext.tsx";
 import { defaultContext } from "../../../.storybook/PageDecorator.tsx";
 import { userEvent, within } from "@storybook/testing-library";

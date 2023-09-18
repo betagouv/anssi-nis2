@@ -1,7 +1,7 @@
 import {
   genereTransformateurValeursVersOptions,
   TransformeRecordToSelect,
-} from "../Utilitaires/Transformateurs.ts/simulateurFrontServices.ts";
+} from "./simulateurFrontServices.ts";
 import {
   ValeursClePaysUnionEuropeenne,
   ValeursSecteurActivite,

@@ -4,13 +4,13 @@ import {
   Etape3Taille,
   Etape4Secteur,
   Etape5Activite,
-} from "../../Components/Simulateur";
-import { CollectionInformationsEtapes } from "./collectionInformationsEtapes.ts";
+} from ".";
+import { CollectionInformationsEtapes } from "../../Services/Simulateur/collectionInformationsEtapes.ts";
 import {
   InformationEtapeForm,
   InformationEtapeResult,
   SousEtapeConditionnelle,
-} from "./informationsEtape.ts";
+} from "../../Services/Simulateur/informationsEtape.ts";
 
 export const etapesQuestionnaire: CollectionInformationsEtapes =
   new CollectionInformationsEtapes(

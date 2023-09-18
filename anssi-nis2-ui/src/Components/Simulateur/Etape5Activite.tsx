@@ -1,5 +1,5 @@
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
-import { genereTransformateurValeursVersOptions } from "../../Services/Utilitaires/Transformateurs.ts/simulateurFrontServices.ts";
+import { genereTransformateurValeursVersOptions } from "../../Services/Simulateur/simulateurFrontServices.ts";
 import { FormSimulateur } from "./index.ts";
 import {
   ListeOptionsChampFormulaire,

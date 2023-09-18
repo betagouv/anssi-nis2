@@ -1,9 +1,9 @@
-import { NativeInputProps } from "../../Props.ts";
+import { NativeInputProps } from "../Props.ts";
 import React from "react";
 import {
   NomsChampsSimulateur,
   DonneesFormulaireSimulateur,
-} from "../../Simulateur/donneesFormulaire.ts";
+} from "./donneesFormulaire.ts";
 
 export type SelectOptions = Array<{
   nativeInputProps: NativeInputProps;

@@ -3,7 +3,7 @@ import { FormSimulateur } from "./index.ts";
 import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/props.ts";
 import React, { useCallback, useEffect, useState } from "react";
 import { transformeSecteursActiviteVersOptions } from "../../Services/Simulateur/Transformateurs.ts";
-import { SelectOptions } from "../../Services/Utilitaires/Transformateurs.ts/simulateurFrontServices.ts";
+import { SelectOptions } from "../../Services/Simulateur/simulateurFrontServices.ts";
 import { ValeursSecteurActivite } from "../../Domaine/Simulateur/ValeursCles.ts";
 import { secteursActivite } from "../../Domaine/Simulateur/SecteursActivite.ts";
 

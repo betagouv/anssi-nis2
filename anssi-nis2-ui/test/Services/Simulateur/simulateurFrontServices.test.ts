@@ -1,11 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { genereTransformateurValeursVersOptions } from "../../src/Services/Utilitaires/Transformateurs.ts/simulateurFrontServices";
-import { paysUnionEuropeenneLocalisation } from "../../src/Domaine/Simulateur/Libelles";
-import { transformePaysUnionEuropeennePourSelect } from "../../src/Services/Simulateur/Transformateurs";
+import { genereTransformateurValeursVersOptions } from "../../../src/Services/Simulateur/simulateurFrontServices";
+import { paysUnionEuropeenneLocalisation } from "../../../src/Domaine/Simulateur/Libelles";
+import { transformePaysUnionEuropeennePourSelect } from "../../../src/Services/Simulateur/Transformateurs";
 import {
   donneesFormulaireSimulateurVide,
   DonneesFormulaireSimulateur,
-} from "../../src/Services/Simulateur/donneesFormulaire";
+} from "../../../src/Services/Simulateur/donneesFormulaire";
 
 describe(genereTransformateurValeursVersOptions, () => {
   const onChange: React.ChangeEventHandler<HTMLInputElement> = () => {};
