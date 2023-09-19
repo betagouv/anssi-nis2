@@ -16,7 +16,6 @@
     "predev": "only-include-used-icons",
     "prebuild": "only-include-used-icons",
     "test": "vitest run",
-    "start": "node server.cjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test-storybook": "test-storybook"
