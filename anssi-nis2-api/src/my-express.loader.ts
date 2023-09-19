@@ -15,7 +15,7 @@ export class MyExpressLoader extends ExpressLoader {
     );
     console.log(`Inside custom Express Loader`);
     const password = process.env.PASSWORD_NIS2_BASIC_AUTH || 'truc';
-    var staticUserAuth = basicAuth({
+    const staticUserAuth = basicAuth({
       users: { NIS2: password },
       challenge: true,
     });

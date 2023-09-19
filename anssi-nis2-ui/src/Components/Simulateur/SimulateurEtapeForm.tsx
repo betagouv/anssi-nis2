@@ -27,15 +27,12 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   const listeEtapes = etatEtapes.collectionEtapes;
   const informationsEtape: InformationEtapeForm =
     etatEtapes.contenuEtapeCourante() as InformationEtapeForm;
-  // listeEtapes.recupereEtapeCourante(numeroEtapeCourante);
 
   const EtapeCourante =
     informationsEtape.recupereContenuOuSousElement(formData);
-  // const EtapeCourante = informationsEtape.recupereContenu();
 
   const etatSuivant = etatEtapes.suivant(donneesFormulaireSimulateurVide);
   const informationsEtapeSuivante = etatSuivant.contenuEtapeCourante();
-  //listeEtapes.recupereInformationsEtapeSuivante(numeroEtapeCourante);
 
   const { sendFormData } = useContext(AppContext);
 
