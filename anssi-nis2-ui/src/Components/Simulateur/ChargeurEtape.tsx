@@ -7,6 +7,7 @@ import { AppContext } from "../../AppContext.tsx";
 import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/component.ts";
 import { etatEtapesInitial } from "./EtapesQuestionnaire.ts";
+import { VVV } from "../../utilitaires/debug.ts";
 
 export const ChargeurEtape: DefaultComponentExtensible<
   SimulateurEtapeSwitcherProps
@@ -20,7 +21,6 @@ export const ChargeurEtape: DefaultComponentExtensible<
     reducerFormData,
     donneesFormulaireSimulateurVide,
   );
-  // const [numeroEtapeCourante, setNumeroEtapeCourante] = useState(0);
 
   const [gestionClicBoutons, propageGestionClicBoutons] = useReducer(
     reducerBoutons,
@@ -32,13 +32,13 @@ export const ChargeurEtape: DefaultComponentExtensible<
 
   const ElementRendered: SimulateurEtapeRenderedComponent =
     etatEtapes.contenuEtapeCourante().elementToRender;
-  // etatEtapes.collectionEtapes.recupereElement(numeroEtapeCourante); //, inputsState); //.elementToRender;
 
   useEffect(() => {
     propageGestionClicBoutons({
       bouton: "suivant",
       newHandler: (e: React.MouseEvent) => {
         e.preventDefault();
+        VVV("Appel de 'suivant'");
         setEtatEtape(etatEtapes.suivant(inputsState));
       },
     });
@@ -46,6 +46,7 @@ export const ChargeurEtape: DefaultComponentExtensible<
       bouton: "precedent",
       newHandler: (e: React.MouseEvent) => {
         e.preventDefault();
+        VVV("Appel de 'précédent'");
         setEtatEtape(etatEtapes.precedent(inputsState));
       },
     });

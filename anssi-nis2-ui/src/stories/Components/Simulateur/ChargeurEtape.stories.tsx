@@ -5,6 +5,7 @@ import { defaultContext } from "../../../.storybook/PageDecorator.tsx";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect, jest } from "@storybook/jest";
 import { Component } from "@storybook/blocks";
+import { CanvasFindByRole } from "../../utilitaires/Canvas.d.tsx";
 
 const genereDecorateurPourContexte = (context: Context) =>
   function StoryDecoree(StoryADecorer: Component) {
@@ -23,14 +24,6 @@ const meta: Meta<typeof ChargeurEtape> = {
 export default meta;
 type Story = StoryObj<typeof ChargeurEtape>;
 
-type CanvasFindByRole = {
-  findByRole: (
-    role: string,
-    options: {
-      name: string;
-    },
-  ) => Promise<HTMLElement>;
-};
 const cliqueSurSuivant = async (canvas: CanvasFindByRole) => {
   const element = await canvas.findByRole("button", { name: "Suivant" });
   await userEvent.click(element as HTMLElement);
@@ -70,6 +63,7 @@ export const EtapeSousActiviteConditionnelle: Story = {
     await cliqueSurSuivant(canvas);
 
     await userEvent.click(await canvas.findByText("Énergie"));
+    await canvas.findByText("Énergie");
 
     await cliqueSurSuivant(canvas);
 
