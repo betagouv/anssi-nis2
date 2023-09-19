@@ -45,24 +45,6 @@ export class InformationEtapeForm extends EtapeExistante {
     super(titre, SimulateurEtapeForm);
   }
 
-  recupereContenuOuSousElement(
-    donneeesFormulaire: DonneesFormulaireSimulateur,
-  ) {
-    if (this.sousEtapeConditionnelle?.condition(donneeesFormulaire)) {
-      return this.sousEtapeConditionnelle.sousEtape.contenu;
-    }
-    return this.contenu;
-  }
-
-  recupereInformationSousElementOuCourante(
-    donneeesFormulaire: DonneesFormulaireSimulateur,
-  ) {
-    if (this.sousEtapeConditionnelle?.condition(donneeesFormulaire)) {
-      return this.sousEtapeConditionnelle.sousEtape;
-    }
-    return this;
-  }
-
   recupereContenu() {
     return this.contenu;
   }
