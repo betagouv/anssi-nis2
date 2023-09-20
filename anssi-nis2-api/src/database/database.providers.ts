@@ -3,7 +3,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 
 const databaseConnectionUrl =
   process.env.SCALINGO_POSTGRESQL_URL ||
-  'postgres://postgres:secret@localhost:5432/anssi-nis2';
+  'postgres://postgres:secret@172.20.0.2:5432/anssi-nis2';
 
 const serverOptions: DataSourceOptions = {
   url: databaseConnectionUrl,

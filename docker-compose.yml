@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+
+  db:
+    container_name: postgres
+    build:
+      context: .
+      dockerfile: Dockerfile-postgres
+    restart: always
+    networks:
+      - nis2
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  api:
+    container_name: anssi-nis2-api
+    build:
+      context: .
+      dockerfile: Dockerfile-api
+    networks:
+      - nis2
+    ports:
+      - "4000:3000"
+    volumes:
+      - ./anssi-nis2-api:/usr/src/app/anssi-nis2-api
+      - ./anssi-nis2-ui/dist:/usr/src/app/anssi-nis2-ui/dist
+    depends_on:
+      - db
+
+#  pgadmin:
+#    image: dpage/pgadmin4
+#    restart: always
+#    container_name: nest-pgadmin4
+#    environment:
+#      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+#      - PGADMIN_DEFAULT_PASSWORD=pgadmin4
+#    ports:
+#      - '5050:80'
+#    depends_on:
+#      - db
+
+networks:
+  nis2:
+    external: true
