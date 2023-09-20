@@ -20,6 +20,8 @@ jobs:
       - name: Installation de Playwright
         run: npx playwright install --with-deps
       - name: Construction de Storybook
+        run: npm i concurrently http-server wait-on -g
+      - name: Construction de Storybook
         run: npm run build-storybook -w anssi-nis2-ui
       - name: Tests UI
         run: |
