@@ -15,6 +15,6 @@ RUN npm install
 COPY anssi-nis2-api/ /usr/src/app/anssi-nis2-api/
 
 WORKDIR /usr/src/app/anssi-nis2-api/
-RUN ts-node db.init.postgresql.ts
+RUN #ts-node db.init.postgresql.ts
 
 CMD ["npm", "run", "start:dev", "-w", "anssi-nis2-api"]

@@ -3,10 +3,8 @@ version: "3"
 services:
 
   db:
-    container_name: postgres
-    build:
-      context: .
-      dockerfile: Dockerfile-postgres
+    image: postgres
+    container_name: anssi-nis2-db
     restart: always
     networks:
       - nis2
@@ -16,6 +14,11 @@ services:
       - ./pgdata:/var/lib/postgresql/data
     ports:
       - '5432:5432'
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   api:
     container_name: anssi-nis2-api
@@ -30,19 +33,8 @@ services:
       - ./anssi-nis2-api:/usr/src/app/anssi-nis2-api
       - ./anssi-nis2-ui/dist:/usr/src/app/anssi-nis2-ui/dist
     depends_on:
-      - db
-
-#  pgadmin:
-#    image: dpage/pgadmin4
-#    restart: always
-#    container_name: nest-pgadmin4
-#    environment:
-#      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-#      - PGADMIN_DEFAULT_PASSWORD=pgadmin4
-#    ports:
-#      - '5050:80'
-#    depends_on:
-#      - db
+      db:
+        condition: service_healthy
 
 networks:
   nis2:
