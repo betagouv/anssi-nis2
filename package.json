@@ -1,12 +1,16 @@
 {
   "name": "anssi-nis2",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.0",
+  "description": "Mon Portail NIS 2",
   "main": "index.js",
   "workspaces": [
     "anssi-nis2-ui",
     "anssi-nis2-api"
   ],
+  "engines": {
+    "node": "18",
+    "npm": "9"
+  },
   "scripts": {
     "lint": "eslint \"./anssi-nis2-*/{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "npm run test --workspaces --if-present",
@@ -18,7 +22,7 @@
     "url": "git+https://github.com/betagouv/anssi-nis2.git"
   },
   "author": "",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/betagouv/anssi-nis2/issues"
   },

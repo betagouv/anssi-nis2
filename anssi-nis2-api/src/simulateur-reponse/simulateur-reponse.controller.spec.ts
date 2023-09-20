@@ -7,10 +7,6 @@ import { Repository } from 'typeorm';
 import { SimulateurReponse } from './simulateur-reponse.entity';
 import { MockFactory } from '../test/mock.factory';
 
-export type MockType<T> = {
-  [P in keyof T]?: jest.Mock<unknown>;
-};
-
 describe('SimulateurReponseController', () => {
   let controller: SimulateurReponseController;
   const simulateurReponseJson = JSON.stringify(emptySimulateurFormData);
@@ -22,7 +18,9 @@ describe('SimulateurReponseController', () => {
   beforeEach(async () => {
     const mockSimulateurReponseRepository = {
       ...MockFactory.getMock(Repository<SimulateurReponse>),
-      save: async () => simulateurReponse,
+      async save() {
+        return simulateurReponse;
+      },
     };
 
     const module: TestingModule = await Test.createTestingModule({

@@ -1,8 +1,10 @@
-import { MockType } from '../simulateur-reponse/simulateur-reponse.controller.spec';
+export type MockType<T> = {
+  [P in keyof T]?: jest.Mock<unknown>;
+};
 
 export class MockFactory {
   static getMock<T>(
-    type: new (...args: any[]) => T,
+    type: new (...args: unknown[]) => T,
     includes?: string[],
   ): MockType<T> {
     const mock: MockType<T> = {};
