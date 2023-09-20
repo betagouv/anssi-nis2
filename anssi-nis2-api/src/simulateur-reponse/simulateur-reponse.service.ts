@@ -12,7 +12,7 @@ export class SimulateurReponseService {
   ) {}
 
   save(reponses: SimulateurFormData): Promise<SimulateurReponse> {
-    let simulateurReponse = new SimulateurReponse();
+    const simulateurReponse = new SimulateurReponse();
     simulateurReponse.reponseJson = JSON.stringify(reponses);
     return this.simulateurReponseRepository.save(simulateurReponse);
   }
