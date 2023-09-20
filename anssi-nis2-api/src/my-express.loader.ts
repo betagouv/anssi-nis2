@@ -13,7 +13,6 @@ export class MyExpressLoader extends ExpressLoader {
     const basicAuth = loadPackage('basicAuth', 'MyServeStaticModule', () =>
       require('express-basic-auth'),
     );
-    console.log(`Inside custom Express Loader`);
     const password = process.env.PASSWORD_NIS2_BASIC_AUTH || 'truc';
     const staticUserAuth = basicAuth({
       users: { NIS2: password },

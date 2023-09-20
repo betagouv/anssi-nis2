@@ -1,25 +1,11 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { SimulateurController } from './simulateurController';
-import { SimulateurService } from './simulateur.service';
-import { SimulateurDepotToken } from './Domaine/simulateur';
-import { InMemorySimulateurDepot } from './simulateur.depot';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import * as path from 'path';
 import { MyServeStaticModule } from './my-serve-static.module';
 import { DataSource } from 'typeorm';
 import { SimulateurReponseModule } from './simulateur-reponse/simulateur-reponse.module';
 import { DatabaseModule } from './database/database.module';
-
-const databaseConnectionUrl =
-  process.env.SCALINGO_POSTGRESQL_URL ||
-  'postgres://postgres:secret@172.20.0.2:5432/anssi-nis2';
-
-const serverOptions: TypeOrmModuleOptions = {
-  url: databaseConnectionUrl,
-  type: 'postgres',
-  synchronize: true,
-  entities: [],
-};
+import { AppDataSource } from './data-source';
 
 const getStaticFrontPath: () => string = () => {
   const currentPathParts = __dirname.split(path.sep);
@@ -34,17 +20,12 @@ const getStaticFrontPath: () => string = () => {
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(serverOptions),
+    TypeOrmModule.forRoot(AppDataSource),
     MyServeStaticModule.forRoot({
       rootPath: getStaticFrontPath(),
     }),
     SimulateurReponseModule,
     DatabaseModule,
-  ],
-  controllers: [SimulateurController],
-  providers: [
-    SimulateurService,
-    { provide: SimulateurDepotToken, useClass: InMemorySimulateurDepot },
   ],
 })
 export class AppModule {

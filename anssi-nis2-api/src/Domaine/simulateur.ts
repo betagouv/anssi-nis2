@@ -13,9 +13,3 @@ export const emptySimulateurFormData: SimulateurFormData = {
   trancheNombreEmployes: [],
   typeStructure: [],
 };
-
-export interface SimulateurRepository {
-  save(data: SimulateurFormData): Promise<boolean>;
-}
-
-export const SimulateurDepotToken = 'SimulateurDepot';
