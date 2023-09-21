@@ -28,7 +28,7 @@ jobs:
       - name: Installation des dépendances
         run: npm ci
       - name: Vérification des règles de code
-        run: npm lint
+        run: npm run lint
       - name: Lancement des tests unitaires
         run: npm test
       - name: Construction des applications
