@@ -11,4 +11,4 @@ async function bootstrap() {
   await app.listen(listeningPort);
 }
 
-bootstrap().then(() => '');
+bootstrap().then((r) => r);

@@ -1,16 +1,14 @@
 import { datasourceKey } from '../constantes';
 import { DataSource } from 'typeorm';
-import { AppDataSource } from '../data-source';
+import { fabriqueAppDataSource } from '../data-source';
 
 export const databaseProviders = [
   {
     provide: datasourceKey,
     useFactory: async () => {
-      const dataSource = new DataSource({
-        ...AppDataSource,
-        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-        synchronize: true,
-      });
+      const dataSource = new DataSource(
+        await fabriqueAppDataSource(process.env.SCALINGO_POSTGRESQL_URL),
+      );
       return dataSource.initialize();
     },
   },

@@ -5,7 +5,9 @@ import { MyServeStaticModule } from './my-serve-static.module';
 import { DataSource } from 'typeorm';
 import { SimulateurReponseModule } from './simulateur-reponse/simulateur-reponse.module';
 import { DatabaseModule } from './database/database.module';
-import { AppDataSource } from './data-source';
+import { fabriqueAppDataSource } from './data-source';
+import { ConfigModule } from '@nestjs/config';
+import * as process from 'process';
 
 const getStaticFrontPath: () => string = () => {
   const currentPathParts = __dirname.split(path.sep);
@@ -20,12 +22,16 @@ const getStaticFrontPath: () => string = () => {
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(AppDataSource),
+    TypeOrmModule.forRootAsync({
+      useFactory: async () =>
+        fabriqueAppDataSource(process.env.SCALINGO_POSTGRESQL_URL),
+    }),
     MyServeStaticModule.forRoot({
       rootPath: getStaticFrontPath(),
     }),
     SimulateurReponseModule,
     DatabaseModule,
+    ConfigModule.forRoot(),
   ],
 })
 export class AppModule {
