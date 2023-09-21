@@ -4,16 +4,18 @@ import { AbstractHttpAdapter } from '@nestjs/core';
 import { loadPackage } from '@nestjs/common/utils/load-package.util';
 
 @Injectable()
-export class ChargeurExpressBasicAuthService extends ExpressLoader {
+export class ExpressBasicAuthLoader extends ExpressLoader {
   public register(
     httpAdapter: AbstractHttpAdapter,
     optionsArr: ServeStaticModuleOptions[],
   ) {
     const app = httpAdapter.getInstance();
-    const basicAuth = loadPackage('basicAuth', 'MyServeStaticModule', () =>
-      require('express-basic-auth'),
+    const basicAuth = loadPackage(
+      'basicAuth',
+      'ServeurStaticConfigurableModule',
+      () => require('express-basic-auth'),
     );
-    const password = process.env.PASSWORD_NIS2_BASIC_AUTH || 'truc';
+    const password = process.env.MOT_DE_PASSE_NIS2_BASIC_AUTH;
     const staticUserAuth = basicAuth({
       users: { NIS2: password },
       challenge: true,

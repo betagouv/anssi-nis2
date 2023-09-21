@@ -8,6 +8,7 @@ import { DatabaseModule } from './database/database.module';
 import { fabriqueAppDataSource } from './app-data-source.fabrique';
 import { ConfigModule } from '@nestjs/config';
 import * as process from 'process';
+import { ServeStaticModuleAsyncOptions } from '@nestjs/serve-static/dist/interfaces/serve-static-options.interface';
 
 const getStaticFrontPath: () => Promise<string> = async (
   sousDossier = ['anssi-nis2-ui', 'dist'],
@@ -18,6 +19,7 @@ const getStaticFrontPath: () => Promise<string> = async (
     ...currentPathParts.slice(0, currentPathParts.indexOf('anssi-nis2-api')),
     ...sousDossier,
   ].join(path.sep);
+
   logger.log(`Site statique depuis : ${__dirname} --> ${targetPath}`);
   return path.resolve(targetPath);
 };
@@ -27,13 +29,15 @@ const fabriqueAsynchroneOptionsTypeOrm: TypeOrmModuleAsyncOptions = {
     fabriqueAppDataSource(process.env.SCALINGO_POSTGRESQL_URL),
 };
 
-const fabriqueAsynchroneOptionsServeurStatique = {
-  useFactory: async () => [
-    {
-      rootPath: await getStaticFrontPath(),
-    },
-  ],
-};
+const fabriqueAsynchroneOptionsServeurStatique: ServeStaticModuleAsyncOptions =
+  {
+    useFactory: async () => [
+      {
+        rootPath: await getStaticFrontPath(),
+        useClass: ServeurStaticConfigurableModule,
+      },
+    ],
+  };
 
 @Module({
   imports: [

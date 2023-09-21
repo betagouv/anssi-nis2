@@ -1,18 +1,18 @@
 import {
   AbstractLoader,
-  SERVE_STATIC_MODULE_OPTIONS,
   ServeStaticModule,
+  ServeStaticModuleAsyncOptions,
   ServeStaticModuleOptions,
 } from '@nestjs/serve-static';
 import { DynamicModule, Module, Provider } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
-import { ChargeurExpressBasicAuthService } from './chargeur-express-basic-auth.service';
+import { ExpressBasicAuthLoader } from './express-basic-auth.loader';
 
 const fournisseurServeurStatique: Provider[] = [
   {
     provide: AbstractLoader,
     useFactory: () => {
-      return new ChargeurExpressBasicAuthService();
+      return new ExpressBasicAuthLoader();
     },
     inject: [HttpAdapterHost],
   },
@@ -24,13 +24,17 @@ const fournisseurServeurStatique: Provider[] = [
 export class ServeurStaticConfigurableModule extends ServeStaticModule {
   public static forRoot(...options: ServeStaticModuleOptions[]): DynamicModule {
     return {
+      ...ServeStaticModule.forRoot(...options),
       module: ServeurStaticConfigurableModule,
-      providers: [
-        {
-          provide: SERVE_STATIC_MODULE_OPTIONS,
-          useValue: options,
-        },
-      ],
+    };
+  }
+
+  public static forRootAsync(
+    options: ServeStaticModuleAsyncOptions,
+  ): DynamicModule {
+    return {
+      ...ServeStaticModule.forRootAsync(options),
+      module: ServeurStaticConfigurableModule,
     };
   }
 }
