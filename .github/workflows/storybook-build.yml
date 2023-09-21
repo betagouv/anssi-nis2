@@ -4,20 +4,14 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 18.x ]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - name: Installation des dependences
+          node-version: "16.x"
+      - name: Installe les dépendances
         run: npm ci
-      - name: Installation de Playwright
+      - name: Installe Playwright
         run: npx playwright install --with-deps
       - name: Construction de Storybook
         run: npm run build-storybook -w anssi-nis2-ui
