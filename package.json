@@ -15,7 +15,7 @@
     "lint": "eslint \"./anssi-nis2-*/{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "npm run test --workspaces --if-present",
     "build": "npm run build --workspaces --if-present",
-    "start": "npm start -w anssi-nis2-api"
+    "start": "npm run start:prod -w anssi-nis2-api"
   },
   "repository": {
     "type": "git",
