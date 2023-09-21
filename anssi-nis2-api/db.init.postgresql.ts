@@ -1,7 +1,12 @@
-import { createDatabase } from 'typeorm-extension';
+import { DatabaseCreateContext, createDatabase } from 'typeorm-extension';
+import { env } from 'process';
+import { fabriqueAppDataSource } from './src/app-data-source.fabrique';
+import 'dotenv/config';
 
 (async () => {
-  await createDatabase({ ifNotExist: true });
+  const dbContext: DatabaseCreateContext = {
+    options: await fabriqueAppDataSource(env.SCALINGO_POSTGRESQL_URL),
+  };
 
-  process.exit(0);
+  await createDatabase({ ...dbContext, ifNotExist: true });
 })();

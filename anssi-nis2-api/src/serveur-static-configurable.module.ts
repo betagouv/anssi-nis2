@@ -6,25 +6,25 @@ import {
 } from '@nestjs/serve-static';
 import { DynamicModule, Module, Provider } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
-import { MyExpressLoader } from './my-express.loader';
+import { ChargeurExpressBasicAuthService } from './chargeur-express-basic-auth.service';
 
-const serveStaticProviders: Provider[] = [
+const fournisseurServeurStatique: Provider[] = [
   {
     provide: AbstractLoader,
     useFactory: () => {
-      return new MyExpressLoader();
+      return new ChargeurExpressBasicAuthService();
     },
     inject: [HttpAdapterHost],
   },
 ];
 
 @Module({
-  providers: [...serveStaticProviders],
+  providers: [...fournisseurServeurStatique],
 })
-export class MyServeStaticModule extends ServeStaticModule {
+export class ServeurStaticConfigurableModule extends ServeStaticModule {
   public static forRoot(...options: ServeStaticModuleOptions[]): DynamicModule {
     return {
-      module: MyServeStaticModule,
+      module: ServeurStaticConfigurableModule,
       providers: [
         {
           provide: SERVE_STATIC_MODULE_OPTIONS,

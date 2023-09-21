@@ -1,39 +1,57 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { Logger, Module } from '@nestjs/common';
+import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import * as path from 'path';
-import { MyServeStaticModule } from './my-serve-static.module';
+import { ServeurStaticConfigurableModule } from './serveur-static-configurable.module';
 import { DataSource } from 'typeorm';
 import { SimulateurReponseModule } from './simulateur-reponse/simulateur-reponse.module';
 import { DatabaseModule } from './database/database.module';
-import { fabriqueAppDataSource } from './data-source';
+import { fabriqueAppDataSource } from './app-data-source.fabrique';
 import { ConfigModule } from '@nestjs/config';
 import * as process from 'process';
 
-const getStaticFrontPath: () => string = () => {
+const getStaticFrontPath: () => Promise<string> = async (
+  sousDossier = ['anssi-nis2-ui', 'dist'],
+) => {
+  const logger = new Logger(getStaticFrontPath.name);
   const currentPathParts = __dirname.split(path.sep);
   const targetPath = [
-    ...currentPathParts.slice(0, currentPathParts.length - 2),
-    'anssi-nis2-ui',
-    'dist',
+    ...currentPathParts.slice(0, currentPathParts.indexOf('anssi-nis2-api')),
+    ...sousDossier,
   ].join(path.sep);
-  console.log(`Inside dist ${__dirname} --> ${targetPath}`);
+  logger.log(`Site statique depuis : ${__dirname} --> ${targetPath}`);
   return path.resolve(targetPath);
+};
+
+const fabriqueAsynchroneOptionsTypeOrm: TypeOrmModuleAsyncOptions = {
+  useFactory: async () =>
+    fabriqueAppDataSource(process.env.SCALINGO_POSTGRESQL_URL),
+};
+
+const fabriqueAsynchroneOptionsServeurStatique = {
+  useFactory: async () => [
+    {
+      rootPath: await getStaticFrontPath(),
+    },
+  ],
 };
 
 @Module({
   imports: [
-    TypeOrmModule.forRootAsync({
-      useFactory: async () =>
-        fabriqueAppDataSource(process.env.SCALINGO_POSTGRESQL_URL),
-    }),
-    MyServeStaticModule.forRoot({
-      rootPath: getStaticFrontPath(),
-    }),
+    TypeOrmModule.forRootAsync(fabriqueAsynchroneOptionsTypeOrm),
+    ServeurStaticConfigurableModule.forRootAsync(
+      fabriqueAsynchroneOptionsServeurStatique,
+    ),
     SimulateurReponseModule,
     DatabaseModule,
     ConfigModule.forRoot(),
   ],
 })
 export class AppModule {
-  constructor(private dataSource: DataSource) {}
+  private readonly logger = new Logger(AppModule.name);
+
+  constructor(private dataSource: DataSource) {
+    this.logger.log(
+      `Démarrage du serveur sur base de données ${dataSource.options.type}`,
+    );
+  }
 }

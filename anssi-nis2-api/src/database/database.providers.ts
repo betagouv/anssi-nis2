@@ -1,6 +1,6 @@
 import { datasourceKey } from '../constantes';
 import { DataSource } from 'typeorm';
-import { fabriqueAppDataSource } from '../data-source';
+import { fabriqueAppDataSource } from '../app-data-source.fabrique';
 
 export const databaseProviders = [
   {

@@ -4,7 +4,7 @@ import { AbstractHttpAdapter } from '@nestjs/core';
 import { loadPackage } from '@nestjs/common/utils/load-package.util';
 
 @Injectable()
-export class MyExpressLoader extends ExpressLoader {
+export class ChargeurExpressBasicAuthService extends ExpressLoader {
   public register(
     httpAdapter: AbstractHttpAdapter,
     optionsArr: ServeStaticModuleOptions[],
