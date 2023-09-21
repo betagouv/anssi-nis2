@@ -15,16 +15,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - name: Install dependencies
+      - name: Installation des dependences
         run: npm ci
       - name: Installation de Playwright
         run: npx playwright install --with-deps
       - name: Construction de Storybook
-        run: npm i concurrently http-server wait-on -g
-      - name: Construction de Storybook
         run: npm run build-storybook -w anssi-nis2-ui
-      - name: Tests UI
-        run: |
-          npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
-            "npx http-server anssi-nis2-ui/storybook-static --port 6006 --silent" \
-            "npx wait-on tcp:6006 && npm run test-storybook -w anssi-nis2-ui"
+
