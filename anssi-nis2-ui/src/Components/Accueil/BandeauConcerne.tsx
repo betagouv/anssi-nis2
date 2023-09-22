@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import styled from "@emotion/styled";
 import { DefaultComponent } from "../../Services/Props.ts";
+import { UppercaseH2 } from "../Styled/UppercaseH2.tsx";
 
 const SuisJeConcerneDiv = styled.div`
   background-color: #101070;
@@ -11,10 +12,6 @@ const SuisJeConcerneDiv = styled.div`
   h2: {
     text-transform: uppercase;
   }
-`;
-
-const UppercaseH2 = styled.h2`
-  text-transform: uppercase;
 `;
 
 const BandeauConcerne: DefaultComponent = () => {
