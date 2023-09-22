@@ -1,6 +1,5 @@
 import { Button } from "@codegouvfr/react-dsfr/Button";
 import { DefaultComponent } from "../../Services/Props.ts";
-import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
 import FondEuLogo from "../../assets/EU-logo.svg";
 import ObligationNotifier from "../../assets/obligation-notifier.svg";
 import ObligationMesuresSecurite from "../../assets/obligation-mesures-securite.svg";
@@ -9,6 +8,21 @@ import ObligationIncidents from "../../assets/obligation-incidents.svg";
 import { fr } from "@codegouvfr/react-dsfr";
 import styled from "@emotion/styled";
 import { UppercaseH2 } from "../Styled/UppercaseH2.tsx";
+
+const ElementObligation = ({
+  imageSrc,
+  title,
+}: {
+  imageSrc: string;
+  title: string;
+}) => {
+  return (
+    <li className="fr-col">
+      <img src={imageSrc} alt={title} />
+      <p className="fr-text--lead">{title}</p>
+    </li>
+  );
+};
 
 const MiseEnAvantFaits = styled.span`
   background-color: #fceeac;
@@ -26,15 +40,16 @@ const LogoUnionEuropeenneNIS2 = () => {
       width: 486px;
       height: 399px;
       align-items: center;
+      vertical-align: middle;
+      text-align: center;
       display: flex;
     }
 
-    /* TODO : trouver une meilleure manière de positionner le texte du logo */
-
     .interieur-logo-ue p {
-      position: relative;
-      left: 50%;
-      margin-left: -2.3rem;
+      width: 100%;
+      margin-bottom: 0;
+      left: 205px;
+      top: 180px;
     }
   `;
 
@@ -56,13 +71,25 @@ const LogoUnionEuropeenneNIS2 = () => {
 // TODO bordure autour, pas en travers du titre pour le haut. Espacement à revoir
 const Obligations = styled.div`
   padding-top: ${fr.spacing("8v")};
+  margin-top: ${fr.spacing("7w")};
   border: 2px solid
     ${
       fr.colors.decisions.border.plain.grey.default // TODO was #2F3A43
     };
 
+  & .traversant {
+    margin-top: -${fr.spacing("12v")};
+    align-content: center;
+    width: 100%;
+  }
+
   & h3 {
+    background-color: white;
+    width: fit-content;
     text-align: center;
+    padding: 0 ${fr.spacing("3w")};
+    margin-left: auto;
+    margin-right: auto;
   }
 
   & li {
@@ -74,19 +101,6 @@ const Obligations = styled.div`
     float: none;
   }
 `;
-
-const ElementObligation = (props: { imageSrc: string; title: string }) => {
-  const { imageSrc, title } = props;
-
-  return (
-    <>
-      <li className="fr-col">
-        <img src={imageSrc} alt={title} />
-        <p className="fr-text--lead">{title}</p>
-      </li>
-    </>
-  );
-};
 
 const BandeauNis2EU: DefaultComponent = () => {
   return (
@@ -123,16 +137,24 @@ const BandeauNis2EU: DefaultComponent = () => {
               {/* TODO: padding was "6px, 24px, 10px, 18px" */}
               <Button
                 priority="secondary"
-                onClick={noRefClick}
+                linkProps={{ href: "https://www.ssi.gouv.fr/directive-nis-2/" }}
                 iconId={"fr-icon-question-line"}
               >
                 Voir les FAQ
+              </Button>
+              <Button
+                priority="secondary"
+                linkProps={{ href: "https://eur-lex.europa.eu/TodayOJ/" }}
+                iconId={"fr-icon-external-link-line"}
+                className="fr-ml-2w"
+              >
+                Voir la directive complète
               </Button>
             </div>
             <LogoUnionEuropeenneNIS2 />
           </div>
           <Obligations className="fr-pt-4w">
-            <div className="fr-col--middle">
+            <div className="fr-col--middle traversant">
               {/* TODO: utiliser mise en avant adéquate */}
               <h3 className="fr-h4">
                 Les entités concernées devront se conformer à certaines
@@ -142,7 +164,7 @@ const BandeauNis2EU: DefaultComponent = () => {
             <ul className="fr-grid-row">
               {/* TODO: améliorer les tiles/cards des obligations */}
               <ElementObligation
-                title="Se notifier à l'ANSSI"
+                title="S’enregistrer auprès de l'ANSSI"
                 imageSrc={ObligationNotifier}
               />
               <ElementObligation
@@ -154,7 +176,7 @@ const BandeauNis2EU: DefaultComponent = () => {
                 imageSrc={ObligationMaj}
               />
               <ElementObligation
-                title="Notifier les incidents de sécurité"
+                title="Déclarer les incidents de sécurité"
                 imageSrc={ObligationIncidents}
               />
             </ul>
