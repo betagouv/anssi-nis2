@@ -1,41 +1,33 @@
-import { Props } from "../../Services/Props.ts";
+import { DefaultComponent } from "../../Services/Props.ts";
 import { fr } from "@codegouvfr/react-dsfr";
+import styled from "@emotion/styled";
 
-import { ColorTheme, useColors } from "@codegouvfr/react-dsfr/useColors";
-import { createMakeAndWithStyles } from "tss-react";
-
-const { makeStyles } = createMakeAndWithStyles({
-  useTheme: function (): ColorTheme {
-    return useColors();
-  },
-});
-
-const useStyles = makeStyles()((theme) => ({
-  "cool-illustration": {
-    width: "336px",
-    height: "364px",
-    gap: fr.spacing("1w"),
-    borderRadius: fr.spacing("2w"),
-    display: "flex",
-    color: theme.decisions.text.default.grey.default,
-    "& h2": { fontWeight: 500 },
-    alignItems: "center",
-    textAlign: "center",
-    background: "var(--primary-white, #FFF)",
-    opacity: 0.3,
-    border: "2px dashed #2F3A43",
-  },
-}));
-export const CoolIllustration = (props: Props) => {
-  const { className } = props;
-
-  const { classes, cx } = useStyles();
-
+const DivIllustrationInterieure = styled.div`
+  width: 100%;
+  height: 100%;
+  gap: ${fr.spacing("1w")};
+  border-radius: ${fr.spacing("2w")};
+  display: flex;
+  color: ${fr.colors.decisions.text.default.grey.default};
+  align-items: center;
+  text-align: center;
+  background: var(--primary-white, #fff);
+  opacity: 0.3;
+  border: 2px dashed #2f3a43;
+`;
+const TitreIllustration = styled.h2`
+  text-align: center;
+  font-weight: 500;
+`;
+export const CoolIllustration: DefaultComponent = () => {
   return (
     <div className="fr-col-4">
-      <div className={cx([classes["cool-illustration"], "fr-p-1w"], className)}>
-        <h2>Insert cool illustration here</h2>
-      </div>
+      <DivIllustrationInterieure className="fr-p-1w">
+        <TitreIllustration>
+          Insert cool
+          <br /> illustration here
+        </TitreIllustration>
+      </DivIllustrationInterieure>
     </div>
   );
 };
