@@ -1,26 +1,14 @@
 import { datasourceKey } from '../constantes';
-import { DataSource, DataSourceOptions } from 'typeorm';
-
-const databaseConnectionUrl =
-  process.env.SCALINGO_POSTGRESQL_URL ||
-  'postgres://postgres:secret@localhost:5432/anssi-nis2';
-
-const serverOptions: DataSourceOptions = {
-  url: databaseConnectionUrl,
-  type: 'postgres',
-  synchronize: true,
-  entities: [],
-};
+import { DataSource } from 'typeorm';
+import { fabriqueAppDataSource } from '../app-data-source.fabrique';
 
 export const databaseProviders = [
   {
     provide: datasourceKey,
     useFactory: async () => {
-      const dataSource = new DataSource({
-        ...serverOptions,
-        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-        synchronize: true,
-      });
+      const dataSource = new DataSource(
+        await fabriqueAppDataSource(process.env.SCALINGO_POSTGRESQL_URL),
+      );
       return dataSource.initialize();
     },
   },

@@ -1,6 +1,11 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true },
+  env: {
+    browser: true,
+    es2020: true,
+    node: true,
+    jest: true,
+  },
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -8,7 +13,7 @@ module.exports = {
     "plugin:react-hooks/recommended",
     "plugin:storybook/recommended",
   ],
-  ignorePatterns: ["dist", ".eslintrc.cjs"],
+  ignorePatterns: ["dist", ".eslintrc.js"],
   parser: "@typescript-eslint/parser",
   plugins: ["react", "react-refresh"],
   rules: {

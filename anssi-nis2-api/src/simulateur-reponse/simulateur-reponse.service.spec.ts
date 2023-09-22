@@ -15,7 +15,7 @@ describe('SimulateurReponseService', () => {
   };
 
   beforeEach(async () => {
-    let mockSimulateurReponseRepository = {
+    const mockSimulateurReponseRepository = {
       ...MockFactory.getMock(Repository<SimulateurReponse>),
       save: async () => simulateurReponse,
     };

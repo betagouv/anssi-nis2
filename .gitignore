@@ -1,3 +1,7 @@
 node_modules
 /.idea/
 /.vscode/
+/pgdata/
+/anssi-nis2-ui/storybook-static/
+dist
+.env

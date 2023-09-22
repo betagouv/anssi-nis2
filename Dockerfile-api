@@ -1,0 +1,20 @@
+FROM node:18
+
+RUN apt-get update
+
+RUN npm install -g npm
+RUN npm install -g ts-node
+
+WORKDIR /usr/src/app
+
+COPY package*.json /usr/src/app/
+COPY anssi-nis2-api/package.json /usr/src/app/anssi-nis2-api/package.json
+
+RUN npm install
+
+COPY anssi-nis2-api/ /usr/src/app/anssi-nis2-api/
+
+WORKDIR /usr/src/app/anssi-nis2-api/
+RUN ts-node db.init.postgresql.ts
+
+CMD ["npm", "run", "start:dev", "-w", "anssi-nis2-api"]
