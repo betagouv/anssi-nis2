@@ -27,7 +27,7 @@ const BandeauAccueil: DefaultComponent = () => {
           <AppelAction className="fr-col">
             <div>
               <h1 className="fr-text-title--blue-france fr-mb-0">
-                Mon&nbsp;Portail&nbsp;NIS&nbsp;2
+                MonPortailNIS2
               </h1>
               <p className="fr-text--lead">
                 Accompagner les organisations dans la compréhension
