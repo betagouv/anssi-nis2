@@ -68,7 +68,6 @@ const LogoUnionEuropeenneNIS2 = () => {
   );
 };
 
-// TODO bordure autour, pas en travers du titre pour le haut. Espacement à revoir
 const Obligations = styled.div`
   padding-top: ${fr.spacing("8v")};
   margin-top: ${fr.spacing("7w")};
@@ -144,7 +143,9 @@ const BandeauNis2EU: DefaultComponent = () => {
               </Button>
               <Button
                 priority="secondary"
-                linkProps={{ href: "https://eur-lex.europa.eu/TodayOJ/" }}
+                linkProps={{
+                  href: "https://eur-lex.europa.eu/legal-content/FR/TXT/PDF/?uri=CELEX:32022L2555",
+                }}
                 iconId={"fr-icon-external-link-line"}
                 className="fr-ml-2w"
               >
