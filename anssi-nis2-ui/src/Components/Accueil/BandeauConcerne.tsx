@@ -1,55 +1,44 @@
-import { Props } from "../../Services/Props.ts";
 import { Button } from "@codegouvfr/react-dsfr/Button";
 import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
 import { Link } from "react-router-dom";
-import { fr } from "@codegouvfr/react-dsfr";
 
-import { createMakeAndWithStyles } from "tss-react";
-import { ColorTheme, useColors } from "@codegouvfr/react-dsfr/useColors";
+import styled from "@emotion/styled";
+import { DefaultComponent } from "../../Services/Props.ts";
+import { UppercaseH2 } from "../Styled/UppercaseH2.tsx";
 
-const { makeStyles } = createMakeAndWithStyles({
-  useTheme: function (): ColorTheme {
-    return useColors();
-  },
-});
+const SuisJeConcerneDiv = styled.div`
+  background-color: #101070;
+  text-align: center;
+  h2: {
+    text-transform: uppercase;
+  }
+`;
 
-const BandeauConcerne = (props: Props) => {
-  const { className } = props;
-
-  const { classes, cx } = useStyles();
-
+const BandeauConcerne: DefaultComponent = () => {
   return (
     <>
-      <div className={cx([classes["bandeau-suis-je-concerne"]], className)}>
+      <SuisJeConcerneDiv>
         <div className="fr-my-0 fr-mx-auto fr-px-15w fr-pt-10w fr-pb-13w">
-          <h2 className="fr-text-inverted--grey fr-mb-5w fr-h1">
-            Suis-je concerné ?
-          </h2>
+          <UppercaseH2 className="fr-text-inverted--grey fr-mb-5w fr-h1">
+            Suis-je concerné•e ?
+          </UppercaseH2>
           <p className="fr-text--lead fr-text-inverted--grey fr-mb-5w">
-            Simulez dès à présent votre potentielle éligibilité à la directive
-            NIS2 <br />
-            et débutons ensemble l’accompagnement de votre structure.
+            Découvrez en 2 min si la directive NIS&nbsp;2 peut s’appliquer à
+            votre entité <br />
+            et débutons ensemble votre accompagnement.
           </p>
           <Link to={"/simulateur"}>
             <Button
-              className="fr-btn fr-btn--secondary fr-background-alt--blue-france fr-px-3w fr-py-2v"
+              className="fr-btn fr-btn--secondary fr-background-alt--blue-france fr-px-3w fr-pt-1-5v fr-pb-2v"
               onClick={noRefClick}
             >
-              Simuler mon éligibilité
+              Débuter le test
             </Button>
           </Link>
         </div>
-      </div>
+      </SuisJeConcerneDiv>
     </>
   );
 };
-
-const useStyles = makeStyles()(() => ({
-  "bandeau-suis-je-concerne": {
-    backgroundColor: fr.colors.decisions.background.flat.blueFrance.default, // TODO: was #101070
-    textAlign: "center",
-    "& h2": { textTransform: "uppercase" },
-  },
-}));
 
 export default BandeauConcerne;

@@ -1,3 +1,6 @@
+[![Node.js CI](https://github.com/betagouv/anssi-nis2/actions/workflows/node.js.yml/badge.svg)](https://github.com/betagouv/anssi-nis2/actions/workflows/node.js.yml)
+[![Storybook Tests](https://github.com/betagouv/anssi-nis2/actions/workflows/storybook-build.yml/badge.svg)](https://github.com/betagouv/anssi-nis2/actions/workflows/storybook-build.yml)
+
 # Mon Portail NIS 2
 
 _Mon portail NIS 2_ est un service numérique développé par le laboratoire

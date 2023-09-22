@@ -1,6 +1,5 @@
 import Header from "@codegouvfr/react-dsfr/Header";
 import AnssiLogo from "../assets/ANSSI.svg";
-import { noRefClick } from "../Services/Echaffaudages/AssistantsEchaffaudages.ts";
 
 const EnTete = () => (
   <Header
@@ -13,7 +12,7 @@ const EnTete = () => (
     }
     homeLinkProps={{
       href: "/",
-      title: "Accueil - MonParcoursNIS2 - ANSSI",
+      title: "Accueil - MonPortailNIS2 - ANSSI",
     }}
     id="fr-header-header-with-quick-access-items"
     operatorLogo={{
@@ -30,16 +29,11 @@ const EnTete = () => (
       {
         iconId: "fr-icon-question-fill",
         linkProps: { href: "#" },
-        text: "FAQ NIS2",
-      },
-      {
-        buttonProps: { onClick: noRefClick },
-        iconId: "fr-icon-arrow-right-line",
-        text: "Je m'inscris",
+        text: "FAQ NIS 2",
       },
     ]}
     serviceTagline=""
-    serviceTitle="MonParcoursNIS2"
+    serviceTitle="MonPortailNIS2"
   />
 );
 
