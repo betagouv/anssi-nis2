@@ -1,8 +1,6 @@
-import { Button } from "@codegouvfr/react-dsfr/Button";
 import FondHabillageAccueil from "../../assets/habillage-accueil-01.svg";
 import { fr } from "@codegouvfr/react-dsfr";
 import { CoolIllustration } from "../Echaffaudages/CoolIllustration.tsx";
-import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
 import styled from "@emotion/styled";
 import { DefaultComponent } from "../../Services/Props.ts";
 
@@ -40,12 +38,6 @@ const BandeauAccueil: DefaultComponent = () => {
             <MiseEnAvant className="fr-text--bold fr-text--lg fr-px-1v fr-py-0-5v">
               Gratuit et 100% en ligne
             </MiseEnAvant>
-            <Button
-              className="fr-px-3w fr-pt-1-5v fr-pb-2v"
-              onClick={noRefClick}
-            >
-              S’inscrire
-            </Button>
           </AppelAction>
           <CoolIllustration />
         </div>

@@ -3,7 +3,7 @@ import { fr } from "@codegouvfr/react-dsfr";
 import styled from "@emotion/styled";
 
 const DivIllustrationInterieure = styled.div`
-  width: 100%;
+  width: 80%;
   height: 100%;
   gap: ${fr.spacing("1w")};
   border-radius: ${fr.spacing("2w")};
@@ -18,6 +18,7 @@ const DivIllustrationInterieure = styled.div`
 const TitreIllustration = styled.h2`
   text-align: center;
   font-weight: 500;
+  width: 100%;
 `;
 export const CoolIllustration: DefaultComponent = () => {
   return (
