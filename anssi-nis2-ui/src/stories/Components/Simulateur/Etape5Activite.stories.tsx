@@ -74,12 +74,22 @@ export const AffichageInfobulles: Story = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
     const elementInfobulle = `Entreprise d’électricité remplissant une fonction de fourniture`;
+    // const titreAffiche = "Entreprise d’électricité";
+    const contenuAffiche =
+      "Je t'indique 0: energie[entrepriseElectriciteRemplissantUneFonctionDeFourniture]";
     await step(
-      `Clic sur '${elementInfobulle}' affiche une infobulle`,
+      `Clique sur '${elementInfobulle}' affiche une infobulle`,
       async () => {
-        await canvas.findByTitle(
+        const iconeInformation = await canvas.findByTitle(
           `Informations à propos de l'activité "${elementInfobulle}"`,
         );
+        const paragraphe = await canvas.getByText(contenuAffiche);
+        const divInfobulle = paragraphe.parentElement?.parentElement?.classList;
+        // const blockInfo = await canvas.getAllByText(titreAffiche);
+
+        expect(divInfobulle).toContain("fr-hidden");
+        await userEvent.click(iconeInformation);
+        expect(divInfobulle).not.toContain("fr-hidden");
       },
     );
   },

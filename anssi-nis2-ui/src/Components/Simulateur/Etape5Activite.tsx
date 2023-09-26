@@ -61,7 +61,7 @@ const Infobulle = ({
       )}
       id={id}
     >
-      <h3 className="fr-alert__title">Titre mise en avant</h3>
+      <h3 className="fr-alert__title">Entreprise d’électricité</h3>
       <p className="fr-callout__text">{contenu}</p>
       <BoutonFerme
         className="fr-btn--close fr-btn"
