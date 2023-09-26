@@ -10,14 +10,13 @@ export const paysUnionEuropeenneLocalisation: Record<
   string
 > = {
   france: "France",
-  autre: "Autre état membre",
-  horsue: "Hors Union Européenne",
+  autre: "Autres états membres",
+  horsue: "Autres états hors Union Européenne",
 };
 
 export const typesStructure: Record<ValeursTypeStructure, string> = {
-  publique: "Publique",
-  privee: "Privée",
-  association: "Association",
+  publique: "Organisation publique",
+  privee: "Entrprise privée",
 };
 
 export const tranchesNombreEmployes: Record<
