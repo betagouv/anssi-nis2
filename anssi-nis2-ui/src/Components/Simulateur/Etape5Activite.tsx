@@ -72,6 +72,22 @@ const Infobulle = ({
   );
 };
 
+const Icone16 = styled.i`
+  padding-left: 0.5rem;
+
+  &::before {
+    --icon-size: 1.125rem;
+  }
+`;
+
+const IconeInfobulle = (props: { onClick: () => void; label: string }) => (
+  <Icone16
+    className="fr-icon-error-warning-fill fr-text-action-high--blue-france"
+    onClick={props.onClick}
+    title={`Informations à propos de l'activité "${props.label}"`}
+  />
+);
+
 const Etape5Activite = ({
   propageActionSimulateur,
   formData,
@@ -157,18 +173,17 @@ const Etape5Activite = ({
                       />
                       <label className="fr-label" htmlFor={getInputId(i)}>
                         {label}{" "}
-                        {contenuInfobulle !== undefined && (
-                          <i
-                            className="fr-icon-error-warning-fill fr-text-action-high--blue-france"
+                        {contenuInfobulle && (
+                          <IconeInfobulle
                             onClick={() => {
                               propageInfobulleAffichee(idInfobulle);
                             }}
-                            title={`Informations à propos de l'activité "${label}"`}
+                            label={label}
                           />
                         )}
                       </label>
                     </div>
-                    {contenuInfobulle !== undefined && (
+                    {contenuInfobulle && (
                       <>
                         <Infobulle
                           id={idInfobulle}
