@@ -1,15 +1,23 @@
+import styled from "@emotion/styled";
 import { DefaultComponent, DefaultProps } from "../../Services/Props.ts";
+import { fr } from "@codegouvfr/react-dsfr";
+
+const Formulaire = styled.div`
+  & legend {
+    margin-top: ${fr.spacing("4w")};
+  }
+`;
 
 const FormSimulateur: DefaultComponent = ({ children }: DefaultProps) => (
-  <form className="fr-mb-0" id="login-1797">
+  <Formulaire className="fr-mb-0" id="simulateur">
     <fieldset
       className="fr-mb-0 fr-fieldset"
-      id="login-1797-fieldset"
-      aria-labelledby="login-1797-fieldset-legend login-1797-fieldset-messages"
+      id="simulateur-fieldset"
+      aria-labelledby="simulateur-fieldset-legend simulateur-fieldset-messages"
     >
       {children}
     </fieldset>
-  </form>
+  </Formulaire>
 );
 
 export default FormSimulateur;
