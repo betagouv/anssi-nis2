@@ -61,10 +61,13 @@ const Etape4bisSousSecteur = ({
 
   return (
     <FormSimulateur>
+      <legend className="fr-text--medium">
+        Précisez les sous-secteurs concernés :
+      </legend>
       <div className="fr-fieldset__element">
         {optionsSousSecteurActivite && (
           <Checkbox
-            legend="Précisez les sous-secteurs concernés :"
+            legend="&Eacute;nergie"
             options={optionsSousSecteurActivite}
           />
         )}
