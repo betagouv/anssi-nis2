@@ -20,7 +20,7 @@ describe(genereTransformateurValeursVersOptions, () => {
       },
     },
     {
-      label: "Autre état membre",
+      label: "Autres états membres",
       nativeInputProps: {
         checked: optionsChecked[1],
         onChange: onChange,
@@ -29,7 +29,7 @@ describe(genereTransformateurValeursVersOptions, () => {
       },
     },
     {
-      label: "Hors Union Européenne",
+      label: "Autres états hors Union Européenne",
       nativeInputProps: {
         checked: optionsChecked[2],
         onChange: onChange,
