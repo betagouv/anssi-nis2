@@ -69,3 +69,18 @@ export const CliqueSurLesOptions: Story = {
     }
   },
 };
+
+export const AffichageInfobulles: Story = {
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const elementInfobulle = `Entreprise d’électricité remplissant une fonction de fourniture`;
+    await step(
+      `Clic sur '${elementInfobulle}' affiche une infobulle`,
+      async () => {
+        await canvas.findByTitle(
+          `Informations à propos de l'activité "${elementInfobulle}"`,
+        );
+      },
+    );
+  },
+};

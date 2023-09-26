@@ -1,13 +1,76 @@
-import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { genereTransformateurValeursVersOptions } from "../../Services/Simulateur/simulateurFrontServices.ts";
 import { FormSimulateur } from "./index.ts";
 import {
   ListeOptionsChampFormulaire,
   SimulateurContenuEtapeProps,
 } from "../../Services/Simulateur/props.ts";
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+  useId,
+  useReducer,
+  Reducer,
+  ReactNode,
+} from "react";
 import { NomsChampsSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
 import { detailsDesSecteurs } from "../../Domaine/Simulateur/SecteursActivite.ts";
+import { VVV } from "../../utilitaires/debug.ts";
+import { fr } from "@codegouvfr/react-dsfr";
+import styled from "@emotion/styled";
+
+const changeInfobulleOuverte: Reducer<
+  {
+    id: string;
+  },
+  string
+> = ({ id }, nouvelId) => {
+  if (id === nouvelId) return { id: "" };
+  return { id: nouvelId };
+};
+
+const BoutonFerme = styled.button`
+  position: absolute;
+  top: 0;
+  right: 2rem;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  min-height: 2rem;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 4rem;
+  max-height: 4rem;
+`;
+const Infobulle = ({
+  id,
+  cachee,
+  contenu,
+  action,
+}: {
+  id: string;
+  cachee: boolean;
+  contenu: ReactNode;
+  action: () => void;
+}) => {
+  return (
+    <div
+      className={fr.cx(
+        "fr-callout",
+        "fr-grid-row",
+        // "fr-alert",
+        cachee && "fr-hidden",
+      )}
+      id={id}
+    >
+      <h3 className="fr-alert__title">Titre mise en avant</h3>
+      <p className="fr-callout__text">{contenu}</p>
+      <BoutonFerme
+        className="fr-btn--close fr-btn"
+        title="Masquer le message"
+        onClick={action}
+      />
+    </div>
+  );
+};
 
 const Etape5Activite = ({
   propageActionSimulateur,
@@ -15,6 +78,10 @@ const Etape5Activite = ({
 }: SimulateurContenuEtapeProps) => {
   const [optionsSecteurActivite, setOptionsSecteurActivite] =
     useState<ListeOptionsChampFormulaire>([]);
+  const [infobulleAffichee, propageInfobulleAffichee] = useReducer(
+    changeInfobulleOuverte,
+    { id: "" },
+  );
 
   useEffect(() => {
     const valeursActivites =
@@ -32,15 +99,34 @@ const Etape5Activite = ({
         (cle: string, valeurs: Record<string, string>) => valeurs[cle],
         "activites",
       );
+    const optionsBrutesSecteurActivite = transformateurSecteurActivite(
+      valeursActivites,
+      changeMulti,
+      formData,
+      "energie",
+    );
     setOptionsSecteurActivite(
-      transformateurSecteurActivite(
-        valeursActivites,
-        changeMulti,
-        formData,
-        "energie",
-      ),
+      optionsBrutesSecteurActivite.map((option, i) => {
+        return {
+          ...option,
+          contenuInfobulle: (
+            <p>{`Je t'indique ${i}: ${option.nativeInputProps.value}`}</p>
+          ),
+          nativeInputProps: {
+            ...option.nativeInputProps,
+          },
+        };
+      }),
     );
   }, [formData, propageActionSimulateur]);
+  VVV("Valeurs Options", optionsSecteurActivite);
+
+  const id = `default-${useId()}`;
+  const getInputId = (i: number) => `${id}-${i}`;
+  const recupereIdInfobulle = (i: number) => `${id}-infoBulle-${i}`;
+  const type = "checkbox";
+
+  const legende = "Énergie / Électricité";
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
@@ -52,10 +138,54 @@ const Etape5Activite = ({
           définitions des activités.
         </p>
 
-        <Checkbox
-          legend="Énergie / Électricité"
-          options={optionsSecteurActivite}
-        />
+        <fieldset className="fr-fieldset" id={id}>
+          <legend className="fr-fieldset__legend fr-text--regular">
+            {legende}
+          </legend>
+          <div className="fr-fieldset__content">
+            {optionsSecteurActivite.map(
+              ({ label, contenuInfobulle, nativeInputProps }, i) => {
+                const idInfobulle = recupereIdInfobulle(i);
+
+                return (
+                  <>
+                    <div className={fr.cx(`fr-${type}-group`)} key={i}>
+                      <input
+                        type={type}
+                        id={getInputId(i)}
+                        {...nativeInputProps}
+                      />
+                      <label className="fr-label" htmlFor={getInputId(i)}>
+                        {label}{" "}
+                        {contenuInfobulle !== undefined && (
+                          <i
+                            className="fr-icon-error-warning-fill fr-text-action-high--blue-france"
+                            onClick={() => {
+                              propageInfobulleAffichee(idInfobulle);
+                            }}
+                            title={`Informations à propos de l'activité "${label}"`}
+                          />
+                        )}
+                      </label>
+                    </div>
+                    {contenuInfobulle !== undefined && (
+                      <>
+                        <Infobulle
+                          id={idInfobulle}
+                          cachee={idInfobulle !== infobulleAffichee.id}
+                          contenu={contenuInfobulle}
+                          action={() => {
+                            propageInfobulleAffichee(id);
+                          }}
+                        />
+                      </>
+                    )}
+                  </>
+                );
+              },
+            )}
+          </div>
+        </fieldset>
       </div>
     </FormSimulateur>
   );
