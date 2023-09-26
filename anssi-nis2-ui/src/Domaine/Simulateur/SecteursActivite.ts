@@ -25,7 +25,7 @@ export const secteursActivite: Record<ValeursSecteurActivite, string> = {
   sante: "Santé",
   servicesPostauxEtDExpedition: "Services postaux et d'expédition",
   transports: "Transports",
-  autre: "Autre ou je ne sais pas",
+  autre: "Aucun",
 };
 type ListeActivites = Record<ValeursActivites, string>;
 export type DescriptionSousSecteur = {
@@ -47,7 +47,7 @@ export const sousSecteursEnergie: Record<
       operateurDesigneDuMarcheOuNemo: "Opérateur désigné du marché ou NEMO",
       acteurDuMarche: "Acteur du marché",
       exploitantDePointDeRecharge: "Exploitant de point de recharge",
-      autre: "Autre ou ne sait pas",
+      autre: "Aucun",
     },
   },
   gaz: {

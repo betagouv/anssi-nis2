@@ -8,6 +8,7 @@ import {
 } from "../../utilitaires/parametresFormulaire.ts";
 import { donneesFormulaireSimulateurVide } from "../../../Services/Simulateur/donneesFormulaire.ts";
 import { ValeursClePaysUnionEuropeenne } from "../../../Domaine/Simulateur/ValeursCles.ts";
+import { paysUnionEuropeenneLocalisation } from "../../../Domaine/Simulateur/Libelles.ts";
 
 class ParametresDonneesEtatMembre extends ParametresDonneesSpecifiqueField<ValeursClePaysUnionEuropeenne> {
   protected construitDonnees<ValeursClePaysUnionEuropeenne>(
@@ -58,9 +59,15 @@ export const CliqueSurLesOptions: Story = {
     const { propageActionSimulateur } = args;
 
     const optionsATester = [
-      { libelle: "France", newValue: "france" },
-      { libelle: "Autre état membre", newValue: "autre" },
-      { libelle: "Hors Union Européenne", newValue: "horsue" },
+      {
+        libelle: paysUnionEuropeenneLocalisation["france"],
+        newValue: "france",
+      },
+      { libelle: paysUnionEuropeenneLocalisation["autre"], newValue: "autre" },
+      {
+        libelle: paysUnionEuropeenneLocalisation["horsue"],
+        newValue: "horsue",
+      },
     ];
 
     for (const { libelle, newValue } of optionsATester) {

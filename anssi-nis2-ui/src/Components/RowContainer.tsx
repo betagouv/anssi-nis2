@@ -1,4 +1,3 @@
-import { FrCxArg, fr } from "@codegouvfr/react-dsfr";
 import { DefaultComponent, DefaultProps } from "../Services/Props.ts";
 
 export const RowContainer: DefaultComponent = ({
@@ -6,11 +5,9 @@ export const RowContainer: DefaultComponent = ({
   children,
 }: DefaultProps) => {
   return (
-    <div className={fr.cx(className as FrCxArg)}>
-      <div className={fr.cx("fr-container", "fr-container--fluid")}>
-        <div className={fr.cx("fr-grid-row", "fr-grid-row--center")}>
-          {children}
-        </div>
+    <div className={className}>
+      <div className="fr-container">
+        <div className="fr-grid-row fr-grid-row--center">{children}</div>
       </div>
     </div>
   );

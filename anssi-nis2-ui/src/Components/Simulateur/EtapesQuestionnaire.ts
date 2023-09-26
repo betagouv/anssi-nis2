@@ -47,7 +47,7 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
     ),
     new InformationEtapeForm(
       "Activités pratiquées",
-      "Sélectionnez une réponse",
+      "Sélectionnez au moins une réponse par secteur",
       Etape5Activite,
     ) /* */,
     new InformationEtapeResult("Resultat"),

@@ -44,10 +44,9 @@ const Etape3Taille = ({
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
-        <p>
-          Quelles sont les caractéristiques clés de votre organisation ? Texte
-          de description additionnel
-        </p>
+        <legend className="fr-text--medium">
+          Quelles sont les caractéristiques clés de votre organisation ?
+        </legend>
         <RadioButtons
           legend="Nombre d’employé·e·s (équivalents temps pleins)"
           options={optionsTranchesNombreEmployes}

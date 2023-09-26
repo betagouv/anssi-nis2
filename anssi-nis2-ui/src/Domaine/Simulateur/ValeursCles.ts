@@ -1,5 +1,5 @@
 export type ValeursClePaysUnionEuropeenne = "france" | "autre" | "horsue";
-export type ValeursTypeStructure = "publique" | "privee" | "association";
+export type ValeursTypeStructure = "publique" | "privee";
 export type ValeursTrancheNombreEmployes = "petit" | "moyen" | "grand";
 export type ValeursTrancheCA = "petit" | "moyen" | "grand";
 export type ValeursSecteurActivite =
