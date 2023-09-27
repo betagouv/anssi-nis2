@@ -7,9 +7,9 @@ import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { DonneesFormulaireSimulateur } from "../../../Services/Simulateur/donneesFormulaire.ts";
-import { ValeursSousSecteurEnergie } from "../../../Domaine/Simulateur/ValeursCles.ts";
+import { TValeursSousSecteurEnergie } from "../../../Domaine/Simulateur/ValeursCles.ts";
 
-class ParametresDonneesSousSecteurActivite extends ParametresDonneesSpecifiqueField<ValeursSousSecteurEnergie> {
+class ParametresDonneesSousSecteurActivite extends ParametresDonneesSpecifiqueField<TValeursSousSecteurEnergie> {
   protected construitDonnees<ValeursSecteurActivite>(
     valeurs: ValeursSecteurActivite[],
   ): DonneesFormulaireSimulateur {
@@ -34,7 +34,7 @@ export default meta;
 type Story = StoryObj<typeof Etape4bisSousSecteur>;
 
 const creeActionPropagationFormulaireActivite = (
-  newValue: ValeursSousSecteurEnergie,
+  newValue: TValeursSousSecteurEnergie,
 ) => {
   const actionTypique = {
     type: "checkMulti",
@@ -50,7 +50,7 @@ export const SousSecteurEnergie: Story = {
 
     const optionsATester: {
       libelle: string;
-      newValue: ValeursSousSecteurEnergie;
+      newValue: TValeursSousSecteurEnergie;
     }[] = [
       {
         libelle: "Électricité",

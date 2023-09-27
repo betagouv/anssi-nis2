@@ -1,78 +1,144 @@
 import {
-  ValeursActivites,
-  ValeursSecteurActivite,
-  ValeursSousSecteurEnergie,
+  TValeursActivites,
+  TValeursSecteursActivites,
+  TValeursSectorielles,
+  TValeursSousSecteurEnergie,
+  TValeursSousSecteurFabrication,
+  TValeursSousSecteurTransport,
+  ValeursActivitesAdministrationPublique,
+  ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
+  ValeursActivitesEauPotable,
+  ValeursActivitesEauUsees,
+  ValeursActivitesElectricite,
+  ValeursActivitesEnergie,
+  ValeursActivitesEspace,
+  ValeursActivitesFabrication,
+  ValeursActivitesFabricationAutreMaterielsTransports,
+  ValeursActivitesFabricationDispositifsMedicaux,
+  ValeursActivitesFabricationEquipementsElectroniques,
+  ValeursActivitesFabricationMachinesEquipements,
+  ValeursActivitesFabricationProductionDistributionProduitsChimiques,
+  ValeursActivitesFabricationProduitsInformatiquesElectroniquesOptiques,
+  ValeursActivitesFournisseursNumeriques,
+  ValeursActivitesGaz,
+  ValeursActivitesGestionDechets,
+  ValeursActivitesGestionServicesTic,
+  ValeursActivitesHydrogene,
+  ValeursActivitesInfrastructureMarcheFinancier,
+  ValeursActivitesInfrastructureNumerique,
+  ValeursActivitesPetrole,
+  ValeursActivitesProductionTransformationDistributionDenreesAlimentaires,
+  ValeursActivitesRecherche,
+  ValeursActivitesReseauxChaleurFroid,
+  ValeursActivitesSante,
+  ValeursActivitesSecteurBancaire,
+  ValeursActivitesServicesPostauxExpedition,
+  ValeursActivitesTransports,
+  ValeursActivitesTransportsAeriens,
+  ValeursActivitesTransportsFerroviaires,
+  ValeursActivitesTransportsParEaux,
+  ValeursActivitesTransportsRoutiers,
 } from "./ValeursCles.ts";
+import {
+  DescriptionSecteur,
+  DetailsSousSecteurs,
+  DetailsSousSecteurUnique,
+} from "./Secteurs";
 
-export const secteursActivite: Record<ValeursSecteurActivite, string> = {
-  administrationPublique: "Administration publique / administration centrale",
-  banqueSecteurBancaire: "Banques (secteur bancaire)",
-  eauPotable: "Eau potable",
-  eauxUsees: "Eaux usées",
-  energie: "Énergie",
-  espace: "Espace",
-  fabrication: "Fabrication",
-  fabricationProductionEtDistributionDeProduitsChimiques:
-    "Fabrication, production et distribution de produits chimiques",
-  fournisseursNumeriques: "Fournisseurs numériques",
-  gestionDesDechets: "Gestion des déchets",
-  gestionDesServicesTic: "Gestion des services TIC",
-  infrastructureDesMarchesFinanciers: "Infrastructure des marchés financiers",
-  infrastructureNumerique: "Infrastructure numérique",
-  productionTransformationEtDistributionDeDenreesAlimentaires:
-    "Production transformation et distribution de denrées alimentaires",
-  recherche: "Recherche",
-  sante: "Santé",
-  servicesPostauxEtDExpedition: "Services postaux et d'expédition",
-  transports: "Transports",
-  autre: "Aucun",
-};
-type ListeActivites = Record<ValeursActivites, string>;
-export type DescriptionSousSecteur = {
-  libelle: string;
-  activites: ListeActivites;
-};
-export const sousSecteursEnergie: Record<
-  ValeursSousSecteurEnergie,
-  DescriptionSousSecteur
-> = {
-  electricite: {
-    libelle: "Électricité",
-    activites: {
-      entrepriseElectriciteRemplissantUneFonctionDeFourniture:
-        "Entreprise d’électricité remplissant une fonction de fourniture",
-      gestionnaireDeReseau: "Gestionnaire de réseau de distribution",
-      gestionnaireReseauTransport: "Gestionnaire de réseau de transport",
-      producteur: "Producteur",
-      operateurDesigneDuMarcheOuNemo: "Opérateur désigné du marché ou NEMO",
-      acteurDuMarche: "Acteur du marché",
-      exploitantDePointDeRecharge: "Exploitant de point de recharge",
-      autre: "Aucun",
+export const sousSecteursEnergie: DetailsSousSecteurUnique<TValeursSousSecteurEnergie> =
+  {
+    electricite: {
+      libelle: "Électricité",
+      activites: {
+        entrepriseElectriciteRemplissantUneFonctionDeFourniture:
+          "Entreprise d’électricité remplissant une fonction de fourniture",
+        gestionnaireDeReseau: "Gestionnaire de réseau de distribution",
+        gestionnaireReseauTransport: "Gestionnaire de réseau de transport",
+        producteur: "Producteur",
+        operateurDesigneDuMarcheOuNemo: "Opérateur désigné du marché ou NEMO",
+        acteurDuMarche: "Acteur du marché",
+        exploitantDePointDeRecharge: "Exploitant de point de recharge",
+        autre: "Aucun",
+      },
     },
-  },
-  gaz: {
-    libelle: "Gaz",
-    activites: {},
-  },
-  hydrogene: {
-    libelle: "Hydrogène",
-    activites: {},
-  },
-  petrole: {
-    libelle: "Pétrole",
-    activites: {},
-  },
-  reseauxDeChaleurEtDeFroid: {
-    libelle: "Réseaux de chaleur et de froid",
-    activites: {},
-  },
+    gaz: {
+      libelle: "Gaz",
+      activites: {},
+    },
+    hydrogene: {
+      libelle: "Hydrogène",
+      activites: {},
+    },
+    petrole: {
+      libelle: "Pétrole",
+      activites: {},
+    },
+    reseauxChaleurFroid: {
+      libelle: "Réseaux de chaleur et de froid",
+      activites: {},
+    },
+  };
+
+export const sousSecteurFabrication: DetailsSousSecteurUnique<TValeursSousSecteurFabrication> =
+  {
+    fabricationFabricationProduitsInformatiquesElectroniquesOptiques: {
+      libelle:
+        "Fabrication de produits informatiques, électroniques et optiques",
+      activites: {},
+    },
+    constructionVehiculesAutomobiles: {
+      libelle:
+        "Construction de véhicules automobiles, remorques et semi- remorques",
+      activites: {},
+    },
+    fabricationAutresMaterielTransports: {
+      libelle: "Fabrication d’autres matériels de transport",
+      activites: {},
+    },
+    fabricationDispositifsMedicaux: {
+      libelle:
+        "Fabrication de dispositifs médicaux et de dispositifs médicaux de diagnostic in vitro",
+      activites: {},
+    },
+    fabricationEquipementsElectroniques: {
+      libelle:
+        "Fabrication de produits informatiques, électroniques et optiques",
+      activites: {},
+    },
+    fabricationMachinesEquipements: {
+      libelle: "Fabrication de machines et équipements n.c.a.",
+      activites: {},
+    },
+  };
+
+export const sousSecteurTransports: DetailsSousSecteurUnique<TValeursSousSecteurTransport> =
+  {
+    transportsAeriens: {
+      libelle: "Aériens",
+      activites: {},
+    },
+    transportsFerroviaires: {
+      libelle: "Ferroviaires",
+      activites: {},
+    },
+    transportsParEau: {
+      libelle: "Par eau",
+      activites: {},
+    },
+    transportsRoutiers: {
+      libelle: "Routiers",
+      activites: {},
+    },
+  };
+
+export const sousSecteurs: DetailsSousSecteurs = {
+  ...sousSecteursEnergie,
+  ...sousSecteurFabrication,
+  ...sousSecteurTransports,
 };
-type DescriptionSecteur = {
-  activites: ListeActivites;
-  sousSecteurs?: Record<ValeursSousSecteurEnergie, DescriptionSousSecteur>;
-};
+
 export const detailsDesSecteurs: Record<
-  ValeursSecteurActivite,
+  TValeursSecteursActivites,
   DescriptionSecteur
 > = {
   administrationPublique: { activites: {} },
@@ -86,17 +152,66 @@ export const detailsDesSecteurs: Record<
   },
   espace: { activites: {} },
   fabrication: { activites: {} },
-  fabricationProductionEtDistributionDeProduitsChimiques: { activites: {} },
+  fabricationProductionDistributionProduitsChimiques: { activites: {} },
   fournisseursNumeriques: { activites: {} },
-  gestionDesDechets: { activites: {} },
-  gestionDesServicesTic: { activites: {} },
-  infrastructureDesMarchesFinanciers: { activites: {} },
+  gestionDechets: { activites: {} },
+  gestionServicesTic: { activites: {} },
+  infrastructureMarchesFinanciers: { activites: {} },
   infrastructureNumerique: { activites: {} },
-  productionTransformationEtDistributionDeDenreesAlimentaires: {
+  productionTransformationDistributionDenreesAlimentaires: {
     activites: {},
   },
   recherche: { activites: {} },
   sante: { activites: {} },
-  servicesPostauxEtDExpedition: { activites: {} },
+  servicesPostauxExpedition: { activites: {} },
   transports: { activites: {} },
+};
+
+export const activitesParSecteurEtSousSecteur: Record<
+  TValeursSectorielles,
+  readonly TValeursActivites[]
+> = {
+  autre: [],
+  administrationPublique: ValeursActivitesAdministrationPublique,
+  banqueSecteurBancaire: ValeursActivitesSecteurBancaire,
+  constructionVehiculesAutomobiles:
+    ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
+  eauPotable: ValeursActivitesEauPotable,
+  eauxUsees: ValeursActivitesEauUsees,
+  electricite: ValeursActivitesElectricite,
+  energie: ValeursActivitesEnergie,
+  espace: ValeursActivitesEspace,
+  fabrication: ValeursActivitesFabrication,
+  fabricationAutresMaterielTransports:
+    ValeursActivitesFabricationAutreMaterielsTransports,
+  fabricationDispositifsMedicaux:
+    ValeursActivitesFabricationDispositifsMedicaux,
+  fabricationEquipementsElectroniques:
+    ValeursActivitesFabricationEquipementsElectroniques,
+  fabricationMachinesEquipements:
+    ValeursActivitesFabricationMachinesEquipements,
+  fabricationProductionDistributionProduitsChimiques:
+    ValeursActivitesFabricationProductionDistributionProduitsChimiques,
+  fabricationFabricationProduitsInformatiquesElectroniquesOptiques:
+    ValeursActivitesFabricationProduitsInformatiquesElectroniquesOptiques,
+  fournisseursNumeriques: ValeursActivitesFournisseursNumeriques,
+  gaz: ValeursActivitesGaz,
+  gestionDechets: ValeursActivitesGestionDechets,
+  gestionServicesTic: ValeursActivitesGestionServicesTic,
+  hydrogene: ValeursActivitesHydrogene,
+  infrastructureMarchesFinanciers:
+    ValeursActivitesInfrastructureMarcheFinancier,
+  infrastructureNumerique: ValeursActivitesInfrastructureNumerique,
+  petrole: ValeursActivitesPetrole,
+  productionTransformationDistributionDenreesAlimentaires:
+    ValeursActivitesProductionTransformationDistributionDenreesAlimentaires,
+  recherche: ValeursActivitesRecherche,
+  reseauxChaleurFroid: ValeursActivitesReseauxChaleurFroid,
+  sante: ValeursActivitesSante,
+  servicesPostauxExpedition: ValeursActivitesServicesPostauxExpedition,
+  transports: ValeursActivitesTransports,
+  transportsAeriens: ValeursActivitesTransportsAeriens,
+  transportsFerroviaires: ValeursActivitesTransportsFerroviaires,
+  transportsParEau: ValeursActivitesTransportsParEaux,
+  transportsRoutiers: ValeursActivitesTransportsRoutiers,
 };

@@ -4,7 +4,7 @@ import {
 } from "./simulateurFrontServices.ts";
 import {
   ValeursClePaysUnionEuropeenne,
-  ValeursSecteurActivite,
+  TValeursSecteursActivites,
   ValeursTrancheCA,
   ValeursTrancheNombreEmployes,
   ValeursTypeStructure,
@@ -45,9 +45,9 @@ export const transformeTranchesCAVersOptions: TransformeRecordToSelect<ValeursTr
   genereTransformateurValeursVersOptions(getCALabel, "trancheCA");
 export const getSecteurActiviteLabel = (
   value: string,
-  secteurActivite: Record<ValeursSecteurActivite, string>,
-) => secteurActivite[value as ValeursSecteurActivite];
-export const transformeSecteursActiviteVersOptions: TransformeRecordToSelect<ValeursSecteurActivite> =
+  secteurActivite: Record<TValeursSecteursActivites, string>,
+) => secteurActivite[value as TValeursSecteursActivites];
+export const transformeSecteursActiviteVersOptions: TransformeRecordToSelect<TValeursSecteursActivites> =
   genereTransformateurValeursVersOptions(
     getSecteurActiviteLabel,
     "secteurActivite",

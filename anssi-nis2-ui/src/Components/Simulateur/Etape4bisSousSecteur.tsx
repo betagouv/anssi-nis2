@@ -8,11 +8,9 @@ import {
   SelectOptions,
   TransformeRecordToSelect,
 } from "../../Services/Simulateur/simulateurFrontServices.ts";
-import { ValeursSousSecteurEnergie } from "../../Domaine/Simulateur/ValeursCles.ts";
-import {
-  DescriptionSousSecteur,
-  sousSecteursEnergie,
-} from "../../Domaine/Simulateur/SecteursActivite.ts";
+import { TValeursSousSecteurEnergie } from "../../Domaine/Simulateur/ValeursCles.ts";
+import { sousSecteursEnergie } from "../../Domaine/Simulateur/SecteursActivite.ts";
+import { DescriptionSousSecteur } from "../../Domaine/Simulateur/Secteurs";
 
 const Etape4bisSousSecteur = ({
   propageActionSimulateur,
@@ -20,7 +18,7 @@ const Etape4bisSousSecteur = ({
 }: SimulateurContenuEtapeProps) => {
   const gereChangement = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = event.target.value as ValeursSousSecteurEnergie;
+      const newValue = event.target.value as TValeursSousSecteurEnergie;
       propageActionSimulateur({
         type: "checkMulti",
         name: "sousSecteurActivite",
@@ -37,14 +35,14 @@ const Etape4bisSousSecteur = ({
     const valeursSousSecteur = sousSecteursEnergie; //detailsDesSecteurs.energie.sousSecteurs;
 
     const getSousSecteurLabel: labelGenerator<
-      ValeursSousSecteurEnergie,
+      TValeursSousSecteurEnergie,
       DescriptionSousSecteur
     > = (
       value: string,
-      sousSecteur: Record<ValeursSousSecteurEnergie, DescriptionSousSecteur>,
-    ) => sousSecteur[value as ValeursSousSecteurEnergie].libelle;
+      sousSecteur: Record<TValeursSousSecteurEnergie, DescriptionSousSecteur>,
+    ) => sousSecteur[value as TValeursSousSecteurEnergie].libelle;
     const transformateurSousSecteurActivite: TransformeRecordToSelect<
-      ValeursSousSecteurEnergie,
+      TValeursSousSecteurEnergie,
       DescriptionSousSecteur
     > = genereTransformateurValeursVersOptions(
       getSousSecteurLabel,
