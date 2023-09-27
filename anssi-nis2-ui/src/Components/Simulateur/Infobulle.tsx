@@ -26,17 +26,8 @@ export const Infobulle = ({
   action: () => void;
 }) => {
   return (
-    <div
-      className={fr.cx(
-        "fr-callout",
-        "fr-grid-row",
-        // "fr-alert",
-        cachee && "fr-hidden",
-      )}
-      id={id}
-    >
-      <h3 className="fr-alert__title">Entreprise d’électricité</h3>
-      <p className="fr-callout__text">{contenu}</p>
+    <div className={fr.cx("fr-callout", cachee && "fr-hidden")} id={id}>
+      {contenu}
       <BoutonFerme
         className="fr-btn--close fr-btn"
         title="Masquer le message"

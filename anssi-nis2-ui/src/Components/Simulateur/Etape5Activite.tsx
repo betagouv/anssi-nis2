@@ -11,6 +11,7 @@ import { Infobulle } from "./Infobulle.tsx";
 import { changeInfobulleOuverte } from "../../Services/Simulateur/reducers.ts";
 import { IconeInfobulle } from "../Icones/IconeInfobulle.tsx";
 import { LibellesActivites } from "../../Domaine/Simulateur/LibellesActivites.ts";
+import { DescriptionActivite } from "../../Domaine/Simulateur/DescriptionActivite.tsx";
 
 const Etape5Activite = ({
   propageActionSimulateur,
@@ -32,9 +33,9 @@ const Etape5Activite = ({
       });
 
     const optionsBrutesSecteurActivite: ListeOptionsChampFormulaire =
-      activitesParSecteurEtSousSecteur["energie"].map((activite, index) => ({
+      activitesParSecteurEtSousSecteur["energie"].map((activite) => ({
         label: LibellesActivites[activite],
-        contenuInfobulle: <p>{`Je t'indique ${index}: ${activite}`}</p>,
+        contenuInfobulle: DescriptionActivite[activite],
         nativeInputProps: {
           value: activite,
           checked: formData && formData.activites.includes(activite),
