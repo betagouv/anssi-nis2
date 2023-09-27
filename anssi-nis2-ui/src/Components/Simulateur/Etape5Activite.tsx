@@ -4,89 +4,13 @@ import {
   ListeOptionsChampFormulaire,
   SimulateurContenuEtapeProps,
 } from "../../Services/Simulateur/props.ts";
-import React, {
-  useEffect,
-  useState,
-  useId,
-  useReducer,
-  Reducer,
-  ReactNode,
-} from "react";
+import React, { useEffect, useId, useReducer, useState } from "react";
 import { NomsChampsSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
 import { detailsDesSecteurs } from "../../Domaine/Simulateur/SecteursActivite.ts";
-import { VVV } from "../../utilitaires/debug.ts";
 import { fr } from "@codegouvfr/react-dsfr";
-import styled from "@emotion/styled";
-
-const changeInfobulleOuverte: Reducer<
-  {
-    id: string;
-  },
-  string
-> = ({ id }, nouvelId) => {
-  if (id === nouvelId) return { id: "" };
-  return { id: nouvelId };
-};
-
-const BoutonFerme = styled.button`
-  position: absolute;
-  top: 0;
-  right: 2rem;
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  min-height: 2rem;
-  overflow: hidden;
-  white-space: nowrap;
-  max-width: 4rem;
-  max-height: 4rem;
-`;
-const Infobulle = ({
-  id,
-  cachee,
-  contenu,
-  action,
-}: {
-  id: string;
-  cachee: boolean;
-  contenu: ReactNode;
-  action: () => void;
-}) => {
-  return (
-    <div
-      className={fr.cx(
-        "fr-callout",
-        "fr-grid-row",
-        // "fr-alert",
-        cachee && "fr-hidden",
-      )}
-      id={id}
-    >
-      <h3 className="fr-alert__title">Entreprise d’électricité</h3>
-      <p className="fr-callout__text">{contenu}</p>
-      <BoutonFerme
-        className="fr-btn--close fr-btn"
-        title="Masquer le message"
-        onClick={action}
-      />
-    </div>
-  );
-};
-
-const Icone16 = styled.i`
-  padding-left: 0.5rem;
-
-  &::before {
-    --icon-size: 1.125rem;
-  }
-`;
-
-const IconeInfobulle = (props: { onClick: () => void; label: string }) => (
-  <Icone16
-    className="fr-icon-error-warning-fill fr-text-action-high--blue-france"
-    onClick={props.onClick}
-    title={`Informations à propos de l'activité "${props.label}"`}
-  />
-);
+import { Infobulle } from "./Infobulle.tsx";
+import { changeInfobulleOuverte } from "../../Services/Simulateur/reducers.ts";
+import { IconeInfobulle } from "../Icones/IconeInfobulle.tsx";
 
 const Etape5Activite = ({
   propageActionSimulateur,
@@ -135,7 +59,6 @@ const Etape5Activite = ({
       }),
     );
   }, [formData, propageActionSimulateur]);
-  VVV("Valeurs Options", optionsSecteurActivite);
 
   const id = `default-${useId()}`;
   const getInputId = (i: number) => `${id}-${i}`;

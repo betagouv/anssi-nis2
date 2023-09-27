@@ -85,7 +85,7 @@ export const AffichageInfobulles: Story = {
         );
         const paragraphe = await canvas.getByText(contenuAffiche);
         const divInfobulle = paragraphe.parentElement?.parentElement?.classList;
-        // const blockInfo = await canvas.getAllByText(titreAffiche);
+        // const blockInfo = await canvas.getByText(titreAffiche);
 
         expect(divInfobulle).toContain("fr-hidden");
         await userEvent.click(iconeInformation);
