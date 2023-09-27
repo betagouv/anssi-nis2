@@ -74,8 +74,7 @@ export const AffichageInfobulles: Story = {
     const canvas = within(canvasElement);
     const elementInfobulle = `Entreprise d’électricité remplissant une fonction de fourniture`;
     // const titreAffiche = "Entreprise d’électricité";
-    const contenuAffiche =
-      "Je t'indique 0: energie[entrepriseElectriciteRemplissantUneFonctionDeFourniture]";
+    const contenuAffiche = "Entreprise d’électricité";
     await step(
       `Clique sur '${elementInfobulle}' affiche une infobulle`,
       async () => {
@@ -83,12 +82,19 @@ export const AffichageInfobulles: Story = {
           `Informations à propos de l'activité "${elementInfobulle}"`,
         );
         const paragraphe = await canvas.getByText(contenuAffiche);
-        const divInfobulle = paragraphe.parentElement?.parentElement?.classList;
-        // const blockInfo = await canvas.getByText(titreAffiche);
+        expect(paragraphe.parentElement).toBeDefined();
+        const parentElement = paragraphe.parentElement as HTMLElement;
+        const divInfobulle = parentElement.classList;
 
         expect(divInfobulle).toContain("fr-hidden");
         await userEvent.click(iconeInformation);
         expect(divInfobulle).not.toContain("fr-hidden");
+        await userEvent.click(iconeInformation);
+        expect(divInfobulle).toContain("fr-hidden");
+        await userEvent.click(iconeInformation);
+        const truc = within(parentElement);
+        await userEvent.click(truc.getByTitle("Masquer le message"));
+        expect(divInfobulle).toContain("fr-hidden");
       },
     );
   },
