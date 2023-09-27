@@ -50,14 +50,14 @@ export const sousSecteursEnergie: DetailsSousSecteurUnique<TValeursSousSecteurEn
     electricite: {
       libelle: "Électricité",
       activites: {
-        entrepriseElectriciteRemplissantUneFonctionDeFourniture:
+        entrepriseElectriciteRemplissantFonctionFourniture:
           "Entreprise d’électricité remplissant une fonction de fourniture",
-        gestionnaireDeReseau: "Gestionnaire de réseau de distribution",
+        gestionnaireReseau: "Gestionnaire de réseau de distribution",
         gestionnaireReseauTransport: "Gestionnaire de réseau de transport",
         producteur: "Producteur",
-        operateurDesigneDuMarcheOuNemo: "Opérateur désigné du marché ou NEMO",
+        operateurDesigneMarcheOuNemo: "Opérateur désigné du marché ou NEMO",
         acteurDuMarche: "Acteur du marché",
-        exploitantDePointDeRecharge: "Exploitant de point de recharge",
+        exploitantsPointRecharge: "Exploitant de point de recharge",
         autre: "Aucun",
       },
     },

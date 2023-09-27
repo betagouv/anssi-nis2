@@ -50,8 +50,7 @@ export const CliqueSurLesOptions: Story = {
       {
         libelle:
           "Entreprise d’électricité remplissant une fonction de fourniture",
-        newValue:
-          "energie[entrepriseElectriciteRemplissantUneFonctionDeFourniture]",
+        newValue: "entrepriseElectriciteRemplissantFonctionFourniture",
       },
     ];
 

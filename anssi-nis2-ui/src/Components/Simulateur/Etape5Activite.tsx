@@ -1,4 +1,3 @@
-import { genereTransformateurValeursVersOptions } from "../../Services/Simulateur/simulateurFrontServices.ts";
 import { FormSimulateur } from "./index.ts";
 import {
   ListeOptionsChampFormulaire,
@@ -6,11 +5,12 @@ import {
 } from "../../Services/Simulateur/props.ts";
 import React, { useEffect, useId, useReducer, useState } from "react";
 import { NomsChampsSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
-import { detailsDesSecteurs } from "../../Domaine/Simulateur/SecteursActivite.ts";
+import { activitesParSecteurEtSousSecteur } from "../../Domaine/Simulateur/SecteursActivite.ts";
 import { fr } from "@codegouvfr/react-dsfr";
 import { Infobulle } from "./Infobulle.tsx";
 import { changeInfobulleOuverte } from "../../Services/Simulateur/reducers.ts";
 import { IconeInfobulle } from "../Icones/IconeInfobulle.tsx";
+import { LibellesActivites } from "../../Domaine/Simulateur/LibellesActivites.ts";
 
 const Etape5Activite = ({
   propageActionSimulateur,
@@ -24,9 +24,6 @@ const Etape5Activite = ({
   );
 
   useEffect(() => {
-    const valeursActivites =
-      detailsDesSecteurs.energie.sousSecteurs?.electricite.activites || {};
-
     const changeMulti: React.ChangeEventHandler<HTMLInputElement> = (evt) =>
       propageActionSimulateur({
         type: "checkMulti",
@@ -34,30 +31,19 @@ const Etape5Activite = ({
         newValue: evt.target.value,
       });
 
-    const transformateurSecteurActivite =
-      genereTransformateurValeursVersOptions<string>(
-        (cle: string, valeurs: Record<string, string>) => valeurs[cle],
-        "activites",
-      );
-    const optionsBrutesSecteurActivite = transformateurSecteurActivite(
-      valeursActivites,
-      changeMulti,
-      formData,
-      "energie",
-    );
-    setOptionsSecteurActivite(
-      optionsBrutesSecteurActivite.map((option, i) => {
-        return {
-          ...option,
-          contenuInfobulle: (
-            <p>{`Je t'indique ${i}: ${option.nativeInputProps.value}`}</p>
-          ),
-          nativeInputProps: {
-            ...option.nativeInputProps,
-          },
-        };
-      }),
-    );
+    const optionsBrutesSecteurActivite: ListeOptionsChampFormulaire =
+      activitesParSecteurEtSousSecteur["energie"].map((activite, index) => ({
+        label: LibellesActivites[activite],
+        contenuInfobulle: <p>{`Je t'indique ${index}: ${activite}`}</p>,
+        nativeInputProps: {
+          value: activite,
+          checked: formData && formData.activites.includes(activite),
+          onChange: changeMulti,
+          name: "activites",
+        },
+      }));
+
+    setOptionsSecteurActivite(optionsBrutesSecteurActivite);
   }, [formData, propageActionSimulateur]);
 
   const id = `default-${useId()}`;
