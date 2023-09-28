@@ -4,6 +4,7 @@ import {
   TValeursSectorielles,
   TValeursSousSecteurEnergie,
   TValeursSousSecteurFabrication,
+  TValeursSousSecteursActivites,
   TValeursSousSecteurTransport,
   ValeursActivitesAdministrationPublique,
   ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
@@ -38,133 +39,63 @@ import {
   ValeursActivitesTransportsFerroviaires,
   ValeursActivitesTransportsParEaux,
   ValeursActivitesTransportsRoutiers,
+  ValeursSousSecteurEnergie,
+  ValeursSousSecteurFabrication,
+  ValeursSousSecteurTransport,
 } from "./ValeursCles.ts";
-import {
-  DescriptionSecteur,
-  DetailsSousSecteurs,
-  DetailsSousSecteurUnique,
-} from "./Secteurs";
+import { DescriptionSecteur, DetailsSousSecteurUnique } from "./Secteurs";
 
 export const sousSecteursEnergie: DetailsSousSecteurUnique<TValeursSousSecteurEnergie> =
   {
-    electricite: {
-      libelle: "Électricité",
-      activites: {
-        entrepriseElectriciteRemplissantFonctionFourniture:
-          "Entreprise d’électricité remplissant une fonction de fourniture",
-        gestionnaireReseau: "Gestionnaire de réseau de distribution",
-        gestionnaireReseauTransport: "Gestionnaire de réseau de transport",
-        producteur: "Producteur",
-        operateurDesigneMarcheOuNemo: "Opérateur désigné du marché ou NEMO",
-        acteurDuMarche: "Acteur du marché",
-        exploitantsPointRecharge: "Exploitant de point de recharge",
-        autre: "Aucun",
-      },
-    },
-    gaz: {
-      libelle: "Gaz",
-      activites: {},
-    },
-    hydrogene: {
-      libelle: "Hydrogène",
-      activites: {},
-    },
-    petrole: {
-      libelle: "Pétrole",
-      activites: {},
-    },
-    reseauxChaleurFroid: {
-      libelle: "Réseaux de chaleur et de froid",
-      activites: {},
-    },
+    electricite: "Électricité",
+    gaz: "Gaz",
+    hydrogene: "Hydrogène",
+    petrole: "Pétrole",
+    reseauxChaleurFroid: "Réseaux de chaleur et de froid",
   };
 
 export const sousSecteurFabrication: DetailsSousSecteurUnique<TValeursSousSecteurFabrication> =
   {
-    fabricationFabricationProduitsInformatiquesElectroniquesOptiques: {
-      libelle:
-        "Fabrication de produits informatiques, électroniques et optiques",
-      activites: {},
-    },
-    constructionVehiculesAutomobiles: {
-      libelle:
-        "Construction de véhicules automobiles, remorques et semi- remorques",
-      activites: {},
-    },
-    fabricationAutresMaterielTransports: {
-      libelle: "Fabrication d’autres matériels de transport",
-      activites: {},
-    },
-    fabricationDispositifsMedicaux: {
-      libelle:
-        "Fabrication de dispositifs médicaux et de dispositifs médicaux de diagnostic in vitro",
-      activites: {},
-    },
-    fabricationEquipementsElectroniques: {
-      libelle:
-        "Fabrication de produits informatiques, électroniques et optiques",
-      activites: {},
-    },
-    fabricationMachinesEquipements: {
-      libelle: "Fabrication de machines et équipements n.c.a.",
-      activites: {},
-    },
+    fabricationFabricationProduitsInformatiquesElectroniquesOptiques:
+      "Fabrication de produits informatiques, électroniques et optiques",
+
+    constructionVehiculesAutomobiles:
+      "Construction de véhicules automobiles, remorques et semi- remorques",
+
+    fabricationAutresMaterielTransports:
+      "Fabrication d’autres matériels de transport",
+
+    fabricationDispositifsMedicaux:
+      "Fabrication de dispositifs médicaux et de dispositifs médicaux de diagnostic in vitro",
+
+    fabricationEquipementsElectroniques:
+      "Fabrication de produits informatiques, électroniques et optiques",
+
+    fabricationMachinesEquipements:
+      "Fabrication de machines et équipements n.c.a.",
   };
 
 export const sousSecteurTransports: DetailsSousSecteurUnique<TValeursSousSecteurTransport> =
   {
-    transportsAeriens: {
-      libelle: "Aériens",
-      activites: {},
-    },
-    transportsFerroviaires: {
-      libelle: "Ferroviaires",
-      activites: {},
-    },
-    transportsParEau: {
-      libelle: "Par eau",
-      activites: {},
-    },
-    transportsRoutiers: {
-      libelle: "Routiers",
-      activites: {},
-    },
+    transportsAeriens: "Aériens",
+    transportsFerroviaires: "Ferroviaires",
+    transportsParEau: "Par eau",
+    transportsRoutiers: "Routiers",
   };
 
-export const sousSecteurs: DetailsSousSecteurs = {
+export const sousSecteurs: Record<TValeursSousSecteursActivites, string> = {
   ...sousSecteursEnergie,
   ...sousSecteurFabrication,
   ...sousSecteurTransports,
 };
 
-export const detailsDesSecteurs: Record<
-  TValeursSecteursActivites,
+export const sousSecteursParSecteur: Record<
+  Extract<TValeursSecteursActivites, "energie" | "transports" | "fabrication">,
   DescriptionSecteur
 > = {
-  administrationPublique: { activites: {} },
-  autre: { activites: {} },
-  banqueSecteurBancaire: { activites: {} },
-  eauPotable: { activites: {} },
-  eauxUsees: { activites: {} },
-  energie: {
-    activites: {},
-    sousSecteurs: sousSecteursEnergie,
-  },
-  espace: { activites: {} },
-  fabrication: { activites: {} },
-  fabricationProductionDistributionProduitsChimiques: { activites: {} },
-  fournisseursNumeriques: { activites: {} },
-  gestionDechets: { activites: {} },
-  gestionServicesTic: { activites: {} },
-  infrastructureMarchesFinanciers: { activites: {} },
-  infrastructureNumerique: { activites: {} },
-  productionTransformationDistributionDenreesAlimentaires: {
-    activites: {},
-  },
-  recherche: { activites: {} },
-  sante: { activites: {} },
-  servicesPostauxExpedition: { activites: {} },
-  transports: { activites: {} },
+  energie: ValeursSousSecteurEnergie,
+  transports: ValeursSousSecteurTransport,
+  fabrication: ValeursSousSecteurFabrication,
 };
 
 export const activitesParSecteurEtSousSecteur: Record<

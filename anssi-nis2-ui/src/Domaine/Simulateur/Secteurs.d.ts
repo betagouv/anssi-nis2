@@ -11,21 +11,15 @@ export type DescriptionSousSecteur = {
   libelle: string;
   activites: ListeActivites;
 };
-export type DetailsSousSecteurs = Record<
-  TValeursSousSecteursActivites,
-  DescriptionSousSecteur
->;
+export type DetailsSousSecteurs = Record<TValeursSousSecteursActivites, string>;
 export type DetailsSousSecteurUnique<
   T extends
     | TValeursSousSecteurEnergie
     | TValeursSousSecteurFabrication
     | TValeursSousSecteurTransport,
-> = Record<T, DescriptionSousSecteur>;
+> = Record<T, string>;
 
-export type DescriptionSecteur = {
-  activites: ListeActivites;
-  sousSecteurs?:
-    | DetailsSousSecteurUnique<TValeursSousSecteurEnergie>
-    | DetailsSousSecteurUnique<TValeursSousSecteurFabrication>
-    | DetailsSousSecteurUnique<TValeursSousSecteurTransport>;
-};
+export type DescriptionSecteur =
+  | ValeursSousSecteurEnergie
+  | ValeursSousSecteurFabrication
+  | ValeursSousSecteurTransport;
