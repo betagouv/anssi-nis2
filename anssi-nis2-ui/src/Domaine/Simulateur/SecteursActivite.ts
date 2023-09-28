@@ -45,7 +45,7 @@ import {
 } from "./ValeursCles.ts";
 import { DescriptionSecteur, DetailsSousSecteurUnique } from "./Secteurs";
 
-export const sousSecteursEnergie: DetailsSousSecteurUnique<TValeursSousSecteurEnergie> =
+export const libellesSousSecteursEnergie: DetailsSousSecteurUnique<TValeursSousSecteurEnergie> =
   {
     electricite: "Électricité",
     gaz: "Gaz",
@@ -54,7 +54,7 @@ export const sousSecteursEnergie: DetailsSousSecteurUnique<TValeursSousSecteurEn
     reseauxChaleurFroid: "Réseaux de chaleur et de froid",
   };
 
-export const sousSecteurFabrication: DetailsSousSecteurUnique<TValeursSousSecteurFabrication> =
+export const libellesSousSecteurFabrication: DetailsSousSecteurUnique<TValeursSousSecteurFabrication> =
   {
     fabricationFabricationProduitsInformatiquesElectroniquesOptiques:
       "Fabrication de produits informatiques, électroniques et optiques",
@@ -75,7 +75,7 @@ export const sousSecteurFabrication: DetailsSousSecteurUnique<TValeursSousSecteu
       "Fabrication de machines et équipements n.c.a.",
   };
 
-export const sousSecteurTransports: DetailsSousSecteurUnique<TValeursSousSecteurTransport> =
+export const libellesSousSecteurTransports: DetailsSousSecteurUnique<TValeursSousSecteurTransport> =
   {
     transportsAeriens: "Aériens",
     transportsFerroviaires: "Ferroviaires",
@@ -83,10 +83,13 @@ export const sousSecteurTransports: DetailsSousSecteurUnique<TValeursSousSecteur
     transportsRoutiers: "Routiers",
   };
 
-export const sousSecteurs: Record<TValeursSousSecteursActivites, string> = {
-  ...sousSecteursEnergie,
-  ...sousSecteurFabrication,
-  ...sousSecteurTransports,
+export const libellesSousSecteursActivite: Record<
+  TValeursSousSecteursActivites,
+  string
+> = {
+  ...libellesSousSecteursEnergie,
+  ...libellesSousSecteurFabrication,
+  ...libellesSousSecteurTransports,
 };
 
 export const sousSecteursParSecteur: Record<

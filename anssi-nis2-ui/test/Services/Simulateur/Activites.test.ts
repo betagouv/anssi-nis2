@@ -1,61 +1,14 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
 } from "../../../src/Services/Simulateur/donneesFormulaire";
 import { libellesSecteursActivite } from "../../../src/Domaine/Simulateur/LibellesSecteursActivite";
+import { libellesSousSecteursActivite } from "../../../src/Domaine/Simulateur/SecteursActivite";
 import {
-  TValeursSecteursActivites,
-  TValeursSousSecteursActivites,
-} from "../../../src/Domaine/Simulateur/ValeursCles";
-import {
-  secteurParSousSecteur,
-  sousSecteursParSecteur,
-} from "../../../src/Domaine/Simulateur/SecteursActivite";
-
-const collecteTitresPourActivite = (
-  libellesSecteursActivite: Record<TValeursSecteursActivites, string>,
-  donneesFormulaire: DonneesFormulaireSimulateur,
-): string[] => {
-  const collecteSousSecteurActivite = (
-    sousSecteur: TValeursSousSecteursActivites,
-  ) =>
-    libellesSecteursActivite[secteurParSousSecteur[sousSecteur]] +
-    " / " +
-    libellesSecteursActivite[sousSecteur];
-  const collecteSecteurActivite = (secteur: TValeursSecteursActivites) =>
-    libellesSecteursActivite[secteur];
-
-  return donneesFormulaire.secteurActivite.map(collecteSecteurActivite);
-};
-
-const cartographieSousSecteursParSecteur = (
-  donneesFormulaire: DonneesFormulaireSimulateur,
-): Partial<
-  Record<TValeursSecteursActivites, TValeursSousSecteursActivites[]>
-> => {
-  const { secteurActivite, sousSecteurActivite } = donneesFormulaire;
-
-  const secteursStructures = secteurActivite
-    .filter((secteur) => !Object.keys(sousSecteursParSecteur).includes(secteur))
-    .reduce((acc, currentValue) => ({ ...acc, [currentValue]: [] }), {});
-
-  const sousSecteursStructures: Partial<
-    Record<TValeursSecteursActivites, TValeursSousSecteursActivites[]>
-  > = secteurActivite
-    .filter((secteur) => Object.keys(sousSecteursParSecteur).includes(secteur))
-    .reduce(
-      (acc, currentValue) => ({
-        ...acc,
-        [currentValue]: sousSecteurActivite.filter((sousSecteur) =>
-          sousSecteursParSecteur[currentValue].includes(sousSecteur),
-        ),
-      }),
-      {},
-    );
-
-  return { ...secteursStructures, ...sousSecteursStructures };
-};
+  cartographieSousSecteursParSecteur,
+  collecteTitresPourActivite,
+} from "../../../src/Services/Simulateur/Transformateurs";
 
 describe("Questionnaire activités", () => {
   it("Retourne le titre du secteur 'Espace' s'il est seul présent dans les données formulaire", () => {
@@ -66,6 +19,7 @@ describe("Questionnaire activités", () => {
     const titresAttendus = ["Espace"];
     const titresExtraits: string[] = collecteTitresPourActivite(
       libellesSecteursActivite,
+      libellesSousSecteursActivite,
       donneesFormulaire,
     );
 
@@ -89,18 +43,19 @@ describe("Questionnaire activités", () => {
       carteSousSecteurParSecteurAttendue,
     );
   });
-  // it("Retourne le titre du secteur 'Énergie / Électricité' si seul le sous secteur 'Électricité' est présent dans les données formulaire", () => {
-  //   const donneesFormulaire: DonneesFormulaireSimulateur = {
-  //     ...donneesFormulaireSimulateurVide,
-  //     secteurActivite: ["energie"],
-  //     sousSecteurActivite: ["electricite"],
-  //   };
-  //   const titresAttendus = ["Énergie / Électricité"];
-  //   const titresExtraits: string[] = collecteTitresPourActivite(
-  //     libellesSecteursActivite,
-  //     donneesFormulaire,
-  //   );
-  //
-  //   expect(titresExtraits).toStrictEqual(titresAttendus);
-  // });
+  it("Retourne le titre du secteur 'Énergie / Électricité' si seul le sous secteur 'Électricité' est présent dans les données formulaire", () => {
+    const donneesFormulaire: DonneesFormulaireSimulateur = {
+      ...donneesFormulaireSimulateurVide,
+      secteurActivite: ["energie"],
+      sousSecteurActivite: ["electricite"],
+    };
+    const titresAttendus = ["Énergie / Électricité"];
+    const titresExtraits: string[] = collecteTitresPourActivite(
+      libellesSecteursActivite,
+      libellesSousSecteursActivite,
+      donneesFormulaire,
+    );
+
+    expect(titresExtraits).toStrictEqual(titresAttendus);
+  });
 });

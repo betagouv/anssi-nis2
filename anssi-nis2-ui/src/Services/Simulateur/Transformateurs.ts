@@ -3,12 +3,15 @@ import {
   TransformeRecordToSelect,
 } from "./simulateurFrontServices.ts";
 import {
-  ValeursClePaysUnionEuropeenne,
   TValeursSecteursActivites,
+  TValeursSousSecteursActivites,
+  ValeursClePaysUnionEuropeenne,
   ValeursTrancheCA,
   ValeursTrancheNombreEmployes,
   ValeursTypeStructure,
 } from "../../Domaine/Simulateur/ValeursCles.ts";
+import { DonneesFormulaireSimulateur } from "./donneesFormulaire.ts";
+import { sousSecteursParSecteur } from "../../Domaine/Simulateur/SecteursActivite.ts";
 
 const getPaysUnionEuropeenneElement = (
   value: string,
@@ -52,3 +55,65 @@ export const transformeSecteursActiviteVersOptions: TransformeRecordToSelect<TVa
     getSecteurActiviteLabel,
     "secteurActivite",
   );
+export const collecteTitresPourActivite = (
+  libellesSecteursActivite: Record<TValeursSecteursActivites, string>,
+  libellesSousSecteursActivite: Record<TValeursSousSecteursActivites, string>,
+  donneesFormulaire: DonneesFormulaireSimulateur,
+): string[] => {
+  const cartographieSecteurs =
+    cartographieSousSecteursParSecteur(donneesFormulaire);
+
+  const collecteTitreSousSecteurs = (
+    libelleSecteursActivite: string,
+    listeSousSecteurs: TValeursSousSecteursActivites[],
+  ) =>
+    listeSousSecteurs.map(
+      (sousSecteur: TValeursSousSecteursActivites) =>
+        `${libelleSecteursActivite} / ${libellesSousSecteursActivite[sousSecteur]}`,
+    );
+
+  return Object.entries(cartographieSecteurs).reduce(
+    (acc: string[], [secteur, listeSousSecteurs]) => {
+      const libelleSecteursActivite: string =
+        libellesSecteursActivite[secteur as TValeursSecteursActivites];
+      return [
+        ...acc,
+        ...(listeSousSecteurs.length === 0
+          ? [libelleSecteursActivite]
+          : collecteTitreSousSecteurs(
+              libelleSecteursActivite,
+              listeSousSecteurs,
+            )),
+      ];
+    },
+    [],
+  );
+};
+export const cartographieSousSecteursParSecteur = (
+  donneesFormulaire: DonneesFormulaireSimulateur,
+): Partial<
+  Record<TValeursSecteursActivites, TValeursSousSecteursActivites[]>
+> => {
+  const { secteurActivite, sousSecteurActivite } = donneesFormulaire;
+
+  const secteursStructures = secteurActivite
+    .filter((secteur) => !Object.keys(sousSecteursParSecteur).includes(secteur))
+    .reduce((acc, currentValue) => ({ ...acc, [currentValue]: [] }), {});
+
+  const sousSecteursStructures: Partial<
+    Record<TValeursSecteursActivites, TValeursSousSecteursActivites[]>
+  > = secteurActivite
+    .filter((secteur) => Object.keys(sousSecteursParSecteur).includes(secteur))
+    .reduce((acc, currentValue) => {
+      return {
+        ...acc,
+        [currentValue]: sousSecteurActivite.filter((sousSecteur) =>
+          sousSecteursParSecteur[
+            currentValue as "energie" | "transports" | "fabrication"
+          ].includes(sousSecteur),
+        ),
+      };
+    }, {});
+
+  return { ...secteursStructures, ...sousSecteursStructures };
+};

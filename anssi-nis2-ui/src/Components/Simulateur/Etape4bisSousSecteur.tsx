@@ -9,7 +9,7 @@ import {
   TransformeRecordToSelect,
 } from "../../Services/Simulateur/simulateurFrontServices.ts";
 import { TValeursSousSecteurEnergie } from "../../Domaine/Simulateur/ValeursCles.ts";
-import { sousSecteursEnergie } from "../../Domaine/Simulateur/SecteursActivite.ts";
+import { libellesSousSecteursEnergie } from "../../Domaine/Simulateur/SecteursActivite.ts";
 import { DescriptionSousSecteur } from "../../Domaine/Simulateur/Secteurs";
 
 const Etape4bisSousSecteur = ({
@@ -32,7 +32,7 @@ const Etape4bisSousSecteur = ({
     useState<SelectOptions>();
 
   useEffect(() => {
-    const valeursSousSecteur = sousSecteursEnergie; //detailsDesSecteurs.energie.sousSecteurs;
+    const valeursSousSecteur = libellesSousSecteursEnergie; //detailsDesSecteurs.energie.sousSecteurs;
 
     const getSousSecteurLabel: labelGenerator<
       TValeursSousSecteurEnergie,
