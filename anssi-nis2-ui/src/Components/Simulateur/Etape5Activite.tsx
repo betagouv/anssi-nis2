@@ -5,13 +5,13 @@ import {
 } from "../../Services/Simulateur/props.ts";
 import React, { useEffect, useId, useReducer, useState } from "react";
 import { NomsChampsSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
-import { activitesParSecteurEtSousSecteur } from "../../Domaine/Simulateur/SecteursActivite.ts";
 import { fr } from "@codegouvfr/react-dsfr";
 import { Infobulle } from "./Infobulle.tsx";
 import { changeInfobulleOuverte } from "../../Services/Simulateur/reducers.ts";
 import { IconeInfobulle } from "../Icones/IconeInfobulle.tsx";
 import { LibellesActivites } from "../../Domaine/Simulateur/LibellesActivites.ts";
 import { DescriptionActivite } from "../../Domaine/Simulateur/DescriptionActivite.tsx";
+import { activitesParSecteurEtSousSecteur } from "../../Domaine/Simulateur/ActivitesParSecteurEtSousSecteur.ts";
 
 const Etape5Activite = ({
   propageActionSimulateur,

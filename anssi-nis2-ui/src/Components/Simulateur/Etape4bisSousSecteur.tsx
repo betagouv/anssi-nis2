@@ -9,7 +9,7 @@ import {
   TransformeRecordToSelect,
 } from "../../Services/Simulateur/simulateurFrontServices.ts";
 import { TValeursSousSecteurEnergie } from "../../Domaine/Simulateur/ValeursCles.ts";
-import { libellesSousSecteursEnergie } from "../../Domaine/Simulateur/SecteursActivite.ts";
+import { libellesSousSecteursEnergie } from "../../Domaine/Simulateur/LibellesSousSecteursActivite.ts";
 import { DescriptionSousSecteur } from "../../Domaine/Simulateur/Secteurs";
 
 const Etape4bisSousSecteur = ({

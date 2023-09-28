@@ -4,7 +4,7 @@ import {
   donneesFormulaireSimulateurVide,
 } from "../../../src/Services/Simulateur/donneesFormulaire";
 import { libellesSecteursActivite } from "../../../src/Domaine/Simulateur/LibellesSecteursActivite";
-import { libellesSousSecteursActivite } from "../../../src/Domaine/Simulateur/SecteursActivite";
+import { libellesSousSecteursActivite } from "../../../src/Domaine/Simulateur/LibellesSousSecteursActivite";
 import {
   cartographieSousSecteursParSecteur,
   collecteTitresPourActivite,
@@ -50,6 +50,25 @@ describe("Questionnaire activités", () => {
       sousSecteurActivite: ["electricite"],
     };
     const titresAttendus = ["Énergie / Électricité"];
+    const titresExtraits: string[] = collecteTitresPourActivite(
+      libellesSecteursActivite,
+      libellesSousSecteursActivite,
+      donneesFormulaire,
+    );
+
+    expect(titresExtraits).toStrictEqual(titresAttendus);
+  });
+  it("Retourne un mix de titres avec ou sans sous secteurs", () => {
+    const donneesFormulaire: DonneesFormulaireSimulateur = {
+      ...donneesFormulaireSimulateurVide,
+      secteurActivite: ["espace", "energie"],
+      sousSecteurActivite: ["electricite", "hydrogene"],
+    };
+    const titresAttendus = [
+      "Espace",
+      "Énergie / Électricité",
+      "Énergie / Hydrogène",
+    ];
     const titresExtraits: string[] = collecteTitresPourActivite(
       libellesSecteursActivite,
       libellesSousSecteursActivite,

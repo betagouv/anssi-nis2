@@ -11,7 +11,11 @@ import {
   ValeursTypeStructure,
 } from "../../Domaine/Simulateur/ValeursCles.ts";
 import { DonneesFormulaireSimulateur } from "./donneesFormulaire.ts";
-import { sousSecteursParSecteur } from "../../Domaine/Simulateur/SecteursActivite.ts";
+
+import {
+  sousSecteursParSecteur,
+  TValeursSecteursAvecSousSecteurs,
+} from "../../Domaine/Simulateur/SousSecteurs.ts";
 
 const getPaysUnionEuropeenneElement = (
   value: string,
@@ -109,7 +113,7 @@ export const cartographieSousSecteursParSecteur = (
         ...acc,
         [currentValue]: sousSecteurActivite.filter((sousSecteur) =>
           sousSecteursParSecteur[
-            currentValue as "energie" | "transports" | "fabrication"
+            currentValue as TValeursSecteursAvecSousSecteurs
           ].includes(sousSecteur),
         ),
       };
