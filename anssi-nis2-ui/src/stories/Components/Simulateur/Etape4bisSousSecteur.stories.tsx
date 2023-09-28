@@ -6,7 +6,10 @@ import { Etape4bisSousSecteur } from "../../../Components/Simulateur";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { DonneesFormulaireSimulateur } from "../../../Services/Simulateur/donneesFormulaire.ts";
+import {
+  DonneesFormulaireSimulateur,
+  donneesFormulaireSimulateurVide,
+} from "../../../Services/Simulateur/donneesFormulaire.ts";
 import { TValeursSousSecteurEnergie } from "../../../Domaine/Simulateur/ValeursCles.ts";
 
 class ParametresDonneesSousSecteurActivite extends ParametresDonneesSpecifiqueField<TValeursSousSecteurEnergie> {
@@ -24,6 +27,9 @@ const donneesFormulaireOptions: CollectionParametresDonneesSousSecteurActivites 
 
 const meta: Meta<typeof Etape4bisSousSecteur> = {
   component: Etape4bisSousSecteur,
+  args: {
+    formData: donneesFormulaireSimulateurVide,
+  },
   argTypes: {
     propageActionSimulateur: { action: true },
     formData: donneesFormulaireOptions.getFormData(),
@@ -70,5 +76,25 @@ export const SousSecteurEnergie: Story = {
         },
       );
     }
+  },
+};
+
+export const MixSecteursEtSousSecteurs: Story = {
+  args: {
+    formData: {
+      ...donneesFormulaireSimulateurVide,
+      secteurActivite: ["espace", "energie", "transports"],
+      sousSecteurActivite: ["electricite", "hydrogene"],
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    expect(await canvas.getByLabelText("Électricité")).toBeChecked();
+    expect(await canvas.getByLabelText("Gaz")).not.toBeChecked();
+    expect(await canvas.getByLabelText("Hydrogène")).toBeChecked();
+
+    expect(await canvas.getByText("Énergie")).toBeInTheDocument();
+    expect(await canvas.getByText("Transports")).toBeInTheDocument();
   },
 };

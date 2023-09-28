@@ -14,7 +14,7 @@ export type TransformeRecordToSelect<
   ValeursCles extends string,
   Contenu = string,
 > = (
-  valeurs: Record<ValeursCles, Contenu>,
+  valeurs: Partial<Record<ValeursCles, Contenu>>,
   onChange?: React.ChangeEventHandler<HTMLInputElement>,
   formData?: DonneesFormulaireSimulateur,
   group?: string,
