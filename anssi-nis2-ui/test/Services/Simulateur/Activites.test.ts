@@ -11,20 +11,6 @@ import {
 } from "../../../src/Services/Simulateur/Transformateurs";
 
 describe("Questionnaire activités", () => {
-  it("Retourne le titre du secteur 'Espace' s'il est seul présent dans les données formulaire", () => {
-    const donneesFormulaire: DonneesFormulaireSimulateur = {
-      ...donneesFormulaireSimulateurVide,
-      secteurActivite: ["espace"],
-    };
-    const titresAttendus = ["Espace"];
-    const titresExtraits: string[] = collecteTitresPourActivite(
-      libellesSecteursActivite,
-      libellesSousSecteursActivite,
-      donneesFormulaire,
-    );
-
-    expect(titresExtraits).toStrictEqual(titresAttendus);
-  });
   it("Construit un tableau avec les sous-secteurs sélectionnés remplaçant le secteur correspondant", () => {
     const donneesFormulaire: DonneesFormulaireSimulateur = {
       ...donneesFormulaireSimulateurVide,
@@ -43,14 +29,13 @@ describe("Questionnaire activités", () => {
       carteSousSecteurParSecteurAttendue,
     );
   });
-  it("Retourne le titre du secteur 'Énergie / Électricité' si seul le sous secteur 'Électricité' est présent dans les données formulaire", () => {
+  it("Retourne le titre du secteur 'Espace' s'il est seul présent dans les données formulaire", () => {
     const donneesFormulaire: DonneesFormulaireSimulateur = {
       ...donneesFormulaireSimulateurVide,
-      secteurActivite: ["energie"],
-      sousSecteurActivite: ["electricite"],
+      secteurActivite: ["espace"],
     };
-    const titresAttendus = ["Énergie / Électricité"];
-    const titresExtraits: string[] = collecteTitresPourActivite(
+    const titresAttendus = [["espace", "Espace"]];
+    const titresExtraits: string[][] = collecteTitresPourActivite(
       libellesSecteursActivite,
       libellesSousSecteursActivite,
       donneesFormulaire,
@@ -58,6 +43,23 @@ describe("Questionnaire activités", () => {
 
     expect(titresExtraits).toStrictEqual(titresAttendus);
   });
+
+  it("Retourne le titre du secteur 'Énergie / Électricité' si seul le sous secteur 'Électricité' est présent dans les données formulaire", () => {
+    const donneesFormulaire: DonneesFormulaireSimulateur = {
+      ...donneesFormulaireSimulateurVide,
+      secteurActivite: ["energie"],
+      sousSecteurActivite: ["electricite"],
+    };
+    const titresAttendus = [["electricite", "Énergie / Électricité"]];
+    const titresExtraits: string[][] = collecteTitresPourActivite(
+      libellesSecteursActivite,
+      libellesSousSecteursActivite,
+      donneesFormulaire,
+    );
+
+    expect(titresExtraits).toStrictEqual(titresAttendus);
+  });
+
   it("Retourne un mix de titres avec ou sans sous secteurs", () => {
     const donneesFormulaire: DonneesFormulaireSimulateur = {
       ...donneesFormulaireSimulateurVide,
@@ -65,11 +67,11 @@ describe("Questionnaire activités", () => {
       sousSecteurActivite: ["electricite", "hydrogene"],
     };
     const titresAttendus = [
-      "Espace",
-      "Énergie / Électricité",
-      "Énergie / Hydrogène",
+      ["espace", "Espace"],
+      ["electricite", "Énergie / Électricité"],
+      ["hydrogene", "Énergie / Hydrogène"],
     ];
-    const titresExtraits: string[] = collecteTitresPourActivite(
+    const titresExtraits: string[][] = collecteTitresPourActivite(
       libellesSecteursActivite,
       libellesSousSecteursActivite,
       donneesFormulaire,

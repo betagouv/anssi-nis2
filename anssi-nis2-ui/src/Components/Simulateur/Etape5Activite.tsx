@@ -3,97 +3,26 @@ import {
   ListeOptionsChampFormulaire,
   SimulateurContenuEtapeProps,
 } from "../../Services/Simulateur/props.ts";
-import React, { useEffect, useId, useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NomsChampsSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
-import { fr } from "@codegouvfr/react-dsfr";
-import { Infobulle } from "./Infobulle.tsx";
-import { changeInfobulleOuverte } from "../../Services/Simulateur/reducers.ts";
-import { IconeInfobulle } from "../Icones/IconeInfobulle.tsx";
-import { LibellesActivites } from "../../Domaine/Simulateur/LibellesActivites.ts";
-import { DescriptionActivite } from "../../Domaine/Simulateur/DescriptionActivite.tsx";
 import { activitesParSecteurEtSousSecteur } from "../../Domaine/Simulateur/ActivitesParSecteurEtSousSecteur.ts";
-import { NativeInputProps } from "../../Services/Props.ts";
-import { ReactNode } from "react";
+import {
+  collecteTitresPourActivite,
+  construitListeActivites,
+} from "../../Services/Simulateur/Transformateurs.ts";
+import { libellesSecteursActivite } from "../../Domaine/Simulateur/LibellesSecteursActivite.ts";
+import { libellesSousSecteursActivite } from "../../Domaine/Simulateur/LibellesSousSecteursActivite.ts";
+import { TValeursSectorielles } from "../../Domaine/Simulateur/ValeursCles.ts";
 
-function EnsembleChamps({
-  legende,
-  optionsSecteurActivite,
-}: {
-  legende: string;
-  optionsSecteurActivite: ListeOptionsChampFormulaire;
-}) {
-  const [infobulleAffichee, propageInfobulleAffichee] = useReducer(
-    changeInfobulleOuverte,
-    { id: "" },
-  );
-  const element: (
-    {
-      label,
-      contenuInfobulle,
-      nativeInputProps,
-    }: {
-      label: string;
-      contenuInfobulle?: ReactNode;
-      nativeInputProps: NativeInputProps;
-    },
-    i: number,
-  ) => JSX.Element = ({ label, contenuInfobulle, nativeInputProps }, i) => {
-    const idInfobulle = recupereIdInfobulle(i);
-
-    return (
-      <>
-        <div className={fr.cx(`fr-${type}-group`)} key={i}>
-          <input type={type} id={getInputId(i)} {...nativeInputProps} />
-          <label className="fr-label" htmlFor={getInputId(i)}>
-            {label}{" "}
-            {contenuInfobulle && (
-              <IconeInfobulle
-                onClick={() => {
-                  propageInfobulleAffichee(idInfobulle);
-                }}
-                label={label}
-              />
-            )}
-          </label>
-        </div>
-        {contenuInfobulle && (
-          <>
-            <Infobulle
-              id={idInfobulle}
-              cachee={idInfobulle !== infobulleAffichee.id}
-              contenu={contenuInfobulle}
-              action={() => {
-                propageInfobulleAffichee(id);
-              }}
-            />
-          </>
-        )}
-      </>
-    );
-  };
-
-  const id = `default-${useId()}`;
-  const getInputId = (i: number) => `${id}-${i}`;
-  const recupereIdInfobulle = (i: number) => `${id}-infoBulle-${i}`;
-  const type = "checkbox";
-  return (
-    <fieldset className="fr-fieldset" id={id}>
-      <legend className="fr-fieldset__legend fr-text--regular">
-        {legende}
-      </legend>
-      <div className="fr-fieldset__content">
-        {optionsSecteurActivite.map(element)}
-      </div>
-    </fieldset>
-  );
-}
+import { EnsembleChamps } from "./Inputs/EnsembleChamps.tsx";
 
 const Etape5Activite = ({
   propageActionSimulateur,
   formData,
 }: SimulateurContenuEtapeProps) => {
-  const [optionsSecteurActivite, setOptionsSecteurActivite] =
-    useState<ListeOptionsChampFormulaire>([]);
+  const [optionsParSecteurActivite, setOptionsParSecteurActivite] = useState<
+    [string, ListeOptionsChampFormulaire][]
+  >([]);
 
   useEffect(() => {
     const changeMulti: React.ChangeEventHandler<HTMLInputElement> = (evt) =>
@@ -103,23 +32,21 @@ const Etape5Activite = ({
         newValue: evt.target.value,
       });
 
-    const optionsBrutesSecteurActivite: ListeOptionsChampFormulaire =
-      activitesParSecteurEtSousSecteur["energie"].map((activite) => ({
-        label: LibellesActivites[activite],
-        contenuInfobulle: DescriptionActivite[activite],
-        nativeInputProps: {
-          value: activite,
-          checked: formData && formData.activites.includes(activite),
-          onChange: changeMulti,
-          name: "activites",
-        },
-      }));
+    const titresExtraits: string[][] = collecteTitresPourActivite(
+      libellesSecteursActivite,
+      libellesSousSecteursActivite,
+      formData,
+    );
 
-    setOptionsSecteurActivite(optionsBrutesSecteurActivite);
+    setOptionsParSecteurActivite(
+      titresExtraits.map(([secteurOuSousSecteur, titreActivites]) => [
+        titreActivites,
+        activitesParSecteurEtSousSecteur[
+          secteurOuSousSecteur as TValeursSectorielles
+        ].map(construitListeActivites(formData, changeMulti)),
+      ]),
+    );
   }, [formData, propageActionSimulateur]);
-
-  const legende = "Énergie / Électricité";
-
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
@@ -131,10 +58,15 @@ const Etape5Activite = ({
           définitions des activités.
         </p>
 
-        <EnsembleChamps
-          legende={legende}
-          optionsSecteurActivite={optionsSecteurActivite}
-        />
+        {optionsParSecteurActivite.map(
+          ([legende, optionsSecteurActivite], index) => (
+            <EnsembleChamps
+              legende={legende}
+              optionsSecteurActivite={optionsSecteurActivite}
+              key={`activites-${index}`}
+            />
+          ),
+        )}
       </div>
     </FormSimulateur>
   );

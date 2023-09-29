@@ -29,9 +29,11 @@ export type SimulateurDonneesFormulaireActions = {
   name: NomsChampsSimulateur;
   newValue: string;
 };
-// TODO: duplicvcate with SelectOptions (SelectFrontService)
-export type ListeOptionsChampFormulaire = {
+export type OptionChampSimulateur = {
   nativeInputProps: NativeInputProps;
   label: string;
   contenuInfobulle?: ReactNode;
-}[];
+};
+
+// TODO: dupliccate with SelectOptions (SelectFrontService)
+export type ListeOptionsChampFormulaire = OptionChampSimulateur[];
