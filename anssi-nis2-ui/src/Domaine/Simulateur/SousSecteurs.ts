@@ -22,3 +22,11 @@ export const sousSecteursParSecteur: Record<
   transports: ValeursSousSecteurTransport,
   fabrication: ValeursSousSecteurFabrication,
 };
+export const estUnSecteurAvecDesSousSecteurs = (secteur: string) =>
+  ValeursSecteursAvecSousSecteurs.includes(
+    secteur as TValeursSecteursAvecSousSecteurs,
+  );
+export const contientSousSecteur = (secteur: string, sousSecteur: string) =>
+  sousSecteursParSecteur[secteur as TValeursSecteursAvecSousSecteurs].includes(
+    sousSecteur,
+  );

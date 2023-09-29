@@ -1,4 +1,5 @@
 import {
+  GenerateurLibelle,
   genereTransformateurValeursVersOptions,
   TransformeRecordToSelect,
 } from "./simulateurFrontServices.ts";
@@ -19,8 +20,8 @@ import {
 
 const getPaysUnionEuropeenneElement = (
   value: string,
-  paysUnionEuropeenne: Record<ValeursClePaysUnionEuropeenne, string>,
-) => paysUnionEuropeenne[value as ValeursClePaysUnionEuropeenne];
+  paysUnionEuropeenne: Partial<Record<ValeursClePaysUnionEuropeenne, string>>,
+) => paysUnionEuropeenne[value as ValeursClePaysUnionEuropeenne] || value;
 export const transformePaysUnionEuropeennePourSelect: TransformeRecordToSelect<ValeursClePaysUnionEuropeenne> =
   genereTransformateurValeursVersOptions(
     getPaysUnionEuropeenneElement,
@@ -28,8 +29,8 @@ export const transformePaysUnionEuropeennePourSelect: TransformeRecordToSelect<V
   );
 const getTypesStructureElement = (
   value: string,
-  typesStructure: Record<ValeursTypeStructure, string>,
-) => typesStructure[value as ValeursTypeStructure];
+  typesStructure: Partial<Record<ValeursTypeStructure, string>>,
+) => typesStructure[value as ValeursTypeStructure] || value;
 export const transformeTypeStructureVersOptions: TransformeRecordToSelect<ValeursTypeStructure> =
   genereTransformateurValeursVersOptions(
     getTypesStructureElement,
@@ -37,8 +38,8 @@ export const transformeTypeStructureVersOptions: TransformeRecordToSelect<Valeur
   );
 const getNombreEmployesElement = (
   value: string,
-  tranchesNombreEmployes: Record<ValeursTrancheNombreEmployes, string>,
-) => tranchesNombreEmployes[value as ValeursTrancheNombreEmployes];
+  tranchesNombreEmployes: Partial<Record<ValeursTrancheNombreEmployes, string>>,
+) => tranchesNombreEmployes[value as ValeursTrancheNombreEmployes] || value;
 export const transformeTranchesNombreEmployesVersOptions: TransformeRecordToSelect<ValeursTrancheNombreEmployes> =
   genereTransformateurValeursVersOptions(
     getNombreEmployesElement,
@@ -46,14 +47,14 @@ export const transformeTranchesNombreEmployesVersOptions: TransformeRecordToSele
   );
 const getCALabel = (
   value: string,
-  tranchesCA: Record<ValeursTrancheCA, string>,
-) => tranchesCA[value as ValeursTrancheCA];
+  tranchesCA: Partial<Record<ValeursTrancheCA, string>>,
+) => tranchesCA[value as ValeursTrancheCA] || value;
 export const transformeTranchesCAVersOptions: TransformeRecordToSelect<ValeursTrancheCA> =
   genereTransformateurValeursVersOptions(getCALabel, "trancheCA");
 export const getSecteurActiviteLabel = (
   value: string,
-  secteurActivite: Record<TValeursSecteursActivites, string>,
-) => secteurActivite[value as TValeursSecteursActivites];
+  secteurActivite: Partial<Record<TValeursSecteursActivites, string>>,
+) => secteurActivite[value as TValeursSecteursActivites] || value;
 export const transformeSecteursActiviteVersOptions: TransformeRecordToSelect<TValeursSecteursActivites> =
   genereTransformateurValeursVersOptions(
     getSecteurActiviteLabel,
@@ -121,3 +122,12 @@ export const cartographieSousSecteursParSecteur = (
 
   return { ...secteursStructures, ...sousSecteursStructures };
 };
+const getSousSecteurLabel: GenerateurLibelle<TValeursSousSecteursActivites> = (
+  value: string,
+  sousSecteur: Partial<Record<TValeursSousSecteursActivites, string>>,
+) => sousSecteur[value as TValeursSousSecteursActivites] || value;
+export const transformateurSousSecteurActivite: TransformeRecordToSelect<TValeursSousSecteursActivites> =
+  genereTransformateurValeursVersOptions(
+    getSousSecteurLabel,
+    "sousSecteurActivite",
+  );
