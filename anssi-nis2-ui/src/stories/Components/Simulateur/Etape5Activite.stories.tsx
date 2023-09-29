@@ -6,6 +6,8 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
+import { donneesFormulaireSimulateurVide } from "../../../Services/Simulateur/donneesFormulaire.ts";
+import { libellesSecteursActivite } from "../../../Domaine/Simulateur/LibellesSecteursActivite.ts";
 
 class ParametresDonneesActivites extends ParametresDonneesSpecifiqueField<string> {
   protected construitDonnees<ValeursActivites>(
@@ -41,7 +43,32 @@ const creeActionPropagationFormulaireActivite = (newValue: string) => {
   return { ...actionTypique, newValue: newValue };
 };
 
+export const AffichageActivitesEtLibellesParSecteurs: Story = {
+  args: {
+    formData: {
+      ...donneesFormulaireSimulateurVide,
+      secteurActivite: ["energie", "espace"],
+      sousSecteurActivite: ["electricite"],
+    },
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    step("Les titres des secteurs simples sont affichés", async () => {
+      expect(
+        await canvas.findByText(libellesSecteursActivite["espace"]),
+      ).toBeInTheDocument();
+    });
+  },
+};
+
 export const CliqueSurLesOptions: Story = {
+  args: {
+    formData: {
+      ...donneesFormulaireSimulateurVide,
+      secteurActivite: ["energie"],
+      sousSecteurActivite: ["electricite"],
+    },
+  },
   play: async ({ args, canvasElement, step }) => {
     const canvas = within(canvasElement);
     const { propageActionSimulateur } = args;
