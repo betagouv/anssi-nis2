@@ -12,6 +12,81 @@ import { IconeInfobulle } from "../Icones/IconeInfobulle.tsx";
 import { LibellesActivites } from "../../Domaine/Simulateur/LibellesActivites.ts";
 import { DescriptionActivite } from "../../Domaine/Simulateur/DescriptionActivite.tsx";
 import { activitesParSecteurEtSousSecteur } from "../../Domaine/Simulateur/ActivitesParSecteurEtSousSecteur.ts";
+import { NativeInputProps } from "../../Services/Props.ts";
+import { ReactNode } from "react";
+
+function EnsembleChamps({
+  legende,
+  optionsSecteurActivite,
+}: {
+  legende: string;
+  optionsSecteurActivite: ListeOptionsChampFormulaire;
+}) {
+  const [infobulleAffichee, propageInfobulleAffichee] = useReducer(
+    changeInfobulleOuverte,
+    { id: "" },
+  );
+  const element: (
+    {
+      label,
+      contenuInfobulle,
+      nativeInputProps,
+    }: {
+      label: string;
+      contenuInfobulle?: ReactNode;
+      nativeInputProps: NativeInputProps;
+    },
+    i: number,
+  ) => JSX.Element = ({ label, contenuInfobulle, nativeInputProps }, i) => {
+    const idInfobulle = recupereIdInfobulle(i);
+
+    return (
+      <>
+        <div className={fr.cx(`fr-${type}-group`)} key={i}>
+          <input type={type} id={getInputId(i)} {...nativeInputProps} />
+          <label className="fr-label" htmlFor={getInputId(i)}>
+            {label}{" "}
+            {contenuInfobulle && (
+              <IconeInfobulle
+                onClick={() => {
+                  propageInfobulleAffichee(idInfobulle);
+                }}
+                label={label}
+              />
+            )}
+          </label>
+        </div>
+        {contenuInfobulle && (
+          <>
+            <Infobulle
+              id={idInfobulle}
+              cachee={idInfobulle !== infobulleAffichee.id}
+              contenu={contenuInfobulle}
+              action={() => {
+                propageInfobulleAffichee(id);
+              }}
+            />
+          </>
+        )}
+      </>
+    );
+  };
+
+  const id = `default-${useId()}`;
+  const getInputId = (i: number) => `${id}-${i}`;
+  const recupereIdInfobulle = (i: number) => `${id}-infoBulle-${i}`;
+  const type = "checkbox";
+  return (
+    <fieldset className="fr-fieldset" id={id}>
+      <legend className="fr-fieldset__legend fr-text--regular">
+        {legende}
+      </legend>
+      <div className="fr-fieldset__content">
+        {optionsSecteurActivite.map(element)}
+      </div>
+    </fieldset>
+  );
+}
 
 const Etape5Activite = ({
   propageActionSimulateur,
@@ -19,10 +94,6 @@ const Etape5Activite = ({
 }: SimulateurContenuEtapeProps) => {
   const [optionsSecteurActivite, setOptionsSecteurActivite] =
     useState<ListeOptionsChampFormulaire>([]);
-  const [infobulleAffichee, propageInfobulleAffichee] = useReducer(
-    changeInfobulleOuverte,
-    { id: "" },
-  );
 
   useEffect(() => {
     const changeMulti: React.ChangeEventHandler<HTMLInputElement> = (evt) =>
@@ -47,12 +118,8 @@ const Etape5Activite = ({
     setOptionsSecteurActivite(optionsBrutesSecteurActivite);
   }, [formData, propageActionSimulateur]);
 
-  const id = `default-${useId()}`;
-  const getInputId = (i: number) => `${id}-${i}`;
-  const recupereIdInfobulle = (i: number) => `${id}-infoBulle-${i}`;
-  const type = "checkbox";
-
   const legende = "Énergie / Électricité";
+
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
@@ -64,53 +131,10 @@ const Etape5Activite = ({
           définitions des activités.
         </p>
 
-        <fieldset className="fr-fieldset" id={id}>
-          <legend className="fr-fieldset__legend fr-text--regular">
-            {legende}
-          </legend>
-          <div className="fr-fieldset__content">
-            {optionsSecteurActivite.map(
-              ({ label, contenuInfobulle, nativeInputProps }, i) => {
-                const idInfobulle = recupereIdInfobulle(i);
-
-                return (
-                  <>
-                    <div className={fr.cx(`fr-${type}-group`)} key={i}>
-                      <input
-                        type={type}
-                        id={getInputId(i)}
-                        {...nativeInputProps}
-                      />
-                      <label className="fr-label" htmlFor={getInputId(i)}>
-                        {label}{" "}
-                        {contenuInfobulle && (
-                          <IconeInfobulle
-                            onClick={() => {
-                              propageInfobulleAffichee(idInfobulle);
-                            }}
-                            label={label}
-                          />
-                        )}
-                      </label>
-                    </div>
-                    {contenuInfobulle && (
-                      <>
-                        <Infobulle
-                          id={idInfobulle}
-                          cachee={idInfobulle !== infobulleAffichee.id}
-                          contenu={contenuInfobulle}
-                          action={() => {
-                            propageInfobulleAffichee(id);
-                          }}
-                        />
-                      </>
-                    )}
-                  </>
-                );
-              },
-            )}
-          </div>
-        </fieldset>
+        <EnsembleChamps
+          legende={legende}
+          optionsSecteurActivite={optionsSecteurActivite}
+        />
       </div>
     </FormSimulateur>
   );
