@@ -60,11 +60,6 @@ export type TValeursSousSecteursActivites =
   | TValeursSousSecteurTransport
   | TValeursSousSecteurFabrication;
 
-export type SousSecteurParSecteur = Record<
-  TValeursSecteursActivites,
-  TValeursSousSecteurEnergie
->;
-
 export type TValeursSectorielles =
   | TValeursSecteursActivites
   | TValeursSousSecteursActivites;
