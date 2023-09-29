@@ -11,6 +11,7 @@ import { libellesSousSecteursActivite } from "../../Domaine/Simulateur/LibellesS
 import {
   contientSousSecteur,
   estUnSecteurAvecDesSousSecteurs,
+  LibellesSousSecteurs,
   TValeursSecteursAvecSousSecteurs,
 } from "../../Domaine/Simulateur/SousSecteurs.ts";
 import { libellesSecteursActivite } from "../../Domaine/Simulateur/LibellesSecteursActivite.ts";
@@ -32,32 +33,33 @@ const Etape4bisSousSecteur = ({
     [propageActionSimulateur],
   );
 
-  const [optionsSousSecteurActivite, setOptionsSousSecteurActivite] =
-    useState<
-      Partial<Record<TValeursSecteursAvecSousSecteurs, SelectOptions>>
-    >();
+  const [optionsSousSecteurActivite, setOptionsSousSecteurActivite] = useState<
+    [TValeursSecteursAvecSousSecteurs, SelectOptions][]
+  >([]);
   useEffect(() => {
-    const structOptions = formData.secteurActivite.reduce(
-      (
-        secteursAvecOptionsSousSecteurs: Partial<
-          Record<TValeursSecteursAvecSousSecteurs, SelectOptions>
-        >,
-        secteur,
-      ) => {
-        const entries = Object.entries(libellesSousSecteursActivite);
-        const reducteurCleValeurVersObjet = (
-          libellesSousSecteurDuSecteur: Partial<
-            Record<TValeursSousSecteursActivites, string>
-          >,
-          [sousSecteur, libelle]: [string, string],
-        ) => ({
-          ...libellesSousSecteurDuSecteur,
-          [sousSecteur]: libelle,
-        });
-        return {
-          ...secteursAvecOptionsSousSecteurs,
-          [secteur]: transformateurSousSecteurActivite(
-            entries
+    const reducteurSecteursVersOptions = (
+      secteursAvecOptionsSousSecteurs: [
+        TValeursSecteursAvecSousSecteurs,
+        SelectOptions,
+      ][],
+      secteur: TValeursSecteursAvecSousSecteurs,
+    ): [TValeursSecteursAvecSousSecteurs, SelectOptions][] => {
+      const entreesLibellesSousSecteurs = Object.entries(
+        libellesSousSecteursActivite,
+      ) as [TValeursSousSecteursActivites, string][];
+      const reducteurCleValeurVersObjet = (
+        libellesSousSecteurDuSecteur: LibellesSousSecteurs,
+        [sousSecteur, libelle]: [TValeursSousSecteursActivites, string],
+      ) => ({
+        ...libellesSousSecteurDuSecteur,
+        [sousSecteur]: libelle,
+      });
+      return [
+        ...secteursAvecOptionsSousSecteurs,
+        [
+          secteur,
+          transformateurSousSecteurActivite(
+            entreesLibellesSousSecteurs
               .filter(
                 ([sousSecteur]) =>
                   estUnSecteurAvecDesSousSecteurs(secteur) &&
@@ -67,10 +69,12 @@ const Etape4bisSousSecteur = ({
             gereChangement,
             formData,
           ),
-        };
-      },
-      {},
-    );
+        ],
+      ];
+    };
+    const structOptions = (
+      formData.secteurActivite as TValeursSecteursAvecSousSecteurs[]
+    ).reduce(reducteurSecteursVersOptions, []);
 
     setOptionsSousSecteurActivite(structOptions);
   }, [formData, gereChangement]);
@@ -81,20 +85,15 @@ const Etape4bisSousSecteur = ({
         Précisez les sous-secteurs concernés :
       </legend>
       <div className="fr-fieldset__element">
-        {optionsSousSecteurActivite &&
-          Object.entries(optionsSousSecteurActivite).map(
-            ([secteur, optionsSousSecteur], index) => (
-              <Checkbox
-                legend={
-                  libellesSecteursActivite[
-                    secteur as TValeursSecteursAvecSousSecteurs
-                  ]
-                }
-                options={optionsSousSecteur}
-                key={`sousSecteurs-${secteur}-${index}`}
-              />
-            ),
-          )}
+        {optionsSousSecteurActivite.map(
+          ([secteur, optionsSousSecteur], index) => (
+            <Checkbox
+              legend={libellesSecteursActivite[secteur]}
+              options={optionsSousSecteur}
+              key={`sousSecteurs-${secteur}-${index}`}
+            />
+          ),
+        )}
       </div>
     </FormSimulateur>
   );

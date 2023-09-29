@@ -1,5 +1,6 @@
 import {
   TValeursSecteursActivites,
+  TValeursSousSecteursActivites,
   ValeursSousSecteurEnergie,
   ValeursSousSecteurFabrication,
   ValeursSousSecteurTransport,
@@ -13,6 +14,10 @@ export const ValeursSecteursAvecSousSecteurs = [
 ] as const;
 export type TValeursSecteursAvecSousSecteurs =
   (typeof ValeursSecteursAvecSousSecteurs)[number];
+
+export type LibellesSousSecteurs = Partial<
+  Record<TValeursSousSecteursActivites, string>
+>;
 
 export const sousSecteursParSecteur: Record<
   Extract<TValeursSecteursActivites, TValeursSecteursAvecSousSecteurs>,
