@@ -56,7 +56,7 @@ const LogoUnionEuropeenneNIS2 = () => {
   return (
     <Centered className="fr-col-5">
       <div className="fr-col--middle interieur-logo-ue">
-        <p className="fr-h2">NIS2</p>
+        <p className="fr-h2">NIS&nbsp;2</p>
       </div>
       <p className="fr-definition fr-text--bold fr-mb-0">
         NIS : Network and and Information Security
@@ -136,7 +136,12 @@ const BandeauNis2EU: DefaultComponent = () => {
               {/* TODO: padding was "6px, 24px, 10px, 18px" */}
               <Button
                 priority="secondary"
-                linkProps={{ href: "https://www.ssi.gouv.fr/directive-nis-2/" }}
+                linkProps={{
+                  href: "https://www.ssi.gouv.fr/directive-nis-2/",
+                  title:
+                    "Foire Aux Questions à propos de NIS 2 sur le site de l'ANSSI",
+                  target: "_blank",
+                }}
                 iconId={"fr-icon-question-line"}
               >
                 Voir les FAQ
@@ -145,6 +150,10 @@ const BandeauNis2EU: DefaultComponent = () => {
                 priority="secondary"
                 linkProps={{
                   href: "https://eur-lex.europa.eu/legal-content/FR/TXT/PDF/?uri=CELEX:32022L2555",
+                  title:
+                    "DIRECTIVE (UE) 2022/2555 DU PARLEMENT EUROPÉEN ET DU CONSEIL \n" +
+                    "du 14 décembre 2022",
+                  target: "_blank",
                 }}
                 iconId={"fr-icon-external-link-line"}
                 className="fr-ml-2w"
