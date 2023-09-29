@@ -28,7 +28,11 @@ const donneesFormulaireOptions: CollectionParametresDonneesSousSecteurActivites 
 const meta: Meta<typeof Etape4bisSousSecteur> = {
   component: Etape4bisSousSecteur,
   args: {
-    formData: donneesFormulaireSimulateurVide,
+    formData: {
+      ...donneesFormulaireSimulateurVide,
+      secteurActivite: ["energie"],
+      sousSecteurActivite: ["electricite"],
+    },
   },
   argTypes: {
     propageActionSimulateur: { action: true },
@@ -90,7 +94,7 @@ export const MixSecteursEtSousSecteurs: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    expect(await canvas.getByLabelText("Électricité")).toBeChecked();
+    expect(await canvas.findByLabelText("Électricité")).toBeChecked();
     expect(await canvas.getByLabelText("Gaz")).not.toBeChecked();
     expect(await canvas.getByLabelText("Hydrogène")).toBeChecked();
 
