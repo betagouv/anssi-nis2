@@ -6,6 +6,8 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
+import { donneesFormulaireSimulateurVide } from "../../../Services/Simulateur/donneesFormulaire.ts";
+import { libellesSecteursActivite } from "../../../Domaine/Simulateur/LibellesSecteursActivite.ts";
 
 class ParametresDonneesActivites extends ParametresDonneesSpecifiqueField<string> {
   protected construitDonnees<ValeursActivites>(
@@ -24,6 +26,13 @@ const donneesFormulaireOptions: CollectionParametresDonneesActivites =
 
 const meta: Meta<typeof Etape5Activite> = {
   component: Etape5Activite,
+  args: {
+    formData: {
+      ...donneesFormulaireSimulateurVide,
+      secteurActivite: ["energie"],
+      sousSecteurActivite: ["electricite"],
+    },
+  },
   argTypes: {
     propageActionSimulateur: { action: true },
     formData: donneesFormulaireOptions.getFormData(),
@@ -41,6 +50,24 @@ const creeActionPropagationFormulaireActivite = (newValue: string) => {
   return { ...actionTypique, newValue: newValue };
 };
 
+export const AffichageActivitesEtLibellesParSecteurs: Story = {
+  args: {
+    formData: {
+      ...donneesFormulaireSimulateurVide,
+      secteurActivite: ["energie", "espace"],
+      sousSecteurActivite: ["electricite"],
+    },
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    step("Les titres des secteurs simples sont affichés", async () => {
+      expect(
+        await canvas.findByText(libellesSecteursActivite["espace"]),
+      ).toBeInTheDocument();
+    });
+  },
+};
+
 export const CliqueSurLesOptions: Story = {
   play: async ({ args, canvasElement, step }) => {
     const canvas = within(canvasElement);
@@ -50,8 +77,7 @@ export const CliqueSurLesOptions: Story = {
       {
         libelle:
           "Entreprise d’électricité remplissant une fonction de fourniture",
-        newValue:
-          "energie[entrepriseElectriciteRemplissantUneFonctionDeFourniture]",
+        newValue: "entrepriseElectriciteRemplissantFonctionFourniture",
       },
     ];
 
@@ -67,5 +93,36 @@ export const CliqueSurLesOptions: Story = {
         },
       );
     }
+  },
+};
+
+export const AffichageInfobulles: Story = {
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const elementInfobulle = `Entreprise d’électricité remplissant une fonction de fourniture`;
+    // const titreAffiche = "Entreprise d’électricité";
+    const contenuAffiche = "Entreprise d’électricité";
+    await step(
+      `Clique sur '${elementInfobulle}' affiche une infobulle`,
+      async () => {
+        const iconeInformation = await canvas.findByTitle(
+          `Informations à propos de l'activité "${elementInfobulle}"`,
+        );
+        const paragraphe = await canvas.getByText(contenuAffiche);
+        expect(paragraphe.parentElement).toBeDefined();
+        const parentElement = paragraphe.parentElement as HTMLElement;
+        const divInfobulle = parentElement.classList;
+
+        expect(divInfobulle).toContain("fr-hidden");
+        await userEvent.click(iconeInformation);
+        expect(divInfobulle).not.toContain("fr-hidden");
+        await userEvent.click(iconeInformation);
+        expect(divInfobulle).toContain("fr-hidden");
+        await userEvent.click(iconeInformation);
+        const truc = within(parentElement);
+        await userEvent.click(truc.getByTitle("Masquer le message"));
+        expect(divInfobulle).toContain("fr-hidden");
+      },
+    );
   },
 };

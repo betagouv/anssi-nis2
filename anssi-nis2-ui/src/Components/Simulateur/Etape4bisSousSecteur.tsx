@@ -2,17 +2,19 @@ import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { FormSimulateur } from "./index.ts";
 import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/props.ts";
 import React, { useCallback, useEffect, useState } from "react";
+import { SelectOptions } from "../../Services/Simulateur/simulateurFrontServices.ts";
 import {
-  genereTransformateurValeursVersOptions,
-  labelGenerator,
-  SelectOptions,
-  TransformeRecordToSelect,
-} from "../../Services/Simulateur/simulateurFrontServices.ts";
-import { ValeursSousSecteurEnergie } from "../../Domaine/Simulateur/ValeursCles.ts";
+  TValeursSousSecteurEnergie,
+  TValeursSousSecteursActivites,
+} from "../../Domaine/Simulateur/ValeursCles.ts";
+import { libellesSousSecteursActivite } from "../../Domaine/Simulateur/LibellesSousSecteursActivite.ts";
 import {
-  DescriptionSousSecteur,
-  sousSecteursEnergie,
-} from "../../Domaine/Simulateur/SecteursActivite.ts";
+  contientSousSecteur,
+  estUnSecteurAvecDesSousSecteurs,
+  TValeursSecteursAvecSousSecteurs,
+} from "../../Domaine/Simulateur/SousSecteurs.ts";
+import { libellesSecteursActivite } from "../../Domaine/Simulateur/LibellesSecteursActivite.ts";
+import { transformateurSousSecteurActivite } from "../../Services/Simulateur/Transformateurs.ts";
 
 const Etape4bisSousSecteur = ({
   propageActionSimulateur,
@@ -20,7 +22,7 @@ const Etape4bisSousSecteur = ({
 }: SimulateurContenuEtapeProps) => {
   const gereChangement = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = event.target.value as ValeursSousSecteurEnergie;
+      const newValue = event.target.value as TValeursSousSecteurEnergie;
       propageActionSimulateur({
         type: "checkMulti",
         name: "sousSecteurActivite",
@@ -31,32 +33,46 @@ const Etape4bisSousSecteur = ({
   );
 
   const [optionsSousSecteurActivite, setOptionsSousSecteurActivite] =
-    useState<SelectOptions>();
-
+    useState<
+      Partial<Record<TValeursSecteursAvecSousSecteurs, SelectOptions>>
+    >();
   useEffect(() => {
-    const valeursSousSecteur = sousSecteursEnergie; //detailsDesSecteurs.energie.sousSecteurs;
+    const structOptions = formData.secteurActivite.reduce(
+      (
+        secteursAvecOptionsSousSecteurs: Partial<
+          Record<TValeursSecteursAvecSousSecteurs, SelectOptions>
+        >,
+        secteur,
+      ) => {
+        const entries = Object.entries(libellesSousSecteursActivite);
+        const reducteurCleValeurVersObjet = (
+          libellesSousSecteurDuSecteur: Partial<
+            Record<TValeursSousSecteursActivites, string>
+          >,
+          [sousSecteur, libelle]: [string, string],
+        ) => ({
+          ...libellesSousSecteurDuSecteur,
+          [sousSecteur]: libelle,
+        });
+        return {
+          ...secteursAvecOptionsSousSecteurs,
+          [secteur]: transformateurSousSecteurActivite(
+            entries
+              .filter(
+                ([sousSecteur]) =>
+                  estUnSecteurAvecDesSousSecteurs(secteur) &&
+                  contientSousSecteur(secteur, sousSecteur),
+              )
+              .reduce(reducteurCleValeurVersObjet, {}),
+            gereChangement,
+            formData,
+          ),
+        };
+      },
+      {},
+    );
 
-    const getSousSecteurLabel: labelGenerator<
-      ValeursSousSecteurEnergie,
-      DescriptionSousSecteur
-    > = (
-      value: string,
-      sousSecteur: Record<ValeursSousSecteurEnergie, DescriptionSousSecteur>,
-    ) => sousSecteur[value as ValeursSousSecteurEnergie].libelle;
-    const transformateurSousSecteurActivite: TransformeRecordToSelect<
-      ValeursSousSecteurEnergie,
-      DescriptionSousSecteur
-    > = genereTransformateurValeursVersOptions(
-      getSousSecteurLabel,
-      "sousSecteurActivite",
-    );
-    setOptionsSousSecteurActivite(
-      transformateurSousSecteurActivite(
-        valeursSousSecteur,
-        gereChangement,
-        formData,
-      ),
-    );
+    setOptionsSousSecteurActivite(structOptions);
   }, [formData, gereChangement]);
 
   return (
@@ -65,12 +81,20 @@ const Etape4bisSousSecteur = ({
         Précisez les sous-secteurs concernés :
       </legend>
       <div className="fr-fieldset__element">
-        {optionsSousSecteurActivite && (
-          <Checkbox
-            legend="&Eacute;nergie"
-            options={optionsSousSecteurActivite}
-          />
-        )}
+        {optionsSousSecteurActivite &&
+          Object.entries(optionsSousSecteurActivite).map(
+            ([secteur, optionsSousSecteur], index) => (
+              <Checkbox
+                legend={
+                  libellesSecteursActivite[
+                    secteur as TValeursSecteursAvecSousSecteurs
+                  ]
+                }
+                options={optionsSousSecteur}
+                key={`sousSecteurs-${secteur}-${index}`}
+              />
+            ),
+          )}
       </div>
     </FormSimulateur>
   );

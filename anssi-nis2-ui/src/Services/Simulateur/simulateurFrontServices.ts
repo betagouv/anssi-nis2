@@ -14,7 +14,7 @@ export type TransformeRecordToSelect<
   ValeursCles extends string,
   Contenu = string,
 > = (
-  valeurs: Record<ValeursCles, Contenu>,
+  valeurs: Partial<Record<ValeursCles, Contenu>>,
   onChange?: React.ChangeEventHandler<HTMLInputElement>,
   formData?: DonneesFormulaireSimulateur,
   group?: string,
@@ -23,16 +23,16 @@ export type TransformeRecordToSelect<
 export const getValueContent = (group: string | undefined, key: string) =>
   group ? `${group}[${key}]` : key;
 
-export type labelGenerator<T extends string, P = string> = (
+export type GenerateurLibelle<T extends string, P = string> = (
   value: string,
-  valeursMetier: Record<T, P>,
+  valeursMetier: Partial<Record<T, P>>,
 ) => string;
 
 export const genereTransformateurValeursVersOptions: <
   T extends string,
   P = string,
 >(
-  generateurLabel: labelGenerator<T, P>,
+  generateurLabel: GenerateurLibelle<T, P>,
   name: NomsChampsSimulateur,
 ) => TransformeRecordToSelect<T, P> =
   (generateurLabel, name) => (valeursMetier, onChange?, formData?, group?) => {

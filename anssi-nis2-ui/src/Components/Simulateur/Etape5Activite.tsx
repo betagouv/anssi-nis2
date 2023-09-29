@@ -1,5 +1,3 @@
-import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
-import { genereTransformateurValeursVersOptions } from "../../Services/Simulateur/simulateurFrontServices.ts";
 import { FormSimulateur } from "./index.ts";
 import {
   ListeOptionsChampFormulaire,
@@ -7,19 +5,26 @@ import {
 } from "../../Services/Simulateur/props.ts";
 import React, { useEffect, useState } from "react";
 import { NomsChampsSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
-import { detailsDesSecteurs } from "../../Domaine/Simulateur/SecteursActivite.ts";
+import { activitesParSecteurEtSousSecteur } from "../../Domaine/Simulateur/ActivitesParSecteurEtSousSecteur.ts";
+import {
+  collecteTitresPourActivite,
+  construitListeActivites,
+} from "../../Services/Simulateur/Transformateurs.ts";
+import { libellesSecteursActivite } from "../../Domaine/Simulateur/LibellesSecteursActivite.ts";
+import { libellesSousSecteursActivite } from "../../Domaine/Simulateur/LibellesSousSecteursActivite.ts";
+import { TValeursSectorielles } from "../../Domaine/Simulateur/ValeursCles.ts";
+
+import { EnsembleChamps } from "./Inputs/EnsembleChamps.tsx";
 
 const Etape5Activite = ({
   propageActionSimulateur,
   formData,
 }: SimulateurContenuEtapeProps) => {
-  const [optionsSecteurActivite, setOptionsSecteurActivite] =
-    useState<ListeOptionsChampFormulaire>([]);
+  const [optionsParSecteurActivite, setOptionsParSecteurActivite] = useState<
+    [string, ListeOptionsChampFormulaire][]
+  >([]);
 
   useEffect(() => {
-    const valeursActivites =
-      detailsDesSecteurs.energie.sousSecteurs?.electricite.activites || {};
-
     const changeMulti: React.ChangeEventHandler<HTMLInputElement> = (evt) =>
       propageActionSimulateur({
         type: "checkMulti",
@@ -27,18 +32,19 @@ const Etape5Activite = ({
         newValue: evt.target.value,
       });
 
-    const transformateurSecteurActivite =
-      genereTransformateurValeursVersOptions<string>(
-        (cle: string, valeurs: Record<string, string>) => valeurs[cle],
-        "activites",
-      );
-    setOptionsSecteurActivite(
-      transformateurSecteurActivite(
-        valeursActivites,
-        changeMulti,
-        formData,
-        "energie",
-      ),
+    const titresExtraits: string[][] = collecteTitresPourActivite(
+      libellesSecteursActivite,
+      libellesSousSecteursActivite,
+      formData,
+    );
+
+    setOptionsParSecteurActivite(
+      titresExtraits.map(([secteurOuSousSecteur, titreActivites]) => [
+        titreActivites,
+        activitesParSecteurEtSousSecteur[
+          secteurOuSousSecteur as TValeursSectorielles
+        ].map(construitListeActivites(formData, changeMulti)),
+      ]),
     );
   }, [formData, propageActionSimulateur]);
   return (
@@ -52,10 +58,15 @@ const Etape5Activite = ({
           définitions des activités.
         </p>
 
-        <Checkbox
-          legend="Énergie / Électricité"
-          options={optionsSecteurActivite}
-        />
+        {optionsParSecteurActivite.map(
+          ([legende, optionsSecteurActivite], index) => (
+            <EnsembleChamps
+              legende={legende}
+              optionsSecteurActivite={optionsSecteurActivite}
+              key={`activites-${index}`}
+            />
+          ),
+        )}
       </div>
     </FormSimulateur>
   );

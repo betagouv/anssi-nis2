@@ -1,5 +1,5 @@
 import { DefaultProps, NativeInputProps } from "../Props.ts";
-import { Dispatch } from "react";
+import { Dispatch, ReactNode } from "react";
 import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
@@ -29,7 +29,11 @@ export type SimulateurDonneesFormulaireActions = {
   name: NomsChampsSimulateur;
   newValue: string;
 };
-export type ListeOptionsChampFormulaire = {
+export type OptionChampSimulateur = {
   nativeInputProps: NativeInputProps;
   label: string;
-}[];
+  contenuInfobulle?: ReactNode;
+};
+
+// TODO: dupliccate with SelectOptions (SelectFrontService)
+export type ListeOptionsChampFormulaire = OptionChampSimulateur[];

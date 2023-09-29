@@ -1,7 +1,7 @@
 import React, { Reducer } from "react";
 import {
-  NomsChampsSimulateur,
   DonneesFormulaireSimulateur,
+  NomsChampsSimulateur,
 } from "./donneesFormulaire.ts";
 import { SimulateurDonneesFormulaireActions } from "./props.ts";
 import { fieldHandlers } from "./gestionnaires.ts";
@@ -45,4 +45,13 @@ export const reducerBoutons: Reducer<
     return state;
   }
   return { ...state, [bouton]: newHandler };
+};
+export const changeInfobulleOuverte: Reducer<
+  {
+    id: string;
+  },
+  string
+> = ({ id }, nouvelId) => {
+  if (id === nouvelId) return { id: "" };
+  return { id: nouvelId };
 };

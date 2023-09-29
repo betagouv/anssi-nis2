@@ -4,8 +4,9 @@ import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/props.ts"
 import React, { useCallback, useEffect, useState } from "react";
 import { transformeSecteursActiviteVersOptions } from "../../Services/Simulateur/Transformateurs.ts";
 import { SelectOptions } from "../../Services/Simulateur/simulateurFrontServices.ts";
-import { ValeursSecteurActivite } from "../../Domaine/Simulateur/ValeursCles.ts";
-import { secteursActivite } from "../../Domaine/Simulateur/SecteursActivite.ts";
+import { TValeursSecteursActivites } from "../../Domaine/Simulateur/ValeursCles.ts";
+
+import { libellesSecteursActivite } from "../../Domaine/Simulateur/LibellesSecteursActivite.ts";
 
 const Etape4Secteur = ({
   propageActionSimulateur,
@@ -13,7 +14,7 @@ const Etape4Secteur = ({
 }: SimulateurContenuEtapeProps) => {
   const gereChangement = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = event.target.value as ValeursSecteurActivite;
+      const newValue = event.target.value as TValeursSecteursActivites;
       propageActionSimulateur({
         type: "checkMulti",
         name: "secteurActivite",
@@ -29,7 +30,7 @@ const Etape4Secteur = ({
   useEffect(() => {
     setOptionsSecteurActivite(
       transformeSecteursActiviteVersOptions(
-        secteursActivite,
+        libellesSecteursActivite,
         gereChangement,
         formData,
       ),

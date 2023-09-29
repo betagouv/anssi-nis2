@@ -6,6 +6,7 @@ import { userEvent, within } from "@storybook/testing-library";
 import { expect, jest } from "@storybook/jest";
 import { Component } from "@storybook/blocks";
 import { CanvasFindByRole } from "../../utilitaires/Canvas.d.tsx";
+import { donneesFormulaireSimulateurVide } from "../../../Services/Simulateur/donneesFormulaire.ts";
 
 const genereDecorateurPourContexte = (context: Context) =>
   function StoryDecoree(StoryADecorer: Component) {
@@ -35,6 +36,7 @@ const simulateurContext: Context = {
   sendFormData: mockSendFormData,
 };
 
+export const Simple: Story = {};
 export const DerniereEtapeEstResultat: Story = {
   decorators: [genereDecorateurPourContexte(simulateurContext)],
 
@@ -51,6 +53,9 @@ export const DerniereEtapeEstResultat: Story = {
       "La directive s'appliquerait à votre entité au vu des éléments saisis",
     );
     await expect(mockSendFormData).toHaveBeenCalled();
+    await expect(mockSendFormData).toHaveBeenCalledWith(
+      donneesFormulaireSimulateurVide,
+    );
   },
 };
 

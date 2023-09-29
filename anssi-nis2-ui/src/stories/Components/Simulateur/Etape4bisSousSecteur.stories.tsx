@@ -6,10 +6,13 @@ import { Etape4bisSousSecteur } from "../../../Components/Simulateur";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { DonneesFormulaireSimulateur } from "../../../Services/Simulateur/donneesFormulaire.ts";
-import { ValeursSousSecteurEnergie } from "../../../Domaine/Simulateur/ValeursCles.ts";
+import {
+  DonneesFormulaireSimulateur,
+  donneesFormulaireSimulateurVide,
+} from "../../../Services/Simulateur/donneesFormulaire.ts";
+import { TValeursSousSecteurEnergie } from "../../../Domaine/Simulateur/ValeursCles.ts";
 
-class ParametresDonneesSousSecteurActivite extends ParametresDonneesSpecifiqueField<ValeursSousSecteurEnergie> {
+class ParametresDonneesSousSecteurActivite extends ParametresDonneesSpecifiqueField<TValeursSousSecteurEnergie> {
   protected construitDonnees<ValeursSecteurActivite>(
     valeurs: ValeursSecteurActivite[],
   ): DonneesFormulaireSimulateur {
@@ -24,6 +27,13 @@ const donneesFormulaireOptions: CollectionParametresDonneesSousSecteurActivites 
 
 const meta: Meta<typeof Etape4bisSousSecteur> = {
   component: Etape4bisSousSecteur,
+  args: {
+    formData: {
+      ...donneesFormulaireSimulateurVide,
+      secteurActivite: ["energie"],
+      sousSecteurActivite: ["electricite"],
+    },
+  },
   argTypes: {
     propageActionSimulateur: { action: true },
     formData: donneesFormulaireOptions.getFormData(),
@@ -34,7 +44,7 @@ export default meta;
 type Story = StoryObj<typeof Etape4bisSousSecteur>;
 
 const creeActionPropagationFormulaireActivite = (
-  newValue: ValeursSousSecteurEnergie,
+  newValue: TValeursSousSecteurEnergie,
 ) => {
   const actionTypique = {
     type: "checkMulti",
@@ -50,7 +60,7 @@ export const SousSecteurEnergie: Story = {
 
     const optionsATester: {
       libelle: string;
-      newValue: ValeursSousSecteurEnergie;
+      newValue: TValeursSousSecteurEnergie;
     }[] = [
       {
         libelle: "Électricité",
@@ -70,5 +80,25 @@ export const SousSecteurEnergie: Story = {
         },
       );
     }
+  },
+};
+
+export const MixSecteursEtSousSecteurs: Story = {
+  args: {
+    formData: {
+      ...donneesFormulaireSimulateurVide,
+      secteurActivite: ["espace", "energie", "transports"],
+      sousSecteurActivite: ["electricite", "hydrogene"],
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    expect(await canvas.findByLabelText("Électricité")).toBeChecked();
+    expect(await canvas.getByLabelText("Gaz")).not.toBeChecked();
+    expect(await canvas.getByLabelText("Hydrogène")).toBeChecked();
+
+    expect(await canvas.getByText("Énergie")).toBeInTheDocument();
+    expect(await canvas.getByText("Transports")).toBeInTheDocument();
   },
 };
