@@ -1,5 +1,5 @@
 import { fabriqueCheminVersFrontStatique } from "./fabriqueCheminVersFrontStatique";
-import { ServeurStaticConfigurableModule } from "../serveur-static-configurable.module";
+import { ServeurStatiqueConfigurableModule } from "../serveur-statique-configurable/serveur-statique-configurable.module";
 import { ServeStaticModuleAsyncOptions } from "@nestjs/serve-static";
 
 export const fabriqueAsynchroneOptionsServeurStatique: ServeStaticModuleAsyncOptions =
@@ -7,7 +7,7 @@ export const fabriqueAsynchroneOptionsServeurStatique: ServeStaticModuleAsyncOpt
     useFactory: async () => [
       {
         rootPath: await fabriqueCheminVersFrontStatique(),
-        useClass: ServeurStaticConfigurableModule,
+        useClass: ServeurStatiqueConfigurableModule,
       },
     ],
   };

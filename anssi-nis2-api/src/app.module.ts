@@ -1,6 +1,6 @@
 import { Logger, Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { ServeurStaticConfigurableModule } from "./serveur-static-configurable.module";
+import { ServeurStatiqueConfigurableModule } from "./serveur-statique-configurable/serveur-statique-configurable.module";
 import { DataSource } from "typeorm";
 import { SimulateurReponseModule } from "./simulateur-reponse/simulateur-reponse.module";
 import { DatabaseModule } from "./database/database.module";
@@ -14,7 +14,7 @@ const optionsConnectionBaseDeDonnees = fabriqueAsynchroneOptionsTypeOrm();
 @Module({
   imports: [
     TypeOrmModule.forRootAsync(optionsConnectionBaseDeDonnees),
-    ServeurStaticConfigurableModule.forRootAsync(
+    ServeurStatiqueConfigurableModule.forRootAsync(
       fabriqueAsynchroneOptionsServeurStatique,
     ),
     SimulateurReponseModule,
