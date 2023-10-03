@@ -7,11 +7,6 @@ import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
 
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
 
-export type GenerateurSoumissionEtape = (
-  limiteConditions: (i: number) => boolean,
-  nouvelleEtape: (etape: number) => number,
-) => React.MouseEventHandler;
-
 export type GestionValeursFormulaire = (
   value: string,
   donneesFormulaire: DonneesFormulaireSimulateur,
@@ -32,6 +27,7 @@ export const fieldHandlers: Record<
   NomsChampsSimulateur,
   GestionValeursFormulaire
 > = {
+  designeOSE: gestionValeursSimples,
   etatMembre: genereGestionValeursMultiples("etatMembre"),
   secteurActivite: genereGestionValeursMultiples("secteurActivite"),
   sousSecteurActivite: genereGestionValeursMultiples("sousSecteurActivite"),

@@ -1,3 +1,6 @@
+export const ValeursReponsesDesigneOSE = ["oui", "non", "nsp"] as const;
+export type TValeursReponsesDesigneOSE =
+  (typeof ValeursReponsesDesigneOSE)[number];
 export type ValeursClePaysUnionEuropeenne = "france" | "autre" | "horsue";
 export type ValeursTypeStructure = "publique" | "privee";
 export type ValeursTrancheNombreEmployes = "petit" | "moyen" | "grand";

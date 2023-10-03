@@ -5,6 +5,7 @@ import {
 } from "./simulateurFrontServices.ts";
 import {
   TValeursActivites,
+  TValeursReponsesDesigneOSE,
   TValeursSecteursActivites,
   TValeursSousSecteursActivites,
   ValeursClePaysUnionEuropeenne,
@@ -20,6 +21,16 @@ import {
 } from "../../Domaine/Simulateur/SousSecteurs.ts";
 import { LibellesActivites } from "../../Domaine/Simulateur/LibellesActivites.ts";
 import { DescriptionActivite } from "../../Domaine/Simulateur/DescriptionActivite.tsx";
+
+const recupereLibelleReponseOSE = (
+  value: string,
+  reponsesDesigneOse: Partial<Record<TValeursReponsesDesigneOSE, string>>,
+) => reponsesDesigneOse[value as TValeursReponsesDesigneOSE] || value;
+export const transformeReponsesDesigneOSEPourSelect: TransformeRecordToSelect<TValeursReponsesDesigneOSE> =
+  genereTransformateurValeursVersOptions(
+    recupereLibelleReponseOSE,
+    "designeOSE",
+  );
 
 const getPaysUnionEuropeenneElement = (
   value: string,
