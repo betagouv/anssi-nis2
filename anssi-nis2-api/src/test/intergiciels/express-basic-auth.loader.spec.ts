@@ -5,7 +5,7 @@ import { ServeStaticModuleOptions } from "@nestjs/serve-static";
 import {
   BasicAuthDesactivee,
   ChargeurExpressBasicAuth,
-} from "../serveur-statique-configurable/chargeur-express-basic.auth";
+} from "../../intergiciels/serveur-statique-configurable/chargeur-express-basic.auth";
 import { createMock } from "@golevelup/ts-jest";
 
 describe(ChargeurExpressBasicAuth, () => {

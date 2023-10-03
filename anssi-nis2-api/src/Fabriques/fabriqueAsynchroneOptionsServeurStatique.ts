@@ -1,5 +1,5 @@
 import { fabriqueCheminVersFrontStatique } from "./fabriqueCheminVersFrontStatique";
-import { ServeurStatiqueConfigurableModule } from "../serveur-statique-configurable/serveur-statique-configurable.module";
+import { ServeurStatiqueConfigurableModule } from "../intergiciels/serveur-statique-configurable/serveur-statique-configurable.module";
 import { ServeStaticModuleAsyncOptions } from "@nestjs/serve-static";
 
 export const fabriqueAsynchroneOptionsServeurStatique: ServeStaticModuleAsyncOptions =

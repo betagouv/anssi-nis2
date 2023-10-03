@@ -1,11 +1,10 @@
 import { Logger, Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { ServeurStatiqueConfigurableModule } from "./serveur-statique-configurable/serveur-statique-configurable.module";
+import { ServeurStatiqueConfigurableModule } from "./intergiciels/serveur-statique-configurable/serveur-statique-configurable.module";
 import { DataSource } from "typeorm";
 import { SimulateurReponseModule } from "./simulateur-reponse/simulateur-reponse.module";
 import { DatabaseModule } from "./database/database.module";
 import { ConfigModule } from "@nestjs/config";
-// import { fabriqueAsynchroneOptionsTypeOrm } from "./Fabriques/fabriqueAsynchroneOptionsTypeOrm";
 import { fabriqueAsynchroneOptionsServeurStatique } from "./Fabriques/fabriqueAsynchroneOptionsServeurStatique";
 import { fabriqueAsynchroneOptionsTypeOrm } from "./Fabriques/fabriqueAsynchroneOptionsTypeOrm";
 
