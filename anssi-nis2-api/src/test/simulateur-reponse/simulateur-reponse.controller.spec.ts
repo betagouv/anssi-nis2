@@ -1,13 +1,13 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { SimulateurReponseController } from './simulateur-reponse.controller';
-import { emptySimulateurFormData } from '../Domaine/simulateur';
-import { SimulateurReponseService } from './simulateur-reponse.service';
-import { provideSimulateurRepouseRepositoryKey } from '../constantes';
-import { Repository } from 'typeorm';
-import { SimulateurReponse } from './simulateur-reponse.entity';
-import { MockFactory } from '../test/mock.factory';
+import { Test, TestingModule } from "@nestjs/testing";
+import { SimulateurReponseController } from "../../simulateur-reponse/simulateur-reponse.controller";
+import { emptySimulateurFormData } from "../../Domaine/simulateur";
+import { SimulateurReponseService } from "../../simulateur-reponse/simulateur-reponse.service";
+import { provideSimulateurRepouseRepositoryKey } from "../../constantes";
+import { Repository } from "typeorm";
+import { SimulateurReponse } from "../../simulateur-reponse/simulateur-reponse.entity";
+import { MockFactory } from "../mock.factory";
 
-describe('SimulateurReponseController', () => {
+describe("SimulateurReponseController", () => {
   let controller: SimulateurReponseController;
   const simulateurReponseJson = JSON.stringify(emptySimulateurFormData);
   const simulateurReponse = {

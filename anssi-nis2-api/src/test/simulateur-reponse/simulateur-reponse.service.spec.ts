@@ -1,12 +1,12 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { SimulateurReponseService } from './simulateur-reponse.service';
-import { Repository } from 'typeorm';
-import { SimulateurReponse } from './simulateur-reponse.entity';
-import { provideSimulateurRepouseRepositoryKey } from '../constantes';
-import { emptySimulateurFormData } from '../Domaine/simulateur';
-import { MockFactory } from '../test/mock.factory';
+import { Test, TestingModule } from "@nestjs/testing";
+import { SimulateurReponseService } from "../../simulateur-reponse/simulateur-reponse.service";
+import { Repository } from "typeorm";
+import { SimulateurReponse } from "../../simulateur-reponse/simulateur-reponse.entity";
+import { provideSimulateurRepouseRepositoryKey } from "../../constantes";
+import { emptySimulateurFormData } from "../../Domaine/simulateur";
+import { MockFactory } from "../mock.factory";
 
-describe('SimulateurReponseService', () => {
+describe("SimulateurReponseService", () => {
   let service: SimulateurReponseService;
   const simulateurReponseJson = JSON.stringify(emptySimulateurFormData);
   const simulateurReponse = {
@@ -32,7 +32,7 @@ describe('SimulateurReponseService', () => {
     service = module.get<SimulateurReponseService>(SimulateurReponseService);
   });
 
-  it('should call repo', async () => {
+  it("should call repo", async () => {
     const result = await service.save(emptySimulateurFormData);
     expect(result).toBe(simulateurReponse);
   });
