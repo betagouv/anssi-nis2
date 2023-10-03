@@ -67,7 +67,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
         <Stepper
           currentStep={etatEtapes.numeroEtapeCourante}
           nextTitle={informationsEtapeSuivante.titre}
-          stepCount={listeEtapes.length}
+          stepCount={listeEtapes.nombreEtapes}
           title={informationsEtape.titre}
           className="fr-mb-5w"
         />
