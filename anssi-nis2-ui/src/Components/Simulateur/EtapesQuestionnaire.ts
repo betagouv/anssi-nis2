@@ -1,4 +1,5 @@
 import {
+  EtapeOSE,
   Etape1Localisation,
   Etape2TypeStructure,
   Etape3Taille,
@@ -16,6 +17,11 @@ import { EtatEtapes } from "../../Services/Simulateur/EtatEtapes.ts";
 
 export const etapesQuestionnaire: CollectionInformationsEtapes =
   new CollectionInformationsEtapes(
+    new InformationEtapeForm(
+      "Désignation éventuelle",
+      "Selectionnez une réponse",
+      EtapeOSE,
+    ),
     new InformationEtapeForm(
       "Localisation de l’activité",
       "Sélectionnez une réponse",

@@ -48,6 +48,7 @@ export const DerniereEtapeEstResultat: Story = {
     await cliqueSurSuivant(canvas);
     await cliqueSurSuivant(canvas);
     await cliqueSurSuivant(canvas);
+    await cliqueSurSuivant(canvas);
 
     await canvas.findByText(
       "La directive s'appliquerait à votre entité au vu des éléments saisis",
@@ -63,6 +64,7 @@ export const EtapeSousActiviteConditionnelle: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    await cliqueSurSuivant(canvas);
     await cliqueSurSuivant(canvas);
     await cliqueSurSuivant(canvas);
     await cliqueSurSuivant(canvas);
