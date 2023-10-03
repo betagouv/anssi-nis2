@@ -19,7 +19,9 @@ const optionsConnectionBaseDeDonnees = fabriqueAsynchroneOptionsTypeOrm();
     ),
     SimulateurReponseModule,
     DatabaseModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
   ],
 })
 export class AppModule {
