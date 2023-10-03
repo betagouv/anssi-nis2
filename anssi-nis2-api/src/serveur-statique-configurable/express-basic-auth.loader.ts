@@ -4,12 +4,15 @@ import { AbstractHttpAdapter } from "@nestjs/core";
 import { loadPackage } from "@nestjs/common/utils/load-package.util";
 import { ServeurStatiqueConfigurableModuleToken } from "./serveur-statique-configurable.module";
 
-const motDePasseAuthentificationBasiqueHTTP = async () =>
-  process.env.MOT_DE_PASSE_NIS2_BASIC_AUTH;
-const utilisateurAuthitificationBasiqueHTTP = async () => "NIS2";
-
 @Injectable()
 export class ExpressBasicAuthLoader extends ExpressLoader {
+  constructor(
+    private readonly utilisateur: string,
+    private readonly motDePasse: string,
+  ) {
+    super();
+  }
+
   public async register(
     httpAdapter: AbstractHttpAdapter,
     optionsArr: ServeStaticModuleOptions[],
@@ -24,8 +27,7 @@ export class ExpressBasicAuthLoader extends ExpressLoader {
     );
     const staticUserAuth = basicAuth({
       users: {
-        [await utilisateurAuthitificationBasiqueHTTP()]:
-          await motDePasseAuthentificationBasiqueHTTP(),
+        [this.utilisateur]: this.motDePasse,
       },
       challenge: true,
     });
