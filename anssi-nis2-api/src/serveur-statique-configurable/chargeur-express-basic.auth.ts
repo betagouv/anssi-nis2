@@ -4,14 +4,14 @@ import { AbstractHttpAdapter } from "@nestjs/core";
 import { loadPackage } from "@nestjs/common/utils/load-package.util";
 import { ServeurStatiqueConfigurableModuleToken } from "./serveur-statique-configurable.module";
 
-type BasicAuthDesactivee = false;
+export const BasicAuthDesactivee = false as const;
 
-type ConfigurationBasicAuth =
+export type ConfigurationBasicAuth =
   | {
       readonly utilisateur: string;
       readonly motDePasse: string;
     }
-  | BasicAuthDesactivee;
+  | typeof BasicAuthDesactivee;
 
 @Injectable()
 export class ChargeurExpressBasicAuth extends ExpressLoader {
@@ -24,23 +24,28 @@ export class ChargeurExpressBasicAuth extends ExpressLoader {
     optionsArr: ServeStaticModuleOptions[],
   ) {
     const app = httpAdapter.getInstance();
-    const chargeurAuthentificationBasiqueHTTP = () =>
-      require("express-basic-auth");
-    const basicAuth = loadPackage(
-      "basicAuth",
-      ServeurStatiqueConfigurableModuleToken,
-      chargeurAuthentificationBasiqueHTTP,
-    );
-    const staticUserAuth =
-      this.configuration &&
-      basicAuth({
+    const staticUserAuth = this.configureAuthentificationBasique();
+    app.use("/", staticUserAuth, (req, res, next) => next());
+
+    super.register(httpAdapter, optionsArr);
+  }
+
+  private configureAuthentificationBasique() {
+    if (this.configuration !== BasicAuthDesactivee) {
+      const chargeurAuthentificationBasiqueHTTP = () =>
+        require("express-basic-auth");
+      const basicAuth = loadPackage(
+        "basicAuth",
+        ServeurStatiqueConfigurableModuleToken,
+        chargeurAuthentificationBasiqueHTTP,
+      );
+      return basicAuth({
         users: {
           [this.configuration.utilisateur]: this.configuration.motDePasse,
         },
         challenge: true,
       });
-    app.use("/", staticUserAuth, (req, res, next) => next());
-
-    super.register(httpAdapter, optionsArr);
+    }
+    return undefined;
   }
 }

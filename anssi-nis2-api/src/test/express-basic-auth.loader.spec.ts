@@ -2,7 +2,10 @@
 
 import { AbstractHttpAdapter } from "@nestjs/core";
 import { ServeStaticModuleOptions } from "@nestjs/serve-static";
-import { ChargeurExpressBasicAuth } from "../serveur-statique-configurable/chargeur-express-basic.auth";
+import {
+  BasicAuthDesactivee,
+  ChargeurExpressBasicAuth,
+} from "../serveur-statique-configurable/chargeur-express-basic.auth";
 import { createMock } from "@golevelup/ts-jest";
 
 describe(ChargeurExpressBasicAuth, () => {
@@ -17,7 +20,6 @@ describe(ChargeurExpressBasicAuth, () => {
     const optionsArr: ServeStaticModuleOptions[] = [];
     const app = createMock<AbstractHttpAdapter>();
 
-    httpAdapter.getInstance.mockReturnValue(app);
     const basicAuth = jest.fn();
     const chargeurAuthentificationBasiqueHTTP = jest
       .fn()
@@ -27,16 +29,41 @@ describe(ChargeurExpressBasicAuth, () => {
     const expressBasicAuthLoader = new ChargeurExpressBasicAuth(
       configurationParDefaut,
     );
+    httpAdapter.getInstance.mockReturnValue(app);
 
     expressBasicAuthLoader.register(httpAdapter, optionsArr);
 
     expect(chargeurAuthentificationBasiqueHTTP).toHaveBeenCalled();
     expect(basicAuth).toHaveBeenCalledWith({
       users: {
-        username: "password",
+        [configurationParDefaut.utilisateur]: configurationParDefaut.motDePasse,
       },
       challenge: true,
     });
+    expect(app.use).toHaveBeenCalledWith("/", undefined, expect.any(Function));
+  });
+
+  it("ne devrait pas charger le middleware quand la basic auth n'est pas activée", () => {
+    const httpAdapter = createMock<AbstractHttpAdapter>();
+
+    const optionsArr: ServeStaticModuleOptions[] = [];
+    const app = createMock<AbstractHttpAdapter>();
+
+    const basicAuth = jest.fn();
+    const chargeurAuthentificationBasiqueHTTP = jest
+      .fn()
+      .mockReturnValue(basicAuth);
+
+    jest.doMock("express-basic-auth", chargeurAuthentificationBasiqueHTTP);
+    const expressBasicAuthLoader = new ChargeurExpressBasicAuth(
+      BasicAuthDesactivee,
+    );
+    httpAdapter.getInstance.mockReturnValue(app);
+
+    expressBasicAuthLoader.register(httpAdapter, optionsArr);
+
+    expect(chargeurAuthentificationBasiqueHTTP).not.toHaveBeenCalled();
+    expect(basicAuth).not.toHaveBeenCalled();
     expect(app.use).toHaveBeenCalledWith("/", undefined, expect.any(Function));
   });
 
