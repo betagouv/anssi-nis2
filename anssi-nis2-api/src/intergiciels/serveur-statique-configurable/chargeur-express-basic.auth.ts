@@ -3,8 +3,9 @@ import { ExpressLoader, ServeStaticModuleOptions } from "@nestjs/serve-static";
 import { AbstractHttpAdapter } from "@nestjs/core";
 import { loadPackage } from "@nestjs/common/utils/load-package.util";
 import { ServeurStatiqueConfigurableModuleToken } from "./serveur-statique-configurable.module";
+import { ConfigService } from "@nestjs/config";
 
-export const BasicAuthDesactivee = false as const;
+export const BasicAuthDesactivee = "AuthentificationBasiqueDesactivee" as const;
 
 export type ConfigurationBasicAuth =
   | {
@@ -12,6 +13,25 @@ export type ConfigurationBasicAuth =
       readonly motDePasse: string;
     }
   | typeof BasicAuthDesactivee;
+
+type ClesConfigurationBasicAuth = {
+  UTILISATEUR_BASIC_AUTH: string;
+  MOT_DE_PASSE_BASIC_AUTH: string;
+};
+
+export const fabriqueFournisseurServeurStatique = (
+  configService: ConfigService<ClesConfigurationBasicAuth>,
+) => {
+  const utilisateurbasicauth = configService.get("UTILISATEUR_BASIC_AUTH");
+  const motdepassebasicauth = configService.get("MOT_DE_PASSE_BASIC_AUTH");
+  if (!utilisateurbasicauth || !motdepassebasicauth) {
+    return new ChargeurExpressBasicAuth(BasicAuthDesactivee);
+  }
+  return new ChargeurExpressBasicAuth({
+    utilisateur: utilisateurbasicauth,
+    motDePasse: motdepassebasicauth,
+  });
+};
 
 @Injectable()
 export class ChargeurExpressBasicAuth extends ExpressLoader {
