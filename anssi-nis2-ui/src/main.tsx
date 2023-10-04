@@ -13,6 +13,7 @@ import {
 import APropos from "./Components/PagesEdito/APropos.tsx";
 import MentionsLegales from "./Components/PagesEdito/MentionsLegales.tsx";
 import { PageEdito } from "./Components/PagesEdito/PageEdito.tsx";
+import GestionCookies from "./Components/PagesEdito/GestionCookies.tsx";
 
 startReactDsfr({ defaultColorScheme: "system" });
 
@@ -38,6 +39,14 @@ const router = createBrowserRouter([
     element: (
       <PageEdito titre="Mentions légales">
         <MentionsLegales />
+      </PageEdito>
+    ),
+  },
+  {
+    path: "/gestion-des-cookies",
+    element: (
+      <PageEdito titre="Gestion des cookies">
+        <GestionCookies />
       </PageEdito>
     ),
   },
