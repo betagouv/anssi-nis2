@@ -6,7 +6,7 @@ import {
 } from "./donneesFormulaire.ts";
 import { BoutonsNavigation } from "./boutonsNavigation.ts";
 import { EtatEtapes } from "./EtatEtapes.ts";
-import { DescriptionActivite } from "../../Domaine/Simulateur/DescriptionActivite.tsx";
+import { DescriptionActivite } from "../../Domaine/Simulateur/DescriptionActivite.ts";
 
 export interface SimulateurContenuEtapeProps extends DefaultProps {
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>;

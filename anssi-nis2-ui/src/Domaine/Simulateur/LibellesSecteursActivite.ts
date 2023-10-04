@@ -5,6 +5,7 @@ export const libellesSecteursActivite: Record<
   string
 > = {
   administrationPublique: "Administration publique / administration centrale",
+  autreSecteurActivite: "Autre activité",
   banqueSecteurBancaire: "Banques (secteur bancaire)",
   eauPotable: "Eau potable",
   eauxUsees: "Eaux usées",
@@ -24,5 +25,4 @@ export const libellesSecteursActivite: Record<
   sante: "Santé",
   servicesPostauxExpedition: "Services postaux et d'expédition",
   transports: "Transports",
-  autre: "Aucun",
 };

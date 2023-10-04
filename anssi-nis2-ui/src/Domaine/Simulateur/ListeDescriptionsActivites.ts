@@ -1,15 +1,64 @@
 import { TValeursActivites } from "./ValeursCles.ts";
-import { DescriptionActivite } from "./DescriptionActivite.tsx";
+import { DescriptionActivite } from "./DescriptionActivite.ts";
 
 export const listeDescriptionsActivites: Record<
   TValeursActivites,
   DescriptionActivite[]
 > = {
+  autreActiviteAdministrationPublique: [],
+  autreActiviteConstructionVehiculesAutomobilesRemorquesSemi: [],
+  autreActiviteEauPotable: [],
+  autreActiviteElectricite: [],
+  autreActiviteEspace: [],
+  autreActiviteFabricationDispositifsMedicaux: [],
+  autreActiviteFabricationEquipementsElectroniques: [],
+  autreActiviteFabricationMachinesEquipements: [],
+  autreActiviteFabricationProductionDistributionProduitsChimiques: [],
+  autreActiviteFabricationProduitsInformatiquesElectroniquesOptiques: [],
+  autreActiviteFournisseursNumeriques: [],
+  autreActiviteGaz: [],
+  autreActiviteGestionDechets: [],
+  autreActiviteGestionServicesTic: [],
+  autreActiviteHydrogene: [],
+  autreActiviteInfrastructureMarcheFinancie: [],
+  autreActiviteInfrastructureNumerique: [],
+  autreActivitePetrole: [],
+  autreActiviteProductionTransformationDistributionDenreesAlimentaires: [],
+  autreActiviteReseauxChaleurFroid: [],
+  autreActiviteSante: [],
+  autreActiviteSecteurBancaire: [],
+  autreActiviteServicesPostauxExpedition: [],
+  autreActiviteTransportsAeriens: [],
+  autreActiviteTransportsFerroviaires: [],
+  autreActiviteTransportsParEaux: [],
+  autreActiviteTransportsRoutiers: [],
+  acteurDuMarche: [],
+  administrationPouvoirsPublicsCentraux: [],
+  administrationPubliqueNiveauRegional: [],
+  autoritesRoutieresControleGestionCirculation: [],
+  collectantEvacuantTraitantEaux: [],
+  constructionAeronautiqueSpatiale: [],
+  constructionBateauxNaviresMilitaires: [],
+  constructionBateauxPlaisance: [],
+  constructionLocomotivesAutreMaterielFerroviaireRoulant: [],
+  constructionNavale: [],
+  constructionNaviresStructuresFlottantesCiviles: [],
+  constructionVehiculeMilitaireCombat: [],
+  constructionVehiculesAutomobiles: [],
+  contrepartieCentrales: [],
+  entiteCentralesStockage: [],
+  entiteGestionnaireAeroports: [],
+  entiteGestionnairePorts: [],
   entrepriseElectriciteRemplissantFonctionFourniture: [
     {
       titre: "Entreprise d’électricité",
       description:
-        "Toute personne physique ou morale qui assure au moins une des fonctions suivantes : la production, le transport, la distribution, l'agrégation, la participation active de la demande, le stockage d'énergie, la fourniture ou l'achat d'électricité et qui est chargée des missions commerciales, techniques ou de maintenance liées à ces fonctions, à l'exclusion des clients finaux.",
+        "Toute personne physique ou morale qui assure au moins une des " +
+        "fonctions suivantes : la production, le transport, la distribution, " +
+        "l'agrégation, la participation active de la demande, le stockage " +
+        "d'énergie, la fourniture ou l'achat d'électricité et qui est " +
+        "chargée des missions commerciales, techniques ou de maintenance " +
+        "liées à ces fonctions, à l'exclusion des clients finaux.",
     },
     {
       titre: "Fourniture",
@@ -89,22 +138,4 @@ export const listeDescriptionsActivites: Record<
   serviceControleCirculationAerienne: [],
   societeTransportEaux: [],
   transporteursAeriensCommercial: [],
-  acteurDuMarche: [],
-  administrationPouvoirsPublicsCentraux: [],
-  administrationPubliqueNiveauRegional: [],
-  autoritesRoutieresControleGestionCirculation: [],
-  autre: [],
-  collectantEvacuantTraitantEaux: [],
-  constructionAeronautiqueSpatiale: [],
-  constructionBateauxNaviresMilitaires: [],
-  constructionBateauxPlaisance: [],
-  constructionLocomotivesAutreMaterielFerroviaireRoulant: [],
-  constructionNavale: [],
-  constructionNaviresStructuresFlottantesCiviles: [],
-  constructionVehiculeMilitaireCombat: [],
-  constructionVehiculesAutomobiles: [],
-  contrepartieCentrales: [],
-  entiteCentralesStockage: [],
-  entiteGestionnaireAeroports: [],
-  entiteGestionnairePorts: [],
 };

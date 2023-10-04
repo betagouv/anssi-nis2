@@ -13,12 +13,11 @@ export const libellesSousSecteursEnergie: DetailsSousSecteurUnique<TValeursSousS
     hydrogene: "Hydrogène",
     petrole: "Pétrole",
     reseauxChaleurFroid: "Réseaux de chaleur et de froid",
+    autreSousSecteurEnergie: "Autre sous-secteur",
   };
 
 export const libellesSousSecteurFabrication: DetailsSousSecteurUnique<TValeursSousSecteurFabrication> =
   {
-    fabricationFabricationProduitsInformatiquesElectroniquesOptiques:
-      "Fabrication de produits informatiques, électroniques et optiques",
     constructionVehiculesAutomobiles:
       "Construction de véhicules automobiles, remorques et semi- remorques",
     fabricationAutresMaterielTransports:
@@ -27,8 +26,11 @@ export const libellesSousSecteurFabrication: DetailsSousSecteurUnique<TValeursSo
       "Fabrication de dispositifs médicaux et de dispositifs médicaux de diagnostic in vitro",
     fabricationEquipementsElectroniques:
       "Fabrication de produits informatiques, électroniques et optiques",
+    fabricationFabricationProduitsInformatiquesElectroniquesOptiques:
+      "Fabrication de produits informatiques, électroniques et optiques",
     fabricationMachinesEquipements:
       "Fabrication de machines et équipements n.c.a.",
+    autreSousSecteurFabrication: "Autre sous-secteur",
   };
 
 export const libellesSousSecteurTransports: DetailsSousSecteurUnique<TValeursSousSecteurTransport> =
@@ -37,6 +39,7 @@ export const libellesSousSecteurTransports: DetailsSousSecteurUnique<TValeursSou
     transportsFerroviaires: "Ferroviaires",
     transportsParEau: "Par eau",
     transportsRoutiers: "Routiers",
+    autreSousSecteurTransport: "Autre sous-secteur",
   };
 
 export const libellesSousSecteursActivite: Record<

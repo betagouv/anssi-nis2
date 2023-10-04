@@ -40,8 +40,11 @@ export const activitesParSecteurEtSousSecteur: Record<
   TValeursSectorielles,
   readonly TValeursActivites[]
 > = {
-  autre: [],
   administrationPublique: ValeursActivitesAdministrationPublique,
+  autreSecteurActivite: [],
+  autreSousSecteurEnergie: [],
+  autreSousSecteurFabrication: [],
+  autreSousSecteurTransport: [],
   banqueSecteurBancaire: ValeursActivitesSecteurBancaire,
   constructionVehiculesAutomobiles:
     ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
@@ -57,12 +60,12 @@ export const activitesParSecteurEtSousSecteur: Record<
     ValeursActivitesFabricationDispositifsMedicaux,
   fabricationEquipementsElectroniques:
     ValeursActivitesFabricationEquipementsElectroniques,
+  fabricationFabricationProduitsInformatiquesElectroniquesOptiques:
+    ValeursActivitesFabricationProduitsInformatiquesElectroniquesOptiques,
   fabricationMachinesEquipements:
     ValeursActivitesFabricationMachinesEquipements,
   fabricationProductionDistributionProduitsChimiques:
     ValeursActivitesFabricationProductionDistributionProduitsChimiques,
-  fabricationFabricationProduitsInformatiquesElectroniquesOptiques:
-    ValeursActivitesFabricationProduitsInformatiquesElectroniquesOptiques,
   fournisseursNumeriques: ValeursActivitesFournisseursNumeriques,
   gaz: ValeursActivitesGaz,
   gestionDechets: ValeursActivitesGestionDechets,

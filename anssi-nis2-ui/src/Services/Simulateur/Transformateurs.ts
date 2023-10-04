@@ -20,7 +20,7 @@ import {
   TValeursSecteursAvecSousSecteurs,
 } from "../../Domaine/Simulateur/SousSecteurs.ts";
 import { LibellesActivites } from "../../Domaine/Simulateur/LibellesActivites.ts";
-import { listeDescriptionsActivites } from "../../Domaine/Simulateur/ListeDescriptionsActivites.tsx";
+import { listeDescriptionsActivites } from "../../Domaine/Simulateur/ListeDescriptionsActivites.ts";
 
 const recupereLibelleReponseOSE = (
   value: string,
