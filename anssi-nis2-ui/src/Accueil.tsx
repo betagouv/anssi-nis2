@@ -1,5 +1,3 @@
-import "./App.css";
-
 import "@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css";
 import "@gouvfr/dsfr/dist/utility/utility.css";
 

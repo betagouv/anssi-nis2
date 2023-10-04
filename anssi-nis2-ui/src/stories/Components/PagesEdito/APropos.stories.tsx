@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { pageDecorator } from "../utilitaires/PageDecorator.tsx";
-import Simulateur from "../../Simulateur.tsx";
+import { pageDecorator } from "../../utilitaires/PageDecorator.tsx";
+import APropos from "../../../Components/PagesEdito/APropos.tsx";
 
-const meta: Meta<typeof Simulateur> = {
-  component: Simulateur,
+const meta: Meta<typeof APropos> = {
+  component: APropos,
   decorators: [pageDecorator],
 };
 
 export default meta;
-type Story = StoryObj<typeof Simulateur>;
+type Story = StoryObj<typeof APropos>;
 
 export const AffichageSimple: Story = {
   args: {

@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { ChargeurEtape } from "../../../Components/Simulateur/ChargeurEtape.tsx";
 import { AppContext, Context } from "../../../AppContext.tsx";
-import { defaultContext } from "../../../.storybook/PageDecorator.tsx";
+import { defaultContext } from "../../utilitaires/PageDecorator.tsx";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect, jest } from "@storybook/jest";
 import { Component } from "@storybook/blocks";

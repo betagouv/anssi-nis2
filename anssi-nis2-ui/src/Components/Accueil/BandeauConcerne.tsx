@@ -3,10 +3,10 @@ import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages
 import { Link } from "react-router-dom";
 import { DefaultComponent } from "../../Services/Props.ts";
 import { UppercaseH2 } from "../Styled/UppercaseH2.tsx";
-import { SuisJeConcerneDiv } from "../Styled/SuisJeConcerneDiv.tsx";
+import { BandeauBleuMarianne } from "../BandeauBleuMarianne.tsx";
 import styled from "@emotion/styled";
 
-const Centered = styled(SuisJeConcerneDiv)`
+const Centered = styled(BandeauBleuMarianne)`
   text-align: center;
 `;
 

@@ -33,7 +33,7 @@ export const ActiviteACocher: DefaultComponentExtensible<Propiprops> = ({
         <input type={type} id={getInputId(indice)} {...nativeInputProps} />
         <label className="fr-label" htmlFor={getInputId(indice)}>
           {label}{" "}
-          {contenuInfobulle && (
+          {!!contenuInfobulle?.length && (
             <IconeInfobulle
               onClick={() => {
                 propageInfobulleAffichee(idInfobulle);
@@ -43,12 +43,17 @@ export const ActiviteACocher: DefaultComponentExtensible<Propiprops> = ({
           )}
         </label>
       </div>
-      {contenuInfobulle && (
+      {!!contenuInfobulle?.length && (
         <>
           <Infobulle
             id={idInfobulle}
             cachee={idInfobulle !== infobulleAffichee.id}
-            contenu={contenuInfobulle}
+            contenu={contenuInfobulle.map(({ titre, description }) => (
+              <>
+                <h6>{titre}</h6>
+                <p className="fr-text--sm">{description}</p>
+              </>
+            ))}
             action={() => {
               propageInfobulleAffichee(idInfobulle);
             }}
