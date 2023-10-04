@@ -1,41 +1,51 @@
 .fr-definition {
-  font-style: italic;
-  line-height: 200%;
+    font-style: italic;
+    line-height: 200%;
 }
 
 .fr-follow .fr-link--dailymotion::before {
-  flex: 0 0 auto;
-  display: inline-block;
-  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
-  background-color: currentColor;
-  width: var(--icon-size);
-  height: var(--icon-size);
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-  -webkit-mask-image: url(@gouvfr/dsfr/dist/icons/logo/fr--dailymotion-line.svg);
-  mask-image: url(@gouvfr/dsfr/dist/icons/logo/fr--dailymotion-line.svg);
-  content: "";
+    flex: 0 0 auto;
+    display: inline-block;
+    vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+    background-color: currentColor;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-image: url(@gouvfr/dsfr/dist/icons/logo/fr--dailymotion-line.svg);
+    mask-image: url(@gouvfr/dsfr/dist/icons/logo/fr--dailymotion-line.svg);
+    content: "";
 }
 
 .fr-follow .fr-link--github::before {
-  flex: 0 0 auto;
-  display: inline-block;
-  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
-  background-color: currentColor;
-  width: var(--icon-size);
-  height: var(--icon-size);
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-  -webkit-mask-image: url(@gouvfr/dsfr/dist/icons/logo/github-fill.svg);
-  mask-image: url(@gouvfr/dsfr/dist/icons/logo/github-fill.svg);
-  content: "";
+    flex: 0 0 auto;
+    display: inline-block;
+    vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+    background-color: currentColor;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-image: url(@gouvfr/dsfr/dist/icons/logo/github-fill.svg);
+    mask-image: url(@gouvfr/dsfr/dist/icons/logo/github-fill.svg);
+    content: "";
 }
 
 legend.fr-text--regular,
 .fr-text--medium {
-  font-weight: 500 !important;
+    font-weight: 500 !important;
 }
 
 legend.fr-text--medium {
-  margin-bottom: 2rem;
+    margin-bottom: 2rem;
+}
+
+.texte-edito p {
+    font-size: 1.25rem !important;
+    line-height: 2rem !important;
+    margin: var(--text-spacing);
+}
+
+.texte-edito ul {
+    padding-top: 1rem;
 }

@@ -1,6 +1,7 @@
 import { DefaultComponent, DefaultProps } from "../Services/Props.ts";
 import EnTete from "./EnTete.tsx";
 import PiedDePage from "./PiedDePage.tsx";
+import "../App.css";
 
 const MiseEnPage: DefaultComponent = ({ children, page }: DefaultProps) => {
   return (
