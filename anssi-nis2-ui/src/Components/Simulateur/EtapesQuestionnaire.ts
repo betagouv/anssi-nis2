@@ -14,49 +14,67 @@ import {
   SousEtapeConditionnelle,
 } from "../../Services/Simulateur/informationsEtape.ts";
 import { EtatEtapes } from "../../Services/Simulateur/EtatEtapes.ts";
+import { DonneesFormulaireSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
+
+const validateurDesignationOSE = (
+  donneesFormulaireSimulateur: DonneesFormulaireSimulateur,
+) => donneesFormulaireSimulateur.designeOSE.length > 0;
 
 export const etapesQuestionnaire: CollectionInformationsEtapes =
   new CollectionInformationsEtapes(
     new InformationEtapeForm(
       "Désignation éventuelle",
-      "Selectionnez une réponse",
+      {
+        message: "Selectionnez une réponse",
+        validateur: validateurDesignationOSE,
+      },
       EtapeOSE,
     ),
 
     new InformationEtapeForm(
       "Localisation de l’activité",
-      "Sélectionnez une réponse",
+      { message: "Sélectionnez une réponse", validateur: () => false },
       EtapeLocalisation,
     ),
 
     new InformationEtapeForm(
       "Type de structure",
-      "Sélectionnez une réponse",
+      { message: "Sélectionnez une réponse", validateur: () => false },
       EtapeTypeStructure,
     ),
+
     new InformationEtapeForm(
       "Taille de l’organisation",
-      "Sélectionnez une réponse pour chaque critère",
+      {
+        message: "Sélectionnez une réponse pour chaque critère",
+        validateur: () => false,
+      },
       EtapeTaille,
     ),
     new InformationEtapeForm(
       "Secteurs d’activité",
-      "Sélectionnez au moins une réponse",
+      { message: "Sélectionnez au moins une réponse", validateur: () => false },
       EtapeSecteurActivite,
       new SousEtapeConditionnelle(
         ({ secteurActivite }) => secteurActivite.includes("energie"),
         new InformationEtapeForm(
           "Sous-secteur d'activité",
-          "Sélectionnez au moins une réponse par secteur",
+          {
+            message: "Sélectionnez au moins une réponse par secteur",
+            validateur: () => false,
+          },
           EtapeSousSecteurActivite,
         ),
       ),
     ),
     new InformationEtapeForm(
       "Activités pratiquées",
-      "Sélectionnez au moins une réponse par secteur",
+      {
+        message: "Sélectionnez au moins une réponse par secteur",
+        validateur: () => false,
+      },
       EtapeActivite,
-    ) /* */,
+    ),
     new InformationEtapeResult("Resultat"),
   );
 export const etatEtapesInitial = new EtatEtapes(etapesQuestionnaire, 1);

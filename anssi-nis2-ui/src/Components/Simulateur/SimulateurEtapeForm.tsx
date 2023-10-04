@@ -80,7 +80,8 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
         />
 
         <StepperNavigation
-          indicationReponses={informationsEtape.indicationReponses}
+          validationReponses={informationsEtape.validationReponses}
+          donneesFormulaire={formData}
           onClickPrevious={etapePrecedenteHandlerConcret}
           onClickNext={etapeSuivantHandlerConcret}
         />

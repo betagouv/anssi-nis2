@@ -32,13 +32,18 @@ export class SousEtapeConditionnelle {
   ) {}
 }
 
+export type ValidationReponses = {
+  message: string;
+  validateur: (donneesFormulaire: DonneesFormulaireSimulateur) => boolean;
+};
+
 export class InformationEtapeForm extends EtapeExistante {
   public readonly elementToRender: SimulateurEtapeRenderedComponent =
     SimulateurEtapeForm;
 
   public constructor(
     public readonly titre: string,
-    public readonly indicationReponses: string,
+    public readonly validationReponses: ValidationReponses,
     protected readonly contenu: SimulateurEtapeNodeComponent,
     public readonly sousEtapeConditionnelle?: SousEtapeConditionnelle,
   ) {

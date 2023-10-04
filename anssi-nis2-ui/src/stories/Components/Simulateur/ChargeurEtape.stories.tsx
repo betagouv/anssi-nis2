@@ -5,7 +5,8 @@ import { defaultContext } from "../../utilitaires/PageDecorator.tsx";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect, jest } from "@storybook/jest";
 import { Component } from "@storybook/blocks";
-import { CanvasFindByRole } from "../../utilitaires/Canvas.d.tsx";
+import { CanvasFindByRole, CanvasObject } from "../../utilitaires/Canvas.d.tsx";
+
 import { donneesFormulaireSimulateurVide } from "../../../Services/Simulateur/donneesFormulaire.ts";
 
 const genereDecorateurPourContexte = (context: Context) =>
@@ -37,18 +38,47 @@ const simulateurContext: Context = {
 };
 
 export const Simple: Story = {};
+
+const passeEtapeOSE = async (canvas: CanvasObject) => {
+  const element = await canvas.findByRole("button", { name: "Suivant" });
+  expect(element).not.toBeEnabled();
+  await userEvent.click(await canvas.findByText("Oui"));
+  expect(element).toBeEnabled();
+  await userEvent.click(element);
+};
+
+const passeEtapeLocalisation = async (canvas: CanvasFindByRole) => {
+  await cliqueSurSuivant(canvas);
+};
+
+const passeEtapeTypeStructure = async (canvas: CanvasFindByRole) => {
+  await cliqueSurSuivant(canvas);
+};
+
+const passeEtapeTaille = async (canvas: CanvasFindByRole) => {
+  await cliqueSurSuivant(canvas);
+};
+
+const passeEtapeSecteurActivite = async (canvas: CanvasFindByRole) => {
+  await cliqueSurSuivant(canvas);
+};
+
+const passeEtapeActivite = async (canvas: CanvasFindByRole) => {
+  await cliqueSurSuivant(canvas);
+};
+
 export const DerniereEtapeEstResultat: Story = {
   decorators: [genereDecorateurPourContexte(simulateurContext)],
 
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await cliqueSurSuivant(canvas);
-    await cliqueSurSuivant(canvas);
-    await cliqueSurSuivant(canvas);
-    await cliqueSurSuivant(canvas);
-    await cliqueSurSuivant(canvas);
-    await cliqueSurSuivant(canvas);
+    await passeEtapeOSE(canvas);
+    await passeEtapeLocalisation(canvas);
+    await passeEtapeTypeStructure(canvas);
+    await passeEtapeTaille(canvas);
+    await passeEtapeSecteurActivite(canvas);
+    await passeEtapeActivite(canvas);
 
     await canvas.findByText(
       "La directive s'appliquerait à votre entité au vu des éléments saisis",
@@ -64,10 +94,10 @@ export const EtapeSousActiviteConditionnelle: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await cliqueSurSuivant(canvas);
-    await cliqueSurSuivant(canvas);
-    await cliqueSurSuivant(canvas);
-    await cliqueSurSuivant(canvas);
+    await passeEtapeOSE(canvas);
+    await passeEtapeLocalisation(canvas);
+    await passeEtapeTypeStructure(canvas);
+    await passeEtapeTaille(canvas);
 
     await userEvent.click(await canvas.findByText("Énergie"));
     await canvas.findByText("Énergie");
