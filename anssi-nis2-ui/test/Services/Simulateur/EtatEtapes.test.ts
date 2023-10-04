@@ -6,7 +6,7 @@ import {
   SousEtapeConditionnelle,
 } from "../../../src/Services/Simulateur/informationsEtape";
 import {
-  Etape1Localisation,
+  EtapeLocalisation,
   Etape2TypeStructure,
   Etape3Taille,
   Etape4Secteur,
@@ -18,7 +18,7 @@ describe(EtatEtapes, () => {
   const informationEtapeForm1 = new InformationEtapeForm(
     "Localisation de l’activité",
     "Sélectionnez une réponse",
-    Etape1Localisation,
+    EtapeLocalisation,
   );
   const informationEtapeForm2 = new InformationEtapeForm(
     "Type de structure",

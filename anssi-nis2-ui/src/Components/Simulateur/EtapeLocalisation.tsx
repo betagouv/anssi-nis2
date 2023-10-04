@@ -1,5 +1,4 @@
 import { paysUnionEuropeenneLocalisation } from "../../Domaine/Simulateur/Libelles.ts";
-import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { FormSimulateur } from "./index.ts";
 import {
   ListeOptionsChampFormulaire,
@@ -8,8 +7,9 @@ import {
 import React, { useEffect, useState } from "react";
 import { transformePaysUnionEuropeennePourSelect } from "../../Services/Simulateur/Transformateurs.ts";
 import { NomsChampsSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
+import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 
-const Etape1Localisation = ({
+const EtapeLocalisation = ({
   formData,
   propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
@@ -17,16 +17,16 @@ const Etape1Localisation = ({
     useState<ListeOptionsChampFormulaire>([]);
 
   useEffect(() => {
-    const changeMulti: React.ChangeEventHandler<HTMLInputElement> = (evt) =>
+    const changeSingle: React.ChangeEventHandler<HTMLInputElement> = (evt) =>
       propageActionSimulateur({
-        type: "checkMulti",
+        type: "checkSingle",
         name: evt.target.name as NomsChampsSimulateur,
         newValue: evt.target.value,
       });
     setPaysUnionEuropeenneOptions(
       transformePaysUnionEuropeennePourSelect(
         paysUnionEuropeenneLocalisation,
-        changeMulti,
+        changeSingle,
         formData,
       ),
     );
@@ -35,7 +35,7 @@ const Etape1Localisation = ({
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
-        <Checkbox
+        <RadioButtons
           legend={
             "Dans quel état membre de l’Union Européenne êtes-vous implanté" +
             " et/ou exercez-vous votre activité principale ?"
@@ -52,4 +52,4 @@ const Etape1Localisation = ({
   );
 };
 
-export default Etape1Localisation;
+export default EtapeLocalisation;

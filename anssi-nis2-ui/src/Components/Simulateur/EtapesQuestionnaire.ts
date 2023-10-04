@@ -1,6 +1,6 @@
 import {
   EtapeOSE,
-  Etape1Localisation,
+  EtapeLocalisation,
   Etape2TypeStructure,
   Etape3Taille,
   Etape4bisSousSecteur,
@@ -22,10 +22,11 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
       "Selectionnez une réponse",
       EtapeOSE,
     ),
+
     new InformationEtapeForm(
       "Localisation de l’activité",
       "Sélectionnez une réponse",
-      Etape1Localisation,
+      EtapeLocalisation,
     ),
 
     new InformationEtapeForm(
