@@ -1,11 +1,11 @@
 import {
-  EtapeOSE,
-  EtapeLocalisation,
-  EtapeTypeStructure,
-  EtapeTaille,
-  EtapeSousSecteurActivite,
-  EtapeSecteurActivite,
   EtapeActivite,
+  EtapeLocalisation,
+  EtapeOSE,
+  EtapeSecteurActivite,
+  EtapeSousSecteurActivite,
+  EtapeTaille,
+  EtapeTypeStructure,
 } from ".";
 import { CollectionInformationsEtapes } from "../../Services/Simulateur/CollectionInformationsEtapes.ts";
 import {
@@ -14,11 +14,8 @@ import {
   SousEtapeConditionnelle,
 } from "../../Services/Simulateur/informationsEtape.ts";
 import { EtatEtapes } from "../../Services/Simulateur/EtatEtapes.ts";
+import { valideAuMoinsUn } from "../../Domaine/Simulateur/Validateurs.ts";
 import { DonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
-
-const validateurDesignationOSE = (
-  donneesFormulaireSimulateur: DonneesFormulaireSimulateur,
-) => donneesFormulaireSimulateur.designeOSE.length > 0;
 
 export const etapesQuestionnaire: CollectionInformationsEtapes =
   new CollectionInformationsEtapes(
@@ -26,20 +23,26 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
       "Désignation éventuelle",
       {
         message: "Selectionnez une réponse",
-        validateur: validateurDesignationOSE,
+        validateur: valideAuMoinsUn("designeOSE"),
       },
       EtapeOSE,
     ),
 
     new InformationEtapeForm(
       "Localisation de l’activité",
-      { message: "Sélectionnez une réponse", validateur: () => false },
+      {
+        message: "Sélectionnez une réponse",
+        validateur: valideAuMoinsUn("etatMembre"),
+      },
       EtapeLocalisation,
     ),
 
     new InformationEtapeForm(
       "Type de structure",
-      { message: "Sélectionnez une réponse", validateur: () => false },
+      {
+        message: "Sélectionnez une réponse",
+        validateur: valideAuMoinsUn("typeStructure"),
+      },
       EtapeTypeStructure,
     ),
 
@@ -47,13 +50,18 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
       "Taille de l’organisation",
       {
         message: "Sélectionnez une réponse pour chaque critère",
-        validateur: () => false,
+        validateur: (donneesFormulaire: DonneesFormulaireSimulateur) =>
+          valideAuMoinsUn("trancheNombreEmployes")(donneesFormulaire) &&
+          valideAuMoinsUn("trancheCA")(donneesFormulaire),
       },
       EtapeTaille,
     ),
     new InformationEtapeForm(
       "Secteurs d’activité",
-      { message: "Sélectionnez au moins une réponse", validateur: () => false },
+      {
+        message: "Sélectionnez au moins une réponse",
+        validateur: valideAuMoinsUn("secteurActivite"),
+      },
       EtapeSecteurActivite,
       new SousEtapeConditionnelle(
         ({ secteurActivite }) => secteurActivite.includes("energie"),
@@ -61,7 +69,7 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
           "Sous-secteur d'activité",
           {
             message: "Sélectionnez au moins une réponse par secteur",
-            validateur: () => false,
+            validateur: valideAuMoinsUn("secteurActivite"),
           },
           EtapeSousSecteurActivite,
         ),
@@ -71,7 +79,7 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
       "Activités pratiquées",
       {
         message: "Sélectionnez au moins une réponse par secteur",
-        validateur: () => false,
+        validateur: valideAuMoinsUn("activites"),
       },
       EtapeActivite,
     ),

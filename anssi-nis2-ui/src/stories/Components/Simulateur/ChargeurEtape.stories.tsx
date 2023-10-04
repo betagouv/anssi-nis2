@@ -7,8 +7,6 @@ import { expect, jest } from "@storybook/jest";
 import { Component } from "@storybook/blocks";
 import { CanvasFindByRole, CanvasObject } from "../../utilitaires/Canvas.d.tsx";
 
-import { donneesFormulaireSimulateurVide } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-
 const genereDecorateurPourContexte = (context: Context) =>
   function StoryDecoree(StoryADecorer: Component) {
     return (
@@ -39,32 +37,69 @@ const simulateurContext: Context = {
 
 export const Simple: Story = {};
 
-const passeEtapeOSE = async (canvas: CanvasObject) => {
-  const element = await canvas.findByRole("button", { name: "Suivant" });
-  expect(element).not.toBeEnabled();
+const passeEtapeOSE = async (
+  canvas: CanvasObject,
+  boutonSuivant: HTMLElement,
+) => {
+  expect(boutonSuivant).not.toBeEnabled();
   await userEvent.click(await canvas.findByText("Oui"));
-  expect(element).toBeEnabled();
-  await userEvent.click(element);
+  expect(boutonSuivant).toBeEnabled();
+  await userEvent.click(boutonSuivant);
 };
 
-const passeEtapeLocalisation = async (canvas: CanvasFindByRole) => {
-  await cliqueSurSuivant(canvas);
+const passeEtapeLocalisation = async (
+  canvas: CanvasObject,
+  boutonSuivant: HTMLElement,
+) => {
+  expect(boutonSuivant).not.toBeEnabled();
+  await userEvent.click(await canvas.findByText("France"));
+  expect(boutonSuivant).toBeEnabled();
+  await userEvent.click(boutonSuivant);
 };
 
-const passeEtapeTypeStructure = async (canvas: CanvasFindByRole) => {
-  await cliqueSurSuivant(canvas);
+const passeEtapeTypeStructure = async (
+  canvas: CanvasObject,
+  boutonSuivant: HTMLElement,
+) => {
+  expect(boutonSuivant).not.toBeEnabled();
+  await userEvent.click(await canvas.findByText("Organisation publique"));
+  expect(boutonSuivant).toBeEnabled();
+  await userEvent.click(boutonSuivant);
 };
 
-const passeEtapeTaille = async (canvas: CanvasFindByRole) => {
-  await cliqueSurSuivant(canvas);
+const passeEtapeTaille = async (
+  canvas: CanvasObject,
+  boutonSuivant: HTMLElement,
+) => {
+  expect(boutonSuivant).not.toBeEnabled();
+  await userEvent.click(await canvas.findByText("1 à 49"));
+  await userEvent.click(await canvas.findByText("< 10 millions €"));
+  expect(boutonSuivant).toBeEnabled();
+  await userEvent.click(boutonSuivant);
 };
 
-const passeEtapeSecteurActivite = async (canvas: CanvasFindByRole) => {
-  await cliqueSurSuivant(canvas);
+const passeEtapeSecteurActivite = async (
+  canvas: CanvasObject,
+  boutonSuivant: HTMLElement,
+) => {
+  expect(boutonSuivant).not.toBeEnabled();
+  await userEvent.click(await canvas.findByText("Espace"));
+  expect(boutonSuivant).toBeEnabled();
+  await userEvent.click(boutonSuivant);
 };
 
-const passeEtapeActivite = async (canvas: CanvasFindByRole) => {
-  await cliqueSurSuivant(canvas);
+const passeEtapeActivite = async (
+  canvas: CanvasObject,
+  boutonSuivant: HTMLElement,
+) => {
+  expect(boutonSuivant).not.toBeEnabled();
+  await userEvent.click(
+    await canvas.findByText(
+      "Exploitants d’infrastructures terrestres, détenues, gérées et exploitées par des États membres ou par des parties privées, qui soutiennent la fourniture de services spatiaux, à l’exclusion des fournisseurs de réseaux de communications électroniques publics",
+    ),
+  );
+  expect(boutonSuivant).toBeEnabled();
+  await userEvent.click(boutonSuivant);
 };
 
 export const DerniereEtapeEstResultat: Story = {
@@ -73,20 +108,33 @@ export const DerniereEtapeEstResultat: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await passeEtapeOSE(canvas);
-    await passeEtapeLocalisation(canvas);
-    await passeEtapeTypeStructure(canvas);
-    await passeEtapeTaille(canvas);
-    await passeEtapeSecteurActivite(canvas);
-    await passeEtapeActivite(canvas);
+    const boutonSuivant = await canvas.findByRole("button", {
+      name: "Suivant",
+    });
+
+    await passeEtapeOSE(canvas, boutonSuivant);
+    await passeEtapeLocalisation(canvas, boutonSuivant);
+    await passeEtapeTypeStructure(canvas, boutonSuivant);
+    await passeEtapeTaille(canvas, boutonSuivant);
+    await passeEtapeSecteurActivite(canvas, boutonSuivant);
+    await passeEtapeActivite(canvas, boutonSuivant);
 
     await canvas.findByText(
       "La directive s'appliquerait à votre entité au vu des éléments saisis",
     );
     await expect(mockSendFormData).toHaveBeenCalled();
-    await expect(mockSendFormData).toHaveBeenCalledWith(
-      donneesFormulaireSimulateurVide,
-    );
+    await expect(mockSendFormData).toHaveBeenCalledWith({
+      activites: [
+        "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
+      ],
+      designeOSE: ["non"],
+      etatMembre: ["france"],
+      secteurActivite: ["espace"],
+      sousSecteurActivite: [],
+      trancheCA: ["petit"],
+      trancheNombreEmployes: ["petit"],
+      typeStructure: ["publique"],
+    });
   },
 };
 
@@ -94,10 +142,14 @@ export const EtapeSousActiviteConditionnelle: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await passeEtapeOSE(canvas);
-    await passeEtapeLocalisation(canvas);
-    await passeEtapeTypeStructure(canvas);
-    await passeEtapeTaille(canvas);
+    const boutonSuivant = await canvas.findByRole("button", {
+      name: "Suivant",
+    });
+
+    await passeEtapeOSE(canvas, boutonSuivant);
+    await passeEtapeLocalisation(canvas, boutonSuivant);
+    await passeEtapeTypeStructure(canvas, boutonSuivant);
+    await passeEtapeTaille(canvas, boutonSuivant);
 
     await userEvent.click(await canvas.findByText("Énergie"));
     await canvas.findByText("Énergie");
