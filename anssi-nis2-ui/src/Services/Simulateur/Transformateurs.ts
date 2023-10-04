@@ -20,7 +20,7 @@ import {
   TValeursSecteursAvecSousSecteurs,
 } from "../../Domaine/Simulateur/SousSecteurs.ts";
 import { LibellesActivites } from "../../Domaine/Simulateur/LibellesActivites.ts";
-import { DescriptionActivite } from "../../Domaine/Simulateur/DescriptionActivite.tsx";
+import { listeDescriptionsActivites } from "../../Domaine/Simulateur/ListeDescriptionsActivites.tsx";
 
 const recupereLibelleReponseOSE = (
   value: string,
@@ -156,7 +156,7 @@ export const construitListeActivites =
   ) =>
   (activite: TValeursActivites) => ({
     label: LibellesActivites[activite],
-    contenuInfobulle: DescriptionActivite[activite],
+    contenuInfobulle: listeDescriptionsActivites[activite],
     nativeInputProps: {
       value: activite,
       checked: donneesFormulaire.activites.includes(activite),

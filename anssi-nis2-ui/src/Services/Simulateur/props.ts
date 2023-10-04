@@ -1,11 +1,12 @@
 import { DefaultProps, NativeInputProps } from "../Props.ts";
-import { Dispatch, ReactNode } from "react";
+import { Dispatch } from "react";
 import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "./donneesFormulaire.ts";
 import { BoutonsNavigation } from "./boutonsNavigation.ts";
 import { EtatEtapes } from "./EtatEtapes.ts";
+import { DescriptionActivite } from "../../Domaine/Simulateur/DescriptionActivite.tsx";
 
 export interface SimulateurContenuEtapeProps extends DefaultProps {
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>;
@@ -32,7 +33,7 @@ export type SimulateurDonneesFormulaireActions = {
 export type OptionChampSimulateur = {
   nativeInputProps: NativeInputProps;
   label: string;
-  contenuInfobulle?: ReactNode;
+  contenuInfobulle?: DescriptionActivite[];
 };
 
 // TODO: dupliccate with SelectOptions (SelectFrontService)
