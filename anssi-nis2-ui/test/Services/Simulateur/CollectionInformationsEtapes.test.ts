@@ -8,16 +8,23 @@ import {
   EtapeLocalisation,
   EtapeTypeStructure,
 } from "../../../src/Components/Simulateur";
+import { valideAuMoinsUn } from "../../../src/Domaine/Simulateur/Validateurs";
 
 describe(CollectionInformationsEtapes, () => {
   const informationEtapeForm1 = new InformationEtapeForm(
     "Localisation de l’activité",
-    "Sélectionnez une réponse",
+    {
+      message: "Sélectionnez une réponse",
+      validateur: valideAuMoinsUn("etatMembre"),
+    },
     EtapeLocalisation,
   );
   const informationEtapeForm2 = new InformationEtapeForm(
     "Type de structure",
-    "Sélectionnez une réponse",
+    {
+      message: "Sélectionnez une réponse",
+      validateur: valideAuMoinsUn("etatMembre"),
+    },
     EtapeTypeStructure,
   );
   const collectionInformationsEtapes = new CollectionInformationsEtapes(
@@ -30,14 +37,14 @@ describe(CollectionInformationsEtapes, () => {
       etapeCourante: informationEtapeForm1,
       indiceEtapeCourante: 0,
       informationEtapeSuivante: informationEtapeForm2,
-      estAvantDernier: true,
+      estDernier: false,
       numeroEtape: 1,
     },
     {
       etapeCourante: informationEtapeForm2,
       indiceEtapeCourante: 1,
       informationEtapeSuivante: etapeInexistante,
-      estAvantDernier: false,
+      estDernier: true,
       numeroEtape: 2,
     },
   ];
@@ -75,10 +82,10 @@ describe(CollectionInformationsEtapes, () => {
 
   it.each(parametresTests)(
     "l'indice $indiceEtapeCourante devrait être avant dernier ? $estAvantDernier",
-    ({ indiceEtapeCourante, estAvantDernier }) => {
+    ({ indiceEtapeCourante, estDernier }) => {
       expect(
         collectionInformationsEtapes.estDerniereEtape(indiceEtapeCourante),
-      ).toBe(estAvantDernier);
+      ).toBe(estDernier);
     },
   );
 
