@@ -21,17 +21,18 @@ const APropos: DefaultComponent = () => {
             <a href="https://omnicite.fr/" title="Site internet Omnicité">
               Omnicité
             </a>
-            ;
+            &nbsp; ;
           </li>
           <li>
-            hébergée chez
+            hébergée chez{" "}
             <a href="https://scalingo.com/" title="Site internet Scalingo">
               Scalingo
-            </a>
-            prenant appui sur le Cloud 3DS d&apos;Outscale qualifié SecNumCloud;
+            </a>{" "}
+            prenant appui sur le Cloud 3DS d&apos;Outscale qualifié
+            SecNumCloud&nbsp;;
           </li>
           <li>
-            sous licence
+            sous licence{" "}
             <a
               href="https://github.com/betagouv/anssi-nis2/blob/main/LICENSE"
               title="Licence Apache 2.0"
@@ -52,7 +53,7 @@ const APropos: DefaultComponent = () => {
       </p>
       <p>
         Pour toute question ou suggestion concernant les fonctionnalités de
-        MonEspaceNIS2 ou sa sécurité, contactez l&apos;équipe à
+        MonEspaceNIS2 ou sa sécurité, contactez l&apos;équipe à{" "}
         <a
           href="mailto:contact-monespacenis2@ssi.gouv.fr"
           title="Nous écrire via email"
