@@ -1,11 +1,11 @@
-import {
-  EtapeExistante,
-  etapeInexistante,
-  InformationsEtape,
-} from "./informationsEtape.ts";
+import { etapeInexistante, InformationsEtape } from "./informationsEtape.ts";
 import { dansIntervalle } from "../../utilitaires/calculs.ts";
 
 export class CollectionInformationsEtapes extends Array<InformationsEtape> {
+  get nombreEtapes(): number {
+    return this.length - 1;
+  }
+
   recupereEtapeCourante<T extends InformationsEtape>(indiceEtape: number): T {
     return this[indiceEtape] as T;
   }
@@ -28,10 +28,5 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
     indiceEtapeCourante: number,
   ): InformationsEtape {
     return this[indiceEtapeCourante + 1] || etapeInexistante;
-  }
-
-  recupereElement(indiceEtapeCourante: number) {
-    const informationsEtape = this[indiceEtapeCourante];
-    return (informationsEtape as EtapeExistante).elementToRender;
   }
 }

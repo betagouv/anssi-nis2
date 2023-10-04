@@ -1,9 +1,16 @@
 import {
+  TValeursReponsesDesigneOSE,
   ValeursClePaysUnionEuropeenne,
   ValeursTrancheCA,
   ValeursTrancheNombreEmployes,
   ValeursTypeStructure,
 } from "./ValeursCles.ts";
+
+export const libelleDesigneOSE: Record<TValeursReponsesDesigneOSE, string> = {
+  non: "Oui",
+  nsp: "Non",
+  oui: "Ne sais pas",
+};
 
 export const paysUnionEuropeenneLocalisation: Record<
   ValeursClePaysUnionEuropeenne,

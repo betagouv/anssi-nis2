@@ -1,4 +1,5 @@
 export type NomsChampsSimulateur =
+  | "designeOSE"
   | "etatMembre"
   | "typeStructure"
   | "trancheNombreEmployes"
@@ -13,6 +14,7 @@ export type DonneesFormulaireSimulateur = Record<
 >;
 
 export const donneesFormulaireSimulateurVide: DonneesFormulaireSimulateur = {
+  designeOSE: [],
   etatMembre: [],
   secteurActivite: [],
   sousSecteurActivite: [],
