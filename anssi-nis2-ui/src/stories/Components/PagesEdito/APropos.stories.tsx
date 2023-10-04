@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { pageDecorator } from "../../.storybook/PageDecorator.tsx";
-import APropos from "../../APropos.tsx";
+import { pageDecorator } from "../../utilitaires/PageDecorator.tsx";
+import APropos from "../../../Components/PagesEdito/APropos.tsx";
 
 const meta: Meta<typeof APropos> = {
   component: APropos,

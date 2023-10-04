@@ -10,7 +10,9 @@ import {
   reducerBoutons,
   reducerFormData,
 } from "./Services/Simulateur/reducers.ts";
-import APropos from "./APropos.tsx";
+import APropos from "./Components/PagesEdito/APropos.tsx";
+import MentionsLegales from "./Components/PagesEdito/MentionsLegales.tsx";
+import { PageEdito } from "./Components/PagesEdito/PageEdito.tsx";
 
 startReactDsfr({ defaultColorScheme: "system" });
 
@@ -25,7 +27,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/a-propos",
-    element: <APropos />,
+    element: (
+      <PageEdito titre="A propos">
+        <APropos />
+      </PageEdito>
+    ),
+  },
+  {
+    path: "/mentions-legales",
+    element: (
+      <PageEdito titre="Mentions légales">
+        <MentionsLegales />
+      </PageEdito>
+    ),
   },
 ]);
 

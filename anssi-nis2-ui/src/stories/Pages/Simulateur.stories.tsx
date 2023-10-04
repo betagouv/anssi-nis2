@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { pageDecorator } from "../../.storybook/PageDecorator.tsx";
+import { pageDecorator } from "../utilitaires/PageDecorator.tsx";
 import Simulateur from "../../Simulateur.tsx";
 
 const meta: Meta<typeof Simulateur> = {

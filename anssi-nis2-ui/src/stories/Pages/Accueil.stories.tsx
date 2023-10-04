@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Accueil from "../../Accueil.tsx";
-import { pageDecorator } from "../../.storybook/PageDecorator.tsx";
+import { pageDecorator } from "../utilitaires/PageDecorator.tsx";
 
 const meta: Meta<typeof Accueil> = {
   component: Accueil,
