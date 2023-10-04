@@ -77,7 +77,7 @@ describe(CollectionInformationsEtapes, () => {
     "l'indice $indiceEtapeCourante devrait être avant dernier ? $estAvantDernier",
     ({ indiceEtapeCourante, estAvantDernier }) => {
       expect(
-        collectionInformationsEtapes.estAvantDerniereEtape(indiceEtapeCourante),
+        collectionInformationsEtapes.estDerniereEtape(indiceEtapeCourante),
       ).toBe(estAvantDernier);
     },
   );

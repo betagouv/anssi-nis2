@@ -44,11 +44,14 @@ export const genereGestionEtapePrecedenteSiExiste = (
 
 const genereGestionSauvePuisEtapeSuivante: (
   suivantHandler: React.MouseEventHandler,
-  sauveHandler: Promise<string>,
+  sauveHandler: () => Promise<string>,
 ) => React.MouseEventHandler =
-  (suivantHandler: React.MouseEventHandler, sauveHandler: Promise<string>) =>
+  (
+    suivantHandler: React.MouseEventHandler,
+    sauveHandler: () => Promise<string>,
+  ) =>
   (e) => {
-    sauveHandler.then(() => suivantHandler(e));
+    sauveHandler().then(() => suivantHandler(e));
   };
 
 export const genereGestionEtapeSuivanteSiExiste = (
@@ -57,7 +60,7 @@ export const genereGestionEtapeSuivanteSiExiste = (
   suivantHandler: React.MouseEventHandler,
   sauveHandler: () => Promise<string>,
 ) => {
-  return collectionEtapes.estAvantDerniereEtape(numeroEtapeCourante)
-    ? genereGestionSauvePuisEtapeSuivante(suivantHandler, sauveHandler())
+  return collectionEtapes.estDerniereEtape(numeroEtapeCourante)
+    ? genereGestionSauvePuisEtapeSuivante(suivantHandler, sauveHandler)
     : suivantHandler;
 };

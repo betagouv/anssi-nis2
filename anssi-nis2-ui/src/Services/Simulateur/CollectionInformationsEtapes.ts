@@ -20,8 +20,8 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
     return indiceEtapeCourante + 1;
   }
 
-  estAvantDerniereEtape(indiceEtape: number): boolean {
-    return indiceEtape == this.length - 2;
+  estDerniereEtape(indiceEtape: number): boolean {
+    return indiceEtape == this.length - 1;
   }
 
   recupereInformationsEtapeSuivante(

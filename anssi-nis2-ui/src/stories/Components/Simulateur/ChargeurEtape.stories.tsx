@@ -122,7 +122,7 @@ export const DerniereEtapeEstResultat: Story = {
     await canvas.findByText(
       "La directive s'appliquerait à votre entité au vu des éléments saisis",
     );
-    await expect(mockSendFormData).toHaveBeenCalled();
+    await expect(mockSendFormData).toHaveBeenCalledTimes(1);
     await expect(mockSendFormData).toHaveBeenCalledWith({
       activites: [
         "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",

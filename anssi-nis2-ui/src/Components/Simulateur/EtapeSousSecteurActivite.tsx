@@ -3,10 +3,7 @@ import { FormSimulateur } from "./index.ts";
 import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/props.ts";
 import React, { useCallback, useEffect, useState } from "react";
 import { SelectOptions } from "../../Services/Simulateur/simulateurFrontServices.ts";
-import {
-  TValeursSousSecteurEnergie,
-  TValeursSousSecteursActivites,
-} from "../../Domaine/Simulateur/ValeursCles.ts";
+import { TValeursSousSecteursActivites } from "../../Domaine/Simulateur/ValeursCles.ts";
 import { libellesSousSecteursActivite } from "../../Domaine/Simulateur/LibellesSousSecteursActivite.ts";
 import {
   contientSousSecteur,
@@ -23,7 +20,7 @@ const EtapeSousSecteurActivite = ({
 }: SimulateurContenuEtapeProps) => {
   const gereChangement = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = event.target.value as TValeursSousSecteurEnergie;
+      const newValue = event.target.value as TValeursSousSecteursActivites;
       propageActionSimulateur({
         type: "checkMulti",
         name: "sousSecteurActivite",

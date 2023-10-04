@@ -30,7 +30,12 @@ export const ActiviteACocher: DefaultComponentExtensible<Propiprops> = ({
   return (
     <>
       <div className={fr.cx(`fr-${type}-group`)}>
-        <input type={type} id={getInputId(indice)} {...nativeInputProps} />
+        <input
+          type={type}
+          id={getInputId(indice)}
+          {...nativeInputProps}
+          name="activites"
+        />
         <label className="fr-label" htmlFor={getInputId(indice)}>
           {label}{" "}
           {!!contenuInfobulle?.length && (
