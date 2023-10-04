@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Etape5Activite } from "../../../Components/Simulateur";
+import { EtapeActivite } from "../../../Components/Simulateur";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import {
@@ -24,8 +24,8 @@ const donneesFormulaireOptions: CollectionParametresDonneesActivites =
     new ParametresDonneesActivites("France Uniquement", ["france"]),
   );
 
-const meta: Meta<typeof Etape5Activite> = {
-  component: Etape5Activite,
+const meta: Meta<typeof EtapeActivite> = {
+  component: EtapeActivite,
   args: {
     formData: {
       ...donneesFormulaireSimulateurVide,
@@ -40,7 +40,7 @@ const meta: Meta<typeof Etape5Activite> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Etape5Activite>;
+type Story = StoryObj<typeof EtapeActivite>;
 
 const creeActionPropagationFormulaireActivite = (newValue: string) => {
   const actionTypique = {

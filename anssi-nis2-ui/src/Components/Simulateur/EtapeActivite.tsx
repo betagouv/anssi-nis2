@@ -16,7 +16,7 @@ import { TValeursSectorielles } from "../../Domaine/Simulateur/ValeursCles.ts";
 
 import { EnsembleChamps } from "./Inputs/EnsembleChamps.tsx";
 
-const Etape5Activite = ({
+const EtapeActivite = ({
   propageActionSimulateur,
   formData,
 }: SimulateurContenuEtapeProps) => {
@@ -72,4 +72,4 @@ const Etape5Activite = ({
   );
 };
 
-export default Etape5Activite;
+export default EtapeActivite;

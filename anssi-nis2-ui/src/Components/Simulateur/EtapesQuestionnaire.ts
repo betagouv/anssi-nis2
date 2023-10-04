@@ -1,11 +1,11 @@
 import {
   EtapeOSE,
   EtapeLocalisation,
-  Etape2TypeStructure,
-  Etape3Taille,
-  Etape4bisSousSecteur,
-  Etape4Secteur,
-  Etape5Activite,
+  EtapeTypeStructure,
+  EtapeTaille,
+  EtapeSousSecteurActivite,
+  EtapeSecteurActivite,
+  EtapeActivite,
 } from ".";
 import { CollectionInformationsEtapes } from "../../Services/Simulateur/CollectionInformationsEtapes.ts";
 import {
@@ -32,30 +32,30 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
     new InformationEtapeForm(
       "Type de structure",
       "Sélectionnez une réponse",
-      Etape2TypeStructure,
+      EtapeTypeStructure,
     ),
     new InformationEtapeForm(
       "Taille de l’organisation",
       "Sélectionnez une réponse pour chaque critère",
-      Etape3Taille,
+      EtapeTaille,
     ),
     new InformationEtapeForm(
       "Secteurs d’activité",
       "Sélectionnez au moins une réponse",
-      Etape4Secteur,
+      EtapeSecteurActivite,
       new SousEtapeConditionnelle(
         ({ secteurActivite }) => secteurActivite.includes("energie"),
         new InformationEtapeForm(
           "Sous-secteur d'activité",
           "Sélectionnez au moins une réponse par secteur",
-          Etape4bisSousSecteur,
+          EtapeSousSecteurActivite,
         ),
       ),
     ),
     new InformationEtapeForm(
       "Activités pratiquées",
       "Sélectionnez au moins une réponse par secteur",
-      Etape5Activite,
+      EtapeActivite,
     ) /* */,
     new InformationEtapeResult("Resultat"),
   );

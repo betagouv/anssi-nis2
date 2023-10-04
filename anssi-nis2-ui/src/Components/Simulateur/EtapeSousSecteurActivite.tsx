@@ -17,7 +17,7 @@ import {
 import { libellesSecteursActivite } from "../../Domaine/Simulateur/LibellesSecteursActivite.ts";
 import { transformateurSousSecteurActivite } from "../../Services/Simulateur/Transformateurs.ts";
 
-const Etape4bisSousSecteur = ({
+const EtapeSousSecteurActivite = ({
   propageActionSimulateur,
   formData,
 }: SimulateurContenuEtapeProps) => {
@@ -99,4 +99,4 @@ const Etape4bisSousSecteur = ({
   );
 };
 
-export default Etape4bisSousSecteur;
+export default EtapeSousSecteurActivite;

@@ -8,7 +8,7 @@ import { TValeursSecteursActivites } from "../../Domaine/Simulateur/ValeursCles.
 
 import { libellesSecteursActivite } from "../../Domaine/Simulateur/LibellesSecteursActivite.ts";
 
-const Etape4Secteur = ({
+const EtapeSecteurActivite = ({
   propageActionSimulateur,
   formData,
 }: SimulateurContenuEtapeProps) => {
@@ -51,4 +51,4 @@ const Etape4Secteur = ({
   );
 };
 
-export default Etape4Secteur;
+export default EtapeSecteurActivite;

@@ -2,29 +2,28 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { Etape2TypeStructure } from "../../../Components/Simulateur";
+import { EtapeSecteurActivite } from "../../../Components/Simulateur";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { DonneesFormulaireSimulateur } from "../../../Services/Simulateur/donneesFormulaire.ts";
-import { ValeursTypeStructure } from "../../../Domaine/Simulateur/ValeursCles.ts";
-import { typesStructure } from "../../../Domaine/Simulateur/Libelles.ts";
+import { TValeursSecteursActivites } from "../../../Domaine/Simulateur/ValeursCles.ts";
 
-class ParametresDonneesTypeStructure extends ParametresDonneesSpecifiqueField<ValeursTypeStructure> {
-  protected construitDonnees<ValeursTypeStructure>(
-    valeurs: ValeursTypeStructure[],
+class ParametresDonneesSecteurActivite extends ParametresDonneesSpecifiqueField<TValeursSecteursActivites> {
+  protected construitDonnees<ValeursSecteurActivite>(
+    valeurs: ValeursSecteurActivite[],
   ): DonneesFormulaireSimulateur {
-    return this.construitDonneesPourField("typeStructure", valeurs);
+    return this.construitDonneesPourField("secteurActivite", valeurs);
   }
 }
 
-class CollectionParametresDonneesTypeStructure extends CollectionParametresDonnees<ParametresDonneesTypeStructure> {}
+class CollectionParametresDonneesSecteurActivites extends CollectionParametresDonnees<ParametresDonneesSecteurActivite> {}
 
-const donneesFormulaireOptions: CollectionParametresDonneesTypeStructure =
-  new CollectionParametresDonneesTypeStructure();
+const donneesFormulaireOptions: CollectionParametresDonneesSecteurActivites =
+  new CollectionParametresDonneesSecteurActivites();
 
-const meta: Meta<typeof Etape2TypeStructure> = {
-  component: Etape2TypeStructure,
+const meta: Meta<typeof EtapeSecteurActivite> = {
+  component: EtapeSecteurActivite,
   argTypes: {
     propageActionSimulateur: { action: true },
     formData: donneesFormulaireOptions.getFormData(),
@@ -32,14 +31,14 @@ const meta: Meta<typeof Etape2TypeStructure> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Etape2TypeStructure>;
+type Story = StoryObj<typeof EtapeSecteurActivite>;
 
 const creeActionPropagationFormulaireActivite = (
-  newValue: ValeursTypeStructure,
+  newValue: TValeursSecteursActivites,
 ) => {
   const actionTypique = {
-    type: "checkSingle",
-    name: "typeStructure",
+    type: "checkMulti",
+    name: "secteurActivite",
   };
   return { ...actionTypique, newValue: newValue };
 };
@@ -51,11 +50,11 @@ export const CliqueSurLesOptions: Story = {
 
     const optionsATester: {
       libelle: string;
-      newValue: ValeursTypeStructure;
+      newValue: TValeursSecteursActivites;
     }[] = [
       {
-        libelle: typesStructure["publique"],
-        newValue: "publique",
+        libelle: "Énergie",
+        newValue: "energie",
       },
     ];
 

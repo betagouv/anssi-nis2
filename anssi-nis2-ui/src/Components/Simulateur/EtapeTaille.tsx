@@ -11,7 +11,7 @@ import {
   transformeTranchesNombreEmployesVersOptions,
 } from "../../Services/Simulateur/Transformateurs.ts";
 
-const Etape3Taille = ({
+const EtapeTaille = ({
   formData,
   propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
@@ -60,4 +60,4 @@ const Etape3Taille = ({
   );
 };
 
-export default Etape3Taille;
+export default EtapeTaille;

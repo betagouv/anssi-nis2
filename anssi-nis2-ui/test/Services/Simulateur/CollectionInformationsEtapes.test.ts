@@ -6,7 +6,7 @@ import {
 } from "../../../src/Services/Simulateur/informationsEtape";
 import {
   EtapeLocalisation,
-  Etape2TypeStructure,
+  EtapeTypeStructure,
 } from "../../../src/Components/Simulateur";
 
 describe(CollectionInformationsEtapes, () => {
@@ -18,7 +18,7 @@ describe(CollectionInformationsEtapes, () => {
   const informationEtapeForm2 = new InformationEtapeForm(
     "Type de structure",
     "Sélectionnez une réponse",
-    Etape2TypeStructure,
+    EtapeTypeStructure,
   );
   const collectionInformationsEtapes = new CollectionInformationsEtapes(
     informationEtapeForm1,
