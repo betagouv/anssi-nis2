@@ -10,6 +10,7 @@ import {
   reducerBoutons,
   reducerFormData,
 } from "./Services/Simulateur/reducers.ts";
+import APropos from "./APropos.tsx";
 
 startReactDsfr({ defaultColorScheme: "system" });
 
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/simulateur",
     element: <Simulateur />,
+  },
+  {
+    path: "/a-propos",
+    element: <APropos />,
   },
 ]);
 
