@@ -69,7 +69,7 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
           "Sous-secteur d'activité",
           {
             message: "Sélectionnez au moins une réponse par secteur",
-            validateur: valideAuMoinsUn("secteurActivite"),
+            validateur: valideAuMoinsUn("sousSecteurActivite"),
           },
           EtapeSousSecteurActivite,
         ),
