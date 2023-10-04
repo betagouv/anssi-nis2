@@ -9,7 +9,7 @@ import { expect } from "@storybook/jest";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
-} from "../../../Services/Simulateur/donneesFormulaire.ts";
+} from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { TValeursSousSecteurEnergie } from "../../../Domaine/Simulateur/ValeursCles.ts";
 
 class ParametresDonneesSousSecteurActivite extends ParametresDonneesSpecifiqueField<TValeursSousSecteurEnergie> {

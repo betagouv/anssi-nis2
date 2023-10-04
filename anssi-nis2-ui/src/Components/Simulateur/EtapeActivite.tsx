@@ -4,7 +4,7 @@ import {
   SimulateurContenuEtapeProps,
 } from "../../Services/Simulateur/props.ts";
 import React, { useEffect, useState } from "react";
-import { NomsChampsSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
+import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { activitesParSecteurEtSousSecteur } from "../../Domaine/Simulateur/ActivitesParSecteurEtSousSecteur.ts";
 import {
   collecteTitresPourActivite,

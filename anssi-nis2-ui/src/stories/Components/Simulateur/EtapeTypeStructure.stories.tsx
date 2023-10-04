@@ -6,7 +6,7 @@ import { EtapeTypeStructure } from "../../../Components/Simulateur";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { DonneesFormulaireSimulateur } from "../../../Services/Simulateur/donneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { ValeursTypeStructure } from "../../../Domaine/Simulateur/ValeursCles.ts";
 import { typesStructure } from "../../../Domaine/Simulateur/Libelles.ts";
 

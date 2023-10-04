@@ -1,6 +1,6 @@
 import { createContext, Reducer } from "react";
 
-import { DonneesFormulaireSimulateur } from "./Services/Simulateur/donneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "./Domaine/Simulateur/DonneesFormulaire.ts";
 import { SimulateurDonneesFormulaireActions } from "./Services/Simulateur/props.ts";
 import { ActionsBoutonNavigation } from "./Services/Simulateur/reducers.ts";
 import { BoutonsNavigation } from "./Services/Simulateur/boutonsNavigation.ts";

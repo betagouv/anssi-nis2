@@ -2,7 +2,7 @@ import React, { Reducer } from "react";
 import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "./donneesFormulaire.ts";
+} from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { SimulateurDonneesFormulaireActions } from "./props.ts";
 import { fieldHandlers } from "./gestionnaires.ts";
 import { BoutonsNavigation } from "./boutonsNavigation.ts";

@@ -3,7 +3,7 @@ import { Dispatch } from "react";
 import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "./donneesFormulaire.ts";
+} from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { BoutonsNavigation } from "./boutonsNavigation.ts";
 import { EtatEtapes } from "./EtatEtapes.ts";
 import { DescriptionActivite } from "../../Domaine/Simulateur/DescriptionActivite.ts";

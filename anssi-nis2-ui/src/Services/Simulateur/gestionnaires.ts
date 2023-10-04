@@ -2,7 +2,7 @@ import React from "react";
 import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "./donneesFormulaire.ts";
+} from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
 
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";

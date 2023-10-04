@@ -12,7 +12,7 @@ import {
   EtapeSecteurActivite,
 } from "../../../src/Components/Simulateur";
 import { CollectionInformationsEtapes } from "../../../src/Services/Simulateur/CollectionInformationsEtapes";
-import { donneesFormulaireSimulateurVide } from "../../../src/Services/Simulateur/donneesFormulaire";
+import { donneesFormulaireSimulateurVide } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 
 describe(EtatEtapes, () => {
   const informationEtapeForm1 = new InformationEtapeForm(

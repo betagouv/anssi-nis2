@@ -3,7 +3,7 @@ import React from "react";
 import {
   NomsChampsSimulateur,
   DonneesFormulaireSimulateur,
-} from "./donneesFormulaire.ts";
+} from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 export type SelectOptions = Array<{
   nativeInputProps: NativeInputProps;

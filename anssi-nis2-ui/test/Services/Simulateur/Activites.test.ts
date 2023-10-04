@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
-} from "../../../src/Services/Simulateur/donneesFormulaire";
+} from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import { libellesSecteursActivite } from "../../../src/Domaine/Simulateur/LibellesSecteursActivite";
 import { libellesSousSecteursActivite } from "../../../src/Domaine/Simulateur/LibellesSousSecteursActivite";
 import {

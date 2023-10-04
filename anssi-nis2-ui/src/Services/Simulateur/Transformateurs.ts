@@ -13,7 +13,7 @@ import {
   ValeursTrancheNombreEmployes,
   ValeursTypeStructure,
 } from "../../Domaine/Simulateur/ValeursCles.ts";
-import { DonneesFormulaireSimulateur } from "./donneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 import {
   sousSecteursParSecteur,

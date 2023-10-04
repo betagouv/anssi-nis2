@@ -5,7 +5,7 @@ import { transformePaysUnionEuropeennePourSelect } from "../../../src/Services/S
 import {
   donneesFormulaireSimulateurVide,
   DonneesFormulaireSimulateur,
-} from "../../../src/Services/Simulateur/donneesFormulaire";
+} from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 
 describe(genereTransformateurValeursVersOptions, () => {
   const onChange: React.ChangeEventHandler<HTMLInputElement> = () => {};

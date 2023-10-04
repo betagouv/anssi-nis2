@@ -14,7 +14,7 @@ import {
   SousEtapeConditionnelle,
 } from "../../Services/Simulateur/informationsEtape.ts";
 import { EtatEtapes } from "../../Services/Simulateur/EtatEtapes.ts";
-import { DonneesFormulaireSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 const validateurDesignationOSE = (
   donneesFormulaireSimulateur: DonneesFormulaireSimulateur,

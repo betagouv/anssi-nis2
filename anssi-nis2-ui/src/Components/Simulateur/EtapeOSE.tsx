@@ -6,7 +6,7 @@ import {
 } from "../../Services/Simulateur/props.ts";
 import React, { useEffect, useState } from "react";
 import { transformeReponsesDesigneOSEPourSelect } from "../../Services/Simulateur/Transformateurs.ts";
-import { NomsChampsSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
+import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 
 const EtapeOSE = ({

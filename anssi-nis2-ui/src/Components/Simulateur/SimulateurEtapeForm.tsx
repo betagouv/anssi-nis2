@@ -10,7 +10,7 @@ import { CenteredContainer } from "../CenteredContainer.tsx";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
-} from "../../Services/Simulateur/donneesFormulaire.ts";
+} from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import {
   genereGestionEtapePrecedenteSiExiste,
   genereGestionEtapeSuivanteSiExiste,

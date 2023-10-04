@@ -1,7 +1,7 @@
 import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
 import { noRefClick } from "../Services/Echaffaudages/AssistantsEchaffaudages.ts";
 import { ValidationReponses } from "../Services/Simulateur/informationsEtape.ts";
-import { DonneesFormulaireSimulateur } from "../Services/Simulateur/donneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormulaire.ts";
 
 export const StepperNavigation = ({
   validationReponses,

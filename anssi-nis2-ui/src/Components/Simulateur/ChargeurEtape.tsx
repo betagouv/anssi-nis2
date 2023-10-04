@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useReducer, useState } from "react";
 
 import { DefaultComponentExtensible } from "../../Services/Props.ts";
 import { SimulateurEtapeSwitcherProps } from "../../Services/Simulateur/props.ts";
-import { donneesFormulaireSimulateurVide } from "../../Services/Simulateur/donneesFormulaire.ts";
+import { donneesFormulaireSimulateurVide } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { AppContext } from "../../AppContext.tsx";
 import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/component.ts";

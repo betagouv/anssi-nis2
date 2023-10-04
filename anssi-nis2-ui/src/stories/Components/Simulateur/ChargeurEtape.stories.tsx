@@ -7,7 +7,7 @@ import { expect, jest } from "@storybook/jest";
 import { Component } from "@storybook/blocks";
 import { CanvasFindByRole, CanvasObject } from "../../utilitaires/Canvas.d.tsx";
 
-import { donneesFormulaireSimulateurVide } from "../../../Services/Simulateur/donneesFormulaire.ts";
+import { donneesFormulaireSimulateurVide } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 const genereDecorateurPourContexte = (context: Context) =>
   function StoryDecoree(StoryADecorer: Component) {
