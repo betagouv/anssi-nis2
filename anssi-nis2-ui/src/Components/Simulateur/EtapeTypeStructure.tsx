@@ -1,4 +1,4 @@
-import { typesStructure } from "../../Domaine/Simulateur/Libelles.ts";
+import { libellesTypesStructure } from "../../Domaine/References/Libelles.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { FormSimulateur } from "./index.ts";
 import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/props.ts";
@@ -17,7 +17,7 @@ const EtapeTypeStructure: SimulateurEtapeNodeComponent = ({
       newValue: event.target.value,
     });
   const optionsTypeStructure = transformeTypeStructureVersOptions(
-    typesStructure,
+    libellesTypesStructure,
     gereChangement,
     formData,
   );

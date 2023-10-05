@@ -4,14 +4,14 @@ import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/props.ts"
 import React, { useCallback, useEffect, useState } from "react";
 import { SelectOptions } from "../../Services/Simulateur/simulateurFrontServices.ts";
 import { TValeursSousSecteursActivites } from "../../Domaine/Simulateur/ValeursCles.ts";
-import { libellesSousSecteursActivite } from "../../Domaine/Simulateur/LibellesSousSecteursActivite.ts";
+import { libellesSousSecteursActivite } from "../../Domaine/References/LibellesSousSecteursActivite.ts";
 import {
   contientSousSecteur,
   estUnSecteurAvecDesSousSecteurs,
   LibellesSousSecteurs,
   TValeursSecteursAvecSousSecteurs,
 } from "../../Domaine/Simulateur/SousSecteurs.ts";
-import { libellesSecteursActivite } from "../../Domaine/Simulateur/LibellesSecteursActivite.ts";
+import { libellesSecteursActivite } from "../../Domaine/References/LibellesSecteursActivite.ts";
 import { transformateurSousSecteurActivite } from "../../Services/Simulateur/Transformateurs.ts";
 
 const EtapeSousSecteurActivite = ({

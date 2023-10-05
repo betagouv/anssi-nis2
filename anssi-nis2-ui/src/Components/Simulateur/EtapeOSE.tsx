@@ -1,4 +1,4 @@
-import { libelleDesigneOSE } from "../../Domaine/Simulateur/Libelles.ts";
+import { libellesDesigneOSE } from "../../Domaine/References/Libelles.ts";
 import { FormSimulateur } from "./index.ts";
 import {
   ListeOptionsChampFormulaire,
@@ -25,7 +25,7 @@ const EtapeOSE = ({
       });
     setReponsesDesigneOSE(
       transformeReponsesDesigneOSEPourSelect(
-        libelleDesigneOSE,
+        libellesDesigneOSE,
         changeSimple,
         formData,
       ),

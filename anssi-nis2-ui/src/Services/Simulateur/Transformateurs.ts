@@ -19,8 +19,8 @@ import {
   sousSecteursParSecteur,
   TValeursSecteursAvecSousSecteurs,
 } from "../../Domaine/Simulateur/SousSecteurs.ts";
-import { LibellesActivites } from "../../Domaine/Simulateur/LibellesActivites.ts";
-import { listeDescriptionsActivites } from "../../Domaine/Simulateur/ListeDescriptionsActivites.ts";
+import { libellesActivites } from "../../Domaine/References/LibellesActivites.ts";
+import { listeDescriptionsActivites } from "../../Domaine/References/ListeDescriptionsActivites.ts";
 
 const recupereLibelleReponseOSE = (
   value: string,
@@ -155,7 +155,7 @@ export const construitListeActivites =
     changeMulti: React.ChangeEventHandler<HTMLInputElement>,
   ) =>
   (activite: TValeursActivites) => ({
-    label: LibellesActivites[activite],
+    label: libellesActivites[activite],
     contenuInfobulle: listeDescriptionsActivites[activite],
     nativeInputProps: {
       value: activite,

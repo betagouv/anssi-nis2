@@ -8,7 +8,7 @@ import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { ValeursTypeStructure } from "../../../Domaine/Simulateur/ValeursCles.ts";
-import { typesStructure } from "../../../Domaine/Simulateur/Libelles.ts";
+import { libellesTypesStructure } from "../../../Domaine/References/Libelles.ts";
 
 class ParametresDonneesTypeStructure extends ParametresDonneesSpecifiqueField<ValeursTypeStructure> {
   protected construitDonnees<ValeursTypeStructure>(
@@ -54,7 +54,7 @@ export const CliqueSurLesOptions: Story = {
       newValue: ValeursTypeStructure;
     }[] = [
       {
-        libelle: typesStructure["publique"],
+        libelle: libellesTypesStructure["publique"],
         newValue: "publique",
       },
     ];

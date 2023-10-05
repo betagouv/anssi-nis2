@@ -6,10 +6,11 @@ import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import {
   cliqueSurSuivant,
-  passeEtapeEnCliquantSur,
+  passeEtapeEnCochant,
 } from "../../utilitaires/Simulateur.actions.ts";
 import { genereDecorateurPourContexte } from "../../utilitaires/generateursDecorateurs.tsx";
 import { mockSendFormData } from "../../utilitaires/mocks.ts";
+import { libellesSimulateur as libelles } from "../../../Domaine/References/Libelles.ts";
 
 const meta: Meta<typeof ChargeurEtape> = {
   component: ChargeurEtape,
@@ -32,20 +33,21 @@ export const DerniereEtapeEstResultat: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await passeEtapeEnCliquantSur(["Oui"], canvas);
-    await passeEtapeEnCliquantSur(["France"], canvas);
-    await passeEtapeEnCliquantSur(["Organisation publique"], canvas);
-    await passeEtapeEnCliquantSur(["1 à 49", "< 10 millions €"], canvas);
-    await passeEtapeEnCliquantSur(["Espace"], canvas);
-    await passeEtapeEnCliquantSur(
+    await passeEtapeEnCochant(canvas, [["designeOSE", "oui"]]);
+    await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
+    await passeEtapeEnCochant(canvas, [["typeStructure", "publique"]]);
+
+    await passeEtapeEnCochant(canvas, [
+      ["trancheNombreEmployes", "petit"],
+      ["trancheCA", "petit"],
+    ]);
+    await passeEtapeEnCochant(canvas, [["secteurActivite", "espace"]]);
+    await passeEtapeEnCochant(canvas, [
       [
-        "Exploitants d’infrastructures terrestres, détenues, gérées et " +
-          "exploitées par des États membres ou par des parties privées, " +
-          "qui soutiennent la fourniture de services spatiaux, à l’exclusion " +
-          "des fournisseurs de réseaux de communications électroniques publics",
+        "activites",
+        "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
       ],
-      canvas,
-    );
+    ]);
 
     await canvas.findByText(
       "La directive s'appliquerait à votre entité au vu des éléments saisis",
@@ -55,7 +57,7 @@ export const DerniereEtapeEstResultat: Story = {
       activites: [
         "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
       ],
-      designeOSE: ["non"],
+      designeOSE: ["oui"],
       etatMembre: ["france"],
       secteurActivite: ["espace"],
       sousSecteurActivite: [],
@@ -74,20 +76,30 @@ export const EtapeSousActiviteConditionnelle: Story = {
       name: "Suivant",
     });
     step("Va jusqu'à l'étape Secteurs d'activité", async () => {
-      await passeEtapeEnCliquantSur(["Oui"], canvas);
-      await passeEtapeEnCliquantSur(["France"], canvas);
-      await passeEtapeEnCliquantSur(["Organisation publique"], canvas);
-      await passeEtapeEnCliquantSur(["1 à 49", "< 10 millions €"], canvas);
+      await passeEtapeEnCochant(canvas, [["designeOSE", "oui"]]);
+      await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
+      await passeEtapeEnCochant(canvas, [["typeStructure", "publique"]]);
+      await passeEtapeEnCochant(canvas, [
+        ["trancheNombreEmployes", "petit"],
+        ["trancheCA", "petit"],
+      ]);
     });
 
-    await userEvent.click(await canvas.findByText("Énergie"));
-    await canvas.findByText("Énergie");
+    // await passeEtapeEnCliquantSurConfigurable(canvas, [
+    //   ["secteurActivite", "energie"],
+    // ]);
+    await userEvent.click(
+      await canvas.findByText(libelles.secteurActivite["energie"]),
+    );
+    await canvas.findByText(libelles.secteurActivite["energie"]);
 
     await cliqueSurSuivant(canvas);
 
     await canvas.findByText("Précisez les sous-secteurs concernés :");
     expect(boutonSuivant).not.toBeEnabled();
-    await userEvent.click(await canvas.findByText("Électricité"));
+    await userEvent.click(
+      await canvas.findByText(libelles.sousSecteurActivite["electricite"]),
+    );
     expect(boutonSuivant).toBeEnabled();
     await cliqueSurSuivant(canvas);
   },

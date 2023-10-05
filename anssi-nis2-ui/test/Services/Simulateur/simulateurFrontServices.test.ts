@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { genereTransformateurValeursVersOptions } from "../../../src/Services/Simulateur/simulateurFrontServices";
-import { paysUnionEuropeenneLocalisation } from "../../../src/Domaine/Simulateur/Libelles";
+import { libellesPaysUnionEuropeenneLocalisation } from "../../../src/Domaine/References/Libelles";
 import { transformePaysUnionEuropeennePourSelect } from "../../../src/Services/Simulateur/Transformateurs";
 import {
   donneesFormulaireSimulateurVide,
@@ -43,7 +43,7 @@ describe(genereTransformateurValeursVersOptions, () => {
     const attendu = optionsPaysUE();
     expect(
       transformePaysUnionEuropeennePourSelect(
-        paysUnionEuropeenneLocalisation,
+        libellesPaysUnionEuropeenneLocalisation,
         onChange,
       ),
     ).toStrictEqual(attendu);
@@ -56,7 +56,7 @@ describe(genereTransformateurValeursVersOptions, () => {
       etatMembre: ["france"],
     };
     const optionsPaysUEObtenu = transformePaysUnionEuropeennePourSelect(
-      paysUnionEuropeenneLocalisation,
+      libellesPaysUnionEuropeenneLocalisation,
       onChange,
       defaultDataForm,
     );

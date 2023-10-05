@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { EtapeOSE } from "../../../Components/Simulateur";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { libelleDesigneOSE } from "../../../Domaine/Simulateur/Libelles.ts";
+import { libellesDesigneOSE } from "../../../Domaine/References/Libelles.ts";
 
 const meta: Meta<typeof EtapeOSE> = {
   component: EtapeOSE,
@@ -32,15 +32,15 @@ export const CliqueSurLesOptions: Story = {
 
     const optionsATester = [
       {
-        libelle: libelleDesigneOSE["oui"],
+        libelle: libellesDesigneOSE["oui"],
         newValue: "oui",
       },
       {
-        libelle: libelleDesigneOSE["non"],
+        libelle: libellesDesigneOSE["non"],
         newValue: "non",
       },
       {
-        libelle: libelleDesigneOSE["nsp"],
+        libelle: libellesDesigneOSE["nsp"],
         newValue: "nsp",
       },
     ];

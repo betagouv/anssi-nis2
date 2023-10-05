@@ -10,8 +10,8 @@ import {
   collecteTitresPourActivite,
   construitListeActivites,
 } from "../../Services/Simulateur/Transformateurs.ts";
-import { libellesSecteursActivite } from "../../Domaine/Simulateur/LibellesSecteursActivite.ts";
-import { libellesSousSecteursActivite } from "../../Domaine/Simulateur/LibellesSousSecteursActivite.ts";
+import { libellesSecteursActivite } from "../../Domaine/References/LibellesSecteursActivite.ts";
+import { libellesSousSecteursActivite } from "../../Domaine/References/LibellesSousSecteursActivite.ts";
 import { TValeursSectorielles } from "../../Domaine/Simulateur/ValeursCles.ts";
 
 import { EnsembleChamps } from "./Inputs/EnsembleChamps.tsx";

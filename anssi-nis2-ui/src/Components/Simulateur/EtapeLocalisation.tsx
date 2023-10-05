@@ -1,4 +1,4 @@
-import { paysUnionEuropeenneLocalisation } from "../../Domaine/Simulateur/Libelles.ts";
+import { libellesPaysUnionEuropeenneLocalisation } from "../../Domaine/References/Libelles.ts";
 import { FormSimulateur } from "./index.ts";
 import {
   ListeOptionsChampFormulaire,
@@ -25,7 +25,7 @@ const EtapeLocalisation = ({
       });
     setPaysUnionEuropeenneOptions(
       transformePaysUnionEuropeennePourSelect(
-        paysUnionEuropeenneLocalisation,
+        libellesPaysUnionEuropeenneLocalisation,
         changeSingle,
         formData,
       ),

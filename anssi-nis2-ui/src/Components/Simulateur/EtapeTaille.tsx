@@ -1,7 +1,7 @@
 import {
-  tranchesCA,
-  tranchesNombreEmployes,
-} from "../../Domaine/Simulateur/Libelles.ts";
+  libellesTranchesCA,
+  libellesTranchesNombreEmployes,
+} from "../../Domaine/References/Libelles.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { FormSimulateur } from "./index.ts";
 import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/props.ts";
@@ -31,12 +31,12 @@ const EtapeTaille = ({
     });
   const optionsTranchesNombreEmployes =
     transformeTranchesNombreEmployesVersOptions(
-      tranchesNombreEmployes,
+      libellesTranchesNombreEmployes,
       gereChangementNombreEmployes,
       formData,
     );
   const optionsTranchesCA = transformeTranchesCAVersOptions(
-    tranchesCA,
+    libellesTranchesCA,
     gereChangementCA,
     formData,
   );

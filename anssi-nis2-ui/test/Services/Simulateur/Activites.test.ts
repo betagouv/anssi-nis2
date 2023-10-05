@@ -3,8 +3,8 @@ import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
 } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
-import { libellesSecteursActivite } from "../../../src/Domaine/Simulateur/LibellesSecteursActivite";
-import { libellesSousSecteursActivite } from "../../../src/Domaine/Simulateur/LibellesSousSecteursActivite";
+import { libellesSecteursActivite } from "../../../src/Domaine/References/LibellesSecteursActivite";
+import { libellesSousSecteursActivite } from "../../../src/Domaine/References/LibellesSousSecteursActivite";
 import {
   cartographieSousSecteursParSecteur,
   collecteTitresPourActivite,

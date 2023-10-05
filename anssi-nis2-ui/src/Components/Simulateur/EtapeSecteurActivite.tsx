@@ -5,7 +5,7 @@ import { transformeSecteursActiviteVersOptions } from "../../Services/Simulateur
 import { SelectOptions } from "../../Services/Simulateur/simulateurFrontServices.ts";
 import { TValeursSecteursActivites } from "../../Domaine/Simulateur/ValeursCles.ts";
 
-import { libellesSecteursActivite } from "../../Domaine/Simulateur/LibellesSecteursActivite.ts";
+import { libellesSecteursActivite } from "../../Domaine/References/LibellesSecteursActivite.ts";
 import { useCallback, useMemo } from "react";
 import React from "react";
 

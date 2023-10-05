@@ -1,4 +1,4 @@
-import { TValeursSecteursActivites } from "./ValeursCles.ts";
+import { TValeursSecteursActivites } from "../Simulateur/ValeursCles.ts";
 
 export const libellesSecteursActivite: Record<
   TValeursSecteursActivites,

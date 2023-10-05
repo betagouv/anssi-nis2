@@ -3,8 +3,8 @@ import {
   TValeursSousSecteurFabrication,
   TValeursSousSecteursActivites,
   TValeursSousSecteurTransport,
-} from "./ValeursCles.ts";
-import { DetailsSousSecteurUnique } from "./Secteurs";
+} from "../Simulateur/ValeursCles.ts";
+import { DetailsSousSecteurUnique } from "../Simulateur/Secteurs";
 
 export const libellesSousSecteursEnergie: DetailsSousSecteurUnique<TValeursSousSecteurEnergie> =
   {
