@@ -1,20 +1,15 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { ChargeurEtape } from "../../../Components/Simulateur/ChargeurEtape.tsx";
-import { AppContext, Context } from "../../../AppContext.tsx";
+import { Context } from "../../../AppContext.tsx";
 import { defaultContext } from "../../utilitaires/PageDecorator.tsx";
-import { userEvent, waitFor, within } from "@storybook/testing-library";
-import { expect, jest } from "@storybook/jest";
-import { Component } from "@storybook/blocks";
-import { CanvasFindByRole, CanvasObject } from "../../utilitaires/Canvas.d.tsx";
-
-const genereDecorateurPourContexte = (context: Context) =>
-  function StoryDecoree(StoryADecorer: Component) {
-    return (
-      <AppContext.Provider value={context}>
-        <StoryADecorer />
-      </AppContext.Provider>
-    );
-  };
+import { userEvent, within } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
+import {
+  cliqueSurSuivant,
+  passeEtapeEnCliquantSur,
+} from "../../utilitaires/Simulateur.actions.ts";
+import { genereDecorateurPourContexte } from "../../utilitaires/generateursDecorateurs.tsx";
+import { mockSendFormData } from "../../utilitaires/mocks.ts";
 
 const meta: Meta<typeof ChargeurEtape> = {
   component: ChargeurEtape,
@@ -24,33 +19,12 @@ const meta: Meta<typeof ChargeurEtape> = {
 export default meta;
 type Story = StoryObj<typeof ChargeurEtape>;
 
-const cliqueSurSuivant = async (canvas: CanvasFindByRole) => {
-  const element = await canvas.findByRole("button", { name: "Suivant" });
-  await userEvent.click(element as HTMLElement);
-};
-
-const mockSendFormData = jest.fn(async () => "");
 const simulateurContext: Context = {
   ...defaultContext,
   sendFormData: mockSendFormData,
 };
 
 export const Simple: Story = {};
-
-const passeEtapeEnCliquantSur = async (
-  libelles: string[],
-  canvas: CanvasObject,
-) => {
-  const boutonSuivant = await canvas.findByRole("button", {
-    name: "Suivant",
-  });
-  expect(boutonSuivant).not.toBeEnabled();
-  libelles.map(
-    async (libelle) => await userEvent.click(await canvas.findByText(libelle)),
-  );
-  await waitFor(() => expect(boutonSuivant).toBeEnabled());
-  await userEvent.click(boutonSuivant);
-};
 
 export const DerniereEtapeEstResultat: Story = {
   decorators: [genereDecorateurPourContexte(simulateurContext)],
