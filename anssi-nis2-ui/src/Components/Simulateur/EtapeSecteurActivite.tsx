@@ -1,14 +1,29 @@
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { FormSimulateur } from "./index.ts";
 import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/props.ts";
-import React, { useCallback, useEffect, useState } from "react";
 import { transformeSecteursActiviteVersOptions } from "../../Services/Simulateur/Transformateurs.ts";
 import { SelectOptions } from "../../Services/Simulateur/simulateurFrontServices.ts";
 import { TValeursSecteursActivites } from "../../Domaine/Simulateur/ValeursCles.ts";
 
 import { libellesSecteursActivite } from "../../Domaine/Simulateur/LibellesSecteursActivite.ts";
+import { useCallback, useMemo } from "react";
+import React from "react";
 
-const EtapeSecteurActivite = ({
+const CheckboxWrapper = ({
+  legend,
+  options,
+}: {
+  legend: string;
+  options: SelectOptions;
+}) => {
+  return (
+    <div className="fr-fieldset__element">
+      {options && <Checkbox legend={legend} options={options} />}
+    </div>
+  );
+};
+
+const EtapeSecteurActiviteBrute = ({
   propageActionSimulateur,
   formData,
 }: SimulateurContenuEtapeProps) => {
@@ -24,31 +39,26 @@ const EtapeSecteurActivite = ({
     [propageActionSimulateur],
   );
 
-  const [optionsSecteurActivite, setOptionsSecteurActivite] =
-    useState<SelectOptions>();
-
-  useEffect(() => {
-    setOptionsSecteurActivite(
+  const optionsSecteurActivite = useMemo(
+    () =>
       transformeSecteursActiviteVersOptions(
         libellesSecteursActivite,
         gereChangement,
         formData,
       ),
-    );
-  }, [formData, gereChangement]);
+    [gereChangement, formData],
+  );
 
   return (
     <FormSimulateur>
-      <div className="fr-fieldset__element">
-        {optionsSecteurActivite && (
-          <Checkbox
-            legend="Dans quels secteurs d’activités votre organisation produit-elle des biens et/ou des services ?"
-            options={optionsSecteurActivite}
-          />
-        )}
-      </div>
+      <CheckboxWrapper
+        legend="Dans quels secteurs d’activités votre organisation produit-elle des biens et/ou des services ?"
+        options={optionsSecteurActivite}
+      />
     </FormSimulateur>
   );
 };
+
+const EtapeSecteurActivite = React.memo(EtapeSecteurActiviteBrute);
 
 export default EtapeSecteurActivite;
