@@ -20,7 +20,7 @@ import { InformationEtapeForm } from "../../Services/Simulateur/informationsEtap
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   propageActionSimulateur,
-  formData,
+  donneesFormulaireSimulateur,
   informationsBoutonsNavigation,
   etatEtapes,
 }: SimulateurEtapeRenderedProps) => {
@@ -50,14 +50,17 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
         etatEtapes.numeroEtapeCourante,
         listeEtapes,
         informationsBoutonsNavigation.suivant,
-        () => sendFormData(formData as DonneesFormulaireSimulateur),
+        () =>
+          sendFormData(
+            donneesFormulaireSimulateur as DonneesFormulaireSimulateur,
+          ),
       ),
     [
       etatEtapes.numeroEtapeCourante,
       listeEtapes,
       informationsBoutonsNavigation.suivant,
       sendFormData,
-      formData,
+      donneesFormulaireSimulateur,
     ],
   );
 
@@ -76,12 +79,12 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
 
         <EtapeCourante
           propageActionSimulateur={propageActionSimulateur}
-          formData={formData}
+          formData={donneesFormulaireSimulateur}
         />
 
         <StepperNavigation
           validationReponses={informationsEtape.validationReponses}
-          donneesFormulaire={formData}
+          donneesFormulaire={donneesFormulaireSimulateur}
           onClickPrevious={etapePrecedenteHandlerConcret}
           onClickNext={etapeSuivantHandlerConcret}
         />

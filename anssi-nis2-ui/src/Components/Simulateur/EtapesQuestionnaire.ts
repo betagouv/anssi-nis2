@@ -12,37 +12,38 @@ import {
   InformationEtapeForm,
   InformationEtapeResult,
   SousEtapeConditionnelle,
+  ValidationReponses,
 } from "../../Services/Simulateur/informationsEtape.ts";
 import { EtatEtapes } from "../../Services/Simulateur/EtatEtapes.ts";
 import { valideAuMoinsUn } from "../../Domaine/Simulateur/Validateurs.ts";
-import { DonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import {
+  DonneesFormulaireSimulateur,
+  NomsChampsSimulateur,
+} from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
+const validationUneReponses = (
+  nomChamp: NomsChampsSimulateur,
+): ValidationReponses => ({
+  message: "Selectionnez une réponse",
+  validateur: valideAuMoinsUn(nomChamp),
+});
 export const etapesQuestionnaire: CollectionInformationsEtapes =
   new CollectionInformationsEtapes(
     new InformationEtapeForm(
       "Désignation éventuelle",
-      {
-        message: "Selectionnez une réponse",
-        validateur: valideAuMoinsUn("designeOSE"),
-      },
+      validationUneReponses("designeOSE"),
       EtapeOSE,
     ),
 
     new InformationEtapeForm(
       "Localisation de l’activité",
-      {
-        message: "Sélectionnez une réponse",
-        validateur: valideAuMoinsUn("etatMembre"),
-      },
+      validationUneReponses("etatMembre"),
       EtapeLocalisation,
     ),
 
     new InformationEtapeForm(
       "Type de structure",
-      {
-        message: "Sélectionnez une réponse",
-        validateur: valideAuMoinsUn("typeStructure"),
-      },
+      validationUneReponses("typeStructure"),
       EtapeTypeStructure,
     ),
 
