@@ -25,9 +25,9 @@ const CheckboxWrapper = ({
 
 const EtapeSecteurActiviteBrute = ({
   propageActionSimulateur,
-  formData,
+  donneesFormulaire,
 }: SimulateurContenuEtapeProps) => {
-  const gereChangement = useCallback(
+  const gestionDonneesFormulaire = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const newValue = event.target.value as TValeursSecteursActivites;
       propageActionSimulateur({
@@ -39,21 +39,21 @@ const EtapeSecteurActiviteBrute = ({
     [propageActionSimulateur],
   );
 
-  const optionsSecteurActivite = useMemo(
+  const options = useMemo(
     () =>
       transformeSecteursActiviteVersOptions(
         libellesSecteursActivite,
-        gereChangement,
-        formData,
+        gestionDonneesFormulaire,
+        donneesFormulaire,
       ),
-    [gereChangement, formData],
+    [gestionDonneesFormulaire, donneesFormulaire],
   );
 
   return (
     <FormSimulateur>
       <CheckboxWrapper
         legend="Dans quels secteurs d’activités votre organisation produit-elle des biens et/ou des services ?"
-        options={optionsSecteurActivite}
+        options={options}
       />
     </FormSimulateur>
   );

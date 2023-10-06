@@ -27,7 +27,7 @@ const meta: Meta<typeof EtapeTypeStructure> = {
   component: EtapeTypeStructure,
   argTypes: {
     propageActionSimulateur: { action: true },
-    formData: donneesFormulaireOptions.getFormData(),
+    donneesFormulaire: donneesFormulaireOptions.getFormData(),
   },
 };
 

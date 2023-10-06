@@ -26,7 +26,7 @@ const meta: Meta<typeof EtapeSecteurActivite> = {
   component: EtapeSecteurActivite,
   argTypes: {
     propageActionSimulateur: { action: true },
-    formData: donneesFormulaireOptions.getFormData(),
+    donneesFormulaire: donneesFormulaireOptions.getFormData(),
   },
 };
 

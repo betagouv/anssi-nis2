@@ -1,33 +1,26 @@
 import { libellesDesigneOSE } from "../../Domaine/References/Libelles.ts";
 import { FormSimulateur } from "./index.ts";
 import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/props.ts";
-import React, { useCallback, useMemo } from "react";
+import React, { useMemo } from "react";
 import { transformeReponsesDesigneOSEPourSelect } from "../../Services/Simulateur/Transformateurs.ts";
-import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
+import { fabriqueGestionChangementSimple } from "../../Services/Simulateur/gestionnaires.ts";
 
-const EtapeOSEBrute = ({
-  formData,
+const EtapeOSECalculee = ({
+  donneesFormulaire,
   propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
-  const changeSimple = useCallback(
-    (evt: React.ChangeEvent<HTMLInputElement>) => {
-      propageActionSimulateur({
-        type: "checkSingle",
-        name: evt.target.name as NomsChampsSimulateur,
-        newValue: evt.target.value,
-      });
-    },
-    [propageActionSimulateur],
-  );
+  const changeSimple = fabriqueGestionChangementSimple(propageActionSimulateur);
 
-  const memoizedOptions = useMemo(() => {
-    return transformeReponsesDesigneOSEPourSelect(
-      libellesDesigneOSE,
-      changeSimple,
-      formData,
-    );
-  }, [formData, changeSimple]);
+  const optionsMemorisees = useMemo(
+    () =>
+      transformeReponsesDesigneOSEPourSelect(
+        libellesDesigneOSE,
+        changeSimple,
+        donneesFormulaire,
+      ),
+    [donneesFormulaire, changeSimple],
+  );
 
   const texteLegende =
     "Avez-vous été désigné opérateur de services essentiels " +
@@ -36,14 +29,12 @@ const EtapeOSEBrute = ({
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
-        <MemoizedRadioButtons legend={texteLegende} options={memoizedOptions} />
+        <RadioButtons legend={texteLegende} options={optionsMemorisees} />
       </div>
     </FormSimulateur>
   );
 };
 
-const MemoizedRadioButtons = React.memo(RadioButtons);
-
-const EtapeOSE = React.memo(EtapeOSEBrute);
+const EtapeOSE = React.memo(EtapeOSECalculee);
 
 export default EtapeOSE;

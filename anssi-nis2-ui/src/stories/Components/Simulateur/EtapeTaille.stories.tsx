@@ -29,7 +29,7 @@ const meta: Meta<typeof EtapeTaille> = {
   component: EtapeTaille,
   argTypes: {
     propageActionSimulateur: { action: true },
-    formData: donneesFormulaireOptions.getFormData(),
+    donneesFormulaire: donneesFormulaireOptions.getFormData(),
   },
 };
 

@@ -28,7 +28,7 @@ const donneesFormulaireOptions: CollectionParametresDonneesSousSecteurActivites 
 const meta: Meta<typeof EtapeSousSecteurActivite> = {
   component: EtapeSousSecteurActivite,
   args: {
-    formData: {
+    donneesFormulaire: {
       ...donneesFormulaireSimulateurVide,
       secteurActivite: ["energie"],
       sousSecteurActivite: ["electricite"],
@@ -36,7 +36,7 @@ const meta: Meta<typeof EtapeSousSecteurActivite> = {
   },
   argTypes: {
     propageActionSimulateur: { action: true },
-    formData: donneesFormulaireOptions.getFormData(),
+    donneesFormulaire: donneesFormulaireOptions.getFormData(),
   },
 };
 
@@ -85,7 +85,7 @@ export const SousSecteurEnergie: Story = {
 
 export const MixSecteursEtSousSecteurs: Story = {
   args: {
-    formData: {
+    donneesFormulaire: {
       ...donneesFormulaireSimulateurVide,
       secteurActivite: ["espace", "energie", "transports"],
       sousSecteurActivite: ["electricite", "hydrogene"],

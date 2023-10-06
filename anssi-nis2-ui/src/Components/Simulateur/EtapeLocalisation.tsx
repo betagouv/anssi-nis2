@@ -1,55 +1,48 @@
 import { libellesPaysUnionEuropeenneLocalisation } from "../../Domaine/References/Libelles.ts";
 import { FormSimulateur } from "./index.ts";
-import {
-  ListeOptionsChampFormulaire,
-  SimulateurContenuEtapeProps,
-} from "../../Services/Simulateur/props.ts";
-import React, { useEffect, useState } from "react";
+import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/props.ts";
+import { useMemo } from "react";
 import { transformePaysUnionEuropeennePourSelect } from "../../Services/Simulateur/Transformateurs.ts";
-import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
+import { fabriqueGestionChangementSimple } from "../../Services/Simulateur/gestionnaires.ts";
+import React from "react";
 
-const EtapeLocalisation = ({
-  formData,
+const EtapeLocalisationCalculee = ({
+  donneesFormulaire,
   propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
-  const [paysUnionEuropeenneOptions, setPaysUnionEuropeenneOptions] =
-    useState<ListeOptionsChampFormulaire>([]);
-
-  useEffect(() => {
-    const changeSingle: React.ChangeEventHandler<HTMLInputElement> = (evt) =>
-      propageActionSimulateur({
-        type: "checkSingle",
-        name: evt.target.name as NomsChampsSimulateur,
-        newValue: evt.target.value,
-      });
-    setPaysUnionEuropeenneOptions(
+  const gestionDonneesFormulaire = fabriqueGestionChangementSimple(
+    propageActionSimulateur,
+  );
+  const options = useMemo(
+    () =>
       transformePaysUnionEuropeennePourSelect(
         libellesPaysUnionEuropeenneLocalisation,
-        changeSingle,
-        formData,
+        gestionDonneesFormulaire,
+        donneesFormulaire,
       ),
-    );
-  }, [formData, propageActionSimulateur]);
+    [donneesFormulaire, gestionDonneesFormulaire],
+  );
 
+  const texteLegende =
+    "Dans quel état membre de l’Union Européenne êtes-vous implanté" +
+    " et/ou exercez-vous votre activité principale ?";
+  const texteIndication =
+    "Là où sont principalement prises les décisions cyber," +
+    " ou à défaut là où les opérations cyber son effectuées." +
+    " Si indéterminé : là où se trouve le plus grand nombre de salariés.";
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
         <RadioButtons
-          legend={
-            "Dans quel état membre de l’Union Européenne êtes-vous implanté" +
-            " et/ou exercez-vous votre activité principale ?"
-          }
-          hintText={
-            "Là où sont principalement prises les décisions cyber," +
-            " ou à défaut là où les opérations cyber son effectuées." +
-            " Si indéterminé : là où se trouve le plus grand nombre de salariés."
-          }
-          options={paysUnionEuropeenneOptions}
+          legend={texteLegende}
+          hintText={texteIndication}
+          options={options}
         />
       </div>
     </FormSimulateur>
   );
 };
 
+const EtapeLocalisation = React.memo(EtapeLocalisationCalculee);
 export default EtapeLocalisation;

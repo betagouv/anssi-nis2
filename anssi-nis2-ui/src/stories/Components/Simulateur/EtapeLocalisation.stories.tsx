@@ -31,7 +31,7 @@ const meta: Meta<typeof EtapeLocalisation> = {
   component: EtapeLocalisation,
   argTypes: {
     propageActionSimulateur: { action: true },
-    formData: donneesFormulaireOptions.getFormData(),
+    donneesFormulaire: donneesFormulaireOptions.getFormData(),
   },
 };
 
@@ -86,7 +86,7 @@ export const CliqueSurLesOptions: Story = {
 
 export const CocheFrance: Story = {
   args: {
-    formData: {
+    donneesFormulaire: {
       ...donneesFormulaireSimulateurVide,
       etatMembre: ["france"],
     },
@@ -109,7 +109,7 @@ export const CocheFrance: Story = {
 
 export const CocheHorsUE: Story = {
   args: {
-    formData: {
+    donneesFormulaire: {
       ...donneesFormulaireSimulateurVide,
       etatMembre: ["horsue"],
     },

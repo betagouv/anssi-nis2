@@ -6,6 +6,7 @@ import {
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
 
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
+import { SimulateurDonneesFormulaireActions } from "./props.ts";
 
 export type GestionValeursFormulaire = (
   value: string,
@@ -64,3 +65,14 @@ export const genereGestionEtapeSuivanteSiExiste = (
     ? genereGestionSauvePuisEtapeSuivante(suivantHandler, sauveHandler)
     : suivantHandler;
 };
+export const fabriqueGestionChangementSimple =
+  (
+    propageActionSimulateur: React.Dispatch<SimulateurDonneesFormulaireActions>,
+  ) =>
+  (evt: React.ChangeEvent<HTMLInputElement>) => {
+    propageActionSimulateur({
+      type: "checkSingle",
+      name: evt.target.name as NomsChampsSimulateur,
+      newValue: evt.target.value,
+    });
+  };

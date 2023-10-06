@@ -79,7 +79,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
 
         <EtapeCourante
           propageActionSimulateur={propageActionSimulateur}
-          formData={donneesFormulaireSimulateur}
+          donneesFormulaire={donneesFormulaireSimulateur}
         />
 
         <StepperNavigation

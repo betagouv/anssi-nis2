@@ -18,7 +18,7 @@ import { EnsembleChamps } from "./Inputs/EnsembleChamps.tsx";
 
 const EtapeActivite = ({
   propageActionSimulateur,
-  formData,
+  donneesFormulaire,
 }: SimulateurContenuEtapeProps) => {
   const [optionsParSecteurActivite, setOptionsParSecteurActivite] = useState<
     [string, ListeOptionsChampFormulaire][]
@@ -35,7 +35,7 @@ const EtapeActivite = ({
     const titresExtraits: string[][] = collecteTitresPourActivite(
       libellesSecteursActivite,
       libellesSousSecteursActivite,
-      formData,
+      donneesFormulaire,
     );
 
     setOptionsParSecteurActivite(
@@ -43,10 +43,10 @@ const EtapeActivite = ({
         titreActivites,
         activitesParSecteurEtSousSecteur[
           secteurOuSousSecteur as TValeursSectorielles
-        ].map(construitListeActivites(formData, changeMulti)),
+        ].map(construitListeActivites(donneesFormulaire, changeMulti)),
       ]),
     );
-  }, [formData, propageActionSimulateur]);
+  }, [donneesFormulaire, propageActionSimulateur]);
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">

@@ -12,7 +12,7 @@ import {
 } from "../../Services/Simulateur/Transformateurs.ts";
 
 const EtapeTaille = ({
-  formData,
+  donneesFormulaire,
   propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
   const gereChangementNombreEmployes = (
@@ -33,12 +33,12 @@ const EtapeTaille = ({
     transformeTranchesNombreEmployesVersOptions(
       libellesTranchesNombreEmployes,
       gereChangementNombreEmployes,
-      formData,
+      donneesFormulaire,
     );
   const optionsTranchesCA = transformeTranchesCAVersOptions(
     libellesTranchesCA,
     gereChangementCA,
-    formData,
+    donneesFormulaire,
   );
 
   return (

@@ -10,7 +10,7 @@ import { DescriptionActivite } from "../../Domaine/Simulateur/DescriptionActivit
 
 export interface SimulateurContenuEtapeProps extends DefaultProps {
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>;
-  formData: DonneesFormulaireSimulateur;
+  donneesFormulaire: DonneesFormulaireSimulateur;
 }
 
 export interface SimulateurEtapeProps extends DefaultProps {}

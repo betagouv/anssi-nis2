@@ -27,7 +27,7 @@ const donneesFormulaireOptions: CollectionParametresDonneesActivites =
 const meta: Meta<typeof EtapeActivite> = {
   component: EtapeActivite,
   args: {
-    formData: {
+    donneesFormulaire: {
       ...donneesFormulaireSimulateurVide,
       secteurActivite: ["energie"],
       sousSecteurActivite: ["electricite"],
@@ -35,7 +35,7 @@ const meta: Meta<typeof EtapeActivite> = {
   },
   argTypes: {
     propageActionSimulateur: { action: true },
-    formData: donneesFormulaireOptions.getFormData(),
+    donneesFormulaire: donneesFormulaireOptions.getFormData(),
   },
 };
 
@@ -52,7 +52,7 @@ const creeActionPropagationFormulaireActivite = (newValue: string) => {
 
 export const AffichageActivitesEtLibellesParSecteurs: Story = {
   args: {
-    formData: {
+    donneesFormulaire: {
       ...donneesFormulaireSimulateurVide,
       secteurActivite: ["energie", "espace"],
       sousSecteurActivite: ["electricite"],
