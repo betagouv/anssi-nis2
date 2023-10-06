@@ -142,7 +142,7 @@ export const validationReponsesSecteurs = {
 };
 export const validationReponsesSousActivites = {
   message: "Sélectionnez au moins une réponse par secteur",
-  validateur: auMoinsUn("sousSecteurActivite"),
+  validateur: auMoinsUnPar("sousSecteurActivite", "secteurActivite"),
 };
 export const validationReponsesActivites = {
   message: "Sélectionnez au moins une réponse par secteur",

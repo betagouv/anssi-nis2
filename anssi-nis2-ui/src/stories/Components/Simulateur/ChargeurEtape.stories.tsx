@@ -87,10 +87,14 @@ export const EtapeSousActiviteConditionnelle: Story = {
     await passeEtapeEnCochant(canvas, [["secteurActivite", "energie"]]);
 
     await canvas.findByText("Précisez les sous-secteurs concernés :");
-    await passeEtapeEnCochant(canvas, [
-      ["sousSecteurActivite", "electricite"],
-      ["sousSecteurActivite", "gaz"],
-    ]);
+    await passeEtapeEnCochant(
+      canvas,
+      [
+        ["sousSecteurActivite", "electricite"],
+        ["sousSecteurActivite", "gaz"],
+      ],
+      1,
+    );
     await passeEtapeEnCochant(canvas, [
       ["activites", "entrepriseElectriciteRemplissantFonctionFourniture"],
       ["activites", "gestionnaireReseauDistribution"],
