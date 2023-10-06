@@ -5,6 +5,7 @@ import {
   SimulateurEtapeNodeComponent,
   SimulateurEtapeRenderedComponent,
 } from "./component.ts";
+import { ValidationReponses } from "../../Domaine/Simulateur/Services/Validateurs.ts";
 
 export interface InformationsEtape {
   titre: string;
@@ -31,11 +32,6 @@ export class SousEtapeConditionnelle {
     public readonly sousEtape: InformationEtapeForm,
   ) {}
 }
-
-export type ValidationReponses = {
-  message: string;
-  validateur: (donneesFormulaire: DonneesFormulaireSimulateur) => boolean;
-};
 
 export class InformationEtapeForm extends EtapeExistante {
   public readonly elementToRender: SimulateurEtapeRenderedComponent =

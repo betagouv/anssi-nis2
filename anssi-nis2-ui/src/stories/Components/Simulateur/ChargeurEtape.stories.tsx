@@ -2,15 +2,11 @@ import { Meta, StoryObj } from "@storybook/react";
 import { ChargeurEtape } from "../../../Components/Simulateur/ChargeurEtape.tsx";
 import { Context } from "../../../AppContext.tsx";
 import { defaultContext } from "../../utilitaires/PageDecorator.tsx";
-import { userEvent, within } from "@storybook/testing-library";
+import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import {
-  cliqueSurSuivant,
-  passeEtapeEnCochant,
-} from "../../utilitaires/Simulateur.actions.ts";
+import { passeEtapeEnCochant } from "../../utilitaires/Simulateur.actions.ts";
 import { genereDecorateurPourContexte } from "../../utilitaires/generateursDecorateurs.tsx";
 import { mockSendFormData } from "../../utilitaires/mocks.ts";
-import { libellesSimulateur as libelles } from "../../../Domaine/References/Libelles.ts";
 
 const meta: Meta<typeof ChargeurEtape> = {
   component: ChargeurEtape,
@@ -31,6 +27,8 @@ export const DerniereEtapeEstResultat: Story = {
   decorators: [genereDecorateurPourContexte(simulateurContext)],
 
   play: async ({ canvasElement }) => {
+    mockSendFormData.mockClear();
+
     const canvas = within(canvasElement);
 
     await passeEtapeEnCochant(canvas, [["designeOSE", "oui"]]);
@@ -69,12 +67,13 @@ export const DerniereEtapeEstResultat: Story = {
 };
 
 export const EtapeSousActiviteConditionnelle: Story = {
+  decorators: [genereDecorateurPourContexte(simulateurContext)],
+
   play: async ({ canvasElement, step }) => {
+    mockSendFormData.mockClear();
+
     const canvas = within(canvasElement);
 
-    const boutonSuivant = await canvas.findByRole("button", {
-      name: "Suivant",
-    });
     step("Va jusqu'à l'étape Secteurs d'activité", async () => {
       await passeEtapeEnCochant(canvas, [["designeOSE", "oui"]]);
       await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
@@ -85,22 +84,33 @@ export const EtapeSousActiviteConditionnelle: Story = {
       ]);
     });
 
-    // await passeEtapeEnCliquantSurConfigurable(canvas, [
-    //   ["secteurActivite", "energie"],
-    // ]);
-    await userEvent.click(
-      await canvas.findByText(libelles.secteurActivite["energie"]),
-    );
-    await canvas.findByText(libelles.secteurActivite["energie"]);
-
-    await cliqueSurSuivant(canvas);
+    await passeEtapeEnCochant(canvas, [["secteurActivite", "energie"]]);
 
     await canvas.findByText("Précisez les sous-secteurs concernés :");
-    expect(boutonSuivant).not.toBeEnabled();
-    await userEvent.click(
-      await canvas.findByText(libelles.sousSecteurActivite["electricite"]),
+    await passeEtapeEnCochant(canvas, [
+      ["sousSecteurActivite", "electricite"],
+      ["sousSecteurActivite", "gaz"],
+    ]);
+    await passeEtapeEnCochant(canvas, [
+      ["activites", "entrepriseElectriciteRemplissantFonctionFourniture"],
+      ["activites", "gestionnaireReseauDistribution"],
+    ]);
+    await canvas.findByText(
+      "La directive s'appliquerait à votre entité au vu des éléments saisis",
     );
-    expect(boutonSuivant).toBeEnabled();
-    await cliqueSurSuivant(canvas);
+    await expect(mockSendFormData).toHaveBeenCalledTimes(1);
+    await expect(mockSendFormData).toHaveBeenCalledWith({
+      activites: [
+        "entrepriseElectriciteRemplissantFonctionFourniture",
+        "gestionnaireReseauDistribution",
+      ],
+      designeOSE: ["oui"],
+      etatMembre: ["france"],
+      secteurActivite: ["energie"],
+      sousSecteurActivite: ["electricite", "gaz"],
+      trancheCA: ["petit"],
+      trancheNombreEmployes: ["petit"],
+      typeStructure: ["publique"],
+    });
   },
 };

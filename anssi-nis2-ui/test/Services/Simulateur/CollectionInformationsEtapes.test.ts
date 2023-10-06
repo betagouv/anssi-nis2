@@ -8,14 +8,15 @@ import {
   EtapeLocalisation,
   EtapeTypeStructure,
 } from "../../../src/Components/Simulateur";
-import { valideAuMoinsUn } from "../../../src/Domaine/Simulateur/Validateurs";
+
+import { auMoinsUn } from "../../../src/Domaine/Simulateur/Services/Validateurs";
 
 describe(CollectionInformationsEtapes, () => {
   const informationEtapeForm1 = new InformationEtapeForm(
     "Localisation de l’activité",
     {
       message: "Sélectionnez une réponse",
-      validateur: valideAuMoinsUn("etatMembre"),
+      validateur: auMoinsUn("etatMembre"),
     },
     EtapeLocalisation,
   );
@@ -23,7 +24,7 @@ describe(CollectionInformationsEtapes, () => {
     "Type de structure",
     {
       message: "Sélectionnez une réponse",
-      validateur: valideAuMoinsUn("etatMembre"),
+      validateur: auMoinsUn("etatMembre"),
     },
     EtapeTypeStructure,
   );

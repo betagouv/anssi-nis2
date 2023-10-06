@@ -31,8 +31,8 @@ export const passeEtapeEnCochant = async <
   const boutonSuivant = await canvas.findByRole("button", {
     name: "Suivant",
   });
-  expect(boutonSuivant).not.toBeEnabled();
   for (const [champ, valeur] of champsACliquer) {
+    expect(boutonSuivant).not.toBeEnabled();
     await userEvent.click(
       await canvas.findByText((libelles[champ] as Record<T, string>)[valeur]),
     );
