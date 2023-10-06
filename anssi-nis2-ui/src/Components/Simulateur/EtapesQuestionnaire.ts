@@ -64,11 +64,8 @@ const informationEtapeActivites = new InformationEtapeForm(
 export const etapesQuestionnaire: CollectionInformationsEtapes =
   new CollectionInformationsEtapes(
     informationEtapeDesignationOSE,
-
     informationEtapeLocalisation,
-
     informationEtapeTypeStructure,
-
     informationEtapeTaille,
     informationEtapeSecteurs,
     informationEtapeActivites,
