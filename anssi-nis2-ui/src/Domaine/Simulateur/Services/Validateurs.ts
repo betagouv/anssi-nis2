@@ -87,12 +87,13 @@ const unAppartientA = (
   valeurGroupement: TValeursSecteursAvecSousSecteurs,
 ) => {
   return (donneesFormulaireSimulateur: DonneesFormulaireSimulateur) =>
-    donneesFormulaireSimulateur[nomChamp].some((valeur) =>
-      fabriqueListeChampsPourValeur(
-        nomChamp,
-        nomChampGroupement,
-        valeurGroupement,
-      ).includes(valeur as string),
+    donneesFormulaireSimulateur[nomChamp].some(
+      (valeur) =>
+        fabriqueListeChampsPourValeur(
+          nomChamp,
+          nomChampGroupement,
+          valeurGroupement,
+        )?.includes(valeur as string),
     );
 };
 
@@ -104,13 +105,21 @@ export const auMoinsUnPar: (
   nomChampGroupement: "sousSecteurActivite" | "secteurActivite",
 ) => {
   return (donneesFormulaireSimulateur) => {
+    const validateursParGroupe = donneesFormulaireSimulateur[
+      nomChampGroupement
+    ].map((valeur) =>
+      unAppartientA(
+        nomChamp,
+        nomChampGroupement,
+        valeur as TValeursSecteursAvecSousSecteurs,
+      ),
+    );
     const validateur = et(
+      ...validateursParGroupe,
       auMoinsN(
         donneesFormulaireSimulateur[nomChampGroupement].length,
         nomChamp,
       ),
-      unAppartientA(nomChamp, nomChampGroupement, "energie"),
-      unAppartientA(nomChamp, nomChampGroupement, "transports"),
     );
     return validateur(donneesFormulaireSimulateur);
   };
