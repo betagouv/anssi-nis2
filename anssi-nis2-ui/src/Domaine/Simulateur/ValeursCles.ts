@@ -1,4 +1,7 @@
-import { SecteursAvecSousSecteurs } from "./SousSecteurs.ts";
+import {
+  SecteursSansSousSecteur,
+  SousSecteursActivites,
+} from "./SousSecteurs.ts";
 
 export const ValeursDesignationOperateurServicesEssentiels = [
   "oui",
@@ -12,68 +15,6 @@ export type TypeStructure = "publique" | "privee";
 type UnionPetitMoyenGrand = "petit" | "moyen" | "grand";
 export type TrancheNombreEmployes = UnionPetitMoyenGrand;
 export type TrancheChiffreAffaire = UnionPetitMoyenGrand;
-export const ValeursSecteursActivites = [
-  "administrationPublique",
-  "banqueSecteurBancaire",
-  "eauPotable",
-  "eauxUsees",
-  "energie",
-  "espace",
-  "fabrication",
-  "fabricationProductionDistributionProduitsChimiques",
-  "fournisseursNumeriques",
-  "gestionDechets",
-  "gestionServicesTic",
-  "infrastructureMarchesFinanciers",
-  "infrastructureNumerique",
-  "productionTransformationDistributionDenreesAlimentaires",
-  "recherche",
-  "sante",
-  "servicesPostauxExpedition",
-  "transports",
-  "autreSecteurActivite",
-] as const;
-export type SecteursActivites = (typeof ValeursSecteursActivites)[number];
-export const ValeursSousSecteurEnergie = [
-  "electricite",
-  "gaz",
-  "hydrogene",
-  "petrole",
-  "reseauxChaleurFroid",
-  "autreSousSecteurEnergie",
-] as const;
-export type SousSecteurEnergie = (typeof ValeursSousSecteurEnergie)[number];
-
-export const ValeursSousSecteurTransport = [
-  "transportsAeriens",
-  "transportsFerroviaires",
-  "transportsParEau",
-  "transportsRoutiers",
-  "autreSousSecteurTransport",
-] as const;
-export type SousSecteurTransport = (typeof ValeursSousSecteurTransport)[number];
-
-export const ValeursSousSecteurFabrication = [
-  "fabricationDispositifsMedicaux",
-  "fabricationEquipementsElectroniques",
-  "fabricationFabricationProduitsInformatiquesElectroniquesOptiques",
-  "fabricationMachinesEquipements",
-  "constructionVehiculesAutomobiles",
-  "fabricationAutresMaterielTransports",
-  "autreSousSecteurFabrication",
-] as const;
-export type SousSecteurFabrication =
-  (typeof ValeursSousSecteurFabrication)[number];
-
-export type SousSecteursActivites =
-  | SousSecteurEnergie
-  | SousSecteurTransport
-  | SousSecteurFabrication;
-
-export type SecteursSansSousSecteur = Exclude<
-  SecteursActivites,
-  SecteursAvecSousSecteurs
->;
 
 export type ValeurCleSectorielle =
   | SecteursSansSousSecteur

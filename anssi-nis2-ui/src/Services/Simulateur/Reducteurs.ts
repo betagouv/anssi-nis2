@@ -9,8 +9,8 @@ import {
   fabriqueSecteurContientLeSousSecteur,
   LibellesSousSecteurs,
   SecteursAvecSousSecteurs,
+  SousSecteursActivites,
 } from "../../Domaine/Simulateur/SousSecteurs.ts";
-import { SousSecteursActivites } from "../../Domaine/Simulateur/ValeursCles.ts";
 import { transformateurSousSecteurActivite } from "./Transformateurs.ts";
 import { entreesLibellesSousSecteurs } from "../../Domaine/References/LibellesSousSecteursActivite.ts";
 import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";

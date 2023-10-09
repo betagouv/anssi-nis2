@@ -1,13 +1,14 @@
 import {
   Activites,
   DesignationOperateurServicesEssentiels,
-  SecteursActivites,
-  SousSecteursActivites,
   AppartenancePaysUnionEuropeenne,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeStructure,
 } from "../Simulateur/ValeursCles.ts";
+import { SecteursActivites } from "../Simulateur/SecteursActivite";
+
+import { SousSecteursActivites } from "../Simulateur/SousSecteurs.ts";
 
 export type DictionnaireLibellesSimulateur = {
   activites: Record<Activites, string>;

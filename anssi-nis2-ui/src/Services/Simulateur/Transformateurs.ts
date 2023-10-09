@@ -2,9 +2,7 @@ import { genereTransformateurValeursVersOptions } from "./genereTransformateurVa
 import {
   Activites,
   DesignationOperateurServicesEssentiels,
-  SecteursActivites,
   ValeurCleSectorielle,
-  SousSecteursActivites,
   AppartenancePaysUnionEuropeenne,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
@@ -15,10 +13,6 @@ import {
   NomsChampsSimulateur,
 } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
-import {
-  sousSecteursParSecteur,
-  SecteursAvecSousSecteurs,
-} from "../../Domaine/Simulateur/SousSecteurs.ts";
 import { libellesActivites } from "../../Domaine/References/LibellesActivites.ts";
 import { listeDescriptionsActivites } from "../../Domaine/References/ListeDescriptionsActivites.ts";
 import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
@@ -37,6 +31,12 @@ import {
 } from "./Props/optionChampSimulateur";
 import { TransformeRecordToSelect } from "./Workflow/optionChampSimulateur";
 import { GenerateurLibelle } from "./Workflow/libelles.ts";
+import { SecteursActivites } from "../../Domaine/Simulateur/SecteursActivite";
+import {
+  SecteursAvecSousSecteurs,
+  SousSecteursActivites,
+  sousSecteursParSecteur,
+} from "../../Domaine/Simulateur/SousSecteurs.ts";
 
 const recupereLibelleReponseOSE = (
   value: string,
@@ -166,7 +166,7 @@ export const cartographieSousSecteursParSecteur = (
         [currentValue]: sousSecteurActivite.filter((sousSecteur) =>
           sousSecteursParSecteur[
             currentValue as SecteursAvecSousSecteurs
-          ].includes(sousSecteur),
+          ].includes(sousSecteur as SousSecteursActivites),
         ),
       };
     }, {});

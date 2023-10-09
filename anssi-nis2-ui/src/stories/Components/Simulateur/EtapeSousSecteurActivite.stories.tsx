@@ -10,7 +10,8 @@ import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
 } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { SousSecteurEnergie } from "../../../Domaine/Simulateur/ValeursCles.ts";
+
+import { SousSecteurEnergie } from "../../../Domaine/Simulateur/SousSecteurs.ts";
 
 class ParametresDonneesSousSecteurActivite extends ParametresDonneesSpecifiqueField<SousSecteurEnergie> {
   protected construitDonnees<ValeursSecteurActivite>(

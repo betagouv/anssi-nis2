@@ -6,13 +6,14 @@ import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire
 import {
   Activites,
   DesignationOperateurServicesEssentiels,
-  SecteursActivites,
-  SousSecteursActivites,
   AppartenancePaysUnionEuropeenne,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeStructure,
 } from "../../Domaine/Simulateur/ValeursCles.ts";
+import { SecteursActivites } from "../../Domaine/Simulateur/SecteursActivite";
+
+import { SousSecteursActivites } from "../../Domaine/Simulateur/SousSecteurs.ts";
 
 export const passeEtapeEnCochant = async <
   T extends

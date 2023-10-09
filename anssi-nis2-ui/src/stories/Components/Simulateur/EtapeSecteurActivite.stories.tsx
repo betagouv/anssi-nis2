@@ -7,7 +7,8 @@ import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { SecteursActivites } from "../../../Domaine/Simulateur/ValeursCles.ts";
+
+import { SecteursActivites } from "../../../Domaine/Simulateur/SecteursActivite";
 
 class ParametresDonneesSecteurActivite extends ParametresDonneesSpecifiqueField<SecteursActivites> {
   protected construitDonnees<ValeursSecteurActivite>(

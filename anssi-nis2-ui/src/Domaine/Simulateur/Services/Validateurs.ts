@@ -3,19 +3,16 @@ import {
   NomsChampsSimulateur,
 } from "../DonneesFormulaire.ts";
 import {
-  sousSecteurAppartientASecteur,
   SecteursAvecSousSecteurs,
+  SecteursSansSousSecteur,
+  sousSecteurAppartientASecteur,
+  SousSecteursActivites,
   ValeursSecteursAvecSousSecteurs,
 } from "../SousSecteurs.ts";
-import {
-  Activites,
-  SecteursActivites,
-  SecteursSansSousSecteur,
-  ValeurCleSectorielle,
-  SousSecteursActivites,
-} from "../ValeursCles.ts";
+import { Activites, ValeurCleSectorielle } from "../ValeursCles.ts";
 import { Validateur, ValidationReponses } from "../Workflows/validateursChamps";
 import { activitesParSecteurEtSousSecteur } from "../ActivitesParSecteurEtSousSecteur.ts";
+import { SecteursActivites } from "../SecteursActivite";
 
 export const et: (...validateurs: Array<Validateur>) => Validateur = (
   ...validateurs
@@ -41,16 +38,15 @@ export const auMoinsUn = (nomChamp: NomsChampsSimulateur) =>
 export const auMoinsUnSousSecteurParSecteur: Validateur = (
   donneesFormulaireSimulateur,
 ) => {
-  const valeursSecteur: SecteursActivites[] = donneesFormulaireSimulateur[
-    "secteurActivite"
-  ] as SecteursActivites[];
+  const valeursSecteur: SecteursActivites[] =
+    donneesFormulaireSimulateur.secteurActivite as SecteursActivites[];
   const validateursParGroupe = valeursSecteur.map((valeur) =>
     sousSecteurAppartientASecteur(valeur as SecteursAvecSousSecteurs),
   );
   const validateur = et(
     ...validateursParGroupe,
     auMoinsN(
-      donneesFormulaireSimulateur["secteurActivite"].length,
+      donneesFormulaireSimulateur.secteurActivite.length,
       "sousSecteurActivite",
     ),
   );
