@@ -6,24 +6,24 @@ import {
   SousEtapeConditionnelle,
 } from "../../../src/Services/Simulateur/informationsEtape";
 import {
-  Etape1Localisation,
-  Etape2TypeStructure,
-  Etape3Taille,
-  Etape4Secteur,
+  EtapeLocalisation,
+  EtapeTypeStructure,
+  EtapeTaille,
+  EtapeSecteursActivite,
 } from "../../../src/Components/Simulateur";
 import { CollectionInformationsEtapes } from "../../../src/Services/Simulateur/CollectionInformationsEtapes";
-import { donneesFormulaireSimulateurVide } from "../../../src/Services/Simulateur/donneesFormulaire";
+import { donneesFormulaireSimulateurVide } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 
 describe(EtatEtapes, () => {
   const informationEtapeForm1 = new InformationEtapeForm(
     "Localisation de l’activité",
     "Sélectionnez une réponse",
-    Etape1Localisation,
+    EtapeLocalisation,
   );
   const informationEtapeForm2 = new InformationEtapeForm(
     "Type de structure",
     "Sélectionnez une réponse",
-    Etape2TypeStructure,
+    EtapeTypeStructure,
   );
   const collectionInformationsEtapes = new CollectionInformationsEtapes(
     informationEtapeForm1,
@@ -117,7 +117,7 @@ describe(EtatEtapes, () => {
     const informationSousEtape4 = new InformationEtapeForm(
       "Sous-étape",
       "Indication sous-étape",
-      Etape4Secteur,
+      EtapeSecteursActivite,
     );
     const sousEtapeToujoursPresente = new SousEtapeConditionnelle(
       predicatVrai,
@@ -126,7 +126,7 @@ describe(EtatEtapes, () => {
     const informationEtape3AvecSousEtape = new InformationEtapeForm(
       "Contient une sous Etape",
       "Indication réponse",
-      Etape3Taille,
+      EtapeTaille,
       sousEtapeToujoursPresente,
     );
     const collectionInformationsEtapesAvecConditionnelle =

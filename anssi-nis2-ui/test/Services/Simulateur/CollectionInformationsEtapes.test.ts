@@ -5,20 +5,28 @@ import {
   InformationEtapeForm,
 } from "../../../src/Services/Simulateur/informationsEtape";
 import {
-  Etape1Localisation,
-  Etape2TypeStructure,
+  EtapeLocalisation,
+  EtapeTypeStructure,
 } from "../../../src/Components/Simulateur";
+
+import { auMoinsUn } from "../../../src/Domaine/Simulateur/Services/Validateurs";
 
 describe(CollectionInformationsEtapes, () => {
   const informationEtapeForm1 = new InformationEtapeForm(
     "Localisation de l’activité",
-    "Sélectionnez une réponse",
-    Etape1Localisation,
+    {
+      message: "Sélectionnez une réponse",
+      validateur: auMoinsUn("etatMembre"),
+    },
+    EtapeLocalisation,
   );
   const informationEtapeForm2 = new InformationEtapeForm(
     "Type de structure",
-    "Sélectionnez une réponse",
-    Etape2TypeStructure,
+    {
+      message: "Sélectionnez une réponse",
+      validateur: auMoinsUn("etatMembre"),
+    },
+    EtapeTypeStructure,
   );
   const collectionInformationsEtapes = new CollectionInformationsEtapes(
     informationEtapeForm1,
@@ -30,14 +38,14 @@ describe(CollectionInformationsEtapes, () => {
       etapeCourante: informationEtapeForm1,
       indiceEtapeCourante: 0,
       informationEtapeSuivante: informationEtapeForm2,
-      estAvantDernier: true,
+      estDernier: false,
       numeroEtape: 1,
     },
     {
       etapeCourante: informationEtapeForm2,
       indiceEtapeCourante: 1,
       informationEtapeSuivante: etapeInexistante,
-      estAvantDernier: false,
+      estDernier: true,
       numeroEtape: 2,
     },
   ];
@@ -75,10 +83,10 @@ describe(CollectionInformationsEtapes, () => {
 
   it.each(parametresTests)(
     "l'indice $indiceEtapeCourante devrait être avant dernier ? $estAvantDernier",
-    ({ indiceEtapeCourante, estAvantDernier }) => {
+    ({ indiceEtapeCourante, estDernier }) => {
       expect(
-        collectionInformationsEtapes.estAvantDerniereEtape(indiceEtapeCourante),
-      ).toBe(estAvantDernier);
+        collectionInformationsEtapes.estDerniereEtape(indiceEtapeCourante),
+      ).toBe(estDernier);
     },
   );
 

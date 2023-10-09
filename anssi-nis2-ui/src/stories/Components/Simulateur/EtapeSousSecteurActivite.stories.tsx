@@ -2,14 +2,14 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { Etape4bisSousSecteur } from "../../../Components/Simulateur";
+import { EtapeSousSecteursActivite } from "../../../Components/Simulateur";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
-} from "../../../Services/Simulateur/donneesFormulaire.ts";
+} from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { TValeursSousSecteurEnergie } from "../../../Domaine/Simulateur/ValeursCles.ts";
 
 class ParametresDonneesSousSecteurActivite extends ParametresDonneesSpecifiqueField<TValeursSousSecteurEnergie> {
@@ -25,10 +25,10 @@ class CollectionParametresDonneesSousSecteurActivites extends CollectionParametr
 const donneesFormulaireOptions: CollectionParametresDonneesSousSecteurActivites =
   new CollectionParametresDonneesSousSecteurActivites();
 
-const meta: Meta<typeof Etape4bisSousSecteur> = {
-  component: Etape4bisSousSecteur,
+const meta: Meta<typeof EtapeSousSecteursActivite> = {
+  component: EtapeSousSecteursActivite,
   args: {
-    formData: {
+    donneesFormulaire: {
       ...donneesFormulaireSimulateurVide,
       secteurActivite: ["energie"],
       sousSecteurActivite: ["electricite"],
@@ -36,12 +36,12 @@ const meta: Meta<typeof Etape4bisSousSecteur> = {
   },
   argTypes: {
     propageActionSimulateur: { action: true },
-    formData: donneesFormulaireOptions.getFormData(),
+    donneesFormulaire: donneesFormulaireOptions.getFormData(),
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof Etape4bisSousSecteur>;
+type Story = StoryObj<typeof EtapeSousSecteursActivite>;
 
 const creeActionPropagationFormulaireActivite = (
   newValue: TValeursSousSecteurEnergie,
@@ -85,7 +85,7 @@ export const SousSecteurEnergie: Story = {
 
 export const MixSecteursEtSousSecteurs: Story = {
   args: {
-    formData: {
+    donneesFormulaire: {
       ...donneesFormulaireSimulateurVide,
       secteurActivite: ["espace", "energie", "transports"],
       sousSecteurActivite: ["electricite", "hydrogene"],

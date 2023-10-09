@@ -1,50 +1,41 @@
-import { libelleDesigneOSE } from "../../Domaine/Simulateur/Libelles.ts";
+import { libellesDesigneOSE } from "../../Domaine/References/Libelles.ts";
 import { FormSimulateur } from "./index.ts";
-import {
-  ListeOptionsChampFormulaire,
-  SimulateurContenuEtapeProps,
-} from "../../Services/Simulateur/props.ts";
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import { transformeReponsesDesigneOSEPourSelect } from "../../Services/Simulateur/Transformateurs.ts";
-import { NomsChampsSimulateur } from "../../Services/Simulateur/donneesFormulaire.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
+import { fabriqueGestionChangementSimple } from "../../Services/Simulateur/gestionnaires.ts";
 
-const EtapeOSE = ({
-  formData,
+import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
+
+const EtapeOSECalculee = ({
+  donneesFormulaire,
   propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
-  const [reponsesDesigneOSE, setReponsesDesigneOSE] =
-    useState<ListeOptionsChampFormulaire>([]);
+  const changeSimple = fabriqueGestionChangementSimple(propageActionSimulateur);
 
-  useEffect(() => {
-    const changeSimple: React.ChangeEventHandler<HTMLInputElement> = (evt) =>
-      propageActionSimulateur({
-        type: "checkSingle",
-        name: evt.target.name as NomsChampsSimulateur,
-        newValue: evt.target.value,
-      });
-    setReponsesDesigneOSE(
+  const optionsMemorisees = useMemo(
+    () =>
       transformeReponsesDesigneOSEPourSelect(
-        libelleDesigneOSE,
+        libellesDesigneOSE,
         changeSimple,
-        formData,
+        donneesFormulaire,
       ),
-    );
-  }, [formData, propageActionSimulateur]);
+    [donneesFormulaire, changeSimple],
+  );
+
+  const texteLegende =
+    "Avez-vous été désigné opérateur de services essentiels " +
+    "(OSE) au titre de NIS 1 ?";
 
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
-        <RadioButtons
-          legend={
-            "Avez-vous été désigné opérateur de services essentiels " +
-            "(OSE) au titre de NIS 1 ?"
-          }
-          options={reponsesDesigneOSE}
-        />
+        <RadioButtons legend={texteLegende} options={optionsMemorisees} />
       </div>
     </FormSimulateur>
   );
 };
+
+const EtapeOSE = React.memo(EtapeOSECalculee);
 
 export default EtapeOSE;

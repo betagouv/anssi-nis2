@@ -6,9 +6,7 @@ import {
   ValeursActivitesEauPotable,
   ValeursActivitesEauUsees,
   ValeursActivitesElectricite,
-  ValeursActivitesEnergie,
   ValeursActivitesEspace,
-  ValeursActivitesFabrication,
   ValeursActivitesFabricationAutreMaterielsTransports,
   ValeursActivitesFabricationDispositifsMedicaux,
   ValeursActivitesFabricationEquipementsElectroniques,
@@ -29,7 +27,6 @@ import {
   ValeursActivitesSante,
   ValeursActivitesSecteurBancaire,
   ValeursActivitesServicesPostauxExpedition,
-  ValeursActivitesTransports,
   ValeursActivitesTransportsAeriens,
   ValeursActivitesTransportsFerroviaires,
   ValeursActivitesTransportsParEaux,
@@ -40,29 +37,30 @@ export const activitesParSecteurEtSousSecteur: Record<
   TValeursSectorielles,
   readonly TValeursActivites[]
 > = {
-  autre: [],
   administrationPublique: ValeursActivitesAdministrationPublique,
+  autreSecteurActivite: [],
+  autreSousSecteurEnergie: [],
+  autreSousSecteurFabrication: [],
+  autreSousSecteurTransport: [],
   banqueSecteurBancaire: ValeursActivitesSecteurBancaire,
   constructionVehiculesAutomobiles:
     ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
   eauPotable: ValeursActivitesEauPotable,
   eauxUsees: ValeursActivitesEauUsees,
   electricite: ValeursActivitesElectricite,
-  energie: ValeursActivitesEnergie,
   espace: ValeursActivitesEspace,
-  fabrication: ValeursActivitesFabrication,
   fabricationAutresMaterielTransports:
     ValeursActivitesFabricationAutreMaterielsTransports,
   fabricationDispositifsMedicaux:
     ValeursActivitesFabricationDispositifsMedicaux,
   fabricationEquipementsElectroniques:
     ValeursActivitesFabricationEquipementsElectroniques,
+  fabricationFabricationProduitsInformatiquesElectroniquesOptiques:
+    ValeursActivitesFabricationProduitsInformatiquesElectroniquesOptiques,
   fabricationMachinesEquipements:
     ValeursActivitesFabricationMachinesEquipements,
   fabricationProductionDistributionProduitsChimiques:
     ValeursActivitesFabricationProductionDistributionProduitsChimiques,
-  fabricationFabricationProduitsInformatiquesElectroniquesOptiques:
-    ValeursActivitesFabricationProduitsInformatiquesElectroniquesOptiques,
   fournisseursNumeriques: ValeursActivitesFournisseursNumeriques,
   gaz: ValeursActivitesGaz,
   gestionDechets: ValeursActivitesGestionDechets,
@@ -78,9 +76,12 @@ export const activitesParSecteurEtSousSecteur: Record<
   reseauxChaleurFroid: ValeursActivitesReseauxChaleurFroid,
   sante: ValeursActivitesSante,
   servicesPostauxExpedition: ValeursActivitesServicesPostauxExpedition,
-  transports: ValeursActivitesTransports,
   transportsAeriens: ValeursActivitesTransportsAeriens,
   transportsFerroviaires: ValeursActivitesTransportsFerroviaires,
   transportsParEau: ValeursActivitesTransportsParEaux,
   transportsRoutiers: ValeursActivitesTransportsRoutiers,
+};
+export type AssociationSectorielleActivite = {
+  secteurOuSousSecteur: string;
+  titreActivite: string;
 };

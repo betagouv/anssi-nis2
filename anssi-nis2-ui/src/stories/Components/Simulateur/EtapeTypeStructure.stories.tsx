@@ -2,13 +2,13 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { Etape2TypeStructure } from "../../../Components/Simulateur";
+import { EtapeTypeStructure } from "../../../Components/Simulateur";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { DonneesFormulaireSimulateur } from "../../../Services/Simulateur/donneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { ValeursTypeStructure } from "../../../Domaine/Simulateur/ValeursCles.ts";
-import { typesStructure } from "../../../Domaine/Simulateur/Libelles.ts";
+import { libellesTypesStructure } from "../../../Domaine/References/Libelles.ts";
 
 class ParametresDonneesTypeStructure extends ParametresDonneesSpecifiqueField<ValeursTypeStructure> {
   protected construitDonnees<ValeursTypeStructure>(
@@ -23,16 +23,16 @@ class CollectionParametresDonneesTypeStructure extends CollectionParametresDonne
 const donneesFormulaireOptions: CollectionParametresDonneesTypeStructure =
   new CollectionParametresDonneesTypeStructure();
 
-const meta: Meta<typeof Etape2TypeStructure> = {
-  component: Etape2TypeStructure,
+const meta: Meta<typeof EtapeTypeStructure> = {
+  component: EtapeTypeStructure,
   argTypes: {
     propageActionSimulateur: { action: true },
-    formData: donneesFormulaireOptions.getFormData(),
+    donneesFormulaire: donneesFormulaireOptions.getFormData(),
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof Etape2TypeStructure>;
+type Story = StoryObj<typeof EtapeTypeStructure>;
 
 const creeActionPropagationFormulaireActivite = (
   newValue: ValeursTypeStructure,
@@ -54,7 +54,7 @@ export const CliqueSurLesOptions: Story = {
       newValue: ValeursTypeStructure;
     }[] = [
       {
-        libelle: typesStructure["publique"],
+        libelle: libellesTypesStructure["publique"],
         newValue: "publique",
       },
     ];

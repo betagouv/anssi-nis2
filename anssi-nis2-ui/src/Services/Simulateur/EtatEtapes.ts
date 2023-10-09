@@ -1,6 +1,6 @@
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
 import { EtapeExistante, InformationEtapeForm } from "./informationsEtape.ts";
-import { DonneesFormulaireSimulateur } from "./donneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 export class EtatEtapes {
   static readonly numeroSousEtapeInitial = 0;

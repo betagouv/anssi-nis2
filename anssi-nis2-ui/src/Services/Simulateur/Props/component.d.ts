@@ -1,8 +1,9 @@
-import { DefaultComponentExtensible } from "../Props.ts";
+import { DefaultComponentExtensible } from "../../Props.ts";
+
 import {
   SimulateurContenuEtapeProps,
   SimulateurEtapeRenderedProps,
-} from "./props.ts";
+} from "./simulateurEtapeProps";
 
 export type SimulateurEtapeNodeComponent =
   DefaultComponentExtensible<SimulateurContenuEtapeProps>;

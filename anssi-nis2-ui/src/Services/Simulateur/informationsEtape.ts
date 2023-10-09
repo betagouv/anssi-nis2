@@ -1,10 +1,12 @@
 import { SimulateurEtapeResult } from "../../Components/Simulateur/SimulateurEtapeResult.tsx";
 import { SimulateurEtapeForm } from "../../Components/Simulateur/SimulateurEtapeForm.tsx";
-import { DonneesFormulaireSimulateur } from "./donneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import {
   SimulateurEtapeNodeComponent,
   SimulateurEtapeRenderedComponent,
-} from "./component.ts";
+} from "./Props/component";
+
+import { ValidationReponses } from "../../Domaine/Simulateur/Workflows/validateursChamps";
 
 export interface InformationsEtape {
   titre: string;
@@ -38,7 +40,7 @@ export class InformationEtapeForm extends EtapeExistante {
 
   public constructor(
     public readonly titre: string,
-    public readonly indicationReponses: string,
+    public readonly validationReponses: ValidationReponses,
     protected readonly contenu: SimulateurEtapeNodeComponent,
     public readonly sousEtapeConditionnelle?: SousEtapeConditionnelle,
   ) {

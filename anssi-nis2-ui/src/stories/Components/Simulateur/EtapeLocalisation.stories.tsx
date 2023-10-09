@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Etape1Localisation } from "../../../Components/Simulateur";
+import { EtapeLocalisation } from "../../../Components/Simulateur";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { donneesFormulaireSimulateurVide } from "../../../Services/Simulateur/donneesFormulaire.ts";
+import { donneesFormulaireSimulateurVide } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { ValeursClePaysUnionEuropeenne } from "../../../Domaine/Simulateur/ValeursCles.ts";
-import { paysUnionEuropeenneLocalisation } from "../../../Domaine/Simulateur/Libelles.ts";
+import { libellesPaysUnionEuropeenneLocalisation } from "../../../Domaine/References/Libelles.ts";
 
 class ParametresDonneesEtatMembre extends ParametresDonneesSpecifiqueField<ValeursClePaysUnionEuropeenne> {
   protected construitDonnees<ValeursClePaysUnionEuropeenne>(
@@ -22,29 +22,25 @@ class CollectionParametresDonneesEtatMembre extends CollectionParametresDonnees<
 
 const donneesFormulaireOptions: CollectionParametresDonneesEtatMembre =
   new CollectionParametresDonneesEtatMembre(
-    new ParametresDonneesEtatMembre("France Uniquement", ["france"]),
-    new ParametresDonneesEtatMembre("France et autre", ["france", "autre"]),
-    new ParametresDonneesEtatMembre("France et Hors UE", ["france", "horsue"]),
-    new ParametresDonneesEtatMembre("Tous", ["france", "autre", "horsue"]),
-    new ParametresDonneesEtatMembre("Autre et Hors UE", ["autre", "horsue"]),
-    new ParametresDonneesEtatMembre("Autre Uniquement", ["autre"]),
-    new ParametresDonneesEtatMembre("Hors UE Uniquement", ["horsue"]),
+    new ParametresDonneesEtatMembre("France", ["france"]),
+    new ParametresDonneesEtatMembre("Autre", ["autre"]),
+    new ParametresDonneesEtatMembre("Hors UE", ["horsue"]),
   );
 
-const meta: Meta<typeof Etape1Localisation> = {
-  component: Etape1Localisation,
+const meta: Meta<typeof EtapeLocalisation> = {
+  component: EtapeLocalisation,
   argTypes: {
     propageActionSimulateur: { action: true },
-    formData: donneesFormulaireOptions.getFormData(), //CollectionParametresDonneesEtatMembre
+    donneesFormulaire: donneesFormulaireOptions.getFormData(),
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof Etape1Localisation>;
+type Story = StoryObj<typeof EtapeLocalisation>;
 
 const creeActionPropagationFormulaireSimu = (newValue: string) => {
   const actionTypique = {
-    type: "checkMulti",
+    type: "checkSingle",
     name: "etatMembre",
   };
   return {
@@ -60,12 +56,15 @@ export const CliqueSurLesOptions: Story = {
 
     const optionsATester = [
       {
-        libelle: paysUnionEuropeenneLocalisation["france"],
+        libelle: libellesPaysUnionEuropeenneLocalisation["france"],
         newValue: "france",
       },
-      { libelle: paysUnionEuropeenneLocalisation["autre"], newValue: "autre" },
       {
-        libelle: paysUnionEuropeenneLocalisation["horsue"],
+        libelle: libellesPaysUnionEuropeenneLocalisation["autre"],
+        newValue: "autre",
+      },
+      {
+        libelle: libellesPaysUnionEuropeenneLocalisation["horsue"],
         newValue: "horsue",
       },
     ];
@@ -87,7 +86,7 @@ export const CliqueSurLesOptions: Story = {
 
 export const CocheFrance: Story = {
   args: {
-    formData: {
+    donneesFormulaire: {
       ...donneesFormulaireSimulateurVide,
       etatMembre: ["france"],
     },
@@ -108,11 +107,11 @@ export const CocheFrance: Story = {
   },
 };
 
-export const CocheFranceEtHorsUE: Story = {
+export const CocheHorsUE: Story = {
   args: {
-    formData: {
+    donneesFormulaire: {
       ...donneesFormulaireSimulateurVide,
-      etatMembre: ["france", "horsue"],
+      etatMembre: ["horsue"],
     },
   },
   play: async ({ canvasElement, step }) => {
@@ -126,8 +125,7 @@ export const CocheFranceEtHorsUE: Story = {
       });
       await expect(casesCochees.length).toBe(2);
 
-      await expect(casesCochees[0].getAttribute("value")).toBe("france");
-      await expect(casesCochees[1].getAttribute("value")).toBe("horsue");
+      await expect(casesCochees[0].getAttribute("value")).toBe("horsue");
     });
   },
 };

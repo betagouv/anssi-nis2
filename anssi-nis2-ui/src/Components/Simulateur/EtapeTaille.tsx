@@ -1,18 +1,19 @@
 import {
-  tranchesCA,
-  tranchesNombreEmployes,
-} from "../../Domaine/Simulateur/Libelles.ts";
+  libellesTranchesCA,
+  libellesTranchesNombreEmployes,
+} from "../../Domaine/References/Libelles.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { FormSimulateur } from "./index.ts";
-import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/props.ts";
 import React from "react";
 import {
   transformeTranchesCAVersOptions,
   transformeTranchesNombreEmployesVersOptions,
 } from "../../Services/Simulateur/Transformateurs.ts";
 
-const Etape3Taille = ({
-  formData,
+import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
+
+const EtapeTailleCalculee = ({
+  donneesFormulaire,
   propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
   const gereChangementNombreEmployes = (
@@ -31,14 +32,14 @@ const Etape3Taille = ({
     });
   const optionsTranchesNombreEmployes =
     transformeTranchesNombreEmployesVersOptions(
-      tranchesNombreEmployes,
+      libellesTranchesNombreEmployes,
       gereChangementNombreEmployes,
-      formData,
+      donneesFormulaire,
     );
   const optionsTranchesCA = transformeTranchesCAVersOptions(
-    tranchesCA,
+    libellesTranchesCA,
     gereChangementCA,
-    formData,
+    donneesFormulaire,
   );
 
   return (
@@ -60,4 +61,6 @@ const Etape3Taille = ({
   );
 };
 
-export default Etape3Taille;
+const EtapeTaille = React.memo(EtapeTailleCalculee);
+
+export default EtapeTaille;

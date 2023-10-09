@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Etape5Activite } from "../../../Components/Simulateur";
+import { EtapeActivites } from "../../../Components/Simulateur";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { donneesFormulaireSimulateurVide } from "../../../Services/Simulateur/donneesFormulaire.ts";
-import { libellesSecteursActivite } from "../../../Domaine/Simulateur/LibellesSecteursActivite.ts";
+import { donneesFormulaireSimulateurVide } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { libellesSecteursActivite } from "../../../Domaine/References/LibellesSecteursActivite.ts";
 
 class ParametresDonneesActivites extends ParametresDonneesSpecifiqueField<string> {
   protected construitDonnees<ValeursActivites>(
@@ -24,10 +24,10 @@ const donneesFormulaireOptions: CollectionParametresDonneesActivites =
     new ParametresDonneesActivites("France Uniquement", ["france"]),
   );
 
-const meta: Meta<typeof Etape5Activite> = {
-  component: Etape5Activite,
+const meta: Meta<typeof EtapeActivites> = {
+  component: EtapeActivites,
   args: {
-    formData: {
+    donneesFormulaire: {
       ...donneesFormulaireSimulateurVide,
       secteurActivite: ["energie"],
       sousSecteurActivite: ["electricite"],
@@ -35,12 +35,12 @@ const meta: Meta<typeof Etape5Activite> = {
   },
   argTypes: {
     propageActionSimulateur: { action: true },
-    formData: donneesFormulaireOptions.getFormData(),
+    donneesFormulaire: donneesFormulaireOptions.getFormData(),
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof Etape5Activite>;
+type Story = StoryObj<typeof EtapeActivites>;
 
 const creeActionPropagationFormulaireActivite = (newValue: string) => {
   const actionTypique = {
@@ -52,7 +52,7 @@ const creeActionPropagationFormulaireActivite = (newValue: string) => {
 
 export const AffichageActivitesEtLibellesParSecteurs: Story = {
   args: {
-    formData: {
+    donneesFormulaire: {
       ...donneesFormulaireSimulateurVide,
       secteurActivite: ["energie", "espace"],
       sousSecteurActivite: ["electricite"],

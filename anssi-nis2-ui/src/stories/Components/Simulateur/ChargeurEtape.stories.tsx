@@ -1,21 +1,13 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { ChargeurEtape } from "../../../Components/Simulateur/ChargeurEtape.tsx";
-import { AppContext, Context } from "../../../AppContext.tsx";
 import { defaultContext } from "../../utilitaires/PageDecorator.tsx";
-import { userEvent, within } from "@storybook/testing-library";
-import { expect, jest } from "@storybook/jest";
-import { Component } from "@storybook/blocks";
-import { CanvasFindByRole } from "../../utilitaires/Canvas.d.tsx";
-import { donneesFormulaireSimulateurVide } from "../../../Services/Simulateur/donneesFormulaire.ts";
+import { within } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
+import { passeEtapeEnCochant } from "../../utilitaires/Simulateur.actions.ts";
+import { genereDecorateurPourContexte } from "../../utilitaires/generateursDecorateurs.tsx";
+import { mockSendFormData } from "../../utilitaires/mocks.ts";
 
-const genereDecorateurPourContexte = (context: Context) =>
-  function StoryDecoree(StoryADecorer: Component) {
-    return (
-      <AppContext.Provider value={context}>
-        <StoryADecorer />
-      </AppContext.Provider>
-    );
-  };
+import { Contexte } from "../../../Services/contexte";
 
 const meta: Meta<typeof ChargeurEtape> = {
   component: ChargeurEtape,
@@ -25,55 +17,105 @@ const meta: Meta<typeof ChargeurEtape> = {
 export default meta;
 type Story = StoryObj<typeof ChargeurEtape>;
 
-const cliqueSurSuivant = async (canvas: CanvasFindByRole) => {
-  const element = await canvas.findByRole("button", { name: "Suivant" });
-  await userEvent.click(element as HTMLElement);
-};
-
-const mockSendFormData = jest.fn(async () => "");
-const simulateurContext: Context = {
+const simulateurContext: Contexte = {
   ...defaultContext,
-  sendFormData: mockSendFormData,
+  envoieDonneesFormulaire: mockSendFormData,
 };
 
 export const Simple: Story = {};
+
 export const DerniereEtapeEstResultat: Story = {
   decorators: [genereDecorateurPourContexte(simulateurContext)],
 
   play: async ({ canvasElement }) => {
+    mockSendFormData.mockClear();
+
     const canvas = within(canvasElement);
 
-    await cliqueSurSuivant(canvas);
-    await cliqueSurSuivant(canvas);
-    await cliqueSurSuivant(canvas);
-    await cliqueSurSuivant(canvas);
-    await cliqueSurSuivant(canvas);
-    await cliqueSurSuivant(canvas);
+    await passeEtapeEnCochant(canvas, [["designeOSE", "oui"]]);
+    await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
+    await passeEtapeEnCochant(canvas, [["typeStructure", "publique"]]);
+
+    await passeEtapeEnCochant(canvas, [
+      ["trancheNombreEmployes", "petit"],
+      ["trancheCA", "petit"],
+    ]);
+    await passeEtapeEnCochant(canvas, [["secteurActivite", "espace"]]);
+    await passeEtapeEnCochant(canvas, [
+      [
+        "activites",
+        "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
+      ],
+    ]);
 
     await canvas.findByText(
       "La directive s'appliquerait à votre entité au vu des éléments saisis",
     );
-    await expect(mockSendFormData).toHaveBeenCalled();
-    await expect(mockSendFormData).toHaveBeenCalledWith(
-      donneesFormulaireSimulateurVide,
-    );
+    await expect(mockSendFormData).toHaveBeenCalledTimes(1);
+    await expect(mockSendFormData).toHaveBeenCalledWith({
+      activites: [
+        "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
+      ],
+      designeOSE: ["oui"],
+      etatMembre: ["france"],
+      secteurActivite: ["espace"],
+      sousSecteurActivite: [],
+      trancheCA: ["petit"],
+      trancheNombreEmployes: ["petit"],
+      typeStructure: ["publique"],
+    });
   },
 };
 
 export const EtapeSousActiviteConditionnelle: Story = {
-  play: async ({ canvasElement }) => {
+  decorators: [genereDecorateurPourContexte(simulateurContext)],
+
+  play: async ({ canvasElement, step }) => {
+    mockSendFormData.mockClear();
+
     const canvas = within(canvasElement);
 
-    await cliqueSurSuivant(canvas);
-    await cliqueSurSuivant(canvas);
-    await cliqueSurSuivant(canvas);
-    await cliqueSurSuivant(canvas);
+    step("Va jusqu'à l'étape Secteurs d'activité", async () => {
+      await passeEtapeEnCochant(canvas, [["designeOSE", "oui"]]);
+      await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
+      await passeEtapeEnCochant(canvas, [["typeStructure", "publique"]]);
+      await passeEtapeEnCochant(canvas, [
+        ["trancheNombreEmployes", "petit"],
+        ["trancheCA", "petit"],
+      ]);
+    });
 
-    await userEvent.click(await canvas.findByText("Énergie"));
-    await canvas.findByText("Énergie");
-
-    await cliqueSurSuivant(canvas);
+    await passeEtapeEnCochant(canvas, [["secteurActivite", "energie"]]);
 
     await canvas.findByText("Précisez les sous-secteurs concernés :");
+    await passeEtapeEnCochant(
+      canvas,
+      [
+        ["sousSecteurActivite", "electricite"],
+        ["sousSecteurActivite", "gaz"],
+      ],
+      1,
+    );
+    await passeEtapeEnCochant(canvas, [
+      ["activites", "entrepriseElectriciteRemplissantFonctionFourniture"],
+      ["activites", "gestionnaireReseauDistribution"],
+    ]);
+    await canvas.findByText(
+      "La directive s'appliquerait à votre entité au vu des éléments saisis",
+    );
+    await expect(mockSendFormData).toHaveBeenCalledTimes(1);
+    await expect(mockSendFormData).toHaveBeenCalledWith({
+      activites: [
+        "entrepriseElectriciteRemplissantFonctionFourniture",
+        "gestionnaireReseauDistribution",
+      ],
+      designeOSE: ["oui"],
+      etatMembre: ["france"],
+      secteurActivite: ["energie"],
+      sousSecteurActivite: ["electricite", "gaz"],
+      trancheCA: ["petit"],
+      trancheNombreEmployes: ["petit"],
+      typeStructure: ["publique"],
+    });
   },
 };

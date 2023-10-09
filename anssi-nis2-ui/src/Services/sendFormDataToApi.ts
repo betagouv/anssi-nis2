@@ -1,8 +1,8 @@
-import { SendFormData } from "../AppContext.tsx";
 import { generateSimulationApi } from "./prepare.ts";
-import { DonneesFormulaireSimulateur } from "./Simulateur/donneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormulaire.ts";
+import { EnvoieDonneesFormulaire } from "./Simulateur/Workflow/appelsApi";
 
-export const sendFormDataToApi: SendFormData = async (
+export const sendFormDataToApi: EnvoieDonneesFormulaire = async (
   formData: DonneesFormulaireSimulateur,
 ) => {
   const simulationApi = generateSimulationApi();

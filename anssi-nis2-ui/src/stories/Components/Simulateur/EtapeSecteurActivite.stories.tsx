@@ -2,11 +2,11 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { Etape4Secteur } from "../../../Components/Simulateur";
+import { EtapeSecteursActivite } from "../../../Components/Simulateur";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { DonneesFormulaireSimulateur } from "../../../Services/Simulateur/donneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { TValeursSecteursActivites } from "../../../Domaine/Simulateur/ValeursCles.ts";
 
 class ParametresDonneesSecteurActivite extends ParametresDonneesSpecifiqueField<TValeursSecteursActivites> {
@@ -22,16 +22,16 @@ class CollectionParametresDonneesSecteurActivites extends CollectionParametresDo
 const donneesFormulaireOptions: CollectionParametresDonneesSecteurActivites =
   new CollectionParametresDonneesSecteurActivites();
 
-const meta: Meta<typeof Etape4Secteur> = {
-  component: Etape4Secteur,
+const meta: Meta<typeof EtapeSecteursActivite> = {
+  component: EtapeSecteursActivite,
   argTypes: {
     propageActionSimulateur: { action: true },
-    formData: donneesFormulaireOptions.getFormData(),
+    donneesFormulaire: donneesFormulaireOptions.getFormData(),
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof Etape4Secteur>;
+type Story = StoryObj<typeof EtapeSecteursActivite>;
 
 const creeActionPropagationFormulaireActivite = (
   newValue: TValeursSecteursActivites,

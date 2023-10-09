@@ -4,16 +4,18 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Accueil from "./Accueil.tsx";
 import { startReactDsfr } from "@codegouvfr/react-dsfr/spa";
 import Simulateur from "./Simulateur.tsx";
-import { AppContext, Context } from "./AppContext.tsx";
+import { AppContext } from "./AppContext.tsx";
 import { sendFormDataToApi } from "./Services/sendFormDataToApi.ts";
 import {
   reducerBoutons,
   reducerFormData,
-} from "./Services/Simulateur/reducers.ts";
+} from "./Services/Simulateur/Reducteurs.ts";
 import APropos from "./Components/PagesEdito/APropos.tsx";
 import MentionsLegales from "./Components/PagesEdito/MentionsLegales.tsx";
 import { PageEdito } from "./Components/PagesEdito/PageEdito.tsx";
 import GestionCookies from "./Components/PagesEdito/GestionCookies.tsx";
+
+import { Contexte } from "./Services/contexte";
 
 startReactDsfr({ defaultColorScheme: "system" });
 
@@ -52,11 +54,11 @@ const router = createBrowserRouter([
   },
 ]);
 
-const defaultContext: Context = {
-  sendFormData: sendFormDataToApi,
+const defaultContext: Contexte = {
+  envoieDonneesFormulaire: sendFormDataToApi,
   simulateur: {
-    reducerFormData: reducerFormData,
-    reducerBoutons: reducerBoutons,
+    reducteurDonneesFormulaire: reducerFormData,
+    reducteurActionsBoutonNavigation: reducerBoutons,
   },
 };
 

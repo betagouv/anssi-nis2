@@ -3,11 +3,11 @@ import {
   DefaultProps,
 } from "../../../Services/Props.ts";
 import { useId, useReducer } from "react";
-import { OptionChampSimulateur } from "../../../Services/Simulateur/props.ts";
-import { changeInfobulleOuverte } from "../../../Services/Simulateur/reducers.ts";
+import { changeInfobulleOuverte } from "../../../Services/Simulateur/Reducteurs.ts";
 import { IconeInfobulle } from "../../Icones/IconeInfobulle.tsx";
 import { Infobulle } from "../Infobulle.tsx";
 import { fr } from "@codegouvfr/react-dsfr";
+import { OptionChampSimulateur } from "../../../Services/Simulateur/Props/optionChampSimulateur";
 
 type Propiprops = DefaultProps & {
   optionChampSimulateur: OptionChampSimulateur;
@@ -30,7 +30,12 @@ export const ActiviteACocher: DefaultComponentExtensible<Propiprops> = ({
   return (
     <>
       <div className={fr.cx(`fr-${type}-group`)}>
-        <input type={type} id={getInputId(indice)} {...nativeInputProps} />
+        <input
+          type={type}
+          id={getInputId(indice)}
+          {...nativeInputProps}
+          name="activites"
+        />
         <label className="fr-label" htmlFor={getInputId(indice)}>
           {label}{" "}
           {!!contenuInfobulle?.length && (

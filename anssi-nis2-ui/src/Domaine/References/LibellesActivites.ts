@@ -1,6 +1,6 @@
-import { TValeursActivites } from "./ValeursCles.ts";
+import { TValeursActivites } from "../Simulateur/ValeursCles.ts";
 
-export const LibellesActivites: Record<TValeursActivites, string> = {
+export const libellesActivites: Record<TValeursActivites, string> = {
   acteurDuMarche:
     "Acteurs du marché fournissant des services d’agrégation, de " +
     "participation active de la demande ou de stockage d’énergie",
@@ -16,7 +16,36 @@ export const LibellesActivites: Record<TValeursActivites, string> = {
     "gestion de la circulation ou l’exploitation de systèmes de transport " +
     "intelligents constituent une partie non essentielle de leur activité " +
     "générale",
-  autre: "Aucun",
+  autreActiviteAdministrationPublique: "Autre activité",
+  autreActiviteConstructionVehiculesAutomobilesRemorquesSemi: "Autre activité",
+  autreActiviteEauPotable: "Autre activité",
+  autreActiviteElectricite: "Autre activité",
+  autreActiviteEspace: "Autre activité",
+  autreActiviteFabricationDispositifsMedicaux: "Autre activité",
+  autreActiviteFabricationEquipementsElectroniques: "Autre activité",
+  autreActiviteFabricationMachinesEquipements: "Autre activité",
+  autreActiviteFabricationProductionDistributionProduitsChimiques:
+    "Autre activité",
+  autreActiviteFabricationProduitsInformatiquesElectroniquesOptiques:
+    "Autre activité",
+  autreActiviteFournisseursNumeriques: "Autre activité",
+  autreActiviteGaz: "Autre activité",
+  autreActiviteGestionDechets: "Autre activité",
+  autreActiviteGestionServicesTic: "Autre activité",
+  autreActiviteHydrogene: "Autre activité",
+  autreActiviteInfrastructureMarcheFinancie: "Autre activité",
+  autreActiviteInfrastructureNumerique: "Autre activité",
+  autreActivitePetrole: "Autre activité",
+  autreActiviteProductionTransformationDistributionDenreesAlimentaires:
+    "Autre activité",
+  autreActiviteReseauxChaleurFroid: "Autre activité",
+  autreActiviteSante: "Autre activité",
+  autreActiviteSecteurBancaire: "Autre activité",
+  autreActiviteServicesPostauxExpedition: "Autre activité",
+  autreActiviteTransportsAeriens: "Autre activité",
+  autreActiviteTransportsFerroviaires: "Autre activité",
+  autreActiviteTransportsParEaux: "Autre activité",
+  autreActiviteTransportsRoutiers: "Autre activité",
   collectantEvacuantTraitantEaux:
     "Entreprises collectant, évacuant ou traitant les eaux urbaines " +
     "résiduaires, les eaux ménagères usées ou les eaux industrielles usées, " +
@@ -60,24 +89,24 @@ export const LibellesActivites: Record<TValeursActivites, string> = {
     "Entreprises exécutant des opérations de gestion des déchets, à " +
     "l’exclusion des entreprises pour lesquelles la gestion des déchets " +
     "n’est pas la principale activité économique",
-  exploitantsPointRecharge:
-    "Exploitants d’un point de recharge qui sont responsables de la gestion " +
-    "et de l’exploitation d’un point de recharge, lequel fournit un service " +
-    "de recharge aux utilisateurs finals, y compris au nom et pour le compte " +
-    "d’un prestataire de services de mobilité",
-  exploitantsInstallationPetrole:
-    "Exploitants d’installations de production, de raffinage, de traitement, " +
-    "de stockage et de transport de pétrole",
-  exploitantsOleoduc: "Exploitants d’oléoducs",
-  exploitantsServiceTrafficMaritime:
-    "Exploitants de services de trafic maritime (STM)",
   exploitantsInfrastructureTerrestresFournitureServicesSpaciaux:
     "Exploitants d’infrastructures terrestres, détenues, gérées et " +
     "exploitées par des États membres ou par des parties privées, qui " +
     "soutiennent la fourniture de services spatiaux, à l’exclusion des " +
     "fournisseurs de réseaux de communications électroniques publics",
+  exploitantsInstallationPetrole:
+    "Exploitants d’installations de production, de raffinage, de traitement, " +
+    "de stockage et de transport de pétrole",
+  exploitantsOleoduc: "Exploitants d’oléoducs",
   exploitantsPlateformesNegociation:
     "Exploitants de plates-formes de négociation",
+  exploitantsPointRecharge:
+    "Exploitants d’un point de recharge qui sont responsables de la gestion " +
+    "et de l’exploitation d’un point de recharge, lequel fournit un service " +
+    "de recharge aux utilisateurs finals, y compris au nom et pour le compte " +
+    "d’un prestataire de services de mobilité",
+  exploitantsServiceTrafficMaritime:
+    "Exploitants de services de trafic maritime (STM)",
   exploitantsSystemeHydrogene:
     "Exploitants de systèmes de production, de stockage et de transport " +
     "d’hydrogène",
@@ -207,10 +236,10 @@ export const LibellesActivites: Record<TValeursActivites, string> = {
   fournisseursPlaceMarcheEnLigne: "Fournisseurs de places de marché en ligne",
   fournisseursPlateformesServicesReseauxSociaux:
     "Fournisseurs de plateformes de services de réseaux sociaux",
-  gestionnaireReseau: "Gestionnaire de réseau de distribution",
   gestionnaireInfrastructure: "Gestionnaires des infrastructures",
   gestionnaireInstallationGNL: "Gestionnaires d’installation de GNL",
   gestionnaireInstallationStockage: "Gestionnaires d’installation de stockage",
+  gestionnaireReseau: "Gestionnaire de réseau de distribution",
   gestionnaireReseauDistribution: "Gestionnaires de réseau de distribution",
   gestionnaireReseauTransport: "Gestionnaire de réseau de transport",
   laboratoireReferenceUE: "Laboratoires de référence de l’Union européenne",

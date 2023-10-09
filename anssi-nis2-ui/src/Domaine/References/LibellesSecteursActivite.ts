@@ -1,4 +1,4 @@
-import { TValeursSecteursActivites } from "./ValeursCles.ts";
+import { TValeursSecteursActivites } from "../Simulateur/ValeursCles.ts";
 
 export const libellesSecteursActivite: Record<
   TValeursSecteursActivites,
@@ -24,5 +24,5 @@ export const libellesSecteursActivite: Record<
   sante: "Santé",
   servicesPostauxExpedition: "Services postaux et d'expédition",
   transports: "Transports",
-  autre: "Aucun",
+  autreSecteurActivite: "Autre secteur d'activité",
 };

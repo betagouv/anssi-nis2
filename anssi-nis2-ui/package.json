@@ -15,8 +15,8 @@
     "prebuild": "only-include-used-icons",
     "test": "vitest run",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "test-storybook": "test-storybook"
+    "storybook:build": "storybook build",
+    "storybook:test": "test-storybook"
   },
   "dependencies": {
     "@codegouvfr/react-dsfr": "^0.74.2",

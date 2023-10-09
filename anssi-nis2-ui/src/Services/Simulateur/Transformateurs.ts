@@ -1,26 +1,42 @@
-import {
-  GenerateurLibelle,
-  genereTransformateurValeursVersOptions,
-  TransformeRecordToSelect,
-} from "./simulateurFrontServices.ts";
+import { genereTransformateurValeursVersOptions } from "./genereTransformateurValeursVersOptions.ts";
 import {
   TValeursActivites,
   TValeursReponsesDesigneOSE,
   TValeursSecteursActivites,
+  TValeursSectorielles,
   TValeursSousSecteursActivites,
   ValeursClePaysUnionEuropeenne,
   ValeursTrancheCA,
   ValeursTrancheNombreEmployes,
   ValeursTypeStructure,
 } from "../../Domaine/Simulateur/ValeursCles.ts";
-import { DonneesFormulaireSimulateur } from "./donneesFormulaire.ts";
+import {
+  DonneesFormulaireSimulateur,
+  NomsChampsSimulateur,
+} from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 import {
   sousSecteursParSecteur,
   TValeursSecteursAvecSousSecteurs,
 } from "../../Domaine/Simulateur/SousSecteurs.ts";
-import { LibellesActivites } from "../../Domaine/Simulateur/LibellesActivites.ts";
-import { listeDescriptionsActivites } from "../../Domaine/Simulateur/ListeDescriptionsActivites.tsx";
+import { libellesActivites } from "../../Domaine/References/LibellesActivites.ts";
+import { listeDescriptionsActivites } from "../../Domaine/References/ListeDescriptionsActivites.ts";
+import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
+import { reducteurSecteursVersOptions } from "./Reducteurs.ts";
+import {
+  activitesParSecteurEtSousSecteur,
+  AssociationSectorielleActivite,
+} from "../../Domaine/Simulateur/ActivitesParSecteurEtSousSecteur.ts";
+import { Dispatch } from "react";
+
+import { SimulateurContenuEtapeProps } from "./Props/simulateurEtapeProps";
+import {
+  AttributsEntreeChoixMultiple,
+  OptionChampSimulateur,
+  OptionsChampSimulateur,
+} from "./Props/optionChampSimulateur";
+import { TransformeRecordToSelect } from "./Workflow/optionChampSimulateur";
+import { GenerateurLibelle } from "./Workflow/libelles.ts";
 
 const recupereLibelleReponseOSE = (
   value: string,
@@ -90,27 +106,35 @@ export const collecteTitresPourActivite = (
   libellesSecteursActivite: Record<TValeursSecteursActivites, string>,
   libellesSousSecteursActivite: Record<TValeursSousSecteursActivites, string>,
   donneesFormulaire: DonneesFormulaireSimulateur,
-): string[][] => {
+): AssociationSectorielleActivite[] => {
   const cartographieSecteurs =
     cartographieSousSecteursParSecteur(donneesFormulaire);
 
-  const collecteTitreSousSecteurs = (
+  const collecteTitreSousSecteurs: (
+    libelleSecteursActivite: string,
+    listeSousSecteurs: TValeursSousSecteursActivites[],
+  ) => AssociationSectorielleActivite[] = (
     libelleSecteursActivite: string,
     listeSousSecteurs: TValeursSousSecteursActivites[],
   ) =>
-    listeSousSecteurs.map((sousSecteur: TValeursSousSecteursActivites) => [
-      sousSecteur,
-      `${libelleSecteursActivite} / ${libellesSousSecteursActivite[sousSecteur]}`,
-    ]);
+    listeSousSecteurs.map((sousSecteur: TValeursSousSecteursActivites) => ({
+      secteurOuSousSecteur: sousSecteur,
+      titreActivite: `${libelleSecteursActivite} / ${libellesSousSecteursActivite[sousSecteur]}`,
+    }));
 
   return Object.entries(cartographieSecteurs).reduce(
-    (acc: string[][], [secteur, listeSousSecteurs]) => {
+    (acc: AssociationSectorielleActivite[], [secteur, listeSousSecteurs]) => {
       const libelleSecteursActivite: string =
         libellesSecteursActivite[secteur as TValeursSecteursActivites];
       return [
         ...acc,
         ...(listeSousSecteurs.length === 0
-          ? [[secteur, libelleSecteursActivite]]
+          ? [
+              {
+                secteurOuSousSecteur: secteur,
+                titreActivite: libelleSecteursActivite,
+              },
+            ]
           : collecteTitreSousSecteurs(
               libelleSecteursActivite,
               listeSousSecteurs,
@@ -149,13 +173,12 @@ export const cartographieSousSecteursParSecteur = (
   return { ...secteursStructures, ...sousSecteursStructures };
 };
 
-export const construitListeActivites =
-  (
-    donneesFormulaire: DonneesFormulaireSimulateur,
-    changeMulti: React.ChangeEventHandler<HTMLInputElement>,
-  ) =>
-  (activite: TValeursActivites) => ({
-    label: LibellesActivites[activite],
+export const fabriqueConstructeurOptionActivite: (
+  donneesFormulaire: DonneesFormulaireSimulateur,
+  changeMulti: React.ChangeEventHandler<HTMLInputElement>,
+) => (activite: TValeursActivites) => OptionChampSimulateur =
+  (donneesFormulaire, changeMulti) => (activite) => ({
+    label: libellesActivites[activite],
     contenuInfobulle: listeDescriptionsActivites[activite],
     nativeInputProps: {
       value: activite,
@@ -164,3 +187,40 @@ export const construitListeActivites =
       name: "activites",
     },
   });
+export const transformeSousSecteurEnOptions = (
+  donneesFormulaire: SimulateurContenuEtapeProps["donneesFormulaire"],
+  gereChangement: (event: React.ChangeEvent<HTMLInputElement>) => void,
+): [TValeursSecteursAvecSousSecteurs, OptionsChampSimulateur][] => {
+  return (
+    donneesFormulaire.secteurActivite as TValeursSecteursAvecSousSecteurs[]
+  ).reduce(reducteurSecteursVersOptions(gereChangement, donneesFormulaire), []);
+};
+const fabriqueChangeMulti: (
+  propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>,
+) => React.ChangeEventHandler<HTMLInputElement> =
+  (propageActionSimulateur) => (evt) =>
+    propageActionSimulateur({
+      type: "checkMulti",
+      name: evt.target.name as NomsChampsSimulateur,
+      newValue: evt.target.value,
+    });
+export const fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur: (
+  donneesFormulaire: DonneesFormulaireSimulateur,
+  propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>,
+) => (
+  tupleSecteurEtActivite: AssociationSectorielleActivite,
+) => AttributsEntreeChoixMultiple = (
+  donneesFormulaire,
+  propageActionSimulateur,
+) => {
+  const construitOptionActivite = fabriqueConstructeurOptionActivite(
+    donneesFormulaire,
+    fabriqueChangeMulti(propageActionSimulateur),
+  );
+  return ({ secteurOuSousSecteur, titreActivite }) => ({
+    legende: titreActivite,
+    options: activitesParSecteurEtSousSecteur[
+      secteurOuSousSecteur as TValeursSectorielles
+    ].map(construitOptionActivite),
+  });
+};

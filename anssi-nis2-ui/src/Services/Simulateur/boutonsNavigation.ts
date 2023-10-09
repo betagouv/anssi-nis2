@@ -1,13 +1,6 @@
 import React from "react";
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
-import { ActionsBoutonNavigation } from "./reducers.ts";
-
-export class BoutonsNavigation {
-  constructor(
-    public readonly precedent: React.MouseEventHandler,
-    public readonly suivant: React.MouseEventHandler,
-  ) {}
-}
+import { ActionsBoutonNavigation } from "./Reducteurs.ts";
 
 const prepareGestionBouton = (
   bouton: "precedent" | "suivant",
