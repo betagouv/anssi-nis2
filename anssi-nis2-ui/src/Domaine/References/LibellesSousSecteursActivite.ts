@@ -50,3 +50,6 @@ export const libellesSousSecteursActivite: Record<
   ...libellesSousSecteurFabrication,
   ...libellesSousSecteurTransports,
 };
+export const entreesLibellesSousSecteurs = Object.entries(
+  libellesSousSecteursActivite,
+) as [TValeursSousSecteursActivites, string][];

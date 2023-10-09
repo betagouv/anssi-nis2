@@ -6,6 +6,15 @@ import {
 import { SimulateurDonneesFormulaireActions } from "./props.ts";
 import { fieldHandlers } from "./gestionnaires.ts";
 import { BoutonsNavigation } from "./boutonsNavigation.ts";
+import {
+  fabriqueSecteurContientLeSousSecteur,
+  LibellesSousSecteurs,
+  TValeursSecteursAvecSousSecteurs,
+} from "../../Domaine/Simulateur/SousSecteurs.ts";
+import { TValeursSousSecteursActivites } from "../../Domaine/Simulateur/ValeursCles.ts";
+import { SelectOptions } from "./simulateurFrontServices.ts";
+import { transformateurSousSecteurActivite } from "./Transformateurs.ts";
+import { entreesLibellesSousSecteurs } from "../../Domaine/References/LibellesSousSecteursActivite.ts";
 
 const generateNewStateFrom = (
   state: DonneesFormulaireSimulateur,
@@ -55,3 +64,31 @@ export const changeInfobulleOuverte: Reducer<
   if (id === nouvelId) return { id: "" };
   return { id: nouvelId };
 };
+const reducteurCleValeurVersObjet = (
+  libellesSousSecteurDuSecteur: LibellesSousSecteurs,
+  [sousSecteur, libelle]: [TValeursSousSecteursActivites, string],
+) => ({
+  ...libellesSousSecteurDuSecteur,
+  [sousSecteur]: libelle,
+});
+export const reducteurSecteursVersOptions =
+  (
+    gereChangement: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    donneesFormulaire: DonneesFormulaireSimulateur,
+  ) =>
+  (
+    secteursAvecOptionsSousSecteurs: [
+      TValeursSecteursAvecSousSecteurs,
+      SelectOptions,
+    ][],
+    secteur: TValeursSecteursAvecSousSecteurs,
+  ): [TValeursSecteursAvecSousSecteurs, SelectOptions][] => {
+    const sousSecteurActivite = transformateurSousSecteurActivite(
+      entreesLibellesSousSecteurs
+        .filter(fabriqueSecteurContientLeSousSecteur(secteur))
+        .reduce(reducteurCleValeurVersObjet, {}),
+      gereChangement,
+      donneesFormulaire,
+    );
+    return [...secteursAvecOptionsSousSecteurs, [secteur, sousSecteurActivite]];
+  };

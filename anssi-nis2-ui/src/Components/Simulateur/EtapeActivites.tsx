@@ -1,18 +1,13 @@
 import { FormSimulateur } from "./index.ts";
-import {
-  ListeOptionsChampFormulaire,
-  SimulateurContenuEtapeProps,
-} from "../../Services/Simulateur/props.ts";
-import React, { useEffect, useState } from "react";
-import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { activitesParSecteurEtSousSecteur } from "../../Domaine/Simulateur/ActivitesParSecteurEtSousSecteur.ts";
+import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/props.ts";
+import React, { useMemo } from "react";
+import { AssociationSectorielleActivite } from "../../Domaine/Simulateur/ActivitesParSecteurEtSousSecteur.ts";
 import {
   collecteTitresPourActivite,
-  construitListeActivites,
+  fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur,
 } from "../../Services/Simulateur/Transformateurs.ts";
 import { libellesSecteursActivite } from "../../Domaine/References/LibellesSecteursActivite.ts";
 import { libellesSousSecteursActivite } from "../../Domaine/References/LibellesSousSecteursActivite.ts";
-import { TValeursSectorielles } from "../../Domaine/Simulateur/ValeursCles.ts";
 
 import { EnsembleChamps } from "./Inputs/EnsembleChamps.tsx";
 
@@ -20,33 +15,24 @@ const EtapeActivitesCalculee = ({
   propageActionSimulateur,
   donneesFormulaire,
 }: SimulateurContenuEtapeProps) => {
-  const [optionsParSecteurActivite, setOptionsParSecteurActivite] = useState<
-    [string, ListeOptionsChampFormulaire][]
-  >([]);
+  const optionsParSecteurActivite = useMemo(() => {
+    const titresExtraits: AssociationSectorielleActivite[] =
+      collecteTitresPourActivite(
+        libellesSecteursActivite,
+        libellesSousSecteursActivite,
+        donneesFormulaire,
+      );
 
-  useEffect(() => {
-    const changeMulti: React.ChangeEventHandler<HTMLInputElement> = (evt) =>
-      propageActionSimulateur({
-        type: "checkMulti",
-        name: evt.target.name as NomsChampsSimulateur,
-        newValue: evt.target.value,
-      });
-
-    const titresExtraits: string[][] = collecteTitresPourActivite(
-      libellesSecteursActivite,
-      libellesSousSecteursActivite,
-      donneesFormulaire,
-    );
-
-    setOptionsParSecteurActivite(
-      titresExtraits.map(([secteurOuSousSecteur, titreActivites]) => [
-        titreActivites,
-        activitesParSecteurEtSousSecteur[
-          secteurOuSousSecteur as TValeursSectorielles
-        ].map(construitListeActivites(donneesFormulaire, changeMulti)),
-      ]),
+    const cartographieEntreesLegendeEtOptionsChampSimlulateur =
+      fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur(
+        donneesFormulaire,
+        propageActionSimulateur,
+      );
+    return titresExtraits.map(
+      cartographieEntreesLegendeEtOptionsChampSimlulateur,
     );
   }, [donneesFormulaire, propageActionSimulateur]);
+
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
@@ -58,15 +44,13 @@ const EtapeActivitesCalculee = ({
           définitions des activités.
         </p>
 
-        {optionsParSecteurActivite.map(
-          ([legende, optionsSecteurActivite], index) => (
-            <EnsembleChamps
-              legende={legende}
-              optionsSecteurActivite={optionsSecteurActivite}
-              key={`activites-${index}`}
-            />
-          ),
-        )}
+        {optionsParSecteurActivite.map(({ legende, options }, index) => (
+          <EnsembleChamps
+            legende={legende}
+            optionsSecteurActivite={options}
+            key={`activites-${index}`}
+          />
+        ))}
       </div>
     </FormSimulateur>
   );

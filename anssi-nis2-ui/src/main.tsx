@@ -9,7 +9,7 @@ import { sendFormDataToApi } from "./Services/sendFormDataToApi.ts";
 import {
   reducerBoutons,
   reducerFormData,
-} from "./Services/Simulateur/reducers.ts";
+} from "./Services/Simulateur/Reducteurs.ts";
 import APropos from "./Components/PagesEdito/APropos.tsx";
 import MentionsLegales from "./Components/PagesEdito/MentionsLegales.tsx";
 import { PageEdito } from "./Components/PagesEdito/PageEdito.tsx";

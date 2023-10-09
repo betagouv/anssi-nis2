@@ -2,7 +2,7 @@ import { createContext, Reducer } from "react";
 
 import { DonneesFormulaireSimulateur } from "./Domaine/Simulateur/DonneesFormulaire.ts";
 import { SimulateurDonneesFormulaireActions } from "./Services/Simulateur/props.ts";
-import { ActionsBoutonNavigation } from "./Services/Simulateur/reducers.ts";
+import { ActionsBoutonNavigation } from "./Services/Simulateur/Reducteurs.ts";
 import { BoutonsNavigation } from "./Services/Simulateur/boutonsNavigation.ts";
 
 export type SendFormData = (

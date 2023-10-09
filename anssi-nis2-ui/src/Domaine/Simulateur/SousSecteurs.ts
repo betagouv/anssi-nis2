@@ -35,3 +35,8 @@ export const contientSousSecteur = (secteur: string, sousSecteur: string) =>
   sousSecteursParSecteur[secteur as TValeursSecteursAvecSousSecteurs].includes(
     sousSecteur,
   );
+export const fabriqueSecteurContientLeSousSecteur =
+  (secteur: TValeursSecteursAvecSousSecteurs) =>
+  ([sousSecteur]: [TValeursSousSecteursActivites, string]) =>
+    estUnSecteurAvecDesSousSecteurs(secteur) &&
+    contientSousSecteur(secteur, sousSecteur);

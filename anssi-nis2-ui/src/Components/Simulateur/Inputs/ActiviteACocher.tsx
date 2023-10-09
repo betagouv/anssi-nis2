@@ -4,7 +4,7 @@ import {
 } from "../../../Services/Props.ts";
 import { useId, useReducer } from "react";
 import { OptionChampSimulateur } from "../../../Services/Simulateur/props.ts";
-import { changeInfobulleOuverte } from "../../../Services/Simulateur/reducers.ts";
+import { changeInfobulleOuverte } from "../../../Services/Simulateur/Reducteurs.ts";
 import { IconeInfobulle } from "../../Icones/IconeInfobulle.tsx";
 import { Infobulle } from "../Infobulle.tsx";
 import { fr } from "@codegouvfr/react-dsfr";
