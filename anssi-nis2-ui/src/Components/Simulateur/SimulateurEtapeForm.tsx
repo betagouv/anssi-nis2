@@ -33,7 +33,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   const etatSuivant = etatEtapes.suivant(donneesFormulaireSimulateurVide);
   const informationsEtapeSuivante = etatSuivant.contenuEtapeCourante();
 
-  const { sendFormData } = useContext(AppContext);
+  const { envoieDonneesFormulaire } = useContext(AppContext);
 
   const etapePrecedenteHandlerConcret = useMemo(
     () =>
@@ -50,13 +50,16 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
         etatEtapes.numeroEtapeCourante,
         listeEtapes,
         informationsBoutonsNavigation.suivant,
-        () => sendFormData(donneesFormulaire as DonneesFormulaireSimulateur),
+        () =>
+          envoieDonneesFormulaire(
+            donneesFormulaire as DonneesFormulaireSimulateur,
+          ),
       ),
     [
       etatEtapes.numeroEtapeCourante,
       listeEtapes,
       informationsBoutonsNavigation.suivant,
-      sendFormData,
+      envoieDonneesFormulaire,
       donneesFormulaire,
     ],
   );

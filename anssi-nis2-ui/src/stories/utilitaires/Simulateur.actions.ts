@@ -1,4 +1,4 @@
-import { CanvasFindByRole, CanvasObject } from "./Canvas.d.tsx";
+import { CanvasObject } from "./Canvas.d.tsx";
 import { userEvent } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { libellesSimulateur as libelles } from "../../Domaine/References/Libelles.ts";
@@ -43,9 +43,4 @@ export const passeEtapeEnCochant = async <
   }
   expect(boutonSuivant).toBeEnabled();
   return await userEvent.click(boutonSuivant);
-};
-
-export const cliqueSurSuivant = async (canvas: CanvasFindByRole) => {
-  const element = await canvas.findByRole("button", { name: "Suivant" });
-  await userEvent.click(element as HTMLElement);
 };

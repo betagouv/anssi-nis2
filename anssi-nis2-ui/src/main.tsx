@@ -14,7 +14,8 @@ import APropos from "./Components/PagesEdito/APropos.tsx";
 import MentionsLegales from "./Components/PagesEdito/MentionsLegales.tsx";
 import { PageEdito } from "./Components/PagesEdito/PageEdito.tsx";
 import GestionCookies from "./Components/PagesEdito/GestionCookies.tsx";
-import { Context } from "./Services/context";
+
+import { Contexte } from "./Services/contexte";
 
 startReactDsfr({ defaultColorScheme: "system" });
 
@@ -53,11 +54,11 @@ const router = createBrowserRouter([
   },
 ]);
 
-const defaultContext: Context = {
-  sendFormData: sendFormDataToApi,
+const defaultContext: Contexte = {
+  envoieDonneesFormulaire: sendFormDataToApi,
   simulateur: {
-    reducerFormData: reducerFormData,
-    reducerBoutons: reducerBoutons,
+    reducteurDonneesFormulaire: reducerFormData,
+    reducteurActionsBoutonNavigation: reducerBoutons,
   },
 };
 

@@ -6,7 +6,8 @@ import { expect } from "@storybook/jest";
 import { passeEtapeEnCochant } from "../../utilitaires/Simulateur.actions.ts";
 import { genereDecorateurPourContexte } from "../../utilitaires/generateursDecorateurs.tsx";
 import { mockSendFormData } from "../../utilitaires/mocks.ts";
-import { Context } from "../../../Services/context";
+
+import { Contexte } from "../../../Services/contexte";
 
 const meta: Meta<typeof ChargeurEtape> = {
   component: ChargeurEtape,
@@ -16,9 +17,9 @@ const meta: Meta<typeof ChargeurEtape> = {
 export default meta;
 type Story = StoryObj<typeof ChargeurEtape>;
 
-const simulateurContext: Context = {
+const simulateurContext: Contexte = {
   ...defaultContext,
-  sendFormData: mockSendFormData,
+  envoieDonneesFormulaire: mockSendFormData,
 };
 
 export const Simple: Story = {};

@@ -1,34 +1,25 @@
 import { AppContext } from "../../AppContext.tsx";
-import { Args, Globals } from "@storybook/types";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ReactRenderer } from "@storybook/react";
 import {
   reducerBoutons,
   reducerFormData,
 } from "../../Services/Simulateur/Reducteurs.ts";
-import { Context } from "../../Services/context";
+
+import { Contexte } from "../../Services/contexte";
+import { StoryComponent } from "./typesUtilitaires";
 
 const defaultAsyncStringFonctionInjected = async () => {
   return "";
 };
 
-// reducerFormData: Reducer<SimulateurFormData, SimulateurDonneesFormulaireActions>; reducerBoutons: Reducer<BoutonsNavigation, ActionsBoutonNavigation>;
-export const defaultContext: Context = {
-  sendFormData: defaultAsyncStringFonctionInjected,
+export const defaultContext: Contexte = {
+  envoieDonneesFormulaire: defaultAsyncStringFonctionInjected,
   simulateur: {
-    reducerBoutons: reducerBoutons,
-    reducerFormData: reducerFormData,
+    reducteurActionsBoutonNavigation: reducerBoutons,
+    reducteurDonneesFormulaire: reducerFormData,
   },
 };
-type StoryContextUpdate<TArgs = Args> = {
-  args?: TArgs;
-  globals?: Globals;
-  [key: string]: unknown;
-};
-type StoryComponent = (
-  update?: StoryContextUpdate<Partial<unknown>>,
-) => ReactRenderer["storyResult"];
-//👇 This default export determines where your story goes in the story list
+
 export const pageDecorator = (Story: StoryComponent) => {
   const router = createBrowserRouter([
     {

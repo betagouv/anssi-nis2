@@ -13,10 +13,10 @@ import { SimulateurEtapeSwitcherProps } from "../../Services/Simulateur/Props/si
 
 const useReducteurDonneesFormulaireDuContexte = () => {
   const {
-    simulateur: { reducerFormData },
+    simulateur: { reducteurDonneesFormulaire },
   } = useContext(AppContext);
 
-  return reducerFormData;
+  return reducteurDonneesFormulaire;
 };
 
 export const ChargeurEtape: DefaultComponentExtensible<

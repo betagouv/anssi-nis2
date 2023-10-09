@@ -1,5 +1,5 @@
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 
-export type SendFormData = (
+export type EnvoieDonneesFormulaire = (
   formData: DonneesFormulaireSimulateur,
 ) => Promise<string>;

@@ -1,16 +1,20 @@
-import { SendFormData } from "./Simulateur/Workflow/appelsApi";
+import { EnvoieDonneesFormulaire } from "./Simulateur/Workflow/appelsApi";
 import { DonneesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormulaire.ts";
 import { SimulateurDonneesFormulaireActions } from "./Simulateur/Props/donneesFormulaire";
 import { BoutonsNavigation } from "./Simulateur/Props/boutonsNavigation.ts";
 import { ActionsBoutonNavigation } from "./Simulateur/Reducteurs.ts";
+import { Reducer } from "react";
 
-export type Context = {
-  sendFormData: SendFormData;
+export type Contexte = {
+  envoieDonneesFormulaire: EnvoieDonneesFormulaire;
   simulateur: {
-    reducerFormData: Reducer<
+    reducteurDonneesFormulaire: Reducer<
       DonneesFormulaireSimulateur,
       SimulateurDonneesFormulaireActions
     >;
-    reducerBoutons: Reducer<BoutonsNavigation, ActionsBoutonNavigation>;
+    reducteurActionsBoutonNavigation: Reducer<
+      BoutonsNavigation,
+      ActionsBoutonNavigation
+    >;
   };
 };
