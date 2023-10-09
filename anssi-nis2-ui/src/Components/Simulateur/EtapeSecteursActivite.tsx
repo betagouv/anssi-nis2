@@ -8,7 +8,7 @@ import React from "react";
 
 import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 import { OptionsChampSimulateur } from "../../Services/Simulateur/Props/optionChampSimulateur";
-import { SecteursActivites } from "../../Domaine/Simulateur/SecteursActivite";
+import { SecteurActivite } from "../../Domaine/Simulateur/SecteursActivite";
 
 const CheckboxWrapper = ({
   legend,
@@ -30,7 +30,7 @@ const EtapeSecteursActiviteCalculee = ({
 }: SimulateurContenuEtapeProps) => {
   const gestionDonneesFormulaire = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = event.target.value as SecteursActivites;
+      const newValue = event.target.value as SecteurActivite;
       propageActionSimulateur({
         type: "checkMulti",
         name: "secteurActivite",

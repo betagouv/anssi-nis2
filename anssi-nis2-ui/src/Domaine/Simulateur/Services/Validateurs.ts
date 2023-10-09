@@ -6,14 +6,14 @@ import {
   SecteursAvecSousSecteurs,
   SecteursSansSousSecteur,
   sousSecteurAppartientASecteur,
-  SousSecteursActivites,
+  SousSecteurActivite,
   ValeursSecteursAvecSousSecteurs,
 } from "../SousSecteurs.ts";
-import { ValeurCleSectorielle } from "../ValeursCles.ts";
+import { ValeurCleSectorielle } from "../ValeursChampsSimulateur.ts";
 import { Validateur, ValidationReponses } from "../Workflows/validateursChamps";
 import { activitesParSecteurEtSousSecteur } from "../ActivitesParSecteurEtSousSecteur.ts";
-import { SecteursActivites } from "../SecteursActivite";
-import { Activites } from "../Activites.ts";
+import { SecteurActivite } from "../SecteursActivite";
+import { Activite } from "../Activite.ts";
 
 export const et: (...validateurs: Array<Validateur>) => Validateur = (
   ...validateurs
@@ -39,8 +39,8 @@ export const auMoinsUn = (nomChamp: NomsChampsSimulateur) =>
 export const auMoinsUnSousSecteurParSecteur: Validateur = (
   donneesFormulaireSimulateur,
 ) => {
-  const valeursSecteur: SecteursActivites[] =
-    donneesFormulaireSimulateur.secteurActivite as SecteursActivites[];
+  const valeursSecteur: SecteurActivite[] =
+    donneesFormulaireSimulateur.secteurActivite as SecteurActivite[];
   const validateursParGroupe = valeursSecteur.map((valeur) =>
     sousSecteurAppartientASecteur(valeur as SecteursAvecSousSecteurs),
   );
@@ -55,7 +55,7 @@ export const auMoinsUnSousSecteurParSecteur: Validateur = (
 };
 
 function activiteEstDansSecteur(
-  activites: Activites[],
+  activites: Activite[],
   secteurActivite: ValeurCleSectorielle,
 ) {
   return activites.some((activite) =>
@@ -72,12 +72,12 @@ export const auMoinsUneActiviteParValeurSectorielle: Validateur = (
     estUnSecteurSansSousSecteur,
   ) as SecteursSansSousSecteur[];
   const sousSecteursActivite =
-    donneesFormulaireSimulateur.sousSecteurActivite as SousSecteursActivites[];
+    donneesFormulaireSimulateur.sousSecteurActivite as SousSecteurActivite[];
   const secteursEtSousSecteurs: ValeurCleSectorielle[] = [
     ...secteursActivite,
     ...sousSecteursActivite,
   ];
-  const activites = donneesFormulaireSimulateur.activites as Activites[];
+  const activites = donneesFormulaireSimulateur.activites as Activite[];
   const nombreDeValeursEstCoherent =
     donneesFormulaireSimulateur.activites.length ===
     secteursEtSousSecteurs.length;

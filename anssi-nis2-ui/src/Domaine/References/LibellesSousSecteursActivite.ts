@@ -2,7 +2,7 @@ import {
   DetailsSousSecteurUnique,
   SousSecteurEnergie,
   SousSecteurFabrication,
-  SousSecteursActivites,
+  SousSecteurActivite,
   SousSecteurTransport,
 } from "../Simulateur/SousSecteurs.ts";
 
@@ -42,14 +42,12 @@ export const libellesSousSecteurTransports: DetailsSousSecteurUnique<SousSecteur
     autreSousSecteurTransport: "Autre sous-secteur",
   };
 
-export const libellesSousSecteursActivite: Record<
-  SousSecteursActivites,
-  string
-> = {
-  ...libellesSousSecteursEnergie,
-  ...libellesSousSecteurFabrication,
-  ...libellesSousSecteurTransports,
-};
+export const libellesSousSecteursActivite: Record<SousSecteurActivite, string> =
+  {
+    ...libellesSousSecteursEnergie,
+    ...libellesSousSecteurFabrication,
+    ...libellesSousSecteurTransports,
+  };
 export const entreesLibellesSousSecteurs = Object.entries(
   libellesSousSecteursActivite,
-) as [SousSecteursActivites, string][];
+) as [SousSecteurActivite, string][];

@@ -268,7 +268,7 @@ export type ActivitesFournisseursNumeriques =
   (typeof ValeursActivitesFournisseursNumeriques)[number];
 export const ValeursActivitesRecherche = ["organismeRecherche"] as const;
 export type ActivitesRecherche = (typeof ValeursActivitesRecherche)[number];
-export type Activites =
+export type Activite =
   // Annexe 1
   | ActivitesEnergie
   | ActivitesTransports

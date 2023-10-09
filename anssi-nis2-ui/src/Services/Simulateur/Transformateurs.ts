@@ -6,7 +6,7 @@ import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeStructure,
-} from "../../Domaine/Simulateur/ValeursCles.ts";
+} from "../../Domaine/Simulateur/ValeursChampsSimulateur.ts";
 import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
@@ -30,13 +30,13 @@ import {
 } from "./Props/optionChampSimulateur";
 import { TransformeRecordToSelect } from "./Workflow/optionChampSimulateur";
 import { GenerateurLibelle } from "./Workflow/libelles.ts";
-import { SecteursActivites } from "../../Domaine/Simulateur/SecteursActivite";
+import { SecteurActivite } from "../../Domaine/Simulateur/SecteursActivite";
 import {
   SecteursAvecSousSecteurs,
-  SousSecteursActivites,
+  SousSecteurActivite,
   sousSecteursParSecteur,
 } from "../../Domaine/Simulateur/SousSecteurs.ts";
-import { Activites } from "../../Domaine/Simulateur/Activites.ts";
+import { Activite } from "../../Domaine/Simulateur/Activite.ts";
 
 const recupereLibelleReponseOSE = (
   value: string,
@@ -86,28 +86,28 @@ export const transformeTranchesCAVersOptions: TransformeRecordToSelect<TrancheCh
   genereTransformateurValeursVersOptions(getCALabel, "trancheCA");
 export const getSecteurActiviteLabel = (
   value: string,
-  secteurActivite: Partial<Record<SecteursActivites, string>>,
-) => secteurActivite[value as SecteursActivites] || value;
-export const transformeSecteursActiviteVersOptions: TransformeRecordToSelect<SecteursActivites> =
+  secteurActivite: Partial<Record<SecteurActivite, string>>,
+) => secteurActivite[value as SecteurActivite] || value;
+export const transformeSecteursActiviteVersOptions: TransformeRecordToSelect<SecteurActivite> =
   genereTransformateurValeursVersOptions(
     getSecteurActiviteLabel,
     "secteurActivite",
   );
 
-const getSousSecteurLabel: GenerateurLibelle<SousSecteursActivites> = (
+const getSousSecteurLabel: GenerateurLibelle<SousSecteurActivite> = (
   value: string,
-  sousSecteur: Partial<Record<SousSecteursActivites, string>>,
-) => sousSecteur[value as SousSecteursActivites] || value;
+  sousSecteur: Partial<Record<SousSecteurActivite, string>>,
+) => sousSecteur[value as SousSecteurActivite] || value;
 
-export const transformateurSousSecteurActivite: TransformeRecordToSelect<SousSecteursActivites> =
+export const transformateurSousSecteurActivite: TransformeRecordToSelect<SousSecteurActivite> =
   genereTransformateurValeursVersOptions(
     getSousSecteurLabel,
     "sousSecteurActivite",
   );
 
 export const collecteTitresPourActivite = (
-  libellesSecteursActivite: Record<SecteursActivites, string>,
-  libellesSousSecteursActivite: Record<SousSecteursActivites, string>,
+  libellesSecteursActivite: Record<SecteurActivite, string>,
+  libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
   donneesFormulaire: DonneesFormulaireSimulateur,
 ): AssociationSectorielleActivite[] => {
   const cartographieSecteurs =
@@ -115,12 +115,12 @@ export const collecteTitresPourActivite = (
 
   const collecteTitreSousSecteurs: (
     libelleSecteursActivite: string,
-    listeSousSecteurs: SousSecteursActivites[],
+    listeSousSecteurs: SousSecteurActivite[],
   ) => AssociationSectorielleActivite[] = (
     libelleSecteursActivite: string,
-    listeSousSecteurs: SousSecteursActivites[],
+    listeSousSecteurs: SousSecteurActivite[],
   ) =>
-    listeSousSecteurs.map((sousSecteur: SousSecteursActivites) => ({
+    listeSousSecteurs.map((sousSecteur: SousSecteurActivite) => ({
       secteurOuSousSecteur: sousSecteur,
       titreActivite: `${libelleSecteursActivite} / ${libellesSousSecteursActivite[sousSecteur]}`,
     }));
@@ -128,7 +128,7 @@ export const collecteTitresPourActivite = (
   return Object.entries(cartographieSecteurs).reduce(
     (acc: AssociationSectorielleActivite[], [secteur, listeSousSecteurs]) => {
       const libelleSecteursActivite: string =
-        libellesSecteursActivite[secteur as SecteursActivites];
+        libellesSecteursActivite[secteur as SecteurActivite];
       return [
         ...acc,
         ...(listeSousSecteurs.length === 0
@@ -149,7 +149,7 @@ export const collecteTitresPourActivite = (
 };
 export const cartographieSousSecteursParSecteur = (
   donneesFormulaire: DonneesFormulaireSimulateur,
-): Partial<Record<SecteursActivites, SousSecteursActivites[]>> => {
+): Partial<Record<SecteurActivite, SousSecteurActivite[]>> => {
   const { secteurActivite, sousSecteurActivite } = donneesFormulaire;
 
   const secteursStructures = secteurActivite
@@ -157,7 +157,7 @@ export const cartographieSousSecteursParSecteur = (
     .reduce((acc, currentValue) => ({ ...acc, [currentValue]: [] }), {});
 
   const sousSecteursStructures: Partial<
-    Record<SecteursActivites, SousSecteursActivites[]>
+    Record<SecteurActivite, SousSecteurActivite[]>
   > = secteurActivite
     .filter((secteur) => Object.keys(sousSecteursParSecteur).includes(secteur))
     .reduce((acc, currentValue) => {
@@ -166,7 +166,7 @@ export const cartographieSousSecteursParSecteur = (
         [currentValue]: sousSecteurActivite.filter((sousSecteur) =>
           sousSecteursParSecteur[
             currentValue as SecteursAvecSousSecteurs
-          ].includes(sousSecteur as SousSecteursActivites),
+          ].includes(sousSecteur as SousSecteurActivite),
         ),
       };
     }, {});
@@ -177,7 +177,7 @@ export const cartographieSousSecteursParSecteur = (
 export const fabriqueConstructeurOptionActivite: (
   donneesFormulaire: DonneesFormulaireSimulateur,
   changeMulti: React.ChangeEventHandler<HTMLInputElement>,
-) => (activite: Activites) => OptionChampSimulateur =
+) => (activite: Activite) => OptionChampSimulateur =
   (donneesFormulaire, changeMulti) => (activite) => ({
     label: libellesActivites[activite],
     contenuInfobulle: listeDescriptionsActivites[activite],

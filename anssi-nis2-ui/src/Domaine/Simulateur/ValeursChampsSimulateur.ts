@@ -1,7 +1,9 @@
 import {
   SecteursSansSousSecteur,
-  SousSecteursActivites,
+  SousSecteurActivite,
 } from "./SousSecteurs.ts";
+import { SecteurActivite } from "./SecteursActivite";
+import { Activite } from "./Activite.ts";
 
 export const ValeursDesignationOperateurServicesEssentiels = [
   "oui",
@@ -18,4 +20,14 @@ export type TrancheChiffreAffaire = UnionPetitMoyenGrand;
 
 export type ValeurCleSectorielle =
   | SecteursSansSousSecteur
-  | SousSecteursActivites;
+  | SousSecteurActivite;
+
+export type ValeurChampSimulaire =
+  | DesignationOperateurServicesEssentiels
+  | AppartenancePaysUnionEuropeenne
+  | TypeStructure
+  | TrancheChiffreAffaire
+  | TrancheNombreEmployes
+  | SecteurActivite
+  | SousSecteurActivite
+  | Activite;

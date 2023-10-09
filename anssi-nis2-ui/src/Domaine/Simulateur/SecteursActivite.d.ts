@@ -19,4 +19,4 @@ export const ValeursSecteursActivites = [
   "transports",
   "autreSecteurActivite",
 ] as const;
-export type SecteursActivites = (typeof ValeursSecteursActivites)[number];
+export type SecteurActivite = (typeof ValeursSecteursActivites)[number];

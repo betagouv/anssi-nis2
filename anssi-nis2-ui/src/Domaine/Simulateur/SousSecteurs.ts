@@ -1,5 +1,5 @@
 import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.ts";
-import { SecteursActivites } from "./SecteursActivite";
+import { SecteurActivite } from "./SecteursActivite";
 
 export const ValeursSecteursAvecSousSecteurs = [
   "energie",
@@ -36,20 +36,18 @@ export const ValeursSousSecteurFabrication = [
 ] as const;
 export type SousSecteurFabrication =
   (typeof ValeursSousSecteurFabrication)[number];
-export type SousSecteursActivites =
+export type SousSecteurActivite =
   | SousSecteurEnergie
   | SousSecteurTransport
   | SousSecteurFabrication;
 export type SecteursSansSousSecteur = Exclude<
-  SecteursActivites,
+  SecteurActivite,
   SecteursAvecSousSecteurs
 >;
-export type LibellesSousSecteurs = Partial<
-  Record<SousSecteursActivites, string>
->;
-export type DescriptionSecteur = readonly SousSecteursActivites[];
+export type LibellesSousSecteurs = Partial<Record<SousSecteurActivite, string>>;
+export type DescriptionSecteur = readonly SousSecteurActivite[];
 export const sousSecteursParSecteur: Record<
-  Extract<SecteursActivites, SecteursAvecSousSecteurs>,
+  Extract<SecteurActivite, SecteursAvecSousSecteurs>,
   DescriptionSecteur
 > = {
   energie: ValeursSousSecteurEnergie,
@@ -58,7 +56,7 @@ export const sousSecteursParSecteur: Record<
 };
 export const groupementsSecteursParSousSecteurs: Record<
   SecteursAvecSousSecteurs,
-  readonly SousSecteursActivites[]
+  readonly SousSecteurActivite[]
 > = {
   energie: ValeursSousSecteurEnergie,
   transports: ValeursSousSecteurTransport,
@@ -71,14 +69,14 @@ export const estUnSecteurAvecDesSousSecteurs = (secteur: string) =>
   ValeursSecteursAvecSousSecteurs.includes(secteur as SecteursAvecSousSecteurs);
 export const contientSousSecteur = (
   secteur: string,
-  sousSecteur: SousSecteursActivites,
+  sousSecteur: SousSecteurActivite,
 ) =>
   sousSecteursParSecteur[secteur as SecteursAvecSousSecteurs].includes(
     sousSecteur,
   );
 export const fabriqueSecteurContientLeSousSecteur =
   (secteur: SecteursAvecSousSecteurs) =>
-  ([sousSecteur]: [SousSecteursActivites, string]) =>
+  ([sousSecteur]: [SousSecteurActivite, string]) =>
     estUnSecteurAvecDesSousSecteurs(secteur) &&
     contientSousSecteur(secteur, sousSecteur);
 export const fabriqueListeChampsPourValeur = (
@@ -89,7 +87,7 @@ export const sousSecteurAppartientASecteur =
   (donneesFormulaireSimulateur: DonneesFormulaireSimulateur) => {
     const donneesSecteursActivite = donneesFormulaireSimulateur[
       "sousSecteurActivite"
-    ] as SousSecteursActivites[];
+    ] as SousSecteurActivite[];
     return donneesSecteursActivite.some(
       (sousSecteur) =>
         fabriqueListeChampsPourValeur(valeurGroupement)?.includes(sousSecteur),

@@ -9,19 +9,19 @@ import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeStructure,
-} from "../../Domaine/Simulateur/ValeursCles.ts";
-import { SecteursActivites } from "../../Domaine/Simulateur/SecteursActivite";
+} from "../../Domaine/Simulateur/ValeursChampsSimulateur.ts";
+import { SecteurActivite } from "../../Domaine/Simulateur/SecteursActivite";
 
-import { SousSecteursActivites } from "../../Domaine/Simulateur/SousSecteurs.ts";
-import { Activites } from "../../Domaine/Simulateur/Activites.ts";
+import { SousSecteurActivite } from "../../Domaine/Simulateur/SousSecteurs.ts";
+import { Activite } from "../../Domaine/Simulateur/Activite.ts";
 
 export const passeEtapeEnCochant = async <
   T extends
     | DesignationOperateurServicesEssentiels
-    | Activites
+    | Activite
     | AppartenancePaysUnionEuropeenne
-    | SecteursActivites
-    | SousSecteursActivites
+    | SecteurActivite
+    | SousSecteurActivite
     | TrancheChiffreAffaire
     | TrancheNombreEmployes
     | TypeStructure,

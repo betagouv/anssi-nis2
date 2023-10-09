@@ -1,6 +1,6 @@
-import { ValeurCleSectorielle } from "./ValeursCles.ts";
+import { ValeurCleSectorielle } from "./ValeursChampsSimulateur.ts";
 import {
-  Activites,
+  Activite,
   ValeursActivitesAdministrationPublique,
   ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
   ValeursActivitesEauPotable,
@@ -31,11 +31,11 @@ import {
   ValeursActivitesTransportsFerroviaires,
   ValeursActivitesTransportsParEaux,
   ValeursActivitesTransportsRoutiers,
-} from "./Activites.ts";
+} from "./Activite.ts";
 
 export const activitesParSecteurEtSousSecteur: Record<
   ValeurCleSectorielle,
-  readonly Activites[]
+  readonly Activite[]
 > = {
   administrationPublique: ValeursActivitesAdministrationPublique,
   autreSecteurActivite: [],

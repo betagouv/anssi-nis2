@@ -7,7 +7,7 @@ import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/Props/sim
 import { OptionsChampSimulateur } from "../../Services/Simulateur/Props/optionChampSimulateur";
 import {
   SecteursAvecSousSecteurs,
-  SousSecteursActivites,
+  SousSecteurActivite,
 } from "../../Domaine/Simulateur/SousSecteurs.ts";
 
 const EtapeSousSecteursActiviteCalculee = ({
@@ -16,7 +16,7 @@ const EtapeSousSecteursActiviteCalculee = ({
 }: SimulateurContenuEtapeProps) => {
   const gereChangement = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = event.target.value as SousSecteursActivites;
+      const newValue = event.target.value as SousSecteurActivite;
       propageActionSimulateur({
         type: "checkMulti",
         name: "sousSecteurActivite",

@@ -7,7 +7,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { TypeStructure } from "../../../Domaine/Simulateur/ValeursCles.ts";
+import { TypeStructure } from "../../../Domaine/Simulateur/ValeursChampsSimulateur.ts";
 import { libellesTypesStructure } from "../../../Domaine/References/Libelles.ts";
 
 class ParametresDonneesTypeStructure extends ParametresDonneesSpecifiqueField<TypeStructure> {

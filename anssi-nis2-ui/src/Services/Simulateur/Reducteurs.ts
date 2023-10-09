@@ -9,7 +9,7 @@ import {
   fabriqueSecteurContientLeSousSecteur,
   LibellesSousSecteurs,
   SecteursAvecSousSecteurs,
-  SousSecteursActivites,
+  SousSecteurActivite,
 } from "../../Domaine/Simulateur/SousSecteurs.ts";
 import { transformateurSousSecteurActivite } from "./Transformateurs.ts";
 import { entreesLibellesSousSecteurs } from "../../Domaine/References/LibellesSousSecteursActivite.ts";
@@ -66,7 +66,7 @@ export const changeInfobulleOuverte: Reducer<
 };
 const reducteurCleValeurVersObjet = (
   libellesSousSecteurDuSecteur: LibellesSousSecteurs,
-  [sousSecteur, libelle]: [SousSecteursActivites, string],
+  [sousSecteur, libelle]: [SousSecteurActivite, string],
 ) => ({
   ...libellesSousSecteurDuSecteur,
   [sousSecteur]: libelle,

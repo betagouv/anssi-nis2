@@ -1,6 +1,6 @@
-import { SecteursActivites } from "../Simulateur/SecteursActivite";
+import { SecteurActivite } from "../Simulateur/SecteursActivite";
 
-export const libellesSecteursActivite: Record<SecteursActivites, string> = {
+export const libellesSecteursActivite: Record<SecteurActivite, string> = {
   administrationPublique: "Administration publique / administration centrale",
   banqueSecteurBancaire: "Banques (secteur bancaire)",
   eauPotable: "Eau potable",
