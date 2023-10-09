@@ -23,7 +23,7 @@ const CheckboxWrapper = ({
   );
 };
 
-const EtapeSecteurActiviteBrute = ({
+const EtapeSecteursActiviteCalculee = ({
   propageActionSimulateur,
   donneesFormulaire,
 }: SimulateurContenuEtapeProps) => {
@@ -59,6 +59,6 @@ const EtapeSecteurActiviteBrute = ({
   );
 };
 
-const EtapeSecteurActivite = React.memo(EtapeSecteurActiviteBrute);
+const EtapeSecteursActivite = React.memo(EtapeSecteursActiviteCalculee);
 
-export default EtapeSecteurActivite;
+export default EtapeSecteursActivite;

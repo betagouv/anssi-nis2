@@ -2,7 +2,7 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { EtapeSecteurActivite } from "../../../Components/Simulateur";
+import { EtapeSecteursActivite } from "../../../Components/Simulateur";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
@@ -22,8 +22,8 @@ class CollectionParametresDonneesSecteurActivites extends CollectionParametresDo
 const donneesFormulaireOptions: CollectionParametresDonneesSecteurActivites =
   new CollectionParametresDonneesSecteurActivites();
 
-const meta: Meta<typeof EtapeSecteurActivite> = {
-  component: EtapeSecteurActivite,
+const meta: Meta<typeof EtapeSecteursActivite> = {
+  component: EtapeSecteursActivite,
   argTypes: {
     propageActionSimulateur: { action: true },
     donneesFormulaire: donneesFormulaireOptions.getFormData(),
@@ -31,7 +31,7 @@ const meta: Meta<typeof EtapeSecteurActivite> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof EtapeSecteurActivite>;
+type Story = StoryObj<typeof EtapeSecteursActivite>;
 
 const creeActionPropagationFormulaireActivite = (
   newValue: TValeursSecteursActivites,

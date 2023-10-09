@@ -11,7 +11,7 @@ import {
   transformeTranchesNombreEmployesVersOptions,
 } from "../../Services/Simulateur/Transformateurs.ts";
 
-const EtapeTaille = ({
+const EtapeTailleCalculee = ({
   donneesFormulaire,
   propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
@@ -59,5 +59,7 @@ const EtapeTaille = ({
     </FormSimulateur>
   );
 };
+
+const EtapeTaille = React.memo(EtapeTailleCalculee);
 
 export default EtapeTaille;

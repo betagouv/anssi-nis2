@@ -2,7 +2,7 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { EtapeSousSecteurActivite } from "../../../Components/Simulateur";
+import { EtapeSousSecteursActivite } from "../../../Components/Simulateur";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
@@ -25,8 +25,8 @@ class CollectionParametresDonneesSousSecteurActivites extends CollectionParametr
 const donneesFormulaireOptions: CollectionParametresDonneesSousSecteurActivites =
   new CollectionParametresDonneesSousSecteurActivites();
 
-const meta: Meta<typeof EtapeSousSecteurActivite> = {
-  component: EtapeSousSecteurActivite,
+const meta: Meta<typeof EtapeSousSecteursActivite> = {
+  component: EtapeSousSecteursActivite,
   args: {
     donneesFormulaire: {
       ...donneesFormulaireSimulateurVide,
@@ -41,7 +41,7 @@ const meta: Meta<typeof EtapeSousSecteurActivite> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof EtapeSousSecteurActivite>;
+type Story = StoryObj<typeof EtapeSousSecteursActivite>;
 
 const creeActionPropagationFormulaireActivite = (
   newValue: TValeursSousSecteurEnergie,

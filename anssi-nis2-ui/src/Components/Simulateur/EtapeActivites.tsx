@@ -16,7 +16,7 @@ import { TValeursSectorielles } from "../../Domaine/Simulateur/ValeursCles.ts";
 
 import { EnsembleChamps } from "./Inputs/EnsembleChamps.tsx";
 
-const EtapeActivite = ({
+const EtapeActivitesCalculee = ({
   propageActionSimulateur,
   donneesFormulaire,
 }: SimulateurContenuEtapeProps) => {
@@ -72,4 +72,6 @@ const EtapeActivite = ({
   );
 };
 
-export default EtapeActivite;
+const EtapeActivites = React.memo(EtapeActivitesCalculee);
+
+export default EtapeActivites;

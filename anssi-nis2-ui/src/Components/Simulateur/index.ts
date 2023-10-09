@@ -2,9 +2,9 @@ import EtapeOSE from "./EtapeOSE.tsx";
 import EtapeLocalisation from "./EtapeLocalisation.tsx";
 import EtapeTypeStructure from "./EtapeTypeStructure.tsx";
 import EtapeTaille from "./EtapeTaille.tsx";
-import EtapeSecteurActivite from "./EtapeSecteurActivite.tsx";
-import EtapeSousSecteurActivite from "./EtapeSousSecteurActivite.tsx";
-import EtapeActivite from "./EtapeActivite.tsx";
+import EtapeSecteursActivite from "./EtapeSecteursActivite.tsx";
+import EtapeSousSecteursActivite from "./EtapeSousSecteursActivite.tsx";
+import EtapeActivites from "./EtapeActivites.tsx";
 import FormSimulateur from "./FormSimulateur.tsx";
 
 export {
@@ -12,8 +12,8 @@ export {
   EtapeLocalisation,
   EtapeTypeStructure,
   EtapeTaille,
-  EtapeSecteurActivite,
-  EtapeSousSecteurActivite,
-  EtapeActivite,
+  EtapeSecteursActivite,
+  EtapeSousSecteursActivite,
+  EtapeActivites,
   FormSimulateur,
 };

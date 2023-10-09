@@ -1,9 +1,9 @@
 import {
-  EtapeActivite,
+  EtapeActivites,
   EtapeLocalisation,
   EtapeOSE,
-  EtapeSecteurActivite,
-  EtapeSousSecteurActivite,
+  EtapeSecteursActivite,
+  EtapeSousSecteursActivite,
   EtapeTaille,
   EtapeTypeStructure,
 } from ".";
@@ -45,12 +45,12 @@ const informationEtapeTaille = new InformationEtapeForm(
 const informationEtapeSousSecteurs = new InformationEtapeForm(
   "Sous-secteur d'activité",
   validationReponsesSousActivites,
-  EtapeSousSecteurActivite,
+  EtapeSousSecteursActivite,
 );
 const informationEtapeSecteurs = new InformationEtapeForm(
   "Secteurs d’activité",
   validationReponsesSecteurs,
-  EtapeSecteurActivite,
+  EtapeSecteursActivite,
   new SousEtapeConditionnelle(
     ({ secteurActivite }) => secteurActivite.includes("energie"),
     informationEtapeSousSecteurs,
@@ -59,7 +59,7 @@ const informationEtapeSecteurs = new InformationEtapeForm(
 const informationEtapeActivites = new InformationEtapeForm(
   "Activités pratiquées",
   validationReponsesActivites,
-  EtapeActivite,
+  EtapeActivites,
 );
 export const etapesQuestionnaire: CollectionInformationsEtapes =
   new CollectionInformationsEtapes(

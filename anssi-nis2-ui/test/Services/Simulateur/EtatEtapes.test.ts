@@ -9,7 +9,7 @@ import {
   EtapeLocalisation,
   EtapeTypeStructure,
   EtapeTaille,
-  EtapeSecteurActivite,
+  EtapeSecteursActivite,
 } from "../../../src/Components/Simulateur";
 import { CollectionInformationsEtapes } from "../../../src/Services/Simulateur/CollectionInformationsEtapes";
 import { donneesFormulaireSimulateurVide } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
@@ -117,7 +117,7 @@ describe(EtatEtapes, () => {
     const informationSousEtape4 = new InformationEtapeForm(
       "Sous-étape",
       "Indication sous-étape",
-      EtapeSecteurActivite,
+      EtapeSecteursActivite,
     );
     const sousEtapeToujoursPresente = new SousEtapeConditionnelle(
       predicatVrai,

@@ -14,6 +14,7 @@ import { libellesSecteursActivite } from "../../Domaine/References/LibellesSecte
 import { transformateurSousSecteurActivite } from "../../Services/Simulateur/Transformateurs.ts";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { DonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import React from "react";
 
 const entreesLibellesSousSecteurs = Object.entries(
   libellesSousSecteursActivite,
@@ -77,7 +78,7 @@ const SousSecteurCheckbox = ({
   );
 };
 
-const EtapeSousSecteurActivite = ({
+const EtapeSousSecteursActiviteCalculee = ({
   propageActionSimulateur,
   donneesFormulaire,
 }: SimulateurContenuEtapeProps) => {
@@ -125,4 +126,6 @@ const EtapeSousSecteurActivite = ({
   );
 };
 
-export default EtapeSousSecteurActivite;
+const EtapeSousSecteursActivite = React.memo(EtapeSousSecteursActiviteCalculee);
+
+export default EtapeSousSecteursActivite;
