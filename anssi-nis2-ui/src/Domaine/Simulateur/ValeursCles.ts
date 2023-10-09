@@ -1,12 +1,17 @@
-import { TValeursSecteursAvecSousSecteurs } from "./SousSecteurs.ts";
+import { SecteursAvecSousSecteurs } from "./SousSecteurs.ts";
 
-export const ValeursReponsesDesigneOSE = ["oui", "non", "nsp"] as const;
-export type TValeursReponsesDesigneOSE =
-  (typeof ValeursReponsesDesigneOSE)[number];
-export type ValeursClePaysUnionEuropeenne = "france" | "autre" | "horsue";
-export type ValeursTypeStructure = "publique" | "privee";
-export type ValeursTrancheNombreEmployes = "petit" | "moyen" | "grand";
-export type ValeursTrancheCA = "petit" | "moyen" | "grand";
+export const ValeursDesignationOperateurServicesEssentiels = [
+  "oui",
+  "non",
+  "nsp",
+] as const;
+export type DesignationOperateurServicesEssentiels =
+  (typeof ValeursDesignationOperateurServicesEssentiels)[number];
+export type AppartenancePaysUnionEuropeenne = "france" | "autre" | "horsue";
+export type TypeStructure = "publique" | "privee";
+type UnionPetitMoyenGrand = "petit" | "moyen" | "grand";
+export type TrancheNombreEmployes = UnionPetitMoyenGrand;
+export type TrancheChiffreAffaire = UnionPetitMoyenGrand;
 export const ValeursSecteursActivites = [
   "administrationPublique",
   "banqueSecteurBancaire",
@@ -28,8 +33,7 @@ export const ValeursSecteursActivites = [
   "transports",
   "autreSecteurActivite",
 ] as const;
-export type TValeursSecteursActivites =
-  (typeof ValeursSecteursActivites)[number];
+export type SecteursActivites = (typeof ValeursSecteursActivites)[number];
 export const ValeursSousSecteurEnergie = [
   "electricite",
   "gaz",
@@ -38,8 +42,7 @@ export const ValeursSousSecteurEnergie = [
   "reseauxChaleurFroid",
   "autreSousSecteurEnergie",
 ] as const;
-export type TValeursSousSecteurEnergie =
-  (typeof ValeursSousSecteurEnergie)[number];
+export type SousSecteurEnergie = (typeof ValeursSousSecteurEnergie)[number];
 
 export const ValeursSousSecteurTransport = [
   "transportsAeriens",
@@ -48,8 +51,7 @@ export const ValeursSousSecteurTransport = [
   "transportsRoutiers",
   "autreSousSecteurTransport",
 ] as const;
-export type TValeursSousSecteurTransport =
-  (typeof ValeursSousSecteurTransport)[number];
+export type SousSecteurTransport = (typeof ValeursSousSecteurTransport)[number];
 
 export const ValeursSousSecteurFabrication = [
   "fabricationDispositifsMedicaux",
@@ -60,22 +62,22 @@ export const ValeursSousSecteurFabrication = [
   "fabricationAutresMaterielTransports",
   "autreSousSecteurFabrication",
 ] as const;
-export type TValeursSousSecteurFabrication =
+export type SousSecteurFabrication =
   (typeof ValeursSousSecteurFabrication)[number];
 
-export type TValeursSousSecteursActivites =
-  | TValeursSousSecteurEnergie
-  | TValeursSousSecteurTransport
-  | TValeursSousSecteurFabrication;
+export type SousSecteursActivites =
+  | SousSecteurEnergie
+  | SousSecteurTransport
+  | SousSecteurFabrication;
 
-export type TValeursSecteursSansSousSecteur = Exclude<
-  TValeursSecteursActivites,
-  TValeursSecteursAvecSousSecteurs
+export type SecteursSansSousSecteur = Exclude<
+  SecteursActivites,
+  SecteursAvecSousSecteurs
 >;
 
-export type TValeursSectorielles =
-  | TValeursSecteursSansSousSecteur
-  | TValeursSousSecteursActivites;
+export type ValeurCleSectorielle =
+  | SecteursSansSousSecteur
+  | SousSecteursActivites;
 
 export const ValeursActivitesElectricite = [
   "acteurDuMarche",
@@ -87,14 +89,13 @@ export const ValeursActivitesElectricite = [
   "producteur",
   "autreActiviteElectricite",
 ] as const;
-export type TValeursActivitesElectricite =
-  (typeof ValeursActivitesElectricite)[number];
+export type ActivitesElectricite = (typeof ValeursActivitesElectricite)[number];
 
 export const ValeursActivitesReseauxChaleurFroid = [
   "operateurReseauChaleurFroid",
   "autreActiviteReseauxChaleurFroid",
 ] as const;
-export type TValeursActivitesReseauxChaleurFroid =
+export type ActivitesReseauxChaleurFroid =
   (typeof ValeursActivitesReseauxChaleurFroid)[number];
 
 export const ValeursActivitesPetrole = [
@@ -103,7 +104,7 @@ export const ValeursActivitesPetrole = [
   "entiteCentralesStockage",
   "autreActivitePetrole",
 ] as const;
-export type TValeursActivitesPetrole = (typeof ValeursActivitesPetrole)[number];
+export type ActivitesPetrole = (typeof ValeursActivitesPetrole)[number];
 
 export const ValeursActivitesGaz = [
   "entrepriseFourniture",
@@ -113,14 +114,13 @@ export const ValeursActivitesGaz = [
   "gestionnaireInstallationGNL",
   "autreActiviteGaz",
 ] as const;
-export type TValeursActivitesGaz = (typeof ValeursActivitesGaz)[number];
+export type ActivitesGaz = (typeof ValeursActivitesGaz)[number];
 
 export const ValeursActivitesHydrogene = [
   "exploitantsSystemeHydrogene",
   "autreActiviteHydrogene",
 ] as const;
-export type TValeursActivitesHydrogene =
-  (typeof ValeursActivitesHydrogene)[number];
+export type ActivitesHydrogene = (typeof ValeursActivitesHydrogene)[number];
 
 export const ValeursActivitesEnergie = [
   ...ValeursActivitesElectricite,
@@ -129,12 +129,12 @@ export const ValeursActivitesEnergie = [
   ...ValeursActivitesGaz,
   ...ValeursActivitesHydrogene,
 ] as const;
-export type TValeursActivitesEnergie =
-  | TValeursActivitesElectricite
-  | TValeursActivitesReseauxChaleurFroid
-  | TValeursActivitesPetrole
-  | TValeursActivitesGaz
-  | TValeursActivitesHydrogene;
+export type ActivitesEnergie =
+  | ActivitesElectricite
+  | ActivitesReseauxChaleurFroid
+  | ActivitesPetrole
+  | ActivitesGaz
+  | ActivitesHydrogene;
 
 export const ValeursActivitesTransportsAeriens = [
   "transporteursAeriensCommercial",
@@ -142,7 +142,7 @@ export const ValeursActivitesTransportsAeriens = [
   "serviceControleCirculationAerienne",
   "autreActiviteTransportsAeriens",
 ] as const;
-export type TValeursActivitesTransportsAeriens =
+export type ActivitesTransportsAeriens =
   (typeof ValeursActivitesTransportsAeriens)[number];
 
 export const ValeursActivitesTransportsFerroviaires = [
@@ -150,7 +150,7 @@ export const ValeursActivitesTransportsFerroviaires = [
   "entrepriseFerroviaire",
   "autreActiviteTransportsFerroviaires",
 ] as const;
-export type TValeursActivitesTransportsFerroviaires =
+export type ActivitesTransportsFerroviaires =
   (typeof ValeursActivitesTransportsFerroviaires)[number];
 
 export const ValeursActivitesTransportsParEaux = [
@@ -159,7 +159,7 @@ export const ValeursActivitesTransportsParEaux = [
   "exploitantsServiceTrafficMaritime",
   "autreActiviteTransportsParEaux",
 ] as const;
-export type TValeursActivitesTransportsParEaux =
+export type ActivitesTransportsParEaux =
   (typeof ValeursActivitesTransportsParEaux)[number];
 
 export const ValeursActivitesTransportsRoutiers = [
@@ -167,7 +167,7 @@ export const ValeursActivitesTransportsRoutiers = [
   "exploitantsSystemeTransportIntelligents",
   "autreActiviteTransportsRoutiers",
 ] as const;
-export type TValeursActivitesTransportsRoutiers =
+export type ActivitesTransportsRoutiers =
   (typeof ValeursActivitesTransportsRoutiers)[number];
 
 export const ValeursActivitesTransports = [
@@ -176,17 +176,17 @@ export const ValeursActivitesTransports = [
   ...ValeursActivitesTransportsParEaux,
   ...ValeursActivitesTransportsRoutiers,
 ] as const;
-export type TValeursActivitesTransports =
-  | TValeursActivitesTransportsAeriens
-  | TValeursActivitesTransportsFerroviaires
-  | TValeursActivitesTransportsParEaux
-  | TValeursActivitesTransportsRoutiers;
+export type ActivitesTransports =
+  | ActivitesTransportsAeriens
+  | ActivitesTransportsFerroviaires
+  | ActivitesTransportsParEaux
+  | ActivitesTransportsRoutiers;
 
 export const ValeursActivitesSecteurBancaire = [
   "etablissementCredit",
   "autreActiviteSecteurBancaire",
 ] as const;
-export type TValeursActivitesSecteurBancaire =
+export type ActivitesSecteurBancaire =
   (typeof ValeursActivitesSecteurBancaire)[number];
 
 export const ValeursActivitesInfrastructureMarcheFinancier = [
@@ -194,7 +194,7 @@ export const ValeursActivitesInfrastructureMarcheFinancier = [
   "contrepartieCentrales",
   "autreActiviteInfrastructureMarcheFinancie",
 ] as const;
-export type TValeursActivitesInfrastructureMarcheFinancier =
+export type ActivitesInfrastructureMarcheFinancier =
   (typeof ValeursActivitesInfrastructureMarcheFinancier)[number];
 
 export const ValeursActivitesSante = [
@@ -205,21 +205,19 @@ export const ValeursActivitesSante = [
   "fabriquantDispositifsMedicauxCritiques",
   "autreActiviteSante",
 ] as const;
-export type TValeursActivitesSante = (typeof ValeursActivitesSante)[number];
+export type ActivitesSante = (typeof ValeursActivitesSante)[number];
 
 export const ValeursActivitesEauPotable = [
   "fournisseursDistributeursEauxConsommation",
   "autreActiviteEauPotable",
 ] as const;
-export type TValeursActivitesEauPotable =
-  (typeof ValeursActivitesEauPotable)[number];
+export type ActivitesEauPotable = (typeof ValeursActivitesEauPotable)[number];
 
 export const ValeursActivitesEauUsees = [
   "collectantEvacuantTraitantEaux",
   "autreActiviteEauPotable",
 ] as const;
-export type TValeursActivitesEauUsees =
-  (typeof ValeursActivitesEauUsees)[number];
+export type ActivitesEauUsees = (typeof ValeursActivitesEauUsees)[number];
 
 export const ValeursActivitesInfrastructureNumerique = [
   "fournisseurPointEchangeInternet",
@@ -233,7 +231,7 @@ export const ValeursActivitesInfrastructureNumerique = [
   "fournisseurServiceCommunicationElectroniquesPublics",
   "autreActiviteInfrastructureNumerique",
 ] as const;
-export type TValeursActivitesInfrastructureNumerique =
+export type ActivitesInfrastructureNumerique =
   (typeof ValeursActivitesInfrastructureNumerique)[number];
 
 export const ValeursActivitesGestionServicesTic = [
@@ -241,7 +239,7 @@ export const ValeursActivitesGestionServicesTic = [
   "fournisseurServicesSecuriteGeres",
   "autreActiviteGestionServicesTic",
 ] as const;
-export type TValeursActivitesGestionServicesTic =
+export type ActivitesGestionServicesTic =
   (typeof ValeursActivitesGestionServicesTic)[number];
 
 export const ValeursActivitesAdministrationPublique = [
@@ -249,27 +247,27 @@ export const ValeursActivitesAdministrationPublique = [
   "administrationPubliqueNiveauRegional",
   "autreActiviteAdministrationPublique",
 ] as const;
-export type TValeursActivitesAdministrationPublique =
+export type ActivitesAdministrationPublique =
   (typeof ValeursActivitesAdministrationPublique)[number];
 
 export const ValeursActivitesEspace = [
   "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
   "autreActiviteEspace",
 ] as const;
-export type TValeursActivitesEspace = (typeof ValeursActivitesEspace)[number];
+export type ActivitesEspace = (typeof ValeursActivitesEspace)[number];
 
 export const ValeursActivitesServicesPostauxExpedition = [
   "prestatairesServicesPostauxExpedition",
   "autreActiviteServicesPostauxExpedition",
 ] as const;
-export type TValeursActivitesServicesPostauxExpedition =
+export type ActivitesServicesPostauxExpedition =
   (typeof ValeursActivitesServicesPostauxExpedition)[number];
 
 export const ValeursActivitesGestionDechets = [
   "executantOperationGestionDechets",
   "autreActiviteGestionDechets",
 ] as const;
-export type TValeursActivitesGestionDechets =
+export type ActivitesGestionDechets =
   (typeof ValeursActivitesGestionDechets)[number];
 
 export const ValeursActivitesFabricationProductionDistributionProduitsChimiques =
@@ -277,7 +275,7 @@ export const ValeursActivitesFabricationProductionDistributionProduitsChimiques 
     "fabricationDistributionSubstances",
     "autreActiviteFabricationProductionDistributionProduitsChimiques",
   ] as const;
-export type TValeursActivitesFabricationProductionDistributionProduitsChimiques =
+export type ActivitesFabricationProductionDistributionProduitsChimiques =
   (typeof ValeursActivitesFabricationProductionDistributionProduitsChimiques)[number];
 
 export const ValeursActivitesProductionTransformationDistributionDenreesAlimentaires =
@@ -285,14 +283,14 @@ export const ValeursActivitesProductionTransformationDistributionDenreesAlimenta
     "secteurAlimentaireDistributionGrosProductionTransformationIndustrielle",
     "autreActiviteProductionTransformationDistributionDenreesAlimentaires",
   ] as const;
-export type TValeursActivitesProductionTransformationDistributionDenreesAlimentaires =
+export type ActivitesProductionTransformationDistributionDenreesAlimentaires =
   (typeof ValeursActivitesProductionTransformationDistributionDenreesAlimentaires)[number];
 
 export const ValeursActivitesFabricationDispositifsMedicaux = [
   "fabriquantDispositifsMedicaux",
   "autreActiviteFabricationDispositifsMedicaux",
 ] as const;
-export type TValeursActivitesFabricationDispositifsMedicaux =
+export type ActivitesFabricationDispositifsMedicaux =
   (typeof ValeursActivitesFabricationDispositifsMedicaux)[number];
 
 export const ValeursActivitesFabricationProduitsInformatiquesElectroniquesOptiques =
@@ -307,7 +305,7 @@ export const ValeursActivitesFabricationProduitsInformatiquesElectroniquesOptiqu
     "fabriquantMaterielOptiquePhotographiquesSupportsMagnetiquesOptiques",
     "autreActiviteFabricationProduitsInformatiquesElectroniquesOptiques",
   ] as const;
-export type TValeursActivitesFabricationProduitsInformatiquesElectroniquesOptiques =
+export type ActivitesFabricationProduitsInformatiquesElectroniquesOptiques =
   (typeof ValeursActivitesFabricationProduitsInformatiquesElectroniquesOptiques)[number];
 
 export const ValeursActivitesFabricationEquipementsElectroniques = [
@@ -318,7 +316,7 @@ export const ValeursActivitesFabricationEquipementsElectroniques = [
   "fabriquantAppareilsMenagers",
   "autreActiviteFabricationEquipementsElectroniques",
 ] as const;
-export type TValeursActivitesFabricationEquipementsElectroniques =
+export type ActivitesFabricationEquipementsElectroniques =
   (typeof ValeursActivitesFabricationEquipementsElectroniques)[number];
 
 export const ValeursActivitesFabricationMachinesEquipements = [
@@ -330,7 +328,7 @@ export const ValeursActivitesFabricationMachinesEquipements = [
   "fabriquantAutresMachinesUsageSpecifiqueNCA",
   "autreActiviteFabricationMachinesEquipements",
 ] as const;
-export type TValeursActivitesFabricationMachinesEquipements =
+export type ActivitesFabricationMachinesEquipements =
   (typeof ValeursActivitesFabricationMachinesEquipements)[number];
 
 export const ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi = [
@@ -339,7 +337,7 @@ export const ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi = [
   "fabriquantEquipementsAutomobiles",
   "autreActiviteConstructionVehiculesAutomobilesRemorquesSemi",
 ] as const;
-export type TValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi =
+export type ActivitesConstructionVehiculesAutomobilesRemorquesSemi =
   (typeof ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi)[number];
 
 export const ValeursActivitesFabricationAutreMaterielsTransports = [
@@ -353,7 +351,7 @@ export const ValeursActivitesFabricationAutreMaterielsTransports = [
   "fabricationMaterielTransportNCA",
   "autreActiviteConstructionVehiculesAutomobilesRemorquesSemi",
 ] as const;
-export type TValeursActivitesFabricationAutreMaterielsTransports =
+export type ActivitesFabricationAutreMaterielsTransports =
   (typeof ValeursActivitesFabricationAutreMaterielsTransports)[number];
 export const ValeursActivitesFabrication = [
   ...ValeursActivitesFabricationDispositifsMedicaux,
@@ -363,13 +361,13 @@ export const ValeursActivitesFabrication = [
   ...ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
   ...ValeursActivitesFabricationAutreMaterielsTransports,
 ] as const;
-export type TValeursActivitesFabrication =
-  | TValeursActivitesFabricationDispositifsMedicaux
-  | TValeursActivitesFabricationProduitsInformatiquesElectroniquesOptiques
-  | TValeursActivitesFabricationEquipementsElectroniques
-  | TValeursActivitesFabricationMachinesEquipements
-  | TValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi
-  | TValeursActivitesFabricationAutreMaterielsTransports;
+export type ActivitesFabrication =
+  | ActivitesFabricationDispositifsMedicaux
+  | ActivitesFabricationProduitsInformatiquesElectroniquesOptiques
+  | ActivitesFabricationEquipementsElectroniques
+  | ActivitesFabricationMachinesEquipements
+  | ActivitesConstructionVehiculesAutomobilesRemorquesSemi
+  | ActivitesFabricationAutreMaterielsTransports;
 
 export const ValeursActivitesFournisseursNumeriques = [
   "fournisseursPlaceMarcheEnLigne",
@@ -377,31 +375,30 @@ export const ValeursActivitesFournisseursNumeriques = [
   "fournisseursPlateformesServicesReseauxSociaux",
   "autreActiviteFournisseursNumeriques",
 ] as const;
-export type TValeursActivitesFournisseursNumeriques =
+export type ActivitesFournisseursNumeriques =
   (typeof ValeursActivitesFournisseursNumeriques)[number];
 
 export const ValeursActivitesRecherche = ["organismeRecherche"] as const;
-export type TValeursActivitesRecherche =
-  (typeof ValeursActivitesRecherche)[number];
+export type ActivitesRecherche = (typeof ValeursActivitesRecherche)[number];
 
-export type TValeursActivites =
+export type Activites =
   // Annexe 1
-  | TValeursActivitesEnergie
-  | TValeursActivitesTransports
-  | TValeursActivitesSecteurBancaire
-  | TValeursActivitesInfrastructureMarcheFinancier
-  | TValeursActivitesSante
-  | TValeursActivitesEauPotable
-  | TValeursActivitesEauUsees
-  | TValeursActivitesInfrastructureNumerique
-  | TValeursActivitesGestionServicesTic
-  | TValeursActivitesAdministrationPublique
-  | TValeursActivitesEspace
+  | ActivitesEnergie
+  | ActivitesTransports
+  | ActivitesSecteurBancaire
+  | ActivitesInfrastructureMarcheFinancier
+  | ActivitesSante
+  | ActivitesEauPotable
+  | ActivitesEauUsees
+  | ActivitesInfrastructureNumerique
+  | ActivitesGestionServicesTic
+  | ActivitesAdministrationPublique
+  | ActivitesEspace
   // Annexe 2
-  | TValeursActivitesServicesPostauxExpedition
-  | TValeursActivitesGestionDechets
-  | TValeursActivitesFabricationProductionDistributionProduitsChimiques
-  | TValeursActivitesProductionTransformationDistributionDenreesAlimentaires
-  | TValeursActivitesFabrication
-  | TValeursActivitesFournisseursNumeriques
-  | TValeursActivitesRecherche;
+  | ActivitesServicesPostauxExpedition
+  | ActivitesGestionDechets
+  | ActivitesFabricationProductionDistributionProduitsChimiques
+  | ActivitesProductionTransformationDistributionDenreesAlimentaires
+  | ActivitesFabrication
+  | ActivitesFournisseursNumeriques
+  | ActivitesRecherche;

@@ -1,6 +1,6 @@
 import {
-  TValeursActivites,
-  TValeursSectorielles,
+  Activites,
+  ValeurCleSectorielle,
   ValeursActivitesAdministrationPublique,
   ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
   ValeursActivitesEauPotable,
@@ -34,8 +34,8 @@ import {
 } from "./ValeursCles.ts";
 
 export const activitesParSecteurEtSousSecteur: Record<
-  TValeursSectorielles,
-  readonly TValeursActivites[]
+  ValeurCleSectorielle,
+  readonly Activites[]
 > = {
   administrationPublique: ValeursActivitesAdministrationPublique,
   autreSecteurActivite: [],

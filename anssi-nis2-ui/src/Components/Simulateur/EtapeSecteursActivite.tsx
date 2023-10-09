@@ -1,7 +1,7 @@
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { FormSimulateur } from "./index.ts";
 import { transformeSecteursActiviteVersOptions } from "../../Services/Simulateur/Transformateurs.ts";
-import { TValeursSecteursActivites } from "../../Domaine/Simulateur/ValeursCles.ts";
+import { SecteursActivites } from "../../Domaine/Simulateur/ValeursCles.ts";
 
 import { libellesSecteursActivite } from "../../Domaine/References/LibellesSecteursActivite.ts";
 import { useCallback, useMemo } from "react";
@@ -30,7 +30,7 @@ const EtapeSecteursActiviteCalculee = ({
 }: SimulateurContenuEtapeProps) => {
   const gestionDonneesFormulaire = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = event.target.value as TValeursSecteursActivites;
+      const newValue = event.target.value as SecteursActivites;
       propageActionSimulateur({
         type: "checkMulti",
         name: "secteurActivite",

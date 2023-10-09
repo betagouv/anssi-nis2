@@ -4,26 +4,26 @@ import { expect } from "@storybook/jest";
 import { libellesSimulateur as libelles } from "../../Domaine/References/Libelles.ts";
 import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import {
-  TValeursActivites,
-  TValeursReponsesDesigneOSE,
-  TValeursSecteursActivites,
-  TValeursSousSecteursActivites,
-  ValeursClePaysUnionEuropeenne,
-  ValeursTrancheCA,
-  ValeursTrancheNombreEmployes,
-  ValeursTypeStructure,
+  Activites,
+  DesignationOperateurServicesEssentiels,
+  SecteursActivites,
+  SousSecteursActivites,
+  AppartenancePaysUnionEuropeenne,
+  TrancheChiffreAffaire,
+  TrancheNombreEmployes,
+  TypeStructure,
 } from "../../Domaine/Simulateur/ValeursCles.ts";
 
 export const passeEtapeEnCochant = async <
   T extends
-    | TValeursReponsesDesigneOSE
-    | TValeursActivites
-    | ValeursClePaysUnionEuropeenne
-    | TValeursSecteursActivites
-    | TValeursSousSecteursActivites
-    | ValeursTrancheCA
-    | ValeursTrancheNombreEmployes
-    | ValeursTypeStructure,
+    | DesignationOperateurServicesEssentiels
+    | Activites
+    | AppartenancePaysUnionEuropeenne
+    | SecteursActivites
+    | SousSecteursActivites
+    | TrancheChiffreAffaire
+    | TrancheNombreEmployes
+    | TypeStructure,
 >(
   canvas: CanvasObject,
   champsACliquer: [NomsChampsSimulateur, T][],

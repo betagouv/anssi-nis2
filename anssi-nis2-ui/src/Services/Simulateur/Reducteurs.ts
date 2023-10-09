@@ -8,9 +8,9 @@ import { fieldHandlers } from "./gestionnaires.ts";
 import {
   fabriqueSecteurContientLeSousSecteur,
   LibellesSousSecteurs,
-  TValeursSecteursAvecSousSecteurs,
+  SecteursAvecSousSecteurs,
 } from "../../Domaine/Simulateur/SousSecteurs.ts";
-import { TValeursSousSecteursActivites } from "../../Domaine/Simulateur/ValeursCles.ts";
+import { SousSecteursActivites } from "../../Domaine/Simulateur/ValeursCles.ts";
 import { transformateurSousSecteurActivite } from "./Transformateurs.ts";
 import { entreesLibellesSousSecteurs } from "../../Domaine/References/LibellesSousSecteursActivite.ts";
 import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
@@ -66,7 +66,7 @@ export const changeInfobulleOuverte: Reducer<
 };
 const reducteurCleValeurVersObjet = (
   libellesSousSecteurDuSecteur: LibellesSousSecteurs,
-  [sousSecteur, libelle]: [TValeursSousSecteursActivites, string],
+  [sousSecteur, libelle]: [SousSecteursActivites, string],
 ) => ({
   ...libellesSousSecteurDuSecteur,
   [sousSecteur]: libelle,
@@ -78,11 +78,11 @@ export const reducteurSecteursVersOptions =
   ) =>
   (
     secteursAvecOptionsSousSecteurs: [
-      TValeursSecteursAvecSousSecteurs,
+      SecteursAvecSousSecteurs,
       OptionsChampSimulateur,
     ][],
-    secteur: TValeursSecteursAvecSousSecteurs,
-  ): [TValeursSecteursAvecSousSecteurs, OptionsChampSimulateur][] => {
+    secteur: SecteursAvecSousSecteurs,
+  ): [SecteursAvecSousSecteurs, OptionsChampSimulateur][] => {
     const sousSecteurActivite = transformateurSousSecteurActivite(
       entreesLibellesSousSecteurs
         .filter(fabriqueSecteurContientLeSousSecteur(secteur))

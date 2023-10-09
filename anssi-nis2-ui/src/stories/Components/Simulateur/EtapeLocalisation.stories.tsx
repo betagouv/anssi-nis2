@@ -7,10 +7,10 @@ import {
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
 import { donneesFormulaireSimulateurVide } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { ValeursClePaysUnionEuropeenne } from "../../../Domaine/Simulateur/ValeursCles.ts";
+import { AppartenancePaysUnionEuropeenne } from "../../../Domaine/Simulateur/ValeursCles.ts";
 import { libellesPaysUnionEuropeenneLocalisation } from "../../../Domaine/References/Libelles.ts";
 
-class ParametresDonneesEtatMembre extends ParametresDonneesSpecifiqueField<ValeursClePaysUnionEuropeenne> {
+class ParametresDonneesEtatMembre extends ParametresDonneesSpecifiqueField<AppartenancePaysUnionEuropeenne> {
   protected construitDonnees<ValeursClePaysUnionEuropeenne>(
     listeEtatsMembres: ValeursClePaysUnionEuropeenne[],
   ) {

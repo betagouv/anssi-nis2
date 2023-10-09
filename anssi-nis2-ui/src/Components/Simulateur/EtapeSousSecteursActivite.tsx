@@ -1,6 +1,6 @@
 import { FormSimulateur } from "./index.ts";
-import { TValeursSousSecteursActivites } from "../../Domaine/Simulateur/ValeursCles.ts";
-import { TValeursSecteursAvecSousSecteurs } from "../../Domaine/Simulateur/SousSecteurs.ts";
+import { SousSecteursActivites } from "../../Domaine/Simulateur/ValeursCles.ts";
+import { SecteursAvecSousSecteurs } from "../../Domaine/Simulateur/SousSecteurs.ts";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { transformeSousSecteurEnOptions } from "../../Services/Simulateur/Transformateurs.ts";
 import { SousSecteurCheckbox } from "./Inputs/SousSecteurCheckbox.tsx";
@@ -14,7 +14,7 @@ const EtapeSousSecteursActiviteCalculee = ({
 }: SimulateurContenuEtapeProps) => {
   const gereChangement = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = event.target.value as TValeursSousSecteursActivites;
+      const newValue = event.target.value as SousSecteursActivites;
       propageActionSimulateur({
         type: "checkMulti",
         name: "sousSecteurActivite",
@@ -25,7 +25,7 @@ const EtapeSousSecteursActiviteCalculee = ({
   );
 
   const [optionsSousSecteurActivite, setOptionsSousSecteurActivite] = useState<
-    [TValeursSecteursAvecSousSecteurs, OptionsChampSimulateur][]
+    [SecteursAvecSousSecteurs, OptionsChampSimulateur][]
   >([]);
 
   const memoizedOptionsSousSecteurActivite = useMemo(() => {

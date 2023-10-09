@@ -10,9 +10,9 @@ import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
 } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { TValeursSousSecteurEnergie } from "../../../Domaine/Simulateur/ValeursCles.ts";
+import { SousSecteurEnergie } from "../../../Domaine/Simulateur/ValeursCles.ts";
 
-class ParametresDonneesSousSecteurActivite extends ParametresDonneesSpecifiqueField<TValeursSousSecteurEnergie> {
+class ParametresDonneesSousSecteurActivite extends ParametresDonneesSpecifiqueField<SousSecteurEnergie> {
   protected construitDonnees<ValeursSecteurActivite>(
     valeurs: ValeursSecteurActivite[],
   ): DonneesFormulaireSimulateur {
@@ -44,7 +44,7 @@ export default meta;
 type Story = StoryObj<typeof EtapeSousSecteursActivite>;
 
 const creeActionPropagationFormulaireActivite = (
-  newValue: TValeursSousSecteurEnergie,
+  newValue: SousSecteurEnergie,
 ) => {
   const actionTypique = {
     type: "checkMulti",
@@ -53,14 +53,14 @@ const creeActionPropagationFormulaireActivite = (
   return { ...actionTypique, newValue: newValue };
 };
 
-export const SousSecteurEnergie: Story = {
+export const SelectionneSousSecteurEnergie: Story = {
   play: async ({ args, canvasElement, step }) => {
     const canvas = within(canvasElement);
     const { propageActionSimulateur } = args;
 
     const optionsATester: {
       libelle: string;
-      newValue: TValeursSousSecteurEnergie;
+      newValue: SousSecteurEnergie;
     }[] = [
       {
         libelle: "Électricité",

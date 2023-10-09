@@ -1,12 +1,12 @@
 import {
-  TValeursSousSecteurEnergie,
-  TValeursSousSecteurFabrication,
-  TValeursSousSecteursActivites,
-  TValeursSousSecteurTransport,
+  SousSecteurEnergie,
+  SousSecteurFabrication,
+  SousSecteursActivites,
+  SousSecteurTransport,
 } from "../Simulateur/ValeursCles.ts";
 import { DetailsSousSecteurUnique } from "../Simulateur/Secteurs";
 
-export const libellesSousSecteursEnergie: DetailsSousSecteurUnique<TValeursSousSecteurEnergie> =
+export const libellesSousSecteursEnergie: DetailsSousSecteurUnique<SousSecteurEnergie> =
   {
     electricite: "Électricité",
     gaz: "Gaz",
@@ -16,7 +16,7 @@ export const libellesSousSecteursEnergie: DetailsSousSecteurUnique<TValeursSousS
     autreSousSecteurEnergie: "Autre sous-secteur",
   };
 
-export const libellesSousSecteurFabrication: DetailsSousSecteurUnique<TValeursSousSecteurFabrication> =
+export const libellesSousSecteurFabrication: DetailsSousSecteurUnique<SousSecteurFabrication> =
   {
     constructionVehiculesAutomobiles:
       "Construction de véhicules automobiles, remorques et semi- remorques",
@@ -33,7 +33,7 @@ export const libellesSousSecteurFabrication: DetailsSousSecteurUnique<TValeursSo
     autreSousSecteurFabrication: "Autre sous-secteur",
   };
 
-export const libellesSousSecteurTransports: DetailsSousSecteurUnique<TValeursSousSecteurTransport> =
+export const libellesSousSecteurTransports: DetailsSousSecteurUnique<SousSecteurTransport> =
   {
     transportsAeriens: "Aériens",
     transportsFerroviaires: "Ferroviaires",
@@ -43,7 +43,7 @@ export const libellesSousSecteurTransports: DetailsSousSecteurUnique<TValeursSou
   };
 
 export const libellesSousSecteursActivite: Record<
-  TValeursSousSecteursActivites,
+  SousSecteursActivites,
   string
 > = {
   ...libellesSousSecteursEnergie,
@@ -52,4 +52,4 @@ export const libellesSousSecteursActivite: Record<
 };
 export const entreesLibellesSousSecteurs = Object.entries(
   libellesSousSecteursActivite,
-) as [TValeursSousSecteursActivites, string][];
+) as [SousSecteursActivites, string][];

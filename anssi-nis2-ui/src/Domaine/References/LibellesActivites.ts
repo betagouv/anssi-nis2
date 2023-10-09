@@ -1,6 +1,6 @@
-import { TValeursActivites } from "../Simulateur/ValeursCles.ts";
+import { Activites } from "../Simulateur/ValeursCles.ts";
 
-export const libellesActivites: Record<TValeursActivites, string> = {
+export const libellesActivites: Record<Activites, string> = {
   acteurDuMarche:
     "Acteurs du marché fournissant des services d’agrégation, de " +
     "participation active de la demande ou de stockage d’énergie",

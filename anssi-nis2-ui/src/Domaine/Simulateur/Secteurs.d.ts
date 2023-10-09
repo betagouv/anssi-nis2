@@ -1,14 +1,11 @@
 import {
-  TValeursSousSecteurEnergie,
-  TValeursSousSecteurFabrication,
-  TValeursSousSecteurTransport,
+  SousSecteurEnergie,
+  SousSecteurFabrication,
+  SousSecteurTransport,
 } from "./ValeursCles.ts";
 
 export type DetailsSousSecteurUnique<
-  T extends
-    | TValeursSousSecteurEnergie
-    | TValeursSousSecteurFabrication
-    | TValeursSousSecteurTransport,
+  T extends SousSecteurEnergie | SousSecteurFabrication | SousSecteurTransport,
 > = Record<T, string>;
 
 export type DescriptionSecteur =

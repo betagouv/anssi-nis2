@@ -1,21 +1,21 @@
 import {
-  TValeursActivites,
-  TValeursReponsesDesigneOSE,
-  TValeursSecteursActivites,
-  TValeursSousSecteursActivites,
-  ValeursClePaysUnionEuropeenne,
-  ValeursTrancheCA,
-  ValeursTrancheNombreEmployes,
-  ValeursTypeStructure,
+  Activites,
+  DesignationOperateurServicesEssentiels,
+  SecteursActivites,
+  SousSecteursActivites,
+  AppartenancePaysUnionEuropeenne,
+  TrancheChiffreAffaire,
+  TrancheNombreEmployes,
+  TypeStructure,
 } from "../Simulateur/ValeursCles.ts";
 
 export type DictionnaireLibellesSimulateur = {
-  activites: Record<TValeursActivites, string>;
-  designeOSE: Record<TValeursReponsesDesigneOSE, string>;
-  etatMembre: Record<ValeursClePaysUnionEuropeenne, string>;
-  secteurActivite: Record<TValeursSecteursActivites, string>;
-  sousSecteurActivite: Record<TValeursSousSecteursActivites, string>;
-  trancheCA: Record<ValeursTrancheCA, string>;
-  trancheNombreEmployes: Record<ValeursTrancheNombreEmployes, string>;
-  typeStructure: Record<ValeursTypeStructure, string>;
+  activites: Record<Activites, string>;
+  designeOSE: Record<DesignationOperateurServicesEssentiels, string>;
+  etatMembre: Record<AppartenancePaysUnionEuropeenne, string>;
+  secteurActivite: Record<SecteursActivites, string>;
+  sousSecteurActivite: Record<SousSecteursActivites, string>;
+  trancheCA: Record<TrancheChiffreAffaire, string>;
+  trancheNombreEmployes: Record<TrancheNombreEmployes, string>;
+  typeStructure: Record<TypeStructure, string>;
 };

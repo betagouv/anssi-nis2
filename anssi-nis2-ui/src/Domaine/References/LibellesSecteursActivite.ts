@@ -1,9 +1,6 @@
-import { TValeursSecteursActivites } from "../Simulateur/ValeursCles.ts";
+import { SecteursActivites } from "../Simulateur/ValeursCles.ts";
 
-export const libellesSecteursActivite: Record<
-  TValeursSecteursActivites,
-  string
-> = {
+export const libellesSecteursActivite: Record<SecteursActivites, string> = {
   administrationPublique: "Administration publique / administration centrale",
   banqueSecteurBancaire: "Banques (secteur bancaire)",
   eauPotable: "Eau potable",
