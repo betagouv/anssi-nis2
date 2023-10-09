@@ -8,5 +8,4 @@ export type TransformeRecordToSelect<
   valeurs: Partial<Record<ValeursCles, Contenu>>,
   onChange?: React.ChangeEventHandler<HTMLInputElement>,
   formData?: DonneesFormulaireSimulateur,
-  group?: string,
 ) => OptionsChampSimulateur;

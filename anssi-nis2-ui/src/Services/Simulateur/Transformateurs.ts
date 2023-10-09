@@ -6,6 +6,7 @@ import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeStructure,
+  ValeurChampSimulateur,
 } from "../../Domaine/Simulateur/ValeursChampsSimulateur.ts";
 import {
   DonneesFormulaireSimulateur,
@@ -203,7 +204,7 @@ const fabriqueChangeMulti: (
     propageActionSimulateur({
       type: "checkMulti",
       name: evt.target.name as NomsChampsSimulateur,
-      newValue: evt.target.value,
+      newValue: evt.target.value as ValeurChampSimulateur,
     });
 export const fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur: (
   donneesFormulaire: DonneesFormulaireSimulateur,

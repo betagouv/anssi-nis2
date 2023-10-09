@@ -11,6 +11,10 @@ import {
 } from "../../Services/Simulateur/Transformateurs.ts";
 
 import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
+import {
+  TrancheChiffreAffaire,
+  TrancheNombreEmployes,
+} from "../../Domaine/Simulateur/ValeursChampsSimulateur.ts";
 
 const EtapeTailleCalculee = ({
   donneesFormulaire,
@@ -22,13 +26,13 @@ const EtapeTailleCalculee = ({
     propageActionSimulateur({
       type: "checkSingle",
       name: "trancheNombreEmployes",
-      newValue: event.target.value,
+      newValue: event.target.value as TrancheNombreEmployes,
     });
   const gereChangementCA = (event: React.ChangeEvent<HTMLInputElement>) =>
     propageActionSimulateur({
       type: "checkSingle",
       name: "trancheCA",
-      newValue: event.target.value,
+      newValue: event.target.value as TrancheChiffreAffaire,
     });
   const optionsTranchesNombreEmployes =
     transformeTranchesNombreEmployesVersOptions(

@@ -1,25 +1,27 @@
 import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
 import { TransformeRecordToSelect } from "./Workflow/optionChampSimulateur";
-import { GenerateurLibelle, getValueContent } from "./Workflow/libelles.ts";
+import { GenerateurLibelle } from "./Workflow/libelles.ts";
+import { ValeurChampSimulateur } from "../../Domaine/Simulateur/ValeursChampsSimulateur.ts";
 
 export const genereTransformateurValeursVersOptions: <
-  T extends string,
-  P = string,
+  ValeursCles extends ValeurChampSimulateur,
+  Contenu = string,
 >(
-  generateurLabel: GenerateurLibelle<T, P>,
+  generateurLabel: GenerateurLibelle<ValeursCles, Contenu>,
   name: NomsChampsSimulateur,
-) => TransformeRecordToSelect<T, P> =
-  (generateurLabel, name) => (valeursMetier, onChange?, formData?, group?) => {
+) => TransformeRecordToSelect<ValeursCles, Contenu> =
+  (generateurLabel, name) => (valeursMetier, onChange?, formData?) => {
     const selectOptions: OptionsChampSimulateur = [];
-    const checkedValue = formData?.[name as NomsChampsSimulateur] || [];
+    const checkedValue: ValeurChampSimulateur[] =
+      formData?.[name as NomsChampsSimulateur] || [];
     for (const key in valeursMetier) {
-      const valueContent = getValueContent(group, key);
+      const valeurMetier = key;
       const nativeInputProps = {
         name: name,
-        value: valueContent,
+        value: valeurMetier,
         onChange: onChange || (() => {}),
-        checked: checkedValue.indexOf(valueContent) !== -1,
+        checked: checkedValue.indexOf(valeurMetier) !== -1,
       };
       selectOptions.push({
         label: generateurLabel(key, valeursMetier),

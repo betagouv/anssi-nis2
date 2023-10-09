@@ -6,6 +6,8 @@ import {
   donneesFormulaireSimulateurVide,
   DonneesFormulaireSimulateur,
 } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
+import { ValeurChampSimulateur } from "../../../src/Domaine/Simulateur/ValeursChampsSimulateur";
+import { Activite } from "../../../src/Domaine/Simulateur/Activite";
 
 describe(genereTransformateurValeursVersOptions, () => {
   const onChange: React.ChangeEventHandler<HTMLInputElement> = () => {};
@@ -64,20 +66,19 @@ describe(genereTransformateurValeursVersOptions, () => {
   });
 
   describe("avec des groupes", () => {
-    type SousEnsembleActivites =
-      "entrepriseElectriciteRemplissantUneFonctionDeFourniture";
+    // type SousEnsembleActivites =
+    //   "entrepriseElectriciteRemplissantUneFonctionDeFourniture";
     const getSousEnsembleActiviteLabel = (
-      value: string,
-      secteurActivite: Record<SousEnsembleActivites, string>,
-    ) => secteurActivite[value as SousEnsembleActivites];
-    const activites = {
-      entrepriseElectriciteRemplissantUneFonctionDeFourniture:
+      value: ValeurChampSimulateur,
+      secteurActivite: Record<ValeurChampSimulateur, string>,
+    ) => secteurActivite[value as ValeurChampSimulateur];
+    const activites: Partial<Record<Activite, string>> = {
+      entrepriseElectriciteRemplissantFonctionFourniture:
         "Entreprise d’électricité remplissant une fonction de fourniture",
     };
-    const groupOfActivite = "energie";
     const transformateur = genereTransformateurValeursVersOptions(
       getSousEnsembleActiviteLabel,
-      "secteurActivite",
+      "activites",
     );
 
     it("genere une liste d'option avec des valeurs préfixées", () => {
@@ -88,9 +89,8 @@ describe(genereTransformateurValeursVersOptions, () => {
           nativeInputProps: {
             checked: false,
             onChange: onChange,
-            name: "secteurActivite",
-            value:
-              "energie[entrepriseElectriciteRemplissantUneFonctionDeFourniture]",
+            name: "activites",
+            value: "entrepriseElectriciteRemplissantFonctionFourniture",
           },
         },
       ];
@@ -99,14 +99,13 @@ describe(genereTransformateurValeursVersOptions, () => {
         activites,
         onChange,
         donneesFormulaireSimulateurVide,
-        groupOfActivite,
       );
       expect(optionsActivitesObtenues).toStrictEqual(attendu);
     });
 
     it("genere une liste d'option avec la bonne option cochée", () => {
-      const valeurSelectionnee =
-        "energie[entrepriseElectriciteRemplissantUneFonctionDeFourniture]";
+      const valeurSelectionnee: Activite =
+        "entrepriseElectriciteRemplissantFonctionFourniture";
       const attendu = [
         {
           label:
@@ -114,21 +113,20 @@ describe(genereTransformateurValeursVersOptions, () => {
           nativeInputProps: {
             checked: true,
             onChange: onChange,
-            name: "secteurActivite",
+            name: "activites",
             value: valeurSelectionnee,
           },
         },
       ];
       const currentDataForm: DonneesFormulaireSimulateur = {
         ...donneesFormulaireSimulateurVide,
-        secteurActivite: [valeurSelectionnee],
+        activites: [valeurSelectionnee],
       };
 
       const optionsActivitesObtenues = transformateur(
         activites,
         onChange,
         currentDataForm,
-        groupOfActivite,
       );
       expect(optionsActivitesObtenues).toStrictEqual(attendu);
     });

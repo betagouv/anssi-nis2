@@ -22,7 +22,7 @@ export type ValeurCleSectorielle =
   | SecteursSansSousSecteur
   | SousSecteurActivite;
 
-export type ValeurChampSimulaire =
+export type ValeurChampSimulateur =
   | DesignationOperateurServicesEssentiels
   | AppartenancePaysUnionEuropeenne
   | TypeStructure
