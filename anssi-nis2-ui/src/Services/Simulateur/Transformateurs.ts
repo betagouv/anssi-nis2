@@ -1,9 +1,4 @@
-import {
-  GenerateurLibelle,
-  genereTransformateurValeursVersOptions,
-  SelectOptions,
-  TransformeRecordToSelect,
-} from "./simulateurFrontServices.ts";
+import { genereTransformateurValeursVersOptions } from "./genereTransformateurValeursVersOptions.ts";
 import {
   TValeursActivites,
   TValeursReponsesDesigneOSE,
@@ -26,17 +21,22 @@ import {
 } from "../../Domaine/Simulateur/SousSecteurs.ts";
 import { libellesActivites } from "../../Domaine/References/LibellesActivites.ts";
 import { listeDescriptionsActivites } from "../../Domaine/References/ListeDescriptionsActivites.ts";
-import {
-  OptionChampSimulateur,
-  SimulateurContenuEtapeProps,
-  SimulateurDonneesFormulaireActions,
-} from "./props.ts";
+import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
 import { reducteurSecteursVersOptions } from "./Reducteurs.ts";
 import {
   activitesParSecteurEtSousSecteur,
   AssociationSectorielleActivite,
 } from "../../Domaine/Simulateur/ActivitesParSecteurEtSousSecteur.ts";
 import { Dispatch } from "react";
+
+import { SimulateurContenuEtapeProps } from "./Props/simulateurEtapeProps";
+import {
+  AttributsEntreeChoixMultiple,
+  OptionChampSimulateur,
+  OptionsChampSimulateur,
+} from "./Props/optionChampSimulateur";
+import { TransformeRecordToSelect } from "./Workflow/optionChampSimulateur";
+import { GenerateurLibelle } from "./Workflow/libelles.ts";
 
 const recupereLibelleReponseOSE = (
   value: string,
@@ -190,7 +190,7 @@ export const fabriqueConstructeurOptionActivite: (
 export const transformeSousSecteurEnOptions = (
   donneesFormulaire: SimulateurContenuEtapeProps["donneesFormulaire"],
   gereChangement: (event: React.ChangeEvent<HTMLInputElement>) => void,
-): [TValeursSecteursAvecSousSecteurs, SelectOptions][] => {
+): [TValeursSecteursAvecSousSecteurs, OptionsChampSimulateur][] => {
   return (
     donneesFormulaire.secteurActivite as TValeursSecteursAvecSousSecteurs[]
   ).reduce(reducteurSecteursVersOptions(gereChangement, donneesFormulaire), []);
@@ -204,10 +204,6 @@ const fabriqueChangeMulti: (
       name: evt.target.name as NomsChampsSimulateur,
       newValue: evt.target.value,
     });
-type AttributsEntreeChoixMultiple = {
-  legende: string;
-  options: OptionChampSimulateur[];
-};
 export const fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur: (
   donneesFormulaire: DonneesFormulaireSimulateur,
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>,

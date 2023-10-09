@@ -1,5 +1,4 @@
 import { FormSimulateur } from "./index.ts";
-import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/props.ts";
 import React, { useMemo } from "react";
 import { AssociationSectorielleActivite } from "../../Domaine/Simulateur/ActivitesParSecteurEtSousSecteur.ts";
 import {
@@ -10,6 +9,8 @@ import { libellesSecteursActivite } from "../../Domaine/References/LibellesSecte
 import { libellesSousSecteursActivite } from "../../Domaine/References/LibellesSousSecteursActivite.ts";
 
 import { EnsembleChamps } from "./Inputs/EnsembleChamps.tsx";
+
+import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 
 const EtapeActivitesCalculee = ({
   propageActionSimulateur,

@@ -2,7 +2,6 @@ import { RowContainer } from "../RowContainer.tsx";
 import { StepperNavigation } from "../StepperNavigation.tsx";
 
 import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
-import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/props.ts";
 import { useContext, useMemo } from "react";
 import { AppContext } from "../../AppContext.tsx";
 import { CenteredContainer } from "../CenteredContainer.tsx";
@@ -15,12 +14,13 @@ import {
   genereGestionEtapePrecedenteSiExiste,
   genereGestionEtapeSuivanteSiExiste,
 } from "../../Services/Simulateur/gestionnaires.ts";
-import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/component.ts";
+import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
 import { InformationEtapeForm } from "../../Services/Simulateur/informationsEtape.ts";
+import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   propageActionSimulateur,
-  donneesFormulaireSimulateur,
+  donneesFormulaire,
   informationsBoutonsNavigation,
   etatEtapes,
 }: SimulateurEtapeRenderedProps) => {
@@ -50,17 +50,14 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
         etatEtapes.numeroEtapeCourante,
         listeEtapes,
         informationsBoutonsNavigation.suivant,
-        () =>
-          sendFormData(
-            donneesFormulaireSimulateur as DonneesFormulaireSimulateur,
-          ),
+        () => sendFormData(donneesFormulaire as DonneesFormulaireSimulateur),
       ),
     [
       etatEtapes.numeroEtapeCourante,
       listeEtapes,
       informationsBoutonsNavigation.suivant,
       sendFormData,
-      donneesFormulaireSimulateur,
+      donneesFormulaire,
     ],
   );
 
@@ -79,12 +76,12 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
 
         <EtapeCourante
           propageActionSimulateur={propageActionSimulateur}
-          donneesFormulaire={donneesFormulaireSimulateur}
+          donneesFormulaire={donneesFormulaire}
         />
 
         <StepperNavigation
           validationReponses={informationsEtape.validationReponses}
-          donneesFormulaire={donneesFormulaireSimulateur}
+          donneesFormulaire={donneesFormulaire}
           onClickPrevious={etapePrecedenteHandlerConcret}
           onClickNext={etapeSuivantHandlerConcret}
         />

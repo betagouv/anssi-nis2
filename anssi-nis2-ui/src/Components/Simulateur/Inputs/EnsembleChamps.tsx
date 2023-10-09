@@ -1,13 +1,13 @@
-import { ListeOptionsChampFormulaire } from "../../../Services/Simulateur/props.ts";
 import { useId } from "react";
 import { ActiviteACocher } from "./ActiviteACocher.tsx";
+import { OptionsChampSimulateur } from "../../../Services/Simulateur/Props/optionChampSimulateur";
 
 export const EnsembleChamps = ({
   legende,
   optionsSecteurActivite,
 }: {
   legende: string;
-  optionsSecteurActivite: ListeOptionsChampFormulaire;
+  optionsSecteurActivite: OptionsChampSimulateur;
 }) => {
   const id = `default-${useId()}`;
 

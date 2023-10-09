@@ -1,20 +1,21 @@
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { FormSimulateur } from "./index.ts";
-import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/props.ts";
 import { transformeSecteursActiviteVersOptions } from "../../Services/Simulateur/Transformateurs.ts";
-import { SelectOptions } from "../../Services/Simulateur/simulateurFrontServices.ts";
 import { TValeursSecteursActivites } from "../../Domaine/Simulateur/ValeursCles.ts";
 
 import { libellesSecteursActivite } from "../../Domaine/References/LibellesSecteursActivite.ts";
 import { useCallback, useMemo } from "react";
 import React from "react";
 
+import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
+import { OptionsChampSimulateur } from "../../Services/Simulateur/Props/optionChampSimulateur";
+
 const CheckboxWrapper = ({
   legend,
   options,
 }: {
   legend: string;
-  options: SelectOptions;
+  options: OptionsChampSimulateur;
 }) => {
   return (
     <div className="fr-fieldset__element">

@@ -1,22 +1,4 @@
-import { createContext, Reducer } from "react";
-
-import { DonneesFormulaireSimulateur } from "./Domaine/Simulateur/DonneesFormulaire.ts";
-import { SimulateurDonneesFormulaireActions } from "./Services/Simulateur/props.ts";
-import { ActionsBoutonNavigation } from "./Services/Simulateur/Reducteurs.ts";
-import { BoutonsNavigation } from "./Services/Simulateur/boutonsNavigation.ts";
-
-export type SendFormData = (
-  formData: DonneesFormulaireSimulateur,
-) => Promise<string>;
-export type Context = {
-  sendFormData: SendFormData;
-  simulateur: {
-    reducerFormData: Reducer<
-      DonneesFormulaireSimulateur,
-      SimulateurDonneesFormulaireActions
-    >;
-    reducerBoutons: Reducer<BoutonsNavigation, ActionsBoutonNavigation>;
-  };
-};
+import { createContext } from "react";
+import { Context } from "./Services/context";
 
 export const AppContext = createContext<Context>({} as Context);

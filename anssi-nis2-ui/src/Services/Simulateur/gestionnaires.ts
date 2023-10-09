@@ -6,7 +6,7 @@ import {
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
 
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
-import { SimulateurDonneesFormulaireActions } from "./props.ts";
+import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
 
 export type GestionValeursFormulaire = (
   value: string,

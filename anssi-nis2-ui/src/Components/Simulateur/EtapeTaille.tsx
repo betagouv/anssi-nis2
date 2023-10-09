@@ -4,12 +4,13 @@ import {
 } from "../../Domaine/References/Libelles.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { FormSimulateur } from "./index.ts";
-import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/props.ts";
 import React from "react";
 import {
   transformeTranchesCAVersOptions,
   transformeTranchesNombreEmployesVersOptions,
 } from "../../Services/Simulateur/Transformateurs.ts";
+
+import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 
 const EtapeTailleCalculee = ({
   donneesFormulaire,

@@ -4,7 +4,7 @@ import { DonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFor
 import {
   SimulateurEtapeNodeComponent,
   SimulateurEtapeRenderedComponent,
-} from "./component.ts";
+} from "./Props/component";
 import { ValidationReponses } from "../../Domaine/Simulateur/Services/Validateurs.ts";
 
 export interface InformationsEtape {

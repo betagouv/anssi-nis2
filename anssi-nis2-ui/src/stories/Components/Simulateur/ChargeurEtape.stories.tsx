@@ -1,12 +1,12 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { ChargeurEtape } from "../../../Components/Simulateur/ChargeurEtape.tsx";
-import { Context } from "../../../AppContext.tsx";
 import { defaultContext } from "../../utilitaires/PageDecorator.tsx";
 import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { passeEtapeEnCochant } from "../../utilitaires/Simulateur.actions.ts";
 import { genereDecorateurPourContexte } from "../../utilitaires/generateursDecorateurs.tsx";
 import { mockSendFormData } from "../../utilitaires/mocks.ts";
+import { Context } from "../../../Services/context";
 
 const meta: Meta<typeof ChargeurEtape> = {
   component: ChargeurEtape,

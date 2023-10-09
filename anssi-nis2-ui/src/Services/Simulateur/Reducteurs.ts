@@ -3,18 +3,18 @@ import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { SimulateurDonneesFormulaireActions } from "./props.ts";
+import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
 import { fieldHandlers } from "./gestionnaires.ts";
-import { BoutonsNavigation } from "./boutonsNavigation.ts";
 import {
   fabriqueSecteurContientLeSousSecteur,
   LibellesSousSecteurs,
   TValeursSecteursAvecSousSecteurs,
 } from "../../Domaine/Simulateur/SousSecteurs.ts";
 import { TValeursSousSecteursActivites } from "../../Domaine/Simulateur/ValeursCles.ts";
-import { SelectOptions } from "./simulateurFrontServices.ts";
 import { transformateurSousSecteurActivite } from "./Transformateurs.ts";
 import { entreesLibellesSousSecteurs } from "../../Domaine/References/LibellesSousSecteursActivite.ts";
+import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
+import { BoutonsNavigation } from "./Props/boutonsNavigation.ts";
 
 const generateNewStateFrom = (
   state: DonneesFormulaireSimulateur,
@@ -79,10 +79,10 @@ export const reducteurSecteursVersOptions =
   (
     secteursAvecOptionsSousSecteurs: [
       TValeursSecteursAvecSousSecteurs,
-      SelectOptions,
+      OptionsChampSimulateur,
     ][],
     secteur: TValeursSecteursAvecSousSecteurs,
-  ): [TValeursSecteursAvecSousSecteurs, SelectOptions][] => {
+  ): [TValeursSecteursAvecSousSecteurs, OptionsChampSimulateur][] => {
     const sousSecteurActivite = transformateurSousSecteurActivite(
       entreesLibellesSousSecteurs
         .filter(fabriqueSecteurContientLeSousSecteur(secteur))

@@ -1,4 +1,4 @@
-import { AppContext, Context } from "../../AppContext.tsx";
+import { AppContext } from "../../AppContext.tsx";
 import { Args, Globals } from "@storybook/types";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ReactRenderer } from "@storybook/react";
@@ -6,6 +6,7 @@ import {
   reducerBoutons,
   reducerFormData,
 } from "../../Services/Simulateur/Reducteurs.ts";
+import { Context } from "../../Services/context";
 
 const defaultAsyncStringFonctionInjected = async () => {
   return "";

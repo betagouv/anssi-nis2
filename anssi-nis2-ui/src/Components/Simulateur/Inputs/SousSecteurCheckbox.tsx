@@ -1,14 +1,14 @@
 import { TValeursSecteursAvecSousSecteurs } from "../../../Domaine/Simulateur/SousSecteurs.ts";
-import { SelectOptions } from "../../../Services/Simulateur/simulateurFrontServices.ts";
 import { libellesSecteursActivite } from "../../../Domaine/References/LibellesSecteursActivite.ts";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
+import { OptionsChampSimulateur } from "../../../Services/Simulateur/Props/optionChampSimulateur";
 
 export const SousSecteurCheckbox = ({
   secteur,
   optionsSousSecteur,
 }: {
   secteur: TValeursSecteursAvecSousSecteurs;
-  optionsSousSecteur: SelectOptions;
+  optionsSousSecteur: OptionsChampSimulateur;
 }) => {
   return (
     <Checkbox

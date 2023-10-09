@@ -9,6 +9,7 @@ import {
   cartographieSousSecteursParSecteur,
   collecteTitresPourActivite,
 } from "../../../src/Services/Simulateur/Transformateurs";
+import { AssociationSectorielleActivite } from "../../../src/Domaine/Simulateur/ActivitesParSecteurEtSousSecteur";
 
 describe("Questionnaire activités", () => {
   it("Construit un tableau avec les sous-secteurs sélectionnés remplaçant le secteur correspondant", () => {
@@ -34,12 +35,18 @@ describe("Questionnaire activités", () => {
       ...donneesFormulaireSimulateurVide,
       secteurActivite: ["espace"],
     };
-    const titresAttendus = [["espace", "Espace"]];
-    const titresExtraits: string[][] = collecteTitresPourActivite(
-      libellesSecteursActivite,
-      libellesSousSecteursActivite,
-      donneesFormulaire,
-    );
+    const titresAttendus: AssociationSectorielleActivite[] = [
+      {
+        titreActivite: "Espace",
+        secteurOuSousSecteur: "espace",
+      },
+    ];
+    const titresExtraits: AssociationSectorielleActivite[] =
+      collecteTitresPourActivite(
+        libellesSecteursActivite,
+        libellesSousSecteursActivite,
+        donneesFormulaire,
+      );
 
     expect(titresExtraits).toStrictEqual(titresAttendus);
   });
@@ -50,12 +57,18 @@ describe("Questionnaire activités", () => {
       secteurActivite: ["energie"],
       sousSecteurActivite: ["electricite"],
     };
-    const titresAttendus = [["electricite", "Énergie / Électricité"]];
-    const titresExtraits: string[][] = collecteTitresPourActivite(
-      libellesSecteursActivite,
-      libellesSousSecteursActivite,
-      donneesFormulaire,
-    );
+    const titresAttendus: AssociationSectorielleActivite[] = [
+      {
+        titreActivite: "Énergie / Électricité",
+        secteurOuSousSecteur: "electricite",
+      },
+    ];
+    const titresExtraits: AssociationSectorielleActivite[] =
+      collecteTitresPourActivite(
+        libellesSecteursActivite,
+        libellesSousSecteursActivite,
+        donneesFormulaire,
+      );
 
     expect(titresExtraits).toStrictEqual(titresAttendus);
   });
@@ -66,16 +79,26 @@ describe("Questionnaire activités", () => {
       secteurActivite: ["espace", "energie"],
       sousSecteurActivite: ["electricite", "hydrogene"],
     };
-    const titresAttendus = [
-      ["espace", "Espace"],
-      ["electricite", "Énergie / Électricité"],
-      ["hydrogene", "Énergie / Hydrogène"],
+    const titresAttendus: AssociationSectorielleActivite[] = [
+      {
+        titreActivite: "Espace",
+        secteurOuSousSecteur: "espace",
+      },
+      {
+        titreActivite: "Énergie / Électricité",
+        secteurOuSousSecteur: "electricite",
+      },
+      {
+        titreActivite: "Énergie / Hydrogène",
+        secteurOuSousSecteur: "hydrogene",
+      },
     ];
-    const titresExtraits: string[][] = collecteTitresPourActivite(
-      libellesSecteursActivite,
-      libellesSousSecteursActivite,
-      donneesFormulaire,
-    );
+    const titresExtraits: AssociationSectorielleActivite[] =
+      collecteTitresPourActivite(
+        libellesSecteursActivite,
+        libellesSousSecteursActivite,
+        donneesFormulaire,
+      );
 
     expect(titresExtraits).toStrictEqual(titresAttendus);
   });

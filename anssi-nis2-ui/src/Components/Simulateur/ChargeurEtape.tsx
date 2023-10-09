@@ -1,15 +1,15 @@
 import React, { useContext, useReducer, useState } from "react";
 
 import { DefaultComponentExtensible } from "../../Services/Props.ts";
-import { SimulateurEtapeSwitcherProps } from "../../Services/Simulateur/props.ts";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
 } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { AppContext } from "../../AppContext.tsx";
-import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/component.ts";
+import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
 import { etatEtapesInitial } from "./EtapesQuestionnaire.ts";
 import { EtatEtapes } from "../../Services/Simulateur/EtatEtapes.ts";
+import { SimulateurEtapeSwitcherProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 
 const useReducteurDonneesFormulaireDuContexte = () => {
   const {
@@ -26,10 +26,13 @@ export const ChargeurEtape: DefaultComponentExtensible<
     useReducteurDonneesFormulaireDuContexte();
 
   const [etatEtapes, setEtatEtape] = useState(etatEtapesInitial);
-  const [donneesFormulaireSimulateur, propageActionSimulateur] = useReducer(
+  const [donneesFormulaireSimulateur, propageActionSimulateur]: [
+    DonneesFormulaireSimulateur,
+    React.DispatchWithoutAction,
+  ] = useReducer(
     reducteurDonneesFormulaireSimulateur,
     donneesFormulaireSimulateurVide,
-  );
+  ) as [DonneesFormulaireSimulateur, React.DispatchWithoutAction];
 
   const fabriqueGestionSuivant = React.useCallback(
     (
@@ -63,7 +66,7 @@ export const ChargeurEtape: DefaultComponentExtensible<
   return (
     <ElementRendu
       propageActionSimulateur={propageActionSimulateur}
-      donneesFormulaireSimulateur={donneesFormulaireSimulateur}
+      donneesFormulaire={donneesFormulaireSimulateur}
       informationsBoutonsNavigation={{
         suivant: fabriqueGestionSuivant(
           setEtatEtape,
