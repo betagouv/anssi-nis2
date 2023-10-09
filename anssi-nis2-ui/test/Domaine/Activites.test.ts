@@ -2,14 +2,14 @@ import { describe, expect, it } from "vitest";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
-} from "../../../src/Domaine/Simulateur/DonneesFormulaire";
-import { libellesSecteursActivite } from "../../../src/Domaine/References/LibellesSecteursActivite";
-import { libellesSousSecteursActivite } from "../../../src/Domaine/References/LibellesSousSecteursActivite";
+} from "../../src/Domaine/Simulateur/DonneesFormulaire";
+import { libellesSecteursActivite } from "../../src/Domaine/References/LibellesSecteursActivite";
+import { libellesSousSecteursActivite } from "../../src/Domaine/References/LibellesSousSecteursActivite";
 import {
   cartographieSousSecteursParSecteur,
   collecteTitresPourActivite,
-} from "../../../src/Services/Simulateur/Transformateurs";
-import { AssociationSectorielleActivite } from "../../../src/Domaine/Simulateur/ActivitesParSecteurEtSousSecteur";
+} from "../../src/Services/Simulateur/Transformateurs";
+import { AssociationSectorielleActivite } from "../../src/Domaine/Simulateur/ActivitesParSecteurEtSousSecteur";
 
 describe("Questionnaire activités", () => {
   it("Construit un tableau avec les sous-secteurs sélectionnés remplaçant le secteur correspondant", () => {

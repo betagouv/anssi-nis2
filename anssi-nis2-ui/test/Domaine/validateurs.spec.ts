@@ -2,13 +2,13 @@ import { describe, expect, it } from "vitest";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
-} from "../../../src/Domaine/Simulateur/DonneesFormulaire";
+} from "../../src/Domaine/Simulateur/DonneesFormulaire";
 import {
   auMoinsUnSousSecteurParSecteur,
   auMoinsUn,
   et,
   auMoinsUneActiviteParValeurSectorielle,
-} from "../../../src/Domaine/Simulateur/Services/Validateurs";
+} from "../../src/Domaine/Simulateur/Services/Validateurs";
 
 describe("validateurs", () => {
   describe("valideAuMoinsUn", () => {

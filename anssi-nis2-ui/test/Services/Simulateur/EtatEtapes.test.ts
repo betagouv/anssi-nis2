@@ -13,16 +13,17 @@ import {
 } from "../../../src/Components/Simulateur";
 import { CollectionInformationsEtapes } from "../../../src/Services/Simulateur/CollectionInformationsEtapes";
 import { donneesFormulaireSimulateurVide } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
+import { validationUneReponses } from "../../../src/Domaine/Simulateur/Services/Validateurs";
 
 describe(EtatEtapes, () => {
   const informationEtapeForm1 = new InformationEtapeForm(
     "Localisation de l’activité",
-    "Sélectionnez une réponse",
+    validationUneReponses("etatMembre"),
     EtapeLocalisation,
   );
   const informationEtapeForm2 = new InformationEtapeForm(
     "Type de structure",
-    "Sélectionnez une réponse",
+    validationUneReponses("typeStructure"),
     EtapeTypeStructure,
   );
   const collectionInformationsEtapes = new CollectionInformationsEtapes(
@@ -116,7 +117,7 @@ describe(EtatEtapes, () => {
     const predicatVrai = () => true;
     const informationSousEtape4 = new InformationEtapeForm(
       "Sous-étape",
-      "Indication sous-étape",
+      validationUneReponses("secteurActivite"),
       EtapeSecteursActivite,
     );
     const sousEtapeToujoursPresente = new SousEtapeConditionnelle(
@@ -125,7 +126,7 @@ describe(EtatEtapes, () => {
     );
     const informationEtape3AvecSousEtape = new InformationEtapeForm(
       "Contient une sous Etape",
-      "Indication réponse",
+      validationUneReponses("trancheNombreEmployes"),
       EtapeTaille,
       sousEtapeToujoursPresente,
     );
