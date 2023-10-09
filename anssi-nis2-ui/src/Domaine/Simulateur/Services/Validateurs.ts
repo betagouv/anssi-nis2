@@ -2,20 +2,20 @@ import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../DonneesFormulaire.ts";
-import { TValeursSecteursAvecSousSecteurs } from "../SousSecteurs.ts";
 import {
+  sousSecteurAppartientASecteur,
+  TValeursSecteursAvecSousSecteurs,
+  ValeursSecteursAvecSousSecteurs,
+} from "../SousSecteurs.ts";
+import {
+  TValeursActivites,
+  TValeursSecteursActivites,
+  TValeursSecteursSansSousSecteur,
+  TValeursSectorielles,
   TValeursSousSecteursActivites,
-  ValeursSousSecteurEnergie,
-  ValeursSousSecteurFabrication,
-  ValeursSousSecteurTransport,
 } from "../ValeursCles.ts";
-
-export type Validateur = (donnees: DonneesFormulaireSimulateur) => boolean;
-
-export type ValidationReponses = {
-  message: string;
-  validateur: Validateur;
-};
+import { Validateur, ValidationReponses } from "../Workflows/validateursChamps";
+import { activitesParSecteurEtSousSecteur } from "../ActivitesParSecteurEtSousSecteur.ts";
 
 export const et: (...validateurs: Array<Validateur>) => Validateur = (
   ...validateurs
@@ -38,91 +38,62 @@ export const auMoinsN =
 export const auMoinsUn = (nomChamp: NomsChampsSimulateur) =>
   auMoinsN(1, nomChamp);
 
-const groupementsChamps: Pick<
-  Record<
-    NomsChampsSimulateur,
-    Pick<
-      Record<
-        NomsChampsSimulateur,
-        | Record<
-            TValeursSecteursAvecSousSecteurs,
-            readonly TValeursSousSecteursActivites[]
-          >
-        | Record<string, readonly string[]>
-      >,
-      "sousSecteurActivite" | "secteurActivite"
-    >
-  >,
-  "sousSecteurActivite" | "activites"
-> = {
-  activites: {
-    secteurActivite: {
-      energie: ValeursSousSecteurEnergie,
-      transports: ValeursSousSecteurTransport,
-      fabrication: ValeursSousSecteurFabrication,
-    },
-    sousSecteurActivite: {},
-  },
-  sousSecteurActivite: {
-    secteurActivite: {
-      energie: ValeursSousSecteurEnergie,
-      transports: ValeursSousSecteurTransport,
-      fabrication: ValeursSousSecteurFabrication,
-    },
-    sousSecteurActivite: {},
-  },
-};
-const fabriqueListeChampsPourValeur = (
-  nomChamp: NomsChampsSimulateur,
-  nomChampGroupement: NomsChampsSimulateur,
-  valeurGroupement: TValeursSecteursAvecSousSecteurs,
-) =>
-  groupementsChamps[nomChamp as "sousSecteurActivite" | "activites"][
-    nomChampGroupement as "sousSecteurActivite" | "secteurActivite"
-  ][valeurGroupement] as string[];
-
-const unAppartientA = (
-  nomChamp: "sousSecteurActivite" | "activites",
-  nomChampGroupement: "sousSecteurActivite" | "secteurActivite",
-  valeurGroupement: TValeursSecteursAvecSousSecteurs,
+export const auMoinsUnSousSecteurParSecteur: Validateur = (
+  donneesFormulaireSimulateur,
 ) => {
-  return (donneesFormulaireSimulateur: DonneesFormulaireSimulateur) =>
-    donneesFormulaireSimulateur[nomChamp].some(
-      (valeur) =>
-        fabriqueListeChampsPourValeur(
-          nomChamp,
-          nomChampGroupement,
-          valeurGroupement,
-        )?.includes(valeur as string),
-    );
+  const valeursSecteur: TValeursSecteursActivites[] =
+    donneesFormulaireSimulateur[
+      "secteurActivite"
+    ] as TValeursSecteursActivites[];
+  const validateursParGroupe = valeursSecteur.map((valeur) =>
+    sousSecteurAppartientASecteur(valeur as TValeursSecteursAvecSousSecteurs),
+  );
+  const validateur = et(
+    ...validateursParGroupe,
+    auMoinsN(
+      donneesFormulaireSimulateur["secteurActivite"].length,
+      "sousSecteurActivite",
+    ),
+  );
+  return validateur(donneesFormulaireSimulateur);
 };
 
-export const auMoinsUnPar: (
-  nomChamp: "sousSecteurActivite" | "activites",
-  nomChampGroupement: "sousSecteurActivite" | "secteurActivite",
-) => Validateur = (
-  nomChamp: "sousSecteurActivite" | "activites",
-  nomChampGroupement: "sousSecteurActivite" | "secteurActivite",
+function activiteEstDansSecteur(
+  activites: TValeursActivites[],
+  secteurActivite: TValeursSectorielles,
+) {
+  return activites.some((activite) =>
+    activitesParSecteurEtSousSecteur[secteurActivite].includes(activite),
+  );
+}
+
+const estUnSecteurSansSousSecteur = (secteur: string) =>
+  !(ValeursSecteursAvecSousSecteurs as readonly string[]).includes(secteur);
+export const auMoinsUneActiviteParValeurSectorielle: Validateur = (
+  donneesFormulaireSimulateur,
 ) => {
-  return (donneesFormulaireSimulateur) => {
-    const validateursParGroupe = donneesFormulaireSimulateur[
-      nomChampGroupement
-    ].map((valeur) =>
-      unAppartientA(
-        nomChamp,
-        nomChampGroupement,
-        valeur as TValeursSecteursAvecSousSecteurs,
-      ),
+  const secteursActivite = donneesFormulaireSimulateur.secteurActivite.filter(
+    estUnSecteurSansSousSecteur,
+  ) as TValeursSecteursSansSousSecteur[];
+  const sousSecteursActivite =
+    donneesFormulaireSimulateur.sousSecteurActivite as TValeursSousSecteursActivites[];
+  const secteursEtSousSecteurs: TValeursSectorielles[] = [
+    ...secteursActivite,
+    ...sousSecteursActivite,
+  ];
+  const activites =
+    donneesFormulaireSimulateur.activites as TValeursActivites[];
+  const nombreDeValeursEstCoherent =
+    donneesFormulaireSimulateur.activites.length ===
+    secteursEtSousSecteurs.length;
+  const tousLesSecteursEtSousSecteurOntUneActiviteAssociee =
+    secteursEtSousSecteurs.every((secteurActivite) =>
+      activiteEstDansSecteur(activites, secteurActivite),
     );
-    const validateur = et(
-      ...validateursParGroupe,
-      auMoinsN(
-        donneesFormulaireSimulateur[nomChampGroupement].length,
-        nomChamp,
-      ),
-    );
-    return validateur(donneesFormulaireSimulateur);
-  };
+  return (
+    nombreDeValeursEstCoherent &&
+    tousLesSecteursEtSousSecteurOntUneActiviteAssociee
+  );
 };
 
 export const validationUneReponses = (
@@ -142,9 +113,9 @@ export const validationReponsesSecteurs = {
 };
 export const validationReponsesSousActivites = {
   message: "Sélectionnez au moins une réponse par secteur",
-  validateur: auMoinsUnPar("sousSecteurActivite", "secteurActivite"),
+  validateur: auMoinsUnSousSecteurParSecteur,
 };
 export const validationReponsesActivites = {
   message: "Sélectionnez au moins une réponse par secteur",
-  validateur: auMoinsUn("activites"),
+  validateur: auMoinsUneActiviteParValeurSectorielle,
 };

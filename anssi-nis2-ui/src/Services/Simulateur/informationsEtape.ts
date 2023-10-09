@@ -5,7 +5,8 @@ import {
   SimulateurEtapeNodeComponent,
   SimulateurEtapeRenderedComponent,
 } from "./Props/component";
-import { ValidationReponses } from "../../Domaine/Simulateur/Services/Validateurs.ts";
+
+import { ValidationReponses } from "../../Domaine/Simulateur/Workflows/validateursChamps";
 
 export interface InformationsEtape {
   titre: string;

@@ -34,7 +34,7 @@ export const passeEtapeEnCochant = async <
   });
   for (let i = 0; i < champsACliquer.length; i++) {
     const [champ, valeur] = champsACliquer[i];
-    if (i === 0 || i < suivantActiveApres) {
+    if (suivantActiveApres === 0) {
       expect(boutonSuivant).not.toBeEnabled();
     }
     await userEvent.click(

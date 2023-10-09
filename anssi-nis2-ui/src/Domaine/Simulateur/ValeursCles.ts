@@ -1,3 +1,5 @@
+import { TValeursSecteursAvecSousSecteurs } from "./SousSecteurs.ts";
+
 export const ValeursReponsesDesigneOSE = ["oui", "non", "nsp"] as const;
 export type TValeursReponsesDesigneOSE =
   (typeof ValeursReponsesDesigneOSE)[number];
@@ -66,8 +68,13 @@ export type TValeursSousSecteursActivites =
   | TValeursSousSecteurTransport
   | TValeursSousSecteurFabrication;
 
+export type TValeursSecteursSansSousSecteur = Exclude<
+  TValeursSecteursActivites,
+  TValeursSecteursAvecSousSecteurs
+>;
+
 export type TValeursSectorielles =
-  | TValeursSecteursActivites
+  | TValeursSecteursSansSousSecteur
   | TValeursSousSecteursActivites;
 
 export const ValeursActivitesElectricite = [
