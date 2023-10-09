@@ -1,6 +1,5 @@
 import { genereTransformateurValeursVersOptions } from "./genereTransformateurValeursVersOptions.ts";
 import {
-  Activites,
   DesignationOperateurServicesEssentiels,
   ValeurCleSectorielle,
   AppartenancePaysUnionEuropeenne,
@@ -37,6 +36,7 @@ import {
   SousSecteursActivites,
   sousSecteursParSecteur,
 } from "../../Domaine/Simulateur/SousSecteurs.ts";
+import { Activites } from "../../Domaine/Simulateur/Activites.ts";
 
 const recupereLibelleReponseOSE = (
   value: string,

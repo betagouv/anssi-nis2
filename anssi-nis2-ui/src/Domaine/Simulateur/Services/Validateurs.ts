@@ -9,10 +9,11 @@ import {
   SousSecteursActivites,
   ValeursSecteursAvecSousSecteurs,
 } from "../SousSecteurs.ts";
-import { Activites, ValeurCleSectorielle } from "../ValeursCles.ts";
+import { ValeurCleSectorielle } from "../ValeursCles.ts";
 import { Validateur, ValidationReponses } from "../Workflows/validateursChamps";
 import { activitesParSecteurEtSousSecteur } from "../ActivitesParSecteurEtSousSecteur.ts";
 import { SecteursActivites } from "../SecteursActivite";
+import { Activites } from "../Activites.ts";
 
 export const et: (...validateurs: Array<Validateur>) => Validateur = (
   ...validateurs

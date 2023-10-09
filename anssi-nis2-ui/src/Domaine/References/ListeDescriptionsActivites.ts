@@ -1,5 +1,5 @@
-import { Activites } from "../Simulateur/ValeursCles.ts";
 import { DescriptionActivite } from "../Simulateur/DescriptionActivite.ts";
+import { Activites } from "../Simulateur/Activites.ts";
 
 export const listeDescriptionsActivites: Record<
   Activites,

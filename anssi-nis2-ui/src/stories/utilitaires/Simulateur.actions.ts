@@ -4,7 +4,6 @@ import { expect } from "@storybook/jest";
 import { libellesSimulateur as libelles } from "../../Domaine/References/Libelles.ts";
 import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import {
-  Activites,
   DesignationOperateurServicesEssentiels,
   AppartenancePaysUnionEuropeenne,
   TrancheChiffreAffaire,
@@ -14,6 +13,7 @@ import {
 import { SecteursActivites } from "../../Domaine/Simulateur/SecteursActivite";
 
 import { SousSecteursActivites } from "../../Domaine/Simulateur/SousSecteurs.ts";
+import { Activites } from "../../Domaine/Simulateur/Activites.ts";
 
 export const passeEtapeEnCochant = async <
   T extends

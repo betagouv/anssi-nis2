@@ -1,4 +1,4 @@
-import { Activites } from "../Simulateur/ValeursCles.ts";
+import { Activites } from "../Simulateur/Activites.ts";
 
 export const libellesActivites: Record<Activites, string> = {
   acteurDuMarche:
