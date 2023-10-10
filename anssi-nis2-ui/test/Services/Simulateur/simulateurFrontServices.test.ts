@@ -53,10 +53,9 @@ describe(genereTransformateurValeursVersOptions, () => {
 
   it("génère un champ d'option avec les bons états checked", () => {
     const attendu = optionsPaysUE([true, false, false]);
-    const defaultDataForm: DonneesFormulaireSimulateur = {
-      ...donneesFormulaireSimulateurVide,
+    const defaultDataForm = new DonneesFormulaireSimulateur({
       etatMembre: ["france"],
-    };
+    });
     const optionsPaysUEObtenu = transformePaysUnionEuropeennePourSelect(
       libellesPaysUnionEuropeenneLocalisation,
       onChange,
@@ -118,10 +117,9 @@ describe(genereTransformateurValeursVersOptions, () => {
           },
         },
       ];
-      const currentDataForm: DonneesFormulaireSimulateur = {
-        ...donneesFormulaireSimulateurVide,
+      const currentDataForm = new DonneesFormulaireSimulateur({
         activites: [valeurSelectionnee],
-      };
+      });
 
       const optionsActivitesObtenues = transformateur(
         activites,

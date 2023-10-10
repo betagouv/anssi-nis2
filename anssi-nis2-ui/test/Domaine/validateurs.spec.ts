@@ -14,10 +14,9 @@ describe("validateurs", () => {
   describe("valideAuMoinsUn", () => {
     it("doit être vrai pour un élément rempli", () => {
       const nomChamp = "designeOperateurServicesEssentiels";
-      const donneesFormulaireSimulateur: DonneesFormulaireSimulateur = {
-        ...donneesFormulaireSimulateurVide,
+      const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
         designeOperateurServicesEssentiels: ["oui"],
-      };
+      });
       const result = auMoinsUn(nomChamp)(donneesFormulaireSimulateur);
       expect(result).toBeTruthy();
     });
@@ -30,10 +29,9 @@ describe("validateurs", () => {
 
     it("doit être vrai pour plusieurs valeurs", () => {
       const nomChamp = "designeOperateurServicesEssentiels";
-      const donneesFormulaireSimulateur: DonneesFormulaireSimulateur = {
-        ...donneesFormulaireSimulateurVide,
+      const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
         designeOperateurServicesEssentiels: ["oui", "non"],
-      };
+      });
       const result = auMoinsUn(nomChamp)(donneesFormulaireSimulateur);
       expect(result).toBeTruthy();
     });
@@ -41,11 +39,10 @@ describe("validateurs", () => {
 
   describe("composeValidateurs", () => {
     it("peut appeler plusieurs validateurs sur une même fonction et retourne vrai", () => {
-      const donneesFormulaireSimulateur: DonneesFormulaireSimulateur = {
-        ...donneesFormulaireSimulateurVide,
+      const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
         trancheNombreEmployes: ["petit"],
         trancheCA: ["petit"],
-      };
+      });
       const validateur = et(
         auMoinsUn("trancheNombreEmployes"),
         auMoinsUn("trancheCA"),
@@ -55,11 +52,10 @@ describe("validateurs", () => {
     });
 
     it("peut appeler plusieurs validateurs sur une même fonction et retourne faux", () => {
-      const donneesFormulaireSimulateur: DonneesFormulaireSimulateur = {
-        ...donneesFormulaireSimulateurVide,
+      const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
         trancheNombreEmployes: ["petit"],
         trancheCA: [],
-      };
+      });
       const validateur = et(
         auMoinsUn("trancheNombreEmployes"),
         auMoinsUn("trancheCA"),
@@ -70,11 +66,10 @@ describe("validateurs", () => {
   });
   describe("auMoinsUnPar", () => {
     it("doit retourner vrai pour un champ coché dans une categorie", () => {
-      const donneesFormulaireSimulateur: DonneesFormulaireSimulateur = {
-        ...donneesFormulaireSimulateurVide,
+      const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
         secteurActivite: ["energie"],
         sousSecteurActivite: ["electricite"],
-      };
+      });
       const result = auMoinsUnSousSecteurParSecteur(
         donneesFormulaireSimulateur,
       );
@@ -82,11 +77,10 @@ describe("validateurs", () => {
     });
 
     it("doit retourner faux pour un champ coché alors qu'il y a 2 catégories", () => {
-      const donneesFormulaireSimulateur: DonneesFormulaireSimulateur = {
-        ...donneesFormulaireSimulateurVide,
+      const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
         secteurActivite: ["energie", "transports"],
         sousSecteurActivite: ["electricite"],
-      };
+      });
       const result = auMoinsUnSousSecteurParSecteur(
         donneesFormulaireSimulateur,
       );
@@ -94,11 +88,10 @@ describe("validateurs", () => {
     });
 
     it("doit retourner faux pour 2 champ coché si l'une des 2 catégorie n'a pas de champs correspondant", () => {
-      const donneesFormulaireSimulateur: DonneesFormulaireSimulateur = {
-        ...donneesFormulaireSimulateurVide,
+      const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
         secteurActivite: ["energie", "transports"],
         sousSecteurActivite: ["electricite", "hydrogene"],
-      };
+      });
       const result = auMoinsUnSousSecteurParSecteur(
         donneesFormulaireSimulateur,
       );
@@ -107,11 +100,10 @@ describe("validateurs", () => {
   });
   describe("auMoinsUneActiviteParValeurSectorielle", () => {
     it("doit valider une activité cochée pour un seul secteur ", () => {
-      const donneesFormulaireSimulateur: DonneesFormulaireSimulateur = {
-        ...donneesFormulaireSimulateurVide,
+      const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
         secteurActivite: ["espace"],
         activites: ["autreActiviteEspace"],
-      };
+      });
       const result = auMoinsUneActiviteParValeurSectorielle(
         donneesFormulaireSimulateur,
       );
@@ -119,11 +111,10 @@ describe("validateurs", () => {
     });
 
     it("doit valider 2 activités cochées pour 2 secteurs", () => {
-      const donneesFormulaireSimulateur: DonneesFormulaireSimulateur = {
-        ...donneesFormulaireSimulateurVide,
+      const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
         secteurActivite: ["espace", "sante"],
         activites: ["autreActiviteEspace", "prestataireSoinsSante"],
-      };
+      });
       const result = auMoinsUneActiviteParValeurSectorielle(
         donneesFormulaireSimulateur,
       );
@@ -131,11 +122,10 @@ describe("validateurs", () => {
     });
 
     it("ne doit pas valider 2 activités cochées appartenant au même secteur si 2 sont cochés", () => {
-      const donneesFormulaireSimulateur: DonneesFormulaireSimulateur = {
-        ...donneesFormulaireSimulateurVide,
+      const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
         secteurActivite: ["espace", "sante"],
         activites: ["laboratoireReferenceUE", "prestataireSoinsSante"],
-      };
+      });
       const result = auMoinsUneActiviteParValeurSectorielle(
         donneesFormulaireSimulateur,
       );
@@ -143,12 +133,11 @@ describe("validateurs", () => {
     });
 
     it("ne doit pas valider 1 activités cochées pour 1 secteurs et 2 sous-secteur", () => {
-      const donneesFormulaireSimulateur: DonneesFormulaireSimulateur = {
-        ...donneesFormulaireSimulateurVide,
+      const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
         secteurActivite: ["energie"],
         sousSecteurActivite: ["electricite", "hydrogene"],
         activites: ["acteurDuMarche"],
-      };
+      });
       const result = auMoinsUneActiviteParValeurSectorielle(
         donneesFormulaireSimulateur,
       );

@@ -166,7 +166,7 @@ describe(ChargeurExpressBasicAuth, () => {
         const expressBasicAuthLoader =
           fabriqueFournisseurServeurStatique(configService);
 
-        expressBasicAuthLoader.register(httpAdapter, []);
+        await expressBasicAuthLoader.register(httpAdapter, []);
 
         expect(chargeurAuthentificationBasiqueHTTP).not.toHaveBeenCalled();
         expect(basicAuth).not.toHaveBeenCalled();
