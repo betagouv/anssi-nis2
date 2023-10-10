@@ -39,25 +39,18 @@ export interface IDonneesFormulaireSimulateur
 export class DonneesFormulaireSimulateur
   implements IDonneesFormulaireSimulateur
 {
-  activites: Activite[];
-  designeOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[];
-  etatMembre: AppartenancePaysUnionEuropeenne[];
-  secteurActivite: SecteurActivite[];
-  sousSecteurActivite: SousSecteurActivite[];
-  trancheCA: TrancheChiffreAffaire[];
-  trancheNombreEmployes: TrancheNombreEmployes[];
-  typeStructure: TypeStructure[];
+  activites: Activite[] = [];
+  designeOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[] =
+    [];
+  etatMembre: AppartenancePaysUnionEuropeenne[] = [];
+  secteurActivite: SecteurActivite[] = [];
+  sousSecteurActivite: SousSecteurActivite[] = [];
+  trancheCA: TrancheChiffreAffaire[] = [];
+  trancheNombreEmployes: TrancheNombreEmployes[] = [];
+  typeStructure: TypeStructure[] = [];
 
-  constructor(depuis: Partial<IDonneesFormulaireSimulateur>) {
-    this.activites = depuis.activites || [];
-    this.designeOperateurServicesEssentiels =
-      depuis.designeOperateurServicesEssentiels || [];
-    this.etatMembre = depuis.etatMembre || [];
-    this.secteurActivite = depuis.secteurActivite || [];
-    this.sousSecteurActivite = depuis.sousSecteurActivite || [];
-    this.trancheCA = depuis.trancheCA || [];
-    this.trancheNombreEmployes = depuis.trancheNombreEmployes || [];
-    this.typeStructure = depuis.typeStructure || [];
+  constructor(depuis: Readonly<Partial<IDonneesFormulaireSimulateur>>) {
+    Object.assign(this, depuis);
   }
 
   avec(
