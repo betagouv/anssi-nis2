@@ -57,15 +57,32 @@ legend.fr-text--medium {
 }
 
 .fr-nis2-resultat {
-    background-color: var(--green-menthe-975-75);
-
-    & h4 {
-        color: var(--green-menthe-sun-373-moon-652);
+    &.fr-nis2-eligible {
+        background-color: var(--green-menthe-975-75);
     }
 
-    .fr-nis2-icone {
-        color: var(--green-menthe-sun-373-moon-652);
-        text-align: center;
+    &.fr-nis2-non-eligible {
+        background-color: var(--yellow-tournesol-925-125);
+    }
+
+    &.fr-nis2-eligible {
+        & h4, & .fr-nis2-icone {
+            color: var(--green-menthe-sun-373-moon-652, #37635F);
+        }
+
+        & .fr-nis2-icone {
+            text-align: center;
+        }
+    }
+
+    &.fr-nis2-non-eligible {
+        & h4, & .fr-nis2-icone {
+            color: #A88E26;
+        }
+
+        & .fr-nis2-icone {
+            text-align: center;
+        }
     }
 
     .fr-icon--xl {

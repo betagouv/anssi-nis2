@@ -3,7 +3,7 @@ import { CenteredContainer } from "../../CenteredContainer.tsx";
 import { SimulateurEtapeRenderedComponent } from "../../../Services/Simulateur/Props/component";
 import { eligibilite } from "../../../Domaine/Simulateur/resultatEligibilite.ts";
 import { SimulateurEtapeRenderedProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
-import { recupereResultatEligibilite } from "../../../Services/Simulateur/recupereResultatEligibilite.ts";
+import { recupereContenusResultatEligibilite } from "../../../Services/Simulateur/recupereContenusResultatEligibilite.ts";
 import { Icon } from "@mui/material";
 
 export const LigneResultat: SimulateurEtapeRenderedComponent = ({
@@ -11,11 +11,16 @@ export const LigneResultat: SimulateurEtapeRenderedComponent = ({
 }: SimulateurEtapeRenderedProps) => {
   const statutEligibiliteNIS2 = eligibilite(donneesFormulaire);
 
-  const resultat = recupereResultatEligibilite(statutEligibiliteNIS2);
+  const resultat = recupereContenusResultatEligibilite(statutEligibiliteNIS2);
   return (
     <RowContainer>
       <CenteredContainer>
-        <div className="fr-px-4w fr-py-3w fr-nis2-resultat">
+        <div
+          className={[
+            "fr-px-4w fr-py-3w fr-nis2-resultat",
+            resultat.classeDivResultat,
+          ].join(" ")}
+        >
           <div className="fr-grid-row">
             <div className="fr-col fr-nis2-icone">
               <Icon
@@ -24,7 +29,7 @@ export const LigneResultat: SimulateurEtapeRenderedComponent = ({
             </div>
           </div>
           <h4>{resultat.titre}</h4>
-          <p>{resultat.explications}</p>
+          <p>{resultat.pointsAttention}</p>
         </div>
       </CenteredContainer>
     </RowContainer>
