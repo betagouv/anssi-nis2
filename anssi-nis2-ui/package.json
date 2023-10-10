@@ -16,7 +16,8 @@
     "test": "vitest run",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
-    "storybook:test": "test-storybook"
+    "storybook:test": "test-storybook",
+    "storybook:test:watch": "test-storybook --watch"
   },
   "dependencies": {
     "@codegouvfr/react-dsfr": "^0.74.2",

@@ -18,6 +18,7 @@ const ResultatEligibiliteEnum = {
 const eligibilite: (
   donneesFormulaireSimulateur: DonneesFormulaireSimulateur,
 ) => ResultatEligibilite = ({
+  designeOperateurServicesEssentiels,
   etatMembre,
   typeStructure,
   trancheNombreEmployes,
@@ -25,6 +26,9 @@ const eligibilite: (
   secteurActivite,
   activites,
 }) => {
+  if (designeOperateurServicesEssentiels.includes("oui")) {
+    return ResultatEligibiliteEnum.Eligible;
+  }
   if (
     etatMembre.includes("france") &&
     typeStructure.includes("privee") &&
@@ -38,17 +42,31 @@ const eligibilite: (
 };
 
 describe("Calcul d'éligibilité NIS 2", () => {
-  describe("Non designe OSE NIS 1", () => {
-    const reponseNonDesigneOSE: DonneesFormulaireSimulateur = {
-      ...donneesFormulaireSimulateurVide,
-      designeOperateurServicesEssentiels: ["non"],
-    };
-    describe("Autres activités", () => {
+  const reponseDesigneOSE: DonneesFormulaireSimulateur = {
+    ...donneesFormulaireSimulateurVide,
+    designeOperateurServicesEssentiels: ["oui"],
+  };
+  const reponseNonDesigneOSE: DonneesFormulaireSimulateur = {
+    ...donneesFormulaireSimulateurVide,
+    designeOperateurServicesEssentiels: ["non"],
+  };
+  describe.each([reponseDesigneOSE])("Designe OSE NIS 1", (reponses) => {
+    it("est toujours Eligible", () => {
+      const donneesSimu: DonneesFormulaireSimulateur = {
+        ...reponses,
+      };
+      expect(eligibilite(donneesSimu)).toStrictEqual(
+        ResultatEligibiliteEnum.Eligible,
+      );
+    });
+  });
+  describe.each([reponseNonDesigneOSE])("Non designe OSE NIS 1", () => {
+    describe.each([reponseNonDesigneOSE])("Autres activités", (reponses) => {
       it.each(listeActivitesAutre)(
         "doit calculer non-eligible si la seul activité cochée est '%s'",
         (activite) => {
           const donneesSimu: DonneesFormulaireSimulateur = {
-            ...reponseNonDesigneOSE,
+            ...reponses,
             activites: [activite],
           };
           expect(eligibilite(donneesSimu)).toStrictEqual(
