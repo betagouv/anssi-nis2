@@ -2,7 +2,7 @@ import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { FormSimulateur } from "./index.ts";
 import { transformeSecteursActiviteVersOptions } from "../../../Services/Simulateur/Transformateurs.ts";
 
-import { libellesSecteursActivite } from "../../../Domaine/References/LibellesSecteursActivite.ts";
+import { libellesSecteursActivite } from "../../../References/LibellesSecteursActivite.ts";
 import { useCallback, useMemo } from "react";
 import React from "react";
 

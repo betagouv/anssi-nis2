@@ -10,7 +10,10 @@ import {
   ValeursSecteursAvecSousSecteurs,
 } from "../SousSecteurs.ts";
 import { ValeurCleSectorielle } from "../ValeursChampsSimulateur.ts";
-import { Validateur, ValidationReponses } from "../Workflows/validateursChamps";
+import {
+  Validateur,
+  ValidationReponses,
+} from "../Operations/validateursChamps";
 import { activitesParSecteurEtSousSecteur } from "../ActivitesParSecteurEtSousSecteur.ts";
 import { SecteurActivite } from "../SecteursActivite";
 import { Activite } from "../Activite.ts";

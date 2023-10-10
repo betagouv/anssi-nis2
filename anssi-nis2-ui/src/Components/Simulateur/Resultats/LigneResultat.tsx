@@ -3,7 +3,7 @@ import { CenteredContainer } from "../../CenteredContainer.tsx";
 import { SimulateurEtapeRenderedComponent } from "../../../Services/Simulateur/Props/component";
 import { eligibilite } from "../../../Domaine/Simulateur/resultatEligibilite.ts";
 import { SimulateurEtapeRenderedProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
-import { recupereResultatEligibilite } from "../../../Services/Simulateur/RecupereResultatEligibilite.tsx";
+import { recupereResultatEligibilite } from "../../../Services/Simulateur/recupereResultatEligibilite.ts";
 import { Icon } from "@mui/material";
 
 export const LigneResultat: SimulateurEtapeRenderedComponent = ({

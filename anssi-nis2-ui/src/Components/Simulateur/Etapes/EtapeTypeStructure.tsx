@@ -1,4 +1,4 @@
-import { libellesTypesStructure } from "../../../Domaine/References/Libelles.ts";
+import { libellesTypesStructure } from "../../../References/Libelles.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { FormSimulateur } from "./index.ts";
 import React, { useMemo } from "react";

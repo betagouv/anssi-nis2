@@ -13,8 +13,8 @@ import {
   NomsChampsSimulateur,
 } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
-import { libellesActivites } from "../../Domaine/References/LibellesActivites.ts";
-import { listeDescriptionsActivites } from "../../Domaine/References/ListeDescriptionsActivites.ts";
+import { libellesActivites } from "../../References/LibellesActivites.ts";
+import { listeDescriptionsActivites } from "../../References/ListeDescriptionsActivites.ts";
 import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
 import { reducteurSecteursVersOptions } from "./Reducteurs.ts";
 import {
@@ -29,8 +29,8 @@ import {
   OptionChampSimulateur,
   OptionsChampSimulateur,
 } from "./Props/optionChampSimulateur";
-import { TransformeRecordToSelect } from "./Workflow/optionChampSimulateur";
-import { GenerateurLibelle } from "./Workflow/libelles.ts";
+import { TransformeRecordToSelect } from "./Operations/optionChampSimulateur";
+import { GenerateurLibelle } from "./Operations/libelles.ts";
 import { SecteurActivite } from "../../Domaine/Simulateur/SecteursActivite";
 import {
   SecteursAvecSousSecteurs,

@@ -1,4 +1,4 @@
-import { libellesSecteursActivite } from "../../../Domaine/References/LibellesSecteursActivite.ts";
+import { libellesSecteursActivite } from "../../../References/LibellesSecteursActivite.ts";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { OptionsChampSimulateur } from "../../../Services/Simulateur/Props/optionChampSimulateur";
 

@@ -4,11 +4,11 @@ import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeStructure,
-} from "../Simulateur/ValeursChampsSimulateur.ts";
-import { SecteurActivite } from "../Simulateur/SecteursActivite";
+} from "../Domaine/Simulateur/ValeursChampsSimulateur.ts";
+import { SecteurActivite } from "../Domaine/Simulateur/SecteursActivite";
 
-import { SousSecteurActivite } from "../Simulateur/SousSecteurs.ts";
-import { Activite } from "../Simulateur/Activite.ts";
+import { SousSecteurActivite } from "../Domaine/Simulateur/SousSecteurs.ts";
+import { Activite } from "../Domaine/Simulateur/Activite.ts";
 
 export type DictionnaireLibellesSimulateur = {
   activites: Record<Activite, string>;

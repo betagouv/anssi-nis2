@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { DonneesFormulaireSimulateur } from "../../src/Domaine/Simulateur/DonneesFormulaire";
-import { libellesSecteursActivite } from "../../src/Domaine/References/LibellesSecteursActivite";
-import { libellesSousSecteursActivite } from "../../src/Domaine/References/LibellesSousSecteursActivite";
+import { libellesSecteursActivite } from "../../src/References/LibellesSecteursActivite";
+import { libellesSousSecteursActivite } from "../../src/References/LibellesSousSecteursActivite";
 import {
   cartographieSousSecteursParSecteur,
   collecteTitresPourActivite,

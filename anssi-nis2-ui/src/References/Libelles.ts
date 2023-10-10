@@ -4,7 +4,7 @@ import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeStructure,
-} from "../Simulateur/ValeursChampsSimulateur.ts";
+} from "../Domaine/Simulateur/ValeursChampsSimulateur.ts";
 import { libellesActivites } from "./LibellesActivites.ts";
 import { libellesSecteursActivite } from "./LibellesSecteursActivite.ts";
 import { libellesSousSecteursActivite } from "./LibellesSousSecteursActivite.ts";

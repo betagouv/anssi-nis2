@@ -5,8 +5,8 @@ import {
   collecteTitresPourActivite,
   fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur,
 } from "../../../Services/Simulateur/Transformateurs.ts";
-import { libellesSecteursActivite } from "../../../Domaine/References/LibellesSecteursActivite.ts";
-import { libellesSousSecteursActivite } from "../../../Domaine/References/LibellesSousSecteursActivite.ts";
+import { libellesSecteursActivite } from "../../../References/LibellesSecteursActivite.ts";
+import { libellesSousSecteursActivite } from "../../../References/LibellesSousSecteursActivite.ts";
 
 import { EnsembleChamps } from "../Inputs/EnsembleChamps.tsx";
 

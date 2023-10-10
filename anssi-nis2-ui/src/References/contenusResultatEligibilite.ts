@@ -1,13 +1,4 @@
-import { ResultatEligibilite } from "../../Domaine/Simulateur/resultatEligibilite.ts";
-
-type ContenusResultatEligibilite = {
-  titre: string;
-  classIcone: string;
-  explications: string;
-};
-type OperationRecupereContenusResultatEligibilite = (
-  statutEligibiliteNIS2: ResultatEligibilite,
-) => ContenusResultatEligibilite;
+import { ContenusResultatEligibilite } from "../Services/Simulateur/contenusResultatEligibilite";
 
 export const contenusResultatEligible: ContenusResultatEligibilite = {
   classIcone: "fr-icon-check-line",
@@ -18,5 +9,3 @@ export const contenusResultatEligible: ContenusResultatEligibilite = {
     "certaines entités. Ces exemptions ou désignation seront connues au " +
     "plus tard le 18 octobre 2024.",
 };
-export const recupereResultatEligibilite: OperationRecupereContenusResultatEligibilite =
-  () => contenusResultatEligible;

@@ -1,4 +1,4 @@
-import { EnvoieDonneesFormulaire } from "./Simulateur/Workflow/appelsApi";
+import { EnvoieDonneesFormulaire } from "./Simulateur/Operations/appelsApi";
 import { DonneesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormulaire.ts";
 import { SimulateurDonneesFormulaireActions } from "./Simulateur/Props/donneesFormulaire";
 import { BoutonsNavigation } from "./Simulateur/Props/boutonsNavigation.ts";

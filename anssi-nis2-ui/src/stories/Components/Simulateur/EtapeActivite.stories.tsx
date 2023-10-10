@@ -7,7 +7,7 @@ import {
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { libellesSecteursActivite } from "../../../Domaine/References/LibellesSecteursActivite.ts";
+import { libellesSecteursActivite } from "../../../References/LibellesSecteursActivite.ts";
 
 class ParametresDonneesActivites extends ParametresDonneesSpecifiqueField<string> {
   protected construitDonnees<ValeursActivites>(

@@ -12,7 +12,7 @@ import {
   SousSecteurActivite,
 } from "../../Domaine/Simulateur/SousSecteurs.ts";
 import { transformateurSousSecteurActivite } from "./Transformateurs.ts";
-import { entreesLibellesSousSecteurs } from "../../Domaine/References/LibellesSousSecteursActivite.ts";
+import { entreesLibellesSousSecteurs } from "../../References/LibellesSousSecteursActivite.ts";
 import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
 import { BoutonsNavigation } from "./Props/boutonsNavigation.ts";
 

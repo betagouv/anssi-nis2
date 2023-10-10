@@ -1,7 +1,7 @@
 import {
   libellesTranchesCA,
   libellesTranchesNombreEmployes,
-} from "../../../Domaine/References/Libelles.ts";
+} from "../../../References/Libelles.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { FormSimulateur } from "./index.ts";
 import React from "react";

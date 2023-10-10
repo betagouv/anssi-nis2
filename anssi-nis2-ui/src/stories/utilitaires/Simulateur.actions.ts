@@ -1,7 +1,7 @@
 import { CanvasObject } from "./Canvas.d.tsx";
 import { userEvent } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { libellesSimulateur as libelles } from "../../Domaine/References/Libelles.ts";
+import { libellesSimulateur as libelles } from "../../References/Libelles.ts";
 import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import {
   DesignationOperateurServicesEssentiels,

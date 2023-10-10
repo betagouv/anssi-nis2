@@ -3,7 +3,8 @@ import { Meta, StoryObj } from "@storybook/react";
 import { SimulateurEtapeResult } from "../../../Components/Simulateur/SimulateurEtapeResult.tsx";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { within } from "@storybook/testing-library";
-import { contenusResultatEligible } from "../../../Services/Simulateur/RecupereResultatEligibilite.tsx";
+
+import { contenusResultatEligible } from "../../../References/contenusResultatEligibilite.ts";
 
 const meta: Meta<typeof SimulateurEtapeResult> = {
   component: SimulateurEtapeResult,
@@ -23,8 +24,12 @@ export const ResultatEligible: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(
-      await canvas.findByText(contenusResultatEligible.titre),
+    const icone = canvasElement.querySelector(
+      `span.${contenusResultatEligible.classIcone}`,
+    );
+    expect(icone).toBeInTheDocument();
+    expect(
+      canvas.getByText(contenusResultatEligible.titre),
     ).toBeInTheDocument();
   },
 };

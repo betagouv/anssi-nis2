@@ -1,4 +1,4 @@
-import { libellesPaysUnionEuropeenneLocalisation } from "../../../Domaine/References/Libelles.ts";
+import { libellesPaysUnionEuropeenneLocalisation } from "../../../References/Libelles.ts";
 import { FormSimulateur } from "./index.ts";
 import { useMemo } from "react";
 import { transformePaysUnionEuropeennePourSelect } from "../../../Services/Simulateur/Transformateurs.ts";
