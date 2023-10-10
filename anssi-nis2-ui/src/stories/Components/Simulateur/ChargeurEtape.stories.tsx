@@ -58,7 +58,7 @@ export const DerniereEtapeEstResultat: Story = {
       activites: [
         "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
       ],
-      designeOSE: ["oui"],
+      designeOperateurServicesEssentiels: ["oui"],
       etatMembre: ["france"],
       secteurActivite: ["espace"],
       sousSecteurActivite: [],
@@ -113,7 +113,7 @@ export const EtapeSousActiviteConditionnelle: Story = {
         "entrepriseElectriciteRemplissantFonctionFourniture",
         "gestionnaireReseauDistribution",
       ],
-      designeOSE: ["oui"],
+      designeOperateurServicesEssentiels: ["oui"],
       etatMembre: ["france"],
       secteurActivite: ["energie"],
       sousSecteurActivite: ["electricite", "gaz"],
