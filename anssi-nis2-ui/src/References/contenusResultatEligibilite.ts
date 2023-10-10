@@ -14,7 +14,7 @@ export const contenusResultatEligible: ContenusResultatEligibilite = {
 
 export const contenusResultatNonEligible: ContenusResultatEligibilite = {
   classeDivResultat: "fr-nis2-non-eligible",
-  classIcone: "fr-icon-cross-line",
+  classIcone: "fr-icon-close-line",
   titre: "La directive ne s'appliquerait pas à votre entité",
   pointsAttention:
     "Sous réserve des mécanismes d'exemption ou de désignation pouvant " +
