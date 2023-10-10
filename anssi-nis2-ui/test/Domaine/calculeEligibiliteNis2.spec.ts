@@ -7,39 +7,10 @@ import {
   listeActivitesAutre,
   listeActivitesSaufAutre,
 } from "../../src/Domaine/Simulateur/Activite";
-
-type ResultatEligibilite = "NonEligible" | "Eligible";
-
-const ResultatEligibiliteEnum = {
-  NonEligible: "NonEligible",
-  Eligible: "Eligible",
-} as const;
-
-const eligibilite: (
-  donneesFormulaireSimulateur: DonneesFormulaireSimulateur,
-) => ResultatEligibilite = ({
-  designeOperateurServicesEssentiels,
-  etatMembre,
-  typeStructure,
-  trancheNombreEmployes,
-  trancheCA,
-  secteurActivite,
-  activites,
-}) => {
-  if (designeOperateurServicesEssentiels.includes("oui")) {
-    return ResultatEligibiliteEnum.Eligible;
-  }
-  if (
-    etatMembre.includes("france") &&
-    typeStructure.includes("privee") &&
-    trancheNombreEmployes.includes("petit") &&
-    trancheCA.includes("petit") &&
-    secteurActivite.includes("infrastructureNumerique") &&
-    activites.every((activite) => listeActivitesSaufAutre.includes(activite))
-  )
-    return ResultatEligibiliteEnum.Eligible;
-  return ResultatEligibiliteEnum.NonEligible;
-};
+import {
+  eligibilite,
+  ResultatEligibiliteEnum,
+} from "../../src/Domaine/Simulateur/resultatEligibilite";
 
 describe("Calcul d'éligibilité NIS 2", () => {
   const reponseDesigneOSE: DonneesFormulaireSimulateur = {
