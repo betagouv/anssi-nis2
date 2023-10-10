@@ -8,6 +8,7 @@ import { genereDecorateurPourContexte } from "../../utilitaires/generateursDecor
 import { mockSendFormData } from "../../utilitaires/mocks.ts";
 
 import { Contexte } from "../../../Services/contexte";
+import { contenusResultatEligible } from "../../../References/contenusResultatEligibilite.ts";
 
 const meta: Meta<typeof ChargeurEtape> = {
   component: ChargeurEtape,
@@ -50,9 +51,7 @@ export const DerniereEtapeEstResultat: Story = {
       ],
     ]);
 
-    await canvas.findByText(
-      "La directive s'appliquerait à votre entité au vu des éléments saisis",
-    );
+    await canvas.findByText(contenusResultatEligible.titre);
     await expect(mockSendFormData).toHaveBeenCalledTimes(1);
     await expect(mockSendFormData).toHaveBeenCalledWith({
       activites: [
@@ -104,9 +103,7 @@ export const EtapeSousActiviteConditionnelle: Story = {
       ["activites", "entrepriseElectriciteRemplissantFonctionFourniture"],
       ["activites", "gestionnaireReseauDistribution"],
     ]);
-    await canvas.findByText(
-      "La directive s'appliquerait à votre entité au vu des éléments saisis",
-    );
+    await canvas.findByText(contenusResultatEligible.titre);
     await expect(mockSendFormData).toHaveBeenCalledTimes(1);
     await expect(mockSendFormData).toHaveBeenCalledWith({
       activites: [

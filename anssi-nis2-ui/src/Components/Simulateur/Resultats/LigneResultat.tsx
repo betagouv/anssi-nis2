@@ -29,7 +29,15 @@ export const LigneResultat: SimulateurEtapeRenderedComponent = ({
             </div>
           </div>
           <h4>{resultat.titre}</h4>
-          <p>{resultat.pointsAttention}</p>
+        </div>
+        <div className="fr-px-4w fr-py-3w fr-nis2-resultat-explications">
+          <h4>Points d&apos;attention</h4>
+          {resultat.pointsAttention.map(({ description, titre }) => (
+            <>
+              {titre && <h5>{titre}</h5>}
+              <p>{description}</p>
+            </>
+          ))}
         </div>
       </CenteredContainer>
     </RowContainer>

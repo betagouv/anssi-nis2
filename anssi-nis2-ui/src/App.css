@@ -94,3 +94,31 @@ legend.fr-text--medium {
         --icon-size: 3rem;
     }
 }
+
+.fr-nis2-resultat-explications {
+    background-color: var(--background-alt-grey, #F6F6F6);
+
+    & h4 {
+        color: var(--text-title-grey, #161616);
+        font-size: 1.25rem;
+        font-weight: 700;
+        line-height: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    & h5 {
+        color: var(--text-title-grey, #161616);
+        font-size: .875rem;
+        font-weight: 700;
+        line-height: 1.25rem;
+        margin-bottom: 0.25rem;
+    }
+
+    & p {
+        color: var(--text-default-grey, #161616);
+        font-size: .875rem;
+        font-weight: 400;
+        line-height: 1.25rem;
+        margin-bottom: 1rem;
+    }
+}

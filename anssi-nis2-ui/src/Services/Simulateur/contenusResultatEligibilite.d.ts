@@ -2,5 +2,5 @@ export type ContenusResultatEligibilite = {
   titre: string;
   classIcone: string;
   classeDivResultat: string;
-  pointsAttention: string;
+  pointsAttention: { titre?: string; description: string }[];
 };
