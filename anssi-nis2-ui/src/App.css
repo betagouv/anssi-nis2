@@ -100,7 +100,7 @@ legend.fr-text--medium {
 
     & h4 {
         color: var(--text-title-grey, #161616);
-        font-size: 1.25rem;
+        font-size: 1.2rem;
         font-weight: 700;
         line-height: 1.5rem;
         margin-bottom: 1rem;
@@ -111,14 +111,21 @@ legend.fr-text--medium {
         font-size: .875rem;
         font-weight: 700;
         line-height: 1.25rem;
-        margin-bottom: 0.25rem;
+        margin-bottom: .25rem;
     }
 
-    & p {
+    & p, & li {
         color: var(--text-default-grey, #161616);
         font-size: .875rem;
         font-weight: 400;
         line-height: 1.25rem;
+    }
+
+    & p {
         margin-bottom: 1rem;
+    }
+
+    & li {
+        margin-bottom: .25rem;
     }
 }

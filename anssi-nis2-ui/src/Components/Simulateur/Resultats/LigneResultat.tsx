@@ -5,6 +5,7 @@ import { eligibilite } from "../../../Domaine/Simulateur/resultatEligibilite.ts"
 import { SimulateurEtapeRenderedProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
 import { recupereContenusResultatEligibilite } from "../../../Services/Simulateur/recupereContenusResultatEligibilite.ts";
 import { Icon } from "@mui/material";
+import Markdown from "react-markdown";
 
 export const LigneResultat: SimulateurEtapeRenderedComponent = ({
   donneesFormulaire,
@@ -35,7 +36,7 @@ export const LigneResultat: SimulateurEtapeRenderedComponent = ({
           {resultat.pointsAttention.map(({ description, titre }) => (
             <>
               {titre && <h5>{titre}</h5>}
-              <p>{description}</p>
+              <Markdown>{description}</Markdown>
             </>
           ))}
         </div>
