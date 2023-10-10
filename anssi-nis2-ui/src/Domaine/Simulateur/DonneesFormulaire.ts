@@ -11,7 +11,7 @@ import { SecteurActivite } from "./SecteursActivite";
 import { SousSecteurActivite } from "./SousSecteurs.ts";
 
 export type NomsChampsSimulateur =
-  | "designeOSE"
+  | "designeOperateurServicesEssentiels"
   | "etatMembre"
   | "typeStructure"
   | "trancheNombreEmployes"
@@ -20,15 +20,10 @@ export type NomsChampsSimulateur =
   | "sousSecteurActivite"
   | "activites";
 
-// export interface DonneesFormulaireSimulateur
-//   extends  {
-//   designeOSE: DesignationOperateurServicesEssentiels;
-// }
-
 export interface DonneesFormulaireSimulateur
   extends Record<NomsChampsSimulateur, ValeurChampSimulateur[]> {
   activites: Activite[];
-  designeOSE: DesignationOperateurServicesEssentiels[];
+  designeOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[];
   etatMembre: AppartenancePaysUnionEuropeenne[];
   secteurActivite: SecteurActivite[];
   sousSecteurActivite: SousSecteurActivite[];
@@ -38,7 +33,7 @@ export interface DonneesFormulaireSimulateur
 }
 
 export const donneesFormulaireSimulateurVide: DonneesFormulaireSimulateur = {
-  designeOSE: [],
+  designeOperateurServicesEssentiels: [],
   etatMembre: [],
   secteurActivite: [],
   sousSecteurActivite: [],

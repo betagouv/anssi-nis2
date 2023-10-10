@@ -13,36 +13,26 @@ import {
 describe("validateurs", () => {
   describe("valideAuMoinsUn", () => {
     it("doit être vrai pour un élément rempli", () => {
-      const nomChamp = "designeOSE";
-      const donneesFormulaireSimulateur = {
+      const nomChamp = "designeOperateurServicesEssentiels";
+      const donneesFormulaireSimulateur: DonneesFormulaireSimulateur = {
         ...donneesFormulaireSimulateurVide,
-        designeOSE: ["oui"],
+        designeOperateurServicesEssentiels: ["oui"],
       };
       const result = auMoinsUn(nomChamp)(donneesFormulaireSimulateur);
       expect(result).toBeTruthy();
     });
 
     it("doit être faux pour un formulaire vide", () => {
-      const nomChamp = "designeOSE";
+      const nomChamp = "designeOperateurServicesEssentiels";
       const result = auMoinsUn(nomChamp)(donneesFormulaireSimulateurVide);
       expect(result).toBeFalsy();
     });
 
-    it("doit être vrai quand la valeur du chqmps est vide", () => {
-      const nomChamp = "designeOSE";
-      const donneesFormulaireSimulateur = {
-        ...donneesFormulaireSimulateurVide,
-        designeOSE: [""],
-      };
-      const result = auMoinsUn(nomChamp)(donneesFormulaireSimulateur);
-      expect(result).toBeFalsy();
-    });
-
     it("doit être vrai pour plusieurs valeurs", () => {
-      const nomChamp = "designeOSE";
-      const donneesFormulaireSimulateur = {
+      const nomChamp = "designeOperateurServicesEssentiels";
+      const donneesFormulaireSimulateur: DonneesFormulaireSimulateur = {
         ...donneesFormulaireSimulateurVide,
-        designeOSE: ["oui", "non"],
+        designeOperateurServicesEssentiels: ["oui", "non"],
       };
       const result = auMoinsUn(nomChamp)(donneesFormulaireSimulateur);
       expect(result).toBeTruthy();
@@ -51,7 +41,7 @@ describe("validateurs", () => {
 
   describe("composeValidateurs", () => {
     it("peut appeler plusieurs validateurs sur une même fonction et retourne vrai", () => {
-      const donneesFormulaireSimulateur = {
+      const donneesFormulaireSimulateur: DonneesFormulaireSimulateur = {
         ...donneesFormulaireSimulateurVide,
         trancheNombreEmployes: ["petit"],
         trancheCA: ["petit"],
@@ -65,7 +55,7 @@ describe("validateurs", () => {
     });
 
     it("peut appeler plusieurs validateurs sur une même fonction et retourne faux", () => {
-      const donneesFormulaireSimulateur = {
+      const donneesFormulaireSimulateur: DonneesFormulaireSimulateur = {
         ...donneesFormulaireSimulateurVide,
         trancheNombreEmployes: ["petit"],
         trancheCA: [],
@@ -80,7 +70,7 @@ describe("validateurs", () => {
   });
   describe("auMoinsUnPar", () => {
     it("doit retourner vrai pour un champ coché dans une categorie", () => {
-      const donneesFormulaireSimulateur = {
+      const donneesFormulaireSimulateur: DonneesFormulaireSimulateur = {
         ...donneesFormulaireSimulateurVide,
         secteurActivite: ["energie"],
         sousSecteurActivite: ["electricite"],
@@ -92,7 +82,7 @@ describe("validateurs", () => {
     });
 
     it("doit retourner faux pour un champ coché alors qu'il y a 2 catégories", () => {
-      const donneesFormulaireSimulateur = {
+      const donneesFormulaireSimulateur: DonneesFormulaireSimulateur = {
         ...donneesFormulaireSimulateurVide,
         secteurActivite: ["energie", "transports"],
         sousSecteurActivite: ["electricite"],
@@ -104,9 +94,9 @@ describe("validateurs", () => {
     });
 
     it("doit retourner faux pour 2 champ coché si l'une des 2 catégorie n'a pas de champs correspondant", () => {
-      const donneesFormulaireSimulateur = {
+      const donneesFormulaireSimulateur: DonneesFormulaireSimulateur = {
         ...donneesFormulaireSimulateurVide,
-        secteurActivite: ["energie", "transport"],
+        secteurActivite: ["energie", "transports"],
         sousSecteurActivite: ["electricite", "hydrogene"],
       };
       const result = auMoinsUnSousSecteurParSecteur(

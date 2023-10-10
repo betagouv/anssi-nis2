@@ -268,6 +268,29 @@ export type ActivitesFournisseursNumeriques =
   (typeof ValeursActivitesFournisseursNumeriques)[number];
 export const ValeursActivitesRecherche = ["organismeRecherche"] as const;
 export type ActivitesRecherche = (typeof ValeursActivitesRecherche)[number];
+export const ValeursActivites =
+  // Annexe 1
+  [
+    ...ValeursActivitesEnergie,
+    ...ValeursActivitesTransports,
+    ...ValeursActivitesSecteurBancaire,
+    ...ValeursActivitesInfrastructureMarcheFinancier,
+    ...ValeursActivitesSante,
+    ...ValeursActivitesEauPotable,
+    ...ValeursActivitesEauUsees,
+    ...ValeursActivitesInfrastructureNumerique,
+    ...ValeursActivitesGestionServicesTic,
+    ...ValeursActivitesAdministrationPublique,
+    ...ValeursActivitesEspace,
+    // Annexe 2
+    ...ValeursActivitesServicesPostauxExpedition,
+    ...ValeursActivitesGestionDechets,
+    ...ValeursActivitesFabricationProductionDistributionProduitsChimiques,
+    ...ValeursActivitesProductionTransformationDistributionDenreesAlimentaires,
+    ...ValeursActivitesFabrication,
+    ...ValeursActivitesFournisseursNumeriques,
+    ...ValeursActivitesRecherche,
+  ];
 export type Activite =
   // Annexe 1
   | ActivitesEnergie
@@ -289,3 +312,9 @@ export type Activite =
   | ActivitesFabrication
   | ActivitesFournisseursNumeriques
   | ActivitesRecherche;
+export const listeActivitesAutre: Activite[] = ValeursActivites.filter(
+  (activite) => activite.startsWith("autreActivite"),
+);
+export const listeActivitesSaufAutre: Activite[] = ValeursActivites.filter(
+  (activite) => !activite.startsWith("autreActivite"),
+);

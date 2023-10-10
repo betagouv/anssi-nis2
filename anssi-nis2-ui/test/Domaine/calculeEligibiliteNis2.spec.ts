@@ -3,7 +3,10 @@ import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
 } from "../../src/Domaine/Simulateur/DonneesFormulaire";
-import { Activite } from "../../src/Domaine/Simulateur/Activite";
+import {
+  listeActivitesAutre,
+  listeActivitesSaufAutre,
+} from "../../src/Domaine/Simulateur/Activite";
 
 type ResultatEligibilite = "NonEligible" | "Eligible";
 
@@ -28,41 +31,88 @@ const eligibilite: (
     trancheNombreEmployes.includes("petit") &&
     trancheCA.includes("petit") &&
     secteurActivite.includes("infrastructureNumerique") &&
-    !activites.includes("autreActiviteInfrastructureNumerique")
+    activites.every((activite) => listeActivitesSaufAutre.includes(activite))
   )
     return ResultatEligibiliteEnum.Eligible;
   return ResultatEligibiliteEnum.NonEligible;
 };
+
 describe("Calcul d'éligibilité NIS 2", () => {
-  it("doit calculer non-eligible si la seul activité cochée est 'autre...'", () => {
-    const donneesSimu = {
+  describe("Non designe OSE NIS 1", () => {
+    const reponseNonDesigneOSE: DonneesFormulaireSimulateur = {
       ...donneesFormulaireSimulateurVide,
-      activites: ["autreActiviteEspace"] as Activite[],
+      designeOperateurServicesEssentiels: ["non"],
     };
-    expect(eligibilite(donneesSimu)).toStrictEqual(
-      ResultatEligibiliteEnum.NonEligible,
-    );
-  });
-  it(
-    "doit calculer eligible si :" +
-      " - l'entite est en 'France'" +
-      " - le type structure est 'Privé'" +
-      " - la taille est 'petite'" +
-      " - le secteur d'activité est 'Infrastructure numérique'" +
-      " - activité cochée n'est pas 'autre...'",
-    () => {
-      const donneesSimu: DonneesFormulaireSimulateur = {
-        ...donneesFormulaireSimulateurVide,
-        etatMembre: ["france"],
-        typeStructure: ["privee"],
-        trancheCA: ["petit"],
-        trancheNombreEmployes: ["petit"],
-        secteurActivite: ["infrastructureNumerique"],
-        activites: ["fournisseurReseauxCommunicationElectroniquesPublics"],
-      };
-      expect(eligibilite(donneesSimu)).toStrictEqual(
-        ResultatEligibiliteEnum.Eligible,
+    describe("Autres activités", () => {
+      it.each(listeActivitesAutre)(
+        "doit calculer non-eligible si la seul activité cochée est '%s'",
+        (activite) => {
+          const donneesSimu: DonneesFormulaireSimulateur = {
+            ...reponseNonDesigneOSE,
+            activites: [activite],
+          };
+          expect(eligibilite(donneesSimu)).toStrictEqual(
+            ResultatEligibiliteEnum.NonEligible,
+          );
+        },
       );
-    },
-  );
+    });
+    const reponsesFrance: DonneesFormulaireSimulateur = {
+      ...donneesFormulaireSimulateurVide,
+      etatMembre: ["france"],
+    };
+    describe.each([reponsesFrance])("France", (reponses) => {
+      const reponsesFrancePrive: DonneesFormulaireSimulateur = {
+        ...reponses,
+        typeStructure: ["privee"],
+      };
+      describe.each([reponsesFrancePrive])("Privé", (reponses) => {
+        const reponsesFrancePrivePetit: DonneesFormulaireSimulateur = {
+          ...reponses,
+          trancheCA: ["petit"],
+          trancheNombreEmployes: ["petit"],
+        };
+        describe.each([reponsesFrancePrivePetit])("Petit", (reponses) => {
+          const reponsesFrancePrivePetitInfraNum: DonneesFormulaireSimulateur =
+            {
+              ...reponses,
+              secteurActivite: ["infrastructureNumerique"],
+            };
+          describe.each([reponsesFrancePrivePetitInfraNum])(
+            "Fournisseur Infrastructure Numérique",
+            (reponses) => {
+              describe(`est éligible`, () => {
+                it.each(listeActivitesSaufAutre)(
+                  `quand activité=%s)`,
+                  (activite) => {
+                    const donneesSimu: DonneesFormulaireSimulateur = {
+                      ...reponses,
+                      activites: [activite],
+                    };
+                    expect(eligibilite(donneesSimu)).toStrictEqual(
+                      ResultatEligibiliteEnum.Eligible,
+                    );
+                  },
+                );
+              });
+              describe(`n'est pas éligible`, () => {
+                it.each(listeActivitesAutre)(
+                  `quand activité est %s`,
+                  (activite) => {
+                    const donneesSimu: DonneesFormulaireSimulateur = {
+                      ...reponses,
+                      activites: [activite],
+                    };
+                    expect(eligibilite(donneesSimu)).toStrictEqual(
+                      ResultatEligibiliteEnum.NonEligible,
+                    );
+                  },
+                );
+              });
+            },
+          );
+        });
+      });
+    });
+  });
 });
