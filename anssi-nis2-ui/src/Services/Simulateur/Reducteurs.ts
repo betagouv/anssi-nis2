@@ -20,7 +20,7 @@ const generateNewStateFrom = (
   state: DonneesFormulaireSimulateur,
   fieldName: NomsChampsSimulateur,
   newFieldValue: string[],
-) => ({ ...state, [fieldName]: newFieldValue });
+) => new DonneesFormulaireSimulateur({ ...state, [fieldName]: newFieldValue });
 export const reducerFormData: Reducer<
   DonneesFormulaireSimulateur,
   SimulateurDonneesFormulaireActions

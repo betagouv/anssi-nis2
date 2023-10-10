@@ -6,10 +6,7 @@ import { EtapeSousSecteursActivite } from "../../../Components/Simulateur";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import {
-  DonneesFormulaireSimulateur,
-  donneesFormulaireSimulateurVide,
-} from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 import { SousSecteurEnergie } from "../../../Domaine/Simulateur/SousSecteurs.ts";
 
@@ -29,11 +26,10 @@ const donneesFormulaireOptions: CollectionParametresDonneesSousSecteurActivites 
 const meta: Meta<typeof EtapeSousSecteursActivite> = {
   component: EtapeSousSecteursActivite,
   args: {
-    donneesFormulaire: {
-      ...donneesFormulaireSimulateurVide,
+    donneesFormulaire: new DonneesFormulaireSimulateur({
       secteurActivite: ["energie"],
       sousSecteurActivite: ["electricite"],
-    },
+    }),
   },
   argTypes: {
     propageActionSimulateur: { action: true },
@@ -86,11 +82,10 @@ export const SelectionneSousSecteurEnergie: Story = {
 
 export const MixSecteursEtSousSecteurs: Story = {
   args: {
-    donneesFormulaire: {
-      ...donneesFormulaireSimulateurVide,
+    donneesFormulaire: new DonneesFormulaireSimulateur({
       secteurActivite: ["espace", "energie", "transports"],
       sousSecteurActivite: ["electricite", "hydrogene"],
-    },
+    }),
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

@@ -6,7 +6,7 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { donneesFormulaireSimulateurVide } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { AppartenancePaysUnionEuropeenne } from "../../../Domaine/Simulateur/ValeursChampsSimulateur.ts";
 import { libellesPaysUnionEuropeenneLocalisation } from "../../../Domaine/References/Libelles.ts";
 
@@ -86,10 +86,9 @@ export const CliqueSurLesOptions: Story = {
 
 export const CocheFrance: Story = {
   args: {
-    donneesFormulaire: {
-      ...donneesFormulaireSimulateurVide,
+    donneesFormulaire: new DonneesFormulaireSimulateur({
       etatMembre: ["france"],
-    },
+    }),
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
@@ -109,10 +108,9 @@ export const CocheFrance: Story = {
 
 export const CocheHorsUE: Story = {
   args: {
-    donneesFormulaire: {
-      ...donneesFormulaireSimulateurVide,
+    donneesFormulaire: new DonneesFormulaireSimulateur({
       etatMembre: ["horsue"],
-    },
+    }),
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);

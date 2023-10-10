@@ -6,7 +6,7 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { donneesFormulaireSimulateurVide } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { libellesSecteursActivite } from "../../../Domaine/References/LibellesSecteursActivite.ts";
 
 class ParametresDonneesActivites extends ParametresDonneesSpecifiqueField<string> {
@@ -27,11 +27,10 @@ const donneesFormulaireOptions: CollectionParametresDonneesActivites =
 const meta: Meta<typeof EtapeActivites> = {
   component: EtapeActivites,
   args: {
-    donneesFormulaire: {
-      ...donneesFormulaireSimulateurVide,
+    donneesFormulaire: new DonneesFormulaireSimulateur({
       secteurActivite: ["energie"],
       sousSecteurActivite: ["electricite"],
-    },
+    }),
   },
   argTypes: {
     propageActionSimulateur: { action: true },
@@ -52,11 +51,10 @@ const creeActionPropagationFormulaireActivite = (newValue: string) => {
 
 export const AffichageActivitesEtLibellesParSecteurs: Story = {
   args: {
-    donneesFormulaire: {
-      ...donneesFormulaireSimulateurVide,
+    donneesFormulaire: new DonneesFormulaireSimulateur({
       secteurActivite: ["energie", "espace"],
       sousSecteurActivite: ["electricite"],
-    },
+    }),
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);

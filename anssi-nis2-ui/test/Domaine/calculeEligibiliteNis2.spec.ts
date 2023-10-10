@@ -1,8 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  DonneesFormulaireSimulateur,
-  donneesFormulaireSimulateurVide,
-} from "../../src/Domaine/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../src/Domaine/Simulateur/DonneesFormulaire";
 import {
   listeActivitesAutre,
   listeActivitesSaufAutre,
@@ -13,20 +10,15 @@ import {
 } from "../../src/Domaine/Simulateur/resultatEligibilite";
 
 describe("Calcul d'éligibilité NIS 2", () => {
-  const reponseDesigneOSE: DonneesFormulaireSimulateur = {
-    ...donneesFormulaireSimulateurVide,
+  const reponseDesigneOSE = new DonneesFormulaireSimulateur({
     designeOperateurServicesEssentiels: ["oui"],
-  };
-  const reponseNonDesigneOSE: DonneesFormulaireSimulateur = {
-    ...donneesFormulaireSimulateurVide,
+  });
+  const reponseNonDesigneOSE = new DonneesFormulaireSimulateur({
     designeOperateurServicesEssentiels: ["non"],
-  };
+  });
   describe.each([reponseDesigneOSE])("Designe OSE NIS 1", (reponses) => {
     it("est toujours Eligible", () => {
-      const donneesSimu: DonneesFormulaireSimulateur = {
-        ...reponses,
-      };
-      expect(eligibilite(donneesSimu)).toStrictEqual(
+      expect(eligibilite(reponses)).toStrictEqual(
         ResultatEligibiliteEnum.Eligible,
       );
     });
@@ -36,37 +28,31 @@ describe("Calcul d'éligibilité NIS 2", () => {
       it.each(listeActivitesAutre)(
         "doit calculer non-eligible si la seul activité cochée est '%s'",
         (activite) => {
-          const donneesSimu: DonneesFormulaireSimulateur = {
-            ...reponses,
+          const donneesSimu = reponses.avec({
             activites: [activite],
-          };
+          });
           expect(eligibilite(donneesSimu)).toStrictEqual(
             ResultatEligibiliteEnum.NonEligible,
           );
         },
       );
     });
-    const reponsesFrance: DonneesFormulaireSimulateur = {
-      ...donneesFormulaireSimulateurVide,
+    const reponsesFrance = new DonneesFormulaireSimulateur({
       etatMembre: ["france"],
-    };
+    });
     describe.each([reponsesFrance])("France", (reponses) => {
-      const reponsesFrancePrive: DonneesFormulaireSimulateur = {
-        ...reponses,
+      const reponsesFrancePrive = reponses.avec({
         typeStructure: ["privee"],
-      };
+      });
       describe.each([reponsesFrancePrive])("Privé", (reponses) => {
-        const reponsesFrancePrivePetit: DonneesFormulaireSimulateur = {
-          ...reponses,
+        const reponsesFrancePrivePetit = reponses.avec({
           trancheCA: ["petit"],
           trancheNombreEmployes: ["petit"],
-        };
+        });
         describe.each([reponsesFrancePrivePetit])("Petit", (reponses) => {
-          const reponsesFrancePrivePetitInfraNum: DonneesFormulaireSimulateur =
-            {
-              ...reponses,
-              secteurActivite: ["infrastructureNumerique"],
-            };
+          const reponsesFrancePrivePetitInfraNum = reponses.avec({
+            secteurActivite: ["infrastructureNumerique"],
+          });
           describe.each([reponsesFrancePrivePetitInfraNum])(
             "Fournisseur Infrastructure Numérique",
             (reponses) => {
@@ -74,10 +60,9 @@ describe("Calcul d'éligibilité NIS 2", () => {
                 it.each(listeActivitesSaufAutre)(
                   `quand activité=%s)`,
                   (activite) => {
-                    const donneesSimu: DonneesFormulaireSimulateur = {
-                      ...reponses,
+                    const donneesSimu = reponses.avec({
                       activites: [activite],
-                    };
+                    });
                     expect(eligibilite(donneesSimu)).toStrictEqual(
                       ResultatEligibiliteEnum.Eligible,
                     );
@@ -88,10 +73,9 @@ describe("Calcul d'éligibilité NIS 2", () => {
                 it.each(listeActivitesAutre)(
                   `quand activité est %s`,
                   (activite) => {
-                    const donneesSimu: DonneesFormulaireSimulateur = {
-                      ...reponses,
+                    const donneesSimu = reponses.avec({
                       activites: [activite],
-                    };
+                    });
                     expect(eligibilite(donneesSimu)).toStrictEqual(
                       ResultatEligibiliteEnum.NonEligible,
                     );
