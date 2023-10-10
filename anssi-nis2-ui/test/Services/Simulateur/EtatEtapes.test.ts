@@ -10,7 +10,7 @@ import {
   EtapeTypeStructure,
   EtapeTaille,
   EtapeSecteursActivite,
-} from "../../../src/Components/Simulateur";
+} from "../../../src/Components/Simulateur/Etapes";
 import { CollectionInformationsEtapes } from "../../../src/Services/Simulateur/CollectionInformationsEtapes";
 import { donneesFormulaireSimulateurVide } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import { validationUneReponses } from "../../../src/Domaine/Simulateur/Services/Validateurs";

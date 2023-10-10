@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { EtapeLocalisation } from "../../../Components/Simulateur";
+import { EtapeLocalisation } from "../../../Components/Simulateur/Etapes";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import {

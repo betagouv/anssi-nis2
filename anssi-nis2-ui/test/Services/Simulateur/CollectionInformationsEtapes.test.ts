@@ -7,7 +7,7 @@ import {
 import {
   EtapeLocalisation,
   EtapeTypeStructure,
-} from "../../../src/Components/Simulateur";
+} from "../../../src/Components/Simulateur/Etapes";
 
 import { auMoinsUn } from "../../../src/Domaine/Simulateur/Services/Validateurs";
 

@@ -1,11 +1,11 @@
-import { libellesDesigneOSE } from "../../Domaine/References/Libelles.ts";
+import { libellesDesigneOSE } from "../../../Domaine/References/Libelles.ts";
 import { FormSimulateur } from "./index.ts";
 import React, { useMemo } from "react";
-import { transformeReponsesDesigneOSEPourSelect } from "../../Services/Simulateur/Transformateurs.ts";
+import { transformeReponsesDesigneOSEPourSelect } from "../../../Services/Simulateur/Transformateurs.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
-import { fabriqueGestionChangementSimple } from "../../Services/Simulateur/gestionnaires.ts";
+import { fabriqueGestionChangementSimple } from "../../../Services/Simulateur/gestionnaires.ts";
 
-import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
+import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
 
 const EtapeOSECalculee = ({
   donneesFormulaire,

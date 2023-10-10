@@ -6,21 +6,21 @@ import {
   EtapeSousSecteursActivite,
   EtapeTaille,
   EtapeTypeStructure,
-} from ".";
-import { CollectionInformationsEtapes } from "../../Services/Simulateur/CollectionInformationsEtapes.ts";
+} from "./index.ts";
+import { CollectionInformationsEtapes } from "../../../Services/Simulateur/CollectionInformationsEtapes.ts";
 import {
   InformationEtapeForm,
   InformationEtapeResult,
   SousEtapeConditionnelle,
-} from "../../Services/Simulateur/informationsEtape.ts";
-import { EtatEtapes } from "../../Services/Simulateur/EtatEtapes.ts";
+} from "../../../Services/Simulateur/informationsEtape.ts";
+import { EtatEtapes } from "../../../Services/Simulateur/EtatEtapes.ts";
 import {
   validationReponsesActivites,
   validationReponsesSecteurs,
   validationReponsesSousActivites,
   validationReponsesTaille,
   validationUneReponses,
-} from "../../Domaine/Simulateur/Services/Validateurs.ts";
+} from "../../../Domaine/Simulateur/Services/Validateurs.ts";
 
 const informationEtapeDesignationOSE = new InformationEtapeForm(
   "Désignation éventuelle",

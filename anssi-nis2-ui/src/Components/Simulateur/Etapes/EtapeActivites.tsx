@@ -1,16 +1,16 @@
 import { FormSimulateur } from "./index.ts";
 import React, { useMemo } from "react";
-import { AssociationSectorielleActivite } from "../../Domaine/Simulateur/ActivitesParSecteurEtSousSecteur.ts";
+import { AssociationSectorielleActivite } from "../../../Domaine/Simulateur/ActivitesParSecteurEtSousSecteur.ts";
 import {
   collecteTitresPourActivite,
   fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur,
-} from "../../Services/Simulateur/Transformateurs.ts";
-import { libellesSecteursActivite } from "../../Domaine/References/LibellesSecteursActivite.ts";
-import { libellesSousSecteursActivite } from "../../Domaine/References/LibellesSousSecteursActivite.ts";
+} from "../../../Services/Simulateur/Transformateurs.ts";
+import { libellesSecteursActivite } from "../../../Domaine/References/LibellesSecteursActivite.ts";
+import { libellesSousSecteursActivite } from "../../../Domaine/References/LibellesSousSecteursActivite.ts";
 
-import { EnsembleChamps } from "./Inputs/EnsembleChamps.tsx";
+import { EnsembleChamps } from "../Inputs/EnsembleChamps.tsx";
 
-import { SimulateurContenuEtapeProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
+import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
 
 const EtapeActivitesCalculee = ({
   propageActionSimulateur,
