@@ -40,16 +40,40 @@ legend.fr-text--medium {
     margin-bottom: 2rem;
 }
 
-.texte-edito p {
-    font-size: 1.25rem !important;
-    line-height: 2rem !important;
-    margin: var(--text-spacing);
+.texte-edito {
+    & p {
+        font-size: 1.25rem !important;
+        line-height: 2rem !important;
+        margin: var(--text-spacing);
+    }
+
+    & ul {
+        padding-top: 1rem;
+    }
+
+    & h3 {
+        padding-top: 2.5rem;
+    }
 }
 
-.texte-edito ul {
-    padding-top: 1rem;
-}
+.fr-nis2-resultat {
+    background-color: var(--green-menthe-975-75);
 
-.texte-edito h3 {
-    padding-top: 2.5rem;
+    & h4 {
+        color: var(--green-menthe-sun-373-moon-652);
+    }
+
+    .fr-nis2-icone {
+        color: var(--green-menthe-sun-373-moon-652);
+        text-align: center;
+    }
+
+    .fr-icon--xl {
+        font-size: 3rem !important;
+    }
+
+    .fr-icon--xl::before,
+    .fr-icon--xl::after {
+        --icon-size: 3rem;
+    }
 }
