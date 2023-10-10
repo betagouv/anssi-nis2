@@ -1,11 +1,12 @@
 import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.ts";
 import { listeActivitesSaufAutre } from "./Activite.ts";
 
-type ResultatEligibilite = "NonEligible" | "Eligible";
+export type ResultatEligibilite = "NonEligible" | "Eligible";
 export const ResultatEligibiliteEnum = {
   NonEligible: "NonEligible",
   Eligible: "Eligible",
 } as const;
+
 export const eligibilite: (
   donneesFormulaireSimulateur: DonneesFormulaireSimulateur,
 ) => ResultatEligibilite = ({
