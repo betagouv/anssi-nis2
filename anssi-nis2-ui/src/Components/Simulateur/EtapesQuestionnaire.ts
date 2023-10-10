@@ -24,7 +24,7 @@ import {
 
 const informationEtapeDesignationOSE = new InformationEtapeForm(
   "Désignation éventuelle",
-  validationUneReponses("designeOSE"),
+  validationUneReponses("designeOperateurServicesEssentiels"),
   EtapeOSE,
 );
 const informationEtapeLocalisation = new InformationEtapeForm(

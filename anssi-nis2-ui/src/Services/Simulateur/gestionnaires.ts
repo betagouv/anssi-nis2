@@ -36,7 +36,7 @@ export const fieldHandlers: Record<
   NomsChampsSimulateur,
   GestionValeursFormulaire
 > = {
-  designeOSE: gestionValeursSimples,
+  designeOperateurServicesEssentiels: gestionValeursSimples,
   etatMembre: genereGestionValeursMultiples("etatMembre"),
   secteurActivite: genereGestionValeursMultiples("secteurActivite"),
   sousSecteurActivite: genereGestionValeursMultiples("sousSecteurActivite"),

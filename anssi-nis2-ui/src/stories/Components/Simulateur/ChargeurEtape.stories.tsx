@@ -32,7 +32,9 @@ export const DerniereEtapeEstResultat: Story = {
 
     const canvas = within(canvasElement);
 
-    await passeEtapeEnCochant(canvas, [["designeOSE", "oui"]]);
+    await passeEtapeEnCochant(canvas, [
+      ["designeOperateurServicesEssentiels", "oui"],
+    ]);
     await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
     await passeEtapeEnCochant(canvas, [["typeStructure", "publique"]]);
 
@@ -76,7 +78,9 @@ export const EtapeSousActiviteConditionnelle: Story = {
     const canvas = within(canvasElement);
 
     step("Va jusqu'à l'étape Secteurs d'activité", async () => {
-      await passeEtapeEnCochant(canvas, [["designeOSE", "oui"]]);
+      await passeEtapeEnCochant(canvas, [
+        ["designeOperateurServicesEssentiels", "oui"],
+      ]);
       await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
       await passeEtapeEnCochant(canvas, [["typeStructure", "publique"]]);
       await passeEtapeEnCochant(canvas, [

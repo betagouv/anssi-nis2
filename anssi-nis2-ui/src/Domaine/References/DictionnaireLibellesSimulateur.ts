@@ -12,7 +12,10 @@ import { Activite } from "../Simulateur/Activite.ts";
 
 export type DictionnaireLibellesSimulateur = {
   activites: Record<Activite, string>;
-  designeOSE: Record<DesignationOperateurServicesEssentiels, string>;
+  designeOperateurServicesEssentiels: Record<
+    DesignationOperateurServicesEssentiels,
+    string
+  >;
   etatMembre: Record<AppartenancePaysUnionEuropeenne, string>;
   secteurActivite: Record<SecteurActivite, string>;
   sousSecteurActivite: Record<SousSecteurActivite, string>;

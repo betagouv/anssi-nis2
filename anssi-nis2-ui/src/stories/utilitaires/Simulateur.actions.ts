@@ -16,7 +16,7 @@ import { SousSecteurActivite } from "../../Domaine/Simulateur/SousSecteurs.ts";
 import { Activite } from "../../Domaine/Simulateur/Activite.ts";
 
 export const passeEtapeEnCochant = async <
-  T extends
+  NomChamp extends
     | DesignationOperateurServicesEssentiels
     | Activite
     | AppartenancePaysUnionEuropeenne
@@ -27,7 +27,7 @@ export const passeEtapeEnCochant = async <
     | TypeStructure,
 >(
   canvas: CanvasObject,
-  champsACliquer: [NomsChampsSimulateur, T][],
+  champsACliquer: [NomsChampsSimulateur, NomChamp][],
   suivantActiveApres: number = 0,
 ) => {
   const boutonSuivant = await canvas.findByRole("button", {
@@ -39,7 +39,9 @@ export const passeEtapeEnCochant = async <
       expect(boutonSuivant).not.toBeEnabled();
     }
     await userEvent.click(
-      await canvas.findByText((libelles[champ] as Record<T, string>)[valeur]),
+      await canvas.findByText(
+        (libelles[champ] as Record<NomChamp, string>)[valeur],
+      ),
     );
   }
   expect(boutonSuivant).toBeEnabled();

@@ -49,7 +49,7 @@ const recupereLibelleReponseOSE = (
 export const transformeReponsesDesigneOSEPourSelect: TransformeRecordToSelect<DesignationOperateurServicesEssentiels> =
   genereTransformateurValeursVersOptions(
     recupereLibelleReponseOSE,
-    "designeOSE",
+    "designeOperateurServicesEssentiels",
   );
 
 const getPaysUnionEuropeenneElement = (
