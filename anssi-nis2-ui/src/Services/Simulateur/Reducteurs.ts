@@ -8,11 +8,11 @@ import { fieldHandlers } from "./gestionnaires.ts";
 import {
   fabriqueSecteurContientLeSousSecteur,
   LibellesSousSecteurs,
-  TValeursSecteursAvecSousSecteurs,
+  SecteursAvecSousSecteurs,
+  SousSecteurActivite,
 } from "../../Domaine/Simulateur/SousSecteurs.ts";
-import { TValeursSousSecteursActivites } from "../../Domaine/Simulateur/ValeursCles.ts";
 import { transformateurSousSecteurActivite } from "./Transformateurs.ts";
-import { entreesLibellesSousSecteurs } from "../../Domaine/References/LibellesSousSecteursActivite.ts";
+import { entreesLibellesSousSecteurs } from "../../References/LibellesSousSecteursActivite.ts";
 import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
 import { BoutonsNavigation } from "./Props/boutonsNavigation.ts";
 
@@ -20,7 +20,7 @@ const generateNewStateFrom = (
   state: DonneesFormulaireSimulateur,
   fieldName: NomsChampsSimulateur,
   newFieldValue: string[],
-) => ({ ...state, [fieldName]: newFieldValue });
+) => new DonneesFormulaireSimulateur({ ...state, [fieldName]: newFieldValue });
 export const reducerFormData: Reducer<
   DonneesFormulaireSimulateur,
   SimulateurDonneesFormulaireActions
@@ -66,7 +66,7 @@ export const changeInfobulleOuverte: Reducer<
 };
 const reducteurCleValeurVersObjet = (
   libellesSousSecteurDuSecteur: LibellesSousSecteurs,
-  [sousSecteur, libelle]: [TValeursSousSecteursActivites, string],
+  [sousSecteur, libelle]: [SousSecteurActivite, string],
 ) => ({
   ...libellesSousSecteurDuSecteur,
   [sousSecteur]: libelle,
@@ -78,11 +78,11 @@ export const reducteurSecteursVersOptions =
   ) =>
   (
     secteursAvecOptionsSousSecteurs: [
-      TValeursSecteursAvecSousSecteurs,
+      SecteursAvecSousSecteurs,
       OptionsChampSimulateur,
     ][],
-    secteur: TValeursSecteursAvecSousSecteurs,
-  ): [TValeursSecteursAvecSousSecteurs, OptionsChampSimulateur][] => {
+    secteur: SecteursAvecSousSecteurs,
+  ): [SecteursAvecSousSecteurs, OptionsChampSimulateur][] => {
     const sousSecteurActivite = transformateurSousSecteurActivite(
       entreesLibellesSousSecteurs
         .filter(fabriqueSecteurContientLeSousSecteur(secteur))

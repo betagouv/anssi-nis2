@@ -2,15 +2,15 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { EtapeTypeStructure } from "../../../Components/Simulateur";
+import { EtapeTypeStructure } from "../../../Components/Simulateur/Etapes";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { ValeursTypeStructure } from "../../../Domaine/Simulateur/ValeursCles.ts";
-import { libellesTypesStructure } from "../../../Domaine/References/Libelles.ts";
+import { TypeStructure } from "../../../Domaine/Simulateur/ValeursChampsSimulateur.ts";
+import { libellesTypesStructure } from "../../../References/Libelles.ts";
 
-class ParametresDonneesTypeStructure extends ParametresDonneesSpecifiqueField<ValeursTypeStructure> {
+class ParametresDonneesTypeStructure extends ParametresDonneesSpecifiqueField<TypeStructure> {
   protected construitDonnees<ValeursTypeStructure>(
     valeurs: ValeursTypeStructure[],
   ): DonneesFormulaireSimulateur {
@@ -34,9 +34,7 @@ const meta: Meta<typeof EtapeTypeStructure> = {
 export default meta;
 type Story = StoryObj<typeof EtapeTypeStructure>;
 
-const creeActionPropagationFormulaireActivite = (
-  newValue: ValeursTypeStructure,
-) => {
+const creeActionPropagationFormulaireActivite = (newValue: TypeStructure) => {
   const actionTypique = {
     type: "checkSingle",
     name: "typeStructure",
@@ -51,7 +49,7 @@ export const CliqueSurLesOptions: Story = {
 
     const optionsATester: {
       libelle: string;
-      newValue: ValeursTypeStructure;
+      newValue: TypeStructure;
     }[] = [
       {
         libelle: libellesTypesStructure["publique"],

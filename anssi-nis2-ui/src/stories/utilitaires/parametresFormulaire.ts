@@ -26,10 +26,9 @@ export abstract class ParametresDonneesSpecifiqueField<
     fieldName: TypeField,
     listeValeurs: TypeValeurs[],
   ): DonneesFormulaireSimulateur {
-    return {
-      ...donneesFormulaireSimulateurVide,
+    return new DonneesFormulaireSimulateur({
       [fieldName as string]: listeValeurs,
-    };
+    });
   }
 }
 

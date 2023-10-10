@@ -7,7 +7,7 @@ import {
 } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { AppContext } from "../../AppContext.tsx";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
-import { etatEtapesInitial } from "./EtapesQuestionnaire.ts";
+import { etatEtapesInitial } from "./Etapes/EtapesQuestionnaire.ts";
 import { EtatEtapes } from "../../Services/Simulateur/EtatEtapes.ts";
 import { SimulateurEtapeSwitcherProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 

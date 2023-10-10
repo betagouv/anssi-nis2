@@ -3,19 +3,20 @@ import {
   NomsChampsSimulateur,
 } from "../DonneesFormulaire.ts";
 import {
+  SecteursAvecSousSecteurs,
+  SecteursSansSousSecteur,
   sousSecteurAppartientASecteur,
-  TValeursSecteursAvecSousSecteurs,
+  SousSecteurActivite,
   ValeursSecteursAvecSousSecteurs,
 } from "../SousSecteurs.ts";
+import { ValeurCleSectorielle } from "../ValeursChampsSimulateur.ts";
 import {
-  TValeursActivites,
-  TValeursSecteursActivites,
-  TValeursSecteursSansSousSecteur,
-  TValeursSectorielles,
-  TValeursSousSecteursActivites,
-} from "../ValeursCles.ts";
-import { Validateur, ValidationReponses } from "../Workflows/validateursChamps";
+  Validateur,
+  ValidationReponses,
+} from "../Operations/validateursChamps";
 import { activitesParSecteurEtSousSecteur } from "../ActivitesParSecteurEtSousSecteur.ts";
+import { SecteurActivite } from "../SecteursActivite";
+import { Activite } from "../Activite.ts";
 
 export const et: (...validateurs: Array<Validateur>) => Validateur = (
   ...validateurs
@@ -41,17 +42,15 @@ export const auMoinsUn = (nomChamp: NomsChampsSimulateur) =>
 export const auMoinsUnSousSecteurParSecteur: Validateur = (
   donneesFormulaireSimulateur,
 ) => {
-  const valeursSecteur: TValeursSecteursActivites[] =
-    donneesFormulaireSimulateur[
-      "secteurActivite"
-    ] as TValeursSecteursActivites[];
+  const valeursSecteur: SecteurActivite[] =
+    donneesFormulaireSimulateur.secteurActivite as SecteurActivite[];
   const validateursParGroupe = valeursSecteur.map((valeur) =>
-    sousSecteurAppartientASecteur(valeur as TValeursSecteursAvecSousSecteurs),
+    sousSecteurAppartientASecteur(valeur as SecteursAvecSousSecteurs),
   );
   const validateur = et(
     ...validateursParGroupe,
     auMoinsN(
-      donneesFormulaireSimulateur["secteurActivite"].length,
+      donneesFormulaireSimulateur.secteurActivite.length,
       "sousSecteurActivite",
     ),
   );
@@ -59,8 +58,8 @@ export const auMoinsUnSousSecteurParSecteur: Validateur = (
 };
 
 function activiteEstDansSecteur(
-  activites: TValeursActivites[],
-  secteurActivite: TValeursSectorielles,
+  activites: Activite[],
+  secteurActivite: ValeurCleSectorielle,
 ) {
   return activites.some((activite) =>
     activitesParSecteurEtSousSecteur[secteurActivite].includes(activite),
@@ -74,15 +73,14 @@ export const auMoinsUneActiviteParValeurSectorielle: Validateur = (
 ) => {
   const secteursActivite = donneesFormulaireSimulateur.secteurActivite.filter(
     estUnSecteurSansSousSecteur,
-  ) as TValeursSecteursSansSousSecteur[];
+  ) as SecteursSansSousSecteur[];
   const sousSecteursActivite =
-    donneesFormulaireSimulateur.sousSecteurActivite as TValeursSousSecteursActivites[];
-  const secteursEtSousSecteurs: TValeursSectorielles[] = [
+    donneesFormulaireSimulateur.sousSecteurActivite as SousSecteurActivite[];
+  const secteursEtSousSecteurs: ValeurCleSectorielle[] = [
     ...secteursActivite,
     ...sousSecteursActivite,
   ];
-  const activites =
-    donneesFormulaireSimulateur.activites as TValeursActivites[];
+  const activites = donneesFormulaireSimulateur.activites as Activite[];
   const nombreDeValeursEstCoherent =
     donneesFormulaireSimulateur.activites.length ===
     secteursEtSousSecteurs.length;

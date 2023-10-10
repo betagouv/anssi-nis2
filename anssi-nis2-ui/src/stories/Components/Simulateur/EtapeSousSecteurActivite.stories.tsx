@@ -2,17 +2,15 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { EtapeSousSecteursActivite } from "../../../Components/Simulateur";
+import { EtapeSousSecteursActivite } from "../../../Components/Simulateur/Etapes";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import {
-  DonneesFormulaireSimulateur,
-  donneesFormulaireSimulateurVide,
-} from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { TValeursSousSecteurEnergie } from "../../../Domaine/Simulateur/ValeursCles.ts";
+import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 
-class ParametresDonneesSousSecteurActivite extends ParametresDonneesSpecifiqueField<TValeursSousSecteurEnergie> {
+import { SousSecteurEnergie } from "../../../Domaine/Simulateur/SousSecteurs.ts";
+
+class ParametresDonneesSousSecteurActivite extends ParametresDonneesSpecifiqueField<SousSecteurEnergie> {
   protected construitDonnees<ValeursSecteurActivite>(
     valeurs: ValeursSecteurActivite[],
   ): DonneesFormulaireSimulateur {
@@ -28,11 +26,10 @@ const donneesFormulaireOptions: CollectionParametresDonneesSousSecteurActivites 
 const meta: Meta<typeof EtapeSousSecteursActivite> = {
   component: EtapeSousSecteursActivite,
   args: {
-    donneesFormulaire: {
-      ...donneesFormulaireSimulateurVide,
+    donneesFormulaire: new DonneesFormulaireSimulateur({
       secteurActivite: ["energie"],
       sousSecteurActivite: ["electricite"],
-    },
+    }),
   },
   argTypes: {
     propageActionSimulateur: { action: true },
@@ -44,7 +41,7 @@ export default meta;
 type Story = StoryObj<typeof EtapeSousSecteursActivite>;
 
 const creeActionPropagationFormulaireActivite = (
-  newValue: TValeursSousSecteurEnergie,
+  newValue: SousSecteurEnergie,
 ) => {
   const actionTypique = {
     type: "checkMulti",
@@ -53,14 +50,14 @@ const creeActionPropagationFormulaireActivite = (
   return { ...actionTypique, newValue: newValue };
 };
 
-export const SousSecteurEnergie: Story = {
+export const SelectionneSousSecteurEnergie: Story = {
   play: async ({ args, canvasElement, step }) => {
     const canvas = within(canvasElement);
     const { propageActionSimulateur } = args;
 
     const optionsATester: {
       libelle: string;
-      newValue: TValeursSousSecteurEnergie;
+      newValue: SousSecteurEnergie;
     }[] = [
       {
         libelle: "Électricité",
@@ -85,11 +82,10 @@ export const SousSecteurEnergie: Story = {
 
 export const MixSecteursEtSousSecteurs: Story = {
   args: {
-    donneesFormulaire: {
-      ...donneesFormulaireSimulateurVide,
+    donneesFormulaire: new DonneesFormulaireSimulateur({
       secteurActivite: ["espace", "energie", "transports"],
       sousSecteurActivite: ["electricite", "hydrogene"],
-    },
+    }),
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { EtapeLocalisation } from "../../../Components/Simulateur";
+import { EtapeLocalisation } from "../../../Components/Simulateur/Etapes";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { donneesFormulaireSimulateurVide } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { ValeursClePaysUnionEuropeenne } from "../../../Domaine/Simulateur/ValeursCles.ts";
-import { libellesPaysUnionEuropeenneLocalisation } from "../../../Domaine/References/Libelles.ts";
+import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { AppartenancePaysUnionEuropeenne } from "../../../Domaine/Simulateur/ValeursChampsSimulateur.ts";
+import { libellesPaysUnionEuropeenneLocalisation } from "../../../References/Libelles.ts";
 
-class ParametresDonneesEtatMembre extends ParametresDonneesSpecifiqueField<ValeursClePaysUnionEuropeenne> {
+class ParametresDonneesEtatMembre extends ParametresDonneesSpecifiqueField<AppartenancePaysUnionEuropeenne> {
   protected construitDonnees<ValeursClePaysUnionEuropeenne>(
     listeEtatsMembres: ValeursClePaysUnionEuropeenne[],
   ) {
@@ -86,10 +86,9 @@ export const CliqueSurLesOptions: Story = {
 
 export const CocheFrance: Story = {
   args: {
-    donneesFormulaire: {
-      ...donneesFormulaireSimulateurVide,
+    donneesFormulaire: new DonneesFormulaireSimulateur({
       etatMembre: ["france"],
-    },
+    }),
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
@@ -109,10 +108,9 @@ export const CocheFrance: Story = {
 
 export const CocheHorsUE: Story = {
   args: {
-    donneesFormulaire: {
-      ...donneesFormulaireSimulateurVide,
+    donneesFormulaire: new DonneesFormulaireSimulateur({
       etatMembre: ["horsue"],
-    },
+    }),
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);

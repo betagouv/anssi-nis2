@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { EtapeOSE } from "../../../Components/Simulateur";
+import { EtapeOSE } from "../../../Components/Simulateur/Etapes";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { libellesDesigneOSE } from "../../../Domaine/References/Libelles.ts";
+import { libellesDesigneOSE } from "../../../References/Libelles.ts";
 
 const meta: Meta<typeof EtapeOSE> = {
   component: EtapeOSE,
@@ -17,7 +17,7 @@ type Story = StoryObj<typeof EtapeOSE>;
 const creeActionPropagationFormulaireSimu = (newValue: string) => {
   const actionTypique = {
     type: "checkSingle",
-    name: "designeOSE",
+    name: "designeOperateurServicesEssentiels",
   };
   return {
     ...actionTypique,

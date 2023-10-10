@@ -7,28 +7,36 @@ import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
 
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
 import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
+import { ValeurChampSimulateur } from "../../Domaine/Simulateur/ValeursChampsSimulateur.ts";
 
 export type GestionValeursFormulaire = (
-  value: string,
+  value: ValeurChampSimulateur,
   donneesFormulaire: DonneesFormulaireSimulateur,
-) => string[];
+) => ValeurChampSimulateur[];
 
-export const gestionValeursSimples = (value: string) => [value];
+export const gestionValeursSimples = (value: ValeurChampSimulateur) => [value];
 
-export const genereGestionValeursMultiples =
-  (name: NomsChampsSimulateur) =>
-  (value: string, donneesFormulaire: DonneesFormulaireSimulateur) => {
-    if (donneesFormulaire[name].indexOf(value) === -1) {
-      return [...donneesFormulaire[name], value];
+export const genereGestionValeursMultiples = (name: NomsChampsSimulateur) => {
+  function gestionValeursMultiples(
+    value: ValeurChampSimulateur,
+    donneesFormulaire: DonneesFormulaireSimulateur,
+  ) {
+    const valeursChampFormulaire: ValeurChampSimulateur[] =
+      donneesFormulaire[name];
+    if (valeursChampFormulaire.indexOf(value) === -1) {
+      return [...valeursChampFormulaire, value];
     }
-    return donneesFormulaire[name].filter((content) => content !== value);
-  };
+    return valeursChampFormulaire.filter((content) => content !== value);
+  }
+
+  return gestionValeursMultiples;
+};
 
 export const fieldHandlers: Record<
   NomsChampsSimulateur,
   GestionValeursFormulaire
 > = {
-  designeOSE: gestionValeursSimples,
+  designeOperateurServicesEssentiels: gestionValeursSimples,
   etatMembre: genereGestionValeursMultiples("etatMembre"),
   secteurActivite: genereGestionValeursMultiples("secteurActivite"),
   sousSecteurActivite: genereGestionValeursMultiples("sousSecteurActivite"),
@@ -73,6 +81,6 @@ export const fabriqueGestionChangementSimple =
     propageActionSimulateur({
       type: "checkSingle",
       name: evt.target.name as NomsChampsSimulateur,
-      newValue: evt.target.value,
+      newValue: evt.target.value as ValeurChampSimulateur,
     });
   };

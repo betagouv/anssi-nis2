@@ -8,6 +8,7 @@ import { genereDecorateurPourContexte } from "../../utilitaires/generateursDecor
 import { mockSendFormData } from "../../utilitaires/mocks.ts";
 
 import { Contexte } from "../../../Services/contexte";
+import { contenusResultatEligible } from "../../../References/contenusResultatEligibilite.ts";
 
 const meta: Meta<typeof ChargeurEtape> = {
   component: ChargeurEtape,
@@ -32,7 +33,9 @@ export const DerniereEtapeEstResultat: Story = {
 
     const canvas = within(canvasElement);
 
-    await passeEtapeEnCochant(canvas, [["designeOSE", "oui"]]);
+    await passeEtapeEnCochant(canvas, [
+      ["designeOperateurServicesEssentiels", "oui"],
+    ]);
     await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
     await passeEtapeEnCochant(canvas, [["typeStructure", "publique"]]);
 
@@ -48,15 +51,13 @@ export const DerniereEtapeEstResultat: Story = {
       ],
     ]);
 
-    await canvas.findByText(
-      "La directive s'appliquerait à votre entité au vu des éléments saisis",
-    );
+    await canvas.findByText(contenusResultatEligible.titre);
     await expect(mockSendFormData).toHaveBeenCalledTimes(1);
     await expect(mockSendFormData).toHaveBeenCalledWith({
       activites: [
         "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
       ],
-      designeOSE: ["oui"],
+      designeOperateurServicesEssentiels: ["oui"],
       etatMembre: ["france"],
       secteurActivite: ["espace"],
       sousSecteurActivite: [],
@@ -76,7 +77,9 @@ export const EtapeSousActiviteConditionnelle: Story = {
     const canvas = within(canvasElement);
 
     step("Va jusqu'à l'étape Secteurs d'activité", async () => {
-      await passeEtapeEnCochant(canvas, [["designeOSE", "oui"]]);
+      await passeEtapeEnCochant(canvas, [
+        ["designeOperateurServicesEssentiels", "oui"],
+      ]);
       await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
       await passeEtapeEnCochant(canvas, [["typeStructure", "publique"]]);
       await passeEtapeEnCochant(canvas, [
@@ -100,16 +103,14 @@ export const EtapeSousActiviteConditionnelle: Story = {
       ["activites", "entrepriseElectriciteRemplissantFonctionFourniture"],
       ["activites", "gestionnaireReseauDistribution"],
     ]);
-    await canvas.findByText(
-      "La directive s'appliquerait à votre entité au vu des éléments saisis",
-    );
+    await canvas.findByText(contenusResultatEligible.titre);
     await expect(mockSendFormData).toHaveBeenCalledTimes(1);
     await expect(mockSendFormData).toHaveBeenCalledWith({
       activites: [
         "entrepriseElectriciteRemplissantFonctionFourniture",
         "gestionnaireReseauDistribution",
       ],
-      designeOSE: ["oui"],
+      designeOperateurServicesEssentiels: ["oui"],
       etatMembre: ["france"],
       secteurActivite: ["energie"],
       sousSecteurActivite: ["electricite", "gaz"],

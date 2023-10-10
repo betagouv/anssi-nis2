@@ -2,6 +2,7 @@ node_modules
 /.idea/
 /.vscode/
 /pgdata/
-/anssi-nis2-ui/storybook-static/
 dist
 .env
+/anssi-nis2-ui/storybook-static/
+/anssi-nis2-ui/coverage/

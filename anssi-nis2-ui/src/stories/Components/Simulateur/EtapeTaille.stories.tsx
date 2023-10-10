@@ -2,17 +2,17 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { EtapeTaille } from "../../../Components/Simulateur";
+import { EtapeTaille } from "../../../Components/Simulateur/Etapes";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import {
-  ValeursTrancheCA,
-  ValeursTrancheNombreEmployes,
-} from "../../../Domaine/Simulateur/ValeursCles.ts";
+  TrancheChiffreAffaire,
+  TrancheNombreEmployes,
+} from "../../../Domaine/Simulateur/ValeursChampsSimulateur.ts";
 
-class ParametresDonneesTrancheNombreEmployes extends ParametresDonneesSpecifiqueField<ValeursTrancheNombreEmployes> {
+class ParametresDonneesTrancheNombreEmployes extends ParametresDonneesSpecifiqueField<TrancheNombreEmployes> {
   protected construitDonnees<ValeursTrancheNombreEmployes>(
     valeurs: ValeursTrancheNombreEmployes[],
   ): DonneesFormulaireSimulateur {
@@ -37,7 +37,7 @@ export default meta;
 type Story = StoryObj<typeof EtapeTaille>;
 
 const creeActionPropagationFormulaireTrancheNombreEmployes = (
-  newValue: ValeursTrancheNombreEmployes,
+  newValue: TrancheNombreEmployes,
 ) => {
   const actionTypique = {
     type: "checkSingle",
@@ -46,7 +46,7 @@ const creeActionPropagationFormulaireTrancheNombreEmployes = (
   return { ...actionTypique, newValue: newValue };
 };
 const creeActionPropagationFormulaireTrancheCA = (
-  newValue: ValeursTrancheCA,
+  newValue: TrancheChiffreAffaire,
 ) => {
   const actionTypique = {
     type: "checkSingle",
@@ -63,7 +63,7 @@ export const CliqueSurLesOptions: Story = {
     step("Nombre d'employés", async () => {
       const optionsATester: {
         libelle: string;
-        newValue: ValeursTrancheNombreEmployes;
+        newValue: TrancheNombreEmployes;
       }[] = [
         {
           libelle: "1 à 49",
@@ -88,7 +88,7 @@ export const CliqueSurLesOptions: Story = {
     step("Chiffre d'affaire", async () => {
       const optionsATester: {
         libelle: string;
-        newValue: ValeursTrancheNombreEmployes;
+        newValue: TrancheNombreEmployes;
       }[] = [
         {
           libelle: "10 à 50 millions €, ou bilan annuel de 10 à 43 millions €",
