@@ -4,19 +4,19 @@ import {
 } from "../DonneesFormulaire.ts";
 import {
   SecteursAvecSousSecteurs,
-  SecteursSansSousSecteur,
   sousSecteurAppartientASecteur,
-  SousSecteurActivite,
-  ValeursSecteursAvecSousSecteurs,
 } from "../SousSecteurs.ts";
 import { ValeurCleSectorielle } from "../ValeursChampsSimulateur.ts";
 import {
   Validateur,
   ValidationReponses,
 } from "../Operations/validateursChamps";
-import { activitesParSecteurEtSousSecteur } from "../ActivitesParSecteurEtSousSecteur.ts";
 import { SecteurActivite } from "../SecteursActivite";
 import { Activite } from "../Activite.ts";
+import {
+  activiteEstDansSecteur,
+  filtreSecteursSansSousSecteurs,
+} from "../Operations/operationsActivite.ts";
 
 export const et: (...validateurs: Array<Validateur>) => Validateur = (
   ...validateurs
@@ -57,40 +57,31 @@ export const auMoinsUnSousSecteurParSecteur: Validateur = (
   return validateur(donneesFormulaireSimulateur);
 };
 
-function activiteEstDansSecteur(
+const auMoinsUneActiviteEstDansSecteur = (
   activites: Activite[],
   secteurActivite: ValeurCleSectorielle,
-) {
+) => {
+  console.log("Activités dans  secteur:", activites);
+  console.log("\t secteur:", secteurActivite);
   return activites.some((activite) =>
-    activitesParSecteurEtSousSecteur[secteurActivite].includes(activite),
+    activiteEstDansSecteur(activite, secteurActivite),
   );
-}
+};
 
-const estUnSecteurSansSousSecteur = (secteur: string) =>
-  !(ValeursSecteursAvecSousSecteurs as readonly string[]).includes(secteur);
 export const auMoinsUneActiviteParValeurSectorielle: Validateur = (
   donneesFormulaireSimulateur,
 ) => {
-  const secteursActivite = donneesFormulaireSimulateur.secteurActivite.filter(
-    estUnSecteurSansSousSecteur,
-  ) as SecteursSansSousSecteur[];
-  const sousSecteursActivite =
-    donneesFormulaireSimulateur.sousSecteurActivite as SousSecteurActivite[];
   const secteursEtSousSecteurs: ValeurCleSectorielle[] = [
-    ...secteursActivite,
-    ...sousSecteursActivite,
+    ...filtreSecteursSansSousSecteurs(
+      donneesFormulaireSimulateur.secteurActivite,
+    ),
+    ...donneesFormulaireSimulateur.sousSecteurActivite,
   ];
-  const activites = donneesFormulaireSimulateur.activites as Activite[];
-  const nombreDeValeursEstCoherent =
-    donneesFormulaireSimulateur.activites.length ===
-    secteursEtSousSecteurs.length;
-  const tousLesSecteursEtSousSecteurOntUneActiviteAssociee =
-    secteursEtSousSecteurs.every((secteurActivite) =>
-      activiteEstDansSecteur(activites, secteurActivite),
-    );
-  return (
-    nombreDeValeursEstCoherent &&
-    tousLesSecteursEtSousSecteurOntUneActiviteAssociee
+  return secteursEtSousSecteurs.every((secteurActivite) =>
+    auMoinsUneActiviteEstDansSecteur(
+      donneesFormulaireSimulateur.activites,
+      secteurActivite,
+    ),
   );
 };
 
