@@ -132,7 +132,7 @@ describe("validateurs", () => {
       expect(result).toBeFalsy();
     });
 
-    it("ne doit pas valider 1 activités cochées pour 1 secteurs et 2 sous-secteur", () => {
+    it("ne doit pas valider 1 activité cochée pour 1 secteurs et 2 sous-secteur", () => {
       const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
         secteurActivite: ["energie"],
         sousSecteurActivite: ["electricite", "hydrogene"],
@@ -142,6 +142,17 @@ describe("validateurs", () => {
         donneesFormulaireSimulateur,
       );
       expect(result).toBeFalsy();
+    });
+
+    it("doit valider 2 activités cochées pour 1 secteur", () => {
+      const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
+        secteurActivite: ["sante"],
+        activites: ["prestataireSoinsSante", "laboratoireReferenceUE"],
+      });
+      const result = auMoinsUneActiviteParValeurSectorielle(
+        donneesFormulaireSimulateur,
+      );
+      expect(result).toBeTruthy();
     });
   });
 });
