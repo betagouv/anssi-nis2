@@ -61,8 +61,6 @@ const auMoinsUneActiviteEstDansSecteur = (
   activites: Activite[],
   secteurActivite: ValeurCleSectorielle,
 ) => {
-  console.log("Activités dans  secteur:", activites);
-  console.log("\t secteur:", secteurActivite);
   return activites.some((activite) =>
     activiteEstDansSecteur(activite, secteurActivite),
   );
