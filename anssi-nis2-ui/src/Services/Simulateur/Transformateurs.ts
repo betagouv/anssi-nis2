@@ -35,7 +35,7 @@ import { SecteurActivite } from "../../Domaine/Simulateur/SecteursActivite";
 import {
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-} from "../../Domaine/Simulateur/SousSecteurs.ts";
+} from "../../Domaine/Simulateur/SousSecteurs";
 import { Activite } from "../../Domaine/Simulateur/Activite.ts";
 import { sousSecteursParSecteur } from "../../Domaine/Simulateur/ValeursSousSecteursActivites.ts";
 

@@ -1,8 +1,5 @@
 import { DonneesFormulaireSimulateur } from "../DonneesFormulaire.ts";
-import {
-  SecteursAvecSousSecteurs,
-  SousSecteurActivite,
-} from "../SousSecteurs.ts";
+import { SecteursAvecSousSecteurs, SousSecteurActivite } from "../SousSecteurs";
 import {
   groupementsSecteursParSousSecteurs,
   sousSecteursParSecteur,

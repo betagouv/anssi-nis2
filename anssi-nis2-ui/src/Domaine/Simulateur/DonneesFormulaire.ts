@@ -8,7 +8,7 @@ import {
 } from "./ValeursChampsSimulateur.ts";
 import { Activite } from "./Activite.ts";
 import { SecteurActivite } from "./SecteursActivite";
-import { SousSecteurActivite } from "./SousSecteurs.ts";
+import { SousSecteurActivite } from "./SousSecteurs";
 
 export type NomsChampsSimulateur =
   | "designeOperateurServicesEssentiels"

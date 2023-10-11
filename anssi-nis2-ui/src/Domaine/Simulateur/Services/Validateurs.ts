@@ -2,7 +2,7 @@ import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../DonneesFormulaire.ts";
-import { SecteursAvecSousSecteurs } from "../SousSecteurs.ts";
+import { SecteursAvecSousSecteurs } from "../SousSecteurs";
 import { ValeurCleSectorielle } from "../ValeursChampsSimulateur.ts";
 import {
   Validateur,

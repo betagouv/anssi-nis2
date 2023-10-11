@@ -8,7 +8,7 @@ import { OptionsChampSimulateur } from "../../../Services/Simulateur/Props/optio
 import {
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-} from "../../../Domaine/Simulateur/SousSecteurs.ts";
+} from "../../../Domaine/Simulateur/SousSecteurs";
 
 const EtapeSousSecteursActiviteCalculee = ({
   propageActionSimulateur,

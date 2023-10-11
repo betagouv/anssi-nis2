@@ -1,7 +1,7 @@
 import { ValeurCleSectorielle } from "../ValeursChampsSimulateur.ts";
 import { activitesParSecteurEtSousSecteur } from "../ActivitesParSecteurEtSousSecteur.ts";
 import { SecteurActivite } from "../SecteursActivite";
-import { SecteursSansSousSecteur } from "../SousSecteurs.ts";
+import { SecteursSansSousSecteur } from "../SousSecteurs";
 import { Activite } from "../Activite.ts";
 import { ValeursSecteursAvecSousSecteurs } from "../ValeursSousSecteursActivites.ts";
 

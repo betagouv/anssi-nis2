@@ -1,7 +1,4 @@
-import {
-  SecteursSansSousSecteur,
-  SousSecteurActivite,
-} from "./SousSecteurs.ts";
+import { SecteursSansSousSecteur, SousSecteurActivite } from "./SousSecteurs";
 import { SecteurActivite } from "./SecteursActivite";
 import { Activite } from "./Activite.ts";
 

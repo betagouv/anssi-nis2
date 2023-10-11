@@ -3,7 +3,7 @@ import {
   DescriptionSecteur,
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-} from "./SousSecteurs.ts";
+} from "./SousSecteurs";
 
 export const ValeursSecteursAvecSousSecteurs = [
   "energie",
