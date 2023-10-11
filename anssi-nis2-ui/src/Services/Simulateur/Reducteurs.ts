@@ -6,7 +6,6 @@ import {
 import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
 import { fieldHandlers } from "./gestionnaires.ts";
 import {
-  fabriqueSecteurContientLeSousSecteur,
   LibellesSousSecteurs,
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
@@ -15,6 +14,7 @@ import { transformateurSousSecteurActivite } from "./Transformateurs.ts";
 import { entreesLibellesSousSecteurs } from "../../References/LibellesSousSecteursActivite.ts";
 import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
 import { BoutonsNavigation } from "./Props/boutonsNavigation.ts";
+import { fabriqueSecteurContientLeSousSecteur } from "../../Domaine/Simulateur/Operations/operationsSecteurs.ts";
 
 const generateNewStateFrom = (
   state: DonneesFormulaireSimulateur,

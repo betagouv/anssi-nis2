@@ -35,9 +35,9 @@ import { SecteurActivite } from "../../Domaine/Simulateur/SecteursActivite";
 import {
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-  sousSecteursParSecteur,
 } from "../../Domaine/Simulateur/SousSecteurs.ts";
 import { Activite } from "../../Domaine/Simulateur/Activite.ts";
+import { sousSecteursParSecteur } from "../../Domaine/Simulateur/ValeursSousSecteursActivites.ts";
 
 const recupereLibelleReponseOSE = (
   value: string,

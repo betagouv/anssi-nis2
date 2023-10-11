@@ -69,6 +69,7 @@ export const contenusResultats: Record<
   ResultatEligibilite,
   ContenusResultatEligibilite
 > = {
-  Eligible: contenusResultatEligible,
+  EligiblePetiteEntreprise: contenusResultatEligible,
+  EligibleMoyenneGrandeEntreprise: contenusResultatEligible,
   NonEligible: contenusResultatNonEligible,
 };

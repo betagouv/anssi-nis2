@@ -8,7 +8,7 @@ import {
 
 describe(recupereContenusResultatEligibilite, () => {
   it("retourne les contenus pour éligible lorsque le résultat est éligible", () => {
-    const resultatEligibilite = ResultatEligibiliteEnum.Eligible;
+    const resultatEligibilite = ResultatEligibiliteEnum.EligiblePetitEntreprise;
     const contenusAttendus = contenusResultatEligible;
     const contenusObtenus =
       recupereContenusResultatEligibilite(resultatEligibilite);

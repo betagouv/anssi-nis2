@@ -1,13 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { DonneesFormulaireSimulateur } from "../../src/Domaine/Simulateur/DonneesFormulaire";
-import {
-  listeActivitesAutre,
-  listeActivitesSaufAutre,
-} from "../../src/Domaine/Simulateur/Activite";
+import { listeActivitesAutre } from "../../src/Domaine/Simulateur/Activite";
 import {
   eligibilite,
   ResultatEligibiliteEnum,
 } from "../../src/Domaine/Simulateur/resultatEligibilite";
+import { suiteTestsNonOSEPriveFrancePetit } from "./Eligibilite/NonOSEPriveFrancePetit";
+import { suiteTestsNonOSEPriveFranceMoyenneGrande } from "./Eligibilite/NonOSEPriveFranceMoyenneGrande";
 
 describe("Calcul d'éligibilité NIS 2", () => {
   const reponseDesigneOSE = new DonneesFormulaireSimulateur({
@@ -19,7 +18,7 @@ describe("Calcul d'éligibilité NIS 2", () => {
   describe.each([reponseDesigneOSE])("Designe OSE NIS 1", (reponses) => {
     it("est toujours Eligible", () => {
       expect(eligibilite(reponses)).toStrictEqual(
-        ResultatEligibiliteEnum.Eligible,
+        ResultatEligibiliteEnum.EligiblePetitEntreprise,
       );
     });
   });
@@ -49,42 +48,43 @@ describe("Calcul d'éligibilité NIS 2", () => {
           trancheCA: ["petit"],
           trancheNombreEmployes: ["petit"],
         });
-        describe.each([reponsesFrancePrivePetit])("Petit", (reponses) => {
-          const reponsesFrancePrivePetitInfraNum = reponses.avec({
-            secteurActivite: ["infrastructureNumerique"],
-          });
-          describe.each([reponsesFrancePrivePetitInfraNum])(
-            "Fournisseur Infrastructure Numérique",
-            (reponses) => {
-              describe(`est éligible`, () => {
-                it.each(listeActivitesSaufAutre)(
-                  `quand activité=%s)`,
-                  (activite) => {
-                    const donneesSimu = reponses.avec({
-                      activites: [activite],
-                    });
-                    expect(eligibilite(donneesSimu)).toStrictEqual(
-                      ResultatEligibiliteEnum.Eligible,
-                    );
-                  },
-                );
-              });
-              describe(`n'est pas éligible`, () => {
-                it.each(listeActivitesAutre)(
-                  `quand activité est %s`,
-                  (activite) => {
-                    const donneesSimu = reponses.avec({
-                      activites: [activite],
-                    });
-                    expect(eligibilite(donneesSimu)).toStrictEqual(
-                      ResultatEligibiliteEnum.NonEligible,
-                    );
-                  },
-                );
-              });
-            },
-          );
+        describe.each([reponsesFrancePrivePetit])(
+          "Petit",
+          suiteTestsNonOSEPriveFrancePetit,
+        );
+        const reponsesFrancePriveMoyen = [
+          reponses.avec({
+            trancheCA: ["moyen"],
+            trancheNombreEmployes: ["moyen"],
+          }),
+          reponses.avec({
+            trancheCA: ["petit"],
+            trancheNombreEmployes: ["moyen"],
+          }),
+          reponses.avec({
+            trancheCA: ["moyen"],
+            trancheNombreEmployes: ["petit"],
+          }),
+        ];
+        describe.each(reponsesFrancePriveMoyen)(
+          "Moyen CA$trancheCA Empl$trancheNombreEmployes",
+          suiteTestsNonOSEPriveFranceMoyenneGrande,
+        );
+        const grandeEntreprise = reponses.avec({
+          trancheCA: ["grand"],
+          trancheNombreEmployes: ["grand"],
         });
+        const reponsesFrancePriveGrand = [
+          grandeEntreprise,
+          grandeEntreprise.avec({ trancheCA: ["petit"] }),
+          grandeEntreprise.avec({ trancheCA: ["moyen"] }),
+          grandeEntreprise.avec({ trancheNombreEmployes: ["petit"] }),
+          grandeEntreprise.avec({ trancheNombreEmployes: ["moyen"] }),
+        ];
+        describe.each(reponsesFrancePriveGrand)(
+          "Intermediaire CA$trancheCA Empl$trancheNombreEmployes",
+          suiteTestsNonOSEPriveFranceMoyenneGrande,
+        );
       });
     });
   });

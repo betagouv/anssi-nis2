@@ -1,11 +1,9 @@
 import { ValeurCleSectorielle } from "../ValeursChampsSimulateur.ts";
 import { activitesParSecteurEtSousSecteur } from "../ActivitesParSecteurEtSousSecteur.ts";
 import { SecteurActivite } from "../SecteursActivite";
-import {
-  SecteursSansSousSecteur,
-  ValeursSecteursAvecSousSecteurs,
-} from "../SousSecteurs.ts";
+import { SecteursSansSousSecteur } from "../SousSecteurs.ts";
 import { Activite } from "../Activite.ts";
+import { ValeursSecteursAvecSousSecteurs } from "../ValeursSousSecteursActivites.ts";
 
 const estUnSecteurSansSousSecteur = (secteur: string) =>
   !(ValeursSecteursAvecSousSecteurs as readonly string[]).includes(secteur);
