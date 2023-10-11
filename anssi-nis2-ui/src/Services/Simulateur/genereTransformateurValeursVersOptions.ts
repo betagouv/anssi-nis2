@@ -1,7 +1,7 @@
 import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
 import { TransformeRecordToSelect } from "./Operations/optionChampSimulateur";
-import { GenerateurLibelle } from "./Operations/libelles.ts";
+import { GenerateurLibelle } from "./Operations/operationsLibelles";
 import { ValeurChampSimulateur } from "../../Domaine/Simulateur/ValeursChampsSimulateur.ts";
 
 export const genereTransformateurValeursVersOptions: <

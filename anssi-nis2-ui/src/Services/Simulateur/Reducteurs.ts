@@ -13,7 +13,7 @@ import {
 import { transformateurSousSecteurActivite } from "./Transformateurs.ts";
 import { entreesLibellesSousSecteurs } from "../../References/LibellesSousSecteursActivite.ts";
 import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
-import { BoutonsNavigation } from "./Props/boutonsNavigation.ts";
+import { BoutonsNavigation } from "./Props/boutonsNavigation.d.ts";
 import { fabriqueSecteurContientLeSousSecteur } from "../../Domaine/Simulateur/Operations/operationsSecteurs.ts";
 
 const generateNewStateFrom = (
@@ -21,6 +21,7 @@ const generateNewStateFrom = (
   fieldName: NomsChampsSimulateur,
   newFieldValue: string[],
 ) => new DonneesFormulaireSimulateur({ ...state, [fieldName]: newFieldValue });
+
 export const reducerFormData: Reducer<
   DonneesFormulaireSimulateur,
   SimulateurDonneesFormulaireActions
@@ -49,7 +50,7 @@ export class ActionsBoutonNavigation {
 export const reducerBoutons: Reducer<
   BoutonsNavigation,
   ActionsBoutonNavigation
-> = (state, { bouton, newHandler }) => {
+> = (state, { bouton, newHandler }: ActionsBoutonNavigation) => {
   if (newHandler === undefined) {
     return state;
   }

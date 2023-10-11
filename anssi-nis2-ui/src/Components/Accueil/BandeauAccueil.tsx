@@ -2,7 +2,7 @@ import FondHabillageAccueil from "../../assets/habillage-accueil-01.svg";
 import { fr } from "@codegouvfr/react-dsfr";
 import { CoolIllustration } from "../Echaffaudages/CoolIllustration.tsx";
 import styled from "@emotion/styled";
-import { DefaultComponent } from "../../Services/Props.ts";
+import { DefaultComponent } from "../../Services/Props.d.ts";
 
 const BandeauAccueilNis2 = styled.div`
   background: #f3f6fe url(${FondHabillageAccueil}) no-repeat bottom right;

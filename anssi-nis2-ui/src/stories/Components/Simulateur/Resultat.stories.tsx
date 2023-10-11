@@ -8,7 +8,7 @@ import {
   contenusResultatEligible,
   contenusResultatNonEligible,
 } from "../../../References/contenusResultatEligibilite.ts";
-import { ContenusResultatEligibilite } from "../../../Services/Simulateur/contenusResultatEligibilite";
+import { ContenusResultatEligibilite } from "../../../Services/Simulateur/Props/contenusResultatEligibilite";
 
 const meta: Meta<typeof SimulateurEtapeResult> = {
   component: SimulateurEtapeResult,

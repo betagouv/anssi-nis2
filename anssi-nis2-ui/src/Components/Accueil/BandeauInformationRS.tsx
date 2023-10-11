@@ -1,4 +1,4 @@
-import { Props } from "../../Services/Props.ts";
+import { Props } from "../../Services/Props.d.ts";
 import { createMakeAndWithStyles } from "tss-react";
 import { ColorTheme, useColors } from "@codegouvfr/react-dsfr/useColors";
 import ReseauxSociaux from "../ReseauxSociaux.tsx";

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { DefaultComponent, DefaultProps } from "../Services/Props.ts";
+import { DefaultComponent, DefaultProps } from "../Services/Props.d.ts";
 import { fr } from "@codegouvfr/react-dsfr";
 
 const Row = styled.div`

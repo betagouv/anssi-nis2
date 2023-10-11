@@ -30,7 +30,7 @@ import {
   OptionsChampSimulateur,
 } from "./Props/optionChampSimulateur";
 import { TransformeRecordToSelect } from "./Operations/optionChampSimulateur";
-import { GenerateurLibelle } from "./Operations/libelles.ts";
+import { GenerateurLibelle } from "./Operations/operationsLibelles";
 import { SecteurActivite } from "../../Domaine/Simulateur/SecteursActivite";
 import {
   SecteursAvecSousSecteurs,

@@ -8,7 +8,7 @@ import {
 import { libellesActivites } from "./LibellesActivites.ts";
 import { libellesSecteursActivite } from "./LibellesSecteursActivite.ts";
 import { libellesSousSecteursActivite } from "./LibellesSousSecteursActivite.ts";
-import { DictionnaireLibellesSimulateur } from "./DictionnaireLibellesSimulateur.ts";
+import { DictionnaireLibellesSimulateur } from "./dictionnaireLibellesSimulateur";
 
 export const libellesDesigneOSE: Record<
   DesignationOperateurServicesEssentiels,

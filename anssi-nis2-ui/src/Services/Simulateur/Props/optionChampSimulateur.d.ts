@@ -1,4 +1,4 @@
-import { NativeInputProps } from "../../Props.ts";
+import { NativeInputProps } from "../../Props";
 import { DescriptionActivite } from "../../../Domaine/Simulateur/DescriptionActivite.ts";
 
 export type OptionChampSimulateur = {

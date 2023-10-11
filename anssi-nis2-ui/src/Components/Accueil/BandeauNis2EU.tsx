@@ -1,5 +1,5 @@
 import { Button } from "@codegouvfr/react-dsfr/Button";
-import { DefaultComponent } from "../../Services/Props.ts";
+import { DefaultComponent } from "../../Services/Props.d.ts";
 import FondEuLogo from "../../assets/EU-logo.svg";
 import ObligationNotifier from "../../assets/obligation-notifier.svg";
 import ObligationMesuresSecurite from "../../assets/obligation-mesures-securite.svg";

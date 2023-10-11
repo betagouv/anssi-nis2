@@ -3,7 +3,7 @@ import MiseEnPage from "../MiseEnPage.tsx";
 import {
   DefaultComponentExtensible,
   DefaultProps,
-} from "../../Services/Props.ts";
+} from "../../Services/Props.d.ts";
 
 type PageEditoProps = {
   titre: string;
