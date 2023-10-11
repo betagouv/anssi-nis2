@@ -2,7 +2,7 @@ import FondHabillageAccueil from "../../assets/habillage-accueil-01.svg";
 import { fr } from "@codegouvfr/react-dsfr";
 import { CoolIllustration } from "../Echaffaudages/CoolIllustration.tsx";
 import styled from "@emotion/styled";
-import { DefaultComponent } from "../../Services/Props.d.ts";
+import { DefaultComponent } from "../../Services/Props";
 
 const BandeauAccueilNis2 = styled.div`
   background: #f3f6fe url(${FondHabillageAccueil}) no-repeat bottom right;
@@ -27,7 +27,7 @@ const BandeauAccueil: DefaultComponent = () => {
           <AppelAction className="fr-col">
             <div>
               <h1 className="fr-text-title--blue-france fr-mb-0">
-                MonPortailNIS2
+                MonEspaceNIS2
               </h1>
               <p className="fr-text--lead">
                 Accompagner les organisations dans la compréhension
