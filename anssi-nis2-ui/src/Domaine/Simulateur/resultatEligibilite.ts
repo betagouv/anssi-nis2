@@ -50,11 +50,8 @@ export const eligibilite: (
   secteurActivite,
   activites,
 }) => {
-  if (designeOperateurServicesEssentiels.includes("oui")) {
-    return ResultatEligibiliteEnum.EligiblePetiteEntreprise;
-  }
   if (
-    etatMembre.includes("france") &&
+    etatMembre[0] !== "horsue" &&
     typeStructure.includes("privee") &&
     estPetiteEntreprise(trancheNombreEmployes, trancheCA) &&
     secteurActivite.includes("infrastructureNumerique") &&
@@ -63,7 +60,7 @@ export const eligibilite: (
     return ResultatEligibiliteEnum.EligiblePetiteEntreprise;
 
   if (
-    etatMembre.includes("france") &&
+    etatMembre[0] !== "horsue" &&
     typeStructure.includes("privee") &&
     (estMoyenneEntreprise(trancheNombreEmployes, trancheCA) ||
       estGrandeEntreprise(trancheNombreEmployes, trancheCA)) &&
@@ -71,5 +68,18 @@ export const eligibilite: (
     estUneActiviteListee(activites)
   )
     return ResultatEligibiliteEnum.EligibleMoyenneGrandeEntreprise;
+  if (
+    designeOperateurServicesEssentiels.includes("oui") &&
+    estPetiteEntreprise(trancheNombreEmployes, trancheCA)
+  ) {
+    return ResultatEligibiliteEnum.EligiblePetiteEntreprise;
+  }
+  if (
+    designeOperateurServicesEssentiels.includes("oui") &&
+    (estMoyenneEntreprise(trancheNombreEmployes, trancheCA) ||
+      estGrandeEntreprise(trancheNombreEmployes, trancheCA))
+  ) {
+    return ResultatEligibiliteEnum.EligibleMoyenneGrandeEntreprise;
+  }
   return ResultatEligibiliteEnum.NonEligible;
 };
