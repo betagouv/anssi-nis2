@@ -3,4 +3,8 @@ export type ContenusResultatEligibilite = {
   classIcone: string;
   classeDivResultat: string;
   fichierPrecisionSurReponse: string;
+  afficheBlocs: {
+    etMaintenant: boolean;
+    enSavoirPlus: boolean;
+  };
 };

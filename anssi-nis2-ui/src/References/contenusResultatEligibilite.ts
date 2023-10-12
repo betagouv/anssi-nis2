@@ -6,6 +6,10 @@ export const contenusResultatEligible: ContenusResultatEligibilite = {
   classIcone: "fr-icon-check-line",
   titre: "La directive s'appliquerait à votre entité",
   fichierPrecisionSurReponse: "precisionsSurReponsePositive",
+  afficheBlocs: {
+    etMaintenant: true,
+    enSavoirPlus: true,
+  },
 };
 
 export const contenusResultatNonEligible: ContenusResultatEligibilite = {
@@ -13,6 +17,10 @@ export const contenusResultatNonEligible: ContenusResultatEligibilite = {
   classIcone: "fr-icon-close-line",
   titre: "La directive ne s'appliquerait pas à votre entité",
   fichierPrecisionSurReponse: "precisionsSurReponseNegative",
+  afficheBlocs: {
+    etMaintenant: false,
+    enSavoirPlus: false,
+  },
 };
 
 export const contenusResultats: Record<

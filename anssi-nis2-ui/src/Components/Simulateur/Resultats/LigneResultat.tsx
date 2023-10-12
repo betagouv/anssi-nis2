@@ -1,25 +1,27 @@
 import { RowContainer } from "../../RowContainer.tsx";
 import { CenteredContainer } from "../../CenteredContainer.tsx";
-import { SimulateurEtapeRenderedComponent } from "../../../Services/Simulateur/Props/component";
-import { eligibilite } from "../../../Domaine/Simulateur/resultatEligibilite.ts";
-import { SimulateurEtapeRenderedProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
-import { recupereContenusResultatEligibilite } from "../../../Services/Simulateur/recupereContenusResultatEligibilite.ts";
 import { Icon } from "@mui/material";
 import Markdown, { Components } from "react-markdown";
 import { useEffect, useState } from "react";
+import { ContenusResultatEligibilite } from "../../../Services/Simulateur/Props/contenusResultatEligibilite";
+import {
+  DefaultComponentExtensible,
+  DefaultProps,
+} from "../../../Services/Props";
 
 const decaleTitre4Niveaux: Partial<Components> = {
   h1: "h4",
   h2: "h5",
   h3: "h6",
 };
-export const LigneResultat: SimulateurEtapeRenderedComponent = ({
-  donneesFormulaire,
-}: SimulateurEtapeRenderedProps) => {
-  const statutEligibiliteNIS2 = eligibilite(donneesFormulaire);
-  const contenuResultat = recupereContenusResultatEligibilite(
-    statutEligibiliteNIS2,
-  );
+
+interface SimulateurResultatProps extends DefaultProps {
+  contenuResultat: ContenusResultatEligibilite;
+}
+
+export const LigneResultat: DefaultComponentExtensible<
+  SimulateurResultatProps
+> = ({ contenuResultat }: SimulateurResultatProps) => {
   const [contenuPrecistions, setContenuPrecisions] = useState("");
   useEffect(() => {
     fetch(`/public/contenus/${contenuResultat.fichierPrecisionSurReponse}.md`)

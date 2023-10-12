@@ -35,6 +35,16 @@ const verifieContenuResultatDansPage = (
   ).toContain(contenusResultat.classeDivResultat);
 };
 
+const archetypeDonneesFormulaire = new DonneesFormulaireSimulateur({
+  designeOperateurServicesEssentiels: ["non"],
+  etatMembre: ["france"],
+  typeStructure: ["privee"],
+  trancheCA: ["petit"],
+  trancheNombreEmployes: ["petit"],
+  secteurActivite: ["infrastructureNumerique"],
+  activites: ["fournisseurPointEchangeInternet"],
+});
+
 export const ResultatEligibleOSE: Story = {
   args: {
     donneesFormulaire: new DonneesFormulaireSimulateur({
@@ -48,16 +58,6 @@ export const ResultatEligibleOSE: Story = {
     ).toBeInTheDocument();
   },
 };
-
-const archetypeDonneesFormulaire = new DonneesFormulaireSimulateur({
-  designeOperateurServicesEssentiels: ["non"],
-  etatMembre: ["france"],
-  typeStructure: ["privee"],
-  trancheCA: ["petit"],
-  trancheNombreEmployes: ["petit"],
-  secteurActivite: ["infrastructureNumerique"],
-  activites: ["fournisseurPointEchangeInternet"],
-});
 export const ResultatEligiblePetiteEntreprise: Story = {
   args: {
     donneesFormulaire: archetypeDonneesFormulaire.avec({
@@ -73,6 +73,8 @@ export const ResultatEligiblePetiteEntreprise: Story = {
     const titrePrecisions = await canvas.findByText("Points d'attention");
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H4");
+
+    await canvas.findByText("Et maintenant ?");
   },
 };
 
