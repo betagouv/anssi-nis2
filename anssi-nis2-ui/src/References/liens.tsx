@@ -7,6 +7,7 @@ export const lienDirectiveEuropeenne: RegisteredLinkProps = {
     "du 14 décembre 2022",
   target: "_blank",
 };
+
 export const lienFaqAnssi: RegisteredLinkProps = {
   href: "https://www.ssi.gouv.fr/directive-nis-2/",
   title: "Foire Aux Questions à propos de NIS 2 sur le site de l'ANSSI",

@@ -112,6 +112,7 @@ export const ResultatEligibleGrandeEntreprise: Story = {
 
     await canvas.findByText("Et Maintenant ?");
     await canvas.findByText("En savoir plus");
+    await canvas.findByText("Pour bien débuter");
     await canvas.findByText(
       "Dans l’attente des exigences françaises pour votre organisation, " +
         "retrouvez sur le site de l’ANSSI l’ensemble des guides de bonnes " +

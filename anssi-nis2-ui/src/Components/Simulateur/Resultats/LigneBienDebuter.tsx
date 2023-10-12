@@ -21,18 +21,18 @@ const LigneBienDebuterCalculee: DefaultComponentExtensible<SimulateurResultatPro
           <h2 className="fr-text-action-high--blue-france fr-h1">
             Pour bien débuter
           </h2>
-          {contenuResultat.afficheBlocs.bienDebuterAvecPdf && (
+          {(contenuResultat.afficheBlocs.bienDebuterAvecPdf && (
             <BienDebuterAvecPdf />
-          )}
-          {!contenuResultat.afficheBlocs.bienDebuterAvecPdf && (
-            <BienDebuterSansPdf />
-          )}
-          <Button priority={"tertiary"} linkProps={lienTousLesGuides}>
-            Tous les guides ANSSI
-          </Button>
-          <Button priority={"tertiary"} linkProps={lienMesuresPrioritaires}>
-            Mesures prioritaires
-          </Button>
+          )) || <BienDebuterSansPdf />}
+
+          <div className="fr-btns-group fr-btns-group--inline">
+            <Button priority={"tertiary"} linkProps={lienTousLesGuides}>
+              Tous les guides ANSSI
+            </Button>
+            <Button priority={"tertiary"} linkProps={lienMesuresPrioritaires}>
+              Mesures prioritaires
+            </Button>
+          </div>
         </CenteredContainer>
       </RowContainer>
     );
