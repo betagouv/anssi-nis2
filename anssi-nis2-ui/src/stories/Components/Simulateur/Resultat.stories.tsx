@@ -65,6 +65,8 @@ export const ResultatEligibleOSE: Story = {
   args: {
     donneesFormulaire: new DonneesFormulaireSimulateur({
       designeOperateurServicesEssentiels: ["oui"],
+      trancheNombreEmployes: ["petit"],
+      trancheCA: ["petit"],
     }),
   },
   play: async ({ canvasElement }) => {
