@@ -3,21 +3,14 @@ import { CenteredContainer } from "../../General/CenteredContainer.tsx";
 import { Icon } from "@mui/material";
 import Markdown, { Components } from "react-markdown";
 import { useEffect, useState } from "react";
-import { ContenusResultatEligibilite } from "../../../Services/Simulateur/Props/contenusResultatEligibilite";
-import {
-  DefaultComponentExtensible,
-  DefaultProps,
-} from "../../../Services/Props";
+import { DefaultComponentExtensible } from "../../../Services/Props";
+import { SimulateurResultatProps } from "../../../Services/Simulateur/Props/simulateurResultatProps";
 
 const decaleTitre4Niveaux: Partial<Components> = {
   h1: "h4",
   h2: "h5",
   h3: "h6",
 };
-
-interface SimulateurResultatProps extends DefaultProps {
-  contenuResultat: ContenusResultatEligibilite;
-}
 
 export const LigneResultat: DefaultComponentExtensible<
   SimulateurResultatProps

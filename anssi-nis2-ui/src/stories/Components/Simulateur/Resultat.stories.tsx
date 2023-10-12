@@ -5,7 +5,8 @@ import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/Donnees
 import { within } from "@storybook/testing-library";
 
 import {
-  contenusResultatEligible,
+  contenusResultatEligibleGrandeEntreprise,
+  contenusResultatEligiblePetitEntreprise,
   contenusResultatNonEligible,
 } from "../../../References/contenusResultatEligibilite.ts";
 import { ContenusResultatEligibilite } from "../../../Services/Simulateur/Props/contenusResultatEligibilite";
@@ -53,7 +54,10 @@ export const ResultatEligibleOSE: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    verifieContenuResultatDansPage(canvasElement, contenusResultatEligible);
+    verifieContenuResultatDansPage(
+      canvasElement,
+      contenusResultatEligiblePetitEntreprise,
+    );
     expect(await canvas.findByText("Points d'attention")).toBeInTheDocument();
 
     await canvas.findByText("Et Maintenant ?");
@@ -69,7 +73,10 @@ export const ResultatEligiblePetiteEntreprise: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    verifieContenuResultatDansPage(canvasElement, contenusResultatEligible);
+    verifieContenuResultatDansPage(
+      canvasElement,
+      contenusResultatEligiblePetitEntreprise,
+    );
 
     const titrePrecisions = await canvas.findByText("Points d'attention");
     expect(titrePrecisions).toBeInTheDocument();
@@ -77,6 +84,11 @@ export const ResultatEligiblePetiteEntreprise: Story = {
 
     await canvas.findByText("Et Maintenant ?");
     await canvas.findByText("En savoir plus");
+    await canvas.findByText(
+      "Dans l’attente des exigences françaises pour votre organisation, " +
+        "retrouvez les guides essentiels de bonne pratique de l’ANSSI pour " +
+        "débuter dès à présent votre montée en maturité cyber.",
+    );
   },
 };
 export const ResultatEligibleGrandeEntreprise: Story = {
@@ -89,7 +101,10 @@ export const ResultatEligibleGrandeEntreprise: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    verifieContenuResultatDansPage(canvasElement, contenusResultatEligible);
+    verifieContenuResultatDansPage(
+      canvasElement,
+      contenusResultatEligibleGrandeEntreprise,
+    );
 
     const titrePrecisions = await canvas.findByText("Points d'attention");
     expect(titrePrecisions).toBeInTheDocument();
@@ -97,6 +112,11 @@ export const ResultatEligibleGrandeEntreprise: Story = {
 
     await canvas.findByText("Et Maintenant ?");
     await canvas.findByText("En savoir plus");
+    await canvas.findByText(
+      "Dans l’attente des exigences françaises pour votre organisation, " +
+        "retrouvez sur le site de l’ANSSI l’ensemble des guides de bonnes " +
+        "pratiques ainsi que les mesures cyber préventives prioritaires.",
+    );
   },
 };
 

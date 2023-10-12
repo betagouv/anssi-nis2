@@ -22,7 +22,7 @@ export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
       <LigneResterInformer />
       {contenuResultat.afficheBlocs.etMaintenant && <LigneEtMaintenant />}
       {contenuResultat.afficheBlocs.enSavoirPlus && <EnSavoirPlus />}
-      <LigneBienDebuter />
+      <LigneBienDebuter contenuResultat={contenuResultat} />
       <LigneReseauxSociaux />
     </>
   );
