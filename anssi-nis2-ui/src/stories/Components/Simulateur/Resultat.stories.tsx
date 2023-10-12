@@ -74,7 +74,7 @@ export const ResultatEligiblePetiteEntreprise: Story = {
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H4");
 
-    await canvas.findByText("Et maintenant ?");
+    await canvas.findByText("Et Maintenant ?");
   },
 };
 

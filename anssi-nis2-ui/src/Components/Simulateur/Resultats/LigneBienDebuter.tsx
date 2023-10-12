@@ -4,11 +4,9 @@ import { PdfCardContainer } from "../../PdfCardContainer.tsx";
 import PdfCard from "../../PdfCard.tsx";
 import ImageGuideTPEPME from "../../../assets/GuideTPE-PME.png";
 import ImageGuideHygieneCyber from "../../../assets/GuideHygieneCyber.png";
-import React from "react";
+import React, { memo } from "react";
 
-export const LigneBienDebuter = React.memo(LigneBienDebuterCalculee);
-
-function LigneBienDebuterCalculee() {
+const LigneBienDebuterCalculee = memo(function LigneBienDebuterCalculee() {
   return (
     <RowContainer>
       <CenteredContainer>
@@ -43,4 +41,6 @@ function LigneBienDebuterCalculee() {
       </CenteredContainer>
     </RowContainer>
   );
-}
+});
+
+export const LigneBienDebuter = React.memo(LigneBienDebuterCalculee);
