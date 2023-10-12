@@ -1,7 +1,7 @@
-import { RowContainer } from "../../RowContainer.tsx";
-import { CenteredContainer } from "../../CenteredContainer.tsx";
-import { PdfCardContainer } from "../../PdfCardContainer.tsx";
-import PdfCard from "../../PdfCard.tsx";
+import { RowContainer } from "../../General/RowContainer.tsx";
+import { CenteredContainer } from "../../General/CenteredContainer.tsx";
+import { PdfCardContainer } from "../../General/PdfCardContainer.tsx";
+import PdfCard from "../../General/PdfCard.tsx";
 import ImageGuideTPEPME from "../../../assets/GuideTPE-PME.png";
 import ImageGuideHygieneCyber from "../../../assets/GuideHygieneCyber.png";
 import React, { memo } from "react";

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { DefaultComponent, DefaultProps } from "../Services/Props";
+import { DefaultComponent, DefaultProps } from "../../Services/Props";
 import { RowContainer } from "./RowContainer.tsx";
 
 const BandeauBleuMarianneDiv = styled.div`

@@ -3,7 +3,7 @@ import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages
 import { Link } from "react-router-dom";
 import { DefaultComponent } from "../../Services/Props";
 import { UppercaseH2 } from "../Styled/UppercaseH2.tsx";
-import { BandeauBleuMarianne } from "../BandeauBleuMarianne.tsx";
+import { BandeauBleuMarianne } from "../General/BandeauBleuMarianne.tsx";
 import styled from "@emotion/styled";
 
 const Centered = styled(BandeauBleuMarianne)`

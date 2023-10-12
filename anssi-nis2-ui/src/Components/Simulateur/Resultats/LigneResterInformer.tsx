@@ -1,5 +1,5 @@
-import { RowContainer } from "../../RowContainer.tsx";
-import { CenteredContainer } from "../../CenteredContainer.tsx";
+import { RowContainer } from "../../General/RowContainer.tsx";
+import { CenteredContainer } from "../../General/CenteredContainer.tsx";
 import ResterInformee from "../../ResterInformee.tsx";
 
 export const LigneResterInformer = () => (

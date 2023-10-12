@@ -1,4 +1,4 @@
-import { DefaultComponent, DefaultProps } from "../Services/Props";
+import { DefaultComponent, DefaultProps } from "../../Services/Props";
 
 export const RowContainer: DefaultComponent = ({
   className,

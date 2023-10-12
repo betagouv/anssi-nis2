@@ -1,5 +1,5 @@
-import { RowContainer } from "../../RowContainer.tsx";
-import { CenteredContainer } from "../../CenteredContainer.tsx";
+import { RowContainer } from "../../General/RowContainer.tsx";
+import { CenteredContainer } from "../../General/CenteredContainer.tsx";
 
 export const LigneEtMaintenant = () => (
   <>
@@ -15,8 +15,8 @@ export const LigneEtMaintenant = () => (
         <div className="fr-nis2-en-cours-developpement">
           <p>
             Cet espace est actuellement en cours de développement et sera mis à
-            disposition au cours du <strong>premier semestre 2024</strong>. Nous vous tiendrons
-            informés de son déploiement.
+            disposition au cours du <strong>premier semestre 2024</strong>. Nous
+            vous tiendrons informés de son déploiement.
           </p>
         </div>
       </CenteredContainer>

@@ -1,9 +1,9 @@
 import Card from "@codegouvfr/react-dsfr/Card";
-import { DefaultComponentExtensible, DefaultProps } from "../Services/Props";
+import { DefaultComponentExtensible, DefaultProps } from "../../Services/Props";
 import { type DetailedHTMLProps, type AnchorHTMLAttributes } from "react";
 import styled from "@emotion/styled";
 import { fr } from "@codegouvfr/react-dsfr";
-import PdfBgImg from "../assets/PdfBgImg.svg";
+import PdfBgImg from "../../assets/PdfBgImg.svg";
 
 type HTMLAnchorProps = DetailedHTMLProps<
   AnchorHTMLAttributes<HTMLAnchorElement>,

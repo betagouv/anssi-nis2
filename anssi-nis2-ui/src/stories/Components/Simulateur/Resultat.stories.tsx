@@ -79,6 +79,26 @@ export const ResultatEligiblePetiteEntreprise: Story = {
     await canvas.findByText("En savoir plus");
   },
 };
+export const ResultatEligibleGrandeEntreprise: Story = {
+  args: {
+    donneesFormulaire: archetypeDonneesFormulaire.avec({
+      trancheCA: ["grand"],
+      trancheNombreEmployes: ["grand"],
+    }),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    verifieContenuResultatDansPage(canvasElement, contenusResultatEligible);
+
+    const titrePrecisions = await canvas.findByText("Points d'attention");
+    expect(titrePrecisions).toBeInTheDocument();
+    expect(titrePrecisions.tagName).toBe("H4");
+
+    await canvas.findByText("Et Maintenant ?");
+    await canvas.findByText("En savoir plus");
+  },
+};
 
 export const ResultatNonEligible: Story = {
   play: async ({ canvasElement }) => {
