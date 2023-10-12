@@ -9,7 +9,7 @@ const Row = styled.div`
 export const PdfCardContainer: DefaultComponent = ({
   children,
 }: DefaultProps) => (
-  <div className="container">
+  <div className="container fr-mt-5w">
     <Row className="fr-grid-row">{children}</Row>
   </div>
 );

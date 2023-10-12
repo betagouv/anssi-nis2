@@ -5,7 +5,7 @@ import ImageGuideHygieneCyber from "../../../assets/GuideHygieneCyber.png";
 
 export const BienDebuterAvecPdf = () => (
   <>
-    <p className="fr-text">
+    <p className="fr-mt-5w">
       Dans l’attente des exigences françaises pour votre organisation, retrouvez
       les guides essentiels de bonne pratique de l’ANSSI pour débuter dès à
       présent votre montée en maturité cyber.
@@ -30,7 +30,7 @@ export const BienDebuterAvecPdf = () => (
         title="Guide d’hygiène cyber"
       />
     </PdfCardContainer>
-    <p>
+    <p className="fr-mt-5w">
       Retrouvez sur le site de l’ANSSI l’ensemble des guides de bonnes pratiques
       ainsi que les mesures cyber préventives prioritaires.
     </p>

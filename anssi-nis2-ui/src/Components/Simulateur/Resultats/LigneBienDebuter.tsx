@@ -5,6 +5,11 @@ import { DefaultComponentExtensible } from "../../../Services/Props";
 import { SimulateurResultatProps } from "../../../Services/Simulateur/Props/simulateurResultatProps";
 import { BienDebuterAvecPdf } from "./BienDebuterAvecPdf.tsx";
 import { BienDebuterSansPdf } from "./BienDebuterSansPdf.tsx";
+import Button from "@codegouvfr/react-dsfr/Button";
+import {
+  lienMesuresPrioritaires,
+  lienTousLesGuides,
+} from "../../../References/liens.tsx";
 
 const LigneBienDebuterCalculee: DefaultComponentExtensible<SimulateurResultatProps> =
   memo(function LigneBienDebuterCalculee({
@@ -22,6 +27,12 @@ const LigneBienDebuterCalculee: DefaultComponentExtensible<SimulateurResultatPro
           {!contenuResultat.afficheBlocs.bienDebuterAvecPdf && (
             <BienDebuterSansPdf />
           )}
+          <Button priority={"tertiary"} linkProps={lienTousLesGuides}>
+            Tous les guides ANSSI
+          </Button>
+          <Button priority={"tertiary"} linkProps={lienMesuresPrioritaires}>
+            Mesures prioritaires
+          </Button>
         </CenteredContainer>
       </RowContainer>
     );
