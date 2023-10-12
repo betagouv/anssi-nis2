@@ -8,6 +8,10 @@ import ObligationIncidents from "../../assets/obligation-incidents.svg";
 import { fr } from "@codegouvfr/react-dsfr";
 import styled from "@emotion/styled";
 import { UppercaseH2 } from "../Styled/UppercaseH2.tsx";
+import {
+  lienDirectiveEuropeenne,
+  lienFaqAnssi,
+} from "../../References/liens.tsx";
 
 const ElementObligation = ({
   imageSrc,
@@ -136,25 +140,14 @@ const BandeauNis2EU: DefaultComponent = () => {
               {/* TODO: padding was "6px, 24px, 10px, 18px" */}
               <Button
                 priority="secondary"
-                linkProps={{
-                  href: "https://www.ssi.gouv.fr/directive-nis-2/",
-                  title:
-                    "Foire Aux Questions à propos de NIS 2 sur le site de l'ANSSI",
-                  target: "_blank",
-                }}
+                linkProps={lienFaqAnssi}
                 iconId={"fr-icon-question-line"}
               >
                 Voir les FAQ
               </Button>
               <Button
                 priority="secondary"
-                linkProps={{
-                  href: "https://eur-lex.europa.eu/legal-content/FR/TXT/PDF/?uri=CELEX:32022L2555",
-                  title:
-                    "DIRECTIVE (UE) 2022/2555 DU PARLEMENT EUROPÉEN ET DU CONSEIL \n" +
-                    "du 14 décembre 2022",
-                  target: "_blank",
-                }}
+                linkProps={lienDirectiveEuropeenne}
                 iconId={"fr-icon-external-link-line"}
                 className="fr-ml-2w"
               >

@@ -24,7 +24,7 @@ export const LigneResultat: DefaultComponentExtensible<
 > = ({ contenuResultat }: SimulateurResultatProps) => {
   const [contenuPrecistions, setContenuPrecisions] = useState("");
   useEffect(() => {
-    fetch(`/public/contenus/${contenuResultat.fichierPrecisionSurReponse}.md`)
+    fetch(`/contenus/${contenuResultat.fichierPrecisionSurReponse}.md`)
       .then((reponse) => reponse.text())
       .then(setContenuPrecisions);
   }, [contenuResultat.fichierPrecisionSurReponse]);

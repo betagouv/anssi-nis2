@@ -147,3 +147,13 @@ legend.fr-text--medium {
         margin: 0 0 0 6.5rem;
     }
 }
+
+.fr-nis2-tuile-lien {
+    gap: 1.125rem;
+
+    & li {
+        list-style: none;
+        text-align: center;
+        flex: auto;
+    }
+}

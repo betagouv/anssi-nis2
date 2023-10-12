@@ -52,10 +52,11 @@ export const ResultatEligibleOSE: Story = {
     }),
   },
   play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
     verifieContenuResultatDansPage(canvasElement, contenusResultatEligible);
-    expect(
-      await within(canvasElement).findByText("Points d'attention"),
-    ).toBeInTheDocument();
+    expect(await canvas.findByText("Points d'attention")).toBeInTheDocument();
+
+    await canvas.findByText("Et Maintenant ?");
   },
 };
 export const ResultatEligiblePetiteEntreprise: Story = {
@@ -75,6 +76,7 @@ export const ResultatEligiblePetiteEntreprise: Story = {
     expect(titrePrecisions.tagName).toBe("H4");
 
     await canvas.findByText("Et Maintenant ?");
+    await canvas.findByText("En savoir plus");
   },
 };
 

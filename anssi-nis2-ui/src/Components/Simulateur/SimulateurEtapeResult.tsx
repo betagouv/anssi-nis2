@@ -7,6 +7,7 @@ import { eligibilite } from "../../Domaine/Simulateur/resultatEligibilite.ts";
 import { recupereContenusResultatEligibilite } from "../../Services/Simulateur/recupereContenusResultatEligibilite.ts";
 import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 import { LigneEtMaintenant } from "./Resultats/LigneEtMaintenant.tsx";
+import { EnSavoirPlus } from "./Resultats/EnSavoirPlus.tsx";
 
 export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
   donneesFormulaire,
@@ -20,6 +21,7 @@ export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
       <LigneResultat contenuResultat={contenuResultat} />
       <LigneResterInformer />
       {contenuResultat.afficheBlocs.etMaintenant && <LigneEtMaintenant />}
+      {contenuResultat.afficheBlocs.enSavoirPlus && <EnSavoirPlus />}
       <LigneBienDebuter />
       <LigneReseauxSociaux />
     </>
