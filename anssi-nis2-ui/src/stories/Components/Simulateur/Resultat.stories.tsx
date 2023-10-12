@@ -9,7 +9,10 @@ import {
   contenusResultatEligiblePetitEntreprise,
   contenusResultatNonEligible,
 } from "../../../References/contenusResultatEligibilite.ts";
-import { ContenusResultatEligibilite } from "../../../Services/Simulateur/Props/contenusResultatEligibilite";
+import {
+  BlocResultatSpecifiques,
+  ContenusResultatEligibilite,
+} from "../../../Services/Simulateur/Props/contenusResultatEligibilite";
 
 const meta: Meta<typeof SimulateurEtapeResult> = {
   component: SimulateurEtapeResult,
@@ -21,7 +24,12 @@ const meta: Meta<typeof SimulateurEtapeResult> = {
 export default meta;
 type Story = StoryObj<typeof SimulateurEtapeResult>;
 
-const verifieContenuResultatDansPage = (
+const titreDeSections: Record<BlocResultatSpecifiques, string> = {
+  bienDebuterAvecPdf: "Pour bien débuter",
+  enSavoirPlus: "En savoir plus",
+  etMaintenant: "Et Maintenant ?",
+};
+const verifieContenuResultatDansPage = async (
   canvasElement: HTMLElement,
   contenusResultat: ContenusResultatEligibilite,
 ) => {
@@ -34,6 +42,13 @@ const verifieContenuResultatDansPage = (
   expect(
     canvasElement.querySelector("div.fr-nis2-resultat")?.className,
   ).toContain(contenusResultat.classeDivResultat);
+
+  contenusResultat.afficheBlocs.etMaintenant &&
+    (await canvas.findByText(titreDeSections.etMaintenant));
+  contenusResultat.afficheBlocs.enSavoirPlus &&
+    (await canvas.findByText(titreDeSections.enSavoirPlus));
+  contenusResultat.afficheBlocs.bienDebuterAvecPdf &&
+    (await canvas.findByText(titreDeSections.bienDebuterAvecPdf));
 };
 
 const archetypeDonneesFormulaire = new DonneesFormulaireSimulateur({
@@ -82,8 +97,6 @@ export const ResultatEligiblePetiteEntreprise: Story = {
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H4");
 
-    await canvas.findByText("Et Maintenant ?");
-    await canvas.findByText("En savoir plus");
     await canvas.findByText(
       "Dans l’attente des exigences françaises pour votre organisation, " +
         "retrouvez les guides essentiels de bonne pratique de l’ANSSI pour " +
@@ -110,9 +123,6 @@ export const ResultatEligibleGrandeEntreprise: Story = {
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H4");
 
-    await canvas.findByText("Et Maintenant ?");
-    await canvas.findByText("En savoir plus");
-    await canvas.findByText("Pour bien débuter");
     await canvas.findByText(
       "Dans l’attente des exigences françaises pour votre organisation, " +
         "retrouvez sur le site de l’ANSSI l’ensemble des guides de bonnes " +
