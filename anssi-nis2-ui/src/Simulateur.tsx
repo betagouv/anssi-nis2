@@ -1,4 +1,4 @@
-import { DefaultComponent } from "./Services/Props.ts";
+import { DefaultComponent } from "./Services/Props";
 
 import MiseEnPage from "./Components/MiseEnPage.tsx";
 import { ChargeurEtape } from "./Components/Simulateur/ChargeurEtape.tsx";

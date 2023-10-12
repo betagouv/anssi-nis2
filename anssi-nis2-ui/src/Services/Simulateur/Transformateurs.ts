@@ -30,14 +30,14 @@ import {
   OptionsChampSimulateur,
 } from "./Props/optionChampSimulateur";
 import { TransformeRecordToSelect } from "./Operations/optionChampSimulateur";
-import { GenerateurLibelle } from "./Operations/libelles.ts";
+import { GenerateurLibelle } from "./Operations/operationsLibelles";
 import { SecteurActivite } from "../../Domaine/Simulateur/SecteursActivite";
 import {
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-  sousSecteursParSecteur,
-} from "../../Domaine/Simulateur/SousSecteurs.ts";
+} from "../../Domaine/Simulateur/SousSecteurs";
 import { Activite } from "../../Domaine/Simulateur/Activite.ts";
+import { sousSecteursParSecteur } from "../../Domaine/Simulateur/ValeursSousSecteursActivites.ts";
 
 const recupereLibelleReponseOSE = (
   value: string,

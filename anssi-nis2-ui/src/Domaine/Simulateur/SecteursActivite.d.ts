@@ -1,22 +1,3 @@
-export const ValeursSecteursActivites = [
-  "administrationPublique",
-  "banqueSecteurBancaire",
-  "eauPotable",
-  "eauxUsees",
-  "energie",
-  "espace",
-  "fabrication",
-  "fabricationProductionDistributionProduitsChimiques",
-  "fournisseursNumeriques",
-  "gestionDechets",
-  "gestionServicesTic",
-  "infrastructureMarchesFinanciers",
-  "infrastructureNumerique",
-  "productionTransformationDistributionDenreesAlimentaires",
-  "recherche",
-  "sante",
-  "servicesPostauxExpedition",
-  "transports",
-  "autreSecteurActivite",
-] as const;
+import { ValeursSecteursActivites } from "./ValeursSecteursActivites.ts";
+
 export type SecteurActivite = (typeof ValeursSecteursActivites)[number];

@@ -1,9 +1,9 @@
-import { DefaultProps } from "../../Props.ts";
+import { DefaultProps } from "../../Props";
 import { SimulateurDonneesFormulaireActions } from "./donneesFormulaire";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { Dispatch } from "react";
 import { EtatEtapes } from "../EtatEtapes.ts";
-import { BoutonsNavigation } from "./boutonsNavigation.ts";
+import { BoutonsNavigation } from "./boutonsNavigation";
 
 export interface SimulateurEtapeProps extends DefaultProps {
   donneesFormulaire: DonneesFormulaireSimulateur;

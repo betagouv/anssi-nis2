@@ -1,10 +1,10 @@
-import { RowContainer } from "../RowContainer.tsx";
-import { StepperNavigation } from "../StepperNavigation.tsx";
+import { RowContainer } from "../General/RowContainer.tsx";
+import { StepperNavigation } from "./StepperNavigation.tsx";
 
 import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
 import { useContext, useMemo } from "react";
 import { AppContext } from "../../AppContext.tsx";
-import { CenteredContainer } from "../CenteredContainer.tsx";
+import { CenteredContainer } from "../General/CenteredContainer.tsx";
 
 import {
   DonneesFormulaireSimulateur,

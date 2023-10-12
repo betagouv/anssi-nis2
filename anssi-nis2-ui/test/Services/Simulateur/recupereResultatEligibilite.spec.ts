@@ -2,14 +2,15 @@ import { describe, expect, it } from "vitest";
 import { recupereContenusResultatEligibilite } from "../../../src/Services/Simulateur/recupereContenusResultatEligibilite";
 import { ResultatEligibiliteEnum } from "../../../src/Domaine/Simulateur/resultatEligibilite";
 import {
-  contenusResultatEligible,
+  contenusResultatEligiblePetitEntreprise,
   contenusResultatNonEligible,
 } from "../../../src/References/contenusResultatEligibilite";
 
 describe(recupereContenusResultatEligibilite, () => {
   it("retourne les contenus pour éligible lorsque le résultat est éligible", () => {
-    const resultatEligibilite = ResultatEligibiliteEnum.Eligible;
-    const contenusAttendus = contenusResultatEligible;
+    const resultatEligibilite =
+      ResultatEligibiliteEnum.EligiblePetiteEntreprise;
+    const contenusAttendus = contenusResultatEligiblePetitEntreprise;
     const contenusObtenus =
       recupereContenusResultatEligibilite(resultatEligibilite);
 

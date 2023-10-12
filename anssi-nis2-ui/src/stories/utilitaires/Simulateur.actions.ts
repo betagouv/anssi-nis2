@@ -12,7 +12,7 @@ import {
 } from "../../Domaine/Simulateur/ValeursChampsSimulateur.ts";
 import { SecteurActivite } from "../../Domaine/Simulateur/SecteursActivite";
 
-import { SousSecteurActivite } from "../../Domaine/Simulateur/SousSecteurs.ts";
+import { SousSecteurActivite } from "../../Domaine/Simulateur/SousSecteurs";
 import { Activite } from "../../Domaine/Simulateur/Activite.ts";
 
 export const passeEtapeEnCochant = async <

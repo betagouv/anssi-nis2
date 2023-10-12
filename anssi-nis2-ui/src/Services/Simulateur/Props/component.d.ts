@@ -1,4 +1,4 @@
-import { DefaultComponentExtensible } from "../../Props.ts";
+import { DefaultComponentExtensible } from "../../Props";
 
 import {
   SimulateurContenuEtapeProps,

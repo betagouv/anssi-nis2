@@ -1,4 +1,4 @@
-import { DefaultComponent } from "../../Services/Props.ts";
+import { DefaultComponent } from "../../Services/Props";
 
 const APropos: DefaultComponent = () => {
   return (

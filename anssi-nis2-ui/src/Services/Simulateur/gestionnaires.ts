@@ -8,11 +8,7 @@ import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
 import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
 import { ValeurChampSimulateur } from "../../Domaine/Simulateur/ValeursChampsSimulateur.ts";
-
-export type GestionValeursFormulaire = (
-  value: ValeurChampSimulateur,
-  donneesFormulaire: DonneesFormulaireSimulateur,
-) => ValeurChampSimulateur[];
+import { GestionValeursFormulaire } from "./Props/gestionValeursFormulaire";
 
 export const gestionValeursSimples = (value: ValeurChampSimulateur) => [value];
 

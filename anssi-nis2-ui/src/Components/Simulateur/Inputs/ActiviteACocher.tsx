@@ -1,7 +1,7 @@
 import {
   DefaultComponentExtensible,
   DefaultProps,
-} from "../../../Services/Props.ts";
+} from "../../../Services/Props";
 import { useId, useReducer } from "react";
 import { changeInfobulleOuverte } from "../../../Services/Simulateur/Reducteurs.ts";
 import { IconeInfobulle } from "../../Icones/IconeInfobulle.tsx";

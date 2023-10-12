@@ -6,21 +6,22 @@ import {
 import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
 import { fieldHandlers } from "./gestionnaires.ts";
 import {
-  fabriqueSecteurContientLeSousSecteur,
   LibellesSousSecteurs,
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-} from "../../Domaine/Simulateur/SousSecteurs.ts";
+} from "../../Domaine/Simulateur/SousSecteurs";
 import { transformateurSousSecteurActivite } from "./Transformateurs.ts";
 import { entreesLibellesSousSecteurs } from "../../References/LibellesSousSecteursActivite.ts";
 import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
-import { BoutonsNavigation } from "./Props/boutonsNavigation.ts";
+import { BoutonsNavigation } from "./Props/boutonsNavigation";
+import { fabriqueSecteurContientLeSousSecteur } from "../../Domaine/Simulateur/Operations/operationsSecteurs.ts";
 
 const generateNewStateFrom = (
   state: DonneesFormulaireSimulateur,
   fieldName: NomsChampsSimulateur,
   newFieldValue: string[],
 ) => new DonneesFormulaireSimulateur({ ...state, [fieldName]: newFieldValue });
+
 export const reducerFormData: Reducer<
   DonneesFormulaireSimulateur,
   SimulateurDonneesFormulaireActions
@@ -49,7 +50,7 @@ export class ActionsBoutonNavigation {
 export const reducerBoutons: Reducer<
   BoutonsNavigation,
   ActionsBoutonNavigation
-> = (state, { bouton, newHandler }) => {
+> = (state, { bouton, newHandler }: ActionsBoutonNavigation) => {
   if (newHandler === undefined) {
     return state;
   }

@@ -4,7 +4,7 @@ const PiedDePage = () => (
       <div className="fr-container">
         <div className="fr-footer__body">
           <div className="fr-footer__brand fr-enlarge-link">
-            <a href="/" title="Accueil - MonPortailNIS2 - ANSSI">
+            <a href="/" title="Accueil - MonEspaceNIS2 - ANSSI">
               <p className="fr-logo">
                 RÉPUBLIQUE
                 <br />
@@ -14,9 +14,9 @@ const PiedDePage = () => (
           </div>
           <div className="fr-footer__content">
             <p className="fr-footer__content-desc">
-              MonParcoursNIS2 aide les entités publiques et privées à sécuriser
-              et homologuer leurs services numériques au prisme des obligations
-              de la directive européenne NIS2.
+              MonEspaceNIS2 aide les entités publiques et privées à sécuriser et
+              homologuer leurs services numériques au prisme des obligations de
+              la directive européenne NIS2.
               <br />
               <br />
               Il est développé par l’Agence nationale de la sécurité des

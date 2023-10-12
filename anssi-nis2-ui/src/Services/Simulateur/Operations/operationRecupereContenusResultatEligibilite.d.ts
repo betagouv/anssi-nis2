@@ -1,5 +1,5 @@
 import { ResultatEligibilite } from "../../../Domaine/Simulateur/resultatEligibilite.ts";
-import { ContenusResultatEligibilite } from "../contenusResultatEligibilite";
+import { ContenusResultatEligibilite } from "../Props/contenusResultatEligibilite";
 
 export type OperationRecupereContenusResultatEligibilite = (
   statutEligibiliteNIS2: ResultatEligibilite,

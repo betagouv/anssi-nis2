@@ -56,6 +56,10 @@ legend.fr-text--medium {
     }
 }
 
+.fr-nis2-bordure-bas {
+    border-bottom: 1px solid var(--blue-france-850-200, #CACAFB);
+}
+
 .fr-nis2-resultat {
     &.fr-nis2-eligible {
         background-color: var(--green-menthe-975-75);
@@ -127,5 +131,29 @@ legend.fr-text--medium {
 
     & li {
         margin-bottom: .25rem;
+    }
+}
+
+.fr-nis2-en-cours-developpement {
+    background: #FEF4F2 url(assets/in-progress.svg) no-repeat;
+    background-position-y: center;
+    background-position-x: 1rem;
+    display: flex;
+    padding: 24px;
+    align-items: flex-start;
+    align-self: stretch;
+
+    & p {
+        margin: 0 0 0 6.5rem;
+    }
+}
+
+.fr-nis2-tuile-lien {
+    gap: 1.125rem;
+
+    & li {
+        list-style: none;
+        text-align: center;
+        flex: auto;
     }
 }

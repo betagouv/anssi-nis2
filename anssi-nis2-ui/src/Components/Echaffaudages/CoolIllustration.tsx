@@ -1,4 +1,4 @@
-import { DefaultComponent } from "../../Services/Props.ts";
+import { DefaultComponent } from "../../Services/Props";
 import { fr } from "@codegouvfr/react-dsfr";
 import styled from "@emotion/styled";
 

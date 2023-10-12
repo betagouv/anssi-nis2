@@ -12,7 +12,7 @@ const EnTete = () => (
     }
     homeLinkProps={{
       href: "/",
-      title: "Accueil - MonPortailNIS2 - ANSSI",
+      title: "Accueil - MonEspaceNIS2 - ANSSI",
     }}
     id="fr-header-header-with-quick-access-items"
     operatorLogo={{
@@ -44,7 +44,7 @@ const EnTete = () => (
     serviceTagline=""
     serviceTitle={
       <>
-        MonPortailNIS2
+        MonEspaceNIS2
         <sup className="fr-badge fr-badge--sm fr-badge--green-emeraude">
           Bêta
         </sup>
