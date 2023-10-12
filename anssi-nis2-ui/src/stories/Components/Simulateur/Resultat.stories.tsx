@@ -35,10 +35,31 @@ const verifieContenuResultatDansPage = (
   ).toContain(contenusResultat.classeDivResultat);
 };
 
-export const ResultatEligible: Story = {
+export const ResultatEligibleOSE: Story = {
   args: {
     donneesFormulaire: new DonneesFormulaireSimulateur({
       designeOperateurServicesEssentiels: ["oui"],
+    }),
+  },
+  play: async ({ canvasElement }) => {
+    verifieContenuResultatDansPage(canvasElement, contenusResultatEligible);
+  },
+};
+
+const archetypeDonneesFormulaire = new DonneesFormulaireSimulateur({
+  designeOperateurServicesEssentiels: ["non"],
+  trancheCA: ["petit"],
+  trancheNombreEmployes: ["petit"],
+  etatMembre: ["france"],
+  typeStructure: ["privee"],
+  secteurActivite: ["fournisseursNumeriques"],
+  activites: ["fournisseursPlaceMarcheEnLigne"],
+});
+export const ResultatEligiblePetiteEntreprise: Story = {
+  args: {
+    donneesFormulaire: archetypeDonneesFormulaire.avec({
+      trancheCA: ["petit"],
+      trancheNombreEmployes: ["petit"],
     }),
   },
   play: async ({ canvasElement }) => {

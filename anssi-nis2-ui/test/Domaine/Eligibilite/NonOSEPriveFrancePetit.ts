@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
-  listeActivitesAutre,
-  listeActivitesSaufAutre,
+  filtreActivitesAutres,
+  filtreActivitesListees,
+  ValeursActivitesInfrastructureNumerique,
 } from "../../../src/Domaine/Simulateur/Activite";
 import {
   eligibilite,
@@ -15,26 +16,32 @@ export const suiteTestsNonOSEPriveFrancePetit = (reponses) => {
   describe.each([reponsesFrancePrivePetitInfraNum])(
     "Fournisseur Infrastructure Numérique",
     (reponses) => {
-      describe(`est éligible`, () => {
-        it.each(listeActivitesSaufAutre)(`quand activité=%s)`, (activite) => {
+      const activitesFourniseurInfrastructureNumeriqueListees =
+        filtreActivitesListees(ValeursActivitesInfrastructureNumerique);
+      const activitesFourniseurInfrastructureNumeriqueAutres =
+        filtreActivitesAutres(ValeursActivitesInfrastructureNumerique);
+      it.each(activitesFourniseurInfrastructureNumeriqueListees)(
+        `est éligible quand activité=%s`,
+        (activite) => {
           const donneesSimu = reponses.avec({
             activites: [activite],
           });
           expect(eligibilite(donneesSimu)).toStrictEqual(
-            ResultatEligibiliteEnum.EligiblePetitEntreprise,
+            ResultatEligibiliteEnum.EligiblePetiteEntreprise,
           );
-        });
-      });
-      describe(`n'est pas éligible`, () => {
-        it.each(listeActivitesAutre)(`quand activité est %s`, (activite) => {
+        },
+      );
+      it.each(activitesFourniseurInfrastructureNumeriqueAutres)(
+        `n'est pas éligible quand activité est %s`,
+        (activite) => {
           const donneesSimu = reponses.avec({
             activites: [activite],
           });
           expect(eligibilite(donneesSimu)).toStrictEqual(
             ResultatEligibiliteEnum.NonEligible,
           );
-        });
-      });
+        },
+      );
     },
   );
 };

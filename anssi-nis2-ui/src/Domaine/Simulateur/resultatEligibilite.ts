@@ -13,7 +13,7 @@ export type ResultatEligibilite =
   | "EligibleMoyenneGrandeEntreprise";
 export const ResultatEligibiliteEnum = {
   NonEligible: "NonEligible",
-  EligiblePetitEntreprise: "EligiblePetiteEntreprise",
+  EligiblePetiteEntreprise: "EligiblePetiteEntreprise",
   EligibleMoyenneGrandeEntreprise: "EligibleMoyenneGrandeEntreprise",
 } as const;
 
@@ -51,7 +51,7 @@ export const eligibilite: (
   activites,
 }) => {
   if (designeOperateurServicesEssentiels.includes("oui")) {
-    return ResultatEligibiliteEnum.EligiblePetitEntreprise;
+    return ResultatEligibiliteEnum.EligiblePetiteEntreprise;
   }
   if (
     etatMembre.includes("france") &&
@@ -60,7 +60,7 @@ export const eligibilite: (
     secteurActivite.includes("infrastructureNumerique") &&
     estUneActiviteListee(activites)
   )
-    return ResultatEligibiliteEnum.EligiblePetitEntreprise;
+    return ResultatEligibiliteEnum.EligiblePetiteEntreprise;
 
   if (
     etatMembre.includes("france") &&

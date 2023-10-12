@@ -5,14 +5,25 @@ import { eligibilite } from "../../../Domaine/Simulateur/resultatEligibilite.ts"
 import { SimulateurEtapeRenderedProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
 import { recupereContenusResultatEligibilite } from "../../../Services/Simulateur/recupereContenusResultatEligibilite.ts";
 import { Icon } from "@mui/material";
-import Markdown from "react-markdown";
+import Markdown, { Components } from "react-markdown";
+import { useEffect, useState } from "react";
 
+const decaleTitre4Niveaux: Partial<Components> = {
+  h1: "h4",
+  h2: "h5",
+  h3: "h6",
+};
 export const LigneResultat: SimulateurEtapeRenderedComponent = ({
   donneesFormulaire,
 }: SimulateurEtapeRenderedProps) => {
   const statutEligibiliteNIS2 = eligibilite(donneesFormulaire);
-
   const resultat = recupereContenusResultatEligibilite(statutEligibiliteNIS2);
+  const [contenuPrecistions, setContenuPrecisions] = useState("");
+  useEffect(() => {
+    fetch("/src/References/precisionsSurReponsePositive.md")
+      .then((reponse) => reponse.text())
+      .then(setContenuPrecisions);
+  }, []);
   return (
     <RowContainer>
       <CenteredContainer>
@@ -32,13 +43,9 @@ export const LigneResultat: SimulateurEtapeRenderedComponent = ({
           <h4>{resultat.titre}</h4>
         </div>
         <div className="fr-px-4w fr-py-3w fr-nis2-resultat-explications">
-          <h4>Points d&apos;attention</h4>
-          {resultat.pointsAttention.map(({ description, titre }) => (
-            <>
-              {titre && <h5>{titre}</h5>}
-              <Markdown>{description}</Markdown>
-            </>
-          ))}
+          <Markdown components={decaleTitre4Niveaux}>
+            {contenuPrecistions}
+          </Markdown>
         </div>
       </CenteredContainer>
     </RowContainer>

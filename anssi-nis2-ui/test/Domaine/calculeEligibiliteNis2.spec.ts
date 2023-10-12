@@ -18,7 +18,7 @@ describe("Calcul d'éligibilité NIS 2", () => {
   describe.each([reponseDesigneOSE])("Designe OSE NIS 1", (reponses) => {
     it("est toujours Eligible", () => {
       expect(eligibilite(reponses)).toStrictEqual(
-        ResultatEligibiliteEnum.EligiblePetitEntreprise,
+        ResultatEligibiliteEnum.EligiblePetiteEntreprise,
       );
     });
   });
