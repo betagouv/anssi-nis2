@@ -1,4 +1,4 @@
-import { DefaultComponent } from "../../Services/Props.d.ts";
+import { DefaultComponent } from "../../Services/Props";
 
 const GestionCookies: DefaultComponent = () => {
   return (

@@ -1,6 +1,6 @@
 import React, { useContext, useReducer, useState } from "react";
 
-import { DefaultComponentExtensible } from "../../Services/Props.d.ts";
+import { DefaultComponentExtensible } from "../../Services/Props";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,

@@ -16,6 +16,8 @@ import { PageEdito } from "./Components/PagesEdito/PageEdito.tsx";
 import GestionCookies from "./Components/PagesEdito/GestionCookies.tsx";
 
 import { Contexte } from "./Services/contexte";
+import { DevSupport } from "@react-buddy/ide-toolbox";
+import { ComponentPreviews, useInitial } from "./dev";
 
 startReactDsfr({ defaultColorScheme: "system" });
 
@@ -65,7 +67,12 @@ const defaultContext: Contexte = {
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AppContext.Provider value={defaultContext}>
-      <RouterProvider router={router} />
+      <DevSupport
+        ComponentPreviews={ComponentPreviews}
+        useInitialHook={useInitial}
+      >
+        <RouterProvider router={router} />
+      </DevSupport>
     </AppContext.Provider>
   </React.StrictMode>,
 );

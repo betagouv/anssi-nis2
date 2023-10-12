@@ -1,4 +1,4 @@
-import { DefaultComponent } from "../../Services/Props.d.ts";
+import { DefaultComponent } from "../../Services/Props";
 import { BandeauBleuMarianne } from "../BandeauBleuMarianne.tsx";
 
 export const BandeauConcerneSimulateur: DefaultComponent = () => (

@@ -1,9 +1,6 @@
 import { BandeauBleuMarianne } from "../BandeauBleuMarianne.tsx";
 import MiseEnPage from "../MiseEnPage.tsx";
-import {
-  DefaultComponentExtensible,
-  DefaultProps,
-} from "../../Services/Props.d.ts";
+import { DefaultComponentExtensible, DefaultProps } from "../../Services/Props";
 
 type PageEditoProps = {
   titre: string;

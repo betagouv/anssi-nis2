@@ -1,7 +1,7 @@
 import "@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css";
 import "@gouvfr/dsfr/dist/utility/utility.css";
 
-import { DefaultComponent } from "./Services/Props.d.ts";
+import { DefaultComponent } from "./Services/Props";
 import {
   BandeauAccueil,
   BandeauConcerne,
