@@ -43,17 +43,20 @@ export const ResultatEligibleOSE: Story = {
   },
   play: async ({ canvasElement }) => {
     verifieContenuResultatDansPage(canvasElement, contenusResultatEligible);
+    expect(
+      await within(canvasElement).findByText("Points d'attention"),
+    ).toBeInTheDocument();
   },
 };
 
 const archetypeDonneesFormulaire = new DonneesFormulaireSimulateur({
   designeOperateurServicesEssentiels: ["non"],
-  trancheCA: ["petit"],
-  trancheNombreEmployes: ["petit"],
   etatMembre: ["france"],
   typeStructure: ["privee"],
-  secteurActivite: ["fournisseursNumeriques"],
-  activites: ["fournisseursPlaceMarcheEnLigne"],
+  trancheCA: ["petit"],
+  trancheNombreEmployes: ["petit"],
+  secteurActivite: ["infrastructureNumerique"],
+  activites: ["fournisseurPointEchangeInternet"],
 });
 export const ResultatEligiblePetiteEntreprise: Story = {
   args: {
@@ -63,12 +66,26 @@ export const ResultatEligiblePetiteEntreprise: Story = {
     }),
   },
   play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
     verifieContenuResultatDansPage(canvasElement, contenusResultatEligible);
+
+    const titrePrecisions = await canvas.findByText("Points d'attention");
+    expect(titrePrecisions).toBeInTheDocument();
+    expect(titrePrecisions.tagName).toBe("H4");
   },
 };
 
 export const ResultatNonEligible: Story = {
   play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
     verifieContenuResultatDansPage(canvasElement, contenusResultatNonEligible);
+
+    const titrePrecisions = await canvas.findByText(
+      "Critères de possible inclusion",
+    );
+    expect(titrePrecisions).toBeInTheDocument();
+    expect(titrePrecisions.tagName).toBe("H5");
   },
 };

@@ -17,30 +17,34 @@ export const LigneResultat: SimulateurEtapeRenderedComponent = ({
   donneesFormulaire,
 }: SimulateurEtapeRenderedProps) => {
   const statutEligibiliteNIS2 = eligibilite(donneesFormulaire);
-  const resultat = recupereContenusResultatEligibilite(statutEligibiliteNIS2);
+  const contenuResultat = recupereContenusResultatEligibilite(
+    statutEligibiliteNIS2,
+  );
   const [contenuPrecistions, setContenuPrecisions] = useState("");
   useEffect(() => {
-    fetch("/src/References/precisionsSurReponsePositive.md")
+    fetch(`/public/contenus/${contenuResultat.fichierPrecisionSurReponse}.md`)
       .then((reponse) => reponse.text())
       .then(setContenuPrecisions);
-  }, []);
+  }, [contenuResultat.fichierPrecisionSurReponse]);
   return (
     <RowContainer>
       <CenteredContainer>
         <div
           className={[
             "fr-px-4w fr-py-3w fr-nis2-resultat",
-            resultat.classeDivResultat,
+            contenuResultat.classeDivResultat,
           ].join(" ")}
         >
           <div className="fr-grid-row">
             <div className="fr-col fr-nis2-icone">
               <Icon
-                className={[resultat.classIcone, "fr-icon--xl"].join(" ")}
+                className={[contenuResultat.classIcone, "fr-icon--xl"].join(
+                  " ",
+                )}
               />
             </div>
           </div>
-          <h4>{resultat.titre}</h4>
+          <h4>{contenuResultat.titre}</h4>
         </div>
         <div className="fr-px-4w fr-py-3w fr-nis2-resultat-explications">
           <Markdown components={decaleTitre4Niveaux}>
