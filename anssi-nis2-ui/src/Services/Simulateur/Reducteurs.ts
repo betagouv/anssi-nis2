@@ -13,7 +13,7 @@ import {
 import { transformateurSousSecteurActivite } from "./Transformateurs.ts";
 import { entreesLibellesSousSecteurs } from "../../References/LibellesSousSecteursActivite.ts";
 import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
-import { BoutonsNavigation } from "./Props/boutonsNavigation.d.ts";
+import { BoutonsNavigation } from "./Props/boutonsNavigation";
 import { fabriqueSecteurContientLeSousSecteur } from "../../Domaine/Simulateur/Operations/operationsSecteurs.ts";
 
 const generateNewStateFrom = (
