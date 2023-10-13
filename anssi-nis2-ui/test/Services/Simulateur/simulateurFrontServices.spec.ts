@@ -6,7 +6,6 @@ import {
   donneesFormulaireSimulateurVide,
   DonneesFormulaireSimulateur,
 } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
-import { ValeurChampSimulateur } from "../../../src/Domaine/Simulateur/ValeursChampsSimulateur";
 import { Activite } from "../../../src/Domaine/Simulateur/Activite";
 
 describe(genereTransformateurValeursVersOptions, () => {

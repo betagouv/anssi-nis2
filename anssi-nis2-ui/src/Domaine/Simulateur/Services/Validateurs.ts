@@ -3,7 +3,6 @@ import {
   NomsChampsSimulateur,
 } from "../DonneesFormulaire.ts";
 import { SecteursAvecSousSecteurs } from "../SousSecteurs";
-import { ValeurCleSectorielle } from "../ValeursChampsSimulateur.ts";
 import {
   Validateur,
   ValidationReponses,
@@ -15,6 +14,7 @@ import {
   filtreSecteursSansSousSecteurs,
 } from "../Operations/operationsActivite.ts";
 import { sousSecteurAppartientASecteur } from "../Operations/operationsSecteurs.ts";
+import { ValeurCleSectorielle } from "../ValeursChampsSimulateur";
 
 export const et: (...validateurs: Array<Validateur>) => Validateur = (
   ...validateurs

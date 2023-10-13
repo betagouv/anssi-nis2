@@ -10,7 +10,7 @@ import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/Donnees
 import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
-} from "../../../Domaine/Simulateur/ValeursChampsSimulateur.ts";
+} from "../../../Domaine/Simulateur/ValeursChampsSimulateur";
 
 class ParametresDonneesTrancheNombreEmployes extends ParametresDonneesSpecifiqueField<TrancheNombreEmployes> {
   protected construitDonnees<ValeursTrancheNombreEmployes>(

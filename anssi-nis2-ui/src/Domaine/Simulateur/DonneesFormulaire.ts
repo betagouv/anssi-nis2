@@ -1,3 +1,6 @@
+import { Activite } from "./Activite.ts";
+import { SecteurActivite } from "./SecteursActivite";
+import { SousSecteurActivite } from "./SousSecteurs";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
@@ -5,10 +8,7 @@ import {
   TrancheNombreEmployes,
   TypeStructure,
   ValeurChampSimulateur,
-} from "./ValeursChampsSimulateur.ts";
-import { Activite } from "./Activite.ts";
-import { SecteurActivite } from "./SecteursActivite";
-import { SousSecteurActivite } from "./SousSecteurs";
+} from "./ChampsSimulateur";
 
 export type NomsChampsSimulateur =
   | "designeOperateurServicesEssentiels"
@@ -71,3 +71,54 @@ export const donneesFormulaireSimulateurVide: DonneesFormulaireSimulateur =
     typeStructure: [],
     activites: [],
   });
+export type DonneesSimulateurTailleEntreprise = Pick<
+  DonneesFormulaireSimulateur,
+  "trancheCA" | "trancheNombreEmployes"
+>;
+export const archetypeReponsesPetiteEntreprise: DonneesSimulateurTailleEntreprise =
+  {
+    trancheCA: ["petit"],
+    trancheNombreEmployes: ["petit"],
+  };
+export const archetypeReponsesMoyenneEntreprise: DonneesSimulateurTailleEntreprise =
+  {
+    trancheCA: ["moyen"],
+    trancheNombreEmployes: ["moyen"],
+  };
+export const archetypeReponsesGrandeEntreprise: DonneesSimulateurTailleEntreprise =
+  {
+    trancheCA: ["grand"],
+    trancheNombreEmployes: ["grand"],
+  };
+export const combinatoireEntrepriseMoyenne: DonneesSimulateurTailleEntreprise[] =
+  [
+    archetypeReponsesMoyenneEntreprise,
+    {
+      ...archetypeReponsesMoyenneEntreprise,
+      trancheCA: ["petit"],
+    },
+    {
+      ...archetypeReponsesMoyenneEntreprise,
+      trancheNombreEmployes: ["petit"],
+    },
+  ];
+export const combinatoireGrandesEntreprises: DonneesSimulateurTailleEntreprise[] =
+  [
+    archetypeReponsesGrandeEntreprise,
+    {
+      ...archetypeReponsesGrandeEntreprise,
+      trancheCA: ["moyen"],
+    },
+    {
+      ...archetypeReponsesGrandeEntreprise,
+      trancheCA: ["petit"],
+    },
+    {
+      ...archetypeReponsesGrandeEntreprise,
+      trancheNombreEmployes: ["moyen"],
+    },
+    {
+      ...archetypeReponsesGrandeEntreprise,
+      trancheNombreEmployes: ["petit"],
+    },
+  ];

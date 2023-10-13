@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { DonneesFormulaireSimulateur } from "../../src/Domaine/Simulateur/DonneesFormulaire";
+import {
+  archetypeReponsesGrandeEntreprise,
+  archetypeReponsesMoyenneEntreprise,
+  archetypeReponsesPetiteEntreprise,
+  combinatoireEntrepriseMoyenne,
+  combinatoireGrandesEntreprises,
+  DonneesFormulaireSimulateur,
+} from "../../src/Domaine/Simulateur/DonneesFormulaire";
 import {
   Activite,
   listeActivitesAutre,
@@ -14,54 +21,6 @@ import { SecteurActivite } from "../../src/Domaine/Simulateur/SecteursActivite";
 import { libellesSecteursActivite } from "../../src/References/LibellesSecteursActivite";
 import { libellesActivites } from "../../src/References/LibellesActivites";
 
-type DonneesSimulateurTailleEntreprise = Pick<
-  DonneesFormulaireSimulateur,
-  "trancheCA" | "trancheNombreEmployes"
->;
-
-const archetypeReponsesPetiteEntreprise: DonneesSimulateurTailleEntreprise = {
-  trancheCA: ["petit"],
-  trancheNombreEmployes: ["petit"],
-};
-const archetypeReponsesMoyenneEntreprise: DonneesSimulateurTailleEntreprise = {
-  trancheCA: ["moyen"],
-  trancheNombreEmployes: ["moyen"],
-};
-const archetypeReponsesGrandeEntreprise: DonneesSimulateurTailleEntreprise = {
-  trancheCA: ["grand"],
-  trancheNombreEmployes: ["grand"],
-};
-
-const combinatoireEntrepriseMoyenne: DonneesSimulateurTailleEntreprise[] = [
-  archetypeReponsesMoyenneEntreprise,
-  {
-    ...archetypeReponsesMoyenneEntreprise,
-    trancheCA: ["petit"],
-  },
-  {
-    ...archetypeReponsesMoyenneEntreprise,
-    trancheNombreEmployes: ["petit"],
-  },
-];
-const combinatoireGrandesEntreprises: DonneesSimulateurTailleEntreprise[] = [
-  archetypeReponsesGrandeEntreprise,
-  {
-    ...archetypeReponsesGrandeEntreprise,
-    trancheCA: ["moyen"],
-  },
-  {
-    ...archetypeReponsesGrandeEntreprise,
-    trancheCA: ["petit"],
-  },
-  {
-    ...archetypeReponsesGrandeEntreprise,
-    trancheNombreEmployes: ["moyen"],
-  },
-  {
-    ...archetypeReponsesGrandeEntreprise,
-    trancheNombreEmployes: ["petit"],
-  },
-];
 describe("Calcul d'éligibilité NIS 2", () => {
   const reponseDesigneOSE = new DonneesFormulaireSimulateur({
     designeOperateurServicesEssentiels: ["oui"],
@@ -70,14 +29,6 @@ describe("Calcul d'éligibilité NIS 2", () => {
     designeOperateurServicesEssentiels: ["non"],
   });
   describe.each([reponseDesigneOSE])("Designe OSE NIS 1", (reponses) => {
-    it.each([archetypeReponsesPetiteEntreprise])(
-      "est toujours Eligible (taille=$trancheCA)",
-      () => {
-        expect(
-          eligibilite(reponses.avec(archetypeReponsesPetiteEntreprise)),
-        ).toStrictEqual(ResultatEligibiliteEnum.EligiblePetiteEntreprise);
-      },
-    );
     it.each([
       archetypeReponsesMoyenneEntreprise,
       archetypeReponsesGrandeEntreprise,

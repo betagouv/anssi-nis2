@@ -1,14 +1,5 @@
 import { genereTransformateurValeursVersOptions } from "./genereTransformateurValeursVersOptions.ts";
 import {
-  DesignationOperateurServicesEssentiels,
-  ValeurCleSectorielle,
-  AppartenancePaysUnionEuropeenne,
-  TrancheChiffreAffaire,
-  TrancheNombreEmployes,
-  TypeStructure,
-  ValeurChampSimulateur,
-} from "../../Domaine/Simulateur/ValeursChampsSimulateur.ts";
-import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
@@ -38,6 +29,15 @@ import {
 } from "../../Domaine/Simulateur/SousSecteurs";
 import { Activite } from "../../Domaine/Simulateur/Activite.ts";
 import { sousSecteursParSecteur } from "../../Domaine/Simulateur/ValeursSousSecteursActivites.ts";
+import {
+  AppartenancePaysUnionEuropeenne,
+  DesignationOperateurServicesEssentiels,
+  TrancheChiffreAffaire,
+  TrancheNombreEmployes,
+  TypeStructure,
+  ValeurChampSimulateur,
+  ValeurCleSectorielle,
+} from "../../Domaine/Simulateur/ValeursChampsSimulateur";
 
 const recupereLibelleReponseOSE = (
   value: string,
