@@ -25,3 +25,8 @@ export const lienMesuresPrioritaires: RegisteredLinkProps = {
   title: "Guides de bonnes pratiques de l'ANSSI",
   target: "_blank",
 };
+
+export const emailContactNis2: RegisteredLinkProps = {
+  href: "mailto:contact-monespacenis2@ssi.gouv.fr",
+  title: "Nous écrire par courrier électronique",
+};

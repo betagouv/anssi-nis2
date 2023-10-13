@@ -136,17 +136,30 @@ legend.fr-text--medium {
 
 .fr-nis2-en-cours-developpement {
     background: #FEF4F2 url(assets/in-progress.svg) no-repeat;
+}
+
+.fr-nis2-aidez-nous {
+    background: var(--yellow-tournesol-975-75, #FEF6E3) url(assets/faq.svg) no-repeat;
+    background-size: 5rem;
+}
+
+.fr-nis2-en-cours-developpement, .fr-nis2-aidez-nous {
     background-position-y: center;
     background-position-x: 1rem;
-    display: flex;
+    /*display: flex;*/
     padding: 24px;
     align-items: flex-start;
     align-self: stretch;
 
-    & p {
+    & p, & h6 {
         margin: 0 0 0 6.5rem;
     }
+
+    & h6 {
+        padding-bottom: .25rem;
+    }
 }
+
 
 .fr-nis2-tuile-lien {
     gap: 1.125rem;
