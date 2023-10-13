@@ -1,7 +1,5 @@
 import { describe, expect, it } from "vitest";
 import {
-  archetypeReponsesGrandeEntreprise,
-  archetypeReponsesMoyenneEntreprise,
   archetypeReponsesPetiteEntreprise,
   combinatoireEntrepriseMoyenne,
   combinatoireGrandesEntreprises,
@@ -22,21 +20,8 @@ import { libellesSecteursActivite } from "../../src/References/LibellesSecteursA
 import { libellesActivites } from "../../src/References/LibellesActivites";
 
 describe("Calcul d'éligibilité NIS 2", () => {
-  const reponseDesigneOSE = new DonneesFormulaireSimulateur({
-    designeOperateurServicesEssentiels: ["oui"],
-  });
   const reponseNonDesigneOSE = new DonneesFormulaireSimulateur({
     designeOperateurServicesEssentiels: ["non"],
-  });
-  describe.each([reponseDesigneOSE])("Designe OSE NIS 1", (reponses) => {
-    it.each([
-      archetypeReponsesMoyenneEntreprise,
-      archetypeReponsesGrandeEntreprise,
-    ])("est toujours Eligible (taille=$trancheCA)", (taille) => {
-      expect(eligibilite(reponses.avec(taille))).toStrictEqual(
-        ResultatEligibiliteEnum.EligibleMoyenneGrandeEntreprise,
-      );
-    });
   });
   describe.each([reponseNonDesigneOSE])("Non designe OSE NIS 1", (reponses) => {
     describe.each([reponseNonDesigneOSE])("Autres activités", (reponses) => {

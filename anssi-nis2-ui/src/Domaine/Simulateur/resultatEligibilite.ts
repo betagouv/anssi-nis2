@@ -35,8 +35,10 @@ export const estGrandeEntreprise = (
 ) => nombreEmployes.includes("grand") || chiffreAffaire.includes("grand");
 
 const estUneActiviteListee = (activites: Activite[]) =>
+  activites.length &&
   activites.every((activite) => listeActivitesSaufAutre.includes(activite));
 const estUnSecteurListee = (secteurs: SecteurActivite[]) =>
+  secteurs.length &&
   secteurs.every((secteur) => listeSecteursActiviteSaufAutre.includes(secteur));
 
 export const eligibilite: (

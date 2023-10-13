@@ -20,7 +20,7 @@ export type NomsChampsSimulateur =
   | "sousSecteurActivite"
   | "activites";
 
-export interface IDonneesFormulaireSimulateur
+export interface IDonneesBrutesFormulaireSimulateur
   extends Record<NomsChampsSimulateur, ValeurChampSimulateur[]> {
   activites: Activite[];
   designeOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[];
@@ -30,7 +30,10 @@ export interface IDonneesFormulaireSimulateur
   trancheCA: TrancheChiffreAffaire[];
   trancheNombreEmployes: TrancheNombreEmployes[];
   typeStructure: TypeStructure[];
+}
 
+export interface IDonneesFormulaireSimulateur
+  extends IDonneesBrutesFormulaireSimulateur {
   avec(
     modifie: Partial<IDonneesFormulaireSimulateur>,
   ): IDonneesFormulaireSimulateur;
