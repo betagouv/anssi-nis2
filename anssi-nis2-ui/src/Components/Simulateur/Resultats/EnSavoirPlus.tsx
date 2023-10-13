@@ -8,6 +8,7 @@ import {
 import { TuileLien } from "../../General/TuileLien.tsx";
 import imageSourceUE from "../../../assets/source_EU.svg";
 import imageWebinaire from "../../../assets/webinar.svg";
+import imageFAQ from "../../../assets/faq.svg";
 
 export const EnSavoirPlus = () => {
   return (
@@ -31,6 +32,7 @@ export const EnSavoirPlus = () => {
             titre={"Webinaire"}
             lien={lienFaqAnssi}
           />
+          <TuileLien image={imageFAQ} titre={"FAQ"} lien={lienFaqAnssi} />
         </ul>
       </CenteredContainer>
     </RowContainer>
