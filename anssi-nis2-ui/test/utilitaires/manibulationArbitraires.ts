@@ -106,7 +106,10 @@ export const fabriqueArbSecteurSousSecteurs = (
   { minLength }: ArbitraireOptions = { minLength: 0 },
 ) => {
   if (listeSecteursSousSecteurs.length === 0) {
-    return fc.record({});
+    return fc.record({
+      secteurActivite: fc.constant([]),
+      sousSecteurActivite: fc.constant([]),
+    });
   }
   return fc
     .subarray(listeSecteursSousSecteurs, { minLength: minLength })

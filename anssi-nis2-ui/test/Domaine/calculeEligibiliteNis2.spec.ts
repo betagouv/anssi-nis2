@@ -39,13 +39,13 @@ describe("Calcul d'éligibilité NIS 2", () => {
         //   suiteTestsNonOSEPriveFrancePetit,
         // );
         //
-        const reponsesFrancePriveMoyen = combinatoireEntrepriseMoyenne.map(
-          (combinaison) => reponses.avec(combinaison),
-        );
-        describe.each(reponsesFrancePriveMoyen)(
-          "Moyen CA$trancheCA Empl$trancheNombreEmployes",
-          suiteTestsNonOSEPriveFranceMoyenneGrande,
-        );
+        // const reponsesFrancePriveMoyen = combinatoireEntrepriseMoyenne.map(
+        //   (combinaison) => reponses.avec(combinaison),
+        // );
+        // describe.each(reponsesFrancePriveMoyen)(
+        //   "Moyen CA$trancheCA Empl$trancheNombreEmployes",
+        //   suiteTestsNonOSEPriveFranceMoyenneGrande,
+        // );
         //     const reponsesFrancePriveGrand = combinatoireGrandesEntreprises.map(
         //       (combinaison) => reponses.avec(combinaison),
         //     );
@@ -55,47 +55,53 @@ describe("Calcul d'éligibilité NIS 2", () => {
         //     );
         //   });
         // });
-        // const reponsesMembreUE = reponses.avec({
-        //   etatMembre: ["autre"],
-        // });
-        // describe.each([reponsesMembreUE])(
-        //   "Autre pays Union Européenne",
-        //   (reponses) => {
-        //     const secteur: SecteurActivite = "infrastructureNumerique";
-        //     const activite: Activite = "fournisseurPointEchangeInternet";
-        //     const donneesSimu = reponses
-        //       .avec({
-        //         secteurActivite: [secteur],
-        //         activites: [activite],
-        //       })
-        //       .avec({
-        //         typeStructure: ["privee"],
-        //       });
-        //     it(
-        //       `Petite entreprise privée est eligible ` +
-        //         `pour le secteur '${libellesSecteursActivite[secteur]}' ` +
-        //         `et l'activité '${libellesActivites[activite]}'`,
-        //       () => {
-        //         expect(
-        //           eligibilite(donneesSimu.avec(archetypeReponsesPetiteEntreprise)),
-        //         ).toStrictEqual(ResultatEligibiliteEnum.EligiblePetiteEntreprise);
-        //       },
-        //     );
-        //     it(
-        //       `Grande entreprise privée est eligible ` +
-        //         `pour le secteur '${libellesSecteursActivite[secteur]}' ` +
-        //         `et l'activité '${libellesActivites[activite]}'`,
-        //       () => {
-        //         expect(
-        //           eligibilite(
-        //             donneesSimu.avec({
-        //               trancheCA: ["grand"],
-        //               trancheNombreEmployes: ["grand"],
-        //             }),
-        //           ),
-        //         ).toStrictEqual(
-        //           ResultatEligibiliteEnum.EligibleMoyenneGrandeEntreprise,
-        //         );
+        const reponsesMembreUE = reponses.avec({
+          etatMembre: ["autre"],
+        });
+        describe.each([reponsesMembreUE])(
+          "Autre pays Union Européenne",
+          (reponses) => {
+            const secteur: SecteurActivite = "infrastructureNumerique";
+            const activite: Activite = "fournisseurPointEchangeInternet";
+            const donneesSimu = reponses
+              .avec({
+                secteurActivite: [secteur],
+                activites: [activite],
+              })
+              .avec({
+                typeStructure: ["privee"],
+              });
+            it(
+              `Petite entreprise privée est eligible ` +
+                `pour le secteur '${libellesSecteursActivite[secteur]}' ` +
+                `et l'activité '${libellesActivites[activite]}'`,
+              () => {
+                expect(
+                  eligibilite(
+                    donneesSimu.avec(archetypeReponsesPetiteEntreprise),
+                  ),
+                ).toStrictEqual(
+                  ResultatEligibiliteEnum.EligiblePetiteEntreprise,
+                );
+              },
+            );
+            // it(
+            //   `Grande entreprise privée est eligible ` +
+            //     `pour le secteur '${libellesSecteursActivite[secteur]}' ` +
+            //     `et l'activité '${libellesActivites[activite]}'`,
+            //   () => {
+            //     expect(
+            //       eligibilite(
+            //         donneesSimu.avec({
+            //           trancheCA: ["grand"],
+            //           trancheNombreEmployes: ["grand"],
+            //         }),
+            //       ),
+            //     ).toStrictEqual(
+            //       ResultatEligibiliteEnum.EligibleMoyenneGrandeEntreprise,
+            //     );
+          },
+        );
       });
     });
   });

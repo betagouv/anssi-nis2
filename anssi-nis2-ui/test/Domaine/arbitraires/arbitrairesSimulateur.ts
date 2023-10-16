@@ -190,6 +190,35 @@ export const donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresSESS: fc.Arbit
       }),
     )
     .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
+export const donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites: fc.Arbitrary<IDonneesFormulaireSimulateur> =
+  fabriqueArbSecteurSousSecteurs(
+    listeEnrSecteursAvecLeursSousSecteurs.filter(
+      (enr) =>
+        !enr.secteur.startsWith("autre") &&
+        !enr.sousSecteur?.startsWith("autre"),
+    ),
+    {
+      minLength: 1,
+    },
+  )
+    .chain((base) =>
+      fc.record<Omit<DonneesSansActivite, "trancheNombreEmployes">>({
+        ...propageBase(base),
+        designeOperateurServicesEssentiels:
+          arbDesigneOperateurServicesEssentiels.non,
+        typeStructure: arbTypeStructure.privee,
+        trancheCA: arbTrancheSingleton(),
+        etatMembre: arbAppartenancePaysUnionEuropeenne.france,
+      }),
+    )
+    .chain(fabriqueArbContraintSurTrancheCA)
+    .chain<DonneesSansActivite>((base) =>
+      ajouteArbitraireActivites(base, {
+        minLength: 1,
+        filtreActivite: estActiviteAutre,
+      }),
+    )
+    .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
 
 export const arbForm = {
   designeOSE: {
@@ -205,6 +234,8 @@ export const arbForm = {
     grand: {
       secteursListes: donneesArbitrairesFormNonOSEPrivesMoyenneGrande,
       secteursAutres: donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresSESS,
+      activitesAutres:
+        donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites,
     },
   },
 };

@@ -75,6 +75,18 @@ describe(eligibilite, () => {
             ),
           );
         });
+        it("Si l'activité est 'autre'", () => {
+          fc.assert(
+            fc.property(
+              arbForm.nonDesigneOSE.grand.secteursAutres,
+              (donnees) => {
+                expect(eligibilite(donnees)).toStrictEqual(
+                  ResultatEligibiliteEnum.NonEligible,
+                );
+              },
+            ),
+          );
+        });
       });
     });
   });
