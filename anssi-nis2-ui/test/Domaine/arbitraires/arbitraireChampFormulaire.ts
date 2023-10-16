@@ -6,6 +6,7 @@ import {
   UnionPetitMoyenGrand,
 } from "../../../src/Domaine/Simulateur/ChampsSimulateur";
 import { ArbitraireChampFormulaire } from "./arbitraireChampFormulaire.d";
+import { fabriqueArbSingleton } from "../../utilitaires/manipulationArbitraires";
 
 export const arbDesigneOperateurServicesEssentiels: ArbitraireChampFormulaire<DesignationOperateurServicesEssentiels> =
   {
@@ -22,9 +23,12 @@ export const arbTranche: ArbitraireChampFormulaire<UnionPetitMoyenGrand> = {
   moyen: fc.constant<UnionPetitMoyenGrand[]>(["moyen"]),
   grand: fc.constant<UnionPetitMoyenGrand[]>(["grand"]),
 };
-export const arbAppartenancePaysUnionEuropeenne: ArbitraireChampFormulaire<AppartenancePaysUnionEuropeenne> =
-  {
-    france: fc.constant(["france"]),
-    horsue: fc.constant(["horsue"]),
-    autre: fc.constant(["autre"]),
-  };
+export const arbAppartenancePaysUnionEuropeenne: ArbitraireChampFormulaire<
+  AppartenancePaysUnionEuropeenne,
+  "franceOuAutre"
+> = {
+  france: fc.constant(["france"]),
+  horsue: fc.constant(["horsue"]),
+  autre: fc.constant(["autre"]),
+  franceOuAutre: fabriqueArbSingleton(["france", "autre"]),
+};

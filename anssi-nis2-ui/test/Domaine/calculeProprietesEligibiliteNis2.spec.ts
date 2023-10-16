@@ -37,7 +37,7 @@ describe(eligibilite, () => {
         }),
       );
     });
-    describe("Petite / France", () => {
+    describe("Petite entité localisée en France ou en UE", () => {
       it("Est éligible si le secteur d'activité est 'Infrastructure Numérique'", () => {
         fc.assert(
           fc.property(
@@ -52,7 +52,7 @@ describe(eligibilite, () => {
       });
     });
 
-    describe("Moyen ou grand / France", () => {
+    describe("Moyenne ou grande entité localisée en France ou en UE", () => {
       it("Est éligible si le secteur d'activité et l'activité sont listés", () => {
         fc.assert(
           fc.property(arbForm.nonDesigneOSE.grand.secteursListes, (donnees) => {

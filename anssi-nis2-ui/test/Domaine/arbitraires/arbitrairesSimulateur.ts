@@ -8,7 +8,7 @@ import {
   fabriqueArbSecteurSousSecteurs,
   fabriqueArbSingleton,
   propageBase,
-} from "../../utilitaires/manibulationArbitraires";
+} from "../../utilitaires/manipulationArbitraires";
 import {
   ValeursAppartenancePaysUnionEuropeenne,
   ValeursPetitMoyenGrand,
@@ -122,7 +122,7 @@ export const donneesArbitrairesFormNonOSEPrivesPetitFournisseurInfraNum: fc.Arbi
         typeStructure: arbTypeStructure.privee,
         trancheCA: arbTranche.petit,
         trancheNombreEmployes: arbTranche.petit,
-        etatMembre: arbAppartenancePaysUnionEuropeenne.france,
+        etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
       }),
     )
     .chain<DonneesSansActivite>((base) =>
@@ -151,7 +151,7 @@ export const donneesArbitrairesFormNonOSEPrivesMoyenneGrande: fc.Arbitrary<IDonn
           arbDesigneOperateurServicesEssentiels.non,
         typeStructure: arbTypeStructure.privee,
         trancheCA: arbTrancheSingleton(),
-        etatMembre: arbAppartenancePaysUnionEuropeenne.france,
+        etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
       }),
     )
     .chain(fabriqueArbContraintSurTrancheCA)
@@ -179,7 +179,7 @@ export const donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresSESS: fc.Arbit
           arbDesigneOperateurServicesEssentiels.non,
         typeStructure: arbTypeStructure.privee,
         trancheCA: arbTrancheSingleton(),
-        etatMembre: arbAppartenancePaysUnionEuropeenne.france,
+        etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
       }),
     )
     .chain(fabriqueArbContraintSurTrancheCA)
@@ -208,7 +208,7 @@ export const donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites: fc.
           arbDesigneOperateurServicesEssentiels.non,
         typeStructure: arbTypeStructure.privee,
         trancheCA: arbTrancheSingleton(),
-        etatMembre: arbAppartenancePaysUnionEuropeenne.france,
+        etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
       }),
     )
     .chain(fabriqueArbContraintSurTrancheCA)
