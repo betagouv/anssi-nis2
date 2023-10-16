@@ -19,7 +19,7 @@ import {
   estActiviteAutre,
   estActiviteListee,
 } from "../../../src/Domaine/Simulateur/Operations/FiltreActivites";
-import { listeEnrSecteursAvecLeursSousSecteurs } from "../../../src/Domaine/Simulateur/TuplesSecteursSousSecteur";
+import { listeEnrSecteursAvecLeursSousSecteurs } from "../../../src/Domaine/Simulateur/ListesEnrSecteursSousSecteur";
 import {
   arbAppartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
@@ -80,6 +80,47 @@ export const donneesArbitrairesFormNonOSEPrivesPetitFournisseurInfraNum: fc.Arbi
       }),
     )
     .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
+
+export const donneesArbitrairesFormNonOSEPrivesMoyenneGrande: fc.Arbitrary<IDonneesFormulaireSimulateur> =
+  fabriqueArbSecteurSousSecteurs(
+    listeEnrSecteursAvecLeursSousSecteurs.filter(
+      (enr) => !enr.secteur.startsWith("autre"),
+    ),
+    {
+      minLength: 1,
+    },
+  )
+    .chain((base) =>
+      fc.record<Omit<DonneesSansActivite, "trancheNombreEmployes">>({
+        ...propageBase(base),
+        designeOperateurServicesEssentiels:
+          arbDesigneOperateurServicesEssentiels.non,
+        typeStructure: arbTypeStructure.privee,
+        trancheCA: arbTrancheSingleton(),
+        etatMembre: arbAppartenancePaysUnionEuropeenne.france,
+      }),
+    )
+    .chain(fabriqueArbContraintSurTrancheCA)
+    .chain<DonneesSansActivite>((base) =>
+      ajouteArbitraireActivites(base, {
+        minLength: 1,
+        filtreActivite: estActiviteListee,
+      }),
+    )
+    .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
+
+function fabriqueArbContraintSurTrancheCA(
+  base: Omit<DonneesSansActivite, "trancheNombreEmployes">,
+) {
+  return fc.record<DonneesSansActivite>({
+    ...propageBase(base),
+    trancheNombreEmployes: contrainteTranchesSansDoublonSurValeur(
+      base,
+      "petit",
+    ),
+  });
+}
+
 export const donneesArbitrairesFormOSEMoyenGrand: fc.Arbitrary<IDonneesFormulaireSimulateur> =
   arbitraireSecteursSousSecteurs
     .chain((base) =>
@@ -94,15 +135,7 @@ export const donneesArbitrairesFormOSEMoyenGrand: fc.Arbitrary<IDonneesFormulair
         trancheCA: arbTrancheSingleton(),
       }),
     )
-    .chain((base) =>
-      fc.record<DonneesSansActivite>({
-        ...propageBase(base),
-        trancheNombreEmployes: contrainteTranchesSansDoublonSurValeur(
-          base,
-          "petit",
-        ),
-      }),
-    )
+    .chain(fabriqueArbContraintSurTrancheCA)
     .chain<DonneesSansActivite>(ajouteArbitraireActivites)
     .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
 
@@ -139,5 +172,6 @@ export const arbForm = {
       fournisseursInfrastructureNumerique:
         donneesArbitrairesFormNonOSEPrivesPetitFournisseurInfraNum,
     },
+    grand: donneesArbitrairesFormNonOSEPrivesMoyenneGrande,
   },
 };

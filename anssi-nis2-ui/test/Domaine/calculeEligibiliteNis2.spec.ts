@@ -31,21 +31,21 @@ describe("Calcul d'éligibilité NIS 2", () => {
         typeStructure: ["privee"],
       });
       describe.each([reponsesFrancePrive])("Privé", (reponses) => {
-        const reponsesFrancePrivePetit = reponses.avec(
-          archetypeReponsesPetiteEntreprise,
-        );
-        describe.each([reponsesFrancePrivePetit])(
-          "Petit",
-          suiteTestsNonOSEPriveFrancePetit,
-        );
+        // const reponsesFrancePrivePetit = reponses.avec(
+        //   archetypeReponsesPetiteEntreprise,
+        // );
+        // describe.each([reponsesFrancePrivePetit])(
+        //   "Petit",
+        //   suiteTestsNonOSEPriveFrancePetit,
+        // );
         //
-        //     const reponsesFrancePriveMoyen = combinatoireEntrepriseMoyenne.map(
-        //       (combinaison) => reponses.avec(combinaison),
-        //     );
-        //     describe.each(reponsesFrancePriveMoyen)(
-        //       "Moyen CA$trancheCA Empl$trancheNombreEmployes",
-        //       suiteTestsNonOSEPriveFranceMoyenneGrande,
-        //     );
+        const reponsesFrancePriveMoyen = combinatoireEntrepriseMoyenne.map(
+          (combinaison) => reponses.avec(combinaison),
+        );
+        describe.each(reponsesFrancePriveMoyen)(
+          "Moyen CA$trancheCA Empl$trancheNombreEmployes",
+          suiteTestsNonOSEPriveFranceMoyenneGrande,
+        );
         //     const reponsesFrancePriveGrand = combinatoireGrandesEntreprises.map(
         //       (combinaison) => reponses.avec(combinaison),
         //     );

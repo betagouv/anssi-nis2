@@ -7,9 +7,9 @@ export const estActiviteAutre = (activite: Activite) =>
   activite.startsWith(prefixeAutreActivite);
 export const estActiviteListee = (activite: Activite) =>
   !activite.startsWith(prefixeAutreActivite);
-export const filtreActivitesAutres = (valeursActivites: Activite[]) =>
+export const filtreActivitesAutres = (valeursActivites: readonly Activite[]) =>
   valeursActivites.filter(estActiviteAutre);
-export const filtreActivitesListees = (valeursActivites: Activite[]) =>
+export const filtreActivitesListees = (valeursActivites: readonly Activite[]) =>
   valeursActivites.filter(estActiviteListee);
 export const listeActivitesAutre: Activite[] =
   filtreActivitesAutres(ValeursActivites);

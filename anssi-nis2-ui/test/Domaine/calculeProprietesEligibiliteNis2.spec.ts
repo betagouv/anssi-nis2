@@ -51,5 +51,17 @@ describe(eligibilite, () => {
         );
       });
     });
+
+    describe("Moyen ou grand / France", () => {
+      it("Est éligible si le secteur d'activité et l'activité sont listés", () => {
+        fc.assert(
+          fc.property(arbForm.nonDesigneOSE.grand, (donnees) => {
+            expect(eligibilite(donnees)).toStrictEqual(
+              ResultatEligibiliteEnum.EligibleMoyenneGrandeEntreprise,
+            );
+          }),
+        );
+      });
+    });
   });
 });

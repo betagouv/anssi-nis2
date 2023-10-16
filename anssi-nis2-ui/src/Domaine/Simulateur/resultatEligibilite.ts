@@ -8,7 +8,7 @@ import {
 
 import { listeActivitesSaufAutre } from "./Operations/FiltreActivites.ts";
 
-import { listeSecteursActiviteSaufAutre } from "./TuplesSecteursSousSecteur.ts";
+import { listeSecteursActiviteSaufAutre } from "./ListesEnrSecteursSousSecteur.ts";
 
 export type ResultatEligibilite =
   | "NonEligible"

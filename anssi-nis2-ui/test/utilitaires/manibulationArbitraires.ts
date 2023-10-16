@@ -70,22 +70,24 @@ export const ajouteArbitraireActivites = <
     options?.filtreActivite || (() => true),
     options?.minLength || 0,
   ];
+  const listeActivitesDesSecteurs = fabriqueListeActivitesDesSecteurs(
+    [
+      ...filtreSecteursSansSousSecteurs(base.secteurActivite),
+      ...base.sousSecteurActivite,
+    ],
+    opFiltreActivite,
+  );
+  if (listeActivitesDesSecteurs.length === 0) {
+    return fc.record<DonneesPartielle>({
+      ...propageBase(base),
+      activites: fc.constant([]),
+    });
+  }
   return fc.record<DonneesPartielle>({
     ...propageBase(base),
-    activites: fc.subarray(
-      Array.from(
-        new Set(
-          fabriqueListeActivitesDesSecteurs(
-            [
-              ...filtreSecteursSansSousSecteurs(base.secteurActivite),
-              ...base.sousSecteurActivite,
-            ],
-            opFiltreActivite,
-          ),
-        ),
-      ),
-      { minLength: opMinLength },
-    ),
+    activites: fc.subarray(Array.from(new Set(listeActivitesDesSecteurs)), {
+      minLength: opMinLength,
+    }),
   });
 };
 export const contrainteTranchesSansDoublonSurValeur = (
