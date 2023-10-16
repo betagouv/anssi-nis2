@@ -14,7 +14,7 @@ import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/
 import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
-} from "../../../Domaine/Simulateur/ValeursChampsSimulateur";
+} from "../../../Domaine/Simulateur/ChampsSimulateur";
 
 const EtapeTailleCalculee = ({
   donneesFormulaire,

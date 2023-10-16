@@ -5,13 +5,18 @@ import {
   sousSecteursParSecteur,
   ValeursSecteursAvecSousSecteurs,
 } from "../ValeursSousSecteursActivites.ts";
+import { SecteurActivite } from "../SecteursActivite";
+import { ValeursSecteursActivites } from "../ValeursSecteursActivites.ts";
 
 export const estUnSecteurAvecDesSousSecteurs = (secteur: string) =>
   ValeursSecteursAvecSousSecteurs.includes(secteur as SecteursAvecSousSecteurs);
-export const estUnSecteurSansDesSousSecteurs = (secteur: string) =>
-  !ValeursSecteursAvecSousSecteurs.includes(
+export const estUnSecteurSansDesSousSecteurs = (secteur: string) => {
+  return !ValeursSecteursAvecSousSecteurs?.includes(
     secteur as SecteursAvecSousSecteurs,
   );
+};
+export const ValeursSecteursSansSousSecteur: SecteurActivite[] =
+  ValeursSecteursActivites.filter(estUnSecteurSansDesSousSecteurs);
 export const contientSousSecteur = (
   secteur: string,
   sousSecteur: SousSecteurActivite,
@@ -24,9 +29,7 @@ export const fabriqueSecteurContientLeSousSecteur =
   ([sousSecteur]: [SousSecteurActivite, string]) =>
     estUnSecteurAvecDesSousSecteurs(secteur) &&
     contientSousSecteur(secteur, sousSecteur);
-export const fabriqueListeActivitesPourValeursSectorielles = (
-  valeurGroupement: SecteursAvecSousSecteurs,
-) => groupementsSecteursParSousSecteurs[valeurGroupement];
+
 export const sousSecteurAppartientASecteur =
   (valeurGroupement: SecteursAvecSousSecteurs) =>
   (donneesFormulaireSimulateur: DonneesFormulaireSimulateur) => {
@@ -39,3 +42,22 @@ export const sousSecteurAppartientASecteur =
       ),
     );
   };
+export const fabriqueTupleSecteurSousSecteurs: (
+  secteur: SecteursAvecSousSecteurs,
+) => [SecteurActivite, Readonly<SousSecteurActivite[]>] = (secteur) => [
+  secteur,
+  sousSecteursParSecteur[secteur],
+];
+
+export function listePartielleSecteursAvecSousSecteurs(
+  listeSousSecteurs: readonly SousSecteurActivite[],
+  secteur: SecteursAvecSousSecteurs,
+): {
+  secteur: SecteurActivite;
+  sousSecteur: SousSecteurActivite;
+}[] {
+  return listeSousSecteurs.map((sousSecteur) => ({
+    secteur: secteur,
+    sousSecteur: sousSecteur,
+  }));
+}

@@ -312,23 +312,3 @@ export type Activite =
   | ActivitesFabrication
   | ActivitesFournisseursNumeriques
   | ActivitesRecherche;
-const prefixeAutreActivite = "autreActivite";
-export const filtreActivitesAutres = (
-  valeursActivites: string[] | readonly string[],
-) =>
-  valeursActivites.filter((activite) =>
-    activite.startsWith(prefixeAutreActivite),
-  ) as Activite[];
-
-export const filtreActivitesListees = (
-  valeursActivites: string[] | readonly string[],
-) =>
-  valeursActivites.filter(
-    (activite) => !activite.startsWith(prefixeAutreActivite),
-  ) as Activite[];
-
-export const listeActivitesAutre: Activite[] =
-  filtreActivitesAutres(ValeursActivites);
-
-export const listeActivitesSaufAutre: Activite[] =
-  filtreActivitesListees(ValeursActivites);

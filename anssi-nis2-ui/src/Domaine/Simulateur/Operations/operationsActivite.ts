@@ -3,7 +3,7 @@ import { SecteurActivite } from "../SecteursActivite";
 import { SecteursSansSousSecteur } from "../SousSecteurs";
 import { Activite } from "../Activite.ts";
 import { ValeursSecteursAvecSousSecteurs } from "../ValeursSousSecteursActivites.ts";
-import { ValeurCleSectorielle } from "../ValeursChampsSimulateur";
+import { ValeurCleSectorielle } from "../ChampsSimulateur";
 
 const estUnSecteurSansSousSecteur = (secteur: string) =>
   !(ValeursSecteursAvecSousSecteurs as readonly string[]).includes(secteur);

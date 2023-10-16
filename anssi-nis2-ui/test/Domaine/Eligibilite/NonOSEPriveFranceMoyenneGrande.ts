@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { ValeursSecteursSansSousSecteur } from "../../../src/Domaine/Simulateur/ValeursSecteursActivites";
-import {
-  listeActivitesAutre,
-  listeActivitesSaufAutre,
-} from "../../../src/Domaine/Simulateur/Activite";
 import {
   eligibilite,
   ResultatEligibiliteEnum,
 } from "../../../src/Domaine/Simulateur/resultatEligibilite";
+import {
+  listeActivitesAutre,
+  listeActivitesSaufAutre,
+} from "../../../src/Domaine/Simulateur/Operations/FiltreActivites";
+import { ValeursSecteursSansSousSecteur } from "../../../src/Domaine/Simulateur/ValeursAssocieesSecteurs";
 
 export const suiteTestsNonOSEPriveFranceMoyenneGrande = (reponses) => {
   const reponsesFrancePrivePetitInfraNum = ValeursSecteursSansSousSecteur.map(

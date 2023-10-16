@@ -14,7 +14,7 @@ import {
   filtreSecteursSansSousSecteurs,
 } from "../Operations/operationsActivite.ts";
 import { sousSecteurAppartientASecteur } from "../Operations/operationsSecteurs.ts";
-import { ValeurCleSectorielle } from "../ValeursChampsSimulateur";
+import { ValeurCleSectorielle } from "../ChampsSimulateur";
 
 export const et: (...validateurs: Array<Validateur>) => Validateur = (
   ...validateurs

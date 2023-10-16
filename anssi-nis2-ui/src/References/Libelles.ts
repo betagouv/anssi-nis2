@@ -8,7 +8,7 @@ import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeStructure,
-} from "../Domaine/Simulateur/ValeursChampsSimulateur";
+} from "../Domaine/Simulateur/ChampsSimulateur";
 
 export const libellesDesigneOSE: Record<
   DesignationOperateurServicesEssentiels,

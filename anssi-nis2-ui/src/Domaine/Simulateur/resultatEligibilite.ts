@@ -1,11 +1,14 @@
 import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.ts";
-import { Activite, listeActivitesSaufAutre } from "./Activite.ts";
-import { listeSecteursActiviteSaufAutre } from "./ValeursSecteursActivites.ts";
+import { Activite } from "./Activite.ts";
 import { SecteurActivite } from "./SecteursActivite";
 import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
 } from "./ChampsSimulateur";
+
+import { listeActivitesSaufAutre } from "./Operations/FiltreActivites.ts";
+
+import { listeSecteursActiviteSaufAutre } from "./TuplesSecteursSousSecteur.ts";
 
 export type ResultatEligibilite =
   | "NonEligible"

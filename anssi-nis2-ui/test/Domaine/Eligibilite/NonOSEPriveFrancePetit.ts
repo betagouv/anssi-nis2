@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
-import {
-  filtreActivitesAutres,
-  filtreActivitesListees,
-  ValeursActivitesInfrastructureNumerique,
-} from "../../../src/Domaine/Simulateur/Activite";
+import { ValeursActivitesInfrastructureNumerique } from "../../../src/Domaine/Simulateur/Activite";
 import {
   eligibilite,
   ResultatEligibiliteEnum,
 } from "../../../src/Domaine/Simulateur/resultatEligibilite";
+import {
+  filtreActivitesAutres,
+  filtreActivitesListees,
+} from "../../../src/Domaine/Simulateur/Operations/FiltreActivites";
 
 export const suiteTestsNonOSEPriveFrancePetit = (reponses) => {
   const reponsesFrancePrivePetitInfraNum = reponses.avec({
