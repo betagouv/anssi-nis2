@@ -26,7 +26,11 @@ import {
 import { Activite } from "../../../src/Domaine/Simulateur/Activite";
 import { filtreSecteursSansSousSecteurs } from "../../../src/Domaine/Simulateur/Operations/operationsActivite";
 
-import { fabriqueListeActivitesDesSecteurs } from "../../../src/Domaine/Simulateur/Operations/FiltreActivites";
+import {
+  estActiviteAutre,
+  estActiviteListee,
+  fabriqueListeActivitesDesSecteurs,
+} from "../../../src/Domaine/Simulateur/Operations/FiltreActivites";
 import {
   tuplesSecteursEtSousSecteurs,
   tuplesSecteursSansSousSecteur,
@@ -48,36 +52,56 @@ const arbSsecteursAvecLeursSousSecteurs: EnrSecteurSousSecteur[] = [
   ...tuplesSecteursSansSousSecteur,
   ...tuplesSecteursEtSousSecteurs,
 ];
-const arbitraireSecteursSousSecteurs = fc
-  .subarray(arbSsecteursAvecLeursSousSecteurs)
-  .chain((couplesSecteurSousSecteur) =>
-    fc.record({
-      secteurActivite: fc.constant(
-        Array.from(
-          couplesSecteurSousSecteur.reduce(
-            (listeSecteurs, couple) => listeSecteurs.add(couple.secteur),
-            new Set<SecteurActivite>(),
+
+type ArbitraireOptions = {
+  minLength?: number;
+};
+
+const fabriqueArbSecteurSousSecteurs = (
+  listeSecteursSousSecteurs: EnrSecteurSousSecteur[],
+  { minLength }: ArbitraireOptions = { minLength: 0 },
+) =>
+  fc
+    .subarray(listeSecteursSousSecteurs, { minLength: minLength })
+    .chain((couplesSecteurSousSecteur) =>
+      fc.record({
+        secteurActivite: fc.constant(
+          Array.from(
+            couplesSecteurSousSecteur.reduce(
+              (listeSecteurs, couple) => listeSecteurs.add(couple.secteur),
+              new Set<SecteurActivite>(),
+            ),
           ),
         ),
-      ),
-      sousSecteurActivite: fc.constant(
-        Array.from(
-          couplesSecteurSousSecteur.reduce(
-            (listeSousSecteurs, couple) =>
-              listeSousSecteurs.add(couple.sousSecteur),
-            new Set<SousSecteurActivite>(),
-          ),
-        ).filter((sousSecteur) => sousSecteur !== undefined),
-      ),
-    }),
-  );
+        sousSecteurActivite: fc.constant(
+          Array.from(
+            couplesSecteurSousSecteur.reduce(
+              (listeSousSecteurs, couple) =>
+                listeSousSecteurs.add(couple.sousSecteur),
+              new Set<SousSecteurActivite>(),
+            ),
+          ).filter((sousSecteur) => sousSecteur !== undefined),
+        ),
+      }),
+    );
 
+const arbitraireSecteursSousSecteurs = fabriqueArbSecteurSousSecteurs(
+  arbSsecteursAvecLeursSousSecteurs,
+);
+
+type ArbitraireOptionsActivites = ArbitraireOptions & {
+  filtreActivite?: (activite: Activite) => boolean;
+};
 export const ajouteArbitraireActivites = <
   DonneesPartielle extends DonneesSansActivite,
 >(
   base: DonneesPartielle,
-  filtreActivite: (activite: Activite) => boolean = () => true,
+  options?: ArbitraireOptionsActivites,
 ) => {
+  const [opFiltreActivite, opMinLength] = [
+    options?.filtreActivite || (() => true),
+    options?.minLength || 0,
+  ];
   return fc.record<DonneesPartielle>({
     ...propageBase(base),
     activites: fc.subarray(
@@ -88,10 +112,11 @@ export const ajouteArbitraireActivites = <
               ...filtreSecteursSansSousSecteurs(base.secteurActivite),
               ...base.sousSecteurActivite,
             ],
-            filtreActivite,
+            opFiltreActivite,
           ),
         ),
       ),
+      { minLength: opMinLength },
     ),
   });
 };
@@ -113,6 +138,33 @@ export const donneesArbitrairesFormOSEPetit: fc.Arbitrary<IDonneesFormulaireSimu
       }),
     )
     .chain<DonneesSansActivite>(ajouteArbitraireActivites)
+    .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
+export const donneesArbitrairesFormNonOSEPrivesPetitFournisseurInfraNum: fc.Arbitrary<IDonneesFormulaireSimulateur> =
+  fabriqueArbSecteurSousSecteurs(
+    arbSsecteursAvecLeursSousSecteurs.filter(
+      (enrSecteurSousSecteur) =>
+        enrSecteurSousSecteur.secteur == "infrastructureNumerique",
+    ),
+    { minLength: 1 },
+  )
+    .chain((base) =>
+      fc.record<DonneesSansActivite>({
+        ...propageBase(base),
+        designeOperateurServicesEssentiels: fc.constant<
+          DesignationOperateurServicesEssentiels[]
+        >(["non"]),
+        typeStructure: fc.constant<TypeStructure[]>(["privee"]),
+        trancheCA: fc.constant<TrancheChiffreAffaire[]>(["petit"]),
+        trancheNombreEmployes: fc.constant<TrancheNombreEmployes[]>(["petit"]),
+        etatMembre: fc.constant(["france"]),
+      }),
+    )
+    .chain<DonneesSansActivite>((base) =>
+      ajouteArbitraireActivites(base, {
+        minLength: 1,
+        filtreActivite: estActiviteListee,
+      }),
+    )
     .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
 export const donneesArbitrairesFormOSEMoyenGrand: fc.Arbitrary<IDonneesFormulaireSimulateur> =
   arbitraireSecteursSousSecteurs
@@ -155,9 +207,9 @@ export const donneesArbitrairesFormActivitesAutres: fc.Arbitrary<IDonneesFormula
       }),
     )
     .chain<DonneesSansActivite>((base) =>
-      ajouteArbitraireActivites(base, (activite: Activite) =>
-        activite.startsWith("autre"),
-      ),
+      ajouteArbitraireActivites(base, {
+        filtreActivite: estActiviteAutre,
+      }),
     )
     .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
 
@@ -168,5 +220,9 @@ export const arbForm = {
   },
   nonDesigneOSE: {
     activitesAutres: donneesArbitrairesFormActivitesAutres,
+    petit: {
+      fournisseursInfrastructureNumerique:
+        donneesArbitrairesFormNonOSEPrivesPetitFournisseurInfraNum,
+    },
   },
 };

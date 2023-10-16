@@ -37,5 +37,19 @@ describe(eligibilite, () => {
         }),
       );
     });
+    describe("Petite / France", () => {
+      it("Est éligible si le secteur d'activité est 'Infrastructure Numérique'", () => {
+        fc.assert(
+          fc.property(
+            arbForm.nonDesigneOSE.petit.fournisseursInfrastructureNumerique,
+            (donnees) => {
+              expect(eligibilite(donnees)).toStrictEqual(
+                ResultatEligibiliteEnum.EligiblePetiteEntreprise,
+              );
+            },
+          ),
+        );
+      });
+    });
   });
 });
