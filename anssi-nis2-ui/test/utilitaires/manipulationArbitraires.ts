@@ -24,7 +24,7 @@ import { ValeursPetitMoyenGrand } from "../../src/Domaine/Simulateur/ValeursCham
 const constantArbitraire = <TypeChamp extends ValeurChampSimulateur>(
   value: TypeChamp[],
 ) => fc.constant(value);
-type DonneesSectorielles = Pick<
+export type DonneesSectorielles = Pick<
   IDonneesFormulaireSimulateur,
   "secteurActivite" | "sousSecteurActivite"
 >;

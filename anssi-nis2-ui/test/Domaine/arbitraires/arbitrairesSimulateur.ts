@@ -1,10 +1,14 @@
 import { fc } from "@fast-check/vitest";
-import { IDonneesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
+import {
+  IDonneesBrutesFormulaireSimulateur,
+  IDonneesFormulaireSimulateur,
+} from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import {
   ajouteArbitraireActivites,
   ajouteMethodeAvec,
   contrainteTranchesSansDoublonSurValeur,
   DonneesSansActivite,
+  DonneesSectorielles,
   fabriqueArbSecteurSousSecteurs,
   fabriqueArbSingleton,
   propageBase,
@@ -51,21 +55,35 @@ function fabriqueArbContraintSurTrancheCA(
   });
 }
 
+const etendArbitraire = <
+  DonneesPartielles extends
+    | IDonneesBrutesFormulaireSimulateur
+    | DonneesSansActivite
+    | Omit<DonneesSansActivite, "secteurActivite" | "sousSecteurActivite">
+    | Omit<DonneesSansActivite, "trancheNombreEmployes">
+    | DonneesSectorielles,
+>(
+  donnees: fc.Arbitrary<DonneesSectorielles>,
+  ajouts: {
+    [K in keyof DonneesPartielles]: fc.Arbitrary<DonneesPartielles[K]>;
+  },
+) =>
+  donnees.chain((base) =>
+    fc.record({
+      ...propageBase(base),
+      ...ajouts,
+    }),
+  );
+
 export const donneesArbitrairesFormOSEPetit: fc.Arbitrary<IDonneesFormulaireSimulateur> =
-  arbitraireSecteursSousSecteurs
-    .chain((base) =>
-      fc.record<DonneesSansActivite>({
-        ...propageBase(base),
-        designeOperateurServicesEssentiels:
-          arbDesigneOperateurServicesEssentiels.oui,
-        typeStructure: arbTypeStructure.privee,
-        trancheCA: arbTranche.petit,
-        trancheNombreEmployes: arbTranche.petit,
-        etatMembre: fabriqueArbSingleton(
-          ValeursAppartenancePaysUnionEuropeenne,
-        ),
-      }),
-    )
+  etendArbitraire(arbitraireSecteursSousSecteurs, {
+    designeOperateurServicesEssentiels:
+      arbDesigneOperateurServicesEssentiels.oui,
+    typeStructure: arbTypeStructure.privee,
+    trancheCA: arbTranche.petit,
+    trancheNombreEmployes: arbTranche.petit,
+    etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
+  })
     .chain<DonneesSansActivite>(ajouteArbitraireActivites)
     .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
 
