@@ -12,11 +12,11 @@ import {
 import { SecteurActivite } from "./SecteursActivite";
 import { ValeursSecteursActivites } from "./ValeursSecteursActivites.ts";
 
-export const tuplesSecteursSansSousSecteur: EnrSecteurSousSecteur[] =
+export const listeEnrSecteursSansSousSecteur: EnrSecteurSousSecteur[] =
   ValeursSecteursSansSousSecteur.map((secteur) => ({
     secteur: secteur,
   }));
-export const tuplesSecteursEtSousSecteurs: EnrSecteurSousSecteur[] =
+export const listeEnrSecteursEtSousSecteurs: EnrSecteurSousSecteur[] =
   ValeursSecteursAvecSousSecteurs.map(fabriqueTupleSecteurSousSecteurs).reduce(
     (
       listeTuples: {
@@ -37,3 +37,7 @@ export const listeSecteursActiviteSaufAutre: readonly SecteurActivite[] =
   ValeursSecteursActivites.filter(
     (secteur) => secteur !== "autreSecteurActivite",
   );
+export const listeEnrSecteursAvecLeursSousSecteurs: EnrSecteurSousSecteur[] = [
+  ...listeEnrSecteursSansSousSecteur,
+  ...listeEnrSecteursEtSousSecteurs,
+];
