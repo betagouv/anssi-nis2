@@ -37,7 +37,7 @@ import {
   TypeStructure,
   ValeurChampSimulateur,
   ValeurCleSectorielle,
-} from "../../Domaine/Simulateur/ValeursChampsSimulateur";
+} from "../../Domaine/Simulateur/ChampsSimulateur";
 
 const recupereLibelleReponseOSE = (
   value: string,
