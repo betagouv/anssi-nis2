@@ -9,10 +9,12 @@ const estUnSecteurSansSousSecteur = (secteur: string) =>
   !(ValeursSecteursAvecSousSecteurs as readonly string[]).includes(secteur);
 export const filtreSecteursSansSousSecteurs: (
   secteursActivite: SecteurActivite[],
-) => SecteursSansSousSecteur[] = (secteursActivite) =>
-  secteursActivite.filter(
+) => SecteursSansSousSecteur[] = (secteursActivite) => {
+  if (!secteursActivite || secteursActivite.length === 0) return [];
+  return secteursActivite.filter(
     estUnSecteurSansSousSecteur,
   ) as SecteursSansSousSecteur[];
+};
 export const activiteEstDansSecteur = (
   activite: Activite,
   secteurActivite: ValeurCleSectorielle,

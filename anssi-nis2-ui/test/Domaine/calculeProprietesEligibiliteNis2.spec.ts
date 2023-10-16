@@ -55,12 +55,26 @@ describe(eligibilite, () => {
     describe("Moyen ou grand / France", () => {
       it("Est éligible si le secteur d'activité et l'activité sont listés", () => {
         fc.assert(
-          fc.property(arbForm.nonDesigneOSE.grand, (donnees) => {
+          fc.property(arbForm.nonDesigneOSE.grand.secteursListes, (donnees) => {
             expect(eligibilite(donnees)).toStrictEqual(
               ResultatEligibiliteEnum.EligibleMoyenneGrandeEntreprise,
             );
           }),
         );
+      });
+      describe("N'est pas éligible", () => {
+        it("Si le secteur est 'autre'", () => {
+          fc.assert(
+            fc.property(
+              arbForm.nonDesigneOSE.grand.secteursAutres,
+              (donnees) => {
+                expect(eligibilite(donnees)).toStrictEqual(
+                  ResultatEligibiliteEnum.NonEligible,
+                );
+              },
+            ),
+          );
+        });
       });
     });
   });

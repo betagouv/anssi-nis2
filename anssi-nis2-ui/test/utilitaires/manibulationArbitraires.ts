@@ -73,7 +73,7 @@ export const ajouteArbitraireActivites = <
   const listeActivitesDesSecteurs = fabriqueListeActivitesDesSecteurs(
     [
       ...filtreSecteursSansSousSecteurs(base.secteurActivite),
-      ...base.sousSecteurActivite,
+      ...(base.sousSecteurActivite || []),
     ],
     opFiltreActivite,
   );
@@ -104,8 +104,11 @@ export const contrainteTranchesSansDoublonSurValeur = (
 export const fabriqueArbSecteurSousSecteurs = (
   listeSecteursSousSecteurs: EnrSecteurSousSecteur[],
   { minLength }: ArbitraireOptions = { minLength: 0 },
-) =>
-  fc
+) => {
+  if (listeSecteursSousSecteurs.length === 0) {
+    return fc.record({});
+  }
+  return fc
     .subarray(listeSecteursSousSecteurs, { minLength: minLength })
     .chain((couplesSecteurSousSecteur) =>
       fc.record({
@@ -128,3 +131,4 @@ export const fabriqueArbSecteurSousSecteurs = (
         ),
       }),
     );
+};
