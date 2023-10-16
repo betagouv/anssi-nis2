@@ -26,23 +26,6 @@ import { Activite } from "../../../src/Domaine/Simulateur/Activite";
 import { activitesParSecteurEtSousSecteur } from "../../../src/Domaine/Simulateur/ActivitesParSecteurEtSousSecteur";
 import { ValeursSecteursSansSousSecteur } from "../../../src/Domaine/Simulateur/ValeursSecteursActivites";
 
-export const ajouteArbitraireActivites = <
-  DonneesPartielle extends DonneesSansActivite,
->(
-  base: DonneesPartielle,
-  filtreActivite: (activite: Activite) => boolean = () => true,
-) =>
-  fc.record<DonneesPartielle>({
-    ...propageBase(base),
-    activites: fc.subarray(
-      base.secteurActivite
-        .map(
-          (secteur) =>
-            activitesParSecteurEtSousSecteur[secteur]?.filter(filtreActivite),
-        )
-        .filter((activite) => activite !== undefined),
-    ),
-  });
 const trancheSansDoublonSurValeur = (
   base,
   valeurExclusive: UnionPetitMoyenGrand,
@@ -64,19 +47,23 @@ export const arbTranche = () =>
     minLength: 1,
     maxLength: 1,
   });
-const tuplesSecteursSansSousSecteur: {
+export const tuplesSecteursSansSousSecteur: {
   secteur: SecteurActivite;
   sousSecteur?: SousSecteurActivite;
-}[] = ValeursSecteursSansSousSecteur.map((secteur) => ({ secteur: secteur }));
+}[] = [...ValeursSecteursSansSousSecteur].map((secteur) => ({
+  secteur: secteur,
+}));
+const fabriqueTupleSecteurSousSecteurs: (
+  secteur: SecteurActivite,
+) => [SecteurActivite, SousSecteurActivite[]] = (secteur) => [
+  secteur,
+  sousSecteursParSecteur[secteur],
+];
 const tuplesSecteursEtSousSecteurs: {
   secteur: SecteurActivite;
   sousSecteur?: SousSecteurActivite;
 }[] = ValeursSecteursAvecSousSecteurs.map(
-  (secteur) =>
-    [secteur, sousSecteursParSecteur[secteur]] as [
-      SecteurActivite,
-      SousSecteurActivite[],
-    ],
+  fabriqueTupleSecteurSousSecteurs,
 ).reduce(
   (listeTuples, [secteur, listeSousSecteurs]) => [
     ...listeTuples,
@@ -96,15 +83,56 @@ const arbitraireSecteursSousSecteurs = fc
   .chain((couplesSecteurSousSecteur) =>
     fc.record({
       secteurActivite: fc.constant(
-        couplesSecteurSousSecteur.map((couple) => couple.secteur),
+        Array.from(
+          couplesSecteurSousSecteur.reduce(
+            (listeSecteurs, couple) => listeSecteurs.add(couple.secteur),
+            new Set<SecteurActivite>(),
+          ),
+        ),
       ),
       sousSecteurActivite: fc.constant(
-        couplesSecteurSousSecteur
-          .map((couple) => couple.sousSecteur)
-          .filter((sousSecteur) => sousSecteur !== undefined),
+        Array.from(
+          couplesSecteurSousSecteur.reduce(
+            (listeSousSecteurs, couple) =>
+              listeSousSecteurs.add(couple.sousSecteur),
+            new Set<SousSecteurActivite>(),
+          ),
+        ).filter((sousSecteur) => sousSecteur !== undefined),
       ),
     }),
   );
+const listeActivitesDesSecteurs = (
+  secteurActivite: (SecteurActivite | SousSecteurActivite)[],
+  filtreActivite: (activite: Activite) => boolean,
+): Activite[] => {
+  return Array.from(
+    secteurActivite.reduce((ensembleActivites, secteur) => {
+      activitesParSecteurEtSousSecteur[secteur]
+        ?.filter(filtreActivite)
+        .map((activite: Activite) => ensembleActivites.add(activite));
+      return ensembleActivites;
+    }, new Set<Activite>()),
+  );
+};
+
+export const ajouteArbitraireActivites = <
+  DonneesPartielle extends DonneesSansActivite,
+>(
+  base: DonneesPartielle,
+  filtreActivite: (activite: Activite) => boolean = () => true,
+) =>
+  fc.record<DonneesPartielle>({
+    ...propageBase(base),
+    activites: fc.subarray(
+      [
+        ...listeActivitesDesSecteurs(
+          [...base.secteurActivite, ...base.sousSecteurActivite],
+          filtreActivite,
+        ),
+      ].filter((activite) => activite !== undefined),
+    ),
+  });
+
 export const donneesArbitrairesFormOSEPetit: fc.Arbitrary<IDonneesFormulaireSimulateur> =
   arbitraireSecteursSousSecteurs
     .chain((base) =>

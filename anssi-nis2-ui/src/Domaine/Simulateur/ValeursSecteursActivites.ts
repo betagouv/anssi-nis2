@@ -1,5 +1,5 @@
 import { SecteurActivite } from "./SecteursActivite";
-import { estUnSecteurAvecDesSousSecteurs } from "./Operations/operationsSecteurs.ts";
+import { estUnSecteurSansDesSousSecteurs } from "./Operations/operationsSecteurs.ts";
 
 export const ValeursSecteursActivites = [
   "administrationPublique",
@@ -23,7 +23,7 @@ export const ValeursSecteursActivites = [
   "autreSecteurActivite",
 ] as const;
 export const ValeursSecteursSansSousSecteur: readonly SecteurActivite[] =
-  ValeursSecteursActivites.filter(estUnSecteurAvecDesSousSecteurs);
+  ValeursSecteursActivites.filter(estUnSecteurSansDesSousSecteurs);
 
 export const listeSecteursActiviteSaufAutre: readonly SecteurActivite[] =
   ValeursSecteursActivites.filter(

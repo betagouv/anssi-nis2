@@ -8,6 +8,10 @@ import {
 
 export const estUnSecteurAvecDesSousSecteurs = (secteur: string) =>
   ValeursSecteursAvecSousSecteurs.includes(secteur as SecteursAvecSousSecteurs);
+export const estUnSecteurSansDesSousSecteurs = (secteur: string) =>
+  !ValeursSecteursAvecSousSecteurs.includes(
+    secteur as SecteursAvecSousSecteurs,
+  );
 export const contientSousSecteur = (
   secteur: string,
   sousSecteur: SousSecteurActivite,
@@ -20,7 +24,7 @@ export const fabriqueSecteurContientLeSousSecteur =
   ([sousSecteur]: [SousSecteurActivite, string]) =>
     estUnSecteurAvecDesSousSecteurs(secteur) &&
     contientSousSecteur(secteur, sousSecteur);
-export const fabriqueListeChampsPourValeur = (
+export const fabriqueListeActivitesPourValeursSectorielles = (
   valeurGroupement: SecteursAvecSousSecteurs,
 ) => groupementsSecteursParSousSecteurs[valeurGroupement];
 export const sousSecteurAppartientASecteur =
@@ -29,8 +33,9 @@ export const sousSecteurAppartientASecteur =
     const donneesSecteursActivite = donneesFormulaireSimulateur[
       "sousSecteurActivite"
     ] as SousSecteurActivite[];
-    return donneesSecteursActivite.some(
-      (sousSecteur) =>
-        fabriqueListeChampsPourValeur(valeurGroupement)?.includes(sousSecteur),
+    return donneesSecteursActivite.some((sousSecteur) =>
+      groupementsSecteursParSousSecteurs[valeurGroupement].includes(
+        sousSecteur,
+      ),
     );
   };

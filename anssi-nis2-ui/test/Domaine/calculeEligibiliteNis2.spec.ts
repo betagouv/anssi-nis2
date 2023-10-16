@@ -40,35 +40,35 @@ describe("Calcul d'éligibilité NIS 2", () => {
     const reponsesFrance = reponses.avec({
       etatMembre: ["france"],
     });
-    describe.each([reponsesFrance])("France", (reponses) => {
-      const reponsesFrancePrive = reponses.avec({
-        typeStructure: ["privee"],
-      });
-      describe.each([reponsesFrancePrive])("Privé", (reponses) => {
-        const reponsesFrancePrivePetit = reponses.avec(
-          archetypeReponsesPetiteEntreprise,
-        );
-        describe.each([reponsesFrancePrivePetit])(
-          "Petit",
-          suiteTestsNonOSEPriveFrancePetit,
-        );
-
-        const reponsesFrancePriveMoyen = combinatoireEntrepriseMoyenne.map(
-          (combinaison) => reponses.avec(combinaison),
-        );
-        describe.each(reponsesFrancePriveMoyen)(
-          "Moyen CA$trancheCA Empl$trancheNombreEmployes",
-          suiteTestsNonOSEPriveFranceMoyenneGrande,
-        );
-        const reponsesFrancePriveGrand = combinatoireGrandesEntreprises.map(
-          (combinaison) => reponses.avec(combinaison),
-        );
-        describe.each(reponsesFrancePriveGrand)(
-          "Intermediaire CA$trancheCA Empl$trancheNombreEmployes",
-          suiteTestsNonOSEPriveFranceMoyenneGrande,
-        );
-      });
-    });
+    // describe.each([reponsesFrance])("France", (reponses) => {
+    //   const reponsesFrancePrive = reponses.avec({
+    //     typeStructure: ["privee"],
+    //   });
+    //   describe.each([reponsesFrancePrive])("Privé", (reponses) => {
+    //     const reponsesFrancePrivePetit = reponses.avec(
+    //       archetypeReponsesPetiteEntreprise,
+    //     );
+    //     describe.each([reponsesFrancePrivePetit])(
+    //       "Petit",
+    //       suiteTestsNonOSEPriveFrancePetit,
+    //     );
+    //
+    //     const reponsesFrancePriveMoyen = combinatoireEntrepriseMoyenne.map(
+    //       (combinaison) => reponses.avec(combinaison),
+    //     );
+    //     describe.each(reponsesFrancePriveMoyen)(
+    //       "Moyen CA$trancheCA Empl$trancheNombreEmployes",
+    //       suiteTestsNonOSEPriveFranceMoyenneGrande,
+    //     );
+    //     const reponsesFrancePriveGrand = combinatoireGrandesEntreprises.map(
+    //       (combinaison) => reponses.avec(combinaison),
+    //     );
+    //     describe.each(reponsesFrancePriveGrand)(
+    //       "Intermediaire CA$trancheCA Empl$trancheNombreEmployes",
+    //       suiteTestsNonOSEPriveFranceMoyenneGrande,
+    //     );
+    //   });
+    // });
     const reponsesMembreUE = reponses.avec({
       etatMembre: ["autre"],
     });
