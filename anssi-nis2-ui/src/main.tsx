@@ -17,7 +17,7 @@ import GestionCookies from "./Components/PagesEdito/GestionCookies.tsx";
 
 import { Contexte } from "./Services/contexte";
 
-startReactDsfr({ defaultColorScheme: "system" });
+startReactDsfr({ defaultColorScheme: "light" });
 
 const router = createBrowserRouter([
   {
