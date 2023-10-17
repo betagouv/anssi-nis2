@@ -5,9 +5,18 @@ import {
   sousSecteursParSecteur,
   ValeursSecteursAvecSousSecteurs,
 } from "../ValeursSousSecteursActivites.ts";
+import { SecteurActivite } from "../SecteursActivite";
+import { ValeursSecteursActivites } from "../ValeursSecteursActivites.ts";
 
 export const estUnSecteurAvecDesSousSecteurs = (secteur: string) =>
   ValeursSecteursAvecSousSecteurs.includes(secteur as SecteursAvecSousSecteurs);
+export const estUnSecteurSansDesSousSecteurs = (secteur: string) => {
+  return !ValeursSecteursAvecSousSecteurs?.includes(
+    secteur as SecteursAvecSousSecteurs,
+  );
+};
+export const ValeursSecteursSansSousSecteur: SecteurActivite[] =
+  ValeursSecteursActivites.filter(estUnSecteurSansDesSousSecteurs);
 export const contientSousSecteur = (
   secteur: string,
   sousSecteur: SousSecteurActivite,
@@ -20,17 +29,35 @@ export const fabriqueSecteurContientLeSousSecteur =
   ([sousSecteur]: [SousSecteurActivite, string]) =>
     estUnSecteurAvecDesSousSecteurs(secteur) &&
     contientSousSecteur(secteur, sousSecteur);
-export const fabriqueListeChampsPourValeur = (
-  valeurGroupement: SecteursAvecSousSecteurs,
-) => groupementsSecteursParSousSecteurs[valeurGroupement];
+
 export const sousSecteurAppartientASecteur =
   (valeurGroupement: SecteursAvecSousSecteurs) =>
   (donneesFormulaireSimulateur: DonneesFormulaireSimulateur) => {
     const donneesSecteursActivite = donneesFormulaireSimulateur[
       "sousSecteurActivite"
     ] as SousSecteurActivite[];
-    return donneesSecteursActivite.some(
-      (sousSecteur) =>
-        fabriqueListeChampsPourValeur(valeurGroupement)?.includes(sousSecteur),
+    return donneesSecteursActivite.some((sousSecteur) =>
+      groupementsSecteursParSousSecteurs[valeurGroupement].includes(
+        sousSecteur,
+      ),
     );
   };
+export const fabriqueTupleSecteurSousSecteurs: (
+  secteur: SecteursAvecSousSecteurs,
+) => [SecteurActivite, Readonly<SousSecteurActivite[]>] = (secteur) => [
+  secteur,
+  sousSecteursParSecteur[secteur],
+];
+
+export function listePartielleSecteursAvecSousSecteurs(
+  listeSousSecteurs: readonly SousSecteurActivite[],
+  secteur: SecteursAvecSousSecteurs,
+): {
+  secteur: SecteurActivite;
+  sousSecteur: SousSecteurActivite;
+}[] {
+  return listeSousSecteurs.map((sousSecteur) => ({
+    secteur: secteur,
+    sousSecteur: sousSecteur,
+  }));
+}

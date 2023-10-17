@@ -1,11 +1,14 @@
 import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.ts";
-import { Activite, listeActivitesSaufAutre } from "./Activite.ts";
-import { listeSecteursActiviteSaufAutre } from "./ValeursSecteursActivites.ts";
+import { Activite } from "./Activite.ts";
+import { SecteurActivite } from "./SecteursActivite";
 import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
-} from "./ValeursChampsSimulateur.ts";
-import { SecteurActivite } from "./SecteursActivite";
+} from "./ChampsSimulateur";
+
+import { listeActivitesSaufAutre } from "./Operations/FiltreActivites.ts";
+
+import { listeSecteursActiviteSaufAutre } from "./ListesEnrSecteursSousSecteur.ts";
 
 export type ResultatEligibilite =
   | "NonEligible"
@@ -17,26 +20,30 @@ export const ResultatEligibiliteEnum = {
   EligibleMoyenneGrandeEntreprise: "EligibleMoyenneGrandeEntreprise",
 } as const;
 
-const estPetiteEntreprise = (
+export const estPetiteEntreprise = (
   nombreEmployes: TrancheNombreEmployes[],
   chiffreAffaire: TrancheChiffreAffaire[],
 ) => nombreEmployes.includes("petit") && chiffreAffaire.includes("petit");
 
-const estMoyenneEntreprise = (
+export const estMoyenneEntreprise = (
   nombreEmployes: TrancheNombreEmployes[],
   chiffreAffaire: TrancheChiffreAffaire[],
 ) =>
   (nombreEmployes.includes("moyen") && chiffreAffaire.includes("moyen")) ||
   (nombreEmployes.includes("moyen") && chiffreAffaire.includes("petit")) ||
   (nombreEmployes.includes("petit") && chiffreAffaire.includes("moyen"));
-const estGrandeEntreprise = (
+export const estGrandeEntreprise = (
   nombreEmployes: TrancheNombreEmployes[],
   chiffreAffaire: TrancheChiffreAffaire[],
 ) => nombreEmployes.includes("grand") || chiffreAffaire.includes("grand");
 
 const estUneActiviteListee = (activites: Activite[]) =>
+  activites &&
+  activites.length &&
   activites.every((activite) => listeActivitesSaufAutre.includes(activite));
 const estUnSecteurListee = (secteurs: SecteurActivite[]) =>
+  secteurs &&
+  secteurs.length &&
   secteurs.every((secteur) => listeSecteursActiviteSaufAutre.includes(secteur));
 
 export const eligibilite: (
@@ -51,13 +58,29 @@ export const eligibilite: (
   activites,
 }) => {
   if (
+    designeOperateurServicesEssentiels.includes("oui") &&
+    estPetiteEntreprise(trancheNombreEmployes, trancheCA)
+  ) {
+    return ResultatEligibiliteEnum.EligiblePetiteEntreprise;
+  }
+
+  if (
+    designeOperateurServicesEssentiels.includes("oui") &&
+    (estMoyenneEntreprise(trancheNombreEmployes, trancheCA) ||
+      estGrandeEntreprise(trancheNombreEmployes, trancheCA))
+  ) {
+    return ResultatEligibiliteEnum.EligibleMoyenneGrandeEntreprise;
+  }
+
+  if (
     etatMembre[0] !== "horsue" &&
     typeStructure.includes("privee") &&
     estPetiteEntreprise(trancheNombreEmployes, trancheCA) &&
     secteurActivite.includes("infrastructureNumerique") &&
     estUneActiviteListee(activites)
-  )
+  ) {
     return ResultatEligibiliteEnum.EligiblePetiteEntreprise;
+  }
 
   if (
     etatMembre[0] !== "horsue" &&
@@ -68,18 +91,6 @@ export const eligibilite: (
     estUneActiviteListee(activites)
   )
     return ResultatEligibiliteEnum.EligibleMoyenneGrandeEntreprise;
-  if (
-    designeOperateurServicesEssentiels.includes("oui") &&
-    estPetiteEntreprise(trancheNombreEmployes, trancheCA)
-  ) {
-    return ResultatEligibiliteEnum.EligiblePetiteEntreprise;
-  }
-  if (
-    designeOperateurServicesEssentiels.includes("oui") &&
-    (estMoyenneEntreprise(trancheNombreEmployes, trancheCA) ||
-      estGrandeEntreprise(trancheNombreEmployes, trancheCA))
-  ) {
-    return ResultatEligibiliteEnum.EligibleMoyenneGrandeEntreprise;
-  }
+
   return ResultatEligibiliteEnum.NonEligible;
 };

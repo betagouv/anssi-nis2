@@ -1,14 +1,14 @@
-import {
-  DesignationOperateurServicesEssentiels,
-  AppartenancePaysUnionEuropeenne,
-  TrancheChiffreAffaire,
-  TrancheNombreEmployes,
-  TypeStructure,
-} from "../Domaine/Simulateur/ValeursChampsSimulateur.ts";
 import { libellesActivites } from "./LibellesActivites.ts";
 import { libellesSecteursActivite } from "./LibellesSecteursActivite.ts";
 import { libellesSousSecteursActivite } from "./LibellesSousSecteursActivite.ts";
 import { DictionnaireLibellesSimulateur } from "./dictionnaireLibellesSimulateur";
+import {
+  AppartenancePaysUnionEuropeenne,
+  DesignationOperateurServicesEssentiels,
+  TrancheChiffreAffaire,
+  TrancheNombreEmployes,
+  TypeStructure,
+} from "../Domaine/Simulateur/ChampsSimulateur";
 
 export const libellesDesigneOSE: Record<
   DesignationOperateurServicesEssentiels,

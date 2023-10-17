@@ -1,4 +1,3 @@
-import { ValeurCleSectorielle } from "./ValeursChampsSimulateur.ts";
 import {
   Activite,
   ValeursActivitesAdministrationPublique,
@@ -32,6 +31,7 @@ import {
   ValeursActivitesTransportsParEaux,
   ValeursActivitesTransportsRoutiers,
 } from "./Activite.ts";
+import { ValeurCleSectorielle } from "./ChampsSimulateur";
 
 export const activitesParSecteurEtSousSecteur: Record<
   ValeurCleSectorielle,

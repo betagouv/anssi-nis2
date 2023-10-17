@@ -26,3 +26,7 @@ export type DescriptionSecteur = readonly SousSecteurActivite[];
 export type DetailsSousSecteurUnique<
   T extends SousSecteurEnergie | SousSecteurFabrication | SousSecteurTransport,
 > = Record<T, string>;
+export type EnrSecteurSousSecteur = {
+  secteur: SecteurActivite;
+  sousSecteur?: SousSecteurActivite;
+};

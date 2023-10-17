@@ -1,30 +1,12 @@
-import { SecteursSansSousSecteur, SousSecteurActivite } from "./SousSecteurs";
-import { SecteurActivite } from "./SecteursActivite";
-import { Activite } from "./Activite.ts";
-
 export const ValeursDesignationOperateurServicesEssentiels = [
   "oui",
   "non",
   "nsp",
 ] as const;
-export type DesignationOperateurServicesEssentiels =
-  (typeof ValeursDesignationOperateurServicesEssentiels)[number];
-export type AppartenancePaysUnionEuropeenne = "france" | "autre" | "horsue";
-export type TypeStructure = "publique" | "privee";
-type UnionPetitMoyenGrand = "petit" | "moyen" | "grand";
-export type TrancheNombreEmployes = UnionPetitMoyenGrand;
-export type TrancheChiffreAffaire = UnionPetitMoyenGrand;
-
-export type ValeurCleSectorielle =
-  | SecteursSansSousSecteur
-  | SousSecteurActivite;
-
-export type ValeurChampSimulateur =
-  | DesignationOperateurServicesEssentiels
-  | AppartenancePaysUnionEuropeenne
-  | TypeStructure
-  | TrancheChiffreAffaire
-  | TrancheNombreEmployes
-  | SecteurActivite
-  | SousSecteurActivite
-  | Activite;
+export const ValeursAppartenancePaysUnionEuropeenne = [
+  "france",
+  "autre",
+  "horsue",
+] as const;
+export const ValeursTypeStructure = ["publique", "privee"] as const;
+export const ValeursPetitMoyenGrand = ["petit", "moyen", "grand"] as const;
