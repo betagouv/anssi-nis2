@@ -7,11 +7,14 @@ import { DatabaseModule } from "./database/database.module";
 import { ConfigModule } from "@nestjs/config";
 import { fabriqueAsynchroneOptionsServeurStatique } from "./Fabriques/fabriqueAsynchroneOptionsServeurStatique";
 import { fabriqueAsynchroneOptionsTypeOrm } from "./Fabriques/fabriqueAsynchroneOptionsTypeOrm";
+import { ThrottlerModule } from "@nestjs/throttler";
+import { optionsThrottlerModuleAsync } from "./configurationThrottler";
 
 const optionsConnectionBaseDeDonnees = fabriqueAsynchroneOptionsTypeOrm();
 
 @Module({
   imports: [
+    ThrottlerModule.forRootAsync(optionsThrottlerModuleAsync),
     TypeOrmModule.forRootAsync(optionsConnectionBaseDeDonnees),
     ServeurStatiqueConfigurableModule.forRootAsync(
       fabriqueAsynchroneOptionsServeurStatique,
