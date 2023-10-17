@@ -7,7 +7,11 @@ import Matomo from "./Matomo.tsx";
 const MiseEnPage: DefaultComponent = ({ children, page }: DefaultProps) => {
   return (
     <>
-      <Matomo SiteId={49} JavascriptContainerHash={"NNMf7j9p"} />
+      <Matomo
+        SiteId={49}
+        JavascriptContainerHash={"NNMf7j9p"}
+        GestionBalises={true}
+      />
       <EnTete />
       <main className={page} role="main">
         {children}
