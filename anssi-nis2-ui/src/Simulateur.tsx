@@ -8,7 +8,7 @@ import { RowContainer } from "./Components/General/RowContainer.tsx";
 
 const Simulateur: DefaultComponent = () => {
   return (
-    <MiseEnPage page={"simulateur"}>
+    <MiseEnPage page={"Suis-je concerné·e ?"}>
       <BandeauConcerneSimulateur />
       <ChargeurEtape />
       <RowContainer className=" fr-mb-7w">

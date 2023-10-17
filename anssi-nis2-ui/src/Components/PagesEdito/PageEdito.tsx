@@ -9,7 +9,7 @@ export const PageEdito: DefaultComponentExtensible<PageEditoProps> = ({
   titre,
   children,
 }: PageEditoProps) => (
-  <MiseEnPage page={"a-propos"}>
+  <MiseEnPage page={titre}>
     <BandeauBleuMarianne>
       <h2>{titre}</h2>
     </BandeauBleuMarianne>

@@ -10,6 +10,7 @@ import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Prop
 import { etatEtapesInitial } from "./Etapes/EtapesQuestionnaire.ts";
 import { EtatEtapes } from "../../Services/Simulateur/EtatEtapes.ts";
 import { SimulateurEtapeSwitcherProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
+import { Helmet } from "react-helmet";
 
 const useReducteurDonneesFormulaireDuContexte = () => {
   const {
@@ -64,22 +65,30 @@ export const ChargeurEtape: DefaultComponentExtensible<
     etatEtapes.contenuEtapeCourante().elementToRender;
 
   return (
-    <ElementRendu
-      propageActionSimulateur={propageActionSimulateur}
-      donneesFormulaire={donneesFormulaireSimulateur}
-      informationsBoutonsNavigation={{
-        suivant: fabriqueGestionSuivant(
-          setEtatEtape,
-          etatEtapes,
-          donneesFormulaireSimulateur,
-        ),
-        precedent: fabriqueGestionPrecedent(
-          setEtatEtape,
-          etatEtapes,
-          donneesFormulaireSimulateur,
-        ),
-      }}
-      etatEtapes={etatEtapes}
-    />
+    <>
+      <Helmet>
+        <title>
+          MonEspaceNIS2 - Suis-je concerné·e ? -{" "}
+          {etatEtapes.contenuEtapeCourante().titre}
+        </title>
+      </Helmet>
+      <ElementRendu
+        propageActionSimulateur={propageActionSimulateur}
+        donneesFormulaire={donneesFormulaireSimulateur}
+        informationsBoutonsNavigation={{
+          suivant: fabriqueGestionSuivant(
+            setEtatEtape,
+            etatEtapes,
+            donneesFormulaireSimulateur,
+          ),
+          precedent: fabriqueGestionPrecedent(
+            setEtatEtape,
+            etatEtapes,
+            donneesFormulaireSimulateur,
+          ),
+        }}
+        etatEtapes={etatEtapes}
+      />
+    </>
   );
 };
