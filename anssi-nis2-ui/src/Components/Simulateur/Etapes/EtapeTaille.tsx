@@ -5,16 +5,16 @@ import {
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { FormSimulateur } from "./index.ts";
 import React from "react";
-import {
-  transformeTranchesCAVersOptions,
-  transformeTranchesNombreEmployesVersOptions,
-} from "../../../Services/Simulateur/Transformateurs.ts";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
 import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
 } from "../../../Domaine/Simulateur/ChampsSimulateur";
+import {
+  transformeTranchesCAVersOptions,
+  transformeTranchesNombreEmployesVersOptions,
+} from "../../../Services/Simulateur/Transformateurs/TransformeTranchesPetitMoyenGrandVersOptions.ts";
 
 const EtapeTailleCalculee = ({
   donneesFormulaire,

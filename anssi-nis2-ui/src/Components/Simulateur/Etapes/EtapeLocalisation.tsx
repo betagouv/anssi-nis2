@@ -1,12 +1,12 @@
 import { libellesPaysUnionEuropeenneLocalisation } from "../../../References/Libelles.ts";
 import { FormSimulateur } from "./index.ts";
 import { useMemo } from "react";
-import { transformePaysUnionEuropeennePourSelect } from "../../../Services/Simulateur/Transformateurs.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { fabriqueGestionChangementSimple } from "../../../Services/Simulateur/gestionnaires.ts";
 import React from "react";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
+import { transformePaysUnionEuropeennePourSelect } from "../../../Services/Simulateur/Transformateurs/TransformePaysUnionEuropeennePourSelect.ts";
 
 const EtapeLocalisationCalculee = ({
   donneesFormulaire,
