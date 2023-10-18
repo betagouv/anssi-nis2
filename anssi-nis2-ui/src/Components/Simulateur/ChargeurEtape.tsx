@@ -14,6 +14,7 @@ import {
   fabriqueGestionPrecedent,
   fabriqueGestionSuivant,
 } from "../../utilitaires/BoutonsNavigation.fabrique.ts";
+import { SimulateurDonneesFormulaireActions } from "../../Services/Simulateur/Props/donneesFormulaire";
 
 export const ChargeurEtape: DefaultComponentExtensible<
   SimulateurEtapeSwitcherProps
@@ -24,11 +25,11 @@ export const ChargeurEtape: DefaultComponentExtensible<
   const [etatEtapes, setEtatEtape] = useState(etatEtapesInitial);
   const [donneesFormulaireSimulateur, propageActionSimulateur]: [
     DonneesFormulaireSimulateur,
-    React.DispatchWithoutAction,
+    React.Dispatch<SimulateurDonneesFormulaireActions>,
   ] = useReducer(
     reducteurDonneesFormulaireSimulateur,
     donneesFormulaireSimulateurVide,
-  ) as [DonneesFormulaireSimulateur, React.DispatchWithoutAction];
+  );
 
   const ElementRendu: SimulateurEtapeRenderedComponent =
     etatEtapes.contenuEtapeCourante().elementToRender;
