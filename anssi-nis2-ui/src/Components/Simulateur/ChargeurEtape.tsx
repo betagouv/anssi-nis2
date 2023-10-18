@@ -1,53 +1,19 @@
-import React, { useContext, useReducer, useState, useEffect } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 
 import { DefaultComponentExtensible } from "../../Services/Props";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
 } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { AppContext } from "../../AppContext.tsx";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
 import { etatEtapesInitial } from "./Etapes/EtapesQuestionnaire.ts";
-import { EtatEtapes } from "../../Services/Simulateur/EtatEtapes.ts";
 import { SimulateurEtapeSwitcherProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 import { Helmet } from "react-helmet";
-
-declare global {
-  interface Window {
-    _paq: [string, ...unknown[]][];
-    _mtm: unknown[];
-  }
-}
-
-const fabriqueGestionSuivant =
-  (
-    setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
-    etatEtapes: EtatEtapes,
-    inputsState: DonneesFormulaireSimulateur,
-  ) =>
-  (e: React.MouseEvent) => {
-    e.preventDefault();
-    setEtatEtape(etatEtapes.suivant(inputsState));
-  };
-
-const fabriqueGestionPrecedent =
-  (
-    setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
-    etatEtapes: EtatEtapes,
-    inputsState: DonneesFormulaireSimulateur,
-  ) =>
-  (e: React.MouseEvent) => {
-    e.preventDefault();
-    setEtatEtape(etatEtapes.precedent(inputsState));
-  };
-
-const useReducteurDonneesFormulaireDuContexte = () => {
-  const {
-    simulateur: { reducteurDonneesFormulaire },
-  } = useContext(AppContext);
-
-  return reducteurDonneesFormulaire;
-};
+import { useReducteurDonneesFormulaireDuContexte } from "../AppContexte/UseReducteurDonneesFormulaireDuContexte.tsx";
+import {
+  fabriqueGestionPrecedent,
+  fabriqueGestionSuivant,
+} from "../../utilitaires/BoutonsNavigation.fabrique.ts";
 
 export const ChargeurEtape: DefaultComponentExtensible<
   SimulateurEtapeSwitcherProps
