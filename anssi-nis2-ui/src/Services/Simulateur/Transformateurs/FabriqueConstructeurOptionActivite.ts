@@ -18,7 +18,7 @@ import {
   activitesParSecteurEtSousSecteur,
   AssociationSectorielleActivite,
 } from "../../../Domaine/Simulateur/ActivitesParSecteurEtSousSecteur.ts";
-import { Dispatch } from "react";
+import React, { Dispatch } from "react";
 
 export const fabriqueConstructeurOptionActivite: (
   donneesFormulaire: DonneesFormulaireSimulateur,
@@ -43,6 +43,21 @@ const fabriqueChangeMulti: (
       name: evt.target.name as NomsChampsSimulateur,
       newValue: evt.target.value as ValeurChampSimulateur,
     });
+
+function fabriqueOptions(
+  secteurOuSousSecteur: ValeurCleSectorielle,
+  construitOptionActivite: (activite: Activite) => OptionChampSimulateur,
+) {
+  const activitesParSecteurEtSousSecteurElement =
+    activitesParSecteurEtSousSecteur[secteurOuSousSecteur];
+  if (!activitesParSecteurEtSousSecteurElement) {
+    throw EvalError(`Aucune activité trouvée pour ${secteurOuSousSecteur}`);
+  }
+  return (
+    activitesParSecteurEtSousSecteurElement?.map(construitOptionActivite) || []
+  );
+}
+
 export const fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur: (
   donneesFormulaire: DonneesFormulaireSimulateur,
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>,
@@ -56,10 +71,11 @@ export const fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur: (
     donneesFormulaire,
     fabriqueChangeMulti(propageActionSimulateur),
   );
-  return ({ secteurOuSousSecteur, titreActivite }) => ({
+  return ({
+    secteurOuSousSecteur,
+    titreActivite,
+  }: AssociationSectorielleActivite) => ({
     legende: titreActivite,
-    options: activitesParSecteurEtSousSecteur[
-      secteurOuSousSecteur as ValeurCleSectorielle
-    ].map(construitOptionActivite),
+    options: fabriqueOptions(secteurOuSousSecteur, construitOptionActivite),
   });
 };

@@ -9,17 +9,23 @@ import { cartographieSousSecteursParSecteur } from "../../src/Domaine/Simulateur
 describe("Questionnaire activités", () => {
   it("Construit un tableau avec les sous-secteurs sélectionnés remplaçant le secteur correspondant", () => {
     const donneesFormulaire = new DonneesFormulaireSimulateur({
-      secteurActivite: ["espace", "energie"],
-      sousSecteurActivite: ["electricite", "hydrogene"],
+      secteurActivite: ["espace", "energie", "fabrication"],
+      sousSecteurActivite: [
+        "electricite",
+        "hydrogene",
+        "fabricationEquipementsElectroniques",
+      ],
     });
 
     const carteSousSecteurParSecteurAttendue = {
       espace: [],
       energie: ["electricite", "hydrogene"],
+      fabrication: ["fabricationEquipementsElectroniques"],
     };
 
     const carteSousSecteurParSecteurObtenue =
       cartographieSousSecteursParSecteur(donneesFormulaire);
+
     expect(carteSousSecteurParSecteurObtenue).toStrictEqual(
       carteSousSecteurParSecteurAttendue,
     );

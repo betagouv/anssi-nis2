@@ -1,28 +1,34 @@
 import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.ts";
 import { SecteurActivite } from "./SecteursActivite";
-import { SecteursAvecSousSecteurs, SousSecteurActivite } from "./SousSecteurs";
-import { sousSecteursParSecteur } from "./ValeursSousSecteursActivites.ts";
+import { SousSecteurActivite } from "./SousSecteurs";
+import {
+  contientSousSecteur,
+  estUnSecteurAvecDesSousSecteurs,
+  estUnSecteurSansDesSousSecteurs,
+} from "./Operations/operationsSecteurs.ts";
 
+type SecteurEtSesSousSecteurs = Partial<
+  Record<SecteurActivite, SousSecteurActivite[]>
+>;
 export const cartographieSousSecteursParSecteur = (
   donneesFormulaire: DonneesFormulaireSimulateur,
-): Partial<Record<SecteurActivite, SousSecteurActivite[]>> => {
+): SecteurEtSesSousSecteurs => {
   const { secteurActivite, sousSecteurActivite } = donneesFormulaire;
 
   const secteursStructures = secteurActivite
-    .filter((secteur) => !Object.keys(sousSecteursParSecteur).includes(secteur))
-    .reduce((acc, currentValue) => ({ ...acc, [currentValue]: [] }), {});
+    .filter(estUnSecteurSansDesSousSecteurs)
+    .reduce<SecteurEtSesSousSecteurs>(
+      (acc, secteur) => ({ ...acc, [secteur]: [] }),
+      {},
+    );
 
-  const sousSecteursStructures: Partial<
-    Record<SecteurActivite, SousSecteurActivite[]>
-  > = secteurActivite
-    .filter((secteur) => Object.keys(sousSecteursParSecteur).includes(secteur))
-    .reduce((acc, currentValue) => {
+  const sousSecteursStructures = secteurActivite
+    .filter(estUnSecteurAvecDesSousSecteurs)
+    .reduce<SecteurEtSesSousSecteurs>((acc, secteur) => {
       return {
         ...acc,
-        [currentValue]: sousSecteurActivite.filter((sousSecteur) =>
-          sousSecteursParSecteur[
-            currentValue as SecteursAvecSousSecteurs
-          ].includes(sousSecteur as SousSecteurActivite),
+        [secteur]: sousSecteurActivite.filter((sousSecteur) =>
+          contientSousSecteur(secteur, sousSecteur),
         ),
       };
     }, {});

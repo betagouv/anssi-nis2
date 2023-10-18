@@ -43,7 +43,7 @@ const arbitraireSecteursSousSecteurs = fabriqueArbSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs,
 );
 
-function fabriqueArbContraintSurTrancheCA(
+export function fabriqueArbContraintSurTrancheCA(
   base: Omit<DonneesSansActivite, "trancheNombreEmployes">,
 ) {
   return fc.record<DonneesSansActivite>({

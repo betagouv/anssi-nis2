@@ -22,13 +22,11 @@ const EtapeActivitesCalculee = ({
         donneesFormulaire,
       );
 
-    const cartographieEntreesLegendeEtOptionsChampSimlulateur =
+    return titresExtraits.map(
       fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur(
         donneesFormulaire,
         propageActionSimulateur,
-      );
-    return titresExtraits.map(
-      cartographieEntreesLegendeEtOptionsChampSimlulateur,
+      ),
     );
   }, [donneesFormulaire, propageActionSimulateur]);
 
