@@ -1,32 +1,27 @@
 import React, { useEffect, useReducer, useState } from "react";
-
-import { DefaultComponentExtensible } from "../../Services/Props";
-import {
-  DonneesFormulaireSimulateur,
-  donneesFormulaireSimulateurVide,
-} from "../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
-import { etatEtapesInitial } from "./Etapes/EtapesQuestionnaire.ts";
-import { SimulateurEtapeSwitcherProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 import { Helmet } from "react-helmet";
+
+import { DefaultComponent } from "../../Services/Props";
+import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
+import { ResultatReducteurDonneesSimulateur } from "../../Services/Simulateur/Props/donneesFormulaire";
+import { donneesFormulaireSimulateurVide } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { etatEtapesInitial } from "./Etapes/EtapesQuestionnaire.ts";
 import { useReducteurDonneesFormulaireDuContexte } from "../AppContexte/UseReducteurDonneesFormulaireDuContexte.tsx";
 import {
   fabriqueGestionPrecedent,
   fabriqueGestionSuivant,
 } from "../../utilitaires/BoutonsNavigation.fabrique.ts";
-import { SimulateurDonneesFormulaireActions } from "../../Services/Simulateur/Props/donneesFormulaire";
+import { traceEtapeSimulateur } from "../../Services/TraceurWeb/traceEtapeSimulateur.ts";
 
-export const ChargeurEtape: DefaultComponentExtensible<
-  SimulateurEtapeSwitcherProps
-> = () => {
+const ChargeurEtapeCalcule: DefaultComponent = () => {
   const reducteurDonneesFormulaireSimulateur =
     useReducteurDonneesFormulaireDuContexte();
 
   const [etatEtapes, setEtatEtape] = useState(etatEtapesInitial);
-  const [donneesFormulaireSimulateur, propageActionSimulateur]: [
-    DonneesFormulaireSimulateur,
-    React.Dispatch<SimulateurDonneesFormulaireActions>,
-  ] = useReducer(
+  const [
+    donneesFormulaireSimulateur,
+    propageActionSimulateur,
+  ]: ResultatReducteurDonneesSimulateur = useReducer(
     reducteurDonneesFormulaireSimulateur,
     donneesFormulaireSimulateurVide,
   );
@@ -34,13 +29,10 @@ export const ChargeurEtape: DefaultComponentExtensible<
   const ElementRendu: SimulateurEtapeRenderedComponent =
     etatEtapes.contenuEtapeCourante().elementToRender;
 
-  useEffect(() => {
-    window._mtm.push({
-      event: "EtapeFormulaire",
-      "EtapeFormulaire.titre": etatEtapes.contenuEtapeCourante().titre,
-      "EtapeFormulaire.donnees": JSON.stringify(donneesFormulaireSimulateur),
-    });
-  }, [donneesFormulaireSimulateur, etatEtapes]);
+  useEffect(
+    () => traceEtapeSimulateur(etatEtapes, donneesFormulaireSimulateur),
+    [donneesFormulaireSimulateur, etatEtapes],
+  );
 
   return (
     <>
@@ -70,3 +62,5 @@ export const ChargeurEtape: DefaultComponentExtensible<
     </>
   );
 };
+
+export const ChargeurEtape = React.memo(ChargeurEtapeCalcule);

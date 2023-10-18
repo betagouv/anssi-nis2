@@ -1,4 +1,7 @@
-import { NomsChampsSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import {
+  DonneesFormulaireSimulateur,
+  NomsChampsSimulateur,
+} from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 import { ValeurChampSimulateur } from "../../../Domaine/Simulateur/ValeursChampsSimulateur";
 
@@ -8,3 +11,7 @@ export type SimulateurDonneesFormulaireActions = {
   name: NomsChampsSimulateur;
   newValue: ValeurChampSimulateur;
 };
+export type ResultatReducteurDonneesSimulateur = [
+  DonneesFormulaireSimulateur,
+  React.Dispatch<SimulateurDonneesFormulaireActions>,
+];

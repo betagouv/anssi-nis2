@@ -3,7 +3,7 @@ import { StepperNavigation } from "./StepperNavigation.tsx";
 
 import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
 import { useContext, useMemo } from "react";
-import { AppContext } from "../../AppContext.tsx";
+import { AppContext } from "../AppContexte/AppContext.tsx";
 import { CenteredContainer } from "../General/CenteredContainer.tsx";
 
 import {
