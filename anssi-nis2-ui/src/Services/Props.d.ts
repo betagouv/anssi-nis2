@@ -22,3 +22,8 @@ export type NativeInputProps = {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   checked: boolean;
 };
+export type MatomoProps = DefaultProps & {
+  SiteId: number;
+  JavascriptContainerHash: string;
+  GestionBalises?: boolean;
+};

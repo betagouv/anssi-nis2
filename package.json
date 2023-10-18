@@ -1,7 +1,7 @@
 {
   "name": "anssi-nis2",
   "version": "0.0.0",
-  "description": "Mon Portail NIS 2",
+  "description": "Mon Espace NIS 2",
   "main": "index.js",
   "workspaces": [
     "anssi-nis2-ui",
