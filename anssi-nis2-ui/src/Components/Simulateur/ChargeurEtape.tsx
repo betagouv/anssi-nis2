@@ -37,10 +37,10 @@ export const ChargeurEtape: DefaultComponentExtensible<
   useEffect(() => {
     window._mtm.push({
       event: "EtapeFormulaire",
-      "EtapeFormulaire.category": etatEtapes.contenuEtapeCourante().titre,
-      "EtapeFormulaire.name": etatEtapes.contenuEtapeCourante().titre,
+      "EtapeFormulaire.titre": etatEtapes.contenuEtapeCourante().titre,
+      "EtapeFormulaire.donnees": JSON.stringify(donneesFormulaireSimulateur),
     });
-  }, [etatEtapes]);
+  }, [donneesFormulaireSimulateur, etatEtapes]);
 
   return (
     <>
