@@ -12,9 +12,8 @@ const MiseEnPage: DefaultComponent = ({ children, page }: DefaultProps) => {
         <title>MonEspaceNIS2 - {page}</title>
       </Helmet>
       <Matomo
-        SiteId={49}
-        // JavascriptContainerHash={"NNMf7j9p"}
-        JavascriptContainerHash={"NNMf7j9p_dev_b46d4f1aa1da1512de44eda0"}
+        SiteId={import.meta.env.VITE_MATOMO_SITE_ID}
+        JavascriptContainerHash={import.meta.env.VITE_MATOMO_SCRIPT_HASH}
         GestionBalises={true}
       />
       <EnTete />
