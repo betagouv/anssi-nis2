@@ -1,11 +1,5 @@
 import { Helmet } from "react-helmet";
-import { DefaultComponentExtensible, DefaultProps } from "../Services/Props";
-
-type MatomoProps = DefaultProps & {
-  SiteId: number;
-  JavascriptContainerHash: string;
-  GestionBalises?: boolean;
-};
+import { DefaultComponentExtensible, MatomoProps } from "../Services/Props";
 
 const Matomo: DefaultComponentExtensible<MatomoProps> = ({
   SiteId,
