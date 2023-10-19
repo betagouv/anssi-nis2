@@ -89,6 +89,7 @@ export const EtapeSousActiviteConditionnelle: Story = {
     });
 
     await passeEtapeEnCochant(canvas, [["secteurActivite", "energie"]]);
+    await expect(mockSendFormData).not.toHaveBeenCalled();
 
     await canvas.findByText("Précisez les sous-secteurs concernés :");
     await passeEtapeEnCochant(
@@ -99,6 +100,8 @@ export const EtapeSousActiviteConditionnelle: Story = {
       ],
       1,
     );
+    await expect(mockSendFormData).not.toHaveBeenCalled();
+
     await passeEtapeEnCochant(canvas, [
       ["activites", "entrepriseElectriciteRemplissantFonctionFourniture"],
       ["activites", "gestionnaireReseauDistribution"],

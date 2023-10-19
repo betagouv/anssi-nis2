@@ -10,7 +10,6 @@ import { ValidationReponses } from "../../Domaine/Simulateur/Operations/validate
 
 export interface InformationsEtape {
   estComptabilisee: boolean;
-
   titre: string;
 }
 

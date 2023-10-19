@@ -26,7 +26,18 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   }
 
   estDerniereEtape(indiceEtape: number): boolean {
-    return this.numeroCourante(indiceEtape) === this.nombreEtapes;
+    return (
+      indiceEtape >= 0 &&
+      this.length > 0 &&
+      indiceEtape < this.length &&
+      this[indiceEtape].estComptabilisee &&
+      this.numeroCourante(indiceEtape) === this.nombreEtapes
+    );
+    //   (listeEtapesSuivantes.every((etape) => !etape.estComptabilisee) ||
+    //     indiceEtape >= this.length - 1)
+    // );
+    //
+    // return this.numeroCourante(indiceEtape) === this.nombreEtapes;
   }
 
   recupereInformationsEtapeSuivante(

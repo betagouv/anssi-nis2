@@ -5,11 +5,18 @@ import {
   etapeInexistante,
   InformationEtapeForm,
   InformationEtapeResult,
+  SousEtapeConditionnelle,
 } from "../../../src/Services/Simulateur/informationsEtape";
 import { ValidationReponses } from "../../../src/Domaine/Simulateur/Operations/validateursChamps";
 import { SimulateurEtapeNodeComponent } from "../../../src/Services/Simulateur/Props/component";
 
 const FauxSimulateurEtapeComposant: SimulateurEtapeNodeComponent = vi.fn();
+
+function decoreChaineRendue(collection) {
+  Object.defineProperties(collection, {
+    [fc.toStringMethod]: { value: () => collection.toString() },
+  });
+}
 
 describe(CollectionInformationsEtapes, () => {
   const fausseValidationReponse: ValidationReponses = {
@@ -80,7 +87,7 @@ describe(CollectionInformationsEtapes, () => {
   );
 
   it.each(parametresTests)(
-    "l'indice $indiceEtapeCourante devrait être avant dernier ? $estAvantDernier",
+    "l'indice $indiceEtapeCourante devrait être dernier ? $estDernier",
     ({ indiceEtapeCourante, estDernier }) => {
       expect(
         collectionInformationsEtapes.estDerniereEtape(indiceEtapeCourante),
@@ -127,28 +134,47 @@ describe(CollectionInformationsEtapes, () => {
             FauxSimulateurEtapeComposant,
           ),
       );
+    const arbInformationEtapeFormAvecSousEtape = fc
+      .tuple(fc.string(), fc.string())
+      .map(
+        ([titre, sousTitre]) =>
+          new InformationEtapeForm(
+            titre,
+            fausseValidationReponse,
+            FauxSimulateurEtapeComposant,
+            new SousEtapeConditionnelle(
+              () => true,
+              new InformationEtapeForm(
+                sousTitre,
+                fausseValidationReponse,
+                FauxSimulateurEtapeComposant,
+              ),
+            ),
+          ),
+      );
     const arbInformationEtapeResult = fc
       .string()
       .map((titre) => new InformationEtapeResult(titre));
 
-    function farbiqueArbitraireTupleListeEtIndice(arrayOptions = {}) {
-      return fc
-        .array(
-          fc.oneof(arbInformationEtapeForm, arbInformationEtapeResult),
-          arrayOptions,
-        )
-        .chain((liste) =>
-          fc.record({
-            listeEtapes: fc.constant(liste),
-            indice: fc.nat(liste.length),
-          }),
-        );
-    }
+    const arbEtapeFormOuResult = fc.oneof(
+      arbInformationEtapeForm,
+      arbInformationEtapeResult,
+    );
+    const farbiqueArbitraireTupleListeEtIndice = (
+      arrayOptions = {},
+      arbitraireElement = arbEtapeFormOuResult,
+    ) =>
+      fc.array(arbitraireElement, arrayOptions).chain((liste) =>
+        fc.record({
+          listeEtapes: fc.constant(liste),
+          indice: fc.nat(liste.length),
+        }),
+      );
 
     const arbTupleListeEtapesEtIndice = farbiqueArbitraireTupleListeEtIndice();
     const arbTupleListesFormEtResult = fc.record({
       listeEtapesForm: fc.array(arbInformationEtapeForm, { minLength: 1 }),
-      listeEtapesResult: fc.array(arbInformationEtapeResult),
+      listeEtapesResult: fc.array(arbInformationEtapeResult, { minLength: 1 }),
     });
     const arbRecListeEtapesCommencantParNForm =
       arbTupleListesFormEtResult.chain((tuple) =>
@@ -169,6 +195,7 @@ describe(CollectionInformationsEtapes, () => {
           ),
         ),
       );
+
     it("nombre d'étape d'une collection d'étapes form est toujours le nombre d'étapes en entrée", () => {
       fc.assert(
         fc.property(fc.array(arbInformationEtapeForm), (listeEtapes) => {
@@ -177,7 +204,6 @@ describe(CollectionInformationsEtapes, () => {
         }),
       );
     });
-
     it("nombre d'étape d'une collection d'étapes result est toujours 0", () => {
       fc.assert(
         fc.property(fc.array(arbInformationEtapeResult), (listeEtapes) => {
@@ -196,31 +222,99 @@ describe(CollectionInformationsEtapes, () => {
         }),
       );
     });
-    it("le numéro de dernière etape est toujours le numéro de la derniére étape form", () => {
-      fc.assert(
-        fc.property(
-          arbRecListeEtapesCommencantParNForm,
-          ({ collection, nombreEtapesForm }) => {
+    describe("estDerniereEtape", () => {
+      it("estDerniereEtape le numéro de dernière etape est toujours le numéro de la derniére étape form", () => {
+        fc.assert(
+          fc.property(
+            arbRecListeEtapesCommencantParNForm,
+            ({ collection, nombreEtapesForm }) => {
+              decoreChaineRendue(collection);
+              expect(
+                collection.estDerniereEtape(nombreEtapesForm - 1),
+              ).toBeTruthy();
+            },
+          ),
+        );
+      });
+      it("estDerniereEtape: si collection terminant par des form, dernier élément", () => {
+        fc.assert(
+          fc.property(arbRecListeEtapesCommencantParNResult, (collection) => {
+            decoreChaineRendue(collection);
             expect(
-              collection.estDerniereEtape(nombreEtapesForm - 1),
+              collection.estDerniereEtape(collection.length - 1),
             ).toBeTruthy();
-          },
-        ),
-      );
-      fc.assert(
-        fc.property(arbRecListeEtapesCommencantParNResult, (collection) => {
-          expect(
-            collection.estDerniereEtape(collection.length - 1),
-          ).toBeTruthy();
-        }),
-      );
-    });
+          }),
+        );
+      });
+      it("avec une collection avec des sous étapes", () => {
+        fc.assert(
+          fc.property(
+            fc.array(arbInformationEtapeFormAvecSousEtape, { minLength: 1 }),
+            (liste) => {
+              const collection = new CollectionInformationsEtapes(...liste);
+              decoreChaineRendue(collection);
+              expect(
+                collection.estDerniereEtape(collection.length - 1),
+              ).toBeTruthy();
+            },
+          ),
+        );
+      });
+      it("faux avec une collection commençant par N Form sur le premier Result", () => {
+        fc.assert(
+          fc.property(
+            arbRecListeEtapesCommencantParNForm,
+            ({ collection, nombreEtapesForm }) => {
+              decoreChaineRendue(collection);
+              expect(collection.estDerniereEtape(nombreEtapesForm)).toBeFalsy();
+            },
+          ),
+        );
+      });
+      it("faux avec une collection contenant des sous Etapes, au delà de l'indice", () => {
+        const arbLocal = fc
+          .array(arbInformationEtapeFormAvecSousEtape)
+          .map((liste) => new CollectionInformationsEtapes(...liste));
+        fc.assert(
+          fc.property(arbLocal, (collection) => {
+            // const collection = new CollectionInformationsEtapes(...liste);
+            decoreChaineRendue(collection);
+            expect(collection.estDerniereEtape(collection.length)).toBeFalsy();
+          }),
+        );
+      });
 
+      it("faux: l'avant dernier indice d'étape 'Form' suivi de 'Result'", () => {
+        fc.assert(
+          fc.property(
+            arbRecListeEtapesCommencantParNForm,
+            ({ collection, nombreEtapesForm }) => {
+              decoreChaineRendue(collection);
+              expect(
+                collection.estDerniereEtape(nombreEtapesForm - 2),
+              ).toBeFalsy();
+            },
+          ),
+        );
+      });
+
+      it("faux: l'avant dernier indice de la collection", () => {
+        fc.assert(
+          fc.property(arbRecListeEtapesCommencantParNResult, (collection) => {
+            decoreChaineRendue(collection);
+            expect(
+              collection.estDerniereEtape(collection.length - 2),
+            ).toBeFalsy();
+          }),
+        );
+      });
+    });
     it("est toujours une etape comptabilisable si dernière d'une liste d'étapes Form avant Result", () => {
       fc.assert(
         fc.property(
           arbRecListeEtapesCommencantParNForm,
           ({ collection, nombreEtapesForm }) => {
+            decoreChaineRendue(collection);
             expect(
               collection.recupereInformationsEtapeSuivante(nombreEtapesForm - 2)
                 .estComptabilisee,
@@ -232,9 +326,7 @@ describe(CollectionInformationsEtapes, () => {
     it("est toujours une etape comptabilisable si dernière d'une liste d'étapes Form après Result", () => {
       fc.assert(
         fc.property(arbRecListeEtapesCommencantParNResult, (collection) => {
-          Object.defineProperties(collection, {
-            [fc.toStringMethod]: { value: () => collection.toString() },
-          });
+          decoreChaineRendue(collection);
           expect(
             collection.recupereInformationsEtapeSuivante(collection.length - 2)
               .estComptabilisee,
