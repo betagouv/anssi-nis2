@@ -9,16 +9,21 @@ import {
 import { ValidationReponses } from "../../Domaine/Simulateur/Operations/validateursChamps";
 
 export interface InformationsEtape {
+  estComptabilisee: boolean;
+
   titre: string;
 }
 
 export class EtapeInexistante implements InformationsEtape {
-  titre = "Hors de portee";
+  public readonly estComptabilisee = false;
+  public readonly titre = "Hors de portee";
 }
 
 export const etapeInexistante = new EtapeInexistante();
 
-export class EtapeExistante implements InformationsEtape {
+export abstract class EtapeExistante implements InformationsEtape {
+  public abstract readonly estComptabilisee: boolean;
+
   constructor(
     public readonly titre: string,
     public readonly elementToRender: SimulateurEtapeRenderedComponent,
@@ -35,6 +40,7 @@ export class SousEtapeConditionnelle {
 }
 
 export class InformationEtapeForm extends EtapeExistante {
+  public readonly estComptabilisee = true;
   public readonly elementToRender: SimulateurEtapeRenderedComponent =
     SimulateurEtapeForm;
 
@@ -53,6 +59,7 @@ export class InformationEtapeForm extends EtapeExistante {
 }
 
 export class InformationEtapeResult implements EtapeExistante {
+  public readonly estComptabilisee = false;
   public readonly elementToRender: SimulateurEtapeRenderedComponent =
     SimulateurEtapeResult;
 

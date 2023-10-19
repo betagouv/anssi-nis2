@@ -1,8 +1,9 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { CollectionInformationsEtapes } from "../../../src/Services/Simulateur/CollectionInformationsEtapes";
 import {
   etapeInexistante,
   InformationEtapeForm,
+  InformationEtapeResult,
 } from "../../../src/Services/Simulateur/informationsEtape";
 import {
   EtapeLocalisation,
@@ -90,16 +91,34 @@ describe(CollectionInformationsEtapes, () => {
     },
   );
 
-  it("devrait appeler la fonction seulement si l'étape existe", () => {
-    const rappel = vi.fn();
-    collectionInformationsEtapes.siExiste(0, rappel);
-    expect(rappel.mock.calls.length).toBe(1);
-    expect(rappel.mock.calls[0]).toStrictEqual([0]);
-  });
+  describe("nombreEtapes", () => {
+    it("retourne 2 étapes quand 2 étapes form seules sont ajoutées", () => {
+      const nombreEtapesEffectif = collectionInformationsEtapes.nombreEtapes;
+      const nombreEtapesAttendu = 2;
+      expect(nombreEtapesEffectif).toBe(nombreEtapesAttendu);
+    });
 
-  it("ne devrait pas appeler la fonction si l'étape n'existe pas", () => {
-    const rappel = vi.fn();
-    collectionInformationsEtapes.siExiste(2, rappel);
-    expect(rappel.mock.calls.length).toBe(0);
+    it("retourne 3 étapes quand 3 étapes form sont ajoutées au milieu d'étapes result et d'étapes inexistante", () => {
+      const collectionInformationsEtapesAvecInexistantes =
+        new CollectionInformationsEtapes(
+          new InformationEtapeResult(""),
+          informationEtapeForm1,
+          new InformationEtapeResult(""),
+          informationEtapeForm2,
+          new InformationEtapeForm(
+            "",
+            {
+              message: "Sélectionnez une réponse",
+              validateur: auMoinsUn("etatMembre"),
+            },
+            EtapeLocalisation,
+          ),
+          etapeInexistante,
+        );
+      const nombreEtapesEffectif =
+        collectionInformationsEtapesAvecInexistantes.nombreEtapes;
+      const nombreEtapesAttendu = 3;
+      expect(nombreEtapesEffectif).toBe(nombreEtapesAttendu);
+    });
   });
 });
