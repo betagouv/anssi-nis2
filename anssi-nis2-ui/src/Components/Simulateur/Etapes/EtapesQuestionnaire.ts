@@ -21,6 +21,7 @@ import {
   validationReponsesTaille,
   validationUneReponses,
 } from "../../../Domaine/Simulateur/Services/Validateurs.ts";
+import { estUnSecteurAvecDesSousSecteurs } from "../../../Domaine/Simulateur/Operations/operationsSecteurs.ts";
 
 const informationEtapeDesignationOSE = new InformationEtapeForm(
   "Désignation éventuelle",
@@ -52,7 +53,8 @@ const informationEtapeSecteurs = new InformationEtapeForm(
   validationReponsesSecteurs,
   EtapeSecteursActivite,
   new SousEtapeConditionnelle(
-    ({ secteurActivite }) => secteurActivite.includes("energie"),
+    ({ secteurActivite }) =>
+      secteurActivite.some(estUnSecteurAvecDesSousSecteurs),
     informationEtapeSousSecteurs,
   ),
 );

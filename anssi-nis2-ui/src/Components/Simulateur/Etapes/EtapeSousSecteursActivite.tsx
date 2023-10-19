@@ -1,6 +1,5 @@
 import { FormSimulateur } from "./index.ts";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { transformeSousSecteurEnOptions } from "../../../Services/Simulateur/Transformateurs.ts";
 import { SousSecteurCheckbox } from "../Inputs/SousSecteurCheckbox.tsx";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
@@ -9,6 +8,7 @@ import {
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
 } from "../../../Domaine/Simulateur/SousSecteurs";
+import { transformeSousSecteurEnOptions } from "../../../Services/Simulateur/Transformateurs/TransformeSousSecteurEnOptions.ts";
 
 const EtapeSousSecteursActiviteCalculee = ({
   propageActionSimulateur,

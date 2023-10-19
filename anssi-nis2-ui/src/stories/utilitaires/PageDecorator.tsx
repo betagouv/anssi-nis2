@@ -1,4 +1,4 @@
-import { AppContext } from "../../AppContext.tsx";
+import { AppContext } from "../../Components/AppContexte/AppContext.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
   reducerBoutons,

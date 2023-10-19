@@ -82,6 +82,6 @@ export const activitesParSecteurEtSousSecteur: Record<
   transportsRoutiers: ValeursActivitesTransportsRoutiers,
 };
 export type AssociationSectorielleActivite = {
-  secteurOuSousSecteur: string;
+  secteurOuSousSecteur: ValeurCleSectorielle;
   titreActivite: string;
 };

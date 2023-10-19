@@ -21,7 +21,8 @@ const config: StorybookConfig = {
     getAbsolutePath("@storybook/addon-essentials"),
     getAbsolutePath("@storybook/addon-onboarding"),
     getAbsolutePath("@storybook/addon-interactions"),
-    "@storybook/addon-coverage",
+    getAbsolutePath("@storybook/addon-coverage"),
+    getAbsolutePath("@storybook/addon-mdx-gfm")
   ],
   docs: {
     autodocs: "tag",

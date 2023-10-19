@@ -120,3 +120,27 @@ export const EtapeSousActiviteConditionnelle: Story = {
     });
   },
 };
+
+export const EtapeSecteurFabricationSuivant: Story = {
+  decorators: [genereDecorateurPourContexte(simulateurContext)],
+
+  play: async ({ canvasElement, step }) => {
+    mockSendFormData.mockClear();
+
+    const canvas = within(canvasElement);
+
+    step("Va jusqu'à l'étape Secteurs d'activité", async () => {
+      await passeEtapeEnCochant(canvas, [
+        ["designeOperateurServicesEssentiels", "oui"],
+      ]);
+      await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
+      await passeEtapeEnCochant(canvas, [["typeStructure", "publique"]]);
+      await passeEtapeEnCochant(canvas, [
+        ["trancheNombreEmployes", "petit"],
+        ["trancheCA", "petit"],
+      ]);
+    });
+
+    await passeEtapeEnCochant(canvas, [["secteurActivite", "fabrication"]]);
+  },
+};
