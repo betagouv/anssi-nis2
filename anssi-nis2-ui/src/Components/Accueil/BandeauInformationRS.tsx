@@ -13,7 +13,7 @@ const useStyles = makeStyles()(() => ({
   root: {},
 }));
 
-export const BandeauInformation = (props: Props) => {
+export const BandeauInformationRS = (props: Props) => {
   const { className } = props;
 
   const { classes, cx } = useStyles();
@@ -53,4 +53,4 @@ export const BandeauInformation = (props: Props) => {
   );
 };
 
-export default BandeauInformation;
+export default BandeauInformationRS;

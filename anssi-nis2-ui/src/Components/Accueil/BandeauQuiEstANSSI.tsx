@@ -13,7 +13,6 @@ const { makeStyles } = createMakeAndWithStyles({
 });
 const useStyles = makeStyles()(() => ({
   root: {
-    borderTop: "4px solid var(--light-primary-blue-france-975, #F5F5FE)",
     textAlign: "center",
     fontSize: "1.125rem",
     "& h2": {

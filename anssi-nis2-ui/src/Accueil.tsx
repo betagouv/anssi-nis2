@@ -7,10 +7,11 @@ import {
   BandeauConcerne,
   BandeauNis2EU,
   BandeauQuiEstANSSI,
-  BandeauInformation,
+  BandeauInformationRS,
   BandeauQuandSePreparer,
 } from "./Components/Accueil";
 import MiseEnPage from "./Components/MiseEnPage.tsx";
+import BandeauEnSavoirPlus from "./Components/Accueil/BandeauEnSavoirPlus.tsx";
 
 const Accueil: DefaultComponent = () => {
   return (
@@ -20,8 +21,9 @@ const Accueil: DefaultComponent = () => {
         <BandeauConcerne />
         <BandeauNis2EU />
         <BandeauQuandSePreparer />
+        <BandeauEnSavoirPlus />
         <BandeauQuiEstANSSI />
-        <BandeauInformation />
+        <BandeauInformationRS />
       </MiseEnPage>
     </>
   );
