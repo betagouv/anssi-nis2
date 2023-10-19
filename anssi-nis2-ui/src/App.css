@@ -60,6 +60,10 @@ legend.fr-text--medium {
     border-bottom: 1px solid var(--blue-france-850-200, #CACAFB);
 }
 
+.fr-nis2-bordure-bas-l {
+    border-bottom: 2px solid var(--blue-france-950-100, #ECECFE);
+}
+
 .fr-nis2-resultat {
     &.fr-nis2-eligible {
         background-color: var(--green-menthe-975-75);
@@ -169,4 +173,8 @@ legend.fr-text--medium {
         text-align: center;
         flex: auto;
     }
+}
+
+.fr-nis2-text--center {
+    text-align: center;
 }

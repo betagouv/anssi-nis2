@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { BandeauInformation } from "../../../Components/Accueil";
+import { BandeauInformationRS } from "../../../Components/Accueil";
 
 //👇 This default export determines where your story goes in the story list
-const meta: Meta<typeof BandeauInformation> = {
-  component: BandeauInformation,
+const meta: Meta<typeof BandeauInformationRS> = {
+  component: BandeauInformationRS,
 };
 
 export default meta;
-type Story = StoryObj<typeof BandeauInformation>;
+type Story = StoryObj<typeof BandeauInformationRS>;
 
 export const FirstStory: Story = {
   args: {
