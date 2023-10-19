@@ -130,6 +130,45 @@ describe(CollectionInformationsEtapes, () => {
     const arbInformationEtapeResult = fc
       .string()
       .map((titre) => new InformationEtapeResult(titre));
+
+    function farbiqueArbitraireTupleListeEtIndice(arrayOptions = {}) {
+      return fc
+        .array(
+          fc.oneof(arbInformationEtapeForm, arbInformationEtapeResult),
+          arrayOptions,
+        )
+        .chain((liste) =>
+          fc.record({
+            listeEtapes: fc.constant(liste),
+            indice: fc.nat(liste.length),
+          }),
+        );
+    }
+
+    const arbTupleListeEtapesEtIndice = farbiqueArbitraireTupleListeEtIndice();
+    const arbTupleListesFormEtResult = fc.record({
+      listeEtapesForm: fc.array(arbInformationEtapeForm, { minLength: 1 }),
+      listeEtapesResult: fc.array(arbInformationEtapeResult),
+    });
+    const arbRecListeEtapesCommencantParNForm =
+      arbTupleListesFormEtResult.chain((tuple) =>
+        fc.record({
+          nombreEtapesForm: fc.constant(tuple.listeEtapesForm.length),
+          collection: fc.constant(
+            new CollectionInformationsEtapes(
+              ...[...tuple.listeEtapesForm, ...tuple.listeEtapesResult],
+            ),
+          ),
+        }),
+      );
+    const arbRecListeEtapesCommencantParNResult =
+      arbTupleListesFormEtResult.chain((tuple) =>
+        fc.constant(
+          new CollectionInformationsEtapes(
+            ...[...tuple.listeEtapesResult, ...tuple.listeEtapesForm],
+          ),
+        ),
+      );
     it("nombre d'étape d'une collection d'étapes form est toujours le nombre d'étapes en entrée", () => {
       fc.assert(
         fc.property(fc.array(arbInformationEtapeForm), (listeEtapes) => {
@@ -138,6 +177,7 @@ describe(CollectionInformationsEtapes, () => {
         }),
       );
     });
+
     it("nombre d'étape d'une collection d'étapes result est toujours 0", () => {
       fc.assert(
         fc.property(fc.array(arbInformationEtapeResult), (listeEtapes) => {
@@ -146,6 +186,61 @@ describe(CollectionInformationsEtapes, () => {
         }),
       );
     });
-    it("nombre d'étape est toujours supérieur à etape courante", () => {});
+    it("nombre d'étape est toujours supérieur à etape courante", () => {
+      fc.assert(
+        fc.property(arbTupleListeEtapesEtIndice, ({ listeEtapes, indice }) => {
+          const collection = new CollectionInformationsEtapes(...listeEtapes);
+          expect(collection.nombreEtapes).toBeGreaterThanOrEqual(
+            collection.numeroCourante(indice),
+          );
+        }),
+      );
+    });
+    it("le numéro de dernière etape est toujours le numéro de la derniére étape form", () => {
+      fc.assert(
+        fc.property(
+          arbRecListeEtapesCommencantParNForm,
+          ({ collection, nombreEtapesForm }) => {
+            expect(
+              collection.estDerniereEtape(nombreEtapesForm - 1),
+            ).toBeTruthy();
+          },
+        ),
+      );
+      fc.assert(
+        fc.property(arbRecListeEtapesCommencantParNResult, (collection) => {
+          expect(
+            collection.estDerniereEtape(collection.length - 1),
+          ).toBeTruthy();
+        }),
+      );
+    });
+
+    it("est toujours une etape comptabilisable si dernière d'une liste d'étapes Form avant Result", () => {
+      fc.assert(
+        fc.property(
+          arbRecListeEtapesCommencantParNForm,
+          ({ collection, nombreEtapesForm }) => {
+            expect(
+              collection.recupereInformationsEtapeSuivante(nombreEtapesForm - 2)
+                .estComptabilisee,
+            ).toBeTruthy();
+          },
+        ),
+      );
+    });
+    it("est toujours une etape comptabilisable si dernière d'une liste d'étapes Form après Result", () => {
+      fc.assert(
+        fc.property(arbRecListeEtapesCommencantParNResult, (collection) => {
+          Object.defineProperties(collection, {
+            [fc.toStringMethod]: { value: () => collection.toString() },
+          });
+          expect(
+            collection.recupereInformationsEtapeSuivante(collection.length - 2)
+              .estComptabilisee,
+          ).toBeTruthy();
+        }),
+      );
+    });
   });
 });
