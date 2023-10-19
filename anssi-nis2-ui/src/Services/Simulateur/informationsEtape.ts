@@ -24,7 +24,7 @@ export const etapeInexistante = new EtapeInexistante();
 export abstract class EtapeExistante implements InformationsEtape {
   public abstract readonly estComptabilisee: boolean;
 
-  constructor(
+  protected constructor(
     public readonly titre: string,
     public readonly elementToRender: SimulateurEtapeRenderedComponent,
   ) {}

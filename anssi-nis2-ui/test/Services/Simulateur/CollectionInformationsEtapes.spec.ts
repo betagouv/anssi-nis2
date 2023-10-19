@@ -1,33 +1,30 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+import { fc } from "@fast-check/vitest";
 import { CollectionInformationsEtapes } from "../../../src/Services/Simulateur/CollectionInformationsEtapes";
 import {
   etapeInexistante,
   InformationEtapeForm,
   InformationEtapeResult,
 } from "../../../src/Services/Simulateur/informationsEtape";
-import {
-  EtapeLocalisation,
-  EtapeTypeStructure,
-} from "../../../src/Components/Simulateur/Etapes";
+import { ValidationReponses } from "../../../src/Domaine/Simulateur/Operations/validateursChamps";
+import { SimulateurEtapeNodeComponent } from "../../../src/Services/Simulateur/Props/component";
 
-import { auMoinsUn } from "../../../src/Domaine/Simulateur/Services/Validateurs";
+const FauxSimulateurEtapeComposant: SimulateurEtapeNodeComponent = vi.fn();
 
 describe(CollectionInformationsEtapes, () => {
+  const fausseValidationReponse: ValidationReponses = {
+    message: "Fausse validation",
+    validateur: vi.fn(),
+  };
   const informationEtapeForm1 = new InformationEtapeForm(
-    "Localisation de l’activité",
-    {
-      message: "Sélectionnez une réponse",
-      validateur: auMoinsUn("etatMembre"),
-    },
-    EtapeLocalisation,
+    "Etape Form 1",
+    fausseValidationReponse,
+    FauxSimulateurEtapeComposant,
   );
   const informationEtapeForm2 = new InformationEtapeForm(
-    "Type de structure",
-    {
-      message: "Sélectionnez une réponse",
-      validateur: auMoinsUn("etatMembre"),
-    },
-    EtapeTypeStructure,
+    "Etape Form 2",
+    fausseValidationReponse,
+    FauxSimulateurEtapeComposant,
   );
   const collectionInformationsEtapes = new CollectionInformationsEtapes(
     informationEtapeForm1,
@@ -107,11 +104,8 @@ describe(CollectionInformationsEtapes, () => {
           informationEtapeForm2,
           new InformationEtapeForm(
             "",
-            {
-              message: "Sélectionnez une réponse",
-              validateur: auMoinsUn("etatMembre"),
-            },
-            EtapeLocalisation,
+            fausseValidationReponse,
+            FauxSimulateurEtapeComposant,
           ),
           etapeInexistante,
         );
@@ -120,5 +114,38 @@ describe(CollectionInformationsEtapes, () => {
       const nombreEtapesAttendu = 3;
       expect(nombreEtapesEffectif).toBe(nombreEtapesAttendu);
     });
+  });
+
+  describe("Propriétés croisées numéro étape", () => {
+    const arbInformationEtapeForm = fc
+      .string()
+      .map(
+        (titre) =>
+          new InformationEtapeForm(
+            titre,
+            fausseValidationReponse,
+            FauxSimulateurEtapeComposant,
+          ),
+      );
+    const arbInformationEtapeResult = fc
+      .string()
+      .map((titre) => new InformationEtapeResult(titre));
+    it("nombre d'étape d'une collection d'étapes form est toujours le nombre d'étapes en entrée", () => {
+      fc.assert(
+        fc.property(fc.array(arbInformationEtapeForm), (listeEtapes) => {
+          const collection = new CollectionInformationsEtapes(...listeEtapes);
+          expect(collection.nombreEtapes).toBe(listeEtapes.length);
+        }),
+      );
+    });
+    it("nombre d'étape d'une collection d'étapes result est toujours 0", () => {
+      fc.assert(
+        fc.property(fc.array(arbInformationEtapeResult), (listeEtapes) => {
+          const collection = new CollectionInformationsEtapes(...listeEtapes);
+          expect(collection.nombreEtapes).toBe(0);
+        }),
+      );
+    });
+    it("nombre d'étape est toujours supérieur à etape courante", () => {});
   });
 });
