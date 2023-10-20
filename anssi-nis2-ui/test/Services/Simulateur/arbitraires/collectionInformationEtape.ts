@@ -28,15 +28,22 @@ export const arbRecListeEtapesCommencantParNForm = arbListeFormEtResult.chain(
 );
 export const arbRecListeEtapesCommencantParNResult = arbListeFormEtResult.chain(
   (tuple) =>
-    fc.constant(
-      fabriqueCollectionInformationsEtapes(
-        tuple.listeEtapesResult,
-        tuple.listeEtapesForm,
+    fc.record({
+      nombreEtapesForm: fc.constant(tuple.listeEtapesForm.length),
+      nombreEtapesResult: fc.constant(tuple.listeEtapesResult.length),
+      collection: fc.constant(
+        fabriqueCollectionInformationsEtapes(
+          tuple.listeEtapesResult,
+          tuple.listeEtapesForm,
+        ),
       ),
-    ),
+    }),
 );
 export const arbitrairesCollectionEtape = {
-  resultPuisForm: arbRecListeEtapesCommencantParNResult,
+  resultPuisForm: {
+    liste: arbRecListeEtapesCommencantParNResult.map((arb) => arb.collection),
+    avecNombre: arbRecListeEtapesCommencantParNResult,
+  },
   formPuisResult: arbRecListeEtapesCommencantParNForm,
   form: fc
     .array(arbitrairesInformationEtape.form.simple)

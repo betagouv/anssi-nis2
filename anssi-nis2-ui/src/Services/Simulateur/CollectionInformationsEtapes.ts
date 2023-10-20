@@ -25,6 +25,14 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
     }, 0);
   }
 
+  estPremiereEtape(indiceEtape: number): boolean {
+    return (
+      indiceEtape < this.length &&
+      this[indiceEtape].estComptabilisee &&
+      !this.slice(0, indiceEtape).some((etape) => etape.estComptabilisee)
+    );
+  }
+
   estDerniereEtape(indiceEtape: number): boolean {
     return (
       indiceEtape >= 0 &&

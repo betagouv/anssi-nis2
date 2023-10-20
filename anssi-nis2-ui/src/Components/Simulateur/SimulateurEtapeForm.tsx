@@ -7,13 +7,11 @@ import { AppContext } from "../AppContexte/AppContext.tsx";
 import { CenteredContainer } from "../General/CenteredContainer.tsx";
 
 import { DonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
-import {
-  genereGestionEtapePrecedenteSiExiste,
-  genereGestionSauvePuisEtapeSuivante,
-} from "../../Services/Simulateur/gestionnaires.ts";
+import { genereGestionSauvePuisEtapeSuivante } from "../../Services/Simulateur/gestionnaires.ts";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
 import { InformationEtapeForm } from "../../Services/Simulateur/informationsEtape.ts";
 import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
+import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   propageActionSimulateur,
@@ -30,11 +28,14 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
 
   const etapePrecedenteHandlerConcret = useMemo(
     () =>
-      genereGestionEtapePrecedenteSiExiste(
-        informationsBoutonsNavigation.precedent,
-        etatEtapes.numeroEtapeCourante,
-      ),
-    [informationsBoutonsNavigation.precedent, etatEtapes.numeroEtapeCourante],
+      etatEtapes.collectionEtapes.estPremiereEtape(etatEtapes.indiceCourant)
+        ? noRefClick
+        : informationsBoutonsNavigation.precedent,
+    [
+      etatEtapes.collectionEtapes,
+      etatEtapes.indiceCourant,
+      informationsBoutonsNavigation.precedent,
+    ],
   );
 
   const sauvePuisSuivantGestionnaire = useMemo(

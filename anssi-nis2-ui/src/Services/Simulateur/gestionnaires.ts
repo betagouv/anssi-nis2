@@ -3,7 +3,6 @@ import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
 
 import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
 import { GestionValeursFormulaire } from "./Props/gestionValeursFormulaire";
@@ -40,11 +39,6 @@ export const fieldHandlers: Record<
   trancheNombreEmployes: gestionValeursSimples,
   typeStructure: gestionValeursSimples,
 };
-
-export const genereGestionEtapePrecedenteSiExiste = (
-  precedentHandler: React.MouseEventHandler,
-  numeroEtapeCourante: number,
-) => (numeroEtapeCourante == 0 ? noRefClick : precedentHandler);
 
 export const genereGestionSauvePuisEtapeSuivante: (
   suivantHandler: React.MouseEventHandler,
