@@ -33,11 +33,6 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
       this[indiceEtape].estComptabilisee &&
       this.numeroCourante(indiceEtape) === this.nombreEtapes
     );
-    //   (listeEtapesSuivantes.every((etape) => !etape.estComptabilisee) ||
-    //     indiceEtape >= this.length - 1)
-    // );
-    //
-    // return this.numeroCourante(indiceEtape) === this.nombreEtapes;
   }
 
   recupereInformationsEtapeSuivante(
