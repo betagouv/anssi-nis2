@@ -3,6 +3,7 @@ import { pageDecorator } from "../../utilitaires/PageDecorator.tsx";
 import MentionsLegales from "../../../Components/PagesEdito/MentionsLegales.tsx";
 
 const meta: Meta<typeof MentionsLegales> = {
+  title: "Composants/Pages édito",
   component: MentionsLegales,
   decorators: [pageDecorator],
 };
@@ -10,7 +11,7 @@ const meta: Meta<typeof MentionsLegales> = {
 export default meta;
 type Story = StoryObj<typeof MentionsLegales>;
 
-export const AffichageSimple: Story = {
+export const EditoMentions: Story = {
   args: {
     //👇 The args you need here will depend on your component
   },

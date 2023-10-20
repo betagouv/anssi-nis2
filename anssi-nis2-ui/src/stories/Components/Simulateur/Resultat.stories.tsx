@@ -15,7 +15,7 @@ import {
 } from "../../../Services/Simulateur/Props/contenusResultatEligibilite";
 
 const meta: Meta<typeof SimulateurEtapeResult> = {
-  title: "Composant/Simulateur/ConteneursEtape",
+  title: "Composants/Simulateur/ConteneursEtape",
   component: SimulateurEtapeResult,
   args: {
     donneesFormulaire: new DonneesFormulaireSimulateur({}),

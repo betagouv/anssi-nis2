@@ -24,7 +24,7 @@ const donneesFormulaireOptions: CollectionParametresDonneesSousSecteurActivites 
   new CollectionParametresDonneesSousSecteurActivites();
 
 const meta: Meta<typeof EtapeSousSecteursActivite> = {
-  title: "Composant/Simulateur/Etapes/5 bis - Sous secteur d'activité",
+  title: "Composants/Simulateur/Etapes/5 bis - Sous secteur d'activité",
   component: EtapeSousSecteursActivite,
   args: {
     donneesFormulaire: new DonneesFormulaireSimulateur({

@@ -3,6 +3,7 @@ import { pageDecorator } from "../../utilitaires/PageDecorator.tsx";
 import APropos from "../../../Components/PagesEdito/APropos.tsx";
 
 const meta: Meta<typeof APropos> = {
+  title: "Composants/Pages édito",
   component: APropos,
   decorators: [pageDecorator],
 };
@@ -10,7 +11,7 @@ const meta: Meta<typeof APropos> = {
 export default meta;
 type Story = StoryObj<typeof APropos>;
 
-export const AffichageSimple: Story = {
+export const EditoAPropos: Story = {
   args: {
     //👇 The args you need here will depend on your component
   },

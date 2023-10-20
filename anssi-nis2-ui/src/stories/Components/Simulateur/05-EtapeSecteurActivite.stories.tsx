@@ -24,7 +24,7 @@ const donneesFormulaireOptions: CollectionParametresDonneesSecteurActivites =
   new CollectionParametresDonneesSecteurActivites();
 
 const meta: Meta<typeof EtapeSecteursActivite> = {
-  title: "Composant/Simulateur/Etapes/5 - Secteur d'activité",
+  title: "Composants/Simulateur/Etapes/5 - Secteur d'activité",
   component: EtapeSecteursActivite,
   argTypes: {
     propageActionSimulateur: { action: true },

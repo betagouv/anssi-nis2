@@ -5,7 +5,7 @@ import { expect } from "@storybook/jest";
 import { libellesDesigneOSE } from "../../../References/Libelles.ts";
 
 const meta: Meta<typeof EtapeOSE> = {
-  title: "Composant/Simulateur/Etapes/1 - Designation OSE",
+  title: "Composants/Simulateur/Etapes/1 - Designation OSE",
   component: EtapeOSE,
   argTypes: {
     propageActionSimulateur: { action: true },

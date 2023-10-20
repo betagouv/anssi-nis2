@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { BandeauConcerneSimulateur } from "../../../Components/Simulateur/BandeauConcerneSimulateur.tsx";
 
 const meta: Meta<typeof BandeauConcerneSimulateur> = {
-  title: "Composant/Simulateur/BandeauConcerneSimulateur",
+  title: "Composants/Simulateur/BandeauConcerneSimulateur",
   component: BandeauConcerneSimulateur,
 };
 

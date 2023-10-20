@@ -24,7 +24,7 @@ const donneesFormulaireOptions: CollectionParametresDonneesTypeStructure =
   new CollectionParametresDonneesTypeStructure();
 
 const meta: Meta<typeof EtapeTypeStructure> = {
-  title: "Composant/Simulateur/Etapes/3 - Type de Stroucture",
+  title: "Composants/Simulateur/Etapes/3 - Type de Stroucture",
   component: EtapeTypeStructure,
   argTypes: {
     propageActionSimulateur: { action: true },

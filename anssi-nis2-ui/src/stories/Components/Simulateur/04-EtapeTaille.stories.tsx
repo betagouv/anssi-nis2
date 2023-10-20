@@ -26,7 +26,7 @@ const donneesFormulaireOptions: CollectionParametresDonneesTrancheNombreEmployes
   new CollectionParametresDonneesTrancheNombreEmployes();
 
 const meta: Meta<typeof EtapeTaille> = {
-  title: "Composant/Simulateur/Etapes/4 - Taille",
+  title: "Composants/Simulateur/Etapes/4 - Taille",
   component: EtapeTaille,
   argTypes: {
     propageActionSimulateur: { action: true },

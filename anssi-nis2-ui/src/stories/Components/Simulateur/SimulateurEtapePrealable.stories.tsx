@@ -1,13 +1,13 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { SimulateurEtapePrealable } from "../../Components/Simulateur/SimulateurEtapePrealable.tsx";
-import { pageDecorator } from "../utilitaires/PageDecorator.tsx";
+import { SimulateurEtapePrealable } from "../../../Components/Simulateur/SimulateurEtapePrealable.tsx";
+import { pageDecorator } from "../../utilitaires/PageDecorator.tsx";
 import { jest } from "@storybook/jest";
-import { EtatEtapes } from "../../Services/Simulateur/EtatEtapes.ts";
-import { CollectionInformationsEtapes } from "../../Services/Simulateur/CollectionInformationsEtapes.ts";
-import { donneesFormulaireSimulateurVide } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { EtatEtapes } from "../../../Services/Simulateur/EtatEtapes.ts";
+import { CollectionInformationsEtapes } from "../../../Services/Simulateur/CollectionInformationsEtapes.ts";
+import { donneesFormulaireSimulateurVide } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 const meta = {
-  title: "Composant/Simulateur/ConteneursEtape",
+  title: "Composants/Simulateur/ConteneursEtape",
   component: SimulateurEtapePrealable,
   decorators: [pageDecorator],
 } satisfies Meta<typeof SimulateurEtapePrealable>;

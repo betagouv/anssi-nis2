@@ -11,7 +11,7 @@ import { Contexte } from "../../../Services/contexte";
 import { contenusResultatEligiblePetitEntreprise } from "../../../References/contenusResultatEligibilite.ts";
 
 const meta: Meta<typeof ChargeurEtape> = {
-  title: "Composant/Simulateur/ChargeurEtape",
+  title: "Composants/Simulateur/ChargeurEtape",
   component: ChargeurEtape,
   decorators: [genereDecorateurPourContexte(defaultContext)],
 };

@@ -25,7 +25,7 @@ const donneesFormulaireOptions: CollectionParametresDonneesActivites =
   );
 
 const meta: Meta<typeof EtapeActivites> = {
-  title: "Composant/Simulateur/Etapes/6 - Activites",
+  title: "Composants/Simulateur/Etapes/6 - Activites",
   component: EtapeActivites,
   args: {
     donneesFormulaire: new DonneesFormulaireSimulateur({

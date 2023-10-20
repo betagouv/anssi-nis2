@@ -28,7 +28,7 @@ const donneesFormulaireOptions: CollectionParametresDonneesEtatMembre =
   );
 
 const meta: Meta<typeof EtapeLocalisation> = {
-  title: "Composant/Simulateur/Etapes/2 - Localisation",
+  title: "Composants/Simulateur/Etapes/2 - Localisation",
   component: EtapeLocalisation,
   argTypes: {
     propageActionSimulateur: { action: true },
