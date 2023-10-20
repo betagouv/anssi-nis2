@@ -20,6 +20,7 @@ import {
 } from "../../src/Domaine/Simulateur/SousSecteurs";
 import { SecteurActivite } from "../../src/Domaine/Simulateur/SecteursActivite";
 import { ValeursPetitMoyenGrand } from "../../src/Domaine/Simulateur/ValeursChampsSimulateur";
+import { Activite } from "../../src/Domaine/Simulateur/Activite";
 
 const constantArbitraire = <TypeChamp extends ValeurChampSimulateur>(
   value: TypeChamp[],
@@ -61,7 +62,9 @@ export const fabriqueArbSingleton = <T>(valeursPossibles: Readonly<T[]>) =>
     maxLength: 1,
   });
 export const ajouteArbitraireActivites = <
-  DonneesPartielle extends DonneesSansActivite,
+  DonneesPartielle extends
+    | DonneesSansActivite
+    | IDonneesBrutesFormulaireSimulateur,
 >(
   base: DonneesPartielle,
   options?: ArbitraireOptionsActivites,
@@ -77,15 +80,19 @@ export const ajouteArbitraireActivites = <
     ],
     opFiltreActivite,
   );
+  const baseAvecActivites = base as IDonneesFormulaireSimulateur;
+  const donneesActivite: Activite[] = baseAvecActivites.activites
+    ? [...listeActivitesDesSecteurs, ...baseAvecActivites.activites]
+    : listeActivitesDesSecteurs;
   if (listeActivitesDesSecteurs.length === 0) {
-    return fc.record<DonneesPartielle>({
+    return fc.record<IDonneesBrutesFormulaireSimulateur>({
       ...propageBase(base),
       activites: fc.constant([]),
     });
   }
-  return fc.record<DonneesPartielle>({
+  return fc.record<IDonneesBrutesFormulaireSimulateur>({
     ...propageBase(base),
-    activites: fc.subarray(Array.from(new Set(listeActivitesDesSecteurs)), {
+    activites: fc.subarray(Array.from(new Set(donneesActivite)), {
       minLength: opMinLength,
     }),
   });

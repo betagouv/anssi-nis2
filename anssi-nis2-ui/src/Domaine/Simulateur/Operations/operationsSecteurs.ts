@@ -15,6 +15,15 @@ export const estUnSecteurSansDesSousSecteurs = (secteur: string) => {
     secteur as SecteursAvecSousSecteurs,
   );
 };
+export const estSecteurAutre = (secteur: SecteurActivite) =>
+  secteur.startsWith("autre");
+export const estSecteurListe = (secteur: SecteurActivite) =>
+  !secteur.startsWith("autre");
+export const estSousSecteurAutre = (sousSecteur?: SousSecteurActivite) =>
+  sousSecteur?.startsWith("autre");
+export const estSousSecteurListe = (sousSecteur?: SousSecteurActivite) =>
+  !sousSecteur?.startsWith("autre");
+
 export const ValeursSecteursSansSousSecteur: SecteurActivite[] =
   ValeursSecteursActivites.filter(estUnSecteurSansDesSousSecteurs);
 export const contientSousSecteur = (

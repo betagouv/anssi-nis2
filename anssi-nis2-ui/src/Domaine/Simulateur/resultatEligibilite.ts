@@ -6,7 +6,7 @@ import {
   TrancheNombreEmployes,
 } from "./ChampsSimulateur";
 
-import { listeActivitesSaufAutre } from "./Operations/FiltreActivites.ts";
+import { estActiviteListee } from "./Operations/FiltreActivites.ts";
 
 import { listeSecteursActiviteSaufAutre } from "./ListesEnrSecteursSousSecteur.ts";
 
@@ -37,10 +37,8 @@ export const estGrandeEntreprise = (
   chiffreAffaire: TrancheChiffreAffaire[],
 ) => nombreEmployes.includes("grand") || chiffreAffaire.includes("grand");
 
-const estUneActiviteListee = (activites: Activite[]) =>
-  activites &&
-  activites.length &&
-  activites.every((activite) => listeActivitesSaufAutre.includes(activite));
+const auMoinsUneActiviteListee = (activites: Activite[]) =>
+  activites && activites.length && activites.some(estActiviteListee);
 const estUnSecteurListee = (secteurs: SecteurActivite[]) =>
   secteurs &&
   secteurs.length &&
@@ -77,7 +75,7 @@ export const eligibilite: (
     typeStructure.includes("privee") &&
     estPetiteEntreprise(trancheNombreEmployes, trancheCA) &&
     secteurActivite.includes("infrastructureNumerique") &&
-    estUneActiviteListee(activites)
+    auMoinsUneActiviteListee(activites)
   ) {
     return ResultatEligibiliteEnum.EligiblePetiteEntreprise;
   }
@@ -88,7 +86,7 @@ export const eligibilite: (
     (estMoyenneEntreprise(trancheNombreEmployes, trancheCA) ||
       estGrandeEntreprise(trancheNombreEmployes, trancheCA)) &&
     estUnSecteurListee(secteurActivite) &&
-    estUneActiviteListee(activites)
+    auMoinsUneActiviteListee(activites)
   )
     return ResultatEligibiliteEnum.EligibleMoyenneGrandeEntreprise;
 

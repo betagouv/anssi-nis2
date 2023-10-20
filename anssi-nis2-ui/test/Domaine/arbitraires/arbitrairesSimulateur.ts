@@ -30,6 +30,10 @@ import {
   arbTranche,
   arbTypeStructure,
 } from "./arbitraireChampFormulaire";
+import {
+  estSecteurListe,
+  estSousSecteurListe,
+} from "../../../src/Domaine/Simulateur/Operations/operationsSecteurs";
 
 export const arbTrancheSingleton = () =>
   fabriqueArbSingleton(ValeursPetitMoyenGrand);
@@ -143,25 +147,30 @@ export const donneesArbitrairesFormNonOSEPrivesPetitFournisseurInfraNum: fc.Arbi
         etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
       }),
     )
-    .chain<DonneesSansActivite>((base) =>
+    .chain<IDonneesBrutesFormulaireSimulateur>((base) =>
       ajouteArbitraireActivites(base, {
         minLength: 1,
-        filtreActivite: estActiviteListee,
       }),
     )
+    .filter((donnees) => donnees.activites.some(estActiviteListee))
     .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
 
 export const donneesArbitrairesFormNonOSEPrivesMoyenneGrande: fc.Arbitrary<IDonneesFormulaireSimulateur> =
   fabriqueArbSecteurSousSecteurs(
     listeEnrSecteursAvecLeursSousSecteurs.filter(
       (enr) =>
-        !enr.secteur.startsWith("autre") &&
-        !enr.sousSecteur?.startsWith("autre"),
+        estSecteurListe(enr.secteur) && estSousSecteurListe(enr.sousSecteur),
     ),
     {
       minLength: 1,
     },
   )
+    .chain((base) =>
+      fc.record({
+        secteurActivite: fc.constant([...base.secteurActivite]),
+        sousSecteurActivite: fc.constant([...base.sousSecteurActivite]),
+      }),
+    )
     .chain((base) =>
       fc.record<Omit<DonneesSansActivite, "trancheNombreEmployes">>({
         ...propageBase(base),
