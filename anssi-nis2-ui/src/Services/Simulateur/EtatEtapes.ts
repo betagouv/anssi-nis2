@@ -1,9 +1,11 @@
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
-import { InformationEtapeForm } from "./informationsEtape.ts";
+import { EtapeExistante, InformationEtapeForm } from "./informationsEtape.ts";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
 } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+
+import { SimulateurEtapeRenderedComponent } from "./Props/component";
 
 export class EtatEtapes {
   static readonly numeroSousEtapeInitial = 0;
@@ -18,7 +20,7 @@ export class EtatEtapes {
     public readonly numeroSousEtape: number = 0,
   ) {}
 
-  contenuEtapeCourante() {
+  contenuEtapeCourante(): EtapeExistante {
     if (this.numeroSousEtape === EtatEtapes.numeroSousEtapeInitial) {
       return this.collectionEtapes.recupereEtapeCourante(this.indiceCourant);
     }
@@ -30,6 +32,10 @@ export class EtatEtapes {
       ).sousEtapeConditionnelle?.sousEtape ||
       this.collectionEtapes.recupereEtapeCourante(this.indiceCourant)
     );
+  }
+
+  get conteneurElementCourant(): SimulateurEtapeRenderedComponent {
+    return this.contenuEtapeCourante().conteneurElementRendu;
   }
 
   suivant(donneesFormulaire: DonneesFormulaireSimulateur) {

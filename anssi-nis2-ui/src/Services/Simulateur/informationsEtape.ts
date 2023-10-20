@@ -23,11 +23,9 @@ export const etapeInexistante = new EtapeInexistante();
 
 export abstract class EtapeExistante implements InformationsEtape {
   public abstract readonly estComptabilisee: boolean;
+  public abstract readonly conteneurElementRendu: SimulateurEtapeRenderedComponent;
 
-  protected constructor(
-    public readonly titre: string,
-    public readonly elementToRender: SimulateurEtapeRenderedComponent,
-  ) {}
+  protected constructor(public readonly titre: string) {}
 }
 
 export class SousEtapeConditionnelle {
@@ -41,7 +39,7 @@ export class SousEtapeConditionnelle {
 
 export class EtapePrealable implements EtapeExistante {
   public readonly estComptabilisee = false;
-  public readonly elementToRender: SimulateurEtapeRenderedComponent =
+  public readonly conteneurElementRendu: SimulateurEtapeRenderedComponent =
     SimulateurEtapePrealable;
 
   public constructor(public readonly titre: string) {}
@@ -49,7 +47,7 @@ export class EtapePrealable implements EtapeExistante {
 
 export class InformationEtapeForm extends EtapeExistante {
   public readonly estComptabilisee = true;
-  public readonly elementToRender: SimulateurEtapeRenderedComponent =
+  public readonly conteneurElementRendu: SimulateurEtapeRenderedComponent =
     SimulateurEtapeForm;
 
   public constructor(
@@ -58,13 +56,13 @@ export class InformationEtapeForm extends EtapeExistante {
     public readonly composant: SimulateurEtapeNodeComponent,
     public readonly sousEtapeConditionnelle?: SousEtapeConditionnelle,
   ) {
-    super(titre, SimulateurEtapeForm);
+    super(titre);
   }
 }
 
 export class InformationEtapeResult implements EtapeExistante {
   public readonly estComptabilisee = false;
-  public readonly elementToRender: SimulateurEtapeRenderedComponent =
+  public readonly conteneurElementRendu: SimulateurEtapeRenderedComponent =
     SimulateurEtapeResult;
 
   public constructor(public readonly titre: string) {}
