@@ -7,6 +7,7 @@ import {
 } from "./Props/component";
 
 import { ValidationReponses } from "../../Domaine/Simulateur/Operations/validateursChamps";
+import { SimulateurEtapePrealable } from "../../Components/Simulateur/SimulateurEtapePrealable.tsx";
 
 export interface InformationsEtape {
   estComptabilisee: boolean;
@@ -41,7 +42,7 @@ export class SousEtapeConditionnelle {
 export class EtapePrealable implements EtapeExistante {
   public readonly estComptabilisee = false;
   public readonly elementToRender: SimulateurEtapeRenderedComponent =
-    SimulateurEtapeResult;
+    SimulateurEtapePrealable;
 
   public constructor(public readonly titre: string) {}
 }

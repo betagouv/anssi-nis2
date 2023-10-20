@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { ChargeurEtape } from "../../../Components/Simulateur/ChargeurEtape.tsx";
 import { defaultContext } from "../../utilitaires/PageDecorator.tsx";
-import { within } from "@storybook/testing-library";
+import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { passeEtapeEnCochant } from "../../utilitaires/Simulateur.actions.ts";
 import { genereDecorateurPourContexte } from "../../utilitaires/generateursDecorateurs.tsx";
@@ -32,6 +32,11 @@ export const DerniereEtapeEstResultat: Story = {
     mockSendFormData.mockClear();
 
     const canvas = within(canvasElement);
+    await userEvent.click(
+      await canvas.findByRole("button", {
+        name: "Débuter le test",
+      }),
+    );
 
     await passeEtapeEnCochant(canvas, [
       ["designeOperateurServicesEssentiels", "oui"],
@@ -77,6 +82,11 @@ export const EtapeSousActiviteConditionnelle: Story = {
     const canvas = within(canvasElement);
 
     step("Va jusqu'à l'étape Secteurs d'activité", async () => {
+      await userEvent.click(
+        await canvas.findByRole("button", {
+          name: "Débuter le test",
+        }),
+      );
       await passeEtapeEnCochant(canvas, [
         ["designeOperateurServicesEssentiels", "oui"],
       ]);
@@ -133,6 +143,11 @@ export const EtapeSecteurFabricationSuivant: Story = {
     const canvas = within(canvasElement);
 
     step("Va jusqu'à l'étape Secteurs d'activité", async () => {
+      await userEvent.click(
+        await canvas.findByRole("button", {
+          name: "Débuter le test",
+        }),
+      );
       await passeEtapeEnCochant(canvas, [
         ["designeOperateurServicesEssentiels", "oui"],
       ]);
