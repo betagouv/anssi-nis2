@@ -2,29 +2,30 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { EtapeSecteursActivite } from "../../../Components/Simulateur/Etapes";
+import { EtapeTypeStructure } from "../../../Components/Simulateur/Etapes";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { libellesTypesStructure } from "../../../References/Libelles.ts";
+import { TypeStructure } from "../../../Domaine/Simulateur/ChampsSimulateur";
 
-import { SecteurActivite } from "../../../Domaine/Simulateur/SecteursActivite";
-
-class ParametresDonneesSecteurActivite extends ParametresDonneesSpecifiqueField<SecteurActivite> {
-  protected construitDonnees<ValeursSecteurActivite>(
-    valeurs: ValeursSecteurActivite[],
+class ParametresDonneesTypeStructure extends ParametresDonneesSpecifiqueField<TypeStructure> {
+  protected construitDonnees<ValeursTypeStructure>(
+    valeurs: ValeursTypeStructure[],
   ): DonneesFormulaireSimulateur {
-    return this.construitDonneesPourField("secteurActivite", valeurs);
+    return this.construitDonneesPourField("typeStructure", valeurs);
   }
 }
 
-class CollectionParametresDonneesSecteurActivites extends CollectionParametresDonnees<ParametresDonneesSecteurActivite> {}
+class CollectionParametresDonneesTypeStructure extends CollectionParametresDonnees<ParametresDonneesTypeStructure> {}
 
-const donneesFormulaireOptions: CollectionParametresDonneesSecteurActivites =
-  new CollectionParametresDonneesSecteurActivites();
+const donneesFormulaireOptions: CollectionParametresDonneesTypeStructure =
+  new CollectionParametresDonneesTypeStructure();
 
-const meta: Meta<typeof EtapeSecteursActivite> = {
-  component: EtapeSecteursActivite,
+const meta: Meta<typeof EtapeTypeStructure> = {
+  title: "Composant/Simulateur/Etapes/3 - Type de Stroucture",
+  component: EtapeTypeStructure,
   argTypes: {
     propageActionSimulateur: { action: true },
     donneesFormulaire: donneesFormulaireOptions.getFormData(),
@@ -32,28 +33,28 @@ const meta: Meta<typeof EtapeSecteursActivite> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof EtapeSecteursActivite>;
+type Story = StoryObj<typeof EtapeTypeStructure>;
 
-const creeActionPropagationFormulaireActivite = (newValue: SecteurActivite) => {
+const creeActionPropagationFormulaireActivite = (newValue: TypeStructure) => {
   const actionTypique = {
-    type: "checkMulti",
-    name: "secteurActivite",
+    type: "checkSingle",
+    name: "typeStructure",
   };
   return { ...actionTypique, newValue: newValue };
 };
 
-export const CliqueSurLesOptions: Story = {
+export const TypeStructureCoche: Story = {
   play: async ({ args, canvasElement, step }) => {
     const canvas = within(canvasElement);
     const { propageActionSimulateur } = args;
 
     const optionsATester: {
       libelle: string;
-      newValue: SecteurActivite;
+      newValue: TypeStructure;
     }[] = [
       {
-        libelle: "Énergie",
-        newValue: "energie",
+        libelle: libellesTypesStructure["publique"],
+        newValue: "publique",
       },
     ];
 

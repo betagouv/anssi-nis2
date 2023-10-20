@@ -24,6 +24,7 @@ const donneesFormulaireOptions: CollectionParametresDonneesSousSecteurActivites 
   new CollectionParametresDonneesSousSecteurActivites();
 
 const meta: Meta<typeof EtapeSousSecteursActivite> = {
+  title: "Composant/Simulateur/Etapes/5 bis - Sous secteur d'activité",
   component: EtapeSousSecteursActivite,
   args: {
     donneesFormulaire: new DonneesFormulaireSimulateur({
@@ -38,8 +39,6 @@ const meta: Meta<typeof EtapeSousSecteursActivite> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof EtapeSousSecteursActivite>;
-
 const creeActionPropagationFormulaireActivite = (
   newValue: SousSecteurEnergie,
 ) => {
@@ -50,7 +49,10 @@ const creeActionPropagationFormulaireActivite = (
   return { ...actionTypique, newValue: newValue };
 };
 
+type Story = StoryObj<typeof EtapeSousSecteursActivite>;
+
 export const SelectionneSousSecteurEnergie: Story = {
+  name: "SousSecteur (Energie Coché)",
   play: async ({ args, canvasElement, step }) => {
     const canvas = within(canvasElement);
     const { propageActionSimulateur } = args;
@@ -81,6 +83,7 @@ export const SelectionneSousSecteurEnergie: Story = {
 };
 
 export const MixSecteursEtSousSecteurs: Story = {
+  name: "Sous-Secteurs (Mix)",
   args: {
     donneesFormulaire: new DonneesFormulaireSimulateur({
       secteurActivite: ["espace", "energie", "transports"],

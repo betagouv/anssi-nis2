@@ -1,13 +1,13 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { SimulateurEtapePrealable } from "../Components/Simulateur/SimulateurEtapePrealable";
-import { pageDecorator } from "./utilitaires/PageDecorator.tsx";
+import { SimulateurEtapePrealable } from "../../Components/Simulateur/SimulateurEtapePrealable.tsx";
+import { pageDecorator } from "../utilitaires/PageDecorator.tsx";
 import { jest } from "@storybook/jest";
-import { EtatEtapes } from "../Services/Simulateur/EtatEtapes.ts";
-import { CollectionInformationsEtapes } from "../Services/Simulateur/CollectionInformationsEtapes.ts";
-import { donneesFormulaireSimulateurVide } from "../Domaine/Simulateur/DonneesFormulaire.ts";
+import { EtatEtapes } from "../../Services/Simulateur/EtatEtapes.ts";
+import { CollectionInformationsEtapes } from "../../Services/Simulateur/CollectionInformationsEtapes.ts";
+import { donneesFormulaireSimulateurVide } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 const meta = {
-  title: "EtapeSousSecteursActivite/SimulateurEtapePrealable",
+  title: "Composant/Simulateur/ConteneursEtape",
   component: SimulateurEtapePrealable,
   decorators: [pageDecorator],
 } satisfies Meta<typeof SimulateurEtapePrealable>;
@@ -17,6 +17,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const SimulateurEtapePrealableStory: Story = {
+  name: "Etape Préalable",
   args: {
     informationsBoutonsNavigation: {
       precedent: jest.fn(),
@@ -27,5 +28,4 @@ export const SimulateurEtapePrealableStory: Story = {
     ),
     donneesFormulaire: jest.mocked(donneesFormulaireSimulateurVide),
   },
-  name: "Default",
 };
