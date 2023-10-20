@@ -5,7 +5,6 @@ import {
 } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.ts";
 
-import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
 import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
 import { GestionValeursFormulaire } from "./Props/gestionValeursFormulaire";
 import { ValeurChampSimulateur } from "../../Domaine/Simulateur/ChampsSimulateur";
@@ -47,7 +46,7 @@ export const genereGestionEtapePrecedenteSiExiste = (
   numeroEtapeCourante: number,
 ) => (numeroEtapeCourante == 0 ? noRefClick : precedentHandler);
 
-const genereGestionSauvePuisEtapeSuivante: (
+export const genereGestionSauvePuisEtapeSuivante: (
   suivantHandler: React.MouseEventHandler,
   sauveHandler: () => Promise<string>,
 ) => React.MouseEventHandler =
@@ -59,16 +58,6 @@ const genereGestionSauvePuisEtapeSuivante: (
     sauveHandler().then(() => suivantHandler(e));
   };
 
-export const genereGestionEtapeSuivanteSiExiste = (
-  numeroEtapeCourante: number,
-  collectionEtapes: CollectionInformationsEtapes,
-  suivantHandler: React.MouseEventHandler,
-  sauveHandler: () => Promise<string>,
-) => {
-  return collectionEtapes.estDerniereEtape(numeroEtapeCourante)
-    ? genereGestionSauvePuisEtapeSuivante(suivantHandler, sauveHandler)
-    : suivantHandler;
-};
 export const fabriqueGestionChangementSimple =
   (
     propageActionSimulateur: React.Dispatch<SimulateurDonneesFormulaireActions>,

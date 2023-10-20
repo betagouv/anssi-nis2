@@ -46,14 +46,10 @@ export class InformationEtapeForm extends EtapeExistante {
   public constructor(
     public readonly titre: string,
     public readonly validationReponses: ValidationReponses,
-    protected readonly contenu: SimulateurEtapeNodeComponent,
+    public readonly composant: SimulateurEtapeNodeComponent,
     public readonly sousEtapeConditionnelle?: SousEtapeConditionnelle,
   ) {
     super(titre, SimulateurEtapeForm);
-  }
-
-  recupereContenu() {
-    return this.contenu;
   }
 }
 

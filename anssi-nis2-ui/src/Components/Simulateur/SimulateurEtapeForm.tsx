@@ -6,13 +6,10 @@ import { useContext, useMemo } from "react";
 import { AppContext } from "../AppContexte/AppContext.tsx";
 import { CenteredContainer } from "../General/CenteredContainer.tsx";
 
-import {
-  DonneesFormulaireSimulateur,
-  donneesFormulaireSimulateurVide,
-} from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import {
   genereGestionEtapePrecedenteSiExiste,
-  genereGestionEtapeSuivanteSiExiste,
+  genereGestionSauvePuisEtapeSuivante,
 } from "../../Services/Simulateur/gestionnaires.ts";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
 import { InformationEtapeForm } from "../../Services/Simulateur/informationsEtape.ts";
@@ -24,14 +21,10 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   informationsBoutonsNavigation,
   etatEtapes,
 }: SimulateurEtapeRenderedProps) => {
-  const listeEtapes = etatEtapes.collectionEtapes;
-  const informationsEtape: InformationEtapeForm =
+  const informationsEtape =
     etatEtapes.contenuEtapeCourante() as InformationEtapeForm;
 
-  const EtapeCourante = informationsEtape.recupereContenu();
-
-  const etatSuivant = etatEtapes.suivant(donneesFormulaireSimulateurVide);
-  const informationsEtapeSuivante = etatSuivant.contenuEtapeCourante();
+  const EtapeCourante = informationsEtape.composant;
 
   const { envoieDonneesFormulaire } = useContext(AppContext);
 
@@ -44,11 +37,9 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
     [informationsBoutonsNavigation.precedent, etatEtapes.numeroEtapeCourante],
   );
 
-  const etapeSuivantHandlerConcret = useMemo(
+  const sauvePuisSuivantGestionnaire = useMemo(
     () =>
-      genereGestionEtapeSuivanteSiExiste(
-        etatEtapes.numeroEtapeCourante,
-        listeEtapes,
+      genereGestionSauvePuisEtapeSuivante(
         informationsBoutonsNavigation.suivant,
         () =>
           envoieDonneesFormulaire(
@@ -56,11 +47,20 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
           ),
       ),
     [
-      etatEtapes.numeroEtapeCourante,
-      listeEtapes,
-      informationsBoutonsNavigation.suivant,
-      envoieDonneesFormulaire,
       donneesFormulaire,
+      envoieDonneesFormulaire,
+      informationsBoutonsNavigation.suivant,
+    ],
+  );
+  const etapeSuivantHandlerConcret = useMemo(
+    () =>
+      etatEtapes.collectionEtapes.estDerniereEtape(etatEtapes.indiceCourant)
+        ? sauvePuisSuivantGestionnaire
+        : informationsBoutonsNavigation.suivant,
+    [
+      etatEtapes,
+      sauvePuisSuivantGestionnaire,
+      informationsBoutonsNavigation.suivant,
     ],
   );
 
@@ -69,8 +69,8 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
       <CenteredContainer className="fr-background-alt--grey">
         <Stepper
           currentStep={etatEtapes.numeroEtapeCourante}
-          nextTitle={informationsEtapeSuivante.titre}
-          stepCount={listeEtapes.nombreEtapes}
+          nextTitle={etatEtapes.titreSuivant}
+          stepCount={etatEtapes.collectionEtapes.nombreEtapes}
           title={informationsEtape.titre}
           className="fr-mb-5w"
         />
