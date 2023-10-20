@@ -24,6 +24,7 @@ const donneesFormulaireOptions: CollectionParametresDonneesTypeStructure =
   new CollectionParametresDonneesTypeStructure();
 
 const meta: Meta<typeof EtapeTypeStructure> = {
+  title: "Composants/Simulateur/Etapes/3 - Type de Stroucture",
   component: EtapeTypeStructure,
   argTypes: {
     propageActionSimulateur: { action: true },
@@ -42,7 +43,7 @@ const creeActionPropagationFormulaireActivite = (newValue: TypeStructure) => {
   return { ...actionTypique, newValue: newValue };
 };
 
-export const CliqueSurLesOptions: Story = {
+export const TypeStructureCoche: Story = {
   play: async ({ args, canvasElement, step }) => {
     const canvas = within(canvasElement);
     const { propageActionSimulateur } = args;

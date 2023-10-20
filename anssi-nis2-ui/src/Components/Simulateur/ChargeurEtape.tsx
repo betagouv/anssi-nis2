@@ -27,7 +27,7 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
   );
 
   const ElementRendu: SimulateurEtapeRenderedComponent =
-    etatEtapes.contenuEtapeCourante().elementToRender;
+    etatEtapes.conteneurElementCourant;
 
   useEffect(
     () => traceEtapeSimulateur(etatEtapes, donneesFormulaireSimulateur),

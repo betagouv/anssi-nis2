@@ -6,6 +6,7 @@ import MentionsLegales from "../../Components/PagesEdito/MentionsLegales.tsx";
 import GestionCookies from "../../Components/PagesEdito/GestionCookies.tsx";
 
 const meta: Meta<typeof PageEdito> = {
+  title: "Pages/Edito",
   component: PageEdito,
   decorators: [pageDecorator],
 };

@@ -5,6 +5,7 @@ import { expect } from "@storybook/jest";
 import { libellesDesigneOSE } from "../../../References/Libelles.ts";
 
 const meta: Meta<typeof EtapeOSE> = {
+  title: "Composants/Simulateur/Etapes/1 - Designation OSE",
   component: EtapeOSE,
   argTypes: {
     propageActionSimulateur: { action: true },
@@ -25,7 +26,7 @@ const creeActionPropagationFormulaireSimu = (newValue: string) => {
   };
 };
 
-export const CliqueSurLesOptions: Story = {
+export const DesignationOSESimple: Story = {
   play: async ({ args, canvasElement, step }) => {
     const canvas = within(canvasElement);
     const { propageActionSimulateur } = args;

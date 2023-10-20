@@ -1,6 +1,11 @@
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
 import { EtapeExistante, InformationEtapeForm } from "./informationsEtape.ts";
-import { DonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import {
+  DonneesFormulaireSimulateur,
+  donneesFormulaireSimulateurVide,
+} from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+
+import { SimulateurEtapeRenderedComponent } from "./Props/component";
 
 export class EtatEtapes {
   static readonly numeroSousEtapeInitial = 0;
@@ -29,6 +34,10 @@ export class EtatEtapes {
     );
   }
 
+  get conteneurElementCourant(): SimulateurEtapeRenderedComponent {
+    return this.contenuEtapeCourante().conteneurElementRendu;
+  }
+
   suivant(donneesFormulaire: DonneesFormulaireSimulateur) {
     const informationsEtape = this.informationEtapeForm();
 
@@ -49,6 +58,11 @@ export class EtatEtapes {
       );
     }
     return this;
+  }
+
+  get titreSuivant(): string {
+    return this.suivant(donneesFormulaireSimulateurVide).contenuEtapeCourante()
+      .titre;
   }
 
   precedent(donneesFormulaire: DonneesFormulaireSimulateur) {

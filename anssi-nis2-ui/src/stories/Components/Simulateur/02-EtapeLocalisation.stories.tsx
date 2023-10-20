@@ -28,6 +28,7 @@ const donneesFormulaireOptions: CollectionParametresDonneesEtatMembre =
   );
 
 const meta: Meta<typeof EtapeLocalisation> = {
+  title: "Composants/Simulateur/Etapes/2 - Localisation",
   component: EtapeLocalisation,
   argTypes: {
     propageActionSimulateur: { action: true },
@@ -49,7 +50,7 @@ const creeActionPropagationFormulaireSimu = (newValue: string) => {
   };
 };
 
-export const CliqueSurLesOptions: Story = {
+export const LocalisationStandard: Story = {
   play: async ({ args, canvasElement, step }) => {
     const canvas = within(canvasElement);
     const { propageActionSimulateur } = args;

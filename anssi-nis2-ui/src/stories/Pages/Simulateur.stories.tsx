@@ -3,6 +3,7 @@ import { pageDecorator } from "../utilitaires/PageDecorator.tsx";
 import Simulateur from "../../Simulateur.tsx";
 
 const meta: Meta<typeof Simulateur> = {
+  title: "Pages",
   component: Simulateur,
   decorators: [pageDecorator],
 };
@@ -10,7 +11,7 @@ const meta: Meta<typeof Simulateur> = {
 export default meta;
 type Story = StoryObj<typeof Simulateur>;
 
-export const AffichageSimple: Story = {
+export const SimulationEligibilite: Story = {
   args: {
     //👇 The args you need here will depend on your component
   },

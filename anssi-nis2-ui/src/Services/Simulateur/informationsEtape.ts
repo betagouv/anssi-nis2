@@ -7,22 +7,25 @@ import {
 } from "./Props/component";
 
 import { ValidationReponses } from "../../Domaine/Simulateur/Operations/validateursChamps";
+import { SimulateurEtapePrealable } from "../../Components/Simulateur/SimulateurEtapePrealable.tsx";
 
 export interface InformationsEtape {
+  estComptabilisee: boolean;
   titre: string;
 }
 
 export class EtapeInexistante implements InformationsEtape {
-  titre = "Hors de portee";
+  public readonly estComptabilisee = false;
+  public readonly titre = "Hors de portee";
 }
 
 export const etapeInexistante = new EtapeInexistante();
 
-export class EtapeExistante implements InformationsEtape {
-  constructor(
-    public readonly titre: string,
-    public readonly elementToRender: SimulateurEtapeRenderedComponent,
-  ) {}
+export abstract class EtapeExistante implements InformationsEtape {
+  public abstract readonly estComptabilisee: boolean;
+  public abstract readonly conteneurElementRendu: SimulateurEtapeRenderedComponent;
+
+  protected constructor(public readonly titre: string) {}
 }
 
 export class SousEtapeConditionnelle {
@@ -34,26 +37,32 @@ export class SousEtapeConditionnelle {
   ) {}
 }
 
+export class EtapePrealable implements EtapeExistante {
+  public readonly estComptabilisee = false;
+  public readonly conteneurElementRendu: SimulateurEtapeRenderedComponent =
+    SimulateurEtapePrealable;
+
+  public constructor(public readonly titre: string) {}
+}
+
 export class InformationEtapeForm extends EtapeExistante {
-  public readonly elementToRender: SimulateurEtapeRenderedComponent =
+  public readonly estComptabilisee = true;
+  public readonly conteneurElementRendu: SimulateurEtapeRenderedComponent =
     SimulateurEtapeForm;
 
   public constructor(
     public readonly titre: string,
     public readonly validationReponses: ValidationReponses,
-    protected readonly contenu: SimulateurEtapeNodeComponent,
+    public readonly composant: SimulateurEtapeNodeComponent,
     public readonly sousEtapeConditionnelle?: SousEtapeConditionnelle,
   ) {
-    super(titre, SimulateurEtapeForm);
-  }
-
-  recupereContenu() {
-    return this.contenu;
+    super(titre);
   }
 }
 
 export class InformationEtapeResult implements EtapeExistante {
-  public readonly elementToRender: SimulateurEtapeRenderedComponent =
+  public readonly estComptabilisee = false;
+  public readonly conteneurElementRendu: SimulateurEtapeRenderedComponent =
     SimulateurEtapeResult;
 
   public constructor(public readonly titre: string) {}

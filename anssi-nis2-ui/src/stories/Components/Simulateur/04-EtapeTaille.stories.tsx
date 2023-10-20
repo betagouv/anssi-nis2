@@ -26,6 +26,7 @@ const donneesFormulaireOptions: CollectionParametresDonneesTrancheNombreEmployes
   new CollectionParametresDonneesTrancheNombreEmployes();
 
 const meta: Meta<typeof EtapeTaille> = {
+  title: "Composants/Simulateur/Etapes/4 - Taille",
   component: EtapeTaille,
   argTypes: {
     propageActionSimulateur: { action: true },
@@ -55,7 +56,8 @@ const creeActionPropagationFormulaireTrancheCA = (
   return { ...actionTypique, newValue: newValue };
 };
 
-export const CliqueSurLesOptions: Story = {
+export const TailleStandard: Story = {
+  name: "Taille (Standard)",
   play: async ({ args, canvasElement, step }) => {
     const canvas = within(canvasElement);
     const { propageActionSimulateur } = args;

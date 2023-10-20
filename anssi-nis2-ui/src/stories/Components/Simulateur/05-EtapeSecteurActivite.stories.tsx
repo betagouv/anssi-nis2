@@ -24,6 +24,7 @@ const donneesFormulaireOptions: CollectionParametresDonneesSecteurActivites =
   new CollectionParametresDonneesSecteurActivites();
 
 const meta: Meta<typeof EtapeSecteursActivite> = {
+  title: "Composants/Simulateur/Etapes/5 - Secteur d'activité",
   component: EtapeSecteursActivite,
   argTypes: {
     propageActionSimulateur: { action: true },
@@ -42,7 +43,7 @@ const creeActionPropagationFormulaireActivite = (newValue: SecteurActivite) => {
   return { ...actionTypique, newValue: newValue };
 };
 
-export const CliqueSurLesOptions: Story = {
+export const SecteurActiviteSimple: Story = {
   play: async ({ args, canvasElement, step }) => {
     const canvas = within(canvasElement);
     const { propageActionSimulateur } = args;

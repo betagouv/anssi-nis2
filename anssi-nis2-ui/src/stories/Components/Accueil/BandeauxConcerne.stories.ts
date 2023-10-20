@@ -4,6 +4,7 @@ import { pageDecorator } from "../../utilitaires/PageDecorator.tsx";
 
 //👇 This default export determines where your story goes in the story list
 const meta: Meta<typeof BandeauConcerne> = {
+  title: "Composants/Accueil",
   component: BandeauConcerne,
   decorators: [pageDecorator],
 };
@@ -11,7 +12,7 @@ const meta: Meta<typeof BandeauConcerne> = {
 export default meta;
 type Story = StoryObj<typeof BandeauConcerne>;
 
-export const FirstStory: Story = {
+export const SuisJeConcerne: Story = {
   args: {
     //👇 The args you need here will depend on your component
   },

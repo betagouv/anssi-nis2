@@ -135,3 +135,9 @@ export const fabriqueArbSecteurSousSecteurs = (
       }),
     );
 };
+export const decoreChaineRendue = <T extends object>(objet: T) => {
+  Object.defineProperties(objet, {
+    [fc.toStringMethod]: { value: () => objet.toString() },
+  });
+  return objet;
+};

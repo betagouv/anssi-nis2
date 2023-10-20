@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { ChargeurEtape } from "../../../Components/Simulateur/ChargeurEtape.tsx";
 import { defaultContext } from "../../utilitaires/PageDecorator.tsx";
-import { within } from "@storybook/testing-library";
+import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { passeEtapeEnCochant } from "../../utilitaires/Simulateur.actions.ts";
 import { genereDecorateurPourContexte } from "../../utilitaires/generateursDecorateurs.tsx";
@@ -11,6 +11,7 @@ import { Contexte } from "../../../Services/contexte";
 import { contenusResultatEligiblePetitEntreprise } from "../../../References/contenusResultatEligibilite.ts";
 
 const meta: Meta<typeof ChargeurEtape> = {
+  title: "Composants/Simulateur/ChargeurEtape",
   component: ChargeurEtape,
   decorators: [genereDecorateurPourContexte(defaultContext)],
 };
@@ -32,6 +33,11 @@ export const DerniereEtapeEstResultat: Story = {
     mockSendFormData.mockClear();
 
     const canvas = within(canvasElement);
+    await userEvent.click(
+      await canvas.findByRole("button", {
+        name: "Débuter le test",
+      }),
+    );
 
     await passeEtapeEnCochant(canvas, [
       ["designeOperateurServicesEssentiels", "oui"],
@@ -77,6 +83,11 @@ export const EtapeSousActiviteConditionnelle: Story = {
     const canvas = within(canvasElement);
 
     step("Va jusqu'à l'étape Secteurs d'activité", async () => {
+      await userEvent.click(
+        await canvas.findByRole("button", {
+          name: "Débuter le test",
+        }),
+      );
       await passeEtapeEnCochant(canvas, [
         ["designeOperateurServicesEssentiels", "oui"],
       ]);
@@ -89,6 +100,7 @@ export const EtapeSousActiviteConditionnelle: Story = {
     });
 
     await passeEtapeEnCochant(canvas, [["secteurActivite", "energie"]]);
+    await expect(mockSendFormData).not.toHaveBeenCalled();
 
     await canvas.findByText("Précisez les sous-secteurs concernés :");
     await passeEtapeEnCochant(
@@ -99,6 +111,8 @@ export const EtapeSousActiviteConditionnelle: Story = {
       ],
       1,
     );
+    await expect(mockSendFormData).not.toHaveBeenCalled();
+
     await passeEtapeEnCochant(canvas, [
       ["activites", "entrepriseElectriciteRemplissantFonctionFourniture"],
       ["activites", "gestionnaireReseauDistribution"],
@@ -130,6 +144,11 @@ export const EtapeSecteurFabricationSuivant: Story = {
     const canvas = within(canvasElement);
 
     step("Va jusqu'à l'étape Secteurs d'activité", async () => {
+      await userEvent.click(
+        await canvas.findByRole("button", {
+          name: "Débuter le test",
+        }),
+      );
       await passeEtapeEnCochant(canvas, [
         ["designeOperateurServicesEssentiels", "oui"],
       ]);

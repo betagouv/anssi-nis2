@@ -25,6 +25,7 @@ const donneesFormulaireOptions: CollectionParametresDonneesActivites =
   );
 
 const meta: Meta<typeof EtapeActivites> = {
+  title: "Composants/Simulateur/Etapes/6 - Activites",
   component: EtapeActivites,
   args: {
     donneesFormulaire: new DonneesFormulaireSimulateur({
@@ -66,7 +67,7 @@ export const AffichageActivitesEtLibellesParSecteurs: Story = {
   },
 };
 
-export const CliqueSurLesOptions: Story = {
+export const ActiviteStandard: Story = {
   play: async ({ args, canvasElement, step }) => {
     const canvas = within(canvasElement);
     const { propageActionSimulateur } = args;
