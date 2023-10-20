@@ -178,3 +178,19 @@ legend.fr-text--medium {
 .fr-nis2-text--center {
     text-align: center;
 }
+
+.fr-nis2-bien-debuter {
+    background: url(assets/faq.svg) no-repeat;
+    background-position: top right;
+    background-position-x: 90%;
+    background-position-y: 8.5rem;
+
+    & > div {
+        padding-right: 11rem;
+    }
+
+    & h2 {
+        font-size: 2.5rem;
+        margin-bottom: 2.5rem;
+    }
+}

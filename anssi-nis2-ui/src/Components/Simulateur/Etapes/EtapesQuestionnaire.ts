@@ -9,6 +9,7 @@ import {
 } from "./index.ts";
 import { CollectionInformationsEtapes } from "../../../Services/Simulateur/CollectionInformationsEtapes.ts";
 import {
+  EtapePrealable,
   InformationEtapeForm,
   InformationEtapeResult,
   SousEtapeConditionnelle,
@@ -22,6 +23,8 @@ import {
   validationUneReponses,
 } from "../../../Domaine/Simulateur/Services/Validateurs.ts";
 import { estUnSecteurAvecDesSousSecteurs } from "../../../Domaine/Simulateur/Operations/operationsSecteurs.ts";
+
+const etapePrealable = new EtapePrealable("Pour bien débuter");
 
 const informationEtapeDesignationOSE = new InformationEtapeForm(
   "Désignation éventuelle",
@@ -65,6 +68,7 @@ const informationEtapeActivites = new InformationEtapeForm(
 );
 export const etapesQuestionnaire: CollectionInformationsEtapes =
   new CollectionInformationsEtapes(
+    // etapePrealable,
     informationEtapeDesignationOSE,
     informationEtapeLocalisation,
     informationEtapeTypeStructure,

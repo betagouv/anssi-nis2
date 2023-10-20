@@ -71,7 +71,7 @@ export const ResultatEligibleOSE: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    verifieContenuResultatDansPage(
+    await verifieContenuResultatDansPage(
       canvasElement,
       contenusResultatEligiblePetitEntreprise,
     );
@@ -90,7 +90,7 @@ export const ResultatEligiblePetiteEntreprise: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    verifieContenuResultatDansPage(
+    await verifieContenuResultatDansPage(
       canvasElement,
       contenusResultatEligiblePetitEntreprise,
     );
@@ -116,7 +116,7 @@ export const ResultatEligibleGrandeEntreprise: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    verifieContenuResultatDansPage(
+    await verifieContenuResultatDansPage(
       canvasElement,
       contenusResultatEligibleGrandeEntreprise,
     );
@@ -137,7 +137,10 @@ export const ResultatNonEligible: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    verifieContenuResultatDansPage(canvasElement, contenusResultatNonEligible);
+    await verifieContenuResultatDansPage(
+      canvasElement,
+      contenusResultatNonEligible,
+    );
 
     const titrePrecisions = await canvas.findByText(
       "Critères de possible inclusion",

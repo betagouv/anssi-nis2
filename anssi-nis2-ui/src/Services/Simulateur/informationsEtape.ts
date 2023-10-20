@@ -38,6 +38,14 @@ export class SousEtapeConditionnelle {
   ) {}
 }
 
+export class EtapePrealable implements EtapeExistante {
+  public readonly estComptabilisee = false;
+  public readonly elementToRender: SimulateurEtapeRenderedComponent =
+    SimulateurEtapeResult;
+
+  public constructor(public readonly titre: string) {}
+}
+
 export class InformationEtapeForm extends EtapeExistante {
   public readonly estComptabilisee = true;
   public readonly elementToRender: SimulateurEtapeRenderedComponent =
