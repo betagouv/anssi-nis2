@@ -156,15 +156,14 @@ export const donneesArbitrairesFormNonOSEPrivesPetitFournisseurInfraNum: fc.Arbi
     .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
 
 export const donneesArbitrairesFormNonOSEPrivesMoyenneGrande: fc.Arbitrary<IDonneesFormulaireSimulateur> =
-  fabriqueArbSecteurSousSecteurs(
-    listeEnrSecteursAvecLeursSousSecteurs.filter(
+  fabriqueArbSecteurSousSecteurs(listeEnrSecteursAvecLeursSousSecteurs, {
+    minLength: 1,
+  })
+    .filter(
       (enr) =>
-        estSecteurListe(enr.secteur) && estSousSecteurListe(enr.sousSecteur),
-    ),
-    {
-      minLength: 1,
-    },
-  )
+        enr.secteurActivite.some(estSecteurListe) &&
+        enr.sousSecteurActivite.some(estSousSecteurListe),
+    )
     .chain((base) =>
       fc.record({
         secteurActivite: fc.constant([...base.secteurActivite]),
@@ -182,13 +181,14 @@ export const donneesArbitrairesFormNonOSEPrivesMoyenneGrande: fc.Arbitrary<IDonn
       }),
     )
     .chain(fabriqueArbContraintSurTrancheCA)
-    .chain<DonneesSansActivite>((base) =>
+    .chain<IDonneesBrutesFormulaireSimulateur>((base) =>
       ajouteArbitraireActivites(base, {
         minLength: 1,
-        filtreActivite: estActiviteListee,
       }),
     )
+    .filter((donnees) => donnees.activites.some(estActiviteListee))
     .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
+
 export const donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresSESS: fc.Arbitrary<IDonneesFormulaireSimulateur> =
   fabriqueArbSecteurSousSecteurs(
     listeEnrSecteursAvecLeursSousSecteurs.filter(

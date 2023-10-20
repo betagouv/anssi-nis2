@@ -42,7 +42,7 @@ const auMoinsUneActiviteListee = (activites: Activite[]) =>
 const estUnSecteurListee = (secteurs: SecteurActivite[]) =>
   secteurs &&
   secteurs.length &&
-  secteurs.every((secteur) => listeSecteursActiviteSaufAutre.includes(secteur));
+  secteurs.some((secteur) => listeSecteursActiviteSaufAutre.includes(secteur));
 
 export const eligibilite: (
   donneesFormulaireSimulateur: DonneesFormulaireSimulateur,
