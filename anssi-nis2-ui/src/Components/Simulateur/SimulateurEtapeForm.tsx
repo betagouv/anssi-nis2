@@ -12,6 +12,7 @@ import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Prop
 import { InformationEtapeForm } from "../../Services/Simulateur/informationsEtape.ts";
 import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
+import { AidezNousAmeliorerService } from "../AidezNousAmeliorerService.tsx";
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   propageActionSimulateur,
@@ -66,30 +67,37 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   );
 
   return (
-    <RowContainer className="fr-py-3w">
-      <CenteredContainer className="fr-background-alt--grey">
-        <Stepper
-          currentStep={etatEtapes.numeroEtapeCourante}
-          nextTitle={etatEtapes.titreSuivant}
-          stepCount={etatEtapes.collectionEtapes.nombreEtapes}
-          title={informationsEtape.titre}
-          className="fr-mb-5w"
-        />
+    <>
+      <RowContainer className="fr-py-3w">
+        <CenteredContainer className="fr-background-alt--grey">
+          <Stepper
+            currentStep={etatEtapes.numeroEtapeCourante}
+            nextTitle={etatEtapes.titreSuivant}
+            stepCount={etatEtapes.collectionEtapes.nombreEtapes}
+            title={informationsEtape.titre}
+            className="fr-mb-5w"
+          />
 
-        <hr className="fr-pb-5w" />
+          <hr className="fr-pb-5w" />
 
-        <EtapeCourante
-          propageActionSimulateur={propageActionSimulateur}
-          donneesFormulaire={donneesFormulaire}
-        />
+          <EtapeCourante
+            propageActionSimulateur={propageActionSimulateur}
+            donneesFormulaire={donneesFormulaire}
+          />
 
-        <StepperNavigation
-          validationReponses={informationsEtape.validationReponses}
-          donneesFormulaire={donneesFormulaire}
-          onClickPrevious={etapePrecedenteHandlerConcret}
-          onClickNext={etapeSuivantHandlerConcret}
-        />
-      </CenteredContainer>
-    </RowContainer>
+          <StepperNavigation
+            validationReponses={informationsEtape.validationReponses}
+            donneesFormulaire={donneesFormulaire}
+            onClickPrevious={etapePrecedenteHandlerConcret}
+            onClickNext={etapeSuivantHandlerConcret}
+          />
+        </CenteredContainer>
+      </RowContainer>
+      <RowContainer className=" fr-mb-7w">
+        <div className="fr-col-12 fr-col-md-10 fr-col-lg-8">
+          <AidezNousAmeliorerService />
+        </div>
+      </RowContainer>
+    </>
   );
 };
