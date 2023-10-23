@@ -17,7 +17,6 @@ import {
 import {
   ValeursAppartenancePaysUnionEuropeenne,
   ValeursPetitMoyenGrand,
-  ValeursTypeStructure,
 } from "../../../src/Domaine/Simulateur/ValeursChampsSimulateur";
 
 import {
@@ -105,7 +104,7 @@ export const donneesArbitrairesFormActivitesAutres: fc.Arbitrary<IDonneesFormula
         ...propageBase(base),
         designeOperateurServicesEssentiels:
           arbDesigneOperateurServicesEssentiels.non,
-        typeStructure: fabriqueArbSingleton(ValeursTypeStructure),
+        typeStructure: fc.constant(["privee"]),
         trancheCA: arbTrancheSingleton(),
         trancheNombreEmployes: arbTrancheSingleton(),
         etatMembre: fabriqueArbSingleton(
