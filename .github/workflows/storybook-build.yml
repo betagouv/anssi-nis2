@@ -12,7 +12,7 @@ jobs:
       - name: Installe les dépendances
         run: npm ci
       - name: Installe Playwright
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps chromium
       - name: Construction de Storybook
         run: npm run storybook:build -w anssi-nis2-ui
       - name: Tests UI
