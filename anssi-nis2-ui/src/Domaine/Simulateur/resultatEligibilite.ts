@@ -13,11 +13,16 @@ import { listeSecteursActiviteSaufAutre } from "./ListesEnrSecteursSousSecteur.t
 export type ResultatEligibilite =
   | "NonEligible"
   | "EligiblePetiteEntreprise"
-  | "EligibleMoyenneGrandeEntreprise";
-export const ResultatEligibiliteEnum = {
+  | "EligibleMoyenneGrandeEntreprise"
+  | "Incertain";
+
+export const Eligibilite: Readonly<
+  Record<ResultatEligibilite, ResultatEligibilite>
+> = {
   NonEligible: "NonEligible",
   EligiblePetiteEntreprise: "EligiblePetiteEntreprise",
   EligibleMoyenneGrandeEntreprise: "EligibleMoyenneGrandeEntreprise",
+  Incertain: "Incertain",
 } as const;
 
 export const estPetiteEntreprise = (
@@ -59,7 +64,7 @@ export const eligibilite: (
     designeOperateurServicesEssentiels.includes("oui") &&
     estPetiteEntreprise(trancheNombreEmployes, trancheCA)
   ) {
-    return ResultatEligibiliteEnum.EligiblePetiteEntreprise;
+    return Eligibilite.EligiblePetiteEntreprise;
   }
 
   if (
@@ -67,7 +72,7 @@ export const eligibilite: (
     (estMoyenneEntreprise(trancheNombreEmployes, trancheCA) ||
       estGrandeEntreprise(trancheNombreEmployes, trancheCA))
   ) {
-    return ResultatEligibiliteEnum.EligibleMoyenneGrandeEntreprise;
+    return Eligibilite.EligibleMoyenneGrandeEntreprise;
   }
 
   if (
@@ -77,7 +82,7 @@ export const eligibilite: (
     secteurActivite.includes("infrastructureNumerique") &&
     auMoinsUneActiviteListee(activites)
   ) {
-    return ResultatEligibiliteEnum.EligiblePetiteEntreprise;
+    return Eligibilite.EligiblePetiteEntreprise;
   }
 
   if (
@@ -88,7 +93,7 @@ export const eligibilite: (
     estUnSecteurListee(secteurActivite) &&
     auMoinsUneActiviteListee(activites)
   )
-    return ResultatEligibiliteEnum.EligibleMoyenneGrandeEntreprise;
+    return Eligibilite.EligibleMoyenneGrandeEntreprise;
 
-  return ResultatEligibiliteEnum.NonEligible;
+  return Eligibilite.NonEligible;
 };

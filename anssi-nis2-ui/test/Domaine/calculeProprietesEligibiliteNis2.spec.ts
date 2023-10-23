@@ -1,91 +1,75 @@
-import { describe, expect, it } from "vitest";
+import { describe, it } from "vitest";
 import { fc } from "@fast-check/vitest";
 import {
   eligibilite,
-  ResultatEligibiliteEnum,
+  Eligibilite,
+  ResultatEligibilite,
 } from "../../src/Domaine/Simulateur/resultatEligibilite";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
+import { IDonneesFormulaireSimulateur } from "../../src/Domaine/Simulateur/DonneesFormulaire";
+import { assure } from "../utilitaires/assure";
+
+const eligibiliteEstToujoursEgale = (
+  arbitraire: fc.Arbitrary<IDonneesFormulaireSimulateur>,
+  resultatAttendu: ResultatEligibilite,
+) => {
+  assure.toujoursEgal(arbitraire, eligibilite, resultatAttendu);
+};
 
 describe(eligibilite, () => {
   describe("Entité OSE pour NIS1", () => {
     it("de petite taille est toujours éligible", () => {
-      fc.assert(
-        fc.property(arbForm.designeOSE.petit, (donnees) => {
-          expect(eligibilite(donnees)).toStrictEqual(
-            ResultatEligibiliteEnum.EligiblePetiteEntreprise,
-          );
-        }),
+      eligibiliteEstToujoursEgale(
+        arbForm.designeOSE.petit,
+        Eligibilite.EligiblePetiteEntreprise,
       );
     });
     it("de moyenne ou grande taille est toujours éligible", () => {
-      fc.assert(
-        fc.property(arbForm.designeOSE.moyenGrand, (donnees) => {
-          expect(eligibilite(donnees)).toStrictEqual(
-            ResultatEligibiliteEnum.EligibleMoyenneGrandeEntreprise,
-          );
-        }),
+      eligibiliteEstToujoursEgale(
+        arbForm.designeOSE.moyenGrand,
+        Eligibilite.EligibleMoyenneGrandeEntreprise,
       );
     });
   });
   describe("Entite non OSE pour NIS 1", () => {
     it("n'est pas eligible si activites cochees sont uniquement autres", () => {
-      fc.assert(
-        fc.property(arbForm.nonDesigneOSE.activitesAutres, (donnees) => {
-          expect(eligibilite(donnees)).toStrictEqual(
-            ResultatEligibiliteEnum.NonEligible,
-          );
-        }),
+      eligibiliteEstToujoursEgale(
+        arbForm.nonDesigneOSE.activitesAutres,
+        Eligibilite.NonEligible,
       );
     });
     describe("Petite entité localisée en France ou en UE", () => {
       it("Est éligible si le secteur d'activité est 'Infrastructure Numérique'", () => {
-        fc.assert(
-          fc.property(
-            arbForm.nonDesigneOSE.petit.fournisseursInfrastructureNumerique,
-            (donnees) => {
-              expect(eligibilite(donnees)).toStrictEqual(
-                ResultatEligibiliteEnum.EligiblePetiteEntreprise,
-              );
-            },
-          ),
+        eligibiliteEstToujoursEgale(
+          arbForm.nonDesigneOSE.petit.fournisseursInfrastructureNumerique,
+          Eligibilite.EligiblePetiteEntreprise,
         );
       });
     });
 
     describe("Moyenne ou grande entité localisée en France ou en UE", () => {
       it("Est éligible si le secteur d'activité et l'activité sont listés", () => {
-        fc.assert(
-          fc.property(arbForm.nonDesigneOSE.grand.secteursListes, (donnees) => {
-            expect(eligibilite(donnees)).toStrictEqual(
-              ResultatEligibiliteEnum.EligibleMoyenneGrandeEntreprise,
-            );
-          }),
-        );
+        it("Est éligible si le secteur d'activité est 'Infrastructure Numérique'", () => {
+          eligibiliteEstToujoursEgale(
+            arbForm.nonDesigneOSE.grand.secteursListes,
+            Eligibilite.EligibleMoyenneGrandeEntreprise,
+          );
+        });
       });
       describe("N'est pas éligible", () => {
         it("Si le secteur est 'autre'", () => {
-          fc.assert(
-            fc.property(
-              arbForm.nonDesigneOSE.grand.secteursAutres,
-              (donnees) => {
-                expect(eligibilite(donnees)).toStrictEqual(
-                  ResultatEligibiliteEnum.NonEligible,
-                );
-              },
-            ),
+          eligibiliteEstToujoursEgale(
+            arbForm.nonDesigneOSE.grand.secteursAutres,
+            Eligibilite.NonEligible,
           );
         });
         it("Si l'activité est 'autre'", () => {
-          fc.assert(
-            fc.property(
-              arbForm.nonDesigneOSE.grand.secteursAutres,
-              (donnees) => {
-                expect(eligibilite(donnees)).toStrictEqual(
-                  ResultatEligibiliteEnum.NonEligible,
-                );
-              },
-            ),
-          );
+          it("Si le secteur est 'autre'", () => {
+            eligibiliteEstToujoursEgale(
+              arbForm.nonDesigneOSE.grand.activitesAutres,
+              Eligibilite.NonEligible,
+            );
+          });
         });
       });
     });
