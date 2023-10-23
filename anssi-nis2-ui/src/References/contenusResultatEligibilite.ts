@@ -38,6 +38,7 @@ export const contenusResultats: Record<
   ResultatEligibilite,
   ContenusResultatEligibilite
 > = {
+  Incertain: contenusResultatNonEligible,
   EligiblePetiteEntreprise: contenusResultatEligiblePetitEntreprise,
   EligibleMoyenneGrandeEntreprise: contenusResultatEligibleGrandeEntreprise,
   NonEligible: contenusResultatNonEligible,
