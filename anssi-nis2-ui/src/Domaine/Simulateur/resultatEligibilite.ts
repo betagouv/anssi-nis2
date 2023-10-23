@@ -9,6 +9,7 @@ import {
 import { estActiviteListee } from "./Operations/FiltreActivites.ts";
 
 import { listeSecteursActiviteSaufAutre } from "./ListesEnrSecteursSousSecteur.ts";
+import { SousSecteurActivite } from "./SousSecteurs";
 
 export type ResultatEligibilite =
   | "NonEligible"
@@ -44,10 +45,14 @@ export const estGrandeEntreprise = (
 
 const auMoinsUneActiviteListee = (activites: Activite[]) =>
   activites && activites.length && activites.some(estActiviteListee);
-const estUnSecteurListee = (secteurs: SecteurActivite[]) =>
+const tousLesSecteursSontListee = (secteurs: SecteurActivite[]) =>
   secteurs &&
   secteurs.length &&
   secteurs.some((secteur) => listeSecteursActiviteSaufAutre.includes(secteur));
+const tousLesSousSecteursSontListee = (sousSecteurs: SousSecteurActivite[]) =>
+  !sousSecteurs ||
+  !sousSecteurs.length ||
+  sousSecteurs.some((sousSecteur) => !sousSecteur.startsWith("autre"));
 
 export const eligibilite: (
   donneesFormulaireSimulateur: DonneesFormulaireSimulateur,
@@ -58,42 +63,55 @@ export const eligibilite: (
   trancheNombreEmployes,
   trancheCA,
   secteurActivite,
+  sousSecteurActivite,
   activites,
 }) => {
+  const estUnOperateurDeServicesEssentielsNIS1 =
+    designeOperateurServicesEssentiels.includes("oui");
+  const estPrivee = typeStructure.includes("privee");
+  const estEtatMembre = etatMembre[0] !== "horsue";
+
   if (
-    designeOperateurServicesEssentiels.includes("oui") &&
+    estUnOperateurDeServicesEssentielsNIS1 &&
     estPetiteEntreprise(trancheNombreEmployes, trancheCA)
   ) {
     return Eligibilite.EligiblePetiteEntreprise;
   }
-
-  if (
-    designeOperateurServicesEssentiels.includes("oui") &&
-    (estMoyenneEntreprise(trancheNombreEmployes, trancheCA) ||
-      estGrandeEntreprise(trancheNombreEmployes, trancheCA))
-  ) {
+  const estSecteurInfrastructureNumerique = secteurActivite.includes(
+    "infrastructureNumerique",
+  );
+  const estPetiteOuMoyenneEntreprise =
+    estMoyenneEntreprise(trancheNombreEmployes, trancheCA) ||
+    estGrandeEntreprise(trancheNombreEmployes, trancheCA);
+  
+  if (estUnOperateurDeServicesEssentielsNIS1 && estPetiteOuMoyenneEntreprise) {
     return Eligibilite.EligibleMoyenneGrandeEntreprise;
   }
-
   if (
-    etatMembre[0] !== "horsue" &&
-    typeStructure.includes("privee") &&
+    !tousLesSecteursSontListee(secteurActivite) ||
+    !tousLesSousSecteursSontListee(sousSecteurActivite) ||
+    !auMoinsUneActiviteListee(activites)
+  ) {
+    return Eligibilite.NonEligible;
+  }
+  if (
+    estEtatMembre &&
+    estPrivee &&
     estPetiteEntreprise(trancheNombreEmployes, trancheCA) &&
-    secteurActivite.includes("infrastructureNumerique") &&
+    estSecteurInfrastructureNumerique &&
     auMoinsUneActiviteListee(activites)
   ) {
     return Eligibilite.EligiblePetiteEntreprise;
   }
-
   if (
-    etatMembre[0] !== "horsue" &&
-    typeStructure.includes("privee") &&
-    (estMoyenneEntreprise(trancheNombreEmployes, trancheCA) ||
-      estGrandeEntreprise(trancheNombreEmployes, trancheCA)) &&
-    estUnSecteurListee(secteurActivite) &&
+    estEtatMembre &&
+    estPrivee &&
+    estPetiteOuMoyenneEntreprise &&
+    tousLesSecteursSontListee(secteurActivite) &&
     auMoinsUneActiviteListee(activites)
-  )
+  ) {
     return Eligibilite.EligibleMoyenneGrandeEntreprise;
+  }
 
-  return Eligibilite.NonEligible;
+  return Eligibilite.Incertain;
 };

@@ -142,9 +142,62 @@ export const fabriqueArbSecteurSousSecteurs = (
       }),
     );
 };
+export const fabriqueArbSSS = (
+  listeSecteursSousSecteurs: EnrSecteurSousSecteur[],
+  { minLength }: ArbitraireOptions = { minLength: 0 },
+) => {
+  if (listeSecteursSousSecteurs.length === 0) {
+    return fc.record({
+      secteurActivite: fc.constant([]),
+      sousSecteurActivite: fc.constant([]),
+    });
+  }
+  return fc
+    .subarray(listeSecteursSousSecteurs, { minLength: minLength })
+    .chain((couplesSecteurSousSecteur) =>
+      fc.record({
+        secteurActivite: fc.constant(
+          Array.from(
+            couplesSecteurSousSecteur.reduce(
+              (listeSecteurs, couple) => listeSecteurs.add(couple.secteur),
+              new Set<SecteurActivite>(),
+            ),
+          ),
+        ),
+        sousSecteurActivite: fc.constant(
+          Array.from(
+            couplesSecteurSousSecteur.reduce(
+              (listeSousSecteurs, couple) =>
+                listeSousSecteurs.add(couple.sousSecteur),
+              new Set<SousSecteurActivite>(),
+            ),
+          ).filter((sousSecteur) => sousSecteur !== undefined),
+        ),
+      }),
+    );
+};
 export const decoreChaineRendue = <T extends object>(objet: T) => {
   Object.defineProperties(objet, {
     [fc.toStringMethod]: { value: () => objet.toString() },
   });
   return objet;
 };
+export const etendArbitraire = <
+  DonneesPartielles extends
+    | IDonneesBrutesFormulaireSimulateur
+    | DonneesSansActivite
+    | Omit<DonneesSansActivite, "secteurActivite" | "sousSecteurActivite">
+    | Omit<DonneesSansActivite, "trancheNombreEmployes">
+    | DonneesSectorielles,
+>(
+  donnees: fc.Arbitrary<DonneesSectorielles>,
+  ajouts: {
+    [K in keyof DonneesPartielles]: fc.Arbitrary<DonneesPartielles[K]>;
+  },
+) =>
+  donnees.chain((base) =>
+    fc.record({
+      ...propageBase(base),
+      ...ajouts,
+    }),
+  );

@@ -32,46 +32,60 @@ describe(eligibilite, () => {
     });
   });
   describe("Entite non OSE pour NIS 1", () => {
-    it("n'est pas eligible si activites cochees sont uniquement autres", () => {
-      eligibiliteEstToujoursEgale(
-        arbForm.nonDesigneOSE.activitesAutres,
-        Eligibilite.NonEligible,
-      );
-    });
-    describe("Petite entité localisée en France ou en UE", () => {
-      it("Est éligible si le secteur d'activité est 'Infrastructure Numérique'", () => {
+    describe("Privée", () => {
+      it("n'est pas eligible si activites cochees sont uniquement autres", () => {
         eligibiliteEstToujoursEgale(
-          arbForm.nonDesigneOSE.petit.fournisseursInfrastructureNumerique,
-          Eligibilite.EligiblePetiteEntreprise,
+          arbForm.nonDesigneOSE.privee.activitesAutres,
+          Eligibilite.NonEligible,
         );
       });
-    });
-
-    describe("Moyenne ou grande entité localisée en France ou en UE", () => {
-      it("Est éligible si le secteur d'activité et l'activité sont listés", () => {
+      describe("Petite entité localisée en France ou en UE", () => {
         it("Est éligible si le secteur d'activité est 'Infrastructure Numérique'", () => {
           eligibiliteEstToujoursEgale(
-            arbForm.nonDesigneOSE.grand.secteursListes,
-            Eligibilite.EligibleMoyenneGrandeEntreprise,
+            arbForm.nonDesigneOSE.privee.petit
+              .fournisseursInfrastructureNumerique,
+            Eligibilite.EligiblePetiteEntreprise,
           );
         });
       });
-      describe("N'est pas éligible", () => {
-        it("Si le secteur est 'autre'", () => {
-          eligibiliteEstToujoursEgale(
-            arbForm.nonDesigneOSE.grand.secteursAutres,
-            Eligibilite.NonEligible,
-          );
-        });
-        it("Si l'activité est 'autre'", () => {
-          it("Si le secteur est 'autre'", () => {
+
+      describe("Moyenne ou grande entité localisée en France ou en UE", () => {
+        it("Est éligible si le secteur d'activité et l'activité sont listés", () => {
+          it("Est éligible si le secteur d'activité est 'Infrastructure Numérique'", () => {
             eligibiliteEstToujoursEgale(
-              arbForm.nonDesigneOSE.grand.activitesAutres,
-              Eligibilite.NonEligible,
+              arbForm.nonDesigneOSE.privee.grand.secteursListes,
+              Eligibilite.EligibleMoyenneGrandeEntreprise,
             );
           });
         });
+        describe("N'est pas éligible", () => {
+          it("Si le secteur est 'autre'", () => {
+            eligibiliteEstToujoursEgale(
+              arbForm.nonDesigneOSE.privee.grand.secteursAutres,
+              Eligibilite.NonEligible,
+            );
+          });
+          it("Si l'activité est 'autre'", () => {
+            it("Si le secteur est 'autre'", () => {
+              eligibiliteEstToujoursEgale(
+                arbForm.nonDesigneOSE.privee.grand.activitesAutres,
+                Eligibilite.NonEligible,
+              );
+            });
+          });
+        });
       });
+    });
+  });
+
+  // ajouter à Incertain tous champs non rempli
+
+  describe("Publique", () => {
+    it("est incertain pour un résultat non configuré", () => {
+      eligibiliteEstToujoursEgale(
+        arbForm.nonDesigneOSE.publique,
+        Eligibilite.Incertain,
+      );
     });
   });
 });
