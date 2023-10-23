@@ -27,3 +27,6 @@ export type MatomoProps = DefaultProps & {
   JavascriptContainerHash: string;
   GestionBalises?: boolean;
 };
+export type PageEditoProps = {
+  titre: string;
+} & DefaultProps;

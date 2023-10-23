@@ -5,6 +5,7 @@ export const traceEtapeSimulateur = (
   etatEtapes: EtatEtapes,
   donneesFormulaireSimulateur: DonneesFormulaireSimulateur,
 ) => {
+  window._mtm ||= [];
   window._mtm.push({
     event: "EtapeFormulaire",
     "EtapeFormulaire.titre": etatEtapes.contenuEtapeCourante().titre,

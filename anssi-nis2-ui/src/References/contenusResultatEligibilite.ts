@@ -33,6 +33,20 @@ export const contenusResultatNonEligible: ContenusResultatEligibilite = {
     bienDebuterAvecPdf: false,
   },
 };
+export const contenusResultatIncertain: ContenusResultatEligibilite = {
+  classeDivResultat: "fr-nis2-incertain",
+  classIcone: "fr-nis2-icon-in-progress",
+  titre: "Nous ne pouvons vous répondre dans l’immédiat",
+  sousTitre:
+    "Le test est en cours d’évolution pour prendre en compte l’ensemble des " +
+    "typologies d’entités, mais n’est pas encore en mesure de couvrir les " +
+    "paramètres qui ont été saisis.",
+  afficheBlocs: {
+    etMaintenant: false,
+    enSavoirPlus: false,
+    bienDebuterAvecPdf: true,
+  },
+};
 
 export const contenusResultats: Record<
   ResultatEligibilite,
@@ -40,5 +54,6 @@ export const contenusResultats: Record<
 > = {
   EligiblePetiteEntreprise: contenusResultatEligiblePetitEntreprise,
   EligibleMoyenneGrandeEntreprise: contenusResultatEligibleGrandeEntreprise,
+  Incertain: contenusResultatIncertain,
   NonEligible: contenusResultatNonEligible,
 };

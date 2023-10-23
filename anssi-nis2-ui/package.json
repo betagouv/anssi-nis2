@@ -32,6 +32,7 @@
     "react-helmet": "^6.1.0",
     "react-markdown": "^9.0.0",
     "react-router-dom": "^6.15.0",
+    "ts-pattern": "^5.0.5",
     "tss-react": "^4.8.8"
   },
   "devDependencies": {

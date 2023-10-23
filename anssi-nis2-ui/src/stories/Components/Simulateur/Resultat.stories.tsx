@@ -135,6 +135,14 @@ export const ResultatEligibleGrandeEntreprise: Story = {
 };
 
 export const ResultatNonEligible: Story = {
+  args: {
+    donneesFormulaire: archetypeDonneesFormulaire.avec({
+      designeOperateurServicesEssentiels: ["non"],
+      typeStructure: ["privee"],
+      secteurActivite: ["autreSecteurActivite"],
+      activites: [],
+    }),
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
