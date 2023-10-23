@@ -1,11 +1,11 @@
 import { BandeauBleuMarianne } from "../General/BandeauBleuMarianne.tsx";
 import MiseEnPage from "../MiseEnPage.tsx";
-import { DefaultComponentExtensible, DefaultProps } from "../../Services/Props";
+import {
+  DefaultComponentExtensible,
+  PageEditoProps,
+} from "../../Services/Props";
 
-type PageEditoProps = {
-  titre: string;
-} & DefaultProps;
-export const PageEdito: DefaultComponentExtensible<PageEditoProps> = ({
+const PageEdito: DefaultComponentExtensible<PageEditoProps> = ({
   titre,
   children,
 }: PageEditoProps) => (
@@ -22,3 +22,5 @@ export const PageEdito: DefaultComponentExtensible<PageEditoProps> = ({
     </div>
   </MiseEnPage>
 );
+
+export default PageEdito;
