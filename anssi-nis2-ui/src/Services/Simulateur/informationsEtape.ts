@@ -45,6 +45,10 @@ export class EtapePrealable implements EtapeExistante {
   public constructor(public readonly titre: string) {}
 }
 
+export interface OptionsInformationEtapeForm {
+  readonly sousEtapeConditionnelle?: SousEtapeConditionnelle;
+}
+
 export class InformationEtapeForm extends EtapeExistante {
   public readonly estComptabilisee = true;
   public readonly conteneurElementRendu: SimulateurEtapeRenderedComponent =
@@ -54,7 +58,7 @@ export class InformationEtapeForm extends EtapeExistante {
     public readonly titre: string,
     public readonly validationReponses: ValidationReponses,
     public readonly composant: SimulateurEtapeNodeComponent,
-    public readonly sousEtapeConditionnelle?: SousEtapeConditionnelle,
+    public readonly options?: OptionsInformationEtapeForm,
   ) {
     super(titre);
   }

@@ -51,15 +51,16 @@ const informationEtapeSousSecteurs = new InformationEtapeForm(
   validationReponsesSousActivites,
   EtapeSousSecteursActivite,
 );
+const informationsEtapeSousSecteur = new SousEtapeConditionnelle(
+  ({ secteurActivite }) =>
+    secteurActivite.some(estUnSecteurAvecDesSousSecteurs),
+  informationEtapeSousSecteurs,
+);
 const informationEtapeSecteurs = new InformationEtapeForm(
   "Secteurs d’activité",
   validationReponsesSecteurs,
   EtapeSecteursActivite,
-  new SousEtapeConditionnelle(
-    ({ secteurActivite }) =>
-      secteurActivite.some(estUnSecteurAvecDesSousSecteurs),
-    informationEtapeSousSecteurs,
-  ),
+  { sousEtapeConditionnelle: informationsEtapeSousSecteur },
 );
 const informationEtapeActivites = new InformationEtapeForm(
   "Activités pratiquées",

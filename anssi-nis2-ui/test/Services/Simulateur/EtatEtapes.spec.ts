@@ -30,27 +30,25 @@ describe(EtatEtapes, () => {
     informationEtapeForm1,
     informationEtapeForm2,
   );
-  const numeroEtapeInitiale = 1;
+  const indiceEtapeInitiale = 0;
   const etatEtapesInitial = new EtatEtapes(
     collectionInformationsEtapes,
-    numeroEtapeInitiale,
+    indiceEtapeInitiale,
   );
 
   const attendUneEtapeCourante = (
     etatEtapes: EtatEtapes,
-    numeroEtapeCouranteAttendue: number,
+    numeroEtapeCourante: number,
     contenuEtapeAttendu: InformationsEtape,
   ) => {
-    expect(etatEtapes.numeroEtapeCourante).toStrictEqual(
-      numeroEtapeCouranteAttendue,
-    );
+    expect(etatEtapes.numeroCourant).toStrictEqual(numeroEtapeCourante);
     expect(
       etatEtapes.contenuEtapeCourante() as InformationsEtape,
     ).toStrictEqual(contenuEtapeAttendu);
   };
 
   it("se construit avec une collection d'étapes", () => {
-    const numeroEtapeCouranteAttendue = numeroEtapeInitiale;
+    const numeroEtapeCouranteAttendue = 1;
     const etatEtapes = etatEtapesInitial;
     const contenuEtapeAttendu = informationEtapeForm1;
 
@@ -82,7 +80,7 @@ describe(EtatEtapes, () => {
     });
 
     it("renvoie l'étape 1 quand precedent est appelé depuis l'étape 2", () => {
-      const numeroEtapePrecedenteAttendu = 1;
+      const numeroEtapePrecedenteAttendu = 0;
       const contenuEtapeAttendu = informationEtapeForm1;
 
       const etatEtapes = etatEtapesInitial
@@ -96,7 +94,7 @@ describe(EtatEtapes, () => {
       );
     });
 
-    it("renvoie l'étape courtante avant l'étape 1", () => {
+    it("renvoie l'étape courante avant l'étape 1", () => {
       const numeroEtapePrecedenteAttendu = 1;
       const contenuEtapeAttendu = informationEtapeForm1;
 
@@ -128,7 +126,7 @@ describe(EtatEtapes, () => {
       "Contient une sous Etape",
       validationUneReponses("trancheNombreEmployes"),
       EtapeTaille,
-      sousEtapeToujoursPresente,
+      { sousEtapeConditionnelle: sousEtapeToujoursPresente },
     );
     const collectionInformationsEtapesAvecConditionnelle =
       new CollectionInformationsEtapes(
