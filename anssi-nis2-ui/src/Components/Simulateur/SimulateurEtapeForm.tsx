@@ -69,7 +69,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
     <RowContainer className="fr-py-3w">
       <CenteredContainer className="fr-background-alt--grey">
         <Stepper
-          currentStep={etatEtapes.numeroEtapeCourante}
+          currentStep={etatEtapes.numeroCourant}
           nextTitle={etatEtapes.titreSuivant}
           stepCount={etatEtapes.collectionEtapes.nombreEtapes}
           title={informationsEtape.titre}

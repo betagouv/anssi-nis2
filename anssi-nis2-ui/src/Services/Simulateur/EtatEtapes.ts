@@ -14,6 +14,10 @@ export class EtatEtapes {
     return this.numeroEtapeCourante - 1;
   }
 
+  get numeroCourant(): number {
+    return this.collectionEtapes.numeroCourante(this.indiceCourant);
+  }
+
   constructor(
     public readonly collectionEtapes: CollectionInformationsEtapes,
     public readonly numeroEtapeCourante: number,
