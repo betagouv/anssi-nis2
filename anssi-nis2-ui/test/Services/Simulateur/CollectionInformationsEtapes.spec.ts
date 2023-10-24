@@ -77,7 +77,7 @@ describe(CollectionInformationsEtapes, () => {
       "l'indice $indiceEtapeCourante devrait correspondre au numéro d'étape $numeroEtape ",
       ({ indiceEtapeCourante, numeroEtape }) => {
         expect(
-          collectionInformationsEtapes.numeroCourante(indiceEtapeCourante),
+          collectionInformationsEtapes.numeroCourant(indiceEtapeCourante),
         ).toStrictEqual(numeroEtape);
       },
     );
@@ -142,7 +142,7 @@ describe(CollectionInformationsEtapes, () => {
         fc.property(arbListeEtapesEtIndice, ({ listeEtapes, indice }) => {
           const collection = new CollectionInformationsEtapes(...listeEtapes);
           expect(collection.nombreEtapes).toBeGreaterThanOrEqual(
-            collection.numeroCourante(indice),
+            collection.numeroCourant(indice),
           );
         }),
       );

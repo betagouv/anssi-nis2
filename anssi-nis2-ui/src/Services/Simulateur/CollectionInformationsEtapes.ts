@@ -17,7 +17,7 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
     return this[indiceEtape] as T;
   }
 
-  numeroCourante(indiceEtapeCourante: number): number {
+  numeroCourant(indiceEtapeCourante: number): number {
     return this.reduce((nombre, etape, indiceCourant) => {
       if (!etape.estComptabilisee || indiceCourant > indiceEtapeCourante)
         return nombre;
@@ -39,7 +39,7 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
       this.length > 0 &&
       indiceEtape < this.length &&
       this[indiceEtape].estComptabilisee &&
-      this.numeroCourante(indiceEtape) === this.nombreEtapes
+      this.numeroCourant(indiceEtape) === this.nombreEtapes
     );
   }
 

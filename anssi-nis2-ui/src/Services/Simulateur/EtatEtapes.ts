@@ -6,7 +6,6 @@ import {
 } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 import { SimulateurEtapeRenderedComponent } from "./Props/component";
-import { VVV } from "../../utilitaires/debug.ts";
 
 export class EtatEtapes {
   static readonly indiceSousEtapeInitial = 0;
@@ -16,7 +15,7 @@ export class EtatEtapes {
   }
 
   get numeroCourant(): number {
-    return this.collectionEtapes.numeroCourante(this.indiceCourant);
+    return this.collectionEtapes.numeroCourant(this.indiceCourant);
   }
 
   constructor(
@@ -32,7 +31,7 @@ export class EtatEtapes {
     return (
       (
         this.collectionEtapes.recupereEtapeCourante(
-          this.indiceEtapeCourante - 1,
+          this.indiceEtapeCourante,
         ) as InformationEtapeForm
       ).options?.sousEtapeConditionnelle?.sousEtape ||
       this.collectionEtapes.recupereEtapeCourante(this.indiceCourant)
@@ -45,7 +44,6 @@ export class EtatEtapes {
 
   suivant(donneesFormulaire: DonneesFormulaireSimulateur) {
     const informationsEtape = this.informationEtapeForm();
-
     if (
       this.indiceSousEtape == EtatEtapes.indiceSousEtapeInitial &&
       informationsEtape.options?.sousEtapeConditionnelle?.condition(
@@ -55,13 +53,14 @@ export class EtatEtapes {
       return new EtatEtapes(
         this.collectionEtapes,
         this.indiceEtapeCourante,
-        EtatEtapes.indiceSousEtapeInitial + 1,
+        this.indiceSousEtape + 1,
       );
     }
-    if (this.indiceEtapeCourante < this.collectionEtapes.length) {
+    if (this.indiceEtapeCourante < this.collectionEtapes.length - 1) {
       return new EtatEtapes(
         this.collectionEtapes,
         this.indiceEtapeCourante + 1,
+        0,
       );
     }
     return this;
@@ -95,8 +94,6 @@ export class EtatEtapes {
   }
 
   private informationEtapeForm() {
-    VVV("infoirmations etape : ", this.indiceCourant);
-    VVV("collectionEtapes : ", this.collectionEtapes);
     return this.collectionEtapes.recupereEtapeCourante(
       this.indiceCourant,
     ) as InformationEtapeForm;
