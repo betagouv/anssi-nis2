@@ -78,4 +78,4 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
     informationEtapeActivites,
     new InformationEtapeResult("Resultat"),
   );
-export const etatEtapesInitial = new EtatEtapes(etapesQuestionnaire, 1);
+export const etatEtapesInitial = new EtatEtapes(etapesQuestionnaire, 0);
