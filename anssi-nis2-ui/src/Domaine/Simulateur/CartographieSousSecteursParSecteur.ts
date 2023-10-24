@@ -1,37 +1,38 @@
 import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.ts";
 import { SecteurActivite } from "./SecteursActivite";
-import { SousSecteurActivite } from "./SousSecteurs";
+import { SecteursAvecSousSecteurs, SousSecteurActivite } from "./SousSecteurs";
 import {
   contientSousSecteur,
   estUnSecteurAvecDesSousSecteurs,
-  estUnSecteurSansDesSousSecteurs,
 } from "./Operations/operationsSecteurs.ts";
 
-type SecteurEtSesSousSecteurs = Partial<
-  Record<SecteurActivite, SousSecteurActivite[]>
->;
-export const cartographieSousSecteursParSecteur = (
-  donneesFormulaire: DonneesFormulaireSimulateur,
-): SecteurEtSesSousSecteurs => {
-  const { secteurActivite, sousSecteurActivite } = donneesFormulaire;
+const extraitSousSecteurs = (
+  secteur: SecteursAvecSousSecteurs,
+  sousSecteurActivite: SousSecteurActivite[],
+) =>
+  sousSecteurActivite.filter((sousSecteur) =>
+    contientSousSecteur(secteur, sousSecteur),
+  );
 
-  const secteursStructures = secteurActivite
-    .filter(estUnSecteurSansDesSousSecteurs)
-    .reduce<SecteurEtSesSousSecteurs>(
-      (acc, secteur) => ({ ...acc, [secteur]: [] }),
-      {},
-    );
+const extraitSousSecteursOuListeVide = (
+  secteur: string,
+  sousSecteurActivite: SousSecteurActivite[],
+) =>
+  estUnSecteurAvecDesSousSecteurs(secteur)
+    ? extraitSousSecteurs(
+        secteur as SecteursAvecSousSecteurs,
+        sousSecteurActivite,
+      )
+    : [];
 
-  const sousSecteursStructures = secteurActivite
-    .filter(estUnSecteurAvecDesSousSecteurs)
-    .reduce<SecteurEtSesSousSecteurs>((acc, secteur) => {
-      return {
-        ...acc,
-        [secteur]: sousSecteurActivite.filter((sousSecteur) =>
-          contientSousSecteur(secteur, sousSecteur),
-        ),
-      };
-    }, {});
-
-  return { ...secteursStructures, ...sousSecteursStructures };
-};
+export const cartographieSousSecteursParSecteur = ({
+  secteurActivite,
+  sousSecteurActivite,
+}: DonneesFormulaireSimulateur) =>
+  secteurActivite.reduce<[SecteurActivite, SousSecteurActivite[]][]>(
+    (acc, secteur) => [
+      ...acc,
+      [secteur, extraitSousSecteursOuListeVide(secteur, sousSecteurActivite)],
+    ],
+    [],
+  );

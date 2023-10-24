@@ -17,11 +17,11 @@ describe("Questionnaire activités", () => {
       ],
     });
 
-    const carteSousSecteurParSecteurAttendue = {
+    const carteSousSecteurParSecteurAttendue = Object.entries({
       espace: [],
       energie: ["electricite", "hydrogene"],
       fabrication: ["fabricationEquipementsElectroniques"],
-    };
+    });
 
     const carteSousSecteurParSecteurObtenue =
       cartographieSousSecteursParSecteur(donneesFormulaire);

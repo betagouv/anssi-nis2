@@ -6,71 +6,72 @@ import { AssociationSectorielleActivite } from "./ActivitesParSecteurEtSousSecte
 import { cartographieSousSecteursParSecteur } from "./CartographieSousSecteursParSecteur.ts";
 import { estUnSecteurAvecDesSousSecteurs } from "./Operations/operationsSecteurs.ts";
 
-function collecteTitresSecteursSimples(
+const collecteTitresSecteursSimples = (
   libelleSecteursActivite: string,
   secteur: SecteursSansSousSecteur,
-): AssociationSectorielleActivite[] {
-  return [
-    {
-      titreActivite: libelleSecteursActivite,
-      secteurOuSousSecteur: secteur,
-    },
-  ];
-}
+): AssociationSectorielleActivite[] => [
+  {
+    titreActivite: libelleSecteursActivite,
+    secteurOuSousSecteur: secteur,
+  },
+];
 
-export const collecteTitresPourActivite = (
+const collecteTitreSousSecteurs: (
+  libelleSecteursActivite: string,
+  listeSousSecteurs: SousSecteurActivite[],
+  libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
+) => AssociationSectorielleActivite[] = (
+  libelleSecteursActivite: string,
+  listeSousSecteurs: SousSecteurActivite[],
+  libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
+) =>
+  listeSousSecteurs.map((sousSecteur: SousSecteurActivite) => ({
+    secteurOuSousSecteur: sousSecteur,
+    titreActivite: `${libelleSecteursActivite} / ${libellesSousSecteursActivite[sousSecteur]}`,
+  }));
+const rempliSousSecteurs = (
+  listeSousSecteurs: SousSecteurActivite[],
+  secteur: SecteurActivite,
+  libelleSecteursActivite: string,
+  libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
+): AssociationSectorielleActivite[] => {
+  if (
+    estUnSecteurAvecDesSousSecteurs(secteur) &&
+    listeSousSecteurs.length === 0
+  )
+    throw Error(
+      `Houla! un secteur avec sous secteurs n'en n'a pas ! ${secteur}`,
+    );
+  return listeSousSecteurs.length === 0
+    ? collecteTitresSecteursSimples(
+        libelleSecteursActivite,
+        secteur as SecteursSansSousSecteur,
+      )
+    : collecteTitreSousSecteurs(
+        libelleSecteursActivite,
+        listeSousSecteurs,
+        libellesSousSecteursActivite,
+      );
+};
+
+export const collecteTitresPourActivite: (
   libellesSecteursActivite: Record<SecteurActivite, string>,
   libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
   donneesFormulaire: DonneesFormulaireSimulateur,
-): AssociationSectorielleActivite[] => {
-  const cartographieSecteurs =
-    cartographieSousSecteursParSecteur(donneesFormulaire);
-
-  const collecteTitreSousSecteurs: (
-    libelleSecteursActivite: string,
-    listeSousSecteurs: SousSecteurActivite[],
-  ) => AssociationSectorielleActivite[] = (
-    libelleSecteursActivite: string,
-    listeSousSecteurs: SousSecteurActivite[],
-  ) =>
-    listeSousSecteurs.map((sousSecteur: SousSecteurActivite) => ({
-      secteurOuSousSecteur: sousSecteur,
-      titreActivite: `${libelleSecteursActivite} / ${libellesSousSecteursActivite[sousSecteur]}`,
-    }));
-
-  function remplieSousSecteurs(
-    listeSousSecteurs: SousSecteurActivite[],
-    secteur: SecteurActivite,
-    libelleSecteursActivite: string,
-  ): AssociationSectorielleActivite[] {
-    if (
-      estUnSecteurAvecDesSousSecteurs(secteur) &&
-      listeSousSecteurs.length === 0
-    )
-      throw Error(
-        `Houla! un secteur avec sous secteurs n'en n'a pas ! ${secteur}`,
-      );
-    return listeSousSecteurs.length === 0
-      ? collecteTitresSecteursSimples(
-          libelleSecteursActivite,
-          secteur as SecteursSansSousSecteur,
-        )
-      : collecteTitreSousSecteurs(libelleSecteursActivite, listeSousSecteurs);
-  }
-
-  console.log(cartographieSecteurs);
-  return Object.entries(cartographieSecteurs).reduce<
+) => AssociationSectorielleActivite[] = (
+  libellesSecteursActivite,
+  libellesSousSecteursActivite,
+  donneesFormulaire,
+) =>
+  cartographieSousSecteursParSecteur(donneesFormulaire).reduce<
     AssociationSectorielleActivite[]
   >((acc: AssociationSectorielleActivite[], [secteur, listeSousSecteurs]) => {
-    const libelleSecteursActivite: string =
-      libellesSecteursActivite[secteur as SecteurActivite];
-    return [
-      ...acc,
-      ...remplieSousSecteurs(
+    return acc.concat(
+      rempliSousSecteurs(
         listeSousSecteurs,
-        secteur as SecteursSansSousSecteur,
-        libelleSecteursActivite,
+        secteur,
+        libellesSecteursActivite[secteur],
+        libellesSousSecteursActivite,
       ),
-    ];
+    );
   }, []);
-};
