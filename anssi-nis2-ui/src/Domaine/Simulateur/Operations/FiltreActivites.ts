@@ -28,3 +28,7 @@ export const fabriqueListeActivitesDesSecteurs = (
     }, new Set<Activite>()),
   );
 };
+export const auMoinsUneActiviteListee = (activites: Activite[]) =>
+  activites && activites.length && activites.some(estActiviteListee);
+export const aucuneActiviteListee = (activites: Activite[]) =>
+  activites.every(estActiviteAutre);

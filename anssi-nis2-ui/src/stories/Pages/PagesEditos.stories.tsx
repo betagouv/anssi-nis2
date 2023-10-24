@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { pageDecorator } from "../utilitaires/PageDecorator.tsx";
-import { PageEdito } from "../../Components/PagesEdito/PageEdito.tsx";
+import PageEdito from "../../Components/PagesEdito/PageEdito.tsx";
 import APropos from "../../Components/PagesEdito/APropos.tsx";
 import MentionsLegales from "../../Components/PagesEdito/MentionsLegales.tsx";
 import GestionCookies from "../../Components/PagesEdito/GestionCookies.tsx";
