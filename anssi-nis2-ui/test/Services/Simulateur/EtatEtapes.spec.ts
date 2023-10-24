@@ -47,7 +47,7 @@ const exInformationEtape = {
   localisation: etapeLocalisation,
   typeStructure: etapeTypeStructure,
   sousEtapeActivite: etapeActivite,
-  avecSousEtape: etapeEmployesAvecSousEtapeActivite,
+  tailleAvecSousEtapeActivite: etapeEmployesAvecSousEtapeActivite,
 };
 const collectionInformationsEtapesLongueur2Simple =
   new CollectionInformationsEtapes(
@@ -58,12 +58,24 @@ const collec3EtapesAvecConditionnelleEnDernier =
   new CollectionInformationsEtapes(
     exInformationEtape.localisation,
     exInformationEtape.typeStructure,
-    exInformationEtape.avecSousEtape,
+    exInformationEtape.tailleAvecSousEtapeActivite,
+  );
+const collec4EtapesAvecConditionnelleEnAvantDernier =
+  new CollectionInformationsEtapes(
+    exInformationEtape.localisation,
+    exInformationEtape.typeStructure,
+    exInformationEtape.tailleAvecSousEtapeActivite,
+    exInformationEtape.typeStructure,
   );
 const ExemplesCollection = {
   longueur2: { simple: collectionInformationsEtapesLongueur2Simple },
   longueur3: {
     avecSousEtape: { enDernier: collec3EtapesAvecConditionnelleEnDernier },
+  },
+  longueur4: {
+    avecSousEtape: {
+      enAvantDernier: collec4EtapesAvecConditionnelleEnAvantDernier,
+    },
   },
 };
 const etatEtapesInitial = new EtatEtapes(
@@ -80,6 +92,24 @@ const etatEtapes3 = new EtatEtapes(
   2,
 );
 
+const etatEtapes3avantDernier = new EtatEtapes(
+  ExemplesCollection.longueur4.avecSousEtape.enAvantDernier,
+  2,
+  0,
+);
+
+const etatEtapes3_1avantDernier = new EtatEtapes(
+  ExemplesCollection.longueur4.avecSousEtape.enAvantDernier,
+  2,
+  1,
+);
+
+const etatEtapes4avantDernier = new EtatEtapes(
+  ExemplesCollection.longueur4.avecSousEtape.enAvantDernier,
+  3,
+  0,
+);
+
 const etatEtapes3SousEtapeAttendu = new EtatEtapes(
   ExemplesCollection.longueur3.avecSousEtape.enDernier,
   2,
@@ -92,6 +122,11 @@ const exEtatEtape = {
     etape2: etatEtapes2AvecConditionnelle3,
     etape3: etatEtapes3,
     etape3_1: etatEtapes3SousEtapeAttendu,
+  },
+  longueur4: {
+    etape3: etatEtapes3avantDernier,
+    etape3_1: etatEtapes3_1avantDernier,
+    etape4: etatEtapes4avantDernier,
   },
 };
 describe(EtatEtapes, () => {
@@ -144,7 +179,7 @@ describe(EtatEtapes, () => {
       attendUneEtapeCourante(
         etatEtapeResultant,
         3,
-        exInformationEtape.avecSousEtape,
+        exInformationEtape.tailleAvecSousEtapeActivite,
       );
     });
     it("renvoie l'étape 3 bis après l'étape 3", () => {
@@ -167,7 +202,7 @@ describe(EtatEtapes, () => {
       attendUneEtapeCourante(
         etatEtapeResultant,
         3,
-        exInformationEtape.avecSousEtape,
+        exInformationEtape.tailleAvecSousEtapeActivite,
       );
     });
 
@@ -195,6 +230,32 @@ describe(EtatEtapes, () => {
       expect(etatEtapeResultant).toStrictEqual(etatEtapeAttendue);
 
       attendUneEtapeCourante(etatEtapeResultant, 3, etapeActivite);
+    });
+    it("renvoie l'étape 4 après l'étape 3 bis", () => {
+      const etatEtapeAttendue = exEtatEtape.longueur4.etape4;
+
+      const etatEtapeResultant =
+        exEtatEtape.longueur4.etape3_1.suivant(donneesVides);
+      expect(etatEtapeResultant).toStrictEqual(etatEtapeAttendue);
+
+      attendUneEtapeCourante(
+        etatEtapeResultant,
+        4,
+        exInformationEtape.typeStructure,
+      );
+    });
+    it("renvoie l'étape 3 avant l'étape 4", () => {
+      const etatEtapeAttendue = exEtatEtape.longueur4.etape3;
+
+      const etatEtapeResultant =
+        exEtatEtape.longueur4.etape4.precedent(donneesVides);
+      expect(etatEtapeResultant).toStrictEqual(etatEtapeAttendue);
+
+      attendUneEtapeCourante(
+        etatEtapeResultant,
+        3,
+        exInformationEtape.tailleAvecSousEtapeActivite,
+      );
     });
   });
 });

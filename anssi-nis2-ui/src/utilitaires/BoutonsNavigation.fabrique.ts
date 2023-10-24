@@ -5,21 +5,21 @@ export const fabriqueGestionSuivant =
   (
     setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
     etatEtapes: EtatEtapes,
-    inputsState: DonneesFormulaireSimulateur,
+    donneesSimulateur: DonneesFormulaireSimulateur,
   ) =>
   (e: React.MouseEvent) => {
     e.preventDefault();
-    setEtatEtape(etatEtapes.suivant(inputsState));
+    setEtatEtape(etatEtapes.suivant(donneesSimulateur));
   };
 export const fabriqueGestionPrecedent =
   (
     setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
     etatEtapes: EtatEtapes,
-    inputsState: DonneesFormulaireSimulateur,
+    donneesSimulateur: DonneesFormulaireSimulateur,
   ) =>
   (e: React.MouseEvent) => {
     e.preventDefault();
-    setEtatEtape(etatEtapes.precedent(inputsState));
+    setEtatEtape(etatEtapes.precedent(donneesSimulateur));
   };
 
 export function fabriqueInformationsBoutonsNavigation(

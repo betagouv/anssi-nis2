@@ -23,10 +23,16 @@ import {
   validationUneReponses,
 } from "../../../Domaine/Simulateur/Services/Validateurs.ts";
 import { estUnSecteurAvecDesSousSecteurs } from "../../../Domaine/Simulateur/Operations/operationsSecteurs.ts";
+import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+
+const contientDesSecteursAvecSousSecteurs = ({
+  secteurActivite,
+}: DonneesFormulaireSimulateur) => {
+  return secteurActivite.some(estUnSecteurAvecDesSousSecteurs);
+};
 
 const sousEtapeSousSecteur = new SousEtapeConditionnelle(
-  ({ secteurActivite }) =>
-    secteurActivite.some(estUnSecteurAvecDesSousSecteurs),
+  contientDesSecteursAvecSousSecteurs,
   new InformationEtapeForm(
     "Sous-secteur d'activité",
     validationReponsesSousActivites,
