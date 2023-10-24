@@ -21,3 +21,22 @@ export const fabriqueGestionPrecedent =
     e.preventDefault();
     setEtatEtape(etatEtapes.precedent(inputsState));
   };
+
+export function fabriqueInformationsBoutonsNavigation(
+  setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
+  etatEtapes: EtatEtapes,
+  donneesFormulaireSimulateur: DonneesFormulaireSimulateur,
+) {
+  return {
+    suivant: fabriqueGestionSuivant(
+      setEtatEtape,
+      etatEtapes,
+      donneesFormulaireSimulateur,
+    ),
+    precedent: fabriqueGestionPrecedent(
+      setEtatEtape,
+      etatEtapes,
+      donneesFormulaireSimulateur,
+    ),
+  };
+}

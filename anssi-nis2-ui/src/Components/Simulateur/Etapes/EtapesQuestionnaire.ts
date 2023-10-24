@@ -24,58 +24,51 @@ import {
 } from "../../../Domaine/Simulateur/Services/Validateurs.ts";
 import { estUnSecteurAvecDesSousSecteurs } from "../../../Domaine/Simulateur/Operations/operationsSecteurs.ts";
 
-const etapePrealable = new EtapePrealable("Pour bien débuter");
-
-const informationEtapeDesignationOSE = new InformationEtapeForm(
-  "Désignation éventuelle",
-  validationUneReponses("designeOperateurServicesEssentiels"),
-  EtapeOSE,
-);
-const informationEtapeLocalisation = new InformationEtapeForm(
-  "Localisation de l’activité",
-  validationUneReponses("etatMembre"),
-  EtapeLocalisation,
-);
-const informationEtapeTypeStructure = new InformationEtapeForm(
-  "Type de structure",
-  validationUneReponses("typeStructure"),
-  EtapeTypeStructure,
-);
-const informationEtapeTaille = new InformationEtapeForm(
-  "Taille de l’organisation",
-  validationReponsesTaille,
-  EtapeTaille,
-);
-const informationEtapeSousSecteurs = new InformationEtapeForm(
-  "Sous-secteur d'activité",
-  validationReponsesSousActivites,
-  EtapeSousSecteursActivite,
-);
-const informationsEtapeSousSecteur = new SousEtapeConditionnelle(
+const sousEtapeSousSecteur = new SousEtapeConditionnelle(
   ({ secteurActivite }) =>
     secteurActivite.some(estUnSecteurAvecDesSousSecteurs),
-  informationEtapeSousSecteurs,
-);
-const informationEtapeSecteurs = new InformationEtapeForm(
-  "Secteurs d’activité",
-  validationReponsesSecteurs,
-  EtapeSecteursActivite,
-  { sousEtapeConditionnelle: informationsEtapeSousSecteur },
-);
-const informationEtapeActivites = new InformationEtapeForm(
-  "Activités pratiquées",
-  validationReponsesActivites,
-  EtapeActivites,
+  new InformationEtapeForm(
+    "Sous-secteur d'activité",
+    validationReponsesSousActivites,
+    EtapeSousSecteursActivite,
+  ),
 );
 export const etapesQuestionnaire: CollectionInformationsEtapes =
   new CollectionInformationsEtapes(
-    etapePrealable,
-    informationEtapeDesignationOSE,
-    informationEtapeLocalisation,
-    informationEtapeTypeStructure,
-    informationEtapeTaille,
-    informationEtapeSecteurs,
-    informationEtapeActivites,
+    new EtapePrealable("Pour bien débuter"),
+    new InformationEtapeForm(
+      "Désignation éventuelle",
+      validationUneReponses("designeOperateurServicesEssentiels"),
+      EtapeOSE,
+    ),
+    new InformationEtapeForm(
+      "Localisation de l’activité",
+      validationUneReponses("etatMembre"),
+      EtapeLocalisation,
+    ),
+    new InformationEtapeForm(
+      "Type de structure",
+      validationUneReponses("typeStructure"),
+      EtapeTypeStructure,
+    ),
+    new InformationEtapeForm(
+      "Taille de l’organisation",
+      validationReponsesTaille,
+      EtapeTaille,
+    ),
+    new InformationEtapeForm(
+      "Secteurs d’activité",
+      validationReponsesSecteurs,
+      EtapeSecteursActivite,
+      {
+        sousEtapeConditionnelle: sousEtapeSousSecteur,
+      },
+    ),
+    new InformationEtapeForm(
+      "Activités pratiquées",
+      validationReponsesActivites,
+      EtapeActivites,
+    ),
     new InformationEtapeResult("Resultat"),
   );
 export const etatEtapesInitial = new EtatEtapes(etapesQuestionnaire, 0);
