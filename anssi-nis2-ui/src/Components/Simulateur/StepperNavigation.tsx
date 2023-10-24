@@ -1,5 +1,5 @@
 import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
-import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
+import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
 import { DonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 import { ValidationReponses } from "../../Domaine/Simulateur/Operations/validateursChamps";

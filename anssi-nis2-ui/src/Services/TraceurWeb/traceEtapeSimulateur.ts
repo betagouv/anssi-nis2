@@ -7,7 +7,7 @@ export const traceEtapeSimulateur = (
 ) => {
   window._mtm.push({
     event: "EtapeFormulaire",
-    "EtapeFormulaire.titre": etatEtapes.contenuEtapeCourante().titre,
+    "EtapeFormulaire.titre": etatEtapes.titre,
     "EtapeFormulaire.donnees": JSON.stringify(donneesFormulaireSimulateur),
   });
 };

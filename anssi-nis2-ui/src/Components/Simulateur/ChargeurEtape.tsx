@@ -15,7 +15,7 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
   );
   const [etatEtapes, setEtatEtape] = useState(etatEtapesInitial);
 
-  const ElementRendu = etatEtapes.conteneurElementCourant;
+  const ElementRendu = etatEtapes.conteneurElement;
 
   const informationsBoutonsNavigation = fabriqueInformationsBoutonsNavigation(
     setEtatEtape,
@@ -32,7 +32,7 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
       <Helmet>
         <title>
           MonEspaceNIS2 - Suis-je concerné·e ? -{" "}
-          {etatEtapes.contenuEtapeCourante().titre}
+          {etatEtapes.contenuEtapeCourante.titre}
         </title>
       </Helmet>
       <ElementRendu

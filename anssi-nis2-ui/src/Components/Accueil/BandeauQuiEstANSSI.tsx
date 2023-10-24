@@ -1,6 +1,6 @@
 import { Props } from "../../Services/Props";
 import { Button } from "@codegouvfr/react-dsfr/Button";
-import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
+import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
 import AnssiLogo from "../../assets/ANSSI-180.svg";
 
 import { ColorTheme, useColors } from "@codegouvfr/react-dsfr/useColors";

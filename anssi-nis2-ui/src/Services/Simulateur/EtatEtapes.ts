@@ -1,5 +1,8 @@
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
-import { EtapeExistante, InformationEtapeForm } from "./InformationsEtape.ts";
+import {
+  InformationEtapeForm,
+  InformationsEtape,
+} from "./InformationsEtape.ts";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
@@ -8,14 +11,41 @@ import {
 import { SimulateurEtapeRenderedComponent } from "./Props/component";
 
 export class EtatEtapes {
+  static readonly indiceEtapeInitial = 0;
   static readonly indiceSousEtapeInitial = 0;
 
-  get indiceCourant(): number {
+  get indice(): number {
     return this.indiceEtapeCourante;
   }
 
-  get numeroCourant(): number {
-    return this.collectionEtapes.numeroCourant(this.indiceCourant);
+  get numero(): number {
+    return this.collectionEtapes.numeroCourant(this.indice);
+  }
+
+  get contenuEtapeCourante(): InformationsEtape {
+    const etapeCourante = this.collectionEtapes.recupereEtapeCourante(
+      this.indiceEtapeCourante,
+    );
+    if (this.surSousEtapeInitiale()) {
+      return etapeCourante;
+    }
+    return (
+      this.collectionEtapes.recupereSousEtape(this.indiceEtapeCourante) ||
+      etapeCourante
+    );
+  }
+
+  get titre(): string {
+    return this.contenuEtapeCourante.titre;
+  }
+
+  get titreSuivant(): string {
+    return this.suivant(donneesFormulaireSimulateurVide).contenuEtapeCourante
+      .titre;
+  }
+
+  get conteneurElement(): SimulateurEtapeRenderedComponent {
+    return this.contenuEtapeCourante.conteneurElementRendu;
   }
 
   constructor(
@@ -24,31 +54,11 @@ export class EtatEtapes {
     public readonly indiceSousEtape: number = 0,
   ) {}
 
-  contenuEtapeCourante(): EtapeExistante {
-    if (this.indiceSousEtape === EtatEtapes.indiceSousEtapeInitial) {
-      return this.collectionEtapes.recupereEtapeCourante(this.indiceCourant);
-    }
-    return (
-      (
-        this.collectionEtapes.recupereEtapeCourante(
-          this.indiceEtapeCourante,
-        ) as InformationEtapeForm
-      ).options?.sousEtapeConditionnelle?.sousEtape ||
-      this.collectionEtapes.recupereEtapeCourante(this.indiceCourant)
-    );
-  }
-
-  get conteneurElementCourant(): SimulateurEtapeRenderedComponent {
-    return this.contenuEtapeCourante().conteneurElementRendu;
-  }
-
   suivant(donneesFormulaire: DonneesFormulaireSimulateur) {
     const informationsEtape = this.informationEtapeForm();
     if (
-      this.indiceSousEtape == EtatEtapes.indiceSousEtapeInitial &&
-      informationsEtape.options?.sousEtapeConditionnelle?.condition(
-        donneesFormulaire,
-      )
+      this.surSousEtapeInitiale() &&
+      informationsEtape.rempliContitionSousEtape(donneesFormulaire)
     ) {
       return new EtatEtapes(
         this.collectionEtapes,
@@ -56,7 +66,7 @@ export class EtatEtapes {
         this.indiceSousEtape + 1,
       );
     }
-    if (this.indiceEtapeCourante < this.collectionEtapes.length - 1) {
+    if (this.existeEtapeSuivante()) {
       return new EtatEtapes(
         this.collectionEtapes,
         this.indiceEtapeCourante + 1,
@@ -66,22 +76,15 @@ export class EtatEtapes {
     return this;
   }
 
-  get titreSuivant(): string {
-    return this.suivant(donneesFormulaireSimulateurVide).contenuEtapeCourante()
-      .titre;
-  }
-
   precedent(donneesFormulaire: DonneesFormulaireSimulateur) {
     const informationsEtape = this.informationEtapeForm();
-    if (this.indiceEtapeCourante === 0) {
+    if (this.surEtapeInitiale()) {
       return this;
     }
 
     if (
-      this.indiceSousEtape != EtatEtapes.indiceSousEtapeInitial &&
-      informationsEtape.options?.sousEtapeConditionnelle?.condition(
-        donneesFormulaire,
-      )
+      !this.surSousEtapeInitiale() &&
+      informationsEtape.rempliContitionSousEtape(donneesFormulaire)
     ) {
       return new EtatEtapes(
         this.collectionEtapes,
@@ -93,9 +96,19 @@ export class EtatEtapes {
     return new EtatEtapes(this.collectionEtapes, this.indiceEtapeCourante - 1);
   }
 
-  private informationEtapeForm() {
-    return this.collectionEtapes.recupereEtapeCourante(
-      this.indiceCourant,
-    ) as InformationEtapeForm;
+  private existeEtapeSuivante() {
+    return this.indiceEtapeCourante < this.collectionEtapes.length - 1;
+  }
+
+  private surSousEtapeInitiale() {
+    return this.indiceSousEtape == EtatEtapes.indiceSousEtapeInitial;
+  }
+
+  private surEtapeInitiale() {
+    return this.indiceEtapeCourante === EtatEtapes.indiceEtapeInitial;
+  }
+
+  private informationEtapeForm(): InformationEtapeForm {
+    return this.collectionEtapes.recupereEtapeCourante(this.indice);
   }
 }

@@ -11,7 +11,7 @@ import { genereGestionSauvePuisEtapeSuivante } from "../../Services/Simulateur/g
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
 import { InformationEtapeForm } from "../../Services/Simulateur/InformationsEtape.ts";
 import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
-import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
+import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   propageActionSimulateur,
@@ -20,7 +20,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   etatEtapes,
 }: SimulateurEtapeRenderedProps) => {
   const informationsEtape =
-    etatEtapes.contenuEtapeCourante() as InformationEtapeForm;
+    etatEtapes.contenuEtapeCourante as InformationEtapeForm;
 
   const EtapeCourante = informationsEtape.composant;
 
@@ -28,12 +28,12 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
 
   const etapePrecedenteHandlerConcret = useMemo(
     () =>
-      etatEtapes.collectionEtapes.estPremiereEtape(etatEtapes.indiceCourant)
+      etatEtapes.collectionEtapes.estPremiereEtape(etatEtapes.indice)
         ? noRefClick
         : informationsBoutonsNavigation.precedent,
     [
       etatEtapes.collectionEtapes,
-      etatEtapes.indiceCourant,
+      etatEtapes.indice,
       informationsBoutonsNavigation.precedent,
     ],
   );
@@ -55,7 +55,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   );
   const etapeSuivantHandlerConcret = useMemo(
     () =>
-      etatEtapes.collectionEtapes.estDerniereEtape(etatEtapes.indiceCourant)
+      etatEtapes.collectionEtapes.estDerniereEtape(etatEtapes.indice)
         ? sauvePuisSuivantGestionnaire
         : informationsBoutonsNavigation.suivant,
     [
@@ -69,7 +69,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
     <RowContainer className="fr-py-3w">
       <CenteredContainer className="fr-background-alt--grey">
         <Stepper
-          currentStep={etatEtapes.numeroCourant}
+          currentStep={etatEtapes.numero}
           nextTitle={etatEtapes.titreSuivant}
           stepCount={etatEtapes.collectionEtapes.nombreEtapes}
           title={informationsEtape.titre}

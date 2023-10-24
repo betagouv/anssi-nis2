@@ -1,5 +1,5 @@
 import { Button } from "@codegouvfr/react-dsfr/Button";
-import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
+import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
 import { Link } from "react-router-dom";
 import { DefaultComponent } from "../../Services/Props";
 import { UppercaseH2 } from "../Styled/UppercaseH2.tsx";

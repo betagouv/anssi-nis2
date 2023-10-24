@@ -100,10 +100,8 @@ describe(EtatEtapes, () => {
     numeroCourantAttendu: number,
     contenuEtapeAttendu: InformationsEtape,
   ) => {
-    expect(etatEtapes.numeroCourant).toStrictEqual(numeroCourantAttendu);
-    expect(
-      etatEtapes.contenuEtapeCourante() as InformationsEtape,
-    ).toStrictEqual(contenuEtapeAttendu);
+    expect(etatEtapes.numero).toStrictEqual(numeroCourantAttendu);
+    expect(etatEtapes.contenuEtapeCourante).toStrictEqual(contenuEtapeAttendu);
   };
 
   it("se construit avec une collection d'étapes", () => {

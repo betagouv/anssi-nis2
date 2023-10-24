@@ -1,4 +1,8 @@
-import { etapeInexistante, InformationsEtape } from "./InformationsEtape.ts";
+import {
+  etapeInexistante,
+  InformationEtapeForm,
+  InformationsEtape,
+} from "./InformationsEtape.ts";
 
 export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   get nombreEtapes(): number {
@@ -51,5 +55,10 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
         return this[indiceCourant];
       return informationEtape;
     }, etapeInexistante);
+  }
+
+  recupereSousEtape(indiceEtapeCourante: number) {
+    return this.recupereEtapeCourante<InformationEtapeForm>(indiceEtapeCourante)
+      .options.sousEtapeConditionnelle?.sousEtape;
   }
 }

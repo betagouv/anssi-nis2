@@ -8,10 +8,17 @@ import {
 
 import { ValidationReponses } from "../../Domaine/Simulateur/Operations/validateursChamps";
 import { SimulateurEtapePrealable } from "../../Components/Simulateur/SimulateurEtapePrealable.tsx";
+import { elementVide } from "../Echaffaudages/AssistantsEchaffaudages.tsx";
+
+type PredicatDonneesSimulateur = (
+  formData: DonneesFormulaireSimulateur,
+) => boolean;
 
 export type InformationsEtape = {
-  estComptabilisee: boolean;
-  titre: string;
+  readonly estComptabilisee: boolean;
+  readonly titre: string;
+  readonly conteneurElementRendu: SimulateurEtapeRenderedComponent;
+  readonly rempliContitionSousEtape: PredicatDonneesSimulateur;
 };
 
 export type EtapeInexistante = InformationsEtape & {
@@ -22,17 +29,14 @@ export type EtapeInexistante = InformationsEtape & {
 export const etapeInexistante: EtapeInexistante = {
   estComptabilisee: false,
   titre: "Hors de portee",
+  conteneurElementRendu: elementVide,
+  rempliContitionSousEtape: () => false,
 } as const;
 
 export type EtapeExistante = InformationsEtape & {
   estComptabilisee: boolean;
-  conteneurElementRendu: SimulateurEtapeRenderedComponent;
   readonly titre: string;
 };
-
-type PredicatDonneesSimulateur = (
-  formData: DonneesFormulaireSimulateur,
-) => boolean;
 
 export class SousEtapeConditionnelle {
   constructor(
@@ -47,10 +51,22 @@ export class EtapePrealable implements EtapeExistante {
     SimulateurEtapePrealable;
 
   public constructor(public readonly titre: string) {}
+
+  rempliContitionSousEtape(): boolean {
+    return false;
+  }
 }
 
 export type OptionsInformationEtapeForm = {
   readonly sousEtapeConditionnelle?: SousEtapeConditionnelle;
+  readonly ignoreSi?: (
+    donneesFormulaire: DonneesFormulaireSimulateur,
+  ) => boolean;
+};
+
+const optionsInformationEtapeFormParDefaut: OptionsInformationEtapeForm = {
+  ignoreSi: () => false,
+  sousEtapeConditionnelle: undefined,
 };
 
 export class InformationEtapeForm implements EtapeExistante {
@@ -59,11 +75,17 @@ export class InformationEtapeForm implements EtapeExistante {
     SimulateurEtapeForm;
 
   public constructor(
-    readonly titre: string,
+    public readonly titre: string,
     public readonly validationReponses: ValidationReponses,
     public readonly composant: SimulateurEtapeNodeComponent,
-    public readonly options?: OptionsInformationEtapeForm,
+    public readonly options: OptionsInformationEtapeForm = optionsInformationEtapeFormParDefaut,
   ) {}
+
+  public rempliContitionSousEtape(
+    donnees: DonneesFormulaireSimulateur,
+  ): boolean {
+    return this.options.sousEtapeConditionnelle?.condition(donnees) || false;
+  }
 }
 
 export class InformationEtapeResult implements EtapeExistante {
@@ -72,4 +94,8 @@ export class InformationEtapeResult implements EtapeExistante {
     SimulateurEtapeResult;
 
   public constructor(public readonly titre: string) {}
+
+  rempliContitionSousEtape(): boolean {
+    return false;
+  }
 }
