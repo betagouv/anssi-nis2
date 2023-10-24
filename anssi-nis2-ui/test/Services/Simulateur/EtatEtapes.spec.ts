@@ -4,7 +4,7 @@ import {
   InformationEtapeForm,
   InformationsEtape,
   SousEtapeConditionnelle,
-} from "../../../src/Services/Simulateur/informationsEtape";
+} from "../../../src/Services/Simulateur/InformationsEtape";
 import {
   EtapeLocalisation,
   EtapeSecteursActivite,

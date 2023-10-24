@@ -1,4 +1,4 @@
-import { etapeInexistante, InformationsEtape } from "./informationsEtape.ts";
+import { etapeInexistante, InformationsEtape } from "./InformationsEtape.ts";
 
 export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   get nombreEtapes(): number {

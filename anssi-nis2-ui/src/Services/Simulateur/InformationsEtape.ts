@@ -9,30 +9,34 @@ import {
 import { ValidationReponses } from "../../Domaine/Simulateur/Operations/validateursChamps";
 import { SimulateurEtapePrealable } from "../../Components/Simulateur/SimulateurEtapePrealable.tsx";
 
-export interface InformationsEtape {
+export type InformationsEtape = {
   estComptabilisee: boolean;
   titre: string;
-}
+};
 
-export class EtapeInexistante implements InformationsEtape {
-  public readonly estComptabilisee = false;
-  public readonly titre = "Hors de portee";
-}
+export type EtapeInexistante = InformationsEtape & {
+  readonly estComptabilisee: boolean;
+  readonly titre: string;
+};
 
-export const etapeInexistante = new EtapeInexistante();
+export const etapeInexistante: EtapeInexistante = {
+  estComptabilisee: false,
+  titre: "Hors de portee",
+} as const;
 
-export abstract class EtapeExistante implements InformationsEtape {
-  public abstract readonly estComptabilisee: boolean;
-  public abstract readonly conteneurElementRendu: SimulateurEtapeRenderedComponent;
+export type EtapeExistante = InformationsEtape & {
+  estComptabilisee: boolean;
+  conteneurElementRendu: SimulateurEtapeRenderedComponent;
+  readonly titre: string;
+};
 
-  protected constructor(public readonly titre: string) {}
-}
+type PredicatDonneesSimulateur = (
+  formData: DonneesFormulaireSimulateur,
+) => boolean;
 
 export class SousEtapeConditionnelle {
   constructor(
-    public readonly condition: (
-      formData: DonneesFormulaireSimulateur,
-    ) => boolean,
+    public readonly condition: PredicatDonneesSimulateur,
     public readonly sousEtape: InformationEtapeForm,
   ) {}
 }
@@ -45,23 +49,21 @@ export class EtapePrealable implements EtapeExistante {
   public constructor(public readonly titre: string) {}
 }
 
-export interface OptionsInformationEtapeForm {
+export type OptionsInformationEtapeForm = {
   readonly sousEtapeConditionnelle?: SousEtapeConditionnelle;
-}
+};
 
-export class InformationEtapeForm extends EtapeExistante {
-  public readonly estComptabilisee = true;
-  public readonly conteneurElementRendu: SimulateurEtapeRenderedComponent =
+export class InformationEtapeForm implements EtapeExistante {
+  readonly estComptabilisee = true;
+  readonly conteneurElementRendu: SimulateurEtapeRenderedComponent =
     SimulateurEtapeForm;
 
   public constructor(
-    public readonly titre: string,
+    readonly titre: string,
     public readonly validationReponses: ValidationReponses,
     public readonly composant: SimulateurEtapeNodeComponent,
     public readonly options?: OptionsInformationEtapeForm,
-  ) {
-    super(titre);
-  }
+  ) {}
 }
 
 export class InformationEtapeResult implements EtapeExistante {

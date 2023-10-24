@@ -1,5 +1,5 @@
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
-import { EtapeExistante, InformationEtapeForm } from "./informationsEtape.ts";
+import { EtapeExistante, InformationEtapeForm } from "./InformationsEtape.ts";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,

@@ -1,6 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { instancie } from "../../../utilitaires/Instancie";
-import { InformationEtapeResult } from "../../../../src/Services/Simulateur/informationsEtape";
+import { InformationEtapeResult } from "../../../../src/Services/Simulateur/InformationsEtape";
 import { fabriqueInformationEtapeForm } from "../fabriquesInformationEtape";
 
 export const arbInformationEtapeForm = fc

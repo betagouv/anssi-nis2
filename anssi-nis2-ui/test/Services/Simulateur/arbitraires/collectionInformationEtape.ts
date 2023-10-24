@@ -1,7 +1,7 @@
 import { fc } from "@fast-check/vitest";
 import { arbitrairesInformationEtape } from "./informationEtape";
 import { CollectionInformationsEtapes } from "../../../../src/Services/Simulateur/CollectionInformationsEtapes";
-import { InformationsEtape } from "../../../../src/Services/Simulateur/informationsEtape";
+import { InformationsEtape } from "../../../../src/Services/Simulateur/InformationsEtape";
 import { arbListeFormEtResult } from "./listeEtapes";
 
 const fabriqueCollectionInformationsEtapes = (

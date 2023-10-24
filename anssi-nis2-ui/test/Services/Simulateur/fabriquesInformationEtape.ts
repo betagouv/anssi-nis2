@@ -4,7 +4,7 @@ import { SimulateurEtapeNodeComponent } from "../../../src/Services/Simulateur/P
 import {
   InformationEtapeForm,
   SousEtapeConditionnelle,
-} from "../../../src/Services/Simulateur/informationsEtape";
+} from "../../../src/Services/Simulateur/InformationsEtape";
 
 export const fausseValidationReponse: ValidationReponses = {
   message: "Fausse validation",

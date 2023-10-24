@@ -5,7 +5,7 @@ import {
   etapeInexistante,
   InformationEtapeForm,
   InformationEtapeResult,
-} from "../../../src/Services/Simulateur/informationsEtape";
+} from "../../../src/Services/Simulateur/InformationsEtape";
 import { decoreChaineRendue } from "../../utilitaires/manipulationArbitraires";
 import {
   fausseValidationReponse,

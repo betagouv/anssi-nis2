@@ -9,7 +9,7 @@ import { CenteredContainer } from "../General/CenteredContainer.tsx";
 import { DonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { genereGestionSauvePuisEtapeSuivante } from "../../Services/Simulateur/gestionnaires.ts";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
-import { InformationEtapeForm } from "../../Services/Simulateur/informationsEtape.ts";
+import { InformationEtapeForm } from "../../Services/Simulateur/InformationsEtape.ts";
 import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
 

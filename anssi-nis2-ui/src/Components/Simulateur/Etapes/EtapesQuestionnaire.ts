@@ -13,7 +13,7 @@ import {
   InformationEtapeForm,
   InformationEtapeResult,
   SousEtapeConditionnelle,
-} from "../../../Services/Simulateur/informationsEtape.ts";
+} from "../../../Services/Simulateur/InformationsEtape.ts";
 import { EtatEtapes } from "../../../Services/Simulateur/EtatEtapes.ts";
 import {
   validationReponsesActivites,
