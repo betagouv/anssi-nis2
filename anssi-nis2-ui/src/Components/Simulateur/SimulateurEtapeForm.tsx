@@ -12,7 +12,7 @@ import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Prop
 import { InformationEtapeForm } from "../../Services/Simulateur/InformationsEtape.ts";
 import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 
-import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
+import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
 import { AidezNousAmeliorerService } from "../AidezNousAmeliorerService.tsx";
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
@@ -68,12 +68,11 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   );
 
   return (
-
     <>
       <RowContainer className="fr-py-3w">
         <CenteredContainer className="fr-background-alt--grey">
           <Stepper
-            currentStep={etatEtapes.numeroEtapeCourante}
+            currentStep={etatEtapes.numero}
             nextTitle={etatEtapes.titreSuivant}
             stepCount={etatEtapes.collectionEtapes.nombreEtapes}
             title={informationsEtape.titre}
