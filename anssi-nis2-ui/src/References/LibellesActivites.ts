@@ -2,8 +2,7 @@ import { Activite } from "../Domaine/Simulateur/Activite.ts";
 
 export const libellesActivites: Record<Activite, string> = {
   acteurDuMarche:
-    "Acteurs du marché fournissant des services d’agrégation, de " +
-    "participation active de la demande ou de stockage d’énergie",
+    "Acteurs du marché fournissant des services d’agrégation, de participation active de la demande ou de stockage d’énergie",
   administrationPouvoirsPublicsCentraux:
     "Entités de l’administration publique des pouvoirs publics centraux " +
     "définies comme telles par un État membre conformément au droit national",
