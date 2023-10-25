@@ -28,7 +28,13 @@ export const listeDescriptionsActivites: Record<
   autreActiviteSante: [],
   autreActiviteSecteurBancaire: [],
   autreActiviteServicesPostauxExpedition: [],
-  autreActiviteTransportsAeriens: [],
+  autreActiviteTransportsAeriens: [
+    {
+      titre: "Compagnie aérienne",
+      description:
+        "Entreprise de transport commercial de passagers.",
+    },
+  ],
   autreActiviteTransportsFerroviaires: [],
   autreActiviteTransportsParEaux: [],
   autreActiviteTransportsRoutiers: [],
