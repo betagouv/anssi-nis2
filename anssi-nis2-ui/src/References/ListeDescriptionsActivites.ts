@@ -11,7 +11,7 @@ export const listeDescriptionsActivites: Record<
   autreActiviteElectricite: [],
   autreActiviteEspace: [],
   autreActiviteFabricationDispositifsMedicaux: [],
-  autreActiviteFabricationEquipementsElectroniques: [],
+  autreActiviteFabricationEquipementsElectroniques: [,
   autreActiviteFabricationMachinesEquipements: [],
   autreActiviteFabricationProductionDistributionProduitsChimiques: [],
   autreActiviteFabricationProduitsInformatiquesElectroniquesOptiques: [],
