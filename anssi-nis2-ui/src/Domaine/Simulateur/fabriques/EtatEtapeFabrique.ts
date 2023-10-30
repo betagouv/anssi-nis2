@@ -3,12 +3,12 @@ import {
   donneesFormulaireSimulateurVide,
 } from "../DonneesFormulaire.ts";
 import {
+  ConstantesEtatEtape,
   EtatEtapes,
-  EtatEtapesManipulable,
 } from "../../../Services/Simulateur/EtatEtapes.ts";
 import { match, P } from "ts-pattern";
-import { CollectionInformationsEtapes } from "../../../Services/Simulateur/CollectionInformationsEtapes.ts";
 import { InformationEtapeForm } from "../../../Services/Simulateur/InformationsEtape.ts";
+import { CollectionInformationsEtapes } from "../../../Services/Simulateur/CollectionInformationsEtapes.ts";
 
 type FabriqueEtatEtape = (
   collectionEtapes: CollectionInformationsEtapes,
@@ -16,19 +16,16 @@ type FabriqueEtatEtape = (
   indiceSousEtape?: number,
   donneesFormulaire?: DonneesFormulaireSimulateur,
 ) => EtatEtapes;
-
 type ConstruitSuccesseur = (
   etatEtapeCourant: EtatEtapes,
   indiceEtape: number,
   indiceSousEtape: number,
   donneesFormulaire: DonneesFormulaireSimulateur,
 ) => EtatEtapes;
-
 type FabriqueChangementEtape = (
   etatEtapeCourant: EtatEtapes,
   donnees: DonneesFormulaireSimulateur,
 ) => () => EtatEtapes;
-
 type FabriqueChangementEtatEtape = (
   etatEtapeCourant: EtatEtapes,
   donnees: DonneesFormulaireSimulateur,
@@ -41,7 +38,7 @@ export const fabriqueEtatEtape: FabriqueEtatEtape = (
   donneesFormulaire = donneesFormulaireSimulateurVide,
 ) => {
   const sousEtapeNonActivee =
-    indiceSousEtape == EtatEtapesManipulable.indiceSousEtapeInitial;
+    indiceSousEtape == ConstantesEtatEtape.indiceSousEtapeInitial;
   const etapeCourantePrincipale =
     collectionEtapes.recupereEtapeCourante(indiceEtape);
   const contenuEtapeCourante = sousEtapeNonActivee
@@ -60,11 +57,10 @@ export const fabriqueEtatEtape: FabriqueEtatEtape = (
     numero: collectionEtapes.numeroCourant(indiceEtape),
     contenuEtapeCourante: contenuEtapeCourante,
     titre: contenuEtapeCourante.titre,
-    // titreSuivant: fabriqueEtatEtapeSuivant(et, donneesFormulaire).titre,
     conteneurElement: informationEtapeForm.conteneurElementRendu,
     etapeSuivantExiste: indiceEtape < collectionEtapes.length - 1,
     sousEtapeNonActivee: sousEtapeNonActivee,
-    surEtapeInitiale: indiceEtape === EtatEtapesManipulable.indiceEtapeInitial,
+    surEtapeInitiale: indiceEtape === ConstantesEtatEtape.indiceEtapeInitial,
     informationEtapeForm: informationEtapeForm,
     rempliContitionSousEtape: rempliContitionSousEtape,
   };
@@ -103,7 +99,7 @@ const fabriqueReculeEtapeParente: FabriqueChangementEtape =
     construitEtatEtapeSuccesseur(
       etatEtapeCourant,
       etatEtapeCourant.indiceEtapeCourante,
-      EtatEtapesManipulable.indiceSousEtapeInitial,
+      ConstantesEtatEtape.indiceSousEtapeInitial,
       donnees,
     );
 const fabriqueAvanceSousEtape: FabriqueChangementEtape = (

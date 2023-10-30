@@ -3,7 +3,7 @@ import {
   fabriqueEtatEtapePrecedent,
   fabriqueEtatEtapeSuivant,
 } from "../../../src/Domaine/Simulateur/fabriques/EtatEtapeFabrique";
-import { exEtatEtape } from "./exemples/etatEtape.exemple.new";
+import { exEtatEtape } from "./exemples/etatEtape.exemple";
 import { donneesFormulaireSimulateurVide } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import { EtatEtapes } from "../../../src/Services/Simulateur/EtatEtapes";
 

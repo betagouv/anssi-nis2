@@ -14,7 +14,6 @@ import {
   InformationEtapeResultat,
   SousEtapeConditionnelle,
 } from "../../../Services/Simulateur/InformationsEtape.ts";
-import { EtatEtapesManipulable } from "../../../Services/Simulateur/EtatEtapes.ts";
 import {
   validationReponsesActivites,
   validationReponsesSecteurs,
@@ -24,6 +23,7 @@ import {
 } from "../../../Domaine/Simulateur/services/Validateurs.ts";
 import { estUnSecteurAvecDesSousSecteurs } from "../../../Domaine/Simulateur/operations/operationsSecteurs.ts";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { fabriqueEtatEtape } from "../../../Domaine/Simulateur/fabriques/EtatEtapeFabrique.ts";
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
@@ -77,7 +77,4 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
     ),
     new InformationEtapeResultat("Resultat"),
   );
-export const etatEtapesInitial = new EtatEtapesManipulable(
-  etapesQuestionnaire,
-  0,
-);
+export const etatEtapesInitial = fabriqueEtatEtape(etapesQuestionnaire, 0);

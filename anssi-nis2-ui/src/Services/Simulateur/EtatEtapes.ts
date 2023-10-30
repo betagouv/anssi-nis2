@@ -3,12 +3,7 @@ import {
   InformationEtapeForm,
   InformationsEtape,
 } from "./InformationsEtape.ts";
-import {
-  DonneesFormulaireSimulateur,
-  donneesFormulaireSimulateurVide,
-  IDonneesFormulaireSimulateur,
-} from "../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { match, P } from "ts-pattern";
+import { IDonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 import { SimulateurEtapeRenderedComponent } from "./Props/component";
 
@@ -16,7 +11,7 @@ export type EtatEtapes = {
   readonly collectionEtapes: CollectionInformationsEtapes;
   readonly indiceEtapeCourante: number;
   readonly indiceSousEtape: number;
-  readonly donneesFormulaire: DonneesFormulaireSimulateur;
+  readonly donneesFormulaire: IDonneesFormulaireSimulateur;
   readonly indice: number;
   readonly numero: number;
   readonly contenuEtapeCourante: InformationsEtape;
@@ -32,155 +27,7 @@ export type EtatEtapes = {
   readonly informationEtapeForm: InformationEtapeForm;
 };
 
-export class EtatEtapesManipulable implements EtatEtapes {
-  static readonly indiceEtapeInitial = 0;
-  static readonly indiceSousEtapeInitial = 0;
-
-  constructor(
-    readonly collectionEtapes: CollectionInformationsEtapes,
-    readonly indiceEtapeCourante: number,
-    readonly indiceSousEtape: number = 0,
-    readonly donneesFormulaire: DonneesFormulaireSimulateur = donneesFormulaireSimulateurVide,
-  ) {}
-
-  get indice(): number {
-    return this.indiceEtapeCourante;
-  }
-
-  get numero(): number {
-    return this.collectionEtapes.numeroCourant(this.indice);
-  }
-
-  get contenuEtapeCourante(): InformationsEtape {
-    const etapeCourante = this.collectionEtapes.recupereEtapeCourante(
-      this.indiceEtapeCourante,
-    );
-    if (this.sousEtapeNonActivee) {
-      return etapeCourante;
-    }
-    return (
-      this.collectionEtapes.recupereSousEtape(this.indiceEtapeCourante) ||
-      etapeCourante
-    );
-  }
-
-  get titre(): string {
-    return this.contenuEtapeCourante.titre;
-  }
-
-  get titreSuivant(): string {
-    return this.suivant(this.donneesFormulaire).contenuEtapeCourante.titre;
-  }
-
-  get conteneurElement(): SimulateurEtapeRenderedComponent {
-    return (this.contenuEtapeCourante as InformationEtapeForm)
-      .conteneurElementRendu;
-  }
-
-  get etapeSuivantExiste() {
-    return this.indiceEtapeCourante < this.collectionEtapes.length - 1;
-  }
-
-  get sousEtapeNonActivee() {
-    return this.indiceSousEtape == EtatEtapesManipulable.indiceSousEtapeInitial;
-  }
-
-  get surEtapeInitiale() {
-    return (
-      this.indiceEtapeCourante === EtatEtapesManipulable.indiceEtapeInitial
-    );
-  }
-
-  get informationEtapeForm(): InformationEtapeForm {
-    return this.collectionEtapes.recupereEtapeCourante(this.indice);
-  }
-
-  rempliContitionSousEtape(donneesFormulaire: DonneesFormulaireSimulateur) {
-    return this.informationEtapeForm.rempliContitionSousEtape(
-      donneesFormulaire,
-    );
-  }
-
-  suivant(donneesFormulaire: DonneesFormulaireSimulateur) {
-    return match<EtatEtapes>(this)
-      .with(
-        {
-          rempliContitionSousEtape: P.when(() =>
-            this.rempliContitionSousEtape(donneesFormulaire),
-          ),
-          sousEtapeNonActivee: true,
-        },
-        this.fabriqueAvanceSousEtape(donneesFormulaire),
-      )
-      .with(
-        { etapeSuivantExiste: true },
-        this.fabriqueAvanceEtape(donneesFormulaire),
-      )
-      .otherwise(() => this);
-  }
-
-  precedent(donneesFormulaire: DonneesFormulaireSimulateur) {
-    return match<EtatEtapes>(this)
-      .with({ surEtapeInitiale: true }, () => this)
-      .with(
-        {
-          sousEtapeNonActivee: false,
-        },
-        this.fabriqueReculeEtapeParente(donneesFormulaire),
-      )
-      .otherwise(() => this.fabriqueReculeEtape(donneesFormulaire));
-  }
-
-  private construitSuccesseur(
-    indiceEtape: number,
-    indiceSousEtape: number,
-    donneesFormulaire: DonneesFormulaireSimulateur,
-  ): EtatEtapesManipulable {
-    return new EtatEtapesManipulable(
-      this.collectionEtapes,
-      indiceEtape,
-      indiceSousEtape,
-      donneesFormulaire,
-    );
-  }
-
-  private fabriqueAvanceEtape(donneesFormulaire: DonneesFormulaireSimulateur) {
-    return () =>
-      this.construitSuccesseur(
-        this.indiceEtapeCourante + 1,
-        0,
-        donneesFormulaire,
-      );
-  }
-
-  private fabriqueAvanceSousEtape(
-    donneesFormulaire: DonneesFormulaireSimulateur,
-  ) {
-    return () => {
-      return this.construitSuccesseur(
-        this.indiceEtapeCourante,
-        this.indiceSousEtape + 1,
-        donneesFormulaire,
-      );
-    };
-  }
-
-  private fabriqueReculeEtape(donneesFormulaire: DonneesFormulaireSimulateur) {
-    return this.construitSuccesseur(
-      this.indiceEtapeCourante - 1,
-      0,
-      donneesFormulaire,
-    );
-  }
-
-  private fabriqueReculeEtapeParente(
-    donneesFormulaire: DonneesFormulaireSimulateur,
-  ) {
-    return () =>
-      this.construitSuccesseur(
-        this.indiceEtapeCourante,
-        EtatEtapesManipulable.indiceSousEtapeInitial,
-        donneesFormulaire,
-      );
-  }
-}
+export const ConstantesEtatEtape = {
+  indiceEtapeInitial: 0,
+  indiceSousEtapeInitial: 0,
+} as const;
