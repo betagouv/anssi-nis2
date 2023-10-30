@@ -6,14 +6,8 @@ import {
   exInformationEtape,
   informationSousEtapeForm,
 } from "./exemples/informationEtapeForm.exemples";
-import {
-  collec3EtapesAvecConditionnelleEnDernier,
-  exCollectionInformationEtape,
-} from "./exemples/collectionInformationEtape.exemples";
-import {
-  etatEtapes3SousEtapeAttendu,
-  exEtatEtape,
-} from "./exemples/etatEtape.exemples";
+import { exCollectionInformationEtape } from "./exemples/collectionInformationEtape.exemples";
+import { exEtatEtape } from "./exemples/etatEtape.exemples";
 
 const donneesVides = donneesFormulaireSimulateurVide;
 
@@ -27,14 +21,16 @@ describe(EtatEtapes, () => {
     expect(etatEtapes.contenuEtapeCourante).toStrictEqual(contenuEtapeAttendu);
   };
 
-  it("se construit avec une collection d'étapes", () => {
-    const etatEtapes = exEtatEtape.longueur2.etapeInitiale;
+  describe("Construction", () => {
+    it("se construit avec une collection d'étapes", () => {
+      const etatEtapes = exEtatEtape.longueur2.etapeInitiale;
 
-    expect(etatEtapes).toBeInstanceOf(EtatEtapes);
-    expect(etatEtapes.collectionEtapes).toStrictEqual(
-      exCollectionInformationEtape.longueur2.simple,
-    );
-    attendUneEtapeCourante(etatEtapes, 1, exInformationEtape.form1);
+      expect(etatEtapes).toBeInstanceOf(EtatEtapes);
+      expect(etatEtapes.collectionEtapes).toStrictEqual(
+        exCollectionInformationEtape.longueur2.simple,
+      );
+      attendUneEtapeCourante(etatEtapes, 1, exInformationEtape.form1);
+    });
   });
 
   describe("Avancement nominal", () => {
@@ -104,13 +100,13 @@ describe(EtatEtapes, () => {
 
     it("renvoie l'étape courante 3 après l'étape 3 bis", () => {
       const etatEtapeAttendue = new EtatEtapes(
-        collec3EtapesAvecConditionnelleEnDernier,
+        exCollectionInformationEtape.longueur3.avecSousEtape.enDernier,
         2,
         1,
       );
 
       const etatEtapeResultant =
-        etatEtapes3SousEtapeAttendu.suivant(donneesVides);
+        exEtatEtape.longueur3.etape3_1.suivant(donneesVides);
       expect(etatEtapeResultant).toStrictEqual(etatEtapeAttendue);
 
       attendUneEtapeCourante(etatEtapeResultant, 3, informationSousEtapeForm);
@@ -137,5 +133,9 @@ describe(EtatEtapes, () => {
         exInformationEtape.etapeAvecSousEtape,
       );
     });
+  });
+
+  describe("Passer une étape", () => {
+    it("passe la dernière étape si la condition est remplie", () => {});
   });
 });

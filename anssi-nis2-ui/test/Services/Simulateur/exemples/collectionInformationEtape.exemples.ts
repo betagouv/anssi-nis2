@@ -15,7 +15,12 @@ const collectionInformationsEtapesLongueur2Simple =
     exInformationEtape.form1,
     exInformationEtape.form2,
   );
-export const collec3EtapesAvecConditionnelleEnDernier =
+
+const derniereEtapeEvitable = new CollectionInformationsEtapes(
+  exInformationEtape.form1,
+  exInformationEtape.form2,
+);
+const collec3EtapesAvecConditionnelleEnDernier =
   new CollectionInformationsEtapes(
     exInformationEtape.form1,
     exInformationEtape.form2,
@@ -44,7 +49,10 @@ export const collectionInformationsEtapesAvecInexistantes =
   );
 
 export const exCollectionInformationEtape = {
-  longueur2: { simple: collectionInformationsEtapesLongueur2Simple },
+  longueur2: {
+    simple: collectionInformationsEtapesLongueur2Simple,
+    derniereEtapeEvitable: derniereEtapeEvitable,
+  },
   longueur3: {
     avecSousEtape: { enDernier: collec3EtapesAvecConditionnelleEnDernier },
   },
