@@ -23,11 +23,11 @@ type ConstruitSuccesseur = (
   donneesFormulaire: DonneesFormulaireSimulateur,
 ) => EtatEtapes;
 type FabriqueChangementEtape = (
-  etatEtapeCourant: EtatEtapes,
+  etatEtapes: EtatEtapes,
   donnees: DonneesFormulaireSimulateur,
 ) => () => EtatEtapes;
 type FabriqueChangementEtatEtape = (
-  etatEtapeCourant: EtatEtapes,
+  etatEtapes: EtatEtapes,
   donnees: DonneesFormulaireSimulateur,
 ) => EtatEtapes;
 
@@ -50,7 +50,7 @@ export const fabriqueEtatEtape: FabriqueEtatEtape = (
     informationEtapeForm.rempliContitionSousEtape(donnees);
   return {
     collectionEtapes: collectionEtapes,
-    indiceEtapeCourante: indiceEtape,
+    indiceCourant: indiceEtape,
     indiceSousEtape: indiceSousEtape,
     donneesFormulaire: donneesFormulaire,
     indice: indiceEtape,
@@ -67,85 +67,101 @@ export const fabriqueEtatEtape: FabriqueEtatEtape = (
 };
 
 const construitEtatEtapeSuccesseur: ConstruitSuccesseur = (
-  etatEtapeCourant,
+  etatEtapes,
   indiceEtape,
   indiceSousEtape,
   donneesFormulaire,
 ) =>
   fabriqueEtatEtape(
-    etatEtapeCourant.collectionEtapes,
+    etatEtapes.collectionEtapes,
     indiceEtape,
     indiceSousEtape,
     donneesFormulaire,
   );
 const fabriqueAvanceEtape: FabriqueChangementEtape =
-  (etatEtapeCourant, donnees) => () =>
+  (etatEtapes, donnees) => () =>
     construitEtatEtapeSuccesseur(
-      etatEtapeCourant,
-      etatEtapeCourant.indiceEtapeCourante + 1,
+      etatEtapes,
+      etatEtapes.indiceCourant + 1,
       0,
       donnees,
     );
 const fabriqueReculeEtape: FabriqueChangementEtape =
-  (etatEtapeCourant, donnees) => () =>
+  (etatEtapes, donnees) => () =>
     construitEtatEtapeSuccesseur(
-      etatEtapeCourant,
-      etatEtapeCourant.indiceEtapeCourante - 1,
+      etatEtapes,
+      etatEtapes.indiceCourant - 1,
       0,
       donnees,
     );
 const fabriqueReculeEtapeParente: FabriqueChangementEtape =
-  (etatEtapeCourant, donnees) => () =>
+  (etatEtapes, donnees) => () =>
     construitEtatEtapeSuccesseur(
-      etatEtapeCourant,
-      etatEtapeCourant.indiceEtapeCourante,
+      etatEtapes,
+      etatEtapes.indiceCourant,
       ConstantesEtatEtape.indiceSousEtapeInitial,
       donnees,
     );
-const fabriqueAvanceSousEtape: FabriqueChangementEtape = (
-  etatEtapeCourant,
-  donneesFormulaire,
-) => {
-  return () => {
-    return construitEtatEtapeSuccesseur(
-      etatEtapeCourant,
-      etatEtapeCourant.indiceEtapeCourante,
-      etatEtapeCourant.indiceSousEtape + 1,
-      donneesFormulaire,
+const fabriqueAvanceSousEtape: FabriqueChangementEtape =
+  (etatEtapes, donnees) => () =>
+    construitEtatEtapeSuccesseur(
+      etatEtapes,
+      etatEtapes.indiceCourant,
+      etatEtapes.indiceSousEtape + 1,
+      donnees,
     );
-  };
-};
 
-export const fabriqueEtatEtapeSuivant: FabriqueChangementEtatEtape = (
-  etatEtapeCourant,
-  donnees,
-) => {
-  return match<EtatEtapes>(etatEtapeCourant)
+const quandRempliContitionSousEtape = (
+  etatEtapes: EtatEtapes,
+  donnees: DonneesFormulaireSimulateur,
+) => P.when(() => etatEtapes.rempliContitionSousEtape(donnees));
+
+function fabriqueEtatEtapeSuivantSansCondition(
+  etatEtapes: EtatEtapes,
+  donnees: DonneesFormulaireSimulateur,
+) {
+  return match<EtatEtapes>(etatEtapes)
     .with(
       {
-        rempliContitionSousEtape: P.when(() =>
-          etatEtapeCourant.rempliContitionSousEtape(donnees),
+        rempliContitionSousEtape: quandRempliContitionSousEtape(
+          etatEtapes,
+          donnees,
         ),
         sousEtapeNonActivee: true,
       },
-      fabriqueAvanceSousEtape(etatEtapeCourant, donnees),
+      fabriqueAvanceSousEtape(etatEtapes, donnees),
     )
     .with(
       { etapeSuivantExiste: true },
-      fabriqueAvanceEtape(etatEtapeCourant, donnees),
+      fabriqueAvanceEtape(etatEtapes, donnees),
     )
-    .otherwise(() => etatEtapeCourant);
+    .otherwise(() => etatEtapes);
+}
+
+export const fabriqueEtatEtapeSuivant: FabriqueChangementEtatEtape = (
+  etatEtapes,
+  donnees,
+) => {
+  const etatEtapeSuivantSansCondition = fabriqueEtatEtapeSuivantSansCondition(
+    etatEtapes,
+    donnees,
+  );
+  const ignoreSi =
+    etatEtapeSuivantSansCondition.informationEtapeForm.options.ignoreSi;
+  if (ignoreSi && ignoreSi(donnees)) {
+    return fabriqueEtatEtapeSuivant(etatEtapeSuivantSansCondition, donnees);
+  }
+  return etatEtapeSuivantSansCondition;
 };
 
 export const fabriqueEtatEtapePrecedent: FabriqueChangementEtatEtape = (
-  etatEtapeCourant,
+  etatEtapes,
   donnees,
-) => {
-  return match(etatEtapeCourant)
-    .with({ surEtapeInitiale: true }, () => etatEtapeCourant)
+) =>
+  match(etatEtapes)
+    .with({ surEtapeInitiale: true }, () => etatEtapes)
     .with(
       { sousEtapeNonActivee: false },
-      fabriqueReculeEtapeParente(etatEtapeCourant, donnees),
+      fabriqueReculeEtapeParente(etatEtapes, donnees),
     )
-    .otherwise(fabriqueReculeEtape(etatEtapeCourant, donnees));
-};
+    .otherwise(fabriqueReculeEtape(etatEtapes, donnees));

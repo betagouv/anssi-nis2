@@ -65,6 +65,17 @@ describe(fabriqueEtatEtapeSuivant, () => {
         );
       });
     });
+    describe("Etape facultative", () => {
+      it("renvoie l'étape 3 après l'étape 2", () => {
+        attendEtatEtapeEgaux(
+          fabriqueEtatEtapeSuivant(
+            exEtatEtape.longueur3.avantDerniereEtapeEvitable.etapeInitiale,
+            donneesVides,
+          ),
+          exEtatEtape.longueur3.avantDerniereEtapeEvitable.etape3,
+        );
+      });
+    });
   });
 });
 

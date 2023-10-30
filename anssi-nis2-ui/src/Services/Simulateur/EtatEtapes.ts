@@ -9,7 +9,7 @@ import { SimulateurEtapeRenderedComponent } from "./Props/component";
 
 export type EtatEtapes = {
   readonly collectionEtapes: CollectionInformationsEtapes;
-  readonly indiceEtapeCourante: number;
+  readonly indiceCourant: number;
   readonly indiceSousEtape: number;
   readonly donneesFormulaire: IDonneesFormulaireSimulateur;
   readonly indice: number;
