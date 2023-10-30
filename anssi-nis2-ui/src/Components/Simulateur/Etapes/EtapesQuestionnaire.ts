@@ -14,15 +14,15 @@ import {
   InformationEtapeResultat,
   SousEtapeConditionnelle,
 } from "../../../Services/Simulateur/InformationsEtape.ts";
-import { EtatEtapes } from "../../../Services/Simulateur/EtatEtapes.ts";
+import { EtatEtapesManipulable } from "../../../Services/Simulateur/EtatEtapes.ts";
 import {
   validationReponsesActivites,
   validationReponsesSecteurs,
   validationReponsesSousActivites,
   validationReponsesTaille,
   validationUneReponses,
-} from "../../../Domaine/Simulateur/Services/Validateurs.ts";
-import { estUnSecteurAvecDesSousSecteurs } from "../../../Domaine/Simulateur/Operations/operationsSecteurs.ts";
+} from "../../../Domaine/Simulateur/services/Validateurs.ts";
+import { estUnSecteurAvecDesSousSecteurs } from "../../../Domaine/Simulateur/operations/operationsSecteurs.ts";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 const contientDesSecteursAvecSousSecteurs = ({
@@ -77,4 +77,7 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
     ),
     new InformationEtapeResultat("Resultat"),
   );
-export const etatEtapesInitial = new EtatEtapes(etapesQuestionnaire, 0);
+export const etatEtapesInitial = new EtatEtapesManipulable(
+  etapesQuestionnaire,
+  0,
+);

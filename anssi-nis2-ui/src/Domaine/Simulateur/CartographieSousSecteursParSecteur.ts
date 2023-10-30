@@ -4,7 +4,7 @@ import { SecteursAvecSousSecteurs, SousSecteurActivite } from "./SousSecteurs";
 import {
   contientSousSecteur,
   estUnSecteurAvecDesSousSecteurs,
-} from "./Operations/operationsSecteurs.ts";
+} from "./operations/operationsSecteurs.ts";
 
 const extraitSousSecteurs = (
   secteur: SecteursAvecSousSecteurs,

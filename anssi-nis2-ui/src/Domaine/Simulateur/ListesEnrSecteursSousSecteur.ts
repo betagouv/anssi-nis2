@@ -8,7 +8,7 @@ import {
   fabriqueTupleSecteurSousSecteurs,
   listePartielleSecteursAvecSousSecteurs,
   ValeursSecteursSansSousSecteur,
-} from "./Operations/operationsSecteurs.ts";
+} from "./operations/operationsSecteurs.ts";
 import { SecteurActivite } from "./SecteursActivite";
 
 export const listeEnrSecteursSansSousSecteur: EnrSecteurSousSecteur[] =

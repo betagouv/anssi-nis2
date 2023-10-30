@@ -4,8 +4,8 @@ import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.ts";
 import {
   aucuneActiviteListee,
   auMoinsUneActiviteListee,
-} from "./Operations/FiltreActivites.ts";
-import { auMoinsUnSecteurListe } from "./Operations/FiltresSecteurs.ts";
+} from "./operations/FiltreActivites.ts";
+import { auMoinsUnSecteurListe } from "./operations/FiltresSecteurs.ts";
 
 export type ResultatEligibilite =
   | "NonEligible"

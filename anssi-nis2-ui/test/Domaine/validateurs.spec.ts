@@ -8,7 +8,7 @@ import {
   auMoinsUn,
   et,
   auMoinsUneActiviteParValeurSectorielle,
-} from "../../src/Domaine/Simulateur/Services/Validateurs";
+} from "../../src/Domaine/Simulateur/services/Validateurs";
 
 describe("validateurs", () => {
   describe("valideAuMoinsUn", () => {

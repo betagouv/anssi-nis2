@@ -12,8 +12,8 @@ import {
   ArbitraireOptions,
   ArbitraireOptionsActivites,
 } from "../Domaine/arbitraires/arbitraireOptions";
-import { fabriqueListeActivitesDesSecteurs } from "../../src/Domaine/Simulateur/Operations/FiltreActivites";
-import { filtreSecteursSansSousSecteurs } from "../../src/Domaine/Simulateur/Operations/operationsActivite";
+import { fabriqueListeActivitesDesSecteurs } from "../../src/Domaine/Simulateur/operations/FiltreActivites";
+import { filtreSecteursSansSousSecteurs } from "../../src/Domaine/Simulateur/operations/operationsActivite";
 import {
   EnrSecteurSousSecteur,
   SousSecteurActivite,

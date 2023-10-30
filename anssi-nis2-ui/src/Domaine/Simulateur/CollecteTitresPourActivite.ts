@@ -4,7 +4,7 @@ import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.ts";
 import { AssociationSectorielleActivite } from "./ActivitesParSecteurEtSousSecteur.ts";
 
 import { cartographieSousSecteursParSecteur } from "./CartographieSousSecteursParSecteur.ts";
-import { estUnSecteurAvecDesSousSecteurs } from "./Operations/operationsSecteurs.ts";
+import { estUnSecteurAvecDesSousSecteurs } from "./operations/operationsSecteurs.ts";
 
 const collecteTitresSecteursSimples = (
   libelleSecteursActivite: string,

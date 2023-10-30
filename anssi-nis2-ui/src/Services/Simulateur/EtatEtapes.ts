@@ -12,7 +12,7 @@ import { match, P } from "ts-pattern";
 
 import { SimulateurEtapeRenderedComponent } from "./Props/component";
 
-interface IEtatEtapes {
+export type EtatEtapes = {
   readonly collectionEtapes: CollectionInformationsEtapes;
   readonly indiceEtapeCourante: number;
   readonly indiceSousEtape: number;
@@ -21,7 +21,7 @@ interface IEtatEtapes {
   readonly numero: number;
   readonly contenuEtapeCourante: InformationsEtape;
   readonly titre: string;
-  readonly titreSuivant: string;
+  readonly titreSuivant?: string;
   readonly conteneurElement: SimulateurEtapeRenderedComponent;
   readonly etapeSuivantExiste: boolean;
   readonly sousEtapeNonActivee: boolean;
@@ -30,9 +30,9 @@ interface IEtatEtapes {
     donnees: IDonneesFormulaireSimulateur,
   ) => boolean;
   readonly informationEtapeForm: InformationEtapeForm;
-}
+};
 
-export class EtatEtapes implements IEtatEtapes {
+export class EtatEtapesManipulable implements EtatEtapes {
   static readonly indiceEtapeInitial = 0;
   static readonly indiceSousEtapeInitial = 0;
 
@@ -82,11 +82,13 @@ export class EtatEtapes implements IEtatEtapes {
   }
 
   get sousEtapeNonActivee() {
-    return this.indiceSousEtape == EtatEtapes.indiceSousEtapeInitial;
+    return this.indiceSousEtape == EtatEtapesManipulable.indiceSousEtapeInitial;
   }
 
   get surEtapeInitiale() {
-    return this.indiceEtapeCourante === EtatEtapes.indiceEtapeInitial;
+    return (
+      this.indiceEtapeCourante === EtatEtapesManipulable.indiceEtapeInitial
+    );
   }
 
   get informationEtapeForm(): InformationEtapeForm {
@@ -100,7 +102,7 @@ export class EtatEtapes implements IEtatEtapes {
   }
 
   suivant(donneesFormulaire: DonneesFormulaireSimulateur) {
-    return match<IEtatEtapes>(this)
+    return match<EtatEtapes>(this)
       .with(
         {
           rempliContitionSousEtape: P.when(() =>
@@ -118,7 +120,7 @@ export class EtatEtapes implements IEtatEtapes {
   }
 
   precedent(donneesFormulaire: DonneesFormulaireSimulateur) {
-    return match<IEtatEtapes>(this)
+    return match<EtatEtapes>(this)
       .with({ surEtapeInitiale: true }, () => this)
       .with(
         {
@@ -133,8 +135,8 @@ export class EtatEtapes implements IEtatEtapes {
     indiceEtape: number,
     indiceSousEtape: number,
     donneesFormulaire: DonneesFormulaireSimulateur,
-  ): EtatEtapes {
-    return new EtatEtapes(
+  ): EtatEtapesManipulable {
+    return new EtatEtapesManipulable(
       this.collectionEtapes,
       indiceEtape,
       indiceSousEtape,
@@ -177,7 +179,7 @@ export class EtatEtapes implements IEtatEtapes {
     return () =>
       this.construitSuccesseur(
         this.indiceEtapeCourante,
-        EtatEtapes.indiceSousEtapeInitial,
+        EtatEtapesManipulable.indiceSousEtapeInitial,
         donneesFormulaire,
       );
   }

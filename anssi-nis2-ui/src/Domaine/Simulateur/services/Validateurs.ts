@@ -6,14 +6,14 @@ import { SecteursAvecSousSecteurs } from "../SousSecteurs";
 import {
   Validateur,
   ValidationReponses,
-} from "../Operations/validateursChamps";
+} from "../operations/validateursChamps";
 import { SecteurActivite } from "../SecteursActivite";
 import { Activite } from "../Activite.ts";
 import {
   activiteEstDansSecteur,
   filtreSecteursSansSousSecteurs,
-} from "../Operations/operationsActivite.ts";
-import { sousSecteurAppartientASecteur } from "../Operations/operationsSecteurs.ts";
+} from "../operations/operationsActivite.ts";
+import { sousSecteurAppartientASecteur } from "../operations/operationsSecteurs.ts";
 import { ValeurCleSectorielle } from "../ChampsSimulateur";
 
 export const et: (...validateurs: Array<Validateur>) => Validateur = (

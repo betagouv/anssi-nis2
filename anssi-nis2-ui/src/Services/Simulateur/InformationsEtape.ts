@@ -6,7 +6,7 @@ import {
   SimulateurEtapeRenderedComponent,
 } from "./Props/component";
 
-import { ValidationReponses } from "../../Domaine/Simulateur/Operations/validateursChamps";
+import { ValidationReponses } from "../../Domaine/Simulateur/operations/validateursChamps";
 import { SimulateurEtapePrealable } from "../../Components/Simulateur/SimulateurEtapePrealable.tsx";
 import { elementVide } from "../Echaffaudages/AssistantsEchaffaudages.tsx";
 

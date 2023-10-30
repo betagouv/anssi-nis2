@@ -1,10 +1,10 @@
-import { EtatEtapes } from "../Services/Simulateur/EtatEtapes.ts";
+import { EtatEtapesManipulable } from "../Services/Simulateur/EtatEtapes.ts";
 import { DonneesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormulaire.ts";
 
 export const fabriqueGestionSuivant =
   (
-    setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
-    etatEtapes: EtatEtapes,
+    setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapesManipulable>>,
+    etatEtapes: EtatEtapesManipulable,
     donneesSimulateur: DonneesFormulaireSimulateur,
   ) =>
   (e: React.MouseEvent) => {
@@ -13,8 +13,8 @@ export const fabriqueGestionSuivant =
   };
 export const fabriqueGestionPrecedent =
   (
-    setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
-    etatEtapes: EtatEtapes,
+    setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapesManipulable>>,
+    etatEtapes: EtatEtapesManipulable,
     donneesSimulateur: DonneesFormulaireSimulateur,
   ) =>
   (e: React.MouseEvent) => {
@@ -23,8 +23,8 @@ export const fabriqueGestionPrecedent =
   };
 
 export function fabriqueInformationsBoutonsNavigation(
-  setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
-  etatEtapes: EtatEtapes,
+  setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapesManipulable>>,
+  etatEtapes: EtatEtapesManipulable,
   donneesFormulaireSimulateur: DonneesFormulaireSimulateur,
 ) {
   return {

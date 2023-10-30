@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { SimulateurEtapePrealable } from "../../../Components/Simulateur/SimulateurEtapePrealable.tsx";
 import { pageDecorator } from "../../utilitaires/PageDecorator.tsx";
 import { jest } from "@storybook/jest";
-import { EtatEtapes } from "../../../Services/Simulateur/EtatEtapes.ts";
+import { EtatEtapesManipulable } from "../../../Services/Simulateur/EtatEtapes.ts";
 import { CollectionInformationsEtapes } from "../../../Services/Simulateur/CollectionInformationsEtapes.ts";
 import { donneesFormulaireSimulateurVide } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 
@@ -24,7 +24,7 @@ export const SimulateurEtapePrealableStory: Story = {
       suivant: jest.fn(),
     },
     etatEtapes: jest.mocked(
-      new EtatEtapes(new CollectionInformationsEtapes(...[]), 0),
+      new EtatEtapesManipulable(new CollectionInformationsEtapes(...[]), 0),
     ),
     donneesFormulaire: jest.mocked(donneesFormulaireSimulateurVide),
   },

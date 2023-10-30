@@ -22,7 +22,7 @@ import {
 import {
   estActiviteAutre,
   estActiviteListee,
-} from "../../../src/Domaine/Simulateur/Operations/FiltreActivites";
+} from "../../../src/Domaine/Simulateur/operations/FiltreActivites";
 import { listeEnrSecteursAvecLeursSousSecteurs } from "../../../src/Domaine/Simulateur/ListesEnrSecteursSousSecteur";
 import {
   arbAppartenancePaysUnionEuropeenne,
@@ -33,7 +33,7 @@ import {
 import {
   estSecteurListe,
   estSousSecteurListe,
-} from "../../../src/Domaine/Simulateur/Operations/operationsSecteurs";
+} from "../../../src/Domaine/Simulateur/operations/operationsSecteurs";
 
 export const arbTrancheSingleton = () =>
   fabriqueArbSingleton(ValeursPetitMoyenGrand);

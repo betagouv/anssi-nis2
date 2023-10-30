@@ -6,7 +6,7 @@ import {
   estGrandeEntreprise,
   estMoyenneEntreprise,
   estPetiteEntreprise,
-} from "../../src/Domaine/Simulateur/Operations/FiltresTailleEntite";
+} from "../../src/Domaine/Simulateur/operations/FiltresTailleEntite";
 
 describe("Tailles entreprises", () => {
   describe(estPetiteEntreprise, () => {

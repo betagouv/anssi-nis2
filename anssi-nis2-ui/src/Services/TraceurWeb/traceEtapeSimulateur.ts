@@ -1,8 +1,8 @@
-import { EtatEtapes } from "../Simulateur/EtatEtapes.ts";
+import { EtatEtapesManipulable } from "../Simulateur/EtatEtapes.ts";
 import { DonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 export const traceEtapeSimulateur = (
-  etatEtapes: EtatEtapes,
+  etatEtapes: EtatEtapesManipulable,
   donneesFormulaireSimulateur: DonneesFormulaireSimulateur,
 ) => {
   window._mtm ||= [];

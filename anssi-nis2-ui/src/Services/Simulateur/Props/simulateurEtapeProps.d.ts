@@ -2,7 +2,7 @@ import { DefaultProps } from "../../Props";
 import { SimulateurDonneesFormulaireActions } from "./donneesFormulaire";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { Dispatch } from "react";
-import { EtatEtapes } from "../EtatEtapes.ts";
+import { EtatEtapesManipulable } from "../EtatEtapes.ts";
 import { BoutonsNavigation } from "./boutonsNavigation";
 
 export interface SimulateurEtapeProps extends DefaultProps {
@@ -14,5 +14,5 @@ export interface SimulateurContenuEtapeProps extends SimulateurEtapeProps {}
 
 export interface SimulateurEtapeRenderedProps extends SimulateurEtapeProps {
   informationsBoutonsNavigation: BoutonsNavigation;
-  etatEtapes: EtatEtapes;
+  etatEtapes: EtatEtapesManipulable;
 }
