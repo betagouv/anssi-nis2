@@ -1,6 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { instancie } from "../../../utilitaires/Instancie";
-import { InformationEtapeResult } from "../../../../src/Services/Simulateur/InformationsEtape";
+import { InformationEtapeResultat } from "../../../../src/Services/Simulateur/InformationsEtape";
 import { fabriqueInformationEtapeForm } from "../fabriquesInformationEtape";
 
 export const arbInformationEtapeForm = fc
@@ -11,7 +11,7 @@ export const arbInformationEtapeFormAvecSousEtape = fc
   .map(fabriqueInformationEtapeForm);
 export const arbInformationEtapeResult = fc
   .string()
-  .map(instancie(InformationEtapeResult));
+  .map(instancie(InformationEtapeResultat));
 export const arbEtapeFormOuResult = fc.oneof(
   arbInformationEtapeForm,
   arbInformationEtapeResult,

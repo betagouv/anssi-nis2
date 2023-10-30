@@ -5,7 +5,7 @@ import { donneesFormulaireSimulateurVide } from "../../../src/Domaine/Simulateur
 import {
   exInformationEtape,
   informationSousEtapeForm,
-} from "./exemples/informationEtapeForm.exemples";
+} from "./exemples/informationEtape.exemples";
 import { exCollectionInformationEtape } from "./exemples/collectionInformationEtape.exemples";
 import { exEtatEtape } from "./exemples/etatEtape.exemples";
 
@@ -136,6 +136,17 @@ describe(EtatEtapes, () => {
   });
 
   describe("Passer une étape", () => {
-    it("passe la dernière étape si la condition est remplie", () => {});
+    it("passe la dernière étape si la condition est remplie", () => {
+      const etatEtapeAttendu =
+        exEtatEtape.longueur3.avantDerniereEtapeEvitable.etape3;
+      const etatEtapeResultant =
+        exEtatEtape.longueur3.avantDerniereEtapeEvitable.etapeInitiale.suivant(
+          donneesVides,
+        );
+
+      expect(etatEtapeResultant).toStrictEqual(etatEtapeAttendu);
+
+      attendUneEtapeCourante(etatEtapeResultant, 3, exInformationEtape.form2);
+    });
   });
 });

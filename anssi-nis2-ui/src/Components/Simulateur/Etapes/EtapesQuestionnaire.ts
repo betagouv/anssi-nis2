@@ -11,7 +11,7 @@ import { CollectionInformationsEtapes } from "../../../Services/Simulateur/Colle
 import {
   EtapePrealable,
   InformationEtapeForm,
-  InformationEtapeResult,
+  InformationEtapeResultat,
   SousEtapeConditionnelle,
 } from "../../../Services/Simulateur/InformationsEtape.ts";
 import { EtatEtapes } from "../../../Services/Simulateur/EtatEtapes.ts";
@@ -75,6 +75,6 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
       validationReponsesActivites,
       EtapeActivites,
     ),
-    new InformationEtapeResult("Resultat"),
+    new InformationEtapeResultat("Resultat"),
   );
 export const etatEtapesInitial = new EtatEtapes(etapesQuestionnaire, 0);

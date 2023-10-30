@@ -1,23 +1,19 @@
 import { CollectionInformationsEtapes } from "../../../../src/Services/Simulateur/CollectionInformationsEtapes";
-import { exInformationEtape } from "./informationEtapeForm.exemples";
 import {
-  etapeInexistante,
-  InformationEtapeForm,
-  InformationEtapeResult,
-} from "../../../../src/Services/Simulateur/InformationsEtape";
-import {
-  fausseValidationReponse,
-  FauxSimulateurEtapeComposant,
-} from "../fabriquesInformationEtape";
+  exInformationEtape,
+  informationEtapeForm,
+  informationEtapeResult,
+} from "./informationEtape.exemples";
+import { etapeInexistante } from "../../../../src/Services/Simulateur/InformationsEtape";
 
 const collectionInformationsEtapesLongueur2Simple =
   new CollectionInformationsEtapes(
     exInformationEtape.form1,
     exInformationEtape.form2,
   );
-
-const derniereEtapeEvitable = new CollectionInformationsEtapes(
+const derniereEtapeFormEvitable = new CollectionInformationsEtapes(
   exInformationEtape.form1,
+  exInformationEtape.evitable.toujours,
   exInformationEtape.form2,
 );
 const collec3EtapesAvecConditionnelleEnDernier =
@@ -26,6 +22,7 @@ const collec3EtapesAvecConditionnelleEnDernier =
     exInformationEtape.form2,
     exInformationEtape.etapeAvecSousEtape,
   );
+
 const collec4EtapesAvecConditionnelleEnAvantDernier =
   new CollectionInformationsEtapes(
     exInformationEtape.form1,
@@ -36,25 +33,21 @@ const collec4EtapesAvecConditionnelleEnAvantDernier =
 
 export const collectionInformationsEtapesAvecInexistantes =
   new CollectionInformationsEtapes(
-    new InformationEtapeResult(""),
+    informationEtapeResult,
     exInformationEtape.form1,
-    new InformationEtapeResult(""),
+    informationEtapeResult,
     exInformationEtape.form2,
-    new InformationEtapeForm(
-      "",
-      fausseValidationReponse,
-      FauxSimulateurEtapeComposant,
-    ),
+    informationEtapeForm,
     etapeInexistante,
   );
 
 export const exCollectionInformationEtape = {
   longueur2: {
     simple: collectionInformationsEtapesLongueur2Simple,
-    derniereEtapeEvitable: derniereEtapeEvitable,
   },
   longueur3: {
     avecSousEtape: { enDernier: collec3EtapesAvecConditionnelleEnDernier },
+    avecEtapeEvitable: { enAvantDernier: derniereEtapeFormEvitable },
   },
   longueur4: {
     avecSousEtape: {

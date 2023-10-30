@@ -6,7 +6,7 @@ import { decoreChaineRendue } from "../../utilitaires/manipulationArbitraires";
 import { arbitrairesInformationEtape } from "./arbitraires/informationEtape";
 import { arbitrairesCollectionEtape } from "./arbitraires/collectionInformationEtape";
 import { arbListeEtapesEtIndice } from "./arbitraires/listeEtapes";
-import { exInformationEtape } from "./exemples/informationEtapeForm.exemples";
+import { exInformationEtape } from "./exemples/informationEtape.exemples";
 import {
   collectionInformationsEtapesAvecInexistantes,
   exCollectionInformationEtape,

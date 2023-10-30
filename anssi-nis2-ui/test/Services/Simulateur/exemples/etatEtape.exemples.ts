@@ -7,9 +7,14 @@ const etatEtapesInitial = new EtatEtapes(
   indiceEtapeInitiale,
 );
 
-const derniereEtapeEvitable = new EtatEtapes(
-  exCollectionInformationEtape.longueur2.derniereEtapeEvitable,
+const avantDerniereEtapeEvitable = new EtatEtapes(
+  exCollectionInformationEtape.longueur3.avecEtapeEvitable.enAvantDernier,
   indiceEtapeInitiale,
+);
+
+const avantDerniereEtapeEvitable_etatDerniereEtape = new EtatEtapes(
+  exCollectionInformationEtape.longueur3.avecEtapeEvitable.enAvantDernier,
+  2,
 );
 
 const etatEtapes2AvecConditionnelle3 = new EtatEtapes(
@@ -44,12 +49,15 @@ const etatEtapes3SousEtapeAttendu = new EtatEtapes(
 export const exEtatEtape = {
   longueur2: {
     etapeInitiale: etatEtapesInitial,
-    derniereEtapeEvitable: derniereEtapeEvitable,
   },
   longueur3: {
     etape2: etatEtapes2AvecConditionnelle3,
     etape3: etatEtapes3,
     etape3_1: etatEtapes3SousEtapeAttendu,
+    avantDerniereEtapeEvitable: {
+      etapeInitiale: avantDerniereEtapeEvitable,
+      etape3: avantDerniereEtapeEvitable_etatDerniereEtape,
+    },
   },
   longueur4: {
     etape3: etatEtapes3avantDernier,

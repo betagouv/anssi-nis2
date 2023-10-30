@@ -64,10 +64,11 @@ export type OptionsInformationEtapeForm = {
   ) => boolean;
 };
 
-const optionsInformationEtapeFormParDefaut: OptionsInformationEtapeForm = {
-  ignoreSi: () => false,
-  sousEtapeConditionnelle: undefined,
-};
+export const optionsInformationEtapeFormParDefaut: OptionsInformationEtapeForm =
+  {
+    ignoreSi: () => false,
+    sousEtapeConditionnelle: undefined,
+  };
 
 export class InformationEtapeForm implements EtapeExistante {
   readonly estComptabilisee = true;
@@ -88,7 +89,7 @@ export class InformationEtapeForm implements EtapeExistante {
   }
 }
 
-export class InformationEtapeResult implements EtapeExistante {
+export class InformationEtapeResultat implements EtapeExistante {
   public readonly estComptabilisee = false;
   public readonly conteneurElementRendu: SimulateurEtapeRenderedComponent =
     SimulateurEtapeResult;
