@@ -10,11 +10,10 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   }
 
   toString(): string {
-    return this.reduce(
-      (acc, etape, indice) =>
-        `${acc}, [${indice}] => '${etape.titre}' (comptabilisé: ${etape.estComptabilisee})`,
-      "",
-    );
+    return this.map(
+      (etape, indice) =>
+        `[${indice}] => '${etape.titre}' (comptabilisé: ${etape.estComptabilisee})`,
+    ).join(", ");
   }
 
   recupereEtapeCourante<T extends InformationsEtape>(indiceEtape: number): T {

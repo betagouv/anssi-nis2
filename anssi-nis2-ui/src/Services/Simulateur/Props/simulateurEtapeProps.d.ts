@@ -16,5 +16,3 @@ export interface SimulateurEtapeRenderedProps extends SimulateurEtapeProps {
   informationsBoutonsNavigation: BoutonsNavigation;
   etatEtapes: EtatEtapes;
 }
-
-export interface SimulateurEtapeSwitcherProps extends DefaultProps {}

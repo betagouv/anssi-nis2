@@ -10,7 +10,6 @@ import {
   ValeursSecteursSansSousSecteur,
 } from "./Operations/operationsSecteurs.ts";
 import { SecteurActivite } from "./SecteursActivite";
-import { ValeursSecteursActivites } from "./ValeursSecteursActivites.ts";
 
 export const listeEnrSecteursSansSousSecteur: EnrSecteurSousSecteur[] =
   ValeursSecteursSansSousSecteur.map((secteur) => ({
@@ -33,10 +32,7 @@ export const listeEnrSecteursEtSousSecteurs: EnrSecteurSousSecteur[] =
     ],
     [],
   );
-export const listeSecteursActiviteSaufAutre: readonly SecteurActivite[] =
-  ValeursSecteursActivites.filter(
-    (secteur) => secteur !== "autreSecteurActivite",
-  );
+
 export const listeEnrSecteursAvecLeursSousSecteurs: EnrSecteurSousSecteur[] = [
   ...listeEnrSecteursSansSousSecteur,
   ...listeEnrSecteursEtSousSecteurs,

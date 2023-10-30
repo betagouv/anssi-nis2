@@ -99,7 +99,37 @@ export class EtatEtapes implements IEtatEtapes {
     );
   }
 
-  public construitSuccesseur(
+  suivant(donneesFormulaire: DonneesFormulaireSimulateur) {
+    return match<IEtatEtapes>(this)
+      .with(
+        {
+          rempliContitionSousEtape: P.when(() =>
+            this.rempliContitionSousEtape(donneesFormulaire),
+          ),
+          sousEtapeNonActivee: true,
+        },
+        this.fabriqueAvanceSousEtape(donneesFormulaire),
+      )
+      .with(
+        { etapeSuivantExiste: true },
+        this.fabriqueAvanceEtape(donneesFormulaire),
+      )
+      .otherwise(() => this);
+  }
+
+  precedent(donneesFormulaire: DonneesFormulaireSimulateur) {
+    return match<IEtatEtapes>(this)
+      .with({ surEtapeInitiale: true }, () => this)
+      .with(
+        {
+          sousEtapeNonActivee: false,
+        },
+        this.fabriqueReculeEtapeParente(donneesFormulaire),
+      )
+      .otherwise(() => this.fabriqueReculeEtape(donneesFormulaire));
+  }
+
+  private construitSuccesseur(
     indiceEtape: number,
     indiceSousEtape: number,
     donneesFormulaire: DonneesFormulaireSimulateur,
@@ -112,56 +142,43 @@ export class EtatEtapes implements IEtatEtapes {
     );
   }
 
-  suivant(donneesFormulaire: DonneesFormulaireSimulateur) {
-    const avanceEtape = () =>
+  private fabriqueAvanceEtape(donneesFormulaire: DonneesFormulaireSimulateur) {
+    return () =>
       this.construitSuccesseur(
         this.indiceEtapeCourante + 1,
         0,
         donneesFormulaire,
       );
-    const avanceSousEtape = () => {
+  }
+
+  private fabriqueAvanceSousEtape(
+    donneesFormulaire: DonneesFormulaireSimulateur,
+  ) {
+    return () => {
       return this.construitSuccesseur(
         this.indiceEtapeCourante,
         this.indiceSousEtape + 1,
         donneesFormulaire,
       );
     };
-    const resteEtape = () => this;
-    return match<IEtatEtapes>(this)
-      .with(
-        {
-          rempliContitionSousEtape: P.when(() =>
-            this.rempliContitionSousEtape(donneesFormulaire),
-          ),
-          sousEtapeNonActivee: true,
-        },
-        avanceSousEtape,
-      )
-      .with({ etapeSuivantExiste: true }, avanceEtape)
-      .otherwise(resteEtape);
   }
 
-  precedent(donneesFormulaire: DonneesFormulaireSimulateur) {
-    const reculeEtapeParente = () =>
+  private fabriqueReculeEtape(donneesFormulaire: DonneesFormulaireSimulateur) {
+    return this.construitSuccesseur(
+      this.indiceEtapeCourante - 1,
+      0,
+      donneesFormulaire,
+    );
+  }
+
+  private fabriqueReculeEtapeParente(
+    donneesFormulaire: DonneesFormulaireSimulateur,
+  ) {
+    return () =>
       this.construitSuccesseur(
         this.indiceEtapeCourante,
         EtatEtapes.indiceSousEtapeInitial,
         donneesFormulaire,
       );
-    const reculeEtape = this.construitSuccesseur(
-      this.indiceEtapeCourante - 1,
-      0,
-      donneesFormulaire,
-    );
-    const resteEtape = () => this;
-    return match<IEtatEtapes>(this)
-      .with({ surEtapeInitiale: true }, resteEtape)
-      .with(
-        {
-          sousEtapeNonActivee: false,
-        },
-        reculeEtapeParente,
-      )
-      .otherwise(() => reculeEtape);
   }
 }

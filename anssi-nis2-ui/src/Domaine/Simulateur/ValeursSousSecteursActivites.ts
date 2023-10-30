@@ -34,11 +34,7 @@ export const ValeursSousSecteurFabrication = [
   "fabricationAutresMaterielTransports",
   "autreSousSecteurFabrication",
 ] as const;
-export const ValeursSousSecteursActivites = [
-  ...ValeursSousSecteurEnergie,
-  ...ValeursSousSecteurFabrication,
-  ...ValeursSousSecteurTransport,
-];
+
 export const sousSecteursParSecteur: Record<
   Extract<SecteurActivite, SecteursAvecSousSecteurs>,
   DescriptionSecteur
@@ -47,6 +43,7 @@ export const sousSecteursParSecteur: Record<
   transports: ValeursSousSecteurTransport,
   fabrication: ValeursSousSecteurFabrication,
 };
+
 export const groupementsSecteursParSousSecteurs: Record<
   SecteursAvecSousSecteurs,
   readonly SousSecteurActivite[]

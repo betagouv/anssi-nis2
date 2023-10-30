@@ -1,4 +1,4 @@
-import { Activite, ValeursActivites } from "../Activite.ts";
+import { Activite } from "../Activite.ts";
 import { ValeurCleSectorielle } from "../ChampsSimulateur";
 import { activitesParSecteurEtSousSecteur } from "../ActivitesParSecteurEtSousSecteur.ts";
 
@@ -7,14 +7,7 @@ export const estActiviteAutre = (activite: Activite) =>
   activite.startsWith(prefixeAutreActivite);
 export const estActiviteListee = (activite: Activite) =>
   !activite.startsWith(prefixeAutreActivite);
-export const filtreActivitesAutres = (valeursActivites: readonly Activite[]) =>
-  valeursActivites.filter(estActiviteAutre);
-export const filtreActivitesListees = (valeursActivites: readonly Activite[]) =>
-  valeursActivites.filter(estActiviteListee);
-export const listeActivitesAutre: Activite[] =
-  filtreActivitesAutres(ValeursActivites);
-export const listeActivitesSaufAutre: Activite[] =
-  filtreActivitesListees(ValeursActivites);
+
 export const fabriqueListeActivitesDesSecteurs = (
   secteurActivite: ValeurCleSectorielle[],
   filtreActivite: (activite: Activite) => boolean,
