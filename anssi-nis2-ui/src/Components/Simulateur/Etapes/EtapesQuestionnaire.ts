@@ -10,6 +10,8 @@ import {
 import { CollectionInformationsEtapes } from "../../../Services/Simulateur/CollectionInformationsEtapes.ts";
 import {
   contientAutreSecteurActiviteUniquement,
+  contientSousSecteurAutresUniquement,
+  ou,
   validationReponsesActivites,
   validationReponsesSecteurs,
   validationReponsesSousActivites,
@@ -71,7 +73,10 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
       validationReponsesActivites,
       EtapeActivites,
       {
-        ignoreSi: contientAutreSecteurActiviteUniquement,
+        ignoreSi: ou(
+          contientAutreSecteurActiviteUniquement,
+          contientSousSecteurAutresUniquement,
+        ),
       },
     ),
     fabriqueInformationsEtapes.resultat("Resultat"),

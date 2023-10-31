@@ -205,3 +205,45 @@ export const IgnoreEtapeActivitePourSecteurActiviteAutre: Story = {
     });
   },
 };
+export const IgnoreEtapeActivitePourSousSecteurActiviteAutre: Story = {
+  decorators: [genereDecorateurPourContexte(simulateurContext)],
+
+  play: async ({ canvasElement }) => {
+    mockSendFormData.mockClear();
+
+    const canvas = within(canvasElement);
+    await userEvent.click(
+      await canvas.findByRole("button", {
+        name: "Débuter le test",
+      }),
+    );
+
+    await passeEtapeEnCochant(canvas, [
+      ["designeOperateurServicesEssentiels", "oui"],
+    ]);
+    await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
+    await passeEtapeEnCochant(canvas, [["typeStructure", "privee"]]);
+
+    await passeEtapeEnCochant(canvas, [
+      ["trancheNombreEmployes", "petit"],
+      ["trancheCA", "petit"],
+    ]);
+    await passeEtapeEnCochant(canvas, [["secteurActivite", "energie"]]);
+    await passeEtapeEnCochant(canvas, [
+      ["sousSecteurActivite", "autreSousSecteurEnergie"],
+    ]);
+
+    await canvas.findByText(contenusResultatEligiblePetitEntreprise.titre);
+    await expect(mockSendFormData).toHaveBeenCalledTimes(1);
+    await expect(mockSendFormData).toHaveBeenCalledWith({
+      activites: [],
+      designeOperateurServicesEssentiels: ["oui"],
+      etatMembre: ["france"],
+      secteurActivite: ["energie"],
+      sousSecteurActivite: ["autreSousSecteurEnergie"],
+      trancheCA: ["petit"],
+      trancheNombreEmployes: ["petit"],
+      typeStructure: ["privee"],
+    });
+  },
+};

@@ -6,6 +6,10 @@ import {
 } from "../Domaine/Simulateur/services/fabriqueSuccesseurEtatEtape.ts";
 import { noRefClick } from "../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
 import { EnvoieDonneesFormulaire } from "../Services/Simulateur/Operations/appelsApi";
+import {
+  contientAutreSecteurActiviteUniquement,
+  contientSousSecteurAutresUniquement,
+} from "../Domaine/Simulateur/services/Validateurs.ts";
 
 const verifieCompletudeDonneesFormulaire = (
   donnees: IDonneesBrutesFormulaireSimulateur,
@@ -16,8 +20,8 @@ const verifieCompletudeDonneesFormulaire = (
   donnees.trancheNombreEmployes.length == 1 &&
   donnees.typeStructure.length == 1 &&
   donnees.secteurActivite.length > 0 &&
-  ((donnees.secteurActivite.length == 1 &&
-    donnees.secteurActivite.includes("autreSecteurActivite")) ||
+  (contientAutreSecteurActiviteUniquement(donnees) ||
+    contientSousSecteurAutresUniquement(donnees) ||
     donnees.activites.length > 0);
 
 export const fabriqueGestionSuivant =

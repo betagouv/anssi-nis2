@@ -21,6 +21,8 @@ export const estSecteurListe = (secteur: SecteurActivite) =>
 
 export const estSousSecteurListe = (sousSecteur?: SousSecteurActivite) =>
   !sousSecteur?.startsWith("autre");
+export const estSousSecteurAutre = (sousSecteur?: SousSecteurActivite) =>
+  sousSecteur?.startsWith("autre");
 
 export const ValeursSecteursSansSousSecteur: SecteurActivite[] =
   ValeursSecteursActivites.filter(estUnSecteurSansDesSousSecteurs);

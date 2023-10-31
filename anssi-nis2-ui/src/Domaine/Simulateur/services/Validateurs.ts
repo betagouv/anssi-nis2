@@ -13,7 +13,10 @@ import {
   activiteEstDansSecteur,
   filtreSecteursSansSousSecteurs,
 } from "../operations/operationsActivite.ts";
-import { sousSecteurAppartientASecteur } from "../operations/operationsSecteurs.ts";
+import {
+  estSousSecteurAutre,
+  sousSecteurAppartientASecteur,
+} from "../operations/operationsSecteurs.ts";
 import { ValeurCleSectorielle } from "../ChampsSimulateur";
 
 export const et: (...validateurs: Array<Validateur>) => Validateur = (
@@ -21,6 +24,15 @@ export const et: (...validateurs: Array<Validateur>) => Validateur = (
 ) => {
   return (donneesFormulaireSimulateur) => {
     return validateurs.every((validateur) =>
+      validateur(donneesFormulaireSimulateur),
+    );
+  };
+};
+export const ou: (...validateurs: Array<Validateur>) => Validateur = (
+  ...validateurs
+) => {
+  return (donneesFormulaireSimulateur) => {
+    return validateurs.some((validateur) =>
       validateur(donneesFormulaireSimulateur),
     );
   };
@@ -93,6 +105,12 @@ export const contientAutreSecteurActiviteUniquement = (
 ) =>
   donneesFormulaire.secteurActivite.length === 1 &&
   donneesFormulaire.secteurActivite[0] === "autreSecteurActivite";
+
+export const contientSousSecteurAutresUniquement = (
+  donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
+) =>
+  donneesFormulaire.sousSecteurActivite.length > 0 &&
+  donneesFormulaire.sousSecteurActivite.every(estSousSecteurAutre);
 
 export const validationReponsesTaille = {
   message: "Sélectionnez une réponse pour chaque critère",
