@@ -1,5 +1,6 @@
 import {
   DonneesFormulaireSimulateur,
+  IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../DonneesFormulaire.ts";
 import { SecteursAvecSousSecteurs } from "../SousSecteurs";
@@ -87,6 +88,12 @@ export const validationUneReponses = (
   message: "Selectionnez une réponse",
   validateur: auMoinsUn(nomChamp),
 });
+
+export const validateurSecteurAutreUniquement = (
+  donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
+) =>
+  donneesFormulaire.secteurActivite.length === 1 &&
+  donneesFormulaire.secteurActivite[0] === "autreSecteurActivite";
 
 export const validationReponsesTaille = {
   message: "Sélectionnez une réponse pour chaque critère",

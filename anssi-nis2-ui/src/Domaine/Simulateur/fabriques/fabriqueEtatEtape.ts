@@ -16,12 +16,22 @@ type FabriqueEtatEtape = (
   donneesFormulaire?: DonneesFormulaireSimulateur,
 ) => EtatEtapes;
 
+function fabriqueIgnoreEtape(etapeSuivantExiste: boolean) {
+  return etapeSuivantExiste
+    ? (suivant: EtatEtapes, donnees: DonneesFormulaireSimulateur) => {
+        return suivant.informationEtapeForm.options.ignoreSi(donnees);
+      }
+    : () => false;
+}
+
 export const fabriqueEtatEtape: FabriqueEtatEtape = (
   collectionEtapes,
   indiceEtape,
   indiceSousEtape = 0,
   donneesFormulaire = donneesFormulaireSimulateurVide,
 ) => {
+  const estSurEtapeInitiale =
+    indiceEtape === ConstantesEtatEtape.indiceEtapeInitial;
   const estSurSousEtape =
     indiceSousEtape != ConstantesEtatEtape.indiceSousEtapeInitial;
   const etapeCourantePrincipale =
@@ -33,13 +43,6 @@ export const fabriqueEtatEtape: FabriqueEtatEtape = (
   const remplitContitionSousEtape = (donnees: DonneesFormulaireSimulateur) =>
     informationEtapeForm.remplitContitionSousEtape(donnees);
   const etapeSuivantExiste = indiceEtape < collectionEtapes.length - 1;
-  const ignoreEtape = etapeSuivantExiste
-    ? (suivant: EtatEtapes, donnees: DonneesFormulaireSimulateur) => {
-        return suivant.informationEtapeForm.options.ignoreSi(donnees);
-      }
-    : () => false;
-  const estSurEtapeInitiale =
-    indiceEtape === ConstantesEtatEtape.indiceEtapeInitial;
   return {
     donneesFormulaire: donneesFormulaire,
     collectionEtapes: collectionEtapes,
@@ -54,7 +57,7 @@ export const fabriqueEtatEtape: FabriqueEtatEtape = (
     estSurSousEtape: estSurSousEtape,
     estSurEtapeInitiale: estSurEtapeInitiale,
     informationEtapeForm: informationEtapeForm,
-    ignoreEtapeSuivante: ignoreEtape,
+    ignoreEtapeSuivante: fabriqueIgnoreEtape(etapeSuivantExiste),
     remplitContitionSousEtape: remplitContitionSousEtape,
   };
 };

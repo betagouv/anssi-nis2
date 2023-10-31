@@ -15,6 +15,7 @@ import {
   InformationEtapeResultat,
 } from "../../../Services/Simulateur/InformationsEtape.ts";
 import {
+  validateurSecteurAutreUniquement,
   validationReponsesActivites,
   validationReponsesSecteurs,
   validationReponsesSousActivites,
@@ -74,6 +75,9 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
       "Activités pratiquées",
       validationReponsesActivites,
       EtapeActivites,
+      {
+        ignoreSi: validateurSecteurAutreUniquement,
+      },
     ),
     new InformationEtapeResultat("Resultat"),
   );

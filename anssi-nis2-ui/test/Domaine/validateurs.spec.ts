@@ -2,12 +2,14 @@ import { describe, expect, it } from "vitest";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
+  IDonneesBrutesFormulaireSimulateur,
 } from "../../src/Domaine/Simulateur/DonneesFormulaire";
 import {
   auMoinsUnSousSecteurParSecteur,
   auMoinsUn,
   et,
   auMoinsUneActiviteParValeurSectorielle,
+  validateurSecteurAutreUniquement,
 } from "../../src/Domaine/Simulateur/services/Validateurs";
 
 describe("validateurs", () => {
@@ -153,6 +155,17 @@ describe("validateurs", () => {
         donneesFormulaireSimulateur,
       );
       expect(result).toBeTruthy();
+    });
+  });
+
+  describe(validateurSecteurAutreUniquement, () => {
+    it("est Vrai quand la seule valeur est 'autreSecteurActivite'", () => {
+      const donnees: IDonneesBrutesFormulaireSimulateur = {
+        ...donneesFormulaireSimulateurVide,
+        secteurActivite: ["autreSecteurActivite"],
+      };
+
+      expect(validateurSecteurAutreUniquement(donnees)).toBeTruthy();
     });
   });
 });
