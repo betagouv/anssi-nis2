@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { fc } from "@fast-check/vitest";
 import { CollectionInformationsEtapes } from "../../../src/Services/Simulateur/CollectionInformationsEtapes";
-import { etapeInexistante } from "../../../src/Services/Simulateur/InformationsEtape";
+import { EtapeInexistante } from "../../../src/Services/Simulateur/InformationsEtape";
 import { decoreChaineRendue } from "../../utilitaires/manipulationArbitraires";
 import { arbitrairesInformationEtape } from "./arbitraires/informationEtape";
 import { arbitrairesCollectionEtape } from "./arbitraires/collectionInformationEtape";
@@ -25,7 +25,7 @@ const parametresTests = [
   {
     etapeCourante: exInformationEtape.form2,
     indiceEtapeCourante: 1,
-    informationEtapeSuivante: etapeInexistante,
+    informationEtapeSuivante: EtapeInexistante,
     estDernier: true,
     numeroEtape: 2,
   },

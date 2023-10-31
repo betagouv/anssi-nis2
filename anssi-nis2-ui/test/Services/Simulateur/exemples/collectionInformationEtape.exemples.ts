@@ -4,7 +4,7 @@ import {
   informationEtapeForm,
   informationEtapeResult,
 } from "./informationEtape.exemples";
-import { etapeInexistante } from "../../../../src/Services/Simulateur/InformationsEtape";
+import { EtapeInexistante } from "../../../../src/Services/Simulateur/InformationsEtape";
 
 const collectionInformationsEtapesLongueur2Simple =
   new CollectionInformationsEtapes(
@@ -38,7 +38,7 @@ export const collectionInformationsEtapesAvecInexistantes =
     informationEtapeResult,
     exInformationEtape.form2,
     informationEtapeForm,
-    etapeInexistante,
+    EtapeInexistante,
   );
 
 export const exCollectionInformationEtape = {

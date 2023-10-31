@@ -1,5 +1,5 @@
 import {
-  etapeInexistante,
+  EtapeInexistante,
   InformationEtapeForm,
   InformationsEtape,
 } from "./InformationsEtape.ts";
@@ -53,7 +53,7 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
       if (etape.estComptabilisee && indiceCourant > indiceEtapeCourante)
         return this[indiceCourant];
       return informationEtape;
-    }, etapeInexistante);
+    }, EtapeInexistante);
   }
 
   recupereSousEtape(indiceEtapeCourante: number) {

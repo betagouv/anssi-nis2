@@ -1,14 +1,14 @@
 import { fc } from "@fast-check/vitest";
 import { instancie } from "../../../utilitaires/Instancie";
 import { InformationEtapeResultat } from "../../../../src/Services/Simulateur/InformationsEtape";
-import { fabriqueInformationEtapeForm } from "../fabriquesInformationEtape";
+import { faussaireInformationEtapeForm } from "../InformationEtape.faussaire";
 
 export const arbInformationEtapeForm = fc
   .record({ titre: fc.string() })
-  .map(fabriqueInformationEtapeForm);
+  .map(faussaireInformationEtapeForm);
 export const arbInformationEtapeFormAvecSousEtape = fc
   .record({ titre: fc.string(), sousTitre: fc.string() })
-  .map(fabriqueInformationEtapeForm);
+  .map(faussaireInformationEtapeForm);
 export const arbInformationEtapeResult = fc
   .string()
   .map(instancie(InformationEtapeResultat));

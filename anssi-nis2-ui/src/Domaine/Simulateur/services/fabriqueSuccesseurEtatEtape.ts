@@ -3,7 +3,7 @@ import {
   EtatEtapes,
 } from "../../../Services/Simulateur/EtatEtapes.ts";
 import { DonneesFormulaireSimulateur } from "../DonneesFormulaire.ts";
-import { fabriqueEtatEtape } from "../fabriques/fabriqueEtatEtape.ts";
+import { fabriqueEtatEtape } from "../fabriques/EtatEtape.fabrique.ts";
 import { match, P } from "ts-pattern";
 
 type ConstruitSuccesseur = (

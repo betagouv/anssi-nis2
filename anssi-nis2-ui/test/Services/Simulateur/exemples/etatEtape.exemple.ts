@@ -1,5 +1,5 @@
 import { exCollectionInformationEtape } from "./collectionInformationEtape.exemples";
-import { fabriqueEtatEtape } from "../../../../src/Domaine/Simulateur/fabriques/fabriqueEtatEtape";
+import { fabriqueEtatEtape } from "../../../../src/Domaine/Simulateur/fabriques/EtatEtape.fabrique";
 
 const indiceEtapeInitiale = 0;
 const etatEtapesInitial = fabriqueEtatEtape(

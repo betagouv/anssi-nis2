@@ -9,50 +9,35 @@ import {
 import { ValidationReponses } from "../../Domaine/Simulateur/operations/validateursChamps";
 import { SimulateurEtapePrealable } from "../../Components/Simulateur/SimulateurEtapePrealable.tsx";
 import { elementVide } from "../Echaffaudages/AssistantsEchaffaudages.tsx";
-
-type PredicatDonneesSimulateur = (
-  formData: DonneesFormulaireSimulateur,
-) => boolean;
+import { fabriqueSousEtapeConditionnelle } from "../../Domaine/Simulateur/fabriques/InformationsEtape.fabrique.ts";
+import { PredicatDonneesSimulateur } from "./PredicatDonneesSimulateur.ts";
 
 export type InformationsEtape = {
   readonly estComptabilisee: boolean;
+  readonly existe: boolean;
   readonly titre: string;
   readonly conteneurElementRendu: SimulateurEtapeRenderedComponent;
   readonly remplitContitionSousEtape: PredicatDonneesSimulateur;
 };
 
-export type EtapeInexistante = InformationsEtape & {
-  readonly estComptabilisee: boolean;
-  readonly titre: string;
-};
-
-export const etapeInexistante: EtapeInexistante = {
+export const EtapeInexistante: InformationsEtape = {
   estComptabilisee: false,
+  existe: false,
   titre: "Hors de portee",
   conteneurElementRendu: elementVide,
   remplitContitionSousEtape: () => false,
 } as const;
 
-export type EtapeExistante = InformationsEtape & {
-  estComptabilisee: boolean;
-  readonly titre: string;
-};
+export type EtapeExistante = InformationsEtape;
 
 export type SousEtapeConditionnelle = {
   readonly condition: PredicatDonneesSimulateur;
   readonly sousEtape: InformationEtapeForm;
 };
 
-export const fabriqueSousEtapeConditionnelle: (
-  condition: PredicatDonneesSimulateur,
-  sousEtape: InformationEtapeForm,
-) => SousEtapeConditionnelle = (condition, sousEtape) => ({
-  condition: condition,
-  sousEtape: sousEtape,
-});
-
 export class EtapePrealable implements EtapeExistante {
   public readonly estComptabilisee = false;
+  public readonly existe = true;
   public readonly conteneurElementRendu: SimulateurEtapeRenderedComponent =
     SimulateurEtapePrealable;
 
@@ -75,24 +60,22 @@ export const optionsInformationEtapeFormParDefaut: OptionsInformationEtapeForm =
     ignoreSi: () => false,
     sousEtapeConditionnelle: fabriqueSousEtapeConditionnelle(
       () => false,
-      etapeInexistante as InformationEtapeForm,
+      EtapeInexistante as InformationEtapeForm,
     ),
   };
 
 export class InformationEtapeForm implements EtapeExistante {
   readonly estComptabilisee = true;
+  public readonly existe = true;
   readonly conteneurElementRendu: SimulateurEtapeRenderedComponent =
     SimulateurEtapeForm;
-  public readonly options: OptionsInformationEtapeForm;
 
   public constructor(
     public readonly titre: string,
     public readonly validationReponses: ValidationReponses,
     public readonly composant: SimulateurEtapeNodeComponent,
-    options: Partial<OptionsInformationEtapeForm> = optionsInformationEtapeFormParDefaut,
-  ) {
-    this.options = { ...optionsInformationEtapeFormParDefaut, ...options };
-  }
+    public readonly options: OptionsInformationEtapeForm,
+  ) {}
 
   public remplitContitionSousEtape(
     donnees: DonneesFormulaireSimulateur,
@@ -103,6 +86,7 @@ export class InformationEtapeForm implements EtapeExistante {
 
 export class InformationEtapeResultat implements EtapeExistante {
   public readonly estComptabilisee = false;
+  public readonly existe = true;
   public readonly conteneurElementRendu: SimulateurEtapeRenderedComponent =
     SimulateurEtapeResult;
 

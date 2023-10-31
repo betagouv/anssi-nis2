@@ -9,7 +9,7 @@ import {
 import { InformationEtapeForm } from "../../../Services/Simulateur/InformationsEtape.ts";
 import { CollectionInformationsEtapes } from "../../../Services/Simulateur/CollectionInformationsEtapes.ts";
 
-type FabriqueEtatEtape = (
+type EtatEtapeFabrique = (
   collectionEtapes: CollectionInformationsEtapes,
   indiceEtape: number,
   indiceSousEtape?: number,
@@ -24,7 +24,7 @@ function fabriqueIgnoreEtape(etapeSuivantExiste: boolean) {
     : () => false;
 }
 
-export const fabriqueEtatEtape: FabriqueEtatEtape = (
+export const fabriqueEtatEtape: EtatEtapeFabrique = (
   collectionEtapes,
   indiceEtape,
   indiceSousEtape = 0,
