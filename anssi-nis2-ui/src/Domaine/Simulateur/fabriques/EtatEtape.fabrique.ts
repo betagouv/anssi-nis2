@@ -1,6 +1,6 @@
 import {
-  DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
+  IDonneesBrutesFormulaireSimulateur,
 } from "../DonneesFormulaire.ts";
 import {
   ConstantesEtatEtape,
@@ -8,18 +8,17 @@ import {
 } from "../../../Services/Simulateur/EtatEtapes.ts";
 import { InformationEtapeForm } from "../../../Services/Simulateur/InformationsEtape.ts";
 import { CollectionInformationsEtapes } from "../../../Services/Simulateur/CollectionInformationsEtapes.ts";
-import { VVV } from "../../../utilitaires/debug.ts";
 
 type EtatEtapeFabrique = (
   collectionEtapes: CollectionInformationsEtapes,
   indiceEtape: number,
   indiceSousEtape?: number,
-  donneesFormulaire?: DonneesFormulaireSimulateur,
+  donneesFormulaire?: IDonneesBrutesFormulaireSimulateur,
 ) => EtatEtapes;
 
 function fabriqueIgnoreEtape(etapeSuivantExiste: boolean) {
   return etapeSuivantExiste
-    ? (suivant: EtatEtapes, donnees: DonneesFormulaireSimulateur) => {
+    ? (suivant: EtatEtapes, donnees: IDonneesBrutesFormulaireSimulateur) => {
         return suivant.informationEtapeForm.estIgnoree(donnees);
       }
     : () => false;
@@ -41,15 +40,10 @@ export const fabriqueEtatEtape: EtatEtapeFabrique = (
     ? collectionEtapes.recupereSousEtape(indiceEtape) || etapeCourantePrincipale
     : etapeCourantePrincipale;
   const informationEtapeForm = contenuEtapeCourante as InformationEtapeForm;
-  const remplitContitionSousEtape = (donnees: DonneesFormulaireSimulateur) =>
-    informationEtapeForm.remplitContitionSousEtape(donnees);
+  const remplitContitionSousEtape = (
+    donnees: IDonneesBrutesFormulaireSimulateur,
+  ) => informationEtapeForm.remplitContitionSousEtape(donnees);
   const etapeSuivantExiste = indiceEtape < collectionEtapes.length - 1;
-  VVV(
-    "Titre: ",
-    etapeCourantePrincipale.titre,
-    ", Element=",
-    informationEtapeForm.conteneurElementRendu.name,
-  );
   return {
     donneesFormulaire: donneesFormulaire,
     collectionEtapes: collectionEtapes,

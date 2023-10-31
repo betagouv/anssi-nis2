@@ -1,6 +1,7 @@
 import React, { Reducer } from "react";
 import {
   DonneesFormulaireSimulateur,
+  IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
@@ -16,14 +17,18 @@ import { BoutonsNavigation } from "./Props/boutonsNavigation";
 import { fabriqueSecteurContientLeSousSecteur } from "../../Domaine/Simulateur/operations/operationsSecteurs.ts";
 import { transformateurSousSecteurActivite } from "./Transformateurs/TransformateurSousSecteurActivite.ts";
 
-const generateNewStateFrom = (
-  state: DonneesFormulaireSimulateur,
+const generateNewStateFrom: (
+  state: IDonneesBrutesFormulaireSimulateur,
+  fieldName: NomsChampsSimulateur,
+  newFieldValue: string[],
+) => IDonneesBrutesFormulaireSimulateur = (
+  state: IDonneesBrutesFormulaireSimulateur,
   fieldName: NomsChampsSimulateur,
   newFieldValue: string[],
 ) => new DonneesFormulaireSimulateur({ ...state, [fieldName]: newFieldValue });
 
 export const reducerFormData: Reducer<
-  DonneesFormulaireSimulateur,
+  IDonneesBrutesFormulaireSimulateur,
   SimulateurDonneesFormulaireActions
 > = (state, { name, newValue, type }) => {
   switch (type) {

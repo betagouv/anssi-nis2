@@ -1,12 +1,12 @@
 import { generateSimulationApi } from "./prepare.ts";
-import { DonneesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormulaire.ts";
 import { EnvoieDonneesFormulaire } from "./Simulateur/Operations/appelsApi";
 
 export const sendFormDataToApi: EnvoieDonneesFormulaire = async (
-  formData: DonneesFormulaireSimulateur,
+  formData: IDonneesBrutesFormulaireSimulateur,
 ) => {
-  const simulationApi = generateSimulationApi();
   const data = JSON.stringify(formData);
+  const simulationApi = generateSimulationApi();
   console.log(`Calling to API Simulation ${data}`);
   simulationApi
     .post("/", formData)

@@ -1,5 +1,5 @@
 import { match, P } from "ts-pattern";
-import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire.ts";
 
 import {
   aucuneActiviteListee,
@@ -23,7 +23,7 @@ export const Eligibilite: Readonly<
 } as const;
 
 export const eligibilite: (
-  donneesFormulaireSimulateur: DonneesFormulaireSimulateur,
+  donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur,
 ) => ResultatEligibilite = (donneesFormulaireSimulateur) => {
   return match(donneesFormulaireSimulateur)
     .with(

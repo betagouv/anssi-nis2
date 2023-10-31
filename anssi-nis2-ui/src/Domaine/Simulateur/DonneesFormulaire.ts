@@ -59,12 +59,12 @@ export class DonneesFormulaireSimulateur
   avec(
     modifie: Partial<IDonneesFormulaireSimulateur>,
   ): IDonneesFormulaireSimulateur {
-    return new DonneesFormulaireSimulateur({ ...this, ...modifie });
+    return { ...this, ...modifie };
   }
 }
 
-export const donneesFormulaireSimulateurVide: DonneesFormulaireSimulateur =
-  new DonneesFormulaireSimulateur({
+export const donneesFormulaireSimulateurVide: IDonneesBrutesFormulaireSimulateur =
+  {
     designeOperateurServicesEssentiels: [],
     etatMembre: [],
     secteurActivite: [],
@@ -73,4 +73,4 @@ export const donneesFormulaireSimulateurVide: DonneesFormulaireSimulateur =
     trancheNombreEmployes: [],
     typeStructure: [],
     activites: [],
-  });
+  };

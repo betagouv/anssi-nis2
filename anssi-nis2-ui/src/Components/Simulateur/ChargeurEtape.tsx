@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Helmet } from "react-helmet";
 
 import { DefaultComponent } from "../../Services/Props";
@@ -7,6 +7,7 @@ import { etatEtapesInitial } from "./Etapes/EtapesQuestionnaire.ts";
 import { useReducteurDonneesFormulaireDuContexte } from "../AppContexte/UseReducteurDonneesFormulaireDuContexte.tsx";
 import { fabriqueInformationsBoutonsNavigation } from "../../utilitaires/BoutonsNavigation.fabrique.ts";
 import { traceEtapeSimulateur } from "../../Services/TraceurWeb/traceEtapeSimulateur.ts";
+import { AppContext } from "../AppContexte/AppContext.tsx";
 
 const ChargeurEtapeCalcule: DefaultComponent = () => {
   const [donneesFormulaireSimulateur, propageActionSimulateur] = useReducer(
@@ -14,6 +15,7 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
     donneesFormulaireSimulateurVide,
   );
   const [etatEtapes, setEtatEtape] = useState(etatEtapesInitial);
+  const { envoieDonneesFormulaire } = useContext(AppContext);
 
   const ElementRendu = etatEtapes.conteneurElement;
 
@@ -21,6 +23,7 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
     setEtatEtape,
     etatEtapes,
     donneesFormulaireSimulateur,
+    envoieDonneesFormulaire,
   );
 
   useEffect(

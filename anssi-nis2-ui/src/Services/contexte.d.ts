@@ -1,5 +1,5 @@
 import { EnvoieDonneesFormulaire } from "./Simulateur/Operations/appelsApi";
-import { DonneesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormulaire.ts";
 import { SimulateurDonneesFormulaireActions } from "./Simulateur/Props/donneesFormulaire";
 import { BoutonsNavigation } from "./Simulateur/Props/boutonsNavigation.d.ts";
 import { ActionsBoutonNavigation } from "./Simulateur/Reducteurs.ts";
@@ -9,7 +9,7 @@ export type Contexte = {
   envoieDonneesFormulaire: EnvoieDonneesFormulaire;
   simulateur: {
     reducteurDonneesFormulaire: Reducer<
-      DonneesFormulaireSimulateur,
+      IDonneesBrutesFormulaireSimulateur,
       SimulateurDonneesFormulaireActions
     >;
     reducteurActionsBoutonNavigation: Reducer<

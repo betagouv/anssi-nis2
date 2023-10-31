@@ -1,5 +1,5 @@
-import { DonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 export type PredicatDonneesSimulateur = (
-  formData: DonneesFormulaireSimulateur,
+  formData: IDonneesBrutesFormulaireSimulateur,
 ) => boolean;

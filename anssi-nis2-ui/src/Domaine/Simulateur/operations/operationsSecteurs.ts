@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "../DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../DonneesFormulaire.ts";
 import { SecteursAvecSousSecteurs, SousSecteurActivite } from "../SousSecteurs";
 import {
   groupementsSecteursParSousSecteurs,
@@ -39,7 +39,7 @@ export const fabriqueSecteurContientLeSousSecteur =
 
 export const sousSecteurAppartientASecteur =
   (valeurGroupement: SecteursAvecSousSecteurs) =>
-  (donneesFormulaireSimulateur: DonneesFormulaireSimulateur) => {
+  (donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur) => {
     const donneesSecteursActivite = donneesFormulaireSimulateur[
       "sousSecteurActivite"
     ] as SousSecteurActivite[];

@@ -1,6 +1,8 @@
-import { DonneesFormulaireSimulateur } from "../DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../DonneesFormulaire.ts";
 
-export type Validateur = (donnees: DonneesFormulaireSimulateur) => boolean;
+export type Validateur = (
+  donnees: IDonneesBrutesFormulaireSimulateur,
+) => boolean;
 export type ValidationReponses = {
   message: string;
   validateur: Validateur;

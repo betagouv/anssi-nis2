@@ -9,7 +9,7 @@ import {
 } from "./index.ts";
 import { CollectionInformationsEtapes } from "../../../Services/Simulateur/CollectionInformationsEtapes.ts";
 import {
-  validateurSecteurAutreUniquement,
+  contientAutreSecteurActiviteUniquement,
   validationReponsesActivites,
   validationReponsesSecteurs,
   validationReponsesSousActivites,
@@ -17,13 +17,13 @@ import {
   validationUneReponses,
 } from "../../../Domaine/Simulateur/services/Validateurs.ts";
 import { estUnSecteurAvecDesSousSecteurs } from "../../../Domaine/Simulateur/operations/operationsSecteurs.ts";
-import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { fabriqueEtatEtape } from "../../../Domaine/Simulateur/fabriques/EtatEtape.fabrique.ts";
 import { fabriqueInformationsEtapes } from "../../../Domaine/Simulateur/fabriques/InformationsEtape.fabrique.ts";
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
-}: DonneesFormulaireSimulateur) => {
+}: IDonneesBrutesFormulaireSimulateur) => {
   return secteurActivite.some(estUnSecteurAvecDesSousSecteurs);
 };
 
@@ -71,7 +71,7 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
       validationReponsesActivites,
       EtapeActivites,
       {
-        ignoreSi: validateurSecteurAutreUniquement,
+        ignoreSi: contientAutreSecteurActiviteUniquement,
       },
     ),
     fabriqueInformationsEtapes.resultat("Resultat"),

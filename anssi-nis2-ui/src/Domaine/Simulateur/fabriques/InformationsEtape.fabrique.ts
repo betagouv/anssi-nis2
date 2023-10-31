@@ -12,7 +12,7 @@ import { SimulateurEtapeNodeComponent } from "../../../Services/Simulateur/Props
 import { ValidationReponses } from "../operations/validateursChamps";
 import { elementVide } from "../../../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
 import { SimulateurEtapeForm } from "../../../Components/Simulateur/SimulateurEtapeForm.tsx";
-import { DonneesFormulaireSimulateur } from "../DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../DonneesFormulaire.ts";
 import { SimulateurEtapePrealable } from "../../../Components/Simulateur/SimulateurEtapePrealable.tsx";
 import { valideToutesLesReponses } from "../services/Validateurs.ts";
 import { SimulateurEtapeResult } from "../../../Components/Simulateur/SimulateurEtapeResult.tsx";
@@ -50,7 +50,7 @@ const fabriqueInformationsEtapeForm = (
     estComptabilisee: true,
     existe: true,
     conteneurElementRendu: SimulateurEtapeForm,
-    remplitContitionSousEtape: (donnees: DonneesFormulaireSimulateur) =>
+    remplitContitionSousEtape: (donnees: IDonneesBrutesFormulaireSimulateur) =>
       options.sousEtapeConditionnelle?.condition(donnees) || false,
     estIgnoree: optionsCompletes.ignoreSi,
   };

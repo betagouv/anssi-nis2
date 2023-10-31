@@ -1,5 +1,4 @@
 import {
-  DonneesFormulaireSimulateur,
   IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../DonneesFormulaire.ts";
@@ -29,7 +28,7 @@ export const et: (...validateurs: Array<Validateur>) => Validateur = (
 
 export const auMoinsN =
   (n: number, nomChamp: NomsChampsSimulateur) =>
-  (donneesFormulaireSimulateur: DonneesFormulaireSimulateur) =>
+  (donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur) =>
     donneesFormulaireSimulateur[nomChamp].filter(
       (listeValeurs) => listeValeurs.length > 0,
     ).length >
@@ -89,7 +88,7 @@ export const validationUneReponses = (
   validateur: auMoinsUn(nomChamp),
 });
 
-export const validateurSecteurAutreUniquement = (
+export const contientAutreSecteurActiviteUniquement = (
   donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
 ) =>
   donneesFormulaire.secteurActivite.length === 1 &&

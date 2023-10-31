@@ -3,7 +3,7 @@ import {
   InformationEtapeForm,
   InformationsEtape,
 } from "./InformationsEtape.ts";
-import { IDonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 import { SimulateurEtapeRenderedComponent } from "./Props/component";
 
@@ -11,7 +11,7 @@ export type EtatEtapes = {
   readonly collectionEtapes: CollectionInformationsEtapes;
   readonly indiceCourant: number;
   readonly indiceSousEtape: number;
-  readonly donneesFormulaire: IDonneesFormulaireSimulateur;
+  readonly donneesFormulaire: IDonneesBrutesFormulaireSimulateur;
   readonly indice: number;
   readonly numero: number;
   readonly contenuEtapeCourante: InformationsEtape;
@@ -24,10 +24,10 @@ export type EtatEtapes = {
   readonly informationEtapeForm: InformationEtapeForm;
   readonly ignoreEtapeSuivante: (
     etat: EtatEtapes,
-    donnees: IDonneesFormulaireSimulateur,
+    donnees: IDonneesBrutesFormulaireSimulateur,
   ) => boolean;
   readonly remplitContitionSousEtape: (
-    donnees: IDonneesFormulaireSimulateur,
+    donnees: IDonneesBrutesFormulaireSimulateur,
   ) => boolean;
 };
 

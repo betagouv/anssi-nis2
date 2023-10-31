@@ -190,26 +190,18 @@ export const IgnoreEtapeActivitePourSecteurActiviteAutre: Story = {
     await passeEtapeEnCochant(canvas, [
       ["secteurActivite", "autreSecteurActivite"],
     ]);
-    // await passeEtapeEnCochant(canvas, [
-    //   [
-    //     "activites",
-    //     "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
-    //   ],
-    // ]);
 
-    // await canvas.findByText(contenusResultatEligiblePetitEntreprise.titre);
-    // await expect(mockSendFormData).toHaveBeenCalledTimes(1);
-    // await expect(mockSendFormData).toHaveBeenCalledWith({
-    //   activites: [
-    //     "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
-    //   ],
-    //   designeOperateurServicesEssentiels: ["oui"],
-    //   etatMembre: ["france"],
-    //   secteurActivite: ["autreSecteurActivite"],
-    //   sousSecteurActivite: [],
-    //   trancheCA: ["petit"],
-    //   trancheNombreEmployes: ["petit"],
-    //   typeStructure: ["privee"],
-    // });
+    await canvas.findByText(contenusResultatEligiblePetitEntreprise.titre);
+    await expect(mockSendFormData).toHaveBeenCalledTimes(1);
+    await expect(mockSendFormData).toHaveBeenCalledWith({
+      activites: [],
+      designeOperateurServicesEssentiels: ["oui"],
+      etatMembre: ["france"],
+      secteurActivite: ["autreSecteurActivite"],
+      sousSecteurActivite: [],
+      trancheCA: ["petit"],
+      trancheNombreEmployes: ["petit"],
+      typeStructure: ["privee"],
+    });
   },
 };

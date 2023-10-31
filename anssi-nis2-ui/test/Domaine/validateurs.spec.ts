@@ -9,7 +9,7 @@ import {
   auMoinsUn,
   et,
   auMoinsUneActiviteParValeurSectorielle,
-  validateurSecteurAutreUniquement,
+  contientAutreSecteurActiviteUniquement,
 } from "../../src/Domaine/Simulateur/services/Validateurs";
 
 describe("validateurs", () => {
@@ -158,14 +158,14 @@ describe("validateurs", () => {
     });
   });
 
-  describe(validateurSecteurAutreUniquement, () => {
+  describe(contientAutreSecteurActiviteUniquement, () => {
     it("est Vrai quand la seule valeur est 'autreSecteurActivite'", () => {
       const donnees: IDonneesBrutesFormulaireSimulateur = {
         ...donneesFormulaireSimulateurVide,
         secteurActivite: ["autreSecteurActivite"],
       };
 
-      expect(validateurSecteurAutreUniquement(donnees)).toBeTruthy();
+      expect(contientAutreSecteurActiviteUniquement(donnees)).toBeTruthy();
     });
   });
 });

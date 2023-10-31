@@ -1,5 +1,5 @@
 import {
-  DonneesFormulaireSimulateur,
+  IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { Activite } from "../../../Domaine/Simulateur/Activite.ts";
@@ -21,7 +21,7 @@ import {
 import React, { Dispatch } from "react";
 
 export const fabriqueConstructeurOptionActivite: (
-  donneesFormulaire: DonneesFormulaireSimulateur,
+  donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
   changeMulti: React.ChangeEventHandler<HTMLInputElement>,
 ) => (activite: Activite) => OptionChampSimulateur =
   (donneesFormulaire, changeMulti) => (activite) => ({
@@ -59,7 +59,7 @@ function fabriqueOptions(
 }
 
 export const fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur: (
-  donneesFormulaire: DonneesFormulaireSimulateur,
+  donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>,
 ) => (
   tupleSecteurEtActivite: AssociationSectorielleActivite,
