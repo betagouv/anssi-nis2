@@ -1,13 +1,15 @@
 import {
   OptionsInformationEtapeForm,
-  optionsInformationEtapeFormParDefaut,
   SousEtapeConditionnelle,
 } from "../../../../src/Services/Simulateur/InformationsEtape";
 import {
   fausseValidationReponse,
   FauxSimulateurEtapeComposant,
 } from "../InformationEtape.faussaire";
-import { fabriqueInformationsEtapes } from "../../../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
+import {
+  fabriqueInformationsEtapes,
+  optionsInformationEtapeFormParDefaut,
+} from "../../../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
 
 export const predicatVrai = () => true;
 export const informationEtapeResult =

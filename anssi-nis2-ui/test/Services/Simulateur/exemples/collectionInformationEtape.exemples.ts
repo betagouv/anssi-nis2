@@ -4,7 +4,8 @@ import {
   informationEtapeForm,
   informationEtapeResult,
 } from "./informationEtape.exemples";
-import { EtapeInexistante } from "../../../../src/Services/Simulateur/InformationsEtape";
+
+import { EtapeInexistante } from "../../../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
 
 const collectionInformationsEtapesLongueur2Simple =
   new CollectionInformationsEtapes(

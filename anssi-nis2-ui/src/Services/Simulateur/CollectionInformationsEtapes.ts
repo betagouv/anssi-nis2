@@ -1,8 +1,8 @@
 import {
-  EtapeInexistante,
   InformationEtapeForm,
   InformationsEtape,
 } from "./InformationsEtape.ts";
+import { EtapeInexistante } from "../../Domaine/Simulateur/fabriques/InformationsEtape.fabrique.ts";
 
 export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   get nombreEtapes(): number {
