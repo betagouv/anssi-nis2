@@ -3,7 +3,7 @@ import { DonneesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormul
 import {
   fabriqueEtatEtapePrecedent,
   fabriqueEtatEtapeSuivant,
-} from "../Domaine/Simulateur/fabriques/EtatEtapeFabrique.ts";
+} from "../Domaine/Simulateur/services/fabriqueSuccesseurEtatEtape.ts";
 
 export const fabriqueGestionSuivant =
   (

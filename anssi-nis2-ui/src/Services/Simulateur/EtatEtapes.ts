@@ -19,12 +19,16 @@ export type EtatEtapes = {
   readonly titreSuivant?: string;
   readonly conteneurElement: SimulateurEtapeRenderedComponent;
   readonly etapeSuivantExiste: boolean;
-  readonly sousEtapeNonActivee: boolean;
-  readonly surEtapeInitiale: boolean;
-  readonly rempliContitionSousEtape: (
+  readonly estSurSousEtape: boolean;
+  readonly estSurEtapeInitiale: boolean;
+  readonly informationEtapeForm: InformationEtapeForm;
+  readonly ignoreEtapeSuivante: (
+    etat: EtatEtapes,
     donnees: IDonneesFormulaireSimulateur,
   ) => boolean;
-  readonly informationEtapeForm: InformationEtapeForm;
+  readonly remplitContitionSousEtape: (
+    donnees: IDonneesFormulaireSimulateur,
+  ) => boolean;
 };
 
 export const ConstantesEtatEtape = {

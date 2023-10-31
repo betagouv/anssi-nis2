@@ -15,14 +15,15 @@ export const informationEtapeResult = new InformationEtapeResultat("Resultat");
 
 const fabriqueFausseInformationEtapeForm = (
   titre: string,
-  options: OptionsInformationEtapeForm = optionsInformationEtapeFormParDefaut,
-) =>
-  new InformationEtapeForm(
+  options: Partial<OptionsInformationEtapeForm> = optionsInformationEtapeFormParDefaut,
+) => {
+  return new InformationEtapeForm(
     titre,
     fausseValidationReponse,
     FauxSimulateurEtapeComposant,
     options,
   );
+};
 
 export const informationEtapeForm =
   fabriqueFausseInformationEtapeForm("Etape Form");
@@ -42,10 +43,10 @@ export const informationEtapeFormJamaisEvitee =
 
 export const informationSousEtapeForm =
   fabriqueFausseInformationEtapeForm("Sous-étape");
-const sousEtapeToujoursPresente = new SousEtapeConditionnelle(
-  predicatVrai,
-  informationSousEtapeForm,
-);
+const sousEtapeToujoursPresente: SousEtapeConditionnelle = {
+  condition: predicatVrai,
+  sousEtape: informationSousEtapeForm,
+};
 const etapeEmployesAvecSousEtapeActivite = fabriqueFausseInformationEtapeForm(
   "Contient une sous Etape",
   { sousEtapeConditionnelle: sousEtapeToujoursPresente },

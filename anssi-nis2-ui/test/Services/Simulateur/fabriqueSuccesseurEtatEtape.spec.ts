@@ -1,20 +1,21 @@
 import { describe, expect, it } from "vitest";
-import {
-  fabriqueEtatEtapePrecedent,
-  fabriqueEtatEtapeSuivant,
-} from "../../../src/Domaine/Simulateur/fabriques/EtatEtapeFabrique";
 import { exEtatEtape } from "./exemples/etatEtape.exemple";
 import { donneesFormulaireSimulateurVide } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import { EtatEtapes } from "../../../src/Services/Simulateur/EtatEtapes";
+import {
+  fabriqueEtatEtapePrecedent,
+  fabriqueEtatEtapeSuivant,
+} from "../../../src/Domaine/Simulateur/services/fabriqueSuccesseurEtatEtape";
 
 const donneesVides = donneesFormulaireSimulateurVide;
 
 const attendEtatEtapeEgaux = (
   etatEtapeResultant: EtatEtapes,
   etatEtapeAttendu: EtatEtapes,
+  ignoreProprietes = ["remplitContitionSousEtape", "ignoreEtapeSuivante"],
 ) =>
   Object.keys(etatEtapeAttendu)
-    .filter((champ) => champ != "rempliContitionSousEtape")
+    .filter((champ) => !ignoreProprietes.includes(champ))
     .map((champ) =>
       expect(etatEtapeResultant[champ], `Propriété ${champ}`).toStrictEqual(
         etatEtapeAttendu[champ],

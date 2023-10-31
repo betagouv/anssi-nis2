@@ -10,9 +10,9 @@ import {
 import { CollectionInformationsEtapes } from "../../../Services/Simulateur/CollectionInformationsEtapes.ts";
 import {
   EtapePrealable,
+  fabriqueSousEtapeConditionnelle,
   InformationEtapeForm,
   InformationEtapeResultat,
-  SousEtapeConditionnelle,
 } from "../../../Services/Simulateur/InformationsEtape.ts";
 import {
   validationReponsesActivites,
@@ -23,7 +23,7 @@ import {
 } from "../../../Domaine/Simulateur/services/Validateurs.ts";
 import { estUnSecteurAvecDesSousSecteurs } from "../../../Domaine/Simulateur/operations/operationsSecteurs.ts";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { fabriqueEtatEtape } from "../../../Domaine/Simulateur/fabriques/EtatEtapeFabrique.ts";
+import { fabriqueEtatEtape } from "../../../Domaine/Simulateur/fabriques/fabriqueEtatEtape.ts";
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
@@ -31,7 +31,7 @@ const contientDesSecteursAvecSousSecteurs = ({
   return secteurActivite.some(estUnSecteurAvecDesSousSecteurs);
 };
 
-const sousEtapeSousSecteur = new SousEtapeConditionnelle(
+const sousEtapeSousSecteur = fabriqueSousEtapeConditionnelle(
   contientDesSecteursAvecSousSecteurs,
   new InformationEtapeForm(
     "Sous-secteur d'activité",
