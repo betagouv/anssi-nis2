@@ -111,3 +111,7 @@ export const validationReponsesActivites = {
   message: "Sélectionnez au moins une réponse par secteur",
   validateur: auMoinsUneActiviteParValeurSectorielle,
 };
+export const valideToutesLesReponses: ValidationReponses = {
+  message: "",
+  validateur: () => true,
+};

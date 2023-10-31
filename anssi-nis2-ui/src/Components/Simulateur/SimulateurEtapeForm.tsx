@@ -73,7 +73,6 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
         <CenteredContainer className="fr-background-alt--grey">
           <Stepper
             currentStep={etatEtapes.numero}
-            nextTitle={etatEtapes.titreSuivant}
             stepCount={etatEtapes.collectionEtapes.nombreEtapes}
             title={informationsEtape.titre}
             className="fr-mb-5w"

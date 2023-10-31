@@ -8,6 +8,7 @@ import {
 } from "../../../Services/Simulateur/EtatEtapes.ts";
 import { InformationEtapeForm } from "../../../Services/Simulateur/InformationsEtape.ts";
 import { CollectionInformationsEtapes } from "../../../Services/Simulateur/CollectionInformationsEtapes.ts";
+import { VVV } from "../../../utilitaires/debug.ts";
 
 type EtatEtapeFabrique = (
   collectionEtapes: CollectionInformationsEtapes,
@@ -19,7 +20,7 @@ type EtatEtapeFabrique = (
 function fabriqueIgnoreEtape(etapeSuivantExiste: boolean) {
   return etapeSuivantExiste
     ? (suivant: EtatEtapes, donnees: DonneesFormulaireSimulateur) => {
-        return suivant.informationEtapeForm.options.ignoreSi(donnees);
+        return suivant.informationEtapeForm.estIgnoree(donnees);
       }
     : () => false;
 }
@@ -43,6 +44,12 @@ export const fabriqueEtatEtape: EtatEtapeFabrique = (
   const remplitContitionSousEtape = (donnees: DonneesFormulaireSimulateur) =>
     informationEtapeForm.remplitContitionSousEtape(donnees);
   const etapeSuivantExiste = indiceEtape < collectionEtapes.length - 1;
+  VVV(
+    "Titre: ",
+    etapeCourantePrincipale.titre,
+    ", Element=",
+    informationEtapeForm.conteneurElementRendu.name,
+  );
   return {
     donneesFormulaire: donneesFormulaire,
     collectionEtapes: collectionEtapes,

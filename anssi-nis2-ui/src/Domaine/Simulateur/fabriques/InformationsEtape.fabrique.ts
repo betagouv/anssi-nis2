@@ -1,8 +1,8 @@
 import {
   CapaciteEtape,
   EtapePrealable,
-  InformationEtapeForm,
   EtapeResultat,
+  InformationEtapeForm,
   InformationsEtape,
   OptionsInformationEtapeForm,
   SousEtapeConditionnelle,
@@ -14,15 +14,22 @@ import { elementVide } from "../../../Services/Echaffaudages/AssistantsEchaffaud
 import { SimulateurEtapeForm } from "../../../Components/Simulateur/SimulateurEtapeForm.tsx";
 import { DonneesFormulaireSimulateur } from "../DonneesFormulaire.ts";
 import { SimulateurEtapePrealable } from "../../../Components/Simulateur/SimulateurEtapePrealable.tsx";
+import { valideToutesLesReponses } from "../services/Validateurs.ts";
+import { SimulateurEtapeResult } from "../../../Components/Simulateur/SimulateurEtapeResult.tsx";
+
+const toujoursFaux = () => false;
+const toujoursVrai = () => true;
 
 const fabriqueInformationsEtapeResultat: (titre: string) => EtapeResultat = (
-  titre: string,
+  titre,
 ) => ({
   titre: titre,
   estComptabilisee: false,
   existe: true,
-  conteneurElementRendu: SimulateurEtapeForm,
-  remplitContitionSousEtape: () => false,
+  conteneurElementRendu: SimulateurEtapeResult,
+  remplitContitionSousEtape: toujoursFaux,
+  estIgnoree: toujoursFaux,
+  validationReponses: valideToutesLesReponses,
 });
 
 const fabriqueInformationsEtapeForm = (
@@ -30,20 +37,24 @@ const fabriqueInformationsEtapeForm = (
   validationReponses: ValidationReponses,
   composant: SimulateurEtapeNodeComponent,
   options: Partial<OptionsInformationEtapeForm> = optionsInformationEtapeFormParDefaut,
-) => ({
-  titre: titre,
-  validationReponses: validationReponses,
-  composant: composant,
-  options: {
+): InformationEtapeForm => {
+  const optionsCompletes = {
     ...optionsInformationEtapeFormParDefaut,
     ...options,
-  },
-  estComptabilisee: true,
-  existe: true,
-  conteneurElementRendu: SimulateurEtapeForm,
-  remplitContitionSousEtape: (donnees: DonneesFormulaireSimulateur) =>
-    options.sousEtapeConditionnelle?.condition(donnees) || false,
-});
+  };
+  return {
+    titre: titre,
+    validationReponses: validationReponses,
+    composant: composant,
+    options: optionsCompletes,
+    estComptabilisee: true,
+    existe: true,
+    conteneurElementRendu: SimulateurEtapeForm,
+    remplitContitionSousEtape: (donnees: DonneesFormulaireSimulateur) =>
+      options.sousEtapeConditionnelle?.condition(donnees) || false,
+    estIgnoree: optionsCompletes.ignoreSi,
+  };
+};
 
 const fabriqueInformationEtapePrealable: (titre: string) => EtapePrealable = (
   titre: string,
@@ -52,9 +63,9 @@ const fabriqueInformationEtapePrealable: (titre: string) => EtapePrealable = (
   estComptabilisee: false,
   conteneurElementRendu: SimulateurEtapePrealable,
   titre: titre,
-  remplitContitionSousEtape(): boolean {
-    return false;
-  },
+  remplitContitionSousEtape: toujoursFaux,
+  estIgnoree: toujoursFaux,
+  validationReponses: valideToutesLesReponses,
 });
 
 export const fabriqueSousEtapeConditionnelle: (
@@ -70,20 +81,23 @@ export const fabriqueInformationsEtapes = {
   resultat: fabriqueInformationsEtapeResultat,
   form: fabriqueInformationsEtapeForm,
   prealable: fabriqueInformationEtapePrealable,
-};
+} as const;
+
 export const EtapeInexistante: InformationsEtape & CapaciteEtape = {
   estComptabilisee: false,
   existe: false,
   titre: "Hors de portee",
   conteneurElementRendu: elementVide,
-  remplitContitionSousEtape: () => false,
+  remplitContitionSousEtape: toujoursFaux,
+  estIgnoree: toujoursVrai,
+  validationReponses: valideToutesLesReponses,
 } as const;
 
 export const optionsInformationEtapeFormParDefaut: OptionsInformationEtapeForm =
   {
-    ignoreSi: () => false,
+    ignoreSi: toujoursFaux,
     sousEtapeConditionnelle: fabriqueSousEtapeConditionnelle(
-      () => false,
+      toujoursFaux,
       EtapeInexistante as InformationEtapeForm,
     ),
-  };
+  } as const;

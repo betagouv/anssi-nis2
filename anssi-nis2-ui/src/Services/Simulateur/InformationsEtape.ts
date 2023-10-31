@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import {
   SimulateurEtapeNodeComponent,
   SimulateurEtapeRenderedComponent,
@@ -16,6 +16,8 @@ export type InformationsEtape = {
 
 export type CapaciteEtape = {
   readonly remplitContitionSousEtape: PredicatDonneesSimulateur;
+  readonly validationReponses: ValidationReponses;
+  readonly estIgnoree: (donnees: IDonneesBrutesFormulaireSimulateur) => boolean;
 };
 
 export type EtapeExistante = InformationsEtape & CapaciteEtape;
@@ -32,12 +34,11 @@ export type EtapeResultat = EtapeExistante;
 export type OptionsInformationEtapeForm = {
   readonly sousEtapeConditionnelle?: SousEtapeConditionnelle;
   readonly ignoreSi: (
-    donneesFormulaire: DonneesFormulaireSimulateur,
+    donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
   ) => boolean;
 };
 
-export interface InformationEtapeForm extends EtapeExistante {
-  readonly validationReponses: ValidationReponses;
+export type InformationEtapeForm = EtapeExistante & {
   readonly options: OptionsInformationEtapeForm;
   readonly composant: SimulateurEtapeNodeComponent;
-}
+};
