@@ -15,6 +15,7 @@ export const estEligible: (
   donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur,
 ) => ResultatEligibilite = (donneesFormulaireSimulateur) => {
   return match(donneesFormulaireSimulateur)
+    .with({ typeStructure: [] }, () => Eligibilite.Incertain)
     .with(
       {
         designeOperateurServicesEssentiels: ["oui"],
