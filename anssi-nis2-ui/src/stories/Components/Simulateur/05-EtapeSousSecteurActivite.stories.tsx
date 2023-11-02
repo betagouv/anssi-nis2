@@ -6,14 +6,17 @@ import { EtapeSousSecteursActivite } from "../../../Components/Simulateur/Etapes
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import {
+  DonneesFormulaireSimulateur,
+  IDonneesBrutesFormulaireSimulateur,
+} from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 import { SousSecteurEnergie } from "../../../Domaine/Simulateur/SousSecteurActivite.definitions.ts";
 
 class ParametresDonneesSousSecteurActivite extends ParametresDonneesSpecifiqueField<SousSecteurEnergie> {
   protected construitDonnees<ValeursSecteurActivite>(
     valeurs: ValeursSecteurActivite[],
-  ): DonneesFormulaireSimulateur {
+  ): IDonneesBrutesFormulaireSimulateur {
     return this.construitDonneesPourField("sousSecteurActivite", valeurs);
   }
 }
