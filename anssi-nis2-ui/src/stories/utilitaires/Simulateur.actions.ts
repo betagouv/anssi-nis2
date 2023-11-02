@@ -3,16 +3,16 @@ import { userEvent } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { libellesSimulateur as libelles } from "../../References/Libelles.ts";
 import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { SecteurActivite } from "../../Domaine/Simulateur/SecteursActivite";
+import { SecteurActivite } from "../../Domaine/Simulateur/SecteurActivite.definition.ts";
 
-import { SousSecteurActivite } from "../../Domaine/Simulateur/SousSecteurs";
+import { SousSecteurActivite } from "../../Domaine/Simulateur/SousSecteurActivite.definition.ts";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeStructure,
-} from "../../Domaine/Simulateur/ChampsSimulateur";
+} from "../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 import { ValeursActivites } from "../../Domaine/Simulateur/Activite";
 
 export const passeEtapeEnCochant = async <

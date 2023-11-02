@@ -2,10 +2,10 @@ import {
   EnrSecteurSousSecteur,
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-} from "../../../../src/Domaine/Simulateur/SousSecteurs";
-import { ValeursSecteursAvecSousSecteurs } from "../../../../src/Domaine/Simulateur/ValeursSousSecteursActivites";
-import { SecteurActivite } from "../../../../src/Domaine/Simulateur/SecteursActivite";
-import { ValeursSecteursSansSousSecteur } from "../../../../src/Domaine/Simulateur/ValeursSecteursActivites";
+} from "../../../../src/Domaine/Simulateur/SousSecteurActivite.definition";
+import { ValeursSecteursAvecSousSecteurs } from "../../../../src/Domaine/Simulateur/SousSecteurActivite.valeurs";
+import { SecteurActivite } from "../../../../src/Domaine/Simulateur/SecteurActivite.definition";
+import { ValeursSecteursSansSousSecteur } from "../../../../src/Domaine/Simulateur/SecteurActivite.valeurs";
 import {
   fabriqueListePartielleSecteursAvecSousSecteurs,
   fabriqueTupleSecteurSousSecteurs,

@@ -6,7 +6,7 @@ import {
 
 import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
 import { GestionValeursFormulaire } from "./Props/gestionValeursFormulaire";
-import { ValeurChampSimulateur } from "../../Domaine/Simulateur/ChampsSimulateur";
+import { ValeurChampSimulateur } from "../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 
 export const gestionValeursSimples = (value: ValeurChampSimulateur) => [value];
 

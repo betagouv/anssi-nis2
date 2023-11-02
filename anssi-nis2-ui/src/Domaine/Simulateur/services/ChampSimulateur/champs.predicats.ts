@@ -2,14 +2,14 @@ import {
   IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../DonneesFormulaire.ts";
-import { SecteursAvecSousSecteurs } from "../../SousSecteurs";
+import { SecteursAvecSousSecteurs } from "../../SousSecteurActivite.definition.ts";
 import { PredicatChamp } from "./champs.domaine.ts";
-import { SecteurActivite } from "../../SecteursActivite";
+import { SecteurActivite } from "../../SecteurActivite.definition.ts";
 import {
   estSousSecteurAutre,
   sousSecteurAppartientASecteur,
 } from "../SousSecteurActivite/SousSecteurActivite.predicats.ts";
-import { ValeurCleSectorielle } from "../../ChampsSimulateur";
+import { ValeurCleSectorielle } from "../../ChampsSimulateur.definitions.ts";
 import { ValeursActivites } from "../../Activite";
 import { activiteEstDansSecteur } from "../Activite/Activite.predicats.ts";
 import { filtreSecteursSansSousSecteurs } from "../SecteurActivite/SecteurActivite.operations.ts";

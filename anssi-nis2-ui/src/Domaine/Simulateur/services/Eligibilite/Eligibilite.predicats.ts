@@ -5,7 +5,7 @@ import { auMoinsUnSecteurListe } from "../SecteurActivite/SecteurActivite.predic
 import {
   Eligibilite,
   ResultatEligibilite,
-} from "../../Eligibilite.definition.ts";
+} from "../../Eligibilite.definitions.ts";
 import {
   aucuneActiviteListee,
   auMoinsUneActiviteListee,

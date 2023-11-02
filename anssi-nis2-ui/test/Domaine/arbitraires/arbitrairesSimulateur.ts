@@ -17,7 +17,7 @@ import {
 import {
   ValeursAppartenancePaysUnionEuropeenne,
   ValeursPetitMoyenGrand,
-} from "../../../src/Domaine/Simulateur/ValeursChampsSimulateur";
+} from "../../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
 
 import { listeEnrSecteursAvecLeursSousSecteurs } from "../../Services/Simulateur/exemples/ListesEnrSecteursSousSecteur";
 import {

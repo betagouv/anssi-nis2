@@ -8,7 +8,7 @@ import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { libellesTypesStructure } from "../../../References/Libelles.ts";
-import { TypeStructure } from "../../../Domaine/Simulateur/ChampsSimulateur";
+import { TypeStructure } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 
 class ParametresDonneesTypeStructure extends ParametresDonneesSpecifiqueField<TypeStructure> {
   protected construitDonnees<ValeursTypeStructure>(

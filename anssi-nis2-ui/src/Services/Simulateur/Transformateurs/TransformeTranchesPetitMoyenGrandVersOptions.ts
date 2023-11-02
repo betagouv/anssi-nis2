@@ -1,7 +1,7 @@
 import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
-} from "../../../Domaine/Simulateur/ChampsSimulateur";
+} from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 import { TransformeRecordToSelect } from "../Operations/optionChampSimulateur";
 import { genereTransformateurValeursVersOptions } from "../genereTransformateurValeursVersOptions.ts";
 

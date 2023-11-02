@@ -1,4 +1,4 @@
-import { TypeStructure } from "../../../Domaine/Simulateur/ChampsSimulateur";
+import { TypeStructure } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 import { TransformeRecordToSelect } from "../Operations/optionChampSimulateur";
 import { genereTransformateurValeursVersOptions } from "../genereTransformateurValeursVersOptions.ts";
 

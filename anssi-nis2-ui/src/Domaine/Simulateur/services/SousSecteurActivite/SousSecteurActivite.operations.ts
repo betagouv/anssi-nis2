@@ -1,13 +1,13 @@
 import {
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-} from "../../SousSecteurs";
+} from "../../SousSecteurActivite.definition.ts";
 import {
   contientSousSecteur,
   estUnSecteurAvecDesSousSecteurs,
 } from "../SecteurActivite/SecteurActivite.predicats.ts";
 import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire.ts";
-import { SecteurActivite } from "../../SecteursActivite";
+import { SecteurActivite } from "../../SecteurActivite.definition.ts";
 
 const extraitSousSecteurs = (
   secteur: SecteursAvecSousSecteurs,

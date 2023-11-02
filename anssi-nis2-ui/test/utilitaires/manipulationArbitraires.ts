@@ -7,7 +7,7 @@ import {
 import {
   UnionPetitMoyenGrand,
   ValeurChampSimulateur,
-} from "../../src/Domaine/Simulateur/ChampsSimulateur";
+} from "../../src/Domaine/Simulateur/ChampsSimulateur.definitions";
 import {
   ArbitraireOptions,
   ArbitraireOptionsActivites,
@@ -15,9 +15,9 @@ import {
 import {
   EnrSecteurSousSecteur,
   SousSecteurActivite,
-} from "../../src/Domaine/Simulateur/SousSecteurs";
-import { SecteurActivite } from "../../src/Domaine/Simulateur/SecteursActivite";
-import { ValeursPetitMoyenGrand } from "../../src/Domaine/Simulateur/ValeursChampsSimulateur";
+} from "../../src/Domaine/Simulateur/SousSecteurActivite.definition";
+import { SecteurActivite } from "../../src/Domaine/Simulateur/SecteurActivite.definition";
+import { ValeursPetitMoyenGrand } from "../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
 
 import { ValeursActivites } from "../../src/Domaine/Simulateur/Activite";
 import { filtreSecteursSansSousSecteurs } from "../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.operations";

@@ -5,7 +5,7 @@ import {
   donneesFormulaireSimulateurVide,
   DonneesFormulaireSimulateur,
 } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
-import { ValeurChampSimulateur } from "../../../src/Domaine/Simulateur/ChampsSimulateur";
+import { ValeurChampSimulateur } from "../../../src/Domaine/Simulateur/ChampsSimulateur.definitions";
 import { transformePaysUnionEuropeennePourSelect } from "../../../src/Services/Simulateur/Transformateurs/TransformePaysUnionEuropeennePourSelect";
 import { ValeursActivites } from "../../../src/Domaine/Simulateur/Activite";
 

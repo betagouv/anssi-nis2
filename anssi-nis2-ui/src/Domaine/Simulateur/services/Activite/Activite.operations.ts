@@ -29,14 +29,14 @@ import {
   ValeursActivitesTransportsFerroviaires,
   ValeursActivitesTransportsParEaux,
   ValeursActivitesTransportsRoutiers,
-} from "../../ValeursActivites.ts";
-import { ValeurCleSectorielle } from "../../ChampsSimulateur";
+} from "../../Activite.valeurs.ts";
+import { ValeurCleSectorielle } from "../../ChampsSimulateur.definitions.ts";
 import { ValeursActivites } from "../../Activite";
-import { SecteurActivite } from "../../SecteursActivite";
+import { SecteurActivite } from "../../SecteurActivite.definition.ts";
 import {
   SecteursSansSousSecteur,
   SousSecteurActivite,
-} from "../../SousSecteurs";
+} from "../../SousSecteurActivite.definition.ts";
 import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire.ts";
 import { cartographieSousSecteursParSecteur } from "../SousSecteurActivite/SousSecteurActivite.operations.ts";
 import { estUnSecteurAvecDesSousSecteurs } from "../SecteurActivite/SecteurActivite.predicats.ts";

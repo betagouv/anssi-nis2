@@ -2,8 +2,8 @@ import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire.ts";
 import {
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-} from "../../SousSecteurs";
-import { groupementsSecteursParSousSecteurs } from "../../ValeursSousSecteursActivites.ts";
+} from "../../SousSecteurActivite.definition.ts";
+import { groupementsSecteursParSousSecteurs } from "../../SousSecteurActivite.valeurs.ts";
 
 export const estSousSecteurListe = (sousSecteur?: SousSecteurActivite) =>
   !sousSecteur?.startsWith("autre");

@@ -2,14 +2,14 @@ import {
   SecteursAvecSousSecteurs,
   SecteursSansSousSecteur,
   SousSecteurActivite,
-} from "../../SousSecteurs";
+} from "../../SousSecteurActivite.definition.ts";
 import {
   contientSousSecteur,
   estUnSecteurAvecDesSousSecteurs,
   estUnSecteurSansSousSecteur,
 } from "./SecteurActivite.predicats.ts";
-import { SecteurActivite } from "../../SecteursActivite";
-import { sousSecteursParSecteur } from "../../ValeursSousSecteursActivites.ts";
+import { SecteurActivite } from "../../SecteurActivite.definition.ts";
+import { sousSecteursParSecteur } from "../../SousSecteurActivite.valeurs.ts";
 
 export const fabriqueSecteurContientLeSousSecteur =
   (secteur: SecteursAvecSousSecteurs) =>

@@ -4,7 +4,7 @@ import {
   DesignationOperateurServicesEssentiels,
   TypeStructure,
   UnionPetitMoyenGrand,
-} from "../../../src/Domaine/Simulateur/ChampsSimulateur";
+} from "../../../src/Domaine/Simulateur/ChampsSimulateur.definitions";
 import { ArbitraireChampFormulaire } from "./arbitraireChampFormulaire.d";
 import { fabriqueArbSingleton } from "../../utilitaires/manipulationArbitraires";
 

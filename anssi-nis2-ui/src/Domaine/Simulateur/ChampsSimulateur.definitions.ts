@@ -1,11 +1,14 @@
-import { SecteursSansSousSecteur, SousSecteurActivite } from "./SousSecteurs";
-import { SecteurActivite } from "./SecteursActivite";
+import {
+  SecteursSansSousSecteur,
+  SousSecteurActivite,
+} from "./SousSecteurActivite.definition.ts";
+import { SecteurActivite } from "./SecteurActivite.definition.ts";
 import {
   ValeursAppartenancePaysUnionEuropeenne,
   ValeursDesignationOperateurServicesEssentiels,
   ValeursPetitMoyenGrand,
   ValeursTypeStructure,
-} from "./ValeursChampsSimulateur";
+} from "./ChampsSimulateur.valeurs.ts";
 import { ValeursActivites } from "./Activite";
 
 export type DesignationOperateurServicesEssentiels =

@@ -1,4 +1,4 @@
-import { SecteurActivite } from "./SecteursActivite";
+import { SecteurActivite } from "./SecteurActivite.definition.ts";
 import { estUnSecteurSansDesSousSecteurs } from "./services/SecteurActivite/SecteurActivite.predicats.ts";
 
 export const ValeursSecteursActivites = [

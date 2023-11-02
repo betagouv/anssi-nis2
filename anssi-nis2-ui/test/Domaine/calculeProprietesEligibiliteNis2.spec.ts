@@ -7,7 +7,7 @@ import { assure } from "../utilitaires/assure";
 import {
   Eligibilite,
   ResultatEligibilite,
-} from "../../src/Domaine/Simulateur/Eligibilite.definition";
+} from "../../src/Domaine/Simulateur/Eligibilite.definitions";
 
 const eligiEstToujoursEgale = (
   arbitraire: fc.Arbitrary<IDonneesFormulaireSimulateur>,

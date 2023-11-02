@@ -1,5 +1,5 @@
 import { SimulateurContenuEtapeProps } from "../Props/simulateurEtapeProps";
-import { SecteursAvecSousSecteurs } from "../../../Domaine/Simulateur/SousSecteurs";
+import { SecteursAvecSousSecteurs } from "../../../Domaine/Simulateur/SousSecteurActivite.definition.ts";
 import { OptionsChampSimulateur } from "../Props/optionChampSimulateur";
 import { reducteurSecteursVersOptions } from "../Reducteurs.ts";
 

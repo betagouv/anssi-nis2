@@ -10,7 +10,7 @@ import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/
 import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
-} from "../../../Domaine/Simulateur/ChampsSimulateur";
+} from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 import {
   transformeTranchesCAVersOptions,
   transformeTranchesNombreEmployesVersOptions,

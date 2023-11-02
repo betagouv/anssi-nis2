@@ -8,7 +8,7 @@ import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 
-import { SecteurActivite } from "../../../Domaine/Simulateur/SecteursActivite";
+import { SecteurActivite } from "../../../Domaine/Simulateur/SecteurActivite.definition.ts";
 
 class ParametresDonneesSecteurActivite extends ParametresDonneesSpecifiqueField<SecteurActivite> {
   protected construitDonnees<ValeursSecteurActivite>(

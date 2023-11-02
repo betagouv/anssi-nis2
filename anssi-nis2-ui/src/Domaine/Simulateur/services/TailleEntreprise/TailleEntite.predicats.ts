@@ -1,7 +1,7 @@
 import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
-} from "../../ChampsSimulateur";
+} from "../../ChampsSimulateur.definitions.ts";
 
 type PredicatTailleEntite = (
   nombreEmployes: TrancheNombreEmployes[],

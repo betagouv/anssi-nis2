@@ -1,6 +1,6 @@
 import { ContenusResultatEligibilite } from "../Services/Simulateur/Props/contenusResultatEligibilite";
 
-import { ResultatEligibilite } from "../Domaine/Simulateur/Eligibilite.definition.ts";
+import { ResultatEligibilite } from "../Domaine/Simulateur/Eligibilite.definitions.ts";
 
 export const contenusResultatEligiblePetitEntreprise: ContenusResultatEligibilite =
   {

@@ -12,7 +12,7 @@ import { SimulateurDonneesFormulaireActions } from "../Props/donneesFormulaire";
 import {
   ValeurChampSimulateur,
   ValeurCleSectorielle,
-} from "../../../Domaine/Simulateur/ChampsSimulateur";
+} from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 import {
   activitesParSecteurEtSousSecteur,
   AssociationSectorielleActivite,

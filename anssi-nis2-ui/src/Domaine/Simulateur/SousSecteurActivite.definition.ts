@@ -1,10 +1,10 @@
-import { SecteurActivite } from "./SecteursActivite";
+import { SecteurActivite } from "./SecteurActivite.definition.ts";
 import {
   ValeursSecteursAvecSousSecteurs,
   ValeursSousSecteurEnergie,
   ValeursSousSecteurFabrication,
   ValeursSousSecteurTransport,
-} from "./ValeursSousSecteursActivites.ts";
+} from "./SousSecteurActivite.valeurs.ts";
 
 export type SecteursAvecSousSecteurs =
   (typeof ValeursSecteursAvecSousSecteurs)[number];
