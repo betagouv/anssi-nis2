@@ -17,23 +17,21 @@ import {
 import {
   ValeursAppartenancePaysUnionEuropeenne,
   ValeursPetitMoyenGrand,
-} from "../../../src/Domaine/Simulateur/ValeursChampsSimulateur";
+} from "../../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
 
-import {
-  estActiviteAutre,
-  estActiviteListee,
-} from "../../../src/Domaine/Simulateur/Operations/FiltreActivites";
-import { listeEnrSecteursAvecLeursSousSecteurs } from "../../../src/Domaine/Simulateur/ListesEnrSecteursSousSecteur";
+import { listeEnrSecteursAvecLeursSousSecteurs } from "../../Services/Simulateur/exemples/ListesEnrSecteursSousSecteur";
 import {
   arbAppartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
   arbTranche,
   arbTypeStructure,
 } from "./arbitraireChampFormulaire";
+import { estSousSecteurListe } from "../../../src/Domaine/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
+import { estSecteurListe } from "../../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import {
-  estSecteurListe,
-  estSousSecteurListe,
-} from "../../../src/Domaine/Simulateur/Operations/operationsSecteurs";
+  estActiviteAutre,
+  estActiviteListee,
+} from "../../../src/Domaine/Simulateur/services/Activite/Activite.predicats";
 
 export const arbTrancheSingleton = () =>
   fabriqueArbSingleton(ValeursPetitMoyenGrand);

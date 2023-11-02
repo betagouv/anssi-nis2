@@ -1,4 +1,4 @@
-import { SecteurActivite } from "../Domaine/Simulateur/SecteursActivite";
+import { SecteurActivite } from "../Domaine/Simulateur/SecteurActivite.definitions.ts";
 
 export const libellesSecteursActivite: Record<SecteurActivite, string> = {
   administrationPublique: "Administration publique / administration centrale",

@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { OptionsChampSimulateur } from "../Props/optionChampSimulateur";
 
 export type TransformeRecordToSelect<
@@ -7,5 +7,5 @@ export type TransformeRecordToSelect<
 > = (
   valeurs: Partial<Record<ValeursCles, Contenu>>,
   onChange?: React.ChangeEventHandler<HTMLInputElement>,
-  formData?: DonneesFormulaireSimulateur,
+  formData?: IDonneesBrutesFormulaireSimulateur,
 ) => OptionsChampSimulateur;

@@ -1,23 +1,59 @@
 import { EtatEtapes } from "../Services/Simulateur/EtatEtapes.ts";
-import { DonneesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormulaire.ts";
+import {
+  fabriqueEtatEtapePrecedent,
+  fabriqueEtatEtapeSuivant,
+} from "../Domaine/Simulateur/services/EtatEtape/EtatEtape.operations.ts";
+import { noRefClick } from "../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
+import { EnvoieDonneesFormulaire } from "../Services/Simulateur/Operations/appelsApi";
+import { verifieCompletudeDonneesFormulaire } from "../Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
 
 export const fabriqueGestionSuivant =
   (
     setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
     etatEtapes: EtatEtapes,
-    inputsState: DonneesFormulaireSimulateur,
+    donneesSimulateur: IDonneesBrutesFormulaireSimulateur,
+    envoieDonneesFormulaire: EnvoieDonneesFormulaire,
   ) =>
   (e: React.MouseEvent) => {
     e.preventDefault();
-    setEtatEtape(etatEtapes.suivant(inputsState));
+    if (verifieCompletudeDonneesFormulaire(donneesSimulateur)) {
+      envoieDonneesFormulaire(donneesSimulateur).then(() =>
+        setEtatEtape(fabriqueEtatEtapeSuivant(etatEtapes, donneesSimulateur)),
+      );
+    } else {
+      setEtatEtape(fabriqueEtatEtapeSuivant(etatEtapes, donneesSimulateur));
+    }
   };
-export const fabriqueGestionPrecedent =
-  (
-    setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
-    etatEtapes: EtatEtapes,
-    inputsState: DonneesFormulaireSimulateur,
-  ) =>
-  (e: React.MouseEvent) => {
+
+export const fabriqueGestionPrecedent = (
+  setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
+  etatEtapes: EtatEtapes,
+  donneesSimulateur: IDonneesBrutesFormulaireSimulateur,
+) => {
+  if (etatEtapes.collectionEtapes.estPremiereEtape(etatEtapes.indice))
+    return noRefClick;
+  return (e: React.MouseEvent) => {
     e.preventDefault();
-    setEtatEtape(etatEtapes.precedent(inputsState));
+    setEtatEtape(fabriqueEtatEtapePrecedent(etatEtapes, donneesSimulateur));
   };
+};
+
+export const fabriqueInformationsBoutonsNavigation = (
+  setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
+  etatEtapes: EtatEtapes,
+  donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur,
+  envoieDonneesFormulaire: EnvoieDonneesFormulaire,
+) => ({
+  suivant: fabriqueGestionSuivant(
+    setEtatEtape,
+    etatEtapes,
+    donneesFormulaireSimulateur,
+    envoieDonneesFormulaire,
+  ),
+  precedent: fabriqueGestionPrecedent(
+    setEtatEtape,
+    etatEtapes,
+    donneesFormulaireSimulateur,
+  ),
+});

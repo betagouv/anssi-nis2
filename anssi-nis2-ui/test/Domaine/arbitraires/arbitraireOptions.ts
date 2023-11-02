@@ -1,8 +1,8 @@
-import { Activite } from "../../../src/Domaine/Simulateur/Activite";
+import { ValeursActivites } from "../../../src/Domaine/Simulateur/Activite.definitions";
 
 export type ArbitraireOptions = {
   minLength?: number;
 };
 export type ArbitraireOptionsActivites = ArbitraireOptions & {
-  filtreActivite?: (activite: Activite) => boolean;
+  filtreActivite?: (activite: ValeursActivites) => boolean;
 };

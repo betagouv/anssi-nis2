@@ -1,12 +1,12 @@
 import { describe, expect } from "vitest";
 import { it, fc } from "@fast-check/vitest";
-import { UnionPetitMoyenGrand } from "../../src/Domaine/Simulateur/ChampsSimulateur";
-import { ValeursPetitMoyenGrand } from "../../src/Domaine/Simulateur/ValeursChampsSimulateur";
+import { UnionPetitMoyenGrand } from "../../src/Domaine/Simulateur/ChampsSimulateur.definitions";
+import { ValeursPetitMoyenGrand } from "../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
 import {
   estGrandeEntreprise,
   estMoyenneEntreprise,
   estPetiteEntreprise,
-} from "../../src/Domaine/Simulateur/Operations/FiltresTailleEntite";
+} from "../../src/Domaine/Simulateur/services/TailleEntreprise/TailleEntite.predicats";
 
 describe("Tailles entreprises", () => {
   describe(estPetiteEntreprise, () => {

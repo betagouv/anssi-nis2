@@ -6,16 +6,16 @@ import { EtapeTaille } from "../../../Components/Simulateur/Etapes";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
-} from "../../../Domaine/Simulateur/ChampsSimulateur";
+} from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 
 class ParametresDonneesTrancheNombreEmployes extends ParametresDonneesSpecifiqueField<TrancheNombreEmployes> {
   protected construitDonnees<ValeursTrancheNombreEmployes>(
     valeurs: ValeursTrancheNombreEmployes[],
-  ): DonneesFormulaireSimulateur {
+  ): IDonneesBrutesFormulaireSimulateur {
     return this.construitDonneesPourField("trancheNombreEmployes", valeurs);
   }
 }

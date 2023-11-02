@@ -2,16 +2,11 @@ import { RowContainer } from "../General/RowContainer.tsx";
 import { StepperNavigation } from "./StepperNavigation.tsx";
 
 import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
-import { useContext, useMemo } from "react";
-import { AppContext } from "../AppContexte/AppContext.tsx";
 import { CenteredContainer } from "../General/CenteredContainer.tsx";
-
-import { DonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { genereGestionSauvePuisEtapeSuivante } from "../../Services/Simulateur/gestionnaires.ts";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
-import { InformationEtapeForm } from "../../Services/Simulateur/informationsEtape.ts";
+import { InformationEtapeForm } from "../../Services/Simulateur/InformationsEtape.ts";
 import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
-import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
+
 import { AidezNousAmeliorerService } from "../AidezNousAmeliorerService.tsx";
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
@@ -21,58 +16,16 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   etatEtapes,
 }: SimulateurEtapeRenderedProps) => {
   const informationsEtape =
-    etatEtapes.contenuEtapeCourante() as InformationEtapeForm;
+    etatEtapes.contenuEtapeCourante as InformationEtapeForm;
 
   const EtapeCourante = informationsEtape.composant;
-
-  const { envoieDonneesFormulaire } = useContext(AppContext);
-
-  const etapePrecedenteHandlerConcret = useMemo(
-    () =>
-      etatEtapes.collectionEtapes.estPremiereEtape(etatEtapes.indiceCourant)
-        ? noRefClick
-        : informationsBoutonsNavigation.precedent,
-    [
-      etatEtapes.collectionEtapes,
-      etatEtapes.indiceCourant,
-      informationsBoutonsNavigation.precedent,
-    ],
-  );
-
-  const sauvePuisSuivantGestionnaire = useMemo(
-    () =>
-      genereGestionSauvePuisEtapeSuivante(
-        informationsBoutonsNavigation.suivant,
-        () =>
-          envoieDonneesFormulaire(
-            donneesFormulaire as DonneesFormulaireSimulateur,
-          ),
-      ),
-    [
-      donneesFormulaire,
-      envoieDonneesFormulaire,
-      informationsBoutonsNavigation.suivant,
-    ],
-  );
-  const etapeSuivantHandlerConcret = useMemo(
-    () =>
-      etatEtapes.collectionEtapes.estDerniereEtape(etatEtapes.indiceCourant)
-        ? sauvePuisSuivantGestionnaire
-        : informationsBoutonsNavigation.suivant,
-    [
-      etatEtapes,
-      sauvePuisSuivantGestionnaire,
-      informationsBoutonsNavigation.suivant,
-    ],
-  );
 
   return (
     <>
       <RowContainer className="fr-py-3w">
         <CenteredContainer className="fr-background-alt--grey">
           <Stepper
-            currentStep={etatEtapes.numeroEtapeCourante}
-            nextTitle={etatEtapes.titreSuivant}
+            currentStep={etatEtapes.numero}
             stepCount={etatEtapes.collectionEtapes.nombreEtapes}
             title={informationsEtape.titre}
             className="fr-mb-5w"
@@ -88,8 +41,8 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
           <StepperNavigation
             validationReponses={informationsEtape.validationReponses}
             donneesFormulaire={donneesFormulaire}
-            onClickPrevious={etapePrecedenteHandlerConcret}
-            onClickNext={etapeSuivantHandlerConcret}
+            onClickPrevious={informationsBoutonsNavigation.precedent}
+            onClickNext={informationsBoutonsNavigation.suivant}
           />
         </CenteredContainer>
       </RowContainer>

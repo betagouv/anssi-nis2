@@ -2,13 +2,15 @@ import { describe, expect, it } from "vitest";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
+  IDonneesBrutesFormulaireSimulateur,
 } from "../../src/Domaine/Simulateur/DonneesFormulaire";
 import {
   auMoinsUnSousSecteurParSecteur,
   auMoinsUn,
   et,
   auMoinsUneActiviteParValeurSectorielle,
-} from "../../src/Domaine/Simulateur/Services/Validateurs";
+} from "../../src/Domaine/Simulateur/services/ChampSimulateur/champs.predicats";
+import { contientAutreSecteurActiviteUniquement } from "../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 
 describe("validateurs", () => {
   describe("valideAuMoinsUn", () => {
@@ -153,6 +155,17 @@ describe("validateurs", () => {
         donneesFormulaireSimulateur,
       );
       expect(result).toBeTruthy();
+    });
+  });
+
+  describe(contientAutreSecteurActiviteUniquement, () => {
+    it("est Vrai quand la seule valeur est 'autreSecteurActivite'", () => {
+      const donnees: IDonneesBrutesFormulaireSimulateur = {
+        ...donneesFormulaireSimulateurVide,
+        secteurActivite: ["autreSecteurActivite"],
+      };
+
+      expect(contientAutreSecteurActiviteUniquement(donnees)).toBeTruthy();
     });
   });
 });

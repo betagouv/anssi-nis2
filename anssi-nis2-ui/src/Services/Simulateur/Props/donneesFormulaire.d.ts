@@ -1,9 +1,6 @@
-import {
-  DonneesFormulaireSimulateur,
-  NomsChampsSimulateur,
-} from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { NomsChampsSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 
-import { ValeurChampSimulateur } from "../../../Domaine/Simulateur/ValeursChampsSimulateur";
+import { ValeurChampSimulateur } from "../../../Domaine/Simulateur/ChampsSimulateur.valeurs.ts";
 
 type SimulateurDonneesFormulaireActionType = "checkSingle" | "checkMulti";
 export type SimulateurDonneesFormulaireActions = {
@@ -11,7 +8,3 @@ export type SimulateurDonneesFormulaireActions = {
   name: NomsChampsSimulateur;
   newValue: ValeurChampSimulateur;
 };
-export type ResultatReducteurDonneesSimulateur = [
-  DonneesFormulaireSimulateur,
-  React.Dispatch<SimulateurDonneesFormulaireActions>,
-];

@@ -1,19 +1,19 @@
 import React from "react";
 import {
-  DonneesFormulaireSimulateur,
+  IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
 import { GestionValeursFormulaire } from "./Props/gestionValeursFormulaire";
-import { ValeurChampSimulateur } from "../../Domaine/Simulateur/ChampsSimulateur";
+import { ValeurChampSimulateur } from "../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 
 export const gestionValeursSimples = (value: ValeurChampSimulateur) => [value];
 
 export const genereGestionValeursMultiples = (name: NomsChampsSimulateur) => {
   function gestionValeursMultiples(
     value: ValeurChampSimulateur,
-    donneesFormulaire: DonneesFormulaireSimulateur,
+    donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
   ) {
     const valeursChampFormulaire: ValeurChampSimulateur[] =
       donneesFormulaire[name];
@@ -43,13 +43,14 @@ export const fieldHandlers: Record<
 export const genereGestionSauvePuisEtapeSuivante: (
   suivantHandler: React.MouseEventHandler,
   sauveHandler: () => Promise<string>,
+  donnees: IDonneesBrutesFormulaireSimulateur,
 ) => React.MouseEventHandler =
-  (
-    suivantHandler: React.MouseEventHandler,
-    sauveHandler: () => Promise<string>,
-  ) =>
-  (e) => {
-    sauveHandler().then(() => suivantHandler(e));
+  (suivantHandler, sauveHandler, donnees) => (e) => {
+    if (donnees.secteurActivite.length > 0) {
+      sauveHandler().then(() => suivantHandler(e));
+    } else {
+      suivantHandler(e);
+    }
   };
 
 export const fabriqueGestionChangementSimple =

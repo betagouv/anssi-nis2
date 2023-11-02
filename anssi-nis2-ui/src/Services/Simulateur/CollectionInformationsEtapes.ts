@@ -1,4 +1,8 @@
-import { etapeInexistante, InformationsEtape } from "./informationsEtape.ts";
+import {
+  InformationEtapeForm,
+  InformationsEtape,
+} from "./InformationsEtape.ts";
+import { EtapeInexistante } from "../../Domaine/Simulateur/fabriques/InformationsEtape.fabrique.ts";
 
 export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   get nombreEtapes(): number {
@@ -6,18 +10,17 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   }
 
   toString(): string {
-    return this.reduce(
-      (acc, etape, indice) =>
-        `${acc}, [${indice}] => '${etape.titre}' (comptabilisé: ${etape.estComptabilisee})`,
-      "",
-    );
+    return this.map(
+      (etape, indice) =>
+        `[${indice}] => '${etape.titre}' (comptabilisé: ${etape.estComptabilisee})`,
+    ).join(", ");
   }
 
   recupereEtapeCourante<T extends InformationsEtape>(indiceEtape: number): T {
     return this[indiceEtape] as T;
   }
 
-  numeroCourante(indiceEtapeCourante: number): number {
+  numeroCourant(indiceEtapeCourante: number): number {
     return this.reduce((nombre, etape, indiceCourant) => {
       if (!etape.estComptabilisee || indiceCourant > indiceEtapeCourante)
         return nombre;
@@ -39,7 +42,7 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
       this.length > 0 &&
       indiceEtape < this.length &&
       this[indiceEtape].estComptabilisee &&
-      this.numeroCourante(indiceEtape) === this.nombreEtapes
+      this.numeroCourant(indiceEtape) === this.nombreEtapes
     );
   }
 
@@ -50,6 +53,11 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
       if (etape.estComptabilisee && indiceCourant > indiceEtapeCourante)
         return this[indiceCourant];
       return informationEtape;
-    }, etapeInexistante);
+    }, EtapeInexistante);
+  }
+
+  recupereSousEtape(indiceEtapeCourante: number) {
+    return this.recupereEtapeCourante<InformationEtapeForm>(indiceEtapeCourante)
+      .options.sousEtapeConditionnelle?.sousEtape;
   }
 }

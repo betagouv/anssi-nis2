@@ -6,7 +6,7 @@ import {
   ajouteMethodeAvec,
   fabriqueArbSecteurSousSecteurs,
 } from "../../utilitaires/manipulationArbitraires";
-import { listeEnrSecteursAvecLeursSousSecteurs } from "../../../src/Domaine/Simulateur/ListesEnrSecteursSousSecteur";
+import { listeEnrSecteursAvecLeursSousSecteurs } from "./exemples/ListesEnrSecteursSousSecteur";
 
 const donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites: fc.Arbitrary<IDonneesFormulaireSimulateur> =
   fabriqueArbSecteurSousSecteurs(listeEnrSecteursAvecLeursSousSecteurs, {

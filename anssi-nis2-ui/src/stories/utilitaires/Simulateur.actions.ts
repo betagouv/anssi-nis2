@@ -3,22 +3,22 @@ import { userEvent } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { libellesSimulateur as libelles } from "../../References/Libelles.ts";
 import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { SecteurActivite } from "../../Domaine/Simulateur/SecteursActivite";
+import { SecteurActivite } from "../../Domaine/Simulateur/SecteurActivite.definitions.ts";
 
-import { SousSecteurActivite } from "../../Domaine/Simulateur/SousSecteurs";
-import { Activite } from "../../Domaine/Simulateur/Activite.ts";
+import { SousSecteurActivite } from "../../Domaine/Simulateur/SousSecteurActivite.definitions.ts";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeStructure,
-} from "../../Domaine/Simulateur/ChampsSimulateur";
+} from "../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+import { ValeursActivites } from "../../Domaine/Simulateur/Activite.definitions.ts";
 
 export const passeEtapeEnCochant = async <
   NomChamp extends
     | DesignationOperateurServicesEssentiels
-    | Activite
+    | ValeursActivites
     | AppartenancePaysUnionEuropeenne
     | SecteurActivite
     | SousSecteurActivite

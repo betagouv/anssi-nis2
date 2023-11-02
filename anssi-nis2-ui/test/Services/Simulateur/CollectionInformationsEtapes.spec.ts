@@ -1,65 +1,37 @@
 import { describe, expect, it } from "vitest";
 import { fc } from "@fast-check/vitest";
 import { CollectionInformationsEtapes } from "../../../src/Services/Simulateur/CollectionInformationsEtapes";
-import {
-  etapeInexistante,
-  InformationEtapeForm,
-  InformationEtapeResult,
-} from "../../../src/Services/Simulateur/informationsEtape";
 import { decoreChaineRendue } from "../../utilitaires/manipulationArbitraires";
-import {
-  fausseValidationReponse,
-  FauxSimulateurEtapeComposant,
-} from "./fabriquesInformationEtape";
 import { arbitrairesInformationEtape } from "./arbitraires/informationEtape";
 import { arbitrairesCollectionEtape } from "./arbitraires/collectionInformationEtape";
 import { arbListeEtapesEtIndice } from "./arbitraires/listeEtapes";
+import { exInformationEtape } from "./exemples/informationEtape.exemples";
+import {
+  collectionInformationsEtapesAvecInexistantes,
+  exCollectionInformationEtape,
+} from "./exemples/collectionInformationEtape.exemples";
+import { EtapeInexistante } from "../../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
+
+const collectionInformationsEtapes =
+  exCollectionInformationEtape.longueur2.simple;
+const parametresTests = [
+  {
+    etapeCourante: exInformationEtape.form1,
+    indiceEtapeCourante: 0,
+    informationEtapeSuivante: exInformationEtape.form2,
+    estDernier: false,
+    numeroEtape: 1,
+  },
+  {
+    etapeCourante: exInformationEtape.form2,
+    indiceEtapeCourante: 1,
+    informationEtapeSuivante: EtapeInexistante,
+    estDernier: true,
+    numeroEtape: 2,
+  },
+];
 
 describe(CollectionInformationsEtapes, () => {
-  const informationEtapeForm1 = new InformationEtapeForm(
-    "Etape Form 1",
-    fausseValidationReponse,
-    FauxSimulateurEtapeComposant,
-  );
-  const informationEtapeForm2 = new InformationEtapeForm(
-    "Etape Form 2",
-    fausseValidationReponse,
-    FauxSimulateurEtapeComposant,
-  );
-
-  const collectionInformationsEtapes = new CollectionInformationsEtapes(
-    informationEtapeForm1,
-    informationEtapeForm2,
-  );
-  const parametresTests = [
-    {
-      etapeCourante: informationEtapeForm1,
-      indiceEtapeCourante: 0,
-      informationEtapeSuivante: informationEtapeForm2,
-      estDernier: false,
-      numeroEtape: 1,
-    },
-    {
-      etapeCourante: informationEtapeForm2,
-      indiceEtapeCourante: 1,
-      informationEtapeSuivante: etapeInexistante,
-      estDernier: true,
-      numeroEtape: 2,
-    },
-  ];
-  const collectionInformationsEtapesAvecInexistantes =
-    new CollectionInformationsEtapes(
-      new InformationEtapeResult(""),
-      informationEtapeForm1,
-      new InformationEtapeResult(""),
-      informationEtapeForm2,
-      new InformationEtapeForm(
-        "",
-        fausseValidationReponse,
-        FauxSimulateurEtapeComposant,
-      ),
-      etapeInexistante,
-    );
   describe("Exemples", () => {
     it.each(parametresTests)(
       "l'indice $indiceEtapeCourante devrait contenir " +
@@ -77,7 +49,7 @@ describe(CollectionInformationsEtapes, () => {
       "l'indice $indiceEtapeCourante devrait correspondre au numéro d'étape $numeroEtape ",
       ({ indiceEtapeCourante, numeroEtape }) => {
         expect(
-          collectionInformationsEtapes.numeroCourante(indiceEtapeCourante),
+          collectionInformationsEtapes.numeroCourant(indiceEtapeCourante),
         ).toStrictEqual(numeroEtape);
       },
     );
@@ -142,7 +114,7 @@ describe(CollectionInformationsEtapes, () => {
         fc.property(arbListeEtapesEtIndice, ({ listeEtapes, indice }) => {
           const collection = new CollectionInformationsEtapes(...listeEtapes);
           expect(collection.nombreEtapes).toBeGreaterThanOrEqual(
-            collection.numeroCourante(indice),
+            collection.numeroCourant(indice),
           );
         }),
       );

@@ -1,14 +1,14 @@
 import { EtatEtapes } from "../Simulateur/EtatEtapes.ts";
-import { DonneesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 export const traceEtapeSimulateur = (
   etatEtapes: EtatEtapes,
-  donneesFormulaireSimulateur: DonneesFormulaireSimulateur,
+  donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur,
 ) => {
   window._mtm ||= [];
   window._mtm.push({
     event: "EtapeFormulaire",
-    "EtapeFormulaire.titre": etatEtapes.contenuEtapeCourante().titre,
+    "EtapeFormulaire.titre": etatEtapes.titre,
     "EtapeFormulaire.donnees": JSON.stringify(donneesFormulaireSimulateur),
   });
 };

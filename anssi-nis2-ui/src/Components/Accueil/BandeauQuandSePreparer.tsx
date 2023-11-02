@@ -1,5 +1,5 @@
 import { Button } from "@codegouvfr/react-dsfr/Button";
-import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.ts";
+import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
 import CalendrierOctobre2024 from "../../assets/calendrier-oct-2024.svg";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";

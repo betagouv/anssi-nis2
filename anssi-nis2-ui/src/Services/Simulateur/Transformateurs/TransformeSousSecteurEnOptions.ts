@@ -1,7 +1,8 @@
 import { SimulateurContenuEtapeProps } from "../Props/simulateurEtapeProps";
-import { SecteursAvecSousSecteurs } from "../../../Domaine/Simulateur/SousSecteurs";
+import { SecteursAvecSousSecteurs } from "../../../Domaine/Simulateur/SousSecteurActivite.definitions.ts";
 import { OptionsChampSimulateur } from "../Props/optionChampSimulateur";
 import { reducteurSecteursVersOptions } from "../Reducteurs.ts";
+import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 export const transformeSousSecteurEnOptions = (
   donneesFormulaire: SimulateurContenuEtapeProps["donneesFormulaire"],
@@ -9,5 +10,11 @@ export const transformeSousSecteurEnOptions = (
 ): [SecteursAvecSousSecteurs, OptionsChampSimulateur][] => {
   return (
     donneesFormulaire.secteurActivite as SecteursAvecSousSecteurs[]
-  ).reduce(reducteurSecteursVersOptions(gereChangement, donneesFormulaire), []);
+  ).reduce(
+    reducteurSecteursVersOptions(
+      gereChangement,
+      donneesFormulaire as DonneesFormulaireSimulateur,
+    ),
+    [],
+  );
 };

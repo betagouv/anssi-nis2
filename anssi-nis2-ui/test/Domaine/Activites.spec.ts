@@ -2,9 +2,11 @@ import { describe, expect, it } from "vitest";
 import { DonneesFormulaireSimulateur } from "../../src/Domaine/Simulateur/DonneesFormulaire";
 import { libellesSecteursActivite } from "../../src/References/LibellesSecteursActivite";
 import { libellesSousSecteursActivite } from "../../src/References/LibellesSousSecteursActivite";
-import { AssociationSectorielleActivite } from "../../src/Domaine/Simulateur/ActivitesParSecteurEtSousSecteur";
-import { collecteTitresPourActivite } from "../../src/Domaine/Simulateur/CollecteTitresPourActivite";
-import { cartographieSousSecteursParSecteur } from "../../src/Domaine/Simulateur/CartographieSousSecteursParSecteur";
+import {
+  AssociationSectorielleActivite,
+  collecteTitresPourActivite,
+} from "../../src/Domaine/Simulateur/services/Activite/Activite.operations";
+import { cartographieSousSecteursParSecteur } from "../../src/Domaine/Simulateur/services/SousSecteurActivite/SousSecteurActivite.operations";
 
 describe("Questionnaire activités", () => {
   it("Construit un tableau avec les sous-secteurs sélectionnés remplaçant le secteur correspondant", () => {
@@ -17,11 +19,11 @@ describe("Questionnaire activités", () => {
       ],
     });
 
-    const carteSousSecteurParSecteurAttendue = {
+    const carteSousSecteurParSecteurAttendue = Object.entries({
       espace: [],
       energie: ["electricite", "hydrogene"],
       fabrication: ["fabricationEquipementsElectroniques"],
-    };
+    });
 
     const carteSousSecteurParSecteurObtenue =
       cartographieSousSecteursParSecteur(donneesFormulaire);

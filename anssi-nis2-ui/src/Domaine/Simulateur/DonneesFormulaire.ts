@@ -1,6 +1,5 @@
-import { Activite } from "./Activite.ts";
-import { SecteurActivite } from "./SecteursActivite";
-import { SousSecteurActivite } from "./SousSecteurs";
+import { SecteurActivite } from "./SecteurActivite.definitions.ts";
+import { SousSecteurActivite } from "./SousSecteurActivite.definitions.ts";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
@@ -8,7 +7,8 @@ import {
   TrancheNombreEmployes,
   TypeStructure,
   ValeurChampSimulateur,
-} from "./ChampsSimulateur";
+} from "./ChampsSimulateur.definitions.ts";
+import { ValeursActivites } from "./Activite.definitions.ts";
 
 export type NomsChampsSimulateur =
   | "designeOperateurServicesEssentiels"
@@ -22,7 +22,7 @@ export type NomsChampsSimulateur =
 
 export interface IDonneesBrutesFormulaireSimulateur
   extends Record<NomsChampsSimulateur, ValeurChampSimulateur[]> {
-  activites: Activite[];
+  activites: ValeursActivites[];
   designeOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[];
   etatMembre: AppartenancePaysUnionEuropeenne[];
   secteurActivite: SecteurActivite[];
@@ -42,7 +42,7 @@ export interface IDonneesFormulaireSimulateur
 export class DonneesFormulaireSimulateur
   implements IDonneesFormulaireSimulateur
 {
-  activites: Activite[] = [];
+  activites: ValeursActivites[] = [];
   designeOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[] =
     [];
   etatMembre: AppartenancePaysUnionEuropeenne[] = [];
@@ -59,12 +59,12 @@ export class DonneesFormulaireSimulateur
   avec(
     modifie: Partial<IDonneesFormulaireSimulateur>,
   ): IDonneesFormulaireSimulateur {
-    return new DonneesFormulaireSimulateur({ ...this, ...modifie });
+    return { ...this, ...modifie };
   }
 }
 
-export const donneesFormulaireSimulateurVide: DonneesFormulaireSimulateur =
-  new DonneesFormulaireSimulateur({
+export const donneesFormulaireSimulateurVide: IDonneesBrutesFormulaireSimulateur =
+  {
     designeOperateurServicesEssentiels: [],
     etatMembre: [],
     secteurActivite: [],
@@ -73,55 +73,4 @@ export const donneesFormulaireSimulateurVide: DonneesFormulaireSimulateur =
     trancheNombreEmployes: [],
     typeStructure: [],
     activites: [],
-  });
-export type DonneesSimulateurTailleEntreprise = Pick<
-  DonneesFormulaireSimulateur,
-  "trancheCA" | "trancheNombreEmployes"
->;
-export const archetypeReponsesPetiteEntreprise: DonneesSimulateurTailleEntreprise =
-  {
-    trancheCA: ["petit"],
-    trancheNombreEmployes: ["petit"],
   };
-export const archetypeReponsesMoyenneEntreprise: DonneesSimulateurTailleEntreprise =
-  {
-    trancheCA: ["moyen"],
-    trancheNombreEmployes: ["moyen"],
-  };
-export const archetypeReponsesGrandeEntreprise: DonneesSimulateurTailleEntreprise =
-  {
-    trancheCA: ["grand"],
-    trancheNombreEmployes: ["grand"],
-  };
-export const combinatoireEntrepriseMoyenne: DonneesSimulateurTailleEntreprise[] =
-  [
-    archetypeReponsesMoyenneEntreprise,
-    {
-      ...archetypeReponsesMoyenneEntreprise,
-      trancheCA: ["petit"],
-    },
-    {
-      ...archetypeReponsesMoyenneEntreprise,
-      trancheNombreEmployes: ["petit"],
-    },
-  ];
-export const combinatoireGrandesEntreprises: DonneesSimulateurTailleEntreprise[] =
-  [
-    archetypeReponsesGrandeEntreprise,
-    {
-      ...archetypeReponsesGrandeEntreprise,
-      trancheCA: ["moyen"],
-    },
-    {
-      ...archetypeReponsesGrandeEntreprise,
-      trancheCA: ["petit"],
-    },
-    {
-      ...archetypeReponsesGrandeEntreprise,
-      trancheNombreEmployes: ["moyen"],
-    },
-    {
-      ...archetypeReponsesGrandeEntreprise,
-      trancheNombreEmployes: ["petit"],
-    },
-  ];

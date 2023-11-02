@@ -7,20 +7,21 @@ import {
 import {
   UnionPetitMoyenGrand,
   ValeurChampSimulateur,
-} from "../../src/Domaine/Simulateur/ChampsSimulateur";
+} from "../../src/Domaine/Simulateur/ChampsSimulateur.definitions";
 import {
   ArbitraireOptions,
   ArbitraireOptionsActivites,
 } from "../Domaine/arbitraires/arbitraireOptions";
-import { fabriqueListeActivitesDesSecteurs } from "../../src/Domaine/Simulateur/Operations/FiltreActivites";
-import { filtreSecteursSansSousSecteurs } from "../../src/Domaine/Simulateur/Operations/operationsActivite";
 import {
   EnrSecteurSousSecteur,
   SousSecteurActivite,
-} from "../../src/Domaine/Simulateur/SousSecteurs";
-import { SecteurActivite } from "../../src/Domaine/Simulateur/SecteursActivite";
-import { ValeursPetitMoyenGrand } from "../../src/Domaine/Simulateur/ValeursChampsSimulateur";
-import { Activite } from "../../src/Domaine/Simulateur/Activite";
+} from "../../src/Domaine/Simulateur/SousSecteurActivite.definitions";
+import { SecteurActivite } from "../../src/Domaine/Simulateur/SecteurActivite.definitions";
+import { ValeursPetitMoyenGrand } from "../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
+
+import { ValeursActivites } from "../../src/Domaine/Simulateur/Activite.definitions";
+import { filtreSecteursSansSousSecteurs } from "../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.operations";
+import { fabriqueListeActivitesDesSecteurs } from "../../src/Domaine/Simulateur/services/Activite/Activite.operations";
 
 const constantArbitraire = <TypeChamp extends ValeurChampSimulateur>(
   value: TypeChamp[],
@@ -81,7 +82,7 @@ export const ajouteArbitraireActivites = <
     opFiltreActivite,
   );
   const baseAvecActivites = base as IDonneesFormulaireSimulateur;
-  const donneesActivite: Activite[] = baseAvecActivites.activites
+  const donneesActivite: ValeursActivites[] = baseAvecActivites.activites
     ? [...listeActivitesDesSecteurs, ...baseAvecActivites.activites]
     : listeActivitesDesSecteurs;
   if (listeActivitesDesSecteurs.length === 0) {
