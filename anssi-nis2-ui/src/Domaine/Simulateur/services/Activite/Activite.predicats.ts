@@ -1,4 +1,4 @@
-import { ValeursActivites } from "../../Activite";
+import { ValeursActivites } from "../../Activite.definitions.ts";
 import { ValeurCleSectorielle } from "../../ChampsSimulateur.definitions.ts";
 import { activitesParSecteurEtSousSecteur } from "./Activite.operations.ts";
 

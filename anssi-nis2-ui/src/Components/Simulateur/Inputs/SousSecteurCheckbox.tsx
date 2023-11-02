@@ -2,7 +2,7 @@ import { libellesSecteursActivite } from "../../../References/LibellesSecteursAc
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { OptionsChampSimulateur } from "../../../Services/Simulateur/Props/optionChampSimulateur";
 
-import { SecteursAvecSousSecteurs } from "../../../Domaine/Simulateur/SousSecteurActivite.definition.ts";
+import { SecteursAvecSousSecteurs } from "../../../Domaine/Simulateur/SousSecteurActivite.definitions.ts";
 
 export const SousSecteurCheckbox = ({
   secteur,

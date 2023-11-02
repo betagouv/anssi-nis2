@@ -1,9 +1,9 @@
 import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire.ts";
-import { SecteurActivite } from "../../SecteurActivite.definition.ts";
+import { SecteurActivite } from "../../SecteurActivite.definitions.ts";
 import {
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-} from "../../SousSecteurActivite.definition.ts";
+} from "../../SousSecteurActivite.definitions.ts";
 import {
   sousSecteursParSecteur,
   ValeursSecteursAvecSousSecteurs,

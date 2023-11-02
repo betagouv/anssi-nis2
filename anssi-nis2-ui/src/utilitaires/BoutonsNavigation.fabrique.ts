@@ -3,24 +3,10 @@ import { IDonneesBrutesFormulaireSimulateur } from "../Domaine/Simulateur/Donnee
 import {
   fabriqueEtatEtapePrecedent,
   fabriqueEtatEtapeSuivant,
-} from "../Domaine/Simulateur/services/fabriqueSuccesseurEtatEtape.ts";
+} from "../Domaine/Simulateur/services/EtatEtape/EtatEtape.operations.ts";
 import { noRefClick } from "../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
 import { EnvoieDonneesFormulaire } from "../Services/Simulateur/Operations/appelsApi";
-import { contientSousSecteurAutresUniquement } from "../Domaine/Simulateur/services/ChampSimulateur/champs.predicats.ts";
-import { contientAutreSecteurActiviteUniquement } from "../Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
-
-const verifieCompletudeDonneesFormulaire = (
-  donnees: IDonneesBrutesFormulaireSimulateur,
-) =>
-  donnees.designeOperateurServicesEssentiels.length == 1 &&
-  donnees.etatMembre.length == 1 &&
-  donnees.trancheCA.length == 1 &&
-  donnees.trancheNombreEmployes.length == 1 &&
-  donnees.typeStructure.length == 1 &&
-  donnees.secteurActivite.length > 0 &&
-  (contientAutreSecteurActiviteUniquement(donnees) ||
-    contientSousSecteurAutresUniquement(donnees) ||
-    donnees.activites.length > 0);
+import { verifieCompletudeDonneesFormulaire } from "../Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
 
 export const fabriqueGestionSuivant =
   (

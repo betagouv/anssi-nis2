@@ -1,9 +1,9 @@
 import {
   ConstantesEtatEtape,
   EtatEtapes,
-} from "../../../Services/Simulateur/EtatEtapes.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "../DonneesFormulaire.ts";
-import { fabriqueEtatEtape } from "../fabriques/EtatEtape.fabrique.ts";
+} from "../../../../Services/Simulateur/EtatEtapes.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire.ts";
+import { fabriqueEtatEtape } from "../../fabriques/EtatEtape.fabrique.ts";
 import { match, P } from "ts-pattern";
 
 type ConstruitSuccesseur = (

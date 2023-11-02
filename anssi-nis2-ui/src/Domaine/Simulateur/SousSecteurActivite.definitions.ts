@@ -1,4 +1,4 @@
-import { SecteurActivite } from "./SecteurActivite.definition.ts";
+import { SecteurActivite } from "./SecteurActivite.definitions.ts";
 import {
   ValeursSecteursAvecSousSecteurs,
   ValeursSousSecteurEnergie,

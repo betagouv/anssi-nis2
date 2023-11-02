@@ -15,11 +15,11 @@ import {
 import {
   EnrSecteurSousSecteur,
   SousSecteurActivite,
-} from "../../src/Domaine/Simulateur/SousSecteurActivite.definition";
-import { SecteurActivite } from "../../src/Domaine/Simulateur/SecteurActivite.definition";
+} from "../../src/Domaine/Simulateur/SousSecteurActivite.definitions";
+import { SecteurActivite } from "../../src/Domaine/Simulateur/SecteurActivite.definitions";
 import { ValeursPetitMoyenGrand } from "../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
 
-import { ValeursActivites } from "../../src/Domaine/Simulateur/Activite";
+import { ValeursActivites } from "../../src/Domaine/Simulateur/Activite.definitions";
 import { filtreSecteursSansSousSecteurs } from "../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.operations";
 import { fabriqueListeActivitesDesSecteurs } from "../../src/Domaine/Simulateur/services/Activite/Activite.operations";
 

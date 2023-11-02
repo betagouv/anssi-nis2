@@ -1,4 +1,4 @@
-import { ValeursActivites } from "../../../src/Domaine/Simulateur/Activite";
+import { ValeursActivites } from "../../../src/Domaine/Simulateur/Activite.definitions";
 
 export type ArbitraireOptions = {
   minLength?: number;

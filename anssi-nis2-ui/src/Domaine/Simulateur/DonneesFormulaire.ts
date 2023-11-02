@@ -1,5 +1,5 @@
-import { SecteurActivite } from "./SecteurActivite.definition.ts";
-import { SousSecteurActivite } from "./SousSecteurActivite.definition.ts";
+import { SecteurActivite } from "./SecteurActivite.definitions.ts";
+import { SousSecteurActivite } from "./SousSecteurActivite.definitions.ts";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
@@ -8,7 +8,7 @@ import {
   TypeStructure,
   ValeurChampSimulateur,
 } from "./ChampsSimulateur.definitions.ts";
-import { ValeursActivites } from "./Activite";
+import { ValeursActivites } from "./Activite.definitions.ts";
 
 export type NomsChampsSimulateur =
   | "designeOperateurServicesEssentiels"

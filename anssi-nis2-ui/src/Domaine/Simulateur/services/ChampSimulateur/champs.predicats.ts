@@ -2,44 +2,38 @@ import {
   IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../DonneesFormulaire.ts";
-import { SecteursAvecSousSecteurs } from "../../SousSecteurActivite.definition.ts";
+import { SecteursAvecSousSecteurs } from "../../SousSecteurActivite.definitions.ts";
 import { PredicatChamp } from "./champs.domaine.ts";
-import { SecteurActivite } from "../../SecteurActivite.definition.ts";
+import { SecteurActivite } from "../../SecteurActivite.definitions.ts";
 import {
   estSousSecteurAutre,
   sousSecteurAppartientASecteur,
 } from "../SousSecteurActivite/SousSecteurActivite.predicats.ts";
 import { ValeurCleSectorielle } from "../../ChampsSimulateur.definitions.ts";
-import { ValeursActivites } from "../../Activite";
+import { ValeursActivites } from "../../Activite.definitions.ts";
 import { activiteEstDansSecteur } from "../Activite/Activite.predicats.ts";
 import { filtreSecteursSansSousSecteurs } from "../SecteurActivite/SecteurActivite.operations.ts";
 
-export const et: (...validateurs: Array<PredicatChamp>) => PredicatChamp = (
-  ...validateurs
-) => {
-  return (donneesFormulaireSimulateur) => {
-    return validateurs.every((validateur) =>
-      validateur(donneesFormulaireSimulateur),
-    );
-  };
-};
-export const ou: (...validateurs: Array<PredicatChamp>) => PredicatChamp = (
-  ...validateurs
-) => {
-  return (donneesFormulaireSimulateur) => {
-    return validateurs.some((validateur) =>
-      validateur(donneesFormulaireSimulateur),
-    );
-  };
-};
+const appliqueValidateur: (
+  donnees: IDonneesBrutesFormulaireSimulateur,
+) => (validateur: PredicatChamp) => boolean = (donnees) => (validateur) =>
+  validateur(donnees);
+export const et: (...validateurs: Array<PredicatChamp>) => PredicatChamp =
+  (...validateurs) =>
+  (donnees) =>
+    validateurs.every(appliqueValidateur(donnees));
+export const ou: (...validateurs: Array<PredicatChamp>) => PredicatChamp =
+  (...validateurs) =>
+  (donnees) =>
+    validateurs.some(appliqueValidateur(donnees));
+
+export const estChaineNonVide = <T extends string>(listeValeurs: T) =>
+  listeValeurs.length > 0;
 
 export const auMoinsN =
   (n: number, nomChamp: NomsChampsSimulateur) =>
-  (donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur) =>
-    donneesFormulaireSimulateur[nomChamp].filter(
-      (listeValeurs) => listeValeurs.length > 0,
-    ).length >
-    n - 1;
+  (donnees: IDonneesBrutesFormulaireSimulateur) =>
+    donnees[nomChamp].filter(estChaineNonVide).length > n - 1;
 
 export const auMoinsUn = (nomChamp: NomsChampsSimulateur) =>
   auMoinsN(1, nomChamp);
@@ -48,7 +42,7 @@ export const auMoinsUnSousSecteurParSecteur: PredicatChamp = (
   donneesFormulaireSimulateur,
 ) => {
   const valeursSecteur: SecteurActivite[] =
-    donneesFormulaireSimulateur.secteurActivite as SecteurActivite[];
+    donneesFormulaireSimulateur.secteurActivite;
   const validateursParGroupe = valeursSecteur.map((valeur) =>
     sousSecteurAppartientASecteur(valeur as SecteursAvecSousSecteurs),
   );
@@ -71,6 +65,16 @@ const auMoinsUneActiviteEstDansSecteur = (
   );
 };
 
+function fabriqueAuMoinsUneActiviteEstDansSecteur(
+  donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur,
+) {
+  return (secteurActivite: ValeurCleSectorielle) =>
+    auMoinsUneActiviteEstDansSecteur(
+      donneesFormulaireSimulateur.activites,
+      secteurActivite,
+    );
+}
+
 export const auMoinsUneActiviteParValeurSectorielle: PredicatChamp = (
   donneesFormulaireSimulateur,
 ) => {
@@ -80,11 +84,8 @@ export const auMoinsUneActiviteParValeurSectorielle: PredicatChamp = (
     ),
     ...donneesFormulaireSimulateur.sousSecteurActivite,
   ];
-  return secteursEtSousSecteurs.every((secteurActivite) =>
-    auMoinsUneActiviteEstDansSecteur(
-      donneesFormulaireSimulateur.activites,
-      secteurActivite,
-    ),
+  return secteursEtSousSecteurs.every(
+    fabriqueAuMoinsUneActiviteEstDansSecteur(donneesFormulaireSimulateur),
   );
 };
 

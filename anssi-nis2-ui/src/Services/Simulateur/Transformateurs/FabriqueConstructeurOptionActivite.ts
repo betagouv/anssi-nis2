@@ -18,7 +18,7 @@ import {
   AssociationSectorielleActivite,
 } from "../../../Domaine/Simulateur/services/Activite/Activite.operations.ts";
 import React, { Dispatch } from "react";
-import { ValeursActivites } from "../../../Domaine/Simulateur/Activite";
+import { ValeursActivites } from "../../../Domaine/Simulateur/Activite.definitions.ts";
 
 export const fabriqueConstructeurOptionActivite: (
   donneesFormulaire: IDonneesBrutesFormulaireSimulateur,

@@ -2,9 +2,9 @@ import {
   EnrSecteurSousSecteur,
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-} from "../../../../src/Domaine/Simulateur/SousSecteurActivite.definition";
+} from "../../../../src/Domaine/Simulateur/SousSecteurActivite.definitions";
 import { ValeursSecteursAvecSousSecteurs } from "../../../../src/Domaine/Simulateur/SousSecteurActivite.valeurs";
-import { SecteurActivite } from "../../../../src/Domaine/Simulateur/SecteurActivite.definition";
+import { SecteurActivite } from "../../../../src/Domaine/Simulateur/SecteurActivite.definitions";
 import { ValeursSecteursSansSousSecteur } from "../../../../src/Domaine/Simulateur/SecteurActivite.valeurs";
 import {
   fabriqueListePartielleSecteursAvecSousSecteurs,

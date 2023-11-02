@@ -7,7 +7,7 @@ import {
 } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import { ValeurChampSimulateur } from "../../../src/Domaine/Simulateur/ChampsSimulateur.definitions";
 import { transformePaysUnionEuropeennePourSelect } from "../../../src/Services/Simulateur/Transformateurs/TransformePaysUnionEuropeennePourSelect";
-import { ValeursActivites } from "../../../src/Domaine/Simulateur/Activite";
+import { ValeursActivites } from "../../../src/Domaine/Simulateur/Activite.definitions";
 
 describe(genereTransformateurValeursVersOptions, () => {
   const onChange: React.ChangeEventHandler<HTMLInputElement> = () => {};

@@ -5,7 +5,7 @@ import { EtatEtapes } from "../../../src/Services/Simulateur/EtatEtapes";
 import {
   fabriqueEtatEtapePrecedent,
   fabriqueEtatEtapeSuivant,
-} from "../../../src/Domaine/Simulateur/services/fabriqueSuccesseurEtatEtape";
+} from "../../../src/Domaine/Simulateur/services/EtatEtape/EtatEtape.operations";
 
 const donneesVides = donneesFormulaireSimulateurVide;
 
