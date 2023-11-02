@@ -1,6 +1,24 @@
 import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire.ts";
 import { contientAutreSecteurActiviteUniquement } from "../SecteurActivite/SecteurActivite.predicats.ts";
 import { contientSousSecteurAutresUniquement } from "../ChampSimulateur/champs.predicats.ts";
+import {
+  auMoinsUneActiviteAutre,
+  auMoinsUneActiviteListee,
+} from "../Activite/Activite.predicats.ts";
+
+const auMoinsUn = {
+  activiteListee: (donnees: IDonneesBrutesFormulaireSimulateur) =>
+    auMoinsUneActiviteListee(donnees.activites),
+  activiteAutre: (donnees: IDonneesBrutesFormulaireSimulateur) =>
+    auMoinsUneActiviteAutre(donnees.activites),
+};
+
+export const predicatDonneesFormulaire = {
+  auMoins: {
+    un: auMoinsUn,
+    une: auMoinsUn,
+  },
+};
 
 export const verifieCompletudeDonneesFormulaire = (
   donnees: IDonneesBrutesFormulaireSimulateur,

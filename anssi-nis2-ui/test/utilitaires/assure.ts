@@ -1,10 +1,14 @@
 import { fc } from "@fast-check/vitest";
 import { expect } from "vitest";
+import { DonneesFormulaireExtensibles } from "./manipulationArbitraires";
 
-export const assure = <TypeArbitraire, TypeResultat>(
-  acte: (donnees: TypeArbitraire) => TypeResultat,
+export const assure = <
+  DonneesPartielles extends DonneesFormulaireExtensibles,
+  TypeResultat,
+>(
+  acte: (donnees: DonneesPartielles) => TypeResultat,
 ) => ({
-  sur: (arbitraire: fc.Arbitrary<TypeArbitraire>) => ({
+  sur: (arbitraire: fc.Arbitrary<DonneesPartielles>) => ({
     toujoursEgal: (resultatAttendu: TypeResultat) =>
       Assure.toujoursEgal(arbitraire, acte, resultatAttendu),
   }),

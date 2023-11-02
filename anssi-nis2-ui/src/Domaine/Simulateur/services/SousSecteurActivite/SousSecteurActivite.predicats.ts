@@ -10,6 +10,9 @@ export const estSousSecteurListe = (sousSecteur?: SousSecteurActivite) =>
 export const estSousSecteurAutre = (sousSecteur?: SousSecteurActivite) =>
   sousSecteur?.startsWith("autre");
 
+export const auMoinsUnSousSecteurListe = (sousSecteur: SousSecteurActivite[]) =>
+  sousSecteur?.some(estSousSecteurListe);
+
 export const sousSecteurAppartientASecteur =
   (valeurGroupement: SecteursAvecSousSecteurs) =>
   (donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur) => {
