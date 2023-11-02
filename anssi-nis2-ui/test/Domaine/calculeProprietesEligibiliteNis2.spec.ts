@@ -3,7 +3,6 @@ import { estEligible } from "../../src/Domaine/Simulateur/services/Eligibilite/E
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
 import { assure } from "../utilitaires/assure";
 import { Eligibilite } from "../../src/Domaine/Simulateur/Eligibilite.definitions";
-import { fc } from "@fast-check/vitest";
 
 describe(estEligible, () => {
   describe("Entité OSE pour NIS1", () => {
