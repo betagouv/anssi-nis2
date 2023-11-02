@@ -2,7 +2,6 @@ import {
   IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { Activite } from "../../../Domaine/Simulateur/Activite.ts";
 import {
   AttributsEntreeChoixMultiple,
   OptionChampSimulateur,
@@ -17,13 +16,14 @@ import {
 import {
   activitesParSecteurEtSousSecteur,
   AssociationSectorielleActivite,
-} from "../../../Domaine/Simulateur/ActivitesParSecteurEtSousSecteur.ts";
+} from "../../../Domaine/Simulateur/services/Activite/Activite.operations.ts";
 import React, { Dispatch } from "react";
+import { ValeursActivites } from "../../../Domaine/Simulateur/Activite";
 
 export const fabriqueConstructeurOptionActivite: (
   donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
   changeMulti: React.ChangeEventHandler<HTMLInputElement>,
-) => (activite: Activite) => OptionChampSimulateur =
+) => (activite: ValeursActivites) => OptionChampSimulateur =
   (donneesFormulaire, changeMulti) => (activite) => ({
     label: libellesActivites[activite],
     contenuInfobulle: listeDescriptionsActivites[activite],
@@ -46,7 +46,9 @@ const fabriqueChangeMulti: (
 
 function fabriqueOptions(
   secteurOuSousSecteur: ValeurCleSectorielle,
-  construitOptionActivite: (activite: Activite) => OptionChampSimulateur,
+  construitOptionActivite: (
+    activite: ValeursActivites,
+  ) => OptionChampSimulateur,
 ) {
   const activitesParSecteurEtSousSecteurElement =
     activitesParSecteurEtSousSecteur[secteurOuSousSecteur];

@@ -1,25 +1,20 @@
 import {
   IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "../DonneesFormulaire.ts";
-import { SecteursAvecSousSecteurs } from "../SousSecteurs";
-import {
-  Validateur,
-  ValidationReponses,
-} from "../operations/validateursChamps";
-import { SecteurActivite } from "../SecteursActivite";
-import { Activite } from "../Activite.ts";
-import {
-  activiteEstDansSecteur,
-  filtreSecteursSansSousSecteurs,
-} from "../operations/operationsActivite.ts";
+} from "../../DonneesFormulaire.ts";
+import { SecteursAvecSousSecteurs } from "../../SousSecteurs";
+import { PredicatChamp } from "./champs.domaine.ts";
+import { SecteurActivite } from "../../SecteursActivite";
 import {
   estSousSecteurAutre,
   sousSecteurAppartientASecteur,
-} from "../operations/operationsSecteurs.ts";
-import { ValeurCleSectorielle } from "../ChampsSimulateur";
+} from "../SousSecteurActivite/SousSecteurActivite.predicats.ts";
+import { ValeurCleSectorielle } from "../../ChampsSimulateur";
+import { ValeursActivites } from "../../Activite";
+import { activiteEstDansSecteur } from "../Activite/Activite.predicats.ts";
+import { filtreSecteursSansSousSecteurs } from "../SecteurActivite/SecteurActivite.operations.ts";
 
-export const et: (...validateurs: Array<Validateur>) => Validateur = (
+export const et: (...validateurs: Array<PredicatChamp>) => PredicatChamp = (
   ...validateurs
 ) => {
   return (donneesFormulaireSimulateur) => {
@@ -28,7 +23,7 @@ export const et: (...validateurs: Array<Validateur>) => Validateur = (
     );
   };
 };
-export const ou: (...validateurs: Array<Validateur>) => Validateur = (
+export const ou: (...validateurs: Array<PredicatChamp>) => PredicatChamp = (
   ...validateurs
 ) => {
   return (donneesFormulaireSimulateur) => {
@@ -49,7 +44,7 @@ export const auMoinsN =
 export const auMoinsUn = (nomChamp: NomsChampsSimulateur) =>
   auMoinsN(1, nomChamp);
 
-export const auMoinsUnSousSecteurParSecteur: Validateur = (
+export const auMoinsUnSousSecteurParSecteur: PredicatChamp = (
   donneesFormulaireSimulateur,
 ) => {
   const valeursSecteur: SecteurActivite[] =
@@ -68,7 +63,7 @@ export const auMoinsUnSousSecteurParSecteur: Validateur = (
 };
 
 const auMoinsUneActiviteEstDansSecteur = (
-  activites: Activite[],
+  activites: ValeursActivites[],
   secteurActivite: ValeurCleSectorielle,
 ) => {
   return activites.some((activite) =>
@@ -76,7 +71,7 @@ const auMoinsUneActiviteEstDansSecteur = (
   );
 };
 
-export const auMoinsUneActiviteParValeurSectorielle: Validateur = (
+export const auMoinsUneActiviteParValeurSectorielle: PredicatChamp = (
   donneesFormulaireSimulateur,
 ) => {
   const secteursEtSousSecteurs: ValeurCleSectorielle[] = [
@@ -93,42 +88,8 @@ export const auMoinsUneActiviteParValeurSectorielle: Validateur = (
   );
 };
 
-export const validationUneReponses = (
-  nomChamp: NomsChampsSimulateur,
-): ValidationReponses => ({
-  message: "Selectionnez une réponse",
-  validateur: auMoinsUn(nomChamp),
-});
-
-export const contientAutreSecteurActiviteUniquement = (
-  donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
-) =>
-  donneesFormulaire.secteurActivite.length === 1 &&
-  donneesFormulaire.secteurActivite[0] === "autreSecteurActivite";
-
 export const contientSousSecteurAutresUniquement = (
   donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
 ) =>
   donneesFormulaire.sousSecteurActivite.length > 0 &&
   donneesFormulaire.sousSecteurActivite.every(estSousSecteurAutre);
-
-export const validationReponsesTaille = {
-  message: "Sélectionnez une réponse pour chaque critère",
-  validateur: et(auMoinsUn("trancheNombreEmployes"), auMoinsUn("trancheCA")),
-};
-export const validationReponsesSecteurs = {
-  message: "Sélectionnez au moins une réponse",
-  validateur: auMoinsUn("secteurActivite"),
-};
-export const validationReponsesSousActivites = {
-  message: "Sélectionnez au moins une réponse par secteur",
-  validateur: auMoinsUnSousSecteurParSecteur,
-};
-export const validationReponsesActivites = {
-  message: "Sélectionnez au moins une réponse par secteur",
-  validateur: auMoinsUneActiviteParValeurSectorielle,
-};
-export const valideToutesLesReponses: ValidationReponses = {
-  message: "",
-  validateur: () => true,
-};

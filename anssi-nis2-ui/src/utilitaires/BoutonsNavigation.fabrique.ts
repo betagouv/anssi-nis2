@@ -6,10 +6,8 @@ import {
 } from "../Domaine/Simulateur/services/fabriqueSuccesseurEtatEtape.ts";
 import { noRefClick } from "../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
 import { EnvoieDonneesFormulaire } from "../Services/Simulateur/Operations/appelsApi";
-import {
-  contientAutreSecteurActiviteUniquement,
-  contientSousSecteurAutresUniquement,
-} from "../Domaine/Simulateur/services/Validateurs.ts";
+import { contientSousSecteurAutresUniquement } from "../Domaine/Simulateur/services/ChampSimulateur/champs.predicats.ts";
+import { contientAutreSecteurActiviteUniquement } from "../Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
 
 const verifieCompletudeDonneesFormulaire = (
   donnees: IDonneesBrutesFormulaireSimulateur,

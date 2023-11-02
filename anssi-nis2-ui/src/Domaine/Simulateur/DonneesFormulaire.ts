@@ -1,4 +1,3 @@
-import { Activite } from "./Activite.ts";
 import { SecteurActivite } from "./SecteursActivite";
 import { SousSecteurActivite } from "./SousSecteurs";
 import {
@@ -9,6 +8,7 @@ import {
   TypeStructure,
   ValeurChampSimulateur,
 } from "./ChampsSimulateur";
+import { ValeursActivites } from "./Activite";
 
 export type NomsChampsSimulateur =
   | "designeOperateurServicesEssentiels"
@@ -22,7 +22,7 @@ export type NomsChampsSimulateur =
 
 export interface IDonneesBrutesFormulaireSimulateur
   extends Record<NomsChampsSimulateur, ValeurChampSimulateur[]> {
-  activites: Activite[];
+  activites: ValeursActivites[];
   designeOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[];
   etatMembre: AppartenancePaysUnionEuropeenne[];
   secteurActivite: SecteurActivite[];
@@ -42,7 +42,7 @@ export interface IDonneesFormulaireSimulateur
 export class DonneesFormulaireSimulateur
   implements IDonneesFormulaireSimulateur
 {
-  activites: Activite[] = [];
+  activites: ValeursActivites[] = [];
   designeOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[] =
     [];
   etatMembre: AppartenancePaysUnionEuropeenne[] = [];

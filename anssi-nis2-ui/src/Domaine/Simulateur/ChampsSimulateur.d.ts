@@ -1,12 +1,12 @@
 import { SecteursSansSousSecteur, SousSecteurActivite } from "./SousSecteurs";
 import { SecteurActivite } from "./SecteursActivite";
-import { Activite } from "./Activite";
 import {
   ValeursAppartenancePaysUnionEuropeenne,
   ValeursDesignationOperateurServicesEssentiels,
   ValeursPetitMoyenGrand,
-  ValeursTypeStructure
+  ValeursTypeStructure,
 } from "./ValeursChampsSimulateur";
+import { ValeursActivites } from "./Activite";
 
 export type DesignationOperateurServicesEssentiels =
   (typeof ValeursDesignationOperateurServicesEssentiels)[number];
@@ -27,4 +27,4 @@ export type ValeurChampSimulateur =
   | TrancheNombreEmployes
   | SecteurActivite
   | SousSecteurActivite
-  | Activite;
+  | ValeursActivites;

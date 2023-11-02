@@ -9,8 +9,8 @@ import {
   auMoinsUn,
   et,
   auMoinsUneActiviteParValeurSectorielle,
-  contientAutreSecteurActiviteUniquement,
-} from "../../src/Domaine/Simulateur/services/Validateurs";
+} from "../../src/Domaine/Simulateur/services/ChampSimulateur/champs.predicats";
+import { contientAutreSecteurActiviteUniquement } from "../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 
 describe("validateurs", () => {
   describe("valideAuMoinsUn", () => {

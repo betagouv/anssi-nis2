@@ -5,9 +5,9 @@ import {
   donneesFormulaireSimulateurVide,
   DonneesFormulaireSimulateur,
 } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
-import { Activite } from "../../../src/Domaine/Simulateur/Activite";
 import { ValeurChampSimulateur } from "../../../src/Domaine/Simulateur/ChampsSimulateur";
 import { transformePaysUnionEuropeennePourSelect } from "../../../src/Services/Simulateur/Transformateurs/TransformePaysUnionEuropeennePourSelect";
+import { ValeursActivites } from "../../../src/Domaine/Simulateur/Activite";
 
 describe(genereTransformateurValeursVersOptions, () => {
   const onChange: React.ChangeEventHandler<HTMLInputElement> = () => {};
@@ -71,7 +71,7 @@ describe(genereTransformateurValeursVersOptions, () => {
       value: ValeurChampSimulateur,
       secteurActivite: Record<ValeurChampSimulateur, string>,
     ) => secteurActivite[value as ValeurChampSimulateur];
-    const activites: Partial<Record<Activite, string>> = {
+    const activites: Partial<Record<ValeursActivites, string>> = {
       entrepriseElectriciteRemplissantFonctionFourniture:
         "Entreprise d’électricité remplissant une fonction de fourniture",
     };
@@ -103,7 +103,7 @@ describe(genereTransformateurValeursVersOptions, () => {
     });
 
     it("genere une liste d'option avec la bonne option cochée", () => {
-      const valeurSelectionnee: Activite =
+      const valeurSelectionnee: ValeursActivites =
         "entrepriseElectriciteRemplissantFonctionFourniture";
       const attendu = [
         {

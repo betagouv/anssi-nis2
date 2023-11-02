@@ -9,19 +9,23 @@ import {
 } from "./index.ts";
 import { CollectionInformationsEtapes } from "../../../Services/Simulateur/CollectionInformationsEtapes.ts";
 import {
-  contientAutreSecteurActiviteUniquement,
   contientSousSecteurAutresUniquement,
   ou,
+} from "../../../Domaine/Simulateur/services/ChampSimulateur/champs.predicats.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { fabriqueEtatEtape } from "../../../Domaine/Simulateur/fabriques/EtatEtape.fabrique.ts";
+import { fabriqueInformationsEtapes } from "../../../Domaine/Simulateur/fabriques/InformationsEtape.fabrique.ts";
+import {
+  fabriqueValidationUneReponses,
   validationReponsesActivites,
   validationReponsesSecteurs,
   validationReponsesSousActivites,
   validationReponsesTaille,
-  validationUneReponses,
-} from "../../../Domaine/Simulateur/services/Validateurs.ts";
-import { estUnSecteurAvecDesSousSecteurs } from "../../../Domaine/Simulateur/operations/operationsSecteurs.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { fabriqueEtatEtape } from "../../../Domaine/Simulateur/fabriques/EtatEtape.fabrique.ts";
-import { fabriqueInformationsEtapes } from "../../../Domaine/Simulateur/fabriques/InformationsEtape.fabrique.ts";
+} from "../../../Domaine/Simulateur/services/ChampSimulateur/ValidationReponses.ts";
+import {
+  contientAutreSecteurActiviteUniquement,
+  estUnSecteurAvecDesSousSecteurs,
+} from "../../../Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
@@ -42,17 +46,17 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
     fabriqueInformationsEtapes.prealable("Pour bien débuter"),
     fabriqueInformationsEtapes.form(
       "Désignation éventuelle",
-      validationUneReponses("designeOperateurServicesEssentiels"),
+      fabriqueValidationUneReponses("designeOperateurServicesEssentiels"),
       EtapeOSE,
     ),
     fabriqueInformationsEtapes.form(
       "Localisation de l’activité",
-      validationUneReponses("etatMembre"),
+      fabriqueValidationUneReponses("etatMembre"),
       EtapeLocalisation,
     ),
     fabriqueInformationsEtapes.form(
       "Type de structure",
-      validationUneReponses("typeStructure"),
+      fabriqueValidationUneReponses("typeStructure"),
       EtapeTypeStructure,
     ),
     fabriqueInformationsEtapes.form(

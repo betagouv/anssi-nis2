@@ -1,28 +1,17 @@
 import { match, P } from "ts-pattern";
-import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire.ts";
 
+import { auMoinsUnSecteurListe } from "../SecteurActivite/SecteurActivite.predicats.ts";
+import {
+  Eligibilite,
+  ResultatEligibilite,
+} from "../../Eligibilite.definition.ts";
 import {
   aucuneActiviteListee,
   auMoinsUneActiviteListee,
-} from "./operations/FiltreActivites.ts";
-import { auMoinsUnSecteurListe } from "./operations/FiltresSecteurs.ts";
+} from "../Activite/Activite.predicats.ts";
 
-export type ResultatEligibilite =
-  | "NonEligible"
-  | "EligiblePetiteEntreprise"
-  | "EligibleMoyenneGrandeEntreprise"
-  | "Incertain";
-
-export const Eligibilite: Readonly<
-  Record<ResultatEligibilite, ResultatEligibilite>
-> = {
-  NonEligible: "NonEligible",
-  EligiblePetiteEntreprise: "EligiblePetiteEntreprise",
-  EligibleMoyenneGrandeEntreprise: "EligibleMoyenneGrandeEntreprise",
-  Incertain: "Incertain",
-} as const;
-
-export const eligibilite: (
+export const estEligible: (
   donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur,
 ) => ResultatEligibilite = (donneesFormulaireSimulateur) => {
   return match(donneesFormulaireSimulateur)

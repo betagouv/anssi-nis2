@@ -1,3 +1,6 @@
+import { SecteurActivite } from "./SecteursActivite";
+import { estUnSecteurSansDesSousSecteurs } from "./services/SecteurActivite/SecteurActivite.predicats.ts";
+
 export const ValeursSecteursActivites = [
   "administrationPublique",
   "banqueSecteurBancaire",
@@ -19,3 +22,5 @@ export const ValeursSecteursActivites = [
   "transports",
   "autreSecteurActivite",
 ] as const;
+export const ValeursSecteursSansSousSecteur: SecteurActivite[] =
+  ValeursSecteursActivites.filter(estUnSecteurSansDesSousSecteurs);

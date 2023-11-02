@@ -9,13 +9,13 @@ import {
 } from "../../../Services/Simulateur/InformationsEtape.ts";
 import { PredicatDonneesSimulateur } from "../../../Services/Simulateur/PredicatDonneesSimulateur.ts";
 import { SimulateurEtapeNodeComponent } from "../../../Services/Simulateur/Props/component";
-import { ValidationReponses } from "../operations/validateursChamps";
+import { ValidationReponses } from "../services/ChampSimulateur/champs.domaine.ts";
 import { elementVide } from "../../../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
 import { SimulateurEtapeForm } from "../../../Components/Simulateur/SimulateurEtapeForm.tsx";
 import { IDonneesBrutesFormulaireSimulateur } from "../DonneesFormulaire.ts";
 import { SimulateurEtapePrealable } from "../../../Components/Simulateur/SimulateurEtapePrealable.tsx";
-import { valideToutesLesReponses } from "../services/Validateurs.ts";
 import { SimulateurEtapeResult } from "../../../Components/Simulateur/SimulateurEtapeResult.tsx";
+import { validationToutesLesReponses } from "../services/ChampSimulateur/ValidationReponses.ts";
 
 const toujoursFaux = () => false;
 const toujoursVrai = () => true;
@@ -29,7 +29,7 @@ const fabriqueInformationsEtapeResultat: (titre: string) => EtapeResultat = (
   conteneurElementRendu: SimulateurEtapeResult,
   remplitContitionSousEtape: toujoursFaux,
   estIgnoree: toujoursFaux,
-  validationReponses: valideToutesLesReponses,
+  validationReponses: validationToutesLesReponses,
 });
 
 const fabriqueInformationsEtapeForm = (
@@ -65,7 +65,7 @@ const fabriqueInformationEtapePrealable: (titre: string) => EtapePrealable = (
   titre: titre,
   remplitContitionSousEtape: toujoursFaux,
   estIgnoree: toujoursFaux,
-  validationReponses: valideToutesLesReponses,
+  validationReponses: validationToutesLesReponses,
 });
 
 export const fabriqueSousEtapeConditionnelle: (
@@ -90,7 +90,7 @@ export const EtapeInexistante: InformationsEtape & CapaciteEtape = {
   conteneurElementRendu: elementVide,
   remplitContitionSousEtape: toujoursFaux,
   estIgnoree: toujoursVrai,
-  validationReponses: valideToutesLesReponses,
+  validationReponses: validationToutesLesReponses,
 } as const;
 
 export const optionsInformationEtapeFormParDefaut: OptionsInformationEtapeForm =

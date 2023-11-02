@@ -12,15 +12,16 @@ import {
   ArbitraireOptions,
   ArbitraireOptionsActivites,
 } from "../Domaine/arbitraires/arbitraireOptions";
-import { fabriqueListeActivitesDesSecteurs } from "../../src/Domaine/Simulateur/operations/FiltreActivites";
-import { filtreSecteursSansSousSecteurs } from "../../src/Domaine/Simulateur/operations/operationsActivite";
 import {
   EnrSecteurSousSecteur,
   SousSecteurActivite,
 } from "../../src/Domaine/Simulateur/SousSecteurs";
 import { SecteurActivite } from "../../src/Domaine/Simulateur/SecteursActivite";
 import { ValeursPetitMoyenGrand } from "../../src/Domaine/Simulateur/ValeursChampsSimulateur";
-import { Activite } from "../../src/Domaine/Simulateur/Activite";
+
+import { ValeursActivites } from "../../src/Domaine/Simulateur/Activite";
+import { filtreSecteursSansSousSecteurs } from "../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.operations";
+import { fabriqueListeActivitesDesSecteurs } from "../../src/Domaine/Simulateur/services/Activite/Activite.operations";
 
 const constantArbitraire = <TypeChamp extends ValeurChampSimulateur>(
   value: TypeChamp[],
@@ -81,7 +82,7 @@ export const ajouteArbitraireActivites = <
     opFiltreActivite,
   );
   const baseAvecActivites = base as IDonneesFormulaireSimulateur;
-  const donneesActivite: Activite[] = baseAvecActivites.activites
+  const donneesActivite: ValeursActivites[] = baseAvecActivites.activites
     ? [...listeActivitesDesSecteurs, ...baseAvecActivites.activites]
     : listeActivitesDesSecteurs;
   if (listeActivitesDesSecteurs.length === 0) {

@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import { ValidationReponses } from "../../../src/Domaine/Simulateur/operations/validateursChamps";
+import { ValidationReponses } from "../../../src/Domaine/Simulateur/services/ChampSimulateur/champs.domaine";
 import { SimulateurEtapeNodeComponent } from "../../../src/Services/Simulateur/Props/component";
 import {
   fabriqueInformationsEtapes,

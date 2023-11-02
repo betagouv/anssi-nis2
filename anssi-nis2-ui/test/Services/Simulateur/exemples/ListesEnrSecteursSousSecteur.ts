@@ -2,14 +2,14 @@ import {
   EnrSecteurSousSecteur,
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-} from "./SousSecteurs";
-import { ValeursSecteursAvecSousSecteurs } from "./ValeursSousSecteursActivites.ts";
+} from "../../../../src/Domaine/Simulateur/SousSecteurs";
+import { ValeursSecteursAvecSousSecteurs } from "../../../../src/Domaine/Simulateur/ValeursSousSecteursActivites";
+import { SecteurActivite } from "../../../../src/Domaine/Simulateur/SecteursActivite";
+import { ValeursSecteursSansSousSecteur } from "../../../../src/Domaine/Simulateur/ValeursSecteursActivites";
 import {
+  fabriqueListePartielleSecteursAvecSousSecteurs,
   fabriqueTupleSecteurSousSecteurs,
-  listePartielleSecteursAvecSousSecteurs,
-  ValeursSecteursSansSousSecteur,
-} from "./operations/operationsSecteurs.ts";
-import { SecteurActivite } from "./SecteursActivite";
+} from "../../../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.operations";
 
 export const listeEnrSecteursSansSousSecteur: EnrSecteurSousSecteur[] =
   ValeursSecteursSansSousSecteur.map((secteur) => ({
@@ -25,7 +25,7 @@ export const listeEnrSecteursEtSousSecteurs: EnrSecteurSousSecteur[] =
       [secteur, listeSousSecteurs],
     ) => [
       ...listeTuples,
-      ...listePartielleSecteursAvecSousSecteurs(
+      ...fabriqueListePartielleSecteursAvecSousSecteurs(
         listeSousSecteurs,
         secteur as SecteursAvecSousSecteurs,
       ),

@@ -1,8 +1,10 @@
-import { DescriptionActivite } from "../Domaine/Simulateur/DescriptionActivite.ts";
-import { Activite } from "../Domaine/Simulateur/Activite.ts";
+import {
+  DescriptionActivite,
+  ValeursActivites,
+} from "../Domaine/Simulateur/Activite";
 
 export const listeDescriptionsActivites: Record<
-  Activite,
+  ValeursActivites,
   DescriptionActivite[]
 > = {
   autreActiviteAdministrationPublique: [],

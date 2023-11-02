@@ -1,10 +1,13 @@
-import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire.ts";
-import { SecteurActivite } from "./SecteursActivite";
-import { SecteursAvecSousSecteurs, SousSecteurActivite } from "./SousSecteurs";
+import {
+  SecteursAvecSousSecteurs,
+  SousSecteurActivite,
+} from "../../SousSecteurs";
 import {
   contientSousSecteur,
   estUnSecteurAvecDesSousSecteurs,
-} from "./operations/operationsSecteurs.ts";
+} from "../SecteurActivite/SecteurActivite.predicats.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire.ts";
+import { SecteurActivite } from "../../SecteursActivite";
 
 const extraitSousSecteurs = (
   secteur: SecteursAvecSousSecteurs,
@@ -13,7 +16,6 @@ const extraitSousSecteurs = (
   sousSecteurActivite.filter((sousSecteur) =>
     contientSousSecteur(secteur, sousSecteur),
   );
-
 const extraitSousSecteursOuListeVide = (
   secteur: string,
   sousSecteurActivite: SousSecteurActivite[],
@@ -24,7 +26,6 @@ const extraitSousSecteursOuListeVide = (
         sousSecteurActivite,
       )
     : [];
-
 export const cartographieSousSecteursParSecteur = ({
   secteurActivite,
   sousSecteurActivite,

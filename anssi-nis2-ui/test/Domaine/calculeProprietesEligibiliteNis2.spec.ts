@@ -1,22 +1,22 @@
 import { describe, it } from "vitest";
 import { fc } from "@fast-check/vitest";
-import {
-  eligibilite,
-  Eligibilite,
-  ResultatEligibilite,
-} from "../../src/Domaine/Simulateur/resultatEligibilite";
+import { estEligible } from "../../src/Domaine/Simulateur/services/Eligibilite/Eligibilite.predicats";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
 import { IDonneesFormulaireSimulateur } from "../../src/Domaine/Simulateur/DonneesFormulaire";
 import { assure } from "../utilitaires/assure";
+import {
+  Eligibilite,
+  ResultatEligibilite,
+} from "../../src/Domaine/Simulateur/Eligibilite.definition";
 
 const eligiEstToujoursEgale = (
   arbitraire: fc.Arbitrary<IDonneesFormulaireSimulateur>,
   resultatAttendu: ResultatEligibilite,
 ) => {
-  assure.toujoursEgal(arbitraire, eligibilite, resultatAttendu);
+  assure.toujoursEgal(arbitraire, estEligible, resultatAttendu);
 };
 
-describe(eligibilite, () => {
+describe(estEligible, () => {
   describe("Entité OSE pour NIS1", () => {
     it("de petite taille est toujours éligible", () => {
       eligiEstToujoursEgale(

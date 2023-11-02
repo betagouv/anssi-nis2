@@ -4,7 +4,7 @@ import {
   SimulateurEtapeRenderedComponent,
 } from "./Props/component";
 
-import { ValidationReponses } from "../../Domaine/Simulateur/operations/validateursChamps";
+import { ValidationReponses } from "../../Domaine/Simulateur/services/ChampSimulateur/champs.domaine.ts";
 import { PredicatDonneesSimulateur } from "./PredicatDonneesSimulateur.ts";
 
 export type InformationsEtape = {
