@@ -4,6 +4,7 @@ import { contientSousSecteurAutresUniquement } from "../ChampSimulateur/champs.p
 import {
   auMoinsUneActiviteAutre,
   auMoinsUneActiviteListee,
+  estActiviteAutre,
 } from "../Activite/Activite.predicats.ts";
 
 const auMoinsUn = {
@@ -17,6 +18,10 @@ export const predicatDonneesFormulaire = {
   auMoins: {
     un: auMoinsUn,
     une: auMoinsUn,
+  },
+  uniquement: {
+    activiteAutre: (donnees: IDonneesBrutesFormulaireSimulateur) =>
+      donnees.activites.every(estActiviteAutre),
   },
 };
 

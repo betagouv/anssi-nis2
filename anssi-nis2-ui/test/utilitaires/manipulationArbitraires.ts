@@ -22,7 +22,10 @@ import { ValeursPetitMoyenGrand } from "../../src/Domaine/Simulateur/ChampsSimul
 import { ValeursActivites } from "../../src/Domaine/Simulateur/Activite.definitions";
 import { filtreSecteursSansSousSecteurs } from "../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.operations";
 import { fabriqueListeActivitesDesSecteurs } from "../../src/Domaine/Simulateur/services/Activite/Activite.operations";
-import { estActiviteAutre } from "../../src/Domaine/Simulateur/services/Activite/Activite.predicats";
+import {
+  estActiviteAutre,
+  estActiviteListee,
+} from "../../src/Domaine/Simulateur/services/Activite/Activite.predicats";
 
 const constantArbitraire = <TypeChamp extends ValeurChampSimulateur>(
   value: TypeChamp[],
@@ -247,14 +250,18 @@ export const fabriqueArbContraintSurTrancheCA = (
       "petit",
     ),
   });
-export const ajouteAuMoinsUneActiviteAutre = (
-  base,
-): fc.Arbitrary<DonneesFormulaireExtensibles> =>
+export const ajouteAuMoinsUneActiviteAutre = (base) =>
   ajouteArbitraireActivites(base, {
     filtreActivite: estActiviteAutre,
     minLength: 1,
   });
+export const ajouteAuMoinsUneActiviteListee = (base) =>
+  ajouteArbitraireActivites(base, {
+    filtreActivite: estActiviteListee,
+    minLength: 1,
+  });
 export const ajouteAuMoinsUneActiviteArbitraire = (base) =>
   ajouteArbitraireActivites(base, { minLength: 1 });
+
 export const fabriqueArbTrancheSingleton = () =>
   fabriqueArbSingleton(ValeursPetitMoyenGrand);
