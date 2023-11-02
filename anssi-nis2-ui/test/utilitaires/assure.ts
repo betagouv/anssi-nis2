@@ -2,14 +2,14 @@ import { fc } from "@fast-check/vitest";
 import { expect } from "vitest";
 import { DonneesFormulaireExtensibles } from "./manipulationArbitraires";
 
-export const assure = <
+export const verifieQue = <
   DonneesPartielles extends DonneesFormulaireExtensibles,
   TypeResultat,
 >(
   acte: (donnees: DonneesPartielles) => TypeResultat,
 ) => ({
-  sur: (arbitraire: fc.Arbitrary<DonneesPartielles>) => ({
-    toujoursEgal: (resultatAttendu: TypeResultat) =>
+  quelqueSoit: (arbitraire: fc.Arbitrary<DonneesPartielles>) => ({
+    renvoieToujours: (resultatAttendu: TypeResultat) =>
       Assure.toujoursEgal(arbitraire, acte, resultatAttendu),
   }),
 });
