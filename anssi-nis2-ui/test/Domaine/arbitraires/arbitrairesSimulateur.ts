@@ -19,7 +19,10 @@ import {
   ValeursPetitMoyenGrand,
 } from "../../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
 
-import { listeEnrSecteursAvecLeursSousSecteurs } from "../../Services/Simulateur/exemples/ListesEnrSecteursSousSecteur";
+import {
+  filtreSecteurListeSecteursSousSecteurs,
+  listeEnrSecteursAvecLeursSousSecteurs,
+} from "../../Services/Simulateur/exemples/ListesEnrSecteursSousSecteur";
 import {
   arbAppartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
@@ -35,27 +38,19 @@ import {
 
 export const arbTrancheSingleton = () =>
   fabriqueArbSingleton(ValeursPetitMoyenGrand);
-
-const filtreSecteurListeSecteursSousSecteurs = (secteurFiltre: string) =>
-  listeEnrSecteursAvecLeursSousSecteurs.filter(
-    (enrSecteurSousSecteur) => enrSecteurSousSecteur.secteur == secteurFiltre,
-  );
-
-const arbitraireSecteursSousSecteurs = fabriqueArbSecteurSousSecteurs(
+export const arbitraireSecteursSousSecteurs = fabriqueArbSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs,
 );
-
-export function fabriqueArbContraintSurTrancheCA(
+export const fabriqueArbContraintSurTrancheCA = (
   base: Omit<DonneesSansActivite, "trancheNombreEmployes">,
-) {
-  return fc.record<DonneesSansActivite>({
+) =>
+  fc.record<DonneesSansActivite>({
     ...propageBase(base),
     trancheNombreEmployes: contrainteTranchesSansDoublonSurValeur(
       base,
       "petit",
     ),
   });
-}
 
 export const donneesArbitrairesFormOSEPetit: fc.Arbitrary<IDonneesFormulaireSimulateur> =
   etendArbitraire(arbitraireSecteursSousSecteurs, {
@@ -279,5 +274,10 @@ export const arbForm = {
       },
     },
     publique: donneesArbitrairesFormNonOSEPublique,
+  },
+  nonValide: {
+    donneeAbsente: {
+      typeStructure: arbTypeStructure,
+    },
   },
 };

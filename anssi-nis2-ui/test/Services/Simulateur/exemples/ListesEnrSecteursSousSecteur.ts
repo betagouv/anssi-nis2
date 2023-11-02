@@ -37,3 +37,7 @@ export const listeEnrSecteursAvecLeursSousSecteurs: EnrSecteurSousSecteur[] = [
   ...listeEnrSecteursSansSousSecteur,
   ...listeEnrSecteursEtSousSecteurs,
 ];
+export const filtreSecteurListeSecteursSousSecteurs = (secteurFiltre: string) =>
+  listeEnrSecteursAvecLeursSousSecteurs.filter(
+    (enrSecteurSousSecteur) => enrSecteurSousSecteur.secteur == secteurFiltre,
+  );

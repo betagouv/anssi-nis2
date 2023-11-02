@@ -16,7 +16,7 @@ export type DesignationOperateurServicesEssentiels =
 export declare type AppartenancePaysUnionEuropeenne =
   (typeof ValeursAppartenancePaysUnionEuropeenne)[number];
 export type TypeStructure = (typeof ValeursTypeStructure)[number];
-type UnionPetitMoyenGrand = (typeof ValeursPetitMoyenGrand)[number];
+export type UnionPetitMoyenGrand = (typeof ValeursPetitMoyenGrand)[number];
 export type TrancheNombreEmployes = UnionPetitMoyenGrand;
 export type TrancheChiffreAffaire = UnionPetitMoyenGrand;
 export type ValeurCleSectorielle =
