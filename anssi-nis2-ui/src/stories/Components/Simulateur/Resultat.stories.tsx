@@ -1,56 +1,12 @@
 import { expect } from "@storybook/jest";
+import { within } from "@storybook/testing-library";
+
 import { Meta, StoryObj } from "@storybook/react";
 import { SimulateurEtapeResult } from "../../../Components/Simulateur/SimulateurEtapeResult.tsx";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { within } from "@storybook/testing-library";
 
-import {
-  contenusResultatEligibleGrandeEntreprise,
-  contenusResultatEligiblePetitEntreprise,
-  contenusResultatNonEligible,
-} from "../../../References/contenusResultatEligibilite.ts";
-import {
-  BlocResultatSpecifiques,
-  ContenusResultatEligibilite,
-} from "../../../Services/Simulateur/Props/contenusResultatEligibilite";
-
-const meta: Meta<typeof SimulateurEtapeResult> = {
-  title: "Composants/Simulateur/ConteneursEtape",
-  component: SimulateurEtapeResult,
-  args: {
-    donneesFormulaire: new DonneesFormulaireSimulateur({}),
-  },
-};
-
-export default meta;
-type Story = StoryObj<typeof SimulateurEtapeResult>;
-
-const titreDeSections: Record<BlocResultatSpecifiques, string> = {
-  bienDebuterAvecPdf: "Pour bien débuter",
-  enSavoirPlus: "En savoir plus",
-  etMaintenant: "Et Maintenant ?",
-};
-const verifieContenuResultatDansPage = async (
-  canvasElement: HTMLElement,
-  contenusResultat: ContenusResultatEligibilite,
-) => {
-  const canvas = within(canvasElement);
-  const icone = canvasElement.querySelector(
-    `span.${contenusResultat.classIcone}`,
-  );
-  expect(icone).toBeInTheDocument();
-  expect(canvas.getByText(contenusResultat.titre)).toBeInTheDocument();
-  expect(
-    canvasElement.querySelector("div.fr-nis2-resultat")?.className,
-  ).toContain(contenusResultat.classeDivResultat);
-
-  contenusResultat.afficheBlocs.etMaintenant &&
-    (await canvas.findByText(titreDeSections.etMaintenant));
-  contenusResultat.afficheBlocs.enSavoirPlus &&
-    (await canvas.findByText(titreDeSections.enSavoirPlus));
-  contenusResultat.afficheBlocs.bienDebuterAvecPdf &&
-    (await canvas.findByText(titreDeSections.bienDebuterAvecPdf));
-};
+import { contenusResultats } from "../../../References/contenusResultatEligibilite.ts";
+import { verifieContenuResultatDansPage } from "../../utilitaires/VerifieContenuResultatDansPage.ts";
 
 const archetypeDonneesFormulaire = new DonneesFormulaireSimulateur({
   designeOperateurServicesEssentiels: ["non"],
@@ -62,6 +18,17 @@ const archetypeDonneesFormulaire = new DonneesFormulaireSimulateur({
   sousSecteurActivite: [],
   activites: ["fournisseurPointEchangeInternet"],
 });
+
+const meta: Meta<typeof SimulateurEtapeResult> = {
+  title: "Composants/Simulateur/ConteneursEtape",
+  component: SimulateurEtapeResult,
+  args: {
+    donneesFormulaire: archetypeDonneesFormulaire,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof SimulateurEtapeResult>;
 
 export const ResultatEligibleOSE: Story = {
   args: {
@@ -75,7 +42,7 @@ export const ResultatEligibleOSE: Story = {
     const canvas = within(canvasElement);
     await verifieContenuResultatDansPage(
       canvasElement,
-      contenusResultatEligiblePetitEntreprise,
+      contenusResultats.EligiblePetiteEntreprise,
     );
     expect(await canvas.findByText("Points d'attention")).toBeInTheDocument();
 
@@ -94,7 +61,7 @@ export const ResultatEligiblePetiteEntreprise: Story = {
 
     await verifieContenuResultatDansPage(
       canvasElement,
-      contenusResultatEligiblePetitEntreprise,
+      contenusResultats.EligiblePetiteEntreprise,
     );
 
     const titrePrecisions = await canvas.findByText("Points d'attention");
@@ -120,7 +87,7 @@ export const ResultatEligibleGrandeEntreprise: Story = {
 
     await verifieContenuResultatDansPage(
       canvasElement,
-      contenusResultatEligibleGrandeEntreprise,
+      contenusResultats.EligibleMoyenneGrandeEntreprise,
     );
 
     const titrePrecisions = await canvas.findByText("Points d'attention");
@@ -149,7 +116,7 @@ export const ResultatNonEligible: Story = {
 
     await verifieContenuResultatDansPage(
       canvasElement,
-      contenusResultatNonEligible,
+      contenusResultats.NonEligible,
     );
 
     const titrePrecisions = await canvas.findByText(
