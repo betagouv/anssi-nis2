@@ -59,12 +59,13 @@ const archetypeDonneesFormulaire = new DonneesFormulaireSimulateur({
   trancheCA: ["petit"],
   trancheNombreEmployes: ["petit"],
   secteurActivite: ["infrastructureNumerique"],
+  sousSecteurActivite: [],
   activites: ["fournisseurPointEchangeInternet"],
 });
 
 export const ResultatEligibleOSE: Story = {
   args: {
-    donneesFormulaire: new DonneesFormulaireSimulateur({
+    donneesFormulaire: archetypeDonneesFormulaire.avec({
       designeOperateurServicesEssentiels: ["oui"],
       trancheNombreEmployes: ["petit"],
       trancheCA: ["petit"],
