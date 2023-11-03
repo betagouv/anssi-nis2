@@ -9,6 +9,7 @@ import { mockSendFormData } from "../../utilitaires/mocks.ts";
 
 import { Contexte } from "../../../Services/contexte";
 import { contenusResultatEligiblePetitEntreprise } from "../../../References/contenusResultatEligibilite.ts";
+import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 const meta: Meta<typeof ChargeurEtape> = {
   title: "Composants/Simulateur/ChargeurEtape",
@@ -59,18 +60,21 @@ export const DerniereEtapeEstResultat: Story = {
 
     await canvas.findByText(contenusResultatEligiblePetitEntreprise.titre);
     await expect(mockSendFormData).toHaveBeenCalledTimes(1);
-    await expect(mockSendFormData).toHaveBeenCalledWith({
-      activites: [
-        "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
-      ],
-      designeOperateurServicesEssentiels: ["oui"],
-      etatMembre: ["france"],
-      secteurActivite: ["espace"],
-      sousSecteurActivite: [],
-      trancheCA: ["petit"],
-      trancheNombreEmployes: ["petit"],
-      typeStructure: ["publique"],
-    });
+
+    await expect(mockSendFormData).toHaveBeenCalledWith(
+      new DonneesFormulaireSimulateur({
+        activites: [
+          "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
+        ],
+        designeOperateurServicesEssentiels: ["oui"],
+        etatMembre: ["france"],
+        secteurActivite: ["espace"],
+        sousSecteurActivite: [],
+        trancheCA: ["petit"],
+        trancheNombreEmployes: ["petit"],
+        typeStructure: ["publique"],
+      }),
+    );
   },
 };
 
@@ -119,19 +123,21 @@ export const EtapeSousActiviteConditionnelle: Story = {
     ]);
     await canvas.findByText(contenusResultatEligiblePetitEntreprise.titre);
     await expect(mockSendFormData).toHaveBeenCalledTimes(1);
-    await expect(mockSendFormData).toHaveBeenCalledWith({
-      activites: [
-        "entrepriseElectriciteRemplissantFonctionFourniture",
-        "gestionnaireReseauDistribution",
-      ],
-      designeOperateurServicesEssentiels: ["oui"],
-      etatMembre: ["france"],
-      secteurActivite: ["energie"],
-      sousSecteurActivite: ["electricite", "gaz"],
-      trancheCA: ["petit"],
-      trancheNombreEmployes: ["petit"],
-      typeStructure: ["publique"],
-    });
+    await expect(mockSendFormData).toHaveBeenCalledWith(
+      new DonneesFormulaireSimulateur({
+        activites: [
+          "entrepriseElectriciteRemplissantFonctionFourniture",
+          "gestionnaireReseauDistribution",
+        ],
+        designeOperateurServicesEssentiels: ["oui"],
+        etatMembre: ["france"],
+        secteurActivite: ["energie"],
+        sousSecteurActivite: ["electricite", "gaz"],
+        trancheCA: ["petit"],
+        trancheNombreEmployes: ["petit"],
+        typeStructure: ["publique"],
+      }),
+    );
   },
 };
 
@@ -193,16 +199,18 @@ export const IgnoreEtapeActivitePourSecteurActiviteAutre: Story = {
 
     await canvas.findByText(contenusResultatEligiblePetitEntreprise.titre);
     await expect(mockSendFormData).toHaveBeenCalledTimes(1);
-    await expect(mockSendFormData).toHaveBeenCalledWith({
-      activites: [],
-      designeOperateurServicesEssentiels: ["oui"],
-      etatMembre: ["france"],
-      secteurActivite: ["autreSecteurActivite"],
-      sousSecteurActivite: [],
-      trancheCA: ["petit"],
-      trancheNombreEmployes: ["petit"],
-      typeStructure: ["privee"],
-    });
+    await expect(mockSendFormData).toHaveBeenCalledWith(
+      new DonneesFormulaireSimulateur({
+        activites: [],
+        designeOperateurServicesEssentiels: ["oui"],
+        etatMembre: ["france"],
+        secteurActivite: ["autreSecteurActivite"],
+        sousSecteurActivite: [],
+        trancheCA: ["petit"],
+        trancheNombreEmployes: ["petit"],
+        typeStructure: ["privee"],
+      }),
+    );
   },
 };
 export const IgnoreEtapeActivitePourSousSecteurActiviteAutre: Story = {
@@ -235,15 +243,17 @@ export const IgnoreEtapeActivitePourSousSecteurActiviteAutre: Story = {
 
     await canvas.findByText(contenusResultatEligiblePetitEntreprise.titre);
     await expect(mockSendFormData).toHaveBeenCalledTimes(1);
-    await expect(mockSendFormData).toHaveBeenCalledWith({
-      activites: [],
-      designeOperateurServicesEssentiels: ["oui"],
-      etatMembre: ["france"],
-      secteurActivite: ["energie"],
-      sousSecteurActivite: ["autreSousSecteurEnergie"],
-      trancheCA: ["petit"],
-      trancheNombreEmployes: ["petit"],
-      typeStructure: ["privee"],
-    });
+    await expect(mockSendFormData).toHaveBeenCalledWith(
+      new DonneesFormulaireSimulateur({
+        activites: [],
+        designeOperateurServicesEssentiels: ["oui"],
+        etatMembre: ["france"],
+        secteurActivite: ["energie"],
+        sousSecteurActivite: ["autreSousSecteurEnergie"],
+        trancheCA: ["petit"],
+        trancheNombreEmployes: ["petit"],
+        typeStructure: ["privee"],
+      }),
+    );
   },
 };

@@ -9,4 +9,9 @@ export const ValeursAppartenancePaysUnionEuropeenne = [
   "horsue",
 ] as const;
 export const ValeursTypeStructure = ["publique", "privee"] as const;
+export const ValeursTypeEntitePublique = [
+  "administrationCentrale",
+  "collectiviteTerritoriale",
+  "autreStructurePublique",
+] as const;
 export const ValeursPetitMoyenGrand = ["petit", "moyen", "grand"] as const;

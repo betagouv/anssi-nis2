@@ -1,4 +1,7 @@
-import { libellesTypesStructure } from "../../../References/Libelles.ts";
+import {
+  libellesTypeEntitePublique,
+  libellesTypesStructure,
+} from "../../../References/Libelles.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { FormSimulateur } from "./index.ts";
 import React, { useMemo } from "react";
@@ -6,8 +9,10 @@ import { SimulateurEtapeNodeComponent } from "../../../Services/Simulateur/Props
 import { fabriqueGestionChangementSimple } from "../../../Services/Simulateur/gestionnaires.ts";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
-import { transformeTypeStructureVersOptions } from "../../../Services/Simulateur/Transformateurs/TransformeTypeStructureVersOptions.ts";
-import { OptionsChampSimulateur } from "../../../Services/Simulateur/Props/optionChampSimulateur";
+import {
+  transformeTypeEntitePubliqueVersOptions,
+  transformeTypeStructureVersOptions,
+} from "../../../Services/Simulateur/Transformateurs/TransformeTypeStructureVersOptions.ts";
 
 const EtapeTypeStructureCalculee: SimulateurEtapeNodeComponent = ({
   donneesFormulaire,
@@ -33,35 +38,11 @@ const EtapeTypeStructureCalculee: SimulateurEtapeNodeComponent = ({
     [donneesFormulaire],
   );
   const texteLegendeTypeEntitePublique = "Précisez le type d’entité publique :";
-  const optionsTypeEntitePublique: OptionsChampSimulateur = [
-    {
-      label: "Administration centrale",
-      nativeInputProps: {
-        name: "typeEntitePublique",
-        value: "administrationCentrale",
-        onChange: gestionDonneesFormulaire,
-        checked: false,
-      },
-    },
-    {
-      label: "Collectivité territoriale",
-      nativeInputProps: {
-        name: "typeEntitePublique",
-        value: "administrationCentrale",
-        onChange: gestionDonneesFormulaire,
-        checked: false,
-      },
-    },
-    {
-      label: "Autre structure publique",
-      nativeInputProps: {
-        name: "typeEntitePublique",
-        value: "administrationCentrale",
-        onChange: gestionDonneesFormulaire,
-        checked: false,
-      },
-    },
-  ];
+  const optionsTypeEntitePublique = transformeTypeEntitePubliqueVersOptions(
+    libellesTypeEntitePublique,
+    gestionDonneesFormulaire,
+    donneesFormulaire,
+  );
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
