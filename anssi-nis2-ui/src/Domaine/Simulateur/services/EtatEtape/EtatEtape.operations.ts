@@ -67,7 +67,10 @@ const fabriqueAvanceSousEtape: FabriqueChangementEtatEtape =
 const quandRempliContitionSousEtape = (
   etatEtapes: EtatEtapes,
   donnees: IDonneesBrutesFormulaireSimulateur,
-) => P.when(() => etatEtapes.remplitContitionSousEtape(donnees));
+) =>
+  P.when(() =>
+    etatEtapes.contenuEtapeCourante.remplitContitionSousEtape(donnees),
+  );
 const fabriqueEtatEtapeSuivantSansCondition = (
   etatEtapes: EtatEtapes,
   donnees: IDonneesBrutesFormulaireSimulateur,
@@ -76,7 +79,7 @@ const fabriqueEtatEtapeSuivantSansCondition = (
     .with(
       {
         estSurSousEtape: false,
-        remplitContitionSousEtape: quandRempliContitionSousEtape(
+        contenuEtapeCourante: quandRempliContitionSousEtape(
           etatEtapes,
           donnees,
         ),

@@ -12,7 +12,7 @@ const donneesVides = donneesFormulaireSimulateurVide;
 const attendEtatEtapeEgaux = (
   etatEtapeResultant: EtatEtapes,
   etatEtapeAttendu: EtatEtapes,
-  ignoreProprietes = ["remplitContitionSousEtape", "ignoreEtapeSuivante"],
+  ignoreProprietes = ["ignoreEtapeSuivante"],
 ) =>
   Object.keys(etatEtapeAttendu)
     .filter((champ) => !ignoreProprietes.includes(champ))

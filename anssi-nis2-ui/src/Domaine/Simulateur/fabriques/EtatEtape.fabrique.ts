@@ -5,21 +5,19 @@ import {
 import { EtatEtapes } from "../../../Services/Simulateur/EtatEtapes.ts";
 import { CollectionInformationsEtapes } from "../../../Services/Simulateur/CollectionInformationsEtapes.ts";
 
-type EtatEtapeFabrique = (
+const suivantEstIgnore = (
+  suivant: EtatEtapes,
+  donnees: IDonneesBrutesFormulaireSimulateur,
+) => suivant.contenuEtapeCourante.estIgnoree(donnees);
+const fabriqueIgnoreEtape = (etapeSuivantExiste: boolean) =>
+  etapeSuivantExiste ? suivantEstIgnore : () => false;
+
+export const fabriqueEtatEtape: (
   collectionEtapes: CollectionInformationsEtapes,
   indiceEtape: number,
   indiceSousEtape?: number,
   donneesFormulaire?: IDonneesBrutesFormulaireSimulateur,
-) => EtatEtapes;
-
-const suivantEstIgnore = (
-  suivant: EtatEtapes,
-  donnees: IDonneesBrutesFormulaireSimulateur,
-) => suivant.informationEtapeForm.estIgnoree(donnees);
-const fabriqueIgnoreEtape = (etapeSuivantExiste: boolean) =>
-  etapeSuivantExiste ? suivantEstIgnore : () => false;
-
-export const fabriqueEtatEtape: EtatEtapeFabrique = (
+) => EtatEtapes = (
   collectionEtapes,
   indiceEtape,
   indiceSousEtape = 0,
@@ -34,18 +32,13 @@ export const fabriqueEtatEtape: EtatEtapeFabrique = (
   return {
     donneesFormulaire: donneesFormulaire,
     collectionEtapes: collectionEtapes,
-    titre: contenuEtapeCourante.titre,
-    indice: indiceEtape,
-    indiceCourant: indiceEtape,
-    indiceSousEtape: indiceSousEtape,
     numero: collectionEtapes.numeroCourant(indiceEtape),
-    contenuEtapeCourante: contenuEtapeCourante,
-    conteneurElement: contenuEtapeCourante.conteneurElementRendu,
-    etapeSuivantExiste: etapeSuivantExiste,
     estSurSousEtape: collectionEtapes.estSurSousEtape(indiceSousEtape),
     estSurEtapeInitiale: collectionEtapes.estSurEtapeInitiale(indiceEtape),
-    informationEtapeForm: contenuEtapeCourante,
+    etapeSuivantExiste: etapeSuivantExiste,
     ignoreEtapeSuivante: fabriqueIgnoreEtape(etapeSuivantExiste),
-    remplitContitionSousEtape: contenuEtapeCourante.remplitContitionSousEtape,
+    indiceCourant: indiceEtape,
+    indiceSousEtape: indiceSousEtape,
+    contenuEtapeCourante: contenuEtapeCourante,
   };
 };

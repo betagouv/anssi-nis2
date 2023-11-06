@@ -1,32 +1,29 @@
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
-import {
-  InformationEtapeForm,
-  InformationsEtape,
-} from "./InformationsEtape.ts";
+import { InformationEtapeForm } from "./InformationsEtape.ts";
 import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
-import { SimulateurEtapeRenderedComponent } from "./Props/component";
-
 export type EtatEtapes = {
+  // Données générales
   readonly collectionEtapes: CollectionInformationsEtapes;
+
+  // Situation dans la collection
   readonly indiceCourant: number;
   readonly indiceSousEtape: number;
-  readonly donneesFormulaire: IDonneesBrutesFormulaireSimulateur;
-  readonly indice: number;
   readonly numero: number;
-  readonly contenuEtapeCourante: InformationsEtape;
-  readonly titre: string;
-  readonly titreSuivant?: string;
-  readonly conteneurElement: SimulateurEtapeRenderedComponent;
+
+  // Informations sur l'enchainement d'étapes
   readonly etapeSuivantExiste: boolean;
   readonly estSurSousEtape: boolean;
   readonly estSurEtapeInitiale: boolean;
-  readonly informationEtapeForm: InformationEtapeForm;
+
+  // Informations sur le composant
+  readonly titreSuivant?: string;
+  readonly donneesFormulaire: IDonneesBrutesFormulaireSimulateur;
+  readonly contenuEtapeCourante: InformationEtapeForm;
+
+  // Capacités
   readonly ignoreEtapeSuivante: (
     etat: EtatEtapes,
-    donnees: IDonneesBrutesFormulaireSimulateur,
-  ) => boolean;
-  readonly remplitContitionSousEtape: (
     donnees: IDonneesBrutesFormulaireSimulateur,
   ) => boolean;
 };
