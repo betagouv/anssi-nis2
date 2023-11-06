@@ -64,4 +64,5 @@ export const libellesSimulateur: DictionnaireLibellesSimulateur = {
   trancheCA: libellesTranchesCA,
   trancheNombreEmployes: libellesTranchesNombreEmployes,
   typeStructure: libellesTypesStructure,
+  typeEntitePublique: libellesTypeEntitePublique,
 };

@@ -5,7 +5,7 @@ import {
   NomsChampsSimulateur,
 } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
-import { fieldHandlers } from "./gestionnaires.ts";
+import { gestionnairesDeChamp } from "./gestionnaires.ts";
 import {
   LibellesSousSecteurs,
   SecteursAvecSousSecteurs,
@@ -38,7 +38,7 @@ export const reducerFormData: Reducer<
       return generateNewStateFrom(
         state,
         name,
-        fieldHandlers[name](newValue, state),
+        gestionnairesDeChamp[name](newValue, state),
       );
     default:
       throw Error(`Unknown action: ${type}`);

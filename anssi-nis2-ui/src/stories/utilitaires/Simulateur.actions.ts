@@ -1,7 +1,7 @@
 import { CanvasObject } from "./Canvas.d.tsx";
 import { userEvent } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { libellesSimulateur as libelles } from "../../References/Libelles.ts";
+import { libellesSimulateur } from "../../References/Libelles.ts";
 import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { SecteurActivite } from "../../Domaine/Simulateur/SecteurActivite.definitions.ts";
 
@@ -40,7 +40,7 @@ export const passeEtapeEnCochant = async <
     }
     await userEvent.click(
       await canvas.findByText(
-        (libelles[champ] as Record<NomChamp, string>)[valeur],
+        (libellesSimulateur[champ] as Record<NomChamp, string>)[valeur],
       ),
     );
   }
