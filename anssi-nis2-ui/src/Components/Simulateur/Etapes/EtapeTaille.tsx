@@ -53,7 +53,7 @@ const EtapeTailleCalculee = ({
           Quelles sont les caractéristiques clés de votre organisation ?
         </legend>
         <RadioButtons
-          legend="Nombre d’employé·e·s (équivalents temps pleins)"
+          legend="Nombre d’employés (équivalents temps pleins)"
           options={optionsTranchesNombreEmployes}
         />
         <RadioButtons

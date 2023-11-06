@@ -3,6 +3,7 @@ import {
   InformationsEtape,
 } from "./InformationsEtape.ts";
 import { EtapeInexistante } from "../../Domaine/Simulateur/fabriques/InformationsEtape.fabrique.ts";
+import { ConstantesEtatEtape } from "./EtatEtapes.ts";
 
 export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   get nombreEtapes(): number {
@@ -59,5 +60,30 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   recupereSousEtape(indiceEtapeCourante: number) {
     return this.recupereEtapeCourante<InformationEtapeForm>(indiceEtapeCourante)
       .options.sousEtapeConditionnelle?.sousEtape;
+  }
+
+  existeEtapeSuivante(indiceEtape: number): boolean {
+    return indiceEtape < this.length - 1;
+  }
+
+  estSurSousEtape(indiceSousEtape: number) {
+    return indiceSousEtape != ConstantesEtatEtape.indiceSousEtapeInitial;
+  }
+
+  estSurEtapeInitiale(indiceEtape: number) {
+    return indiceEtape === ConstantesEtatEtape.indiceEtapeInitial;
+  }
+
+  contenuEtapeCourante(
+    collectionEtapes: CollectionInformationsEtapes,
+    indiceEtape: number,
+    indiceSousEtape: number,
+  ): InformationEtapeForm {
+    const etapeCourante = collectionEtapes.recupereEtapeCourante(
+      indiceEtape,
+    ) as InformationEtapeForm;
+    return this.estSurSousEtape(indiceSousEtape)
+      ? collectionEtapes.recupereSousEtape(indiceEtape) || etapeCourante
+      : etapeCourante;
   }
 }

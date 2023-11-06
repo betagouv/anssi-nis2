@@ -22,11 +22,6 @@ export type CapaciteEtape = {
 
 export type EtapeExistante = InformationsEtape & CapaciteEtape;
 
-export type SousEtapeConditionnelle = {
-  readonly condition: PredicatDonneesSimulateur;
-  readonly sousEtape: InformationEtapeForm;
-};
-
 export type EtapePrealable = EtapeExistante;
 
 export type EtapeResultat = EtapeExistante;
@@ -36,6 +31,11 @@ export type OptionsInformationEtapeForm = {
   readonly ignoreSi: (
     donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
   ) => boolean;
+};
+
+export type SousEtapeConditionnelle = {
+  readonly condition: PredicatDonneesSimulateur;
+  readonly sousEtape: InformationEtapeForm;
 };
 
 export type InformationEtapeForm = EtapeExistante & {
