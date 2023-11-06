@@ -9,7 +9,10 @@ import {
   estSousSecteurAutre,
   sousSecteurAppartientASecteur,
 } from "../SousSecteurActivite/SousSecteurActivite.predicats.ts";
-import { ValeurCleSectorielle } from "../../ChampsSimulateur.definitions.ts";
+import {
+  ValeurChampSimulateur,
+  ValeurCleSectorielle,
+} from "../../ChampsSimulateur.definitions.ts";
 import { ValeursActivites } from "../../Activite.definitions.ts";
 import { activiteEstDansSecteur } from "../Activite/Activite.predicats.ts";
 import { filtreSecteursSansSousSecteurs } from "../SecteurActivite/SecteurActivite.operations.ts";
@@ -26,6 +29,14 @@ export const ou: (...validateurs: Array<PredicatChamp>) => PredicatChamp =
   (...validateurs) =>
   (donnees) =>
     validateurs.some(appliqueValidateur(donnees));
+
+export const lorsque: (
+  champ: NomsChampsSimulateur,
+  valeur: ValeurChampSimulateur,
+  predicat: PredicatChamp,
+) => PredicatChamp =
+  (champ, valeur, predicat) => (donnees: IDonneesBrutesFormulaireSimulateur) =>
+    donnees[champ][0] != valeur || predicat(donnees);
 
 export const estChaineNonVide = <T extends string>(listeValeurs: T) =>
   listeValeurs.length > 0;

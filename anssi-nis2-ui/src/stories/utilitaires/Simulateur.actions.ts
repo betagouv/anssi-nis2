@@ -3,28 +3,20 @@ import { userEvent } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { libellesSimulateur } from "../../References/Libelles.ts";
 import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { SecteurActivite } from "../../Domaine/Simulateur/SecteurActivite.definitions.ts";
+import { ValeurChampSimulateur } from "../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 
-import { SousSecteurActivite } from "../../Domaine/Simulateur/SousSecteurActivite.definitions.ts";
-import {
-  AppartenancePaysUnionEuropeenne,
-  DesignationOperateurServicesEssentiels,
-  TrancheChiffreAffaire,
-  TrancheNombreEmployes,
-  TypeStructure,
-} from "../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
-import { ValeursActivites } from "../../Domaine/Simulateur/Activite.definitions.ts";
+const libellesValeurDeChamp = <NomChamp extends ValeurChampSimulateur>(
+  champ: NomsChampsSimulateur,
+  valeur: NomChamp,
+) => (libellesSimulateur[champ] as Record<NomChamp, string>)[valeur];
+
+const verifieEtatBoutonSuivant = (
+  suivantActiveApres: number,
+  boutonSuivant: HTMLElement,
+) => suivantActiveApres !== 0 || expect(boutonSuivant).not.toBeEnabled();
 
 export const passeEtapeEnCochant = async <
-  NomChamp extends
-    | DesignationOperateurServicesEssentiels
-    | ValeursActivites
-    | AppartenancePaysUnionEuropeenne
-    | SecteurActivite
-    | SousSecteurActivite
-    | TrancheChiffreAffaire
-    | TrancheNombreEmployes
-    | TypeStructure,
+  NomChamp extends ValeurChampSimulateur,
 >(
   canvas: CanvasObject,
   champsACliquer: [NomsChampsSimulateur, NomChamp][],
@@ -35,15 +27,18 @@ export const passeEtapeEnCochant = async <
   });
   for (let i = 0; i < champsACliquer.length; i++) {
     const [champ, valeur] = champsACliquer[i];
-    if (suivantActiveApres === 0) {
-      expect(boutonSuivant).not.toBeEnabled();
-    }
-    await userEvent.click(
-      await canvas.findByText(
-        (libellesSimulateur[champ] as Record<NomChamp, string>)[valeur],
-      ),
+    verifieEtatBoutonSuivant(suivantActiveApres, boutonSuivant);
+    const champACliquer = await canvas.findByText(
+      libellesValeurDeChamp(champ, valeur),
     );
+    await userEvent.click(champACliquer);
   }
   expect(boutonSuivant).toBeEnabled();
   return await userEvent.click(boutonSuivant);
 };
+export const cliqueSurDebuterLeTest = async (canvas: CanvasObject) =>
+  await userEvent.click(
+    await canvas.findByRole("button", {
+      name: "Débuter le test",
+    }),
+  );
