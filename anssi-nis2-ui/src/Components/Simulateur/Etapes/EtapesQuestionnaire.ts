@@ -21,6 +21,7 @@ import {
   validationReponsesSecteurs,
   validationReponsesSousActivites,
   validationReponsesTaille,
+  validationReponsesTypeStructure,
 } from "../../../Domaine/Simulateur/services/ChampSimulateur/ValidationReponses.ts";
 import {
   contientAutreSecteurActiviteUniquement,
@@ -56,7 +57,7 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
     ),
     fabriqueInformationsEtapes.form(
       "Type de structure",
-      fabriqueValidationUneReponses("typeStructure"),
+      validationReponsesTypeStructure,
       EtapeTypeStructure,
     ),
     fabriqueInformationsEtapes.form(

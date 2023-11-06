@@ -4,9 +4,16 @@ import {
   auMoinsUneActiviteParValeurSectorielle,
   auMoinsUnSousSecteurParSecteur,
   et,
+  lorsque,
 } from "./champs.predicats.ts";
 import { NomsChampsSimulateur } from "../../DonneesFormulaire.ts";
 
+export const fabriqueValidationUneReponses = (
+  nomChamp: NomsChampsSimulateur,
+): ValidationReponses => ({
+  message: "Selectionnez une réponse",
+  validateur: auMoinsUn(nomChamp),
+});
 export const validationReponsesTaille: ValidationReponses = {
   message: "Sélectionnez une réponse pour chaque critère",
   validateur: et(auMoinsUn("trancheNombreEmployes"), auMoinsUn("trancheCA")),
@@ -27,9 +34,11 @@ export const validationToutesLesReponses: ValidationReponses = {
   message: "",
   validateur: () => true,
 };
-export const fabriqueValidationUneReponses = (
-  nomChamp: NomsChampsSimulateur,
-): ValidationReponses => ({
-  message: "Selectionnez une réponse",
-  validateur: auMoinsUn(nomChamp),
-});
+
+export const validationReponsesTypeStructure: ValidationReponses = {
+  message: "Sélectionnez une réponse par question",
+  validateur: et(
+    auMoinsUn("typeStructure"),
+    lorsque("typeStructure", "publique", auMoinsUn("typeEntitePublique")),
+  ),
+};

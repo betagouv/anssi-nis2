@@ -42,7 +42,7 @@ export const DerniereEtapeEstResultat: StoryChargeurEtape = {
       ["designeOperateurServicesEssentiels", "oui"],
     ]);
     await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
-    await passeEtapeEnCochant(canvas, [["typeStructure", "publique"]]);
+    await passeEtapeEnCochant(canvas, [["typeStructure", "privee"]]);
 
     await passeEtapeEnCochant(canvas, [
       ["trancheNombreEmployes", "petit"],
@@ -70,7 +70,7 @@ export const DerniereEtapeEstResultat: StoryChargeurEtape = {
         sousSecteurActivite: [],
         trancheCA: ["petit"],
         trancheNombreEmployes: ["petit"],
-        typeStructure: ["publique"],
+        typeStructure: ["privee"],
       }),
     );
   },
@@ -150,7 +150,10 @@ export const EtapeSecteurFabricationSuivant: StoryChargeurEtape = {
         ["designeOperateurServicesEssentiels", "oui"],
       ]);
       await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
-      await passeEtapeEnCochant(canvas, [["typeStructure", "publique"]]);
+      await passeEtapeEnCochant(canvas, [
+        ["typeStructure", "publique"],
+        ["typeEntitePublique", "administrationCentrale"],
+      ]);
       await passeEtapeEnCochant(canvas, [
         ["trancheNombreEmployes", "petit"],
         ["trancheCA", "petit"],
@@ -260,7 +263,7 @@ export const TypeEntitePublique: StoryChargeurEtape = {
     await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
     await passeEtapeEnCochant(canvas, [
       ["typeStructure", typeStructure],
-      ["typeEntitePublique", "administrationPublique"],
+      ["typeEntitePublique", "administrationCentrale"],
     ]);
 
     await passeEtapeEnCochant(canvas, [
@@ -284,6 +287,7 @@ export const TypeEntitePublique: StoryChargeurEtape = {
         trancheCA: ["petit"],
         trancheNombreEmployes: ["petit"],
         typeStructure: [typeStructure],
+        typeEntitePublique: ["administrationCentrale"],
       }),
     );
   },
