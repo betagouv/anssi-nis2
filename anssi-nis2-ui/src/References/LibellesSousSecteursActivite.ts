@@ -19,7 +19,7 @@ export const libellesSousSecteursEnergie: DetailsSousSecteurUnique<SousSecteurEn
 export const libellesSousSecteurFabrication: DetailsSousSecteurUnique<SousSecteurFabrication> =
   {
     constructionVehiculesAutomobiles:
-      "Construction de véhicules automobiles, remorques et semi- remorques",
+      "Construction de véhicules automobiles , remorques et semi- remorques",
     fabricationAutresMaterielTransports:
       "Fabrication d’autres matériels de transport",
     fabricationDispositifsMedicaux:
