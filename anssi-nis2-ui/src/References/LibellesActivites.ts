@@ -16,7 +16,7 @@ export const libellesActivites: Record<ValeursActivites, string> = {
     "gestion de la circulation ou l’exploitation de systèmes de transport " +
     "intelligents constituent une partie non essentielle de leur activité " +
     "générale",
-  autreActiviteAdministrationPublique: "Autre activité",
+  autreActiviteAdministrationPublique: "Autre activité d'administration publique",
   autreActiviteConstructionVehiculesAutomobilesRemorquesSemi: "Autre activité",
   autreActiviteEauPotable: "Autre activité",
   autreActiviteElectricite: "Autre activité",
