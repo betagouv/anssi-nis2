@@ -1,6 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { faussaireInformationEtapeForm } from "../InformationEtape.faussaire";
-import { fabriqueInformationsEtapes } from "../../../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
+import { fabriquesInformationsEtapes } from "../../../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
 
 export const arbInformationEtapeForm = fc
   .record({ titre: fc.string() })
@@ -10,7 +10,7 @@ export const arbInformationEtapeFormAvecSousEtape = fc
   .map(faussaireInformationEtapeForm);
 export const arbInformationEtapeResult = fc
   .string()
-  .map(fabriqueInformationsEtapes.resultat);
+  .map(fabriquesInformationsEtapes.resultat);
 export const arbEtapeFormOuResult = fc.oneof(
   arbInformationEtapeForm,
   arbInformationEtapeResult,

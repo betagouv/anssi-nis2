@@ -7,19 +7,19 @@ import {
   FauxSimulateurEtapeComposant,
 } from "../InformationEtape.faussaire";
 import {
-  fabriqueInformationsEtapes,
+  fabriquesInformationsEtapes,
   optionsInformationEtapeFormParDefaut,
 } from "../../../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
 
 export const predicatVrai = () => true;
 export const informationEtapeResult =
-  fabriqueInformationsEtapes.resultat("Resultat");
+  fabriquesInformationsEtapes.resultat("Resultat");
 
 const fabriqueFausseInformationEtapeForm = (
   titre: string,
   options: Partial<OptionsInformationEtapeForm> = optionsInformationEtapeFormParDefaut,
 ) => {
-  return fabriqueInformationsEtapes.form(
+  return fabriquesInformationsEtapes.form(
     titre,
     fausseValidationReponse,
     FauxSimulateurEtapeComposant,

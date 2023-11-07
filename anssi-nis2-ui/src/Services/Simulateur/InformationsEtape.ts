@@ -42,3 +42,17 @@ export type InformationEtapeForm = EtapeExistante & {
   readonly options: OptionsInformationEtapeForm;
   readonly composant: SimulateurEtapeNodeComponent;
 };
+
+export type VariantesEtape<TypeEtape extends InformationEtapeForm> = {
+  conditions: Partial<IDonneesBrutesFormulaireSimulateur>;
+  etape: TypeEtape;
+};
+
+export type InformationsEtapesVariantes<
+  TypeEtape extends InformationEtapeForm,
+> = EtapeExistante & {
+  readonly etapeAffichee: (
+    donnees: IDonneesBrutesFormulaireSimulateur,
+  ) => number;
+  readonly variantes: TypeEtape[];
+};

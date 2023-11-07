@@ -14,7 +14,7 @@ import {
 } from "../../../Domaine/Simulateur/services/ChampSimulateur/champs.predicats.ts";
 import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { fabriqueEtatEtape } from "../../../Domaine/Simulateur/fabriques/EtatEtape.fabrique.ts";
-import { fabriqueInformationsEtapes } from "../../../Domaine/Simulateur/fabriques/InformationsEtape.fabrique.ts";
+import { fabriquesInformationsEtapes } from "../../../Domaine/Simulateur/fabriques/InformationsEtape.fabrique.ts";
 import {
   fabriqueValidationUneReponses,
   validationReponsesActivites,
@@ -34,38 +34,39 @@ const contientDesSecteursAvecSousSecteurs = ({
   return secteurActivite.some(estUnSecteurAvecDesSousSecteurs);
 };
 
-const sousEtapeSousSecteur = fabriqueInformationsEtapes.sousEtapeConditionnelle(
-  contientDesSecteursAvecSousSecteurs,
-  fabriqueInformationsEtapes.form(
-    "Sous-secteur d'activité",
-    validationReponsesSousActivites,
-    EtapeSousSecteursActivite,
-  ),
-);
+const sousEtapeSousSecteur =
+  fabriquesInformationsEtapes.sousEtapeConditionnelle(
+    contientDesSecteursAvecSousSecteurs,
+    fabriquesInformationsEtapes.form(
+      "Sous-secteur d'activité",
+      validationReponsesSousActivites,
+      EtapeSousSecteursActivite,
+    ),
+  );
 export const etapesQuestionnaire: CollectionInformationsEtapes =
   new CollectionInformationsEtapes(
-    fabriqueInformationsEtapes.prealable("Pour bien débuter"),
-    fabriqueInformationsEtapes.form(
+    fabriquesInformationsEtapes.prealable("Pour bien débuter"),
+    fabriquesInformationsEtapes.form(
       "Désignation éventuelle",
       fabriqueValidationUneReponses("designeOperateurServicesEssentiels"),
       EtapeOSE,
     ),
-    fabriqueInformationsEtapes.form(
+    fabriquesInformationsEtapes.form(
       "Localisation de l’activité",
       fabriqueValidationUneReponses("etatMembre"),
       EtapeLocalisation,
     ),
-    fabriqueInformationsEtapes.form(
+    fabriquesInformationsEtapes.form(
       "Type de structure",
       validationReponsesTypeStructure,
       EtapeTypeStructure,
     ),
-    fabriqueInformationsEtapes.form(
+    fabriquesInformationsEtapes.form(
       "Taille de l’organisation",
       validationReponsesTaille,
       EtapeTaille,
     ),
-    fabriqueInformationsEtapes.form(
+    fabriquesInformationsEtapes.form(
       "Secteurs d’activité",
       validationReponsesSecteurs,
       EtapeSecteursActivite,
@@ -73,7 +74,7 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
         sousEtapeConditionnelle: sousEtapeSousSecteur,
       },
     ),
-    fabriqueInformationsEtapes.form(
+    fabriquesInformationsEtapes.form(
       "Activités pratiquées",
       validationReponsesActivites,
       EtapeActivites,
@@ -84,6 +85,6 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
         ),
       },
     ),
-    fabriqueInformationsEtapes.resultat("Resultat"),
+    fabriquesInformationsEtapes.resultat("Resultat"),
   );
 export const etatEtapesInitial = fabriqueEtatEtape(etapesQuestionnaire, 0);

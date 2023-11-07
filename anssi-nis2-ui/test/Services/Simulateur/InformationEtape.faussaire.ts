@@ -2,7 +2,7 @@ import { vi } from "vitest";
 import { ValidationReponses } from "../../../src/Domaine/Simulateur/services/ChampSimulateur/champs.domaine";
 import { SimulateurEtapeNodeComponent } from "../../../src/Services/Simulateur/Props/component";
 import {
-  fabriqueInformationsEtapes,
+  fabriquesInformationsEtapes,
   fabriqueSousEtapeConditionnelle,
 } from "../../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
 
@@ -23,7 +23,7 @@ export const faussaireInformationEtapeForm = ({
     ? {
         sousEtapeConditionnelle: fabriqueSousEtapeConditionnelle(
           () => true,
-          fabriqueInformationsEtapes.form(
+          fabriquesInformationsEtapes.form(
             sousTitre,
             fausseValidationReponse,
             FauxSimulateurEtapeComposant,
@@ -31,7 +31,7 @@ export const faussaireInformationEtapeForm = ({
         ),
       }
     : {};
-  return fabriqueInformationsEtapes.form(
+  return fabriquesInformationsEtapes.form(
     titre,
     fausseValidationReponse,
     FauxSimulateurEtapeComposant,
