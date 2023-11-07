@@ -11,7 +11,7 @@ export const libellesActivites: Record<ValeursActivites, string> = {
     "Entités de l’administration publique au niveau régional définies comme " +
     "telles par un État membre conformément au droit national",
   autoritesRoutieresControleGestionCirculation:
-    "Autorités routières chargées du contrôle de la gestion de la " +
+    "Autorités routières chargées du contrôle de la gestion de la  " +
     "circulation, à l’exclusion des entités publiques pour lesquelles la " +
     "gestion de la circulation ou l’exploitation de systèmes de transport " +
     "intelligents constituent une partie non essentielle de leur activité " +
