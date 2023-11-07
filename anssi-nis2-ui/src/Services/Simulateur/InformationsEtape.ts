@@ -8,7 +8,7 @@ import { ValidationReponses } from "../../Domaine/Simulateur/services/ChampSimul
 import { PredicatDonneesSimulateur } from "./PredicatDonneesSimulateur.ts";
 
 export type InformationsEtape = {
-  readonly estComptabilisee: boolean;
+  readonly longueurComptabilisee: 0 | 1;
   readonly existe: boolean;
   readonly titre: string;
   readonly conteneurElementRendu: SimulateurEtapeRenderedComponent;

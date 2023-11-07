@@ -24,7 +24,7 @@ const fabriqueInformationsEtapeResultat: (titre: string) => EtapeResultat = (
   titre,
 ) => ({
   titre: titre,
-  estComptabilisee: false,
+  longueurComptabilisee: 0,
   existe: true,
   conteneurElementRendu: SimulateurEtapeResult,
   remplitContitionSousEtape: toujoursFaux,
@@ -47,7 +47,7 @@ const fabriqueInformationsEtapeForm = (
     validationReponses: validationReponses,
     composant: composant,
     options: optionsCompletes,
-    estComptabilisee: true,
+    longueurComptabilisee: 1,
     existe: true,
     conteneurElementRendu: SimulateurEtapeForm,
     remplitContitionSousEtape: (donnees: IDonneesBrutesFormulaireSimulateur) =>
@@ -60,7 +60,7 @@ const fabriqueInformationEtapePrealable: (titre: string) => EtapePrealable = (
   titre: string,
 ) => ({
   existe: true,
-  estComptabilisee: false,
+  longueurComptabilisee: 0,
   conteneurElementRendu: SimulateurEtapePrealable,
   titre: titre,
   remplitContitionSousEtape: toujoursFaux,
@@ -84,7 +84,7 @@ export const fabriqueInformationsEtapes = {
 } as const;
 
 export const EtapeInexistante: InformationsEtape & CapaciteEtape = {
-  estComptabilisee: false,
+  longueurComptabilisee: 0,
   existe: false,
   titre: "Hors de portee",
   conteneurElementRendu: elementVide,

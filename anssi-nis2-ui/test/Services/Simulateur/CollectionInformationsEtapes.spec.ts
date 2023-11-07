@@ -38,9 +38,7 @@ describe(CollectionInformationsEtapes, () => {
         "l'étape $etapeCourante.titre",
       ({ etapeCourante, indiceEtapeCourante }) => {
         expect(
-          collectionInformationsEtapes.recupereEtapeCourante(
-            indiceEtapeCourante,
-          ),
+          collectionInformationsEtapes.recupereEtape(indiceEtapeCourante),
         ).toStrictEqual(etapeCourante);
       },
     );
@@ -49,7 +47,7 @@ describe(CollectionInformationsEtapes, () => {
       "l'indice $indiceEtapeCourante devrait correspondre au numéro d'étape $numeroEtape ",
       ({ indiceEtapeCourante, numeroEtape }) => {
         expect(
-          collectionInformationsEtapes.numeroCourant(indiceEtapeCourante),
+          collectionInformationsEtapes.numero(indiceEtapeCourante),
         ).toStrictEqual(numeroEtape);
       },
     );
@@ -114,7 +112,7 @@ describe(CollectionInformationsEtapes, () => {
         fc.property(arbListeEtapesEtIndice, ({ listeEtapes, indice }) => {
           const collection = new CollectionInformationsEtapes(...listeEtapes);
           expect(collection.nombreEtapes).toBeGreaterThanOrEqual(
-            collection.numeroCourant(indice),
+            collection.numero(indice),
           );
         }),
       );
@@ -278,8 +276,8 @@ describe(CollectionInformationsEtapes, () => {
               expect(
                 collection.recupereInformationsEtapeSuivante(
                   nombreEtapesForm - 2,
-                ).estComptabilisee,
-              ).toBeTruthy();
+                ).longueurComptabilisee,
+              ).toBe(1);
             },
           ),
         );
@@ -293,8 +291,8 @@ describe(CollectionInformationsEtapes, () => {
               expect(
                 collection.recupereInformationsEtapeSuivante(
                   collection.length - 2,
-                ).estComptabilisee,
-              ).toBeTruthy();
+                ).longueurComptabilisee,
+              ).toBe(1);
             },
           ),
         );

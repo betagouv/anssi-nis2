@@ -23,8 +23,7 @@ export const fabriqueEtatEtape: (
   indiceSousEtape = 0,
   donneesFormulaire = donneesFormulaireSimulateurVide,
 ) => {
-  const contenuEtapeCourante = collectionEtapes.contenuEtapeCourante(
-    collectionEtapes,
+  const contenuEtapeCourante = collectionEtapes.contenuEtape(
     indiceEtape,
     indiceSousEtape,
   );
@@ -32,7 +31,7 @@ export const fabriqueEtatEtape: (
   return {
     donneesFormulaire: donneesFormulaire,
     collectionEtapes: collectionEtapes,
-    numero: collectionEtapes.numeroCourant(indiceEtape),
+    numero: collectionEtapes.numero(indiceEtape),
     estSurSousEtape: collectionEtapes.estSurSousEtape(indiceSousEtape),
     estSurEtapeInitiale: collectionEtapes.estSurEtapeInitiale(indiceEtape),
     etapeSuivantExiste: etapeSuivantExiste,
