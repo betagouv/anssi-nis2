@@ -252,7 +252,7 @@ export const libellesActivites: Record<ValeursActivites, string> = {
   prestatairesServicesPostauxExpedition:
     "Prestataires de services postaux, y compris les prestataires de " +
     "services d’expédition",
-  producteur: "Producteur",
+  producteur: "Producteurs",
   rechercheDeveloppementMedicament:
     "Entités exerçant des activités de recherche et de développement dans le " +
     "domaine des médicaments",
