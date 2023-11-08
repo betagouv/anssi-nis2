@@ -42,7 +42,7 @@ export type SousEtapeConditionnelle = {
   readonly sousEtape: InformationEtapeForm;
 };
 
-type CapacitesEtapeFormulaire = {
+export type CapacitesEtapeFormulaire = {
   readonly fabriqueComposant: (
     donnees: IDonneesBrutesFormulaireSimulateur,
   ) => SimulateurEtapeNodeComponent;

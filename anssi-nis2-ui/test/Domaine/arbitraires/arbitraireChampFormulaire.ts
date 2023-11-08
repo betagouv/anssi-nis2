@@ -2,6 +2,7 @@ import { fc } from "@fast-check/vitest";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
+  TypeEntitePublique,
   TypeStructure,
   UnionPetitMoyenGrand,
 } from "../../../src/Domaine/Simulateur/ChampsSimulateur.definitions";
@@ -18,6 +19,18 @@ export const arbTypeStructure: ArbitraireChampFormulaire<TypeStructure> = {
   privee: fc.constant<TypeStructure[]>(["privee"]),
   publique: fc.constant<TypeStructure[]>(["publique"]),
 };
+export const arbTypeEntitePublique: ArbitraireChampFormulaire<TypeEntitePublique> =
+  {
+    administrationCentrale: fc.constant<TypeEntitePublique[]>([
+      "administrationCentrale",
+    ]),
+    collectiviteTerritoriale: fc.constant<TypeEntitePublique[]>([
+      "collectiviteTerritoriale",
+    ]),
+    autreStructurePublique: fc.constant<TypeEntitePublique[]>([
+      "autreStructurePublique",
+    ]),
+  };
 export const arbTranche: ArbitraireChampFormulaire<UnionPetitMoyenGrand> = {
   petit: fc.constant<UnionPetitMoyenGrand[]>(["petit"]),
   moyen: fc.constant<UnionPetitMoyenGrand[]>(["moyen"]),

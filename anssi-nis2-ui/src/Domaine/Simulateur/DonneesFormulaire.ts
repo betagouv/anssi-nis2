@@ -10,17 +10,9 @@ import {
   ValeurChampSimulateur,
 } from "./ChampsSimulateur.definitions.ts";
 import { ValeursActivites } from "./Activite.definitions.ts";
+import { ValeursNomChampsFormulaire } from "./DonneesFormulaire.valeurs.ts";
 
-export type NomsChampsSimulateur =
-  | "designeOperateurServicesEssentiels"
-  | "etatMembre"
-  | "typeStructure"
-  | "typeEntitePublique"
-  | "trancheNombreEmployes"
-  | "trancheCA"
-  | "secteurActivite"
-  | "sousSecteurActivite"
-  | "activites";
+export type NomsChampsSimulateur = (typeof ValeursNomChampsFormulaire)[number];
 
 export interface IDonneesBrutesFormulaireSimulateur
   extends Record<NomsChampsSimulateur, ValeurChampSimulateur[]> {

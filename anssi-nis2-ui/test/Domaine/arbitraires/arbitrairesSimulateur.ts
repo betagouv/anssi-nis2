@@ -2,6 +2,7 @@ import { fc } from "@fast-check/vitest";
 import {
   IDonneesBrutesFormulaireSimulateur,
   IDonneesFormulaireSimulateur,
+  NomsChampsSimulateur,
 } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import {
   ajouteArbitraireActivites,
@@ -18,7 +19,10 @@ import {
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
 } from "../../utilitaires/manipulationArbitraires";
-import { ValeursAppartenancePaysUnionEuropeenne } from "../../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
+import {
+  ValeursAppartenancePaysUnionEuropeenne,
+  ValeursTypeEntitePublique,
+} from "../../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
 
 import {
   filtreSecteurListeSecteursSousSecteurs,
@@ -35,6 +39,7 @@ import {
 import { auMoinsUnSousSecteurListe } from "../../../src/Domaine/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 import { auMoinsUnSecteurListe } from "../../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { predicatDonneesFormulaire } from "../../../src/Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
+import { ValeursNomChampsFormulaire } from "../../../src/Domaine/Simulateur/DonneesFormulaire.valeurs";
 
 export const arbitraireSecteursSousSecteurs = fabriqueArbSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs,
@@ -137,6 +142,7 @@ const arbNonOSEPublique = etend(arbSecteursEtSousSecteursListes)
     designeOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.publique,
+    typeEntitePublique: fabriqueArbSingleton(ValeursTypeEntitePublique),
     trancheCA: fabriqueArbTrancheSingleton(),
     etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
   })
@@ -178,14 +184,42 @@ const arbToutesValeursPossibles = etend(arbSecteursSousSecteursListes).avec({
     "nsp",
   ]),
   typeStructure: fabriqueArbSingleton(["privee", "publique"]),
+  typeEntitePublique: fabriqueArbSingleton(ValeursTypeEntitePublique),
   trancheCA: fabriqueArbTrancheSingleton(),
   trancheNombreEmployes: fabriqueArbTrancheSingleton(),
   etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
 }) as ArbitraireFormulaire;
 
-const arbDonneesSansTypeStructure = etend(arbToutesValeursPossibles).avec({
-  typeStructure: fc.constant([]),
-}) as ArbitraireFormulaire;
+type ArbitraireSurTousLesChamps = Record<
+  NomsChampsSimulateur,
+  ArbitraireFormulaire
+>;
+
+function fabriqueArbitraireVidePourChamp(nom: string) {
+  return etend(arbToutesValeursPossibles).avec({
+    [nom]: fc.constant([]),
+  }) as ArbitraireFormulaire;
+}
+
+const initialValue: ArbitraireSurTousLesChamps = {
+  activites: undefined,
+  designeOperateurServicesEssentiels: undefined,
+  etatMembre: undefined,
+  secteurActivite: undefined,
+  sousSecteurActivite: undefined,
+  trancheCA: undefined,
+  trancheNombreEmployes: undefined,
+  typeEntitePublique: undefined,
+  typeStructure: undefined,
+};
+
+const donneeAbsente = ValeursNomChampsFormulaire.reduce(
+  (resultat, nom) => ({
+    ...resultat,
+    [nom]: fabriqueArbitraireVidePourChamp(nom),
+  }),
+  initialValue,
+);
 
 export const arbForm = {
   designeOSE: {
@@ -208,8 +242,6 @@ export const arbForm = {
     publique: arbNonOSEPublique,
   },
   nonValide: {
-    donneeAbsente: {
-      typeStructure: arbDonneesSansTypeStructure,
-    },
+    donneeAbsente: donneeAbsente,
   },
 };

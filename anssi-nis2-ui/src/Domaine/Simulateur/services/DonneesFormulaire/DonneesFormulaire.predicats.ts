@@ -6,8 +6,8 @@ import {
 } from "../Activite/Activite.predicats.ts";
 import { match, P } from "ts-pattern";
 import {
-  aucunSecteurListe,
   auMoinsUnSecteurListe,
+  uniquementDesSecteursAutres,
 } from "../SecteurActivite/SecteurActivite.predicats.ts";
 import { aucunSousSecteurListe } from "../SousSecteurActivite/SousSecteurActivite.predicats.ts";
 
@@ -41,7 +41,7 @@ export const verifieCompletudeDonneesFormulaire = (
         trancheCA: [P._],
         typeStructure: ["privee"],
         trancheNombreEmployes: [P._],
-        secteurActivite: P.when(aucunSecteurListe),
+        secteurActivite: P.when(uniquementDesSecteursAutres),
       },
       toujoursVrai,
     )
@@ -74,10 +74,10 @@ export const verifieCompletudeDonneesFormulaire = (
       {
         designeOperateurServicesEssentiels: [P._],
         etatMembre: [P._],
-        trancheCA: [P._],
+        trancheNombreEmployes: [P._],
         typeStructure: ["publique"],
         typeEntitePublique: [P._],
-        secteurActivite: P.when(aucunSecteurListe),
+        secteurActivite: P.when(uniquementDesSecteursAutres),
       },
       toujoursVrai,
     )
@@ -85,7 +85,7 @@ export const verifieCompletudeDonneesFormulaire = (
       {
         designeOperateurServicesEssentiels: [P._],
         etatMembre: [P._],
-        trancheCA: [P._],
+        trancheNombreEmployes: [P._],
         typeStructure: ["publique"],
         typeEntitePublique: [P._],
         secteurActivite: P.when(auMoinsUnSecteurListe),
@@ -97,11 +97,11 @@ export const verifieCompletudeDonneesFormulaire = (
       {
         designeOperateurServicesEssentiels: [P._],
         etatMembre: [P._],
-        trancheCA: [P._],
+        trancheNombreEmployes: [P._],
         typeStructure: ["publique"],
         typeEntitePublique: [P._],
         secteurActivite: P.when(auMoinsUnSecteurListe),
-        activites: [P.string],
+        activites: P.array(),
       },
       toujoursVrai,
     )

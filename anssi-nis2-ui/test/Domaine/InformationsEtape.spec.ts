@@ -5,6 +5,7 @@ import {
 } from "../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
 import { SimulateurEtapeForm } from "../../src/Components/Simulateur/SimulateurEtapeForm";
 import {
+  CapacitesEtapeFormulaire,
   EtapeExistante,
   InformationEtapeForm,
   VariantesEtape,
@@ -18,7 +19,7 @@ import {
 
 describe("fabriquesInformationsEtapes", () => {
   describe(fabriquesInformationsEtapes.variantes, () => {
-    const resultatAttendu: EtapeExistante = {
+    const resultatAttendu: EtapeExistante & CapacitesEtapeFormulaire = {
       varianteAffichee: expect.any(Function),
       longueurComptabilisee: 1,
       existe: true,
@@ -27,6 +28,8 @@ describe("fabriquesInformationsEtapes", () => {
       conteneurElementRendu: SimulateurEtapeForm,
       remplitContitionSousEtape: toujoursFaux,
       validationReponses: fausseValidationReponse,
+      fabriqueComposant: expect.any(Function),
+      fabriqueValidationReponses: expect.any(Function),
     };
     it("initialisation avec une variantes", () => {
       const variantesEtapes: VariantesEtape<InformationEtapeForm>[] = [
