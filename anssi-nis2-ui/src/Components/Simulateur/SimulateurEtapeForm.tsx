@@ -1,12 +1,9 @@
 import { RowContainer } from "../General/RowContainer.tsx";
 import { StepperNavigation } from "./StepperNavigation.tsx";
-
 import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
 import { CenteredContainer } from "../General/CenteredContainer.tsx";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
-import { InformationEtapeForm } from "../../Services/Simulateur/InformationsEtape.ts";
 import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
-
 import { AidezNousAmeliorerService } from "../AidezNousAmeliorerService.tsx";
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
@@ -15,10 +12,13 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   informationsBoutonsNavigation,
   etatEtapes,
 }: SimulateurEtapeRenderedProps) => {
-  const informationsEtape =
-    etatEtapes.contenuEtapeCourante as InformationEtapeForm;
+  const validationReponses =
+    etatEtapes.contenuEtapeCourante.fabriqueValidationReponses(
+      donneesFormulaire,
+    );
 
-  const EtapeCourante = informationsEtape.composant;
+  const EtapeCourante =
+    etatEtapes.contenuEtapeCourante.fabriqueComposant(donneesFormulaire);
 
   return (
     <>
@@ -27,7 +27,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
           <Stepper
             currentStep={etatEtapes.numero}
             stepCount={etatEtapes.collectionEtapes.nombreEtapes}
-            title={informationsEtape.titre}
+            title={etatEtapes.contenuEtapeCourante.titre}
             className="fr-mb-5w"
           />
 
@@ -39,7 +39,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
           />
 
           <StepperNavigation
-            validationReponses={informationsEtape.validationReponses}
+            validationReponses={validationReponses}
             donneesFormulaire={donneesFormulaire}
             onClickPrevious={informationsBoutonsNavigation.precedent}
             onClickNext={informationsBoutonsNavigation.suivant}

@@ -9,6 +9,7 @@ export type EtatEtapes = {
   // Situation dans la collection
   readonly indiceCourant: number;
   readonly indiceSousEtape: number;
+  readonly varianteEtape: number;
   readonly numero: number;
 
   // Informations sur l'enchainement d'étapes

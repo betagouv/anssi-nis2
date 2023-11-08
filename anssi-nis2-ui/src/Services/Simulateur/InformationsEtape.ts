@@ -19,6 +19,9 @@ export type CapaciteEtape = {
   readonly remplitContitionSousEtape: PredicatDonneesSimulateur;
   readonly validationReponses: ValidationReponses;
   readonly estIgnoree: (donnees: IDonneesBrutesFormulaireSimulateur) => boolean;
+  readonly varianteAffichee: (
+    donnees: IDonneesBrutesFormulaireSimulateur,
+  ) => number;
 };
 
 export type EtapeExistante = InformationsEtape & CapaciteEtape;
@@ -39,10 +42,19 @@ export type SousEtapeConditionnelle = {
   readonly sousEtape: InformationEtapeForm;
 };
 
-export type InformationEtapeForm = EtapeExistante & {
-  readonly options: OptionsInformationEtapeForm;
-  readonly composant: SimulateurEtapeNodeComponent;
+type CapacitesEtapeFormulaire = {
+  readonly fabriqueComposant: (
+    donnees: IDonneesBrutesFormulaireSimulateur,
+  ) => SimulateurEtapeNodeComponent;
+  readonly fabriqueValidationReponses: (
+    donnees: IDonneesBrutesFormulaireSimulateur,
+  ) => ValidationReponses;
 };
+export type InformationEtapeForm = EtapeExistante &
+  CapacitesEtapeFormulaire & {
+    readonly options: OptionsInformationEtapeForm;
+    readonly composant: SimulateurEtapeNodeComponent;
+  };
 
 export type VariantesEtape<TypeEtape extends InformationEtapeForm> = {
   conditions: P.Pattern<IDonneesBrutesFormulaireSimulateur>;
@@ -51,9 +63,7 @@ export type VariantesEtape<TypeEtape extends InformationEtapeForm> = {
 
 export type InformationsEtapesVariantes<
   TypeEtape extends InformationEtapeForm,
-> = EtapeExistante & {
-  readonly etapeAffichee: (
-    donnees: IDonneesBrutesFormulaireSimulateur,
-  ) => number;
-  readonly variantes: TypeEtape[];
-};
+> = EtapeExistante &
+  CapacitesEtapeFormulaire & {
+    readonly variantes: TypeEtape[];
+  };

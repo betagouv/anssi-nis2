@@ -1,11 +1,15 @@
 import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire.ts";
-import { contientAutreSecteurActiviteUniquement } from "../SecteurActivite/SecteurActivite.predicats.ts";
-import { contientSousSecteurAutresUniquement } from "../ChampSimulateur/champs.predicats.ts";
 import {
   auMoinsUneActiviteAutre,
   auMoinsUneActiviteListee,
   estActiviteAutre,
 } from "../Activite/Activite.predicats.ts";
+import { match, P } from "ts-pattern";
+import {
+  aucunSecteurListe,
+  auMoinsUnSecteurListe,
+} from "../SecteurActivite/SecteurActivite.predicats.ts";
+import { aucunSousSecteurListe } from "../SousSecteurActivite/SousSecteurActivite.predicats.ts";
 
 const auMoinsUn = {
   activiteListee: (donnees: IDonneesBrutesFormulaireSimulateur) =>
@@ -24,16 +28,81 @@ export const predicatDonneesFormulaire = {
       donnees.activites.every(estActiviteAutre),
   },
 };
-
+const toujoursVrai = () => true;
+const toujoursFaux = () => false;
 export const verifieCompletudeDonneesFormulaire = (
   donnees: IDonneesBrutesFormulaireSimulateur,
 ) =>
-  donnees.designeOperateurServicesEssentiels.length == 1 &&
-  donnees.etatMembre.length == 1 &&
-  donnees.trancheCA.length == 1 &&
-  donnees.trancheNombreEmployes.length == 1 &&
-  donnees.typeStructure.length == 1 &&
-  donnees.secteurActivite.length > 0 &&
-  (contientAutreSecteurActiviteUniquement(donnees) ||
-    contientSousSecteurAutresUniquement(donnees) ||
-    donnees.activites.length > 0);
+  match<IDonneesBrutesFormulaireSimulateur, boolean>(donnees)
+    .with(
+      {
+        designeOperateurServicesEssentiels: [P._],
+        etatMembre: [P._],
+        trancheCA: [P._],
+        typeStructure: ["privee"],
+        trancheNombreEmployes: [P._],
+        secteurActivite: P.when(aucunSecteurListe),
+      },
+      toujoursVrai,
+    )
+    .with(
+      {
+        designeOperateurServicesEssentiels: [P._],
+        etatMembre: [P._],
+        trancheCA: [P._],
+        typeStructure: ["privee"],
+        trancheNombreEmployes: [P._],
+        secteurActivite: P.when(auMoinsUnSecteurListe),
+        sousSecteurActivite: P.when(aucunSousSecteurListe),
+      },
+      toujoursVrai,
+    )
+    .with(
+      {
+        designeOperateurServicesEssentiels: [P._],
+        etatMembre: [P._],
+        trancheCA: [P._],
+        typeStructure: ["privee"],
+        trancheNombreEmployes: [P._],
+        secteurActivite: P.when(auMoinsUnSecteurListe),
+        activites: P.array(),
+      },
+
+      toujoursVrai,
+    )
+    .with(
+      {
+        designeOperateurServicesEssentiels: [P._],
+        etatMembre: [P._],
+        trancheCA: [P._],
+        typeStructure: ["publique"],
+        typeEntitePublique: [P._],
+        secteurActivite: P.when(aucunSecteurListe),
+      },
+      toujoursVrai,
+    )
+    .with(
+      {
+        designeOperateurServicesEssentiels: [P._],
+        etatMembre: [P._],
+        trancheCA: [P._],
+        typeStructure: ["publique"],
+        typeEntitePublique: [P._],
+        secteurActivite: P.when(auMoinsUnSecteurListe),
+        sousSecteurActivite: P.when(aucunSousSecteurListe),
+      },
+      toujoursVrai,
+    )
+    .with(
+      {
+        designeOperateurServicesEssentiels: [P._],
+        etatMembre: [P._],
+        trancheCA: [P._],
+        typeStructure: ["publique"],
+        typeEntitePublique: [P._],
+        secteurActivite: P.when(auMoinsUnSecteurListe),
+        activites: [P.string],
+      },
+      toujoursVrai,
+    )
+    .otherwise(toujoursFaux);

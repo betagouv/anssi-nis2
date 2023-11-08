@@ -1,9 +1,5 @@
 import { CollectionInformationsEtapes } from "../../../../src/Services/Simulateur/CollectionInformationsEtapes";
-import {
-  exInformationEtape,
-  informationEtapeForm,
-  informationEtapeResult,
-} from "./informationEtape.exemples";
+import { exInformationEtape } from "./informationEtape.exemples";
 
 import { EtapeInexistante } from "../../../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
 
@@ -24,6 +20,12 @@ const collec3EtapesAvecConditionnelleEnDernier =
     exInformationEtape.etapeAvecSousEtape,
   );
 
+const collec3EtapesAvecVarianteEnDeuxieme = new CollectionInformationsEtapes(
+  exInformationEtape.form1,
+  exInformationEtape.variante,
+  exInformationEtape.form2,
+);
+
 const collec4EtapesAvecConditionnelleEnAvantDernier =
   new CollectionInformationsEtapes(
     exInformationEtape.form1,
@@ -34,11 +36,11 @@ const collec4EtapesAvecConditionnelleEnAvantDernier =
 
 export const collectionInformationsEtapesAvecInexistantes =
   new CollectionInformationsEtapes(
-    informationEtapeResult,
+    exInformationEtape.resultat,
     exInformationEtape.form1,
-    informationEtapeResult,
+    exInformationEtape.resultat,
     exInformationEtape.form2,
-    informationEtapeForm,
+    exInformationEtape.form,
     EtapeInexistante,
   );
 
@@ -49,6 +51,7 @@ export const exCollectionInformationEtape = {
   longueur3: {
     avecSousEtape: { enDernier: collec3EtapesAvecConditionnelleEnDernier },
     avecEtapeEvitable: { enAvantDernier: derniereEtapeFormEvitable },
+    avecVariante: { enDeuxieme: collec3EtapesAvecVarianteEnDeuxieme },
   },
   longueur4: {
     avecSousEtape: {

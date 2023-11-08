@@ -38,7 +38,9 @@ import { predicatDonneesFormulaire } from "../../../src/Domaine/Simulateur/servi
 
 export const arbitraireSecteursSousSecteurs = fabriqueArbSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs,
-).chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
+)
+  .filter((donnees) => donnees.secteurActivite.length > 0)
+  .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
 
 const arbSecteursSousSecteursListes = fabriqueArbSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs.filter(secteurEtSousSecteursSontListes),
@@ -81,7 +83,8 @@ const arbOSEMoyenGrand = etend(arbitraireSecteursSousSecteurs)
     trancheCA: fabriqueArbTrancheSingleton(),
   })
   .chain(fabriqueArbContraintSurTrancheCA)
-  .chain(ajouteArbitraireActivites);
+  .chain(ajouteArbitraireActivites)
+  .filter((d) => d.activites.length > 0);
 
 const arbActivitesAutres = etend<DonneesSectorielles>(
   arbSecteursSousSecteursListes,

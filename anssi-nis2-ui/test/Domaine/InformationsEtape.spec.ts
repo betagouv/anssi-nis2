@@ -5,6 +5,7 @@ import {
 } from "../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
 import { SimulateurEtapeForm } from "../../src/Components/Simulateur/SimulateurEtapeForm";
 import {
+  EtapeExistante,
   InformationEtapeForm,
   VariantesEtape,
 } from "../../src/Services/Simulateur/InformationsEtape";
@@ -17,8 +18,8 @@ import {
 
 describe("fabriquesInformationsEtapes", () => {
   describe(fabriquesInformationsEtapes.variantes, () => {
-    const resultatAttendu = {
-      etapeAffichee: expect.any(Function),
+    const resultatAttendu: EtapeExistante = {
+      varianteAffichee: expect.any(Function),
       longueurComptabilisee: 1,
       existe: true,
       titre: "Etape Form 1",
@@ -41,7 +42,7 @@ describe("fabriquesInformationsEtapes", () => {
         ...resultatAttendu,
         variantes: [variantesEtapes[0]?.etape],
       });
-      expect(resultUneEtape.etapeAffichee(donnees)).toBe(0);
+      expect(resultUneEtape.varianteAffichee(donnees)).toBe(0);
     });
     it("initialisation avec deux variantes", () => {
       const variantesDeuxEtapes: VariantesEtape<InformationEtapeForm>[] = [
@@ -64,12 +65,12 @@ describe("fabriquesInformationsEtapes", () => {
         variantes: [exInformationEtape.form1, exInformationEtape.form2],
       });
       expect(
-        resultDeuxEtapes.etapeAffichee(
+        resultDeuxEtapes.varianteAffichee(
           donnees.avec({ typeStructure: ["privee"] }),
         ),
       ).toBe(0);
       expect(
-        resultDeuxEtapes.etapeAffichee(
+        resultDeuxEtapes.varianteAffichee(
           donnees.avec({ typeStructure: ["publique"] }),
         ),
       ).toBe(1);

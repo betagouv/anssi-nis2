@@ -27,6 +27,7 @@ import {
   contientAutreSecteurActiviteUniquement,
   estUnSecteurAvecDesSousSecteurs,
 } from "../../../Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
+import EtapeTaillePublique from "./EtapeTaillePublique.tsx";
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
@@ -61,11 +62,25 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
       validationReponsesTypeStructure,
       EtapeTypeStructure,
     ),
-    fabriquesInformationsEtapes.form(
-      "Taille de l’organisation",
-      validationReponsesTaille,
-      EtapeTaille,
-    ),
+    fabriquesInformationsEtapes.variantes([
+      {
+        etape: fabriquesInformationsEtapes.form(
+          "Taille de l’organisation",
+          validationReponsesTaille,
+          EtapeTaille,
+        ),
+        conditions: { typeStructure: ["privee"] },
+      },
+      {
+        etape: fabriquesInformationsEtapes.form(
+          "Taille de l’organisation",
+          fabriqueValidationUneReponses("trancheNombreEmployes"),
+          EtapeTaillePublique,
+        ),
+        conditions: { typeStructure: ["publique"] },
+      },
+    ]),
+
     fabriquesInformationsEtapes.form(
       "Secteurs d’activité",
       validationReponsesSecteurs,

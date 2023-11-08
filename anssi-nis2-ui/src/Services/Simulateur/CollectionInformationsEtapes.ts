@@ -56,7 +56,7 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   recupereSousEtape = (indice: number, indiceSousEtape: number) =>
     this.estSurSousEtape(indiceSousEtape) &&
     this.recupereEtape<InformationEtapeForm>(indice).options
-      .sousEtapeConditionnelle?.sousEtape;
+      ?.sousEtapeConditionnelle?.sousEtape;
 
   contenuEtape = (indiceEtape: number, indiceSousEtape: number) =>
     this.recupereSousEtape(indiceEtape, indiceSousEtape) ||

@@ -22,6 +22,7 @@ import { match } from "ts-pattern";
 
 export const toujoursFaux = () => false;
 export const toujoursVrai = () => true;
+export const toujourNegatif = () => -1;
 
 const fabriqueInformationsEtapeResultat: (titre: string) => EtapeResultat = (
   titre,
@@ -33,6 +34,7 @@ const fabriqueInformationsEtapeResultat: (titre: string) => EtapeResultat = (
   remplitContitionSousEtape: toujoursFaux,
   estIgnoree: toujoursFaux,
   validationReponses: validationToutesLesReponses,
+  varianteAffichee: toujourNegatif,
 });
 
 const fabriqueInformationsEtapeForm = (
@@ -49,6 +51,7 @@ const fabriqueInformationsEtapeForm = (
     titre: titre,
     validationReponses: validationReponses,
     composant: composant,
+    fabriqueComposant: () => composant,
     options: optionsCompletes,
     longueurComptabilisee: 1,
     existe: true,
@@ -56,6 +59,8 @@ const fabriqueInformationsEtapeForm = (
     remplitContitionSousEtape: (donnees: IDonneesBrutesFormulaireSimulateur) =>
       options.sousEtapeConditionnelle?.condition(donnees) || false,
     estIgnoree: optionsCompletes.ignoreSi,
+    varianteAffichee: toujourNegatif,
+    fabriqueValidationReponses: () => validationReponses,
   };
 };
 
@@ -69,6 +74,7 @@ const fabriqueInformationEtapePrealable: (titre: string) => EtapePrealable = (
   remplitContitionSousEtape: toujoursFaux,
   estIgnoree: toujoursFaux,
   validationReponses: validationToutesLesReponses,
+  varianteAffichee: toujourNegatif,
 });
 
 const fabriqueFonctionEtapeAffichee =
@@ -87,17 +93,25 @@ const fabriqueInformationsEtapesVariantes = <
   TypeEtape extends InformationEtapeForm,
 >(
   variantesEtapes: VariantesEtape<TypeEtape>[],
-): InformationsEtapesVariantes<TypeEtape> => ({
-  variantes: variantesEtapes.map((variante) => variante.etape),
-  etapeAffichee: fabriqueFonctionEtapeAffichee(variantesEtapes),
-  longueurComptabilisee: 1,
-  existe: true,
-  titre: variantesEtapes[0]?.etape.titre,
-  estIgnoree: toujoursFaux,
-  conteneurElementRendu: SimulateurEtapeForm,
-  remplitContitionSousEtape: toujoursFaux,
-  validationReponses: variantesEtapes[0]?.etape.validationReponses,
-});
+): InformationsEtapesVariantes<TypeEtape> => {
+  const variantes = variantesEtapes.map((variante) => variante.etape);
+  const varianteAffichee = fabriqueFonctionEtapeAffichee(variantesEtapes);
+  return {
+    variantes: variantes,
+    varianteAffichee: varianteAffichee,
+    longueurComptabilisee: 1,
+    fabriqueComposant: (donnees: IDonneesBrutesFormulaireSimulateur) =>
+      variantes[varianteAffichee(donnees)].composant,
+    existe: true,
+    titre: variantesEtapes[0]?.etape.titre,
+    estIgnoree: toujoursFaux,
+    conteneurElementRendu: SimulateurEtapeForm,
+    remplitContitionSousEtape: toujoursFaux,
+    validationReponses: variantesEtapes[0]?.etape.validationReponses,
+    fabriqueValidationReponses: (donnees: IDonneesBrutesFormulaireSimulateur) =>
+      variantes[varianteAffichee(donnees)].validationReponses,
+  };
+};
 
 const fabriqueSousEtapeConditionnelle: (
   condition: PredicatDonneesSimulateur,
@@ -123,6 +137,7 @@ export const EtapeInexistante: InformationsEtape & CapaciteEtape = {
   remplitContitionSousEtape: toujoursFaux,
   estIgnoree: toujoursVrai,
   validationReponses: validationToutesLesReponses,
+  varianteAffichee: toujourNegatif,
 } as const;
 
 export const optionsInformationEtapeFormParDefaut: OptionsInformationEtapeForm =

@@ -12,6 +12,8 @@ export const estSousSecteurAutre = (sousSecteur?: SousSecteurActivite) =>
 
 export const auMoinsUnSousSecteurListe = (sousSecteur: SousSecteurActivite[]) =>
   sousSecteur?.some(estSousSecteurListe);
+export const aucunSousSecteurListe = (sousSecteur: SousSecteurActivite[]) =>
+  !auMoinsUnSousSecteurListe(sousSecteur);
 
 export const sousSecteurAppartientASecteur =
   (valeurGroupement: SecteursAvecSousSecteurs) =>

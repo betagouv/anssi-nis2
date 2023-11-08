@@ -31,6 +31,7 @@ export const fabriqueEtatEtape: (
   return {
     donneesFormulaire: donneesFormulaire,
     collectionEtapes: collectionEtapes,
+    varianteEtape: contenuEtapeCourante.varianteAffichee(donneesFormulaire),
     numero: collectionEtapes.numero(indiceEtape),
     estSurSousEtape: collectionEtapes.estSurSousEtape(indiceSousEtape),
     estSurEtapeInitiale: collectionEtapes.estSurEtapeInitiale(indiceEtape),

@@ -32,23 +32,24 @@ const construitEtatEtapeSuccesseur: ConstruitSuccesseur = (
     indiceSousEtape,
     donneesFormulaire,
   );
-const fabriqueAvanceEtape: FabriqueChangementEtatEtape =
+const incrementeEtatEtape: FabriqueChangementEtatEtape =
   (etatEtapes, donnees) => () =>
     construitEtatEtapeSuccesseur(
       etatEtapes,
       etatEtapes.indiceCourant + 1,
-      0,
+      ConstantesEtatEtape.indiceSousEtapeInitial,
       donnees,
     );
-const fabriqueReculeEtape: FabriqueChangementEtatEtape =
+const decrementeEtatEtape: FabriqueChangementEtatEtape =
   (etatEtapes, donnees) => () =>
     construitEtatEtapeSuccesseur(
       etatEtapes,
       etatEtapes.indiceCourant - 1,
-      0,
+      ConstantesEtatEtape.indiceSousEtapeInitial,
       donnees,
     );
-const fabriqueReculeEtapeParente: FabriqueChangementEtatEtape =
+
+const remonteEtatEtapePrincipal: FabriqueChangementEtatEtape =
   (etatEtapes, donnees) => () =>
     construitEtatEtapeSuccesseur(
       etatEtapes,
@@ -56,7 +57,7 @@ const fabriqueReculeEtapeParente: FabriqueChangementEtatEtape =
       ConstantesEtatEtape.indiceSousEtapeInitial,
       donnees,
     );
-const fabriqueAvanceSousEtape: FabriqueChangementEtatEtape =
+const descendSousEtape: FabriqueChangementEtatEtape =
   (etatEtapes, donnees) => () =>
     construitEtatEtapeSuccesseur(
       etatEtapes,
@@ -84,11 +85,11 @@ const fabriqueEtatEtapeSuivantSansCondition = (
           donnees,
         ),
       },
-      fabriqueAvanceSousEtape(etatEtapes, donnees),
+      descendSousEtape(etatEtapes, donnees),
     )
     .with(
       { etapeSuivantExiste: true },
-      fabriqueAvanceEtape(etatEtapes, donnees),
+      incrementeEtatEtape(etatEtapes, donnees),
     )
     .otherwise(() => etatEtapes);
 };
@@ -121,6 +122,6 @@ export const fabriqueEtatEtapePrecedent: FabriqueSuccesseurEtatEtape = (
     .with({ estSurEtapeInitiale: true }, () => etatEtapes)
     .with(
       { estSurSousEtape: true },
-      fabriqueReculeEtapeParente(etatEtapes, donnees),
+      remonteEtatEtapePrincipal(etatEtapes, donnees),
     )
-    .otherwise(fabriqueReculeEtape(etatEtapes, donnees));
+    .otherwise(decrementeEtatEtape(etatEtapes, donnees));

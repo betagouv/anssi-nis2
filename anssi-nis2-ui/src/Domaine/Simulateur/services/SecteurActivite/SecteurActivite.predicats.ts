@@ -32,5 +32,7 @@ export const contientSousSecteur = (
   );
 export const auMoinsUnSecteurListe = (secteurs: SecteurActivite[]) =>
   secteurs.some(estSecteurListe);
+export const aucunSecteurListe = (secteurs: SecteurActivite[]) =>
+  !auMoinsUnSecteurListe(secteurs);
 export const estUnSecteurSansSousSecteur = (secteur: string) =>
   !(ValeursSecteursAvecSousSecteurs as readonly string[]).includes(secteur);
