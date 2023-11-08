@@ -6,6 +6,7 @@ import {
 
 import { ValidationReponses } from "../../Domaine/Simulateur/services/ChampSimulateur/champs.domaine.ts";
 import { PredicatDonneesSimulateur } from "./PredicatDonneesSimulateur.ts";
+import { P } from "ts-pattern";
 
 export type InformationsEtape = {
   readonly longueurComptabilisee: 0 | 1;
@@ -44,7 +45,7 @@ export type InformationEtapeForm = EtapeExistante & {
 };
 
 export type VariantesEtape<TypeEtape extends InformationEtapeForm> = {
-  conditions: Partial<IDonneesBrutesFormulaireSimulateur>;
+  conditions: P.Pattern<IDonneesBrutesFormulaireSimulateur>;
   etape: TypeEtape;
 };
 

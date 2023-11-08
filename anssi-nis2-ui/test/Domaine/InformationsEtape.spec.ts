@@ -10,25 +10,69 @@ import {
 } from "../../src/Services/Simulateur/InformationsEtape";
 import { exInformationEtape } from "../Services/Simulateur/exemples/informationEtape.exemples";
 import { fausseValidationReponse } from "../Services/Simulateur/InformationEtape.faussaire";
+import {
+  DonneesFormulaireSimulateur,
+  donneesFormulaireSimulateurVide,
+} from "../../src/Domaine/Simulateur/DonneesFormulaire";
 
 describe("fabriquesInformationsEtapes", () => {
   describe(fabriquesInformationsEtapes.variantes, () => {
-    it("initialisation avec une seule variante", () => {
+    const resultatAttendu = {
+      etapeAffichee: expect.any(Function),
+      longueurComptabilisee: 1,
+      existe: true,
+      titre: "Etape Form 1",
+      estIgnoree: toujoursFaux,
+      conteneurElementRendu: SimulateurEtapeForm,
+      remplitContitionSousEtape: toujoursFaux,
+      validationReponses: fausseValidationReponse,
+    };
+    it("initialisation avec une variantes", () => {
       const variantesEtapes: VariantesEtape<InformationEtapeForm>[] = [
-        { etape: exInformationEtape.form1, conditions: {} },
+        {
+          etape: exInformationEtape.form1,
+          conditions: {},
+        },
       ];
-      const result = fabriquesInformationsEtapes.variantes(variantesEtapes);
-      expect(result).toEqual({
+      const resultUneEtape =
+        fabriquesInformationsEtapes.variantes(variantesEtapes);
+      const donnees = donneesFormulaireSimulateurVide;
+      expect(resultUneEtape).toEqual({
+        ...resultatAttendu,
         variantes: [variantesEtapes[0]?.etape],
-        etapeAffichee: expect.any(Function),
-        longueurComptabilisee: 1,
-        existe: true,
-        titre: "Etape Form 1",
-        estIgnoree: toujoursFaux,
-        conteneurElementRendu: SimulateurEtapeForm,
-        remplitContitionSousEtape: toujoursFaux,
-        validationReponses: fausseValidationReponse,
       });
+      expect(resultUneEtape.etapeAffichee(donnees)).toBe(0);
+    });
+    it("initialisation avec deux variantes", () => {
+      const variantesDeuxEtapes: VariantesEtape<InformationEtapeForm>[] = [
+        {
+          etape: exInformationEtape.form1,
+          conditions: { typeStructure: ["privee"] },
+        },
+        {
+          etape: exInformationEtape.form2,
+          conditions: { typeStructure: ["publique"] },
+        },
+      ];
+      const resultDeuxEtapes =
+        fabriquesInformationsEtapes.variantes(variantesDeuxEtapes);
+      const donnees = new DonneesFormulaireSimulateur(
+        donneesFormulaireSimulateurVide,
+      );
+      expect(resultDeuxEtapes).toEqual({
+        ...resultatAttendu,
+        variantes: [exInformationEtape.form1, exInformationEtape.form2],
+      });
+      expect(
+        resultDeuxEtapes.etapeAffichee(
+          donnees.avec({ typeStructure: ["privee"] }),
+        ),
+      ).toBe(0);
+      expect(
+        resultDeuxEtapes.etapeAffichee(
+          donnees.avec({ typeStructure: ["publique"] }),
+        ),
+      ).toBe(1);
     });
   });
 });

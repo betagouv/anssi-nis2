@@ -18,6 +18,7 @@ import { IDonneesBrutesFormulaireSimulateur } from "../DonneesFormulaire.ts";
 import { SimulateurEtapePrealable } from "../../../Components/Simulateur/SimulateurEtapePrealable.tsx";
 import { SimulateurEtapeResult } from "../../../Components/Simulateur/SimulateurEtapeResult.tsx";
 import { validationToutesLesReponses } from "../services/ChampSimulateur/ValidationReponses.ts";
+import { match } from "ts-pattern";
 
 export const toujoursFaux = () => false;
 export const toujoursVrai = () => true;
@@ -75,9 +76,15 @@ const fabriqueInformationsEtapesVariantes = <
 >(
   variantesEtapes: VariantesEtape<TypeEtape>[],
 ) => {
+  const etapeAffichee = (donnees: IDonneesBrutesFormulaireSimulateur) => {
+    return match<IDonneesBrutesFormulaireSimulateur>(donnees)
+      .with(variantesEtapes[0]?.conditions, () => 0)
+      .with(variantesEtapes[1]?.conditions, () => 1)
+      .otherwise(() => 0);
+  };
   const retour: InformationsEtapesVariantes<TypeEtape> = {
-    variantes: [variantesEtapes[0]?.etape],
-    etapeAffichee: () => 0,
+    variantes: variantesEtapes.map((variante) => variante.etape),
+    etapeAffichee: etapeAffichee,
     longueurComptabilisee: 1,
     existe: true,
     titre: variantesEtapes[0]?.etape.titre,
