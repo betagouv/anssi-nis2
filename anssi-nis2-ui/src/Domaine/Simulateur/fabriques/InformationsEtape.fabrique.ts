@@ -71,32 +71,35 @@ const fabriqueInformationEtapePrealable: (titre: string) => EtapePrealable = (
   validationReponses: validationToutesLesReponses,
 });
 
+const fabriqueFonctionEtapeAffichee =
+  <TypeEtape extends InformationEtapeForm>(
+    variantesEtapes: VariantesEtape<TypeEtape>[],
+  ) =>
+  (donnees: IDonneesBrutesFormulaireSimulateur) =>
+    variantesEtapes
+      .reduce(
+        (acc, variante, indice) => acc.with(variante.conditions, () => indice),
+        match<IDonneesBrutesFormulaireSimulateur, number>(donnees),
+      )
+      .otherwise(() => 0);
+
 const fabriqueInformationsEtapesVariantes = <
   TypeEtape extends InformationEtapeForm,
 >(
   variantesEtapes: VariantesEtape<TypeEtape>[],
-) => {
-  const etapeAffichee = (donnees: IDonneesBrutesFormulaireSimulateur) => {
-    return match<IDonneesBrutesFormulaireSimulateur>(donnees)
-      .with(variantesEtapes[0]?.conditions, () => 0)
-      .with(variantesEtapes[1]?.conditions, () => 1)
-      .otherwise(() => 0);
-  };
-  const retour: InformationsEtapesVariantes<TypeEtape> = {
-    variantes: variantesEtapes.map((variante) => variante.etape),
-    etapeAffichee: etapeAffichee,
-    longueurComptabilisee: 1,
-    existe: true,
-    titre: variantesEtapes[0]?.etape.titre,
-    estIgnoree: toujoursFaux,
-    conteneurElementRendu: SimulateurEtapeForm,
-    remplitContitionSousEtape: toujoursFaux,
-    validationReponses: variantesEtapes[0]?.etape.validationReponses,
-  };
-  return retour;
-};
+): InformationsEtapesVariantes<TypeEtape> => ({
+  variantes: variantesEtapes.map((variante) => variante.etape),
+  etapeAffichee: fabriqueFonctionEtapeAffichee(variantesEtapes),
+  longueurComptabilisee: 1,
+  existe: true,
+  titre: variantesEtapes[0]?.etape.titre,
+  estIgnoree: toujoursFaux,
+  conteneurElementRendu: SimulateurEtapeForm,
+  remplitContitionSousEtape: toujoursFaux,
+  validationReponses: variantesEtapes[0]?.etape.validationReponses,
+});
 
-export const fabriqueSousEtapeConditionnelle: (
+const fabriqueSousEtapeConditionnelle: (
   condition: PredicatDonneesSimulateur,
   sousEtape: InformationEtapeForm,
 ) => SousEtapeConditionnelle = (condition, sousEtape) => ({
