@@ -68,7 +68,13 @@ export const listeDescriptionsActivites: Record<
         "La vente, y compris la revente, d'électricité à des clients.",
     },
   ],
-  entrepriseFerroviaire: [],
+  entrepriseFerroviaire: [
+    {
+      titre: "Entreprise ferroviaire",
+      description:
+        "...",
+    },
+  ],
   entrepriseFourniture: [],
   etablissementCredit: [],
   executantOperationGestionDechets: [],
