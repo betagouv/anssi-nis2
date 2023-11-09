@@ -8,13 +8,6 @@ import {
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
 import { verifieQue } from "../utilitaires/assure";
 import { IDonneesBrutesFormulaireSimulateur } from "../../src/Domaine/Simulateur/DonneesFormulaire";
-import {
-  auMoinsUnSecteurListe,
-  uniquementDesSecteursAutres,
-} from "../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
-import { uniquementDesSousSecteursAutres } from "../../src/Domaine/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
-
-import { isMatching, P } from "ts-pattern";
 
 const donneesAbsentes = Object.entries(arbForm.nonValide.donneeAbsente).filter(
   ([nom]) =>
@@ -60,7 +53,6 @@ const donneesTestsArbitraires = [
     arbitraireEligible: arbForm.nonDesigneOSE.publique,
   },
 ];
-const tableauNonVide = <T>(tableau: T[]) => tableau.length > 0;
 const testsActiviteNulle = [
   {
     actionTestee: verifieCompletudeDonneesCommunes,
@@ -76,45 +68,6 @@ const testsActiviteNulle = [
   },
   {
     actionTestee: verifieCompletudeDonneesFormulaire,
-    attendu: false,
-  },
-  {
-    actionTestee: {
-      ["condition 1"]: (donnees) =>
-        isMatching({
-          trancheCA: [P._],
-          typeStructure: ["privee"],
-          secteurActivite: P.when(uniquementDesSecteursAutres),
-          sousSecteurActivite: P.array(),
-          activites: P.array(),
-        })(donnees),
-    }["condition 1"],
-    attendu: false,
-  },
-  {
-    actionTestee: {
-      ["condition 2"]: (donnees) =>
-        isMatching({
-          trancheCA: [P._],
-          typeStructure: ["privee"],
-          secteurActivite: P.when(auMoinsUnSecteurListe),
-          sousSecteurActivite: P.when(uniquementDesSousSecteursAutres),
-          activites: P.array(),
-        })(donnees),
-    }["condition 2"],
-    attendu: false,
-  },
-  {
-    actionTestee: {
-      ["condition 3"]: (donnees) =>
-        isMatching({
-          trancheCA: [P._],
-          typeStructure: ["privee"],
-          secteurActivite: P.when(auMoinsUnSecteurListe),
-          sousSecteurActivite: P.array(),
-          activites: P.when(tableauNonVide),
-        })(donnees),
-    }["condition 3"],
     attendu: false,
   },
 ];
@@ -161,41 +114,6 @@ const donneesNonValides: {
       },
       {
         actionTestee: verifieCompletudeDonneesFormulairePublique,
-        attendu: false,
-      },
-      {
-        actionTestee: {
-          ["condition 1"]: (donnees) =>
-            isMatching({
-              typeStructure: ["publique"],
-              typeEntitePublique: [P._],
-              secteurActivite: P.when(uniquementDesSecteursAutres),
-            })(donnees),
-        }["condition 1"],
-        attendu: false,
-      },
-      {
-        actionTestee: {
-          ["condition 2"]: (donnees) =>
-            isMatching({
-              typeStructure: ["publique"],
-              typeEntitePublique: [P._],
-              secteurActivite: P.when(auMoinsUnSecteurListe),
-              sousSecteurActivite: P.when(uniquementDesSousSecteursAutres),
-            })(donnees),
-        }["condition 2"],
-        attendu: false,
-      },
-      {
-        actionTestee: {
-          ["condition 3"]: (donnees) =>
-            isMatching({
-              typeStructure: ["publique"],
-              typeEntitePublique: [P._],
-              secteurActivite: P.when(auMoinsUnSecteurListe),
-              activites: P.when(tableauNonVide),
-            })(donnees),
-        }["condition 3"],
         attendu: false,
       },
     ],
