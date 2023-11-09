@@ -286,7 +286,7 @@ export const TypeEntitePublique: StoryChargeurEtape = {
         etatMembre: ["france"],
         secteurActivite: ["energie"],
         sousSecteurActivite: ["autreSousSecteurEnergie"],
-        trancheCA: ["petit"],
+        trancheCA: [],
         trancheNombreEmployes: ["petit"],
         typeStructure: [typeStructure],
         typeEntitePublique: ["administrationCentrale"],
