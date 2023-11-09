@@ -1,162 +1,47 @@
-import { Button } from "@codegouvfr/react-dsfr/Button";
 import { DefaultComponent } from "../../Services/Props";
-import FondEuLogo from "../../assets/EU-logo.svg";
 import ObligationNotifier from "../../assets/obligation-notifier.svg";
 import ObligationMesuresSecurite from "../../assets/obligation-mesures-securite.svg";
 import ObligationMaj from "../../assets/obligation-maj.svg";
 import ObligationIncidents from "../../assets/obligation-incidents.svg";
-import { fr } from "@codegouvfr/react-dsfr";
-import styled from "@emotion/styled";
-import { UppercaseH2 } from "../Styled/UppercaseH2.tsx";
-import {
-  lienDirectiveEuropeenne,
-  lienFaqAnssi,
-} from "../../References/liens.tsx";
-
-const ElementObligation = ({
-  imageSrc,
-  title,
-}: {
-  imageSrc: string;
-  title: string;
-}) => {
-  return (
-    <li className="fr-col">
-      <img src={imageSrc} alt={title} />
-      <p className="fr-text--lead">{title}</p>
-    </li>
-  );
-};
-
-const MiseEnAvantFaits = styled.span`
-  background-color: #fceeac;
-  width: fit-content;
-`;
-
-const LogoUnionEuropeenneNIS2 = () => {
-  const Centered = styled.div`
-    text-align: center;
-
-    .interieur-logo-ue {
-      background-image: url(${FondEuLogo});
-      background-position: center;
-      background-repeat: no-repeat;
-      width: 486px;
-      height: 399px;
-      align-items: center;
-      vertical-align: middle;
-      text-align: center;
-      display: flex;
-    }
-
-    .interieur-logo-ue p {
-      width: 100%;
-      margin-bottom: 0;
-      left: 205px;
-      top: 180px;
-    }
-  `;
-
-  return (
-    <Centered className="fr-col-5">
-      <div className="fr-col--middle interieur-logo-ue">
-        <p className="fr-h2">NIS&nbsp;2</p>
-      </div>
-      <p className="fr-definition fr-text--bold fr-mb-0">
-        NIS : Network and and Information Security
-      </p>
-      <p className="fr-definition fr-text--bold fr-mb-0">
-        SRI : Sécurité des Réseau et de l’Information
-      </p>
-    </Centered>
-  );
-};
-
-const Obligations = styled.div`
-  padding-top: ${fr.spacing("8v")};
-  margin-top: ${fr.spacing("7w")};
-  border: 2px solid
-    ${
-      fr.colors.decisions.border.plain.grey.default // TODO was #2F3A43
-    };
-
-  & .traversant {
-    margin-top: -${fr.spacing("12v")};
-    align-content: center;
-    width: 100%;
-  }
-
-  & h3 {
-    background-color: white;
-    width: fit-content;
-    text-align: center;
-    padding: 0 ${fr.spacing("3w")};
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  & li {
-    list-style: none;
-    text-align: center;
-  }
-
-  & img {
-    float: none;
-  }
-`;
+import { ElementObligation } from "./ElementObligation.tsx";
+import { LogoUnionEuropeenneNIS2 } from "./LogoUnionEuropeenneNIS2.tsx";
 
 const BandeauNis2EU: DefaultComponent = () => {
   return (
     <>
-      <div className="fr-pb-13w">
+      <div className="fr-nis2-accueil-directive-europeenne fr-pb-13w">
         <div className="fr-container">
-          <div className="fr-grid-row--center fr-pt-10w fr-pb-5w">
-            <UppercaseH2 className="fr-h1">
-              NIS2, la nouvelle directive <br />
+          <div className="fr-grid-row--center fr-pt-10w fr-pb-7w">
+            <h2 className="fr-h1">
+              NIS&nbsp;2, la nouvelle directive <br />
               européenne cyber
-            </UppercaseH2>
+            </h2>
           </div>
           <div className="fr-grid-row fr-pb-4w">
-            <div className="fr-col">
-              <div>
-                <p className="fr-h4 fr-mb-4w">
-                  En France, le nombre d&apos;intrusions avérées dans
-                  <br />
-                  des systèmes d&apos;information signalées à l&apos;ANSSI
-                  <br />
-                  <MiseEnAvantFaits className="fr-h4">
-                    a augmenté de 37% entre 2020 et 2021.
-                  </MiseEnAvantFaits>
-                </p>
-              </div>
-              <p className="fr-text--lead fr-mb-4w">
+            <div className="fr-col-5 fr-pt-4w  fr-col-offset-1">
+              <p className="fr-h4">
+                En France, la menace cybercriminelle et plus spécifiquement
+                celle liée aux rançongiciels se maintient avec un regain
+                d’activités fin 2022.
+              </p>
+              <p>
+                Elle touche particulièrement les TPE, PME et ETI (40&nbsp;% des
+                rançongiciels traités ou rapportés à l’ANSSI en 2022), les
+                collectivités territoriales (23&nbsp;%) et les établissements
+                publics de santé (10&nbsp;%).
+              </p>
+              <p>
                 Plusieurs milliers d’entreprises et d’administrations publiques
-                françaises seront soumises aux exigences de la nouvelle
+                françaises seront donc soumises aux exigences de la nouvelle
                 directive européenne sur la sécurité des réseaux et des systèmes
-                d’information ou « directive NIS2 » afin de renforcer leur
-                cybersécurité et harmoniser les pratiques à l’échelle
+                d’information ou «&nbsp;directive NIS 2&nbsp;» afin de renforcer
+                leur cybersécurité et harmoniser les pratiques à l’échelle
                 européenne.
               </p>
-              {/* TODO: padding was "6px, 24px, 10px, 18px" */}
-              <Button
-                priority="secondary"
-                linkProps={lienFaqAnssi}
-                iconId={"fr-icon-question-line"}
-              >
-                Voir les FAQ
-              </Button>
-              <Button
-                priority="secondary"
-                linkProps={lienDirectiveEuropeenne}
-                iconId={"fr-icon-external-link-line"}
-                className="fr-ml-2w"
-              >
-                Voir la directive complète
-              </Button>
             </div>
             <LogoUnionEuropeenneNIS2 />
           </div>
-          <Obligations className="fr-pt-4w">
+          <div className="fr-pt-4w fr-nis2-obligations">
             <div className="fr-col--middle traversant">
               {/* TODO: utiliser mise en avant adéquate */}
               <h3 className="fr-h4">
@@ -183,7 +68,7 @@ const BandeauNis2EU: DefaultComponent = () => {
                 imageSrc={ObligationIncidents}
               />
             </ul>
-          </Obligations>
+          </div>
         </div>
       </div>
     </>
