@@ -3,6 +3,46 @@
     line-height: 200%;
 }
 
+.fr-bandeau-marianne {
+    background-color: #101070;
+    color: var(--dark-text-title-grey, #fff);
+
+    & h2 {
+        color: var(--dark-text-title-grey, #fff);
+    }
+}
+
+.fr-nis2-accueil-principal {
+    background-image: url(assets/marches.svg);
+    background-position-x: right;
+    background-position-y: top;
+    background-repeat: no-repeat;
+}
+
+.fr-nis2-appel-action {
+    & h1 {
+        color: var(--White, #FFF);
+        font-size: 3.25rem;
+        line-height: 120%;
+        margin-bottom: 1rem;
+    }
+
+    & p {
+        font-size: 1.25rem;
+        font-weight: 500;
+        line-height: 166.667%;
+    }
+
+    .fr-nis2-mise-en-avant {
+        width: fit-content;
+        background: var(--Yellow, #FDC82E);
+        padding: .5rem 1rem;
+        color: var(--Dark-Grey, #282828);
+        font-size: 1.125rem;
+    }
+}
+
+
 .fr-follow .fr-link--dailymotion::before {
     flex: 0 0 auto;
     display: inline-block;
