@@ -4,6 +4,7 @@ import {
   auMoinsUneActiviteParValeurSectorielle,
   auMoinsUnSousSecteurParSecteur,
   et,
+  exactementUn,
   lorsque,
 } from "./champs.predicats.ts";
 import { NomsChampsSimulateur } from "../../DonneesFormulaire.ts";
@@ -12,7 +13,7 @@ export const fabriqueValidationUneReponses = (
   nomChamp: NomsChampsSimulateur,
 ): ValidationReponses => ({
   message: "Selectionnez une réponse",
-  validateur: auMoinsUn(nomChamp),
+  validateur: exactementUn(nomChamp),
 });
 export const validationReponsesTaille: ValidationReponses = {
   message: "Sélectionnez une réponse pour chaque critère",

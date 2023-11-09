@@ -19,6 +19,11 @@ const meta: Meta<typeof ChargeurEtape> = {
   title: "Composants/Simulateur/ChargeurEtape",
   component: ChargeurEtape,
   decorators: [genereDecorateurPourContexte(defaultContext)],
+  parameters: {
+    actions: {
+      handles: ["envoieDonneesFormulaire"],
+    },
+  },
 };
 export default meta;
 type StoryChargeurEtape = StoryObj<typeof ChargeurEtape>;

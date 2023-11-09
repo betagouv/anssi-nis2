@@ -10,7 +10,6 @@ import {
   ajouteAuMoinsUneActiviteAutre,
   ajouteAuMoinsUneActiviteListee,
   ajouteMethodeAvec,
-  DonneesFormulaireExtensibles,
   DonneesSectorielles,
   etend,
   fabriqueArbContraintSurTrancheCA,
@@ -77,7 +76,8 @@ const arbOSEPetit = etend(arbitraireSecteursSousSecteurs)
     trancheNombreEmployes: arbTranche.petit,
     etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
   })
-  .chain(ajouteArbitraireActivites) as ArbitraireFormulaire;
+  .chain(ajouteArbitraireActivites)
+  .filter((d) => d.activites.length > 0) as ArbitraireFormulaire;
 
 const arbOSEMoyenGrand = etend(arbitraireSecteursSousSecteurs)
   .avec({
@@ -102,8 +102,8 @@ const arbActivitesAutres = etend<DonneesSectorielles>(
     trancheNombreEmployes: fabriqueArbTrancheSingleton(),
     etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
   })
-  .chain<DonneesFormulaireExtensibles>(ajouteAuMoinsUneActiviteAutre)
-  .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
+  .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteAutre)
+  .filter((d) => d.activites.length > 0);
 
 const arbNonOSEPrivesPetitFournisseurInfraNum = etend<DonneesSectorielles>(
   arbSecteurSousSecteurInfraNum,
@@ -175,7 +175,8 @@ const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
   })
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteAutre)
-  .filter(predicatDonneesFormulaire.uniquement.activiteAutre);
+  .filter(predicatDonneesFormulaire.uniquement.activiteAutre)
+  .filter((d) => d.activites.length > 0);
 
 const arbToutesValeursPossibles = etend(arbSecteursSousSecteursListes).avec({
   designeOperateurServicesEssentiels: fabriqueArbSingleton([

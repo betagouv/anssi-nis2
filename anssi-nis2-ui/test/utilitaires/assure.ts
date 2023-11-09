@@ -12,6 +12,14 @@ export const verifieQue = <
     renvoieToujours: (resultatAttendu: TypeResultat) =>
       Assure.toujoursEgal(arbitraire, acte, resultatAttendu),
   }),
+  pour: (donnees: DonneesPartielles) => ({
+    renvoieToujours: (resultatAttendu: TypeResultat) =>
+      expect(
+        acte(donnees),
+        `Conditions non remplies pour '${acte.name}'` +
+          `avec les arguments ${JSON.stringify(donnees)}`,
+      ).toBe(resultatAttendu),
+  }),
 });
 
 export const Assure = {

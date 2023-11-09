@@ -11,9 +11,10 @@ export const estSousSecteurAutre = (sousSecteur?: SousSecteurActivite) =>
   sousSecteur?.startsWith("autre");
 
 export const auMoinsUnSousSecteurListe = (sousSecteur: SousSecteurActivite[]) =>
-  sousSecteur?.some(estSousSecteurListe);
-export const aucunSousSecteurListe = (sousSecteur: SousSecteurActivite[]) =>
-  !auMoinsUnSousSecteurListe(sousSecteur);
+  sousSecteur.length > 0 && sousSecteur?.some(estSousSecteurListe);
+export const uniquementDesSousSecteursAutres = (
+  sousSecteur: SousSecteurActivite[],
+) => sousSecteur.length > 0 && sousSecteur?.every(estSousSecteurAutre);
 
 export const sousSecteurAppartientASecteur =
   (valeurGroupement: SecteursAvecSousSecteurs) =>

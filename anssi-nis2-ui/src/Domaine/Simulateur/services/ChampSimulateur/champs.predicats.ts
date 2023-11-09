@@ -25,6 +25,7 @@ export const et: (...validateurs: Array<PredicatChamp>) => PredicatChamp =
   (...validateurs) =>
   (donnees) =>
     validateurs.every(appliqueValidateur(donnees));
+
 export const ou: (...validateurs: Array<PredicatChamp>) => PredicatChamp =
   (...validateurs) =>
   (donnees) =>
@@ -41,13 +42,24 @@ export const lorsque: (
 export const estChaineNonVide = <T extends string>(listeValeurs: T) =>
   listeValeurs.length > 0;
 
-export const auMoinsN =
-  (n: number, nomChamp: NomsChampsSimulateur) =>
-  (donnees: IDonneesBrutesFormulaireSimulateur) =>
-    donnees[nomChamp].filter(estChaineNonVide).length > n - 1;
+export const auMoinsN = (n: number, nomChamp: NomsChampsSimulateur) =>
+  ({
+    [`auMoinsN_${n}_${nomChamp}`]: (
+      donnees: IDonneesBrutesFormulaireSimulateur,
+    ) => donnees[nomChamp].filter(estChaineNonVide).length > n - 1,
+  })[`auMoinsN_${n}_${nomChamp}`];
+
+export const exactementN = (n: number, nomChamp: NomsChampsSimulateur) =>
+  ({
+    [`exactement_${n}_${nomChamp}`]: (
+      donnees: IDonneesBrutesFormulaireSimulateur,
+    ) => donnees[nomChamp].filter(estChaineNonVide).length === n,
+  })[`exactement_${n}_${nomChamp}`];
 
 export const auMoinsUn = (nomChamp: NomsChampsSimulateur) =>
   auMoinsN(1, nomChamp);
+export const exactementUn = (nomChamp: NomsChampsSimulateur) =>
+  exactementN(1, nomChamp);
 
 export const auMoinsUnSousSecteurParSecteur: PredicatChamp = (
   donneesFormulaireSimulateur,
