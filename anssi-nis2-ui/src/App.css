@@ -95,21 +95,12 @@
     }
 
     .fr-nis2-obligations {
-        padding-top: 2rem;
-        margin-top: 1.75rem;
-        border: 2px solid var(--border-plain-grey);
-
-        & .traversant {
-            margin-top: -3rem;
-            align-content: center;
-            width: 100%;
-        }
+        background-color: #FFF;
 
         & h3 {
-            background-color: white;
+            color: #272771;
             width: fit-content;
             text-align: center;
-            padding: 0 1.5rem;
             margin-left: auto;
             margin-right: auto;
         }

@@ -4,6 +4,7 @@ import BandeauNis2EU from "./BandeauNis2EU.tsx";
 import BandeauQuiEstANSSI from "./BandeauQuiEstANSSI.tsx";
 import BandeauInformationRS from "./BandeauInformationRS.tsx";
 import BandeauQuandSePreparer from "./BandeauQuandSePreparer.tsx";
+import BandeauObligations from "./BandeauObligations.tsx";
 
 export {
   BandeauAccueil,
@@ -12,4 +13,5 @@ export {
   BandeauQuiEstANSSI,
   BandeauInformationRS,
   BandeauQuandSePreparer,
+  BandeauObligations,
 };

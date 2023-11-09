@@ -1,9 +1,4 @@
 import { DefaultComponent } from "../../Services/Props";
-import ObligationNotifier from "../../assets/obligation-notifier.svg";
-import ObligationMesuresSecurite from "../../assets/obligation-mesures-securite.svg";
-import ObligationMaj from "../../assets/obligation-maj.svg";
-import ObligationIncidents from "../../assets/obligation-incidents.svg";
-import { ElementObligation } from "./ElementObligation.tsx";
 import { LogoUnionEuropeenneNIS2 } from "./LogoUnionEuropeenneNIS2.tsx";
 
 const BandeauNis2EU: DefaultComponent = () => {
@@ -40,34 +35,6 @@ const BandeauNis2EU: DefaultComponent = () => {
               </p>
             </div>
             <LogoUnionEuropeenneNIS2 />
-          </div>
-          <div className="fr-pt-4w fr-nis2-obligations">
-            <div className="fr-col--middle traversant">
-              {/* TODO: utiliser mise en avant adéquate */}
-              <h3 className="fr-h4">
-                Les entités concernées devront se conformer à certaines
-                obligations auprès de l’ANSSI
-              </h3>
-            </div>
-            <ul className="fr-grid-row">
-              {/* TODO: améliorer les tiles/cards des obligations */}
-              <ElementObligation
-                title="S’enregistrer auprès de l'ANSSI"
-                imageSrc={ObligationNotifier}
-              />
-              <ElementObligation
-                title="Mettre en œuvre des mesures de sécurité"
-                imageSrc={ObligationMesuresSecurite}
-              />
-              <ElementObligation
-                title="Mettre à jour ses systèmes d'information"
-                imageSrc={ObligationMaj}
-              />
-              <ElementObligation
-                title="Déclarer les incidents de sécurité"
-                imageSrc={ObligationIncidents}
-              />
-            </ul>
           </div>
         </div>
       </div>

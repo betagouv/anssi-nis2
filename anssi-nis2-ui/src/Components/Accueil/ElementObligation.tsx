@@ -1,12 +1,16 @@
-export const ElementObligation = ({
-  imageSrc,
-  title,
-}: {
+import { DefaultComponentExtensible, DefaultProps } from "../../Services/Props";
+
+type TuileAvecImage = DefaultProps & {
   imageSrc: string;
-  title: string;
-}) => (
-  <li className="fr-col">
-    <img src={imageSrc} alt={title} />
-    <p className="fr-text--lead">{title}</p>
-  </li>
-);
+};
+export const ElementObligation: DefaultComponentExtensible<TuileAvecImage> = ({
+  imageSrc,
+  children,
+}: TuileAvecImage) => {
+  return (
+    <li className="fr-col">
+      <img src={imageSrc} alt={children?.toString() ?? ""} />
+      <p className="fr-text--lead">{children}</p>
+    </li>
+  );
+};
