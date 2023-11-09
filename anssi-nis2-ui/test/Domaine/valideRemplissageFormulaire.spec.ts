@@ -2,6 +2,7 @@ import { describe, it } from "vitest";
 import {
   verifieCompletudeDonneesCommunes,
   verifieCompletudeDonneesFormulaire,
+  verifieCompletudeDonneesFormulairePrivee,
   verifieCompletudeDonneesFormulairePublique,
 } from "../../src/Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
@@ -60,51 +61,23 @@ const donneesTestsArbitraires = [
   },
 ];
 const tableauNonVide = <T>(tableau: T[]) => tableau.length > 0;
-const donneesNonValides: {
-  nom: string;
-  donnees: IDonneesBrutesFormulaireSimulateur;
-}[] = [
+const testsActiviteNulle = [
   {
-    nom: "Cas étrange avec activités nulles mais vrai",
-    donnees: {
-      activites: [],
-      designeOperateurServicesEssentiels: ["oui"],
-      etatMembre: ["france"],
-      secteurActivite: ["espace"],
-      sousSecteurActivite: [],
-      trancheCA: ["petit"],
-      trancheNombreEmployes: ["petit"],
-      typeStructure: ["privee"],
-      typeEntitePublique: [],
-    },
+    actionTestee: verifieCompletudeDonneesCommunes,
+    attendu: true,
   },
-];
-describe.each([
-  { actionTestee: verifieCompletudeDonneesCommunes },
-  { actionTestee: verifieCompletudeDonneesFormulaire },
-])("$actionTestee.name", ({ actionTestee }) => {
-  it.each(donneesAbsentes)(
-    "Doit rejeter les données non valides %s",
-    (nom, arbitraireDonneeAbsente) => {
-      verifieQue<IDonneesBrutesFormulaireSimulateur, boolean>(actionTestee)
-        .quelqueSoit(arbitraireDonneeAbsente)
-        .renvoieToujours(false);
-    },
-  );
-  it.each(donneesTestsArbitraires)(
-    "Doit accepter des données éligibles: $nom",
-    ({ arbitraireEligible }) => {
-      verifieQue(actionTestee)
-        .quelqueSoit(arbitraireEligible)
-        .renvoieToujours(true);
-    },
-  );
-});
-describe.each([
-  { actionTestee: verifieCompletudeDonneesCommunes, attendu: true },
-  // { actionTestee: verifieCompletudeDonneesFormulairePrivee, attendu: false },
-  { actionTestee: verifieCompletudeDonneesFormulairePublique, attendu: false },
-  // { actionTestee: verifieCompletudeDonneesFormulaire, attendu: false },
+  {
+    actionTestee: verifieCompletudeDonneesFormulairePrivee,
+    attendu: false,
+  },
+  {
+    actionTestee: verifieCompletudeDonneesFormulairePublique,
+    attendu: false,
+  },
+  {
+    actionTestee: verifieCompletudeDonneesFormulaire,
+    attendu: false,
+  },
   {
     actionTestee: {
       ["condition 1"]: (donnees) =>
@@ -144,8 +117,120 @@ describe.each([
     }["condition 3"],
     attendu: false,
   },
-])("Cas etranges avec $actionTestee.name", ({ actionTestee, attendu }) => {
-  it.each(donneesNonValides)("ne doit pas valider $nom", ({ donnees }) => {
-    verifieQue(actionTestee).pour(donnees).renvoieToujours(attendu);
-  });
+];
+const donneesNonValides: {
+  description: string;
+  donnees: IDonneesBrutesFormulaireSimulateur;
+  tests: {
+    actionTestee: (donnees: IDonneesBrutesFormulaireSimulateur) => boolean;
+    attendu: boolean;
+  }[];
+}[] = [
+  {
+    description: "activiteNulle",
+    donnees: {
+      activites: [],
+      designeOperateurServicesEssentiels: ["oui"],
+      etatMembre: ["france"],
+      secteurActivite: ["espace"],
+      sousSecteurActivite: [],
+      trancheCA: ["petit"],
+      trancheNombreEmployes: ["petit"],
+      typeStructure: ["privee"],
+      typeEntitePublique: [],
+    },
+    tests: testsActiviteNulle,
+  },
+  {
+    description: "publique",
+    donnees: {
+      activites: [],
+      designeOperateurServicesEssentiels: ["oui"],
+      etatMembre: ["france"],
+      secteurActivite: ["energie"],
+      sousSecteurActivite: [],
+      trancheCA: [],
+      trancheNombreEmployes: ["petit"],
+      typeStructure: ["publique"],
+      typeEntitePublique: ["administrationCentrale"],
+    },
+    tests: [
+      {
+        actionTestee: verifieCompletudeDonneesCommunes,
+        attendu: true,
+      },
+      {
+        actionTestee: verifieCompletudeDonneesFormulairePublique,
+        attendu: false,
+      },
+      {
+        actionTestee: {
+          ["condition 1"]: (donnees) =>
+            isMatching({
+              typeStructure: ["publique"],
+              typeEntitePublique: [P._],
+              secteurActivite: P.when(uniquementDesSecteursAutres),
+            })(donnees),
+        }["condition 1"],
+        attendu: false,
+      },
+      {
+        actionTestee: {
+          ["condition 2"]: (donnees) =>
+            isMatching({
+              typeStructure: ["publique"],
+              typeEntitePublique: [P._],
+              secteurActivite: P.when(auMoinsUnSecteurListe),
+              sousSecteurActivite: P.when(uniquementDesSousSecteursAutres),
+            })(donnees),
+        }["condition 2"],
+        attendu: false,
+      },
+      {
+        actionTestee: {
+          ["condition 3"]: (donnees) =>
+            isMatching({
+              typeStructure: ["publique"],
+              typeEntitePublique: [P._],
+              secteurActivite: P.when(auMoinsUnSecteurListe),
+              activites: P.when(tableauNonVide),
+            })(donnees),
+        }["condition 3"],
+        attendu: false,
+      },
+    ],
+  },
+];
+describe.each([
+  { actionTestee: verifieCompletudeDonneesCommunes },
+  { actionTestee: verifieCompletudeDonneesFormulaire },
+])("$actionTestee.name", ({ actionTestee }) => {
+  it.each(donneesAbsentes)(
+    "Doit rejeter les données non valides %s",
+    (nom, arbitraireDonneeAbsente) => {
+      verifieQue<IDonneesBrutesFormulaireSimulateur, boolean>(actionTestee)
+        .quelqueSoit(arbitraireDonneeAbsente)
+        .renvoieToujours(false);
+    },
+  );
+  it.each(donneesTestsArbitraires)(
+    "Doit accepter des données éligibles: $nom",
+    ({ arbitraireEligible }) => {
+      verifieQue(actionTestee)
+        .quelqueSoit(arbitraireEligible)
+        .renvoieToujours(true);
+    },
+  );
 });
+
+describe.each(donneesNonValides)(
+  "Cas etranges $description",
+  ({ donnees, tests }) => {
+    it.each(tests)(
+      "doit répondre $attendu pour $actionTestee.name",
+      ({ actionTestee, attendu }) => {
+        verifieQue(actionTestee).pour(donnees).renvoieToujours(attendu);
+      },
+    );
+  },
+);

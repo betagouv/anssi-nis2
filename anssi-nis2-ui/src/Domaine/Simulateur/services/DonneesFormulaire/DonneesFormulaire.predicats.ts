@@ -108,7 +108,7 @@ export const verifieCompletudeDonneesFormulairePublique = (
         typeStructure: ["publique"],
         typeEntitePublique: [P._],
         secteurActivite: P.when(auMoinsUnSecteurListe),
-        activites: P.array(),
+        activites: P.when(tableauNonVide),
       },
       toujoursVrai,
     )
