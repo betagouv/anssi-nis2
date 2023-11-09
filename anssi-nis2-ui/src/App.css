@@ -7,6 +7,14 @@
     }
 }
 
+.fr-nis2-mise-en-avant {
+    width: fit-content;
+    background: var(--Yellow, #FDC82E);
+    padding: .5rem 1rem;
+    color: var(--Dark-Grey, #282828);
+    font-size: 1.125rem;
+}
+
 .fr-nis2-accueil-principal {
     background-image: url(assets/marches.svg);
     background-position-x: right;
@@ -28,13 +36,7 @@
             line-height: 166.667%;
         }
 
-        .fr-nis2-mise-en-avant {
-            width: fit-content;
-            background: var(--Yellow, #FDC82E);
-            padding: .5rem 1rem;
-            color: var(--Dark-Grey, #282828);
-            font-size: 1.125rem;
-        }
+
     }
 }
 
@@ -113,6 +115,12 @@
         & img {
             float: none;
         }
+    }
+}
+
+.fr-nis2-quand-se-preparer {
+    & h2 {
+        text-align: center;
     }
 }
 
