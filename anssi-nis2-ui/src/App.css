@@ -7,6 +7,15 @@
     }
 }
 
+.fr-nis2-bandeau-marianne-leger {
+    background: #F5F5FE;
+
+    & h2 {
+        text-align: center;
+        color: #272771;
+    }
+}
+
 .fr-nis2-mise-en-avant {
     width: fit-content;
     background: var(--Yellow, #FDC82E);
@@ -118,9 +127,15 @@
     }
 }
 
-.fr-nis2-quand-se-preparer {
+.fr-nis2-bandeau {
     & h2 {
         text-align: center;
+    }
+}
+
+.fr-nis2-en-savoir-plus {
+    & h2 {
+        color: #272771;
     }
 }
 

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const BandeauQuandSePreparer = () => {
   return (
     <>
-      <div className="fr-bandeau-marianne fr-nis2-quand-se-preparer fr-pt-10w fr-pb-13w">
+      <div className="fr-bandeau-marianne fr-nis2-bandeau fr-py-10w">
         <div className={"fr-container"}>
           <div className="fr-grid-row--center">
             <h2 className="fr-mb-7w">Quand se préparer ?</h2>

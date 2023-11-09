@@ -13,7 +13,11 @@ export const TuileLien = ({
   <li className="fr-col">
     <img src={image} alt={titre} />
     <div>
-      <Button priority="tertiary" linkProps={lien}>
+      <Button
+        className="fr-btn--icon-left"
+        priority="secondary"
+        linkProps={lien}
+      >
         {titre}
       </Button>
     </div>
