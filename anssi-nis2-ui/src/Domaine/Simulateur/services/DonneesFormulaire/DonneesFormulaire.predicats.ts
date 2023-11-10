@@ -1,10 +1,9 @@
 import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire.ts";
 import {
-  auMoinsUneActiviteAutre,
   auMoinsUneActiviteListee,
   estActiviteAutre,
 } from "../Activite/Activite.predicats.ts";
-import { match, P } from "ts-pattern";
+import { match, isMatching, P } from "ts-pattern";
 import {
   auMoinsUnSecteurListe,
   uniquementDesSecteursAutres,
@@ -19,8 +18,6 @@ import {
 const verifAuMoinsUn = {
   activiteListee: (donnees: IDonneesBrutesFormulaireSimulateur) =>
     auMoinsUneActiviteListee(donnees.activites),
-  activiteAutre: (donnees: IDonneesBrutesFormulaireSimulateur) =>
-    auMoinsUneActiviteAutre(donnees.activites),
 };
 
 export const predicatDonneesFormulaire = {
@@ -47,72 +44,56 @@ export const verifieCompletudeDonneesCommunes = (
     auMoinsUn("secteurActivite"),
   )(donnees);
 
+export const verifieDonneesCommunesPrivee: (
+  donnees: IDonneesBrutesFormulaireSimulateur,
+) => boolean = isMatching({
+  trancheCA: [P._],
+  typeStructure: ["privee"],
+});
+export const verifieDonneesCommunesPublique = isMatching({
+  typeStructure: ["publique"],
+  typeEntitePublique: [P._],
+});
+
+const verifieDonneesSectorielles = (
+  donnees: IDonneesBrutesFormulaireSimulateur,
+) =>
+  match<IDonneesBrutesFormulaireSimulateur, boolean>(donnees)
+    .with(
+      {
+        secteurActivite: P.when(uniquementDesSecteursAutres),
+        sousSecteurActivite: P.array(),
+        activites: P.array(),
+      },
+      toujoursVrai,
+    )
+    .with(
+      {
+        secteurActivite: P.when(auMoinsUnSecteurListe),
+        sousSecteurActivite: P.when(uniquementDesSousSecteursAutres),
+        activites: P.array(),
+      },
+      toujoursVrai,
+    )
+    .with(
+      {
+        secteurActivite: P.when(auMoinsUnSecteurListe),
+        sousSecteurActivite: P.array(),
+        activites: P.when(tableauNonVide),
+      },
+      toujoursVrai,
+    )
+    .otherwise(toujoursFaux);
+
 export const verifieCompletudeDonneesFormulairePrivee = (
   donnees: IDonneesBrutesFormulaireSimulateur,
 ) =>
-  match<IDonneesBrutesFormulaireSimulateur, boolean>(donnees)
-    .with(
-      {
-        trancheCA: [P._],
-        typeStructure: ["privee"],
-        secteurActivite: P.when(uniquementDesSecteursAutres),
-        sousSecteurActivite: P.array(),
-        activites: P.array(),
-      },
-      toujoursVrai,
-    )
-    .with(
-      {
-        trancheCA: [P._],
-        typeStructure: ["privee"],
-        secteurActivite: P.when(auMoinsUnSecteurListe),
-        sousSecteurActivite: P.when(uniquementDesSousSecteursAutres),
-        activites: P.array(),
-      },
-      toujoursVrai,
-    )
-    .with(
-      {
-        trancheCA: [P._],
-        typeStructure: ["privee"],
-        secteurActivite: P.when(auMoinsUnSecteurListe),
-        sousSecteurActivite: P.array(),
-        activites: P.when(tableauNonVide),
-      },
-      toujoursVrai,
-    )
-    .otherwise(toujoursFaux);
+  verifieDonneesCommunesPrivee(donnees) && verifieDonneesSectorielles(donnees);
 export const verifieCompletudeDonneesFormulairePublique = (
   donnees: IDonneesBrutesFormulaireSimulateur,
 ) =>
-  match<IDonneesBrutesFormulaireSimulateur, boolean>(donnees)
-    .with(
-      {
-        typeStructure: ["publique"],
-        typeEntitePublique: [P._],
-        secteurActivite: P.when(uniquementDesSecteursAutres),
-      },
-      toujoursVrai,
-    )
-    .with(
-      {
-        typeStructure: ["publique"],
-        typeEntitePublique: [P._],
-        secteurActivite: P.when(auMoinsUnSecteurListe),
-        sousSecteurActivite: P.when(uniquementDesSousSecteursAutres),
-      },
-      toujoursVrai,
-    )
-    .with(
-      {
-        typeStructure: ["publique"],
-        typeEntitePublique: [P._],
-        secteurActivite: P.when(auMoinsUnSecteurListe),
-        activites: P.when(tableauNonVide),
-      },
-      toujoursVrai,
-    )
-    .otherwise(toujoursFaux);
+  verifieDonneesCommunesPublique(donnees) &&
+  verifieDonneesSectorielles(donnees);
 export const verifieCompletudeDonneesFormulaire = (
   donnees: IDonneesBrutesFormulaireSimulateur,
 ) =>
