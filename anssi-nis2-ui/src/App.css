@@ -206,6 +206,15 @@ legend.fr-text--medium {
     }
 }
 
+.fr-nis2-qui-est-anssi {
+    text-align: center;
+    font-size: 1.125rem;
+
+    & h2 {
+        text-align: center;
+    }
+}
+
 .fr-nis2-bordure-bas {
     border-bottom: 1px solid var(--blue-france-850-200, #CACAFB);
 }
