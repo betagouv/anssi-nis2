@@ -9,7 +9,7 @@ export const SimulateurEtapePrealable: SimulateurEtapeRenderedComponent = ({
 }: SimulateurEtapeRenderedProps) => (
   <>
     <RowContainer className="fr-py-3w fr-nis2-bien-debuter">
-      <div className="fr-col-offset-2 fr-col-8 fr-background-alt--grey">
+      <div className="fr-col-8 fr-background-alt--grey">
         <RowContainer align="left" className="fr-mt-7w">
           <div className="fr-col-offset-1 fr-col-6">
             <h2>Pour bien débuter</h2>

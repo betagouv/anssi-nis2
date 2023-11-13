@@ -1,3 +1,7 @@
+.fr-fieldset .fr-fieldset__content .fr-radio-group:not(.fr-radio-rich) input[type=radio] + label {
+    background-position: calc(-0.25rem + 1px) calc(0.25rem + 1px), calc(-0.25rem + 1px) calc(0.25rem + 1px);
+}
+
 .fr-bandeau-marianne {
     background-color: #101070;
     color: var(--dark-text-title-grey, #fff);
