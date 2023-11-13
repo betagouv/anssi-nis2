@@ -150,21 +150,23 @@ export const collecteTitresPourActivite: (
 ) =>
   cartographieSousSecteursParSecteur(donneesFormulaire).reduce<
     AssociationSectorielleActivite[]
-  >((acc: AssociationSectorielleActivite[], [secteur, listeSousSecteurs]) => {
-    return acc.concat(
-      rempliSousSecteurs(
-        listeSousSecteurs,
-        secteur,
-        libellesSecteursActivite[secteur],
-        libellesSousSecteursActivite,
+  >(
+    (acc: AssociationSectorielleActivite[], [secteur, listeSousSecteurs]) =>
+      acc.concat(
+        rempliSousSecteurs(
+          listeSousSecteurs,
+          secteur,
+          libellesSecteursActivite[secteur],
+          libellesSousSecteursActivite,
+        ),
       ),
-    );
-  }, []);
+    [],
+  );
 export const fabriqueListeActivitesDesSecteurs = (
   secteurActivite: ValeurCleSectorielle[],
   filtreActivite: (activite: ValeursActivites) => boolean,
-): ValeursActivites[] => {
-  return Array.from(
+): ValeursActivites[] =>
+  Array.from(
     secteurActivite.reduce((ensembleActivites, secteur) => {
       activitesParSecteurEtSousSecteur[secteur]
         ?.filter(filtreActivite)
@@ -172,4 +174,3 @@ export const fabriqueListeActivitesDesSecteurs = (
       return ensembleActivites;
     }, new Set<ValeursActivites>()),
   );
-};

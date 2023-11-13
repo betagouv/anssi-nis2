@@ -34,16 +34,12 @@ export type DonneesSectorielles = Pick<
   IDonneesFormulaireSimulateur,
   "secteurActivite" | "sousSecteurActivite"
 >;
-// export type DonneesFormulaireAvecActiviteExtensibles =
-//   | IDonneesBrutesFormulaireSimulateur
-//   | DonneesSectorielles;
 
 export type DonneesFormulaireExtensibles =
   | IDonneesBrutesFormulaireSimulateur
   | DonneesSansActivite
   | DonneesBrutesSansActivite
   | DonneesSectorielles
-  // | Omit<DonneesBrutesSansActivite, "secteurActivite" | "sousSecteurActivite">
   | Omit<DonneesBrutesSansActivite, "trancheNombreEmployes">;
 
 export const propageBase = <
@@ -115,40 +111,63 @@ export const fabriqueArbSingleton = <T>(valeursPossibles: Readonly<T[]>) =>
     minLength: 1,
     maxLength: 1,
   });
+
+const etendAvecActivitesVides = <DonneesPartielles extends DonneesSectorielles>(
+  base: DonneesPartielles &
+    Partial<Pick<IDonneesBrutesFormulaireSimulateur, "activites">>,
+) =>
+  fc.record({
+    ...propageBase(base),
+    activites: fc.constant([]),
+  }) as fc.Arbitrary<DonneesExtensiblesAvecActivite<DonneesPartielles>>;
+
+const extraitOptionsAjoutArbitrairesActivite = (options: {
+  filtreActivite: () => boolean;
+  minLength: number;
+}): [() => boolean, number] => [
+  options?.filtreActivite || (() => true),
+  options?.minLength || 0,
+];
+
+function etendDonneesActivite<DonneesPartielles>(
+  base: DonneesPartielles &
+    Partial<Pick<IDonneesBrutesFormulaireSimulateur, "activites">>,
+  listeActivitesDesSecteurs: ValeursActivites[],
+) {
+  return base.activites
+    ? [...listeActivitesDesSecteurs, ...base.activites]
+    : listeActivitesDesSecteurs;
+}
+
 export const ajouteArbitraireActivites: OperationAjouteArbitraireActivites = <
   DonneesPartielles extends DonneesSectorielles,
 >(
-  base,
-  options?,
+  base: DonneesPartielles &
+    Partial<Pick<IDonneesBrutesFormulaireSimulateur, "activites">>,
+  options?: { filtreActivite: () => boolean; minLength: number },
 ) => {
-  const [filtreActivite, minLength] = [
-    options?.filtreActivite || (() => true),
-    options?.minLength || 0,
+  const [filtreActivite, minLength] =
+    extraitOptionsAjoutArbitrairesActivite(options);
+  const listeSectorielle = [
+    ...filtreSecteursSansSousSecteurs(base.secteurActivite),
+    ...(base.sousSecteurActivite || []),
   ];
   const listeActivitesDesSecteurs = fabriqueListeActivitesDesSecteurs(
-    [
-      ...filtreSecteursSansSousSecteurs(base.secteurActivite),
-      ...(base.sousSecteurActivite || []),
-    ],
+    listeSectorielle,
     filtreActivite,
   );
-  const baseAvecActivites: DonneesPartielles &
-    Partial<Pick<IDonneesBrutesFormulaireSimulateur, "activites">> = base;
-  const donneesActivite: ValeursActivites[] = baseAvecActivites.activites
-    ? [...listeActivitesDesSecteurs, ...baseAvecActivites.activites]
-    : listeActivitesDesSecteurs;
+  const donneesActivite = etendDonneesActivite(base, listeActivitesDesSecteurs);
+
   if (listeActivitesDesSecteurs.length === 0) {
-    return fc.record({
-      ...propageBase(base),
-      activites: fc.constant([]),
-    }) as fc.Arbitrary<DonneesExtensiblesAvecActivite<DonneesPartielles>>;
+    return etendAvecActivitesVides(base);
   }
-  const donneesActivitesUniques = Array.from(new Set(donneesActivite));
+  const arbAuMoinsUneActivites = fc.subarray<ValeursActivites>(
+    Array.from(new Set(donneesActivite)),
+    { minLength: minLength },
+  );
   const enregistrementAvecActivites = {
     ...propageBase(base),
-    activites: fc.subarray<ValeursActivites>(donneesActivitesUniques, {
-      minLength: minLength,
-    }),
+    activites: arbAuMoinsUneActivites,
   };
   return fc.record(enregistrementAvecActivites) as fc.Arbitrary<
     DonneesExtensiblesAvecActivite<DonneesPartielles>
@@ -165,74 +184,62 @@ export const contrainteTranchesSansDoublonSurValeur = (
       (!base.trancheCA.includes(valeurExclusive) &&
         tranche.includes(valeurExclusive)),
   );
-export const fabriqueArbSecteurSousSecteurs = (
+
+const arbSecteursEtSousSecteursVides = fc.record({
+  secteurActivite: fc.constant([]),
+  sousSecteurActivite: fc.constant([]),
+});
+
+const extraitCouplesAvecSecteurUniques = (
+  couplesSecteurSousSecteur: EnrSecteurSousSecteur[],
+) =>
+  Array.from(
+    couplesSecteurSousSecteur.reduce(
+      (listeSecteurs, couple) => listeSecteurs.add(couple.secteur),
+      new Set<SecteurActivite>(),
+    ),
+  );
+
+const extraitSousSecteursDesCouples = (
+  couplesSecteurSousSecteur: EnrSecteurSousSecteur[],
+) =>
+  Array.from(
+    couplesSecteurSousSecteur.reduce(
+      (listeSousSecteurs, couple) => listeSousSecteurs.add(couple.sousSecteur),
+      new Set<SousSecteurActivite>(),
+    ),
+  ).filter((sousSecteur) => sousSecteur !== undefined);
+
+const fabriqueArbSecteurSousSecteursTailleMini = (
   listeSecteursSousSecteurs: EnrSecteurSousSecteur[],
-  { minLength }: ArbitraireOptions = { minLength: 0 },
-): fc.Arbitrary<DonneesSectorielles> => {
-  if (listeSecteursSousSecteurs.length === 0) {
-    return fc.record({
-      secteurActivite: fc.constant([]),
-      sousSecteurActivite: fc.constant([]),
-    });
-  }
-  return fc
+  minLength: number,
+) =>
+  fc
     .subarray(listeSecteursSousSecteurs, { minLength: minLength })
     .chain((couplesSecteurSousSecteur) =>
       fc.record<DonneesSectorielles>({
         secteurActivite: fc.constant(
-          Array.from(
-            couplesSecteurSousSecteur.reduce(
-              (listeSecteurs, couple) => listeSecteurs.add(couple.secteur),
-              new Set<SecteurActivite>(),
-            ),
-          ),
+          extraitCouplesAvecSecteurUniques(couplesSecteurSousSecteur),
         ),
         sousSecteurActivite: fc.constant(
-          Array.from(
-            couplesSecteurSousSecteur.reduce(
-              (listeSousSecteurs, couple) =>
-                listeSousSecteurs.add(couple.sousSecteur),
-              new Set<SousSecteurActivite>(),
-            ),
-          ).filter((sousSecteur) => sousSecteur !== undefined),
+          extraitSousSecteursDesCouples(couplesSecteurSousSecteur),
         ),
       }),
     );
-};
-export const fabriqueArbEnregistrementSecteurSousSecteur = (
+
+export const fabriqueArbEnrSecteurSousSecteurs = (
   listeSecteursSousSecteurs: EnrSecteurSousSecteur[],
   { minLength }: ArbitraireOptions = { minLength: 0 },
-) => {
+): fc.Arbitrary<DonneesSectorielles> => {
   if (listeSecteursSousSecteurs.length === 0) {
-    return fc.record({
-      secteurActivite: fc.constant([]),
-      sousSecteurActivite: fc.constant([]),
-    });
+    return arbSecteursEtSousSecteursVides;
   }
-  return fc
-    .subarray(listeSecteursSousSecteurs, { minLength: minLength })
-    .chain((couplesSecteurSousSecteur) =>
-      fc.record({
-        secteurActivite: fc.constant(
-          Array.from(
-            couplesSecteurSousSecteur.reduce(
-              (listeSecteurs, couple) => listeSecteurs.add(couple.secteur),
-              new Set<SecteurActivite>(),
-            ),
-          ),
-        ),
-        sousSecteurActivite: fc.constant(
-          Array.from(
-            couplesSecteurSousSecteur.reduce(
-              (listeSousSecteurs, couple) =>
-                listeSousSecteurs.add(couple.sousSecteur),
-              new Set<SousSecteurActivite>(),
-            ),
-          ).filter((sousSecteur) => sousSecteur !== undefined),
-        ),
-      }),
-    );
+  return fabriqueArbSecteurSousSecteursTailleMini(
+    listeSecteursSousSecteurs,
+    minLength,
+  );
 };
+
 export const decoreChaineRendue = <T extends object>(objet: T) => {
   Object.defineProperties(objet, {
     [fc.toStringMethod]: { value: () => objet.toString() },

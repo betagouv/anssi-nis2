@@ -13,8 +13,7 @@ import {
   DonneesSectorielles,
   etend,
   fabriqueArbContraintSurTrancheCA,
-  fabriqueArbEnregistrementSecteurSousSecteur,
-  fabriqueArbSecteurSousSecteurs,
+  fabriqueArbEnrSecteurSousSecteurs,
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
 } from "../../utilitaires/manipulationArbitraires";
@@ -40,31 +39,33 @@ import { auMoinsUnSecteurListe } from "../../../src/Domaine/Simulateur/services/
 import { predicatDonneesFormulaire } from "../../../src/Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { ValeursNomChampsFormulaire } from "../../../src/Domaine/Simulateur/DonneesFormulaire.valeurs";
 
-export const arbitraireSecteursSousSecteurs = fabriqueArbSecteurSousSecteurs(
+export const arbitraireSecteursSousSecteurs = fabriqueArbEnrSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs,
 )
   .filter((donnees) => donnees.secteurActivite.length > 0)
   .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
 
-const arbSecteursSousSecteursListes = fabriqueArbSecteurSousSecteurs(
+const arbSecteursSousSecteursListes = fabriqueArbEnrSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs.filter(secteurEtSousSecteursSontListes),
   { minLength: 1 },
 );
 
-const arbSecteurSousSecteurInfraNum = fabriqueArbSecteurSousSecteurs(
+const arbSecteurSousSecteurInfraNum = fabriqueArbEnrSecteurSousSecteurs(
   filtreSecteurListeSecteursSousSecteurs("infrastructureNumerique"),
   { minLength: 1 },
 );
 
-const arbTousSecteursSousSecteurs = fabriqueArbSecteurSousSecteurs(
+const arbTousSecteursSousSecteurs = fabriqueArbEnrSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs,
   { minLength: 1 },
 );
 
-const arbEnrAutresSecteursSousSecteurs =
-  fabriqueArbEnregistrementSecteurSousSecteur(listeAutresSecteursSousSecteurs, {
+const arbEnrAutresSecteursSousSecteurs = fabriqueArbEnrSecteurSousSecteurs(
+  listeAutresSecteursSousSecteurs,
+  {
     minLength: 1,
-  });
+  },
+);
 
 type ArbitraireFormulaire = fc.Arbitrary<IDonneesFormulaireSimulateur>;
 const arbOSEPetit = etend(arbitraireSecteursSousSecteurs)
