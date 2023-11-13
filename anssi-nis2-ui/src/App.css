@@ -387,12 +387,10 @@ legend.fr-text--medium {
 }
 
 .fr-nis2-bien-debuter {
-    background: url(assets/localisation-france.svg) no-repeat top right;
-    background-position-x: 90%;
-    background-position-y: 8.5rem;
-
-    & div.fr-btns-group--right {
-        padding-right: 0;
+    .fr-nis2-logo-localisation {
+        & img {
+            margin-left: 2.5rem;
+        }
     }
 
     & h2 {
