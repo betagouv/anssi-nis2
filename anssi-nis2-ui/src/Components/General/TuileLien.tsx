@@ -1,6 +1,5 @@
 import Button from "@codegouvfr/react-dsfr/Button";
 import { RegisteredLinkProps } from "@codegouvfr/react-dsfr/link";
-import { Link } from "react-router-dom";
 
 export const TuileLien = ({
   titre,
@@ -14,7 +13,7 @@ export const TuileLien = ({
   <li className="fr-col">
     <img src={image} alt={titre} />
     <div>
-      <Link to={lien.href || "#"}>
+      <a href={lien.href || "#"}>
         <Button
           iconId="fr-icon-external-link-line"
           iconPosition="left"
@@ -24,7 +23,7 @@ export const TuileLien = ({
         >
           {titre}
         </Button>
-      </Link>
+      </a>
     </div>
   </li>
 );
