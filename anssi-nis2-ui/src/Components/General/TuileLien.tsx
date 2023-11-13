@@ -13,9 +13,17 @@ export const TuileLien = ({
   <li className="fr-col">
     <img src={image} alt={titre} />
     <div>
-      <Button priority="tertiary" linkProps={lien}>
-        {titre}
-      </Button>
+      <a href={lien.href || "#"}>
+        <Button
+          iconId="fr-icon-external-link-line"
+          iconPosition="left"
+          className="fr-btn"
+          priority="secondary"
+          // linkProps={lien}
+        >
+          {titre}
+        </Button>
+      </a>
     </div>
   </li>
 );

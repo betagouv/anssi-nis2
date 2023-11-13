@@ -25,7 +25,7 @@ const EtapeTypeStructureCalculee: SimulateurEtapeNodeComponent = ({
     [donneesFormulaire, gestionDonneesFormulaire],
   );
 
-  const texteLegende = "Quel type de structure qualifie votre organisation ?";
+  const texteLegende = "Quel type de structure qualifie votre entité ?";
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">

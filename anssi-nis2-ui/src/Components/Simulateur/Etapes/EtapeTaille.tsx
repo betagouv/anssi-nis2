@@ -50,10 +50,10 @@ const EtapeTailleCalculee = ({
     <FormSimulateur>
       <div className="fr-fieldset__element">
         <legend className="fr-text--medium">
-          Quelles sont les caractéristiques clés de votre organisation ?
+          Quelles sont les caractéristiques clés de votre entité ?
         </legend>
         <RadioButtons
-          legend="Nombre d’employé·e·s (équivalents temps pleins)"
+          legend="Nombre d’employés (équivalents temps pleins)"
           options={optionsTranchesNombreEmployes}
         />
         <RadioButtons

@@ -1,13 +1,18 @@
-import { DefaultComponent, DefaultProps } from "../../Services/Props";
+import { DefaultComponentExtensible, DefaultProps } from "../../Services/Props";
 
-export const RowContainer: DefaultComponent = ({
+type ConteneurLigne = DefaultProps & {
+  align?: "left" | "center";
+};
+export const RowContainer: DefaultComponentExtensible<ConteneurLigne> = ({
   className,
   children,
-}: DefaultProps) => {
+  align = "center",
+}: ConteneurLigne) => {
+  const alignement = align == "center" ? " fr-grid-row--center" : "";
   return (
     <div className={className}>
       <div className="fr-container">
-        <div className="fr-grid-row fr-grid-row--center">{children}</div>
+        <div className={"fr-grid-row" + alignement}>{children}</div>
       </div>
     </div>
   );

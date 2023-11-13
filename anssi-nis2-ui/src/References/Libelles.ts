@@ -29,7 +29,7 @@ export const libellesPaysUnionEuropeenneLocalisation: Record<
 };
 
 export const libellesTypesStructure: Record<TypeStructure, string> = {
-  publique: "Organisation publique",
+  publique: "Organisation ou entreprise publique",
   privee: "Entreprise privée",
 };
 

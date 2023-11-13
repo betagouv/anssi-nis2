@@ -23,9 +23,12 @@ const EtapeOSECalculee = ({
     [donneesFormulaire, changeSimple],
   );
 
-  const texteLegende =
-    "Avez-vous été désigné opérateur de services essentiels " +
-    "(OSE) au titre de NIS 1 ?";
+  const texteLegende = (
+    <>
+      Avez-vous été désigné opérateur de services essentiels (OSE) au titre de
+      NIS&nbsp;1 ?
+    </>
+  );
 
   return (
     <FormSimulateur>

@@ -6,7 +6,7 @@ import { BandeauConcerneSimulateur } from "./Components/Simulateur/BandeauConcer
 
 const Simulateur: DefaultComponent = () => {
   return (
-    <MiseEnPage page={"Suis-je concerné·e ?"}>
+    <MiseEnPage page={"Suis-je concerné ?"}>
       <BandeauConcerneSimulateur />
       <ChargeurEtape />
     </MiseEnPage>
