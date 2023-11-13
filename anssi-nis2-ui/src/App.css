@@ -206,8 +206,6 @@ legend.fr-text--medium {
 
 .texte-edito {
     & p {
-        font-size: 1.25rem !important;
-        line-height: 2rem !important;
         margin: var(--text-spacing);
     }
 
@@ -216,7 +214,8 @@ legend.fr-text--medium {
     }
 
     & h3 {
-        padding-top: 2.5rem;
+        font-size: 1.5rem;
+        line-height: 2rem;
     }
 }
 

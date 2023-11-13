@@ -4,6 +4,7 @@ import {
   DefaultComponentExtensible,
   PageEditoProps,
 } from "../../Services/Props";
+import { BandeauInformationRS } from "../Accueil";
 
 const PageEdito: DefaultComponentExtensible<PageEditoProps> = ({
   titre,
@@ -13,13 +14,14 @@ const PageEdito: DefaultComponentExtensible<PageEditoProps> = ({
     <BandeauBleuMarianne>
       <h2>{titre}</h2>
     </BandeauBleuMarianne>
-    <div className="fr-py-5w">
+    <div className="fr-py-7w">
       <div className="fr-container">
-        <div className="fr-grid-row  fr-my-0 fr-mx-auto fr-px-13w">
-          <div className="fr-col texte-edito">{children}</div>
+        <div className="fr-grid-row  fr-my-0 fr-mx-auto">
+          <div className="fr-col-offset-2 fr-col-8 texte-edito">{children}</div>
         </div>
       </div>
     </div>
+    <BandeauInformationRS />
   </MiseEnPage>
 );
 

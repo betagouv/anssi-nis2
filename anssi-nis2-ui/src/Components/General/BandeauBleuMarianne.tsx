@@ -6,9 +6,9 @@ export const BandeauBleuMarianne: DefaultComponent = ({
   className,
 }: DefaultProps) => (
   <div className={"fr-py-5w  fr-bandeau-marianne " + className}>
-    <div className={"fr-my-0 fr-mx-auto fr-px-15w"}>
-      <RowContainer>
-        <div className="fr-col-lg-10">{children}</div>
+    <div className={"fr-my-0"}>
+      <RowContainer align="left">
+        <div className="fr-col-offset-2">{children}</div>
       </RowContainer>
     </div>
   </div>
