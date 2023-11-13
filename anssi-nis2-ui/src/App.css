@@ -153,6 +153,20 @@
     content: "";
 }
 
+.fr-follow .fr-link--x::before {
+    flex: 0 0 auto;
+    display: inline-block;
+    vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+    background-color: currentColor;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-image: url(assets/logo-x.svg);
+    mask-image: url(assets/logo-x.svg);
+    content: "";
+}
+
 .fr-follow .fr-link--github::before {
     flex: 0 0 auto;
     display: inline-block;
@@ -362,6 +376,10 @@ legend.fr-text--medium {
         list-style: none;
         text-align: center;
         flex: auto;
+    }
+
+    & a {
+        background: none;
     }
 }
 

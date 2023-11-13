@@ -10,8 +10,4 @@ const meta: Meta<typeof BandeauInformationRS> = {
 export default meta;
 type Story = StoryObj<typeof BandeauInformationRS>;
 
-export const InformationsReseauxSociaux: Story = {
-  args: {
-    //👇 The args you need here will depend on your component
-  },
-};
+export const InformationsReseauxSociaux: Story = {};

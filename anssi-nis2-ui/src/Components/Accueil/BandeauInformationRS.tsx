@@ -24,13 +24,12 @@ export const BandeauInformationRS = (props: Props) => {
         <div className="fr-grid-row">
           <div className="fr-col-12 fr-col-md-8">
             <div className="fr-follow__newsletter">
-              {/* TODO reprendre texte usuel ? */}
               <div>
-                <p className="fr-h5">Inscrivez-vous pour rester informé</p>
+                <p className="fr-h5">Restez informé</p>
                 <p className="fr-text--sm">
-                  Nous vous accompagnerons dans votre montée en maturité cyber
-                  en vous informant des bonnes pratiques, évolutions de la
-                  directive et attendus pour votre organisation.
+                  Pour se tenir au courant des évolutions du contexte
+                  réglementaire et ce que devra faire votre entité pour se
+                  protéger des cyber-menaces.
                 </p>
               </div>
               <div>

@@ -4,13 +4,13 @@ const ReseauxSociaux = () => (
     <ul className="fr-links-group">
       <li>
         <a
-          className="fr-link--twitter fr-link"
-          title="S'abonner à notre compte Twitter - nouvelle fenêtre"
-          href="https://www.twitter.com/anssi_fr"
+          className="fr-link--x fr-link"
+          title="S'abonner à notre compte X - nouvelle fenêtre"
+          href="https://www.x.com/anssi_fr"
           target="_blank"
           rel="noreferrer"
         >
-          twitter
+          X
         </a>
       </li>
       <li>

@@ -8,15 +8,17 @@ const BandeauQuiEstANSSI = () => (
       <div className={"fr-container"}>
         <div className="fr-grid-row--center">
           <h2 className="fr-mb-7w">Qui est l’ANSSI ?</h2>
-          <img src={AnssiLogo} alt="Logo ANSSI" className="fr-mb-7w" />
-          <div className="fr-col-8 fr-col-offset-2 fr-px-2w">
-            <p className="fr-text--lead fr-mb-4w">
-              L’Agence Nationale de la Sécurité des Systèmes d’Information
-              assure la sécurité numérique de l’État, mais{" "}
-              <span className="fr-text--bold">
-                elle est aussi chargée d’une mission de conseil et de soutien
-                aux administrations et aux opérateurs d’importance vitale.
-              </span>
+          <img src={AnssiLogo} alt="Logo ANSSI" className="fr-mb-6w" />
+          <div className="fr-col-8 fr-col-offset-2">
+            <p className="fr-text--lead fr-mb-2w">
+              Créée en 2009, l’Agence nationale de la sécurité des systèmes
+              d’information (ANSSI) est l’autorité nationale en matière de
+              cybersécurité et de cyberdéfense.
+            </p>
+            <p className="fr-text--lead fr-text--bold fr-mb-4w">
+              Son action pour la protection de la Nation face aux cyberattaques
+              se traduit en quatre grandes missions : défendre, connaître,
+              partager, accompagner.{" "}
             </p>
             <Button
               iconId="fr-icon-external-link-line"
