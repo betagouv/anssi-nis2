@@ -4,7 +4,7 @@ import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
 
 const ResterInformee = () => (
   <div>
-    <h2 className="fr-text-action-high--blue-france fr-h1">Restez informé·e</h2>
+    <h2 className="fr-text-action-high--blue-france fr-h1">Restez informé</h2>
     <p className="fr-text">
       Nous déploierons dans les mois à venir un panel d’outils pour faciliter
       l’accompagnement des organisations régulées, à commencer par des
