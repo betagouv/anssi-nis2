@@ -34,7 +34,7 @@ export const listeDescriptionsActivites: Record<
   autreActiviteTransportsFerroviaires: [],
   autreActiviteTransportsParEaux: [],
   autreActiviteTransportsRoutiers: [],
-  
+
   acteurDuMarche: [
     {
       titre: "Acteur du marché",
@@ -96,57 +96,49 @@ export const listeDescriptionsActivites: Record<
   constructionAeronautiqueSpatiale: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   constructionBateauxNaviresMilitaires: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   constructionBateauxPlaisance: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   constructionLocomotivesAutreMaterielFerroviaireRoulant: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   constructionNavale: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   constructionNaviresStructuresFlottantesCiviles: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   constructionVehiculeMilitaireCombat: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   constructionVehiculesAutomobiles: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   contrepartieCentrales: [
@@ -252,16 +244,14 @@ export const listeDescriptionsActivites: Record<
   exploitantsPlateformesNegociation: [
     {
       titre: "Plate-forme de négociation",
-      description:
-        "Un marché réglementé, un MTF ou un OTF.",
+      description: "Un marché réglementé, un MTF ou un OTF.",
     },
   ],
   exploitantsPointRecharge: [],
   exploitantsServiceTrafficMaritime: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   exploitantsSystemeHydrogene: [],
@@ -277,192 +267,167 @@ export const listeDescriptionsActivites: Record<
   fabricationDistributionSubstances: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabricationMaterielTransportNCA: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantAppareilEclairage: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantAppareilsMenagers: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantAutresMachinesUsageGeneral: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantAutresMachinesUsageSpecifiqueNCA: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantCarrosseriesVehiculesAutomobiles: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantComposantCartesElectroniques: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantDispositifsMedicaux: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantDispositifsMedicauxCritiques: [],
   fabriquantEquipementCommunication: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
-  fabriquantEquipementIrradiationMedicaleElectromedicauxElectrotherapeutiques:
-    [
+  fabriquantEquipementIrradiationMedicaleElectromedicauxElectrotherapeutiques: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantEquipementsAutomobiles: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantFilsCablesMaterielInstallationElectrique: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantInstrumentsMesureEssaiNavigationHorlogerie: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantMachineEquipementNCA: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantMachineUsageGeneral: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantMachinesAgricolesForestieres: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantMachinesFormageMetauxMachinesOutils: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantMaterielOptiquePhotographiquesSupportsMagnetiquesOptiques: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantMoteursGeneratriceTransformation: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantOrdinateursEquipementsPeripheriques: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantPilesAccumulateursElectriques: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantProduitPreparationsPharmaceutiques: [
     {
       titre: "Produits pharmaceutiques de base",
       description:
-        "-  la production des principes actifs destinés à la fabrication de médicaments : antibiotiques, vitamines de base, acides salicylique et O-acétylsalicylique, etc."
-        "-  la transformation du sang"
-        "-  la fabrication de sucres chimiquement purs"
+        "-  la production des principes actifs destinés à la fabrication de médicaments : antibiotiques, vitamines de base, acides salicylique et O-acétylsalicylique, etc." +
+        "-  la transformation du sang" +
+        "-  la fabrication de sucres chimiquement purs" +
         "-  la transformation de glandes et la production d’extraits de glandes, etc.",
     },
     {
       titre: "Préparations pharmaceutiques",
       description:
-        "- la fabrication de médicaments : sérums thérapeutiques et autres constituants du sang, vaccins, médicaments divers, y compris les préparations homéopathiques"
-        "-  la fabrication de préparations chimiques contraceptives à usage externe et de médicaments contraceptifs à base d’hormones"
-        "-  la fabrication de préparations de diagnostic, y compris les tests de grossesse"
-        "-  la fabrication de substances radioactives de diagnostic in vivo"
-        "-  la fabrication de produits pharmaceutiques issus des biotechnologies"
-        "-  la fabrication d’ouates, de gazes et de bandes imprégnées à usage médical, de pansements, de catguts, etc."
+        "- la fabrication de médicaments : sérums thérapeutiques et autres constituants du sang, vaccins, médicaments divers, y compris les préparations homéopathiques" +
+        "-  la fabrication de préparations chimiques contraceptives à usage externe et de médicaments contraceptifs à base d’hormones" +
+        "-  la fabrication de préparations de diagnostic, y compris les tests de grossesse" +
+        "-  la fabrication de substances radioactives de diagnostic in vivo" +
+        "-  la fabrication de produits pharmaceutiques issus des biotechnologies" +
+        "-  la fabrication d’ouates, de gazes et de bandes imprégnées à usage médical, de pansements, de catguts, etc." +
         "-  la préparation de produits d’herboristerie (broyage, triage, mouture) à usage pharmaceutique",
     },
   ],
   fabriquantProduitsElectroniquesGrandPublic: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fabriquantProduitsInformatiquesElectroniquesOptiques: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fournisseurPointEchangeInternet: [
@@ -470,7 +435,7 @@ export const listeDescriptionsActivites: Record<
       titre: "Point d’échange internet",
       description:
         "Une structure de réseau qui permet l’interconnexion de plus de deux réseaux indépendants (systèmes autonomes), " +
-        "essentiellement aux fins de faciliter l’échange de trafic internet, qui n’assure l’interconnexion que pour des " + 
+        "essentiellement aux fins de faciliter l’échange de trafic internet, qui n’assure l’interconnexion que pour des " +
         "systèmes autonomes et qui n’exige pas que le trafic internet passant entre une paire quelconque de systèmes " +
         "autonomes participants transite par un système autonome tiers, pas plus qu’il ne modifie ou n’altère par ailleurs un tel trafic.",
     },
@@ -496,7 +461,7 @@ export const listeDescriptionsActivites: Record<
     {
       titre: "Service de centres de données",
       description:
-        "Un service qui englobe les structures, ou groupes de structures, dédiées à l’hébergement, l’interconnexion " + 
+        "Un service qui englobe les structures, ou groupes de structures, dédiées à l’hébergement, l’interconnexion " +
         "et l’exploitation centralisées des équipements informatiques et de réseau fournissant des services de stockage, " +
         "de traitement et de transport des données, ainsi que l’ensemble des installations et infrastructures de distribution d’électricité et de contrôle environnemental.",
     },
@@ -515,8 +480,8 @@ export const listeDescriptionsActivites: Record<
     {
       titre: "Fournisseur de services DNS",
       description:
-        "Une entité qui fournit :"
-        "a)  des services de résolution de noms de domaines récursifs accessibles au public destinés aux utilisateurs finaux de l’internet; ou"
+        "Une entité qui fournit :" +
+        "a)  des services de résolution de noms de domaines récursifs accessibles au public destinés aux utilisateurs finaux de l’internet; ou" +
         "b)  des services de résolution de noms de domaine faisant autorité pour une utilisation par des tiers, à l’exception des serveurs de noms de racines.",
     },
     {
@@ -526,7 +491,6 @@ export const listeDescriptionsActivites: Record<
         "des ressources internet, ce qui rend possible l'utilisation services de routage et de connectivité internet " +
         "par les dispositifs des utilisateurs finaux pour accéder à ces services et ressources.",
     },
-  
   ],
   fournisseurServicesGeres: [
     {
@@ -560,8 +524,8 @@ export const listeDescriptionsActivites: Record<
       description:
         "a) Toutes les eaux, soit en l’état, soit après traitement, destinées à la boisson, à la cuisson, à la préparation d’aliments, " +
         "ou à d’autres usages domestiques dans des lieux publics comme dans des lieux privés, quelle que soit leur origine et qu’elles soient " +
-        "fournies par un réseau de distribution, à partir d’un camion-citerne ou d’un bateau-citerne, ou en bouteilles ou en récipients, y compris les eaux de source ;"
-        " "
+        "fournies par un réseau de distribution, à partir d’un camion-citerne ou d’un bateau-citerne, ou en bouteilles ou en récipients, y compris les eaux de source ;" +
+        " " +
         "b) Toutes les eaux utilisées dans les entreprises du secteur alimentaire pour la fabrication, la transformation, " +
         "la conservation ou la commercialisation de produits ou de substances destinés à la consommation humaine.",
     },
@@ -569,22 +533,19 @@ export const listeDescriptionsActivites: Record<
   fournisseursMoteursRechercheEnLigne: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fournisseursPlaceMarcheEnLigne: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   fournisseursPlateformesServicesReseauxSociaux: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   gestionnaireInfrastructure: [
@@ -613,8 +574,7 @@ export const listeDescriptionsActivites: Record<
   gestionnaireReseau: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   gestionnaireReseauDistribution: [
@@ -655,17 +615,16 @@ export const listeDescriptionsActivites: Record<
   organismeRecherche: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   prestataireServiceConfiance: [
     {
       titre: "Service de confiance",
       description:
-        "Un service électronique normalement fourni contre rémunération qui consiste :"
-        "a) en la création, en la vérification et en la validation de signatures électroniques, de cachets électroniques ou d’horodatages électroniques, de services d’envoi recommandé électronique et de certificats relatifs à ces services; ou"
-        "b) en la création, en la vérification et en la validation de certificats pour l’authentification de site internet; ou" 
+        "Un service électronique normalement fourni contre rémunération qui consiste :" +
+        "a) en la création, en la vérification et en la validation de signatures électroniques, de cachets électroniques ou d’horodatages électroniques, de services d’envoi recommandé électronique et de certificats relatifs à ces services; ou" +
+        "b) en la création, en la vérification et en la validation de certificats pour l’authentification de site internet; ou" +
         "c) en la conservation de signatures électroniques, de cachets électroniques ou des certificats relatifs à ces services.",
     },
     {
@@ -713,7 +672,7 @@ export const listeDescriptionsActivites: Record<
         "de l’administration du domaine de premier niveau, y compris de l’enregistrement des noms de domaines " +
         "relevant du domaine de premier niveau et du fonctionnement technique du domaine de premier niveau, " +
         "notamment l’exploitation de ses serveurs de noms, la maintenance de ses bases de données et la distribution " +
-        "des fichiers de zone du domaine de premier niveau sur les serveurs de noms, que ces opérations soient effectuées " + 
+        "des fichiers de zone du domaine de premier niveau sur les serveurs de noms, que ces opérations soient effectuées " +
         "par l’entité elle-même ou qu’elles soient sous-traitées, mais à l’exclusion des situations où les noms de domaines " +
         "de premier niveau sont utilisés par un registre uniquement pour son propre usage.",
     },
@@ -721,8 +680,7 @@ export const listeDescriptionsActivites: Record<
   secteurAlimentaireDistributionGrosProductionTransformationIndustrielle: [
     {
       titre: "...",
-      description:
-        "...",
+      description: "...",
     },
   ],
   serviceControleCirculationAerienne: [
@@ -734,7 +692,8 @@ export const listeDescriptionsActivites: Record<
   ],
   societeTransportEaux: [
     {
-      titre: "Sociétés de transport par voie d’eau intérieure, maritime et côtier de passagers et de fret",
+      titre:
+        "Sociétés de transport par voie d’eau intérieure, maritime et côtier de passagers et de fret",
       description:
         "https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32004R0725",
     },
