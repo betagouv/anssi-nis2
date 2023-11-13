@@ -16,6 +16,7 @@ import {
 import { ValeursActivites } from "../../Activite.definitions.ts";
 import { activiteEstDansSecteur } from "../Activite/Activite.predicats.ts";
 import { filtreSecteursSansSousSecteurs } from "../SecteurActivite/SecteurActivite.operations.ts";
+import { estUnSecteurAvecDesSousSecteurs } from "../SecteurActivite/SecteurActivite.predicats.ts";
 
 const appliqueValidateur: (
   donnees: IDonneesBrutesFormulaireSimulateur,
@@ -61,14 +62,22 @@ export const auMoinsUn = (nomChamp: NomsChampsSimulateur) =>
 export const exactementUn = (nomChamp: NomsChampsSimulateur) =>
   exactementN(1, nomChamp);
 
+const collecteValidateursParSecteurAvecSousSecteur = (
+  valeursSecteur: SecteurActivite[],
+) =>
+  valeursSecteur
+    .filter(estUnSecteurAvecDesSousSecteurs)
+    .map((valeur) =>
+      sousSecteurAppartientASecteur(valeur as SecteursAvecSousSecteurs),
+    );
+
 export const auMoinsUnSousSecteurParSecteur: PredicatChamp = (
   donneesFormulaireSimulateur,
 ) => {
   const valeursSecteur: SecteurActivite[] =
     donneesFormulaireSimulateur.secteurActivite;
-  const validateursParGroupe = valeursSecteur.map((valeur) =>
-    sousSecteurAppartientASecteur(valeur as SecteursAvecSousSecteurs),
-  );
+  const validateursParGroupe =
+    collecteValidateursParSecteurAvecSousSecteur(valeursSecteur);
   const validateur = et(
     ...validateursParGroupe,
     auMoinsN(

@@ -44,6 +44,24 @@ const sousEtapeSousSecteur =
       EtapeSousSecteursActivite,
     ),
   );
+const etapeTailleStructurePrivee = fabriquesInformationsEtapes.form(
+  "Taille de l’organisation",
+  validationReponsesTaille,
+  EtapeTaille,
+);
+const etapeTailleStructurePublique = fabriquesInformationsEtapes.form(
+  "Taille de l’organisation",
+  fabriqueValidationUneReponses("trancheNombreEmployes"),
+  EtapeTaillePublique,
+);
+const etapeSecteurActivite = fabriquesInformationsEtapes.form(
+  "Secteurs d’activité",
+  validationReponsesSecteurs,
+  EtapeSecteursActivite,
+  {
+    sousEtapeConditionnelle: sousEtapeSousSecteur,
+  },
+);
 export const etapesQuestionnaire: CollectionInformationsEtapes =
   new CollectionInformationsEtapes(
     fabriquesInformationsEtapes.prealable("Pour bien débuter"),
@@ -64,31 +82,19 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
     ),
     fabriquesInformationsEtapes.variantes([
       {
-        etape: fabriquesInformationsEtapes.form(
-          "Taille de l’organisation",
-          validationReponsesTaille,
-          EtapeTaille,
-        ),
+        etape: etapeTailleStructurePrivee,
         conditions: { typeStructure: ["privee"] },
       },
       {
-        etape: fabriquesInformationsEtapes.form(
-          "Taille de l’organisation",
-          fabriqueValidationUneReponses("trancheNombreEmployes"),
-          EtapeTaillePublique,
-        ),
+        etape: etapeTailleStructurePublique,
         conditions: { typeStructure: ["publique"] },
       },
     ]),
+    etapeSecteurActivite,
 
-    fabriquesInformationsEtapes.form(
-      "Secteurs d’activité",
-      validationReponsesSecteurs,
-      EtapeSecteursActivite,
-      {
-        sousEtapeConditionnelle: sousEtapeSousSecteur,
-      },
-    ),
+    // fabriquesInformationsEtapes.variantes([
+    //   { etape: etapeSecteurActivite, conditions: {} },
+    // ]),
     fabriquesInformationsEtapes.form(
       "Activités pratiquées",
       validationReponsesActivites,
