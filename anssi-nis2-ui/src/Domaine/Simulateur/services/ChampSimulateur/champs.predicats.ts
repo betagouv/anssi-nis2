@@ -43,19 +43,21 @@ export const lorsque: (
 export const estChaineNonVide = <T extends string>(listeValeurs: T) =>
   listeValeurs.length > 0;
 
-export const auMoinsN = (n: number, nomChamp: NomsChampsSimulateur) =>
-  ({
-    [`auMoinsN_${n}_${nomChamp}`]: (
-      donnees: IDonneesBrutesFormulaireSimulateur,
-    ) => donnees[nomChamp].filter(estChaineNonVide).length > n - 1,
-  })[`auMoinsN_${n}_${nomChamp}`];
+export const auMoinsN = (n: number, nomChamp: NomsChampsSimulateur) => {
+  const fonctionNommee = `auMoinsN_${n}_${nomChamp}`;
+  return {
+    [fonctionNommee]: (donnees: IDonneesBrutesFormulaireSimulateur) =>
+      donnees[nomChamp].filter(estChaineNonVide).length > n - 1,
+  }[fonctionNommee];
+};
 
-export const exactementN = (n: number, nomChamp: NomsChampsSimulateur) =>
-  ({
-    [`exactement_${n}_${nomChamp}`]: (
-      donnees: IDonneesBrutesFormulaireSimulateur,
-    ) => donnees[nomChamp].filter(estChaineNonVide).length === n,
-  })[`exactement_${n}_${nomChamp}`];
+export const exactementN = (n: number, nomChamp: NomsChampsSimulateur) => {
+  const fonctionNommee = `exactement_${n}_${nomChamp}`;
+  return {
+    [fonctionNommee]: (donnees: IDonneesBrutesFormulaireSimulateur) =>
+      donnees[nomChamp].filter(estChaineNonVide).length === n,
+  }[fonctionNommee];
+};
 
 export const auMoinsUn = (nomChamp: NomsChampsSimulateur) =>
   auMoinsN(1, nomChamp);
