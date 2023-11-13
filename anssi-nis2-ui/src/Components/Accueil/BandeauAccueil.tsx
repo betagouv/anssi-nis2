@@ -4,11 +4,11 @@ import { RowContainer } from "../General/RowContainer.tsx";
 const BandeauAccueil: DefaultComponent = () => {
   return (
     <div className="fr-pt-5w fr-bandeau-marianne fr-nis2-accueil-principal">
-      <div className="fr-my-0 fr-mx-auto">
+      <div className="fr-my-0">
         <RowContainer>
           <div className="fr-container">
             <div className="fr-grid-row fr-pt-12w">
-              <div className="fr-col fr-nis2-appel-action">
+              <div className="fr-col-offset-0 fr-nis2-appel-action">
                 <div>
                   <h1>MonEspaceNIS2</h1>
                   <p>
