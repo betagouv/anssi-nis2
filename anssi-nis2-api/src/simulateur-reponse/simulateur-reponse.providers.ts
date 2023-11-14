@@ -1,9 +1,9 @@
-import { DataSource } from 'typeorm';
-import { SimulateurReponse } from './simulateur-reponse.entity';
+import { DataSource } from "typeorm";
+import { SimulateurReponse } from "./simulateur-reponse.entity";
 import {
   datasourceKey,
   provideSimulateurRepouseRepositoryKey,
-} from '../constantes';
+} from "../constantes";
 
 export const simulateurReponseProviders = [
   {

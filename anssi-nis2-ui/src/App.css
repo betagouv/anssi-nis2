@@ -1,417 +1,429 @@
-.fr-fieldset .fr-fieldset__content .fr-radio-group:not(.fr-radio-rich) input[type=radio] + label {
-    background-position: calc(-0.25rem + 1px) calc(0.25rem + 1px), calc(-0.25rem + 1px) calc(0.25rem + 1px);
+.fr-fieldset
+.fr-fieldset__content
+.fr-radio-group:not(.fr-radio-rich)
+input[type="radio"]
++ label {
+  background-position: calc(-0.25rem + 1px) calc(0.25rem + 1px),
+  calc(-0.25rem + 1px) calc(0.25rem + 1px);
 }
 
 .fr-bandeau-marianne {
-    background-color: #101070;
-    color: var(--dark-text-title-grey, #fff);
+  background-color: #101070;
+  color: var(--dark-text-title-grey, #fff);
 
-    & h2 {
-        color: var(--dark-text-title-grey, #fff);
-    }
+  & h2 {
+    color: var(--dark-text-title-grey, #fff);
+  }
 }
 
 .fr-nis2-bandeau-marianne-leger {
-    background: #F5F5FE;
+  background: #f5f5fe;
 
-    & h2 {
-        text-align: center;
-        color: #272771;
-    }
+  & h2 {
+    text-align: center;
+    color: #272771;
+  }
 }
 
 .fr-nis2-mise-en-avant {
-    width: fit-content;
-    background: var(--Yellow, #FDC82E);
-    padding: .5rem 1rem;
-    color: var(--Dark-Grey, #282828);
-    font-size: 1.125rem;
+  width: fit-content;
+  background: var(--Yellow, #fdc82e);
+  padding: 0.5rem 1rem;
+  color: var(--Dark-Grey, #282828);
+  font-size: 1.125rem;
 }
 
 .fr-nis2-accueil-principal {
-    background-image: url(assets/marches.svg);
-    background-position-x: right;
-    background-position-y: top;
-    background-repeat: no-repeat;
-    padding-bottom: 305px;
+  background-image: url(assets/marches.svg);
+  background-position-x: right;
+  background-position-y: top;
+  background-repeat: no-repeat;
+  padding-bottom: 305px;
 
-    .fr-nis2-appel-action {
-        & h1 {
-            color: var(--White, #FFF);
-            font-size: 3.25rem;
-            line-height: 120%;
-            margin-bottom: 1rem;
-        }
-
-        & p {
-            font-size: 1.25rem;
-            font-weight: 500;
-            line-height: 166.667%;
-        }
-
-
+  .fr-nis2-appel-action {
+    & h1 {
+      color: var(--White, #fff);
+      font-size: 3.25rem;
+      line-height: 120%;
+      margin-bottom: 1rem;
     }
+
+    & p {
+      font-size: 1.25rem;
+      font-weight: 500;
+      line-height: 166.667%;
+    }
+  }
 }
 
 .fr-nis2-suis-je-concerne {
-    text-align: center;
-    padding: 0 7.5rem 0 7.5rem;
+  text-align: center;
+  padding: 0 7.5rem 0 7.5rem;
 
-    & h2 {
-        color: #272771;
-    }
+  & h2 {
+    color: #272771;
+  }
 
-    .fr-nis2-flottant {
-        position: relative;
-        padding: 3.5rem 0 4.5rem 0;
-        background-color: #FFF;
-        margin-top: -228px;
-        height: 296px;
-    }
+  .fr-nis2-flottant {
+    position: relative;
+    padding: 3.5rem 0 4.5rem 0;
+    background-color: #fff;
+    margin-top: -228px;
+    height: 296px;
+  }
 }
 
 .fr-nis2-accueil-directive-europeenne {
-    background: #F5F5FE;
-    margin-top: -296px;
-    padding-top: 200px;
-    z-index: initial;
+  background: #f5f5fe;
+  margin-top: -296px;
+  padding-top: 200px;
+  z-index: initial;
 
-    & h2 {
-        text-align: center;
-        color: #272771;
+  & h2 {
+    text-align: center;
+    color: #272771;
+  }
+
+  .fr-nis2-logo-ue {
+    text-align: center;
+
+    & > div {
+      background-image: url(assets/EU-logo.svg);
+      background-position: center;
+      background-repeat: no-repeat;
+      width: 486px;
+      height: 399px;
+      margin-bottom: 19px;
+      align-items: center;
+      vertical-align: middle;
+      text-align: center;
+      display: flex;
     }
 
-    .fr-nis2-logo-ue {
-        text-align: center;
-
-        & > div {
-            background-image: url(assets/EU-logo.svg);
-            background-position: center;
-            background-repeat: no-repeat;
-            width: 486px;
-            height: 399px;
-            margin-bottom: 19px;
-            align-items: center;
-            vertical-align: middle;
-            text-align: center;
-            display: flex;
-        }
-
-        & > div p {
-            width: 100%;
-            margin-bottom: 0;
-            left: 205px;
-            top: 180px;
-        }
-
-        & > p {
-            line-height: 200%;
-        }
+    & > div p {
+      width: 100%;
+      margin-bottom: 0;
+      left: 205px;
+      top: 180px;
     }
 
-    .fr-nis2-obligations {
-        background-color: #FFF;
-
-        & h3 {
-            color: #272771;
-            width: fit-content;
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        & li {
-            list-style: none;
-            text-align: center;
-        }
-
-        & img {
-            float: none;
-        }
+    & > p {
+      line-height: 200%;
     }
+  }
+
+  .fr-nis2-obligations {
+    background-color: #fff;
+
+    & h3 {
+      color: #272771;
+      width: fit-content;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    & li {
+      list-style: none;
+      text-align: center;
+    }
+
+    & img {
+      float: none;
+    }
+  }
 }
 
 .fr-nis2-bandeau {
-    & h2 {
-        text-align: center;
-    }
+  & h2 {
+    text-align: center;
+  }
 }
 
 .fr-nis2-en-savoir-plus {
-    & h2 {
-        color: #272771;
-    }
+  & h2 {
+    color: #272771;
+  }
 }
 
 .fr-follow .fr-link--dailymotion::before {
-    flex: 0 0 auto;
-    display: inline-block;
-    vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
-    background-color: currentColor;
-    width: var(--icon-size);
-    height: var(--icon-size);
-    -webkit-mask-size: 100% 100%;
-    mask-size: 100% 100%;
-    -webkit-mask-image: url(@gouvfr/dsfr/dist/icons/logo/fr--dailymotion-line.svg);
-    mask-image: url(@gouvfr/dsfr/dist/icons/logo/fr--dailymotion-line.svg);
-    content: "";
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+  background-color: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url(@gouvfr/dsfr/dist/icons/logo/fr--dailymotion-line.svg);
+  mask-image: url(@gouvfr/dsfr/dist/icons/logo/fr--dailymotion-line.svg);
+  content: "";
 }
 
 .fr-follow .fr-link--x::before {
-    flex: 0 0 auto;
-    display: inline-block;
-    vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
-    background-color: currentColor;
-    width: var(--icon-size);
-    height: var(--icon-size);
-    -webkit-mask-size: 100% 100%;
-    mask-size: 100% 100%;
-    -webkit-mask-image: url(assets/logo-x.svg);
-    mask-image: url(assets/logo-x.svg);
-    content: "";
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+  background-color: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url(assets/logo-x.svg);
+  mask-image: url(assets/logo-x.svg);
+  content: "";
 }
 
 .fr-follow .fr-link--github::before {
-    flex: 0 0 auto;
-    display: inline-block;
-    vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
-    background-color: currentColor;
-    width: var(--icon-size);
-    height: var(--icon-size);
-    -webkit-mask-size: 100% 100%;
-    mask-size: 100% 100%;
-    -webkit-mask-image: url(@gouvfr/dsfr/dist/icons/logo/github-fill.svg);
-    mask-image: url(@gouvfr/dsfr/dist/icons/logo/github-fill.svg);
-    content: "";
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+  background-color: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url(@gouvfr/dsfr/dist/icons/logo/github-fill.svg);
+  mask-image: url(@gouvfr/dsfr/dist/icons/logo/github-fill.svg);
+  content: "";
 }
 
 .fr-nis2-icon-in-progress::before {
-    flex: 0 0 auto;
-    display: inline-block;
-    vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
-    background-color: currentColor;
-    width: var(--icon-size);
-    height: var(--icon-size);
-    -webkit-mask-size: 100% 100%;
-    mask-size: 100% 100%;
-    -webkit-mask-image: url(assets/in-progress.svg);
-    mask-image: url(assets/in-progress.svg);
-    content: "";
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+  background-color: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url(assets/in-progress.svg);
+  mask-image: url(assets/in-progress.svg);
+  content: "";
 }
 
 legend.fr-text--regular,
 .fr-text--medium {
-    font-weight: 500 !important;
+  font-weight: 500 !important;
 }
 
 legend.fr-text--medium {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .texte-edito {
-    & p {
-        margin: var(--text-spacing);
-    }
+  & p {
+    margin: var(--text-spacing);
+  }
 
-    & ul {
-        padding-top: 1rem;
-    }
+  & ul {
+    padding-top: 1rem;
+  }
 
-    & h3 {
-        font-size: 1.5rem;
-        line-height: 2rem;
-    }
+  & h3 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
 }
 
 .fr-nis2-qui-est-anssi {
+  text-align: center;
+  font-size: 1.125rem;
+
+  & h2 {
     text-align: center;
-    font-size: 1.125rem;
+  }
 
-    & h2 {
-        text-align: center;
-    }
+  & a {
+    background: none;
+  }
 
-    & a {
-        background: none;
-    }
-
-    & [target=_blank]:after, [target=_blank][class*=" fr-fi-"]:after, [target=_blank][class*=" fr-icon-"]:after, [target=_blank][class^=fr-fi-]:after, [target=_blank][class^=fr-icon-]:after {
-        display: none;
-    }
+  & [target="_blank"]:after,
+  [target="_blank"][class*=" fr-fi-"]:after,
+  [target="_blank"][class*=" fr-icon-"]:after,
+  [target="_blank"][class^="fr-fi-"]:after,
+  [target="_blank"][class^="fr-icon-"]:after {
+    display: none;
+  }
 }
 
 .fr-nis2-bordure-bas {
-    border-bottom: 1px solid var(--blue-france-850-200, #CACAFB);
+  border-bottom: 1px solid var(--blue-france-850-200, #cacafb);
 }
 
 .fr-nis2-bordure-bas-l {
-    border-bottom: 2px solid var(--blue-france-950-100, #ECECFE);
+  border-bottom: 2px solid var(--blue-france-950-100, #ececfe);
 }
 
 .fr-nis2-resultat {
-    &.fr-nis2-eligible {
-        background-color: var(--green-menthe-975-75);
+  &.fr-nis2-eligible {
+    background-color: var(--green-menthe-975-75);
+  }
+
+  &.fr-nis2-eligible {
+    & h4,
+    & .fr-nis2-icone {
+      color: var(--green-menthe-sun-373-moon-652, #37635f);
     }
 
-    &.fr-nis2-eligible {
-        & h4, & .fr-nis2-icone {
-            color: var(--green-menthe-sun-373-moon-652, #37635F);
-        }
+    & .fr-nis2-icone {
+      text-align: center;
+    }
+  }
 
-        & .fr-nis2-icone {
-            text-align: center;
-        }
+  &.fr-nis2-non-eligible {
+    background-color: var(--yellow-tournesol-925-125);
+  }
+
+  &.fr-nis2-non-eligible {
+    & h4,
+    & .fr-nis2-icone {
+      color: #a88e26;
     }
 
-    &.fr-nis2-non-eligible {
-        background-color: var(--yellow-tournesol-925-125);
+    & .fr-nis2-icone {
+      text-align: center;
     }
+  }
 
-    &.fr-nis2-non-eligible {
-        & h4, & .fr-nis2-icone {
-            color: #A88E26;
-        }
+  &.fr-nis2-incertain {
+    background-color: var(--orange-terre-battue-975-75, #fef4f2);
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-image: url(assets/in-progress.svg);
+    background-position-y: 1rem;
 
-        & .fr-nis2-icone {
-            text-align: center;
-        }
-    }
-
-    &.fr-nis2-incertain {
-        background-color: var(--orange-terre-battue-975-75, #FEF4F2);
-        background-repeat: no-repeat;
-        background-position: top center;
-        background-image: url(assets/in-progress.svg);
-        background-position-y: 1rem;
-
-        padding-top: 7.5rem !important;
-
-        .fr-icon--xl::before,
-        .fr-icon--xl::after {
-            display: none;
-        }
-
-        .fr-icon--xl {
-            display: none;
-        }
-
-        & h4 {
-            font-size: 1.375rem;
-        }
-
-        & h4, & p {
-            color: var(--text-title-grey, #161616);
-        }
-
-        & .fr-nis2-icone {
-            text-align: center;
-        }
-    }
-
-    .fr-icon--xl {
-        font-size: 3rem !important;
-    }
+    padding-top: 7.5rem !important;
 
     .fr-icon--xl::before,
     .fr-icon--xl::after {
-        --icon-size: 3rem;
+      display: none;
     }
+
+    .fr-icon--xl {
+      display: none;
+    }
+
+    & h4 {
+      font-size: 1.375rem;
+    }
+
+    & h4,
+    & p {
+      color: var(--text-title-grey, #161616);
+    }
+
+    & .fr-nis2-icone {
+      text-align: center;
+    }
+  }
+
+  .fr-icon--xl {
+    font-size: 3rem !important;
+  }
+
+  .fr-icon--xl::before,
+  .fr-icon--xl::after {
+    --icon-size: 3rem;
+  }
 }
 
 .fr-nis2-resultat-explications {
-    background-color: var(--background-alt-grey, #F6F6F6);
+  background-color: var(--background-alt-grey, #f6f6f6);
 
-    & h4 {
-        color: var(--text-title-grey, #161616);
-        font-size: 1.2rem;
-        font-weight: 700;
-        line-height: 1.5rem;
-        margin-bottom: 1rem;
-    }
+  & h4 {
+    color: var(--text-title-grey, #161616);
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    margin-bottom: 1rem;
+  }
 
-    & h5 {
-        color: var(--text-title-grey, #161616);
-        font-size: .875rem;
-        font-weight: 700;
-        line-height: 1.25rem;
-        margin-bottom: .25rem;
-    }
+  & h5 {
+    color: var(--text-title-grey, #161616);
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.25rem;
+    margin-bottom: 0.25rem;
+  }
 
-    & p, & li {
-        color: var(--text-default-grey, #161616);
-        font-size: .875rem;
-        font-weight: 400;
-        line-height: 1.25rem;
-    }
+  & p,
+  & li {
+    color: var(--text-default-grey, #161616);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+  }
 
-    & p {
-        margin-bottom: 1rem;
-    }
+  & p {
+    margin-bottom: 1rem;
+  }
 
-    & li {
-        margin-bottom: .25rem;
-    }
+  & li {
+    margin-bottom: 0.25rem;
+  }
 }
 
 .fr-nis2-en-cours-developpement {
-    background: #FEF4F2 url(assets/in-progress.svg) no-repeat;
+  background: #fef4f2 url(assets/in-progress.svg) no-repeat;
 }
 
 .fr-nis2-aidez-nous {
-    background: var(--yellow-tournesol-975-75, #FEF6E3) url(assets/faq.svg) no-repeat;
-    background-size: 5rem;
+  background: var(--yellow-tournesol-975-75, #fef6e3) url(assets/faq.svg) no-repeat;
+  background-size: 5rem;
 }
 
-.fr-nis2-en-cours-developpement, .fr-nis2-aidez-nous {
-    background-position-y: center;
-    background-position-x: 1rem;
-    /*display: flex;*/
-    padding: 24px;
-    align-items: flex-start;
-    align-self: stretch;
+.fr-nis2-en-cours-developpement,
+.fr-nis2-aidez-nous {
+  background-position-y: center;
+  background-position-x: 1rem;
+  /*display: flex;*/
+  padding: 24px;
+  align-items: flex-start;
+  align-self: stretch;
 
-    & p, & h6 {
-        margin: 0 0 0 6.5rem;
-    }
+  & p,
+  & h6 {
+    margin: 0 0 0 6.5rem;
+  }
 
-    & h6 {
-        padding-bottom: .25rem;
-    }
+  & h6 {
+    padding-bottom: 0.25rem;
+  }
 }
-
 
 .fr-nis2-tuile-lien {
-    gap: 1.125rem;
+  gap: 1.125rem;
 
-    & li {
-        list-style: none;
-        text-align: center;
-        flex: auto;
-    }
+  & li {
+    list-style: none;
+    text-align: center;
+    flex: auto;
+  }
 
-    & a {
-        background: none;
-    }
+  & a {
+    background: none;
+  }
 }
 
 .fr-nis2-text--center {
-    text-align: center;
+  text-align: center;
 }
 
 .fr-nis2-bien-debuter {
-    .fr-nis2-logo-localisation {
-        & img {
-            margin-left: 2.5rem;
-        }
+  .fr-nis2-logo-localisation {
+    & img {
+      margin-left: 2.5rem;
     }
+  }
 
-    & h2 {
-        font-size: 2.5rem;
-        margin-bottom: 2.5rem;
-    }
+  & h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
 
-    & Button {
-        margin-left: 1rem;
-        margin-top: 4rem;
-    }
+  & Button {
+    margin-left: 1rem;
+    margin-top: 4rem;
+  }
 }

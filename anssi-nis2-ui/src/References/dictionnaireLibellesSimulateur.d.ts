@@ -5,7 +5,7 @@ import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeEntitePublique,
-  TypeStructure
+  TypeStructure,
 } from "../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 import { SecteurActivite } from "../Domaine/Simulateur/SecteurActivite.definitions.ts";
 import { SousSecteurActivite } from "../Domaine/Simulateur/SousSecteurActivite.definitions.ts";

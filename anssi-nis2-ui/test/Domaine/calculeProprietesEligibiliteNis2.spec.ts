@@ -17,7 +17,7 @@ describe(estEligible, () => {
         .renvoieToujours(Eligibilite.EligibleMoyenneGrandeEntreprise);
     });
   });
-  
+
   describe("Entite non OSE pour NIS 1", () => {
     describe("Privée", () => {
       it("n'est pas eligible si activites cochees sont uniquement autres", () => {

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { SimulateurReponseController } from "../../simulateur-reponse/simulateur-reponse.controller";
-import { emptySimulateurFormData } from "../../Domaine/simulateur";
+import { donneesSimulateurVide } from "../../Domaine/donneesSimulateur.ts";
 import { SimulateurReponseService } from "../../simulateur-reponse/simulateur-reponse.service";
 import { provideSimulateurRepouseRepositoryKey } from "../../constantes";
 import { Repository } from "typeorm";
@@ -9,7 +9,7 @@ import { MockFactory } from "../mock.factory";
 
 describe("SimulateurReponseController", () => {
   let controller: SimulateurReponseController;
-  const simulateurReponseJson = JSON.stringify(emptySimulateurFormData);
+  const simulateurReponseJson = JSON.stringify(donneesSimulateurVide);
   const simulateurReponse = {
     ...new SimulateurReponse(),
     reponseJson: simulateurReponseJson,
@@ -41,7 +41,7 @@ describe("SimulateurReponseController", () => {
 
   it('should return "OK"', async () => {
     expect(
-      await controller.enregistreDonneesSimulateur(emptySimulateurFormData),
+      await controller.enregistreDonneesSimulateur(donneesSimulateurVide),
     ).toBe(simulateurReponseJson);
   });
 });
