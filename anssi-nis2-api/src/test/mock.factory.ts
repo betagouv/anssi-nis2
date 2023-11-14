@@ -12,7 +12,7 @@ export class MockFactory {
     Object.getOwnPropertyNames(type.prototype)
       .filter(
         (key: string) =>
-          key !== 'constructor' && (!includes || includes.includes(key)),
+          key !== "constructor" && (!includes || includes.includes(key)),
       )
       .map((key: string) => {
         mock[key] = jest.fn();

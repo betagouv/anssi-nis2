@@ -1,9 +1,9 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { SimulateurFormData } from '../Domaine/simulateur';
-import { SimulateurReponseService } from './simulateur-reponse.service';
-import { SimulateurReponse } from './simulateur-reponse.entity';
+import { Body, Controller, Get, Post } from "@nestjs/common";
+import { SimulateurFormData } from "../Domaine/simulateur";
+import { SimulateurReponseService } from "./simulateur-reponse.service";
+import { SimulateurReponse } from "./simulateur-reponse.entity";
 
-@Controller('simulateur-reponse')
+@Controller("simulateur-reponse")
 export class SimulateurReponseController {
   constructor(
     private readonly simulateurReponseService: SimulateurReponseService,

@@ -1,12 +1,12 @@
-import { DataSourceOptions } from 'typeorm';
+import { DataSourceOptions } from "typeorm";
 
 export const fabriqueAppDataSource = async (
   databaseConnectionUrl: string,
 ): Promise<DataSourceOptions> => ({
-  type: 'postgres',
+  type: "postgres",
   url: databaseConnectionUrl,
   synchronize: true,
-  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  entities: [__dirname + "/../**/*.entity{.ts,.js}"],
   subscribers: [],
   migrations: [],
 });
