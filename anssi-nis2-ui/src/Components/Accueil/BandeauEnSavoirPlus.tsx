@@ -1,8 +1,5 @@
 import { DefaultComponent } from "../../Services/Props";
-import {
-  lienDirectiveEuropeenne,
-  lienFaqAnssi,
-} from "../../References/liens.tsx";
+import { liens } from "../../References/liens.tsx";
 import { TuileLien } from "../General/TuileLien.tsx";
 import imageSourceUE from "../../assets/source_EU.svg";
 import imageWebinaire from "../../assets/webinar.svg";
@@ -24,14 +21,18 @@ const BandeauEnSavoirPlus: DefaultComponent = () => {
                 <TuileLien
                   image={imageSourceUE}
                   titre={"Directive NIS 2"}
-                  lien={lienDirectiveEuropeenne}
+                  lien={liens.legislation.europa}
                 />
                 <TuileLien
                   image={imageWebinaire}
                   titre={"Présentation vidéo"}
-                  lien={lienFaqAnssi}
+                  lien={liens.anssi.webinaire}
                 />
-                <TuileLien image={imageFAQ} titre={"FAQ"} lien={lienFaqAnssi} />
+                <TuileLien
+                  image={imageFAQ}
+                  titre={"FAQ"}
+                  lien={liens.anssi.faq}
+                />
               </ul>
             </div>
           </div>

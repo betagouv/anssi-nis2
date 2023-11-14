@@ -1,6 +1,7 @@
 import { Button } from "@codegouvfr/react-dsfr/Button";
 import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
 import AnssiLogo from "../../assets/ANSSI-180.svg";
+import { liens } from "../../References/liens.tsx";
 
 const BandeauQuiEstANSSI = () => (
   <>
@@ -20,13 +21,15 @@ const BandeauQuiEstANSSI = () => (
               se traduit en quatre grandes missions : défendre, connaître,
               partager, accompagner.{" "}
             </p>
-            <Button
-              iconId="fr-icon-external-link-line"
-              onClick={noRefClick}
-              priority={"secondary"}
-            >
-              En savoir plus
-            </Button>
+            <a {...liens.anssi.site}>
+              <Button
+                iconId="fr-icon-external-link-line"
+                onClick={noRefClick}
+                priority={"secondary"}
+              >
+                En savoir plus
+              </Button>
+            </a>
           </div>
         </div>
       </div>

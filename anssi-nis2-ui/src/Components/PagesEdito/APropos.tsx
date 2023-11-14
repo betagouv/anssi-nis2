@@ -1,5 +1,5 @@
 import { DefaultComponent } from "../../Services/Props";
-import { emailContactNis2 } from "../../References/liens.tsx";
+import { liens } from "../../References/liens.tsx";
 
 const APropos: DefaultComponent = () => {
   return (
@@ -55,10 +55,7 @@ const APropos: DefaultComponent = () => {
       <p>
         Pour toute question ou suggestion concernant les fonctionnalités de
         MonEspaceNIS2 ou sa sécurité, contactez l&apos;équipe à{" "}
-        <a href={emailContactNis2.href} title={emailContactNis2.title}>
-          contact-monespacenis2@ssi.gouv.fr
-        </a>
-        .
+        <a {...liens.emails.contactNis2}>contact-monespacenis2@ssi.gouv.fr</a>.
       </p>
     </>
   );
