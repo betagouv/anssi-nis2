@@ -230,6 +230,14 @@ legend.fr-text--medium {
     & h2 {
         text-align: center;
     }
+
+    & a {
+        background: none;
+    }
+
+    & [target=_blank]:after, [target=_blank][class*=" fr-fi-"]:after, [target=_blank][class*=" fr-icon-"]:after, [target=_blank][class^=fr-fi-]:after, [target=_blank][class^=fr-icon-]:after {
+        display: none;
+    }
 }
 
 .fr-nis2-bordure-bas {

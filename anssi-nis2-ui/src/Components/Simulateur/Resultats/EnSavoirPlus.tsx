@@ -1,9 +1,6 @@
 import { RowContainer } from "../../General/RowContainer.tsx";
 import { CenteredContainer } from "../../General/CenteredContainer.tsx";
-import {
-  lienDirectiveEuropeenne,
-  lienFaqAnssi,
-} from "../../../References/liens.tsx";
+import { liens } from "../../../References/liens.tsx";
 
 import { TuileLien } from "../../General/TuileLien.tsx";
 import imageSourceUE from "../../../assets/source_EU.svg";
@@ -25,14 +22,14 @@ export const EnSavoirPlus = () => {
           <TuileLien
             image={imageSourceUE}
             titre={"Directive"}
-            lien={lienDirectiveEuropeenne}
+            lien={liens.legislation.europa}
           />{" "}
           <TuileLien
             image={imageWebinaire}
             titre={"Webinaire"}
-            lien={lienFaqAnssi}
+            lien={liens.anssi.webinaire}
           />
-          <TuileLien image={imageFAQ} titre={"FAQ"} lien={lienFaqAnssi} />
+          <TuileLien image={imageFAQ} titre={"FAQ"} lien={liens.anssi.faq} />
         </ul>
       </CenteredContainer>
     </RowContainer>

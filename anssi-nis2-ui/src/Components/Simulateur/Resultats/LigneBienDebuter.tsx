@@ -6,10 +6,7 @@ import { SimulateurResultatProps } from "../../../Services/Simulateur/Props/simu
 import { BienDebuterAvecPdf } from "./BienDebuterAvecPdf.tsx";
 import { BienDebuterSansPdf } from "./BienDebuterSansPdf.tsx";
 import Button from "@codegouvfr/react-dsfr/Button";
-import {
-  lienMesuresPrioritaires,
-  lienTousLesGuides,
-} from "../../../References/liens.tsx";
+import { liens } from "../../../References/liens.tsx";
 
 const LigneBienDebuterCalculee: DefaultComponentExtensible<SimulateurResultatProps> =
   memo(function LigneBienDebuterCalculee({
@@ -26,10 +23,16 @@ const LigneBienDebuterCalculee: DefaultComponentExtensible<SimulateurResultatPro
           )) || <BienDebuterSansPdf />}
 
           <div className="fr-btns-group fr-btns-group--inline">
-            <Button priority={"tertiary"} linkProps={lienTousLesGuides}>
+            <Button
+              priority={"tertiary"}
+              linkProps={liens.anssi.guidesBonnesPratiques}
+            >
               Tous les guides ANSSI
             </Button>
-            <Button priority={"tertiary"} linkProps={lienMesuresPrioritaires}>
+            <Button
+              priority={"tertiary"}
+              linkProps={liens.anssi.mesuresPrioritaires}
+            >
               Mesures prioritaires
             </Button>
           </div>
