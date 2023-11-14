@@ -22,14 +22,16 @@ const EtapeActivitesCalculee = ({
       libellesSousSecteursActivite,
       donneesFormulaire,
     );
-  const optionsParSecteurActivite = useMemo(() => {
-    return titresExtraits.map(
-      fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur(
-        donneesFormulaire,
-        propageActionSimulateur,
+  const optionsParSecteurActivite = useMemo(
+    () =>
+      titresExtraits.map(
+        fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur(
+          donneesFormulaire,
+          propageActionSimulateur,
+        ),
       ),
-    );
-  }, [donneesFormulaire, propageActionSimulateur, titresExtraits]);
+    [donneesFormulaire, propageActionSimulateur, titresExtraits],
+  );
 
   return (
     <FormSimulateur>

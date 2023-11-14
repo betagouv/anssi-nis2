@@ -8,11 +8,14 @@ import { IconeInfobulle } from "../../Icones/IconeInfobulle.tsx";
 import { Infobulle } from "../Infobulle.tsx";
 import { fr } from "@codegouvfr/react-dsfr";
 import { OptionChampSimulateur } from "../../../Services/Simulateur/Props/optionChampSimulateur";
+import Markdown from "react-markdown";
+import { elementMarkdownSimples } from "../../../utilitaires/constantes.ts";
 
 type Propiprops = DefaultProps & {
   optionChampSimulateur: OptionChampSimulateur;
   indice: number;
 };
+
 export const ActiviteACocher: DefaultComponentExtensible<Propiprops> = ({
   optionChampSimulateur,
   indice,
@@ -56,7 +59,11 @@ export const ActiviteACocher: DefaultComponentExtensible<Propiprops> = ({
             contenu={contenuInfobulle.map(({ titre, description }) => (
               <>
                 <h6>{titre}</h6>
-                <p className="fr-text--sm">{description}</p>
+                <p className="fr-text--sm">
+                  <Markdown allowedElements={elementMarkdownSimples}>
+                    {description}
+                  </Markdown>
+                </p>
               </>
             ))}
             action={() => {
