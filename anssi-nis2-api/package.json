@@ -4,7 +4,7 @@
   "description": "",
   "author": "",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "See LICENSE file",
   "scripts": {
     "build": "nest build",
     "prettier": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

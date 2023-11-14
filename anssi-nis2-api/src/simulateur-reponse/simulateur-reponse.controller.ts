@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
-import { SimulateurFormData } from "../Domaine/simulateur";
+import { SimulateurFormData } from "../Domaine/donneesSimulateur.ts";
 import { SimulateurReponseService } from "./simulateur-reponse.service";
 import { SimulateurReponse } from "./simulateur-reponse.entity";
 
