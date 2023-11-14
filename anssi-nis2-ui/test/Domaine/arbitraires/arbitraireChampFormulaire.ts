@@ -5,8 +5,8 @@ import {
   TypeEntitePublique,
   TypeStructure,
   UnionPetitMoyenGrand,
+  ValeurChampSimulateur,
 } from "../../../src/Domaine/Simulateur/ChampsSimulateur.definitions";
-import { ArbitraireChampFormulaire } from "./arbitraireChampFormulaire.d";
 import { fabriqueArbSingleton } from "../../utilitaires/manipulationArbitraires";
 
 export const arbDesigneOperateurServicesEssentiels: ArbitraireChampFormulaire<DesignationOperateurServicesEssentiels> =
@@ -45,3 +45,7 @@ export const arbAppartenancePaysUnionEuropeenne: ArbitraireChampFormulaire<
   autre: fc.constant(["autre"]),
   franceOuAutre: fabriqueArbSingleton(["france", "autre"]),
 };
+export type ArbitraireChampFormulaire<
+  T extends ValeurChampSimulateur,
+  TypesAdditionnelles extends string = T,
+> = Record<T | TypesAdditionnelles, fc.Arbitrary<T[]>>;
