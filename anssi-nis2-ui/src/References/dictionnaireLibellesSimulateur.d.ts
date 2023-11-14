@@ -1,17 +1,17 @@
+import { ValeursActivites } from "../Domaine/Simulateur/Activite.definitions.ts";
 import {
-  DesignationOperateurServicesEssentiels,
   AppartenancePaysUnionEuropeenne,
+  DesignationOperateurServicesEssentiels,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
-  TypeStructure,
-} from "../Domaine/Simulateur/ValeursChampsSimulateur.ts";
-import { SecteurActivite } from "../Domaine/Simulateur/SecteursActivite";
-
-import { SousSecteurActivite } from "../Domaine/Simulateur/SousSecteurs";
-import { Activite } from "../Domaine/Simulateur/Activite.ts";
+  TypeEntitePublique,
+  TypeStructure
+} from "../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+import { SecteurActivite } from "../Domaine/Simulateur/SecteurActivite.definitions.ts";
+import { SousSecteurActivite } from "../Domaine/Simulateur/SousSecteurActivite.definitions.ts";
 
 export type DictionnaireLibellesSimulateur = {
-  activites: Record<Activite, string>;
+  activites: Record<ValeursActivites, string>;
   designeOperateurServicesEssentiels: Record<
     DesignationOperateurServicesEssentiels,
     string
@@ -22,4 +22,5 @@ export type DictionnaireLibellesSimulateur = {
   trancheCA: Record<TrancheChiffreAffaire, string>;
   trancheNombreEmployes: Record<TrancheNombreEmployes, string>;
   typeStructure: Record<TypeStructure, string>;
+  typeEntitePublique: Record<TypeEntitePublique, string>;
 };

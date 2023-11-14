@@ -14,18 +14,20 @@ import {
 } from "../../../Domaine/Simulateur/services/ChampSimulateur/champs.predicats.ts";
 import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { fabriqueEtatEtape } from "../../../Domaine/Simulateur/fabriques/EtatEtape.fabrique.ts";
-import { fabriqueInformationsEtapes } from "../../../Domaine/Simulateur/fabriques/InformationsEtape.fabrique.ts";
+import { fabriquesInformationsEtapes } from "../../../Domaine/Simulateur/fabriques/InformationsEtape.fabrique.ts";
 import {
   fabriqueValidationUneReponses,
   validationReponsesActivites,
   validationReponsesSecteurs,
   validationReponsesSousActivites,
   validationReponsesTaille,
+  validationReponsesTypeStructure,
 } from "../../../Domaine/Simulateur/services/ChampSimulateur/ValidationReponses.ts";
 import {
   contientAutreSecteurActiviteUniquement,
   estUnSecteurAvecDesSousSecteurs,
 } from "../../../Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
+import EtapeTaillePublique from "./EtapeTaillePublique.tsx";
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
@@ -33,46 +35,67 @@ const contientDesSecteursAvecSousSecteurs = ({
   return secteurActivite.some(estUnSecteurAvecDesSousSecteurs);
 };
 
-const sousEtapeSousSecteur = fabriqueInformationsEtapes.sousEtapeConditionnelle(
-  contientDesSecteursAvecSousSecteurs,
-  fabriqueInformationsEtapes.form(
-    "Sous-secteur d'activité",
-    validationReponsesSousActivites,
-    EtapeSousSecteursActivite,
-  ),
+const sousEtapeSousSecteur =
+  fabriquesInformationsEtapes.sousEtapeConditionnelle(
+    contientDesSecteursAvecSousSecteurs,
+    fabriquesInformationsEtapes.form(
+      "Sous-secteur d'activité",
+      validationReponsesSousActivites,
+      EtapeSousSecteursActivite,
+    ),
+  );
+const etapeTailleStructurePrivee = fabriquesInformationsEtapes.form(
+  "Taille de l’organisation",
+  validationReponsesTaille,
+  EtapeTaille,
+);
+const etapeTailleStructurePublique = fabriquesInformationsEtapes.form(
+  "Taille de l’organisation",
+  fabriqueValidationUneReponses("trancheNombreEmployes"),
+  EtapeTaillePublique,
+);
+const etapeSecteurActivite = fabriquesInformationsEtapes.form(
+  "Secteurs d’activité",
+  validationReponsesSecteurs,
+  EtapeSecteursActivite,
+  {
+    sousEtapeConditionnelle: sousEtapeSousSecteur,
+  },
 );
 export const etapesQuestionnaire: CollectionInformationsEtapes =
   new CollectionInformationsEtapes(
-    fabriqueInformationsEtapes.prealable("Pour bien débuter"),
-    fabriqueInformationsEtapes.form(
+    fabriquesInformationsEtapes.prealable("Pour bien débuter"),
+    fabriquesInformationsEtapes.form(
       "Désignation éventuelle",
       fabriqueValidationUneReponses("designeOperateurServicesEssentiels"),
       EtapeOSE,
     ),
-    fabriqueInformationsEtapes.form(
+    fabriquesInformationsEtapes.form(
       "Localisation de l’activité",
       fabriqueValidationUneReponses("etatMembre"),
       EtapeLocalisation,
     ),
-    fabriqueInformationsEtapes.form(
+    fabriquesInformationsEtapes.form(
       "Type de structure",
-      fabriqueValidationUneReponses("typeStructure"),
+      validationReponsesTypeStructure,
       EtapeTypeStructure,
     ),
-    fabriqueInformationsEtapes.form(
-      "Taille de l’organisation",
-      validationReponsesTaille,
-      EtapeTaille,
-    ),
-    fabriqueInformationsEtapes.form(
-      "Secteurs d’activité",
-      validationReponsesSecteurs,
-      EtapeSecteursActivite,
+    fabriquesInformationsEtapes.variantes([
       {
-        sousEtapeConditionnelle: sousEtapeSousSecteur,
+        etape: etapeTailleStructurePrivee,
+        conditions: { typeStructure: ["privee"] },
       },
-    ),
-    fabriqueInformationsEtapes.form(
+      {
+        etape: etapeTailleStructurePublique,
+        conditions: { typeStructure: ["publique"] },
+      },
+    ]),
+    etapeSecteurActivite,
+
+    // fabriquesInformationsEtapes.variantes([
+    //   { etape: etapeSecteurActivite, conditions: {} },
+    // ]),
+    fabriquesInformationsEtapes.form(
       "Activités pratiquées",
       validationReponsesActivites,
       EtapeActivites,
@@ -83,6 +106,6 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
         ),
       },
     ),
-    fabriqueInformationsEtapes.resultat("Resultat"),
+    fabriquesInformationsEtapes.resultat("Resultat"),
   );
 export const etatEtapesInitial = fabriqueEtatEtape(etapesQuestionnaire, 0);

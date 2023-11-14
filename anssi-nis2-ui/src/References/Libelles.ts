@@ -7,6 +7,7 @@ import {
   DesignationOperateurServicesEssentiels,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
+  TypeEntitePublique,
   TypeStructure,
 } from "../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 
@@ -33,6 +34,12 @@ export const libellesTypesStructure: Record<TypeStructure, string> = {
   privee: "Entreprise privée",
 };
 
+export const libellesTypeEntitePublique: Record<TypeEntitePublique, string> = {
+  administrationCentrale: "Administration centrale",
+  autreStructurePublique: "Autre structure publique",
+  collectiviteTerritoriale: "Collectivité territoriale",
+};
+
 export const libellesTranchesNombreEmployes: Record<
   TrancheNombreEmployes,
   string
@@ -57,4 +64,5 @@ export const libellesSimulateur: DictionnaireLibellesSimulateur = {
   trancheCA: libellesTranchesCA,
   trancheNombreEmployes: libellesTranchesNombreEmployes,
   typeStructure: libellesTypesStructure,
+  typeEntitePublique: libellesTypeEntitePublique,
 };

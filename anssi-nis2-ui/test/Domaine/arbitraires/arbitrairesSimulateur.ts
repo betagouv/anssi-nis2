@@ -2,63 +2,74 @@ import { fc } from "@fast-check/vitest";
 import {
   IDonneesBrutesFormulaireSimulateur,
   IDonneesFormulaireSimulateur,
+  NomsChampsSimulateur,
 } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import {
   ajouteArbitraireActivites,
+  ajouteAuMoinsUneActiviteArbitraire,
+  ajouteAuMoinsUneActiviteAutre,
+  ajouteAuMoinsUneActiviteListee,
   ajouteMethodeAvec,
-  contrainteTranchesSansDoublonSurValeur,
-  DonneesSansActivite,
-  etendArbitraire,
-  fabriqueArbSecteurSousSecteurs,
+  DonneesSectorielles,
+  etend,
+  fabriqueArbContraintSurTrancheCA,
+  fabriqueArbEnrSecteurSousSecteurs,
   fabriqueArbSingleton,
-  fabriqueArbSSS,
-  propageBase,
+  fabriqueArbTrancheSingleton,
 } from "../../utilitaires/manipulationArbitraires";
 import {
   ValeursAppartenancePaysUnionEuropeenne,
-  ValeursPetitMoyenGrand,
+  ValeursTypeEntitePublique,
 } from "../../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
 
-import { listeEnrSecteursAvecLeursSousSecteurs } from "../../Services/Simulateur/exemples/ListesEnrSecteursSousSecteur";
+import {
+  filtreSecteurListeSecteursSousSecteurs,
+  listeAutresSecteursSousSecteurs,
+  listeEnrSecteursAvecLeursSousSecteurs,
+  secteurEtSousSecteursSontListes,
+} from "../../Services/Simulateur/exemples/ListesEnrSecteursSousSecteur";
 import {
   arbAppartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
   arbTranche,
   arbTypeStructure,
 } from "./arbitraireChampFormulaire";
-import { estSousSecteurListe } from "../../../src/Domaine/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
-import { estSecteurListe } from "../../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
-import {
-  estActiviteAutre,
-  estActiviteListee,
-} from "../../../src/Domaine/Simulateur/services/Activite/Activite.predicats";
+import { auMoinsUnSousSecteurListe } from "../../../src/Domaine/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
+import { auMoinsUnSecteurListe } from "../../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
+import { predicatDonneesFormulaire } from "../../../src/Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
+import { ValeursNomChampsFormulaire } from "../../../src/Domaine/Simulateur/DonneesFormulaire.valeurs";
 
-export const arbTrancheSingleton = () =>
-  fabriqueArbSingleton(ValeursPetitMoyenGrand);
-
-const filtreSecteurListeSecteursSousSecteurs = (secteurFiltre: string) =>
-  listeEnrSecteursAvecLeursSousSecteurs.filter(
-    (enrSecteurSousSecteur) => enrSecteurSousSecteur.secteur == secteurFiltre,
-  );
-
-const arbitraireSecteursSousSecteurs = fabriqueArbSecteurSousSecteurs(
+export const arbitraireSecteursSousSecteurs = fabriqueArbEnrSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs,
+)
+  .filter((donnees) => donnees.secteurActivite.length > 0)
+  .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
+
+const arbSecteursSousSecteursListes = fabriqueArbEnrSecteurSousSecteurs(
+  listeEnrSecteursAvecLeursSousSecteurs.filter(secteurEtSousSecteursSontListes),
+  { minLength: 1 },
 );
 
-export function fabriqueArbContraintSurTrancheCA(
-  base: Omit<DonneesSansActivite, "trancheNombreEmployes">,
-) {
-  return fc.record<DonneesSansActivite>({
-    ...propageBase(base),
-    trancheNombreEmployes: contrainteTranchesSansDoublonSurValeur(
-      base,
-      "petit",
-    ),
-  });
-}
+const arbSecteurSousSecteurInfraNum = fabriqueArbEnrSecteurSousSecteurs(
+  filtreSecteurListeSecteursSousSecteurs("infrastructureNumerique"),
+  { minLength: 1 },
+);
 
-export const donneesArbitrairesFormOSEPetit: fc.Arbitrary<IDonneesFormulaireSimulateur> =
-  etendArbitraire(arbitraireSecteursSousSecteurs, {
+const arbTousSecteursSousSecteurs = fabriqueArbEnrSecteurSousSecteurs(
+  listeEnrSecteursAvecLeursSousSecteurs,
+  { minLength: 1 },
+);
+
+const arbEnrAutresSecteursSousSecteurs = fabriqueArbEnrSecteurSousSecteurs(
+  listeAutresSecteursSousSecteurs,
+  {
+    minLength: 1,
+  },
+);
+
+type ArbitraireFormulaire = fc.Arbitrary<IDonneesFormulaireSimulateur>;
+const arbOSEPetit = etend(arbitraireSecteursSousSecteurs)
+  .avec({
     designeOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.oui,
     typeStructure: arbTypeStructure.privee,
@@ -66,218 +77,173 @@ export const donneesArbitrairesFormOSEPetit: fc.Arbitrary<IDonneesFormulaireSimu
     trancheNombreEmployes: arbTranche.petit,
     etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
   })
-    .chain<DonneesSansActivite>(ajouteArbitraireActivites)
-    .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
+  .chain(ajouteArbitraireActivites)
+  .filter((d) => d.activites.length > 0) as ArbitraireFormulaire;
 
-export const donneesArbitrairesFormOSEMoyenGrand: fc.Arbitrary<IDonneesFormulaireSimulateur> =
-  arbitraireSecteursSousSecteurs
-    .chain((base) =>
-      fc.record({
-        ...propageBase(base),
-        designeOperateurServicesEssentiels:
-          arbDesigneOperateurServicesEssentiels.oui,
-        typeStructure: arbTypeStructure.privee,
-        etatMembre: fabriqueArbSingleton(
-          ValeursAppartenancePaysUnionEuropeenne,
-        ),
-        trancheCA: arbTrancheSingleton(),
-      }),
-    )
-    .chain(fabriqueArbContraintSurTrancheCA)
-    .chain<DonneesSansActivite>(ajouteArbitraireActivites)
-    .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
-const arbSecteursSousSecteursListes = fabriqueArbSecteurSousSecteurs(
-  listeEnrSecteursAvecLeursSousSecteurs.filter(
-    (enr) =>
-      !enr.secteur.startsWith("autre") && !enr.sousSecteur?.startsWith("autre"),
-  ),
-  {
-    minLength: 1,
-  },
+const arbOSEMoyenGrand = etend(arbitraireSecteursSousSecteurs)
+  .avec({
+    designeOperateurServicesEssentiels:
+      arbDesigneOperateurServicesEssentiels.oui,
+    typeStructure: arbTypeStructure.privee,
+    etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
+    trancheCA: fabriqueArbTrancheSingleton(),
+  })
+  .chain(fabriqueArbContraintSurTrancheCA)
+  .chain(ajouteArbitraireActivites)
+  .filter((d) => d.activites.length > 0);
+
+const arbActivitesAutres = etend<DonneesSectorielles>(
+  arbSecteursSousSecteursListes,
+)
+  .avec({
+    designeOperateurServicesEssentiels:
+      arbDesigneOperateurServicesEssentiels.non,
+    typeStructure: fc.constant(["privee"]),
+    trancheCA: fabriqueArbTrancheSingleton(),
+    trancheNombreEmployes: fabriqueArbTrancheSingleton(),
+    etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
+  })
+  .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteAutre)
+  .filter((d) => d.activites.length > 0);
+
+const arbNonOSEPrivesPetitFournisseurInfraNum = etend<DonneesSectorielles>(
+  arbSecteurSousSecteurInfraNum,
+)
+  .avec({
+    designeOperateurServicesEssentiels:
+      arbDesigneOperateurServicesEssentiels.non,
+    typeStructure: arbTypeStructure.privee,
+    trancheCA: arbTranche.petit,
+    trancheNombreEmployes: arbTranche.petit,
+    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+  })
+  .chain(ajouteAuMoinsUneActiviteListee);
+
+const arbSecteursEtSousSecteursListes = arbTousSecteursSousSecteurs.filter(
+  (enr) =>
+    (enr.sousSecteurActivite.length == 0 &&
+      auMoinsUnSecteurListe(enr.secteurActivite)) ||
+    (auMoinsUnSecteurListe(enr.secteurActivite) &&
+      auMoinsUnSousSecteurListe(enr.sousSecteurActivite)),
 );
-export const donneesArbitrairesFormActivitesAutres: fc.Arbitrary<IDonneesFormulaireSimulateur> =
-  arbSecteursSousSecteursListes
-    .chain((base) =>
-      fc.record<DonneesSansActivite>({
-        ...propageBase(base),
-        designeOperateurServicesEssentiels:
-          arbDesigneOperateurServicesEssentiels.non,
-        typeStructure: fc.constant(["privee"]),
-        trancheCA: arbTrancheSingleton(),
-        trancheNombreEmployes: arbTrancheSingleton(),
-        etatMembre: fabriqueArbSingleton(
-          ValeursAppartenancePaysUnionEuropeenne,
-        ),
-      }),
-    )
-    .chain<DonneesSansActivite>((base) =>
-      ajouteArbitraireActivites(base, {
-        filtreActivite: estActiviteAutre,
-        minLength: 1,
-      }),
-    )
-    .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
 
-export const donneesArbitrairesFormNonOSEPrivesPetitFournisseurInfraNum: fc.Arbitrary<IDonneesFormulaireSimulateur> =
-  fabriqueArbSecteurSousSecteurs(
-    filtreSecteurListeSecteursSousSecteurs("infrastructureNumerique"),
-    { minLength: 1 },
-  )
-    .chain((base) =>
-      fc.record<DonneesSansActivite>({
-        ...propageBase(base),
-        designeOperateurServicesEssentiels:
-          arbDesigneOperateurServicesEssentiels.non,
-        typeStructure: arbTypeStructure.privee,
-        trancheCA: arbTranche.petit,
-        trancheNombreEmployes: arbTranche.petit,
-        etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
-      }),
-    )
-    .chain<IDonneesBrutesFormulaireSimulateur>((base) =>
-      ajouteArbitraireActivites(base, {
-        minLength: 1,
-      }),
-    )
-    .filter((donnees) => donnees.activites.some(estActiviteListee))
-    .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
-
-export const donneesArbitrairesFormNonOSEPrivesMoyenneGrande: fc.Arbitrary<IDonneesFormulaireSimulateur> =
-  fabriqueArbSecteurSousSecteurs(listeEnrSecteursAvecLeursSousSecteurs, {
-    minLength: 1,
+const arbNonOSEPrivesMoyenneGrande = etend(arbSecteursEtSousSecteursListes)
+  .avec({
+    designeOperateurServicesEssentiels:
+      arbDesigneOperateurServicesEssentiels.non,
+    typeStructure: arbTypeStructure.privee,
+    trancheCA: fabriqueArbTrancheSingleton(),
+    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
   })
-    .filter(
-      (enr) =>
-        enr.secteurActivite.some(estSecteurListe) &&
-        enr.sousSecteurActivite.some(estSousSecteurListe),
-    )
-    .chain((base) =>
-      fc.record({
-        secteurActivite: fc.constant([...base.secteurActivite]),
-        sousSecteurActivite: fc.constant([...base.sousSecteurActivite]),
-      }),
-    )
-    .chain((base) =>
-      fc.record<Omit<DonneesSansActivite, "trancheNombreEmployes">>({
-        ...propageBase(base),
-        designeOperateurServicesEssentiels:
-          arbDesigneOperateurServicesEssentiels.non,
-        typeStructure: arbTypeStructure.privee,
-        trancheCA: arbTrancheSingleton(),
-        etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
-      }),
-    )
-    .chain(fabriqueArbContraintSurTrancheCA)
-    .chain<IDonneesBrutesFormulaireSimulateur>((base) =>
-      ajouteArbitraireActivites(base, {
-        minLength: 1,
-      }),
-    )
-    .filter((donnees) => donnees.activites.some(estActiviteListee))
-    .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
+  .chain(fabriqueArbContraintSurTrancheCA)
+  .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteListee);
 
-export const donneesArbitrairesFormNonOSEPublique: fc.Arbitrary<IDonneesFormulaireSimulateur> =
-  fabriqueArbSecteurSousSecteurs(listeEnrSecteursAvecLeursSousSecteurs, {
-    minLength: 1,
+const arbNonOSEPublique = etend(arbSecteursEtSousSecteursListes)
+  .avec({
+    designeOperateurServicesEssentiels:
+      arbDesigneOperateurServicesEssentiels.non,
+    typeStructure: arbTypeStructure.publique,
+    typeEntitePublique: fabriqueArbSingleton(ValeursTypeEntitePublique),
+    trancheCA: fabriqueArbTrancheSingleton(),
+    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
   })
-    .filter(
-      (enr) =>
-        enr.secteurActivite.some(estSecteurListe) &&
-        enr.sousSecteurActivite.some(estSousSecteurListe),
-    )
-    .chain((base) =>
-      fc.record({
-        secteurActivite: fc.constant([...base.secteurActivite]),
-        sousSecteurActivite: fc.constant([...base.sousSecteurActivite]),
-      }),
-    )
-    .chain((base) =>
-      fc.record<Omit<DonneesSansActivite, "trancheNombreEmployes">>({
-        ...propageBase(base),
-        designeOperateurServicesEssentiels:
-          arbDesigneOperateurServicesEssentiels.non,
-        typeStructure: arbTypeStructure.publique,
-        trancheCA: arbTrancheSingleton(),
-        etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
-      }),
-    )
-    .chain(fabriqueArbContraintSurTrancheCA)
-    .chain<IDonneesBrutesFormulaireSimulateur>((base) =>
-      ajouteArbitraireActivites(base, {
-        minLength: 1,
-      }),
-    )
-    .filter((donnees) => donnees.activites.some(estActiviteListee))
-    .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
+  .chain(fabriqueArbContraintSurTrancheCA)
+  .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteArbitraire)
+  .filter(predicatDonneesFormulaire.auMoins.une.activiteListee);
 
-export const listeAutresSecteursSousSecteurs =
-  listeEnrSecteursAvecLeursSousSecteurs.filter(
-    (enr) =>
-      enr.secteur.startsWith("autre") || enr.sousSecteur?.startsWith("autre"),
-  );
-export const donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresSESS: fc.Arbitrary<IDonneesFormulaireSimulateur> =
-  fabriqueArbSSS(listeAutresSecteursSousSecteurs, {
-    minLength: 1,
+const arbNonOSEPrivesMoyenneGrandeAutresSESS = etend(
+  arbEnrAutresSecteursSousSecteurs,
+)
+  .avec({
+    designeOperateurServicesEssentiels:
+      arbDesigneOperateurServicesEssentiels.non,
+    typeStructure: arbTypeStructure.privee,
+    trancheCA: fabriqueArbTrancheSingleton(),
+    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
   })
-    .chain((base) =>
-      fc.record<Omit<DonneesSansActivite, "trancheNombreEmployes">>({
-        ...propageBase(base),
-        designeOperateurServicesEssentiels:
-          arbDesigneOperateurServicesEssentiels.non,
-        typeStructure: arbTypeStructure.privee,
-        trancheCA: arbTrancheSingleton(),
-        etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
-      }),
-    )
-    .chain(fabriqueArbContraintSurTrancheCA)
-    .chain<DonneesSansActivite>((base) =>
-      ajouteArbitraireActivites(base, {
-        filtreActivite: estActiviteListee,
-      }),
-    )
-    .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
+  .chain(fabriqueArbContraintSurTrancheCA)
+  .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteListee);
 
-export const donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites: fc.Arbitrary<IDonneesFormulaireSimulateur> =
-  arbSecteursSousSecteursListes
-    .chain((base) =>
-      fc.record<Omit<DonneesSansActivite, "trancheNombreEmployes">>({
-        ...propageBase(base),
-        designeOperateurServicesEssentiels:
-          arbDesigneOperateurServicesEssentiels.non,
-        typeStructure: arbTypeStructure.privee,
-        trancheCA: arbTrancheSingleton(),
-        etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
-      }),
-    )
-    .chain(fabriqueArbContraintSurTrancheCA)
-    .chain<DonneesSansActivite>((base) =>
-      ajouteArbitraireActivites(base, {
-        minLength: 1,
-        filtreActivite: estActiviteAutre,
-      }),
-    )
-    .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
+const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
+  arbSecteursSousSecteursListes,
+)
+  .avec({
+    designeOperateurServicesEssentiels:
+      arbDesigneOperateurServicesEssentiels.non,
+    typeStructure: arbTypeStructure.privee,
+    trancheCA: fabriqueArbTrancheSingleton(),
+    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+  })
+  .chain(fabriqueArbContraintSurTrancheCA)
+  .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteAutre)
+  .filter(predicatDonneesFormulaire.uniquement.activiteAutre)
+  .filter((d) => d.activites.length > 0);
+
+const arbToutesValeursPossibles = etend(arbSecteursSousSecteursListes).avec({
+  designeOperateurServicesEssentiels: fabriqueArbSingleton([
+    "oui",
+    "non",
+    "nsp",
+  ]),
+  typeStructure: fabriqueArbSingleton(["privee", "publique"]),
+  typeEntitePublique: fabriqueArbSingleton(ValeursTypeEntitePublique),
+  trancheCA: fabriqueArbTrancheSingleton(),
+  trancheNombreEmployes: fabriqueArbTrancheSingleton(),
+  etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
+}) as ArbitraireFormulaire;
+
+type ArbitraireSurTousLesChamps = Record<
+  NomsChampsSimulateur,
+  ArbitraireFormulaire
+>;
+
+function fabriqueArbitraireVidePourChamp(nom: string) {
+  return etend(arbToutesValeursPossibles).avec({
+    [nom]: fc.constant([]),
+  }) as ArbitraireFormulaire;
+}
+
+const initialValue: ArbitraireSurTousLesChamps = {
+  activites: undefined,
+  designeOperateurServicesEssentiels: undefined,
+  etatMembre: undefined,
+  secteurActivite: undefined,
+  sousSecteurActivite: undefined,
+  trancheCA: undefined,
+  trancheNombreEmployes: undefined,
+  typeEntitePublique: undefined,
+  typeStructure: undefined,
+};
+
+const donneeAbsente = ValeursNomChampsFormulaire.reduce(
+  (resultat, nom) => ({
+    ...resultat,
+    [nom]: fabriqueArbitraireVidePourChamp(nom),
+  }),
+  initialValue,
+);
 
 export const arbForm = {
   designeOSE: {
-    petit: donneesArbitrairesFormOSEPetit,
-    moyenGrand: donneesArbitrairesFormOSEMoyenGrand,
+    petit: arbOSEPetit,
+    moyenGrand: arbOSEMoyenGrand,
   },
   nonDesigneOSE: {
     privee: {
-      activitesAutres: donneesArbitrairesFormActivitesAutres,
+      activitesAutres: arbActivitesAutres,
       petit: {
         fournisseursInfrastructureNumerique:
-          donneesArbitrairesFormNonOSEPrivesPetitFournisseurInfraNum,
+          arbNonOSEPrivesPetitFournisseurInfraNum,
       },
       grand: {
-        secteursListes: donneesArbitrairesFormNonOSEPrivesMoyenneGrande,
-        secteursAutres:
-          donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresSESS,
-        activitesAutres:
-          donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites,
+        secteursListes: arbNonOSEPrivesMoyenneGrande,
+        secteursAutres: arbNonOSEPrivesMoyenneGrandeAutresSESS,
+        activitesAutres: arbNonOSEPrivesMoyenneGrandeAutresActivites,
       },
     },
-    publique: donneesArbitrairesFormNonOSEPublique,
+    publique: arbNonOSEPublique,
+  },
+  nonValide: {
+    donneeAbsente: donneeAbsente,
   },
 };

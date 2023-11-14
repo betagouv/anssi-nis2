@@ -5,20 +5,14 @@ import {
   DesignationOperateurServicesEssentiels,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
+  TypeEntitePublique,
   TypeStructure,
   ValeurChampSimulateur,
 } from "./ChampsSimulateur.definitions.ts";
 import { ValeursActivites } from "./Activite.definitions.ts";
+import { ValeursNomChampsFormulaire } from "./DonneesFormulaire.valeurs.ts";
 
-export type NomsChampsSimulateur =
-  | "designeOperateurServicesEssentiels"
-  | "etatMembre"
-  | "typeStructure"
-  | "trancheNombreEmployes"
-  | "trancheCA"
-  | "secteurActivite"
-  | "sousSecteurActivite"
-  | "activites";
+export type NomsChampsSimulateur = (typeof ValeursNomChampsFormulaire)[number];
 
 export interface IDonneesBrutesFormulaireSimulateur
   extends Record<NomsChampsSimulateur, ValeurChampSimulateur[]> {
@@ -30,6 +24,7 @@ export interface IDonneesBrutesFormulaireSimulateur
   trancheCA: TrancheChiffreAffaire[];
   trancheNombreEmployes: TrancheNombreEmployes[];
   typeStructure: TypeStructure[];
+  typeEntitePublique: TypeEntitePublique[];
 }
 
 export interface IDonneesFormulaireSimulateur
@@ -51,6 +46,7 @@ export class DonneesFormulaireSimulateur
   trancheCA: TrancheChiffreAffaire[] = [];
   trancheNombreEmployes: TrancheNombreEmployes[] = [];
   typeStructure: TypeStructure[] = [];
+  typeEntitePublique: TypeEntitePublique[] = [];
 
   constructor(depuis: Readonly<Partial<IDonneesFormulaireSimulateur>>) {
     Object.assign(this, depuis);
@@ -72,5 +68,6 @@ export const donneesFormulaireSimulateurVide: IDonneesBrutesFormulaireSimulateur
     trancheCA: [],
     trancheNombreEmployes: [],
     typeStructure: [],
+    typeEntitePublique: [],
     activites: [],
   };

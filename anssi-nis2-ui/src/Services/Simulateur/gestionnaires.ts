@@ -26,32 +26,20 @@ export const genereGestionValeursMultiples = (name: NomsChampsSimulateur) => {
   return gestionValeursMultiples;
 };
 
-export const fieldHandlers: Record<
+export const gestionnairesDeChamp: Record<
   NomsChampsSimulateur,
   GestionValeursFormulaire
 > = {
   designeOperateurServicesEssentiels: gestionValeursSimples,
-  etatMembre: genereGestionValeursMultiples("etatMembre"),
+  etatMembre: gestionValeursSimples,
   secteurActivite: genereGestionValeursMultiples("secteurActivite"),
   sousSecteurActivite: genereGestionValeursMultiples("sousSecteurActivite"),
   activites: genereGestionValeursMultiples("activites"),
   trancheCA: gestionValeursSimples,
   trancheNombreEmployes: gestionValeursSimples,
   typeStructure: gestionValeursSimples,
+  typeEntitePublique: gestionValeursSimples,
 };
-
-export const genereGestionSauvePuisEtapeSuivante: (
-  suivantHandler: React.MouseEventHandler,
-  sauveHandler: () => Promise<string>,
-  donnees: IDonneesBrutesFormulaireSimulateur,
-) => React.MouseEventHandler =
-  (suivantHandler, sauveHandler, donnees) => (e) => {
-    if (donnees.secteurActivite.length > 0) {
-      sauveHandler().then(() => suivantHandler(e));
-    } else {
-      suivantHandler(e);
-    }
-  };
 
 export const fabriqueGestionChangementSimple =
   (

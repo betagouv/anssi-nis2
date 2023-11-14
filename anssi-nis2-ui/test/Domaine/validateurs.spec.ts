@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
@@ -9,8 +9,10 @@ import {
   auMoinsUn,
   et,
   auMoinsUneActiviteParValeurSectorielle,
+  lorsque,
 } from "../../src/Domaine/Simulateur/services/ChampSimulateur/champs.predicats";
 import { contientAutreSecteurActiviteUniquement } from "../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
+import { PredicatChamp } from "../../src/Domaine/Simulateur/services/ChampSimulateur/champs.domaine";
 
 describe("validateurs", () => {
   describe("valideAuMoinsUn", () => {
@@ -66,7 +68,7 @@ describe("validateurs", () => {
       expect(result).toBeFalsy();
     });
   });
-  describe("auMoinsUnPar", () => {
+  describe(auMoinsUnSousSecteurParSecteur, () => {
     it("doit retourner vrai pour un champ coché dans une categorie", () => {
       const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
         secteurActivite: ["energie"],
@@ -98,6 +100,17 @@ describe("validateurs", () => {
         donneesFormulaireSimulateur,
       );
       expect(result).toBeFalsy();
+    });
+
+    it("doit valider un seul sous-secteur coché lorsque de nombreux secteurs sont cochés", () => {
+      const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
+        secteurActivite: ["fabrication", "eauxUsees", "autreSecteurActivite"],
+        sousSecteurActivite: ["autreSousSecteurFabrication"],
+      });
+      const result = auMoinsUnSousSecteurParSecteur(
+        donneesFormulaireSimulateur,
+      );
+      expect(result).toBeTruthy();
     });
   });
   describe("auMoinsUneActiviteParValeurSectorielle", () => {
@@ -154,6 +167,46 @@ describe("validateurs", () => {
       const result = auMoinsUneActiviteParValeurSectorielle(
         donneesFormulaireSimulateur,
       );
+      expect(result).toBeTruthy();
+    });
+  });
+  describe(lorsque, () => {
+    it("valide lorsque la valeur et le predicat sont vrais", () => {
+      const predicat: PredicatChamp = vi.fn().mockImplementation(() => true);
+      const donnees = new DonneesFormulaireSimulateur({
+        typeStructure: ["publique"],
+      });
+      const predicatLorsque = lorsque("typeStructure", "publique", predicat);
+      const result = predicatLorsque(donnees);
+      expect(predicat).toHaveBeenCalledOnce();
+      expect(result).toBeTruthy();
+    });
+    it("ne valide pas lorsque la valeur est vraie mais pas le predicat", () => {
+      const predicat: PredicatChamp = vi.fn().mockImplementation(() => false);
+      const donnees = new DonneesFormulaireSimulateur({
+        typeStructure: ["publique"],
+      });
+      const predicatLorsque = lorsque("typeStructure", "publique", predicat);
+      const result = predicatLorsque(donnees);
+      expect(predicat).toHaveBeenCalledOnce();
+      expect(result).toBeFalsy();
+    });
+    it("valide lorsque la valeur et le predicat sont faux", () => {
+      const predicat: PredicatChamp = vi.fn().mockImplementation(() => false);
+      const donnees = new DonneesFormulaireSimulateur({
+        typeStructure: ["publique"],
+      });
+      const predicatLorsque = lorsque("typeStructure", "privee", predicat);
+      const result = predicatLorsque(donnees);
+      expect(predicat).not.toHaveBeenCalled();
+      expect(result).toBeTruthy();
+    });
+    it("valide lorsque la valeur est vide mais pas le predicat vrai", () => {
+      const predicat: PredicatChamp = vi.fn().mockImplementation(() => true);
+      const donnees = new DonneesFormulaireSimulateur({});
+      const predicatLorsque = lorsque("typeStructure", "publique", predicat);
+      const result = predicatLorsque(donnees);
+      expect(predicat).not.toHaveBeenCalled();
       expect(result).toBeTruthy();
     });
   });

@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { exEtatEtape } from "./exemples/etatEtape.exemple";
-import { donneesFormulaireSimulateurVide } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
+import {
+  DonneesFormulaireSimulateur,
+  donneesFormulaireSimulateurVide,
+} from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import { EtatEtapes } from "../../../src/Services/Simulateur/EtatEtapes";
 import {
   fabriqueEtatEtapePrecedent,
@@ -12,7 +15,7 @@ const donneesVides = donneesFormulaireSimulateurVide;
 const attendEtatEtapeEgaux = (
   etatEtapeResultant: EtatEtapes,
   etatEtapeAttendu: EtatEtapes,
-  ignoreProprietes = ["remplitContitionSousEtape", "ignoreEtapeSuivante"],
+  ignoreProprietes = ["ignoreEtapeSuivante"],
 ) =>
   Object.keys(etatEtapeAttendu)
     .filter((champ) => !ignoreProprietes.includes(champ))
@@ -77,6 +80,32 @@ describe(fabriqueEtatEtapeSuivant, () => {
         );
       });
     });
+    describe("Etape avec Variante", () => {
+      it("Avance vers l'état étape avec la variante privee", () => {
+        const donnees = new DonneesFormulaireSimulateur(donneesVides).avec({
+          typeStructure: ["privee"],
+        });
+        attendEtatEtapeEgaux(
+          fabriqueEtatEtapeSuivant(
+            exEtatEtape.longueur3.avecVarianteEtape2.etape1,
+            donnees,
+          ),
+          exEtatEtape.longueur3.avecVarianteEtape2.etape2.variantePrivee,
+        );
+      });
+      it("Avance vers l'état étape avec la variante privee", () => {
+        const donnees = new DonneesFormulaireSimulateur(donneesVides).avec({
+          typeStructure: ["publique"],
+        });
+        attendEtatEtapeEgaux(
+          fabriqueEtatEtapeSuivant(
+            exEtatEtape.longueur3.avecVarianteEtape2.etape1,
+            donnees,
+          ),
+          exEtatEtape.longueur3.avecVarianteEtape2.etape2.variantePublique,
+        );
+      });
+    });
   });
 });
 
@@ -103,6 +132,32 @@ describe(fabriqueEtatEtapePrecedent, () => {
         ),
         exEtatEtape.longueur2.etapeInitiale,
       );
+    });
+    describe("Etape avec Variante", () => {
+      it("Avance vers l'état étape avec la variante privee", () => {
+        const donnees = new DonneesFormulaireSimulateur(donneesVides).avec({
+          typeStructure: ["privee"],
+        });
+        attendEtatEtapeEgaux(
+          fabriqueEtatEtapePrecedent(
+            exEtatEtape.longueur3.avecVarianteEtape2.etape3,
+            donnees,
+          ),
+          exEtatEtape.longueur3.avecVarianteEtape2.etape2.variantePrivee,
+        );
+      });
+      it("Avance vers l'état étape avec la variante privee", () => {
+        const donnees = new DonneesFormulaireSimulateur(donneesVides).avec({
+          typeStructure: ["publique"],
+        });
+        attendEtatEtapeEgaux(
+          fabriqueEtatEtapePrecedent(
+            exEtatEtape.longueur3.avecVarianteEtape2.etape3,
+            donnees,
+          ),
+          exEtatEtape.longueur3.avecVarianteEtape2.etape2.variantePublique,
+        );
+      });
     });
   });
 

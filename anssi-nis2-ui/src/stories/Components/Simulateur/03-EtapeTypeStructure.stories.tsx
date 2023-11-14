@@ -6,7 +6,12 @@ import { EtapeTypeStructure } from "../../../Components/Simulateur/Etapes";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+
+import {
+  DonneesFormulaireSimulateur,
+  donneesFormulaireSimulateurVide,
+  IDonneesBrutesFormulaireSimulateur,
+} from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { libellesTypesStructure } from "../../../References/Libelles.ts";
 import { TypeStructure } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 
@@ -24,7 +29,7 @@ const donneesFormulaireOptions: CollectionParametresDonneesTypeStructure =
   new CollectionParametresDonneesTypeStructure();
 
 const meta: Meta<typeof EtapeTypeStructure> = {
-  title: "Composants/Simulateur/Etapes/3 - Type de Stroucture",
+  title: "Composants/Simulateur/Etapes/3 - Type de Structure",
   component: EtapeTypeStructure,
   argTypes: {
     propageActionSimulateur: { action: true },
@@ -44,6 +49,9 @@ const creeActionPropagationFormulaireActivite = (newValue: TypeStructure) => {
 };
 
 export const TypeStructureCoche: Story = {
+  args: {
+    donneesFormulaire: donneesFormulaireSimulateurVide,
+  },
   play: async ({ args, canvasElement, step }) => {
     const canvas = within(canvasElement);
     const { propageActionSimulateur } = args;
@@ -57,6 +65,10 @@ export const TypeStructureCoche: Story = {
         newValue: "publique",
       },
     ];
+    const questionSubsidiaire = canvas.queryByText(
+      "Précisez le type d’entité publique :",
+    );
+    await expect(questionSubsidiaire).toBeNull();
 
     for (const { libelle, newValue } of optionsATester) {
       const actionPropagee = creeActionPropagationFormulaireActivite(newValue);
@@ -69,6 +81,26 @@ export const TypeStructureCoche: Story = {
           );
         },
       );
+    }
+  },
+};
+
+export const SousQuestionPublique: Story = {
+  args: {
+    donneesFormulaire: new DonneesFormulaireSimulateur(
+      donneesFormulaireSimulateurVide,
+    ).avec({ typeStructure: ["publique"] }),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const libellesPresents = [
+      "Précisez le type d’entité publique :",
+      "Administration centrale",
+      "Collectivité territoriale",
+      "Autre structure publique",
+    ];
+    for (const libelle of libellesPresents) {
+      await expect(await canvas.findByText(libelle)).toBeInTheDocument();
     }
   },
 };

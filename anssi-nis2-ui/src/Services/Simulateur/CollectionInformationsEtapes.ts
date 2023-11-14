@@ -3,61 +3,75 @@ import {
   InformationsEtape,
 } from "./InformationsEtape.ts";
 import { EtapeInexistante } from "../../Domaine/Simulateur/fabriques/InformationsEtape.fabrique.ts";
+import { ConstantesEtatEtape } from "./EtatEtapes.ts";
 
 export class CollectionInformationsEtapes extends Array<InformationsEtape> {
+  slice = (start?: number, end?: number) =>
+    super.slice(start, end) as CollectionInformationsEtapes;
+
   get nombreEtapes(): number {
-    return this.filter((information) => information.estComptabilisee).length;
-  }
-
-  toString(): string {
-    return this.map(
-      (etape, indice) =>
-        `[${indice}] => '${etape.titre}' (comptabilisé: ${etape.estComptabilisee})`,
-    ).join(", ");
-  }
-
-  recupereEtapeCourante<T extends InformationsEtape>(indiceEtape: number): T {
-    return this[indiceEtape] as T;
-  }
-
-  numeroCourant(indiceEtapeCourante: number): number {
-    return this.reduce((nombre, etape, indiceCourant) => {
-      if (!etape.estComptabilisee || indiceCourant > indiceEtapeCourante)
-        return nombre;
-      return nombre + 1;
-    }, 0);
-  }
-
-  estPremiereEtape(indiceEtape: number): boolean {
-    return (
-      indiceEtape < this.length &&
-      this[indiceEtape].estComptabilisee &&
-      !this.slice(0, indiceEtape).some((etape) => etape.estComptabilisee)
+    return this.reduce(
+      (somme, etape) => somme + etape.longueurComptabilisee,
+      0,
     );
   }
 
-  estDerniereEtape(indiceEtape: number): boolean {
-    return (
-      indiceEtape >= 0 &&
-      this.length > 0 &&
-      indiceEtape < this.length &&
-      this[indiceEtape].estComptabilisee &&
-      this.numeroCourant(indiceEtape) === this.nombreEtapes
+  numero = (indice: number): number =>
+    this.reduce(
+      (nombre, etape, indiceCourant) =>
+        indiceCourant > indice ? nombre : nombre + etape.longueurComptabilisee,
+      0,
     );
-  }
 
-  recupereInformationsEtapeSuivante(
-    indiceEtapeCourante: number,
-  ): InformationsEtape {
-    return this.reduce((informationEtape, etape, indiceCourant) => {
-      if (etape.estComptabilisee && indiceCourant > indiceEtapeCourante)
-        return this[indiceCourant];
-      return informationEtape;
-    }, EtapeInexistante);
-  }
+  estPremiereEtape = (indice: number): boolean =>
+    this.estIndiceValide(indice) &&
+    this.estComptabilise(indice) &&
+    this.slice(0, indice).nombreEtapes === 0;
 
-  recupereSousEtape(indiceEtapeCourante: number) {
-    return this.recupereEtapeCourante<InformationEtapeForm>(indiceEtapeCourante)
-      .options.sousEtapeConditionnelle?.sousEtape;
-  }
+  estDerniereEtape = (indice: number): boolean =>
+    this.length > 0 &&
+    this.estIndiceValide(indice) &&
+    this.estComptabilise(indice) &&
+    this.numero(indice) === this.nombreEtapes;
+
+  existeEtapeSuivante = (indice: number): boolean => indice < this.length - 1;
+
+  recupereEtape = <T extends InformationsEtape>(indice: number): T =>
+    this[indice] as T;
+
+  estSurSousEtape = (indiceSousEtape: number) =>
+    indiceSousEtape != ConstantesEtatEtape.indiceSousEtapeInitial;
+
+  estSurEtapeInitiale = (indice: number) =>
+    indice === ConstantesEtatEtape.indiceEtapeInitial;
+
+  recupereInformationsEtapeSuivante = (
+    indiceDepart: number,
+  ): InformationsEtape =>
+    this.reduce(
+      this.recuperationEtapeSuivanteOuDefaut(indiceDepart),
+      EtapeInexistante,
+    );
+
+  recupereSousEtape = (indice: number, indiceSousEtape: number) =>
+    this.estSurSousEtape(indiceSousEtape) &&
+    this.recupereEtape<InformationEtapeForm>(indice).options
+      ?.sousEtapeConditionnelle?.sousEtape;
+
+  contenuEtape = (indiceEtape: number, indiceSousEtape: number) =>
+    this.recupereSousEtape(indiceEtape, indiceSousEtape) ||
+    this.recupereEtape<InformationEtapeForm>(indiceEtape);
+
+  private estIndiceValide = (indice: number) =>
+    indice >= 0 && indice < this.length;
+
+  private estComptabilise = (indice: number) =>
+    this[indice].longueurComptabilisee === 1;
+
+  private recuperationEtapeSuivanteOuDefaut =
+    (indiceCourant: number) =>
+    (defaut: InformationsEtape, etape: InformationsEtape, indice: number) =>
+      etape.longueurComptabilisee === 1 && indice > indiceCourant
+        ? this[indice]
+        : defaut;
 }

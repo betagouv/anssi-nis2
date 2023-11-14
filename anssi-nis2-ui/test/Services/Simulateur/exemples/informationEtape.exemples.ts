@@ -7,19 +7,18 @@ import {
   FauxSimulateurEtapeComposant,
 } from "../InformationEtape.faussaire";
 import {
-  fabriqueInformationsEtapes,
+  fabriquesInformationsEtapes,
   optionsInformationEtapeFormParDefaut,
 } from "../../../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
 
 export const predicatVrai = () => true;
-export const informationEtapeResult =
-  fabriqueInformationsEtapes.resultat("Resultat");
+const informationEtapeResult = fabriquesInformationsEtapes.resultat("Resultat");
 
 const fabriqueFausseInformationEtapeForm = (
   titre: string,
   options: Partial<OptionsInformationEtapeForm> = optionsInformationEtapeFormParDefaut,
 ) => {
-  return fabriqueInformationsEtapes.form(
+  return fabriquesInformationsEtapes.form(
     titre,
     fausseValidationReponse,
     FauxSimulateurEtapeComposant,
@@ -27,23 +26,26 @@ const fabriqueFausseInformationEtapeForm = (
   );
 };
 
-export const informationEtapeForm =
-  fabriqueFausseInformationEtapeForm("Etape Form");
-export const informationEtapeForm1 =
+const informationEtapeForm = fabriqueFausseInformationEtapeForm("Etape Form");
+const informationEtapeForm1 =
   fabriqueFausseInformationEtapeForm("Etape Form 1");
-export const informationEtapeForm2 =
+const informationEtapeForm2 =
   fabriqueFausseInformationEtapeForm("Etape Form 2");
 
-export const informationEtapeFormToujoursEvitee =
-  fabriqueFausseInformationEtapeForm("Etape Form Evitée", {
+const informationEtapeFormToujoursEvitee = fabriqueFausseInformationEtapeForm(
+  "Etape Form Evitée",
+  {
     ignoreSi: () => true,
-  });
-export const informationEtapeFormJamaisEvitee =
-  fabriqueFausseInformationEtapeForm("Etape Form Non Evitée", {
+  },
+);
+const informationEtapeFormJamaisEvitee = fabriqueFausseInformationEtapeForm(
+  "Etape Form Non Evitée",
+  {
     ignoreSi: () => false,
-  });
+  },
+);
 
-export const informationSousEtapeForm =
+const informationSousEtapeForm =
   fabriqueFausseInformationEtapeForm("Sous-étape");
 const sousEtapeToujoursPresente: SousEtapeConditionnelle = {
   condition: predicatVrai,
@@ -54,13 +56,29 @@ const etapeEmployesAvecSousEtapeActivite = fabriqueFausseInformationEtapeForm(
   { sousEtapeConditionnelle: sousEtapeToujoursPresente },
 );
 
+const infoEtapesVariantesPriveePublique = fabriquesInformationsEtapes.variantes(
+  [
+    {
+      etape: informationEtapeForm1,
+      conditions: { typeStructure: ["privee"] },
+    },
+    {
+      etape: informationEtapeForm2,
+      conditions: { typeStructure: ["publique"] },
+    },
+  ],
+);
+
 export const exInformationEtape = {
+  form: informationEtapeForm,
   form1: informationEtapeForm1,
   form2: informationEtapeForm2,
   sousEtape: informationSousEtapeForm,
+  resultat: informationEtapeResult,
   etapeAvecSousEtape: etapeEmployesAvecSousEtapeActivite,
   evitable: {
     toujours: informationEtapeFormToujoursEvitee,
     jamais: informationEtapeFormJamaisEvitee,
   },
+  variante: infoEtapesVariantesPriveePublique,
 };

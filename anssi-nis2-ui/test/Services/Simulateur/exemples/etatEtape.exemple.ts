@@ -1,5 +1,7 @@
 import { exCollectionInformationEtape } from "./collectionInformationEtape.exemples";
 import { fabriqueEtatEtape } from "../../../../src/Domaine/Simulateur/fabriques/EtatEtape.fabrique";
+import { EtatEtapes } from "../../../../src/Services/Simulateur/EtatEtapes";
+import { donneesFormulaireSimulateurVide } from "../../../../src/Domaine/Simulateur/DonneesFormulaire";
 
 const indiceEtapeInitiale = 0;
 const etatEtapesInitial = fabriqueEtatEtape(
@@ -29,6 +31,36 @@ const etatEtapes3 = fabriqueEtatEtape(
   exCollectionInformationEtape.longueur3.avecSousEtape.enDernier,
   2,
 );
+const etatEtapeVariantEn2Etape1 = fabriqueEtatEtape(
+  exCollectionInformationEtape.longueur3.avecVariante.enDeuxieme,
+  0,
+);
+const etatEtapeVariantEn2Etape3 = fabriqueEtatEtape(
+  exCollectionInformationEtape.longueur3.avecVariante.enDeuxieme,
+  2,
+);
+const etatEtapeVariantEn2Etape2a: EtatEtapes = {
+  ...fabriqueEtatEtape(
+    exCollectionInformationEtape.longueur3.avecVariante.enDeuxieme,
+    1,
+  ),
+  varianteEtape: 0,
+  donneesFormulaire: {
+    ...donneesFormulaireSimulateurVide,
+    typeStructure: ["privee"],
+  },
+};
+const etatEtapeVariantEn2Etape2b: EtatEtapes = {
+  ...fabriqueEtatEtape(
+    exCollectionInformationEtape.longueur3.avecVariante.enDeuxieme,
+    1,
+  ),
+  varianteEtape: 1,
+  donneesFormulaire: {
+    ...donneesFormulaireSimulateurVide,
+    typeStructure: ["publique"],
+  },
+};
 const etatEtapes3avantDernier = fabriqueEtatEtape(
   exCollectionInformationEtape.longueur4.avecSousEtape.enAvantDernier,
   2,
@@ -62,6 +94,14 @@ export const exEtatEtape = {
     avantDerniereEtapeEvitable: {
       etapeInitiale: avantDerniereEtapeEvitable,
       etape3: avantDerniereEtapeEvitable_etatDerniereEtape,
+    },
+    avecVarianteEtape2: {
+      etape1: etatEtapeVariantEn2Etape1,
+      etape2: {
+        variantePrivee: etatEtapeVariantEn2Etape2a,
+        variantePublique: etatEtapeVariantEn2Etape2b,
+      },
+      etape3: etatEtapeVariantEn2Etape3,
     },
   },
   longueur4: {

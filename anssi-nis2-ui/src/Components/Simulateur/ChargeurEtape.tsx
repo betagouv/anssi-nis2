@@ -17,7 +17,7 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
   const [etatEtapes, setEtatEtape] = useState(etatEtapesInitial);
   const { envoieDonneesFormulaire } = useContext(AppContext);
 
-  const ElementRendu = etatEtapes.conteneurElement;
+  const ElementRendu = etatEtapes.contenuEtapeCourante.conteneurElementRendu;
 
   const informationsBoutonsNavigation = fabriqueInformationsBoutonsNavigation(
     setEtatEtape,

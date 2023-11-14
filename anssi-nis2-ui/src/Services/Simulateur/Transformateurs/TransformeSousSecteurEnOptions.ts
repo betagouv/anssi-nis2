@@ -3,18 +3,20 @@ import { SecteursAvecSousSecteurs } from "../../../Domaine/Simulateur/SousSecteu
 import { OptionsChampSimulateur } from "../Props/optionChampSimulateur";
 import { reducteurSecteursVersOptions } from "../Reducteurs.ts";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { estUnSecteurAvecDesSousSecteurs } from "../../../Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
 
 export const transformeSousSecteurEnOptions = (
   donneesFormulaire: SimulateurContenuEtapeProps["donneesFormulaire"],
   gereChangement: (event: React.ChangeEvent<HTMLInputElement>) => void,
 ): [SecteursAvecSousSecteurs, OptionsChampSimulateur][] => {
-  return (
-    donneesFormulaire.secteurActivite as SecteursAvecSousSecteurs[]
-  ).reduce(
-    reducteurSecteursVersOptions(
-      gereChangement,
-      donneesFormulaire as DonneesFormulaireSimulateur,
-    ),
-    [],
-  );
+  return donneesFormulaire.secteurActivite
+    .filter(estUnSecteurAvecDesSousSecteurs)
+    .map((secteur) => secteur as SecteursAvecSousSecteurs)
+    .reduce(
+      reducteurSecteursVersOptions(
+        gereChangement,
+        donneesFormulaire as DonneesFormulaireSimulateur,
+      ),
+      [],
+    );
 };

@@ -30,7 +30,6 @@ import {
   ValeursActivitesTransportsParEaux,
   ValeursActivitesTransportsRoutiers,
 } from "../../Activite.valeurs.ts";
-import { ValeurCleSectorielle } from "../../ChampsSimulateur.definitions.ts";
 import { ValeursActivites } from "../../Activite.definitions.ts";
 import { SecteurActivite } from "../../SecteurActivite.definitions.ts";
 import {
@@ -40,6 +39,7 @@ import {
 import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire.ts";
 import { cartographieSousSecteursParSecteur } from "../SousSecteurActivite/SousSecteurActivite.operations.ts";
 import { estUnSecteurAvecDesSousSecteurs } from "../SecteurActivite/SecteurActivite.predicats.ts";
+import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions.ts";
 
 export const activitesParSecteurEtSousSecteur: Record<
   ValeurCleSectorielle,
@@ -150,21 +150,23 @@ export const collecteTitresPourActivite: (
 ) =>
   cartographieSousSecteursParSecteur(donneesFormulaire).reduce<
     AssociationSectorielleActivite[]
-  >((acc: AssociationSectorielleActivite[], [secteur, listeSousSecteurs]) => {
-    return acc.concat(
-      rempliSousSecteurs(
-        listeSousSecteurs,
-        secteur,
-        libellesSecteursActivite[secteur],
-        libellesSousSecteursActivite,
+  >(
+    (acc: AssociationSectorielleActivite[], [secteur, listeSousSecteurs]) =>
+      acc.concat(
+        rempliSousSecteurs(
+          listeSousSecteurs,
+          secteur,
+          libellesSecteursActivite[secteur],
+          libellesSousSecteursActivite,
+        ),
       ),
-    );
-  }, []);
+    [],
+  );
 export const fabriqueListeActivitesDesSecteurs = (
   secteurActivite: ValeurCleSectorielle[],
   filtreActivite: (activite: ValeursActivites) => boolean,
-): ValeursActivites[] => {
-  return Array.from(
+): ValeursActivites[] =>
+  Array.from(
     secteurActivite.reduce((ensembleActivites, secteur) => {
       activitesParSecteurEtSousSecteur[secteur]
         ?.filter(filtreActivite)
@@ -172,4 +174,3 @@ export const fabriqueListeActivitesDesSecteurs = (
       return ensembleActivites;
     }, new Set<ValeursActivites>()),
   );
-};

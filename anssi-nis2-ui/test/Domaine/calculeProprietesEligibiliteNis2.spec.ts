@@ -1,88 +1,81 @@
 import { describe, it } from "vitest";
-import { fc } from "@fast-check/vitest";
 import { estEligible } from "../../src/Domaine/Simulateur/services/Eligibilite/Eligibilite.predicats";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
-import { IDonneesFormulaireSimulateur } from "../../src/Domaine/Simulateur/DonneesFormulaire";
-import { assure } from "../utilitaires/assure";
-import {
-  Eligibilite,
-  ResultatEligibilite,
-} from "../../src/Domaine/Simulateur/Eligibilite.definitions";
-
-const eligiEstToujoursEgale = (
-  arbitraire: fc.Arbitrary<IDonneesFormulaireSimulateur>,
-  resultatAttendu: ResultatEligibilite,
-) => {
-  assure.toujoursEgal(arbitraire, estEligible, resultatAttendu);
-};
+import { verifieQue } from "../utilitaires/assure";
+import { Eligibilite } from "../../src/Domaine/Simulateur/Eligibilite.definitions";
 
 describe(estEligible, () => {
   describe("Entité OSE pour NIS1", () => {
     it("de petite taille est toujours éligible", () => {
-      eligiEstToujoursEgale(
-        arbForm.designeOSE.petit,
-        Eligibilite.EligiblePetiteEntreprise,
-      );
+      verifieQue(estEligible)
+        .quelqueSoit(arbForm.designeOSE.petit)
+        .renvoieToujours(Eligibilite.EligiblePetiteEntreprise);
     });
     it("de moyenne ou grande taille est toujours éligible", () => {
-      eligiEstToujoursEgale(
-        arbForm.designeOSE.moyenGrand,
-        Eligibilite.EligibleMoyenneGrandeEntreprise,
-      );
+      verifieQue(estEligible)
+        .quelqueSoit(arbForm.designeOSE.moyenGrand)
+        .renvoieToujours(Eligibilite.EligibleMoyenneGrandeEntreprise);
     });
   });
+  
   describe("Entite non OSE pour NIS 1", () => {
     describe("Privée", () => {
       it("n'est pas eligible si activites cochees sont uniquement autres", () => {
-        eligiEstToujoursEgale(
-          arbForm.nonDesigneOSE.privee.activitesAutres,
-          Eligibilite.NonEligible,
-        );
+        verifieQue(estEligible)
+          .quelqueSoit(arbForm.nonDesigneOSE.privee.activitesAutres)
+          .renvoieToujours(Eligibilite.NonEligible);
       });
       describe("Petite entité localisée en France ou en UE", () => {
         it("Est éligible si le secteur d'activité est 'Infrastructure Numérique'", () => {
-          eligiEstToujoursEgale(
-            arbForm.nonDesigneOSE.privee.petit
-              .fournisseursInfrastructureNumerique,
-            Eligibilite.EligiblePetiteEntreprise,
-          );
+          verifieQue(estEligible)
+            .quelqueSoit(
+              arbForm.nonDesigneOSE.privee.petit
+                .fournisseursInfrastructureNumerique,
+            )
+            .renvoieToujours(Eligibilite.EligiblePetiteEntreprise);
         });
       });
 
       describe("Moyenne ou grande entité localisée en France ou en UE", () => {
         it("Est éligible si le secteur d'activité et l'activité sont listés", () => {
-          eligiEstToujoursEgale(
-            arbForm.nonDesigneOSE.privee.grand.secteursListes,
-            Eligibilite.EligibleMoyenneGrandeEntreprise,
-          );
+          verifieQue(estEligible)
+            .quelqueSoit(arbForm.nonDesigneOSE.privee.grand.secteursListes)
+            .renvoieToujours(Eligibilite.EligibleMoyenneGrandeEntreprise);
         });
         describe("N'est pas éligible", () => {
           // Doute sur le test
           it("Si le secteur est 'autre'", () => {
-            eligiEstToujoursEgale(
-              arbForm.nonDesigneOSE.privee.grand.secteursAutres,
-              Eligibilite.NonEligible,
-            );
+            verifieQue(estEligible)
+              .quelqueSoit(arbForm.nonDesigneOSE.privee.grand.secteursAutres)
+              .renvoieToujours(Eligibilite.NonEligible);
           });
           it("Si l'activité est 'autre'", () => {
-            eligiEstToujoursEgale(
-              arbForm.nonDesigneOSE.privee.grand.activitesAutres,
-              Eligibilite.NonEligible,
-            );
+            verifieQue(estEligible)
+              .quelqueSoit(arbForm.nonDesigneOSE.privee.grand.activitesAutres)
+              .renvoieToujours(Eligibilite.NonEligible);
           });
         });
       });
     });
   });
 
-  // ajouter à Incertain tous champs non rempli
-
   describe("Publique", () => {
     it("est incertain pour un résultat non configuré", () => {
-      eligiEstToujoursEgale(
-        arbForm.nonDesigneOSE.publique,
-        Eligibilite.Incertain,
-      );
+      verifieQue(estEligible)
+        .quelqueSoit(arbForm.nonDesigneOSE.publique)
+        .renvoieToujours(Eligibilite.Incertain);
+    });
+  });
+  describe(Eligibilite.Incertain, () => {
+    it("lorsque le type structure n'est pas remplie", () => {
+      verifieQue(estEligible)
+        .quelqueSoit(arbForm.nonValide.donneeAbsente.typeStructure)
+        .renvoieToujours(Eligibilite.Incertain);
+    });
+    it("lorsque l'appartenance à l'UE n'est pas remplie", () => {
+      verifieQue(estEligible)
+        .quelqueSoit(arbForm.nonValide.donneeAbsente.typeStructure)
+        .renvoieToujours(Eligibilite.Incertain);
     });
   });
 });

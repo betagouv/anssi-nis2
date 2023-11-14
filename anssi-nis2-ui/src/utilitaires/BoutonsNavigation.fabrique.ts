@@ -31,7 +31,7 @@ export const fabriqueGestionPrecedent = (
   etatEtapes: EtatEtapes,
   donneesSimulateur: IDonneesBrutesFormulaireSimulateur,
 ) => {
-  if (etatEtapes.collectionEtapes.estPremiereEtape(etatEtapes.indice))
+  if (etatEtapes.collectionEtapes.estPremiereEtape(etatEtapes.indiceCourant))
     return noRefClick;
   return (e: React.MouseEvent) => {
     e.preventDefault();
