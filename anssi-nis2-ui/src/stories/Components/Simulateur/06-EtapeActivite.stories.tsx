@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { EtapeActivites } from "../../../Components/Simulateur/Etapes";
-import { userEvent, within } from "@storybook/testing-library";
+import { userEvent, waitFor, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import {
   CollectionParametresDonnees,
@@ -53,8 +53,8 @@ const creeActionPropagationFormulaireActivite = (newValue: string) => {
 export const AffichageActivitesEtLibellesParSecteurs: Story = {
   args: {
     donneesFormulaire: new DonneesFormulaireSimulateur({
-      secteurActivite: ["energie", "espace"],
-      sousSecteurActivite: ["electricite"],
+      secteurActivite: ["energie", "espace", "autreSecteurActivite"],
+      sousSecteurActivite: ["electricite", "autreSousSecteurEnergie"],
     }),
   },
   play: async ({ canvasElement, step }) => {
@@ -64,6 +64,18 @@ export const AffichageActivitesEtLibellesParSecteurs: Story = {
         await canvas.findByText(libellesSecteursActivite["espace"]),
       ).toBeInTheDocument();
     });
+    step(
+      "Pas besoin d'activités pour les secteurs et sous secteurs 'autres'",
+      async () => {
+        await waitFor(async () =>
+          expect(
+            await canvas.findByText(
+              libellesSecteursActivite["autreSecteurActivite"],
+            ),
+          ).not.toBeInTheDocument(),
+        );
+      },
+    );
   },
 };
 

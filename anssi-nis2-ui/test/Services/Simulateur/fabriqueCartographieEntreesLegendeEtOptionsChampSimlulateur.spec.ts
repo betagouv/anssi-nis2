@@ -4,17 +4,35 @@ import { fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur } from "../
 import { IDonneesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import {
   ajouteMethodeAvec,
-  fabriqueArbSecteurSousSecteurs,
+  fabriqueArbEnrSecteurSousSecteurs,
 } from "../../utilitaires/manipulationArbitraires";
 import { listeEnrSecteursAvecLeursSousSecteurs } from "./exemples/ListesEnrSecteursSousSecteur";
 
 const donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites: fc.Arbitrary<IDonneesFormulaireSimulateur> =
-  fabriqueArbSecteurSousSecteurs(listeEnrSecteursAvecLeursSousSecteurs, {
+  fabriqueArbEnrSecteurSousSecteurs(listeEnrSecteursAvecLeursSousSecteurs, {
     minLength: 1,
   }).chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
 
 describe(fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur, () => {
   it("Renvoie des tuples correctes", () => {
+    fc.assert(
+      fc.property(
+        donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites,
+        (donnees) => {
+          const propageActionSimulateur = () => {};
+          const cartographieurEntreesLegendeEtOptionsChampSimlulateur =
+            fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur(
+              donnees,
+              propageActionSimulateur,
+            );
+          expect(
+            cartographieurEntreesLegendeEtOptionsChampSimlulateur,
+          ).not.toBeUndefined();
+        },
+      ),
+    );
+  });
+  it("Ne devrait pas retourner les activités pour les secteurs et sous secteurs 'autre'", () => {
     fc.assert(
       fc.property(
         donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites,

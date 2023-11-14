@@ -268,10 +268,7 @@ export const TypeEntitePublique: StoryChargeurEtape = {
       ["typeEntitePublique", "administrationCentrale"],
     ]);
 
-    await passeEtapeEnCochant(canvas, [
-      ["trancheNombreEmployes", "petit"],
-      // ["trancheCA", "petit"],
-    ]);
+    await passeEtapeEnCochant(canvas, [["trancheNombreEmployes", "petit"]]);
     await passeEtapeEnCochant(canvas, [["secteurActivite", "energie"]]);
     await passeEtapeEnCochant(canvas, [
       ["sousSecteurActivite", "autreSousSecteurEnergie"],
