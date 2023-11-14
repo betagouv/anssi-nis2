@@ -269,5 +269,5 @@ export const libellesActivites: Record<ValeursActivites, string> = {
     "passagers et de fret, à l’exclusion des navires exploités à titre " +
     "individuel par ces sociétés",
   transporteursAeriensCommercial:
-    "Transporteurs aériens utilisés à des fins commerciales",
+    "Transporteurs aériens à des fins commerciales",
 };
