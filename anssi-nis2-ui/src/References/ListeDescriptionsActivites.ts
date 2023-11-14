@@ -34,7 +34,6 @@ export const listeDescriptionsActivites: Record<
   autreActiviteTransportsFerroviaires: [],
   autreActiviteTransportsParEaux: [],
   autreActiviteTransportsRoutiers: [],
-
   acteurDuMarche: [
     {
       titre: "Acteur du marché",
@@ -93,54 +92,14 @@ export const listeDescriptionsActivites: Record<
         "Toutes les eaux usées provenant de locaux utilisés à des fins commerciales ou industrielles, autres que les eaux ménagères usées et les eaux de ruissellement.",
     },
   ],
-  constructionAeronautiqueSpatiale: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  constructionBateauxNaviresMilitaires: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  constructionBateauxPlaisance: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  constructionLocomotivesAutreMaterielFerroviaireRoulant: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  constructionNavale: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  constructionNaviresStructuresFlottantesCiviles: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  constructionVehiculeMilitaireCombat: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  constructionVehiculesAutomobiles: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
+  constructionAeronautiqueSpatiale: [],
+  constructionBateauxNaviresMilitaires: [],
+  constructionBateauxPlaisance: [],
+  constructionLocomotivesAutreMaterielFerroviaireRoulant: [],
+  constructionNavale: [],
+  constructionNaviresStructuresFlottantesCiviles: [],
+  constructionVehiculeMilitaireCombat: [],
+  constructionVehiculesAutomobiles: [],
   contrepartieCentrales: [
     {
       titre: "Contrepartie centrale",
@@ -248,12 +207,7 @@ export const listeDescriptionsActivites: Record<
     },
   ],
   exploitantsPointRecharge: [],
-  exploitantsServiceTrafficMaritime: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
+  exploitantsServiceTrafficMaritime: [],
   exploitantsSystemeHydrogene: [],
   exploitantsSystemeTransportIntelligents: [
     {
@@ -264,172 +218,53 @@ export const listeDescriptionsActivites: Record<
         "dans la gestion de la circulation et la gestion de la mobilité, ainsi que pour les interfaces avec d’autres modes de transport.",
     },
   ],
-  fabricationDistributionSubstances: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabricationMaterielTransportNCA: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantAppareilEclairage: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantAppareilsMenagers: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantAutresMachinesUsageGeneral: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantAutresMachinesUsageSpecifiqueNCA: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantCarrosseriesVehiculesAutomobiles: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantComposantCartesElectroniques: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantDispositifsMedicaux: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
+  fabricationDistributionSubstances: [],
+  fabricationMaterielTransportNCA: [],
+  fabriquantAppareilEclairage: [],
+  fabriquantAppareilsMenagers: [],
+  fabriquantAutresMachinesUsageGeneral: [],
+  fabriquantAutresMachinesUsageSpecifiqueNCA: [],
+  fabriquantCarrosseriesVehiculesAutomobiles: [],
+  fabriquantComposantCartesElectroniques: [],
+  fabriquantDispositifsMedicaux: [],
   fabriquantDispositifsMedicauxCritiques: [],
-  fabriquantEquipementCommunication: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantEquipementIrradiationMedicaleElectromedicauxElectrotherapeutiques: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantEquipementsAutomobiles: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantFilsCablesMaterielInstallationElectrique: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantInstrumentsMesureEssaiNavigationHorlogerie: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantMachineEquipementNCA: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantMachineUsageGeneral: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantMachinesAgricolesForestieres: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantMachinesFormageMetauxMachinesOutils: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantMaterielOptiquePhotographiquesSupportsMagnetiquesOptiques: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantMoteursGeneratriceTransformation: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantOrdinateursEquipementsPeripheriques: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantPilesAccumulateursElectriques: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
+  fabriquantEquipementCommunication: [],
+  fabriquantEquipementIrradiationMedicaleElectromedicauxElectrotherapeutiques:
+    [],
+  fabriquantEquipementsAutomobiles: [],
+  fabriquantFilsCablesMaterielInstallationElectrique: [],
+  fabriquantInstrumentsMesureEssaiNavigationHorlogerie: [],
+  fabriquantMachineEquipementNCA: [],
+  fabriquantMachineUsageGeneral: [],
+  fabriquantMachinesAgricolesForestieres: [],
+  fabriquantMachinesFormageMetauxMachinesOutils: [],
+  fabriquantMaterielOptiquePhotographiquesSupportsMagnetiquesOptiques: [],
+  fabriquantMoteursGeneratriceTransformation: [],
+  fabriquantOrdinateursEquipementsPeripheriques: [],
+  fabriquantPilesAccumulateursElectriques: [],
   fabriquantProduitPreparationsPharmaceutiques: [
     {
       titre: "Produits pharmaceutiques de base",
       description:
         "-  la production des principes actifs destinés à la fabrication de médicaments : antibiotiques, vitamines de base, acides salicylique et O-acétylsalicylique, etc." +
-        "-  la transformation du sang" +
-        "-  la fabrication de sucres chimiquement purs" +
-        "-  la transformation de glandes et la production d’extraits de glandes, etc.",
+        "\n-  la transformation du sang" +
+        "\n-  la fabrication de sucres chimiquement purs" +
+        "\n-  la transformation de glandes et la production d’extraits de glandes, etc.",
     },
     {
       titre: "Préparations pharmaceutiques",
       description:
         "- la fabrication de médicaments : sérums thérapeutiques et autres constituants du sang, vaccins, médicaments divers, y compris les préparations homéopathiques" +
-        "-  la fabrication de préparations chimiques contraceptives à usage externe et de médicaments contraceptifs à base d’hormones" +
-        "-  la fabrication de préparations de diagnostic, y compris les tests de grossesse" +
-        "-  la fabrication de substances radioactives de diagnostic in vivo" +
-        "-  la fabrication de produits pharmaceutiques issus des biotechnologies" +
-        "-  la fabrication d’ouates, de gazes et de bandes imprégnées à usage médical, de pansements, de catguts, etc." +
-        "-  la préparation de produits d’herboristerie (broyage, triage, mouture) à usage pharmaceutique",
+        "\n-  la fabrication de préparations chimiques contraceptives à usage externe et de médicaments contraceptifs à base d’hormones" +
+        "\n-  la fabrication de préparations de diagnostic, y compris les tests de grossesse" +
+        "\n-  la fabrication de substances radioactives de diagnostic in vivo" +
+        "\n-  la fabrication de produits pharmaceutiques issus des biotechnologies" +
+        "\n-  la fabrication d’ouates, de gazes et de bandes imprégnées à usage médical, de pansements, de catguts, etc." +
+        "\n-  la préparation de produits d’herboristerie (broyage, triage, mouture) à usage pharmaceutique",
     },
   ],
-  fabriquantProduitsElectroniquesGrandPublic: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fabriquantProduitsInformatiquesElectroniquesOptiques: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
+  fabriquantProduitsElectroniquesGrandPublic: [],
+  fabriquantProduitsInformatiquesElectroniquesOptiques: [],
   fournisseurPointEchangeInternet: [
     {
       titre: "Point d’échange internet",
@@ -530,24 +365,9 @@ export const listeDescriptionsActivites: Record<
         "la conservation ou la commercialisation de produits ou de substances destinés à la consommation humaine.",
     },
   ],
-  fournisseursMoteursRechercheEnLigne: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fournisseursPlaceMarcheEnLigne: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
-  fournisseursPlateformesServicesReseauxSociaux: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
+  fournisseursMoteursRechercheEnLigne: [],
+  fournisseursPlaceMarcheEnLigne: [],
+  fournisseursPlateformesServicesReseauxSociaux: [],
   gestionnaireInfrastructure: [
     {
       titre: "Gestionnaire de l’infrastructure",
@@ -571,12 +391,7 @@ export const listeDescriptionsActivites: Record<
         "Une personne physique ou morale qui effectue le stockage et est responsable de l’exploitation d’une installation de stockage.",
     },
   ],
-  gestionnaireReseau: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
+  gestionnaireReseau: [],
   gestionnaireReseauDistribution: [
     {
       titre: "Gestionnaire de réseau de distribution",
@@ -612,12 +427,7 @@ export const listeDescriptionsActivites: Record<
         "refroidissement de locaux ou pour le chauffage ou le refroidissement industriel.",
     },
   ],
-  organismeRecherche: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
+  organismeRecherche: [],
   prestataireServiceConfiance: [
     {
       titre: "Service de confiance",
@@ -677,12 +487,7 @@ export const listeDescriptionsActivites: Record<
         "de premier niveau sont utilisés par un registre uniquement pour son propre usage.",
     },
   ],
-  secteurAlimentaireDistributionGrosProductionTransformationIndustrielle: [
-    {
-      titre: "...",
-      description: "...",
-    },
-  ],
+  secteurAlimentaireDistributionGrosProductionTransformationIndustrielle: [],
   serviceControleCirculationAerienne: [
     {
       titre: "Service du contrôle de la circulation aérienne",
