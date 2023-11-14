@@ -9,16 +9,14 @@ import {
 import { libellesActivites } from "../../../References/LibellesActivites.ts";
 import { listeDescriptionsActivites } from "../../../References/ListeDescriptionsActivites.ts";
 import { SimulateurDonneesFormulaireActions } from "../Props/donneesFormulaire";
-import {
-  ValeurChampSimulateur,
-  ValeurCleSectorielle,
-} from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+import { ValeurChampSimulateur } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 import {
   activitesParSecteurEtSousSecteur,
   AssociationSectorielleActivite,
 } from "../../../Domaine/Simulateur/services/Activite/Activite.operations.ts";
 import React, { Dispatch } from "react";
 import { ValeursActivites } from "../../../Domaine/Simulateur/Activite.definitions.ts";
+import { ValeurCleSectorielle } from "../../../Domaine/Simulateur/ValeurCleSectorielle.definitions.ts";
 
 export const fabriqueConstructeurOptionActivite: (
   donneesFormulaire: IDonneesBrutesFormulaireSimulateur,

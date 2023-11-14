@@ -16,6 +16,9 @@ export const contientAutreSecteurActiviteUniquement = (
   donneesFormulaire.secteurActivite[0] === "autreSecteurActivite";
 export const estUnSecteurAvecDesSousSecteurs = (secteur: string) =>
   ValeursSecteursAvecSousSecteurs.includes(secteur as SecteursAvecSousSecteurs);
+
+export const filtreSecteursAvecSousSecteurs = (secteur: SecteurActivite[]) =>
+  secteur.filter(estUnSecteurAvecDesSousSecteurs) as SecteursAvecSousSecteurs[];
 export const estUnSecteurSansDesSousSecteurs = (secteur: string) => {
   return !ValeursSecteursAvecSousSecteurs?.includes(
     secteur as SecteursAvecSousSecteurs,

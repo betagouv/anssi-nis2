@@ -68,7 +68,7 @@ describe("validateurs", () => {
       expect(result).toBeFalsy();
     });
   });
-  describe("auMoinsUnPar", () => {
+  describe(auMoinsUnSousSecteurParSecteur, () => {
     it("doit retourner vrai pour un champ coché dans une categorie", () => {
       const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
         secteurActivite: ["energie"],
@@ -100,6 +100,17 @@ describe("validateurs", () => {
         donneesFormulaireSimulateur,
       );
       expect(result).toBeFalsy();
+    });
+
+    it("doit valider un seul sous-secteur coché lorsque de nombreux secteurs sont cochés", () => {
+      const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
+        secteurActivite: ["fabrication", "eauxUsees", "autreSecteurActivite"],
+        sousSecteurActivite: ["autreSousSecteurFabrication"],
+      });
+      const result = auMoinsUnSousSecteurParSecteur(
+        donneesFormulaireSimulateur,
+      );
+      expect(result).toBeTruthy();
     });
   });
   describe("auMoinsUneActiviteParValeurSectorielle", () => {

@@ -30,7 +30,6 @@ import {
   ValeursActivitesTransportsParEaux,
   ValeursActivitesTransportsRoutiers,
 } from "../../Activite.valeurs.ts";
-import { ValeurCleSectorielle } from "../../ChampsSimulateur.definitions.ts";
 import { ValeursActivites } from "../../Activite.definitions.ts";
 import { SecteurActivite } from "../../SecteurActivite.definitions.ts";
 import {
@@ -40,6 +39,7 @@ import {
 import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire.ts";
 import { cartographieSousSecteursParSecteur } from "../SousSecteurActivite/SousSecteurActivite.operations.ts";
 import { estUnSecteurAvecDesSousSecteurs } from "../SecteurActivite/SecteurActivite.predicats.ts";
+import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions.ts";
 
 export const activitesParSecteurEtSousSecteur: Record<
   ValeurCleSectorielle,

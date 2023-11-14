@@ -1,7 +1,4 @@
-import {
-  SecteursSansSousSecteur,
-  SousSecteurActivite,
-} from "./SousSecteurActivite.definitions.ts";
+import { SousSecteurActivite } from "./SousSecteurActivite.definitions.ts";
 import { SecteurActivite } from "./SecteurActivite.definitions.ts";
 import {
   ValeursAppartenancePaysUnionEuropeenne,
@@ -21,9 +18,6 @@ export type TypeEntitePublique = (typeof ValeursTypeEntitePublique)[number];
 export type UnionPetitMoyenGrand = (typeof ValeursPetitMoyenGrand)[number];
 export type TrancheNombreEmployes = UnionPetitMoyenGrand;
 export type TrancheChiffreAffaire = UnionPetitMoyenGrand;
-export type ValeurCleSectorielle =
-  | SecteursSansSousSecteur
-  | SousSecteurActivite;
 export type ValeurChampSimulateur =
   | DesignationOperateurServicesEssentiels
   | AppartenancePaysUnionEuropeenne

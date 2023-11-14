@@ -1,6 +1,6 @@
 import { ValeursActivites } from "../../Activite.definitions.ts";
-import { ValeurCleSectorielle } from "../../ChampsSimulateur.definitions.ts";
 import { activitesParSecteurEtSousSecteur } from "./Activite.operations.ts";
+import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions.ts";
 
 export const activiteEstDansSecteur = (
   activite: ValeursActivites,
