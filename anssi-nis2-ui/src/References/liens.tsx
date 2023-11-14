@@ -21,8 +21,8 @@ export const lienTousLesGuides: RegisteredLinkProps = {
 };
 
 export const lienMesuresPrioritaires: RegisteredLinkProps = {
-  href: "https://www.ssi.gouv.fr/directive-nis-2/",
-  title: "Guides de bonnes pratiques de l'ANSSI",
+  href: "https://www.ssi.gouv.fr/administration/guide/les-mesures-cyber-preventives-prioritaires/",
+  title: "Mesures Cyber Préventives Prioritaires sur le site de l'ANSSI",
   target: "_blank",
 };
 
