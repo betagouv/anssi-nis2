@@ -2,6 +2,7 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true,
+    "noEmit": true,
     "baseUrl": "./",
     "declaration": true,
     "emitDecoratorMetadata": true,
