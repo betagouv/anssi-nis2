@@ -34,7 +34,7 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
     <>
       <Helmet>
         <title>
-          MonEspaceNIS2 - Suis-je concerné·e ? -{" "}
+          MonEspaceNIS2 - Suis-je concerné ? -{" "}
           {etatEtapes.contenuEtapeCourante.titre}
         </title>
       </Helmet>

@@ -23,7 +23,7 @@ const EtapeTypeStructureCalculee: SimulateurEtapeNodeComponent = ({
   );
 
   const texteLegendeTypeStructure =
-    "Quel type de structure qualifie votre organisation ?";
+    "Quel type de structure qualifie votre entité ?";
   const optionsTypeStructure = useMemo(
     () =>
       transformeTypeStructureVersOptions(
@@ -33,6 +33,7 @@ const EtapeTypeStructureCalculee: SimulateurEtapeNodeComponent = ({
       ),
     [donneesFormulaire, gestionDonneesFormulaire],
   );
+
   const estEntitePublique = useMemo(
     () => donneesFormulaire.typeStructure.includes("publique"),
     [donneesFormulaire],
@@ -43,6 +44,7 @@ const EtapeTypeStructureCalculee: SimulateurEtapeNodeComponent = ({
     gestionDonneesFormulaire,
     donneesFormulaire,
   );
+
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">

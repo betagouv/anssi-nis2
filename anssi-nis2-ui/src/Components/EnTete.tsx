@@ -20,32 +20,11 @@ const EnTete = () => (
       imgUrl: AnssiLogo,
       orientation: "horizontal",
     }}
-    quickAccessItems={[
-      {
-        iconId: "fr-icon-live-fill",
-        linkProps: {
-          href: "https://www.dailymotion.com/video/x8l50hd",
-          title:
-            "NIS 2 : Présentation de la directive et de sa transposition nationale",
-          target: "_blank",
-        },
-        text: "Webinaire de présentation",
-      },
-      {
-        iconId: "fr-icon-question-fill",
-        linkProps: {
-          href: "https://www.ssi.gouv.fr/directive-nis-2/",
-          title: "Foire Aux Questions NIS 2 sur le site de l'ANSSI",
-          target: "_blank",
-        },
-        text: "FAQ NIS 2",
-      },
-    ]}
     serviceTagline=""
     serviceTitle={
       <>
         MonEspaceNIS2
-        <sup className="fr-badge fr-badge--sm fr-badge--green-emeraude">
+        <sup className="fr-badge fr-badge--sm fr-badge--green-emeraude fr-ml-1w">
           Bêta
         </sup>
       </>

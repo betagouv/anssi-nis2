@@ -11,8 +11,4 @@ const meta: Meta<typeof APropos> = {
 export default meta;
 type Story = StoryObj<typeof APropos>;
 
-export const EditoAPropos: Story = {
-  args: {
-    //👇 The args you need here will depend on your component
-  },
-};
+export const EditoAPropos: Story = {};

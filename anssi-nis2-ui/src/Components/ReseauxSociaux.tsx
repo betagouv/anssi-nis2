@@ -1,16 +1,19 @@
 const ReseauxSociaux = () => (
   <div className="fr-follow__social fr-follow">
-    <p className="fr-h5">Suivez-nous sur les réseaux sociaux</p>
+    <p className="fr-h5">
+      Suivez-nous
+      <br /> sur les réseaux sociaux
+    </p>
     <ul className="fr-links-group">
       <li>
         <a
-          className="fr-link--twitter fr-link"
-          title="S'abonner à notre compte Twitter - nouvelle fenêtre"
-          href="https://www.twitter.com/anssi_fr"
+          className="fr-link--x fr-link"
+          title="S'abonner à notre compte X - nouvelle fenêtre"
+          href="https://www.x.com/anssi_fr"
           target="_blank"
           rel="noreferrer"
         >
-          twitter
+          X
         </a>
       </li>
       <li>
@@ -33,17 +36,6 @@ const ReseauxSociaux = () => (
           rel="noreferrer"
         >
           dailymotion
-        </a>
-      </li>
-      <li>
-        <a
-          className="fr-link--github fr-link"
-          title="Github de l'ANSSI - nouvelle fenêtre"
-          href="https://github.com/ANSSI-FR"
-          target="_blank"
-          rel="noreferrer"
-        >
-          github
         </a>
       </li>
     </ul>
