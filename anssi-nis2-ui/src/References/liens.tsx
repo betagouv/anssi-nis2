@@ -10,7 +10,7 @@ export const liens: Record<string, Record<string, RegisteredLinkProps>> = {
       target: "_blank",
     },
     faq: {
-      href: `${baseUrlAnssi}/directive-nis-2/`,
+      href: `${baseUrlAnssi}/directive-nis-2/#intro`,
       title: "Foire Aux Questions à propos de NIS 2 sur le site de l'ANSSI",
       target: "_blank",
     },
