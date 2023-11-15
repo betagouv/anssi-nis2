@@ -9,6 +9,7 @@ import { fabriqueAsynchroneOptionsServeurStatique } from "./Fabriques/fabriqueAs
 import { fabriqueAsynchroneOptionsTypeOrm } from "./Fabriques/fabriqueAsynchroneOptionsTypeOrm";
 import { ThrottlerModule } from "@nestjs/throttler";
 import { optionsThrottlerModuleAsync } from "./configurationThrottler";
+import { InformationsEmailsModule } from "./informations-emails/informations-emails.module";
 
 const optionsConnectionBaseDeDonnees = fabriqueAsynchroneOptionsTypeOrm();
 
@@ -24,6 +25,7 @@ const optionsConnectionBaseDeDonnees = fabriqueAsynchroneOptionsTypeOrm();
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    InformationsEmailsModule,
   ],
 })
 export class AppModule {

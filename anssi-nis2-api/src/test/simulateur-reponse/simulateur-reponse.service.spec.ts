@@ -2,7 +2,7 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { SimulateurReponseService } from "../../simulateur-reponse/simulateur-reponse.service";
 import { Repository } from "typeorm";
 import { SimulateurReponse } from "../../simulateur-reponse/simulateur-reponse.entity";
-import { provideSimulateurRepouseRepositoryKey } from "../../constantes";
+import { provideSimulateurReponseRepositoryKey } from "../../constantes";
 import { donneesSimulateurVide } from "../../Domaine/donneesSimulateur.ts";
 import { MockFactory } from "../mock.factory";
 
@@ -23,7 +23,7 @@ describe("SimulateurReponseService", () => {
       providers: [
         SimulateurReponseService,
         {
-          provide: provideSimulateurRepouseRepositoryKey,
+          provide: provideSimulateurReponseRepositoryKey,
           useValue: mockSimulateurReponseRepository,
         },
       ],

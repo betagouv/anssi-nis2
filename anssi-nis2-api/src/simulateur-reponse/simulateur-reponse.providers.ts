@@ -2,12 +2,12 @@ import { DataSource } from "typeorm";
 import { SimulateurReponse } from "./simulateur-reponse.entity";
 import {
   datasourceKey,
-  provideSimulateurRepouseRepositoryKey,
+  provideSimulateurReponseRepositoryKey,
 } from "../constantes";
 
 export const simulateurReponseProviders = [
   {
-    provide: provideSimulateurRepouseRepositoryKey,
+    provide: provideSimulateurReponseRepositoryKey,
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(SimulateurReponse),
     inject: [datasourceKey],
