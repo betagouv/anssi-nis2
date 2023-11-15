@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { SimulateurReponseController } from "../../simulateur-reponse/simulateur-reponse.controller";
-import { donneesSimulateurVide } from "../../Domaine/donneesSimulateur.ts";
+import { donneesSimulateurVide } from "../../Domaine/donneesSimulateur";
 import { SimulateurReponseService } from "../../simulateur-reponse/simulateur-reponse.service";
 import { provideSimulateurReponseRepositoryKey } from "../../constantes";
 import { Repository } from "typeorm";

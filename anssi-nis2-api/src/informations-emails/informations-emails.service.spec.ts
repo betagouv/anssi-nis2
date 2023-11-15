@@ -1,12 +1,12 @@
 import { Test, TestingModuleBuilder } from "@nestjs/testing";
 import { InformationsEmailsService } from "./informations-emails.service";
-import { CreateInformationsEmailDto } from "./dto/create-informations-email.dto.ts";
-import { provideInformationsEmailRepositoryKey } from "../constantes.ts";
-import { DatabaseModule } from "../database/database.module.ts";
+import { CreateInformationsEmailDto } from "./dto/create-informations-email.dto";
+import { provideInformationsEmailRepositoryKey } from "../constantes";
+import { DatabaseModule } from "../database/database.module";
 import { ConfigModule } from "@nestjs/config";
-import { informationsEmailsProviders } from "./informations-emails.providers.ts";
-import { mockInformationsEmailRepository } from "./fabrique-mock.repository.ts";
-import { espereEmailsInformationCorrespondASonDto } from "./helpers/testHelpers.ts";
+import { informationsEmailsProviders } from "./informations-emails.providers";
+import { mockInformationsEmailRepository } from "./fabrique-mock.repository";
+import { espereEmailsInformationCorrespondASonDto } from "./helpers/testHelpers";
 
 describe("InformationsEmailsService", () => {
   const testingModuleBuilder = Test.createTestingModule({

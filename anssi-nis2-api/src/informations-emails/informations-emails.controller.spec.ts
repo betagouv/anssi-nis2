@@ -1,10 +1,10 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { InformationsEmailsController } from "./informations-emails.controller";
 import { InformationsEmailsService } from "./informations-emails.service";
-import { provideInformationsEmailRepositoryKey } from "../constantes.ts";
-import { mockInformationsEmailRepository } from "./fabrique-mock.repository.ts";
-import { CreateInformationsEmailDto } from "./dto/create-informations-email.dto.ts";
-import { espereEmailsInformationCorrespondASonDto } from "./helpers/testHelpers.ts";
+import { provideInformationsEmailRepositoryKey } from "../constantes";
+import { mockInformationsEmailRepository } from "./fabrique-mock.repository";
+import { CreateInformationsEmailDto } from "./dto/create-informations-email.dto";
+import { espereEmailsInformationCorrespondASonDto } from "./helpers/testHelpers";
 
 describe("InformationsEmailsController", () => {
   let controller: InformationsEmailsController;

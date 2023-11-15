@@ -3,7 +3,7 @@ import { SimulateurReponseService } from "../../simulateur-reponse/simulateur-re
 import { Repository } from "typeorm";
 import { SimulateurReponse } from "../../simulateur-reponse/simulateur-reponse.entity";
 import { provideSimulateurReponseRepositoryKey } from "../../constantes";
-import { donneesSimulateurVide } from "../../Domaine/donneesSimulateur.ts";
+import { donneesSimulateurVide } from "../../Domaine/donneesSimulateur";
 import { MockFactory } from "../mock.factory";
 
 describe("SimulateurReponseService", () => {
