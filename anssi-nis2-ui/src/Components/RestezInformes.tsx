@@ -1,23 +1,8 @@
-import { AppContext } from "./AppContexte/AppContext.tsx";
-import { FormEvent, useContext, useState } from "react";
-import { InformationsEmail } from "../Domaine/Contact/InformationsEmail.definitions";
+import { useState } from "react";
 import { FormRestezInformes } from "./FormRestezInformes.tsx";
 
 const RestezInformes = () => {
   const [emailEnregistre, setEmailEnregistre] = useState(false);
-  const { enregistreInformationsEmail } = useContext(AppContext);
-  const informationsEmail: InformationsEmail = {
-    accepteInfolettreNis2: false,
-    accepteInfolettreServicesDedies: false,
-    email: "",
-    nomOrganisation: "",
-  };
-
-  const envoiDonnees = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    enregistreInformationsEmail(informationsEmail);
-    setEmailEnregistre(true);
-  };
 
   return (
     <div className="fr-container fr-nis2-restez-informes">
@@ -33,10 +18,12 @@ const RestezInformes = () => {
       {emailEnregistre && (
         <p>
           Nous avons pris en compte votre demande, vous recevrez bientôt des
-          nouvelles à propos de NIS 2
+          nouvelles à propos de NIS&nbsp;2
         </p>
       )}
-      {!emailEnregistre && <FormRestezInformes envoiDonnees={envoiDonnees} />}
+      {!emailEnregistre && (
+        <FormRestezInformes setEmailEnregistre={setEmailEnregistre} />
+      )}
     </div>
   );
 };

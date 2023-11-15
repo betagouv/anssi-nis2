@@ -25,7 +25,7 @@ export const enregistreInformationsEmailVersApi: EnregistreInformationsEmail =
     const ERREUR_APPEL = 0;
     let retourApi: AggregatInformationsEmail | typeof ERREUR_APPEL =
       ERREUR_APPEL;
-    const simulationApi = genereClientApi("informations-email");
+    const simulationApi = genereClientApi("informations-emails");
     console.log(`[API info email - POST] ${JSON.stringify(informations)}`);
     simulationApi
       .post("/", informations)
