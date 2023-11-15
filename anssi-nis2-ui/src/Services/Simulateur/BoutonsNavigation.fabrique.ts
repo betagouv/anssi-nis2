@@ -1,12 +1,12 @@
-import { EtatEtapes } from "../Services/Simulateur/EtatEtapes.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormulaire.ts";
+import { EtatEtapes } from "./EtatEtapes.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import {
   fabriqueEtatEtapePrecedent,
   fabriqueEtatEtapeSuivant,
-} from "../Domaine/Simulateur/services/EtatEtape/EtatEtape.operations.ts";
-import { noRefClick } from "../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
-import { EnvoieDonneesFormulaire } from "../Services/Simulateur/Operations/appelsApi";
-import { verifieCompletudeDonneesFormulaire } from "../Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
+} from "../../Domaine/Simulateur/services/EtatEtape/EtatEtape.operations.ts";
+import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.tsx";
+import { EnvoieDonneesFormulaire } from "./Operations/appelsApi";
+import { verifieCompletudeDonneesFormulaire } from "../../Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
 
 export const fabriqueGestionSuivant =
   (

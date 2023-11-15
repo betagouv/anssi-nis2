@@ -1,15 +1,44 @@
-import { generateSimulationApi } from "./prepare.ts";
+import { genereClientApi } from "./prepare.ts";
 import { IDonneesBrutesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormulaire.ts";
-import { EnvoieDonneesFormulaire } from "./Simulateur/Operations/appelsApi";
+import {
+  EnregistreInformationsEmail,
+  EnvoieDonneesFormulaire,
+} from "./Simulateur/Operations/appelsApi";
+import {
+  AggregatInformationsEmail,
+  InformationsEmail,
+} from "../Domaine/Contact/InformationsEmail.definitions.ts";
 
 export const sendFormDataToApi: EnvoieDonneesFormulaire = async (
   formData: IDonneesBrutesFormulaireSimulateur,
 ) => {
   const data = JSON.stringify(formData);
-  const simulationApi = generateSimulationApi();
+  const simulationApi = genereClientApi();
   console.log(`Calling to API Simulation ${data}`);
   simulationApi
     .post("/", formData)
     .then((response) => console.log(JSON.stringify(response)));
   return data;
 };
+export const enregistreInformationsEmailVersApi: EnregistreInformationsEmail =
+  async (informations: InformationsEmail) => {
+    const ERREUR_APPEL = 0;
+    let retourApi: AggregatInformationsEmail | typeof ERREUR_APPEL =
+      ERREUR_APPEL;
+    const simulationApi = genereClientApi("informations-email");
+    console.log(`[API info email - POST] ${JSON.stringify(informations)}`);
+    simulationApi
+      .post("/", informations)
+      .then((response) => {
+        retourApi = response.data as AggregatInformationsEmail;
+        console.log(JSON.stringify(response));
+      })
+      .catch((reason) => {
+        retourApi = ERREUR_APPEL;
+        throw Error(
+          "Erreur à l'appel API d'enregistrement d'email : " + reason,
+        );
+      });
+    if (retourApi !== ERREUR_APPEL) return retourApi;
+    else throw Error("Erreur à l'appel API d'enregistrement d'email");
+  };

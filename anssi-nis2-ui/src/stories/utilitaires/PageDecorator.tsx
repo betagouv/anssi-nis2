@@ -7,13 +7,26 @@ import {
 
 import { Contexte } from "../../Services/contexte";
 import { StoryComponent } from "./typesUtilitaires";
+import { AggregatInformationsEmail } from "../../Domaine/Contact/InformationsEmail.definitions.ts";
 
 const defaultAsyncStringFonctionInjected = async () => {
   return "";
 };
+const defaultAsyncAggregatInformationsEmailFonctionInjected =
+  async (): Promise<AggregatInformationsEmail> => {
+    return {
+      id: 0,
+      email: "toto@titi.tutu",
+      accepteInfolettreNis2: true,
+      accepteInfolettreServicesDedies: true,
+      nomOrganisation: "Titi International",
+    };
+  };
 
 export const defaultContext: Contexte = {
   envoieDonneesFormulaire: defaultAsyncStringFonctionInjected,
+  enregistreInformationsEmail:
+    defaultAsyncAggregatInformationsEmailFonctionInjected,
   simulateur: {
     reducteurActionsBoutonNavigation: reducerBoutons,
     reducteurDonneesFormulaire: reducerFormData,
