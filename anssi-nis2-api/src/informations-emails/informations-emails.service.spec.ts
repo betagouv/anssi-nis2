@@ -6,6 +6,7 @@ import { InformationsEmail } from "./entities/informations-email.entity.ts";
 import { DatabaseModule } from "../database/database.module.ts";
 import { ConfigModule } from "@nestjs/config";
 import { informationsEmailsProviders } from "./informations-emails.providers.ts";
+import { mockInformationsEmailRepository } from "./fabrique-mock.repository.ts";
 
 function espereEmailsInformationCorrespondASonDto(
   reponse: InformationsEmail,
@@ -28,13 +29,13 @@ describe("InformationsEmailsService", () => {
       InformationsEmailsService,
       {
         provide: provideInformationsEmailRepositoryKey,
-        useValue: mockInformationsEmailRepositry,
+        useValue: mockInformationsEmailRepository,
       },
     ],
   });
   const testingModuleConcretBuilder = Test.createTestingModule({
     imports: [DatabaseModule, ConfigModule.forRoot({ isGlobal: true })],
-    providers: [...informationsEmailsProviders, InformationsEmailsServic],
+    providers: [...informationsEmailsProviders, InformationsEmailsService],
   });
   const fabriqueService = async (m: TestingModuleBuilder) =>
     (await m.compile()).get<InformationsEmailsService>(
