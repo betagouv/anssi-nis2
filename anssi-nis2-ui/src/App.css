@@ -1,3 +1,4 @@
+
 .fr-fieldset
 .fr-fieldset__content
 .fr-radio-group:not(.fr-radio-rich)
@@ -22,6 +23,10 @@ input[type="radio"]
   & h2 {
     text-align: center;
     color: #272771;
+  }
+
+  .fr-input {
+    background-color: #FFF;
   }
 }
 
@@ -426,4 +431,8 @@ legend.fr-text--medium {
     margin-left: 1rem;
     margin-top: 4rem;
   }
+}
+
+.fr-nis2-restez-informes {
+
 }
