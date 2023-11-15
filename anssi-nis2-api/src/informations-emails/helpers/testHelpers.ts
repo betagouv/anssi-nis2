@@ -1,5 +1,5 @@
-import { InformationsEmail } from "../entities/informations-email.entity.ts";
-import { CreateInformationsEmailDto } from "../dto/create-informations-email.dto.ts";
+import { InformationsEmail } from "../entities/informations-email.entity";
+import { CreateInformationsEmailDto } from "../dto/create-informations-email.dto";
 
 export const espereEmailsInformationCorrespondASonDto = (
   reponse: InformationsEmail,

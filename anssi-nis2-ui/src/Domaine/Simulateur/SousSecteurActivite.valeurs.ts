@@ -1,9 +1,9 @@
-import { SecteurActivite } from "./SecteurActivite.definitions.ts";
+import { SecteurActivite } from "./SecteurActivite.definitions";
 import {
   DescriptionSecteur,
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-} from "./SousSecteurActivite.definitions.ts";
+} from "./SousSecteurActivite.definitions";
 
 export const ValeursSecteursAvecSousSecteurs = [
   "energie",

@@ -1,5 +1,5 @@
-import { CreateInformationsEmailDto } from "./dto/create-informations-email.dto.ts";
-import { MockFactory } from "../test/mock.factory.ts";
+import { CreateInformationsEmailDto } from "./dto/create-informations-email.dto";
+import { MockFactory } from "../test/mock.factory";
 import { Repository } from "typeorm";
 
 export const fabriqueMockRepository = <DtoType, EntityType>(specifications: {

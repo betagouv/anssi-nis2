@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { CreateInformationsEmailDto } from "./dto/create-informations-email.dto";
-import { InformationsEmail } from "./entities/informations-email.entity.ts";
-import { provideInformationsEmailRepositoryKey } from "../constantes.ts";
+import { InformationsEmail } from "./entities/informations-email.entity";
+import { provideInformationsEmailRepositoryKey } from "../constantes";
 import { Repository } from "typeorm";
 
 @Injectable()

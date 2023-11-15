@@ -1,3 +1,3 @@
-import { ValeursSecteursActivites } from "./SecteurActivite.valeurs.ts";
+import { ValeursSecteursActivites } from "./SecteurActivite.valeurs";
 
 export type SecteurActivite = (typeof ValeursSecteursActivites)[number];

@@ -1,9 +1,9 @@
 import {
   datasourceKey,
   provideInformationsEmailRepositoryKey,
-} from "../constantes.ts";
+} from "../constantes";
 import { DataSource } from "typeorm";
-import { InformationsEmail } from "./entities/informations-email.entity.ts";
+import { InformationsEmail } from "./entities/informations-email.entity";
 
 export const informationsEmailsProviders = [
   {

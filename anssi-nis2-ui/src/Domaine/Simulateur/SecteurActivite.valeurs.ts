@@ -1,5 +1,5 @@
-import { SecteurActivite } from "./SecteurActivite.definitions.ts";
-import { estUnSecteurSansDesSousSecteurs } from "./services/SecteurActivite/SecteurActivite.predicats.ts";
+import { SecteurActivite } from "./SecteurActivite.definitions";
+import { estUnSecteurSansDesSousSecteurs } from "./services/SecteurActivite/SecteurActivite.predicats";
 
 export const ValeursSecteursActivites = [
   "administrationPublique",
