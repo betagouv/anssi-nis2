@@ -1,21 +1,13 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { InformationsEmailsController } from "./informations-emails.controller";
 import { InformationsEmailsService } from "./informations-emails.service";
-import { MockFactory } from "../test/mock.factory.ts";
-import { Repository } from "typeorm";
-import { InformationsEmail } from "./entities/informations-email.entity.ts";
-import { CreateInformationsEmailDto } from "./dto/create-informations-email.dto.ts";
 import { provideInformationsEmailRepositoryKey } from "../constantes.ts";
+import { mockInformationsEmailRepository } from "./fabrique-mock.repository.ts";
 
 describe("InformationsEmailsController", () => {
   let controller: InformationsEmailsController;
 
   beforeEach(async () => {
-    const mockInformationsEmailRepository = {
-      ...MockFactory.getMock(Repository<InformationsEmail>),
-      save: async (createInformationsEmailDto: CreateInformationsEmailDto) =>
-        createInformationsEmailDto,
-    };
     const module: TestingModule = await Test.createTestingModule({
       controllers: [InformationsEmailsController],
       providers: [
