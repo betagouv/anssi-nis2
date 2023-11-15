@@ -1,13 +1,13 @@
-import { SousSecteurActivite } from "./SousSecteurActivite.definitions.ts";
-import { SecteurActivite } from "./SecteurActivite.definitions.ts";
+import { SousSecteurActivite } from "./SousSecteurActivite.definitions";
+import { SecteurActivite } from "./SecteurActivite.definitions";
 import {
   ValeursAppartenancePaysUnionEuropeenne,
   ValeursDesignationOperateurServicesEssentiels,
   ValeursPetitMoyenGrand,
   ValeursTypeEntitePublique,
   ValeursTypeStructure,
-} from "./ChampsSimulateur.valeurs.ts";
-import { ValeursActivites } from "./Activite.definitions.ts";
+} from "./ChampsSimulateur.valeurs";
+import { ValeursActivites } from "./Activite.definitions";
 
 export type DesignationOperateurServicesEssentiels =
   (typeof ValeursDesignationOperateurServicesEssentiels)[number];

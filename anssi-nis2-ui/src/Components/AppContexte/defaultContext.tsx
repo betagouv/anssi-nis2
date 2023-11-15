@@ -1,5 +1,8 @@
 import { Contexte } from "../../Services/contexte";
-import { sendFormDataToApi } from "../../Services/sendFormDataToApi.ts";
+import {
+  enregistreInformationsEmailVersApi,
+  sendFormDataToApi,
+} from "../../Services/sendFormDataToApi.ts";
 import {
   reducerBoutons,
   reducerFormData,
@@ -7,6 +10,7 @@ import {
 
 export const defaultContext: Contexte = {
   envoieDonneesFormulaire: sendFormDataToApi,
+  enregistreInformationsEmail: enregistreInformationsEmailVersApi,
   simulateur: {
     reducteurDonneesFormulaire: reducerFormData,
     reducteurActionsBoutonNavigation: reducerBoutons,

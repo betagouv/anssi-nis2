@@ -2,11 +2,14 @@ import axios from "axios";
 
 const baseUrlApi = import.meta.env.NIS2_API_BASE_URL || "";
 
-const simulationApiBaseurl = baseUrlApi + "api/simulateur-reponse";
-export const generateSimulationApi = () => {
-  console.log(`generateSimulationApi Using URL : ${simulationApiBaseurl}`);
+const urlApi = baseUrlApi + "api";
+
+type RoutesApi = "simulateur-reponse" | "informations-emails";
+export const genereClientApi = (route: RoutesApi = "simulateur-reponse") => {
+  const url = `${urlApi}/${route}`;
+  console.log(`${genereClientApi.name} Using URL : ${url}`);
   return axios.create({
-    baseURL: simulationApiBaseurl,
+    baseURL: url,
     timeout: 1000,
   });
 };

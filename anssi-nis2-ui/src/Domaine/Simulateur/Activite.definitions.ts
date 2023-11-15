@@ -29,7 +29,7 @@ import {
   ValeursActivitesTransportsFerroviaires,
   ValeursActivitesTransportsParEaux,
   ValeursActivitesTransportsRoutiers,
-} from "./Activite.valeurs.ts";
+} from "./Activite.valeurs";
 
 export type ActivitesElectricite = (typeof ValeursActivitesElectricite)[number];
 export type ActivitesReseauxChaleurFroid =

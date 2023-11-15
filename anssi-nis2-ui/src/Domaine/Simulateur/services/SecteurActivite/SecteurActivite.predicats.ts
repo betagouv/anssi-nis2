@@ -1,13 +1,13 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire.ts";
-import { SecteurActivite } from "../../SecteurActivite.definitions.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire";
+import { SecteurActivite } from "../../SecteurActivite.definitions";
 import {
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-} from "../../SousSecteurActivite.definitions.ts";
+} from "../../SousSecteurActivite.definitions";
 import {
   sousSecteursParSecteur,
   ValeursSecteursAvecSousSecteurs,
-} from "../../SousSecteurActivite.valeurs.ts";
+} from "../../SousSecteurActivite.valeurs";
 
 export const contientAutreSecteurActiviteUniquement = (
   donneesFormulaire: IDonneesBrutesFormulaireSimulateur,

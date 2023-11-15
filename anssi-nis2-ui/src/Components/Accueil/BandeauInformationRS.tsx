@@ -15,13 +15,15 @@ export const BandeauInformationRS = () => (
               </p>
             </div>
             <div>
-              <button
-                className="fr-btn"
-                title="S‘abonner à notre lettre d’information"
-              >
-                {" "}
-                S&apos;abonner
-              </button>
+              <a href="/infolettre">
+                <button
+                  className="fr-btn"
+                  title="S‘abonner à notre lettre d’information"
+                >
+                  {" "}
+                  S&apos;abonner
+                </button>
+              </a>
             </div>
           </div>
         </div>
