@@ -5,7 +5,6 @@ export const fabriqueAppDataSource = async (
 ): Promise<DataSourceOptions> => ({
   type: "postgres",
   url: databaseConnectionUrl,
-  synchronize: true,
   entities: [__dirname + "/../**/*.entity{.ts,.js}"],
   subscribers: [],
   migrations: [],
