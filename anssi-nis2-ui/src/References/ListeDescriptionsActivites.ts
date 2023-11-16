@@ -218,7 +218,25 @@ export const listeDescriptionsActivites: Record<
         "dans la gestion de la circulation et la gestion de la mobilité, ainsi que pour les interfaces avec d’autres modes de transport.",
     },
   ],
-  fabricationDistributionSubstances: [],
+  fabricationDistributionSubstances: [
+    {
+      titre: "Fabricant",
+      description:
+        "Toute personne physique ou morale établie dans la Communauté qui fabrique une substance dans la Communauté",
+    },
+    {
+      titre: "Distributeur",
+      description:
+        "Toute personne physique ou morale établie dans la Communauté, y compris un détaillant, qui n'exécute " +
+        "que des opérations de stockage et de mise sur le marché d'une substance, telle quelle ou contenue dans une préparation, pour des tiers.",
+    },
+    {
+      titre: "Article",
+      description:
+        "Un objet auquel sont donnés, au cours du processus de fabrication, une forme, une surface " +
+        "ou un dessin particuliers qui sont plus déterminants pour sa fonction que sa composition chimique.",
+    },
+  ],
   fabricationMaterielTransportNCA: [],
   fabriquantAppareilEclairage: [],
   fabriquantAppareilsMenagers: [],
@@ -226,21 +244,92 @@ export const listeDescriptionsActivites: Record<
   fabriquantAutresMachinesUsageSpecifiqueNCA: [],
   fabriquantCarrosseriesVehiculesAutomobiles: [],
   fabriquantComposantCartesElectroniques: [],
-  fabriquantDispositifsMedicaux: [],
+  fabriquantDispositifsMedicaux: [
+    {
+      titre: "Dispositif médical",
+      description:
+        "Tout dispositif médical qui consiste en un réactif, un produit réactif, un matériau d'étalonnage, un matériau de contrôle, " +
+        "une trousse, un instrument, un appareil, un équipement, un logiciel ou un système, utilisé seul ou en association, destiné " +
+        "par le fabricant à être utilisé in vitro dans l'examen d'échantillons provenant du corps humain, y compris les dons de sang " +
+        "et de tissus, uniquement ou principalement dans le but de fournir des informations sur un ou plusieurs des éléments suivants :" +
+        "\n" +
+        "\n— diagnostic, prévention, contrôle, prédiction, pronostic, traitement ou atténuation d'une maladie, " +
+        "\n— diagnostic, contrôle, traitement, atténuation d'une blessure ou d'un handicap ou compensation de ceux-ci, " +
+        "\n— investigation, remplacement ou modification d'une structure ou fonction anatomique ou d'un processus ou état physiologique ou pathologique, " +
+        "\n— communication d'informations au moyen d'un examen in vitro d'échantillons provenant du corps humain, y compris les dons d'organes, de sang et de tissus, " +
+        "\n" +
+        "\net dont l'action principale voulue dans ou sur le corps humain n'est pas obtenue par des moyens pharmacologiques ou immunologiques ni par métabolisme, mais dont la fonction peut être assistée par de tels moyens. " +
+        "\n" +
+        "\nLes produits ci-après sont également réputés être des dispositifs médicaux : " +
+        "\n— les dispositifs destinés à la maîtrise de la conception ou à l'assistance à celle-ci, " +
+        "\n— Les produits spécifiquement destinés au nettoyage, à la désinfection ou à la stérilisation des dispositifs visés à l'article 1er, paragraphe 4, et de ceux visés au premier alinéa du présent point. ",
+    },
+    {
+      titre: "Dispositif médical de diagnostic in vitro",
+      description:
+        "Tout dispositif médical qui consiste en un réactif, un produit réactif, un matériau d'étalonnage, un matériau de contrôle, " +
+        "une trousse, un instrument, un appareil, un équipement, un logiciel ou un système, utilisé seul ou en association, destiné " +
+        "par le fabricant à être utilisé in vitro dans l'examen d'échantillons provenant du corps humain, y compris les dons de sang " +
+        "et de tissus, uniquement ou principalement dans le but de fournir des informations sur un ou plusieurs des éléments suivants :" +
+        "\n" +
+        "\na) concernant un processus ou état physiologique ou pathologique ; " +
+        "\nb) concernant des déficiences congénitales physiques ou mentales ; " +
+        "\nc) concernant la prédisposition à une affection ou à une maladie ; " +
+        "\nd) permettant de déterminer si un traitement donné est sûr pour des receveurs potentiels et compatible avec eux ; " +
+        "\ne) permettant de prévoir la réponse ou les réactions à un traitement ; " +
+        "\nf) permettant de définir ou de contrôler des mesures thérapeutiques. " +
+        "\n" +
+        "\nLes récipients pour échantillons sont également réputés être des dispositifs médicaux de diagnostic in vitro.",
+    },
+  ],
   fabriquantDispositifsMedicauxCritiques: [],
-  fabriquantEquipementCommunication: [],
-  fabriquantEquipementIrradiationMedicaleElectromedicauxElectrotherapeutiques:
-    [],
+  fabriquantEquipementCommunication: [ 
+    {
+      titre:
+        "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
+      description:
+        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+    },
+  ],
+  fabriquantEquipementIrradiationMedicaleElectromedicauxElectrotherapeutiques: [ 
+    {
+      titre:
+        "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
+      description:
+        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+    },
+  ],
   fabriquantEquipementsAutomobiles: [],
   fabriquantFilsCablesMaterielInstallationElectrique: [],
-  fabriquantInstrumentsMesureEssaiNavigationHorlogerie: [],
+  fabriquantInstrumentsMesureEssaiNavigationHorlogerie: [ 
+    {
+      titre:
+        "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
+      description:
+        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+    },
+  ],
   fabriquantMachineEquipementNCA: [],
   fabriquantMachineUsageGeneral: [],
   fabriquantMachinesAgricolesForestieres: [],
   fabriquantMachinesFormageMetauxMachinesOutils: [],
-  fabriquantMaterielOptiquePhotographiquesSupportsMagnetiquesOptiques: [],
+  fabriquantMaterielOptiquePhotographiquesSupportsMagnetiquesOptiques: [ 
+    {
+      titre:
+        "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
+      description:
+        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+    },
+  ],
   fabriquantMoteursGeneratriceTransformation: [],
-  fabriquantOrdinateursEquipementsPeripheriques: [],
+  fabriquantOrdinateursEquipementsPeripheriques: [ 
+    {
+      titre:
+        "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
+      description:
+        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+    },
+  ],
   fabriquantPilesAccumulateursElectriques: [],
   fabriquantProduitPreparationsPharmaceutiques: [
     {
@@ -263,8 +352,22 @@ export const listeDescriptionsActivites: Record<
         "\n-  la préparation de produits d’herboristerie (broyage, triage, mouture) à usage pharmaceutique",
     },
   ],
-  fabriquantProduitsElectroniquesGrandPublic: [],
-  fabriquantProduitsInformatiquesElectroniquesOptiques: [],
+  fabriquantProduitsElectroniquesGrandPublic: [ 
+    {
+      titre:
+        "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
+      description:
+        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+    },
+  ],
+  fabriquantProduitsInformatiquesElectroniquesOptiques: [
+    {
+      titre:
+        "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
+      description:
+        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+    },
+  ],
   fournisseurPointEchangeInternet: [
     {
       titre: "Point d’échange internet",
@@ -316,8 +419,8 @@ export const listeDescriptionsActivites: Record<
       titre: "Fournisseur de services DNS",
       description:
         "Une entité qui fournit :" +
-        "a)  des services de résolution de noms de domaines récursifs accessibles au public destinés aux utilisateurs finaux de l’internet; ou" +
-        "b)  des services de résolution de noms de domaine faisant autorité pour une utilisation par des tiers, à l’exception des serveurs de noms de racines.",
+        "\na)  des services de résolution de noms de domaines récursifs accessibles au public destinés aux utilisateurs finaux de l’internet; ou" +
+        "\nb)  des services de résolution de noms de domaine faisant autorité pour une utilisation par des tiers, à l’exception des serveurs de noms de racines.",
     },
     {
       titre: "Système de noms de domaines, ou « DNS »",
@@ -352,22 +455,58 @@ export const listeDescriptionsActivites: Record<
         "Un fournisseur de services gérés qui effectue ou fournit une assistance pour des activités liées à la gestion " +
         "des risques en matière de cybersécurité.",
     },
+    {
+      titre: "Fournisseur de services gérés",
+      description:
+        "Une entité qui fournit des services liés à l’installation, à la gestion, à l’exploitation " +
+        "ou à l’entretien de produits, de réseaux, d’infrastructures ou d’applications TIC ou d’autres " +
+        "réseaux et systèmes d’information, par l’intermédiaire d’une assistance ou d’une administration " +
+        "active, soit dans les locaux des clients, soit à distance.",
+    },
   ],
   fournisseursDistributeursEauxConsommation: [
     {
       titre: "Eaux destinées à la consommation humaine",
       description:
-        "a) Toutes les eaux, soit en l’état, soit après traitement, destinées à la boisson, à la cuisson, à la préparation d’aliments, " +
+        "\na) Toutes les eaux, soit en l’état, soit après traitement, destinées à la boisson, à la cuisson, à la préparation d’aliments, " +
         "ou à d’autres usages domestiques dans des lieux publics comme dans des lieux privés, quelle que soit leur origine et qu’elles soient " +
         "fournies par un réseau de distribution, à partir d’un camion-citerne ou d’un bateau-citerne, ou en bouteilles ou en récipients, y compris les eaux de source ;" +
-        " " +
-        "b) Toutes les eaux utilisées dans les entreprises du secteur alimentaire pour la fabrication, la transformation, " +
+        "\n" +
+        "\nb) Toutes les eaux utilisées dans les entreprises du secteur alimentaire pour la fabrication, la transformation, " +
         "la conservation ou la commercialisation de produits ou de substances destinés à la consommation humaine.",
     },
   ],
-  fournisseursMoteursRechercheEnLigne: [],
-  fournisseursPlaceMarcheEnLigne: [],
-  fournisseursPlateformesServicesReseauxSociaux: [],
+  fournisseursMoteursRechercheEnLigne: [
+    {
+      titre: "Fournisseur de moteur de recherche en ligne",
+      description:
+        "Toute personne physique ou morale qui fournit, ou propose de fournir, des moteurs de recherche en ligne aux consommateurs.",
+    },
+    {
+      titre: "Moteur de recherche en ligne",
+      description:
+        "Un service numérique qui permet aux utilisateurs de formuler des requêtes afin d’effectuer des recherches sur, en principe, " +
+        "tous les sites internet ou les sites internet dans une langue donnée, sur la base d’une requête lancée sur n’importe quel sujet " +
+        "sous la forme d’un mot-clé, d’une demande vocale, d’une expression ou d’une autre entrée, et qui renvoie des résultats dans quelque " +
+        "format que ce soit dans lesquels il est possible de trouver des informations en rapport avec le contenu demandé.",
+    },
+  ],
+  fournisseursPlaceMarcheEnLigne: [
+    {
+      titre: "Place de marché en ligne",
+      description:
+        "Un service utilisant un logiciel, y compris un site Internet, une partie de site Internet ou une application, " +
+        "exploité par un professionnel ou pour son compte, qui permet aux consommateurs de conclure des contrats à distance avec d’autres professionnels ou consommateurs.",
+    },
+  ],
+  fournisseursPlateformesServicesReseauxSociaux: [
+    {
+      titre: "Plateformes de services de réseaux sociaux",
+      description:
+        "Une plateforme qui permet aux utilisateurs finaux de se connecter, de partager, de découvrir et de communiquer " +
+        "entre eux sur plusieurs terminaux, notamment par conversations en ligne, publications, vidéos et recommandations",
+    },
+  ],
   gestionnaireInfrastructure: [
     {
       titre: "Gestionnaire de l’infrastructure",
@@ -433,9 +572,9 @@ export const listeDescriptionsActivites: Record<
       titre: "Service de confiance",
       description:
         "Un service électronique normalement fourni contre rémunération qui consiste :" +
-        "a) en la création, en la vérification et en la validation de signatures électroniques, de cachets électroniques ou d’horodatages électroniques, de services d’envoi recommandé électronique et de certificats relatifs à ces services; ou" +
-        "b) en la création, en la vérification et en la validation de certificats pour l’authentification de site internet; ou" +
-        "c) en la conservation de signatures électroniques, de cachets électroniques ou des certificats relatifs à ces services.",
+        "\na) en la création, en la vérification et en la validation de signatures électroniques, de cachets électroniques ou d’horodatages électroniques, de services d’envoi recommandé électronique et de certificats relatifs à ces services; ou" +
+        "\nb) en la création, en la vérification et en la validation de certificats pour l’authentification de site internet; ou" +
+        "\nc) en la conservation de signatures électroniques, de cachets électroniques ou des certificats relatifs à ces services.",
     },
     {
       titre: "Prestataire de services de confiance",
@@ -487,7 +626,14 @@ export const listeDescriptionsActivites: Record<
         "de premier niveau sont utilisés par un registre uniquement pour son propre usage.",
     },
   ],
-  secteurAlimentaireDistributionGrosProductionTransformationIndustrielle: [],
+  secteurAlimentaireDistributionGrosProductionTransformationIndustrielle: [
+    {
+      titre: "Entreprise du secteur alimentaire",
+      description:
+        "Toute entreprise publique ou privée assurant, dans un but lucratif ou non, des activités " +
+        "liées aux étapes de la production, de la transformation et de la distribution de denrées alimentaires.",
+    },
+  ],
   serviceControleCirculationAerienne: [
     {
       titre: "Service du contrôle de la circulation aérienne",
