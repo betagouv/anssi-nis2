@@ -70,7 +70,7 @@ describe(ChargeurExpressBasicAuth, () => {
 
     expect(chargeurAuthentificationBasiqueHTTP).not.toHaveBeenCalled();
     expect(basicAuth).not.toHaveBeenCalled();
-    expect(app.use).toHaveBeenCalledWith("/", undefined, expect.any(Function));
+    expect(app.use).not.toHaveBeenCalled();
   });
 
   describe("configuration du chargeur", () => {
@@ -170,11 +170,7 @@ describe(ChargeurExpressBasicAuth, () => {
 
         expect(chargeurAuthentificationBasiqueHTTP).not.toHaveBeenCalled();
         expect(basicAuth).not.toHaveBeenCalled();
-        expect(app.use).toHaveBeenCalledWith(
-          "/",
-          undefined,
-          expect.any(Function),
-        );
+        expect(app.use).not.toHaveBeenCalled();
       },
     );
   });
