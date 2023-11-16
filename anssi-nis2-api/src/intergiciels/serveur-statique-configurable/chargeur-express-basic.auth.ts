@@ -15,8 +15,8 @@ export type ConfigurationBasicAuth =
   | typeof BasicAuthDesactivee;
 
 type ClesConfigurationBasicAuth = {
-  UTILISATEUR_BASIC_AUTH: string;
-  MOT_DE_PASSE_BASIC_AUTH: string;
+  UTILISATEUR_BASIC_AUTH?: string;
+  MOT_DE_PASSE_BASIC_AUTH?: string;
 };
 
 export const fabriqueFournisseurServeurStatique = (
@@ -45,7 +45,8 @@ export class ChargeurExpressBasicAuth extends ExpressLoader {
   ) {
     const app = httpAdapter.getInstance();
     const staticUserAuth = this.configureAuthentificationBasique();
-    app.use("/", staticUserAuth, (req, res, next) => next());
+    if (staticUserAuth !== undefined)
+      app.use("/", staticUserAuth, (req, res, next) => next());
 
     super.register(httpAdapter, optionsArr);
   }
