@@ -44,14 +44,18 @@ export class ChargeurExpressBasicAuth extends ExpressLoader {
     optionsArr: ServeStaticModuleOptions[],
   ) {
     const app = httpAdapter.getInstance();
-    const staticUserAuth = this.configureAuthentificationBasique();
-    if (staticUserAuth !== undefined)
-      app.use("/", staticUserAuth, (req, res, next) => next());
+    this.configureAuthentificationBasique(app);
 
     super.register(httpAdapter, optionsArr);
   }
 
-  private configureAuthentificationBasique() {
+  private configureAuthentificationBasique(app: {
+    use: (
+      uri: string,
+      middleware: unknown,
+      fn: (req: unknown, res: unknown, next: () => void) => void,
+    ) => void;
+  }) {
     if (this.configuration !== BasicAuthDesactivee) {
       const chargeurAuthentificationBasiqueHTTP = () =>
         require("express-basic-auth");
@@ -60,13 +64,14 @@ export class ChargeurExpressBasicAuth extends ExpressLoader {
         ServeurStatiqueConfigurableModuleToken,
         chargeurAuthentificationBasiqueHTTP,
       );
-      return basicAuth({
+      console.log(this.configuration.utilisateur);
+      const staticUserAuth = basicAuth({
         users: {
           [this.configuration.utilisateur]: this.configuration.motDePasse,
         },
         challenge: true,
       });
+      app.use("/", staticUserAuth, (req, res, next) => next());
     }
-    return undefined;
   }
 }
