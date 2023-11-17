@@ -8,7 +8,7 @@ const BandeauAccueil: DefaultComponent = () => {
         <RowContainer>
           <div className="fr-container">
             <div className="fr-grid-row fr-pt-12w">
-              <div className="fr-col-offset-0 fr-nis2-appel-action">
+              <div className="fr-col-offset-0 fr-nis2-appel-action fr-mb-8w">
                 <div>
                   <h1>MonEspaceNIS2</h1>
                   <p>
@@ -17,9 +17,6 @@ const BandeauAccueil: DefaultComponent = () => {
                     et la mise en conformité à NIS&nbsp;2
                   </p>
                 </div>
-                <p className="fr-nis2-mise-en-avant">
-                  Gratuit et 100% en ligne
-                </p>
               </div>
             </div>
           </div>
