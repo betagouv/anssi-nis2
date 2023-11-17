@@ -81,8 +81,12 @@ export const FormRestezInformes: DefaultComponentExtensible<
         <Checkbox
           options={[
             {
-              label:
-                "J’accepte de recevoir des informations concernant la directive NIS2",
+              label: (
+                <>
+                  J’accepte de recevoir des informations concernant la directive
+                  NIS&nbsp;2
+                </>
+              ),
               nativeInputProps: construitPropagationChangement(
                 "accepteInfolettreNis2",
               ),

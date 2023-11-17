@@ -9,6 +9,8 @@ import { userEvent, within } from "@storybook/testing-library";
 import { CanvasObject } from "../../utilitaires/Canvas.d.tsx";
 import { InformationsEmail } from "../../../Domaine/Contact/InformationsEmail.definitions.ts";
 
+const consentementNis2 =
+  "J’accepte de recevoir des informations concernant la directive NIS 2";
 const consentementServicesAnssi =
   "Je souhaite m’enregistrer auprès de l’ANSSI afin de bénéficier des futurs services dédiés aux organisations concernées";
 
@@ -73,11 +75,7 @@ export const RestezInformesCompletRemplieEtEnvoieInfo: Story = {
       informationsEmail.nomOrganisation ?? "",
     );
     await remplieChamp(canvas, "Adresse électronique", informationsEmail.email);
-    userEvent.click(
-      await canvas.findByLabelText(
-        "J’accepte de recevoir des informations concernant la directive NIS2",
-      ),
-    );
+    userEvent.click(await canvas.findByLabelText(consentementNis2));
     userEvent.click(await canvas.findByLabelText(consentementServicesAnssi));
     await cliqueValidationForm(canvas);
     await canvas.findByText(
@@ -106,11 +104,7 @@ export const RestezInformesSimpleRemplieEtEnvoieInfo: Story = {
       canvas.queryByText(consentementServicesAnssi),
     ).not.toBeInTheDocument();
     await remplieChamp(canvas, "Adresse électronique", informationsEmail.email);
-    userEvent.click(
-      await canvas.findByLabelText(
-        "J’accepte de recevoir des informations concernant la directive IS2",
-      ),
-    );
+    userEvent.click(await canvas.findByLabelText(consentementNis2));
     await cliqueValidationForm(canvas);
     await canvas.findByText(
       "Nous avons pris en compte votre demande. Vous recevrez bientôt des nouvelles à propos de NIS 2.",
