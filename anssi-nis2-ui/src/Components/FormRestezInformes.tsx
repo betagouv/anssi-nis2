@@ -1,20 +1,20 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 
-import { DefaultComponentExtensible, DefaultProps } from "../Services/Props";
+import {
+  DefaultComponentExtensible,
+  FormulaireRestezInformesProps,
+} from "../Services/Props";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import Button from "@codegouvfr/react-dsfr/Button";
 import Alert from "@codegouvfr/react-dsfr/Alert";
 import Input from "@codegouvfr/react-dsfr/Input";
 import { AppContext } from "./AppContexte/AppContext.tsx";
 import { InformationsEmail } from "../Domaine/Contact/InformationsEmail.definitions.ts";
-import { useForm, SubmitHandler, RegisterOptions } from "react-hook-form";
+import { RegisterOptions, SubmitHandler, useForm } from "react-hook-form";
 
-type FormulaireRestezInformesProps = DefaultProps & {
-  setEmailEnregistre: React.Dispatch<boolean>;
-};
 export const FormRestezInformes: DefaultComponentExtensible<
   FormulaireRestezInformesProps
-> = ({ setEmailEnregistre }: FormulaireRestezInformesProps) => {
+> = ({ setEmailEnregistre, mode }: FormulaireRestezInformesProps) => {
   const { enregistreInformationsEmail } = useContext(AppContext);
 
   const regexpEmail =
@@ -49,15 +49,17 @@ export const FormRestezInformes: DefaultComponentExtensible<
     <form className="fr-mb-0" onSubmit={handleSubmit(envoiDonnees)}>
       <div className="fr-container fr-px-0">
         <div className="fr-grid-row">
-          <div className="fr-col fr-mr-3w">
-            <Input
-              label="Nom de votre organisation"
-              state="default"
-              nativeInputProps={construitPropagationChangement(
-                "nomOrganisation",
-              )}
-            />
-          </div>
+          {mode === "complet" && (
+            <div className="fr-col fr-mr-3w">
+              <Input
+                label="Nom de votre organisation"
+                state="default"
+                nativeInputProps={construitPropagationChangement(
+                  "nomOrganisation",
+                )}
+              />
+            </div>
+          )}
           <div className="fr-mb-10v fr-col">
             <Input
               label="Adresse électronique"
@@ -87,17 +89,19 @@ export const FormRestezInformes: DefaultComponentExtensible<
             },
           ]}
         />
-        <Checkbox
-          options={[
-            {
-              label:
-                "Je souhaite m’enregistrer auprès de l’ANSSI afin de bénéficier des futurs services dédiés aux organisations concernées",
-              nativeInputProps: construitPropagationChangement(
-                "accepteInfolettreServicesDedies",
-              ),
-            },
-          ]}
-        />
+        {mode === "complet" && (
+          <Checkbox
+            options={[
+              {
+                label:
+                  "Je souhaite m’enregistrer auprès de l’ANSSI afin de bénéficier des futurs services dédiés aux organisations concernées",
+                nativeInputProps: construitPropagationChangement(
+                  "accepteInfolettreServicesDedies",
+                ),
+              },
+            ]}
+          />
+        )}
       </div>
       <div className="fr-fieldset__element">
         <Button type="submit">S&apos;inscrire</Button>

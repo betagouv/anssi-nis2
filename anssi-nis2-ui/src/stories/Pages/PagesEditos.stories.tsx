@@ -4,6 +4,7 @@ import PageEdito from "../../Components/PagesEdito/PageEdito.tsx";
 import APropos from "../../Components/PagesEdito/APropos.tsx";
 import MentionsLegales from "../../Components/PagesEdito/MentionsLegales.tsx";
 import GestionCookies from "../../Components/PagesEdito/GestionCookies.tsx";
+import RestezInformes from "../../Components/RestezInformes.tsx";
 
 const meta: Meta<typeof PageEdito> = {
   title: "Pages/Edito",
@@ -32,5 +33,12 @@ export const PageGestionCookies: Story = {
   args: {
     titre: "Mentions légales",
     children: <GestionCookies />,
+  },
+};
+
+export const PageRestezInformes: Story = {
+  args: {
+    titre: "Restez informés",
+    children: <RestezInformes />,
   },
 };
