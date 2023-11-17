@@ -26,6 +26,12 @@ const meta: Meta<typeof RestezInformes> = {
       handles: ["enregistreInformationsEmail"],
     },
   },
+  argTypes: {
+    mode: {
+      options: ["simple", "complet"],
+      control: { type: "radio" },
+    },
+  },
 };
 
 export default meta;
