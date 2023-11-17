@@ -40,6 +40,13 @@ const remplieChamp = async (
   await userEvent.keyboard(contenu);
 };
 
+const cliqueValidationForm = async (canvas: CanvasObject) =>
+  userEvent.click(
+    await canvas.findByRole("button", {
+      name: "S'inscrire",
+    }),
+  );
+
 export const RestezInformesRemplieEtEnvoieInfo: Story = {
   play: async ({ canvasElement }) => {
     mockEnregistreInformationsEmail.mockClear();
@@ -66,13 +73,35 @@ export const RestezInformesRemplieEtEnvoieInfo: Story = {
         "Je souhaite m’enregistrer auprès de l’ANSSI afin de bénéficier des futurs services dédiés aux organisations concernées",
       ),
     );
-    userEvent.click(
-      await canvas.findByRole("button", {
-        name: "S'inscrire",
-      }),
-    );
+    await cliqueValidationForm(canvas);
     await canvas.findByText(
-      "Nous avons pris en compte votre demande, vous recevrez bientôt des nouvelles à propos de NIS 2",
+      "Nous avons pris en compte votre demande. Vous recevrez bientôt des nouvelles à propos de NIS 2.",
+    );
+    await expect(mockEnregistreInformationsEmail).toHaveBeenCalledTimes(1);
+    await expect(mockEnregistreInformationsEmail).toHaveBeenCalledWith(
+      informationsEmail,
+    );
+  },
+};
+
+export const ValidationDesChamps: Story = {
+  play: async ({ canvasElement }) => {
+    mockEnregistreInformationsEmail.mockClear();
+    const canvas = within(canvasElement);
+    const informationsEmail: InformationsEmail = {
+      accepteInfolettreNis2: false,
+      accepteInfolettreServicesDedies: false,
+      email: "toto@coco.com",
+      nomOrganisation: "",
+    };
+    await cliqueValidationForm(canvas);
+    await canvas.findByText("L'adresse électronique doit être renseignée");
+    await remplieChamp(canvas, "Adresse électronique", "toto");
+    await canvas.findByText("L'adresse électronique doit être valide");
+    await remplieChamp(canvas, "Adresse électronique", "@coco.com");
+    await cliqueValidationForm(canvas);
+    await canvas.findByText(
+      "Nous avons pris en compte votre demande. Vous recevrez bientôt des nouvelles à propos de NIS 2.",
     );
     await expect(mockEnregistreInformationsEmail).toHaveBeenCalledTimes(1);
     await expect(mockEnregistreInformationsEmail).toHaveBeenCalledWith(

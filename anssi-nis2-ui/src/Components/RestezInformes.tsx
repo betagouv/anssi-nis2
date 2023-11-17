@@ -17,8 +17,8 @@ const RestezInformes = () => {
       </p>
       {emailEnregistre && (
         <p>
-          Nous avons pris en compte votre demande, vous recevrez bientôt des
-          nouvelles à propos de NIS&nbsp;2
+          Nous avons pris en compte votre demande. Vous recevrez bientôt des
+          nouvelles à propos de NIS&nbsp;2.
         </p>
       )}
       {!emailEnregistre && (
