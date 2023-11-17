@@ -29,6 +29,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
+    "react-hook-form": "^7.48.2",
     "react-markdown": "^9.0.0",
     "react-router-dom": "^6.15.0",
     "ts-pattern": "^5.0.5",

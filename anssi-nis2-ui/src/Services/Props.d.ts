@@ -30,3 +30,9 @@ export type MatomoProps = DefaultProps & {
 export type PageEditoProps = {
   titre: string;
 } & DefaultProps;
+export type RestezInformesProps = DefaultProps & {
+  mode?: "complet" | "simple";
+};
+export type FormulaireRestezInformesProps = RestezInformesProps & {
+  setEmailEnregistre: React.Dispatch<boolean>;
+};

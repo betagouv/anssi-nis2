@@ -19,7 +19,7 @@ export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
   return (
     <>
       <LigneResultat contenuResultat={contenuResultat} />
-      <LigneResterInformer />
+      <LigneResterInformer mode={contenuResultat.modeFormulaireEmail} />
       {contenuResultat.afficheBlocs.etMaintenant && <LigneEtMaintenant />}
       {contenuResultat.afficheBlocs.enSavoirPlus && <EnSavoirPlus />}
       <LigneBienDebuter contenuResultat={contenuResultat} />

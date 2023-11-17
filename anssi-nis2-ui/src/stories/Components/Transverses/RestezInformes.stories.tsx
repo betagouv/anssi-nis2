@@ -9,6 +9,11 @@ import { userEvent, within } from "@storybook/testing-library";
 import { CanvasObject } from "../../utilitaires/Canvas.d.tsx";
 import { InformationsEmail } from "../../../Domaine/Contact/InformationsEmail.definitions.ts";
 
+const consentementNis2 =
+  "J’accepte de recevoir des informations concernant la directive NIS 2";
+const consentementServicesAnssi =
+  "Je souhaite m’enregistrer auprès de l’ANSSI afin de bénéficier des futurs services dédiés aux organisations concernées";
+
 const enregistreEmailContexte: Contexte = {
   ...defaultContext,
   enregistreInformationsEmail: mockEnregistreInformationsEmail,
@@ -21,6 +26,12 @@ const meta: Meta<typeof RestezInformes> = {
   parameters: {
     actions: {
       handles: ["enregistreInformationsEmail"],
+    },
+  },
+  argTypes: {
+    mode: {
+      options: ["simple", "complet"],
+      control: { type: "radio" },
     },
   },
 };
@@ -40,7 +51,15 @@ const remplieChamp = async (
   await userEvent.keyboard(contenu);
 };
 
-export const RestezInformesRemplieEtEnvoieInfo: Story = {
+const cliqueValidationForm = async (canvas: CanvasObject) =>
+  userEvent.click(
+    await canvas.findByRole("button", {
+      name: "S'inscrire",
+    }),
+  );
+
+export const RestezInformesCompletRemplieEtEnvoieInfo: Story = {
+  args: { mode: "complet" },
   play: async ({ canvasElement }) => {
     mockEnregistreInformationsEmail.mockClear();
     const informationsEmail: InformationsEmail = {
@@ -56,23 +75,63 @@ export const RestezInformesRemplieEtEnvoieInfo: Story = {
       informationsEmail.nomOrganisation ?? "",
     );
     await remplieChamp(canvas, "Adresse électronique", informationsEmail.email);
-    userEvent.click(
-      await canvas.findByLabelText(
-        "J’accepte de recevoir des informations concernant la directive NIS2",
-      ),
-    );
-    userEvent.click(
-      await canvas.findByLabelText(
-        "Je souhaite m’enregistrer auprès de l’ANSSI afin de bénéficier des futurs services dédiés aux organisations concernées",
-      ),
-    );
-    userEvent.click(
-      await canvas.findByRole("button", {
-        name: "S'inscrire",
-      }),
-    );
+    userEvent.click(await canvas.findByLabelText(consentementNis2));
+    userEvent.click(await canvas.findByLabelText(consentementServicesAnssi));
+    await cliqueValidationForm(canvas);
     await canvas.findByText(
-      "Nous avons pris en compte votre demande, vous recevrez bientôt des nouvelles à propos de NIS 2",
+      "Nous avons pris en compte votre demande. Vous recevrez bientôt des nouvelles à propos de NIS 2.",
+    );
+    await expect(mockEnregistreInformationsEmail).toHaveBeenCalledTimes(1);
+    await expect(mockEnregistreInformationsEmail).toHaveBeenCalledWith(
+      informationsEmail,
+    );
+  },
+};
+
+export const RestezInformesSimpleRemplieEtEnvoieInfo: Story = {
+  args: { mode: "simple" },
+  play: async ({ canvasElement }) => {
+    mockEnregistreInformationsEmail.mockClear();
+    const informationsEmail: InformationsEmail = {
+      accepteInfolettreNis2: true,
+      email: "rssi@toto.com",
+    };
+    const canvas = within(canvasElement);
+    expect(
+      canvas.queryByText("Nom de votre organisation"),
+    ).not.toBeInTheDocument();
+    expect(
+      canvas.queryByText(consentementServicesAnssi),
+    ).not.toBeInTheDocument();
+    await remplieChamp(canvas, "Adresse électronique", informationsEmail.email);
+    userEvent.click(await canvas.findByLabelText(consentementNis2));
+    await cliqueValidationForm(canvas);
+    await canvas.findByText(
+      "Nous avons pris en compte votre demande. Vous recevrez bientôt des nouvelles à propos de NIS 2.",
+    );
+    await expect(mockEnregistreInformationsEmail).toHaveBeenCalledTimes(1);
+    await expect(mockEnregistreInformationsEmail).toHaveBeenCalledWith(
+      informationsEmail,
+    );
+  },
+};
+
+export const ValidationDesChamps: Story = {
+  play: async ({ canvasElement }) => {
+    mockEnregistreInformationsEmail.mockClear();
+    const canvas = within(canvasElement);
+    const informationsEmail: InformationsEmail = {
+      accepteInfolettreNis2: false,
+      email: "toto@coco.com",
+    };
+    await cliqueValidationForm(canvas);
+    await canvas.findByText("L'adresse électronique doit être renseignée");
+    await remplieChamp(canvas, "Adresse électronique", "toto");
+    await canvas.findByText("L'adresse électronique doit être valide");
+    await remplieChamp(canvas, "Adresse électronique", "@coco.com");
+    await cliqueValidationForm(canvas);
+    await canvas.findByText(
+      "Nous avons pris en compte votre demande. Vous recevrez bientôt des nouvelles à propos de NIS 2.",
     );
     await expect(mockEnregistreInformationsEmail).toHaveBeenCalledTimes(1);
     await expect(mockEnregistreInformationsEmail).toHaveBeenCalledWith(

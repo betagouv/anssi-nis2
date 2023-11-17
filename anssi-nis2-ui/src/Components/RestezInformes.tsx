@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { FormRestezInformes } from "./FormRestezInformes.tsx";
+import {
+  DefaultComponentExtensible,
+  RestezInformesProps,
+} from "../Services/Props";
 
-const RestezInformes = () => {
+const RestezInformes: DefaultComponentExtensible<RestezInformesProps> = ({
+  mode = "simple",
+}: RestezInformesProps) => {
   const [emailEnregistre, setEmailEnregistre] = useState(false);
 
   return (
@@ -17,12 +23,15 @@ const RestezInformes = () => {
       </p>
       {emailEnregistre && (
         <p>
-          Nous avons pris en compte votre demande, vous recevrez bientôt des
-          nouvelles à propos de NIS&nbsp;2
+          Nous avons pris en compte votre demande. Vous recevrez bientôt des
+          nouvelles à propos de NIS&nbsp;2.
         </p>
       )}
       {!emailEnregistre && (
-        <FormRestezInformes setEmailEnregistre={setEmailEnregistre} />
+        <FormRestezInformes
+          setEmailEnregistre={setEmailEnregistre}
+          mode={mode}
+        />
       )}
     </div>
   );
