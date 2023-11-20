@@ -35,12 +35,13 @@ export const fabriqueConstructeurOptionActivite: (
 const fabriqueChangeMulti: (
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>,
 ) => React.ChangeEventHandler<HTMLInputElement> =
-  (propageActionSimulateur) => (evt) =>
-    propageActionSimulateur({
+  (propageActionSimulateur) => (evt) => {
+    return propageActionSimulateur({
       type: "checkMulti",
       name: evt.target.name as NomsChampsSimulateur,
       newValue: evt.target.value as ValeurChampSimulateur,
     });
+  };
 
 function fabriqueOptions(
   secteurOuSousSecteur: ValeurCleSectorielle,

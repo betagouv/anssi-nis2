@@ -2,7 +2,7 @@ import {
   DefaultComponentExtensible,
   DefaultProps,
 } from "../../../Services/Props";
-import { useId, useReducer } from "react";
+import React, { useId, useReducer } from "react";
 import { changeInfobulleOuverte } from "../../../Services/Simulateur/Reducteurs.ts";
 import { IconeInfobulle } from "../../Icones/IconeInfobulle.tsx";
 import { Infobulle } from "../Infobulle.tsx";
@@ -40,16 +40,17 @@ export const ActiviteACocher: DefaultComponentExtensible<Propiprops> = ({
           name="activites"
         />
         <label className="fr-label" htmlFor={getInputId(indice)}>
-          {label}{" "}
-          {!!contenuInfobulle?.length && (
-            <IconeInfobulle
-              onClick={() => {
-                propageInfobulleAffichee(idInfobulle);
-              }}
-              label={label}
-            />
-          )}
+          {label}
         </label>
+        {!!contenuInfobulle?.length && (
+          <IconeInfobulle
+            onClick={(e: React.MouseEvent<HTMLElement>) => {
+              e.stopPropagation();
+              propageInfobulleAffichee(idInfobulle);
+            }}
+            label={label}
+          />
+        )}
       </div>
       {!!contenuInfobulle?.length && (
         <>
