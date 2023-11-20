@@ -206,6 +206,15 @@ input[type="radio"]
   content: "";
 }
 
+.fr-nis2-icone-16px {
+  padding-left: 0.5rem;
+  float: right;
+}
+
+.fr-nis2-icone-16px::before {
+  --icon-size: 1.125rem;
+}
+
 legend.fr-text--regular,
 .fr-text--medium {
   font-weight: 500 !important;

@@ -33,15 +33,6 @@ export const ActiviteACocher: DefaultComponentExtensible<Propiprops> = ({
   return (
     <>
       <div className={fr.cx(`fr-${type}-group`)}>
-        <input
-          type={type}
-          id={getInputId(indice)}
-          {...nativeInputProps}
-          name="activites"
-        />
-        <label className="fr-label" htmlFor={getInputId(indice)}>
-          {label}
-        </label>
         {!!contenuInfobulle?.length && (
           <IconeInfobulle
             onClick={(e: React.MouseEvent<HTMLElement>) => {
@@ -51,6 +42,15 @@ export const ActiviteACocher: DefaultComponentExtensible<Propiprops> = ({
             label={label}
           />
         )}
+        <input
+          type={type}
+          id={getInputId(indice)}
+          {...nativeInputProps}
+          name="activites"
+        />
+        <label className="fr-label" htmlFor={getInputId(indice)}>
+          {label}
+        </label>
       </div>
       {!!contenuInfobulle?.length && (
         <>
