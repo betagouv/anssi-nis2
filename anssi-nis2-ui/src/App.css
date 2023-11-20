@@ -215,6 +215,34 @@ input[type="radio"]
   --icon-size: 1.125rem;
 }
 
+.fr-nis2-infobulle {
+  & p {
+    margin-top: .25rem;
+    font-size: .75rem;
+    line-height: 1.25rem;
+  }
+
+  & h6 {
+    margin-top: 1rem;
+    font-size: .875rem;
+    line-height: 1.25rem;
+  }
+
+  & .fr-btn--close {
+    position: absolute;
+    top: 0;
+    right: 2rem;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    min-height: 2rem;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 4rem;
+    max-height: 4rem;
+  }
+}
+
+
 legend.fr-text--regular,
 .fr-text--medium {
   font-weight: 500 !important;

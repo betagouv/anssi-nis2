@@ -60,11 +60,9 @@ export const ActiviteACocher: DefaultComponentExtensible<Propiprops> = ({
             contenu={contenuInfobulle.map(({ titre, description }) => (
               <>
                 <h6>{titre}</h6>
-                <p className="fr-text--sm">
-                  <Markdown allowedElements={elementMarkdownSimples}>
-                    {description}
-                  </Markdown>
-                </p>
+                <Markdown allowedElements={elementMarkdownSimples}>
+                  {description}
+                </Markdown>
               </>
             ))}
             action={() => {
