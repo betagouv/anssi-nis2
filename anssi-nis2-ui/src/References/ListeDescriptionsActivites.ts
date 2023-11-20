@@ -126,7 +126,7 @@ export const listeDescriptionsActivites: Record<
     {
       titre: "Liste des aéroports du réseau central",
       description:
-        "https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32013R1315",
+        "[https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32013R1315]()",
     },
   ],
   entiteGestionnairePorts: [
@@ -288,7 +288,7 @@ export const listeDescriptionsActivites: Record<
       titre:
         "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
       description:
-        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+        "[https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137]()",
     },
   ],
   fabriquantEquipementIrradiationMedicaleElectromedicauxElectrotherapeutiques: [
@@ -296,7 +296,7 @@ export const listeDescriptionsActivites: Record<
       titre:
         "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
       description:
-        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+        "[https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137]()",
     },
   ],
   fabriquantEquipementsAutomobiles: [],
@@ -306,7 +306,7 @@ export const listeDescriptionsActivites: Record<
       titre:
         "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
       description:
-        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+        "[https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137](",
     },
   ],
   fabriquantMachineEquipementNCA: [],
@@ -318,7 +318,7 @@ export const listeDescriptionsActivites: Record<
       titre:
         "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
       description:
-        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+        "[https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137]()",
     },
   ],
   fabriquantMoteursGeneratriceTransformation: [],
@@ -327,7 +327,7 @@ export const listeDescriptionsActivites: Record<
       titre:
         "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
       description:
-        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+        "[https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137]()",
     },
   ],
   fabriquantPilesAccumulateursElectriques: [],
@@ -357,7 +357,7 @@ export const listeDescriptionsActivites: Record<
       titre:
         "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
       description:
-        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+        "[https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137]()",
     },
   ],
   fabriquantProduitsInformatiquesElectroniquesOptiques: [
@@ -365,7 +365,7 @@ export const listeDescriptionsActivites: Record<
       titre:
         "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
       description:
-        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+        "[https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137]()",
     },
   ],
   fournisseurPointEchangeInternet: [
@@ -646,7 +646,7 @@ export const listeDescriptionsActivites: Record<
       titre:
         "Sociétés de transport par voie d’eau intérieure, maritime et côtier de passagers et de fret",
       description:
-        "https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32004R0725",
+        "[https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32004R0725]()",
     },
   ],
   transporteursAeriensCommercial: [
