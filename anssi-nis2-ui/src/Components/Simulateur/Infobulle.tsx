@@ -1,19 +1,5 @@
-import { fr } from "@codegouvfr/react-dsfr";
 import { ReactNode } from "react";
-import styled from "@emotion/styled";
 
-const BoutonFerme = styled.button`
-  position: absolute;
-  top: 0;
-  right: 2rem;
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  min-height: 2rem;
-  overflow: hidden;
-  white-space: nowrap;
-  max-width: 4rem;
-  max-height: 4rem;
-`;
 export const Infobulle = ({
   id,
   cachee,
@@ -25,10 +11,11 @@ export const Infobulle = ({
   contenu: ReactNode;
   action: () => void;
 }) => {
+  const estAffichee = cachee ? " fr-hidden" : "";
   return (
-    <div className={fr.cx("fr-callout", cachee && "fr-hidden")} id={id}>
+    <div className={"fr-callout fr-nis2-infobulle" + estAffichee} id={id}>
       {contenu}
-      <BoutonFerme
+      <button
         className="fr-btn--close fr-btn"
         title="Masquer le message"
         onClick={action}

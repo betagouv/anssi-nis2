@@ -8,6 +8,7 @@ import {
 } from "../../utilitaires/parametresFormulaire.ts";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { libellesSecteursActivite } from "../../../References/LibellesSecteursActivite.ts";
+import { CanvasObject } from "../../utilitaires/Canvas.d.tsx";
 
 class ParametresDonneesActivites extends ParametresDonneesSpecifiqueField<string> {
   protected construitDonnees<ValeursActivites>(
@@ -58,7 +59,7 @@ export const AffichageActivitesEtLibellesParSecteurs: Story = {
     }),
   },
   play: async ({ canvasElement, step }) => {
-    const canvas = within(canvasElement);
+    const canvas: CanvasObject = within(canvasElement);
     step("Les titres des secteurs simples sont affichés", async () => {
       expect(
         await canvas.findByText(libellesSecteursActivite["espace"]),
@@ -108,10 +109,10 @@ export const ActiviteStandard: Story = {
 };
 
 export const AffichageInfobulles: Story = {
-  play: async ({ canvasElement, step }) => {
+  play: async ({ canvasElement, step, args }) => {
     const canvas = within(canvasElement);
+    const { propageActionSimulateur } = args;
     const elementInfobulle = `Entreprise d’électricité remplissant une fonction de fourniture`;
-    // const titreAffiche = "Entreprise d’électricité";
     const contenuAffiche = "Entreprise d’électricité";
     await step(
       `Clique sur '${elementInfobulle}' affiche une infobulle`,
@@ -127,12 +128,17 @@ export const AffichageInfobulles: Story = {
         expect(divInfobulle).toContain("fr-hidden");
         await userEvent.click(iconeInformation);
         expect(divInfobulle).not.toContain("fr-hidden");
+        expect(propageActionSimulateur).not.toHaveBeenCalled();
         await userEvent.click(iconeInformation);
         expect(divInfobulle).toContain("fr-hidden");
+        expect(propageActionSimulateur).not.toHaveBeenCalled();
         await userEvent.click(iconeInformation);
-        const truc = within(parentElement);
-        await userEvent.click(truc.getByTitle("Masquer le message"));
+        expect(propageActionSimulateur).not.toHaveBeenCalled();
+        await userEvent.click(
+          within(parentElement).getByTitle("Masquer le message"),
+        );
         expect(divInfobulle).toContain("fr-hidden");
+        expect(propageActionSimulateur).not.toHaveBeenCalled();
       },
     );
   },

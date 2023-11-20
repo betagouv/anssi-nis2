@@ -126,7 +126,7 @@ export const listeDescriptionsActivites: Record<
     {
       titre: "Liste des aéroports du réseau central",
       description:
-        "https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32013R1315",
+        "[https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32013R1315]()",
     },
   ],
   entiteGestionnairePorts: [
@@ -253,16 +253,16 @@ export const listeDescriptionsActivites: Record<
         "par le fabricant à être utilisé in vitro dans l'examen d'échantillons provenant du corps humain, y compris les dons de sang " +
         "et de tissus, uniquement ou principalement dans le but de fournir des informations sur un ou plusieurs des éléments suivants :" +
         "\n" +
-        "\n— diagnostic, prévention, contrôle, prédiction, pronostic, traitement ou atténuation d'une maladie, " +
-        "\n— diagnostic, contrôle, traitement, atténuation d'une blessure ou d'un handicap ou compensation de ceux-ci, " +
-        "\n— investigation, remplacement ou modification d'une structure ou fonction anatomique ou d'un processus ou état physiologique ou pathologique, " +
-        "\n— communication d'informations au moyen d'un examen in vitro d'échantillons provenant du corps humain, y compris les dons d'organes, de sang et de tissus, " +
+        "\n- diagnostic, prévention, contrôle, prédiction, pronostic, traitement ou atténuation d'une maladie, " +
+        "\n- diagnostic, contrôle, traitement, atténuation d'une blessure ou d'un handicap ou compensation de ceux-ci, " +
+        "\n- investigation, remplacement ou modification d'une structure ou fonction anatomique ou d'un processus ou état physiologique ou pathologique, " +
+        "\n- communication d'informations au moyen d'un examen in vitro d'échantillons provenant du corps humain, y compris les dons d'organes, de sang et de tissus, " +
         "\n" +
         "\net dont l'action principale voulue dans ou sur le corps humain n'est pas obtenue par des moyens pharmacologiques ou immunologiques ni par métabolisme, mais dont la fonction peut être assistée par de tels moyens. " +
         "\n" +
         "\nLes produits ci-après sont également réputés être des dispositifs médicaux : " +
-        "\n— les dispositifs destinés à la maîtrise de la conception ou à l'assistance à celle-ci, " +
-        "\n— Les produits spécifiquement destinés au nettoyage, à la désinfection ou à la stérilisation des dispositifs visés à l'article 1er, paragraphe 4, et de ceux visés au premier alinéa du présent point. ",
+        "\n- les dispositifs destinés à la maîtrise de la conception ou à l'assistance à celle-ci, " +
+        "\n- Les produits spécifiquement destinés au nettoyage, à la désinfection ou à la stérilisation des dispositifs visés à l'article 1er, paragraphe 4, et de ceux visés au premier alinéa du présent point. ",
     },
     {
       titre: "Dispositif médical de diagnostic in vitro",
@@ -271,63 +271,63 @@ export const listeDescriptionsActivites: Record<
         "une trousse, un instrument, un appareil, un équipement, un logiciel ou un système, utilisé seul ou en association, destiné " +
         "par le fabricant à être utilisé in vitro dans l'examen d'échantillons provenant du corps humain, y compris les dons de sang " +
         "et de tissus, uniquement ou principalement dans le but de fournir des informations sur un ou plusieurs des éléments suivants :" +
-        "\n" +
-        "\na) concernant un processus ou état physiologique ou pathologique ; " +
-        "\nb) concernant des déficiences congénitales physiques ou mentales ; " +
-        "\nc) concernant la prédisposition à une affection ou à une maladie ; " +
-        "\nd) permettant de déterminer si un traitement donné est sûr pour des receveurs potentiels et compatible avec eux ; " +
-        "\ne) permettant de prévoir la réponse ou les réactions à un traitement ; " +
-        "\nf) permettant de définir ou de contrôler des mesures thérapeutiques. " +
-        "\n" +
-        "\nLes récipients pour échantillons sont également réputés être des dispositifs médicaux de diagnostic in vitro.",
+        "\\\n\\\n" +
+        "a) concernant un processus ou état physiologique ou pathologique ; " +
+        "\n\nb) concernant des déficiences congénitales physiques ou mentales ; " +
+        "\n\nc) concernant la prédisposition à une affection ou à une maladie ; " +
+        "\n\nd) permettant de déterminer si un traitement donné est sûr pour des receveurs potentiels et compatible avec eux ; " +
+        "\n\ne) permettant de prévoir la réponse ou les réactions à un traitement ; " +
+        "\n\nf) permettant de définir ou de contrôler des mesures thérapeutiques. " +
+        "\\\n\\\n" +
+        "Les récipients pour échantillons sont également réputés être des dispositifs médicaux de diagnostic in vitro.",
     },
   ],
   fabriquantDispositifsMedicauxCritiques: [],
-  fabriquantEquipementCommunication: [ 
+  fabriquantEquipementCommunication: [
     {
       titre:
         "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
       description:
-        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+        "[https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137]()",
     },
   ],
-  fabriquantEquipementIrradiationMedicaleElectromedicauxElectrotherapeutiques: [ 
+  fabriquantEquipementIrradiationMedicaleElectromedicauxElectrotherapeutiques: [
     {
       titre:
         "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
       description:
-        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+        "[https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137]()",
     },
   ],
   fabriquantEquipementsAutomobiles: [],
   fabriquantFilsCablesMaterielInstallationElectrique: [],
-  fabriquantInstrumentsMesureEssaiNavigationHorlogerie: [ 
+  fabriquantInstrumentsMesureEssaiNavigationHorlogerie: [
     {
       titre:
         "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
       description:
-        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+        "[https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137](",
     },
   ],
   fabriquantMachineEquipementNCA: [],
   fabriquantMachineUsageGeneral: [],
   fabriquantMachinesAgricolesForestieres: [],
   fabriquantMachinesFormageMetauxMachinesOutils: [],
-  fabriquantMaterielOptiquePhotographiquesSupportsMagnetiquesOptiques: [ 
+  fabriquantMaterielOptiquePhotographiquesSupportsMagnetiquesOptiques: [
     {
       titre:
         "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
       description:
-        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+        "[https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137]()",
     },
   ],
   fabriquantMoteursGeneratriceTransformation: [],
-  fabriquantOrdinateursEquipementsPeripheriques: [ 
+  fabriquantOrdinateursEquipementsPeripheriques: [
     {
       titre:
         "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
       description:
-        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+        "[https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137]()",
     },
   ],
   fabriquantPilesAccumulateursElectriques: [],
@@ -352,12 +352,12 @@ export const listeDescriptionsActivites: Record<
         "\n-  la préparation de produits d’herboristerie (broyage, triage, mouture) à usage pharmaceutique",
     },
   ],
-  fabriquantProduitsElectroniquesGrandPublic: [ 
+  fabriquantProduitsElectroniquesGrandPublic: [
     {
       titre:
         "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
       description:
-        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+        "[https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137]()",
     },
   ],
   fabriquantProduitsInformatiquesElectroniquesOptiques: [
@@ -365,7 +365,7 @@ export const listeDescriptionsActivites: Record<
       titre:
         "Nomenclature des activités économiques : NACE Rév. 2, section C, division 26",
       description:
-        "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137",
+        "[https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32023R0137]()",
     },
   ],
   fournisseurPointEchangeInternet: [
@@ -419,8 +419,8 @@ export const listeDescriptionsActivites: Record<
       titre: "Fournisseur de services DNS",
       description:
         "Une entité qui fournit :" +
-        "\na)  des services de résolution de noms de domaines récursifs accessibles au public destinés aux utilisateurs finaux de l’internet; ou" +
-        "\nb)  des services de résolution de noms de domaine faisant autorité pour une utilisation par des tiers, à l’exception des serveurs de noms de racines.",
+        "\n\na)  des services de résolution de noms de domaines récursifs accessibles au public destinés aux utilisateurs finaux de l’internet; ou" +
+        "\n\nb)  des services de résolution de noms de domaine faisant autorité pour une utilisation par des tiers, à l’exception des serveurs de noms de racines.",
     },
     {
       titre: "Système de noms de domaines, ou « DNS »",
@@ -468,11 +468,10 @@ export const listeDescriptionsActivites: Record<
     {
       titre: "Eaux destinées à la consommation humaine",
       description:
-        "\na) Toutes les eaux, soit en l’état, soit après traitement, destinées à la boisson, à la cuisson, à la préparation d’aliments, " +
+        "\n\na) Toutes les eaux, soit en l’état, soit après traitement, destinées à la boisson, à la cuisson, à la préparation d’aliments, " +
         "ou à d’autres usages domestiques dans des lieux publics comme dans des lieux privés, quelle que soit leur origine et qu’elles soient " +
         "fournies par un réseau de distribution, à partir d’un camion-citerne ou d’un bateau-citerne, ou en bouteilles ou en récipients, y compris les eaux de source ;" +
-        "\n" +
-        "\nb) Toutes les eaux utilisées dans les entreprises du secteur alimentaire pour la fabrication, la transformation, " +
+        "\n\nb) Toutes les eaux utilisées dans les entreprises du secteur alimentaire pour la fabrication, la transformation, " +
         "la conservation ou la commercialisation de produits ou de substances destinés à la consommation humaine.",
     },
   ],
@@ -572,9 +571,10 @@ export const listeDescriptionsActivites: Record<
       titre: "Service de confiance",
       description:
         "Un service électronique normalement fourni contre rémunération qui consiste :" +
-        "\na) en la création, en la vérification et en la validation de signatures électroniques, de cachets électroniques ou d’horodatages électroniques, de services d’envoi recommandé électronique et de certificats relatifs à ces services; ou" +
-        "\nb) en la création, en la vérification et en la validation de certificats pour l’authentification de site internet; ou" +
-        "\nc) en la conservation de signatures électroniques, de cachets électroniques ou des certificats relatifs à ces services.",
+        "\\\n\\\n" +
+        "\n\\\na) en la création, en la vérification et en la validation de signatures électroniques, de cachets électroniques ou d’horodatages électroniques, de services d’envoi recommandé électronique et de certificats relatifs à ces services; ou" +
+        "\n\nb) en la création, en la vérification et en la validation de certificats pour l’authentification de site internet; ou" +
+        "\n\nc) en la conservation de signatures électroniques, de cachets électroniques ou des certificats relatifs à ces services.",
     },
     {
       titre: "Prestataire de services de confiance",
@@ -646,7 +646,7 @@ export const listeDescriptionsActivites: Record<
       titre:
         "Sociétés de transport par voie d’eau intérieure, maritime et côtier de passagers et de fret",
       description:
-        "https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32004R0725",
+        "[https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32004R0725]()",
     },
   ],
   transporteursAeriensCommercial: [

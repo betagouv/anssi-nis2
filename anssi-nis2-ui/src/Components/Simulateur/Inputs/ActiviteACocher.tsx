@@ -2,7 +2,7 @@ import {
   DefaultComponentExtensible,
   DefaultProps,
 } from "../../../Services/Props";
-import { useId, useReducer } from "react";
+import React, { useId, useReducer } from "react";
 import { changeInfobulleOuverte } from "../../../Services/Simulateur/Reducteurs.ts";
 import { IconeInfobulle } from "../../Icones/IconeInfobulle.tsx";
 import { Infobulle } from "../Infobulle.tsx";
@@ -33,6 +33,15 @@ export const ActiviteACocher: DefaultComponentExtensible<Propiprops> = ({
   return (
     <>
       <div className={fr.cx(`fr-${type}-group`)}>
+        {!!contenuInfobulle?.length && (
+          <IconeInfobulle
+            onClick={(e: React.MouseEvent<HTMLElement>) => {
+              e.stopPropagation();
+              propageInfobulleAffichee(idInfobulle);
+            }}
+            label={label}
+          />
+        )}
         <input
           type={type}
           id={getInputId(indice)}
@@ -40,15 +49,7 @@ export const ActiviteACocher: DefaultComponentExtensible<Propiprops> = ({
           name="activites"
         />
         <label className="fr-label" htmlFor={getInputId(indice)}>
-          {label}{" "}
-          {!!contenuInfobulle?.length && (
-            <IconeInfobulle
-              onClick={() => {
-                propageInfobulleAffichee(idInfobulle);
-              }}
-              label={label}
-            />
-          )}
+          {label}
         </label>
       </div>
       {!!contenuInfobulle?.length && (
@@ -59,11 +60,9 @@ export const ActiviteACocher: DefaultComponentExtensible<Propiprops> = ({
             contenu={contenuInfobulle.map(({ titre, description }) => (
               <>
                 <h6>{titre}</h6>
-                <p className="fr-text--sm">
-                  <Markdown allowedElements={elementMarkdownSimples}>
-                    {description}
-                  </Markdown>
-                </p>
+                <Markdown allowedElements={elementMarkdownSimples}>
+                  {description}
+                </Markdown>
               </>
             ))}
             action={() => {
