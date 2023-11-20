@@ -6,4 +6,5 @@ export const elementMarkdownSimples = [
   "strong",
   "ol",
   "a",
+  "br",
 ];
