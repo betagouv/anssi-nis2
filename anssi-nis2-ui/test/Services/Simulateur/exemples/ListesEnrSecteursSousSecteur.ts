@@ -10,7 +10,10 @@ import {
   fabriqueListePartielleSecteursAvecSousSecteurs,
   fabriqueTupleSecteurSousSecteurs,
 } from "../../../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.operations";
-import { estSecteurListe } from "../../../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
+import {
+  estSecteurListe,
+  estSecteurParmi,
+} from "../../../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurListe } from "../../../../src/Domaine/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 
 export const listeEnrSecteursSansSousSecteur: EnrSecteurSousSecteur[] =
@@ -39,9 +42,19 @@ export const listeEnrSecteursAvecLeursSousSecteurs: EnrSecteurSousSecteur[] = [
   ...listeEnrSecteursSansSousSecteur,
   ...listeEnrSecteursEtSousSecteurs,
 ];
-export const filtreSecteurListeSecteursSousSecteurs = (secteurFiltre: string) =>
+export const filtreSecteurListeSecteursSousSecteurs = (
+  secteurFiltre: SecteurActivite,
+) =>
   listeEnrSecteursAvecLeursSousSecteurs.filter(
     (enrSecteurSousSecteur) => enrSecteurSousSecteur.secteur == secteurFiltre,
+  );
+
+export const filtreEnrSectorielHorsSecteurs = (
+  secteursFiltre: SecteurActivite[],
+) =>
+  listeEnrSecteursAvecLeursSousSecteurs.filter(
+    (enrSecteurSousSecteur) =>
+      !estSecteurParmi(enrSecteurSousSecteur.secteur)(secteursFiltre),
   );
 
 export const secteurEtSousSecteursSontListes = (enr: EnrSecteurSousSecteur) =>

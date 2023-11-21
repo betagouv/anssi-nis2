@@ -34,6 +34,14 @@ describe(estEligible, () => {
             )
             .renvoieToujours(Eligibilite.EligiblePetiteEntreprise);
         });
+        it("N'est pas éligible si le secteur d'activité n'est pas 'Infrastructure Numérique'", () => {
+          verifieQue(estEligible)
+            .quelqueSoit(
+              arbForm.nonDesigneOSE.privee.petit
+                .listeNonFournisseursInfrastructureNumerique,
+            )
+            .renvoieToujours(Eligibilite.NonEligible);
+        });
       });
 
       describe("Moyenne ou grande entité localisée en France ou en UE", () => {

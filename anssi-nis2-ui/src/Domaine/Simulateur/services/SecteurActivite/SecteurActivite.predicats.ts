@@ -35,6 +35,9 @@ export const contientSousSecteur = (
   sousSecteursParSecteur[secteur as SecteursAvecSousSecteurs].includes(
     sousSecteur,
   );
+export const auMoinsUnSecteurAvecDesSousSecteurs = (
+  secteurs: SecteurActivite[],
+) => secteurs.length > 0 && secteurs.some(estUnSecteurAvecDesSousSecteurs);
 export const auMoinsUnSecteurListe = (secteurs: SecteurActivite[]) =>
   secteurs.length > 0 && secteurs.some(estSecteurListe);
 export const aucunSecteurListe = (secteurs: SecteurActivite[]) =>
@@ -44,3 +47,12 @@ export const uniquementDesSecteursAutres = (secteurs: SecteurActivite[]) =>
 
 export const estUnSecteurSansSousSecteur = (secteur: string) =>
   !(ValeursSecteursAvecSousSecteurs as readonly string[]).includes(secteur);
+
+const predicatSecteurDansListe = (
+  secteursFiltre: SecteurActivite[],
+  secteurCherche: string,
+) => secteursFiltre.some((secteur) => secteur == secteurCherche);
+
+export const estSecteurParmi =
+  (secteurCherche: SecteurActivite) => (secteursFiltre: SecteurActivite[]) =>
+    predicatSecteurDansListe(secteursFiltre, secteurCherche);

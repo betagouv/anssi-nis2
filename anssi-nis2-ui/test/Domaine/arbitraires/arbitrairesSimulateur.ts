@@ -23,6 +23,7 @@ import {
 } from "../../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
 
 import {
+  filtreEnrSectorielHorsSecteurs,
   filtreSecteurListeSecteursSousSecteurs,
   listeAutresSecteursSousSecteurs,
   listeEnrSecteursAvecLeursSousSecteurs,
@@ -52,6 +53,13 @@ const arbSecteursSousSecteursListes = fabriqueArbEnrSecteurSousSecteurs(
 
 const arbSecteurSousSecteurInfraNum = fabriqueArbEnrSecteurSousSecteurs(
   filtreSecteurListeSecteursSousSecteurs("infrastructureNumerique"),
+  { minLength: 1 },
+);
+const arbSecteurSousSecteurNonInfraNum = fabriqueArbEnrSecteurSousSecteurs(
+  filtreEnrSectorielHorsSecteurs([
+    "infrastructureNumerique",
+    "autreSecteurActivite",
+  ]),
   { minLength: 1 },
 );
 
@@ -108,6 +116,19 @@ const arbActivitesAutres = etend<DonneesSectorielles>(
 
 const arbNonOSEPrivesPetitFournisseurInfraNum = etend<DonneesSectorielles>(
   arbSecteurSousSecteurInfraNum,
+)
+  .avec({
+    designeOperateurServicesEssentiels:
+      arbDesigneOperateurServicesEssentiels.non,
+    typeStructure: arbTypeStructure.privee,
+    trancheCA: arbTranche.petit,
+    trancheNombreEmployes: arbTranche.petit,
+    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+  })
+  .chain(ajouteAuMoinsUneActiviteListee);
+
+const arbNonOSEPrivesPetitHorsFournisseurInfraNum = etend<DonneesSectorielles>(
+  arbSecteurSousSecteurNonInfraNum,
 )
   .avec({
     designeOperateurServicesEssentiels:
@@ -234,6 +255,8 @@ export const arbForm = {
       petit: {
         fournisseursInfrastructureNumerique:
           arbNonOSEPrivesPetitFournisseurInfraNum,
+        listeNonFournisseursInfrastructureNumerique:
+          arbNonOSEPrivesPetitHorsFournisseurInfraNum,
       },
       grand: {
         secteursListes: arbNonOSEPrivesMoyenneGrande,
