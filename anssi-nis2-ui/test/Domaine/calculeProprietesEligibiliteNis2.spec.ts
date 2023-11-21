@@ -29,18 +29,28 @@ describe(estEligible, () => {
         it("Est éligible si le secteur d'activité est 'Infrastructure Numérique'", () => {
           verifieQue(estEligible)
             .quelqueSoit(
-              arbForm.nonDesigneOSE.privee.petit
-                .fournisseursInfrastructureNumerique,
+              arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+                .activitesConcernes,
             )
             .renvoieToujours(Eligibilite.EligiblePetiteEntreprise);
         });
-        it("N'est pas éligible si le secteur d'activité n'est pas 'Infrastructure Numérique'", () => {
-          verifieQue(estEligible)
-            .quelqueSoit(
-              arbForm.nonDesigneOSE.privee.petit
-                .listeNonFournisseursInfrastructureNumerique,
-            )
-            .renvoieToujours(Eligibilite.NonEligible);
+        describe("N'est pas éligible si", () => {
+          it("le secteur d'activité n'est pas 'Infrastructure Numérique'", () => {
+            verifieQue(estEligible)
+              .quelqueSoit(
+                arbForm.nonDesigneOSE.privee.petit
+                  .listeNonFournisseursInfrastructureNumerique,
+              )
+              .renvoieToujours(Eligibilite.NonEligible);
+          });
+          it("Le secteur d'activité est 'Infrastructure Numérique' mais les activités ne sont pas concernés", () => {
+            verifieQue(estEligible)
+              .quelqueSoit(
+                arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+                  .activitesNonConcernes,
+              )
+              .renvoieToujours(Eligibilite.NonEligible);
+          });
         });
       });
 

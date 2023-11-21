@@ -247,7 +247,7 @@ export const libellesActivites: Record<ValeursActivites, string> = {
   operateurReseauChaleurFroid:
     "Opérateurs de réseaux de chaleur ou de réseaux de froid",
   organismeRecherche: "Organismes de recherche",
-  prestataireServiceConfiance: "Prestataires de services de confiance",
+  prestataireServiceConfiance: "Prestataires de service de confiance",
   prestataireSoinsSante: "Prestataires de soins de santé",
   prestatairesServicesPostauxExpedition:
     "Prestataires de services postaux, y compris les prestataires de " +

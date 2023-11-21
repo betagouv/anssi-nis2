@@ -7,9 +7,13 @@ import {
   ResultatEligibilite,
 } from "../../Eligibilite.definitions.ts";
 import {
+  aucuneActiviteCommuneAvec,
   aucuneActiviteListee,
+  auMoinsUneActiviteCommuneAvec,
   auMoinsUneActiviteListee,
 } from "../Activite/Activite.predicats.ts";
+import { ValeursActivitesConcernesInfrastructureNumerique } from "../../Activite.valeurs.ts";
+import { ValeursActivites } from "../../Activite.definitions.ts";
 
 export const estEligible: (
   donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur,
@@ -43,7 +47,11 @@ export const estEligible: (
         trancheCA: ["petit"],
         trancheNombreEmployes: ["petit"],
         secteurActivite: ["infrastructureNumerique"],
-        activites: P.when(auMoinsUneActiviteListee),
+        activites: P.when(
+          auMoinsUneActiviteCommuneAvec(
+            ValeursActivitesConcernesInfrastructureNumerique as unknown as ValeursActivites[],
+          ),
+        ),
       },
       () => Eligibilite.EligiblePetiteEntreprise,
     )
@@ -53,8 +61,22 @@ export const estEligible: (
         typeStructure: ["privee"],
         trancheCA: ["petit"],
         trancheNombreEmployes: ["petit"],
+        secteurActivite: ["infrastructureNumerique"],
+        activites: P.when(
+          aucuneActiviteCommuneAvec(
+            ValeursActivitesConcernesInfrastructureNumerique as unknown as ValeursActivites[],
+          ),
+        ),
+      },
+      () => Eligibilite.NonEligible,
+    )
+    .with(
+      {
+        designeOperateurServicesEssentiels: ["non"],
+        typeStructure: ["privee"],
+        trancheCA: ["petit"],
+        trancheNombreEmployes: ["petit"],
         secteurActivite: P.not(["infrastructureNumerique"]),
-        activites: P.when(auMoinsUneActiviteListee),
       },
       () => Eligibilite.NonEligible,
     )

@@ -39,6 +39,7 @@ import { auMoinsUnSousSecteurListe } from "../../../src/Domaine/Simulateur/servi
 import { auMoinsUnSecteurListe } from "../../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { predicatDonneesFormulaire } from "../../../src/Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { ValeursNomChampsFormulaire } from "../../../src/Domaine/Simulateur/DonneesFormulaire.valeurs";
+import { ValeursActivitesConcernesInfrastructureNumerique } from "../../../src/Domaine/Simulateur/Activite.valeurs";
 
 export const arbitraireSecteursSousSecteurs = fabriqueArbEnrSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs,
@@ -126,6 +127,21 @@ const arbNonOSEPrivesPetitFournisseurInfraNum = etend<DonneesSectorielles>(
     etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
   })
   .chain(ajouteAuMoinsUneActiviteListee);
+
+const arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernes: fc.Arbitrary<IDonneesFormulaireSimulateur> =
+  arbNonOSEPrivesPetitFournisseurInfraNum.filter(
+    (d: IDonneesBrutesFormulaireSimulateur) =>
+      d.activites.some((a) =>
+        ValeursActivitesConcernesInfrastructureNumerique.includes(a),
+      ),
+  );
+const arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes: fc.Arbitrary<IDonneesFormulaireSimulateur> =
+  arbNonOSEPrivesPetitFournisseurInfraNum.filter(
+    (d: IDonneesBrutesFormulaireSimulateur) =>
+      !d.activites.some((a) =>
+        ValeursActivitesConcernesInfrastructureNumerique.includes(a),
+      ),
+  );
 
 const arbNonOSEPrivesPetitHorsFournisseurInfraNum = etend<DonneesSectorielles>(
   arbSecteurSousSecteurNonInfraNum,
@@ -255,6 +271,13 @@ export const arbForm = {
       petit: {
         fournisseursInfrastructureNumerique:
           arbNonOSEPrivesPetitFournisseurInfraNum,
+        fournisseursInfraNum: {
+          activitesConcernes:
+            arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernes,
+          activitesConcernesFrance: arbNonOSEPrivesPetitFournisseurInfraNum,
+          activitesNonConcernes:
+            arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes,
+        },
         listeNonFournisseursInfrastructureNumerique:
           arbNonOSEPrivesPetitHorsFournisseurInfraNum,
       },

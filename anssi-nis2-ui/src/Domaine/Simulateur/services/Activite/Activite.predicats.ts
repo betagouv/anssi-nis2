@@ -16,6 +16,15 @@ export const estActiviteListee = (activite: ValeursActivites) =>
   !activite.startsWith(prefixeAutreActivite);
 export const auMoinsUneActiviteListee = (activites: ValeursActivites[]) =>
   activites && activites.length && activites.some(estActiviteListee);
+
+export const auMoinsUneActiviteCommuneAvec =
+  (listeActivites1: ValeursActivites[]) =>
+  (listeActivites2: ValeursActivites[]) =>
+    listeActivites1.some((activite) => listeActivites2.includes(activite));
+export const aucuneActiviteCommuneAvec =
+  (listeActivites1: ValeursActivites[]) =>
+  (listeActivites2: ValeursActivites[]) =>
+    listeActivites1.every((activite) => !listeActivites2.includes(activite));
 export const auMoinsUneActiviteAutre = (activites: ValeursActivites[]) =>
   activites && activites.length && activites.some(estActiviteAutre);
 export const aucuneActiviteListee = (activites: ValeursActivites[]) =>
