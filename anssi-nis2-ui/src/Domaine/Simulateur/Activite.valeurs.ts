@@ -90,14 +90,11 @@ export const ValeursActivitesEauUsees = [
   "collectantEvacuantTraitantEaux",
   "autreActiviteEauPotable",
 ] as const;
-export const ValeursActivitesConcernesInfrastructureNumerique = [
+
+export const ValeursActivitesInfrastructureNumerique = [
   "fournisseurReseauxCommunicationElectroniquesPublics",
   "fournisseurServiceCommunicationElectroniquesPublics",
   "prestataireServiceConfiance",
-] as const;
-
-export const ValeursActivitesInfrastructureNumerique = [
-  ...ValeursActivitesConcernesInfrastructureNumerique,
   "fournisseurPointEchangeInternet",
   "fournisseurServicesDNS",
   "registresNomsDomainesPremierNiveau",

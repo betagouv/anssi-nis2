@@ -39,7 +39,8 @@ import { auMoinsUnSousSecteurListe } from "../../../src/Domaine/Simulateur/servi
 import { auMoinsUnSecteurListe } from "../../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { predicatDonneesFormulaire } from "../../../src/Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { ValeursNomChampsFormulaire } from "../../../src/Domaine/Simulateur/DonneesFormulaire.valeurs";
-import { ValeursActivitesConcernesInfrastructureNumerique } from "../../../src/Domaine/Simulateur/Activite.valeurs";
+
+import { ValeursActivitesConcernesInfrastructureNumerique } from "../../../src/Domaine/Simulateur/services/Eligibilite/Eligibilite.operations";
 
 export const arbitraireSecteursSousSecteurs = fabriqueArbEnrSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs,

@@ -6,7 +6,7 @@ import {
 } from "../../Domaine/Simulateur/services/EtatEtape/EtatEtape.operations.ts";
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.tsx";
 import { EnvoieDonneesFormulaire } from "./Operations/appelsApi";
-import { verifieCompletudeDonneesFormulaire } from "../../Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
+import { donneesFormulaireSontCompletes } from "../../Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
 
 export const fabriqueGestionSuivant =
   (
@@ -17,7 +17,7 @@ export const fabriqueGestionSuivant =
   ) =>
   (e: React.MouseEvent) => {
     e.preventDefault();
-    if (verifieCompletudeDonneesFormulaire(donneesSimulateur)) {
+    if (donneesFormulaireSontCompletes(donneesSimulateur)) {
       envoieDonneesFormulaire(donneesSimulateur).then(() =>
         setEtatEtape(fabriqueEtatEtapeSuivant(etatEtapes, donneesSimulateur)),
       );

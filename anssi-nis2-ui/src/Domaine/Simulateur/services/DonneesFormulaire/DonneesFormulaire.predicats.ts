@@ -94,9 +94,13 @@ export const verifieCompletudeDonneesFormulairePublique = (
 ) =>
   verifieDonneesCommunesPublique(donnees) &&
   verifieDonneesSectorielles(donnees);
-export const verifieCompletudeDonneesFormulaire = (
+export const donneesFormulaireSontCompletes = (
   donnees: IDonneesBrutesFormulaireSimulateur,
 ) =>
   verifieCompletudeDonneesCommunes(donnees) &&
   (verifieCompletudeDonneesFormulairePrivee(donnees) ||
     verifieCompletudeDonneesFormulairePublique(donnees));
+
+export const donneesFormulaireSontIncompletes = (
+  donnees: IDonneesBrutesFormulaireSimulateur,
+) => !donneesFormulaireSontCompletes(donnees);
