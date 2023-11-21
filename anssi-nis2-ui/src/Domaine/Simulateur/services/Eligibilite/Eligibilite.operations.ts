@@ -43,8 +43,6 @@ const calculeEligibilitePetiteStructurePrivee: OperationCalculeEligibilite = (
   match(donnees)
     .with(
       {
-        trancheCA: ["petit"],
-        trancheNombreEmployes: ["petit"],
         secteurActivite: ["infrastructureNumerique"],
         activites: P.when(
           auMoinsUneActiviteCommuneAvec(
@@ -56,8 +54,6 @@ const calculeEligibilitePetiteStructurePrivee: OperationCalculeEligibilite = (
     )
     .with(
       {
-        trancheCA: ["petit"],
-        trancheNombreEmployes: ["petit"],
         secteurActivite: ["infrastructureNumerique"],
         activites: P.when(
           aucuneActiviteCommuneAvec(
@@ -69,8 +65,6 @@ const calculeEligibilitePetiteStructurePrivee: OperationCalculeEligibilite = (
     )
     .with(
       {
-        trancheCA: ["petit"],
-        trancheNombreEmployes: ["petit"],
         secteurActivite: P.not(["infrastructureNumerique"]),
       },
       () => Eligibilite.NonEligible,

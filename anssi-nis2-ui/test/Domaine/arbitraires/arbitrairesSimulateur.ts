@@ -189,7 +189,7 @@ const arbNonOSEPublique = etend(arbSecteursEtSousSecteursListes)
   .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteArbitraire)
   .filter(predicatDonneesFormulaire.auMoins.une.activiteListee);
 
-const arbNonOSEPrivesMoyenneGrandeAutresSESS = etend(
+const arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles = etend(
   arbEnrAutresSecteursSousSecteurs,
 )
   .avec({
@@ -200,7 +200,7 @@ const arbNonOSEPrivesMoyenneGrandeAutresSESS = etend(
     etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
   })
   .chain(fabriqueArbContraintSurTrancheCA)
-  .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteListee);
+  .chain<IDonneesBrutesFormulaireSimulateur>(ajouteArbitraireActivites);
 
 const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
   arbSecteursSousSecteursListes,
@@ -284,7 +284,7 @@ export const arbForm = {
       },
       grand: {
         secteursListes: arbNonOSEPrivesMoyenneGrande,
-        secteursAutres: arbNonOSEPrivesMoyenneGrandeAutresSESS,
+        secteursAutres: arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles,
         activitesAutres: arbNonOSEPrivesMoyenneGrandeAutresActivites,
       },
     },
