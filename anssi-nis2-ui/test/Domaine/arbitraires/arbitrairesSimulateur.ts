@@ -287,6 +287,14 @@ export const arbForm = {
         secteursAutres: arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles,
         activitesAutres: arbNonOSEPrivesMoyenneGrandeAutresActivites,
       },
+      exceptions: {
+        etablissementPrincipalFrance: {
+          petitInfraNum: arbNonOSEPrivesPetitFournisseurInfraNum,
+          moyenGrandInfraNum: arbNonOSEPrivesPetitFournisseurInfraNum,
+          moyenGrandGestionTic: arbNonOSEPrivesPetitFournisseurInfraNum,
+          moyenGrandFournisseurNum: arbNonOSEPrivesPetitFournisseurInfraNum,
+        },
+      },
     },
     publique: arbNonOSEPublique,
   },
