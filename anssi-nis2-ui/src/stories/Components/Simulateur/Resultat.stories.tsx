@@ -16,7 +16,7 @@ const archetypeDonneesFormulaire = new DonneesFormulaireSimulateur({
   trancheNombreEmployes: ["petit"],
   secteurActivite: ["infrastructureNumerique"],
   sousSecteurActivite: [],
-  activites: ["fournisseurPointEchangeInternet"],
+  activites: ["fournisseurReseauxCommunicationElectroniquesPublics"],
 });
 
 const meta: Meta<typeof SimulateurEtapeResult> = {

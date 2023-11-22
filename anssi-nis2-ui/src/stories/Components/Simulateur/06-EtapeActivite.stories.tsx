@@ -2,28 +2,9 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { EtapeActivites } from "../../../Components/Simulateur/Etapes";
 import { userEvent, waitFor, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import {
-  CollectionParametresDonnees,
-  ParametresDonneesSpecifiqueField,
-} from "../../utilitaires/parametresFormulaire.ts";
 import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { libellesSecteursActivite } from "../../../References/LibellesSecteursActivite.ts";
 import { CanvasObject } from "../../utilitaires/Canvas.d.tsx";
-
-class ParametresDonneesActivites extends ParametresDonneesSpecifiqueField<string> {
-  protected construitDonnees<ValeursActivites>(
-    listeValeurs: ValeursActivites[],
-  ) {
-    return this.construitDonneesPourField("activites", listeValeurs);
-  }
-}
-
-class CollectionParametresDonneesActivites extends CollectionParametresDonnees<ParametresDonneesActivites> {}
-
-const donneesFormulaireOptions: CollectionParametresDonneesActivites =
-  new CollectionParametresDonneesActivites(
-    new ParametresDonneesActivites("France Uniquement", ["france"]),
-  );
 
 const meta: Meta<typeof EtapeActivites> = {
   title: "Composants/Simulateur/Etapes/6 - Activites",
@@ -36,7 +17,6 @@ const meta: Meta<typeof EtapeActivites> = {
   },
   argTypes: {
     propageActionSimulateur: { action: true },
-    donneesFormulaire: donneesFormulaireOptions.getFormData(),
   },
 };
 
@@ -70,7 +50,7 @@ export const AffichageActivitesEtLibellesParSecteurs: Story = {
       async () => {
         await waitFor(async () =>
           expect(
-            await canvas.findByText(
+            canvas.queryByText(
               libellesSecteursActivite["autreSecteurActivite"],
             ),
           ).not.toBeInTheDocument(),
@@ -109,37 +89,32 @@ export const ActiviteStandard: Story = {
 };
 
 export const AffichageInfobulles: Story = {
-  play: async ({ canvasElement, step, args }) => {
+  play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const { propageActionSimulateur } = args;
     const elementInfobulle = `Entreprise d’électricité remplissant une fonction de fourniture`;
     const contenuAffiche = "Entreprise d’électricité";
-    await step(
-      `Clique sur '${elementInfobulle}' affiche une infobulle`,
-      async () => {
-        const iconeInformation = await canvas.findByTitle(
-          `Informations à propos de l'activité "${elementInfobulle}"`,
-        );
-        const paragraphe = await canvas.getByText(contenuAffiche);
-        expect(paragraphe.parentElement).toBeDefined();
-        const parentElement = paragraphe.parentElement as HTMLElement;
-        const divInfobulle = parentElement.classList;
-
-        expect(divInfobulle).toContain("fr-hidden");
-        await userEvent.click(iconeInformation);
-        expect(divInfobulle).not.toContain("fr-hidden");
-        expect(propageActionSimulateur).not.toHaveBeenCalled();
-        await userEvent.click(iconeInformation);
-        expect(divInfobulle).toContain("fr-hidden");
-        expect(propageActionSimulateur).not.toHaveBeenCalled();
-        await userEvent.click(iconeInformation);
-        expect(propageActionSimulateur).not.toHaveBeenCalled();
-        await userEvent.click(
-          within(parentElement).getByTitle("Masquer le message"),
-        );
-        expect(divInfobulle).toContain("fr-hidden");
-        expect(propageActionSimulateur).not.toHaveBeenCalled();
-      },
+    const iconeInformation = await canvas.findByTitle(
+      `Informations à propos de l'activité "${elementInfobulle}"`,
     );
+    const paragraphe = await canvas.getByText(contenuAffiche);
+    expect(paragraphe.parentElement).toBeDefined();
+    const parentElement = paragraphe.parentElement as HTMLElement;
+    const divInfobulle = parentElement.classList;
+
+    expect(divInfobulle).toContain("fr-hidden");
+    await userEvent.click(iconeInformation);
+    expect(divInfobulle).not.toContain("fr-hidden");
+    expect(propageActionSimulateur).not.toHaveBeenCalled();
+    await userEvent.click(iconeInformation);
+    expect(divInfobulle).toContain("fr-hidden");
+    expect(propageActionSimulateur).not.toHaveBeenCalled();
+    await userEvent.click(iconeInformation);
+    expect(propageActionSimulateur).not.toHaveBeenCalled();
+    await userEvent.click(
+      within(parentElement).getByTitle("Masquer le message"),
+    );
+    expect(divInfobulle).toContain("fr-hidden");
+    expect(propageActionSimulateur).not.toHaveBeenCalled();
   },
 };
