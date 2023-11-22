@@ -11,7 +11,9 @@ import {
   ajouteAuMoinsUneActiviteListee,
   DonneesSectorielles,
   etend,
+  fabriqueArbContraintSurTrancheCA,
   fabriqueArbEnrSecteurSousSecteurs,
+  fabriqueArbTrancheSingleton,
 } from "../../utilitaires/manipulationArbitraires";
 import {
   filtreEnrSectorielHorsSecteurs,
@@ -62,6 +64,17 @@ export const arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernesFrance: fc
         ),
       ),
   );
+export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance: fc.Arbitrary<IDonneesFormulaireSimulateur> =
+  etend(arbNonOSEPrivesPetitFournisseurInfraNum)
+    .avec({ trancheCA: fabriqueArbTrancheSingleton() })
+    .chain(fabriqueArbContraintSurTrancheCA)
+    .filter((d: IDonneesBrutesFormulaireSimulateur) =>
+      d.activites.every((a) =>
+        ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement.includes(
+          a,
+        ),
+      ),
+    ) as fc.Arbitrary<IDonneesFormulaireSimulateur>;
 export const arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes: fc.Arbitrary<IDonneesFormulaireSimulateur> =
   arbNonOSEPrivesPetitFournisseurInfraNum.filter(
     (d: IDonneesBrutesFormulaireSimulateur) =>

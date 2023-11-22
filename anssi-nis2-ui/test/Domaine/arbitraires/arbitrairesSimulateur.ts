@@ -1,6 +1,7 @@
 import { arbOSEMoyenGrand, arbOSEPetit } from "./arbitrairesSimulateur.OSE";
 import { arbActivitesAutres } from "./arbitrairesSimulateur.activites";
 import {
+  arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance,
   arbNonOSEPrivesPetitFournisseurInfraNum,
   arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernes,
   arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernesFrance,
@@ -44,7 +45,8 @@ export const arbForm = {
         etablissementPrincipalFrance: {
           petitInfraNum:
             arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernesFrance,
-          moyenGrandInfraNum: arbNonOSEPrivesPetitFournisseurInfraNum,
+          moyenGrandInfraNum:
+            arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance,
           moyenGrandGestionTic: arbNonOSEPrivesPetitFournisseurInfraNum,
           moyenGrandFournisseurNum: arbNonOSEPrivesPetitFournisseurInfraNum,
         },

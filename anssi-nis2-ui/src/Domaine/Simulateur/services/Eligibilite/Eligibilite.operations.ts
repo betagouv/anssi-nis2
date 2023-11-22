@@ -88,6 +88,17 @@ const calculeEligibiliteMoyenneOuGrandeStructurePrivee: OperationCalculeEligibil
     match(donnees)
       .with(
         {
+          secteurActivite: ["infrastructureNumerique"],
+          activites: P.when(
+            auMoinsUneActiviteCommuneAvec(
+              ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
+            ),
+          ),
+        },
+        () => Eligibilite.Incertain,
+      )
+      .with(
+        {
           secteurActivite: P.when(auMoinsUnSecteurListe),
           activites: P.when(auMoinsUneActiviteListee),
         },
