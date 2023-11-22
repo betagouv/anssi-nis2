@@ -101,14 +101,14 @@ describe(calculeEligibilite, () => {
             )
             .renvoieToujours(Eligibilite.Incertain);
         });
-        //   it("Moyen grand Gestion TIC", () => {
-        //     verifieQue(calculeEligibilite)
-        //       .quelqueSoit(
-        //         arbForm.nonDesigneOSE.privee.exceptions
-        //           .etablissementPrincipalFrance.moyenGrandGestionTic,
-        //       )
-        //       .renvoieToujours(Eligibilite.Incertain);
-        //   });
+        it("Moyen grand Gestion TIC", () => {
+          verifieQue(calculeEligibilite)
+            .quelqueSoit(
+              arbForm.nonDesigneOSE.privee.exceptions
+                .etablissementPrincipalFrance.moyenGrandGestionTic,
+            )
+            .renvoieToujours(Eligibilite.Incertain);
+        });
         //   it("Moyen grand Fournisseur Numérique", () => {
         //     verifieQue(calculeEligibilite)
         //       .quelqueSoit(

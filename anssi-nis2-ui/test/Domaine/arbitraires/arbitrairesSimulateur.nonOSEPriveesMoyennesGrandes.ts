@@ -1,3 +1,4 @@
+import { fc } from "@fast-check/vitest";
 import {
   ajouteArbitraireActivites,
   ajouteAuMoinsUneActiviteAutre,
@@ -57,3 +58,21 @@ export const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
   .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteAutre)
   .filter(predicatDonneesFormulaire.uniquement.activiteAutre)
   .filter((d) => d.activites.length > 0);
+
+export const arbNonOSEPrivesMoyenGrandGestionTic: fc.Arbitrary<IDonneesBrutesFormulaireSimulateur> =
+  etend(
+    fc.record({
+      secteurActivite: fc.constant(["gestionServicesTic"]),
+      sousSecteurActivite: fc.constant([]),
+    }),
+  )
+    .avec({
+      designeOperateurServicesEssentiels:
+        arbDesigneOperateurServicesEssentiels.non,
+      typeStructure: arbTypeStructure.privee,
+      trancheCA: fabriqueArbTrancheSingleton(),
+      etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+    })
+    .chain(fabriqueArbContraintSurTrancheCA)
+    .chain<IDonneesBrutesFormulaireSimulateur>(ajouteArbitraireActivites)
+    .filter((d) => d.activites.length > 0);
