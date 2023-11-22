@@ -2,7 +2,8 @@ import { describe, it } from "vitest";
 import { calculeEligibilite } from "../../src/Domaine/Simulateur/services/Eligibilite/Eligibilite.operations";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
 import { verifieQue } from "../utilitaires/assure";
-import { Eligibilite } from "../../src/Domaine/Simulateur/Eligibilite.definitions";
+
+import { Eligibilite } from "../../src/Domaine/Simulateur/Eligibilite.constantes";
 
 describe(calculeEligibilite, () => {
   describe("Entité OSE pour NIS1", () => {
@@ -84,6 +85,26 @@ describe(calculeEligibilite, () => {
           .quelqueSoit(arbForm.nonDesigneOSE.publique)
           .renvoieToujours(Eligibilite.Incertain);
       });
+      it("Hors Union Européenne", () => {
+        verifieQue(calculeEligibilite)
+          .quelqueSoit(arbForm.nonDesigneOSE.horsUE)
+          .renvoieToujours(Eligibilite.Incertain);
+      });
+      it("Hors Union Européenne, grande entreprise", () => {
+        verifieQue(calculeEligibilite)
+          .pour({
+            designeOperateurServicesEssentiels: ["non"],
+            etatMembre: ["horsue"],
+            typeStructure: ["privee"],
+            typeEntitePublique: [],
+            trancheCA: ["grand"],
+            trancheNombreEmployes: ["grand"],
+            secteurActivite: ["eauxUsees"],
+            sousSecteurActivite: [],
+            activites: ["collectantEvacuantTraitantEaux"],
+          })
+          .renvoieToujours(Eligibilite.Incertain);
+      });
       describe("Exceptions 'Etablissement principal en France'", () => {
         it("Petite Infranum", () => {
           verifieQue(calculeEligibilite)
@@ -120,7 +141,13 @@ describe(calculeEligibilite, () => {
       });
     });
   });
+
   describe(Eligibilite.Incertain, () => {
+    it("lorsque le type structure n'est pas remplie", () => {
+      verifieQue(calculeEligibilite)
+        .quelqueSoit(arbForm.nonValide.donneeAbsente.typeStructure)
+        .renvoieToujours(Eligibilite.Incertain);
+    });
     it("lorsque le type structure n'est pas remplie", () => {
       verifieQue(calculeEligibilite)
         .quelqueSoit(arbForm.nonValide.donneeAbsente.typeStructure)

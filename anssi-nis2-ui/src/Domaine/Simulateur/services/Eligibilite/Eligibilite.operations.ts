@@ -1,32 +1,16 @@
 import { match, P } from "ts-pattern";
-import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire.ts";
 
 import { auMoinsUnSecteurListe } from "../SecteurActivite/SecteurActivite.predicats.ts";
 import {
-  Eligibilite,
-  ResultatEligibilite,
-} from "../../Eligibilite.definitions.ts";
-import {
-  aucuneActiviteCommuneAvec,
+  aucuneActiviteInfraNumConcernee,
   aucuneActiviteListee,
-  auMoinsUneActiviteCommuneAvec,
+  auMoinsUneActiviteInfraNumConcernee,
+  auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
   auMoinsUneActiviteListee,
 } from "../Activite/Activite.predicats.ts";
-import { ValeursActivites } from "../../Activite.definitions.ts";
 import { donneesFormulaireSontIncompletes } from "../DonneesFormulaire/DonneesFormulaire.predicats.ts";
-
-export const ValeursActivitesConcernesInfrastructureNumerique: ValeursActivites[] =
-  [
-    "fournisseurReseauxCommunicationElectroniquesPublics",
-    "fournisseurServiceCommunicationElectroniquesPublics",
-    "prestataireServiceConfiance",
-  ];
-export const ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement: ValeursActivites[] =
-  ["registresNomsDomainesPremierNiveau", "fournisseurServicesDNS"];
-
-type OperationCalculeEligibilite = (
-  donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur,
-) => ResultatEligibilite;
+import { OperationCalculeEligibilite } from "./Eligibilite.definition.ts";
+import { R } from "../../Eligibilite.constantes.ts";
 
 const calculeEligibiliteOperateurServiceEssentielNis1: OperationCalculeEligibilite =
   (donnees) =>
@@ -36,9 +20,9 @@ const calculeEligibiliteOperateurServiceEssentielNis1: OperationCalculeEligibili
           trancheCA: ["petit"],
           trancheNombreEmployes: ["petit"],
         },
-        () => Eligibilite.EligiblePetiteEntreprise,
+        R.EligiblePetiteEntreprise,
       )
-      .otherwise(() => Eligibilite.EligibleMoyenneGrandeEntreprise);
+      .otherwise(R.EligibleMoyenneGrandeEntreprise);
 const calculeEligibilitePetiteStructurePrivee: OperationCalculeEligibilite = (
   donnees,
 ) =>
@@ -46,43 +30,33 @@ const calculeEligibilitePetiteStructurePrivee: OperationCalculeEligibilite = (
     .with(
       {
         secteurActivite: ["infrastructureNumerique"],
-        activites: P.when(
-          auMoinsUneActiviteCommuneAvec(
-            ValeursActivitesConcernesInfrastructureNumerique,
-          ),
-        ),
+        activites: P.when(auMoinsUneActiviteInfraNumConcernee),
       },
-      () => Eligibilite.EligiblePetiteEntreprise,
+      R.EligiblePetiteEntreprise,
     )
     .with(
       {
         secteurActivite: ["infrastructureNumerique"],
         activites: P.when(
-          auMoinsUneActiviteCommuneAvec(
-            ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
-          ),
+          auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
         ),
       },
-      () => Eligibilite.Incertain,
+      R.Incertain,
     )
     .with(
       {
         secteurActivite: ["infrastructureNumerique"],
-        activites: P.when(
-          aucuneActiviteCommuneAvec(
-            ValeursActivitesConcernesInfrastructureNumerique,
-          ),
-        ),
+        activites: P.when(aucuneActiviteInfraNumConcernee),
       },
-      () => Eligibilite.NonEligible,
+      R.NonEligible,
     )
     .with(
       {
         secteurActivite: P.not(["infrastructureNumerique"]),
       },
-      () => Eligibilite.NonEligible,
+      R.NonEligible,
     )
-    .otherwise(() => Eligibilite.Incertain);
+    .otherwise(R.Incertain);
 const calculeEligibiliteMoyenneOuGrandeStructurePrivee: OperationCalculeEligibilite =
   (donnees) =>
     match(donnees)
@@ -90,12 +64,10 @@ const calculeEligibiliteMoyenneOuGrandeStructurePrivee: OperationCalculeEligibil
         {
           secteurActivite: ["infrastructureNumerique"],
           activites: P.when(
-            auMoinsUneActiviteCommuneAvec(
-              ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
-            ),
+            auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
           ),
         },
-        () => Eligibilite.Incertain,
+        R.Incertain,
       )
       .with(
         {
@@ -104,16 +76,16 @@ const calculeEligibiliteMoyenneOuGrandeStructurePrivee: OperationCalculeEligibil
           ),
           activites: P.when(auMoinsUneActiviteListee),
         },
-        () => Eligibilite.Incertain,
+        R.Incertain,
       )
       .with(
         {
           secteurActivite: P.when(auMoinsUnSecteurListe),
           activites: P.when(auMoinsUneActiviteListee),
         },
-        () => Eligibilite.EligibleMoyenneGrandeEntreprise,
+        R.EligibleMoyenneGrandeEntreprise,
       )
-      .otherwise(() => Eligibilite.Incertain);
+      .otherwise(R.Incertain);
 const calculeEligibiliteStructurePrivee: OperationCalculeEligibilite = (
   donnees,
 ) =>
@@ -122,8 +94,9 @@ const calculeEligibiliteStructurePrivee: OperationCalculeEligibilite = (
       {
         activites: P.when(aucuneActiviteListee),
       },
-      () => Eligibilite.NonEligible,
+      R.NonEligible,
     )
+    .with({ etatMembre: ["horsue"] }, R.Incertain)
     .with(
       {
         trancheCA: ["petit"],
@@ -142,13 +115,13 @@ const calculeEligibiliteStructurePrivee: OperationCalculeEligibilite = (
       ),
       calculeEligibiliteMoyenneOuGrandeStructurePrivee,
     )
-    .otherwise(() => Eligibilite.Incertain);
+    .otherwise(R.Incertain);
 export const calculeEligibilite: OperationCalculeEligibilite = (donnees) =>
   match(donnees)
-    .when(donneesFormulaireSontIncompletes, () => Eligibilite.Incertain)
+    .when(donneesFormulaireSontIncompletes, R.Incertain)
     .with(
       { designeOperateurServicesEssentiels: ["oui"] },
       calculeEligibiliteOperateurServiceEssentielNis1,
     )
     .with({ typeStructure: ["privee"] }, calculeEligibiliteStructurePrivee)
-    .otherwise(() => Eligibilite.Incertain);
+    .otherwise(R.Incertain);

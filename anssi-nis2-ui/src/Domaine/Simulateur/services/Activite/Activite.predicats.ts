@@ -2,6 +2,11 @@ import { ValeursActivites } from "../../Activite.definitions.ts";
 import { activitesParSecteurEtSousSecteur } from "./Activite.operations.ts";
 import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions.ts";
 
+import {
+  ValeursActivitesConcernesInfrastructureNumerique,
+  ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
+} from "../../Eligibilite.constantes.ts";
+
 export const activiteEstDansSecteur = (
   activite: ValeursActivites,
   secteurActivite: ValeurCleSectorielle,
@@ -29,3 +34,14 @@ export const auMoinsUneActiviteAutre = (activites: ValeursActivites[]) =>
   activites && activites.length && activites.some(estActiviteAutre);
 export const aucuneActiviteListee = (activites: ValeursActivites[]) =>
   activites.every(estActiviteAutre);
+export const auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement =
+  auMoinsUneActiviteCommuneAvec(
+    ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
+  );
+export const auMoinsUneActiviteInfraNumConcernee =
+  auMoinsUneActiviteCommuneAvec(
+    ValeursActivitesConcernesInfrastructureNumerique,
+  );
+export const aucuneActiviteInfraNumConcernee = aucuneActiviteCommuneAvec(
+  ValeursActivitesConcernesInfrastructureNumerique,
+);

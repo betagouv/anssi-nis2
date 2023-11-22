@@ -8,7 +8,10 @@ import {
   arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes,
   arbNonOSEPrivesPetitHorsFournisseurInfraNum,
 } from "./arbitrairesSimulateur.infrastructuresNumeriques";
-import { donneeAbsente } from "./arbitrairesSimulateur.toutesValeurs";
+import {
+  arbHorsUe,
+  donneeAbsente,
+} from "./arbitrairesSimulateur.toutesValeurs";
 import { arbNonOSEPublique } from "./arbitrairesSimulateur.nonOSEPublique";
 import {
   arbNonOSEPrivesMoyenGrandFournisseurNumerique,
@@ -56,6 +59,7 @@ export const arbForm = {
       },
     },
     publique: arbNonOSEPublique,
+    horsUE: arbHorsUe,
   },
   nonValide: {
     donneeAbsente: donneeAbsente,

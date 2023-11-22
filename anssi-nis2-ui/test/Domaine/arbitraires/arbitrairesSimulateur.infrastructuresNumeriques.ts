@@ -4,10 +4,6 @@ import {
   IDonneesFormulaireSimulateur,
 } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import {
-  ValeursActivitesConcernesInfrastructureNumerique,
-  ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
-} from "../../../src/Domaine/Simulateur/services/Eligibilite/Eligibilite.operations";
-import {
   ajouteAuMoinsUneActiviteListee,
   DonneesSectorielles,
   etend,
@@ -25,6 +21,10 @@ import {
   arbTranche,
   arbTypeStructure,
 } from "./arbitraireChampFormulaire";
+import {
+  ValeursActivitesConcernesInfrastructureNumerique,
+  ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
+} from "../../../src/Domaine/Simulateur/Eligibilite.constantes";
 
 const arbSecteurSousSecteurInfraNum = fabriqueArbEnrSecteurSousSecteurs(
   filtreSecteurListeSecteursSousSecteurs("infrastructureNumerique"),
