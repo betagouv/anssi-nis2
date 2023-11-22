@@ -58,6 +58,17 @@ const calculeEligibilitePetiteStructurePrivee: OperationCalculeEligibilite = (
       {
         secteurActivite: ["infrastructureNumerique"],
         activites: P.when(
+          auMoinsUneActiviteCommuneAvec(
+            ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
+          ),
+        ),
+      },
+      () => Eligibilite.Incertain,
+    )
+    .with(
+      {
+        secteurActivite: ["infrastructureNumerique"],
+        activites: P.when(
           aucuneActiviteCommuneAvec(
             ValeursActivitesConcernesInfrastructureNumerique,
           ),

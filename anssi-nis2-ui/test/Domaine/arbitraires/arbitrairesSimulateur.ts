@@ -29,8 +29,6 @@ export const arbForm = {
         fournisseursInfraNum: {
           activitesConcernes:
             arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernes,
-          activitesConcernesFrance:
-            arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernesFrance,
           activitesNonConcernes:
             arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes,
         },
@@ -44,7 +42,8 @@ export const arbForm = {
       },
       exceptions: {
         etablissementPrincipalFrance: {
-          petitInfraNum: arbNonOSEPrivesPetitFournisseurInfraNum,
+          petitInfraNum:
+            arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernesFrance,
           moyenGrandInfraNum: arbNonOSEPrivesPetitFournisseurInfraNum,
           moyenGrandGestionTic: arbNonOSEPrivesPetitFournisseurInfraNum,
           moyenGrandFournisseurNum: arbNonOSEPrivesPetitFournisseurInfraNum,

@@ -56,7 +56,7 @@ export const arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernes: fc.Arbit
 export const arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernesFrance: fc.Arbitrary<IDonneesFormulaireSimulateur> =
   arbNonOSEPrivesPetitFournisseurInfraNum.filter(
     (d: IDonneesBrutesFormulaireSimulateur) =>
-      d.activites.some((a) =>
+      d.activites.every((a) =>
         ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement.includes(
           a,
         ),
@@ -65,8 +65,12 @@ export const arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernesFrance: fc
 export const arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes: fc.Arbitrary<IDonneesFormulaireSimulateur> =
   arbNonOSEPrivesPetitFournisseurInfraNum.filter(
     (d: IDonneesBrutesFormulaireSimulateur) =>
-      !d.activites.some((a) =>
-        ValeursActivitesConcernesInfrastructureNumerique.includes(a),
+      d.activites.every(
+        (a) =>
+          !ValeursActivitesConcernesInfrastructureNumerique.includes(a) &&
+          !ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement.includes(
+            a,
+          ),
       ),
   );
 export const arbNonOSEPrivesPetitHorsFournisseurInfraNum =
