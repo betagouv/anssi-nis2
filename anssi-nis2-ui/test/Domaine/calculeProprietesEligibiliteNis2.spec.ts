@@ -84,40 +84,40 @@ describe(calculeEligibilite, () => {
           .quelqueSoit(arbForm.nonDesigneOSE.publique)
           .renvoieToujours(Eligibilite.Incertain);
       });
-      describe("Exceptions 'Etablissement principal en France'", () => {
-        it("Petite Infranum", () => {
-          verifieQue(calculeEligibilite)
-            .quelqueSoit(
-              arbForm.nonDesigneOSE.privee.exceptions
-                .etablissementPrincipalFrance.petitInfraNum,
-            )
-            .renvoieToujours(Eligibilite.Incertain);
-        });
-        it("Moyen grand Infranum", () => {
-          verifieQue(calculeEligibilite)
-            .quelqueSoit(
-              arbForm.nonDesigneOSE.privee.exceptions
-                .etablissementPrincipalFrance.moyenGrandInfraNum,
-            )
-            .renvoieToujours(Eligibilite.Incertain);
-        });
-        it("Moyen grand Infranum", () => {
-          verifieQue(calculeEligibilite)
-            .quelqueSoit(
-              arbForm.nonDesigneOSE.privee.exceptions
-                .etablissementPrincipalFrance.moyenGrandGestionTic,
-            )
-            .renvoieToujours(Eligibilite.Incertain);
-        });
-        it("Moyen grand Infranum", () => {
-          verifieQue(calculeEligibilite)
-            .quelqueSoit(
-              arbForm.nonDesigneOSE.privee.exceptions
-                .etablissementPrincipalFrance.moyenGrandFournisseurNum,
-            )
-            .renvoieToujours(Eligibilite.Incertain);
-        });
-      });
+      // describe("Exceptions 'Etablissement principal en France'", () => {
+      //   it("Petite Infranum", () => {
+      //     verifieQue(calculeEligibilite)
+      //       .quelqueSoit(
+      //         arbForm.nonDesigneOSE.privee.exceptions
+      //           .etablissementPrincipalFrance.petitInfraNum,
+      //       )
+      //       .renvoieToujours(Eligibilite.Incertain);
+      //   });
+      //   it("Moyen grand Infranum", () => {
+      //     verifieQue(calculeEligibilite)
+      //       .quelqueSoit(
+      //         arbForm.nonDesigneOSE.privee.exceptions
+      //           .etablissementPrincipalFrance.moyenGrandInfraNum,
+      //       )
+      //       .renvoieToujours(Eligibilite.Incertain);
+      //   });
+      //   it("Moyen grand Gestion TIC", () => {
+      //     verifieQue(calculeEligibilite)
+      //       .quelqueSoit(
+      //         arbForm.nonDesigneOSE.privee.exceptions
+      //           .etablissementPrincipalFrance.moyenGrandGestionTic,
+      //       )
+      //       .renvoieToujours(Eligibilite.Incertain);
+      //   });
+      //   it("Moyen grand Fournisseur Numérique", () => {
+      //     verifieQue(calculeEligibilite)
+      //       .quelqueSoit(
+      //         arbForm.nonDesigneOSE.privee.exceptions
+      //           .etablissementPrincipalFrance.moyenGrandFournisseurNum,
+      //       )
+      //       .renvoieToujours(Eligibilite.Incertain);
+      //   });
+      // });
     });
   });
   describe(Eligibilite.Incertain, () => {

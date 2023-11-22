@@ -21,6 +21,8 @@ export const ValeursActivitesConcernesInfrastructureNumerique: ValeursActivites[
     "fournisseurServiceCommunicationElectroniquesPublics",
     "prestataireServiceConfiance",
   ];
+export const ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement: ValeursActivites[] =
+  ["registresNomsDomainesPremierNiveau", "fournisseurServicesDNS"];
 
 type OperationCalculeEligibilite = (
   donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur,

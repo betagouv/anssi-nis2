@@ -1,0 +1,59 @@
+import {
+  ajouteArbitraireActivites,
+  ajouteAuMoinsUneActiviteAutre,
+  ajouteAuMoinsUneActiviteListee,
+  etend,
+  fabriqueArbContraintSurTrancheCA,
+  fabriqueArbTrancheSingleton,
+} from "../../utilitaires/manipulationArbitraires";
+import {
+  arbEnrAutresSecteursSousSecteurs,
+  arbSecteursEtSousSecteursListes,
+  arbSecteursSousSecteursListes,
+} from "./arbitrairesSimulateur.valeursSectorielles";
+import {
+  arbAppartenancePaysUnionEuropeenne,
+  arbDesigneOperateurServicesEssentiels,
+  arbTypeStructure,
+} from "./arbitraireChampFormulaire";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
+import { predicatDonneesFormulaire } from "../../../src/Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
+
+export const arbNonOSEPrivesMoyenneGrande = etend(
+  arbSecteursEtSousSecteursListes,
+)
+  .avec({
+    designeOperateurServicesEssentiels:
+      arbDesigneOperateurServicesEssentiels.non,
+    typeStructure: arbTypeStructure.privee,
+    trancheCA: fabriqueArbTrancheSingleton(),
+    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+  })
+  .chain(fabriqueArbContraintSurTrancheCA)
+  .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteListee);
+export const arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles = etend(
+  arbEnrAutresSecteursSousSecteurs,
+)
+  .avec({
+    designeOperateurServicesEssentiels:
+      arbDesigneOperateurServicesEssentiels.non,
+    typeStructure: arbTypeStructure.privee,
+    trancheCA: fabriqueArbTrancheSingleton(),
+    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+  })
+  .chain(fabriqueArbContraintSurTrancheCA)
+  .chain<IDonneesBrutesFormulaireSimulateur>(ajouteArbitraireActivites);
+export const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
+  arbSecteursSousSecteursListes,
+)
+  .avec({
+    designeOperateurServicesEssentiels:
+      arbDesigneOperateurServicesEssentiels.non,
+    typeStructure: arbTypeStructure.privee,
+    trancheCA: fabriqueArbTrancheSingleton(),
+    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+  })
+  .chain(fabriqueArbContraintSurTrancheCA)
+  .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteAutre)
+  .filter(predicatDonneesFormulaire.uniquement.activiteAutre)
+  .filter((d) => d.activites.length > 0);
