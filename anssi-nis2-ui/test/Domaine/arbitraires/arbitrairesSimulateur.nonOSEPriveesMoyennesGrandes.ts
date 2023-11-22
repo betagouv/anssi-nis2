@@ -19,9 +19,19 @@ import {
 } from "./arbitraireChampFormulaire";
 import { IDonneesBrutesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import { predicatDonneesFormulaire } from "../../../src/Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
+import { estSecteurParmi } from "../../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 
 export const arbNonOSEPrivesMoyenneGrande = etend(
-  arbSecteursEtSousSecteursListes,
+  arbSecteursEtSousSecteursListes.filter((d) =>
+    d.secteurActivite.every(
+      (s) =>
+        !estSecteurParmi(s)([
+          "gestionServicesTic",
+          "fournisseursNumeriques",
+          "infrastructureNumerique",
+        ]),
+    ),
+  ),
 )
   .avec({
     designeOperateurServicesEssentiels:
@@ -74,5 +84,23 @@ export const arbNonOSEPrivesMoyenGrandGestionTic: fc.Arbitrary<IDonneesBrutesFor
       etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
     })
     .chain(fabriqueArbContraintSurTrancheCA)
-    .chain<IDonneesBrutesFormulaireSimulateur>(ajouteArbitraireActivites)
+    .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteListee)
+    .filter((d) => d.activites.length > 0);
+
+export const arbNonOSEPrivesMoyenGrandFournisseurNumerique: fc.Arbitrary<IDonneesBrutesFormulaireSimulateur> =
+  etend(
+    fc.record({
+      secteurActivite: fc.constant(["fournisseursNumeriques"]),
+      sousSecteurActivite: fc.constant([]),
+    }),
+  )
+    .avec({
+      designeOperateurServicesEssentiels:
+        arbDesigneOperateurServicesEssentiels.non,
+      typeStructure: arbTypeStructure.privee,
+      trancheCA: fabriqueArbTrancheSingleton(),
+      etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+    })
+    .chain(fabriqueArbContraintSurTrancheCA)
+    .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteListee)
     .filter((d) => d.activites.length > 0);

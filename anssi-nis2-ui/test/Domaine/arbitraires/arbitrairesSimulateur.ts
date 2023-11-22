@@ -11,6 +11,7 @@ import {
 import { donneeAbsente } from "./arbitrairesSimulateur.toutesValeurs";
 import { arbNonOSEPublique } from "./arbitrairesSimulateur.nonOSEPublique";
 import {
+  arbNonOSEPrivesMoyenGrandFournisseurNumerique,
   arbNonOSEPrivesMoyenGrandGestionTic,
   arbNonOSEPrivesMoyenneGrande,
   arbNonOSEPrivesMoyenneGrandeAutresActivites,
@@ -49,7 +50,8 @@ export const arbForm = {
           moyenGrandInfraNum:
             arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance,
           moyenGrandGestionTic: arbNonOSEPrivesMoyenGrandGestionTic,
-          moyenGrandFournisseurNum: arbNonOSEPrivesPetitFournisseurInfraNum,
+          moyenGrandFournisseurNum:
+            arbNonOSEPrivesMoyenGrandFournisseurNumerique,
         },
       },
     },

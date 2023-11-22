@@ -99,6 +99,15 @@ const calculeEligibiliteMoyenneOuGrandeStructurePrivee: OperationCalculeEligibil
       )
       .with(
         {
+          secteurActivite: P.array(
+            P.union("gestionServicesTic", "fournisseursNumeriques"),
+          ),
+          activites: P.when(auMoinsUneActiviteListee),
+        },
+        () => Eligibilite.Incertain,
+      )
+      .with(
+        {
           secteurActivite: P.when(auMoinsUnSecteurListe),
           activites: P.when(auMoinsUneActiviteListee),
         },

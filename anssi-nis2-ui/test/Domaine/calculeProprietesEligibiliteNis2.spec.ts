@@ -109,14 +109,14 @@ describe(calculeEligibilite, () => {
             )
             .renvoieToujours(Eligibilite.Incertain);
         });
-        //   it("Moyen grand Fournisseur Numérique", () => {
-        //     verifieQue(calculeEligibilite)
-        //       .quelqueSoit(
-        //         arbForm.nonDesigneOSE.privee.exceptions
-        //           .etablissementPrincipalFrance.moyenGrandFournisseurNum,
-        //       )
-        //       .renvoieToujours(Eligibilite.Incertain);
-        //   });
+        it("Moyen grand Fournisseur Numérique", () => {
+          verifieQue(calculeEligibilite)
+            .quelqueSoit(
+              arbForm.nonDesigneOSE.privee.exceptions
+                .etablissementPrincipalFrance.moyenGrandFournisseurNum,
+            )
+            .renvoieToujours(Eligibilite.Incertain);
+        });
       });
     });
   });
