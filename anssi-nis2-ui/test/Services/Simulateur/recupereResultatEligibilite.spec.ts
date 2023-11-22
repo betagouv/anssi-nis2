@@ -4,7 +4,8 @@ import {
   contenusResultatEligiblePetitEntreprise,
   contenusResultatNonEligible,
 } from "../../../src/References/contenusResultatEligibilite";
-import { Eligibilite } from "../../../src/Domaine/Simulateur/Eligibilite.definitions";
+
+import { Eligibilite } from "../../../src/Domaine/Simulateur/Eligibilite.constantes";
 
 describe(recupereContenusResultatEligibilite, () => {
   it("retourne les contenus pour éligible lorsque le résultat est éligible", () => {
