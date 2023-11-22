@@ -3,7 +3,7 @@ import { LigneReseauxSociaux } from "./Resultats/LigneReseauxSociaux.tsx";
 import { LigneBienDebuter } from "./Resultats/LigneBienDebuter.tsx";
 import { LigneResultat } from "./Resultats/LigneResultat.tsx";
 import { LigneResterInformer } from "./Resultats/LigneResterInformer.tsx";
-import { estEligible } from "../../Domaine/Simulateur/services/Eligibilite/Eligibilite.predicats.ts";
+import { calculeEligibilite } from "../../Domaine/Simulateur/services/Eligibilite/Eligibilite.operations.ts";
 import { recupereContenusResultatEligibilite } from "../../Services/Simulateur/recupereContenusResultatEligibilite.ts";
 import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 import { LigneEtMaintenant } from "./Resultats/LigneEtMaintenant.tsx";
@@ -12,7 +12,7 @@ import { EnSavoirPlus } from "./Resultats/EnSavoirPlus.tsx";
 export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
   donneesFormulaire,
 }: SimulateurEtapeRenderedProps) => {
-  const statutEligibiliteNIS2 = estEligible(donneesFormulaire);
+  const statutEligibiliteNIS2 = calculeEligibilite(donneesFormulaire);
   const contenuResultat = recupereContenusResultatEligibilite(
     statutEligibiliteNIS2,
   );

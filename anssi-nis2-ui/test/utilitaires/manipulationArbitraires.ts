@@ -179,10 +179,7 @@ export const contrainteTranchesSansDoublonSurValeur = (
 ) =>
   fabriqueArbSingleton(ValeursPetitMoyenGrand).filter(
     (tranche) =>
-      (base.trancheCA.includes(valeurExclusive) &&
-        !tranche.includes(valeurExclusive)) ||
-      (!base.trancheCA.includes(valeurExclusive) &&
-        tranche.includes(valeurExclusive)),
+      tranche[0] !== valeurExclusive || base.trancheCA[0] !== valeurExclusive,
   );
 
 const arbSecteursEtSousSecteursVides = fc.record({

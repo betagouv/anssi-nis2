@@ -90,18 +90,20 @@ export const ValeursActivitesEauUsees = [
   "collectantEvacuantTraitantEaux",
   "autreActiviteEauPotable",
 ] as const;
+
 export const ValeursActivitesInfrastructureNumerique = [
+  "fournisseurReseauxCommunicationElectroniquesPublics",
+  "fournisseurServiceCommunicationElectroniquesPublics",
+  "prestataireServiceConfiance",
   "fournisseurPointEchangeInternet",
   "fournisseurServicesDNS",
   "registresNomsDomainesPremierNiveau",
   "fournisseurServicesInformatiqueNuage",
   "fournisseurServiceCentresDonnees",
   "fournisseurReseauxDiffusionContenu",
-  "prestataireServiceConfiance",
-  "fournisseurReseauxCommunicationElectroniquesPublics",
-  "fournisseurServiceCommunicationElectroniquesPublics",
   "autreActiviteInfrastructureNumerique",
 ] as const;
+
 export const ValeursActivitesGestionServicesTic = [
   "fournisseurServicesGeres",
   "fournisseurServicesSecuriteGeres",

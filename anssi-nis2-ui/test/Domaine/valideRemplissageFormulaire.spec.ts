@@ -1,7 +1,7 @@
 import { describe, it } from "vitest";
 import {
   verifieCompletudeDonneesCommunes,
-  verifieCompletudeDonneesFormulaire,
+  donneesFormulaireSontCompletes,
   verifieCompletudeDonneesFormulairePrivee,
   verifieCompletudeDonneesFormulairePublique,
 } from "../../src/Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
@@ -67,7 +67,7 @@ const testsActiviteNulle = [
     attendu: false,
   },
   {
-    actionTestee: verifieCompletudeDonneesFormulaire,
+    actionTestee: donneesFormulaireSontCompletes,
     attendu: false,
   },
 ];
@@ -121,7 +121,7 @@ const donneesNonValides: {
 ];
 describe.each([
   { actionTestee: verifieCompletudeDonneesCommunes },
-  { actionTestee: verifieCompletudeDonneesFormulaire },
+  { actionTestee: donneesFormulaireSontCompletes },
 ])("$actionTestee.name", ({ actionTestee }) => {
   it.each(donneesAbsentes)(
     "Doit rejeter les données non valides %s",
