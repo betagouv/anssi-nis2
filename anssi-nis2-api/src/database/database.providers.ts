@@ -2,8 +2,9 @@ import { datasourceKey } from "../constantes";
 import { DataSource } from "typeorm";
 import { fabriqueAppDataSource } from "../app-data-source.fabrique";
 import { ConfigService } from "@nestjs/config";
+import { Provider } from "@nestjs/common";
 
-export const databaseProviders = [
+export const databaseProviders: Provider[] = [
   {
     provide: datasourceKey,
     inject: [ConfigService],

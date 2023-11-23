@@ -1,13 +1,13 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { SimulateurReponse } from "./simulateur-reponse.entity";
 import { Repository } from "typeorm";
 import { SimulateurFormData } from "../Domaine/donneesSimulateur";
-import { provideSimulateurReponseRepositoryKey } from "../constantes";
+import { InjectRepository } from "@nestjs/typeorm";
 
 @Injectable()
 export class SimulateurReponseService {
   constructor(
-    @Inject(provideSimulateurReponseRepositoryKey)
+    @InjectRepository(SimulateurReponse)
     private simulateurReponseRepository: Repository<SimulateurReponse>,
   ) {}
 

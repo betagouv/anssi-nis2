@@ -1,13 +1,13 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { CreateInformationsEmailDto } from "./dto/create-informations-email.dto";
 import { InformationsEmail } from "./entities/informations-email.entity";
-import { provideInformationsEmailRepositoryKey } from "../constantes";
 import { Repository } from "typeorm";
+import { InjectRepository } from "@nestjs/typeorm";
 
 @Injectable()
 export class InformationsEmailsService {
   constructor(
-    @Inject(provideInformationsEmailRepositoryKey)
+    @InjectRepository(InformationsEmail)
     private informationsEmailRepository: Repository<InformationsEmail>,
   ) {}
 

@@ -21,7 +21,6 @@ const optionsConnectionBaseDeDonnees = fabriqueAsynchroneOptionsTypeOrm();
       fabriqueAsynchroneOptionsServeurStatique,
     ),
     SimulateurReponseModule,
-    DatabaseModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
