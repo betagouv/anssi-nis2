@@ -1,26 +1,25 @@
 import { InformationsEmailsController } from "./informations-emails.controller";
 import { InformationsEmailsService } from "./informations-emails.service";
-import { datasourceKey } from "../constantes";
-import { mockInformationsEmailRepository } from "./fabrique-mock.repository";
 import { CreateInformationsEmailDto } from "./dto/create-informations-email.dto";
 import { espereEmailsInformationCorrespondASonDto } from "./helpers/testHelpers";
-import { fabriqueConstructeurTestModule } from "../test/utilitaires/facilitateurs";
-import { InformationsEmail } from "./entities/informations-email.entity";
+import { informationsEmail } from "./example/informations.email.exemples";
+import { Test } from "@nestjs/testing";
 
+const mockInformationsEmailsService = {
+  ajoute: jest.fn().mockReturnValue({ ...informationsEmail, id: 1 }),
+};
 describe("InformationsEmailsController", () => {
   beforeEach(async () => {});
 
-  const moduleConstructeur = fabriqueConstructeurTestModule(
-    [
+  const moduleConstructeur = Test.createTestingModule({
+    providers: [
       {
-        provide: datasourceKey,
-        useValue: mockInformationsEmailRepository,
+        provide: InformationsEmailsService,
+        useValue: mockInformationsEmailsService,
       },
-      InformationsEmailsService,
     ],
-    [InformationsEmail],
-    [InformationsEmailsController],
-  );
+    controllers: [InformationsEmailsController],
+  });
   it("doit retourner l'identifiant", async () => {
     const informationsEmail: CreateInformationsEmailDto = {
       email: "toto@titi.tutu",

@@ -1,12 +1,9 @@
-import { ConfigModule, ConfigService } from "@nestjs/config";
+import { ConfigService } from "@nestjs/config";
 import { Test, TestingModule } from "@nestjs/testing";
-import { fabriqueAsynchroneOptionsTypeOrm } from "../../Fabriques/fabriqueAsynchroneOptionsTypeOrm";
-import { TypeOrmModule } from "@nestjs/typeorm";
 import { Provider } from "@nestjs/common";
 import { env } from "process";
 import { MockFactory } from "../mock.factory";
 import { Repository } from "typeorm";
-import { EntityClassOrSchema } from "@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type";
 
 export const fabriqueModuleTestAvecFauxServiceConfig =
   async (valeursChaineConfiguration: { [cle: string]: string }) => {
@@ -32,22 +29,6 @@ export const fabriqueConfigService = async (valeursChaineConfiguration: {
   (
     await fabriqueModuleTestAvecFauxServiceConfig(valeursChaineConfiguration)
   ).get<ConfigService>(ConfigService);
-export const fabriqueConstructeurTestModule = (
-  fournisseurs: Provider[],
-  entites: EntityClassOrSchema[],
-  controllers = [],
-) =>
-  Test.createTestingModule({
-    controllers: controllers,
-    imports: [
-      TypeOrmModule.forRootAsync(fabriqueAsynchroneOptionsTypeOrm()),
-      TypeOrmModule.forFeature(entites),
-      ConfigModule.forRoot({
-        isGlobal: true,
-      }),
-    ],
-    providers: [...fournisseurs],
-  });
 export const serviceConfigurationPourTests: Provider = {
   provide: ConfigService,
   useValue: {

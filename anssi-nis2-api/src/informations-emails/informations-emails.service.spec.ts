@@ -1,26 +1,25 @@
 import { InformationsEmailsService } from "./informations-emails.service";
-import { datasourceKey } from "../constantes";
 import { mockInformationsEmailRepository } from "./fabrique-mock.repository";
 import { espereEmailsInformationCorrespondASonDto } from "./helpers/testHelpers";
 import { databaseProviders } from "../database/database.providers";
 import { informationsEmail } from "./example/informations.email.exemples";
-import {
-  fabriqueConstructeurTestModule,
-  serviceConfigurationPourTests,
-} from "../test/utilitaires/facilitateurs";
+import { serviceConfigurationPourTests } from "../test/utilitaires/facilitateurs";
 import { InformationsEmail } from "./entities/informations-email.entity";
+import { Test } from "@nestjs/testing";
+import { TypeOrmModule, getRepositoryToken } from "@nestjs/typeorm";
+import { fabriqueAsynchroneOptionsTypeOrm } from "../Fabriques/fabriqueAsynchroneOptionsTypeOrm";
+import { ConfigModule } from "@nestjs/config";
 
 describe("InformationsEmailsService", () => {
-  const testingModuleBuilder = fabriqueConstructeurTestModule(
-    [
+  const testingModuleBuilder = Test.createTestingModule({
+    providers: [
       {
-        provide: datasourceKey,
+        provide: getRepositoryToken(InformationsEmail),
         useValue: mockInformationsEmailRepository,
       },
       InformationsEmailsService,
     ],
-    [InformationsEmail],
-  );
+  });
 
   it("ajoute les donnees dans la base mockée", async () => {
     const mockModule = await testingModuleBuilder.compile();
@@ -33,14 +32,23 @@ describe("InformationsEmailsService", () => {
 });
 
 describe.skip("InformationsEmailsService sur vraie DB", () => {
-  const testingModuleBuilder = fabriqueConstructeurTestModule(
-    [
-      ...databaseProviders,
-      serviceConfigurationPourTests,
-      InformationsEmailsService,
+  const testingModuleBuilder = Test.createTestingModule({
+    controllers: [],
+    imports: [
+      TypeOrmModule.forRootAsync(fabriqueAsynchroneOptionsTypeOrm()),
+      TypeOrmModule.forFeature([InformationsEmail]),
+      ConfigModule.forRoot({
+        isGlobal: true,
+      }),
     ],
-    [InformationsEmail],
-  );
+    providers: [
+      ...[
+        ...databaseProviders,
+        serviceConfigurationPourTests,
+        InformationsEmailsService,
+      ],
+    ],
+  });
 
   it("ajoute les donnees dans la base réelle", async () => {
     const mockModule = await testingModuleBuilder.compile();

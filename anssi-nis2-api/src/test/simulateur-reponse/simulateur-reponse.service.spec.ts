@@ -1,12 +1,10 @@
 import { SimulateurReponseService } from "../../simulateur-reponse/simulateur-reponse.service";
 import { SimulateurReponse } from "../../simulateur-reponse/simulateur-reponse.entity";
-import { datasourceKey } from "../../constantes";
 import { donneesSimulateurVide } from "../../Domaine/donneesSimulateur";
-import {
-  fabriqueConstructeurTestModule,
-  fabriqueMockRepository,
-} from "../utilitaires/facilitateurs";
+import { fabriqueMockRepository } from "../utilitaires/facilitateurs";
 import { DonneesFormulaireSimulateur } from "anssi-nis2-ui/src/Domaine/Simulateur/DonneesFormulaire";
+import { getRepositoryToken } from "@nestjs/typeorm";
+import { Test } from "@nestjs/testing";
 
 describe("SimulateurReponseService", () => {
   const simulateurReponseJson = JSON.stringify(donneesSimulateurVide);
@@ -15,19 +13,18 @@ describe("SimulateurReponseService", () => {
     reponseJson: simulateurReponseJson,
   };
 
-  const testingModuleBuilder = fabriqueConstructeurTestModule(
-    [
+  const testingModuleBuilder = Test.createTestingModule({
+    providers: [
       {
-        provide: datasourceKey,
+        provide: getRepositoryToken(SimulateurReponse),
         useValue: fabriqueMockRepository({
           save: async (donneesSimulateur: DonneesFormulaireSimulateur) =>
-            JSON.stringify(donneesSimulateur),
+            donneesSimulateur,
         }),
       },
       SimulateurReponseService,
     ],
-    [SimulateurReponse],
-  );
+  });
 
   it("should call repo", async () => {
     const mockModule = await testingModuleBuilder.compile();
