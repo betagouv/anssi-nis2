@@ -1,11 +1,14 @@
 import { fc } from "@fast-check/vitest";
-import { faussaireInformationEtapeForm } from "../InformationEtape.faussaire";
-import { fabriquesInformationsEtapes } from "../../../../../anssi-nis2-domain/src/Simulateur/fabriques/InformationsEtape.fabrique";
+import { fabriquesInformationsEtapes } from "anssi-nis2-ui/src/Services/Simulateur/InformationsEtape.fabrique";
+import { InformationsEtape } from "../../src/Simulateur/InformationsEtape";
+import { faussaireInformationEtapeForm } from "../utilitaires/InformationEtape.faussaire";
 
 export const arbInformationEtapeForm = fc
   .record({ titre: fc.string() })
   .map(faussaireInformationEtapeForm);
-export const arbInformationEtapeFormAvecSousEtape = fc
+export const arbInformationEtapeFormAvecSousEtape: fc.Arbitrary<
+  InformationsEtape<unknown>
+> = fc
   .record({ titre: fc.string(), sousTitre: fc.string() })
   .map(faussaireInformationEtapeForm);
 export const arbInformationEtapeResult = fc

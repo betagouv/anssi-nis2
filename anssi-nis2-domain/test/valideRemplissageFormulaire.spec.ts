@@ -6,7 +6,7 @@ import {
   verifieCompletudeDonneesFormulairePublique,
 } from "../src/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
-import { verifieQue } from "../../anssi-nis2-ui/test/utilitaires/assure";
+import { verifieQue } from "./utilitaires/assure";
 import { IDonneesBrutesFormulaireSimulateur } from "../src/Simulateur/DonneesFormulaire";
 
 const donneesAbsentes = Object.entries(arbForm.nonValide.donneeAbsente).filter(

@@ -1,6 +1,5 @@
 import { InformationEtapeForm, InformationsEtape } from "./InformationsEtape";
-import { EtapeInexistante } from "./fabriques/InformationsEtape.fabrique";
-import { ConstantesEtatEtape } from "./EtatEtapes";
+import { ConstantesEtatEtape, EtapeVide } from "./EtatEtapes";
 
 export class CollectionInformationsEtapes<TypeConteneur> extends Array<
   InformationsEtape<TypeConteneur>
@@ -50,7 +49,7 @@ export class CollectionInformationsEtapes<TypeConteneur> extends Array<
   ): InformationsEtape<TypeConteneur> =>
     this.reduce(
       this.recuperationEtapeSuivanteOuDefaut(indiceDepart),
-      EtapeInexistante as unknown as InformationsEtape<TypeConteneur>,
+      EtapeVide as unknown as InformationsEtape<TypeConteneur>,
     );
 
   recupereSousEtape = (indice: number, indiceSousEtape: number) =>

@@ -1,16 +1,16 @@
 import { describe, expect, it } from "vitest";
 import { fc } from "@fast-check/vitest";
 import { CollectionInformationsEtapes } from "../src/Simulateur/CollectionInformationsEtapes";
-import { decoreChaineRendue } from "../../anssi-nis2-ui/test/utilitaires/manipulationArbitraires";
-import { arbitrairesInformationEtape } from "../../anssi-nis2-ui/test/Services/Simulateur/arbitraires/informationEtape";
-import { arbitrairesCollectionEtape } from "../../anssi-nis2-ui/test/Services/Simulateur/arbitraires/collectionInformationEtape";
-import { arbListeEtapesEtIndice } from "../../anssi-nis2-ui/test/Services/Simulateur/arbitraires/listeEtapes";
-import { exInformationEtape } from "../../anssi-nis2-ui/test/Services/Simulateur/exemples/informationEtape.exemples";
+import { decoreChaineRendue } from "./utilitaires/manipulationArbitraires";
+import { arbitrairesInformationEtape } from "./arbitraires/informationEtape";
+import { arbitrairesCollectionEtape } from "./arbitraires/collectionInformationEtape";
+import { arbListeEtapesEtIndice } from "./arbitraires/listeEtapes";
+import { exInformationEtape } from "./exemples/informationEtape.exemples";
 import {
   collectionInformationsEtapesAvecInexistantes,
   exCollectionInformationEtape,
-} from "../../anssi-nis2-ui/test/Services/Simulateur/exemples/collectionInformationEtape.exemples";
-import { EtapeInexistante } from "../src/Simulateur/fabriques/InformationsEtape.fabrique";
+} from "./exemples/collectionInformationEtape.exemples";
+import { EtapeVide } from "../src/Simulateur/EtatEtapes";
 
 const collectionInformationsEtapes =
   exCollectionInformationEtape.longueur2.simple;
@@ -25,7 +25,7 @@ const parametresTests = [
   {
     etapeCourante: exInformationEtape.form2,
     indiceEtapeCourante: 1,
-    informationEtapeSuivante: EtapeInexistante,
+    informationEtapeSuivante: EtapeVide,
     estDernier: true,
     numeroEtape: 2,
   },

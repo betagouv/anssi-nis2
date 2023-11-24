@@ -14,7 +14,7 @@ import {
 } from "../../../../../anssi-nis2-domain/src/Simulateur/services/ChampsSimulateur/champs.predicats.ts";
 import { IDonneesBrutesFormulaireSimulateur } from "../../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 import { fabriqueEtatEtape } from "../../../../../anssi-nis2-domain/src/Simulateur/fabriques/EtatEtape.fabrique.ts";
-import { fabriquesInformationsEtapes } from "../../../../../anssi-nis2-domain/src/Simulateur/fabriques/InformationsEtape.fabrique.ts";
+import { fabriquesInformationsEtapes } from "../../../Services/Simulateur/InformationsEtape.fabrique.ts";
 import {
   fabriqueValidationUneReponses,
   validationReponsesActivites,

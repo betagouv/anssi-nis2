@@ -1,7 +1,7 @@
 import { vi } from "vitest";
-import { ValidationReponses } from "../../../../anssi-nis2-domain/src/Simulateur/services/ChampsSimulateur/champs.domaine";
-import { SimulateurEtapeNodeComponent } from "../../../src/Services/Simulateur/Props/component";
-import { fabriquesInformationsEtapes } from "../../../../anssi-nis2-domain/src/Simulateur/fabriques/InformationsEtape.fabrique";
+import { ValidationReponses } from "../../src/Simulateur/services/ChampsSimulateur/champs.domaine";
+import { SimulateurEtapeNodeComponent } from "anssi-nis2-ui/src/Services/Simulateur/Props/component";
+import { fabriquesInformationsEtapes } from "anssi-nis2-ui/src/Services/Simulateur/InformationsEtape.fabrique";
 
 export const fausseValidationReponse: ValidationReponses = {
   message: "Fausse validation",

@@ -1,14 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { exEtatEtape } from "./exemples/etatEtape.exemple";
+import { exEtatEtape } from "../exemples/etatEtape.exemple";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
-} from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
-import { EtatEtapes } from "../../../../anssi-nis2-domain/src/Simulateur/EtatEtapes";
+} from "../../src/Simulateur/DonneesFormulaire";
+import { EtatEtapes } from "../../src/Simulateur/EtatEtapes";
 import {
   fabriqueEtatEtapePrecedent,
   fabriqueEtatEtapeSuivant,
-} from "../../../../anssi-nis2-domain/src/Simulateur/services/EtatEtape/EtatEtape.operations";
+} from "../../src/Simulateur/services/EtatEtape/EtatEtape.operations";
 
 const donneesVides = donneesFormulaireSimulateurVide;
 

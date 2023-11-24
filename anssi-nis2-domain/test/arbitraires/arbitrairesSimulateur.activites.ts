@@ -1,15 +1,15 @@
 import { fc } from "@fast-check/vitest";
 import {
   ajouteAuMoinsUneActiviteAutre,
-  DonneesSectorielles,
   etend,
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
-} from "../../../anssi-nis2-ui/test/utilitaires/manipulationArbitraires";
+} from "../utilitaires/manipulationArbitraires";
 import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
 import { arbDesigneOperateurServicesEssentiels } from "./arbitraireChampFormulaire";
 import { ValeursAppartenancePaysUnionEuropeenne } from "../../src/Simulateur/ChampsSimulateur.valeurs";
 import { IDonneesBrutesFormulaireSimulateur } from "../../src/Simulateur/DonneesFormulaire";
+import { DonneesSectorielles } from "../utilitaires/manipulationArbitraires.declarations";
 
 export const arbActivitesAutres = etend<DonneesSectorielles>(
   arbSecteursSousSecteursListes,

@@ -11,7 +11,7 @@ import {
 import {
   ArbitraireOptions,
   ArbitraireOptionsActivites,
-} from "../../../anssi-nis2-domain/test/arbitraires/arbitraireOptions";
+} from "anssi-nis2-domain/test/arbitraires/arbitraireOptions";
 import {
   EnrSecteurSousSecteur,
   SousSecteurActivite,
@@ -26,21 +26,16 @@ import {
   estActiviteAutre,
   estActiviteListee,
 } from "anssi-nis2-domain/src/Simulateur/services/Activite/Activite.predicats";
+import {
+  AjoutADonneesFormulaire,
+  DonneesFormulaireExtensibles,
+  DonneesSectorielles,
+  ManipulationArbitrairesDeclarations,
+} from "./manipulationArbitraires.declarations";
 
 const constantArbitraire = <TypeChamp extends ValeurChampSimulateur>(
   value: TypeChamp[],
 ) => fc.constant(value);
-export type DonneesSectorielles = Pick<
-  IDonneesFormulaireSimulateur,
-  "secteurActivite" | "sousSecteurActivite"
->;
-
-export type DonneesFormulaireExtensibles =
-  | IDonneesBrutesFormulaireSimulateur
-  | DonneesSansActivite
-  | DonneesBrutesSansActivite
-  | DonneesSectorielles
-  | Omit<DonneesBrutesSansActivite, "trancheNombreEmployes">;
 
 export const propageBase = <
   DonneesPartielles extends DonneesFormulaireExtensibles,
@@ -55,20 +50,6 @@ export const propageBase = <
     {},
   ) as { [K in keyof DonneesPartielles]: fc.Arbitrary<DonneesPartielles[K]> };
 
-type AjoutADonneesFormulaire = Partial<{
-  [K in keyof IDonneesBrutesFormulaireSimulateur]: fc.Arbitrary<
-    IDonneesBrutesFormulaireSimulateur[K]
-  >;
-}>;
-export type DonneesBrutesSansActivite = Omit<
-  IDonneesBrutesFormulaireSimulateur,
-  "activites"
->;
-export type DonneesSansActivite = Omit<
-  IDonneesFormulaireSimulateur,
-  "activites"
->;
-
 const fabriqueEtendAvec: <
   DonneesPartielles extends DonneesFormulaireExtensibles,
   TypeAjout extends AjoutADonneesFormulaire = AjoutADonneesFormulaire,
@@ -77,7 +58,7 @@ const fabriqueEtendAvec: <
   arbitraire: fc.Arbitrary<DonneesPartielles>,
 ) => (ajouts: TypeAjout) => fc.Arbitrary<TypeRetour> =
   (arbitraire) =>
-  <TypeRetour>(ajouts) =>
+  <TypeRetour, TypeAjout>(ajouts: TypeAjout) =>
     arbitraire.chain((base) =>
       fc.record({ ...propageBase(base), ...ajouts }),
     ) as fc.Arbitrary<TypeRetour>;
@@ -90,15 +71,6 @@ export const etend = <
 ) => ({
   avec: fabriqueEtendAvec<DonneesPartielles, TypeAjout>(arbitraire),
 });
-type DonneesExtensiblesAvecActivite<
-  DonneesPartielles extends DonneesSectorielles,
-> = DonneesPartielles & Pick<IDonneesBrutesFormulaireSimulateur, "activites">;
-type OperationAjouteArbitraireActivites = <
-  DonneesPartielles extends DonneesSectorielles,
->(
-  base: DonneesPartielles,
-  options?: ArbitraireOptionsActivites,
-) => fc.Arbitrary<DonneesExtensiblesAvecActivite<DonneesPartielles>>;
 
 export const ajouteMethodeAvec = (base: IDonneesFormulaireSimulateur) => {
   const avecMethod = (data: IDonneesFormulaireSimulateur) =>
@@ -119,35 +91,38 @@ const etendAvecActivitesVides = <DonneesPartielles extends DonneesSectorielles>(
   fc.record({
     ...propageBase(base),
     activites: fc.constant([]),
-  }) as fc.Arbitrary<DonneesExtensiblesAvecActivite<DonneesPartielles>>;
+  });
 
-const extraitOptionsAjoutArbitrairesActivite = (options: {
-  filtreActivite: () => boolean;
-  minLength: number;
-}): [() => boolean, number] => [
-  options?.filtreActivite || (() => true),
+const extraitOptionsAjoutArbitrairesActivite = (
+  options: ArbitraireOptionsActivites,
+): [(activite: ValeursActivites) => boolean, number] => [
+  options.filtreActivite || (() => true),
   options?.minLength || 0,
 ];
 
-function etendDonneesActivite<DonneesPartielles>(
+const etendDonneesActivite = <DonneesPartielles>(
   base: DonneesPartielles &
     Partial<Pick<IDonneesBrutesFormulaireSimulateur, "activites">>,
   listeActivitesDesSecteurs: ValeursActivites[],
-) {
-  return base.activites
+) =>
+  base.activites
     ? [...listeActivitesDesSecteurs, ...base.activites]
     : listeActivitesDesSecteurs;
-}
 
-export const ajouteArbitraireActivites: OperationAjouteArbitraireActivites = <
-  DonneesPartielles extends DonneesSectorielles,
+export const ajouteArbitraireActivites = <
+  ChampsAbsents extends keyof IDonneesBrutesFormulaireSimulateur,
+  DonneesPartielles extends Omit<
+    IDonneesBrutesFormulaireSimulateur,
+    ChampsAbsents
+  > &
+    DonneesSectorielles,
 >(
-  base: DonneesPartielles &
-    Partial<Pick<IDonneesBrutesFormulaireSimulateur, "activites">>,
-  options?: { filtreActivite: () => boolean; minLength: number },
+  base: DonneesPartielles,
+  options?: ArbitraireOptionsActivites,
 ) => {
-  const [filtreActivite, minLength] =
-    extraitOptionsAjoutArbitrairesActivite(options);
+  const [filtreActivite, minLength] = extraitOptionsAjoutArbitrairesActivite(
+    options || { filtreActivite: () => true, minLength: 0 },
+  );
   const listeSectorielle = [
     ...filtreSecteursSansSousSecteurs(base.secteurActivite),
     ...(base.sousSecteurActivite || []),
@@ -169,12 +144,15 @@ export const ajouteArbitraireActivites: OperationAjouteArbitraireActivites = <
     ...propageBase(base),
     activites: arbAuMoinsUneActivites,
   };
-  return fc.record(enregistrementAvecActivites) as fc.Arbitrary<
-    DonneesExtensiblesAvecActivite<DonneesPartielles>
-  >;
+  return fc.record(enregistrementAvecActivites);
 };
-export const contrainteTranchesSansDoublonSurValeur = (
-  base,
+export const contrainteTranchesSansDoublonSurValeur = <
+  DonneesPartielles extends Omit<
+    IDonneesBrutesFormulaireSimulateur,
+    "trancheNombreEmployes" | "activites"
+  >,
+>(
+  base: DonneesPartielles,
   valeurExclusive: UnionPetitMoyenGrand,
 ) =>
   fabriqueArbSingleton(ValeursPetitMoyenGrand).filter(
@@ -202,7 +180,10 @@ const extraitSousSecteursDesCouples = (
 ) =>
   Array.from(
     couplesSecteurSousSecteur.reduce(
-      (listeSousSecteurs, couple) => listeSousSecteurs.add(couple.sousSecteur),
+      (listeSousSecteurs, couple) =>
+        couple.sousSecteur
+          ? listeSousSecteurs.add(couple.sousSecteur)
+          : listeSousSecteurs,
       new Set<SousSecteurActivite>(),
     ),
   ).filter((sousSecteur) => sousSecteur !== undefined);
@@ -233,7 +214,7 @@ export const fabriqueArbEnrSecteurSousSecteurs = (
   }
   return fabriqueArbSecteurSousSecteursTailleMini(
     listeSecteursSousSecteurs,
-    minLength,
+    minLength || 0,
   );
 };
 
@@ -245,27 +226,53 @@ export const decoreChaineRendue = <T extends object>(objet: T) => {
 };
 
 export const fabriqueArbContraintSurTrancheCA = (
-  base: Omit<DonneesBrutesSansActivite, "trancheNombreEmployes">,
+  base: Omit<ManipulationArbitrairesDeclarations, "trancheNombreEmployes">,
 ) =>
-  fc.record<DonneesBrutesSansActivite>({
+  fc.record<ManipulationArbitrairesDeclarations>({
     ...propageBase(base),
     trancheNombreEmployes: contrainteTranchesSansDoublonSurValeur(
       base,
       "petit",
     ),
   });
-export const ajouteAuMoinsUneActiviteAutre = (base) =>
-  ajouteArbitraireActivites(base, {
+export const ajouteAuMoinsUneActiviteAutre = <
+  ChampsAbsents extends keyof IDonneesBrutesFormulaireSimulateur,
+  DonneesPartielles extends Omit<
+    IDonneesBrutesFormulaireSimulateur,
+    ChampsAbsents
+  > &
+    DonneesSectorielles,
+>(
+  base: DonneesPartielles,
+) =>
+  ajouteArbitraireActivites<ChampsAbsents, DonneesPartielles>(base, {
     filtreActivite: estActiviteAutre,
     minLength: 1,
   });
-export const ajouteAuMoinsUneActiviteListee = (base) =>
+export const ajouteAuMoinsUneActiviteListee = <
+  ChampsAbsents extends keyof IDonneesBrutesFormulaireSimulateur,
+  DonneesPartielles extends Omit<
+    IDonneesBrutesFormulaireSimulateur,
+    ChampsAbsents
+  > &
+    DonneesSectorielles,
+>(
+  base: DonneesPartielles,
+) =>
   ajouteArbitraireActivites(base, {
     filtreActivite: estActiviteListee,
     minLength: 1,
   });
-export const ajouteAuMoinsUneActiviteArbitraire = (base) =>
-  ajouteArbitraireActivites(base, { minLength: 1 });
+export const ajouteAuMoinsUneActiviteArbitraire = <
+  ChampsAbsents extends keyof IDonneesBrutesFormulaireSimulateur,
+  DonneesPartielles extends Omit<
+    IDonneesBrutesFormulaireSimulateur,
+    ChampsAbsents
+  > &
+    DonneesSectorielles,
+>(
+  base: DonneesPartielles,
+) => ajouteArbitraireActivites(base, { minLength: 1 });
 
 export const fabriqueArbTrancheSingleton = () =>
   fabriqueArbSingleton(ValeursPetitMoyenGrand);

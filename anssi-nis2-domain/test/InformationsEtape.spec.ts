@@ -1,8 +1,4 @@
 import { describe, it, expect } from "vitest";
-import {
-  fabriquesInformationsEtapes,
-  toujoursFaux,
-} from "../src/Simulateur/fabriques/InformationsEtape.fabrique";
 import { SimulateurEtapeForm } from "anssi-nis2-ui/src/Components/Simulateur/SimulateurEtapeForm";
 import {
   CapacitesEtapeFormulaire,
@@ -10,13 +6,17 @@ import {
   InformationEtapeForm,
   VariantesEtape,
 } from "../src/Simulateur/InformationsEtape";
-import { exInformationEtape } from "../../anssi-nis2-ui/test/Services/Simulateur/exemples/informationEtape.exemples";
-import { fausseValidationReponse } from "../../anssi-nis2-ui/test/Services/Simulateur/InformationEtape.faussaire";
+import { exInformationEtape } from "./exemples/informationEtape.exemples";
+import { fausseValidationReponse } from "./utilitaires/InformationEtape.faussaire";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
 } from "../src/Simulateur/DonneesFormulaire";
 import { SimulateurEtapeRenderedComponent } from "anssi-nis2-ui/src/Services/Simulateur/Props/component";
+import {
+  fabriquesInformationsEtapes,
+  toujoursFaux,
+} from "./utilitaires/InformationEtape.faussaire.ts";
 
 describe("fabriquesInformationsEtapes", () => {
   describe(fabriquesInformationsEtapes.variantes, () => {

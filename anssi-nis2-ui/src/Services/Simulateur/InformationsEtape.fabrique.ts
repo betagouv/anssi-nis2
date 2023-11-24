@@ -8,22 +8,22 @@ import {
   OptionsInformationEtapeForm,
   SousEtapeConditionnelle,
   VariantesEtape,
-} from "anssi-nis2-domain/src/Simulateur/InformationsEtape";
-import { PredicatDonneesSimulateur } from "anssi-nis2-domain/src/Simulateur/PredicatDonneesSimulateur";
+} from "anssi-nis2-domain/src/Simulateur/InformationsEtape.ts";
+import { PredicatDonneesSimulateur } from "anssi-nis2-domain/src/Simulateur/PredicatDonneesSimulateur.ts";
 import {
   SimulateurEtapeNodeComponent,
   SimulateurEtapeRenderedComponent,
-} from "anssi-nis2-ui/src/Services/Simulateur/Props/component";
-import { ValidationReponses } from "../services/ChampsSimulateur/champs.domaine";
-import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
-import { validationToutesLesReponses } from "../services/ChampsSimulateur/ValidationReponses";
+} from "../Simulateur/Props/component.ts";
+import { ValidationReponses } from "anssi-nis2-domain/src/Simulateur/services/ChampsSimulateur/champs.domaine.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
+import { validationToutesLesReponses } from "anssi-nis2-domain/src/Simulateur/services/ChampsSimulateur/ValidationReponses.ts";
 import { match } from "ts-pattern";
 
 // TODO : Enlever ces dépendances au Front
-import { elementVide } from "anssi-nis2-ui/src/Services/Echaffaudages/AssistantsEchaffaudages.tsx";
-import { SimulateurEtapeForm } from "anssi-nis2-ui/src/Components/Simulateur/SimulateurEtapeForm.tsx";
-import { SimulateurEtapePrealable } from "anssi-nis2-ui/src/Components/Simulateur/SimulateurEtapePrealable.tsx";
-import { SimulateurEtapeResult } from "anssi-nis2-ui/src/Components/Simulateur/SimulateurEtapeResult.tsx";
+import { elementVide } from "../Echaffaudages/AssistantsEchaffaudages.tsx";
+import { SimulateurEtapeForm } from "../../Components/Simulateur/SimulateurEtapeForm.tsx";
+import { SimulateurEtapePrealable } from "../../Components/Simulateur/SimulateurEtapePrealable.tsx";
+import { SimulateurEtapeResult } from "../../Components/Simulateur/SimulateurEtapeResult.tsx";
 
 export const toujoursFaux = () => false;
 export const toujoursVrai = () => true;

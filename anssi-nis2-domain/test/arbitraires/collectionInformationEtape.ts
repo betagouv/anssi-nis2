@@ -1,7 +1,7 @@
 import { fc } from "@fast-check/vitest";
 import { arbitrairesInformationEtape } from "./informationEtape";
-import { CollectionInformationsEtapes } from "../../../../../anssi-nis2-domain/src/Simulateur/CollectionInformationsEtapes";
-import { InformationsEtape } from "../../../../../anssi-nis2-domain/src/Simulateur/InformationsEtape";
+import { CollectionInformationsEtapes } from "../../src/Simulateur/CollectionInformationsEtapes";
+import { InformationsEtape } from "../../src/Simulateur/InformationsEtape";
 import { arbListeFormEtResult } from "./listeEtapes";
 
 const fabriqueCollectionInformationsEtapes = (

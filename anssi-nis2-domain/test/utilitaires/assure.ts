@@ -1,6 +1,7 @@
 import { fc } from "@fast-check/vitest";
 import { expect } from "vitest";
-import { DonneesFormulaireExtensibles } from "./manipulationArbitraires";
+
+import { DonneesFormulaireExtensibles } from "../../../anssi-nis2-ui/test/utilitaires/manipulationArbitraires.declarations";
 
 export const verifieQue = <
   DonneesPartielles extends DonneesFormulaireExtensibles,

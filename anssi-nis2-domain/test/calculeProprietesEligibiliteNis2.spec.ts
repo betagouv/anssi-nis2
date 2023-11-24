@@ -1,7 +1,7 @@
 import { describe, it } from "vitest";
 import { calculeEligibilite } from "../src/Simulateur/services/Eligibilite/Eligibilite.operations";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
-import { verifieQue } from "../../anssi-nis2-ui/test/utilitaires/assure";
+import { verifieQue } from "./utilitaires/assure";
 
 import { Eligibilite } from "../src/Simulateur/Eligibilite.constantes";
 

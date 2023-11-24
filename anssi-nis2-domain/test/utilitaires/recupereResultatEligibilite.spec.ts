@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { recupereContenusResultatEligibilite } from "../../../src/Services/Simulateur/recupereContenusResultatEligibilite";
+import { recupereContenusResultatEligibilite } from "anssi-nis2-ui/src/Services/Simulateur/recupereContenusResultatEligibilite";
 import {
   contenusResultatEligiblePetitEntreprise,
   contenusResultatNonEligible,
-} from "../../../src/References/contenusResultatEligibilite";
+} from "anssi-nis2-ui/src/References/contenusResultatEligibilite";
 
-import { Eligibilite } from "../../../../anssi-nis2-domain/src/Simulateur/Eligibilite.constantes";
+import { Eligibilite } from "../../src/Simulateur/Eligibilite.constantes";
 
 describe(recupereContenusResultatEligibilite, () => {
   it("retourne les contenus pour éligible lorsque le résultat est éligible", () => {
