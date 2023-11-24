@@ -9,8 +9,6 @@ const mockInformationsEmailsService = {
   ajoute: jest.fn().mockReturnValue({ ...informationsEmail, id: 1 }),
 };
 describe("InformationsEmailsController", () => {
-  beforeEach(async () => {});
-
   const moduleConstructeur = Test.createTestingModule({
     providers: [
       {

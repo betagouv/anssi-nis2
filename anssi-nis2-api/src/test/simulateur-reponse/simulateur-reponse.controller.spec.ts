@@ -1,45 +1,31 @@
-import { Test, TestingModule } from "@nestjs/testing";
+import { Test } from "@nestjs/testing";
 import { SimulateurReponseController } from "../../simulateur-reponse/simulateur-reponse.controller";
 import { donneesSimulateurVide } from "../../Domaine/donneesSimulateur";
 import { SimulateurReponseService } from "../../simulateur-reponse/simulateur-reponse.service";
-import { datasourceKey } from "../../constantes";
-import { Repository } from "typeorm";
-import { SimulateurReponse } from "../../simulateur-reponse/simulateur-reponse.entity";
-import { MockFactory } from "../mock.factory";
 
+const mockSimulateurReponseService = {
+  save: jest.fn().mockReturnValue({
+    reponseJson: JSON.stringify(donneesSimulateurVide),
+    id: 1,
+  }),
+};
 describe("SimulateurReponseController", () => {
-  let controller: SimulateurReponseController;
-  const simulateurReponseJson = JSON.stringify(donneesSimulateurVide);
-  const simulateurReponse = {
-    ...new SimulateurReponse(),
-    reponseJson: simulateurReponseJson,
-  };
-
-  beforeEach(async () => {
-    const mockSimulateurReponseRepository = {
-      ...MockFactory.getMock(Repository<SimulateurReponse>),
-      async save() {
-        return simulateurReponse;
+  const moduleConstructeur = Test.createTestingModule({
+    providers: [
+      {
+        provide: SimulateurReponseService,
+        useValue: mockSimulateurReponseService,
       },
-    };
-
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [SimulateurReponseController],
-      providers: [
-        SimulateurReponseService,
-        {
-          provide: datasourceKey,
-          useValue: mockSimulateurReponseRepository,
-        },
-      ],
-    }).compile();
-
-    controller = module.get<SimulateurReponseController>(
-      SimulateurReponseController,
-    );
+    ],
+    controllers: [SimulateurReponseController],
   });
+  const simulateurReponseJson = JSON.stringify(donneesSimulateurVide);
 
   it('should return "OK"', async () => {
+    const module = await moduleConstructeur.compile();
+    const controller = module.get<SimulateurReponseController>(
+      SimulateurReponseController,
+    );
     expect(
       await controller.enregistreDonneesSimulateur(donneesSimulateurVide),
     ).toBe(simulateurReponseJson);
