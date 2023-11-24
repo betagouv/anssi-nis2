@@ -4,6 +4,8 @@ import { Provider } from "@nestjs/common";
 import { env } from "process";
 import { MockFactory } from "../mock.factory";
 import { Repository } from "typeorm";
+import { InformationsEmail } from "../../informations-emails/entities/informations-email.entity";
+import { CreateInformationsEmailDto } from "../../informations-emails/dto/create-informations-email.dto";
 
 export const fabriqueModuleTestAvecFauxServiceConfig =
   async (valeursChaineConfiguration: { [cle: string]: string }) => {
@@ -42,3 +44,17 @@ export const fabriqueMockRepository = <DtoType, EntityType>(specifications: {
   ...MockFactory.getMock(Repository<EntityType>),
   ...specifications,
 });
+export const espereEmailsInformationCorrespondASonDto = (
+  reponse: InformationsEmail,
+  informationsEmail: CreateInformationsEmailDto,
+) => {
+  expect(reponse.id).toBeDefined();
+  expect(reponse.email).toBe(informationsEmail.email);
+  expect(reponse.accepteInfolettreNis2).toBe(
+    informationsEmail.accepteInfolettreNis2,
+  );
+  expect(reponse.accepteInfolettreServicesDedies).toBe(
+    informationsEmail.accepteInfolettreServicesDedies,
+  );
+  expect(reponse.nomOrganisation).toBe(informationsEmail.nomOrganisation);
+};

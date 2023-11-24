@@ -1,9 +1,10 @@
 import { InformationsEmailsService } from "./informations-emails.service";
 import { mockInformationsEmailRepository } from "./fabrique-mock.repository";
-import { espereEmailsInformationCorrespondASonDto } from "./helpers/testHelpers";
-import { databaseProviders } from "../database/database.providers";
 import { informationsEmail } from "./example/informations.email.exemples";
-import { serviceConfigurationPourTests } from "../test/utilitaires/facilitateurs";
+import {
+  espereEmailsInformationCorrespondASonDto,
+  serviceConfigurationPourTests,
+} from "../test/utilitaires/facilitateurs";
 import { InformationsEmail } from "./entities/informations-email.entity";
 import { Test } from "@nestjs/testing";
 import { TypeOrmModule, getRepositoryToken } from "@nestjs/typeorm";
@@ -31,7 +32,7 @@ describe("InformationsEmailsService", () => {
   });
 });
 
-describe.skip("InformationsEmailsService sur vraie DB", () => {
+describe("InformationsEmailsService sur vraie DB", () => {
   const testingModuleBuilder = Test.createTestingModule({
     controllers: [],
     imports: [
@@ -41,13 +42,7 @@ describe.skip("InformationsEmailsService sur vraie DB", () => {
         isGlobal: true,
       }),
     ],
-    providers: [
-      ...[
-        ...databaseProviders,
-        serviceConfigurationPourTests,
-        InformationsEmailsService,
-      ],
-    ],
+    providers: [...[serviceConfigurationPourTests, InformationsEmailsService]],
   });
 
   it("ajoute les donnees dans la base réelle", async () => {
