@@ -1,31 +1,31 @@
 import {
   donneesFormulaireSimulateurVide,
   IDonneesBrutesFormulaireSimulateur,
-} from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
-import { EtatEtapes } from "anssi-nis2-domain/src/Simulateur/EtatEtapes.ts";
-import { CollectionInformationsEtapes } from "anssi-nis2-domain/src/Simulateur/CollectionInformationsEtapes.ts";
+} from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
+import { EtatEtapes } from "anssi-nis2-domain/src/Simulateur/EtatEtapes";
+import { CollectionInformationsEtapes } from "anssi-nis2-domain/src/Simulateur/CollectionInformationsEtapes";
 
-const suivantEstIgnore = (
-  suivant: EtatEtapes,
-  donnees: IDonneesBrutesFormulaireSimulateur
+const suivantEstIgnore = <TypeConteneur>(
+  suivant: EtatEtapes<TypeConteneur>,
+  donnees: IDonneesBrutesFormulaireSimulateur,
 ) => suivant.contenuEtapeCourante.estIgnoree(donnees);
 const fabriqueIgnoreEtape = (etapeSuivantExiste: boolean) =>
   etapeSuivantExiste ? suivantEstIgnore : () => false;
 
-export const fabriqueEtatEtape: (
-  collectionEtapes: CollectionInformationsEtapes,
+export const fabriqueEtatEtape: <TypeConteneur>(
+  collectionEtapes: CollectionInformationsEtapes<TypeConteneur>,
   indiceEtape: number,
   indiceSousEtape?: number,
-  donneesFormulaire?: IDonneesBrutesFormulaireSimulateur
-) => EtatEtapes = (
+  donneesFormulaire?: IDonneesBrutesFormulaireSimulateur,
+) => EtatEtapes<TypeConteneur> = (
   collectionEtapes,
   indiceEtape,
   indiceSousEtape = 0,
-  donneesFormulaire = donneesFormulaireSimulateurVide
+  donneesFormulaire = donneesFormulaireSimulateurVide,
 ) => {
   const contenuEtapeCourante = collectionEtapes.contenuEtape(
     indiceEtape,
-    indiceSousEtape
+    indiceSousEtape,
   );
   const etapeSuivantExiste = collectionEtapes.existeEtapeSuivante(indiceEtape);
   return {

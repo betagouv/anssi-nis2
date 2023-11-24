@@ -1,7 +1,7 @@
-import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
 
 export type PredicatChamp = (
-  donnees: IDonneesBrutesFormulaireSimulateur
+  donnees: IDonneesBrutesFormulaireSimulateur,
 ) => boolean;
 export type ValidationReponses = {
   message: string;

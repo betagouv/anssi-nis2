@@ -1,8 +1,8 @@
-import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire";
 import { SimulateurEtapeNodeComponent } from "anssi-nis2-ui/src/Services/Simulateur/Props/component";
 
-import { ValidationReponses } from "./services/ChampsSimulateur/champs.domaine.ts";
-import { PredicatDonneesSimulateur } from "./PredicatDonneesSimulateur.ts";
+import { ValidationReponses } from "./services/ChampsSimulateur/champs.domaine";
+import { PredicatDonneesSimulateur } from "./PredicatDonneesSimulateur";
 import { P } from "ts-pattern";
 
 export type InformationsEtape<TypeConteneur> = {
@@ -17,7 +17,7 @@ export type CapaciteEtape = {
   readonly validationReponses: ValidationReponses;
   readonly estIgnoree: (donnees: IDonneesBrutesFormulaireSimulateur) => boolean;
   readonly varianteAffichee: (
-    donnees: IDonneesBrutesFormulaireSimulateur
+    donnees: IDonneesBrutesFormulaireSimulateur,
   ) => number;
 };
 
@@ -31,7 +31,7 @@ export type EtapeResultat<TypeConteneur> = EtapeExistante<TypeConteneur>;
 export type OptionsInformationEtapeForm<T> = {
   readonly sousEtapeConditionnelle?: SousEtapeConditionnelle<T>;
   readonly ignoreSi: (
-    donneesFormulaire: IDonneesBrutesFormulaireSimulateur
+    donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
   ) => boolean;
 };
 
@@ -42,10 +42,10 @@ export type SousEtapeConditionnelle<T> = {
 
 export type CapacitesEtapeFormulaire = {
   readonly fabriqueComposant: (
-    donnees: IDonneesBrutesFormulaireSimulateur
+    donnees: IDonneesBrutesFormulaireSimulateur,
   ) => SimulateurEtapeNodeComponent;
   readonly fabriqueValidationReponses: (
-    donnees: IDonneesBrutesFormulaireSimulateur
+    donnees: IDonneesBrutesFormulaireSimulateur,
   ) => ValidationReponses;
 };
 export type InformationEtapeForm<TypeConteneur> =
@@ -62,7 +62,7 @@ export type VariantesEtape<T, TypeEtape extends InformationEtapeForm<T>> = {
 
 export type InformationsEtapesVariantes<
   TypeConteneur,
-  TypeEtape extends InformationEtapeForm<TypeConteneur>
+  TypeEtape extends InformationEtapeForm<TypeConteneur>,
 > = EtapeExistante<TypeConteneur> &
   CapacitesEtapeFormulaire & {
     readonly variantes: TypeEtape[];

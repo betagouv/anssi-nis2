@@ -1,9 +1,6 @@
-import {
-  InformationEtapeForm,
-  InformationsEtape,
-} from "./InformationsEtape.ts";
-import { EtapeInexistante } from "./fabriques/InformationsEtape.fabrique.ts";
-import { ConstantesEtatEtape } from "./EtatEtapes.ts";
+import { InformationEtapeForm, InformationsEtape } from "./InformationsEtape";
+import { EtapeInexistante } from "./fabriques/InformationsEtape.fabrique";
+import { ConstantesEtatEtape } from "./EtatEtapes";
 
 export class CollectionInformationsEtapes<TypeConteneur> extends Array<
   InformationsEtape<TypeConteneur>
@@ -14,7 +11,7 @@ export class CollectionInformationsEtapes<TypeConteneur> extends Array<
   get nombreEtapes(): number {
     return this.reduce(
       (somme, etape) => somme + etape.longueurComptabilisee,
-      0
+      0,
     );
   }
 
@@ -22,7 +19,7 @@ export class CollectionInformationsEtapes<TypeConteneur> extends Array<
     this.reduce(
       (nombre, etape, indiceCourant) =>
         indiceCourant > indice ? nombre : nombre + etape.longueurComptabilisee,
-      0
+      0,
     );
 
   estPremiereEtape = (indice: number): boolean =>
@@ -39,7 +36,7 @@ export class CollectionInformationsEtapes<TypeConteneur> extends Array<
   existeEtapeSuivante = (indice: number): boolean => indice < this.length - 1;
 
   recupereEtape = <T extends InformationsEtape<TypeConteneur>>(
-    indice: number
+    indice: number,
   ): T => this[indice] as T;
 
   estSurSousEtape = (indiceSousEtape: number) =>
@@ -49,11 +46,11 @@ export class CollectionInformationsEtapes<TypeConteneur> extends Array<
     indice === ConstantesEtatEtape.indiceEtapeInitial;
 
   recupereInformationsEtapeSuivante = (
-    indiceDepart: number
+    indiceDepart: number,
   ): InformationsEtape<TypeConteneur> =>
     this.reduce(
       this.recuperationEtapeSuivanteOuDefaut(indiceDepart),
-      EtapeInexistante
+      EtapeInexistante as unknown as InformationsEtape<TypeConteneur>,
     );
 
   recupereSousEtape = (indice: number, indiceSousEtape: number) =>
@@ -76,7 +73,7 @@ export class CollectionInformationsEtapes<TypeConteneur> extends Array<
     (
       defaut: InformationsEtape<TypeConteneur>,
       etape: InformationsEtape<TypeConteneur>,
-      indice: number
+      indice: number,
     ) =>
       etape.longueurComptabilisee === 1 && indice > indiceCourant
         ? this[indice]

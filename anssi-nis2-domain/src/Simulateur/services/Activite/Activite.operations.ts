@@ -29,17 +29,17 @@ import {
   ValeursActivitesTransportsFerroviaires,
   ValeursActivitesTransportsParEaux,
   ValeursActivitesTransportsRoutiers,
-} from "../../Activite.valeurs.ts";
-import { ValeursActivites } from "../../Activite.definitions.ts";
-import { SecteurActivite } from "../../SecteurActivite.definitions.ts";
+} from "../../Activite.valeurs";
+import { ValeursActivites } from "../../Activite.definitions";
+import { SecteurActivite } from "../../SecteurActivite.definitions";
 import {
   SecteursSansSousSecteur,
   SousSecteurActivite,
-} from "../../SousSecteurActivite.definitions.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
-import { cartographieSousSecteursParSecteur } from "../SousSecteurActivite/SousSecteurActivite.operations.ts";
-import { estUnSecteurAvecDesSousSecteurs } from "../SecteurActivite/SecteurActivite.predicats.ts";
-import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions.ts";
+} from "../../SousSecteurActivite.definitions";
+import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
+import { cartographieSousSecteursParSecteur } from "../SousSecteurActivite/SousSecteurActivite.operations";
+import { estUnSecteurAvecDesSousSecteurs } from "../SecteurActivite/SecteurActivite.predicats";
+import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions";
 
 export const activitesParSecteurEtSousSecteur: Record<
   ValeurCleSectorielle,
@@ -95,7 +95,7 @@ export type AssociationSectorielleActivite = {
 };
 const collecteTitresSecteursSimples = (
   libelleSecteursActivite: string,
-  secteur: SecteursSansSousSecteur
+  secteur: SecteursSansSousSecteur,
 ): AssociationSectorielleActivite[] => [
   {
     titreActivite: libelleSecteursActivite,
@@ -105,11 +105,11 @@ const collecteTitresSecteursSimples = (
 const collecteTitreSousSecteurs: (
   libelleSecteursActivite: string,
   listeSousSecteurs: SousSecteurActivite[],
-  libellesSousSecteursActivite: Record<SousSecteurActivite, string>
+  libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
 ) => AssociationSectorielleActivite[] = (
   libelleSecteursActivite: string,
   listeSousSecteurs: SousSecteurActivite[],
-  libellesSousSecteursActivite: Record<SousSecteurActivite, string>
+  libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
 ) =>
   listeSousSecteurs.map((sousSecteur: SousSecteurActivite) => ({
     secteurOuSousSecteur: sousSecteur,
@@ -119,34 +119,34 @@ const rempliSousSecteurs = (
   listeSousSecteurs: SousSecteurActivite[],
   secteur: SecteurActivite,
   libelleSecteursActivite: string,
-  libellesSousSecteursActivite: Record<SousSecteurActivite, string>
+  libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
 ): AssociationSectorielleActivite[] => {
   if (
     estUnSecteurAvecDesSousSecteurs(secteur) &&
     listeSousSecteurs.length === 0
   )
     throw Error(
-      `Houla! un secteur avec sous secteurs n'en n'a pas ! ${secteur}`
+      `Houla! un secteur avec sous secteurs n'en n'a pas ! ${secteur}`,
     );
   return listeSousSecteurs.length === 0
     ? collecteTitresSecteursSimples(
         libelleSecteursActivite,
-        secteur as SecteursSansSousSecteur
+        secteur as SecteursSansSousSecteur,
       )
     : collecteTitreSousSecteurs(
         libelleSecteursActivite,
         listeSousSecteurs,
-        libellesSousSecteursActivite
+        libellesSousSecteursActivite,
       );
 };
 export const collecteTitresPourActivite: (
   libellesSecteursActivite: Record<SecteurActivite, string>,
   libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
-  donneesFormulaire: IDonneesBrutesFormulaireSimulateur
+  donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
 ) => AssociationSectorielleActivite[] = (
   libellesSecteursActivite,
   libellesSousSecteursActivite,
-  donneesFormulaire
+  donneesFormulaire,
 ) =>
   cartographieSousSecteursParSecteur(donneesFormulaire).reduce<
     AssociationSectorielleActivite[]
@@ -157,14 +157,14 @@ export const collecteTitresPourActivite: (
           listeSousSecteurs,
           secteur,
           libellesSecteursActivite[secteur],
-          libellesSousSecteursActivite
-        )
+          libellesSousSecteursActivite,
+        ),
       ),
-    []
+    [],
   );
 export const fabriqueListeActivitesDesSecteurs = (
   secteurActivite: ValeurCleSectorielle[],
-  filtreActivite: (activite: ValeursActivites) => boolean
+  filtreActivite: (activite: ValeursActivites) => boolean,
 ): ValeursActivites[] =>
   Array.from(
     secteurActivite.reduce((ensembleActivites, secteur) => {
@@ -172,5 +172,5 @@ export const fabriqueListeActivitesDesSecteurs = (
         ?.filter(filtreActivite)
         .map((activite: ValeursActivites) => ensembleActivites.add(activite));
       return ensembleActivites;
-    }, new Set<ValeursActivites>())
+    }, new Set<ValeursActivites>()),
   );

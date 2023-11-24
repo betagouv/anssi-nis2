@@ -1,6 +1,6 @@
-import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
-import { InformationEtapeForm } from "./InformationsEtape.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire.ts";
+import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes";
+import { InformationEtapeForm } from "./InformationsEtape";
+import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire";
 
 export type EtatEtapes<TypeConteneur> = {
   // Données générales
@@ -25,7 +25,7 @@ export type EtatEtapes<TypeConteneur> = {
   // Capacités
   readonly ignoreEtapeSuivante: (
     etat: EtatEtapes<TypeConteneur>,
-    donnees: IDonneesBrutesFormulaireSimulateur
+    donnees: IDonneesBrutesFormulaireSimulateur,
   ) => boolean;
 };
 

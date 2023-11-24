@@ -1,23 +1,23 @@
 import {
   IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
-import { SecteursAvecSousSecteurs } from "anssi-nis2-domain/src/Simulateur/SousSecteurActivite.definitions.ts";
-import { PredicatChamp } from "./champs.domaine.ts";
+} from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
+import { SecteursAvecSousSecteurs } from "anssi-nis2-domain/src/Simulateur/SousSecteurActivite.definitions";
+import { PredicatChamp } from "./champs.domaine";
 import {
   estSousSecteurAutre,
   sousSecteurAppartientASecteur,
-} from "../SousSecteurActivite/SousSecteurActivite.predicats.ts";
-import { ValeurChampSimulateur } from "../../ChampsSimulateur.definitions.ts";
-import { ValeursActivites } from "anssi-nis2-domain/src/Simulateur/Activite.definitions.ts";
-import { activiteEstDansSecteur } from "../Activite/Activite.predicats.ts";
-import { filtreSecteursSansSousSecteurs } from "../SecteurActivite/SecteurActivite.operations.ts";
-import { filtreSecteursAvecSousSecteurs } from "../SecteurActivite/SecteurActivite.predicats.ts";
-import { ValeurCleSectorielle } from "anssi-nis2-domain/src/Simulateur/ValeurCleSectorielle.definitions.ts";
-import { fabriqueListeValeursSectorielles } from "../ValeursSectorielles/ValeursSectorielles.operations.ts";
+} from "../SousSecteurActivite/SousSecteurActivite.predicats";
+import { ValeurChampSimulateur } from "../../ChampsSimulateur.definitions";
+import { ValeursActivites } from "anssi-nis2-domain/src/Simulateur/Activite.definitions";
+import { activiteEstDansSecteur } from "../Activite/Activite.predicats";
+import { filtreSecteursSansSousSecteurs } from "../SecteurActivite/SecteurActivite.operations";
+import { filtreSecteursAvecSousSecteurs } from "../SecteurActivite/SecteurActivite.predicats";
+import { ValeurCleSectorielle } from "anssi-nis2-domain/src/Simulateur/ValeurCleSectorielle.definitions";
+import { fabriqueListeValeursSectorielles } from "../ValeursSectorielles/ValeursSectorielles.operations";
 
 const appliqueValidateur: (
-  donnees: IDonneesBrutesFormulaireSimulateur
+  donnees: IDonneesBrutesFormulaireSimulateur,
 ) => (validateur: PredicatChamp) => boolean = (donnees) => (validateur) =>
   validateur(donnees);
 export const et: (...validateurs: Array<PredicatChamp>) => PredicatChamp =
@@ -33,7 +33,7 @@ export const ou: (...validateurs: Array<PredicatChamp>) => PredicatChamp =
 export const lorsque: (
   champ: NomsChampsSimulateur,
   valeur: ValeurChampSimulateur,
-  predicat: PredicatChamp
+  predicat: PredicatChamp,
 ) => PredicatChamp =
   (champ, valeur, predicat) => (donnees: IDonneesBrutesFormulaireSimulateur) =>
     donnees[champ][0] != valeur || predicat(donnees);
@@ -44,22 +44,22 @@ export const estChaineNonVide = <T extends string>(listeValeurs: T) =>
 export const auMoinsN = (
   n: number,
   nomChamp: NomsChampsSimulateur,
-  fonctionNommee = `auMoinsN_${n}_${nomChamp}`
+  fonctionNommee = `auMoinsN_${n}_${nomChamp}`,
 ) =>
   ({
     [fonctionNommee]: (donnees: IDonneesBrutesFormulaireSimulateur) =>
       donnees[nomChamp].filter(estChaineNonVide).length > n - 1,
-  }[fonctionNommee]);
+  })[fonctionNommee];
 
 export const exactementN = (
   n: number,
   nomChamp: NomsChampsSimulateur,
-  fonctionNommee = `exactement_${n}_${nomChamp}`
+  fonctionNommee = `exactement_${n}_${nomChamp}`,
 ) =>
   ({
     [fonctionNommee]: (donnees: IDonneesBrutesFormulaireSimulateur) =>
       donnees[nomChamp].filter(estChaineNonVide).length === n,
-  }[fonctionNommee]);
+  })[fonctionNommee];
 
 export const auMoinsUn = (nomChamp: NomsChampsSimulateur) =>
   auMoinsN(1, nomChamp);
@@ -67,30 +67,30 @@ export const exactementUn = (nomChamp: NomsChampsSimulateur) =>
   exactementN(1, nomChamp);
 
 const collecteValidateursParSecteurAvecSousSecteur = (
-  valeursSecteur: SecteursAvecSousSecteurs[]
+  valeursSecteur: SecteursAvecSousSecteurs[],
 ) => valeursSecteur.map(sousSecteurAppartientASecteur);
 
 const construitPredicatToutSousSecteur = (
-  valeursSecteur: SecteursAvecSousSecteurs[]
+  valeursSecteur: SecteursAvecSousSecteurs[],
 ) =>
   et(
     ...collecteValidateursParSecteurAvecSousSecteur(valeursSecteur),
-    auMoinsN(valeursSecteur.length, "sousSecteurActivite")
+    auMoinsN(valeursSecteur.length, "sousSecteurActivite"),
   );
 
 export const auMoinsUnSousSecteurParSecteur: PredicatChamp = (
-  donneesFormulaireSimulateur
+  donneesFormulaireSimulateur,
 ) =>
   construitPredicatToutSousSecteur(
-    filtreSecteursAvecSousSecteurs(donneesFormulaireSimulateur.secteurActivite)
+    filtreSecteursAvecSousSecteurs(donneesFormulaireSimulateur.secteurActivite),
   )(donneesFormulaireSimulateur);
 
 const auMoinsUneActiviteEstDansSecteur = (
   activites: ValeursActivites[],
-  secteurActivite: ValeurCleSectorielle
+  secteurActivite: ValeurCleSectorielle,
 ) =>
   activites.some((activite) =>
-    activiteEstDansSecteur(activite, secteurActivite)
+    activiteEstDansSecteur(activite, secteurActivite),
   );
 
 const fabriqueAuMoinsUneActiviteEstDansSecteur =
@@ -98,21 +98,21 @@ const fabriqueAuMoinsUneActiviteEstDansSecteur =
   (secteurActivite: ValeurCleSectorielle) =>
     auMoinsUneActiviteEstDansSecteur(
       donneesFormulaireSimulateur.activites,
-      secteurActivite
+      secteurActivite,
     );
 
 export const auMoinsUneActiviteParValeurSectorielle: PredicatChamp = (
-  donneesFormulaireSimulateur
+  donneesFormulaireSimulateur,
 ) =>
   fabriqueListeValeursSectorielles(
     filtreSecteursSansSousSecteurs(donneesFormulaireSimulateur.secteurActivite),
-    donneesFormulaireSimulateur.sousSecteurActivite
+    donneesFormulaireSimulateur.sousSecteurActivite,
   ).every(
-    fabriqueAuMoinsUneActiviteEstDansSecteur(donneesFormulaireSimulateur)
+    fabriqueAuMoinsUneActiviteEstDansSecteur(donneesFormulaireSimulateur),
   );
 
 export const contientSousSecteurAutresUniquement = (
-  donneesFormulaire: IDonneesBrutesFormulaireSimulateur
+  donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
 ) =>
   donneesFormulaire.sousSecteurActivite.length > 0 &&
   donneesFormulaire.sousSecteurActivite.every(estSousSecteurAutre);

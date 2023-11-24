@@ -1,6 +1,6 @@
-import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
-import { ResultatEligibilite } from "../../Eligibilite.definitions.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
+import { ResultatEligibilite } from "../../Eligibilite.definitions";
 
 export type OperationCalculeEligibilite = (
-  donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur
+  donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur,
 ) => ResultatEligibilite;

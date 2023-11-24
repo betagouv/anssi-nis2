@@ -1,31 +1,31 @@
 import {
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-} from "../../SousSecteurActivite.definitions.ts";
+} from "../../SousSecteurActivite.definitions";
 import {
   contientSousSecteur,
   estSecteurListe,
   estUnSecteurAvecDesSousSecteurs,
-} from "../SecteurActivite/SecteurActivite.predicats.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
-import { SecteurActivite } from "../../SecteurActivite.definitions.ts";
-import { estSousSecteurListe } from "./SousSecteurActivite.predicats.ts";
+} from "../SecteurActivite/SecteurActivite.predicats";
+import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
+import { SecteurActivite } from "../../SecteurActivite.definitions";
+import { estSousSecteurListe } from "./SousSecteurActivite.predicats";
 
 const extraitSousSecteurs = (
   secteur: SecteursAvecSousSecteurs,
-  sousSecteurActivite: SousSecteurActivite[]
+  sousSecteurActivite: SousSecteurActivite[],
 ) =>
   sousSecteurActivite.filter((sousSecteur) =>
-    contientSousSecteur(secteur, sousSecteur)
+    contientSousSecteur(secteur, sousSecteur),
   );
 const extraitSousSecteursOuListeVide = (
   secteur: string,
-  sousSecteurActivite: SousSecteurActivite[]
+  sousSecteurActivite: SousSecteurActivite[],
 ) =>
   estUnSecteurAvecDesSousSecteurs(secteur)
     ? extraitSousSecteurs(
         secteur as SecteursAvecSousSecteurs,
-        sousSecteurActivite
+        sousSecteurActivite,
       )
     : [];
 export const cartographieSousSecteursParSecteur = ({
@@ -41,9 +41,9 @@ export const cartographieSousSecteursParSecteur = ({
           secteur,
           extraitSousSecteursOuListeVide(
             secteur,
-            sousSecteurActivite.filter(estSousSecteurListe)
+            sousSecteurActivite.filter(estSousSecteurListe),
           ),
         ],
       ],
-      []
+      [],
     );

@@ -1,6 +1,6 @@
-import { ResultatEligibilite } from "./Eligibilite.definitions.ts";
-import { ValeursActivites } from "./Activite.definitions.ts";
-import { ValeursResultatEligibilite } from "./Eligibilite.valeurs.ts";
+import { ResultatEligibilite } from "./Eligibilite.definitions";
+import { ValeursActivites } from "./Activite.definitions";
+import { ValeursResultatEligibilite } from "./Eligibilite.valeurs";
 
 export const Eligibilite: Readonly<
   Record<ResultatEligibilite, ResultatEligibilite>
@@ -21,5 +21,5 @@ export const ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement: V
 export const R: { [k in ResultatEligibilite]: () => ResultatEligibilite } =
   ValeursResultatEligibilite.reduce(
     (rec, res) => ({ ...rec, [res]: () => Eligibilite[res] }),
-    {} as { [key in ResultatEligibilite]: () => ResultatEligibilite }
+    {} as { [key in ResultatEligibilite]: () => ResultatEligibilite },
   );

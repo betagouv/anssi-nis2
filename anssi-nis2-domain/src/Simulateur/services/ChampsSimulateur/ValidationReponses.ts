@@ -1,4 +1,4 @@
-import { ValidationReponses } from "./champs.domaine.ts";
+import { ValidationReponses } from "./champs.domaine";
 import {
   auMoinsUn,
   auMoinsUneActiviteParValeurSectorielle,
@@ -6,11 +6,11 @@ import {
   et,
   exactementUn,
   lorsque,
-} from "./champs.predicats.ts";
-import { NomsChampsSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
+} from "./champs.predicats";
+import { NomsChampsSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
 
 export const fabriqueValidationUneReponses = (
-  nomChamp: NomsChampsSimulateur
+  nomChamp: NomsChampsSimulateur,
 ): ValidationReponses => ({
   message: "Selectionnez une réponse",
   validateur: exactementUn(nomChamp),
@@ -40,6 +40,6 @@ export const validationReponsesTypeStructure: ValidationReponses = {
   message: "Sélectionnez une réponse par question",
   validateur: et(
     auMoinsUn("typeStructure"),
-    lorsque("typeStructure", "publique", auMoinsUn("typeEntitePublique"))
+    lorsque("typeStructure", "publique", auMoinsUn("typeEntitePublique")),
   ),
 };

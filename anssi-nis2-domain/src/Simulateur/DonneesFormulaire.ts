@@ -1,5 +1,5 @@
-import { SecteurActivite } from "./SecteurActivite.definitions.ts";
-import { SousSecteurActivite } from "./SousSecteurActivite.definitions.ts";
+import { SecteurActivite } from "./SecteurActivite.definitions";
+import { SousSecteurActivite } from "./SousSecteurActivite.definitions";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
@@ -8,8 +8,8 @@ import {
   TypeEntitePublique,
   TypeStructure,
   ValeurChampSimulateur,
-} from "./ChampsSimulateur.definitions.ts";
-import { ValeursActivites } from "./Activite.definitions.ts";
+} from "./ChampsSimulateur.definitions";
+import { ValeursActivites } from "./Activite.definitions";
 import { ValeursNomChampsFormulaire } from "./DonneesFormulaire.valeurs";
 
 export type NomsChampsSimulateur = (typeof ValeursNomChampsFormulaire)[number];
@@ -30,7 +30,7 @@ export interface IDonneesBrutesFormulaireSimulateur
 export interface IDonneesFormulaireSimulateur
   extends IDonneesBrutesFormulaireSimulateur {
   avec(
-    modifie: Partial<IDonneesFormulaireSimulateur>
+    modifie: Partial<IDonneesFormulaireSimulateur>,
   ): IDonneesFormulaireSimulateur;
 }
 
@@ -53,7 +53,7 @@ export class DonneesFormulaireSimulateur
   }
 
   avec(
-    modifie: Partial<IDonneesFormulaireSimulateur>
+    modifie: Partial<IDonneesFormulaireSimulateur>,
   ): IDonneesFormulaireSimulateur {
     return { ...this, ...modifie };
   }
