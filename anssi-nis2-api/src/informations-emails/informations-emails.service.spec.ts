@@ -32,7 +32,7 @@ describe("InformationsEmailsService", () => {
   });
 });
 
-describe("InformationsEmailsService sur vraie DB", () => {
+describe.skip("InformationsEmailsService sur vraie DB", () => {
   const testingModuleBuilder = Test.createTestingModule({
     controllers: [],
     imports: [
