@@ -4,16 +4,16 @@ import {
   fabriqueArbContraintSurTrancheCA,
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
-} from "../../utilitaires/manipulationArbitraires";
+} from "../../../anssi-nis2-ui/test/utilitaires/manipulationArbitraires";
 import { arbSecteursEtSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
 import {
   arbAppartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
   arbTypeStructure,
 } from "./arbitraireChampFormulaire";
-import { ValeursTypeEntitePublique } from "../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.valeurs";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
-import { predicatDonneesFormulaire } from "../../../../anssi-nis2-domain/src/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
+import { ValeursTypeEntitePublique } from "../../src/Simulateur/ChampsSimulateur.valeurs";
+import { IDonneesBrutesFormulaireSimulateur } from "../../src/Simulateur/DonneesFormulaire";
+import { predicatDonneesFormulaire } from "../../src/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 
 export const arbNonOSEPublique = etend(arbSecteursEtSousSecteursListes)
   .avec({

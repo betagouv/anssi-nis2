@@ -2,21 +2,21 @@ import { describe, it, expect } from "vitest";
 import {
   fabriquesInformationsEtapes,
   toujoursFaux,
-} from "../../../anssi-nis2-domain/src/Simulateur/fabriques/InformationsEtape.fabrique";
-import { SimulateurEtapeForm } from "../../src/Components/Simulateur/SimulateurEtapeForm";
+} from "../src/Simulateur/fabriques/InformationsEtape.fabrique";
+import { SimulateurEtapeForm } from "anssi-nis2-ui/src/Components/Simulateur/SimulateurEtapeForm";
 import {
   CapacitesEtapeFormulaire,
   EtapeExistante,
   InformationEtapeForm,
   VariantesEtape,
-} from "../../../anssi-nis2-domain/src/Simulateur/InformationsEtape";
-import { exInformationEtape } from "../Services/Simulateur/exemples/informationEtape.exemples";
-import { fausseValidationReponse } from "../Services/Simulateur/InformationEtape.faussaire";
+} from "../src/Simulateur/InformationsEtape";
+import { exInformationEtape } from "../../anssi-nis2-ui/test/Services/Simulateur/exemples/informationEtape.exemples";
+import { fausseValidationReponse } from "../../anssi-nis2-ui/test/Services/Simulateur/InformationEtape.faussaire";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
-} from "../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
-import { SimulateurEtapeRenderedComponent } from "../../src/Services/Simulateur/Props/component";
+} from "../src/Simulateur/DonneesFormulaire";
+import { SimulateurEtapeRenderedComponent } from "anssi-nis2-ui/src/Services/Simulateur/Props/component";
 
 describe("fabriquesInformationsEtapes", () => {
   describe(fabriquesInformationsEtapes.variantes, () => {
@@ -69,7 +69,7 @@ describe("fabriquesInformationsEtapes", () => {
       const resultDeuxEtapes =
         fabriquesInformationsEtapes.variantes(variantesDeuxEtapes);
       const donnees = new DonneesFormulaireSimulateur(
-        donneesFormulaireSimulateurVide,
+        donneesFormulaireSimulateurVide
       );
       expect(resultDeuxEtapes).toEqual({
         ...resultatAttendu,
@@ -77,13 +77,13 @@ describe("fabriquesInformationsEtapes", () => {
       });
       expect(
         resultDeuxEtapes.varianteAffichee(
-          donnees.avec({ typeStructure: ["privee"] }),
-        ),
+          donnees.avec({ typeStructure: ["privee"] })
+        )
       ).toBe(0);
       expect(
         resultDeuxEtapes.varianteAffichee(
-          donnees.avec({ typeStructure: ["publique"] }),
-        ),
+          donnees.avec({ typeStructure: ["publique"] })
+        )
       ).toBe(1);
     });
   });

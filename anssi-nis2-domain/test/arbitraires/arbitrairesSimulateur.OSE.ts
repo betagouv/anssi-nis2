@@ -4,13 +4,13 @@ import {
   fabriqueArbContraintSurTrancheCA,
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
-} from "../../utilitaires/manipulationArbitraires";
+} from "../../../anssi-nis2-ui/test/utilitaires/manipulationArbitraires";
 import {
   arbDesigneOperateurServicesEssentiels,
   arbTranche,
   arbTypeStructure,
 } from "./arbitraireChampFormulaire";
-import { ValeursAppartenancePaysUnionEuropeenne } from "../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.valeurs";
+import { ValeursAppartenancePaysUnionEuropeenne } from "../../src/Simulateur/ChampsSimulateur.valeurs";
 import { ArbitraireFormulaire } from "./arbitraireFormulaire.definitions";
 import { arbitraireSecteursSousSecteurs } from "./arbitrairesSimulateur.valeursSectorielles";
 

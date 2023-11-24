@@ -4,24 +4,24 @@ import {
   etend,
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
-} from "../../utilitaires/manipulationArbitraires";
+} from "../../../anssi-nis2-ui/test/utilitaires/manipulationArbitraires";
 import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
 import {
   ValeursAppartenancePaysUnionEuropeenne,
   ValeursTypeEntitePublique,
-} from "../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.valeurs";
+} from "../../src/Simulateur/ChampsSimulateur.valeurs";
 import {
   ArbitraireFormulaire,
   ArbitraireSurTousLesChamps,
 } from "./arbitraireFormulaire.definitions";
-import { ValeursNomChampsFormulaire } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.valeurs";
+import { ValeursNomChampsFormulaire } from "../../src/Simulateur/DonneesFormulaire.valeurs";
 import {
   arbAppartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
 } from "./arbitraireChampFormulaire";
 
 export const arbToutesValeursPossibles = etend(
-  arbSecteursSousSecteursListes,
+  arbSecteursSousSecteursListes
 ).avec({
   designeOperateurServicesEssentiels: fabriqueArbSingleton([
     "oui",
@@ -64,5 +64,5 @@ export const donneeAbsente = ValeursNomChampsFormulaire.reduce(
     ...resultat,
     [nom]: fabriqueArbitraireVidePourChamp(nom),
   }),
-  initialValue,
+  initialValue
 );

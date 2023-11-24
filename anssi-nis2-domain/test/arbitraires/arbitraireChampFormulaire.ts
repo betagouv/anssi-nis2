@@ -6,8 +6,8 @@ import {
   TypeStructure,
   UnionPetitMoyenGrand,
   ValeurChampSimulateur,
-} from "../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.definitions";
-import { fabriqueArbSingleton } from "../../utilitaires/manipulationArbitraires";
+} from "../../src/Simulateur/ChampsSimulateur.definitions";
+import { fabriqueArbSingleton } from "../../../anssi-nis2-ui/test/utilitaires/manipulationArbitraires";
 
 export const arbDesigneOperateurServicesEssentiels: ArbitraireChampFormulaire<DesignationOperateurServicesEssentiels> =
   {
@@ -47,5 +47,5 @@ export const arbAppartenancePaysUnionEuropeenne: ArbitraireChampFormulaire<
 };
 export type ArbitraireChampFormulaire<
   T extends ValeurChampSimulateur,
-  TypesAdditionnelles extends string = T,
+  TypesAdditionnelles extends string = T
 > = Record<T | TypesAdditionnelles, fc.Arbitrary<T[]>>;

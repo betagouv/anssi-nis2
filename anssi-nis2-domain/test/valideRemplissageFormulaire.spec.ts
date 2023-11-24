@@ -4,10 +4,10 @@ import {
   donneesFormulaireSontCompletes,
   verifieCompletudeDonneesFormulairePrivee,
   verifieCompletudeDonneesFormulairePublique,
-} from "../../../anssi-nis2-domain/src/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
+} from "../src/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
-import { verifieQue } from "../utilitaires/assure";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
+import { verifieQue } from "../../anssi-nis2-ui/test/utilitaires/assure";
+import { IDonneesBrutesFormulaireSimulateur } from "../src/Simulateur/DonneesFormulaire";
 
 const donneesAbsentes = Object.entries(arbForm.nonValide.donneeAbsente).filter(
   ([nom]) =>
@@ -16,7 +16,7 @@ const donneesAbsentes = Object.entries(arbForm.nonValide.donneeAbsente).filter(
       "sousSecteurActivite",
       "typeEntitePublique",
       "trancheCA",
-    ].includes(nom),
+    ].includes(nom)
 );
 const donneesTestsArbitraires = [
   {
@@ -129,7 +129,7 @@ describe.each([
       verifieQue<IDonneesBrutesFormulaireSimulateur, boolean>(actionTestee)
         .quelqueSoit(arbitraireDonneeAbsente)
         .renvoieToujours(false);
-    },
+    }
   );
   it.each(donneesTestsArbitraires)(
     "Doit accepter des données éligibles: $nom",
@@ -137,7 +137,7 @@ describe.each([
       verifieQue(actionTestee)
         .quelqueSoit(arbitraireEligible)
         .renvoieToujours(true);
-    },
+    }
   );
 });
 
@@ -148,7 +148,7 @@ describe.each(donneesNonValides)(
       "doit répondre $attendu pour $actionTestee.name",
       ({ actionTestee, attendu }) => {
         verifieQue(actionTestee).pour(donnees).renvoieToujours(attendu);
-      },
+      }
     );
-  },
+  }
 );

@@ -5,10 +5,12 @@
   "main": "index.js",
   "devDependencies": {
     "vite": "^5.0.2",
-    "vite-plugin-node": "^3.1.0"
+    "vite-plugin-node": "^3.1.0",
+    "vitest": "^0.34.6"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run",
+    "dev:test": "vitest"
   },
   "author": "",
   "license": "ISC"

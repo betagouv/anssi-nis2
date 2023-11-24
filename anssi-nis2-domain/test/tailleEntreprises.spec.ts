@@ -1,12 +1,12 @@
 import { describe, expect } from "vitest";
 import { it, fc } from "@fast-check/vitest";
-import { UnionPetitMoyenGrand } from "../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.definitions";
-import { ValeursPetitMoyenGrand } from "../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.valeurs";
+import { UnionPetitMoyenGrand } from "../src/Simulateur/ChampsSimulateur.definitions";
+import { ValeursPetitMoyenGrand } from "../src/Simulateur/ChampsSimulateur.valeurs";
 import {
   estGrandeEntreprise,
   estMoyenneEntreprise,
   estPetiteEntreprise,
-} from "../../../anssi-nis2-domain/src/Simulateur/services/TailleEntreprise/TailleEntite.predicats";
+} from "../src/Simulateur/services/TailleEntreprise/TailleEntite.predicats";
 
 describe("Tailles entreprises", () => {
   describe(estPetiteEntreprise, () => {
@@ -21,7 +21,7 @@ describe("Tailles entreprises", () => {
       (param1, param2) => {
         expect(estPetiteEntreprise([param1], [param2])).toBeFalsy();
         expect(estPetiteEntreprise([param2], [param1])).toBeFalsy();
-      },
+      }
     );
   });
   describe(estMoyenneEntreprise, () => {
@@ -30,7 +30,7 @@ describe("Tailles entreprises", () => {
       (param) => {
         expect(estMoyenneEntreprise(["moyen"], [param])).toBeTruthy();
         expect(estMoyenneEntreprise([param], ["moyen"])).toBeTruthy();
-      },
+      }
     );
   });
   describe(estGrandeEntreprise, () => {
@@ -39,7 +39,7 @@ describe("Tailles entreprises", () => {
       (param) => {
         expect(estGrandeEntreprise(["grand"], [param])).toBeTruthy();
         expect(estGrandeEntreprise([param], ["grand"])).toBeTruthy();
-      },
+      }
     );
   });
   it.prop([

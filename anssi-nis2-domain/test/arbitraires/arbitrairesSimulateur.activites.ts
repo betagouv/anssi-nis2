@@ -5,14 +5,14 @@ import {
   etend,
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
-} from "../../utilitaires/manipulationArbitraires";
+} from "../../../anssi-nis2-ui/test/utilitaires/manipulationArbitraires";
 import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
 import { arbDesigneOperateurServicesEssentiels } from "./arbitraireChampFormulaire";
-import { ValeursAppartenancePaysUnionEuropeenne } from "../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.valeurs";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
+import { ValeursAppartenancePaysUnionEuropeenne } from "../../src/Simulateur/ChampsSimulateur.valeurs";
+import { IDonneesBrutesFormulaireSimulateur } from "../../src/Simulateur/DonneesFormulaire";
 
 export const arbActivitesAutres = etend<DonneesSectorielles>(
-  arbSecteursSousSecteursListes,
+  arbSecteursSousSecteursListes
 )
   .avec({
     designeOperateurServicesEssentiels:

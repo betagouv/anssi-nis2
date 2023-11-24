@@ -1,4 +1,4 @@
-import { ValeursActivites } from "../../../../anssi-nis2-domain/src/Simulateur/Activite.definitions";
+import { ValeursActivites } from "../../src/Simulateur/Activite.definitions";
 
 export type ArbitraireOptions = {
   minLength?: number;

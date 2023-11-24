@@ -11,7 +11,7 @@ import {
 import {
   ArbitraireOptions,
   ArbitraireOptionsActivites,
-} from "../Domaine/arbitraires/arbitraireOptions";
+} from "../../../anssi-nis2-domain/test/arbitraires/arbitraireOptions";
 import {
   EnrSecteurSousSecteur,
   SousSecteurActivite,

@@ -1,9 +1,9 @@
 import { describe, it } from "vitest";
-import { calculeEligibilite } from "../../../anssi-nis2-domain/src/Simulateur/services/Eligibilite/Eligibilite.operations";
+import { calculeEligibilite } from "../src/Simulateur/services/Eligibilite/Eligibilite.operations";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
-import { verifieQue } from "../utilitaires/assure";
+import { verifieQue } from "../../anssi-nis2-ui/test/utilitaires/assure";
 
-import { Eligibilite } from "../../../anssi-nis2-domain/src/Simulateur/Eligibilite.constantes";
+import { Eligibilite } from "../src/Simulateur/Eligibilite.constantes";
 
 describe(calculeEligibilite, () => {
   describe("Entité OSE pour NIS1", () => {
@@ -31,7 +31,7 @@ describe(calculeEligibilite, () => {
           verifieQue(calculeEligibilite)
             .quelqueSoit(
               arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                .activitesConcernes,
+                .activitesConcernes
             )
             .renvoieToujours(Eligibilite.EligiblePetiteEntreprise);
         });
@@ -40,7 +40,7 @@ describe(calculeEligibilite, () => {
             verifieQue(calculeEligibilite)
               .quelqueSoit(
                 arbForm.nonDesigneOSE.privee.petit
-                  .listeNonFournisseursInfrastructureNumerique,
+                  .listeNonFournisseursInfrastructureNumerique
               )
               .renvoieToujours(Eligibilite.NonEligible);
           });
@@ -48,7 +48,7 @@ describe(calculeEligibilite, () => {
             verifieQue(calculeEligibilite)
               .quelqueSoit(
                 arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                  .activitesNonConcernes,
+                  .activitesNonConcernes
               )
               .renvoieToujours(Eligibilite.NonEligible);
           });
@@ -110,7 +110,7 @@ describe(calculeEligibilite, () => {
           verifieQue(calculeEligibilite)
             .quelqueSoit(
               arbForm.nonDesigneOSE.privee.exceptions
-                .etablissementPrincipalFrance.petitInfraNum,
+                .etablissementPrincipalFrance.petitInfraNum
             )
             .renvoieToujours(Eligibilite.Incertain);
         });
@@ -118,7 +118,7 @@ describe(calculeEligibilite, () => {
           verifieQue(calculeEligibilite)
             .quelqueSoit(
               arbForm.nonDesigneOSE.privee.exceptions
-                .etablissementPrincipalFrance.moyenGrandInfraNum,
+                .etablissementPrincipalFrance.moyenGrandInfraNum
             )
             .renvoieToujours(Eligibilite.Incertain);
         });
@@ -126,7 +126,7 @@ describe(calculeEligibilite, () => {
           verifieQue(calculeEligibilite)
             .quelqueSoit(
               arbForm.nonDesigneOSE.privee.exceptions
-                .etablissementPrincipalFrance.moyenGrandGestionTic,
+                .etablissementPrincipalFrance.moyenGrandGestionTic
             )
             .renvoieToujours(Eligibilite.Incertain);
         });
@@ -134,7 +134,7 @@ describe(calculeEligibilite, () => {
           verifieQue(calculeEligibilite)
             .quelqueSoit(
               arbForm.nonDesigneOSE.privee.exceptions
-                .etablissementPrincipalFrance.moyenGrandFournisseurNum,
+                .etablissementPrincipalFrance.moyenGrandFournisseurNum
             )
             .renvoieToujours(Eligibilite.Incertain);
         });
@@ -161,7 +161,7 @@ describe(calculeEligibilite, () => {
     it("lorsque OSE NIS 1 n'est pas rempli", () => {
       verifieQue(calculeEligibilite)
         .quelqueSoit(
-          arbForm.nonValide.donneeAbsente.designeOperateurServicesEssentiels,
+          arbForm.nonValide.donneeAbsente.designeOperateurServicesEssentiels
         )
         .renvoieToujours(Eligibilite.Incertain);
     });

@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { DonneesFormulaireSimulateur } from "../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
-import { libellesSecteursActivite } from "../../src/References/LibellesSecteursActivite";
-import { libellesSousSecteursActivite } from "../../src/References/LibellesSousSecteursActivite";
+import { DonneesFormulaireSimulateur } from "../src/Simulateur/DonneesFormulaire";
+import { libellesSecteursActivite } from "anssi-nis2-ui/src/References/LibellesSecteursActivite";
+import { libellesSousSecteursActivite } from "anssi-nis2-ui/src/References/LibellesSousSecteursActivite";
 import {
   AssociationSectorielleActivite,
   collecteTitresPourActivite,
-} from "../../../anssi-nis2-domain/src/Simulateur/services/Activite/Activite.operations";
-import { cartographieSousSecteursParSecteur } from "../../../anssi-nis2-domain/src/Simulateur/services/SousSecteurActivite/SousSecteurActivite.operations";
+} from "../src/Simulateur/services/Activite/Activite.operations";
+import { cartographieSousSecteursParSecteur } from "../src/Simulateur/services/SousSecteurActivite/SousSecteurActivite.operations";
 
 describe("Questionnaire activités", () => {
   describe(cartographieSousSecteursParSecteur, () => {
@@ -30,7 +30,7 @@ describe("Questionnaire activités", () => {
         cartographieSousSecteursParSecteur(donneesFormulaire);
 
       expect(carteSousSecteurParSecteurObtenue).toStrictEqual(
-        carteSousSecteurParSecteurAttendue,
+        carteSousSecteurParSecteurAttendue
       );
     });
     it("Omet les secteurs et sous secteurs autres", () => {
@@ -59,7 +59,7 @@ describe("Questionnaire activités", () => {
         cartographieSousSecteursParSecteur(donneesFormulaire);
 
       expect(carteSousSecteurParSecteurObtenue).toStrictEqual(
-        carteSousSecteurParSecteurAttendue,
+        carteSousSecteurParSecteurAttendue
       );
     });
   });
@@ -77,7 +77,7 @@ describe("Questionnaire activités", () => {
       collecteTitresPourActivite(
         libellesSecteursActivite,
         libellesSousSecteursActivite,
-        donneesFormulaire,
+        donneesFormulaire
       );
 
     expect(titresExtraits).toStrictEqual(titresAttendus);
@@ -98,7 +98,7 @@ describe("Questionnaire activités", () => {
       collecteTitresPourActivite(
         libellesSecteursActivite,
         libellesSousSecteursActivite,
-        donneesFormulaire,
+        donneesFormulaire
       );
 
     expect(titresExtraits).toStrictEqual(titresAttendus);
@@ -127,7 +127,7 @@ describe("Questionnaire activités", () => {
       collecteTitresPourActivite(
         libellesSecteursActivite,
         libellesSousSecteursActivite,
-        donneesFormulaire,
+        donneesFormulaire
       );
 
     expect(titresExtraits).toStrictEqual(titresAttendus);
