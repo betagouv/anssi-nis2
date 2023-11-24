@@ -2,17 +2,19 @@ import {
   InformationEtapeForm,
   InformationsEtape,
 } from "./InformationsEtape.ts";
-import { EtapeInexistante } from "../../../../anssi-nis2-domain/src/Simulateur/fabriques/InformationsEtape.fabrique.ts";
+import { EtapeInexistante } from "./fabriques/InformationsEtape.fabrique.ts";
 import { ConstantesEtatEtape } from "./EtatEtapes.ts";
 
-export class CollectionInformationsEtapes extends Array<InformationsEtape> {
+export class CollectionInformationsEtapes<TypeConteneur> extends Array<
+  InformationsEtape<TypeConteneur>
+> {
   slice = (start?: number, end?: number) =>
-    super.slice(start, end) as CollectionInformationsEtapes;
+    super.slice(start, end) as CollectionInformationsEtapes<TypeConteneur>;
 
   get nombreEtapes(): number {
     return this.reduce(
       (somme, etape) => somme + etape.longueurComptabilisee,
-      0,
+      0
     );
   }
 
@@ -20,7 +22,7 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
     this.reduce(
       (nombre, etape, indiceCourant) =>
         indiceCourant > indice ? nombre : nombre + etape.longueurComptabilisee,
-      0,
+      0
     );
 
   estPremiereEtape = (indice: number): boolean =>
@@ -36,8 +38,9 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
 
   existeEtapeSuivante = (indice: number): boolean => indice < this.length - 1;
 
-  recupereEtape = <T extends InformationsEtape>(indice: number): T =>
-    this[indice] as T;
+  recupereEtape = <T extends InformationsEtape<TypeConteneur>>(
+    indice: number
+  ): T => this[indice] as T;
 
   estSurSousEtape = (indiceSousEtape: number) =>
     indiceSousEtape != ConstantesEtatEtape.indiceSousEtapeInitial;
@@ -46,21 +49,21 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
     indice === ConstantesEtatEtape.indiceEtapeInitial;
 
   recupereInformationsEtapeSuivante = (
-    indiceDepart: number,
-  ): InformationsEtape =>
+    indiceDepart: number
+  ): InformationsEtape<TypeConteneur> =>
     this.reduce(
       this.recuperationEtapeSuivanteOuDefaut(indiceDepart),
-      EtapeInexistante,
+      EtapeInexistante
     );
 
   recupereSousEtape = (indice: number, indiceSousEtape: number) =>
     this.estSurSousEtape(indiceSousEtape) &&
-    this.recupereEtape<InformationEtapeForm>(indice).options
+    this.recupereEtape<InformationEtapeForm<TypeConteneur>>(indice).options
       ?.sousEtapeConditionnelle?.sousEtape;
 
   contenuEtape = (indiceEtape: number, indiceSousEtape: number) =>
     this.recupereSousEtape(indiceEtape, indiceSousEtape) ||
-    this.recupereEtape<InformationEtapeForm>(indiceEtape);
+    this.recupereEtape<InformationEtapeForm<TypeConteneur>>(indiceEtape);
 
   private estIndiceValide = (indice: number) =>
     indice >= 0 && indice < this.length;
@@ -70,7 +73,11 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
 
   private recuperationEtapeSuivanteOuDefaut =
     (indiceCourant: number) =>
-    (defaut: InformationsEtape, etape: InformationsEtape, indice: number) =>
+    (
+      defaut: InformationsEtape<TypeConteneur>,
+      etape: InformationsEtape<TypeConteneur>,
+      indice: number
+    ) =>
       etape.longueurComptabilisee === 1 && indice > indiceCourant
         ? this[indice]
         : defaut;

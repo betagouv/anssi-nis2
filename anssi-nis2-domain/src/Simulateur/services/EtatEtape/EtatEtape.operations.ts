@@ -1,25 +1,25 @@
+import { match, P } from "ts-pattern";
+import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire";
 import {
   ConstantesEtatEtape,
   EtatEtapes,
-} from "anssi-nis2-ui/src/Services/Simulateur/EtatEtapes.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
-import { fabriqueEtatEtape } from "../../fabriques/EtatEtape.fabrique.ts";
-import { match, P } from "ts-pattern";
+} from "anssi-nis2-domain/src/Simulateur/EtatEtapes";
+import { fabriqueEtatEtape } from "../../fabriques/EtatEtape.fabrique";
 
-type ConstruitSuccesseur = (
-  etatEtapeCourant: EtatEtapes,
+type ConstruitSuccesseur = <TypeConteneur>(
+  etatEtapeCourant: EtatEtapes<TypeConteneur>,
   indiceEtape: number,
   indiceSousEtape: number,
   donneesFormulaire: IDonneesBrutesFormulaireSimulateur
-) => EtatEtapes;
-type FabriqueSuccesseurEtatEtape = (
-  etatEtapes: EtatEtapes,
+) => EtatEtapes<TypeConteneur>;
+type FabriqueSuccesseurEtatEtape = <TypeConteneur>(
+  etatEtapes: EtatEtapes<TypeConteneur>,
   donnees: IDonneesBrutesFormulaireSimulateur
-) => EtatEtapes;
-type FabriqueChangementEtatEtape = (
-  etatEtapes: EtatEtapes,
+) => EtatEtapes<TypeConteneur>;
+type FabriqueChangementEtatEtape = <TypeConteneur>(
+  etatEtapes: EtatEtapes<TypeConteneur>,
   donnees: IDonneesBrutesFormulaireSimulateur
-) => () => EtatEtapes;
+) => () => EtatEtapes<TypeConteneur>;
 const construitEtatEtapeSuccesseur: ConstruitSuccesseur = (
   etatEtapes,
   indiceEtape,
@@ -65,18 +65,18 @@ const descendSousEtape: FabriqueChangementEtatEtape =
       etatEtapes.indiceSousEtape + 1,
       donnees
     );
-const quandRempliContitionSousEtape = (
-  etatEtapes: EtatEtapes,
+const quandRempliContitionSousEtape = <TypeConteneur>(
+  etatEtapes: EtatEtapes<TypeConteneur>,
   donnees: IDonneesBrutesFormulaireSimulateur
 ) =>
   P.when(() =>
     etatEtapes.contenuEtapeCourante.remplitContitionSousEtape(donnees)
   );
-const fabriqueEtatEtapeSuivantSansCondition = (
-  etatEtapes: EtatEtapes,
+const fabriqueEtatEtapeSuivantSansCondition = <TypeConteneur>(
+  etatEtapes: EtatEtapes<TypeConteneur>,
   donnees: IDonneesBrutesFormulaireSimulateur
 ) => {
-  return match<EtatEtapes>(etatEtapes)
+  return match<EtatEtapes<TypeConteneur>>(etatEtapes)
     .with(
       {
         estSurSousEtape: false,

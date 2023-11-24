@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { fc } from "@fast-check/vitest";
-import { CollectionInformationsEtapes } from "../../src/Services/Simulateur/CollectionInformationsEtapes";
+import { CollectionInformationsEtapes } from "../../../anssi-nis2-domain/src/Simulateur/CollectionInformationsEtapes";
 import { decoreChaineRendue } from "../utilitaires/manipulationArbitraires";
 import { arbitrairesInformationEtape } from "../Services/Simulateur/arbitraires/informationEtape";
 import { arbitrairesCollectionEtape } from "../Services/Simulateur/arbitraires/collectionInformationEtape";

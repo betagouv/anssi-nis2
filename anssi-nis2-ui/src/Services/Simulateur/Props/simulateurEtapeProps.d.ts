@@ -3,7 +3,7 @@ import { SimulateurDonneesFormulaireActions } from "./donneesFormulaire";
 import { IDonneesBrutesFormulaireSimulateur } from "../../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 import { Dispatch } from "react";
 import { BoutonsNavigation } from "./boutonsNavigation";
-import { EtatEtapes } from "../EtatEtapes.ts";
+import { EtatEtapes } from "../../../../../anssi-nis2-domain/src/Simulateur/EtatEtapes.ts";
 
 export interface SimulateurEtapeProps extends DefaultProps {
   donneesFormulaire: IDonneesBrutesFormulaireSimulateur;

@@ -1,6 +1,6 @@
 import { exCollectionInformationEtape } from "./collectionInformationEtape.exemples";
 import { fabriqueEtatEtape } from "../../../../../anssi-nis2-domain/src/Simulateur/fabriques/EtatEtape.fabrique";
-import { EtatEtapes } from "../../../../src/Services/Simulateur/EtatEtapes";
+import { EtatEtapes } from "../../../../../anssi-nis2-domain/src/Simulateur/EtatEtapes";
 import { donneesFormulaireSimulateurVide } from "../../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
 
 const indiceEtapeInitiale = 0;

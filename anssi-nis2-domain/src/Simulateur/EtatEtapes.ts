@@ -1,10 +1,10 @@
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
 import { InformationEtapeForm } from "./InformationsEtape.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire.ts";
 
-export type EtatEtapes = {
+export type EtatEtapes<TypeConteneur> = {
   // Données générales
-  readonly collectionEtapes: CollectionInformationsEtapes;
+  readonly collectionEtapes: CollectionInformationsEtapes<TypeConteneur>;
 
   // Situation dans la collection
   readonly indiceCourant: number;
@@ -20,12 +20,12 @@ export type EtatEtapes = {
   // Informations sur le composant
   readonly titreSuivant?: string;
   readonly donneesFormulaire: IDonneesBrutesFormulaireSimulateur;
-  readonly contenuEtapeCourante: InformationEtapeForm;
+  readonly contenuEtapeCourante: InformationEtapeForm<TypeConteneur>;
 
   // Capacités
   readonly ignoreEtapeSuivante: (
-    etat: EtatEtapes,
-    donnees: IDonneesBrutesFormulaireSimulateur,
+    etat: EtatEtapes<TypeConteneur>,
+    donnees: IDonneesBrutesFormulaireSimulateur
   ) => boolean;
 };
 

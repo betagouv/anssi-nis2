@@ -4,7 +4,7 @@ import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
 } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
-import { EtatEtapes } from "../../../src/Services/Simulateur/EtatEtapes";
+import { EtatEtapes } from "../../../../anssi-nis2-domain/src/Simulateur/EtatEtapes";
 import {
   fabriqueEtatEtapePrecedent,
   fabriqueEtatEtapeSuivant,

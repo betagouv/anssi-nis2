@@ -1,7 +1,7 @@
 import {
   OptionsInformationEtapeForm,
   SousEtapeConditionnelle,
-} from "../../../../src/Services/Simulateur/InformationsEtape";
+} from "../../../../../anssi-nis2-domain/src/Simulateur/InformationsEtape";
 import {
   fausseValidationReponse,
   FauxSimulateurEtapeComposant,

@@ -9,17 +9,19 @@ import {
   EtapeExistante,
   InformationEtapeForm,
   VariantesEtape,
-} from "../../src/Services/Simulateur/InformationsEtape";
+} from "../../../anssi-nis2-domain/src/Simulateur/InformationsEtape";
 import { exInformationEtape } from "../Services/Simulateur/exemples/informationEtape.exemples";
 import { fausseValidationReponse } from "../Services/Simulateur/InformationEtape.faussaire";
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
 } from "../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
+import { SimulateurEtapeRenderedComponent } from "../../src/Services/Simulateur/Props/component";
 
 describe("fabriquesInformationsEtapes", () => {
   describe(fabriquesInformationsEtapes.variantes, () => {
-    const resultatAttendu: EtapeExistante & CapacitesEtapeFormulaire = {
+    const resultatAttendu: EtapeExistante<SimulateurEtapeRenderedComponent> &
+      CapacitesEtapeFormulaire = {
       varianteAffichee: expect.any(Function),
       longueurComptabilisee: 1,
       existe: true,
@@ -32,7 +34,10 @@ describe("fabriquesInformationsEtapes", () => {
       fabriqueValidationReponses: expect.any(Function),
     };
     it("initialisation avec une variantes", () => {
-      const variantesEtapes: VariantesEtape<InformationEtapeForm>[] = [
+      const variantesEtapes: VariantesEtape<
+        SimulateurEtapeRenderedComponent,
+        InformationEtapeForm<SimulateurEtapeRenderedComponent>
+      >[] = [
         {
           etape: exInformationEtape.form1,
           conditions: {},
@@ -48,7 +53,10 @@ describe("fabriquesInformationsEtapes", () => {
       expect(resultUneEtape.varianteAffichee(donnees)).toBe(0);
     });
     it("initialisation avec deux variantes", () => {
-      const variantesDeuxEtapes: VariantesEtape<InformationEtapeForm>[] = [
+      const variantesDeuxEtapes: VariantesEtape<
+        SimulateurEtapeRenderedComponent,
+        InformationEtapeForm<SimulateurEtapeRenderedComponent>
+      >[] = [
         {
           etape: exInformationEtape.form1,
           conditions: { typeStructure: ["privee"] },

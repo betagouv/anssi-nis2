@@ -7,7 +7,7 @@ import {
   EtapeTaille,
   EtapeTypeStructure,
 } from "./index.ts";
-import { CollectionInformationsEtapes } from "../../../Services/Simulateur/CollectionInformationsEtapes.ts";
+import { CollectionInformationsEtapes } from "../../../../../anssi-nis2-domain/src/Simulateur/CollectionInformationsEtapes.ts";
 import {
   contientSousSecteurAutresUniquement,
   ou,
@@ -28,6 +28,7 @@ import {
   estUnSecteurAvecDesSousSecteurs,
 } from "../../../../../anssi-nis2-domain/src/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
 import EtapeTaillePublique from "./EtapeTaillePublique.tsx";
+import { SimulateurEtapeRenderedComponent } from "../../../Services/Simulateur/Props/component";
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
@@ -62,7 +63,7 @@ const etapeSecteurActivite = fabriquesInformationsEtapes.form(
     sousEtapeConditionnelle: sousEtapeSousSecteur,
   },
 );
-export const etapesQuestionnaire: CollectionInformationsEtapes =
+export const etapesQuestionnaire: CollectionInformationsEtapes<SimulateurEtapeRenderedComponent> =
   new CollectionInformationsEtapes(
     fabriquesInformationsEtapes.prealable("Pour bien débuter"),
     fabriquesInformationsEtapes.form(

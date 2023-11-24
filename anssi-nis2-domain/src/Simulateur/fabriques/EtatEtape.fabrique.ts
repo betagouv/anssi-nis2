@@ -2,8 +2,8 @@ import {
   donneesFormulaireSimulateurVide,
   IDonneesBrutesFormulaireSimulateur,
 } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
-import { EtatEtapes } from "anssi-nis2-ui/src/Services/Simulateur/EtatEtapes.ts";
-import { CollectionInformationsEtapes } from "anssi-nis2-ui/src/Services/Simulateur/CollectionInformationsEtapes.ts";
+import { EtatEtapes } from "anssi-nis2-domain/src/Simulateur/EtatEtapes.ts";
+import { CollectionInformationsEtapes } from "anssi-nis2-domain/src/Simulateur/CollectionInformationsEtapes.ts";
 
 const suivantEstIgnore = (
   suivant: EtatEtapes,
