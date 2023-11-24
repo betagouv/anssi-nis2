@@ -6,7 +6,7 @@ import {
   fabriqueFournisseurServeurStatique,
 } from "../../intergiciels/serveur-statique-configurable/chargeur-express-basic.auth";
 import { createMock } from "@golevelup/ts-jest";
-import { fabriqueConfigService } from "../utilitaires/helpers";
+import { fabriqueConfigService } from "../utilitaires/facilitateurs";
 
 describe(ChargeurExpressBasicAuth, () => {
   const configurationParDefaut = {

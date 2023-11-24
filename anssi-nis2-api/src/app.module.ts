@@ -3,7 +3,6 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { ServeurStatiqueConfigurableModule } from "./intergiciels/serveur-statique-configurable/serveur-statique-configurable.module";
 import { DataSource } from "typeorm";
 import { SimulateurReponseModule } from "./simulateur-reponse/simulateur-reponse.module";
-import { DatabaseModule } from "./database/database.module";
 import { ConfigModule } from "@nestjs/config";
 import { fabriqueAsynchroneOptionsServeurStatique } from "./Fabriques/fabriqueAsynchroneOptionsServeurStatique";
 import { fabriqueAsynchroneOptionsTypeOrm } from "./Fabriques/fabriqueAsynchroneOptionsTypeOrm";
