@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import {
   AssociationSectorielleActivite,
   collecteTitresPourActivite,
-} from "../../../Domaine/Simulateur/services/Activite/Activite.operations.ts";
+} from "../../../../../anssi-nis2-domain/src/Simulateur/services/Activite/Activite.operations.ts";
 import { libellesSecteursActivite } from "../../../References/LibellesSecteursActivite.ts";
 import { libellesSousSecteursActivite } from "../../../References/LibellesSousSecteursActivite.ts";
 

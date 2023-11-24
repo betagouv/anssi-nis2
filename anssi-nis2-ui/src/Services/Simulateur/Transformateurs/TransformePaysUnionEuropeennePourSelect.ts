@@ -1,4 +1,4 @@
-import { AppartenancePaysUnionEuropeenne } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+import { AppartenancePaysUnionEuropeenne } from "../../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.definitions.ts";
 import { TransformeRecordToSelect } from "../Operations/optionChampSimulateur";
 import { genereTransformateurValeursVersOptions } from "../genereTransformateurValeursVersOptions.ts";
 

@@ -1,7 +1,7 @@
 import { exCollectionInformationEtape } from "./collectionInformationEtape.exemples";
-import { fabriqueEtatEtape } from "../../../../src/Domaine/Simulateur/fabriques/EtatEtape.fabrique";
+import { fabriqueEtatEtape } from "../../../../../anssi-nis2-domain/src/Simulateur/fabriques/EtatEtape.fabrique";
 import { EtatEtapes } from "../../../../src/Services/Simulateur/EtatEtapes";
-import { donneesFormulaireSimulateurVide } from "../../../../src/Domaine/Simulateur/DonneesFormulaire";
+import { donneesFormulaireSimulateurVide } from "../../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
 
 const indiceEtapeInitiale = 0;
 const etatEtapesInitial = fabriqueEtatEtape(

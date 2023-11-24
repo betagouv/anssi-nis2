@@ -3,19 +3,19 @@ import {
   DonneesFormulaireSimulateur,
   IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+} from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
 import { gestionnairesDeChamp } from "./gestionnaires.ts";
 import {
   LibellesSousSecteurs,
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-} from "../../Domaine/Simulateur/SousSecteurActivite.definitions.ts";
+} from "../../../../anssi-nis2-domain/src/Simulateur/SousSecteurActivite.definitions.ts";
 import { entreesLibellesSousSecteurs } from "../../References/LibellesSousSecteursActivite.ts";
 import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
 import { BoutonsNavigation } from "./Props/boutonsNavigation";
 import { transformateurSousSecteurActivite } from "./Transformateurs/TransformateurSousSecteurActivite.ts";
-import { fabriqueSecteurContientLeSousSecteur } from "../../Domaine/Simulateur/services/SecteurActivite/SecteurActivite.operations.ts";
+import { fabriqueSecteurContientLeSousSecteur } from "../../../../anssi-nis2-domain/src/Simulateur/services/SecteurActivite/SecteurActivite.operations.ts";
 
 const generateNewStateFrom: (
   state: IDonneesBrutesFormulaireSimulateur,

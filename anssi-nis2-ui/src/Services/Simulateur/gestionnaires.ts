@@ -2,11 +2,11 @@ import React from "react";
 import {
   IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+} from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 
 import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
 import { GestionValeursFormulaire } from "./Props/gestionValeursFormulaire";
-import { ValeurChampSimulateur } from "../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+import { ValeurChampSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.definitions.ts";
 
 export const gestionValeursSimples = (value: ValeurChampSimulateur) => [value];
 

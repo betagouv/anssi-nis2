@@ -1,5 +1,5 @@
 import { EtatEtapes } from "../Simulateur/EtatEtapes.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 
 export const traceEtapeSimulateur = (
   etatEtapes: EtatEtapes,

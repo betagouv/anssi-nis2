@@ -1,12 +1,12 @@
 import { EtatEtapes } from "./EtatEtapes.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 import {
   fabriqueEtatEtapePrecedent,
   fabriqueEtatEtapeSuivant,
-} from "../../Domaine/Simulateur/services/EtatEtape/EtatEtape.operations.ts";
+} from "../../../../anssi-nis2-domain/src/Simulateur/services/EtatEtape/EtatEtape.operations.ts";
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.tsx";
 import { EnvoieDonneesFormulaire } from "./Operations/appelsApi";
-import { donneesFormulaireSontCompletes } from "../../Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
+import { donneesFormulaireSontCompletes } from "../../../../anssi-nis2-domain/src/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
 
 export const fabriqueGestionSuivant =
   (

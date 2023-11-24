@@ -1,6 +1,6 @@
 import { ContenusResultatEligibilite } from "../Services/Simulateur/Props/contenusResultatEligibilite";
 
-import { ResultatEligibilite } from "../Domaine/Simulateur/Eligibilite.definitions.ts";
+import { ResultatEligibilite } from "../../../anssi-nis2-domain/src/Simulateur/Eligibilite.definitions.ts";
 
 export const contenusResultatEligiblePetitEntreprise: ContenusResultatEligibilite =
   {

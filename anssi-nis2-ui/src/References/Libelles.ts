@@ -9,7 +9,7 @@ import {
   TrancheNombreEmployes,
   TypeEntitePublique,
   TypeStructure,
-} from "../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+} from "../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.definitions.ts";
 
 export const libellesDesigneOSE: Record<
   DesignationOperateurServicesEssentiels,

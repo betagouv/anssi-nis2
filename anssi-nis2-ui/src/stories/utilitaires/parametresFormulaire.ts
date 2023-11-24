@@ -2,7 +2,7 @@ import {
   donneesFormulaireSimulateurVide,
   DonneesFormulaireSimulateur,
   IDonneesBrutesFormulaireSimulateur,
-} from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+} from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 
 export class ParametresDonneesFormulaire {
   constructor(

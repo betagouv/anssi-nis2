@@ -7,7 +7,7 @@ import { Contexte } from "../../../Services/contexte";
 import { mockEnregistreInformationsEmail } from "../../utilitaires/mocks.ts";
 import { userEvent, within } from "@storybook/testing-library";
 import { CanvasObject } from "../../utilitaires/Canvas.d.tsx";
-import { InformationsEmail } from "../../../Domaine/Contact/InformationsEmail.definitions.ts";
+import { InformationsEmail } from "../../../../../anssi-nis2-domain/src/Contact/InformationsEmail.definitions.ts";
 
 const consentementNis2 =
   "J’accepte de recevoir des informations concernant la directive NIS 2";

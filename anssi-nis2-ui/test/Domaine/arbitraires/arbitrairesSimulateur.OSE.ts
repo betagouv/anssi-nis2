@@ -10,7 +10,7 @@ import {
   arbTranche,
   arbTypeStructure,
 } from "./arbitraireChampFormulaire";
-import { ValeursAppartenancePaysUnionEuropeenne } from "../../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
+import { ValeursAppartenancePaysUnionEuropeenne } from "../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.valeurs";
 import { ArbitraireFormulaire } from "./arbitraireFormulaire.definitions";
 import { arbitraireSecteursSousSecteurs } from "./arbitrairesSimulateur.valeursSectorielles";
 

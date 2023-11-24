@@ -1,6 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { faussaireInformationEtapeForm } from "../InformationEtape.faussaire";
-import { fabriquesInformationsEtapes } from "../../../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
+import { fabriquesInformationsEtapes } from "../../../../../anssi-nis2-domain/src/Simulateur/fabriques/InformationsEtape.fabrique";
 
 export const arbInformationEtapeForm = fc
   .record({ titre: fc.string() })

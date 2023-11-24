@@ -2,7 +2,7 @@ import { fc } from "@fast-check/vitest";
 import {
   IDonneesBrutesFormulaireSimulateur,
   IDonneesFormulaireSimulateur,
-} from "../../../src/Domaine/Simulateur/DonneesFormulaire";
+} from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
 import {
   ajouteAuMoinsUneActiviteListee,
   DonneesSectorielles,
@@ -24,7 +24,7 @@ import {
 import {
   ValeursActivitesConcernesInfrastructureNumerique,
   ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
-} from "../../../src/Domaine/Simulateur/Eligibilite.constantes";
+} from "../../../../anssi-nis2-domain/src/Simulateur/Eligibilite.constantes";
 
 const arbSecteurSousSecteurInfraNum = fabriqueArbEnrSecteurSousSecteurs(
   filtreSecteurListeSecteursSousSecteurs("infrastructureNumerique"),

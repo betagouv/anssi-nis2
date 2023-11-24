@@ -1,5 +1,5 @@
 import { GenerateurLibelle } from "../Operations/operationsLibelles";
-import { SousSecteurActivite } from "../../../Domaine/Simulateur/SousSecteurActivite.definitions.ts";
+import { SousSecteurActivite } from "../../../../../anssi-nis2-domain/src/Simulateur/SousSecteurActivite.definitions.ts";
 import { TransformeRecordToSelect } from "../Operations/optionChampSimulateur";
 import { genereTransformateurValeursVersOptions } from "../genereTransformateurValeursVersOptions.ts";
 

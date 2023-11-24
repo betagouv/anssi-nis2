@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { fc } from "@fast-check/vitest";
 import { fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur } from "../../../src/Services/Simulateur/Transformateurs/FabriqueConstructeurOptionActivite";
-import { IDonneesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
+import { IDonneesFormulaireSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
 import {
   ajouteMethodeAvec,
   fabriqueArbEnrSecteurSousSecteurs,

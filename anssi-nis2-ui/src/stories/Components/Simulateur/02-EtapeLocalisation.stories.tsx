@@ -6,9 +6,9 @@ import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
-import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 import { libellesPaysUnionEuropeenneLocalisation } from "../../../References/Libelles.ts";
-import { AppartenancePaysUnionEuropeenne } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+import { AppartenancePaysUnionEuropeenne } from "../../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.definitions.ts";
 
 class ParametresDonneesEtatMembre extends ParametresDonneesSpecifiqueField<AppartenancePaysUnionEuropeenne> {
   protected construitDonnees<ValeursClePaysUnionEuropeenne>(

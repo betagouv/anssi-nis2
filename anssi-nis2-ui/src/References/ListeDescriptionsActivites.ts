@@ -1,7 +1,7 @@
 import {
   DescriptionActivite,
   ValeursActivites,
-} from "../Domaine/Simulateur/Activite.definitions.ts";
+} from "../../../anssi-nis2-domain/src/Simulateur/Activite.definitions.ts";
 
 export const listeDescriptionsActivites: Record<
   ValeursActivites,

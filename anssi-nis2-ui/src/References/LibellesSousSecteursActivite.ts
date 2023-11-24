@@ -4,7 +4,7 @@ import {
   SousSecteurFabrication,
   SousSecteurActivite,
   SousSecteurTransport,
-} from "../Domaine/Simulateur/SousSecteurActivite.definitions.ts";
+} from "../../../anssi-nis2-domain/src/Simulateur/SousSecteurActivite.definitions.ts";
 
 export const libellesSousSecteursEnergie: DetailsSousSecteurUnique<SousSecteurEnergie> =
   {

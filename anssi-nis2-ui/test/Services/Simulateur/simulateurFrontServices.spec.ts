@@ -4,10 +4,10 @@ import { libellesPaysUnionEuropeenneLocalisation } from "../../../src/References
 import {
   donneesFormulaireSimulateurVide,
   DonneesFormulaireSimulateur,
-} from "../../../src/Domaine/Simulateur/DonneesFormulaire";
-import { ValeurChampSimulateur } from "../../../src/Domaine/Simulateur/ChampsSimulateur.definitions";
+} from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
+import { ValeurChampSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.definitions";
 import { transformePaysUnionEuropeennePourSelect } from "../../../src/Services/Simulateur/Transformateurs/TransformePaysUnionEuropeennePourSelect";
-import { ValeursActivites } from "../../../src/Domaine/Simulateur/Activite.definitions";
+import { ValeursActivites } from "../../../../anssi-nis2-domain/src/Simulateur/Activite.definitions";
 
 describe(genereTransformateurValeursVersOptions, () => {
   const onChange: React.ChangeEventHandler<HTMLInputElement> = () => {};

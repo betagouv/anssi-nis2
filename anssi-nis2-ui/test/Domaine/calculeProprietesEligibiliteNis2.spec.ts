@@ -1,9 +1,9 @@
 import { describe, it } from "vitest";
-import { calculeEligibilite } from "../../src/Domaine/Simulateur/services/Eligibilite/Eligibilite.operations";
+import { calculeEligibilite } from "../../../anssi-nis2-domain/src/Simulateur/services/Eligibilite/Eligibilite.operations";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
 import { verifieQue } from "../utilitaires/assure";
 
-import { Eligibilite } from "../../src/Domaine/Simulateur/Eligibilite.constantes";
+import { Eligibilite } from "../../../anssi-nis2-domain/src/Simulateur/Eligibilite.constantes";
 
 describe(calculeEligibilite, () => {
   describe("Entité OSE pour NIS1", () => {

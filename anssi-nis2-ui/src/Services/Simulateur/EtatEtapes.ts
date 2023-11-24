@@ -1,6 +1,6 @@
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.ts";
 import { InformationEtapeForm } from "./InformationsEtape.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 
 export type EtatEtapes = {
   // Données générales

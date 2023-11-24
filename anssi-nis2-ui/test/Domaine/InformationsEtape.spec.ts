@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import {
   fabriquesInformationsEtapes,
   toujoursFaux,
-} from "../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
+} from "../../../anssi-nis2-domain/src/Simulateur/fabriques/InformationsEtape.fabrique";
 import { SimulateurEtapeForm } from "../../src/Components/Simulateur/SimulateurEtapeForm";
 import {
   CapacitesEtapeFormulaire,
@@ -15,7 +15,7 @@ import { fausseValidationReponse } from "../Services/Simulateur/InformationEtape
 import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
-} from "../../src/Domaine/Simulateur/DonneesFormulaire";
+} from "../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
 
 describe("fabriquesInformationsEtapes", () => {
   describe(fabriquesInformationsEtapes.variantes, () => {

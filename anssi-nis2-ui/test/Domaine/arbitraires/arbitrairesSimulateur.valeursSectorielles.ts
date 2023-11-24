@@ -7,9 +7,9 @@ import {
   listeEnrSecteursAvecLeursSousSecteurs,
   secteurEtSousSecteursSontListes,
 } from "../../Services/Simulateur/exemples/ListesEnrSecteursSousSecteur";
-import { IDonneesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
-import { auMoinsUnSecteurListe } from "../../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
-import { auMoinsUnSousSecteurListe } from "../../../src/Domaine/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
+import { IDonneesFormulaireSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
+import { auMoinsUnSecteurListe } from "../../../../anssi-nis2-domain/src/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
+import { auMoinsUnSousSecteurListe } from "../../../../anssi-nis2-domain/src/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 
 export const arbitraireSecteursSousSecteurs = fabriqueArbEnrSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs,

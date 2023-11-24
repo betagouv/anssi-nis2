@@ -1,4 +1,4 @@
-import { SecteurActivite } from "../Domaine/Simulateur/SecteurActivite.definitions.ts";
+import { SecteurActivite } from "../../../anssi-nis2-domain/src/Simulateur/SecteurActivite.definitions.ts";
 
 export const libellesSecteursActivite: Record<SecteurActivite, string> = {
   administrationPublique: "Administration publique / administration centrale",

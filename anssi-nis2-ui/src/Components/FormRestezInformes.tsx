@@ -9,7 +9,7 @@ import Button from "@codegouvfr/react-dsfr/Button";
 import Alert from "@codegouvfr/react-dsfr/Alert";
 import Input from "@codegouvfr/react-dsfr/Input";
 import { AppContext } from "./AppContexte/AppContext.tsx";
-import { InformationsEmail } from "../Domaine/Contact/InformationsEmail.definitions.ts";
+import { InformationsEmail } from "../../../anssi-nis2-domain/src/Contact/InformationsEmail.definitions.ts";
 import { RegisterOptions, SubmitHandler, useForm } from "react-hook-form";
 
 export const FormRestezInformes: DefaultComponentExtensible<

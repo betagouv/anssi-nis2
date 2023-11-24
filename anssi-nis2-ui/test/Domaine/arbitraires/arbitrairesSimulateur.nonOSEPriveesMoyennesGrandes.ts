@@ -17,9 +17,9 @@ import {
   arbDesigneOperateurServicesEssentiels,
   arbTypeStructure,
 } from "./arbitraireChampFormulaire";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
-import { predicatDonneesFormulaire } from "../../../src/Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
-import { estSecteurParmi } from "../../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
+import { predicatDonneesFormulaire } from "../../../../anssi-nis2-domain/src/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
+import { estSecteurParmi } from "../../../../anssi-nis2-domain/src/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 
 export const arbNonOSEPrivesMoyenneGrande = etend(
   arbSecteursEtSousSecteursListes.filter((d) =>

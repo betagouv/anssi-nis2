@@ -1,10 +1,10 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 import {
   SimulateurEtapeNodeComponent,
   SimulateurEtapeRenderedComponent,
 } from "./Props/component";
 
-import { ValidationReponses } from "../../Domaine/Simulateur/services/ChampSimulateur/champs.domaine.ts";
+import { ValidationReponses } from "../../../../anssi-nis2-domain/src/Simulateur/services/ChampsSimulateur/champs.domaine.ts";
 import { PredicatDonneesSimulateur } from "./PredicatDonneesSimulateur.ts";
 import { P } from "ts-pattern";
 

@@ -9,12 +9,12 @@ import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSe
 import {
   ValeursAppartenancePaysUnionEuropeenne,
   ValeursTypeEntitePublique,
-} from "../../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
+} from "../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.valeurs";
 import {
   ArbitraireFormulaire,
   ArbitraireSurTousLesChamps,
 } from "./arbitraireFormulaire.definitions";
-import { ValeursNomChampsFormulaire } from "../../../src/Domaine/Simulateur/DonneesFormulaire.valeurs";
+import { ValeursNomChampsFormulaire } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.valeurs";
 import {
   arbAppartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,

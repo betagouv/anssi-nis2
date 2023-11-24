@@ -1,7 +1,7 @@
 import { CollectionInformationsEtapes } from "../../../../src/Services/Simulateur/CollectionInformationsEtapes";
 import { exInformationEtape } from "./informationEtape.exemples";
 
-import { EtapeInexistante } from "../../../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
+import { EtapeInexistante } from "../../../../../anssi-nis2-domain/src/Simulateur/fabriques/InformationsEtape.fabrique";
 
 const collectionInformationsEtapesLongueur2Simple =
   new CollectionInformationsEtapes(

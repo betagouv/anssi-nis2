@@ -11,9 +11,9 @@ import {
   arbDesigneOperateurServicesEssentiels,
   arbTypeStructure,
 } from "./arbitraireChampFormulaire";
-import { ValeursTypeEntitePublique } from "../../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
-import { predicatDonneesFormulaire } from "../../../src/Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
+import { ValeursTypeEntitePublique } from "../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.valeurs";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
+import { predicatDonneesFormulaire } from "../../../../anssi-nis2-domain/src/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 
 export const arbNonOSEPublique = etend(arbSecteursEtSousSecteursListes)
   .avec({

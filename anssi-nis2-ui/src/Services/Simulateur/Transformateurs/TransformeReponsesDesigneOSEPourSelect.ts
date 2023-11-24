@@ -1,4 +1,4 @@
-import { DesignationOperateurServicesEssentiels } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+import { DesignationOperateurServicesEssentiels } from "../../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.definitions.ts";
 import { TransformeRecordToSelect } from "../Operations/optionChampSimulateur";
 import { genereTransformateurValeursVersOptions } from "../genereTransformateurValeursVersOptions.ts";
 

@@ -6,9 +6,9 @@ import { EtapeSecteursActivite } from "../../../Components/Simulateur/Etapes";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 
-import { SecteurActivite } from "../../../Domaine/Simulateur/SecteurActivite.definitions.ts";
+import { SecteurActivite } from "../../../../../anssi-nis2-domain/src/Simulateur/SecteurActivite.definitions.ts";
 
 class ParametresDonneesSecteurActivite extends ParametresDonneesSpecifiqueField<SecteurActivite> {
   protected construitDonnees<ValeursSecteurActivite>(

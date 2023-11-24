@@ -1,5 +1,5 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { ValeurChampSimulateur } from "../../../Domaine/Simulateur/ChampsSimulateur.valeurs.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
+import { ValeurChampSimulateur } from "../../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.valeurs.ts";
 
 export type GestionValeursFormulaire = (
   value: ValeurChampSimulateur,

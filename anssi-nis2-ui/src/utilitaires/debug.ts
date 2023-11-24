@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 
 export const VVV = (...debugMessage: unknown[]) =>
   console.log("VVV ", ...debugMessage);

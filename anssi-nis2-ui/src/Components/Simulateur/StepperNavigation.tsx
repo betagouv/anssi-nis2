@@ -1,8 +1,8 @@
 import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
 import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
-import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 
-import { ValidationReponses } from "../../Domaine/Simulateur/services/ChampSimulateur/champs.domaine.ts";
+import { ValidationReponses } from "../../../../anssi-nis2-domain/src/Simulateur/services/ChampsSimulateur/champs.domaine.ts";
 
 export const StepperNavigation = ({
   validationReponses,

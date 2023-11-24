@@ -3,7 +3,7 @@ import { within } from "@storybook/testing-library";
 
 import { Meta, StoryObj } from "@storybook/react";
 import { SimulateurEtapeResult } from "../../../Components/Simulateur/SimulateurEtapeResult.tsx";
-import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 
 import { contenusResultats } from "../../../References/contenusResultatEligibilite.ts";
 import { verifieContenuResultatDansPage } from "../../utilitaires/VerifieContenuResultatDansPage.ts";

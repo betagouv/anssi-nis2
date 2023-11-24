@@ -3,11 +3,11 @@ import {
   DonneesFormulaireSimulateur,
   IDonneesBrutesFormulaireSimulateur,
   IDonneesFormulaireSimulateur,
-} from "../../src/Domaine/Simulateur/DonneesFormulaire";
+} from "../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
 import {
   UnionPetitMoyenGrand,
   ValeurChampSimulateur,
-} from "../../src/Domaine/Simulateur/ChampsSimulateur.definitions";
+} from "../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.definitions";
 import {
   ArbitraireOptions,
   ArbitraireOptionsActivites,
@@ -15,17 +15,17 @@ import {
 import {
   EnrSecteurSousSecteur,
   SousSecteurActivite,
-} from "../../src/Domaine/Simulateur/SousSecteurActivite.definitions";
-import { SecteurActivite } from "../../src/Domaine/Simulateur/SecteurActivite.definitions";
-import { ValeursPetitMoyenGrand } from "../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
+} from "../../../anssi-nis2-domain/src/Simulateur/SousSecteurActivite.definitions";
+import { SecteurActivite } from "../../../anssi-nis2-domain/src/Simulateur/SecteurActivite.definitions";
+import { ValeursPetitMoyenGrand } from "../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.valeurs";
 
-import { ValeursActivites } from "../../src/Domaine/Simulateur/Activite.definitions";
-import { filtreSecteursSansSousSecteurs } from "../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.operations";
-import { fabriqueListeActivitesDesSecteurs } from "../../src/Domaine/Simulateur/services/Activite/Activite.operations";
+import { ValeursActivites } from "../../../anssi-nis2-domain/src/Simulateur/Activite.definitions";
+import { filtreSecteursSansSousSecteurs } from "../../../anssi-nis2-domain/src/Simulateur/services/SecteurActivite/SecteurActivite.operations";
+import { fabriqueListeActivitesDesSecteurs } from "../../../anssi-nis2-domain/src/Simulateur/services/Activite/Activite.operations";
 import {
   estActiviteAutre,
   estActiviteListee,
-} from "../../src/Domaine/Simulateur/services/Activite/Activite.predicats";
+} from "../../../anssi-nis2-domain/src/Simulateur/services/Activite/Activite.predicats";
 
 const constantArbitraire = <TypeChamp extends ValeurChampSimulateur>(
   value: TypeChamp[],

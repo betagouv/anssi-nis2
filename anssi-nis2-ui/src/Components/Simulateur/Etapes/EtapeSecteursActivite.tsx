@@ -7,7 +7,7 @@ import React from "react";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
 import { OptionsChampSimulateur } from "../../../Services/Simulateur/Props/optionChampSimulateur";
-import { SecteurActivite } from "../../../Domaine/Simulateur/SecteurActivite.definitions.ts";
+import { SecteurActivite } from "../../../../../anssi-nis2-domain/src/Simulateur/SecteurActivite.definitions.ts";
 import { transformeSecteursActiviteVersOptions } from "../../../Services/Simulateur/Transformateurs/TransformeSecteursActiviteVersOptions.ts";
 
 const CheckboxWrapper = ({

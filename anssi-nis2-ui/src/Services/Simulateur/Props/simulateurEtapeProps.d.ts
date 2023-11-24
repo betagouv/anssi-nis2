@@ -1,6 +1,6 @@
 import { DefaultProps } from "../../Props";
 import { SimulateurDonneesFormulaireActions } from "./donneesFormulaire";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 import { Dispatch } from "react";
 import { BoutonsNavigation } from "./boutonsNavigation";
 import { EtatEtapes } from "../EtatEtapes.ts";

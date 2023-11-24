@@ -9,7 +9,7 @@ import {
 import {
   fabriquesInformationsEtapes,
   optionsInformationEtapeFormParDefaut,
-} from "../../../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
+} from "../../../../../anssi-nis2-domain/src/Simulateur/fabriques/InformationsEtape.fabrique";
 
 export const predicatVrai = () => true;
 const informationEtapeResult = fabriquesInformationsEtapes.resultat("Resultat");

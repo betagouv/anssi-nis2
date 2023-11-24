@@ -11,9 +11,9 @@ import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
   IDonneesBrutesFormulaireSimulateur,
-} from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+} from "../../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 import { libellesTypesStructure } from "../../../References/Libelles.ts";
-import { TypeStructure } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+import { TypeStructure } from "../../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.definitions.ts";
 
 class ParametresDonneesTypeStructure extends ParametresDonneesSpecifiqueField<TypeStructure> {
   protected construitDonnees<ValeursTypeStructure>(

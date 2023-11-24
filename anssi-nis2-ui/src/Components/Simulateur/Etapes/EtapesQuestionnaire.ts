@@ -11,10 +11,10 @@ import { CollectionInformationsEtapes } from "../../../Services/Simulateur/Colle
 import {
   contientSousSecteurAutresUniquement,
   ou,
-} from "../../../Domaine/Simulateur/services/ChampSimulateur/champs.predicats.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { fabriqueEtatEtape } from "../../../Domaine/Simulateur/fabriques/EtatEtape.fabrique.ts";
-import { fabriquesInformationsEtapes } from "../../../Domaine/Simulateur/fabriques/InformationsEtape.fabrique.ts";
+} from "../../../../../anssi-nis2-domain/src/Simulateur/services/ChampsSimulateur/champs.predicats.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
+import { fabriqueEtatEtape } from "../../../../../anssi-nis2-domain/src/Simulateur/fabriques/EtatEtape.fabrique.ts";
+import { fabriquesInformationsEtapes } from "../../../../../anssi-nis2-domain/src/Simulateur/fabriques/InformationsEtape.fabrique.ts";
 import {
   fabriqueValidationUneReponses,
   validationReponsesActivites,
@@ -22,11 +22,11 @@ import {
   validationReponsesSousActivites,
   validationReponsesTaille,
   validationReponsesTypeStructure,
-} from "../../../Domaine/Simulateur/services/ChampSimulateur/ValidationReponses.ts";
+} from "../../../../../anssi-nis2-domain/src/Simulateur/services/ChampsSimulateur/ValidationReponses.ts";
 import {
   contientAutreSecteurActiviteUniquement,
   estUnSecteurAvecDesSousSecteurs,
-} from "../../../Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
+} from "../../../../../anssi-nis2-domain/src/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
 import EtapeTaillePublique from "./EtapeTaillePublique.tsx";
 
 const contientDesSecteursAvecSousSecteurs = ({

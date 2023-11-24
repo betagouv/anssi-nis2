@@ -7,7 +7,7 @@ import {
 
 import { Contexte } from "../../Services/contexte";
 import { StoryComponent } from "./typesUtilitaires";
-import { AggregatInformationsEmail } from "../../Domaine/Contact/InformationsEmail.definitions.ts";
+import { AggregatInformationsEmail } from "../../../../anssi-nis2-domain/src/Contact/InformationsEmail.definitions.ts";
 
 const defaultAsyncStringFonctionInjected = async () => {
   return "";

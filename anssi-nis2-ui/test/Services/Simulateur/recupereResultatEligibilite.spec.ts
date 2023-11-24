@@ -5,7 +5,7 @@ import {
   contenusResultatNonEligible,
 } from "../../../src/References/contenusResultatEligibilite";
 
-import { Eligibilite } from "../../../src/Domaine/Simulateur/Eligibilite.constantes";
+import { Eligibilite } from "../../../../anssi-nis2-domain/src/Simulateur/Eligibilite.constantes";
 
 describe(recupereContenusResultatEligibilite, () => {
   it("retourne les contenus pour éligible lorsque le résultat est éligible", () => {

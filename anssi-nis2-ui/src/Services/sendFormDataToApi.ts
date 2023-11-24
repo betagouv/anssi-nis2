@@ -1,5 +1,5 @@
 import { genereClientApi } from "./prepare.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 import {
   EnregistreInformationsEmail,
   EnvoieDonneesFormulaire,
@@ -7,7 +7,7 @@ import {
 import {
   AggregatInformationsEmail,
   InformationsEmail,
-} from "../Domaine/Contact/InformationsEmail.definitions.ts";
+} from "../../../anssi-nis2-domain/src/Contact/InformationsEmail.definitions.ts";
 
 export const sendFormDataToApi: EnvoieDonneesFormulaire = async (
   formData: IDonneesBrutesFormulaireSimulateur,

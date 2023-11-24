@@ -8,8 +8,8 @@ import {
 } from "../../utilitaires/manipulationArbitraires";
 import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
 import { arbDesigneOperateurServicesEssentiels } from "./arbitraireChampFormulaire";
-import { ValeursAppartenancePaysUnionEuropeenne } from "../../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
+import { ValeursAppartenancePaysUnionEuropeenne } from "../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.valeurs";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
 
 export const arbActivitesAutres = etend<DonneesSectorielles>(
   arbSecteursSousSecteursListes,

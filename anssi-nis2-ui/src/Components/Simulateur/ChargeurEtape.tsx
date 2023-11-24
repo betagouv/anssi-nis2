@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Helmet } from "react-helmet";
 
 import { DefaultComponent } from "../../Services/Props";
-import { donneesFormulaireSimulateurVide } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { donneesFormulaireSimulateurVide } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 import { etatEtapesInitial } from "./Etapes/EtapesQuestionnaire.ts";
 import { useReducteurDonneesFormulaireDuContexte } from "../AppContexte/UseReducteurDonneesFormulaireDuContexte.tsx";
 import { fabriqueInformationsBoutonsNavigation } from "../../Services/Simulateur/BoutonsNavigation.fabrique.ts";

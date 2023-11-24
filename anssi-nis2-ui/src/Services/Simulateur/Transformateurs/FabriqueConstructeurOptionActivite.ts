@@ -1,7 +1,7 @@
 import {
   IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+} from "../../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 import {
   AttributsEntreeChoixMultiple,
   OptionChampSimulateur,
@@ -9,14 +9,14 @@ import {
 import { libellesActivites } from "../../../References/LibellesActivites.ts";
 import { listeDescriptionsActivites } from "../../../References/ListeDescriptionsActivites.ts";
 import { SimulateurDonneesFormulaireActions } from "../Props/donneesFormulaire";
-import { ValeurChampSimulateur } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+import { ValeurChampSimulateur } from "../../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.definitions.ts";
 import {
   activitesParSecteurEtSousSecteur,
   AssociationSectorielleActivite,
-} from "../../../Domaine/Simulateur/services/Activite/Activite.operations.ts";
+} from "../../../../../anssi-nis2-domain/src/Simulateur/services/Activite/Activite.operations.ts";
 import React, { Dispatch } from "react";
-import { ValeursActivites } from "../../../Domaine/Simulateur/Activite.definitions.ts";
-import { ValeurCleSectorielle } from "../../../Domaine/Simulateur/ValeurCleSectorielle.definitions.ts";
+import { ValeursActivites } from "../../../../../anssi-nis2-domain/src/Simulateur/Activite.definitions.ts";
+import { ValeurCleSectorielle } from "../../../../../anssi-nis2-domain/src/Simulateur/ValeurCleSectorielle.definitions.ts";
 
 export const fabriqueConstructeurOptionActivite: (
   donneesFormulaire: IDonneesBrutesFormulaireSimulateur,

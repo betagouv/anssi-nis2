@@ -3,16 +3,16 @@ import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
   IDonneesBrutesFormulaireSimulateur,
-} from "../../src/Domaine/Simulateur/DonneesFormulaire";
+} from "../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
 import {
   auMoinsUnSousSecteurParSecteur,
   auMoinsUn,
   et,
   auMoinsUneActiviteParValeurSectorielle,
   lorsque,
-} from "../../src/Domaine/Simulateur/services/ChampSimulateur/champs.predicats";
-import { contientAutreSecteurActiviteUniquement } from "../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
-import { PredicatChamp } from "../../src/Domaine/Simulateur/services/ChampSimulateur/champs.domaine";
+} from "../../../anssi-nis2-domain/src/Simulateur/services/ChampsSimulateur/champs.predicats";
+import { contientAutreSecteurActiviteUniquement } from "../../../anssi-nis2-domain/src/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
+import { PredicatChamp } from "../../../anssi-nis2-domain/src/Simulateur/services/ChampsSimulateur/champs.domaine";
 
 describe("validateurs", () => {
   describe("valideAuMoinsUn", () => {

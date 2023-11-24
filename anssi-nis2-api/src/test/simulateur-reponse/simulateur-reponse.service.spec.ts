@@ -2,7 +2,7 @@ import { SimulateurReponseService } from "../../simulateur-reponse/simulateur-re
 import { SimulateurReponse } from "../../simulateur-reponse/simulateur-reponse.entity";
 import { donneesSimulateurVide } from "../../Domaine/donneesSimulateur";
 import { fabriqueMockRepository } from "../utilitaires/facilitateurs";
-import { DonneesFormulaireSimulateur } from "anssi-nis2-ui/src/Domaine/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Test } from "@nestjs/testing";
 

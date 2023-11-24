@@ -12,8 +12,8 @@ import { mockSendFormData } from "../../utilitaires/mocks.ts";
 
 import { Contexte } from "../../../Services/contexte";
 import { contenusResultatEligiblePetitEntreprise } from "../../../References/contenusResultatEligibilite.ts";
-import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { TypeStructure } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
+import { TypeStructure } from "../../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.definitions.ts";
 
 const meta: Meta<typeof ChargeurEtape> = {
   title: "Composants/Simulateur/ChargeurEtape",

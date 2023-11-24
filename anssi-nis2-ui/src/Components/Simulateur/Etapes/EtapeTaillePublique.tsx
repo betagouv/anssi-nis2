@@ -4,7 +4,7 @@ import { FormSimulateur } from "./index.ts";
 import React from "react";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
-import { TrancheNombreEmployes } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+import { TrancheNombreEmployes } from "../../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.definitions.ts";
 import { transformeTranchesNombreEmployesVersOptions } from "../../../Services/Simulateur/Transformateurs/TransformeTranchesPetitMoyenGrandVersOptions.ts";
 
 const EtapeTaillePubliqueCalculee = ({

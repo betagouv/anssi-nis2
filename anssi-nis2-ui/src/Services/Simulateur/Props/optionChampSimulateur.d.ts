@@ -1,6 +1,6 @@
 import { NativeInputProps } from "../../Props";
 
-import { DescriptionActivite } from "../../../Domaine/Simulateur/Activite.definitions.ts";
+import { DescriptionActivite } from "../../../../../anssi-nis2-domain/src/Simulateur/Activite.definitions.ts";
 
 export type OptionChampSimulateur = {
   nativeInputProps: NativeInputProps;

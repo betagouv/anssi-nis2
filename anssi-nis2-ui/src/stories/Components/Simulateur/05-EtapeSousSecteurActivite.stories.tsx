@@ -9,9 +9,9 @@ import { expect } from "@storybook/jest";
 import {
   DonneesFormulaireSimulateur,
   IDonneesBrutesFormulaireSimulateur,
-} from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+} from "../../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 
-import { SousSecteurEnergie } from "../../../Domaine/Simulateur/SousSecteurActivite.definitions.ts";
+import { SousSecteurEnergie } from "../../../../../anssi-nis2-domain/src/Simulateur/SousSecteurActivite.definitions.ts";
 
 class ParametresDonneesSousSecteurActivite extends ParametresDonneesSpecifiqueField<SousSecteurEnergie> {
   protected construitDonnees<ValeursSecteurActivite>(

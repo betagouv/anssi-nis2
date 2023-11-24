@@ -1,9 +1,9 @@
 import { SimulateurContenuEtapeProps } from "../Props/simulateurEtapeProps";
-import { SecteursAvecSousSecteurs } from "../../../Domaine/Simulateur/SousSecteurActivite.definitions.ts";
+import { SecteursAvecSousSecteurs } from "../../../../../anssi-nis2-domain/src/Simulateur/SousSecteurActivite.definitions.ts";
 import { OptionsChampSimulateur } from "../Props/optionChampSimulateur";
 import { reducteurSecteursVersOptions } from "../Reducteurs.ts";
-import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { estUnSecteurAvecDesSousSecteurs } from "../../../Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
+import { estUnSecteurAvecDesSousSecteurs } from "../../../../../anssi-nis2-domain/src/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
 
 export const transformeSousSecteurEnOptions = (
   donneesFormulaire: SimulateurContenuEtapeProps["donneesFormulaire"],

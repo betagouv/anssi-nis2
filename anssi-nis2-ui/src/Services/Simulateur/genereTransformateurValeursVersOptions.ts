@@ -1,8 +1,8 @@
-import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { NomsChampsSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
 import { TransformeRecordToSelect } from "./Operations/optionChampSimulateur";
 import { GenerateurLibelle } from "./Operations/operationsLibelles";
-import { ValeurChampSimulateur } from "../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+import { ValeurChampSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.definitions.ts";
 
 export const genereTransformateurValeursVersOptions: <
   ValeursCles extends ValeurChampSimulateur,

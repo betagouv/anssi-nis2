@@ -6,11 +6,11 @@ import { EtapeTaille } from "../../../Components/Simulateur/Etapes";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
-} from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+} from "../../../../../anssi-nis2-domain/src/Simulateur/ChampsSimulateur.definitions.ts";
 
 class ParametresDonneesTrancheNombreEmployes extends ParametresDonneesSpecifiqueField<TrancheNombreEmployes> {
   protected construitDonnees<ValeursTrancheNombreEmployes>(

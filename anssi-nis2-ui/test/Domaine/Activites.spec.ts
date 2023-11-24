@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { DonneesFormulaireSimulateur } from "../../src/Domaine/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
 import { libellesSecteursActivite } from "../../src/References/LibellesSecteursActivite";
 import { libellesSousSecteursActivite } from "../../src/References/LibellesSousSecteursActivite";
 import {
   AssociationSectorielleActivite,
   collecteTitresPourActivite,
-} from "../../src/Domaine/Simulateur/services/Activite/Activite.operations";
-import { cartographieSousSecteursParSecteur } from "../../src/Domaine/Simulateur/services/SousSecteurActivite/SousSecteurActivite.operations";
+} from "../../../anssi-nis2-domain/src/Simulateur/services/Activite/Activite.operations";
+import { cartographieSousSecteursParSecteur } from "../../../anssi-nis2-domain/src/Simulateur/services/SousSecteurActivite/SousSecteurActivite.operations";
 
 describe("Questionnaire activités", () => {
   describe(cartographieSousSecteursParSecteur, () => {
