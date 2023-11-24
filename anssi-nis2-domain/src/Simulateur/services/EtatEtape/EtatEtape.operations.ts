@@ -10,27 +10,27 @@ type ConstruitSuccesseur = <TypeConteneur>(
   etatEtapeCourant: EtatEtapes<TypeConteneur>,
   indiceEtape: number,
   indiceSousEtape: number,
-  donneesFormulaire: IDonneesBrutesFormulaireSimulateur
+  donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
 ) => EtatEtapes<TypeConteneur>;
 type FabriqueSuccesseurEtatEtape = <TypeConteneur>(
   etatEtapes: EtatEtapes<TypeConteneur>,
-  donnees: IDonneesBrutesFormulaireSimulateur
+  donnees: IDonneesBrutesFormulaireSimulateur,
 ) => EtatEtapes<TypeConteneur>;
 type FabriqueChangementEtatEtape = <TypeConteneur>(
   etatEtapes: EtatEtapes<TypeConteneur>,
-  donnees: IDonneesBrutesFormulaireSimulateur
+  donnees: IDonneesBrutesFormulaireSimulateur,
 ) => () => EtatEtapes<TypeConteneur>;
 const construitEtatEtapeSuccesseur: ConstruitSuccesseur = (
   etatEtapes,
   indiceEtape,
   indiceSousEtape,
-  donneesFormulaire
+  donneesFormulaire,
 ) =>
   fabriqueEtatEtape(
     etatEtapes.collectionEtapes,
     indiceEtape,
     indiceSousEtape,
-    donneesFormulaire
+    donneesFormulaire,
   );
 const incrementeEtatEtape: FabriqueChangementEtatEtape =
   (etatEtapes, donnees) => () =>
@@ -38,7 +38,7 @@ const incrementeEtatEtape: FabriqueChangementEtatEtape =
       etatEtapes,
       etatEtapes.indiceCourant + 1,
       ConstantesEtatEtape.indiceSousEtapeInitial,
-      donnees
+      donnees,
     );
 const decrementeEtatEtape: FabriqueChangementEtatEtape =
   (etatEtapes, donnees) => () =>
@@ -46,7 +46,7 @@ const decrementeEtatEtape: FabriqueChangementEtatEtape =
       etatEtapes,
       etatEtapes.indiceCourant - 1,
       ConstantesEtatEtape.indiceSousEtapeInitial,
-      donnees
+      donnees,
     );
 
 const remonteEtatEtapePrincipal: FabriqueChangementEtatEtape =
@@ -55,7 +55,7 @@ const remonteEtatEtapePrincipal: FabriqueChangementEtatEtape =
       etatEtapes,
       etatEtapes.indiceCourant,
       ConstantesEtatEtape.indiceSousEtapeInitial,
-      donnees
+      donnees,
     );
 const descendSousEtape: FabriqueChangementEtatEtape =
   (etatEtapes, donnees) => () =>
@@ -63,18 +63,18 @@ const descendSousEtape: FabriqueChangementEtatEtape =
       etatEtapes,
       etatEtapes.indiceCourant,
       etatEtapes.indiceSousEtape + 1,
-      donnees
+      donnees,
     );
 const quandRempliContitionSousEtape = <TypeConteneur>(
   etatEtapes: EtatEtapes<TypeConteneur>,
-  donnees: IDonneesBrutesFormulaireSimulateur
+  donnees: IDonneesBrutesFormulaireSimulateur,
 ) =>
   P.when(() =>
-    etatEtapes.contenuEtapeCourante.remplitContitionSousEtape(donnees)
+    etatEtapes.contenuEtapeCourante.remplitContitionSousEtape(donnees),
   );
 const fabriqueEtatEtapeSuivantSansCondition = <TypeConteneur>(
   etatEtapes: EtatEtapes<TypeConteneur>,
-  donnees: IDonneesBrutesFormulaireSimulateur
+  donnees: IDonneesBrutesFormulaireSimulateur,
 ) => {
   return match<EtatEtapes<TypeConteneur>>(etatEtapes)
     .with(
@@ -82,46 +82,46 @@ const fabriqueEtatEtapeSuivantSansCondition = <TypeConteneur>(
         estSurSousEtape: false,
         contenuEtapeCourante: quandRempliContitionSousEtape(
           etatEtapes,
-          donnees
+          donnees,
         ),
       },
-      descendSousEtape(etatEtapes, donnees)
+      descendSousEtape(etatEtapes, donnees),
     )
     .with(
       { etapeSuivantExiste: true },
-      incrementeEtatEtape(etatEtapes, donnees)
+      incrementeEtatEtape(etatEtapes, donnees),
     )
     .otherwise(() => etatEtapes);
 };
 export const fabriqueEtatEtapeSuivant: FabriqueSuccesseurEtatEtape = (
   etatEtapes,
-  nouvellesDonnees
+  nouvellesDonnees,
 ) => {
   const etatEtapeSuivantSansCondition = fabriqueEtatEtapeSuivantSansCondition(
     etatEtapes,
-    nouvellesDonnees
+    nouvellesDonnees,
   );
   if (
     etatEtapes.ignoreEtapeSuivante(
       etatEtapeSuivantSansCondition,
-      nouvellesDonnees
+      nouvellesDonnees,
     )
   ) {
     return fabriqueEtatEtapeSuivant(
       etatEtapeSuivantSansCondition,
-      nouvellesDonnees
+      nouvellesDonnees,
     );
   }
   return etatEtapeSuivantSansCondition;
 };
 export const fabriqueEtatEtapePrecedent: FabriqueSuccesseurEtatEtape = (
   etatEtapes,
-  donnees
+  donnees,
 ) =>
   match(etatEtapes)
     .with({ estSurEtapeInitiale: true }, () => etatEtapes)
     .with(
       { estSurSousEtape: true },
-      remonteEtatEtapePrincipal(etatEtapes, donnees)
+      remonteEtatEtapePrincipal(etatEtapes, donnees),
     )
     .otherwise(decrementeEtatEtape(etatEtapes, donnees));

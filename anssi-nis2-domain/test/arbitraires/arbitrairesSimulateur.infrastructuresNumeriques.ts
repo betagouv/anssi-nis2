@@ -28,14 +28,14 @@ import {
 
 const arbSecteurSousSecteurInfraNum = fabriqueArbEnrSecteurSousSecteurs(
   filtreSecteurListeSecteursSousSecteurs("infrastructureNumerique"),
-  { minLength: 1 }
+  { minLength: 1 },
 );
 const arbSecteurSousSecteurNonInfraNum = fabriqueArbEnrSecteurSousSecteurs(
   filtreEnrSectorielHorsSecteurs([
     "infrastructureNumerique",
     "autreSecteurActivite",
   ]),
-  { minLength: 1 }
+  { minLength: 1 },
 );
 export const arbNonOSEPrivesPetitFournisseurInfraNum =
   etend<DonneesSectorielles>(arbSecteurSousSecteurInfraNum)
@@ -52,17 +52,17 @@ export const arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernes: fc.Arbit
   arbNonOSEPrivesPetitFournisseurInfraNum.filter(
     (d: IDonneesBrutesFormulaireSimulateur) =>
       d.activites.some((a) =>
-        ValeursActivitesConcernesInfrastructureNumerique.includes(a)
-      )
+        ValeursActivitesConcernesInfrastructureNumerique.includes(a),
+      ),
   );
 export const arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernesFrance: fc.Arbitrary<IDonneesFormulaireSimulateur> =
   arbNonOSEPrivesPetitFournisseurInfraNum.filter(
     (d: IDonneesBrutesFormulaireSimulateur) =>
       d.activites.every((a) =>
         ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement.includes(
-          a
-        )
-      )
+          a,
+        ),
+      ),
   );
 export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance: fc.Arbitrary<IDonneesFormulaireSimulateur> =
   etend(arbNonOSEPrivesPetitFournisseurInfraNum)
@@ -71,9 +71,9 @@ export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFranc
     .filter((d: IDonneesBrutesFormulaireSimulateur) =>
       d.activites.every((a) =>
         ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement.includes(
-          a
-        )
-      )
+          a,
+        ),
+      ),
     ) as fc.Arbitrary<IDonneesFormulaireSimulateur>;
 export const arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes: fc.Arbitrary<IDonneesFormulaireSimulateur> =
   arbNonOSEPrivesPetitFournisseurInfraNum.filter(
@@ -82,9 +82,9 @@ export const arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes: fc.Ar
         (a) =>
           !ValeursActivitesConcernesInfrastructureNumerique.includes(a) &&
           !ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement.includes(
-            a
-          )
-      )
+            a,
+          ),
+      ),
   );
 export const arbNonOSEPrivesPetitHorsFournisseurInfraNum =
   etend<DonneesSectorielles>(arbSecteurSousSecteurNonInfraNum)

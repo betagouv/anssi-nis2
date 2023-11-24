@@ -69,7 +69,7 @@ describe("fabriquesInformationsEtapes", () => {
       const resultDeuxEtapes =
         fabriquesInformationsEtapes.variantes(variantesDeuxEtapes);
       const donnees = new DonneesFormulaireSimulateur(
-        donneesFormulaireSimulateurVide
+        donneesFormulaireSimulateurVide,
       );
       expect(resultDeuxEtapes).toEqual({
         ...resultatAttendu,
@@ -77,13 +77,13 @@ describe("fabriquesInformationsEtapes", () => {
       });
       expect(
         resultDeuxEtapes.varianteAffichee(
-          donnees.avec({ typeStructure: ["privee"] })
-        )
+          donnees.avec({ typeStructure: ["privee"] }),
+        ),
       ).toBe(0);
       expect(
         resultDeuxEtapes.varianteAffichee(
-          donnees.avec({ typeStructure: ["publique"] })
-        )
+          donnees.avec({ typeStructure: ["publique"] }),
+        ),
       ).toBe(1);
     });
   });

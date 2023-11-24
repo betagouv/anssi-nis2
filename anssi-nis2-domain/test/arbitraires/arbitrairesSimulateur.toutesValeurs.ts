@@ -21,7 +21,7 @@ import {
 } from "./arbitraireChampFormulaire";
 
 export const arbToutesValeursPossibles = etend(
-  arbSecteursSousSecteursListes
+  arbSecteursSousSecteursListes,
 ).avec({
   designeOperateurServicesEssentiels: fabriqueArbSingleton([
     "oui",
@@ -64,5 +64,5 @@ export const donneeAbsente = ValeursNomChampsFormulaire.reduce(
     ...resultat,
     [nom]: fabriqueArbitraireVidePourChamp(nom),
   }),
-  initialValue
+  initialValue,
 );

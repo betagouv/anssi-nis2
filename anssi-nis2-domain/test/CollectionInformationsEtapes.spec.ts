@@ -38,18 +38,18 @@ describe(CollectionInformationsEtapes, () => {
         "l'étape $etapeCourante.titre",
       ({ etapeCourante, indiceEtapeCourante }) => {
         expect(
-          collectionInformationsEtapes.recupereEtape(indiceEtapeCourante)
+          collectionInformationsEtapes.recupereEtape(indiceEtapeCourante),
         ).toStrictEqual(etapeCourante);
-      }
+      },
     );
 
     it.each(parametresTests)(
       "l'indice $indiceEtapeCourante devrait correspondre au numéro d'étape $numeroEtape ",
       ({ indiceEtapeCourante, numeroEtape }) => {
         expect(
-          collectionInformationsEtapes.numero(indiceEtapeCourante)
+          collectionInformationsEtapes.numero(indiceEtapeCourante),
         ).toStrictEqual(numeroEtape);
-      }
+      },
     );
 
     it.each(parametresTests)(
@@ -58,19 +58,19 @@ describe(CollectionInformationsEtapes, () => {
       ({ indiceEtapeCourante, informationEtapeSuivante }) => {
         expect(
           collectionInformationsEtapes.recupereInformationsEtapeSuivante(
-            indiceEtapeCourante
-          )
+            indiceEtapeCourante,
+          ),
         ).toBe(informationEtapeSuivante);
-      }
+      },
     );
 
     it.each(parametresTests)(
       "l'indice $indiceEtapeCourante devrait être dernier ? $estDernier",
       ({ indiceEtapeCourante, estDernier }) => {
         expect(
-          collectionInformationsEtapes.estDerniereEtape(indiceEtapeCourante)
+          collectionInformationsEtapes.estDerniereEtape(indiceEtapeCourante),
         ).toBe(estDernier);
-      }
+      },
     );
 
     describe("nombreEtapes", () => {
@@ -93,7 +93,7 @@ describe(CollectionInformationsEtapes, () => {
       fc.assert(
         fc.property(arbitrairesCollectionEtape.form, (collection) => {
           expect(collection.nombreEtapes).toBe(collection.length);
-        })
+        }),
       );
     });
     it("nombre d'étape d'une collection d'étapes result est toujours 0", () => {
@@ -103,8 +103,8 @@ describe(CollectionInformationsEtapes, () => {
           (listeEtapes) => {
             const collection = new CollectionInformationsEtapes(...listeEtapes);
             expect(collection.nombreEtapes).toBe(0);
-          }
-        )
+          },
+        ),
       );
     });
     it("nombre d'étape est toujours supérieur à etape courante", () => {
@@ -112,9 +112,9 @@ describe(CollectionInformationsEtapes, () => {
         fc.property(arbListeEtapesEtIndice, ({ listeEtapes, indice }) => {
           const collection = new CollectionInformationsEtapes(...listeEtapes);
           expect(collection.nombreEtapes).toBeGreaterThanOrEqual(
-            collection.numero(indice)
+            collection.numero(indice),
           );
-        })
+        }),
       );
     });
 
@@ -125,8 +125,8 @@ describe(CollectionInformationsEtapes, () => {
             arbitrairesCollectionEtape.formPuisResult,
             ({ collection }) => {
               expect(collection.estPremiereEtape(0)).toBeTruthy();
-            }
-          )
+            },
+          ),
         );
       });
       it("si collection terminant par des form, premier élément de la série", () => {
@@ -137,10 +137,10 @@ describe(CollectionInformationsEtapes, () => {
               decoreChaineRendue(collection);
               expect(collection.estPremiereEtape(0)).toBeFalsy();
               expect(
-                collection.estPremiereEtape(nombreEtapesResult)
+                collection.estPremiereEtape(nombreEtapesResult),
               ).toBeTruthy();
-            }
-          )
+            },
+          ),
         );
       });
       it("avec une collection avec des sous étapes", () => {
@@ -154,8 +154,8 @@ describe(CollectionInformationsEtapes, () => {
               decoreChaineRendue(collection);
               expect(collection.estPremiereEtape(0)).toBeTruthy();
               expect(collection.estPremiereEtape(1)).toBeFalsy();
-            }
-          )
+            },
+          ),
         );
       });
       it("faux avec une collection commençant par N Form sur le premier Result", () => {
@@ -166,8 +166,8 @@ describe(CollectionInformationsEtapes, () => {
               decoreChaineRendue(collection);
               expect(collection.estPremiereEtape(0)).toBeTruthy();
               expect(collection.estPremiereEtape(nombreEtapesForm)).toBeFalsy();
-            }
-          )
+            },
+          ),
         );
       });
     });
@@ -178,10 +178,10 @@ describe(CollectionInformationsEtapes, () => {
             arbitrairesCollectionEtape.formPuisResult,
             ({ collection, nombreEtapesForm }) => {
               expect(
-                collection.estDerniereEtape(nombreEtapesForm - 1)
+                collection.estDerniereEtape(nombreEtapesForm - 1),
               ).toBeTruthy();
-            }
-          )
+            },
+          ),
         );
       });
       it("si collection terminant par des form, dernier élément", () => {
@@ -191,10 +191,10 @@ describe(CollectionInformationsEtapes, () => {
             ({ collection }) => {
               decoreChaineRendue(collection);
               expect(
-                collection.estDerniereEtape(collection.length - 1)
+                collection.estDerniereEtape(collection.length - 1),
               ).toBeTruthy();
-            }
-          )
+            },
+          ),
         );
       });
       it("avec une collection avec des sous étapes", () => {
@@ -207,10 +207,10 @@ describe(CollectionInformationsEtapes, () => {
               const collection = new CollectionInformationsEtapes(...liste);
               decoreChaineRendue(collection);
               expect(
-                collection.estDerniereEtape(collection.length - 1)
+                collection.estDerniereEtape(collection.length - 1),
               ).toBeTruthy();
-            }
-          )
+            },
+          ),
         );
       });
       it("faux avec une collection commençant par N Form sur le premier Result", () => {
@@ -220,8 +220,8 @@ describe(CollectionInformationsEtapes, () => {
             ({ collection, nombreEtapesForm }) => {
               decoreChaineRendue(collection);
               expect(collection.estDerniereEtape(nombreEtapesForm)).toBeFalsy();
-            }
-          )
+            },
+          ),
         );
       });
       it("faux avec une collection contenant des sous Etapes, au delà de l'indice", () => {
@@ -233,7 +233,7 @@ describe(CollectionInformationsEtapes, () => {
             // const collection = new CollectionInformationsEtapes(...liste);
             decoreChaineRendue(collection);
             expect(collection.estDerniereEtape(collection.length)).toBeFalsy();
-          })
+          }),
         );
       });
 
@@ -244,10 +244,10 @@ describe(CollectionInformationsEtapes, () => {
             ({ collection, nombreEtapesForm }) => {
               decoreChaineRendue(collection);
               expect(
-                collection.estDerniereEtape(nombreEtapesForm - 2)
+                collection.estDerniereEtape(nombreEtapesForm - 2),
               ).toBeFalsy();
-            }
-          )
+            },
+          ),
         );
       });
 
@@ -258,10 +258,10 @@ describe(CollectionInformationsEtapes, () => {
             (collection) => {
               decoreChaineRendue(collection);
               expect(
-                collection.estDerniereEtape(collection.length - 2)
+                collection.estDerniereEtape(collection.length - 2),
               ).toBeFalsy();
-            }
-          )
+            },
+          ),
         );
       });
     });
@@ -275,11 +275,11 @@ describe(CollectionInformationsEtapes, () => {
               decoreChaineRendue(collection);
               expect(
                 collection.recupereInformationsEtapeSuivante(
-                  nombreEtapesForm - 2
-                ).longueurComptabilisee
+                  nombreEtapesForm - 2,
+                ).longueurComptabilisee,
               ).toBe(1);
-            }
-          )
+            },
+          ),
         );
       });
       it("est toujours une etape comptabilisable si dernière d'une liste d'étapes Form après Result", () => {
@@ -290,11 +290,11 @@ describe(CollectionInformationsEtapes, () => {
               decoreChaineRendue(collection);
               expect(
                 collection.recupereInformationsEtapeSuivante(
-                  collection.length - 2
-                ).longueurComptabilisee
+                  collection.length - 2,
+                ).longueurComptabilisee,
               ).toBe(1);
-            }
-          )
+            },
+          ),
         );
       });
     });

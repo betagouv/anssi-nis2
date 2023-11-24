@@ -47,5 +47,5 @@ export const arbAppartenancePaysUnionEuropeenne: ArbitraireChampFormulaire<
 };
 export type ArbitraireChampFormulaire<
   T extends ValeurChampSimulateur,
-  TypesAdditionnelles extends string = T
+  TypesAdditionnelles extends string = T,
 > = Record<T | TypesAdditionnelles, fc.Arbitrary<T[]>>;

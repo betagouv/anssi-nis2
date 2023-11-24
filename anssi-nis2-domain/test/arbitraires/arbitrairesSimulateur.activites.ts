@@ -12,7 +12,7 @@ import { ValeursAppartenancePaysUnionEuropeenne } from "../../src/Simulateur/Cha
 import { IDonneesBrutesFormulaireSimulateur } from "../../src/Simulateur/DonneesFormulaire";
 
 export const arbActivitesAutres = etend<DonneesSectorielles>(
-  arbSecteursSousSecteursListes
+  arbSecteursSousSecteursListes,
 )
   .avec({
     designeOperateurServicesEssentiels:

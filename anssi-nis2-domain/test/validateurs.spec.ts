@@ -49,7 +49,7 @@ describe("validateurs", () => {
       });
       const validateur = et(
         auMoinsUn("trancheNombreEmployes"),
-        auMoinsUn("trancheCA")
+        auMoinsUn("trancheCA"),
       );
       const result = validateur(donneesFormulaireSimulateur);
       expect(result).toBeTruthy();
@@ -62,7 +62,7 @@ describe("validateurs", () => {
       });
       const validateur = et(
         auMoinsUn("trancheNombreEmployes"),
-        auMoinsUn("trancheCA")
+        auMoinsUn("trancheCA"),
       );
       const result = validateur(donneesFormulaireSimulateur);
       expect(result).toBeFalsy();
@@ -75,7 +75,7 @@ describe("validateurs", () => {
         sousSecteurActivite: ["electricite"],
       });
       const result = auMoinsUnSousSecteurParSecteur(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeTruthy();
     });
@@ -86,7 +86,7 @@ describe("validateurs", () => {
         sousSecteurActivite: ["electricite"],
       });
       const result = auMoinsUnSousSecteurParSecteur(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeFalsy();
     });
@@ -97,7 +97,7 @@ describe("validateurs", () => {
         sousSecteurActivite: ["electricite", "hydrogene"],
       });
       const result = auMoinsUnSousSecteurParSecteur(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeFalsy();
     });
@@ -108,7 +108,7 @@ describe("validateurs", () => {
         sousSecteurActivite: ["autreSousSecteurFabrication"],
       });
       const result = auMoinsUnSousSecteurParSecteur(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeTruthy();
     });
@@ -120,7 +120,7 @@ describe("validateurs", () => {
         activites: ["autreActiviteEspace"],
       });
       const result = auMoinsUneActiviteParValeurSectorielle(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeTruthy();
     });
@@ -131,7 +131,7 @@ describe("validateurs", () => {
         activites: ["autreActiviteEspace", "prestataireSoinsSante"],
       });
       const result = auMoinsUneActiviteParValeurSectorielle(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeTruthy();
     });
@@ -142,7 +142,7 @@ describe("validateurs", () => {
         activites: ["laboratoireReferenceUE", "prestataireSoinsSante"],
       });
       const result = auMoinsUneActiviteParValeurSectorielle(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeFalsy();
     });
@@ -154,7 +154,7 @@ describe("validateurs", () => {
         activites: ["acteurDuMarche"],
       });
       const result = auMoinsUneActiviteParValeurSectorielle(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeFalsy();
     });
@@ -165,7 +165,7 @@ describe("validateurs", () => {
         activites: ["prestataireSoinsSante", "laboratoireReferenceUE"],
       });
       const result = auMoinsUneActiviteParValeurSectorielle(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeTruthy();
     });

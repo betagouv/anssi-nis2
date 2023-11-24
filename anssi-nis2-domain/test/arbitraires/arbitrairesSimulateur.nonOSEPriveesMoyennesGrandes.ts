@@ -29,9 +29,9 @@ export const arbNonOSEPrivesMoyenneGrande = etend(
           "gestionServicesTic",
           "fournisseursNumeriques",
           "infrastructureNumerique",
-        ])
-    )
-  )
+        ]),
+    ),
+  ),
 )
   .avec({
     designeOperateurServicesEssentiels:
@@ -43,7 +43,7 @@ export const arbNonOSEPrivesMoyenneGrande = etend(
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteListee);
 export const arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles = etend(
-  arbEnrAutresSecteursSousSecteurs
+  arbEnrAutresSecteursSousSecteurs,
 )
   .avec({
     designeOperateurServicesEssentiels:
@@ -55,7 +55,7 @@ export const arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles = etend(
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain<IDonneesBrutesFormulaireSimulateur>(ajouteArbitraireActivites);
 export const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
-  arbSecteursSousSecteursListes
+  arbSecteursSousSecteursListes,
 )
   .avec({
     designeOperateurServicesEssentiels:
@@ -74,7 +74,7 @@ export const arbNonOSEPrivesMoyenGrandGestionTic: fc.Arbitrary<IDonneesBrutesFor
     fc.record({
       secteurActivite: fc.constant(["gestionServicesTic"]),
       sousSecteurActivite: fc.constant([]),
-    })
+    }),
   )
     .avec({
       designeOperateurServicesEssentiels:
@@ -92,7 +92,7 @@ export const arbNonOSEPrivesMoyenGrandFournisseurNumerique: fc.Arbitrary<IDonnee
     fc.record({
       secteurActivite: fc.constant(["fournisseursNumeriques"]),
       sousSecteurActivite: fc.constant([]),
-    })
+    }),
   )
     .avec({
       designeOperateurServicesEssentiels:

@@ -12,17 +12,17 @@ import { auMoinsUnSecteurListe } from "../../src/Simulateur/services/SecteurActi
 import { auMoinsUnSousSecteurListe } from "../../src/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 
 export const arbitraireSecteursSousSecteurs = fabriqueArbEnrSecteurSousSecteurs(
-  listeEnrSecteursAvecLeursSousSecteurs
+  listeEnrSecteursAvecLeursSousSecteurs,
 )
   .filter((donnees) => donnees.secteurActivite.length > 0)
   .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
 export const arbSecteursSousSecteursListes = fabriqueArbEnrSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs.filter(secteurEtSousSecteursSontListes),
-  { minLength: 1 }
+  { minLength: 1 },
 );
 export const arbTousSecteursSousSecteurs = fabriqueArbEnrSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs,
-  { minLength: 1 }
+  { minLength: 1 },
 );
 export const arbEnrAutresSecteursSousSecteurs =
   fabriqueArbEnrSecteurSousSecteurs(listeAutresSecteursSousSecteurs, {
@@ -34,5 +34,5 @@ export const arbSecteursEtSousSecteursListes =
       (enr.sousSecteurActivite.length == 0 &&
         auMoinsUnSecteurListe(enr.secteurActivite)) ||
       (auMoinsUnSecteurListe(enr.secteurActivite) &&
-        auMoinsUnSousSecteurListe(enr.sousSecteurActivite))
+        auMoinsUnSousSecteurListe(enr.sousSecteurActivite)),
   );
