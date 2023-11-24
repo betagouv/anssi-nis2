@@ -9,9 +9,11 @@ import { EnvoieDonneesFormulaire } from "./Operations/appelsApi";
 import { donneesFormulaireSontCompletes } from "../../../../anssi-nis2-domain/src/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
 
 export const fabriqueGestionSuivant =
-  (
-    setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
-    etatEtapes: EtatEtapes,
+  <TypeConteneur>(
+    setEtatEtape: React.Dispatch<
+      React.SetStateAction<EtatEtapes<TypeConteneur>>
+    >,
+    etatEtapes: EtatEtapes<TypeConteneur>,
     donneesSimulateur: IDonneesBrutesFormulaireSimulateur,
     envoieDonneesFormulaire: EnvoieDonneesFormulaire,
   ) =>
@@ -26,9 +28,9 @@ export const fabriqueGestionSuivant =
     }
   };
 
-export const fabriqueGestionPrecedent = (
-  setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
-  etatEtapes: EtatEtapes,
+export const fabriqueGestionPrecedent = <TypeConteneur>(
+  setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes<TypeConteneur>>>,
+  etatEtapes: EtatEtapes<TypeConteneur>,
   donneesSimulateur: IDonneesBrutesFormulaireSimulateur,
 ) => {
   if (etatEtapes.collectionEtapes.estPremiereEtape(etatEtapes.indiceCourant))
@@ -39,9 +41,9 @@ export const fabriqueGestionPrecedent = (
   };
 };
 
-export const fabriqueInformationsBoutonsNavigation = (
-  setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
-  etatEtapes: EtatEtapes,
+export const fabriqueInformationsBoutonsNavigation = <TypeConteneur>(
+  setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes<TypeConteneur>>>,
+  etatEtapes: EtatEtapes<TypeConteneur>,
   donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur,
   envoieDonneesFormulaire: EnvoieDonneesFormulaire,
 ) => ({

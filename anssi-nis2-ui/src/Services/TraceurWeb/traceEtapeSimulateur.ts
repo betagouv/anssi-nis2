@@ -1,8 +1,8 @@
 import { EtatEtapes } from "../../../../anssi-nis2-domain/src/Simulateur/EtatEtapes.ts";
 import { IDonneesBrutesFormulaireSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 
-export const traceEtapeSimulateur = (
-  etatEtapes: EtatEtapes,
+export const traceEtapeSimulateur = <TypeConteneur>(
+  etatEtapes: EtatEtapes<TypeConteneur>,
   donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur,
 ) => {
   window._mtm ||= [];
