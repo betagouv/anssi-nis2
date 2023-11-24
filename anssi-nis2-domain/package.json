@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Code domaine pour MonEspaceNIS2",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "vite": "^5.0.2",
+    "vite-plugin-node": "^3.1.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

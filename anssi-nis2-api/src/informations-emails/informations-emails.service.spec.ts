@@ -45,7 +45,7 @@ describe.skip("InformationsEmailsService sur vraie DB", () => {
     providers: [...[serviceConfigurationPourTests, InformationsEmailsService]],
   });
 
-  it("ajoute les donnees dans la base réelle", async () => {
+  it.skip("ajoute les donnees dans la base réelle", async () => {
     const mockModule = await testingModuleBuilder.compile();
     const srv = mockModule.get<InformationsEmailsService>(
       InformationsEmailsService,
