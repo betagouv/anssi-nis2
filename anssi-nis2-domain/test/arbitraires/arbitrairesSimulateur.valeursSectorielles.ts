@@ -1,15 +1,15 @@
+import { IDonneesFormulaireSimulateur } from "../../src/Simulateur/DonneesFormulaire";
+import { auMoinsUnSecteurListe } from "../../src/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
+import { auMoinsUnSousSecteurListe } from "../../src/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 import {
   ajouteMethodeAvec,
   fabriqueArbEnrSecteurSousSecteurs,
-} from "../../../anssi-nis2-ui/test/utilitaires/manipulationArbitraires";
+} from "../utilitaires/manipulationArbitraires";
 import {
   listeAutresSecteursSousSecteurs,
   listeEnrSecteursAvecLeursSousSecteurs,
   secteurEtSousSecteursSontListes,
-} from "../../../anssi-nis2-ui/test/Services/Simulateur/exemples/ListesEnrSecteursSousSecteur";
-import { IDonneesFormulaireSimulateur } from "../../src/Simulateur/DonneesFormulaire";
-import { auMoinsUnSecteurListe } from "../../src/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
-import { auMoinsUnSousSecteurListe } from "../../src/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
+} from "../exemples/ListesEnrSecteursSousSecteur";
 
 export const arbitraireSecteursSousSecteurs = fabriqueArbEnrSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs,

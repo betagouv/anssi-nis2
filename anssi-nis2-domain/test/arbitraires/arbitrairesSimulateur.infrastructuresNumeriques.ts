@@ -11,10 +11,6 @@ import {
   fabriqueArbTrancheSingleton,
 } from "../utilitaires/manipulationArbitraires";
 import {
-  filtreEnrSectorielHorsSecteurs,
-  filtreSecteurListeSecteursSousSecteurs,
-} from "../../../anssi-nis2-ui/test/Services/Simulateur/exemples/ListesEnrSecteursSousSecteur";
-import {
   arbAppartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
   arbTranche,
@@ -25,6 +21,11 @@ import {
   ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
 } from "../../src/Simulateur/Eligibilite.constantes";
 import { DonneesSectorielles } from "../utilitaires/manipulationArbitraires.declarations";
+import {
+  filtreEnrSectorielHorsSecteurs,
+  filtreSecteurListeSecteursSousSecteurs,
+} from "../exemples/ListesEnrSecteursSousSecteur";
+import { ArbitraireFormulaire } from "./arbitraireFormulaire.definitions";
 
 const arbSecteurSousSecteurInfraNum = fabriqueArbEnrSecteurSousSecteurs(
   filtreSecteurListeSecteursSousSecteurs("infrastructureNumerique"),
@@ -47,14 +48,14 @@ export const arbNonOSEPrivesPetitFournisseurInfraNum =
       trancheNombreEmployes: arbTranche.petit,
       etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
     })
-    .chain(ajouteAuMoinsUneActiviteListee);
+    .chain(ajouteAuMoinsUneActiviteListee) as ArbitraireFormulaire;
 export const arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernes: fc.Arbitrary<IDonneesBrutesFormulaireSimulateur> =
   arbNonOSEPrivesPetitFournisseurInfraNum.filter(
     (d: IDonneesBrutesFormulaireSimulateur) =>
       d.activites.some((a) =>
         ValeursActivitesConcernesInfrastructureNumerique.includes(a),
       ),
-  ) as fc.Arbitrary<IDonneesBrutesFormulaireSimulateur>;
+  ) as ArbitraireFormulaire;
 export const arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernesFrance: fc.Arbitrary<IDonneesBrutesFormulaireSimulateur> =
   arbNonOSEPrivesPetitFournisseurInfraNum.filter(
     (d: IDonneesBrutesFormulaireSimulateur) =>
@@ -85,7 +86,7 @@ export const arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes: fc.Ar
             a,
           ),
       ),
-  ) as fc.Arbitrary<IDonneesBrutesFormulaireSimulateur>;
+  ) as ArbitraireFormulaire;
 export const arbNonOSEPrivesPetitHorsFournisseurInfraNum =
   etend<DonneesSectorielles>(arbSecteurSousSecteurNonInfraNum)
     .avec({
@@ -96,6 +97,4 @@ export const arbNonOSEPrivesPetitHorsFournisseurInfraNum =
       trancheNombreEmployes: arbTranche.petit,
       etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
     })
-    .chain(
-      ajouteAuMoinsUneActiviteListee,
-    ) as fc.Arbitrary<IDonneesBrutesFormulaireSimulateur>;
+    .chain(ajouteAuMoinsUneActiviteListee) as ArbitraireFormulaire;

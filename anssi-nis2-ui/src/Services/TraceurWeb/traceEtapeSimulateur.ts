@@ -1,8 +1,11 @@
-import { EtatEtapes } from "../../../../anssi-nis2-domain/src/Simulateur/EtatEtapes.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
+import { EtatEtapes } from "anssi-nis2-domain/src/Simulateur/EtatEtapes.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
 
-export const traceEtapeSimulateur = <TypeConteneur>(
-  etatEtapes: EtatEtapes<TypeConteneur>,
+export const traceEtapeSimulateur = <
+  TypeConteneur,
+  TypeSimulateurEtapeNodeComponent,
+>(
+  etatEtapes: EtatEtapes<TypeConteneur, TypeSimulateurEtapeNodeComponent>,
   donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur,
 ) => {
   window._mtm ||= [];

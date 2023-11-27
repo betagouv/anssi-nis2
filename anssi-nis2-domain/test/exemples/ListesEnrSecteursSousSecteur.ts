@@ -2,19 +2,19 @@ import {
   EnrSecteurSousSecteur,
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-} from "../../../../../anssi-nis2-domain/src/Simulateur/SousSecteurActivite.definitions";
-import { ValeursSecteursAvecSousSecteurs } from "../../../../../anssi-nis2-domain/src/Simulateur/SousSecteurActivite.valeurs";
-import { SecteurActivite } from "../../../../../anssi-nis2-domain/src/Simulateur/SecteurActivite.definitions";
-import { ValeursSecteursSansSousSecteur } from "../../../../../anssi-nis2-domain/src/Simulateur/SecteurActivite.valeurs";
+} from "../../src/Simulateur/SousSecteurActivite.definitions";
+import { ValeursSecteursSansSousSecteur } from "../../src/Simulateur/SecteurActivite.valeurs";
+import { ValeursSecteursAvecSousSecteurs } from "../../src/Simulateur/SousSecteurActivite.valeurs";
 import {
   fabriqueListePartielleSecteursAvecSousSecteurs,
   fabriqueTupleSecteurSousSecteurs,
-} from "../../../../../anssi-nis2-domain/src/Simulateur/services/SecteurActivite/SecteurActivite.operations";
+} from "../../src/Simulateur/services/SecteurActivite/SecteurActivite.operations";
+import { SecteurActivite } from "../../src";
 import {
   estSecteurListe,
   estSecteurParmi,
-} from "../../../../../anssi-nis2-domain/src/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
-import { estSousSecteurListe } from "../../../../../anssi-nis2-domain/src/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
+} from "../../src/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
+import { estSousSecteurListe } from "../../src/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 
 export const listeEnrSecteursSansSousSecteur: EnrSecteurSousSecteur[] =
   ValeursSecteursSansSousSecteur.map((secteur) => ({

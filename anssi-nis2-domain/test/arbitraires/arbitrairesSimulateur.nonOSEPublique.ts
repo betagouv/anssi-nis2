@@ -1,10 +1,3 @@
-import {
-  ajouteAuMoinsUneActiviteArbitraire,
-  etend,
-  fabriqueArbContraintSurTrancheCA,
-  fabriqueArbSingleton,
-  fabriqueArbTrancheSingleton,
-} from "../../../anssi-nis2-ui/test/utilitaires/manipulationArbitraires";
 import { arbSecteursEtSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
 import {
   arbAppartenancePaysUnionEuropeenne,
@@ -14,6 +7,14 @@ import {
 import { ValeursTypeEntitePublique } from "../../src/Simulateur/ChampsSimulateur.valeurs";
 import { IDonneesBrutesFormulaireSimulateur } from "../../src/Simulateur/DonneesFormulaire";
 import { predicatDonneesFormulaire } from "../../src/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
+import {
+  ajouteAuMoinsUneActiviteArbitraire,
+  etend,
+  fabriqueArbContraintSurTrancheCA,
+  fabriqueArbSingleton,
+  fabriqueArbTrancheSingleton,
+} from "../utilitaires/manipulationArbitraires";
+import { ArbitraireFormulaire } from "./arbitraireFormulaire.definitions";
 
 export const arbNonOSEPublique = etend(arbSecteursEtSousSecteursListes)
   .avec({
@@ -26,4 +27,6 @@ export const arbNonOSEPublique = etend(arbSecteursEtSousSecteursListes)
   })
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteArbitraire)
-  .filter(predicatDonneesFormulaire.auMoins.une.activiteListee);
+  .filter(
+    predicatDonneesFormulaire.auMoins.une.activiteListee,
+  ) as ArbitraireFormulaire;

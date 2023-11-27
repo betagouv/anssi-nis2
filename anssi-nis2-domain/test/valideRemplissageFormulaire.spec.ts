@@ -8,6 +8,7 @@ import {
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
 import { verifieQue } from "./utilitaires/assure";
 import { IDonneesBrutesFormulaireSimulateur } from "../src/Simulateur/DonneesFormulaire";
+import { ArbitraireFormulaire } from "./arbitraires/arbitraireFormulaire.definitions";
 
 const donneesAbsentes = Object.entries(arbForm.nonValide.donneeAbsente).filter(
   ([nom]) =>
@@ -18,7 +19,10 @@ const donneesAbsentes = Object.entries(arbForm.nonValide.donneeAbsente).filter(
       "trancheCA",
     ].includes(nom),
 );
-const donneesTestsArbitraires = [
+const donneesTestsArbitraires: {
+  nom: string;
+  arbitraireEligible: ArbitraireFormulaire;
+}[] = [
   {
     nom: "designeOSE.petit",
     arbitraireEligible: arbForm.designeOSE.petit,

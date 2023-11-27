@@ -12,11 +12,14 @@ import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
 } from "../src/Simulateur/DonneesFormulaire";
-import { SimulateurEtapeRenderedComponent } from "anssi-nis2-ui/src/Services/Simulateur/Props/component";
+import {
+  SimulateurEtapeNodeComponent,
+  SimulateurEtapeRenderedComponent,
+} from "anssi-nis2-ui/src/Services/Simulateur/Props/component";
 import {
   fabriquesInformationsEtapes,
   toujoursFaux,
-} from "./utilitaires/InformationEtape.faussaire.ts";
+} from "anssi-nis2-ui/src/Services/Simulateur/InformationsEtape.fabrique";
 
 describe("fabriquesInformationsEtapes", () => {
   describe(fabriquesInformationsEtapes.variantes, () => {
@@ -36,7 +39,11 @@ describe("fabriquesInformationsEtapes", () => {
     it("initialisation avec une variantes", () => {
       const variantesEtapes: VariantesEtape<
         SimulateurEtapeRenderedComponent,
-        InformationEtapeForm<SimulateurEtapeRenderedComponent>
+        SimulateurEtapeNodeComponent,
+        InformationEtapeForm<
+          SimulateurEtapeRenderedComponent,
+          SimulateurEtapeNodeComponent
+        >
       >[] = [
         {
           etape: exInformationEtape.form1,
@@ -55,7 +62,11 @@ describe("fabriquesInformationsEtapes", () => {
     it("initialisation avec deux variantes", () => {
       const variantesDeuxEtapes: VariantesEtape<
         SimulateurEtapeRenderedComponent,
-        InformationEtapeForm<SimulateurEtapeRenderedComponent>
+        SimulateurEtapeNodeComponent,
+        InformationEtapeForm<
+          SimulateurEtapeRenderedComponent,
+          SimulateurEtapeNodeComponent
+        >
       >[] = [
         {
           etape: exInformationEtape.form1,

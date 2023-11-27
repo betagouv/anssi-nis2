@@ -1,7 +1,6 @@
 import { exCollectionInformationEtape } from "./collectionInformationEtape.exemples";
-import { fabriqueEtatEtape } from "../../../../../anssi-nis2-domain/src/Simulateur/fabriques/EtatEtape.fabrique";
-import { EtatEtapes } from "../../../../../anssi-nis2-domain/src/Simulateur/EtatEtapes";
-import { donneesFormulaireSimulateurVide } from "../../../../../anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
+import { fabriqueEtatEtape } from "../../src/Simulateur/fabriques/EtatEtape.fabrique";
+import { donneesFormulaireSimulateurVide } from "../../src/Simulateur/DonneesFormulaire";
 
 const indiceEtapeInitiale = 0;
 const etatEtapesInitial = fabriqueEtatEtape(
@@ -39,7 +38,7 @@ const etatEtapeVariantEn2Etape3 = fabriqueEtatEtape(
   exCollectionInformationEtape.longueur3.avecVariante.enDeuxieme,
   2,
 );
-const etatEtapeVariantEn2Etape2a: EtatEtapes = {
+const etatEtapeVariantEn2Etape2a = {
   ...fabriqueEtatEtape(
     exCollectionInformationEtape.longueur3.avecVariante.enDeuxieme,
     1,
@@ -50,7 +49,7 @@ const etatEtapeVariantEn2Etape2a: EtatEtapes = {
     typeStructure: ["privee"],
   },
 };
-const etatEtapeVariantEn2Etape2b: EtatEtapes = {
+const etatEtapeVariantEn2Etape2b = {
   ...fabriqueEtatEtape(
     exCollectionInformationEtape.longueur3.avecVariante.enDeuxieme,
     1,

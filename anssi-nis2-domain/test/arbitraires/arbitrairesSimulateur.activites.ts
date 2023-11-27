@@ -8,8 +8,8 @@ import {
 import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
 import { arbDesigneOperateurServicesEssentiels } from "./arbitraireChampFormulaire";
 import { ValeursAppartenancePaysUnionEuropeenne } from "../../src/Simulateur/ChampsSimulateur.valeurs";
-import { IDonneesBrutesFormulaireSimulateur } from "../../src/Simulateur/DonneesFormulaire";
 import { DonneesSectorielles } from "../utilitaires/manipulationArbitraires.declarations";
+import { ArbitraireFormulaire } from "./arbitraireFormulaire.definitions";
 
 export const arbActivitesAutres = etend<DonneesSectorielles>(
   arbSecteursSousSecteursListes,
@@ -22,5 +22,5 @@ export const arbActivitesAutres = etend<DonneesSectorielles>(
     trancheNombreEmployes: fabriqueArbTrancheSingleton(),
     etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
   })
-  .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteAutre)
-  .filter((d) => d.activites.length > 0);
+  .chain(ajouteAuMoinsUneActiviteAutre)
+  .filter((d) => d.activites.length > 0) as ArbitraireFormulaire;

@@ -12,9 +12,12 @@ import {
 
 const donneesVides = donneesFormulaireSimulateurVide;
 
-const attendEtatEtapeEgaux = (
-  etatEtapeResultant: EtatEtapes,
-  etatEtapeAttendu: EtatEtapes,
+const attendEtatEtapeEgaux = <TypeConteneur, TypeSimulateurEtapeNodeComponent>(
+  etatEtapeResultant: EtatEtapes<
+    TypeConteneur,
+    TypeSimulateurEtapeNodeComponent
+  >,
+  etatEtapeAttendu: EtatEtapes<TypeConteneur, TypeSimulateurEtapeNodeComponent>,
   ignoreProprietes = ["ignoreEtapeSuivante"],
 ) =>
   Object.keys(etatEtapeAttendu)

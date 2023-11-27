@@ -4,8 +4,8 @@ import { CollectionInformationsEtapes } from "../../src/Simulateur/CollectionInf
 import { InformationsEtape } from "../../src/Simulateur/InformationsEtape";
 import { arbListeFormEtResult } from "./listeEtapes";
 
-const fabriqueCollectionInformationsEtapes = (
-  ...listes: InformationsEtape[][]
+const fabriqueCollectionInformationsEtapes = <TypeConteneur>(
+  ...listes: InformationsEtape<TypeConteneur>[][]
 ) => {
   const informationsEtapes = listes.reduce(
     (listeResultat, listeCourante) => listeResultat.concat(...listeCourante),

@@ -1,12 +1,5 @@
 import { fc } from "@fast-check/vitest";
-import {
-  ajouteArbitraireActivites,
-  ajouteAuMoinsUneActiviteAutre,
-  ajouteAuMoinsUneActiviteListee,
-  etend,
-  fabriqueArbContraintSurTrancheCA,
-  fabriqueArbTrancheSingleton,
-} from "../../../anssi-nis2-ui/test/utilitaires/manipulationArbitraires";
+
 import {
   arbEnrAutresSecteursSousSecteurs,
   arbSecteursEtSousSecteursListes,
@@ -20,6 +13,15 @@ import {
 import { IDonneesBrutesFormulaireSimulateur } from "../../src/Simulateur/DonneesFormulaire";
 import { predicatDonneesFormulaire } from "../../src/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { estSecteurParmi } from "../../src/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
+import {
+  ajouteArbitraireActivites,
+  ajouteAuMoinsUneActiviteAutre,
+  ajouteAuMoinsUneActiviteListee,
+  etend,
+  fabriqueArbContraintSurTrancheCA,
+  fabriqueArbTrancheSingleton,
+} from "../utilitaires/manipulationArbitraires";
+import { ArbitraireFormulaire } from "./arbitraireFormulaire.definitions";
 
 export const arbNonOSEPrivesMoyenneGrande = etend(
   arbSecteursEtSousSecteursListes.filter((d) =>
@@ -41,7 +43,9 @@ export const arbNonOSEPrivesMoyenneGrande = etend(
     etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
   })
   .chain(fabriqueArbContraintSurTrancheCA)
-  .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteListee);
+  .chain<IDonneesBrutesFormulaireSimulateur>(
+    ajouteAuMoinsUneActiviteListee,
+  ) as ArbitraireFormulaire;
 export const arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles = etend(
   arbEnrAutresSecteursSousSecteurs,
 )
@@ -53,7 +57,9 @@ export const arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles = etend(
     etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
   })
   .chain(fabriqueArbContraintSurTrancheCA)
-  .chain<IDonneesBrutesFormulaireSimulateur>(ajouteArbitraireActivites);
+  .chain<IDonneesBrutesFormulaireSimulateur>(
+    ajouteArbitraireActivites,
+  ) as ArbitraireFormulaire;
 export const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
   arbSecteursSousSecteursListes,
 )
@@ -67,7 +73,7 @@ export const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteAutre)
   .filter(predicatDonneesFormulaire.uniquement.activiteAutre)
-  .filter((d) => d.activites.length > 0);
+  .filter((d) => d.activites.length > 0) as ArbitraireFormulaire;
 
 export const arbNonOSEPrivesMoyenGrandGestionTic: fc.Arbitrary<IDonneesBrutesFormulaireSimulateur> =
   etend(
@@ -85,7 +91,7 @@ export const arbNonOSEPrivesMoyenGrandGestionTic: fc.Arbitrary<IDonneesBrutesFor
     })
     .chain(fabriqueArbContraintSurTrancheCA)
     .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteListee)
-    .filter((d) => d.activites.length > 0);
+    .filter((d) => d.activites.length > 0) as ArbitraireFormulaire;
 
 export const arbNonOSEPrivesMoyenGrandFournisseurNumerique: fc.Arbitrary<IDonneesBrutesFormulaireSimulateur> =
   etend(
@@ -103,4 +109,4 @@ export const arbNonOSEPrivesMoyenGrandFournisseurNumerique: fc.Arbitrary<IDonnee
     })
     .chain(fabriqueArbContraintSurTrancheCA)
     .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteListee)
-    .filter((d) => d.activites.length > 0);
+    .filter((d) => d.activites.length > 0) as ArbitraireFormulaire;

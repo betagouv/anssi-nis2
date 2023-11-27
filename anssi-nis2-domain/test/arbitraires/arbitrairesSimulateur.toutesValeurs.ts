@@ -1,10 +1,5 @@
 import { fc } from "@fast-check/vitest";
-import {
-  ajouteAuMoinsUneActiviteListee,
-  etend,
-  fabriqueArbSingleton,
-  fabriqueArbTrancheSingleton,
-} from "../../../anssi-nis2-ui/test/utilitaires/manipulationArbitraires";
+
 import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
 import {
   ValeursAppartenancePaysUnionEuropeenne,
@@ -19,6 +14,12 @@ import {
   arbAppartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
 } from "./arbitraireChampFormulaire";
+import {
+  ajouteAuMoinsUneActiviteListee,
+  etend,
+  fabriqueArbSingleton,
+  fabriqueArbTrancheSingleton,
+} from "../utilitaires/manipulationArbitraires";
 
 export const arbToutesValeursPossibles = etend(
   arbSecteursSousSecteursListes,
@@ -41,7 +42,7 @@ export const arbHorsUe: ArbitraireFormulaire = etend(arbToutesValeursPossibles)
       arbDesigneOperateurServicesEssentiels.non,
     etatMembre: arbAppartenancePaysUnionEuropeenne.horsue,
   })
-  .chain(ajouteAuMoinsUneActiviteListee);
+  .chain(ajouteAuMoinsUneActiviteListee) as ArbitraireFormulaire;
 
 const fabriqueArbitraireVidePourChamp = (nom: string) =>
   etend(arbToutesValeursPossibles).avec({

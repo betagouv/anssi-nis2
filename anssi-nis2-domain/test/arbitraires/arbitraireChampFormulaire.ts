@@ -7,7 +7,7 @@ import {
   UnionPetitMoyenGrand,
   ValeurChampSimulateur,
 } from "../../src/Simulateur/ChampsSimulateur.definitions";
-import { fabriqueArbSingleton } from "../../../anssi-nis2-ui/test/utilitaires/manipulationArbitraires";
+import { fabriqueArbSingleton } from "../utilitaires/manipulationArbitraires";
 
 export const arbDesigneOperateurServicesEssentiels: ArbitraireChampFormulaire<DesignationOperateurServicesEssentiels> =
   {

@@ -1,11 +1,4 @@
 import {
-  ajouteArbitraireActivites,
-  etend,
-  fabriqueArbContraintSurTrancheCA,
-  fabriqueArbSingleton,
-  fabriqueArbTrancheSingleton,
-} from "../../../anssi-nis2-ui/test/utilitaires/manipulationArbitraires";
-import {
   arbDesigneOperateurServicesEssentiels,
   arbTranche,
   arbTypeStructure,
@@ -13,6 +6,13 @@ import {
 import { ValeursAppartenancePaysUnionEuropeenne } from "../../src/Simulateur/ChampsSimulateur.valeurs";
 import { ArbitraireFormulaire } from "./arbitraireFormulaire.definitions";
 import { arbitraireSecteursSousSecteurs } from "./arbitrairesSimulateur.valeursSectorielles";
+import {
+  ajouteArbitraireActivites,
+  etend,
+  fabriqueArbContraintSurTrancheCA,
+  fabriqueArbSingleton,
+  fabriqueArbTrancheSingleton,
+} from "../utilitaires/manipulationArbitraires";
 
 export const arbOSEPetit = etend(arbitraireSecteursSousSecteurs)
   .avec({
@@ -35,4 +35,4 @@ export const arbOSEMoyenGrand = etend(arbitraireSecteursSousSecteurs)
   })
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain(ajouteArbitraireActivites)
-  .filter((d) => d.activites.length > 0);
+  .filter((d) => d.activites.length > 0) as ArbitraireFormulaire;

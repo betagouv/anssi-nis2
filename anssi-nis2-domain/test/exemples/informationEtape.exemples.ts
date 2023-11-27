@@ -1,22 +1,24 @@
 import {
-  OptionsInformationEtapeForm,
-  SousEtapeConditionnelle,
-} from "../../../../../anssi-nis2-domain/src/Simulateur/InformationsEtape";
+  fabriquesInformationsEtapes,
+  optionsInformationEtapeFormParDefaut,
+  toujoursFaux,
+} from "anssi-nis2-ui/src/Services/Simulateur/InformationsEtape.fabrique";
+import { SousEtapeConditionnelle } from "../../src/Simulateur/InformationsEtape";
 import {
   fausseValidationReponse,
   FauxSimulateurEtapeComposant,
-} from "../InformationEtape.faussaire";
+} from "../utilitaires/InformationEtape.faussaire";
 import {
-  fabriquesInformationsEtapes,
-  optionsInformationEtapeFormParDefaut,
-} from "../../../../src/Services/Simulateur/InformationsEtape.fabrique";
+  SimulateurEtapeNodeComponent,
+  SimulateurEtapeRenderedComponent,
+} from "anssi-nis2-ui/src/Services/Simulateur/Props/component";
 
 export const predicatVrai = () => true;
 const informationEtapeResult = fabriquesInformationsEtapes.resultat("Resultat");
 
 const fabriqueFausseInformationEtapeForm = (
   titre: string,
-  options: Partial<OptionsInformationEtapeForm> = optionsInformationEtapeFormParDefaut,
+  options = optionsInformationEtapeFormParDefaut,
 ) => {
   return fabriquesInformationsEtapes.form(
     titre,
@@ -47,13 +49,19 @@ const informationEtapeFormJamaisEvitee = fabriqueFausseInformationEtapeForm(
 
 const informationSousEtapeForm =
   fabriqueFausseInformationEtapeForm("Sous-étape");
-const sousEtapeToujoursPresente: SousEtapeConditionnelle = {
+const sousEtapeToujoursPresente: SousEtapeConditionnelle<
+  SimulateurEtapeRenderedComponent,
+  SimulateurEtapeNodeComponent
+> = {
   condition: predicatVrai,
   sousEtape: informationSousEtapeForm,
 };
 const etapeEmployesAvecSousEtapeActivite = fabriqueFausseInformationEtapeForm(
   "Contient une sous Etape",
-  { sousEtapeConditionnelle: sousEtapeToujoursPresente },
+  {
+    sousEtapeConditionnelle: sousEtapeToujoursPresente,
+    ignoreSi: toujoursFaux,
+  },
 );
 
 const infoEtapesVariantesPriveePublique = fabriquesInformationsEtapes.variantes(
