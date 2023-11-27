@@ -17,17 +17,17 @@ export const EnSavoirPlus = () => {
         </p>
         <ul className="fr-nis2-tuile-lien fr-grid-row">
           <TuileLien
-            image="assets/source_EU.svg"
+            image="images/source_EU.svg"
             titre={"Directive"}
             lien={liens.legislation.europa}
-          />{" "}
+          />
           <TuileLien
-            image="assets/webinar.svg"
+            image="images/webinar.svg"
             titre={"Webinaire"}
             lien={liens.anssi.webinaire}
           />
           <TuileLien
-            image="assets/faq.svg"
+            image="images/faq.svg"
             titre={"FAQ"}
             lien={liens.anssi.faq}
           />

@@ -10,7 +10,7 @@ export const BienDebuterAvecPdf = () => (
     </p>
     <PdfCardContainer>
       <PdfCard
-        imageUrl="assets/GuideTPE-PME.png"
+        imageUrl="images/GuideTPE-PME.png"
         imageAlt="La cyberécurité pour les TPE/PME en 13 questions"
         title="Guide des TPE/PME"
         linkProps={{
@@ -20,7 +20,7 @@ export const BienDebuterAvecPdf = () => (
       />
       <PdfCard
         imageAlt="Guide d'Hygiène Informatique - Renforcer la sécurité de son système en 42 mesures"
-        imageUrl="assets/GuideHygieneCyber.png"
+        imageUrl="images/GuideHygieneCyber.png"
         linkProps={{
           href: "https://www.ssi.gouv.fr/uploads/2017/01/guide_hygiene_informatique_anssi.pdf",
           target: "_blank",

@@ -410,7 +410,7 @@ legend.fr-text--medium {
 }
 
 .fr-nis2-aidez-nous {
-  background: var(--yellow-tournesol-975-75, #fef6e3) url(assets/faq.svg) no-repeat;
+  background: var(--yellow-tournesol-975-75, #fef6e3) url(../public/images/faq.svg) no-repeat;
   background-size: 5rem;
 }
 

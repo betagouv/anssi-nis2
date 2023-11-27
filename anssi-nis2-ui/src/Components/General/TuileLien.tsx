@@ -19,7 +19,6 @@ export const TuileLien = ({
           iconPosition="left"
           className="fr-btn"
           priority="secondary"
-          // linkProps={lien}
         >
           {titre}
         </Button>

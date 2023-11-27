@@ -29,7 +29,7 @@ export const SimulateurEtapePrealable: SimulateurEtapeRenderedComponent = ({
           </div>
           <div className="fr-col-3 fr-nis2-logo-localisation">
             <img
-              src="anssi-nis2-ui/src/assets/localisation-france.svg"
+              src="images/localisation-france.svg"
               alt="Illustration localisations en France"
             />
           </div>
