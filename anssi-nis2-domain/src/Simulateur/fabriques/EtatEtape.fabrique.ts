@@ -5,19 +5,25 @@ import {
 import { EtatEtapes } from "anssi-nis2-domain/src/Simulateur/EtatEtapes";
 import { CollectionInformationsEtapes } from "anssi-nis2-domain/src/Simulateur/CollectionInformationsEtapes";
 
-const suivantEstIgnore = <TypeConteneur>(
-  suivant: EtatEtapes<TypeConteneur>,
+const suivantEstIgnore = <TypeConteneur, TypeSimulateurEtapeNodeComponent>(
+  suivant: EtatEtapes<TypeConteneur, TypeSimulateurEtapeNodeComponent>,
   donnees: IDonneesBrutesFormulaireSimulateur,
 ) => suivant.contenuEtapeCourante.estIgnoree(donnees);
 const fabriqueIgnoreEtape = (etapeSuivantExiste: boolean) =>
   etapeSuivantExiste ? suivantEstIgnore : () => false;
 
-export const fabriqueEtatEtape: <TypeConteneur>(
-  collectionEtapes: CollectionInformationsEtapes<TypeConteneur>,
+export const fabriqueEtatEtape: <
+  TypeConteneur,
+  TypeSimulateurEtapeNodeComponent,
+>(
+  collectionEtapes: CollectionInformationsEtapes<
+    TypeConteneur,
+    TypeSimulateurEtapeNodeComponent
+  >,
   indiceEtape: number,
   indiceSousEtape?: number,
   donneesFormulaire?: IDonneesBrutesFormulaireSimulateur,
-) => EtatEtapes<TypeConteneur> = (
+) => EtatEtapes<TypeConteneur, TypeSimulateurEtapeNodeComponent> = (
   collectionEtapes,
   indiceEtape,
   indiceSousEtape = 0,

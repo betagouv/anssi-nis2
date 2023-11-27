@@ -2,7 +2,6 @@ import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Prop
 import { RowContainer } from "../General/RowContainer.tsx";
 import { Button } from "@codegouvfr/react-dsfr/Button";
 import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
-import ImageLocalisation from "../../assets/localisation-france.svg";
 
 export const SimulateurEtapePrealable: SimulateurEtapeRenderedComponent = ({
   informationsBoutonsNavigation,
@@ -30,7 +29,7 @@ export const SimulateurEtapePrealable: SimulateurEtapeRenderedComponent = ({
           </div>
           <div className="fr-col-3 fr-nis2-logo-localisation">
             <img
-              src={ImageLocalisation}
+              src="anssi-nis2-ui/src/assets/localisation-france.svg"
               alt="Illustration localisations en France"
             />
           </div>

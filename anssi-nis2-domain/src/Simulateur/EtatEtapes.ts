@@ -12,9 +12,12 @@ import {
 } from "anssi-nis2-ui/src/Services/Simulateur/InformationsEtape.fabrique.ts";
 import { validationToutesLesReponses } from "./services/ChampsSimulateur/ValidationReponses.ts";
 
-export type EtatEtapes<TypeConteneur> = {
+export type EtatEtapes<TypeConteneur, TypeSimulateurEtapeNodeComponent> = {
   // Données générales
-  readonly collectionEtapes: CollectionInformationsEtapes<TypeConteneur>;
+  readonly collectionEtapes: CollectionInformationsEtapes<
+    TypeConteneur,
+    TypeSimulateurEtapeNodeComponent
+  >;
 
   // Situation dans la collection
   readonly indiceCourant: number;
@@ -30,11 +33,14 @@ export type EtatEtapes<TypeConteneur> = {
   // Informations sur le composant
   readonly titreSuivant?: string;
   readonly donneesFormulaire: IDonneesBrutesFormulaireSimulateur;
-  readonly contenuEtapeCourante: InformationEtapeForm<TypeConteneur>;
+  readonly contenuEtapeCourante: InformationEtapeForm<
+    TypeConteneur,
+    TypeSimulateurEtapeNodeComponent
+  >;
 
   // Capacités
   readonly ignoreEtapeSuivante: (
-    etat: EtatEtapes<TypeConteneur>,
+    etat: EtatEtapes<TypeConteneur, TypeSimulateurEtapeNodeComponent>,
     donnees: IDonneesBrutesFormulaireSimulateur,
   ) => boolean;
 };

@@ -3,7 +3,6 @@ import { DefaultComponentExtensible, DefaultProps } from "../../Services/Props";
 import { type DetailedHTMLProps, type AnchorHTMLAttributes } from "react";
 import styled from "@emotion/styled";
 import { fr } from "@codegouvfr/react-dsfr";
-import PdfBgImg from "../../assets/PdfBgImg.svg";
 
 type HTMLAnchorProps = DetailedHTMLProps<
   AnchorHTMLAttributes<HTMLAnchorElement>,
@@ -31,7 +30,7 @@ const PdfCardHolder = styled.div`
   }
 
   & .fr-card__content {
-    background-image: url(${PdfBgImg});
+    background-image: url(assets/PdfBgImg.svg);
     background-repeat: no-repeat;
     background-position: center right ${fr.spacing("2w")};
     padding: ${fr.spacing("2w")} ${fr.spacing("6w")} ${fr.spacing("2w")}

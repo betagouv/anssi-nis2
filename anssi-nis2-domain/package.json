@@ -12,6 +12,7 @@
   },
   "scripts": {
     "test": "vitest run",
+    "build": "tsc && vite build",
     "dev:test": "vitest",
     "prettier": "npx prettier . --write"
   },

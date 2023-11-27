@@ -3,9 +3,6 @@ import { CenteredContainer } from "../../General/CenteredContainer.tsx";
 import { liens } from "../../../References/liens.tsx";
 
 import { TuileLien } from "../../General/TuileLien.tsx";
-import imageSourceUE from "../../../assets/source_EU.svg";
-import imageWebinaire from "../../../assets/webinar.svg";
-import imageFAQ from "../../../assets/faq.svg";
 
 export const EnSavoirPlus = () => {
   return (
@@ -20,16 +17,20 @@ export const EnSavoirPlus = () => {
         </p>
         <ul className="fr-nis2-tuile-lien fr-grid-row">
           <TuileLien
-            image={imageSourceUE}
+            image="assets/source_EU.svg"
             titre={"Directive"}
             lien={liens.legislation.europa}
           />{" "}
           <TuileLien
-            image={imageWebinaire}
+            image="assets/webinar.svg"
             titre={"Webinaire"}
             lien={liens.anssi.webinaire}
           />
-          <TuileLien image={imageFAQ} titre={"FAQ"} lien={liens.anssi.faq} />
+          <TuileLien
+            image="assets/faq.svg"
+            titre={"FAQ"}
+            lien={liens.anssi.faq}
+          />
         </ul>
       </CenteredContainer>
     </RowContainer>

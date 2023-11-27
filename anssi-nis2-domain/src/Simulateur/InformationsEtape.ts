@@ -3,6 +3,10 @@ import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire";
 import { ValidationReponses } from "./services/ChampsSimulateur/champs.domaine";
 import { PredicatDonneesSimulateur } from "./PredicatDonneesSimulateur";
 import { P } from "ts-pattern";
+import {
+  DefaultComponentExtensible,
+  DefaultProps,
+} from "anssi-nis2-ui/src/Services/Props";
 
 export type InformationsEtape<TypeConteneur> = {
   readonly longueurComptabilisee: 0 | 1;
@@ -49,7 +53,10 @@ export type SousEtapeConditionnelle<
 };
 
 export type CapacitesEtapeFormulaire = {
-  readonly fabriqueComposant: <TypeSimulateurEtapeNodeComponent>(
+  readonly fabriqueComposant: <
+    TypeSimulateurEtapeNodeComponent extends
+      DefaultComponentExtensible<DefaultProps>,
+  >(
     donnees: IDonneesBrutesFormulaireSimulateur,
   ) => TypeSimulateurEtapeNodeComponent;
   readonly fabriqueValidationReponses: (

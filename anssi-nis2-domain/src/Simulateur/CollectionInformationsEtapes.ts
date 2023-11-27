@@ -1,11 +1,15 @@
 import { InformationEtapeForm, InformationsEtape } from "./InformationsEtape";
 import { ConstantesEtatEtape, EtapeVide } from "./EtatEtapes";
 
-export class CollectionInformationsEtapes<TypeConteneur> extends Array<
-  InformationsEtape<TypeConteneur>
-> {
+export class CollectionInformationsEtapes<
+  TypeConteneur,
+  TypeSimulateurEtapeNodeComponent,
+> extends Array<InformationsEtape<TypeConteneur>> {
   slice = (start?: number, end?: number) =>
-    super.slice(start, end) as CollectionInformationsEtapes<TypeConteneur>;
+    super.slice(start, end) as CollectionInformationsEtapes<
+      TypeConteneur,
+      TypeSimulateurEtapeNodeComponent
+    >;
 
   get nombreEtapes(): number {
     return this.reduce(
@@ -54,12 +58,15 @@ export class CollectionInformationsEtapes<TypeConteneur> extends Array<
 
   recupereSousEtape = (indice: number, indiceSousEtape: number) =>
     this.estSurSousEtape(indiceSousEtape) &&
-    this.recupereEtape<InformationEtapeForm<TypeConteneur>>(indice).options
-      ?.sousEtapeConditionnelle?.sousEtape;
+    this.recupereEtape<
+      InformationEtapeForm<TypeConteneur, TypeSimulateurEtapeNodeComponent>
+    >(indice).options?.sousEtapeConditionnelle?.sousEtape;
 
   contenuEtape = (indiceEtape: number, indiceSousEtape: number) =>
     this.recupereSousEtape(indiceEtape, indiceSousEtape) ||
-    this.recupereEtape<InformationEtapeForm<TypeConteneur>>(indiceEtape);
+    this.recupereEtape<
+      InformationEtapeForm<TypeConteneur, TypeSimulateurEtapeNodeComponent>
+    >(indiceEtape);
 
   private estIndiceValide = (indice: number) =>
     indice >= 0 && indice < this.length;

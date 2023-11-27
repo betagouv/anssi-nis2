@@ -24,6 +24,7 @@ import { elementVide } from "../Echaffaudages/AssistantsEchaffaudages.tsx";
 import { SimulateurEtapeForm } from "../../Components/Simulateur/SimulateurEtapeForm.tsx";
 import { SimulateurEtapePrealable } from "../../Components/Simulateur/SimulateurEtapePrealable.tsx";
 import { SimulateurEtapeResult } from "../../Components/Simulateur/SimulateurEtapeResult.tsx";
+import { DefaultComponentExtensible, DefaultProps } from "../Props";
 
 export const toujoursFaux = () => false;
 export const toujoursVrai = () => true;
@@ -47,9 +48,15 @@ const fabriqueInformationsEtapeForm = (
   validationReponses: ValidationReponses,
   composant: SimulateurEtapeNodeComponent,
   options: Partial<
-    OptionsInformationEtapeForm<SimulateurEtapeRenderedComponent>
+    OptionsInformationEtapeForm<
+      SimulateurEtapeRenderedComponent,
+      SimulateurEtapeNodeComponent
+    >
   > = optionsInformationEtapeFormParDefaut,
-): InformationEtapeForm<SimulateurEtapeRenderedComponent> => {
+): InformationEtapeForm<
+  SimulateurEtapeRenderedComponent,
+  SimulateurEtapeNodeComponent
+> => {
   const optionsCompletes = {
     ...optionsInformationEtapeFormParDefaut,
     ...options,
@@ -58,7 +65,8 @@ const fabriqueInformationsEtapeForm = (
     titre: titre,
     validationReponses: validationReponses,
     composant: composant,
-    fabriqueComposant: () => composant,
+    fabriqueComposant: <T extends DefaultComponentExtensible<DefaultProps>>() =>
+      composant as T,
     options: optionsCompletes,
     longueurComptabilisee: 1,
     existe: true,
@@ -85,9 +93,15 @@ const fabriqueInformationEtapePrealable: (
 });
 
 const fabriqueFonctionEtapeAffichee =
-  <TypeEtape extends InformationEtapeForm<SimulateurEtapeRenderedComponent>>(
+  <
+    TypeEtape extends InformationEtapeForm<
+      SimulateurEtapeRenderedComponent,
+      SimulateurEtapeNodeComponent
+    >,
+  >(
     variantesEtapes: VariantesEtape<
       SimulateurEtapeRenderedComponent,
+      SimulateurEtapeNodeComponent,
       TypeEtape
     >[],
   ) =>
@@ -100,21 +114,30 @@ const fabriqueFonctionEtapeAffichee =
       .otherwise(() => 0);
 
 const fabriqueInformationsEtapesVariantes = <
-  TypeEtape extends InformationEtapeForm<SimulateurEtapeRenderedComponent>,
+  TypeEtape extends InformationEtapeForm<
+    SimulateurEtapeRenderedComponent,
+    SimulateurEtapeNodeComponent
+  >,
 >(
   variantesEtapes: VariantesEtape<
     SimulateurEtapeRenderedComponent,
+    SimulateurEtapeNodeComponent,
     TypeEtape
   >[],
-): InformationsEtapesVariantes<SimulateurEtapeRenderedComponent, TypeEtape> => {
+): InformationsEtapesVariantes<
+  SimulateurEtapeRenderedComponent,
+  SimulateurEtapeNodeComponent,
+  TypeEtape
+> => {
   const variantes = variantesEtapes.map((variante) => variante.etape);
   const varianteAffichee = fabriqueFonctionEtapeAffichee(variantesEtapes);
   return {
     variantes: variantes,
     varianteAffichee: varianteAffichee,
     longueurComptabilisee: 1,
-    fabriqueComposant: (donnees: IDonneesBrutesFormulaireSimulateur) =>
-      variantes[varianteAffichee(donnees)].composant,
+    fabriqueComposant: <T extends DefaultComponentExtensible<DefaultProps>>(
+      donnees: IDonneesBrutesFormulaireSimulateur,
+    ) => variantes[varianteAffichee(donnees)].composant as T,
     existe: true,
     titre: variantesEtapes[0]?.etape.titre,
     estIgnoree: toujoursFaux,
@@ -128,11 +151,14 @@ const fabriqueInformationsEtapesVariantes = <
 
 const fabriqueSousEtapeConditionnelle: (
   condition: PredicatDonneesSimulateur,
-  sousEtape: InformationEtapeForm<SimulateurEtapeRenderedComponent>,
-) => SousEtapeConditionnelle<SimulateurEtapeRenderedComponent> = (
-  condition,
-  sousEtape,
-) => ({
+  sousEtape: InformationEtapeForm<
+    SimulateurEtapeRenderedComponent,
+    SimulateurEtapeNodeComponent
+  >,
+) => SousEtapeConditionnelle<
+  SimulateurEtapeRenderedComponent,
+  SimulateurEtapeNodeComponent
+> = (condition, sousEtape) => ({
   condition: condition,
   sousEtape: sousEtape,
 });
@@ -157,11 +183,16 @@ export const EtapeInexistante: InformationsEtape<SimulateurEtapeRenderedComponen
   varianteAffichee: toujourNegatif,
 } as const;
 
-export const optionsInformationEtapeFormParDefaut: OptionsInformationEtapeForm<SimulateurEtapeRenderedComponent> =
-  {
-    ignoreSi: toujoursFaux,
-    sousEtapeConditionnelle: fabriqueSousEtapeConditionnelle(
-      toujoursFaux,
-      EtapeInexistante as InformationEtapeForm<SimulateurEtapeRenderedComponent>,
-    ),
-  } as const;
+export const optionsInformationEtapeFormParDefaut: OptionsInformationEtapeForm<
+  SimulateurEtapeRenderedComponent,
+  SimulateurEtapeNodeComponent
+> = {
+  ignoreSi: toujoursFaux,
+  sousEtapeConditionnelle: fabriqueSousEtapeConditionnelle(
+    toujoursFaux,
+    EtapeInexistante as InformationEtapeForm<
+      SimulateurEtapeRenderedComponent,
+      SimulateurEtapeNodeComponent
+    >,
+  ),
+} as const;

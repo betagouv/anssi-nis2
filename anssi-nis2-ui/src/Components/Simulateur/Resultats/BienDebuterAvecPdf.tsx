@@ -1,7 +1,5 @@
 import { PdfCardContainer } from "../../General/PdfCardContainer.tsx";
 import PdfCard from "../../General/PdfCard.tsx";
-import ImageGuideTPEPME from "../../../assets/GuideTPE-PME.png";
-import ImageGuideHygieneCyber from "../../../assets/GuideHygieneCyber.png";
 
 export const BienDebuterAvecPdf = () => (
   <>
@@ -12,7 +10,7 @@ export const BienDebuterAvecPdf = () => (
     </p>
     <PdfCardContainer>
       <PdfCard
-        imageUrl={ImageGuideTPEPME}
+        imageUrl="assets/GuideTPE-PME.png"
         imageAlt="La cyberécurité pour les TPE/PME en 13 questions"
         title="Guide des TPE/PME"
         linkProps={{
@@ -22,7 +20,7 @@ export const BienDebuterAvecPdf = () => (
       />
       <PdfCard
         imageAlt="Guide d'Hygiène Informatique - Renforcer la sécurité de son système en 42 mesures"
-        imageUrl={ImageGuideHygieneCyber}
+        imageUrl="assets/GuideHygieneCyber.png"
         linkProps={{
           href: "https://www.ssi.gouv.fr/uploads/2017/01/guide_hygiene_informatique_anssi.pdf",
           target: "_blank",
