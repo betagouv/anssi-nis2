@@ -1,5 +1,5 @@
 import { InformationsEmailsService } from "./informations-emails.service";
-import { mockInformationsEmailRepository } from "./fabrique-mock.repository";
+import { mockInformationsEmailRepository } from "../test/fabrique-mock.repository";
 import { informationsEmail } from "./example/informations.email.exemples";
 import {
   espereEmailsInformationCorrespondASonDto,

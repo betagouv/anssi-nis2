@@ -1,5 +1,5 @@
 import { DataSource } from "typeorm";
-import { SimulateurReponse } from "./simulateur-reponse.entity";
+import { SimulateurReponse } from "./entites/simulateur-reponse.entity";
 import {
   datasourceKey,
   provideSimulateurReponseRepositoryKey,

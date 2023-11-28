@@ -4,9 +4,9 @@ import {
   BasicAuthDesactivee,
   ChargeurExpressBasicAuth,
   fabriqueFournisseurServeurStatique,
-} from "../../intergiciels/serveur-statique-configurable/chargeur-express-basic.auth";
+} from "./chargeur-express-basic.auth";
 import { createMock } from "@golevelup/ts-jest";
-import { fabriqueConfigService } from "../utilitaires/facilitateurs";
+import { fabriqueConfigService } from "../../test/utilitaires/facilitateurs";
 
 describe(ChargeurExpressBasicAuth, () => {
   const configurationParDefaut = {

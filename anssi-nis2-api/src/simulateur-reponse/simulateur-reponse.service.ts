@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { SimulateurReponse } from "./simulateur-reponse.entity";
+import { SimulateurReponse } from "./entites/simulateur-reponse.entity";
 import { Repository } from "typeorm";
 import { SimulateurFormData } from "../Domaine/donneesSimulateur";
 import { InjectRepository } from "@nestjs/typeorm";

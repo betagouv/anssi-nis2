@@ -4,7 +4,7 @@ import { SimulateurReponseService } from "./simulateur-reponse.service";
 import { APP_GUARD } from "@nestjs/core";
 import { ThrottlerGuard } from "@nestjs/throttler";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { SimulateurReponse } from "./simulateur-reponse.entity";
+import { SimulateurReponse } from "./entites/simulateur-reponse.entity";
 
 @Module({
   imports: [TypeOrmModule.forFeature([SimulateurReponse])],

@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
 import { SimulateurFormData } from "../Domaine/donneesSimulateur";
 import { SimulateurReponseService } from "./simulateur-reponse.service";
-import { SimulateurReponse } from "./simulateur-reponse.entity";
+import { SimulateurReponse } from "./entites/simulateur-reponse.entity";
 
 @Controller("simulateur-reponse")
 export class SimulateurReponseController {
