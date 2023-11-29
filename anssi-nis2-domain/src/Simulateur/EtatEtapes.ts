@@ -3,6 +3,7 @@ import {
   CapaciteEtape,
   InformationEtapeForm,
   InformationsEtape,
+  TypeEtape,
 } from "./InformationsEtape";
 import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire";
 import { validationToutesLesReponses } from "./services/ChampsSimulateur/ValidationReponses";
@@ -31,6 +32,7 @@ export type EtatEtapes<TypeConteneur, TypeSimulateurEtapeNodeComponent> = {
   // Informations sur le composant
   readonly titreSuivant?: string;
   readonly donneesFormulaire: IDonneesBrutesFormulaireSimulateur;
+  readonly typeEtapeCourante: TypeEtape;
   readonly contenuEtapeCourante: InformationEtapeForm<
     TypeConteneur,
     TypeSimulateurEtapeNodeComponent
@@ -48,6 +50,7 @@ export const ConstantesEtatEtape = {
   indiceSousEtapeInitial: 0,
 } as const;
 export const EtapeVide: InformationsEtape<() => void> & CapaciteEtape = {
+  type: "inexistante",
   longueurComptabilisee: 0,
   existe: false,
   titre: "Hors de portee",

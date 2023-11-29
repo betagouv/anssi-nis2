@@ -57,16 +57,23 @@ export class CollectionInformationsEtapes<
     );
 
   recupereSousEtape = (indice: number, indiceSousEtape: number) =>
-    this.estSurSousEtape(indiceSousEtape) &&
-    this.recupereEtape<
-      InformationEtapeForm<TypeConteneur, TypeSimulateurEtapeNodeComponent>
-    >(indice).options?.sousEtapeConditionnelle?.sousEtape;
+    this.estSurSousEtape(indiceSousEtape)
+      ? this.recupereEtape<
+          InformationEtapeForm<TypeConteneur, TypeSimulateurEtapeNodeComponent>
+        >(indice).options?.sousEtapeConditionnelle?.sousEtape
+      : undefined;
 
   contenuEtape = (indiceEtape: number, indiceSousEtape: number) =>
     this.recupereSousEtape(indiceEtape, indiceSousEtape) ||
     this.recupereEtape<
       InformationEtapeForm<TypeConteneur, TypeSimulateurEtapeNodeComponent>
     >(indiceEtape);
+
+  typeEtape = (indiceEtape: number, indiceSousEtape: number) =>
+    this.recupereSousEtape(indiceEtape, indiceSousEtape)?.type ||
+    this.recupereEtape<
+      InformationEtapeForm<TypeConteneur, TypeSimulateurEtapeNodeComponent>
+    >(indiceEtape).type;
 
   private estIndiceValide = (indice: number) =>
     indice >= 0 && indice < this.length;

@@ -5,6 +5,43 @@ import { CenteredContainer } from "../General/CenteredContainer.tsx";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
 import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 import { AidezNousAmeliorerService } from "../AidezNousAmeliorerService.tsx";
+import { cartoComposants } from "../../Services/Simulateur/Transformateurs/transformeTypeEtapeVersComposantEtape.ts";
+import {
+  InformationEtapeForm,
+  InformationsEtapesVariantes,
+  TypeEtape,
+} from "anssi-nis2-domain/src/Simulateur/InformationsEtape.ts";
+import { VVV } from "../../utilitaires/debug.ts";
+import { EtatEtapes } from "anssi-nis2-domain/src/Simulateur/EtatEtapes.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
+
+function etapeVarianteAffichee(
+  etatEtapes: EtatEtapes<unknown, unknown>,
+  donnees: IDonneesBrutesFormulaireSimulateur,
+) {
+  const variante = etatEtapes.collectionEtapes.recupereEtape(
+    etatEtapes.indiceCourant,
+  ) as InformationsEtapesVariantes<
+    unknown,
+    unknown,
+    InformationEtapeForm<unknown, unknown>
+  >;
+  return cartoComposants[
+    variante.variantes[variante.varianteAffichee(donnees)].type
+  ];
+}
+
+function etapeAffichee(
+  donnees: IDonneesBrutesFormulaireSimulateur,
+  etatEtapes: EtatEtapes<unknown, unknown>,
+) {
+  const typeEtapeCourante: TypeEtape = etatEtapes.typeEtapeCourante;
+  switch (typeEtapeCourante) {
+    case "variante":
+      return etapeVarianteAffichee(etatEtapes, donnees);
+  }
+  return cartoComposants[typeEtapeCourante];
+}
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   propageActionSimulateur,
@@ -17,8 +54,8 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
       donneesFormulaire,
     );
 
-  const EtapeCourante =
-    etatEtapes.contenuEtapeCourante.fabriqueComposant(donneesFormulaire);
+  VVV(etatEtapes.typeEtapeCourante);
+  const EtapeCourante = etapeAffichee(donneesFormulaire, etatEtapes).composant;
 
   return (
     <>

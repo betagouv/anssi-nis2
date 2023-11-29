@@ -35,6 +35,7 @@ export const fabriqueEtatEtape: <
   );
   const etapeSuivantExiste = collectionEtapes.existeEtapeSuivante(indiceEtape);
   return {
+    typeEtapeCourante: collectionEtapes.typeEtape(indiceEtape, indiceSousEtape),
     donneesFormulaire: donneesFormulaire,
     collectionEtapes: collectionEtapes,
     varianteEtape: contenuEtapeCourante.varianteAffichee(donneesFormulaire),
