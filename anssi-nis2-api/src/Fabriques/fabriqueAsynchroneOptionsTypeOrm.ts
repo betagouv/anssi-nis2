@@ -14,6 +14,7 @@ export const fabriqueAsynchroneOptionsTypeOrm: () => TypeOrmModuleAsyncOptions =
   });
 export const fabriqueAsynchroneOptionsTypeOrmJournal: () => TypeOrmModuleAsyncOptions =
   () => ({
+    name: "connexionJournal",
     inject: [ConfigService],
     useFactory: async (
       configService: ConfigService<{ BASE_DONNEES_JOURNAL: string }>,

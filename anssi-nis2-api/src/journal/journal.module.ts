@@ -1,17 +1,27 @@
 import { Module } from "@nestjs/common";
-import { Evenements } from "../simulateur-reponse/entites/evenements.entite-journal";
-import { TypeOrmModule } from "@nestjs/typeorm";
+import { Evenements } from "./entites/evenements.entite-journal";
+import { TypeOrmModule, getDataSourceToken } from "@nestjs/typeorm";
 import { APP_GUARD } from "@nestjs/core";
 import { ThrottlerGuard } from "@nestjs/throttler";
 import { JournalService } from "./journal.service";
 import { JournalController } from "./journal.controller";
-import { ConcerneNis2 } from "../simulateur-reponse/entites/concerne-nis2.entite-journal";
+import { SegmentsConcernesNis2 } from "./entites/segments-concernes-nis2.entite-journal";
+import { DataSource } from "typeorm";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Evenements, ConcerneNis2])],
+  imports: [TypeOrmModule.forFeature([Evenements, SegmentsConcernesNis2])],
   exports: [TypeOrmModule],
   providers: [
-    JournalService,
+    {
+      provide: JournalService,
+      useFactory: (connexionJournal: DataSource) =>
+        new JournalService(
+          connexionJournal,
+          connexionJournal.getRepository(Evenements),
+          connexionJournal.getRepository(SegmentsConcernesNis2),
+        ),
+      inject: [getDataSourceToken("connexionJournal")],
+    },
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,

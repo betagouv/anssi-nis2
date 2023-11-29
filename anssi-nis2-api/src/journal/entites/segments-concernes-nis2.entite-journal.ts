@@ -15,14 +15,14 @@ import {
 import { Evenements } from "./evenements.entite-journal";
 
 @Entity()
-export class ConcerneNis2 {
+export class SegmentsConcernesNis2 {
   @PrimaryGeneratedColumn()
   id: number;
 
   @ManyToOne(() => Evenements)
   evenement: Evenements;
 
-  @RelationId((concerneNis2: ConcerneNis2) => concerneNis2.evenement)
+  @RelationId((concerneNis2: SegmentsConcernesNis2) => concerneNis2.evenement)
   evenementId: number;
 
   @Column()
@@ -35,7 +35,7 @@ export class ConcerneNis2 {
   typeStructure: TypeStructure;
 
   @Column()
-  trancheNombreEmploye: TrancheNombreEmployes;
+  trancheNombreEmployes: TrancheNombreEmployes;
 
   @Column()
   trancheChiffreAffaire: TrancheChiffreAffaire;
