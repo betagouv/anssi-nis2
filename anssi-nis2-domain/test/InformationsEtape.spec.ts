@@ -1,5 +1,4 @@
 import { describe, it, expect } from "vitest";
-import { SimulateurEtapeForm } from "anssi-nis2-ui/src/Components/Simulateur/SimulateurEtapeForm";
 import {
   CapacitesEtapeFormulaire,
   EtapeExistante,
@@ -13,38 +12,25 @@ import {
   donneesFormulaireSimulateurVide,
 } from "../src/Simulateur/DonneesFormulaire";
 import {
-  SimulateurEtapeNodeComponent,
-  SimulateurEtapeRenderedComponent,
-} from "anssi-nis2-ui/src/Services/Simulateur/Props/component";
-import {
   fabriquesInformationsEtapes,
   toujoursFaux,
 } from "anssi-nis2-ui/src/Services/Simulateur/InformationsEtape.fabrique";
 
 describe("fabriquesInformationsEtapes", () => {
   describe(fabriquesInformationsEtapes.variantes, () => {
-    const resultatAttendu: EtapeExistante<SimulateurEtapeRenderedComponent> &
-      CapacitesEtapeFormulaire = {
+    const resultatAttendu: EtapeExistante & CapacitesEtapeFormulaire = {
       varianteAffichee: expect.any(Function),
       longueurComptabilisee: 1,
+      type: "variante",
       existe: true,
       titre: "Etape Form 1",
       estIgnoree: toujoursFaux,
-      conteneurElementRendu: SimulateurEtapeForm,
       remplitContitionSousEtape: toujoursFaux,
       validationReponses: fausseValidationReponse,
-      fabriqueComposant: expect.any(Function),
       fabriqueValidationReponses: expect.any(Function),
     };
     it("initialisation avec une variantes", () => {
-      const variantesEtapes: VariantesEtape<
-        SimulateurEtapeRenderedComponent,
-        SimulateurEtapeNodeComponent,
-        InformationEtapeForm<
-          SimulateurEtapeRenderedComponent,
-          SimulateurEtapeNodeComponent
-        >
-      >[] = [
+      const variantesEtapes: VariantesEtape<InformationEtapeForm>[] = [
         {
           etape: exInformationEtape.form1,
           conditions: {},
@@ -60,14 +46,7 @@ describe("fabriquesInformationsEtapes", () => {
       expect(resultUneEtape.varianteAffichee(donnees)).toBe(0);
     });
     it("initialisation avec deux variantes", () => {
-      const variantesDeuxEtapes: VariantesEtape<
-        SimulateurEtapeRenderedComponent,
-        SimulateurEtapeNodeComponent,
-        InformationEtapeForm<
-          SimulateurEtapeRenderedComponent,
-          SimulateurEtapeNodeComponent
-        >
-      >[] = [
+      const variantesDeuxEtapes: VariantesEtape<InformationEtapeForm>[] = [
         {
           etape: exInformationEtape.form1,
           conditions: { typeStructure: ["privee"] },

@@ -5,9 +5,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 
-@Entity({
-  name: "nis2-journal.journal_nis2.evenements",
-})
+@Entity()
 export class Evenements {
   @PrimaryGeneratedColumn()
   id: number;
