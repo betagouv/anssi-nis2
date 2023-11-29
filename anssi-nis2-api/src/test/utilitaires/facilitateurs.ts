@@ -2,7 +2,7 @@ import { ConfigService } from "@nestjs/config";
 import { Test, TestingModule } from "@nestjs/testing";
 import { Provider } from "@nestjs/common";
 import { env } from "process";
-import { MockFactory } from "../mock.factory";
+import { MockFactory, MockType } from "../mock.factory";
 import { Repository } from "typeorm";
 import { InformationsEmail } from "../../informations-emails/entities/informations-email.entity";
 import { CreateInformationsEmailDto } from "../../informations-emails/dto/create-informations-email.dto";
@@ -40,7 +40,7 @@ export const serviceConfigurationPourTests: Provider = {
 };
 export const fabriqueMockRepository = <DtoType, EntityType>(specifications: {
   [k: string]: (objet: DtoType) => Promise<EntityType>;
-}) => ({
+}): MockType<Repository<EntityType>> => ({
   ...MockFactory.getMock(Repository<EntityType>),
   ...specifications,
 });

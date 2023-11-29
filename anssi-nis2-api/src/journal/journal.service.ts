@@ -4,17 +4,8 @@ import { Injectable } from "@nestjs/common";
 import { DataSource, Repository } from "typeorm";
 import { SimulateurFormData } from "../Domaine/donneesSimulateur";
 import { SegmentsConcernesNis2 } from "./entites/segments-concernes-nis2.entite-journal";
-
-type CreeEvenementsJournalDto = Pick<Evenements, "donnees" | "type">;
-type CreeConcerneNis2Dto = Pick<
-  SegmentsConcernesNis2,
-  | "evenement"
-  | "secteur"
-  | "sousSecteur"
-  | "trancheChiffreAffaire"
-  | "trancheNombreEmployes"
-  | "typeStructure"
->;
+import { CreeEvenementsJournalDto } from "./dto/creeEvenementsJournalDto";
+import { CreeConcerneNis2Dto } from "./dto/creeConcerneNis2Dto";
 
 @Injectable()
 export class JournalService {
@@ -35,11 +26,11 @@ export class JournalService {
     const evenement: Evenements = await this.evenementsRepository.save(evt);
     const concerneNis2: CreeConcerneNis2Dto = {
       evenement: evenement,
-      secteur: "gestionServicesTic",
+      typeStructure: reponses.typeStructure[0],
+      trancheChiffreAffaire: reponses.trancheCA[0],
+      trancheNombreEmployes: reponses.trancheNombreEmployes[0],
+      secteur: reponses.secteurActivite[0],
       sousSecteur: undefined,
-      trancheChiffreAffaire: undefined,
-      trancheNombreEmployes: "petit",
-      typeStructure: "publique",
     };
     const resultat = await this.concerneNis2Repository.save(concerneNis2);
     return [resultat];

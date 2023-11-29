@@ -64,7 +64,6 @@ export class ChargeurExpressBasicAuth extends ExpressLoader {
         ServeurStatiqueConfigurableModuleToken,
         chargeurAuthentificationBasiqueHTTP,
       );
-      console.log(this.configuration.utilisateur);
       const staticUserAuth = basicAuth({
         users: {
           [this.configuration.utilisateur]: this.configuration.motDePasse,
