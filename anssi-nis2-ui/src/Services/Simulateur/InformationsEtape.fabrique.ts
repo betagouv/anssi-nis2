@@ -8,15 +8,15 @@ import {
   OptionsInformationEtapeForm,
   SousEtapeConditionnelle,
   VariantesEtape,
-} from "anssi-nis2-domain/src/Simulateur/InformationsEtape.ts";
-import { PredicatDonneesSimulateur } from "anssi-nis2-domain/src/Simulateur/PredicatDonneesSimulateur.ts";
+} from "anssi-nis2-domain/src/Simulateur/InformationsEtape";
+import { PredicatDonneesSimulateur } from "anssi-nis2-domain/src/Simulateur/PredicatDonneesSimulateur";
 import {
   SimulateurEtapeNodeComponent,
   SimulateurEtapeRenderedComponent,
-} from "../Simulateur/Props/component.ts";
-import { ValidationReponses } from "anssi-nis2-domain/src/Simulateur/services/ChampsSimulateur/champs.domaine.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire.ts";
-import { validationToutesLesReponses } from "anssi-nis2-domain/src/Simulateur/services/ChampsSimulateur/ValidationReponses.ts";
+} from "./Props/component";
+import { ValidationReponses } from "anssi-nis2-domain/src/Simulateur/services/ChampsSimulateur/champs.domaine";
+import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
+import { validationToutesLesReponses } from "anssi-nis2-domain/src/Simulateur/services/ChampsSimulateur/ValidationReponses";
 import { match } from "ts-pattern";
 
 // TODO : Enlever ces dépendances au Front

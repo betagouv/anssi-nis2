@@ -5,13 +5,11 @@ import {
   InformationsEtape,
 } from "./InformationsEtape";
 import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire";
-import {
-  toujourNegatif,
-  toujoursFaux,
-  toujoursVrai,
-} from "anssi-nis2-ui/src/Services/Simulateur/InformationsEtape.fabrique.ts";
-import { validationToutesLesReponses } from "./services/ChampsSimulateur/ValidationReponses.ts";
+import { validationToutesLesReponses } from "./services/ChampsSimulateur/ValidationReponses";
 
+export const toujoursFaux = () => false;
+export const toujoursVrai = () => true;
+export const toujourNegatif = () => -1;
 export type EtatEtapes<TypeConteneur, TypeSimulateurEtapeNodeComponent> = {
   // Données générales
   readonly collectionEtapes: CollectionInformationsEtapes<
