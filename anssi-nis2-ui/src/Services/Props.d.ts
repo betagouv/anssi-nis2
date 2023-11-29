@@ -28,7 +28,7 @@ export type MatomoProps = DefaultProps & {
   GestionBalises?: boolean;
 };
 export type PageEditoProps = {
-  titre: string;
+  titre?: string;
 } & DefaultProps;
 export type RestezInformesProps = DefaultProps & {
   mode?: "complet" | "simple";

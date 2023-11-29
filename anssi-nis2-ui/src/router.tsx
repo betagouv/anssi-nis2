@@ -43,7 +43,7 @@ export const router = createBrowserRouter([
   {
     path: "/infolettre",
     element: (
-      <PageEdito titre="Gestion des cookies">
+      <PageEdito>
         <RestezInformes />
       </PageEdito>
     ),

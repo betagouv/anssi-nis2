@@ -31,14 +31,13 @@ export const PageMentionsLegales: Story = {
 
 export const PageGestionCookies: Story = {
   args: {
-    titre: "Mentions légales",
+    titre: "Gestion des cookies",
     children: <GestionCookies />,
   },
 };
 
 export const PageRestezInformes: Story = {
   args: {
-    titre: "Restez informés",
     children: <RestezInformes />,
   },
 };
