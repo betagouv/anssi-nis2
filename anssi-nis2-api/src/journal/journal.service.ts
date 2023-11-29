@@ -30,7 +30,7 @@ export class JournalService {
       trancheChiffreAffaire: reponses.trancheCA[0],
       trancheNombreEmployes: reponses.trancheNombreEmployes[0],
       secteur: reponses.secteurActivite[0],
-      sousSecteur: undefined,
+      sousSecteur: reponses.sousSecteurActivite[0],
     };
     const resultat = await this.concerneNis2Repository.save(concerneNis2);
     return [resultat];

@@ -10,6 +10,21 @@ import { SegmentsConcernesNis2 } from "./entites/segments-concernes-nis2.entite-
 import { CreeConcerneNis2Dto } from "./dto/creeConcerneNis2Dto";
 import { DataSource, Repository } from "typeorm";
 
+const attendResultatConforme = (
+  result,
+  donnees: IDonneesBrutesFormulaireSimulateur,
+) => {
+  expect(result[0].evenement.type).toBe("resultatTestConcerneNis2");
+  expect(result[0].evenement.donnees).toBe(JSON.stringify(donnees));
+  expect(result[0].typeStructure).toBe(donnees.typeStructure[0]);
+  expect(result[0].trancheChiffreAffaire).toBe(donnees.trancheCA[0]);
+  expect(result[0].trancheNombreEmployes).toBe(
+    donnees.trancheNombreEmployes[0],
+  );
+  expect(result[0].secteur).toBe(donnees.secteurActivite[0]);
+  expect(result[0].sousSecteur).toBe(donnees.sousSecteurActivite[0]);
+};
+
 describe("JournalService", () => {
   const testingModuleBuilder = Test.createTestingModule({
     providers: [
@@ -73,14 +88,24 @@ describe("JournalService", () => {
     const result = await service.trace(donnees);
 
     expect(result.length).toBe(1);
-    expect(result[0].evenement.type).toBe("resultatTestConcerneNis2");
-    expect(result[0].evenement.donnees).toBe(JSON.stringify(donnees));
-    expect(result[0].typeStructure).toBe(donnees.typeStructure[0]);
-    expect(result[0].trancheChiffreAffaire).toBe(donnees.trancheCA[0]);
-    expect(result[0].trancheNombreEmployes).toBe(
-      donnees.trancheNombreEmployes[0],
-    );
-    expect(result[0].secteur).toBe(donnees.secteurActivite[0]);
+    attendResultatConforme(result, donnees);
     expect(result[0].sousSecteur).not.toBeDefined();
+  });
+  it("Insère un résultat avec sous-secteur", async () => {
+    const mockModule = await testingModuleBuilder.compile();
+    const service = mockModule.get<JournalService>(JournalService);
+    const donnees: IDonneesBrutesFormulaireSimulateur = {
+      ...donneesSimulateurVide,
+      secteurActivite: ["energie"],
+      sousSecteurActivite: ["hydrogene"],
+      typeStructure: ["privee"],
+      trancheNombreEmployes: ["grand"],
+      trancheCA: ["grand"],
+    };
+
+    const result = await service.trace(donnees);
+
+    expect(result.length).toBe(1);
+    attendResultatConforme(result, donnees);
   });
 });
