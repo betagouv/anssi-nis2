@@ -21,11 +21,7 @@ function etapeVarianteAffichee(
 ) {
   const variante = etatEtapes.collectionEtapes.recupereEtape(
     etatEtapes.indiceCourant,
-  ) as InformationsEtapesVariantes<
-    unknown,
-    unknown,
-    InformationEtapeForm<unknown, unknown>
-  >;
+  ) as InformationsEtapesVariantes<InformationEtapeForm>;
   return cartoComposants[
     variante.variantes[variante.varianteAffichee(donnees)].type
   ];

@@ -20,11 +20,10 @@ const typeEtapes = [
 ] as const;
 export type TypeEtape = (typeof typeEtapes)[number];
 
-export type InformationsEtape<TypeConteneur> = {
+export type InformationsEtape = {
   readonly longueurComptabilisee: 0 | 1;
   readonly existe: boolean;
   readonly titre: string;
-  readonly conteneurElementRendu: TypeConteneur;
   readonly type: TypeEtape;
 };
 
@@ -37,32 +36,22 @@ export type CapaciteEtape = {
   ) => number;
 };
 
-export type EtapeExistante<TypeConteneur> = InformationsEtape<TypeConteneur> &
-  CapaciteEtape;
+export type EtapeExistante = InformationsEtape & CapaciteEtape;
 
-export type EtapePrealable<TypeConteneur> = EtapeExistante<TypeConteneur>;
+export type EtapePrealable = EtapeExistante;
 
-export type EtapeResultat<TypeConteneur> = EtapeExistante<TypeConteneur>;
+export type EtapeResultat = EtapeExistante;
 
-export type OptionsInformationEtapeForm<T, TypeSimulateurEtapeNodeComponent> = {
-  readonly sousEtapeConditionnelle?: SousEtapeConditionnelle<
-    T,
-    TypeSimulateurEtapeNodeComponent
-  >;
+export type OptionsInformationEtapeForm = {
+  readonly sousEtapeConditionnelle?: SousEtapeConditionnelle;
   readonly ignoreSi: (
     donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
   ) => boolean;
 };
 
-export type SousEtapeConditionnelle<
-  TypeConteneur,
-  TypeSimulateurEtapeNodeComponent,
-> = {
+export type SousEtapeConditionnelle = {
   readonly condition: PredicatDonneesSimulateur;
-  readonly sousEtape: InformationEtapeForm<
-    TypeConteneur,
-    TypeSimulateurEtapeNodeComponent
-  >;
+  readonly sousEtape: InformationEtapeForm;
 };
 
 export type CapacitesEtapeFormulaire = {
@@ -70,38 +59,19 @@ export type CapacitesEtapeFormulaire = {
     donnees: IDonneesBrutesFormulaireSimulateur,
   ) => ValidationReponses;
 };
-export type InformationEtapeForm<
-  TypeConteneur,
-  TypeSimulateurEtapeNodeComponent,
-> = EtapeExistante<TypeConteneur> &
+export type InformationEtapeForm = EtapeExistante &
   CapacitesEtapeFormulaire & {
-    readonly options: OptionsInformationEtapeForm<
-      TypeConteneur,
-      TypeSimulateurEtapeNodeComponent
-    >;
-    readonly composant: TypeSimulateurEtapeNodeComponent;
+    readonly options: OptionsInformationEtapeForm;
   };
 
-export type VariantesEtape<
-  TypeConteneur,
-  TypeSimulateurEtapeNodeComponent,
-  TypeEtape extends InformationEtapeForm<
-    TypeConteneur,
-    TypeSimulateurEtapeNodeComponent
-  >,
-> = {
+export type VariantesEtape<TypeEtape extends InformationEtapeForm> = {
   conditions: P.Pattern<IDonneesBrutesFormulaireSimulateur>;
   etape: TypeEtape;
 };
 
 export type InformationsEtapesVariantes<
-  TypeConteneur,
-  TypeSimulateurEtapeNodeComponent,
-  TypeEtape extends InformationEtapeForm<
-    TypeConteneur,
-    TypeSimulateurEtapeNodeComponent
-  >,
-> = EtapeExistante<TypeConteneur> &
+  TypeEtape extends InformationEtapeForm,
+> = EtapeExistante &
   CapacitesEtapeFormulaire & {
     readonly variantes: TypeEtape[];
   };

@@ -4,7 +4,7 @@ import { ConstantesEtatEtape, EtapeVide } from "./EtatEtapes";
 export class CollectionInformationsEtapes<
   TypeConteneur,
   TypeSimulateurEtapeNodeComponent,
-> extends Array<InformationsEtape<TypeConteneur>> {
+> extends Array<InformationsEtape> {
   slice = (start?: number, end?: number) =>
     super.slice(start, end) as CollectionInformationsEtapes<
       TypeConteneur,
@@ -38,9 +38,8 @@ export class CollectionInformationsEtapes<
 
   existeEtapeSuivante = (indice: number): boolean => indice < this.length - 1;
 
-  recupereEtape = <T extends InformationsEtape<TypeConteneur>>(
-    indice: number,
-  ): T => this[indice] as T;
+  recupereEtape = <T extends InformationsEtape>(indice: number): T =>
+    this[indice] as T;
 
   estSurSousEtape = (indiceSousEtape: number) =>
     indiceSousEtape != ConstantesEtatEtape.indiceSousEtapeInitial;
@@ -50,30 +49,25 @@ export class CollectionInformationsEtapes<
 
   recupereInformationsEtapeSuivante = (
     indiceDepart: number,
-  ): InformationsEtape<TypeConteneur> =>
+  ): InformationsEtape =>
     this.reduce(
       this.recuperationEtapeSuivanteOuDefaut(indiceDepart),
-      EtapeVide as unknown as InformationsEtape<TypeConteneur>,
+      EtapeVide as unknown as InformationsEtape,
     );
 
   recupereSousEtape = (indice: number, indiceSousEtape: number) =>
     this.estSurSousEtape(indiceSousEtape)
-      ? this.recupereEtape<
-          InformationEtapeForm<TypeConteneur, TypeSimulateurEtapeNodeComponent>
-        >(indice).options?.sousEtapeConditionnelle?.sousEtape
+      ? this.recupereEtape<InformationEtapeForm>(indice).options
+          ?.sousEtapeConditionnelle?.sousEtape
       : undefined;
 
   contenuEtape = (indiceEtape: number, indiceSousEtape: number) =>
     this.recupereSousEtape(indiceEtape, indiceSousEtape) ||
-    this.recupereEtape<
-      InformationEtapeForm<TypeConteneur, TypeSimulateurEtapeNodeComponent>
-    >(indiceEtape);
+    this.recupereEtape<InformationEtapeForm>(indiceEtape);
 
   typeEtape = (indiceEtape: number, indiceSousEtape: number) =>
     this.recupereSousEtape(indiceEtape, indiceSousEtape)?.type ||
-    this.recupereEtape<
-      InformationEtapeForm<TypeConteneur, TypeSimulateurEtapeNodeComponent>
-    >(indiceEtape).type;
+    this.recupereEtape<InformationEtapeForm>(indiceEtape).type;
 
   private estIndiceValide = (indice: number) =>
     indice >= 0 && indice < this.length;
@@ -83,11 +77,7 @@ export class CollectionInformationsEtapes<
 
   private recuperationEtapeSuivanteOuDefaut =
     (indiceCourant: number) =>
-    (
-      defaut: InformationsEtape<TypeConteneur>,
-      etape: InformationsEtape<TypeConteneur>,
-      indice: number,
-    ) =>
+    (defaut: InformationsEtape, etape: InformationsEtape, indice: number) =>
       etape.longueurComptabilisee === 1 && indice > indiceCourant
         ? this[indice]
         : defaut;

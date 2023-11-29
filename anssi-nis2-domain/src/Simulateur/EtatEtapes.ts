@@ -33,10 +33,7 @@ export type EtatEtapes<TypeConteneur, TypeSimulateurEtapeNodeComponent> = {
   readonly titreSuivant?: string;
   readonly donneesFormulaire: IDonneesBrutesFormulaireSimulateur;
   readonly typeEtapeCourante: TypeEtape;
-  readonly contenuEtapeCourante: InformationEtapeForm<
-    TypeConteneur,
-    TypeSimulateurEtapeNodeComponent
-  >;
+  readonly contenuEtapeCourante: InformationEtapeForm;
 
   // Capacités
   readonly ignoreEtapeSuivante: (
@@ -49,12 +46,11 @@ export const ConstantesEtatEtape = {
   indiceEtapeInitial: 0,
   indiceSousEtapeInitial: 0,
 } as const;
-export const EtapeVide: InformationsEtape<() => void> & CapaciteEtape = {
+export const EtapeVide: InformationsEtape & CapaciteEtape = {
   type: "inexistante",
   longueurComptabilisee: 0,
   existe: false,
   titre: "Hors de portee",
-  conteneurElementRendu: () => {},
   remplitContitionSousEtape: toujoursFaux,
   estIgnoree: toujoursVrai,
   validationReponses: validationToutesLesReponses,
