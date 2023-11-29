@@ -10,10 +10,12 @@ const PageEdito: DefaultComponentExtensible<PageEditoProps> = ({
   titre,
   children,
 }: PageEditoProps) => (
-  <MiseEnPage page={titre}>
-    <BandeauBleuMarianne>
-      <h2>{titre}</h2>
-    </BandeauBleuMarianne>
+  <MiseEnPage page={titre || "MonEspaceNIS2"}>
+    {titre && (
+      <BandeauBleuMarianne>
+        <h2>{titre}</h2>
+      </BandeauBleuMarianne>
+    )}
     <div className="fr-py-7w">
       <div className="fr-container">
         <div className="fr-grid-row  fr-my-0 fr-mx-auto">
