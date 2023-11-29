@@ -125,4 +125,22 @@ describe("JournalService", () => {
     attendResultatConforme(result, donnees);
     expect(result[1].secteur).toBe(donnees.secteurActivite[1]);
   });
+  it("Insère un résultat avec plusieurs sous-secteurs", async () => {
+    const mockModule = await testingModuleBuilder.compile();
+    const service = mockModule.get<JournalService>(JournalService);
+    const donnees: IDonneesBrutesFormulaireSimulateur = {
+      ...donneesSimulateurVide,
+      secteurActivite: ["energie"],
+      sousSecteurActivite: ["hydrogene", "electricite"],
+      typeStructure: ["privee"],
+      trancheNombreEmployes: ["grand"],
+      trancheCA: ["grand"],
+    };
+
+    const result = await service.trace(donnees);
+
+    expect(result.length).toBe(2);
+    attendResultatConforme(result, donnees);
+    expect(result[1].secteur).toBe(donnees.secteurActivite[0]);
+  });
 });

@@ -4,6 +4,7 @@ import { Injectable } from "@nestjs/common";
 import { DataSource, Repository } from "typeorm";
 import { SegmentsConcernesNis2 } from "./entites/segments-concernes-nis2.entite-journal";
 import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
+import { extraitCouplesSectoriels } from "anssi-nis2-domain/src/Simulateur/services/ValeursSectorielles/ValeursSectorielles.operations";
 
 @Injectable()
 export class JournalService {
@@ -23,8 +24,9 @@ export class JournalService {
       donnees: JSON.stringify(reponses),
       type: "resultatTestConcerneNis2",
     });
-    const resultat = [];
-    for (const secteur of reponses.secteurActivite) {
+    const resultat: SegmentsConcernesNis2[] = [];
+    const valeursSectorielles = extraitCouplesSectoriels(reponses);
+    for (const [secteur, sousSecteur] of valeursSectorielles) {
       resultat.push(
         await this.concerneNis2Repository.save({
           evenement: evenement,
@@ -32,7 +34,7 @@ export class JournalService {
           trancheChiffreAffaire: reponses.trancheCA[0],
           trancheNombreEmployes: reponses.trancheNombreEmployes[0],
           secteur: secteur,
-          sousSecteur: reponses.sousSecteurActivite[0],
+          sousSecteur: sousSecteur,
         }),
       );
     }
