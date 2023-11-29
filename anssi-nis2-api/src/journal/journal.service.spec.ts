@@ -108,4 +108,21 @@ describe("JournalService", () => {
     expect(result.length).toBe(1);
     attendResultatConforme(result, donnees);
   });
+  it("Insère un résultat avec plusieurs secteurs", async () => {
+    const mockModule = await testingModuleBuilder.compile();
+    const service = mockModule.get<JournalService>(JournalService);
+    const donnees: IDonneesBrutesFormulaireSimulateur = {
+      ...donneesSimulateurVide,
+      secteurActivite: ["eauxUsees", "eauPotable"],
+      typeStructure: ["privee"],
+      trancheNombreEmployes: ["grand"],
+      trancheCA: ["grand"],
+    };
+
+    const result = await service.trace(donnees);
+
+    expect(result.length).toBe(2);
+    attendResultatConforme(result, donnees);
+    expect(result[1].secteur).toBe(donnees.secteurActivite[1]);
+  });
 });
