@@ -2,7 +2,7 @@ import {
   SecteursSansSousSecteur,
   SousSecteurActivite,
 } from "./SousSecteurActivite.definitions";
-import { SecteurActivite } from "./SecteurActivite.definitions.ts";
+import { SecteurActivite } from "./SecteurActivite.definitions";
 
 export type ValeurCleSectorielle =
   | SecteursSansSousSecteur
