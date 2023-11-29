@@ -18,7 +18,7 @@ const extraitSousSecteurs = (
   sousSecteurActivite.filter((sousSecteur) =>
     contientSousSecteur(secteur, sousSecteur),
   );
-const extraitSousSecteursOuListeVide = (
+export const extraitSousSecteursOuListeVide = (
   secteur: string,
   sousSecteurActivite: SousSecteurActivite[],
 ) =>

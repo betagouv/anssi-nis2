@@ -5,7 +5,7 @@ import {
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import { CoupleSectoriel } from "../../ValeurCleSectorielle.definitions";
 import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire";
-import { cartographieSousSecteursParSecteur } from "../SousSecteurActivite/SousSecteurActivite.operations";
+import { extraitSousSecteursOuListeVide } from "../SousSecteurActivite/SousSecteurActivite.operations";
 
 export const fabriqueListeValeursSectorielles = (
   secteursSansSousSecteurs: SecteursSansSousSecteur[],
@@ -20,10 +20,22 @@ export const collecteCouplesSectoriels = (
     : listeSousSecteurs.map(
         (sousSecteur) => [secteur, sousSecteur] as CoupleSectoriel,
       );
+
+export const extraitListeSousSecteursParSecteur = ({
+  secteurActivite,
+  sousSecteurActivite,
+}: IDonneesBrutesFormulaireSimulateur) =>
+  secteurActivite.reduce<[SecteurActivite, SousSecteurActivite[]][]>(
+    (acc, secteur) => [
+      ...acc,
+      [secteur, extraitSousSecteursOuListeVide(secteur, sousSecteurActivite)],
+    ],
+    [],
+  );
 export const extraitCouplesSectoriels = (
   reponses: IDonneesBrutesFormulaireSimulateur,
 ) =>
-  cartographieSousSecteursParSecteur(reponses).reduce<CoupleSectoriel[]>(
+  extraitListeSousSecteursParSecteur(reponses).reduce<CoupleSectoriel[]>(
     (acc: CoupleSectoriel[], [secteur, listeSousSecteurs]) => [
       ...acc,
       ...collecteCouplesSectoriels(secteur, listeSousSecteurs),

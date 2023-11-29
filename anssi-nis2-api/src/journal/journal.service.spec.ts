@@ -142,5 +142,34 @@ describe("JournalService", () => {
     expect(result.length).toBe(2);
     attendResultatConforme(result, donnees);
     expect(result[1].secteur).toBe(donnees.secteurActivite[0]);
+    expect(result[1].sousSecteur).toBe(donnees.sousSecteurActivite[1]);
+  });
+  it("Insère un résultat avec plusieurs secteurs et sous-secteurs", async () => {
+    const mockModule = await testingModuleBuilder.compile();
+    const service = mockModule.get<JournalService>(JournalService);
+    const donnees: IDonneesBrutesFormulaireSimulateur = {
+      ...donneesSimulateurVide,
+      secteurActivite: ["eauxUsees", "energie", "transports"],
+      sousSecteurActivite: [
+        "hydrogene",
+        "electricite",
+        "autreSousSecteurTransport",
+      ],
+      typeStructure: ["privee"],
+      trancheNombreEmployes: ["grand"],
+      trancheCA: ["grand"],
+    };
+
+    const result = await service.trace(donnees);
+
+    expect(result.length).toBe(4);
+    expect(result[0].secteur).toBe(donnees.secteurActivite[0]);
+    expect(result[0].sousSecteur).toBe(undefined);
+    expect(result[1].secteur).toBe(donnees.secteurActivite[1]);
+    expect(result[1].sousSecteur).toBe(donnees.sousSecteurActivite[0]);
+    expect(result[2].secteur).toBe(donnees.secteurActivite[1]);
+    expect(result[2].sousSecteur).toBe(donnees.sousSecteurActivite[1]);
+    expect(result[3].secteur).toBe(donnees.secteurActivite[2]);
+    expect(result[3].sousSecteur).toBe(donnees.sousSecteurActivite[2]);
   });
 });
