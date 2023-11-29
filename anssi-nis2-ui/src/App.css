@@ -1,10 +1,11 @@
 .fr-fieldset
-.fr-fieldset__content
-.fr-radio-group:not(.fr-radio-rich)
-input[type="radio"]
-+ label {
-  background-position: calc(-0.25rem + 1px) calc(0.25rem + 1px),
-  calc(-0.25rem + 1px) calc(0.25rem + 1px);
+  .fr-fieldset__content
+  .fr-radio-group:not(.fr-radio-rich)
+  input[type="radio"]
+  + label {
+  background-position:
+    calc(-0.25rem + 1px) calc(0.25rem + 1px),
+    calc(-0.25rem + 1px) calc(0.25rem + 1px);
 }
 
 .fr-bandeau-marianne {
@@ -217,14 +218,14 @@ input[type="radio"]
 
 .fr-nis2-infobulle {
   & p {
-    margin-top: .25rem;
-    font-size: .75rem;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
     line-height: 1.25rem;
   }
 
   & h6 {
     margin-top: 1rem;
-    font-size: .875rem;
+    font-size: 0.875rem;
     line-height: 1.25rem;
   }
 
@@ -241,7 +242,6 @@ input[type="radio"]
     max-height: 4rem;
   }
 }
-
 
 legend.fr-text--regular,
 .fr-text--medium {
@@ -410,7 +410,8 @@ legend.fr-text--medium {
 }
 
 .fr-nis2-aidez-nous {
-  background: var(--yellow-tournesol-975-75, #fef6e3) url(../public/images/faq.svg) no-repeat;
+  background: var(--yellow-tournesol-975-75, #fef6e3)
+    url(../public/images/faq.svg) no-repeat;
   background-size: 5rem;
 }
 
