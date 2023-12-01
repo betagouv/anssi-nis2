@@ -9,3 +9,18 @@ export const fabriqueAppDataSource = async (
   subscribers: [],
   migrations: [],
 });
+
+export const fabriqueAppDataSourceJournal = async (
+  databaseConnectionUrl: string,
+): Promise<DataSourceOptions> => {
+  return {
+    type: "postgres",
+    name: "connexionJournal",
+    url: databaseConnectionUrl,
+    entities: [],
+    subscribers: [],
+    migrations: [],
+    logging: ["query"],
+    schema: "journal_nis2",
+  };
+};

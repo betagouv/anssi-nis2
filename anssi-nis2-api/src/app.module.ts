@@ -5,7 +5,10 @@ import { DataSource } from "typeorm";
 import { SimulateurReponseModule } from "./simulateur-reponse/simulateur-reponse.module";
 import { ConfigModule } from "@nestjs/config";
 import { fabriqueAsynchroneOptionsServeurStatique } from "./Fabriques/fabriqueAsynchroneOptionsServeurStatique";
-import { fabriqueAsynchroneOptionsTypeOrm } from "./Fabriques/fabriqueAsynchroneOptionsTypeOrm";
+import {
+  fabriqueAsynchroneOptionsTypeOrm,
+  fabriqueAsynchroneOptionsTypeOrmJournal,
+} from "./Fabriques/fabriqueAsynchroneOptionsTypeOrm";
 import { ThrottlerModule } from "@nestjs/throttler";
 import { optionsThrottlerModuleAsync } from "./configurationThrottler";
 import { InformationsEmailsModule } from "./informations-emails/informations-emails.module";
@@ -16,6 +19,7 @@ const optionsConnectionBaseDeDonnees = fabriqueAsynchroneOptionsTypeOrm();
   imports: [
     ThrottlerModule.forRootAsync(optionsThrottlerModuleAsync),
     TypeOrmModule.forRootAsync(optionsConnectionBaseDeDonnees),
+    TypeOrmModule.forRootAsync(fabriqueAsynchroneOptionsTypeOrmJournal()),
     ServeurStatiqueConfigurableModule.forRootAsync(
       fabriqueAsynchroneOptionsServeurStatique,
     ),
