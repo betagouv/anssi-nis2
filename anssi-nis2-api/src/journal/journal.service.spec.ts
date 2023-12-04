@@ -2,13 +2,12 @@ import { Test } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Evenements } from "./entites/evenements.entite-journal";
 import { fabriqueMockRepository } from "../test/utilitaires/facilitateurs";
-// import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-domain/src/Simulateur/DonneesFormulaire";
 import { JournalService } from "./journal.service";
 import { donneesSimulateurVide } from "../Domaine/donneesSimulateur";
-// import { SegmentsConcernesNis2 } from "./entites/segments-concernes-nis2.entite-journal";
-// import { CreeConcerneNis2Dto } from "./dto/creeConcerneNis2Dto";
+import { SegmentsConcernesNis2 } from "./entites/segments-concernes-nis2.entite-journal";
 import { DataSource, Repository } from "typeorm";
 import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-ui/src/Domaine/Simulateur/DonneesFormulaire";
+import { CreeConcerneNis2Dto } from "./dto/creeConcerneNis2Dto";
 import { CreeEvenementsJournalDto } from "./dto/creeEvenementJournal";
 
 const attendResultatConforme = (
@@ -39,15 +38,15 @@ describe("JournalService", () => {
           }),
         }),
       },
-      // {
-      //   provide: getRepositoryToken(SegmentsConcernesNis2, "connexionJournal"),
-      //   useValue: fabriqueMockRepository({
-      //     save: async (creeConcerneNis2Dto: CreeConcerneNis2Dto) => ({
-      //       ...creeConcerneNis2Dto,
-      //       id: 1,
-      //     }),
-      //   }),
-      // },
+      {
+        provide: getRepositoryToken(SegmentsConcernesNis2, "connexionJournal"),
+        useValue: fabriqueMockRepository({
+          save: async (creeConcerneNis2Dto: CreeConcerneNis2Dto) => ({
+            ...creeConcerneNis2Dto,
+            id: 1,
+          }),
+        }),
+      },
       {
         provide: JournalService,
         useFactory: (connexionJournal: DataSource) =>
@@ -62,15 +61,15 @@ describe("JournalService", () => {
                 date: new Date(Date.now()),
               }),
             }) as unknown as Repository<Evenements>,
-            // fabriqueMockRepository<CreeConcerneNis2Dto, SegmentsConcernesNis2>({
-            //   save: async (
-            //     creeConcerneNis2Dto: CreeConcerneNis2Dto,
-            //   ): Promise<SegmentsConcernesNis2> => ({
-            //     ...creeConcerneNis2Dto,
-            //     id: 1,
-            //     evenementId: creeConcerneNis2Dto.evenement.id,
-            //   }),
-            // }) as unknown as Repository<SegmentsConcernesNis2>,
+            fabriqueMockRepository<CreeConcerneNis2Dto, SegmentsConcernesNis2>({
+              save: async (
+                creeConcerneNis2Dto: CreeConcerneNis2Dto,
+              ): Promise<SegmentsConcernesNis2> => ({
+                ...creeConcerneNis2Dto,
+                id: 1,
+                evenementId: creeConcerneNis2Dto.evenement.id,
+              }),
+            }) as unknown as Repository<SegmentsConcernesNis2>,
           ),
       },
     ],
@@ -109,68 +108,91 @@ describe("JournalService", () => {
     expect(result.length).toBe(1);
     attendResultatConforme(result, donnees);
   });
-  // it("Insère un résultat avec plusieurs secteurs", async () => {
-  //   const mockModule = await testingModuleBuilder.compile();
-  //   const service = mockModule.get<JournalService>(JournalService);
-  //   const donnees: IDonneesBrutesFormulaireSimulateur = {
-  //     ...donneesSimulateurVide,
-  //     secteurActivite: ["eauxUsees", "eauPotable"],
-  //     typeStructure: ["privee"],
-  //     trancheNombreEmployes: ["grand"],
-  //     trancheCA: ["grand"],
-  //   };
-  //
-  //   const result = await service.trace(donnees);
-  //
-  //   expect(result.length).toBe(2);
-  //   attendResultatConforme(result, donnees);
-  //   expect(result[1].secteur).toBe(donnees.secteurActivite[1]);
-  // });
-  // it("Insère un résultat avec plusieurs sous-secteurs", async () => {
-  //   const mockModule = await testingModuleBuilder.compile();
-  //   const service = mockModule.get<JournalService>(JournalService);
-  //   const donnees: IDonneesBrutesFormulaireSimulateur = {
-  //     ...donneesSimulateurVide,
-  //     secteurActivite: ["energie"],
-  //     sousSecteurActivite: ["hydrogene", "electricite"],
-  //     typeStructure: ["privee"],
-  //     trancheNombreEmployes: ["grand"],
-  //     trancheCA: ["grand"],
-  //   };
-  //
-  //   const result = await service.trace(donnees);
-  //
-  //   expect(result.length).toBe(2);
-  //   attendResultatConforme(result, donnees);
-  //   expect(result[1].secteur).toBe(donnees.secteurActivite[0]);
-  //   expect(result[1].sousSecteur).toBe(donnees.sousSecteurActivite[1]);
-  // });
-  // it("Insère un résultat avec plusieurs secteurs et sous-secteurs", async () => {
-  //   const mockModule = await testingModuleBuilder.compile();
-  //   const service = mockModule.get<JournalService>(JournalService);
-  //   const donnees: IDonneesBrutesFormulaireSimulateur = {
-  //     ...donneesSimulateurVide,
-  //     secteurActivite: ["eauxUsees", "energie", "transports"],
-  //     sousSecteurActivite: [
-  //       "hydrogene",
-  //       "electricite",
-  //       "autreSousSecteurTransport",
-  //     ],
-  //     typeStructure: ["privee"],
-  //     trancheNombreEmployes: ["grand"],
-  //     trancheCA: ["grand"],
-  //   };
-  //
-  //   const result = await service.trace(donnees);
-  //
-  //   expect(result.length).toBe(4);
-  //   expect(result[0].secteur).toBe(donnees.secteurActivite[0]);
-  //   expect(result[0].sousSecteur).toBe(undefined);
-  //   expect(result[1].secteur).toBe(donnees.secteurActivite[1]);
-  //   expect(result[1].sousSecteur).toBe(donnees.sousSecteurActivite[0]);
-  //   expect(result[2].secteur).toBe(donnees.secteurActivite[1]);
-  //   expect(result[2].sousSecteur).toBe(donnees.sousSecteurActivite[1]);
-  //   expect(result[3].secteur).toBe(donnees.secteurActivite[2]);
-  //   expect(result[3].sousSecteur).toBe(donnees.sousSecteurActivite[2]);
-  // });
+  it("Insère un résultat avec plusieurs secteurs", async () => {
+    const mockModule = await testingModuleBuilder.compile();
+    const service = mockModule.get<JournalService>(JournalService);
+    const donnees: IDonneesBrutesFormulaireSimulateur = {
+      ...donneesSimulateurVide,
+      secteurActivite: ["eauxUsees", "eauPotable"],
+      typeStructure: ["privee"],
+      trancheNombreEmployes: ["grand"],
+      trancheCA: ["grand"],
+    };
+
+    const result = await service.trace(donnees);
+
+    expect(result.length).toBe(2);
+    attendResultatConforme(result, donnees);
+    expect(result[1].secteur).toBe(donnees.secteurActivite[1]);
+  });
+  it("Insère un résultat avec plusieurs sous-secteurs", async () => {
+    const mockModule = await testingModuleBuilder.compile();
+    const service = mockModule.get<JournalService>(JournalService);
+    const donnees: IDonneesBrutesFormulaireSimulateur = {
+      ...donneesSimulateurVide,
+      secteurActivite: ["energie"],
+      sousSecteurActivite: ["hydrogene", "electricite"],
+      typeStructure: ["privee"],
+      trancheNombreEmployes: ["grand"],
+      trancheCA: ["grand"],
+    };
+
+    const result = await service.trace(donnees);
+
+    expect(result.length).toBe(2);
+    attendResultatConforme(result, donnees);
+    expect(result[1].secteur).toBe(donnees.secteurActivite[0]);
+    expect(result[1].sousSecteur).toBe(donnees.sousSecteurActivite[1]);
+  });
+  it("Insère un résultat avec plusieurs secteurs et sous-secteurs", async () => {
+    const mockModule = await testingModuleBuilder.compile();
+    const service = mockModule.get<JournalService>(JournalService);
+    const donnees: IDonneesBrutesFormulaireSimulateur = {
+      ...donneesSimulateurVide,
+      secteurActivite: ["eauxUsees", "energie", "transports"],
+      sousSecteurActivite: [
+        "hydrogene",
+        "electricite",
+        "autreSousSecteurTransport",
+      ],
+      typeStructure: ["privee"],
+      trancheNombreEmployes: ["grand"],
+      trancheCA: ["grand"],
+    };
+
+    const result = await service.trace(donnees);
+
+    expect(result.length).toBe(4);
+
+    const prototypeAttendu = {
+      evenement: result[0].evenement,
+      evenementId: result[0].evenementId,
+      id: result[0].id,
+      trancheChiffreAffaire: result[0].trancheChiffreAffaire,
+      trancheNombreEmployes: result[0].trancheNombreEmployes,
+      typeStructure: result[0].typeStructure,
+      secteur: result[0].secteur,
+      sousSecteur: result[0].sousSecteur,
+    };
+    expect(result).toContainEqual({
+      ...prototypeAttendu,
+      secteur: donnees.secteurActivite[0],
+      sousSecteur: undefined,
+    });
+    expect(result).toContainEqual({
+      ...prototypeAttendu,
+      secteur: donnees.secteurActivite[1],
+      sousSecteur: donnees.sousSecteurActivite[0],
+    });
+    expect(result).toContainEqual({
+      ...prototypeAttendu,
+      secteur: donnees.secteurActivite[1],
+      sousSecteur: donnees.sousSecteurActivite[1],
+    });
+    expect(result).toContainEqual({
+      ...prototypeAttendu,
+      secteur: donnees.secteurActivite[2],
+      sousSecteur: donnees.sousSecteurActivite[2],
+    });
+  });
 });

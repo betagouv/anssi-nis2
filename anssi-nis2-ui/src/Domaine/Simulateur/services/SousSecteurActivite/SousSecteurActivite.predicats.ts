@@ -1,9 +1,11 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire";
 import {
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-} from "../../SousSecteurActivite.definitions.ts";
-import { groupementsSecteursParSousSecteurs } from "../../SousSecteurActivite.valeurs.ts";
+} from "../../SousSecteurActivite.definitions";
+import { groupementsSecteursParSousSecteurs } from "../../SousSecteurActivite.valeurs";
+import { SecteurActivite } from "../../SecteurActivite.definitions";
+import { estUnSecteurAvecDesSousSecteurs } from "../SecteurActivite/SecteurActivite.predicats";
 
 export const estSousSecteurListe = (sousSecteur?: SousSecteurActivite) =>
   !sousSecteur?.startsWith("autre");
@@ -26,5 +28,14 @@ export const sousSecteurAppartientASecteur =
       groupementsSecteursParSousSecteurs[valeurGroupement].includes(
         sousSecteur,
       ),
+    );
+  };
+export const estDansSecteur =
+  (secteur: SecteurActivite) => (sousSecteur: SousSecteurActivite) => {
+    return (
+      estUnSecteurAvecDesSousSecteurs(secteur) &&
+      groupementsSecteursParSousSecteurs[
+        secteur as SecteursAvecSousSecteurs
+      ].includes(sousSecteur)
     );
   };
