@@ -1,11 +1,11 @@
-import { SimulateurReponseService } from "../../simulateur-reponse/simulateur-reponse.service";
-import { SimulateurReponse } from "../../simulateur-reponse/simulateur-reponse.entity";
-import { donneesSimulateurVide } from "../../Domaine/donneesSimulateur";
-import { fabriqueMockRepository } from "../utilitaires/facilitateurs";
+import { SimulateurReponseService } from "./simulateur-reponse.service";
+import { SimulateurReponse } from "./simulateur-reponse.entity";
+import { donneesSimulateurVide } from "../Domaine/donneesSimulateur";
+import { fabriqueMockRepository } from "../test/utilitaires/facilitateurs";
 import { DonneesFormulaireSimulateur } from "anssi-nis2-ui/src/Domaine/Simulateur/DonneesFormulaire";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Test } from "@nestjs/testing";
-
+ 
 describe("SimulateurReponseService", () => {
   const simulateurReponseJson = JSON.stringify(donneesSimulateurVide);
   const simulateurReponse = {

@@ -1,7 +1,7 @@
 import { Test } from "@nestjs/testing";
-import { SimulateurReponseController } from "../../simulateur-reponse/simulateur-reponse.controller";
-import { donneesSimulateurVide } from "../../Domaine/donneesSimulateur";
-import { SimulateurReponseService } from "../../simulateur-reponse/simulateur-reponse.service";
+import { SimulateurReponseController } from "./simulateur-reponse.controller";
+import { donneesSimulateurVide } from "../Domaine/donneesSimulateur";
+import { SimulateurReponseService } from "./simulateur-reponse.service";
 
 const mockSimulateurReponseService = {
   save: jest.fn().mockReturnValue({
