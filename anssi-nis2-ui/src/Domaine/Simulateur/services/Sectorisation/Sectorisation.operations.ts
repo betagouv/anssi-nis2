@@ -5,7 +5,7 @@ import { SecteurActivite } from "../../SecteurActivite.definitions";
 import { estUnSecteurSansSousSecteur } from "../SecteurActivite/SecteurActivite.predicats";
 import { estDansSecteur } from "../SousSecteurActivite/SousSecteurActivite.predicats";
 
-const extraitSectorisationPourSecteur =
+export const extraitSectorisationPourSecteur =
   (sousSecteurs: SousSecteurActivite[]) =>
   (secteur: SecteurActivite): Sectorisation[] => {
     if (estUnSecteurSansSousSecteur(secteur) || sousSecteurs.length == 0)
