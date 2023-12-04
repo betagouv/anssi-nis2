@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post, UseInterceptors } from "@nestjs/common";
 import { SimulateurFormData } from "../Domaine/donneesSimulateur";
 import { SimulateurReponseService } from "./simulateur-reponse.service";
 import { SimulateurReponse } from "./simulateur-reponse.entity";
+import { JournalIntercepteur } from "../journal/journal.intercepteur";
 
 @Controller("simulateur-reponse")
+@UseInterceptors(JournalIntercepteur)
 export class SimulateurReponseController {
   constructor(
     private readonly simulateurReponseService: SimulateurReponseService,

@@ -3,8 +3,12 @@ import { SimulateurReponseController } from "./simulateur-reponse.controller";
 import { SimulateurReponseService } from "./simulateur-reponse.service";
 import { APP_GUARD } from "@nestjs/core";
 import { ThrottlerGuard } from "@nestjs/throttler";
-import { TypeOrmModule } from "@nestjs/typeorm";
+import { getDataSourceToken, TypeOrmModule } from "@nestjs/typeorm";
 import { SimulateurReponse } from "./simulateur-reponse.entity";
+import { JournalService } from "../journal/journal.service";
+import { Evenements } from "../journal/entites/evenements.entite-journal";
+import { SegmentsConcernesNis2 } from "../journal/entites/segments-concernes-nis2.entite-journal";
+import { DataSource } from "typeorm";
 
 @Module({
   imports: [TypeOrmModule.forFeature([SimulateurReponse])],
@@ -14,6 +18,16 @@ import { SimulateurReponse } from "./simulateur-reponse.entity";
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
+    },
+    {
+      provide: JournalService,
+      useFactory: (connexionJournal: DataSource) =>
+        new JournalService(
+          connexionJournal,
+          connexionJournal.getRepository(Evenements),
+          connexionJournal.getRepository(SegmentsConcernesNis2),
+        ),
+      inject: [getDataSourceToken("connexionJournal")],
     },
   ],
   controllers: [SimulateurReponseController],
