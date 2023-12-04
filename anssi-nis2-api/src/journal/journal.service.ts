@@ -11,14 +11,7 @@ import {
 } from "anssi-nis2-ui/src/Domaine/Simulateur/SousSecteurActivite.definitions";
 import { estDansSecteur } from "anssi-nis2-ui/src/Domaine/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 import { estUnSecteurSansSousSecteur } from "anssi-nis2-ui/src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
-
-type Sectorisation =
-  | {
-      type: "avecSousSecteur";
-      secteur: SecteurActivite;
-      sousSecteur: SousSecteurActivite;
-    }
-  | { type: "sansSousSecteur"; secteur: SecteurActivite };
+import { Sectorisation } from "anssi-nis2-ui/src/Domaine/Simulateur/Sectorisation.definitions";
 
 function extraitSousSecteurs(
   secteur: SecteurActivite,

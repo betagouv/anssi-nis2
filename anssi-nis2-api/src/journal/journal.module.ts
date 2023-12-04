@@ -5,12 +5,11 @@ import { APP_GUARD } from "@nestjs/core";
 import { ThrottlerGuard } from "@nestjs/throttler";
 import { JournalService } from "./journal.service";
 import { JournalController } from "./journal.controller";
-// import { SegmentsConcernesNis2 } from "./entites/segments-concernes-nis2.entite-journal";
 import { DataSource } from "typeorm";
+import { SegmentsConcernesNis2 } from "./entites/segments-concernes-nis2.entite-journal";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Evenements])],
-  // imports: [TypeOrmModule.forFeature([Evenements, SegmentsConcernesNis2])],
+  imports: [TypeOrmModule.forFeature([Evenements, SegmentsConcernesNis2])],
   exports: [TypeOrmModule],
   providers: [
     {
@@ -19,7 +18,7 @@ import { DataSource } from "typeorm";
         new JournalService(
           connexionJournal,
           connexionJournal.getRepository(Evenements),
-          // connexionJournal.getRepository(SegmentsConcernesNis2),
+          connexionJournal.getRepository(SegmentsConcernesNis2),
         ),
       inject: [getDataSourceToken("connexionJournal")],
     },
