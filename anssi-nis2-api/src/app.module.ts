@@ -12,6 +12,7 @@ import {
 import { ThrottlerModule } from "@nestjs/throttler";
 import { optionsThrottlerModuleAsync } from "./configurationThrottler";
 import { InformationsEmailsModule } from "./informations-emails/informations-emails.module";
+import { JournalModule } from "./journal/journal.module";
 
 const optionsConnectionBaseDeDonnees = fabriqueAsynchroneOptionsTypeOrm();
 
@@ -24,6 +25,7 @@ const optionsConnectionBaseDeDonnees = fabriqueAsynchroneOptionsTypeOrm();
       fabriqueAsynchroneOptionsServeurStatique,
     ),
     SimulateurReponseModule,
+    JournalModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

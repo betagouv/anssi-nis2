@@ -1,4 +1,5 @@
 import { DataSourceOptions } from "typeorm";
+import { Evenements } from "./journal/entites/evenements.entite-journal";
 
 export const fabriqueAppDataSource = async (
   databaseConnectionUrl: string,
@@ -17,7 +18,7 @@ export const fabriqueAppDataSourceJournal = async (
     type: "postgres",
     name: "connexionJournal",
     url: databaseConnectionUrl,
-    entities: [],
+    entities: [Evenements],
     subscribers: [],
     migrations: [],
     logging: ["query"],
