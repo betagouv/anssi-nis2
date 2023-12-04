@@ -10,7 +10,7 @@ import { CreeConcerneNis2Dto } from "./dto/creeConcerneNis2Dto";
 import { CreeEvenementsJournalDto } from "./dto/creeEvenementJournal";
 
 const attendResultatConforme = (
-  result,
+  result: SegmentsConcernesNis2[],
   donnees: IDonneesBrutesFormulaireSimulateur,
 ) => {
   expect(result[0].evenement.type).toBe("resultatTestConcerneNis2");
