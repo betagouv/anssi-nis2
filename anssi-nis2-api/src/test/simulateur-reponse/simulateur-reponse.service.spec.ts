@@ -13,25 +13,30 @@ describe("SimulateurReponseService", () => {
     reponseJson: simulateurReponseJson,
   };
 
+  const depotSauve = jest.fn(
+    async (donneesSimulateur: DonneesFormulaireSimulateur) => donneesSimulateur,
+  );
+  const depotDonneesSimu = fabriqueMockRepository({
+    save: depotSauve,
+  });
   const testingModuleBuilder = Test.createTestingModule({
     providers: [
       {
         provide: getRepositoryToken(SimulateurReponse),
-        useValue: fabriqueMockRepository({
-          save: async (donneesSimulateur: DonneesFormulaireSimulateur) =>
-            donneesSimulateur,
-        }),
+        useValue: depotDonneesSimu,
       },
       SimulateurReponseService,
     ],
   });
+  beforeEach(() => jest.clearAllMocks());
 
-  it("should call repo", async () => {
+  it("Doit appeler les repos de réponse formulaire et de trace dans le journal", async () => {
     const mockModule = await testingModuleBuilder.compile();
     const srv = mockModule.get<SimulateurReponseService>(
       SimulateurReponseService,
     );
     const result = await srv.save(donneesSimulateurVide);
+    expect(depotDonneesSimu.save).toHaveBeenCalledTimes(1);
     expect(result.id).not.toBeNaN();
     expect(result.reponseJson).toBe(simulateurReponse.reponseJson);
   });

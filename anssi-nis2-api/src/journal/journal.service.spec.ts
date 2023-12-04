@@ -1,5 +1,4 @@
 import { Test } from "@nestjs/testing";
-import { getRepositoryToken } from "@nestjs/typeorm";
 import { Evenements } from "./entites/evenements.entite-journal";
 import { fabriqueMockRepository } from "../test/utilitaires/facilitateurs";
 import { JournalService } from "./journal.service";
@@ -26,54 +25,43 @@ const attendResultatConforme = (
 };
 
 describe("JournalService", () => {
+  const depotSauvegardeEvenement = jest.fn(
+    async (
+      evenementsJournalDto: CreeEvenementsJournalDto,
+    ): Promise<Evenements> => ({
+      ...evenementsJournalDto,
+      id: 1,
+      date: new Date(Date.now()),
+    }),
+  );
+  const depotSauvegardeSegments = jest.fn(
+    async (
+      creeConcerneNis2Dto: CreeConcerneNis2Dto,
+    ): Promise<SegmentsConcernesNis2> => ({
+      ...creeConcerneNis2Dto,
+      id: 1,
+      evenementId: creeConcerneNis2Dto.evenement.id,
+    }),
+  );
   const testingModuleBuilder = Test.createTestingModule({
     providers: [
-      {
-        provide: getRepositoryToken(Evenements, "connexionJournal"),
-        useValue: fabriqueMockRepository({
-          save: async (evenementsJournalDto: CreeEvenementsJournalDto) => ({
-            ...evenementsJournalDto,
-            id: 1,
-            date: Date.now(),
-          }),
-        }),
-      },
-      {
-        provide: getRepositoryToken(SegmentsConcernesNis2, "connexionJournal"),
-        useValue: fabriqueMockRepository({
-          save: async (creeConcerneNis2Dto: CreeConcerneNis2Dto) => ({
-            ...creeConcerneNis2Dto,
-            id: 1,
-          }),
-        }),
-      },
       {
         provide: JournalService,
         useFactory: (connexionJournal: DataSource) =>
           new JournalService(
             connexionJournal,
             fabriqueMockRepository<CreeEvenementsJournalDto, Evenements>({
-              save: async (
-                evenementsJournalDto: CreeEvenementsJournalDto,
-              ): Promise<Evenements> => ({
-                ...evenementsJournalDto,
-                id: 1,
-                date: new Date(Date.now()),
-              }),
+              save: depotSauvegardeEvenement,
             }) as unknown as Repository<Evenements>,
             fabriqueMockRepository<CreeConcerneNis2Dto, SegmentsConcernesNis2>({
-              save: async (
-                creeConcerneNis2Dto: CreeConcerneNis2Dto,
-              ): Promise<SegmentsConcernesNis2> => ({
-                ...creeConcerneNis2Dto,
-                id: 1,
-                evenementId: creeConcerneNis2Dto.evenement.id,
-              }),
+              save: depotSauvegardeSegments,
             }) as unknown as Repository<SegmentsConcernesNis2>,
           ),
       },
     ],
   });
+  beforeEach(() => jest.clearAllMocks());
+
   it("Insère un résultat simple", async () => {
     const mockModule = await testingModuleBuilder.compile();
     const service = mockModule.get<JournalService>(JournalService);
