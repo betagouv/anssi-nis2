@@ -1,6 +1,7 @@
-const path = require("path");
-/** @type {import("ts-jest").JestConfigWithTsJest} */
-module.exports = {
+import type { Config } from "jest";
+import * as path from "path";
+
+const config: Config = {
   moduleFileExtensions: ["js", "json", "ts"],
   rootDir: "src",
   testRegex: ".*\\.spec\\.ts$",
@@ -13,6 +14,8 @@ module.exports = {
       path.resolve(__dirname + "/../anssi-nis2-ui/src/Domaine/") + "/$1",
   },
   transform: {
-    "^.+\\.[tj]sx?$": ["ts-jest"],
+    "^.+\\.[tj]sx?$": "ts-jest",
   },
 };
+
+export default config;
