@@ -1,5 +1,5 @@
 import { InformationsEmailsService } from "./informations-emails.service";
-import { mockInformationsEmailRepository } from "./fabrique-mock.repository";
+import { mockInformationsEmailRepository } from "./informations-emails.repository.mock";
 import { informationsEmail } from "./example/informations.email.exemples";
 import {
   espereEmailsInformationCorrespondASonDto,
@@ -7,7 +7,7 @@ import {
 } from "../test/utilitaires/facilitateurs";
 import { InformationsEmail } from "./entities/informations-email.entity";
 import { Test } from "@nestjs/testing";
-import { TypeOrmModule, getRepositoryToken } from "@nestjs/typeorm";
+import { getRepositoryToken, TypeOrmModule } from "@nestjs/typeorm";
 import { fabriqueAsynchroneOptionsTypeOrm } from "../Fabriques/fabriqueAsynchroneOptionsTypeOrm";
 import { ConfigModule } from "@nestjs/config";
 
@@ -29,6 +29,20 @@ describe("InformationsEmailsService", () => {
     );
     const reponse = await srv.ajoute(informationsEmail);
     espereEmailsInformationCorrespondASonDto(reponse, informationsEmail);
+  });
+
+  it("n'autorise pas l'ajout de donn'ees avec un email mal formé", async () => {
+    const mockModule = await testingModuleBuilder.compile();
+    const informationEmailService = mockModule.get<InformationsEmailsService>(
+      InformationsEmailsService,
+    );
+    const informationsEmailInvalide = {
+      ...informationsEmail,
+      email: "INVALIDE",
+    };
+    await expect(
+      informationEmailService.ajoute(informationsEmailInvalide),
+    ).rejects.toThrow();
   });
 });
 
