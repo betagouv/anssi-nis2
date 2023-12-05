@@ -1,6 +1,6 @@
 import { Controller, Post, Body } from "@nestjs/common";
 import { InformationsEmailsService } from "./informations-emails.service";
-import { CreateInformationsEmailDto } from "./dto/create-informations-email.dto";
+import { CreeInformationsEmailDto } from "./dto/cree-informations-email.dto";
 
 @Controller("informations-emails")
 export class InformationsEmailsController {
@@ -9,7 +9,7 @@ export class InformationsEmailsController {
   ) {}
 
   @Post()
-  ajoute(@Body() createInformationsEmailDto: CreateInformationsEmailDto) {
-    return this.informationsEmailsService.ajoute(createInformationsEmailDto);
+  ajoute(@Body() creeInformationsEmailDto: CreeInformationsEmailDto) {
+    return this.informationsEmailsService.ajoute(creeInformationsEmailDto);
   }
 }

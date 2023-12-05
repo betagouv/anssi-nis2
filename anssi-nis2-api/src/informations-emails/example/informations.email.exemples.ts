@@ -1,6 +1,6 @@
-import { CreateInformationsEmailDto } from "../dto/create-informations-email.dto";
+import { CreeInformationsEmailDto } from "../dto/cree-informations-email.dto";
 
-export const informationsEmail: CreateInformationsEmailDto = {
+export const informationsEmail: CreeInformationsEmailDto = {
   email: "toto@titi.tutu",
   accepteInfolettreNis2: true,
   accepteInfolettreServicesDedies: true,

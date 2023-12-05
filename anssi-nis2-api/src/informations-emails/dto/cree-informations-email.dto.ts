@@ -1,12 +1,12 @@
 import { IsEmail, IsNotEmpty } from "class-validator";
 
-export class CreateInformationsEmailDto {
+export class CreeInformationsEmailDto {
   constructor({
     email,
     nomOrganisation,
     accepteInfolettreNis2,
     accepteInfolettreServicesDedies,
-  }: CreateInformationsEmailDto) {
+  }: CreeInformationsEmailDto) {
     this.email = email;
     this.nomOrganisation = nomOrganisation;
     this.accepteInfolettreNis2 = accepteInfolettreNis2;
