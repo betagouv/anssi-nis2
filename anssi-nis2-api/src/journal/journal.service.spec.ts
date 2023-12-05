@@ -1,13 +1,9 @@
-import { Test } from "@nestjs/testing";
-import { Evenements } from "./entites/evenements.entite-journal";
-import { fabriqueMockRepository } from "../test/utilitaires/facilitateurs";
 import { JournalService } from "./journal.service";
 import { donneesSimulateurVide } from "../Domaine/donneesSimulateur";
 import { SegmentsConcernesNis2 } from "./entites/segments-concernes-nis2.entite-journal";
-import { DataSource, Repository } from "typeorm";
 import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-ui/src/Domaine/Simulateur/DonneesFormulaire";
-import { CreeConcerneNis2Dto } from "./dto/creeConcerneNis2Dto";
-import { CreeEvenementsJournalDto } from "./dto/creeEvenementJournal";
+import { fournisseurTestJournalService } from "./journal.service.fournisseur-test";
+import { Test } from "@nestjs/testing";
 
 const attendResultatConforme = (
   result: SegmentsConcernesNis2[],
@@ -25,45 +21,13 @@ const attendResultatConforme = (
 };
 
 describe("JournalService", () => {
-  const depotSauvegardeEvenement = jest.fn(
-    async (
-      evenementsJournalDto: CreeEvenementsJournalDto,
-    ): Promise<Evenements> => ({
-      ...evenementsJournalDto,
-      id: 1,
-      date: new Date(Date.now()),
-    }),
-  );
-  const depotSauvegardeSegments = jest.fn(
-    async (
-      creeConcerneNis2Dto: CreeConcerneNis2Dto,
-    ): Promise<SegmentsConcernesNis2> => ({
-      ...creeConcerneNis2Dto,
-      id: 1,
-      evenementId: creeConcerneNis2Dto.evenement.id,
-    }),
-  );
-  const testingModuleBuilder = Test.createTestingModule({
-    providers: [
-      {
-        provide: JournalService,
-        useFactory: (connexionJournal: DataSource) =>
-          new JournalService(
-            connexionJournal,
-            fabriqueMockRepository<CreeEvenementsJournalDto, Evenements>({
-              save: depotSauvegardeEvenement,
-            }) as unknown as Repository<Evenements>,
-            fabriqueMockRepository<CreeConcerneNis2Dto, SegmentsConcernesNis2>({
-              save: depotSauvegardeSegments,
-            }) as unknown as Repository<SegmentsConcernesNis2>,
-          ),
-      },
-    ],
+  const constructeurJournalModuleTest = Test.createTestingModule({
+    providers: [fournisseurTestJournalService],
   });
   beforeEach(() => jest.clearAllMocks());
 
   it("Insère un résultat simple", async () => {
-    const mockModule = await testingModuleBuilder.compile();
+    const mockModule = await constructeurJournalModuleTest.compile();
     const service = mockModule.get<JournalService>(JournalService);
     const donnees: IDonneesBrutesFormulaireSimulateur = {
       ...donneesSimulateurVide,
@@ -77,10 +41,9 @@ describe("JournalService", () => {
 
     expect(result.length).toBe(1);
     attendResultatConforme(result, donnees);
-    // expect(result[0].sousSecteur).not.toBeDefined();
   });
   it("Insère un résultat avec sous-secteur", async () => {
-    const mockModule = await testingModuleBuilder.compile();
+    const mockModule = await constructeurJournalModuleTest.compile();
     const service = mockModule.get<JournalService>(JournalService);
     const donnees: IDonneesBrutesFormulaireSimulateur = {
       ...donneesSimulateurVide,
@@ -97,7 +60,7 @@ describe("JournalService", () => {
     attendResultatConforme(result, donnees);
   });
   it("Insère un résultat avec plusieurs secteurs", async () => {
-    const mockModule = await testingModuleBuilder.compile();
+    const mockModule = await constructeurJournalModuleTest.compile();
     const service = mockModule.get<JournalService>(JournalService);
     const donnees: IDonneesBrutesFormulaireSimulateur = {
       ...donneesSimulateurVide,
@@ -114,7 +77,7 @@ describe("JournalService", () => {
     expect(result[1].secteur).toBe(donnees.secteurActivite[1]);
   });
   it("Insère un résultat avec plusieurs sous-secteurs", async () => {
-    const mockModule = await testingModuleBuilder.compile();
+    const mockModule = await constructeurJournalModuleTest.compile();
     const service = mockModule.get<JournalService>(JournalService);
     const donnees: IDonneesBrutesFormulaireSimulateur = {
       ...donneesSimulateurVide,
@@ -133,7 +96,7 @@ describe("JournalService", () => {
     expect(result[1].sousSecteur).toBe(donnees.sousSecteurActivite[1]);
   });
   it("Insère un résultat avec plusieurs secteurs et sous-secteurs", async () => {
-    const mockModule = await testingModuleBuilder.compile();
+    const mockModule = await constructeurJournalModuleTest.compile();
     const service = mockModule.get<JournalService>(JournalService);
     const donnees: IDonneesBrutesFormulaireSimulateur = {
       ...donneesSimulateurVide,

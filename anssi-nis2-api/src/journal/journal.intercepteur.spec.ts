@@ -3,6 +3,7 @@ import { Test } from "@nestjs/testing";
 import { SimulateurReponseService } from "../simulateur-reponse/simulateur-reponse.service";
 import { SimulateurReponseController } from "../simulateur-reponse/simulateur-reponse.controller";
 import { donneesSimulateurVide } from "../Domaine/donneesSimulateur";
+import { fournisseurTestJournalService } from "./journal.service.fournisseur-test";
 
 describe(JournalIntercepteur, () => {
   const mockSimulateurReponseService = {
@@ -18,6 +19,7 @@ describe(JournalIntercepteur, () => {
         provide: SimulateurReponseService,
         useValue: mockSimulateurReponseService,
       },
+      fournisseurTestJournalService,
     ],
     controllers: [SimulateurReponseController],
   });

@@ -1,21 +1,14 @@
 import { Test } from "@nestjs/testing";
 import { SimulateurReponseController } from "./simulateur-reponse.controller";
 import { donneesSimulateurVide } from "../Domaine/donneesSimulateur";
-import { SimulateurReponseService } from "./simulateur-reponse.service";
+import { fournisseurTestJournalService } from "../journal/journal.service.fournisseur-test";
+import { fournisseurTestSimulateurReponseService } from "./simulateur-reponse.service.fournisseur-test";
 
-const mockSimulateurReponseService = {
-  save: jest.fn().mockReturnValue({
-    reponseJson: JSON.stringify(donneesSimulateurVide),
-    id: 1,
-  }),
-};
 describe("SimulateurReponseController", () => {
   const moduleConstructeur = Test.createTestingModule({
     providers: [
-      {
-        provide: SimulateurReponseService,
-        useValue: mockSimulateurReponseService,
-      },
+      fournisseurTestSimulateurReponseService,
+      fournisseurTestJournalService,
     ],
     controllers: [SimulateurReponseController],
   });
