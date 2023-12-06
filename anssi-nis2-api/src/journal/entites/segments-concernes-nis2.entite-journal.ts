@@ -14,7 +14,7 @@ import {
   TypeStructure,
 } from "anssi-nis2-ui/src/Domaine/Simulateur/ChampsSimulateur.definitions";
 
-@Entity()
+@Entity({ name: "segments_concernes_nis2" })
 export class SegmentsConcernesNis2 {
   @PrimaryGeneratedColumn()
   id: number;

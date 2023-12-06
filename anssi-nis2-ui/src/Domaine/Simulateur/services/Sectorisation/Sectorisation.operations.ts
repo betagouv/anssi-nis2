@@ -22,9 +22,9 @@ export const extraitSectorisationPourSecteur =
       [] as Sectorisation[],
     );
   };
-export const extraitSectorisationDonneesSimulateur = (
-  reponses: IDonneesBrutesFormulaireSimulateur,
-): Sectorisation[] =>
-  reponses.secteurActivite.flatMap(
-    extraitSectorisationPourSecteur(reponses.sousSecteurActivite),
-  );
+
+export const extraitSectorisationDonneesSimulateur = ({
+  secteurActivite,
+  sousSecteurActivite,
+}: IDonneesBrutesFormulaireSimulateur): Sectorisation[] =>
+  secteurActivite.flatMap(extraitSectorisationPourSecteur(sousSecteurActivite));

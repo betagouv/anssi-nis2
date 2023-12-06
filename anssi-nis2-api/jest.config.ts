@@ -9,6 +9,7 @@ const config: Config = {
   collectCoverageFrom: ["**/*.(t|j)s"],
   coverageDirectory: "../coverage",
   testEnvironment: "node",
+  setupFilesAfterEnv: ["./testSetup.js"],
   moduleNameMapper: {
     "^~core/(.*)$":
       path.resolve(__dirname + "/../anssi-nis2-ui/src/Domaine/") + "/$1",
@@ -17,5 +18,4 @@ const config: Config = {
     "^.+\\.[tj]sx?$": "ts-jest",
   },
 };
-
 export default config;

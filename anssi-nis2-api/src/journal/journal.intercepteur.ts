@@ -1,6 +1,7 @@
 import {
   CallHandler,
   ExecutionContext,
+  Inject,
   Injectable,
   NestInterceptor,
 } from "@nestjs/common";
@@ -18,7 +19,8 @@ export class JournalIntercepteur
       SegmentsConcernesNis2[]
     >
 {
-  constructor(private readonly journalService: JournalService) {}
+  @Inject(JournalService)
+  private readonly journalService: JournalService;
 
   intercept(
     context: ExecutionContext,

@@ -10,7 +10,7 @@ import { SegmentsConcernesNis2 } from "./entites/segments-concernes-nis2.entite-
 
 @Module({
   imports: [TypeOrmModule.forFeature([Evenements, SegmentsConcernesNis2])],
-  exports: [TypeOrmModule],
+  exports: [TypeOrmModule, JournalService],
   providers: [
     {
       provide: JournalService,

@@ -21,7 +21,7 @@ const depotSauvegardeSegments = jest.fn(
   ): Promise<SegmentsConcernesNis2> => ({
     ...creeConcerneNis2Dto,
     id: 1,
-    evenementId: creeConcerneNis2Dto.evenement.id,
+    evenementId: creeConcerneNis2Dto.evenement?.id ?? 1,
   }),
 );
 export const fournisseurTestJournalService = {

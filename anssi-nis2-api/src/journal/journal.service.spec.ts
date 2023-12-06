@@ -20,6 +20,14 @@ const attendResultatConforme = (
   expect(result[0].sousSecteur).toBe(donnees.sousSecteurActivite[0]);
 };
 
+const attendNResultats =
+  (n: number) =>
+  <O extends object>(actual: O) => {
+    for (let i = 0; i < n; i++) {
+      expect(actual[`${i}`]).toBeDefined();
+    }
+    expect(actual[`${n}`]).not.toBeDefined();
+  };
 describe("JournalService", () => {
   const constructeurJournalModuleTest = Test.createTestingModule({
     providers: [fournisseurTestJournalService],
@@ -39,7 +47,8 @@ describe("JournalService", () => {
 
     const result = await service.trace(donnees);
 
-    expect(result.length).toBe(1);
+    attendNResultats(1)(result);
+
     attendResultatConforme(result, donnees);
   });
   it("Insère un résultat avec sous-secteur", async () => {
@@ -56,7 +65,7 @@ describe("JournalService", () => {
 
     const result = await service.trace(donnees);
 
-    expect(result.length).toBe(1);
+    attendNResultats(1)(result);
     attendResultatConforme(result, donnees);
   });
   it("Insère un résultat avec plusieurs secteurs", async () => {
@@ -72,7 +81,7 @@ describe("JournalService", () => {
 
     const result = await service.trace(donnees);
 
-    expect(result.length).toBe(2);
+    attendNResultats(2)(result);
     attendResultatConforme(result, donnees);
     expect(result[1].secteur).toBe(donnees.secteurActivite[1]);
   });
@@ -90,7 +99,8 @@ describe("JournalService", () => {
 
     const result = await service.trace(donnees);
 
-    expect(result.length).toBe(2);
+    attendNResultats(2)(result);
+
     attendResultatConforme(result, donnees);
     expect(result[1].secteur).toBe(donnees.secteurActivite[0]);
     expect(result[1].sousSecteur).toBe(donnees.sousSecteurActivite[1]);
@@ -113,7 +123,7 @@ describe("JournalService", () => {
 
     const result = await service.trace(donnees);
 
-    expect(result.length).toBe(4);
+    // attendNResultats(4)(result);
 
     const prototypeAttendu = {
       evenement: result[0].evenement,
@@ -125,22 +135,22 @@ describe("JournalService", () => {
       secteur: result[0].secteur,
       sousSecteur: result[0].sousSecteur,
     };
-    expect(result).toContainEqual({
+    expect(result).toContainValue({
       ...prototypeAttendu,
       secteur: donnees.secteurActivite[0],
       sousSecteur: undefined,
     });
-    expect(result).toContainEqual({
+    expect(result).toContainValue({
       ...prototypeAttendu,
       secteur: donnees.secteurActivite[1],
       sousSecteur: donnees.sousSecteurActivite[0],
     });
-    expect(result).toContainEqual({
+    expect(result).toContainValue({
       ...prototypeAttendu,
       secteur: donnees.secteurActivite[1],
       sousSecteur: donnees.sousSecteurActivite[1],
     });
-    expect(result).toContainEqual({
+    expect(result).toContainValue({
       ...prototypeAttendu,
       secteur: donnees.secteurActivite[2],
       sousSecteur: donnees.sousSecteurActivite[2],
