@@ -10,7 +10,6 @@ import { Evenements } from "../journal/entites/evenements.entite-journal";
 import { SegmentsConcernesNis2 } from "../journal/entites/segments-concernes-nis2.entite-journal";
 import { DataSource } from "typeorm";
 import { JournalModule } from "../journal/journal.module";
-import { JournalController } from "../journal/journal.controller";
 
 @Module({
   imports: [TypeOrmModule.forFeature([SimulateurReponse]), JournalModule],

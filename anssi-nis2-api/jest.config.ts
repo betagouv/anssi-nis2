@@ -9,7 +9,7 @@ const config: Config = {
   collectCoverageFrom: ["**/*.(t|j)s"],
   coverageDirectory: "../coverage",
   testEnvironment: "node",
-  setupFilesAfterEnv: ["./testSetup.js"],
+  setupFilesAfterEnv: ["./testSetup.ts"],
   moduleNameMapper: {
     "^~core/(.*)$":
       path.resolve(__dirname + "/../anssi-nis2-ui/src/Domaine/") + "/$1",

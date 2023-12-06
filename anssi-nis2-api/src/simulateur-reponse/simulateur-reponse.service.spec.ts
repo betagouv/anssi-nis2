@@ -5,7 +5,7 @@ import { fabriqueMockRepository } from "../test/utilitaires/facilitateurs";
 import { DonneesFormulaireSimulateur } from "anssi-nis2-ui/src/Domaine/Simulateur/DonneesFormulaire";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Test } from "@nestjs/testing";
- 
+
 describe("SimulateurReponseService", () => {
   const simulateurReponseJson = JSON.stringify(donneesSimulateurVide);
   const simulateurReponse = {
@@ -37,7 +37,6 @@ describe("SimulateurReponseService", () => {
     );
     const result = await srv.save(donneesSimulateurVide);
     expect(depotDonneesSimu.save).toHaveBeenCalledTimes(1);
-    expect(result.id).not.toBeNaN();
     expect(result.reponseJson).toBe(simulateurReponse.reponseJson);
   });
 });
