@@ -284,10 +284,10 @@ export const EtapeActivitePourSecteurActiviteAutreEtListes: StoryChargeurEtape =
       await expect(mockSendFormData).toHaveBeenCalledTimes(1);
       await expect(mockSendFormData).toHaveBeenCalledWith(
         new DonneesFormulaireSimulateur({
-          activites: [],
+          activites: ["fournisseursDistributeursEauxConsommation"],
           designeOperateurServicesEssentiels: ["oui"],
           etatMembre: ["france"],
-          secteurActivite: ["autreSecteurActivite"],
+          secteurActivite: ["eauPotable", "autreSecteurActivite"],
           sousSecteurActivite: [],
           trancheCA: ["petit"],
           trancheNombreEmployes: ["petit"],
