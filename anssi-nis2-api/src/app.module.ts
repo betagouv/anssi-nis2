@@ -3,13 +3,16 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { ServeurStatiqueConfigurableModule } from "./intergiciels/serveur-statique-configurable/serveur-statique-configurable.module";
 import { DataSource } from "typeorm";
 import { SimulateurReponseModule } from "./simulateur-reponse/simulateur-reponse.module";
-import { DatabaseModule } from "./database/database.module";
 import { ConfigModule } from "@nestjs/config";
 import { fabriqueAsynchroneOptionsServeurStatique } from "./Fabriques/fabriqueAsynchroneOptionsServeurStatique";
-import { fabriqueAsynchroneOptionsTypeOrm } from "./Fabriques/fabriqueAsynchroneOptionsTypeOrm";
+import {
+  fabriqueAsynchroneOptionsTypeOrm,
+  fabriqueAsynchroneOptionsTypeOrmJournal,
+} from "./Fabriques/fabriqueAsynchroneOptionsTypeOrm";
 import { ThrottlerModule } from "@nestjs/throttler";
 import { optionsThrottlerModuleAsync } from "./configurationThrottler";
 import { InformationsEmailsModule } from "./informations-emails/informations-emails.module";
+import { JournalModule } from "./journal/journal.module";
 
 const optionsConnectionBaseDeDonnees = fabriqueAsynchroneOptionsTypeOrm();
 
@@ -17,11 +20,12 @@ const optionsConnectionBaseDeDonnees = fabriqueAsynchroneOptionsTypeOrm();
   imports: [
     ThrottlerModule.forRootAsync(optionsThrottlerModuleAsync),
     TypeOrmModule.forRootAsync(optionsConnectionBaseDeDonnees),
+    TypeOrmModule.forRootAsync(fabriqueAsynchroneOptionsTypeOrmJournal()),
     ServeurStatiqueConfigurableModule.forRootAsync(
       fabriqueAsynchroneOptionsServeurStatique,
     ),
     SimulateurReponseModule,
-    DatabaseModule,
+    JournalModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

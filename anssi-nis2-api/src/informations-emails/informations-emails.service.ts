@@ -1,19 +1,25 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { CreateInformationsEmailDto } from "./dto/create-informations-email.dto";
+import { Injectable } from "@nestjs/common";
+import { CreeInformationsEmailDto } from "./dto/cree-informations-email.dto";
 import { InformationsEmail } from "./entities/informations-email.entity";
-import { provideInformationsEmailRepositoryKey } from "../constantes";
 import { Repository } from "typeorm";
+import { InjectRepository } from "@nestjs/typeorm";
+import { validateOrReject } from "class-validator";
 
 @Injectable()
 export class InformationsEmailsService {
   constructor(
-    @Inject(provideInformationsEmailRepositoryKey)
+    @InjectRepository(InformationsEmail)
     private informationsEmailRepository: Repository<InformationsEmail>,
   ) {}
 
-  ajoute(
-    createInformationsEmailDto: CreateInformationsEmailDto,
+  async ajoute(
+    creeInformationsEmailDto: CreeInformationsEmailDto,
   ): Promise<InformationsEmail> {
-    return this.informationsEmailRepository.save(createInformationsEmailDto);
+    await validateOrReject(
+      new CreeInformationsEmailDto(creeInformationsEmailDto),
+    ).catch((err) => {
+      throw new Error(err);
+    });
+    return this.informationsEmailRepository.save(creeInformationsEmailDto);
   }
 }

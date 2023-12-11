@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { dansIntervalle, Intervalle } from "../../src/utilitaires/calculs";
+import {
+  dansIntervalle,
+  Intervalle,
+} from "../../src/Domaine/utilitaires/calculs";
 
 describe(dansIntervalle, () => {
   it.each([2, 3, 4, 5, 6, 7, 8])(

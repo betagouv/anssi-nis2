@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../Simulateur/DonneesFormulaire";
 
 export const VVV = (...debugMessage: unknown[]) =>
   console.log("VVV ", ...debugMessage);
@@ -32,3 +32,10 @@ export const seulementAGauche = (
         compareDonnees(leftValue, rightValue),
       ),
   );
+export const VVVPipe = (...debugMessage: unknown[]) => {
+  VVV(...debugMessage);
+  return <T>(arg: T): T => {
+    VVV(`\t-->${arg}`);
+    return arg;
+  };
+};
