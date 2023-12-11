@@ -248,6 +248,55 @@ export const IgnoreEtapeActivitePourSousSecteurActiviteAutre: StoryChargeurEtape
     },
   };
 
+export const EtapeActivitePourSecteurActiviteAutreEtListes: StoryChargeurEtape =
+  {
+    decorators: [genereDecorateurPourContexte(simulateurContext)],
+
+    play: async ({ canvasElement }) => {
+      mockSendFormData.mockClear();
+
+      const canvas = within(canvasElement);
+      await cliqueSurDebuterLeTest(canvas);
+
+      await passeEtapeEnCochant(canvas, [
+        ["designeOperateurServicesEssentiels", "oui"],
+      ]);
+      await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
+      await passeEtapeEnCochant(canvas, [["typeStructure", "privee"]]);
+
+      await passeEtapeEnCochant(canvas, [
+        ["trancheNombreEmployes", "petit"],
+        ["trancheCA", "petit"],
+      ]);
+      await passeEtapeEnCochant(
+        canvas,
+        [
+          ["secteurActivite", "eauPotable"],
+          ["secteurActivite", "autreSecteurActivite"],
+        ],
+        1,
+      );
+      await passeEtapeEnCochant(canvas, [
+        ["activites", "fournisseursDistributeursEauxConsommation"],
+      ]);
+
+      await canvas.findByText(contenusResultatEligiblePetitEntreprise.titre);
+      await expect(mockSendFormData).toHaveBeenCalledTimes(1);
+      await expect(mockSendFormData).toHaveBeenCalledWith(
+        new DonneesFormulaireSimulateur({
+          activites: [],
+          designeOperateurServicesEssentiels: ["oui"],
+          etatMembre: ["france"],
+          secteurActivite: ["autreSecteurActivite"],
+          sousSecteurActivite: [],
+          trancheCA: ["petit"],
+          trancheNombreEmployes: ["petit"],
+          typeStructure: ["privee"],
+        }),
+      );
+    },
+  };
+
 export const TypeEntitePublique: StoryChargeurEtape = {
   decorators: [genereDecorateurPourContexte(simulateurContext)],
 

@@ -12,7 +12,7 @@ import { ValeurChampSimulateur } from "../../ChampsSimulateur.definitions.ts";
 import { ValeursActivites } from "../../Activite.definitions.ts";
 import { activiteEstDansSecteur } from "../Activite/Activite.predicats.ts";
 import { filtreSecteursSansSousSecteurs } from "../SecteurActivite/SecteurActivite.operations.ts";
-import { filtreSecteursAvecSousSecteurs } from "../SecteurActivite/SecteurActivite.predicats.ts";
+import { estSecteurListe, filtreSecteursAvecSousSecteurs } from "../SecteurActivite/SecteurActivite.predicats.ts";
 import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions.ts";
 import { fabriqueListeValeursSectorielles } from "./ValeursSectorielles/ValeursSectorielles.operations.ts";
 
@@ -101,11 +101,11 @@ const fabriqueAuMoinsUneActiviteEstDansSecteur =
       secteurActivite,
     );
 
-export const auMoinsUneActiviteParValeurSectorielle: PredicatChamp = (
+export const auMoinsUneActiviteParValeurSectorielleListee: PredicatChamp = (
   donneesFormulaireSimulateur,
 ) =>
   fabriqueListeValeursSectorielles(
-    filtreSecteursSansSousSecteurs(donneesFormulaireSimulateur.secteurActivite),
+    filtreSecteursSansSousSecteurs(donneesFormulaireSimulateur.secteurActivite).filter(estSecteurListe),
     donneesFormulaireSimulateur.sousSecteurActivite,
   ).every(
     fabriqueAuMoinsUneActiviteEstDansSecteur(donneesFormulaireSimulateur),

@@ -8,14 +8,14 @@ import {
   auMoinsUnSousSecteurParSecteur,
   auMoinsUn,
   et,
-  auMoinsUneActiviteParValeurSectorielle,
+  auMoinsUneActiviteParValeurSectorielleListee,
   lorsque,
 } from "../../src/Domaine/Simulateur/services/ChampSimulateur/champs.predicats";
 import { contientAutreSecteurActiviteUniquement } from "../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { PredicatChamp } from "../../src/Domaine/Simulateur/services/ChampSimulateur/champs.domaine";
 
 describe("validateurs", () => {
-  describe("valideAuMoinsUn", () => {
+  describe("valideAuMoinsUn", () => { 
     it("doit être vrai pour un élément rempli", () => {
       const nomChamp = "designeOperateurServicesEssentiels";
       const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
@@ -113,13 +113,24 @@ describe("validateurs", () => {
       expect(result).toBeTruthy();
     });
   });
-  describe("auMoinsUneActiviteParValeurSectorielle", () => {
+  describe(auMoinsUneActiviteParValeurSectorielleListee, () => {
     it("doit valider une activité cochée pour un seul secteur ", () => {
       const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
         secteurActivite: ["espace"],
         activites: ["autreActiviteEspace"],
       });
-      const result = auMoinsUneActiviteParValeurSectorielle(
+      const result = auMoinsUneActiviteParValeurSectorielleListee(
+        donneesFormulaireSimulateur,
+      );
+      expect(result).toBeTruthy();
+    });
+
+    it("doit valider une activité cochée pour un seul secteur listé et aucune sur secteur autre", () => {
+      const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
+        secteurActivite: ["espace", "autreSecteurActivite"],
+        activites: ["autreActiviteEspace"],
+      });
+      const result = auMoinsUneActiviteParValeurSectorielleListee(
         donneesFormulaireSimulateur,
       );
       expect(result).toBeTruthy();
@@ -130,7 +141,7 @@ describe("validateurs", () => {
         secteurActivite: ["espace", "sante"],
         activites: ["autreActiviteEspace", "prestataireSoinsSante"],
       });
-      const result = auMoinsUneActiviteParValeurSectorielle(
+      const result = auMoinsUneActiviteParValeurSectorielleListee(
         donneesFormulaireSimulateur,
       );
       expect(result).toBeTruthy();
@@ -141,7 +152,7 @@ describe("validateurs", () => {
         secteurActivite: ["espace", "sante"],
         activites: ["laboratoireReferenceUE", "prestataireSoinsSante"],
       });
-      const result = auMoinsUneActiviteParValeurSectorielle(
+      const result = auMoinsUneActiviteParValeurSectorielleListee(
         donneesFormulaireSimulateur,
       );
       expect(result).toBeFalsy();
@@ -153,7 +164,7 @@ describe("validateurs", () => {
         sousSecteurActivite: ["electricite", "hydrogene"],
         activites: ["acteurDuMarche"],
       });
-      const result = auMoinsUneActiviteParValeurSectorielle(
+      const result = auMoinsUneActiviteParValeurSectorielleListee(
         donneesFormulaireSimulateur,
       );
       expect(result).toBeFalsy();
@@ -164,7 +175,7 @@ describe("validateurs", () => {
         secteurActivite: ["sante"],
         activites: ["prestataireSoinsSante", "laboratoireReferenceUE"],
       });
-      const result = auMoinsUneActiviteParValeurSectorielle(
+      const result = auMoinsUneActiviteParValeurSectorielleListee(
         donneesFormulaireSimulateur,
       );
       expect(result).toBeTruthy();
