@@ -1,7 +1,7 @@
 import { ValidationReponses } from "./champs.domaine.ts";
 import {
   auMoinsUn,
-  auMoinsUneActiviteParValeurSectorielle,
+  auMoinsUneActiviteParValeurSectorielleListee,
   auMoinsUnSousSecteurParSecteur,
   et,
   exactementUn,
@@ -29,7 +29,7 @@ export const validationReponsesSousActivites: ValidationReponses = {
 };
 export const validationReponsesActivites: ValidationReponses = {
   message: "Sélectionnez au moins une réponse par secteur",
-  validateur: auMoinsUneActiviteParValeurSectorielle,
+  validateur: auMoinsUneActiviteParValeurSectorielleListee,
 };
 export const validationToutesLesReponses: ValidationReponses = {
   message: "",

@@ -6,13 +6,17 @@ import { SecteursAvecSousSecteurs } from "../../SousSecteurActivite.definitions.
 import { PredicatChamp } from "./champs.domaine.ts";
 import {
   estSousSecteurAutre,
+  estSousSecteurListe,
   sousSecteurAppartientASecteur,
 } from "../SousSecteurActivite/SousSecteurActivite.predicats.ts";
 import { ValeurChampSimulateur } from "../../ChampsSimulateur.definitions.ts";
 import { ValeursActivites } from "../../Activite.definitions.ts";
 import { activiteEstDansSecteur } from "../Activite/Activite.predicats.ts";
 import { filtreSecteursSansSousSecteurs } from "../SecteurActivite/SecteurActivite.operations.ts";
-import { filtreSecteursAvecSousSecteurs } from "../SecteurActivite/SecteurActivite.predicats.ts";
+import {
+  estSecteurListe,
+  filtreSecteursAvecSousSecteurs,
+} from "../SecteurActivite/SecteurActivite.predicats.ts";
 import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions.ts";
 import { fabriqueListeValeursSectorielles } from "./ValeursSectorielles/ValeursSectorielles.operations.ts";
 
@@ -49,7 +53,7 @@ export const auMoinsN = (
   ({
     [fonctionNommee]: (donnees: IDonneesBrutesFormulaireSimulateur) =>
       donnees[nomChamp].filter(estChaineNonVide).length > n - 1,
-  })[fonctionNommee];
+  }[fonctionNommee]);
 
 export const exactementN = (
   n: number,
@@ -59,7 +63,7 @@ export const exactementN = (
   ({
     [fonctionNommee]: (donnees: IDonneesBrutesFormulaireSimulateur) =>
       donnees[nomChamp].filter(estChaineNonVide).length === n,
-  })[fonctionNommee];
+  }[fonctionNommee]);
 
 export const auMoinsUn = (nomChamp: NomsChampsSimulateur) =>
   auMoinsN(1, nomChamp);
@@ -101,12 +105,14 @@ const fabriqueAuMoinsUneActiviteEstDansSecteur =
       secteurActivite,
     );
 
-export const auMoinsUneActiviteParValeurSectorielle: PredicatChamp = (
+export const auMoinsUneActiviteParValeurSectorielleListee: PredicatChamp = (
   donneesFormulaireSimulateur,
 ) =>
   fabriqueListeValeursSectorielles(
-    filtreSecteursSansSousSecteurs(donneesFormulaireSimulateur.secteurActivite),
-    donneesFormulaireSimulateur.sousSecteurActivite,
+    filtreSecteursSansSousSecteurs(
+      donneesFormulaireSimulateur.secteurActivite,
+    ).filter(estSecteurListe),
+    donneesFormulaireSimulateur.sousSecteurActivite.filter(estSousSecteurListe),
   ).every(
     fabriqueAuMoinsUneActiviteEstDansSecteur(donneesFormulaireSimulateur),
   );
