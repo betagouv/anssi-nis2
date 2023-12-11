@@ -15,7 +15,7 @@ import { contientAutreSecteurActiviteUniquement } from "../../src/Domaine/Simula
 import { PredicatChamp } from "../../src/Domaine/Simulateur/services/ChampSimulateur/champs.domaine";
 
 describe("validateurs", () => {
-  describe("valideAuMoinsUn", () => { 
+  describe("valideAuMoinsUn", () => {
     it("doit être vrai pour un élément rempli", () => {
       const nomChamp = "designeOperateurServicesEssentiels";
       const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
@@ -169,7 +169,7 @@ describe("validateurs", () => {
       );
       expect(result).toBeTruthy();
     });
-    
+
     it("doit valider une activité cochée pour un seul secteur listé et aucune sur secteur autre", () => {
       const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
         secteurActivite: ["espace", "autreSecteurActivite"],
@@ -180,7 +180,7 @@ describe("validateurs", () => {
       );
       expect(result).toBeTruthy();
     });
-    
+
     it("doit valider une activité cochée pour un seul sous-secteur listé et aucune sur secteur autre", () => {
       const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
         secteurActivite: ["energie"],
@@ -192,7 +192,6 @@ describe("validateurs", () => {
       );
       expect(result).toBeTruthy();
     });
-
   });
   describe(lorsque, () => {
     it("valide lorsque la valeur et le predicat sont vrais", () => {
