@@ -125,17 +125,6 @@ describe("validateurs", () => {
       expect(result).toBeTruthy();
     });
 
-    it("doit valider une activité cochée pour un seul secteur listé et aucune sur secteur autre", () => {
-      const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
-        secteurActivite: ["espace", "autreSecteurActivite"],
-        activites: ["autreActiviteEspace"],
-      });
-      const result = auMoinsUneActiviteParValeurSectorielleListee(
-        donneesFormulaireSimulateur,
-      );
-      expect(result).toBeTruthy();
-    });
-
     it("doit valider 2 activités cochées pour 2 secteurs", () => {
       const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
         secteurActivite: ["espace", "sante"],
@@ -180,6 +169,30 @@ describe("validateurs", () => {
       );
       expect(result).toBeTruthy();
     });
+    
+    it("doit valider une activité cochée pour un seul secteur listé et aucune sur secteur autre", () => {
+      const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
+        secteurActivite: ["espace", "autreSecteurActivite"],
+        activites: ["autreActiviteEspace"],
+      });
+      const result = auMoinsUneActiviteParValeurSectorielleListee(
+        donneesFormulaireSimulateur,
+      );
+      expect(result).toBeTruthy();
+    });
+    
+    it("doit valider une activité cochée pour un seul sous-secteur listé et aucune sur secteur autre", () => {
+      const donneesFormulaireSimulateur = new DonneesFormulaireSimulateur({
+        secteurActivite: ["energie"],
+        sousSecteurActivite: ["electricite", "autreSousSecteurEnergie"],
+        activites: ["entrepriseElectriciteRemplissantFonctionFourniture"],
+      });
+      const result = auMoinsUneActiviteParValeurSectorielleListee(
+        donneesFormulaireSimulateur,
+      );
+      expect(result).toBeTruthy();
+    });
+
   });
   describe(lorsque, () => {
     it("valide lorsque la valeur et le predicat sont vrais", () => {

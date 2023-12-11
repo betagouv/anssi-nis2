@@ -6,6 +6,7 @@ import { SecteursAvecSousSecteurs } from "../../SousSecteurActivite.definitions.
 import { PredicatChamp } from "./champs.domaine.ts";
 import {
   estSousSecteurAutre,
+  estSousSecteurListe,
   sousSecteurAppartientASecteur,
 } from "../SousSecteurActivite/SousSecteurActivite.predicats.ts";
 import { ValeurChampSimulateur } from "../../ChampsSimulateur.definitions.ts";
@@ -106,7 +107,7 @@ export const auMoinsUneActiviteParValeurSectorielleListee: PredicatChamp = (
 ) =>
   fabriqueListeValeursSectorielles(
     filtreSecteursSansSousSecteurs(donneesFormulaireSimulateur.secteurActivite).filter(estSecteurListe),
-    donneesFormulaireSimulateur.sousSecteurActivite,
+    donneesFormulaireSimulateur.sousSecteurActivite.filter(estSousSecteurListe),
   ).every(
     fabriqueAuMoinsUneActiviteEstDansSecteur(donneesFormulaireSimulateur),
   );
