@@ -11,6 +11,7 @@ import Input from "@codegouvfr/react-dsfr/Input";
 import { AppContext } from "./AppContexte/AppContext.tsx";
 import { InformationsEmail } from "../Domaine/Contact/InformationsEmail.definitions.ts";
 import { RegisterOptions, SubmitHandler, useForm } from "react-hook-form";
+import { optinAccepterNewsletter } from "../References/LibellesContact.ts";
 
 export const FormRestezInformes: DefaultComponentExtensible<
   FormulaireRestezInformesProps
@@ -44,6 +45,7 @@ export const FormRestezInformes: DefaultComponentExtensible<
   } = useForm<InformationsEmail>();
   const construitPropagationChangement = (nomChamp: keyof InformationsEmail) =>
     register(nomChamp, validationParChamp[nomChamp]);
+
 
   return (
     <form className="fr-mb-0" onSubmit={handleSubmit(envoiDonnees)}>
@@ -81,31 +83,13 @@ export const FormRestezInformes: DefaultComponentExtensible<
         <Checkbox
           options={[
             {
-              label: (
-                <>
-                  J’accepte de recevoir des informations concernant la directive
-                  NIS&nbsp;2
-                </>
-              ),
+              label: optinAccepterNewsletter,
               nativeInputProps: construitPropagationChangement(
                 "accepteInfolettreNis2",
               ),
             },
           ]}
         />
-        {mode === "complet" && (
-          <Checkbox
-            options={[
-              {
-                label:
-                  "Je souhaite m’enregistrer auprès de l’ANSSI afin de bénéficier des futurs services dédiés aux organisations concernées",
-                nativeInputProps: construitPropagationChangement(
-                  "accepteInfolettreServicesDedies",
-                ),
-              },
-            ]}
-          />
-        )}
       </div>
       <div className="fr-fieldset__element">
         <Button type="submit">S&apos;inscrire</Button>

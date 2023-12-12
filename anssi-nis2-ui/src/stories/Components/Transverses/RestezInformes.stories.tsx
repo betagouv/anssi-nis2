@@ -8,11 +8,8 @@ import { mockEnregistreInformationsEmail } from "../../utilitaires/mocks.ts";
 import { userEvent, within } from "@storybook/testing-library";
 import { CanvasObject } from "../../utilitaires/Canvas.d.tsx";
 import { InformationsEmail } from "../../../Domaine/Contact/InformationsEmail.definitions.ts";
+import { optinAccepterNewsletter } from "../../../References/LibellesContact.ts";
 
-const consentementNis2 =
-  "J’accepte de recevoir des informations concernant la directive NIS 2";
-const consentementServicesAnssi =
-  "Je souhaite m’enregistrer auprès de l’ANSSI afin de bénéficier des futurs services dédiés aux organisations concernées";
 
 const enregistreEmailContexte: Contexte = {
   ...defaultContext,
@@ -64,7 +61,6 @@ export const RestezInformesCompletRemplieEtEnvoieInfo: Story = {
     mockEnregistreInformationsEmail.mockClear();
     const informationsEmail: InformationsEmail = {
       accepteInfolettreNis2: true,
-      accepteInfolettreServicesDedies: true,
       email: "rssi@toto.com",
       nomOrganisation: "Toto Corp",
     };
@@ -75,8 +71,7 @@ export const RestezInformesCompletRemplieEtEnvoieInfo: Story = {
       informationsEmail.nomOrganisation ?? "",
     );
     await remplieChamp(canvas, "Adresse électronique", informationsEmail.email);
-    userEvent.click(await canvas.findByLabelText(consentementNis2));
-    userEvent.click(await canvas.findByLabelText(consentementServicesAnssi));
+    userEvent.click(await canvas.findByLabelText(optinAccepterNewsletter));
     await cliqueValidationForm(canvas);
     await canvas.findByText(
       "Nous avons pris en compte votre demande. Vous recevrez bientôt des nouvelles à propos de NIS 2.",
@@ -100,11 +95,8 @@ export const RestezInformesSimpleRemplieEtEnvoieInfo: Story = {
     expect(
       canvas.queryByText("Nom de votre organisation"),
     ).not.toBeInTheDocument();
-    expect(
-      canvas.queryByText(consentementServicesAnssi),
-    ).not.toBeInTheDocument();
     await remplieChamp(canvas, "Adresse électronique", informationsEmail.email);
-    userEvent.click(await canvas.findByLabelText(consentementNis2));
+    userEvent.click(await canvas.findByLabelText(optinAccepterNewsletter));
     await cliqueValidationForm(canvas);
     await canvas.findByText(
       "Nous avons pris en compte votre demande. Vous recevrez bientôt des nouvelles à propos de NIS 2.",
