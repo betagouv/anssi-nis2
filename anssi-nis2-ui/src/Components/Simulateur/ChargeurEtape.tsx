@@ -38,6 +38,7 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
           {etatEtapes.contenuEtapeCourante.titre}
         </title>
       </Helmet>
+      <div id="debutForm"></div>
       <ElementRendu
         propageActionSimulateur={propageActionSimulateur}
         donneesFormulaire={donneesFormulaireSimulateur}

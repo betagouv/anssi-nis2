@@ -8,6 +8,9 @@ import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.tsx";
 import { EnvoieDonneesFormulaire } from "./Operations/appelsApi";
 import { donneesFormulaireSontCompletes } from "../../Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
 
+const centreSurHautFormulaire = () => 
+  window.scrollTo({ top: (document.getElementById("debutForm"))?.offsetTop });
+
 export const fabriqueGestionSuivant =
   (
     setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
@@ -24,6 +27,7 @@ export const fabriqueGestionSuivant =
     } else {
       setEtatEtape(fabriqueEtatEtapeSuivant(etatEtapes, donneesSimulateur));
     }
+    centreSurHautFormulaire();
   };
 
 export const fabriqueGestionPrecedent = (
@@ -36,6 +40,7 @@ export const fabriqueGestionPrecedent = (
   return (e: React.MouseEvent) => {
     e.preventDefault();
     setEtatEtape(fabriqueEtatEtapePrecedent(etatEtapes, donneesSimulateur));
+    centreSurHautFormulaire();
   };
 };
 
@@ -57,3 +62,5 @@ export const fabriqueInformationsBoutonsNavigation = (
     donneesFormulaireSimulateur,
   ),
 });
+
+
