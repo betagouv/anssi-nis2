@@ -11,6 +11,7 @@ import Input from "@codegouvfr/react-dsfr/Input";
 import { AppContext } from "./AppContexte/AppContext.tsx";
 import { InformationsEmail } from "../Domaine/Contact/InformationsEmail.definitions.ts";
 import { RegisterOptions, SubmitHandler, useForm } from "react-hook-form";
+import { libellesContact } from "../References/LibellesContact.ts";
 
 export const FormRestezInformes: DefaultComponentExtensible<
   FormulaireRestezInformesProps
@@ -25,10 +26,10 @@ export const FormRestezInformes: DefaultComponentExtensible<
     accepteInfolettreServicesDedies: {},
     nomOrganisation: {},
     email: {
-      required: "L'adresse électronique doit être renseignée",
+      required: libellesContact.erreurAdresseElectroniqueRequise,
       pattern: {
         value: regexpEmail,
-        message: "L'adresse électronique doit être valide",
+        message: libellesContact.erreurAdresseElectroniqueBonFormat,
       },
     },
   };
@@ -52,7 +53,7 @@ export const FormRestezInformes: DefaultComponentExtensible<
           {mode === "complet" && (
             <div className="fr-col fr-mr-3w">
               <Input
-                label="Nom de votre organisation"
+                label={libellesContact.nomOrganisation}
                 state="default"
                 nativeInputProps={construitPropagationChangement(
                   "nomOrganisation",
@@ -62,7 +63,7 @@ export const FormRestezInformes: DefaultComponentExtensible<
           )}
           <div className="fr-mb-10v fr-col">
             <Input
-              label="Adresse électronique"
+              label={libellesContact.adresseElectronique}
               state="default"
               nativeInputProps={construitPropagationChangement("email")}
             />
@@ -81,31 +82,13 @@ export const FormRestezInformes: DefaultComponentExtensible<
         <Checkbox
           options={[
             {
-              label: (
-                <>
-                  J’accepte de recevoir des informations concernant la directive
-                  NIS&nbsp;2
-                </>
-              ),
+              label: libellesContact.optinAccepterNewsletter,
               nativeInputProps: construitPropagationChangement(
                 "accepteInfolettreNis2",
               ),
             },
           ]}
         />
-        {mode === "complet" && (
-          <Checkbox
-            options={[
-              {
-                label:
-                  "Je souhaite m’enregistrer auprès de l’ANSSI afin de bénéficier des futurs services dédiés aux organisations concernées",
-                nativeInputProps: construitPropagationChangement(
-                  "accepteInfolettreServicesDedies",
-                ),
-              },
-            ]}
-          />
-        )}
       </div>
       <div className="fr-fieldset__element">
         <Button type="submit">S&apos;inscrire</Button>
