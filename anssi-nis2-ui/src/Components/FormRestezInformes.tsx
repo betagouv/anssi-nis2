@@ -11,7 +11,7 @@ import Input from "@codegouvfr/react-dsfr/Input";
 import { AppContext } from "./AppContexte/AppContext.tsx";
 import { InformationsEmail } from "../Domaine/Contact/InformationsEmail.definitions.ts";
 import { RegisterOptions, SubmitHandler, useForm } from "react-hook-form";
-import { optinAccepterNewsletter } from "../References/LibellesContact.ts";
+import { libellesContact } from "../References/LibellesContact.ts";
 
 export const FormRestezInformes: DefaultComponentExtensible<
   FormulaireRestezInformesProps
@@ -26,10 +26,10 @@ export const FormRestezInformes: DefaultComponentExtensible<
     accepteInfolettreServicesDedies: {},
     nomOrganisation: {},
     email: {
-      required: "L'adresse électronique doit être renseignée",
+      required: libellesContact.erreurAdresseElectroniqueRequise,
       pattern: {
         value: regexpEmail,
-        message: "L'adresse électronique doit être valide",
+        message: libellesContact.erreurAdresseElectroniqueBonFormat,
       },
     },
   };
@@ -46,7 +46,6 @@ export const FormRestezInformes: DefaultComponentExtensible<
   const construitPropagationChangement = (nomChamp: keyof InformationsEmail) =>
     register(nomChamp, validationParChamp[nomChamp]);
 
-
   return (
     <form className="fr-mb-0" onSubmit={handleSubmit(envoiDonnees)}>
       <div className="fr-container fr-px-0">
@@ -54,7 +53,7 @@ export const FormRestezInformes: DefaultComponentExtensible<
           {mode === "complet" && (
             <div className="fr-col fr-mr-3w">
               <Input
-                label="Nom de votre organisation"
+                label={libellesContact.nomOrganisation}
                 state="default"
                 nativeInputProps={construitPropagationChangement(
                   "nomOrganisation",
@@ -64,7 +63,7 @@ export const FormRestezInformes: DefaultComponentExtensible<
           )}
           <div className="fr-mb-10v fr-col">
             <Input
-              label="Adresse électronique"
+              label={libellesContact.adresseElectronique}
               state="default"
               nativeInputProps={construitPropagationChangement("email")}
             />
@@ -83,7 +82,7 @@ export const FormRestezInformes: DefaultComponentExtensible<
         <Checkbox
           options={[
             {
-              label: optinAccepterNewsletter,
+              label: libellesContact.optinAccepterNewsletter,
               nativeInputProps: construitPropagationChangement(
                 "accepteInfolettreNis2",
               ),

@@ -8,8 +8,7 @@ import { mockEnregistreInformationsEmail } from "../../utilitaires/mocks.ts";
 import { userEvent, within } from "@storybook/testing-library";
 import { CanvasObject } from "../../utilitaires/Canvas.d.tsx";
 import { InformationsEmail } from "../../../Domaine/Contact/InformationsEmail.definitions.ts";
-import { optinAccepterNewsletter } from "../../../References/LibellesContact.ts";
-
+import { libellesContact } from "../../../References/LibellesContact.ts";
 
 const enregistreEmailContexte: Contexte = {
   ...defaultContext,
@@ -67,15 +66,13 @@ export const RestezInformesCompletRemplieEtEnvoieInfo: Story = {
     const canvas = within(canvasElement);
     await remplieChamp(
       canvas,
-      "Nom de votre organisation",
+      libellesContact.nomOrganisation,
       informationsEmail.nomOrganisation ?? "",
     );
-    await remplieChamp(canvas, "Adresse électronique", informationsEmail.email);
-    userEvent.click(await canvas.findByLabelText(optinAccepterNewsletter));
+    await remplieChamp(canvas, libellesContact.adresseElectronique, informationsEmail.email);
+    userEvent.click(await canvas.findByLabelText(libellesContact.optinAccepterNewsletter));
     await cliqueValidationForm(canvas);
-    await canvas.findByText(
-      "Nous avons pris en compte votre demande. Vous recevrez bientôt des nouvelles à propos de NIS 2.",
-    );
+    await canvas.findByText(libellesContact.confirmationInformationsEmail);
     await expect(mockEnregistreInformationsEmail).toHaveBeenCalledTimes(1);
     await expect(mockEnregistreInformationsEmail).toHaveBeenCalledWith(
       informationsEmail,
@@ -93,14 +90,12 @@ export const RestezInformesSimpleRemplieEtEnvoieInfo: Story = {
     };
     const canvas = within(canvasElement);
     expect(
-      canvas.queryByText("Nom de votre organisation"),
+      canvas.queryByText(libellesContact.nomOrganisation),
     ).not.toBeInTheDocument();
-    await remplieChamp(canvas, "Adresse électronique", informationsEmail.email);
-    userEvent.click(await canvas.findByLabelText(optinAccepterNewsletter));
+    await remplieChamp(canvas, libellesContact.adresseElectronique, informationsEmail.email);
+    userEvent.click(await canvas.findByLabelText(libellesContact.optinAccepterNewsletter));
     await cliqueValidationForm(canvas);
-    await canvas.findByText(
-      "Nous avons pris en compte votre demande. Vous recevrez bientôt des nouvelles à propos de NIS 2.",
-    );
+    await canvas.findByText(libellesContact.confirmationInformationsEmail);
     await expect(mockEnregistreInformationsEmail).toHaveBeenCalledTimes(1);
     await expect(mockEnregistreInformationsEmail).toHaveBeenCalledWith(
       informationsEmail,
@@ -117,14 +112,12 @@ export const ValidationDesChamps: Story = {
       email: "toto@coco.com",
     };
     await cliqueValidationForm(canvas);
-    await canvas.findByText("L'adresse électronique doit être renseignée");
-    await remplieChamp(canvas, "Adresse électronique", "toto");
-    await canvas.findByText("L'adresse électronique doit être valide");
-    await remplieChamp(canvas, "Adresse électronique", "@coco.com");
+    await canvas.findByText(libellesContact.erreurAdresseElectroniqueRequise);
+    await remplieChamp(canvas, libellesContact.adresseElectronique, "toto");
+    await canvas.findByText(libellesContact.erreurAdresseElectroniqueBonFormat);
+    await remplieChamp(canvas, libellesContact.adresseElectronique, "@coco.com");
     await cliqueValidationForm(canvas);
-    await canvas.findByText(
-      "Nous avons pris en compte votre demande. Vous recevrez bientôt des nouvelles à propos de NIS 2.",
-    );
+    await canvas.findByText(libellesContact.confirmationInformationsEmail);
     await expect(mockEnregistreInformationsEmail).toHaveBeenCalledTimes(1);
     await expect(mockEnregistreInformationsEmail).toHaveBeenCalledWith(
       informationsEmail,
