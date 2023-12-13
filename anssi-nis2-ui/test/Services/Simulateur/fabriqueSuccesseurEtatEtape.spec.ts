@@ -4,11 +4,11 @@ import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
 } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
-import { EtatEtapes } from "../../../src/Services/Simulateur/EtatEtapes";
 import {
   fabriqueEtatEtapePrecedent,
   fabriqueEtatEtapeSuivant,
 } from "../../../src/Domaine/Simulateur/services/EtatEtape/EtatEtape.operations";
+import { EtatEtapes } from "../../../src/Domaine/Simulateur/EtatEtapes";
 
 const donneesVides = donneesFormulaireSimulateurVide;
 

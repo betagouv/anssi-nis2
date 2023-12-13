@@ -1,7 +1,6 @@
 export const ValeursOuiNon = ["oui", "non"] as const;
 export const ValeursDesignationOperateurServicesEssentiels = [
-  "oui",
-  "non",
+  ...ValeursOuiNon,
   "nsp",
 ] as const;
 export const ValeursAppartenancePaysUnionEuropeenne = [

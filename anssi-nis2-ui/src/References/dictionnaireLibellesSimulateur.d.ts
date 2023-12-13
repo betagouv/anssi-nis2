@@ -27,4 +27,5 @@ export type DictionnaireLibellesSimulateur = {
     FournitServicesUnionEuropeenne,
     string
   >;
+  localisationRepresentant: Record<AppartenancePaysUnionEuropeenne, string>;
 };

@@ -7,18 +7,13 @@ import {
 } from "../../src/Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
 import { verifieQue } from "../utilitaires/assure";
-import { IDonneesBrutesFormulaireSimulateur } from "../../src/Domaine/Simulateur/DonneesFormulaire";
+import { IDonneesBrutesFormulaireSimulateur, donneesFormulaireSimulateurVide } from "../../src/Domaine/Simulateur/DonneesFormulaire";
+import { ChampsFormulaireFacultatifs } from "../../src/Domaine/Simulateur/DonneesFormulaire.valeurs";
 
-const ChampsFormulaireFacultatifs = [
-  "activites",
-  "sousSecteurActivite",
-  "typeEntitePublique",
-  "trancheCA",
-  "fournitServicesUnionEuropeenne",
-];
 const donneesAbsentes = Object.entries(arbForm.nonValide.donneeAbsente).filter(
   ([nom]) => !ChampsFormulaireFacultatifs.includes(nom),
 );
+
 const donneesTestsArbitraires = [
   {
     nom: "designeOSE.petit",
@@ -83,32 +78,26 @@ const donneesNonValides: {
   {
     description: "activiteNulle",
     donnees: {
-      activites: [],
+      ...donneesFormulaireSimulateurVide,
       designeOperateurServicesEssentiels: ["oui"],
       etatMembre: ["france"],
       secteurActivite: ["espace"],
-      sousSecteurActivite: [],
       trancheCA: ["petit"],
       trancheNombreEmployes: ["petit"],
       typeStructure: ["privee"],
-      typeEntitePublique: [],
-      fournitServicesUnionEuropeenne: [],
     },
     tests: testsActiviteNulle,
   },
   {
     description: "publique",
     donnees: {
-      activites: [],
+      ...donneesFormulaireSimulateurVide,
       designeOperateurServicesEssentiels: ["oui"],
       etatMembre: ["france"],
       secteurActivite: ["energie"],
-      sousSecteurActivite: [],
-      trancheCA: [],
       trancheNombreEmployes: ["petit"],
       typeStructure: ["publique"],
       typeEntitePublique: ["administrationCentrale"],
-      fournitServicesUnionEuropeenne: [],
     },
     tests: [
       {
@@ -122,6 +111,7 @@ const donneesNonValides: {
     ],
   },
 ];
+
 describe.each([
   { actionTestee: verifieCompletudeDonneesCommunes },
   { actionTestee: donneesFormulaireSontCompletes },

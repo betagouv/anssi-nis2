@@ -27,6 +27,7 @@ export interface IDonneesBrutesFormulaireSimulateur
   typeStructure: TypeStructure[];
   typeEntitePublique: TypeEntitePublique[];
   fournitServicesUnionEuropeenne: FournitServicesUnionEuropeenne[];
+  localisationRepresentant: AppartenancePaysUnionEuropeenne[];
 }
 
 export interface IDonneesFormulaireSimulateur
@@ -50,6 +51,7 @@ export class DonneesFormulaireSimulateur
   typeStructure: TypeStructure[] = [];
   typeEntitePublique: TypeEntitePublique[] = [];
   fournitServicesUnionEuropeenne: FournitServicesUnionEuropeenne[] = [];
+  localisationRepresentant: AppartenancePaysUnionEuropeenne[] = [];
 
   constructor(depuis: Readonly<Partial<IDonneesFormulaireSimulateur>>) {
     Object.assign(this, depuis);
@@ -74,4 +76,5 @@ export const donneesFormulaireSimulateurVide: IDonneesBrutesFormulaireSimulateur
     typeEntitePublique: [],
     activites: [],
     fournitServicesUnionEuropeenne: [],
+    localisationRepresentant: [],
   };
