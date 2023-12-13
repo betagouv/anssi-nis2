@@ -39,6 +39,7 @@ export const gestionnairesDeChamp: Record<
   trancheNombreEmployes: gestionValeursSimples,
   typeStructure: gestionValeursSimples,
   typeEntitePublique: gestionValeursSimples,
+  fournitServicesUnionEuropeenne: gestionValeursSimples,
 };
 
 export const fabriqueGestionChangementSimple =

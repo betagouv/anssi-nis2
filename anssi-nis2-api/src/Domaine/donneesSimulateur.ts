@@ -11,4 +11,5 @@ export const donneesSimulateurVide: IDonneesBrutesFormulaireSimulateur = {
   trancheCA: [],
   trancheNombreEmployes: [],
   typeStructure: [],
+  fournitServicesUnionEuropeenne: [],
 };
