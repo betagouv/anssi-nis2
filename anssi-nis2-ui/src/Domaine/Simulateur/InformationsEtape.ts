@@ -1,18 +1,35 @@
-import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire";
 import {
-  SimulateurEtapeNodeComponent,
   SimulateurEtapeRenderedComponent,
 } from "../../Services/Simulateur/Props/component";
 
-import { ValidationReponses } from "./services/ChampSimulateur/champs.domaine.ts";
-import { PredicatDonneesSimulateur } from "../../Services/Simulateur/PredicatDonneesSimulateur.ts";
+import { ValidationReponses } from "./services/ChampSimulateur/champs.domaine";
+import { PredicatDonneesSimulateur } from "../../Services/Simulateur/PredicatDonneesSimulateur";
 import { P } from "ts-pattern";
+
+
+const typeEtapes = [
+  "designeOperateurServicesEssentiels",
+  "appartenanceUnionEuropeenne",
+  "typeStructure",
+  "tailleEntitePublique",
+  "tailleEntitePrivee",
+  "secteursActivite",
+  "sousSecteursActivite",
+  "activites",
+  "prealable",
+  "resultat",
+  "inexistante",
+  "variante",
+] as const;
+export type TypeEtape = (typeof typeEtapes)[number];
 
 export type InformationsEtape = {
   readonly longueurComptabilisee: 0 | 1;
   readonly existe: boolean;
   readonly titre: string;
-  readonly conteneurElementRendu: SimulateurEtapeRenderedComponent;
+  readonly type: TypeEtape;
+  readonly conteneurElementRendu?: SimulateurEtapeRenderedComponent;
 };
 
 export type CapaciteEtape = {
@@ -43,9 +60,9 @@ export type SousEtapeConditionnelle = {
 };
 
 export type CapacitesEtapeFormulaire = {
-  readonly fabriqueComposant: (
-    donnees: IDonneesBrutesFormulaireSimulateur,
-  ) => SimulateurEtapeNodeComponent;
+  // readonly fabriqueComposant: (
+  //   donnees: IDonneesBrutesFormulaireSimulateur,
+  // ) => SimulateurEtapeNodeComponent;
   readonly fabriqueValidationReponses: (
     donnees: IDonneesBrutesFormulaireSimulateur,
   ) => ValidationReponses;
@@ -53,7 +70,6 @@ export type CapacitesEtapeFormulaire = {
 export type InformationEtapeForm = EtapeExistante &
   CapacitesEtapeFormulaire & {
     readonly options: OptionsInformationEtapeForm;
-    readonly composant: SimulateurEtapeNodeComponent;
   };
 
 export type VariantesEtape<TypeEtape extends InformationEtapeForm> = {

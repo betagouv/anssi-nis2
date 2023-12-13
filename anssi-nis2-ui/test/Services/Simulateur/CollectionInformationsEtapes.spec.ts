@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { fc } from "@fast-check/vitest";
 import { decoreChaineRendue } from "../../utilitaires/manipulationArbitraires";
-import { EtapeInexistante } from "../../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
 
 import {
   collectionInformationsEtapesAvecInexistantes,
@@ -12,6 +11,7 @@ import { arbitrairesCollectionEtape } from "./arbitraires/collectionInformationE
 import { arbitrairesInformationEtape } from "./arbitraires/informationEtape.arbitraires.";
 import { arbListeEtapesEtIndice } from "./arbitraires/listeEtapes";
 import { CollectionInformationsEtapes } from "../../../src/Domaine/Simulateur/CollectionInformationsEtapes";
+import { EtapeVide } from "../../../src/Domaine/Simulateur/EtatEtapes";
 
 const collectionInformationsEtapes =
   exCollectionInformationEtape.longueur2.simple;
@@ -26,7 +26,7 @@ const parametresTests = [
   {
     etapeCourante: exInformationEtape.form2,
     indiceEtapeCourante: 1,
-    informationEtapeSuivante: EtapeInexistante,
+    informationEtapeSuivante: EtapeVide,
     estDernier: true,
     numeroEtape: 2,
   },

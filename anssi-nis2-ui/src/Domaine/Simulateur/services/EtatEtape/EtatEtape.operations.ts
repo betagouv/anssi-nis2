@@ -1,7 +1,4 @@
-import {
-  ConstantesEtatEtape,
-  EtatEtapes,
-} from "../../EtatEtapes.ts";
+import { ConstantesEtatEtape, EtatEtapes } from "../../EtatEtapes.ts";
 import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire.ts";
 import { fabriqueEtatEtape } from "../../fabriques/EtatEtape.fabrique.ts";
 import { match, P } from "ts-pattern";

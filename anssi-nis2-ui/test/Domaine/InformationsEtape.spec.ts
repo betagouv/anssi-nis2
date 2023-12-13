@@ -1,14 +1,6 @@
 import { describe, it, expect } from "vitest";
-import {
-  fabriquesInformationsEtapes,
-} from "../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
-import { SimulateurEtapeForm } from "../../src/Components/Simulateur/SimulateurEtapeForm";
-import {
-  CapacitesEtapeFormulaire,
-  EtapeExistante,
-  InformationEtapeForm,
-  VariantesEtape,
-} from "../../src/Services/Simulateur/InformationsEtape";
+import { fabriquesInformationsEtapes } from "../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
+
 import { exInformationEtape } from "../Services/Simulateur/exemples/informationEtape.exemples";
 import { fausseValidationReponse } from "../Services/Simulateur/InformationEtape.faussaire";
 import {
@@ -16,19 +8,24 @@ import {
   donneesFormulaireSimulateurVide,
 } from "../../src/Domaine/Simulateur/DonneesFormulaire";
 import { toujoursFaux } from "../../src/Domaine/Commun/Commun.predicats";
+import {
+  CapacitesEtapeFormulaire,
+  EtapeExistante,
+  InformationEtapeForm,
+  VariantesEtape,
+} from "../../src/Domaine/Simulateur/InformationsEtape";
 
 describe("fabriquesInformationsEtapes", () => {
   describe(fabriquesInformationsEtapes.variantes, () => {
     const resultatAttendu: EtapeExistante & CapacitesEtapeFormulaire = {
       varianteAffichee: expect.any(Function),
       longueurComptabilisee: 1,
+      type: "variante",
       existe: true,
       titre: "Etape Form 1",
       estIgnoree: toujoursFaux,
-      conteneurElementRendu: SimulateurEtapeForm,
       remplitContitionSousEtape: toujoursFaux,
       validationReponses: fausseValidationReponse,
-      fabriqueComposant: expect.any(Function),
       fabriqueValidationReponses: expect.any(Function),
     };
     it("initialisation avec une variantes", () => {

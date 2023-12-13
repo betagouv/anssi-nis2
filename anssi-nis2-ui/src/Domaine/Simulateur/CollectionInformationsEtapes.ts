@@ -1,9 +1,5 @@
-import {
-  InformationEtapeForm,
-  InformationsEtape,
-} from "./InformationsEtape.ts";
-import { EtapeInexistante } from "./fabriques/InformationsEtape.fabrique.ts";
-import { ConstantesEtatEtape } from "./EtatEtapes.ts";
+import { InformationEtapeForm, InformationsEtape } from "./InformationsEtape";
+import { ConstantesEtatEtape, EtapeVide } from "./EtatEtapes";
 
 export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   slice = (start?: number, end?: number) =>
@@ -50,17 +46,22 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   ): InformationsEtape =>
     this.reduce(
       this.recuperationEtapeSuivanteOuDefaut(indiceDepart),
-      EtapeInexistante,
+      EtapeVide as unknown as InformationsEtape,
     );
 
   recupereSousEtape = (indice: number, indiceSousEtape: number) =>
-    this.estSurSousEtape(indiceSousEtape) &&
-    this.recupereEtape<InformationEtapeForm>(indice).options
-      ?.sousEtapeConditionnelle?.sousEtape;
+    this.estSurSousEtape(indiceSousEtape)
+      ? this.recupereEtape<InformationEtapeForm>(indice).options
+          ?.sousEtapeConditionnelle?.sousEtape
+      : undefined;
 
   contenuEtape = (indiceEtape: number, indiceSousEtape: number) =>
     this.recupereSousEtape(indiceEtape, indiceSousEtape) ||
     this.recupereEtape<InformationEtapeForm>(indiceEtape);
+
+  typeEtape = (indiceEtape: number, indiceSousEtape: number) =>
+    this.recupereSousEtape(indiceEtape, indiceSousEtape)?.type ||
+    this.recupereEtape<InformationEtapeForm>(indiceEtape).type;
 
   private estIndiceValide = (indice: number) =>
     indice >= 0 && indice < this.length;

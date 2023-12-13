@@ -1,8 +1,4 @@
 import {
-  OptionsInformationEtapeForm,
-  SousEtapeConditionnelle,
-} from "../../../../src/Services/Simulateur/InformationsEtape";
-import {
   fausseValidationReponse,
   FauxSimulateurEtapeComposant,
 } from "../InformationEtape.faussaire";
@@ -10,13 +6,15 @@ import {
   fabriquesInformationsEtapes,
   optionsInformationEtapeFormParDefaut,
 } from "../../../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
+import { SousEtapeConditionnelle } from "../../../../src/Domaine/Simulateur/InformationsEtape";
+import { toujoursFaux } from "../../../../src/Domaine/Commun/Commun.predicats";
 
 export const predicatVrai = () => true;
 const informationEtapeResult = fabriquesInformationsEtapes.resultat("Resultat");
 
 const fabriqueFausseInformationEtapeForm = (
   titre: string,
-  options: Partial<OptionsInformationEtapeForm> = optionsInformationEtapeFormParDefaut,
+  options = optionsInformationEtapeFormParDefaut,
 ) => {
   return fabriquesInformationsEtapes.form(
     titre,
@@ -47,13 +45,13 @@ const informationEtapeFormJamaisEvitee = fabriqueFausseInformationEtapeForm(
 
 const informationSousEtapeForm =
   fabriqueFausseInformationEtapeForm("Sous-étape");
-const sousEtapeToujoursPresente: SousEtapeConditionnelle = {
+const sousEtapeToujoursPresente : SousEtapeConditionnelle = {
   condition: predicatVrai,
   sousEtape: informationSousEtapeForm,
 };
 const etapeEmployesAvecSousEtapeActivite = fabriqueFausseInformationEtapeForm(
   "Contient une sous Etape",
-  { sousEtapeConditionnelle: sousEtapeToujoursPresente },
+  { sousEtapeConditionnelle: sousEtapeToujoursPresente, ignoreSi: toujoursFaux },
 );
 
 const infoEtapesVariantesPriveePublique = fabriquesInformationsEtapes.variantes(
