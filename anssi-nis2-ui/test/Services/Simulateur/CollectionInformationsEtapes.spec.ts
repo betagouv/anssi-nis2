@@ -1,16 +1,17 @@
 import { describe, expect, it } from "vitest";
 import { fc } from "@fast-check/vitest";
-import { CollectionInformationsEtapes } from "../../../src/Services/Simulateur/CollectionInformationsEtapes";
 import { decoreChaineRendue } from "../../utilitaires/manipulationArbitraires";
-import { arbitrairesInformationEtape } from "./arbitraires/informationEtape";
-import { arbitrairesCollectionEtape } from "./arbitraires/collectionInformationEtape";
-import { arbListeEtapesEtIndice } from "./arbitraires/listeEtapes";
-import { exInformationEtape } from "./exemples/informationEtape.exemples";
 import {
   collectionInformationsEtapesAvecInexistantes,
   exCollectionInformationEtape,
 } from "./exemples/collectionInformationEtape.exemples";
 import { EtapeInexistante } from "../../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
+import { CollectionInformationsEtapes } from "../../../src/Services/Simulateur/CollectionInformationsEtapes";
+
+import { exInformationEtape } from "./exemples/informationEtape.exemples";
+import { arbitrairesCollectionEtape } from "./arbitraires/collectionInformationEtape";
+import { arbitrairesInformationEtape } from "./arbitraires/informationEtape.arbitraires.";
+import { arbListeEtapesEtIndice } from "./arbitraires/listeEtapes";
 
 const collectionInformationsEtapes =
   exCollectionInformationEtape.longueur2.simple;

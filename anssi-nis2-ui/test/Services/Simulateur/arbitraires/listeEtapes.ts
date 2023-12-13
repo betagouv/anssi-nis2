@@ -1,5 +1,5 @@
 import { fc } from "@fast-check/vitest";
-import { arbitrairesInformationEtape } from "./informationEtape";
+import { arbitrairesInformationEtape } from "./informationEtape.arbitraires.";
 
 const farbiqueArbitraireListeEtapeEtIndices = (
   arrayOptions = {},

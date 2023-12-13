@@ -1,7 +1,6 @@
 import { describe, it, expect } from "vitest";
 import {
   fabriquesInformationsEtapes,
-  toujoursFaux,
 } from "../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
 import { SimulateurEtapeForm } from "../../src/Components/Simulateur/SimulateurEtapeForm";
 import {
@@ -16,6 +15,7 @@ import {
   DonneesFormulaireSimulateur,
   donneesFormulaireSimulateurVide,
 } from "../../src/Domaine/Simulateur/DonneesFormulaire";
+import { toujoursFaux } from "../../src/Domaine/Commun/Commun.predicats";
 
 describe("fabriquesInformationsEtapes", () => {
   describe(fabriquesInformationsEtapes.variantes, () => {
