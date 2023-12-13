@@ -2,8 +2,8 @@ import {
   donneesFormulaireSimulateurVide,
   IDonneesBrutesFormulaireSimulateur,
 } from "../DonneesFormulaire.ts";
-import { EtatEtapes } from "../../../Services/Simulateur/EtatEtapes.ts";
-import { CollectionInformationsEtapes } from "../../../Services/Simulateur/CollectionInformationsEtapes.ts";
+import { EtatEtapes } from "../EtatEtapes.ts";
+import { CollectionInformationsEtapes } from "../CollectionInformationsEtapes.ts";
 
 const suivantEstIgnore = (
   suivant: EtatEtapes,

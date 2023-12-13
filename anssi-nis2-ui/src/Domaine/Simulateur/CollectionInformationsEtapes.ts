@@ -2,7 +2,7 @@ import {
   InformationEtapeForm,
   InformationsEtape,
 } from "./InformationsEtape.ts";
-import { EtapeInexistante } from "../../Domaine/Simulateur/fabriques/InformationsEtape.fabrique.ts";
+import { EtapeInexistante } from "./fabriques/InformationsEtape.fabrique.ts";
 import { ConstantesEtatEtape } from "./EtatEtapes.ts";
 
 export class CollectionInformationsEtapes extends Array<InformationsEtape> {

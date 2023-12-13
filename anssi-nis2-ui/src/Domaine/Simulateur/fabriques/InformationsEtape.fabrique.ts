@@ -8,7 +8,7 @@ import {
   OptionsInformationEtapeForm,
   SousEtapeConditionnelle,
   VariantesEtape,
-} from "../../../Services/Simulateur/InformationsEtape.ts";
+} from "../InformationsEtape.ts";
 import { PredicatDonneesSimulateur } from "../../../Services/Simulateur/PredicatDonneesSimulateur.ts";
 import { SimulateurEtapeNodeComponent } from "../../../Services/Simulateur/Props/component";
 import { ValidationReponses } from "../services/ChampSimulateur/champs.domaine.ts";

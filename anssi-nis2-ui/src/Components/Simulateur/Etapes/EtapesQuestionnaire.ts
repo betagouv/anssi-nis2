@@ -7,7 +7,7 @@ import {
   EtapeTaille,
   EtapeTypeStructure,
 } from "./index.ts";
-import { CollectionInformationsEtapes } from "../../../Services/Simulateur/CollectionInformationsEtapes.ts";
+import { CollectionInformationsEtapes } from "../../../Domaine/Simulateur/CollectionInformationsEtapes.ts";
 import {
   contientSousSecteurAutresUniquement,
   ou,

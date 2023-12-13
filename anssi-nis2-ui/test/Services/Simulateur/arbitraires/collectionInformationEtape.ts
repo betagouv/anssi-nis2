@@ -1,8 +1,8 @@
 import { fc } from "@fast-check/vitest";
-import { CollectionInformationsEtapes } from "../../../../src/Services/Simulateur/CollectionInformationsEtapes";
-import { InformationsEtape } from "../../../../src/Services/Simulateur/InformationsEtape";
 import { arbListeFormEtResult } from "./listeEtapes";
 import { arbitrairesInformationEtape } from "./informationEtape.arbitraires.";
+import { InformationsEtape } from "../../../../src/Domaine/Simulateur/InformationsEtape";
+import { CollectionInformationsEtapes } from "../../../../src/Domaine/Simulateur/CollectionInformationsEtapes";
 
 const fabriqueCollectionInformationsEtapes = (
   ...listes: InformationsEtape[][]

@@ -1,11 +1,11 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire.ts";
 import {
   SimulateurEtapeNodeComponent,
   SimulateurEtapeRenderedComponent,
-} from "./Props/component";
+} from "../../Services/Simulateur/Props/component";
 
-import { ValidationReponses } from "../../Domaine/Simulateur/services/ChampSimulateur/champs.domaine.ts";
-import { PredicatDonneesSimulateur } from "./PredicatDonneesSimulateur.ts";
+import { ValidationReponses } from "./services/ChampSimulateur/champs.domaine.ts";
+import { PredicatDonneesSimulateur } from "../../Services/Simulateur/PredicatDonneesSimulateur.ts";
 import { P } from "ts-pattern";
 
 export type InformationsEtape = {

@@ -1,4 +1,4 @@
-import { EtatEtapes } from "./EtatEtapes.ts";
+import { EtatEtapes } from "../../Domaine/Simulateur/EtatEtapes.ts";
 import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import {
   fabriqueEtatEtapePrecedent,
