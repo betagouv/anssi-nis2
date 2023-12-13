@@ -14,6 +14,9 @@ import {
   et,
   exactementUn,
 } from "../ChampSimulateur/champs.predicats.ts";
+import { toujoursVrai } from "../../../Commun/Commun.predicats.ts";
+import { toujoursFaux } from "../../../Commun/Commun.predicats.ts";
+import { estTableauNonVide } from "../../../Commun/Commun.predicats.ts";
 
 const verifAuMoinsUn = {
   activiteListee: (donnees: IDonneesBrutesFormulaireSimulateur) =>
@@ -30,9 +33,6 @@ export const predicatDonneesFormulaire = {
       donnees.activites.every(estActiviteAutre),
   },
 };
-const toujoursVrai = () => true;
-const toujoursFaux = () => false;
-const tableauNonVide = <T>(tableau: T[]) => tableau.length > 0;
 export const verifieCompletudeDonneesCommunes = (
   donnees: IDonneesBrutesFormulaireSimulateur,
 ) =>
@@ -79,7 +79,7 @@ const verifieDonneesSectorielles = (
       {
         secteurActivite: P.when(auMoinsUnSecteurListe),
         sousSecteurActivite: P.array(),
-        activites: P.when(tableauNonVide),
+        activites: P.when(estTableauNonVide),
       },
       toujoursVrai,
     )

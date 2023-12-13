@@ -19,10 +19,8 @@ import { SimulateurEtapePrealable } from "../../../Components/Simulateur/Simulat
 import { SimulateurEtapeResult } from "../../../Components/Simulateur/SimulateurEtapeResult.tsx";
 import { validationToutesLesReponses } from "../services/ChampSimulateur/ValidationReponses.ts";
 import { match } from "ts-pattern";
-
-export const toujoursFaux = () => false;
-export const toujoursVrai = () => true;
-export const toujourNegatif = () => -1;
+import { toujoursFaux, toujoursVrai } from "../../Commun/Commun.predicats.ts";
+import { toujourNegatif } from "../../Commun/Commun.predicats.ts";
 
 const fabriqueInformationsEtapeResultat: (titre: string) => EtapeResultat = (
   titre,
