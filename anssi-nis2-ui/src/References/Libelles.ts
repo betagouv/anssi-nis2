@@ -12,10 +12,13 @@ import {
   TypeStructure,
 } from "../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 
-export const libellesFournitServicesUnionEuropeenne: Record<FournitServicesUnionEuropeenne, string> = {
+export const libellesFournitServicesUnionEuropeenne: Record<
+  FournitServicesUnionEuropeenne,
+  string
+> = {
   oui: "Oui",
   non: "Non",
-}
+};
 
 export const libellesDesigneOSE: Record<
   DesignationOperateurServicesEssentiels,

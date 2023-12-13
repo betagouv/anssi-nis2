@@ -18,7 +18,8 @@
     "build": "npm run build --workspaces --if-present",
     "start": "npm run start:prod -w anssi-nis2-api",
     "db:migrate": "npm run -w anssi-nis2-api typeorm migration:run -- --dataSource ./src/dataSource.ts",
-    "db:migrate:revert": "npm run -w anssi-nis2-api typeorm migration:revert -- --dataSource ./src/dataSource.ts"
+    "db:migrate:revert": "npm run -w anssi-nis2-api typeorm migration:revert -- --dataSource ./src/dataSource.ts",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "eslint-plugin-storybook": "^0.6.15",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "husky": "^8.0.0"
   }
 }
