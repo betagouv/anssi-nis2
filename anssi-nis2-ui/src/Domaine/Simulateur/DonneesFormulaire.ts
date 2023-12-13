@@ -3,6 +3,7 @@ import { SousSecteurActivite } from "./SousSecteurActivite.definitions";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
+  FournitServicesUnionEuropeenne,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeEntitePublique,
@@ -25,6 +26,7 @@ export interface IDonneesBrutesFormulaireSimulateur
   trancheNombreEmployes: TrancheNombreEmployes[];
   typeStructure: TypeStructure[];
   typeEntitePublique: TypeEntitePublique[];
+  fournitServicesUnionEuropeenne: FournitServicesUnionEuropeenne[];
 }
 
 export interface IDonneesFormulaireSimulateur
@@ -47,6 +49,7 @@ export class DonneesFormulaireSimulateur
   trancheNombreEmployes: TrancheNombreEmployes[] = [];
   typeStructure: TypeStructure[] = [];
   typeEntitePublique: TypeEntitePublique[] = [];
+  fournitServicesUnionEuropeenne: FournitServicesUnionEuropeenne[] = [];
 
   constructor(depuis: Readonly<Partial<IDonneesFormulaireSimulateur>>) {
     Object.assign(this, depuis);
@@ -70,4 +73,5 @@ export const donneesFormulaireSimulateurVide: IDonneesBrutesFormulaireSimulateur
     typeStructure: [],
     typeEntitePublique: [],
     activites: [],
+    fournitServicesUnionEuropeenne: [],
   };

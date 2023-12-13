@@ -1,5 +1,4 @@
 import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire";
-
 import { ValidationReponses } from "./services/ChampSimulateur/champs.domaine";
 import { PredicatDonneesSimulateur } from "../../Services/Simulateur/PredicatDonneesSimulateur";
 import { P } from "ts-pattern";

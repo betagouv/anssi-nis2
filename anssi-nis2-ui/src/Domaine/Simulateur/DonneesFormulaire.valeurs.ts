@@ -8,4 +8,5 @@ export const ValeursNomChampsFormulaire = [
   "secteurActivite",
   "sousSecteurActivite",
   "activites",
+  "fournitServicesUnionEuropeenne",
 ] as const;

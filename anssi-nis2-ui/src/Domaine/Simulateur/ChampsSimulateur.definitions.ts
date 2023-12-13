@@ -3,21 +3,27 @@ import { SecteurActivite } from "./SecteurActivite.definitions";
 import {
   ValeursAppartenancePaysUnionEuropeenne,
   ValeursDesignationOperateurServicesEssentiels,
+  ValeursOuiNon,
   ValeursPetitMoyenGrand,
   ValeursTypeEntitePublique,
   ValeursTypeStructure,
 } from "./ChampsSimulateur.valeurs";
 import { ValeursActivites } from "./Activite.definitions";
 
-export type DesignationOperateurServicesEssentiels =
-  (typeof ValeursDesignationOperateurServicesEssentiels)[number];
-export declare type AppartenancePaysUnionEuropeenne =
-  (typeof ValeursAppartenancePaysUnionEuropeenne)[number];
-export type TypeStructure = (typeof ValeursTypeStructure)[number];
-export type TypeEntitePublique = (typeof ValeursTypeEntitePublique)[number];
-export type UnionPetitMoyenGrand = (typeof ValeursPetitMoyenGrand)[number];
+type UnionDe<T extends Readonly<Array<string>>> = T[number];
+
+export type DesignationOperateurServicesEssentiels = UnionDe<
+  typeof ValeursDesignationOperateurServicesEssentiels
+>;
+export type AppartenancePaysUnionEuropeenne = UnionDe<
+  typeof ValeursAppartenancePaysUnionEuropeenne
+>;
+export type TypeStructure = UnionDe<typeof ValeursTypeStructure>;
+export type TypeEntitePublique = UnionDe<typeof ValeursTypeEntitePublique>;
+export type UnionPetitMoyenGrand = UnionDe<typeof ValeursPetitMoyenGrand>;
 export type TrancheNombreEmployes = UnionPetitMoyenGrand;
 export type TrancheChiffreAffaire = UnionPetitMoyenGrand;
+export type FournitServicesUnionEuropeenne = UnionDe<typeof ValeursOuiNon>;
 export type ValeurChampSimulateur =
   | DesignationOperateurServicesEssentiels
   | AppartenancePaysUnionEuropeenne
@@ -27,4 +33,5 @@ export type ValeurChampSimulateur =
   | TrancheNombreEmployes
   | SecteurActivite
   | SousSecteurActivite
-  | ValeursActivites;
+  | ValeursActivites
+  | FournitServicesUnionEuropeenne;

@@ -9,14 +9,15 @@ import { arbForm } from "./arbitraires/arbitrairesSimulateur";
 import { verifieQue } from "../utilitaires/assure";
 import { IDonneesBrutesFormulaireSimulateur } from "../../src/Domaine/Simulateur/DonneesFormulaire";
 
+const ChampsFormulaireFacultatifs = [
+  "activites",
+  "sousSecteurActivite",
+  "typeEntitePublique",
+  "trancheCA",
+  "fournitServicesUnionEuropeenne",
+];
 const donneesAbsentes = Object.entries(arbForm.nonValide.donneeAbsente).filter(
-  ([nom]) =>
-    ![
-      "activites",
-      "sousSecteurActivite",
-      "typeEntitePublique",
-      "trancheCA",
-    ].includes(nom),
+  ([nom]) => !ChampsFormulaireFacultatifs.includes(nom),
 );
 const donneesTestsArbitraires = [
   {
@@ -91,6 +92,7 @@ const donneesNonValides: {
       trancheNombreEmployes: ["petit"],
       typeStructure: ["privee"],
       typeEntitePublique: [],
+      fournitServicesUnionEuropeenne: [],
     },
     tests: testsActiviteNulle,
   },
@@ -106,6 +108,7 @@ const donneesNonValides: {
       trancheNombreEmployes: ["petit"],
       typeStructure: ["publique"],
       typeEntitePublique: ["administrationCentrale"],
+      fournitServicesUnionEuropeenne: [],
     },
     tests: [
       {
