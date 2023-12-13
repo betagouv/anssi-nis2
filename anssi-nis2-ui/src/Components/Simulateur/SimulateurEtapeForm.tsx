@@ -5,6 +5,28 @@ import { CenteredContainer } from "../General/CenteredContainer.tsx";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
 import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 import { AidezNousAmeliorerService } from "../AidezNousAmeliorerService.tsx";
+import { EtatEtapes } from "../../Domaine/Simulateur/EtatEtapes.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import {
+  InformationsEtapesVariantes,
+  InformationEtapeForm,
+} from "../../Domaine/Simulateur/InformationsEtape.ts";
+import { cartoComposants } from "../../Services/Simulateur/Transformateurs/TypeEtapeVersComposantEtape.transformateur.ts";
+
+const etapeVarianteAffichee =
+  (etatEtapes: EtatEtapes) => (donnees: IDonneesBrutesFormulaireSimulateur) => {
+    const variante = etatEtapes.collectionEtapes.recupereEtape(
+      etatEtapes.indiceCourant,
+    ) as InformationsEtapesVariantes<InformationEtapeForm>;
+    return cartoComposants[
+      variante.variantes[variante.varianteAffichee(donnees)].type
+    ];
+  };
+
+const etapeAffichee = (etatEtapes: EtatEtapes) =>
+  etatEtapes.typeEtapeCourante === "variante"
+    ? etapeVarianteAffichee(etatEtapes)
+    : () => cartoComposants[etatEtapes.typeEtapeCourante];
 
 export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
   propageActionSimulateur,
@@ -17,8 +39,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
       donneesFormulaire,
     );
 
-  const EtapeCourante =
-    etatEtapes.contenuEtapeCourante.fabriqueComposant(donneesFormulaire);
+  const EtapeCourante = etapeAffichee(etatEtapes)(donneesFormulaire).composant;
 
   return (
     <>

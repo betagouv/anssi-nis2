@@ -7,7 +7,8 @@ export const fausseValidationReponse: ValidationReponses = {
   message: "Fausse validation",
   validateur: vi.fn(),
 };
-export const FauxSimulateurEtapeComposant: TypeEtape = "designeOperateurServicesEssentiels";
+export const FauxSimulateurEtapeComposant: TypeEtape =
+  "designeOperateurServicesEssentiels";
 export const faussaireInformationEtapeForm = ({
   titre,
   sousTitre,

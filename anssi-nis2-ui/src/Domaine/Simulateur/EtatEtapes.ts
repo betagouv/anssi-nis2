@@ -1,7 +1,16 @@
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes";
-import { CapaciteEtape, InformationEtapeForm, InformationsEtape, TypeEtape } from "./InformationsEtape";
+import {
+  CapaciteEtape,
+  InformationEtapeForm,
+  InformationsEtape,
+  TypeEtape,
+} from "./InformationsEtape";
 import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire";
-import { toujourNegatif, toujoursFaux, toujoursVrai } from "../Commun/Commun.predicats";
+import {
+  toujourNegatif,
+  toujoursFaux,
+  toujoursVrai,
+} from "../Commun/Commun.predicats";
 import { validationToutesLesReponses } from "./services/ChampSimulateur/ValidationReponses";
 
 export type EtatEtapes = {

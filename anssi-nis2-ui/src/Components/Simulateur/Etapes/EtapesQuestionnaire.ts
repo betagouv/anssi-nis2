@@ -1,12 +1,3 @@
-import {
-  EtapeActivites,
-  EtapeLocalisation,
-  EtapeOSE,
-  EtapeSecteursActivite,
-  EtapeSousSecteursActivite,
-  EtapeTaille,
-  EtapeTypeStructure,
-} from "./index.ts";
 import { CollectionInformationsEtapes } from "../../../Domaine/Simulateur/CollectionInformationsEtapes.ts";
 import {
   contientSousSecteurAutresUniquement,
@@ -27,7 +18,6 @@ import {
   contientAutreSecteurActiviteUniquement,
   estUnSecteurAvecDesSousSecteurs,
 } from "../../../Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
-import EtapeTaillePublique from "./EtapeTaillePublique.tsx";
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
@@ -41,23 +31,23 @@ const sousEtapeSousSecteur =
     fabriquesInformationsEtapes.form(
       "Sous-secteur d'activité",
       validationReponsesSousActivites,
-      EtapeSousSecteursActivite,
+      "sousSecteursActivite",
     ),
   );
 const etapeTailleStructurePrivee = fabriquesInformationsEtapes.form(
   "Taille de l’organisation",
   validationReponsesTaille,
-  EtapeTaille,
+  "tailleEntitePrivee",
 );
 const etapeTailleStructurePublique = fabriquesInformationsEtapes.form(
   "Taille de l’organisation",
   fabriqueValidationUneReponses("trancheNombreEmployes"),
-  EtapeTaillePublique,
+  "tailleEntitePublique",
 );
 const etapeSecteurActivite = fabriquesInformationsEtapes.form(
   "Secteurs d’activité",
   validationReponsesSecteurs,
-  EtapeSecteursActivite,
+  "secteursActivite",
   {
     sousEtapeConditionnelle: sousEtapeSousSecteur,
   },
@@ -68,17 +58,17 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
     fabriquesInformationsEtapes.form(
       "Désignation éventuelle",
       fabriqueValidationUneReponses("designeOperateurServicesEssentiels"),
-      EtapeOSE,
+      "designeOperateurServicesEssentiels",
     ),
     fabriquesInformationsEtapes.form(
       "Localisation de l’activité",
       fabriqueValidationUneReponses("etatMembre"),
-      EtapeLocalisation,
+      "appartenanceUnionEuropeenne",
     ),
     fabriquesInformationsEtapes.form(
       "Type de structure",
       validationReponsesTypeStructure,
-      EtapeTypeStructure,
+      "typeStructure",
     ),
     fabriquesInformationsEtapes.variantes([
       {
@@ -92,13 +82,10 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
     ]),
     etapeSecteurActivite,
 
-    // fabriquesInformationsEtapes.variantes([
-    //   { etape: etapeSecteurActivite, conditions: {} },
-    // ]),
     fabriquesInformationsEtapes.form(
       "Activités pratiquées",
       validationReponsesActivites,
-      EtapeActivites,
+      "activites",
       {
         ignoreSi: ou(
           contientAutreSecteurActiviteUniquement,

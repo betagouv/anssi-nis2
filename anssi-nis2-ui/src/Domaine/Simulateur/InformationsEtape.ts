@@ -1,12 +1,8 @@
 import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire";
-import {
-  SimulateurEtapeRenderedComponent,
-} from "../../Services/Simulateur/Props/component";
 
 import { ValidationReponses } from "./services/ChampSimulateur/champs.domaine";
 import { PredicatDonneesSimulateur } from "../../Services/Simulateur/PredicatDonneesSimulateur";
 import { P } from "ts-pattern";
-
 
 const typeEtapes = [
   "designeOperateurServicesEssentiels",
@@ -29,7 +25,6 @@ export type InformationsEtape = {
   readonly existe: boolean;
   readonly titre: string;
   readonly type: TypeEtape;
-  readonly conteneurElementRendu?: SimulateurEtapeRenderedComponent;
 };
 
 export type CapaciteEtape = {
@@ -60,9 +55,6 @@ export type SousEtapeConditionnelle = {
 };
 
 export type CapacitesEtapeFormulaire = {
-  // readonly fabriqueComposant: (
-  //   donnees: IDonneesBrutesFormulaireSimulateur,
-  // ) => SimulateurEtapeNodeComponent;
   readonly fabriqueValidationReponses: (
     donnees: IDonneesBrutesFormulaireSimulateur,
   ) => ValidationReponses;

@@ -45,13 +45,16 @@ const informationEtapeFormJamaisEvitee = fabriqueFausseInformationEtapeForm(
 
 const informationSousEtapeForm =
   fabriqueFausseInformationEtapeForm("Sous-étape");
-const sousEtapeToujoursPresente : SousEtapeConditionnelle = {
+const sousEtapeToujoursPresente: SousEtapeConditionnelle = {
   condition: predicatVrai,
   sousEtape: informationSousEtapeForm,
 };
 const etapeEmployesAvecSousEtapeActivite = fabriqueFausseInformationEtapeForm(
   "Contient une sous Etape",
-  { sousEtapeConditionnelle: sousEtapeToujoursPresente, ignoreSi: toujoursFaux },
+  {
+    sousEtapeConditionnelle: sousEtapeToujoursPresente,
+    ignoreSi: toujoursFaux,
+  },
 );
 
 const infoEtapesVariantesPriveePublique = fabriquesInformationsEtapes.variantes(
