@@ -42,6 +42,10 @@ export type DonneesFormulaireExtensibles =
   | DonneesSectorielles
   | Omit<DonneesBrutesSansActivite, "trancheNombreEmployes">;
 
+export type DonneesAjout = 
+  | Pick<IDonneesBrutesFormulaireSimulateur, "trancheCA">
+  | Pick<IDonneesBrutesFormulaireSimulateur, "designeOperateurServicesEssentiels"|"typeStructure"|"trancheCA"| "trancheNombreEmployes" | "etatMembre">
+
 export const propageBase = <
   DonneesPartielles extends DonneesFormulaireExtensibles,
 >(
@@ -55,41 +59,16 @@ export const propageBase = <
     {},
   ) as { [K in keyof DonneesPartielles]: fc.Arbitrary<DonneesPartielles[K]> };
 
-type AjoutADonneesFormulaire = Partial<{
-  [K in keyof IDonneesBrutesFormulaireSimulateur]: fc.Arbitrary<
-    IDonneesBrutesFormulaireSimulateur[K]
-  >;
-}>;
 export type DonneesBrutesSansActivite = Omit<
   IDonneesBrutesFormulaireSimulateur,
   "activites"
 >;
+
 export type DonneesSansActivite = Omit<
   IDonneesFormulaireSimulateur,
   "activites"
 >;
 
-const fabriqueEtendAvec: <
-  DonneesPartielles extends DonneesFormulaireExtensibles,
-  TypeAjout extends AjoutADonneesFormulaire = AjoutADonneesFormulaire,
-  TypeRetour = unknown,
->(
-  arbitraire: fc.Arbitrary<DonneesPartielles>,
-) => (ajouts: TypeAjout) => fc.Arbitrary<TypeRetour> =
-  (arbitraire) =>
-  <TypeRetour>(ajouts) =>
-    arbitraire.chain((base) =>
-      fc.record({ ...propageBase(base), ...ajouts }),
-    ) as fc.Arbitrary<TypeRetour>;
-
-export const etend = <
-  DonneesPartielles extends DonneesFormulaireExtensibles,
-  TypeAjout extends AjoutADonneesFormulaire = AjoutADonneesFormulaire,
->(
-  arbitraire: fc.Arbitrary<DonneesPartielles>,
-) => ({
-  avec: fabriqueEtendAvec<DonneesPartielles, TypeAjout>(arbitraire),
-});
 type DonneesExtensiblesAvecActivite<
   DonneesPartielles extends DonneesSectorielles,
 > = DonneesPartielles & Pick<IDonneesBrutesFormulaireSimulateur, "activites">;
@@ -99,6 +78,36 @@ type OperationAjouteArbitraireActivites = <
   base: DonneesPartielles,
   options?: ArbitraireOptionsActivites,
 ) => fc.Arbitrary<DonneesExtensiblesAvecActivite<DonneesPartielles>>;
+
+const fabriqueEtendAvec: <
+  DonneesPartielles extends DonneesFormulaireExtensibles,
+  TypeAjout extends DonneesAjout = DonneesAjout,
+  TypeRetour extends DonneesPartielles & TypeAjout = DonneesPartielles & TypeAjout,
+>(
+  arbitraire: fc.Arbitrary<DonneesPartielles>,
+) => (ajouts: fc.Arbitrary<TypeAjout>) => fc.Arbitrary<TypeRetour> =
+  (arbitraire) =>
+    <TypeRetour>(ajouts) =>
+      arbitraire.chain((base) =>
+        fc.record({ ...propageBase(base), ...ajouts }),
+      ) as fc.Arbitrary<TypeRetour>;
+
+export const etend = <
+  DonneesPartielles extends DonneesFormulaireExtensibles,
+>(
+  arbitraireOrigine: fc.Arbitrary<DonneesPartielles>,
+) => ({
+  avec<
+    TypeAjout extends DonneesAjout = DonneesAjout,
+    TypeRetour extends DonneesPartielles & TypeAjout = DonneesPartielles & TypeAjout,
+  >(arbitraireAjoute: fc.Arbitrary<TypeAjout>) {
+    return fabriqueEtendAvec<
+      DonneesPartielles,
+      TypeAjout,
+      TypeRetour
+    >(arbitraireOrigine)(arbitraireAjoute)
+  }
+});
 
 export const ajouteMethodeAvec = (base: IDonneesFormulaireSimulateur) => {
   const avecMethod = (data: IDonneesFormulaireSimulateur) =>
@@ -119,15 +128,12 @@ const etendAvecActivitesVides = <DonneesPartielles extends DonneesSectorielles>(
   fc.record({
     ...propageBase(base),
     activites: fc.constant([]),
-  }) as fc.Arbitrary<DonneesExtensiblesAvecActivite<DonneesPartielles>>;
+  }) as unknown as fc.Arbitrary<DonneesExtensiblesAvecActivite<DonneesPartielles>>;
 
-const extraitOptionsAjoutArbitrairesActivite = (options: {
-  filtreActivite: () => boolean;
-  minLength: number;
-}): [() => boolean, number] => [
-  options?.filtreActivite || (() => true),
-  options?.minLength || 0,
-];
+const extraitOptionsAjoutArbitrairesActivite = (options?: ArbitraireOptionsActivites): [(activite: ValeursActivites) => boolean, number] => [
+    options?.filtreActivite || (() => true),
+    options?.minLength || 0,
+  ];
 
 function etendDonneesActivite<DonneesPartielles>(
   base: DonneesPartielles &
@@ -144,7 +150,7 @@ export const ajouteArbitraireActivites: OperationAjouteArbitraireActivites = <
 >(
   base: DonneesPartielles &
     Partial<Pick<IDonneesBrutesFormulaireSimulateur, "activites">>,
-  options?: { filtreActivite: () => boolean; minLength: number },
+  options?: ArbitraireOptionsActivites,
 ) => {
   const [filtreActivite, minLength] =
     extraitOptionsAjoutArbitrairesActivite(options);
@@ -169,10 +175,9 @@ export const ajouteArbitraireActivites: OperationAjouteArbitraireActivites = <
     ...propageBase(base),
     activites: arbAuMoinsUneActivites,
   };
-  return fc.record(enregistrementAvecActivites) as fc.Arbitrary<
-    DonneesExtensiblesAvecActivite<DonneesPartielles>
-  >;
+  return fc.record(enregistrementAvecActivites) as fc.Arbitrary<DonneesExtensiblesAvecActivite<DonneesPartielles>>;
 };
+
 export const contrainteTranchesSansDoublonSurValeur = (
   base,
   valeurExclusive: UnionPetitMoyenGrand,
@@ -202,7 +207,7 @@ const extraitSousSecteursDesCouples = (
 ) =>
   Array.from(
     couplesSecteurSousSecteur.reduce(
-      (listeSousSecteurs, couple) => listeSousSecteurs.add(couple.sousSecteur),
+      (listeSousSecteurs, couple) => couple.sousSecteur ? listeSousSecteurs.add(couple.sousSecteur) : listeSousSecteurs,
       new Set<SousSecteurActivite>(),
     ),
   ).filter((sousSecteur) => sousSecteur !== undefined);
@@ -233,7 +238,7 @@ export const fabriqueArbEnrSecteurSousSecteurs = (
   }
   return fabriqueArbSecteurSousSecteursTailleMini(
     listeSecteursSousSecteurs,
-    minLength,
+    minLength || 0,
   );
 };
 
@@ -245,9 +250,9 @@ export const decoreChaineRendue = <T extends object>(objet: T) => {
 };
 
 export const fabriqueArbContraintSurTrancheCA = (
-  base: Omit<DonneesBrutesSansActivite, "trancheNombreEmployes">,
+  base: Omit<DonneesBrutesSansActivite, "trancheNombreEmployes"> | Omit<IDonneesBrutesFormulaireSimulateur, "trancheNombreEmployes">,
 ) =>
-  fc.record<DonneesBrutesSansActivite>({
+  fc.record({
     ...propageBase(base),
     trancheNombreEmployes: contrainteTranchesSansDoublonSurValeur(
       base,

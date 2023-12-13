@@ -103,6 +103,7 @@ describe(calculeEligibilite, () => {
             sousSecteurActivite: [],
             activites: ["collectantEvacuantTraitantEaux"],
             fournitServicesUnionEuropeenne: [],
+            localisationRepresentant: [],
           })
           .renvoieToujours(Eligibilite.Incertain);
       });
