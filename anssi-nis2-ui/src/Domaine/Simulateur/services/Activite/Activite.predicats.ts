@@ -6,6 +6,7 @@ import {
   ValeursActivitesConcernesInfrastructureNumerique,
   ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
 } from "../../Eligibilite.constantes.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire.ts";
 
 export const activiteEstDansSecteur = (
   activite: ValeursActivites,
@@ -45,3 +46,6 @@ export const auMoinsUneActiviteInfraNumConcernee =
 export const aucuneActiviteInfraNumConcernee = aucuneActiviteCommuneAvec(
   ValeursActivitesConcernesInfrastructureNumerique,
 );
+export const exerceActiviteDansListe = (liste: ValeursActivites[]) => (d: IDonneesBrutesFormulaireSimulateur) => d.activites.some((a) => liste.includes(a));
+export const exerceUniquementActivitesDansListe = (liste: ValeursActivites[]) => (d: IDonneesBrutesFormulaireSimulateur) => d.activites.every((a) => liste.includes(a));
+export const exerceAucuneActivitesDansListe = (liste: ValeursActivites[]) => (d: IDonneesBrutesFormulaireSimulateur) => d.activites.every((a) => !liste.includes(a));

@@ -78,6 +78,8 @@ type OperationAjouteArbitraireActivites = <
   base: DonneesPartielles,
   options?: ArbitraireOptionsActivites,
 ) => fc.Arbitrary<DonneesExtensiblesAvecActivite<DonneesPartielles>>;
+export type Arbitrarise<T> = { [K in keyof T]: fc.Arbitrary<T[K]>}
+
 
 const fabriqueEtendAvec: <
   DonneesPartielles extends DonneesFormulaireExtensibles,
@@ -85,7 +87,7 @@ const fabriqueEtendAvec: <
   TypeRetour extends DonneesPartielles & TypeAjout = DonneesPartielles & TypeAjout,
 >(
   arbitraire: fc.Arbitrary<DonneesPartielles>,
-) => (ajouts: fc.Arbitrary<TypeAjout>) => fc.Arbitrary<TypeRetour> =
+) => (ajouts: Arbitrarise<TypeAjout>) => fc.Arbitrary<TypeRetour> =
   (arbitraire) =>
     <TypeRetour>(ajouts) =>
       arbitraire.chain((base) =>
@@ -100,7 +102,7 @@ export const etend = <
   avec<
     TypeAjout extends DonneesAjout = DonneesAjout,
     TypeRetour extends DonneesPartielles & TypeAjout = DonneesPartielles & TypeAjout,
-  >(arbitraireAjoute: fc.Arbitrary<TypeAjout>) {
+  >(arbitraireAjoute: Arbitrarise<TypeAjout>) {
     return fabriqueEtendAvec<
       DonneesPartielles,
       TypeAjout,

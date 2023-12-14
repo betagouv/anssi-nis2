@@ -1,16 +1,12 @@
 import { fc } from "@fast-check/vitest";
 import {
-  IDonneesBrutesFormulaireSimulateur,
   IDonneesFormulaireSimulateur,
 } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import {
   ajouteAuMoinsUneActiviteListee,
-  DonneesAjout,
   DonneesSectorielles,
   etend,
-  fabriqueArbContraintSurTrancheCA,
   fabriqueArbEnrSecteurSousSecteurs,
-  fabriqueArbTrancheSingleton,
 } from "../../utilitaires/manipulationArbitraires";
 import {
   filtreEnrSectorielHorsSecteurs,
@@ -26,6 +22,7 @@ import {
   ValeursActivitesConcernesInfrastructureNumerique,
   ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
 } from "../../../src/Domaine/Simulateur/Eligibilite.constantes";
+import { exerceActiviteDansListe, exerceUniquementActivitesDansListe, exerceAucuneActivitesDansListe } from "../../../src/Domaine/Simulateur/services/Activite/Activite.predicats";
 
 const arbSecteurSousSecteurInfraNum = fabriqueArbEnrSecteurSousSecteurs(
   filtreSecteurListeSecteursSousSecteurs("infrastructureNumerique"),
@@ -39,7 +36,7 @@ const arbSecteurSousSecteurNonInfraNum = fabriqueArbEnrSecteurSousSecteurs(
   { minLength: 1 },
 );
 
-export const arbNonOSEPrivesPetitFournisseurInfraNum =
+const arbNonOSEPrivesPetitFournisseurInfraNum =
   etend<DonneesSectorielles>(arbSecteurSousSecteurInfraNum)
     .avec({
       designeOperateurServicesEssentiels: arbDesigneOperateurServicesEssentiels.non,
@@ -47,50 +44,21 @@ export const arbNonOSEPrivesPetitFournisseurInfraNum =
       trancheCA: arbTranche.petit,
       trancheNombreEmployes: arbTranche.petit,
       etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
-    } as unknown as fc.Arbitrary<DonneesAjout>)
+    })
     .chain(ajouteAuMoinsUneActiviteListee);
 
-export const arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernes: fc.Arbitrary<IDonneesFormulaireSimulateur> =
+
+const arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernesFrance: fc.Arbitrary<IDonneesFormulaireSimulateur> =
   arbNonOSEPrivesPetitFournisseurInfraNum.filter(
-    (d: IDonneesBrutesFormulaireSimulateur) =>
-      d.activites.some((a) =>
-        ValeursActivitesConcernesInfrastructureNumerique.includes(a),
-      ),
+    exerceUniquementActivitesDansListe(ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement),
   );
 
-export const arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernesFrance: fc.Arbitrary<IDonneesFormulaireSimulateur> =
+const arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes: fc.Arbitrary<IDonneesFormulaireSimulateur> =
   arbNonOSEPrivesPetitFournisseurInfraNum.filter(
-    (d: IDonneesBrutesFormulaireSimulateur) =>
-      d.activites.every((a) =>
-        ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement.includes(
-          a,
-        ),
-      ),
+    exerceAucuneActivitesDansListe([...ValeursActivitesConcernesInfrastructureNumerique, ...ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement])
   );
 
-export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance: fc.Arbitrary<IDonneesFormulaireSimulateur> =
-  etend(arbNonOSEPrivesPetitFournisseurInfraNum)
-    .avec({ trancheCA: fabriqueArbTrancheSingleton() } as unknown as fc.Arbitrary<DonneesAjout>)
-    .chain(fabriqueArbContraintSurTrancheCA)
-    .filter((d) : d is IDonneesBrutesFormulaireSimulateur =>
-      (d as IDonneesBrutesFormulaireSimulateur).activites.every((a) =>
-        ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement.includes(
-          a,
-        ),
-      )
-    ) as fc.Arbitrary<IDonneesFormulaireSimulateur>;
-export const arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes: fc.Arbitrary<IDonneesFormulaireSimulateur> =
-  arbNonOSEPrivesPetitFournisseurInfraNum.filter(
-    (d: IDonneesBrutesFormulaireSimulateur) =>
-      d.activites.every(
-        (a) =>
-          !ValeursActivitesConcernesInfrastructureNumerique.includes(a) &&
-          !ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement.includes(
-            a,
-          ),
-      ),
-  );
-export const arbNonOSEPrivesPetitHorsFournisseurInfraNum =
+const arbNonOSEPrivesPetitHorsFournisseurInfraNum =
   etend<DonneesSectorielles>(arbSecteurSousSecteurNonInfraNum)
     .avec({
       designeOperateurServicesEssentiels:
@@ -99,5 +67,19 @@ export const arbNonOSEPrivesPetitHorsFournisseurInfraNum =
       trancheCA: arbTranche.petit,
       trancheNombreEmployes: arbTranche.petit,
       etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
-    } as unknown as fc.Arbitrary<DonneesAjout>)
+    })
     .chain(ajouteAuMoinsUneActiviteListee);
+
+export const arbFournisseursInfrastructureNumerique = {
+  fournisseursInfrastructureNumerique: arbNonOSEPrivesPetitFournisseurInfraNum,
+  fournisseursInfraNum: {
+    /** Petite entité privéé exerçant une Activités dans la liste {@link ValeursActivitesConcernesInfrastructureNumerique} */
+    activitesConcernes: arbNonOSEPrivesPetitFournisseurInfraNum.filter(
+      exerceActiviteDansListe(ValeursActivitesConcernesInfrastructureNumerique)
+    ) as fc.Arbitrary<IDonneesFormulaireSimulateur>,
+    petitInfraNum: arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernesFrance,
+    activitesNonConcernes: arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes,
+  },
+  listeNonFournisseursInfrastructureNumerique: arbNonOSEPrivesPetitHorsFournisseurInfraNum,
+};
+
