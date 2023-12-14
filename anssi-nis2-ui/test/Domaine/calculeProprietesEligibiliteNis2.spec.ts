@@ -30,7 +30,7 @@ describe(calculeEligibilite, () => {
         it("Est éligible si le secteur d'activité est 'Infrastructure Numérique'", () => {
           verifieQue(calculeEligibilite)
             .quelqueSoit(
-              arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+              arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum.petitInfraNum
                 .activitesConcernes,
             )
             .renvoieToujours(Eligibilite.EligiblePetiteEntreprise);
@@ -39,11 +39,35 @@ describe(calculeEligibilite, () => {
           verifieQue(calculeEligibilite)
             .quelqueSoit(
               arbForm.nonDesigneOSE.privee.petit
-                .fournisseursInfraNum.petitInfraNum.representantFrance,
+                .fournisseursInfraNum.petitInfraNum.infraNumDNSOuNomDomaine.representantFrance,
             )
             .renvoieToujours(Eligibilite.EligiblePetiteEntreprise);
         });
         describe("N'est pas éligible si", () => {
+          it("Petit Fournisseur d'infranum dans l'UE, représentant en UE", () => {
+            verifieQue(calculeEligibilite)
+              .quelqueSoit(
+                arbForm.nonDesigneOSE.privee.petit
+                  .fournisseursInfraNum.petitInfraNum.infraNumDNSOuNomDomaine.representantUE,
+              )
+              .renvoieToujours(Eligibilite.NonEligible);
+          });
+          it("Petit Fournisseur d'infranum ne fournissant pas dans l'UE", () => {
+            verifieQue(calculeEligibilite)
+              .quelqueSoit(
+                arbForm.nonDesigneOSE.privee.petit
+                  .fournisseursInfraNum.petitInfraNum.infraNumDNSOuNomDomaine.neFournitPasEnUE,
+              )
+              .renvoieToujours(Eligibilite.NonEligible);
+          });
+          it("Petit Fournisseur d'infranum dans l'UE, représentant Hors UE", () => {
+            verifieQue(calculeEligibilite)
+              .quelqueSoit(
+                arbForm.nonDesigneOSE.privee.petit
+                  .fournisseursInfraNum.petitInfraNum.infraNumDNSOuNomDomaine.representantHorsUE,
+              )
+              .renvoieToujours(Eligibilite.NonEligible);
+          });
           it("le secteur d'activité n'est pas 'Infrastructure Numérique'", () => {
             verifieQue(calculeEligibilite)
               .quelqueSoit(

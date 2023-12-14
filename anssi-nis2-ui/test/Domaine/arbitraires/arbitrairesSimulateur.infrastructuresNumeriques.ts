@@ -68,20 +68,35 @@ const arbNonOSEPrivesPetitHorsFournisseurInfraNum =
     })
     .chain(ajouteAuMoinsUneActiviteListee);
 
+const extendInfranumDNSOuNomDomaine = etend(arbNonOSEPrivesPetitFournisseurInfraNum.filter(
+  exerceUniquementActivitesDansListe(ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement)
+));
+const infraNumDNSOuNomDomaine = {
+  neFournitPasEnUE: extendInfranumDNSOuNomDomaine.avec({
+    fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.non,
+  }),
+  representantFrance: extendInfranumDNSOuNomDomaine.avec({
+    fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.oui,
+    localisationRepresentant: arbLocalisationRepresentant.france,
+  }),
+  representantUE: extendInfranumDNSOuNomDomaine.avec({
+    fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.oui,
+    localisationRepresentant: arbLocalisationRepresentant.autre,
+  }),
+  representantHorsUE: extendInfranumDNSOuNomDomaine.avec({
+    fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.oui,
+    localisationRepresentant: arbLocalisationRepresentant.horsue,
+  }),
+};
 export const arbFournisseursInfrastructureNumerique = {
   fournisseursInfrastructureNumerique: arbNonOSEPrivesPetitFournisseurInfraNum,
   fournisseursInfraNum: {
-    /** Petite entité privéé exerçant une Activités dans la liste {@link ValeursActivitesConcernesInfrastructureNumerique} */
-    activitesConcernes: arbNonOSEPrivesPetitFournisseurInfraNum.filter(
-      exerceActiviteDansListe(ValeursActivitesConcernesInfrastructureNumerique)
-    ) as fc.Arbitrary<IDonneesFormulaireSimulateur>,
     petitInfraNum: {
-      representantFrance: etend(arbNonOSEPrivesPetitFournisseurInfraNum.filter(
-        exerceUniquementActivitesDansListe(ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement)
-      )).avec({
-        fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.oui,
-        localisationRepresentant: arbLocalisationRepresentant.france,
-      })
+      /** Petite entité privéé exerçant une Activités dans la liste {@link ValeursActivitesConcernesInfrastructureNumerique} */
+      activitesConcernes: arbNonOSEPrivesPetitFournisseurInfraNum.filter(
+        exerceActiviteDansListe(ValeursActivitesConcernesInfrastructureNumerique)
+      ) as fc.Arbitrary<IDonneesFormulaireSimulateur>,
+      infraNumDNSOuNomDomaine,
     },
     activitesNonConcernes: arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes,
   },
