@@ -1,4 +1,3 @@
-import { arbOSEMoyenGrand, arbOSEPetit } from "./arbitrairesSimulateur.OSE";
 import { arbActivitesAutres } from "./arbitrairesSimulateur.activites";
 import {
   arbHorsUe,
@@ -14,12 +13,10 @@ import {
   arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles,
 } from "./arbitrairesSimulateur.nonOSEPriveesMoyennesGrandes";
 import { arbFournisseursInfrastructureNumerique } from "./arbitrairesSimulateur.infrastructuresNumeriques";
+import { arbDesigneOSE } from "./arbitrairesSimulateur.OSE";
 
 export const arbForm = {
-  designeOSE: {
-    petit: arbOSEPetit,
-    moyenGrand: arbOSEMoyenGrand,
-  },
+  designeOSE: arbDesigneOSE,
   nonDesigneOSE: {
     privee: {
       activitesAutres: arbActivitesAutres,

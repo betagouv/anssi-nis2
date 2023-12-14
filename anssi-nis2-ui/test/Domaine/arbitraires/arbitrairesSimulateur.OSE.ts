@@ -24,7 +24,8 @@ export const arbOSEPetit = etend(arbitraireSecteursSousSecteurs)
     etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
   })
   .chain(ajouteArbitraireActivites)
-  .filter((d) => d.activites.length > 0) as ArbitraireFormulaire;
+  .filter((d) => d.activites.length > 0);
+
 export const arbOSEMoyenGrand = etend(arbitraireSecteursSousSecteurs)
   .avec({
     designeOperateurServicesEssentiels:
@@ -35,4 +36,9 @@ export const arbOSEMoyenGrand = etend(arbitraireSecteursSousSecteurs)
   })
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain(ajouteArbitraireActivites)
-  .filter((d) => d.activites.length > 0);
+  .filter((d) => d.activites.length > 0) as ArbitraireFormulaire;
+
+export const arbDesigneOSE = {
+  petit: arbOSEPetit,
+  moyenGrand: arbOSEMoyenGrand,
+};

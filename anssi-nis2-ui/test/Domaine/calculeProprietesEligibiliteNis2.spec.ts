@@ -118,10 +118,8 @@ describe(calculeEligibilite, () => {
     });
   });
   
-
   describe(Eligibilite.Incertain, () => {
     describe("Exceptions 'Etablissement principal en France'", () => {
-
       it("Moyen grand Infranum", () => {
         verifieQue(calculeEligibilite)
           .quelqueSoit(

@@ -252,7 +252,14 @@ export const decoreChaineRendue = <T extends object>(objet: T) => {
 };
 
 export const fabriqueArbContraintSurTrancheCA = (
-  base: Omit<DonneesBrutesSansActivite, "trancheNombreEmployes"> | Omit<IDonneesBrutesFormulaireSimulateur, "trancheNombreEmployes">,
+  base: Omit<DonneesBrutesSansActivite, "trancheNombreEmployes"> 
+  | Omit<IDonneesBrutesFormulaireSimulateur, "trancheNombreEmployes">
+  | DonneesSectorielles & Pick<IDonneesBrutesFormulaireSimulateur, 
+    | "designeOperateurServicesEssentiels"
+    | "typeStructure"
+    | "trancheCA"
+    | "etatMembre"
+  >,
 ) =>
   fc.record({
     ...propageBase(base),
