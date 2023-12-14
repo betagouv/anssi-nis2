@@ -45,6 +45,7 @@ export type DonneesFormulaireExtensibles =
 export type DonneesAjout = 
   | Pick<IDonneesBrutesFormulaireSimulateur, "trancheCA">
   | Pick<IDonneesBrutesFormulaireSimulateur, "designeOperateurServicesEssentiels"|"typeStructure"|"trancheCA"| "trancheNombreEmployes" | "etatMembre">
+  | Pick<IDonneesBrutesFormulaireSimulateur, "fournitServicesUnionEuropeenne" | "localisationRepresentant">
 
 export const propageBase = <
   DonneesPartielles extends DonneesFormulaireExtensibles,

@@ -35,13 +35,13 @@ describe(calculeEligibilite, () => {
             )
             .renvoieToujours(Eligibilite.EligiblePetiteEntreprise);
         });
-        it("Petite Infranum", () => {
+        it("Petit Fournisseur d'infranum dans l'UE, représentant en France", () => {
           verifieQue(calculeEligibilite)
             .quelqueSoit(
               arbForm.nonDesigneOSE.privee.petit
-                .fournisseursInfraNum.petitInfraNum,
+                .fournisseursInfraNum.petitInfraNum.representantFrance,
             )
-            .renvoieToujours(Eligibilite.Incertain);
+            .renvoieToujours(Eligibilite.EligiblePetiteEntreprise);
         });
         describe("N'est pas éligible si", () => {
           it("le secteur d'activité n'est pas 'Infrastructure Numérique'", () => {

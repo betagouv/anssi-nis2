@@ -37,11 +37,13 @@ const calculeEligibilitePetiteStructurePrivee: OperationCalculeEligibilite = (
     .with(
       {
         secteurActivite: ["infrastructureNumerique"],
+        fournitServicesUnionEuropeenne: ["oui"],
+        localisationRepresentant: ["france"],
         activites: P.when(
           auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
         ),
       },
-      R.Incertain,
+      R.EligiblePetiteEntreprise,
     )
     .with(
       {

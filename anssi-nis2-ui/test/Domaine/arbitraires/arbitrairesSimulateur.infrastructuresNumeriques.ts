@@ -15,6 +15,8 @@ import {
 import {
   arbAppartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
+  arbFournitServiceUnionEuropeenne,
+  arbLocalisationRepresentant,
   arbTranche,
   arbTypeStructure,
 } from "./arbitraireChampFormulaire";
@@ -48,10 +50,6 @@ const arbNonOSEPrivesPetitFournisseurInfraNum =
     .chain(ajouteAuMoinsUneActiviteListee);
 
 
-const arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernesFrance: fc.Arbitrary<IDonneesFormulaireSimulateur> =
-  arbNonOSEPrivesPetitFournisseurInfraNum.filter(
-    exerceUniquementActivitesDansListe(ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement),
-  );
 
 const arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes: fc.Arbitrary<IDonneesFormulaireSimulateur> =
   arbNonOSEPrivesPetitFournisseurInfraNum.filter(
@@ -77,7 +75,14 @@ export const arbFournisseursInfrastructureNumerique = {
     activitesConcernes: arbNonOSEPrivesPetitFournisseurInfraNum.filter(
       exerceActiviteDansListe(ValeursActivitesConcernesInfrastructureNumerique)
     ) as fc.Arbitrary<IDonneesFormulaireSimulateur>,
-    petitInfraNum: arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernesFrance,
+    petitInfraNum: {
+      representantFrance: etend(arbNonOSEPrivesPetitFournisseurInfraNum.filter(
+        exerceUniquementActivitesDansListe(ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement)
+      )).avec({
+        fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.oui,
+        localisationRepresentant: arbLocalisationRepresentant.france,
+      })
+    },
     activitesNonConcernes: arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes,
   },
   listeNonFournisseursInfrastructureNumerique: arbNonOSEPrivesPetitHorsFournisseurInfraNum,
