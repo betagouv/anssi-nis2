@@ -21,9 +21,7 @@ import {
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
-}: IDonneesBrutesFormulaireSimulateur) => {
-  return secteurActivite.some(estUnSecteurAvecDesSousSecteurs);
-};
+}: IDonneesBrutesFormulaireSimulateur) => secteurActivite.some(estUnSecteurAvecDesSousSecteurs);
 
 const sousEtapeSousSecteur =
   fabriquesInformationsEtapes.sousEtapeConditionnelle(
@@ -35,17 +33,17 @@ const sousEtapeSousSecteur =
     ),
   );
 const etapeTailleStructurePrivee = fabriquesInformationsEtapes.form(
-  "Taille de l’organisation",
+  "Taille de l'organisation",
   validationReponsesTaille,
   "tailleEntitePrivee",
 );
 const etapeTailleStructurePublique = fabriquesInformationsEtapes.form(
-  "Taille de l’organisation",
+  "Taille de l'organisation",
   fabriqueValidationUneReponses("trancheNombreEmployes"),
   "tailleEntitePublique",
 );
 const etapeSecteurActivite = fabriquesInformationsEtapes.form(
-  "Secteurs d’activité",
+  "Secteurs d'activité",
   validationReponsesSecteurs,
   "secteursActivite",
   {

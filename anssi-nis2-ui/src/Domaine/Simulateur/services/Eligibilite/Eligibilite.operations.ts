@@ -88,6 +88,7 @@ const calculeEligibiliteMoyenneOuGrandeStructurePrivee: OperationCalculeEligibil
         R.EligibleMoyenneGrandeEntreprise,
       )
       .otherwise(R.Incertain);
+
 const calculeEligibiliteStructurePrivee: OperationCalculeEligibilite = (
   donnees,
 ) =>

@@ -13,6 +13,8 @@ import {
   auMoinsUn,
   et,
   exactementUn,
+  non,
+  ou,
 } from "../ChampSimulateur/champs.predicats.ts";
 import { toujoursVrai } from "../../../Commun/Commun.predicats.ts";
 import { toujoursFaux } from "../../../Commun/Commun.predicats.ts";
@@ -33,16 +35,14 @@ export const predicatDonneesFormulaire = {
       donnees.activites.every(estActiviteAutre),
   },
 };
-export const verifieCompletudeDonneesCommunes = (
-  donnees: IDonneesBrutesFormulaireSimulateur,
-) =>
+export const verifieCompletudeDonneesCommunes = 
   et(
     exactementUn("designeOperateurServicesEssentiels"),
     exactementUn("etatMembre"),
     exactementUn("trancheNombreEmployes"),
     exactementUn("typeStructure"),
     auMoinsUn("secteurActivite"),
-  )(donnees);
+  );
 
 export const verifieDonneesCommunesPrivee: (
   donnees: IDonneesBrutesFormulaireSimulateur,
@@ -85,22 +85,14 @@ const verifieDonneesSectorielles = (
     )
     .otherwise(toujoursFaux);
 
-export const verifieCompletudeDonneesFormulairePrivee = (
-  donnees: IDonneesBrutesFormulaireSimulateur,
-) =>
-  verifieDonneesCommunesPrivee(donnees) && verifieDonneesSectorielles(donnees);
-export const verifieCompletudeDonneesFormulairePublique = (
-  donnees: IDonneesBrutesFormulaireSimulateur,
-) =>
-  verifieDonneesCommunesPublique(donnees) &&
-  verifieDonneesSectorielles(donnees);
-export const donneesFormulaireSontCompletes = (
-  donnees: IDonneesBrutesFormulaireSimulateur,
-) =>
-  verifieCompletudeDonneesCommunes(donnees) &&
-  (verifieCompletudeDonneesFormulairePrivee(donnees) ||
-    verifieCompletudeDonneesFormulairePublique(donnees));
+export const verifieCompletudeDonneesFormulairePrivee = 
+  et(verifieDonneesCommunesPrivee, verifieDonneesSectorielles);
+export const verifieCompletudeDonneesFormulairePublique =
+  et(verifieDonneesCommunesPublique,verifieDonneesSectorielles);
+export const donneesFormulaireSontCompletes = 
+  et(
+    verifieCompletudeDonneesCommunes, 
+    ou(verifieCompletudeDonneesFormulairePrivee, verifieCompletudeDonneesFormulairePublique)
+    );
 
-export const donneesFormulaireSontIncompletes = (
-  donnees: IDonneesBrutesFormulaireSimulateur,
-) => !donneesFormulaireSontCompletes(donnees);
+export const donneesFormulaireSontIncompletes = non(donneesFormulaireSontCompletes);
