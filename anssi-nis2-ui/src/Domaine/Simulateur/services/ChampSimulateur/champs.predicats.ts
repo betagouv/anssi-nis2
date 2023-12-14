@@ -89,21 +89,12 @@ export const auMoinsUnSousSecteurParSecteur: PredicatChamp = (
     filtreSecteursAvecSousSecteurs(donneesFormulaireSimulateur.secteurActivite),
   )(donneesFormulaireSimulateur);
 
-const auMoinsUneActiviteEstDansSecteur = (
-  activites: ValeursActivites[],
-  secteurActivite: ValeurCleSectorielle,
-) =>
-  activites.some((activite) =>
-    activiteEstDansSecteur(activite, secteurActivite),
-  );
+const auMoinsUneActiviteEstDansSecteur = (activites: ValeursActivites[]) => (secteurActivite: ValeurCleSectorielle) =>
+  activites.some(activiteEstDansSecteur(secteurActivite));
 
 const fabriqueAuMoinsUneActiviteEstDansSecteur =
   (donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur) =>
-  (secteurActivite: ValeurCleSectorielle) =>
-    auMoinsUneActiviteEstDansSecteur(
-      donneesFormulaireSimulateur.activites,
-      secteurActivite,
-    );
+    auMoinsUneActiviteEstDansSecteur(donneesFormulaireSimulateur.activites)
 
 export const auMoinsUneActiviteParValeurSectorielleListee: PredicatChamp = (
   donneesFormulaireSimulateur,
