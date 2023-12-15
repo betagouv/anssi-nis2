@@ -5,7 +5,8 @@ import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import {
   cliqueSurDebuterLeTest,
-  passeEtapeEnCochant,
+  cocheAuMoinsUnEtPasseEtape,
+  cocheEtPasseEtape,
 } from "../../utilitaires/Simulateur.actions.ts";
 import { genereDecorateurPourContexte } from "../../utilitaires/generateursDecorateurs.tsx";
 import { mockSendFormData } from "../../utilitaires/mocks.ts";
@@ -41,20 +42,20 @@ export const DerniereEtapeEstResultat: StoryChargeurEtape = {
     mockSendFormData.mockClear();
 
     const canvas = within(canvasElement);
+    const passeEtape = cocheAuMoinsUnEtPasseEtape(canvas)
+
     await cliqueSurDebuterLeTest(canvas);
 
-    await passeEtapeEnCochant(canvas, [
-      ["designeOperateurServicesEssentiels", "oui"],
-    ]);
-    await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
-    await passeEtapeEnCochant(canvas, [["typeStructure", "privee"]]);
+    await passeEtape([["designeOperateurServicesEssentiels", "oui"]]);
+    await passeEtape([["etatMembre", "france"]]);
+    await passeEtape([["typeStructure", "privee"]]);
 
-    await passeEtapeEnCochant(canvas, [
+    await passeEtape([
       ["trancheNombreEmployes", "petit"],
       ["trancheCA", "petit"],
     ]);
-    await passeEtapeEnCochant(canvas, [["secteurActivite", "espace"]]);
-    await passeEtapeEnCochant(canvas, [
+    await passeEtape([["secteurActivite", "espace"]]);
+    await passeEtape([
       [
         "activites",
         "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
@@ -62,8 +63,8 @@ export const DerniereEtapeEstResultat: StoryChargeurEtape = {
     ]);
 
     await canvas.findByText(contenusResultatEligiblePetitEntreprise.titre);
-    await expect(mockSendFormData).toHaveBeenCalledTimes(1);
 
+    await expect(mockSendFormData).toHaveBeenCalledTimes(1);
     await expect(mockSendFormData).toHaveBeenCalledWith(
       new DonneesFormulaireSimulateur({
         activites: [
@@ -88,39 +89,39 @@ export const EtapeSousActiviteConditionnelle: StoryChargeurEtape = {
     mockSendFormData.mockClear();
 
     const canvas = within(canvasElement);
+    const passeEtape = cocheAuMoinsUnEtPasseEtape(canvas)
+    const passeEtapeValidableAvecUnSeulCheck = cocheEtPasseEtape(1)(canvas);
+
 
     step("Va jusqu'à l'étape Secteurs d'activité", async () => {
       await cliqueSurDebuterLeTest(canvas);
-      await passeEtapeEnCochant(canvas, [
-        ["designeOperateurServicesEssentiels", "oui"],
-      ]);
-      await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
-      await passeEtapeEnCochant(canvas, [["typeStructure", "privee"]]);
-      await passeEtapeEnCochant(canvas, [
+      await passeEtape([["designeOperateurServicesEssentiels", "oui"]]);
+      await passeEtape([["etatMembre", "france"]]);
+      await passeEtape([["typeStructure", "privee"]]);
+      await passeEtape([
         ["trancheNombreEmployes", "petit"],
         ["trancheCA", "petit"],
       ]);
     });
 
-    await passeEtapeEnCochant(canvas, [["secteurActivite", "energie"]]);
+    await passeEtape([["secteurActivite", "energie"]]);
     await expect(mockSendFormData).not.toHaveBeenCalled();
 
     await canvas.findByText("Précisez les sous-secteurs concernés :");
-    await passeEtapeEnCochant(
-      canvas,
+    await passeEtapeValidableAvecUnSeulCheck(
       [
         ["sousSecteurActivite", "electricite"],
         ["sousSecteurActivite", "gaz"],
       ],
-      1,
     );
     await expect(mockSendFormData).not.toHaveBeenCalled();
 
-    await passeEtapeEnCochant(canvas, [
+    await passeEtape([
       ["activites", "entrepriseElectriciteRemplissantFonctionFourniture"],
       ["activites", "gestionnaireReseauDistribution"],
     ]);
     await canvas.findByText(contenusResultatEligiblePetitEntreprise.titre);
+
     await expect(mockSendFormData).toHaveBeenCalledTimes(1);
     await expect(mockSendFormData).toHaveBeenCalledWith(
       new DonneesFormulaireSimulateur({
@@ -147,22 +148,21 @@ export const EtapeSecteurFabricationSuivant: StoryChargeurEtape = {
     mockSendFormData.mockClear();
 
     const canvas = within(canvasElement);
+    const passeEtape = cocheAuMoinsUnEtPasseEtape(canvas)
 
     step("Va jusqu'à l'étape Secteurs d'activité", async () => {
       await cliqueSurDebuterLeTest(canvas);
 
-      await passeEtapeEnCochant(canvas, [
-        ["designeOperateurServicesEssentiels", "oui"],
-      ]);
-      await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
-      await passeEtapeEnCochant(canvas, [
+      await passeEtape([["designeOperateurServicesEssentiels", "oui"]]);
+      await passeEtape([["etatMembre", "france"]]);
+      await passeEtape([
         ["typeStructure", "publique"],
         ["typeEntitePublique", "administrationCentrale"],
       ]);
-      await passeEtapeEnCochant(canvas, [["trancheNombreEmployes", "petit"]]);
+      await passeEtape([["trancheNombreEmployes", "petit"]]);
     });
 
-    await passeEtapeEnCochant(canvas, [["secteurActivite", "fabrication"]]);
+    await passeEtape([["secteurActivite", "fabrication"]]);
   },
 };
 
@@ -173,23 +173,24 @@ export const IgnoreEtapeActivitePourSecteurActiviteAutre: StoryChargeurEtape = {
     mockSendFormData.mockClear();
 
     const canvas = within(canvasElement);
+    const passeEtape = cocheAuMoinsUnEtPasseEtape(canvas)
+
     await cliqueSurDebuterLeTest(canvas);
 
-    await passeEtapeEnCochant(canvas, [
+    await passeEtape([
       ["designeOperateurServicesEssentiels", "oui"],
     ]);
-    await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
-    await passeEtapeEnCochant(canvas, [["typeStructure", "privee"]]);
+    await passeEtape([["etatMembre", "france"]]);
+    await passeEtape([["typeStructure", "privee"]]);
 
-    await passeEtapeEnCochant(canvas, [
+    await passeEtape([
       ["trancheNombreEmployes", "petit"],
       ["trancheCA", "petit"],
     ]);
-    await passeEtapeEnCochant(canvas, [
-      ["secteurActivite", "autreSecteurActivite"],
-    ]);
+    await passeEtape([["secteurActivite", "autreSecteurActivite"]]);
 
     await canvas.findByText(contenusResultatEligiblePetitEntreprise.titre);
+
     await expect(mockSendFormData).toHaveBeenCalledTimes(1);
     await expect(mockSendFormData).toHaveBeenCalledWith(
       new DonneesFormulaireSimulateur({
@@ -214,24 +215,23 @@ export const IgnoreEtapeActivitePourSousSecteurActiviteAutre: StoryChargeurEtape
       mockSendFormData.mockClear();
 
       const canvas = within(canvasElement);
+      const passeEtape = cocheAuMoinsUnEtPasseEtape(canvas)
+
       await cliqueSurDebuterLeTest(canvas);
 
-      await passeEtapeEnCochant(canvas, [
-        ["designeOperateurServicesEssentiels", "oui"],
-      ]);
-      await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
-      await passeEtapeEnCochant(canvas, [["typeStructure", "privee"]]);
+      await passeEtape([["designeOperateurServicesEssentiels", "oui"]]);
+      await passeEtape([["etatMembre", "france"]]);
+      await passeEtape([["typeStructure", "privee"]]);
 
-      await passeEtapeEnCochant(canvas, [
+      await passeEtape([
         ["trancheNombreEmployes", "petit"],
         ["trancheCA", "petit"],
       ]);
-      await passeEtapeEnCochant(canvas, [["secteurActivite", "energie"]]);
-      await passeEtapeEnCochant(canvas, [
-        ["sousSecteurActivite", "autreSousSecteurEnergie"],
-      ]);
+      await passeEtape([["secteurActivite", "energie"]]);
+      await passeEtape([["sousSecteurActivite", "autreSousSecteurEnergie"]]);
 
       await canvas.findByText(contenusResultatEligiblePetitEntreprise.titre);
+
       await expect(mockSendFormData).toHaveBeenCalledTimes(1);
       await expect(mockSendFormData).toHaveBeenCalledWith(
         new DonneesFormulaireSimulateur({
@@ -256,31 +256,28 @@ export const EtapeActivitePourSecteurActiviteAutreEtListes: StoryChargeurEtape =
       mockSendFormData.mockClear();
 
       const canvas = within(canvasElement);
+      const passeEtape = cocheAuMoinsUnEtPasseEtape(canvas)
+      const passeEtapeValidableAvecUnSeulCheck = cocheEtPasseEtape(1)(canvas);
+
       await cliqueSurDebuterLeTest(canvas);
 
-      await passeEtapeEnCochant(canvas, [
-        ["designeOperateurServicesEssentiels", "oui"],
-      ]);
-      await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
-      await passeEtapeEnCochant(canvas, [["typeStructure", "privee"]]);
+      await passeEtape([["designeOperateurServicesEssentiels", "oui"]]);
+      await passeEtape([["etatMembre", "france"]]);
+      await passeEtape([["typeStructure", "privee"]]);
 
-      await passeEtapeEnCochant(canvas, [
+      await passeEtape([
         ["trancheNombreEmployes", "petit"],
         ["trancheCA", "petit"],
       ]);
-      await passeEtapeEnCochant(
-        canvas,
-        [
+      await passeEtapeValidableAvecUnSeulCheck([
           ["secteurActivite", "eauPotable"],
           ["secteurActivite", "autreSecteurActivite"],
         ],
-        1,
       );
-      await passeEtapeEnCochant(canvas, [
-        ["activites", "fournisseursDistributeursEauxConsommation"],
-      ]);
+      await passeEtape([["activites", "fournisseursDistributeursEauxConsommation"]]);
 
       await canvas.findByText(contenusResultatEligiblePetitEntreprise.titre);
+
       await expect(mockSendFormData).toHaveBeenCalledTimes(1);
       await expect(mockSendFormData).toHaveBeenCalledWith(
         new DonneesFormulaireSimulateur({
@@ -306,24 +303,22 @@ export const TypeEntitePublique: StoryChargeurEtape = {
     const typeStructure: TypeStructure = "publique";
 
     const canvas = within(canvasElement);
+    const passeEtape = cocheAuMoinsUnEtPasseEtape(canvas)
 
     await cliqueSurDebuterLeTest(canvas);
-    await passeEtapeEnCochant(canvas, [
-      ["designeOperateurServicesEssentiels", "oui"],
-    ]);
-    await passeEtapeEnCochant(canvas, [["etatMembre", "france"]]);
-    await passeEtapeEnCochant(canvas, [
+    await passeEtape([["designeOperateurServicesEssentiels", "oui"]]);
+    await passeEtape([["etatMembre", "france"]]);
+    await passeEtape([
       ["typeStructure", typeStructure],
       ["typeEntitePublique", "administrationCentrale"],
     ]);
 
-    await passeEtapeEnCochant(canvas, [["trancheNombreEmployes", "petit"]]);
-    await passeEtapeEnCochant(canvas, [["secteurActivite", "energie"]]);
-    await passeEtapeEnCochant(canvas, [
-      ["sousSecteurActivite", "autreSousSecteurEnergie"],
-    ]);
+    await passeEtape([["trancheNombreEmployes", "petit"]]);
+    await passeEtape([["secteurActivite", "energie"]]);
+    await passeEtape([["sousSecteurActivite", "autreSousSecteurEnergie"]]);
 
     await canvas.findByText(contenusResultatEligiblePetitEntreprise.titre);
+
     await expect(mockSendFormData).toHaveBeenCalledTimes(1);
     await expect(mockSendFormData).toHaveBeenCalledWith(
       new DonneesFormulaireSimulateur({

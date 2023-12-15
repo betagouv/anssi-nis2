@@ -59,7 +59,7 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
       "designeOperateurServicesEssentiels",
     ),
     fabriquesInformationsEtapes.form(
-      "Localisation de l’activité",
+      "Localisation de l'activité",
       fabriqueValidationUneReponses("etatMembre"),
       "appartenanceUnionEuropeenne",
     ),
