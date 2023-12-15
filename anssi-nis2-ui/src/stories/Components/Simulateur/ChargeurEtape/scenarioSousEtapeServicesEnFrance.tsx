@@ -34,7 +34,6 @@ export const scenarioSousEtapeServicesEnFrance: StoryObj<
   
   await passeEtape([["activites", "fournisseurServicesDNS"]]);
 
-  await canvas.findByText("Précisez les sous-secteurs concernés :");
   await passeEtape([
     ["fournitServicesUnionEuropeenne", "oui"],
     ["localisationRepresentant", "france"],

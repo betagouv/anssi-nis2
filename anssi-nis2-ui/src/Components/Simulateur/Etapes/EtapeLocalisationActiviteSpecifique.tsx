@@ -12,7 +12,7 @@ import {
   FournitServicesUnionEuropeenne,
 } from '../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts'
 import { transformeFournitServicesUnionEuropeennePourSelect } from '../../../Services/Simulateur/Transformateurs/TransformeFournitServicesUnionEuropeennePourSelect.ts'
-import { transformePaysUnionEuropeennePourSelect } from '../../../Services/Simulateur/Transformateurs/TransformePaysUnionEuropeennePourSelect.ts'
+import { transformeLocalisationRepresentantPourSelect } from '../../../Services/Simulateur/Transformateurs/transformeLocalisationRepresentantPourSelect.ts'
 
 const EtapeLocalisationActiviteSpecifiqueCalculee = ({
   donneesFormulaire,
@@ -41,7 +41,7 @@ const EtapeLocalisationActiviteSpecifiqueCalculee = ({
       donneesFormulaire,
     )
   const optionsLocalisationRepresentant =
-    transformePaysUnionEuropeennePourSelect(
+    transformeLocalisationRepresentantPourSelect(
       libellesPaysUnionEuropeenneLocalisation,
       gereChangementLocalisationRepresentant,
       donneesFormulaire,
@@ -80,3 +80,4 @@ const EtapeLocalisationActiviteSpecifique = React.memo(
 )
 
 export default EtapeLocalisationActiviteSpecifique
+

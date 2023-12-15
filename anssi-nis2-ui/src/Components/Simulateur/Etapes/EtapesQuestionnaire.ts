@@ -9,6 +9,7 @@ import { fabriquesInformationsEtapes } from "../../../Domaine/Simulateur/fabriqu
 import {
   fabriqueValidationUneReponses,
   validationReponsesActivites,
+  validationReponsesLocalisationActiviteSpecifique,
   validationReponsesSecteurs,
   validationReponsesSousActivites,
   validationReponsesTaille,
@@ -18,6 +19,7 @@ import {
   contientAutreSecteurActiviteUniquement,
   estUnSecteurAvecDesSousSecteurs,
 } from "../../../Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
+import { auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement } from "../../../Domaine/Simulateur/services/Activite/Activite.predicats.ts";
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
@@ -33,6 +35,17 @@ const sousEtapeSousSecteur =
       "sousSecteursActivite",
     ),
   );
+
+const sousEtapeLocalisationActiviteSpecifique =
+  fabriquesInformationsEtapes.sousEtapeConditionnelle(
+    ({ activites }: IDonneesBrutesFormulaireSimulateur) => auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement(activites),
+    fabriquesInformationsEtapes.form(
+      "Localisation de votre activité",
+      validationReponsesLocalisationActiviteSpecifique,
+      "localisationActiviteSpecifique",
+    ),
+  );
+
 const etapeTailleStructurePrivee = fabriquesInformationsEtapes.form(
   "Taille de l'organisation",
   validationReponsesTaille,
@@ -90,6 +103,7 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
           contientAutreSecteurActiviteUniquement,
           contientSousSecteurAutresUniquement,
         ),
+        sousEtapeConditionnelle: sousEtapeLocalisationActiviteSpecifique,
       },
     ),
     fabriquesInformationsEtapes.resultat("Resultat"),

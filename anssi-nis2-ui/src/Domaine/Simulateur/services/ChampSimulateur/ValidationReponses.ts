@@ -43,3 +43,11 @@ export const validationReponsesTypeStructure: ValidationReponses = {
     lorsque("typeStructure", "publique", auMoinsUn("typeEntitePublique")),
   ),
 };
+
+export const validationReponsesLocalisationActiviteSpecifique: ValidationReponses = {
+  message: "Sélectionnez une réponse par question",
+  validateur: et(
+    auMoinsUn("fournitServicesUnionEuropeenne"),
+    lorsque("fournitServicesUnionEuropeenne", "oui", auMoinsUn("localisationRepresentant")),
+  ),
+};

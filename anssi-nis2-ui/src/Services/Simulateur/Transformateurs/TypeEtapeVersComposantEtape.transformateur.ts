@@ -17,6 +17,7 @@ import {
 import { SimulateurEtapeForm } from "../../../Components/Simulateur/SimulateurEtapeForm.tsx";
 import { elementVide } from "../../Echaffaudages/AssistantsEchaffaudages.tsx";
 import { TypeEtape } from "../../../Domaine/Simulateur/InformationsEtape.ts";
+import EtapeLocalisationActiviteSpecifique from "../../../Components/Simulateur/Etapes/EtapeLocalisationActiviteSpecifique.tsx";
 
 type RepresentationEtape = {
   conteneur: SimulateurEtapeRenderedComponent;
@@ -52,6 +53,10 @@ export const cartoComposants: Record<TypeEtape, RepresentationEtape> = {
     conteneur: SimulateurEtapeForm,
   },
   activites: { composant: EtapeActivites, conteneur: SimulateurEtapeForm },
+  localisationActiviteSpecifique: {
+    composant: EtapeLocalisationActiviteSpecifique,
+    conteneur: SimulateurEtapeForm,
+  },
   prealable: {
     composant: elementVide,
     conteneur: SimulateurEtapePrealable,
