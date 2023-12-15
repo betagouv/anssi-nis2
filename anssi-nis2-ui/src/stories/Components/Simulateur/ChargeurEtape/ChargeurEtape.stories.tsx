@@ -12,6 +12,7 @@ import { scenarioIgnoreEtapeActivitePourSecteurActiviteAutre } from "./scenarioI
 import { scenarioIgnoreEtapeActivitePourSousSecteurActiviteAutre } from "./scenarioIgnoreEtapeActivitePourSousSecteurActiviteAutre.tsx";
 import { scenarioEtapeActivitePourSecteurActiviteAutreEtListes } from "./scenarioEtapeActivitePourSecteurActiviteAutreEtListes.tsx";
 import { scenarioTypeEntitePublique } from "./scenarioTypeEntitePublique.tsx";
+import { scenarioSousEtapeServicesEnFrance } from "./scenarioSousEtapeServicesEnFrance.tsx";
 
 const meta: Meta<typeof ChargeurEtape> = {
   title: "Composants/Simulateur/ChargeurEtape",
@@ -46,6 +47,9 @@ export const DerniereEtapeEstResultat = fabriqueStoryChargeurEtape(
 
 export const EtapeSousActiviteConditionnelle = fabriqueStoryChargeurEtape(
   scenarioEtapeSousActiviteConditionnelle,
+);
+export const SousEtapeServicesEnFrance = fabriqueStoryChargeurEtape(
+  scenarioSousEtapeServicesEnFrance,
 );
 
 export const EtapeSecteurFabricationSuivant = fabriqueStoryChargeurEtape(
