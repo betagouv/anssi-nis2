@@ -35,14 +35,13 @@ export const predicatDonneesFormulaire = {
       donnees.activites.every(estActiviteAutre),
   },
 };
-export const verifieCompletudeDonneesCommunes = 
-  et(
-    exactementUn("designeOperateurServicesEssentiels"),
-    exactementUn("etatMembre"),
-    exactementUn("trancheNombreEmployes"),
-    exactementUn("typeStructure"),
-    auMoinsUn("secteurActivite"),
-  );
+export const verifieCompletudeDonneesCommunes = et(
+  exactementUn("designeOperateurServicesEssentiels"),
+  exactementUn("etatMembre"),
+  exactementUn("trancheNombreEmployes"),
+  exactementUn("typeStructure"),
+  auMoinsUn("secteurActivite"),
+);
 
 export const verifieDonneesCommunesPrivee: (
   donnees: IDonneesBrutesFormulaireSimulateur,
@@ -85,14 +84,22 @@ const verifieDonneesSectorielles = (
     )
     .otherwise(toujoursFaux);
 
-export const verifieCompletudeDonneesFormulairePrivee = 
-  et(verifieDonneesCommunesPrivee, verifieDonneesSectorielles);
-export const verifieCompletudeDonneesFormulairePublique =
-  et(verifieDonneesCommunesPublique,verifieDonneesSectorielles);
-export const donneesFormulaireSontCompletes = 
-  et(
-    verifieCompletudeDonneesCommunes, 
-    ou(verifieCompletudeDonneesFormulairePrivee, verifieCompletudeDonneesFormulairePublique)
-    );
+export const verifieCompletudeDonneesFormulairePrivee = et(
+  verifieDonneesCommunesPrivee,
+  verifieDonneesSectorielles,
+);
+export const verifieCompletudeDonneesFormulairePublique = et(
+  verifieDonneesCommunesPublique,
+  verifieDonneesSectorielles,
+);
+export const donneesFormulaireSontCompletes = et(
+  verifieCompletudeDonneesCommunes,
+  ou(
+    verifieCompletudeDonneesFormulairePrivee,
+    verifieCompletudeDonneesFormulairePublique,
+  ),
+);
 
-export const donneesFormulaireSontIncompletes = non(donneesFormulaireSontCompletes);
+export const donneesFormulaireSontIncompletes = non(
+  donneesFormulaireSontCompletes,
+);

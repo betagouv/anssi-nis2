@@ -17,7 +17,10 @@ import {
   arbDesigneOperateurServicesEssentiels,
   arbTypeStructure,
 } from "./arbitraireChampFormulaire";
-import { IDonneesBrutesFormulaireSimulateur, IDonneesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
+import {
+  IDonneesBrutesFormulaireSimulateur,
+  IDonneesFormulaireSimulateur,
+} from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import { predicatDonneesFormulaire } from "../../../src/Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { estSecteurParmi } from "../../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement } from "../../../src/Domaine/Simulateur/Eligibilite.constantes";
@@ -26,10 +29,18 @@ import { arbFournisseursInfrastructureNumerique } from "./arbitrairesSimulateur.
 import { ArbitraireFormulaire } from "./arbitraireFormulaire.definitions";
 
 export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance: fc.Arbitrary<IDonneesFormulaireSimulateur> =
-  etend(arbFournisseursInfrastructureNumerique.fournisseursInfrastructureNumerique)
+  etend(
+    arbFournisseursInfrastructureNumerique.fournisseursInfrastructureNumerique,
+  )
     .avec({ trancheCA: fabriqueArbTrancheSingleton() })
-    .filter(exerceUniquementActivitesDansListe(ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement))
-    .chain(fabriqueArbContraintSurTrancheCA) as fc.Arbitrary<IDonneesFormulaireSimulateur>;
+    .filter(
+      exerceUniquementActivitesDansListe(
+        ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
+      ),
+    )
+    .chain(
+      fabriqueArbContraintSurTrancheCA,
+    ) as fc.Arbitrary<IDonneesFormulaireSimulateur>;
 
 export const arbNonOSEPrivesMoyenneGrande = etend(
   arbSecteursEtSousSecteursListes.filter((d) =>
@@ -44,11 +55,12 @@ export const arbNonOSEPrivesMoyenneGrande = etend(
   ),
 )
   .avec({
-      designeOperateurServicesEssentiels: arbDesigneOperateurServicesEssentiels.non,
-      typeStructure: arbTypeStructure.privee,
-      trancheCA: fabriqueArbTrancheSingleton(),
-      etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
-    })
+    designeOperateurServicesEssentiels:
+      arbDesigneOperateurServicesEssentiels.non,
+    typeStructure: arbTypeStructure.privee,
+    trancheCA: fabriqueArbTrancheSingleton(),
+    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+  })
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteListee);
 

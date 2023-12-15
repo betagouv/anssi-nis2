@@ -4,13 +4,15 @@ import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import {
   cliqueSurDebuterLeTest,
-  cocheAuMoinsUnEtPasseEtape
+  cocheAuMoinsUnEtPasseEtape,
 } from "../../../utilitaires/Simulateur.actions.ts";
 import { mockSendFormData } from "../../../utilitaires/mocks.ts";
 import { contenusResultatEligiblePetitEntreprise } from "../../../../References/contenusResultatEligibilite.ts";
 import { DonneesFormulaireSimulateur } from "../../../../Domaine/Simulateur/DonneesFormulaire.ts";
 
-export const scenarioIgnoreEtapeActivitePourSousSecteurActiviteAutre: StoryObj<typeof ChargeurEtape>["play"] = async ({ canvasElement }) => {
+export const scenarioIgnoreEtapeActivitePourSousSecteurActiviteAutre: StoryObj<
+  typeof ChargeurEtape
+>["play"] = async ({ canvasElement }) => {
   mockSendFormData.mockClear();
 
   const canvas = within(canvasElement);
@@ -42,6 +44,6 @@ export const scenarioIgnoreEtapeActivitePourSousSecteurActiviteAutre: StoryObj<t
       trancheCA: ["petit"],
       trancheNombreEmployes: ["petit"],
       typeStructure: ["privee"],
-    })
+    }),
   );
 };

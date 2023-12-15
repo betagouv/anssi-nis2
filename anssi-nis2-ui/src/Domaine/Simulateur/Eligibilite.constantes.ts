@@ -13,14 +13,14 @@ export const Eligibilite: Readonly<
 } as const;
 
 /** Activités toujours concernées pour une petite entreprise privée */
-export const ValeursActivitesConcernesInfrastructureNumerique : ValeursActivites[] =
+export const ValeursActivitesConcernesInfrastructureNumerique: ValeursActivites[] =
   [
     "fournisseurReseauxCommunicationElectroniquesPublics",
     "fournisseurServiceCommunicationElectroniquesPublics",
     "prestataireServiceConfiance",
   ];
 /** Activités concernées uniquement si le représenbant est en France */
-export const ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement:ValeursActivites[] =
+export const ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement: ValeursActivites[] =
   ["registresNomsDomainesPremierNiveau", "fournisseurServicesDNS"];
 
 /** Enregistrement des types de résultats sous forme de fonction pour pqttern matching */

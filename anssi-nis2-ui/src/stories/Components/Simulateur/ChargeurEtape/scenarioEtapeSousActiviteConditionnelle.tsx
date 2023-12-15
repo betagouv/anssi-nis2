@@ -3,7 +3,7 @@ import { expect } from "@storybook/jest";
 import {
   cliqueSurDebuterLeTest,
   cocheAuMoinsUnEtPasseEtape,
-  cocheEtPasseEtape
+  cocheEtPasseEtape,
 } from "../../../utilitaires/Simulateur.actions.ts";
 import { mockSendFormData } from "../../../utilitaires/mocks.ts";
 import { contenusResultatEligiblePetitEntreprise } from "../../../../References/contenusResultatEligibilite.ts";
@@ -11,13 +11,14 @@ import { DonneesFormulaireSimulateur } from "../../../../Domaine/Simulateur/Donn
 import { StoryObj } from "@storybook/react";
 import { ChargeurEtape } from "../../../../Components/Simulateur/ChargeurEtape.tsx";
 
-export const scenarioEtapeSousActiviteConditionnelle: StoryObj<typeof ChargeurEtape>["play"] = async ({ canvasElement, step }) => {
+export const scenarioEtapeSousActiviteConditionnelle: StoryObj<
+  typeof ChargeurEtape
+>["play"] = async ({ canvasElement, step }) => {
   mockSendFormData.mockClear();
 
   const canvas = within(canvasElement);
   const passeEtape = cocheAuMoinsUnEtPasseEtape(canvas);
   const passeEtapeValidableAvecUnSeulCheck = cocheEtPasseEtape(1)(canvas);
-
 
   step("Va jusqu'à l'étape Secteurs d'activité", async () => {
     await cliqueSurDebuterLeTest(canvas);
@@ -34,12 +35,10 @@ export const scenarioEtapeSousActiviteConditionnelle: StoryObj<typeof ChargeurEt
   await expect(mockSendFormData).not.toHaveBeenCalled();
 
   await canvas.findByText("Précisez les sous-secteurs concernés :");
-  await passeEtapeValidableAvecUnSeulCheck(
-    [
-      ["sousSecteurActivite", "electricite"],
-      ["sousSecteurActivite", "gaz"],
-    ]
-  );
+  await passeEtapeValidableAvecUnSeulCheck([
+    ["sousSecteurActivite", "electricite"],
+    ["sousSecteurActivite", "gaz"],
+  ]);
   await expect(mockSendFormData).not.toHaveBeenCalled();
 
   await passeEtape([
@@ -62,6 +61,6 @@ export const scenarioEtapeSousActiviteConditionnelle: StoryObj<typeof ChargeurEt
       trancheCA: ["petit"],
       trancheNombreEmployes: ["petit"],
       typeStructure: ["privee"],
-    })
+    }),
   );
 };

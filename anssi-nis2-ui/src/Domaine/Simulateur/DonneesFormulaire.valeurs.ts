@@ -20,4 +20,3 @@ export const ChampsFormulaireFacultatifs = [
   "fournitServicesUnionEuropeenne",
   "localisationRepresentant",
 ];
-

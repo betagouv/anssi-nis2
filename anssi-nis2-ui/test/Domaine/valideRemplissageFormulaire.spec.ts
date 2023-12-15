@@ -7,7 +7,10 @@ import {
 } from "../../src/Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
 import { verifieQue } from "../utilitaires/assure";
-import { IDonneesBrutesFormulaireSimulateur, donneesFormulaireSimulateurVide } from "../../src/Domaine/Simulateur/DonneesFormulaire";
+import {
+  IDonneesBrutesFormulaireSimulateur,
+  donneesFormulaireSimulateurVide,
+} from "../../src/Domaine/Simulateur/DonneesFormulaire";
 import { ChampsFormulaireFacultatifs } from "../../src/Domaine/Simulateur/DonneesFormulaire.valeurs";
 
 const donneesAbsentes = Object.entries(arbForm.nonValide.donneeAbsente).filter(

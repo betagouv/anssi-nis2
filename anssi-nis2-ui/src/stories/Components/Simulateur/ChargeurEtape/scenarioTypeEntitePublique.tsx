@@ -4,14 +4,16 @@ import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import {
   cliqueSurDebuterLeTest,
-  cocheAuMoinsUnEtPasseEtape
+  cocheAuMoinsUnEtPasseEtape,
 } from "../../../utilitaires/Simulateur.actions.ts";
 import { mockSendFormData } from "../../../utilitaires/mocks.ts";
 import { contenusResultatEligiblePetitEntreprise } from "../../../../References/contenusResultatEligibilite.ts";
 import { DonneesFormulaireSimulateur } from "../../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { TypeStructure } from "../../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 
-export const scenarioTypeEntitePublique: StoryObj<typeof ChargeurEtape>["play"] = async ({ canvasElement }) => {
+export const scenarioTypeEntitePublique: StoryObj<
+  typeof ChargeurEtape
+>["play"] = async ({ canvasElement }) => {
   mockSendFormData.mockClear();
 
   const typeStructure: TypeStructure = "publique";
@@ -45,6 +47,6 @@ export const scenarioTypeEntitePublique: StoryObj<typeof ChargeurEtape>["play"] 
       trancheNombreEmployes: ["petit"],
       typeStructure: [typeStructure],
       typeEntitePublique: ["administrationCentrale"],
-    })
+    }),
   );
 };

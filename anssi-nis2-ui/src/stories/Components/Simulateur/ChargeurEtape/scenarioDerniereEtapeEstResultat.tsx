@@ -2,7 +2,7 @@ import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import {
   cliqueSurDebuterLeTest,
-  cocheAuMoinsUnEtPasseEtape
+  cocheAuMoinsUnEtPasseEtape,
 } from "../../../utilitaires/Simulateur.actions.ts";
 import { mockSendFormData } from "../../../utilitaires/mocks.ts";
 import { contenusResultatEligiblePetitEntreprise } from "../../../../References/contenusResultatEligibilite.ts";
@@ -10,7 +10,9 @@ import { DonneesFormulaireSimulateur } from "../../../../Domaine/Simulateur/Donn
 import { StoryObj } from "@storybook/react";
 import { ChargeurEtape } from "../../../../Components/Simulateur/ChargeurEtape.tsx";
 
-export const scenarioDerniereEtapeEstResultat: StoryObj<typeof ChargeurEtape>["play"] = async ({ canvasElement }) => {
+export const scenarioDerniereEtapeEstResultat: StoryObj<
+  typeof ChargeurEtape
+>["play"] = async ({ canvasElement }) => {
   mockSendFormData.mockClear();
 
   const canvas = within(canvasElement);
@@ -49,6 +51,6 @@ export const scenarioDerniereEtapeEstResultat: StoryObj<typeof ChargeurEtape>["p
       trancheCA: ["petit"],
       trancheNombreEmployes: ["petit"],
       typeStructure: ["privee"],
-    })
+    }),
   );
 };

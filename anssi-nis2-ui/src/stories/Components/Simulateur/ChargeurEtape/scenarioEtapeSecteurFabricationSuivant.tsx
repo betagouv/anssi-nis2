@@ -3,11 +3,13 @@ import { ChargeurEtape } from "../../../../Components/Simulateur/ChargeurEtape.t
 import { within } from "@storybook/testing-library";
 import {
   cliqueSurDebuterLeTest,
-  cocheAuMoinsUnEtPasseEtape
+  cocheAuMoinsUnEtPasseEtape,
 } from "../../../utilitaires/Simulateur.actions.ts";
 import { mockSendFormData } from "../../../utilitaires/mocks.ts";
 
-export const scenarioEtapeSecteurFabricationSuivant: StoryObj<typeof ChargeurEtape>["play"] = async ({ canvasElement, step }) => {
+export const scenarioEtapeSecteurFabricationSuivant: StoryObj<
+  typeof ChargeurEtape
+>["play"] = async ({ canvasElement, step }) => {
   mockSendFormData.mockClear();
 
   const canvas = within(canvasElement);

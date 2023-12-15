@@ -5,13 +5,15 @@ import { expect } from "@storybook/jest";
 import {
   cliqueSurDebuterLeTest,
   cocheAuMoinsUnEtPasseEtape,
-  cocheEtPasseEtape
+  cocheEtPasseEtape,
 } from "../../../utilitaires/Simulateur.actions.ts";
 import { mockSendFormData } from "../../../utilitaires/mocks.ts";
 import { contenusResultatEligiblePetitEntreprise } from "../../../../References/contenusResultatEligibilite.ts";
 import { DonneesFormulaireSimulateur } from "../../../../Domaine/Simulateur/DonneesFormulaire.ts";
 
-export const scenarioEtapeActivitePourSecteurActiviteAutreEtListes: StoryObj<typeof ChargeurEtape>["play"] = async ({ canvasElement }) => {
+export const scenarioEtapeActivitePourSecteurActiviteAutreEtListes: StoryObj<
+  typeof ChargeurEtape
+>["play"] = async ({ canvasElement }) => {
   mockSendFormData.mockClear();
 
   const canvas = within(canvasElement);
@@ -31,9 +33,10 @@ export const scenarioEtapeActivitePourSecteurActiviteAutreEtListes: StoryObj<typ
   await passeEtapeValidableAvecUnSeulCheck([
     ["secteurActivite", "eauPotable"],
     ["secteurActivite", "autreSecteurActivite"],
-  ]
-  );
-  await passeEtape([["activites", "fournisseursDistributeursEauxConsommation"]]);
+  ]);
+  await passeEtape([
+    ["activites", "fournisseursDistributeursEauxConsommation"],
+  ]);
 
   await canvas.findByText(contenusResultatEligiblePetitEntreprise.titre);
 
@@ -48,6 +51,6 @@ export const scenarioEtapeActivitePourSecteurActiviteAutreEtListes: StoryObj<typ
       trancheCA: ["petit"],
       trancheNombreEmployes: ["petit"],
       typeStructure: ["privee"],
-    })
+    }),
   );
 };

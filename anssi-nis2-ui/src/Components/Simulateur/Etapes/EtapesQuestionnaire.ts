@@ -21,7 +21,8 @@ import {
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
-}: IDonneesBrutesFormulaireSimulateur) => secteurActivite.some(estUnSecteurAvecDesSousSecteurs);
+}: IDonneesBrutesFormulaireSimulateur) =>
+  secteurActivite.some(estUnSecteurAvecDesSousSecteurs);
 
 const sousEtapeSousSecteur =
   fabriquesInformationsEtapes.sousEtapeConditionnelle(

@@ -30,16 +30,16 @@ describe(calculeEligibilite, () => {
         it("Est éligible si le secteur d'activité est 'Infrastructure Numérique'", () => {
           verifieQue(calculeEligibilite)
             .quelqueSoit(
-              arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum.petitInfraNum
-                .activitesConcernes,
+              arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+                .petitInfraNum.activitesConcernes,
             )
             .renvoieToujours(Eligibilite.EligiblePetiteEntreprise);
         });
         it("Petit Fournisseur d'infranum dans l'UE, représentant en France", () => {
           verifieQue(calculeEligibilite)
             .quelqueSoit(
-              arbForm.nonDesigneOSE.privee.petit
-                .fournisseursInfraNum.petitInfraNum.infraNumDNSOuNomDomaine.representantFrance,
+              arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+                .petitInfraNum.infraNumDNSOuNomDomaine.representantFrance,
             )
             .renvoieToujours(Eligibilite.EligiblePetiteEntreprise);
         });
@@ -47,24 +47,24 @@ describe(calculeEligibilite, () => {
           it("Petit Fournisseur d'infranum dans l'UE, représentant en UE", () => {
             verifieQue(calculeEligibilite)
               .quelqueSoit(
-                arbForm.nonDesigneOSE.privee.petit
-                  .fournisseursInfraNum.petitInfraNum.infraNumDNSOuNomDomaine.representantUE,
+                arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+                  .petitInfraNum.infraNumDNSOuNomDomaine.representantUE,
               )
               .renvoieToujours(Eligibilite.NonEligible);
           });
           it("Petit Fournisseur d'infranum ne fournissant pas dans l'UE", () => {
             verifieQue(calculeEligibilite)
               .quelqueSoit(
-                arbForm.nonDesigneOSE.privee.petit
-                  .fournisseursInfraNum.petitInfraNum.infraNumDNSOuNomDomaine.neFournitPasEnUE,
+                arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+                  .petitInfraNum.infraNumDNSOuNomDomaine.neFournitPasEnUE,
               )
               .renvoieToujours(Eligibilite.NonEligible);
           });
           it("Petit Fournisseur d'infranum dans l'UE, représentant Hors UE", () => {
             verifieQue(calculeEligibilite)
               .quelqueSoit(
-                arbForm.nonDesigneOSE.privee.petit
-                  .fournisseursInfraNum.petitInfraNum.infraNumDNSOuNomDomaine.representantHorsUE,
+                arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+                  .petitInfraNum.infraNumDNSOuNomDomaine.representantHorsUE,
               )
               .renvoieToujours(Eligibilite.NonEligible);
           });
@@ -141,30 +141,30 @@ describe(calculeEligibilite, () => {
       });
     });
   });
-  
+
   describe(Eligibilite.Incertain, () => {
     describe("Exceptions 'Etablissement principal en France'", () => {
       it("Moyen grand Infranum", () => {
         verifieQue(calculeEligibilite)
           .quelqueSoit(
-            arbForm.nonDesigneOSE.privee.exceptions
-              .etablissementPrincipalFrance.moyenGrandInfraNum,
+            arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance
+              .moyenGrandInfraNum,
           )
           .renvoieToujours(Eligibilite.Incertain);
       });
       it("Moyen grand Gestion TIC", () => {
         verifieQue(calculeEligibilite)
           .quelqueSoit(
-            arbForm.nonDesigneOSE.privee.exceptions
-              .etablissementPrincipalFrance.moyenGrandGestionTic,
+            arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance
+              .moyenGrandGestionTic,
           )
           .renvoieToujours(Eligibilite.Incertain);
       });
       it("Moyen grand Fournisseur Numérique", () => {
         verifieQue(calculeEligibilite)
           .quelqueSoit(
-            arbForm.nonDesigneOSE.privee.exceptions
-              .etablissementPrincipalFrance.moyenGrandFournisseurNum,
+            arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance
+              .moyenGrandFournisseurNum,
           )
           .renvoieToujours(Eligibilite.Incertain);
       });
