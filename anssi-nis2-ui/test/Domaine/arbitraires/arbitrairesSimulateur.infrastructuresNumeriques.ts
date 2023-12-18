@@ -97,6 +97,7 @@ const infraNumDNSOuNomDomaine = {
     localisationRepresentant: arbLocalisationRepresentant.horsue,
   }),
 };
+
 export const arbFournisseursInfrastructureNumerique = {
   fournisseursInfrastructureNumerique: arbNonOSEPrivesPetitFournisseurInfraNum,
   fournisseursInfraNum: {

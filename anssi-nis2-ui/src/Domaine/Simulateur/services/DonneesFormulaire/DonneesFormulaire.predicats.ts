@@ -60,6 +60,21 @@ const verifieDonneesSectorielles = (
   match<IDonneesBrutesFormulaireSimulateur, boolean>(donnees)
     .with(
       {
+        secteurActivite: ["infrastructureNumerique"],
+        fournitServicesUnionEuropeenne: ["non"],
+        localisationRepresentant: P.union(P.nullish, [])
+      },
+      toujoursVrai,
+    )
+    .with(
+      {
+        secteurActivite: ["infrastructureNumerique"],
+        localisationRepresentant: P.union(P.nullish, [])
+      },
+      toujoursFaux,
+    )
+    .with(
+      {
         secteurActivite: P.when(uniquementDesSecteursAutres),
         sousSecteurActivite: P.array(),
         activites: P.array(),

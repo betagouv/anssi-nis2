@@ -12,27 +12,6 @@ export type DonneesFormulaireExtensibles =
 export type PiocheDonneesForm<T extends keyof IDonneesBrutesFormulaireSimulateur> =
     Pick<IDonneesBrutesFormulaireSimulateur, T>
 
-export type DonneesAjout1 =
-    | PiocheDonneesForm<"trancheCA">
-    | PiocheDonneesForm<"fournitServicesUnionEuropeenne" | "localisationRepresentant">
-    | PiocheDonneesForm<"fournitServicesUnionEuropeenne">
-    | PiocheDonneesForm<"designeOperateurServicesEssentiels" | "etatMembre">
-    | PiocheDonneesForm<
-        | "designeOperateurServicesEssentiels"
-        | "typeStructure"
-        | "trancheCA"
-        | "trancheNombreEmployes"
-        | "etatMembre"
-    >
-    | PiocheDonneesForm<
-        | "designeOperateurServicesEssentiels"
-        | "typeStructure"
-        | "typeEntitePublique"
-        | "trancheCA"
-        | "trancheNombreEmployes"
-        | "etatMembre"
-    >
-
 export type DonneesAjout<D extends keyof IDonneesBrutesFormulaireSimulateur = keyof IDonneesBrutesFormulaireSimulateur> =
     D extends infer U extends keyof IDonneesBrutesFormulaireSimulateur | keyof IDonneesBrutesFormulaireSimulateur
     ? PiocheDonneesForm<U>
