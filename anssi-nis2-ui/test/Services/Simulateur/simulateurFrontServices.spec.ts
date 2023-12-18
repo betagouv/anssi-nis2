@@ -1,9 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { genereTransformateurValeursVersOptions } from "../../../src/Services/Simulateur/genereTransformateurValeursVersOptions";
 import { libellesPaysUnionEuropeenneLocalisation } from "../../../src/References/Libelles";
-import {
-  DonneesFormulaireSimulateur,
-} from "../../../src/Domaine/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import { transformePaysUnionEuropeennePourSelect } from "../../../src/Services/Simulateur/Transformateurs/TransformePaysUnionEuropeennePourSelect";
 import { ValeursActivites } from "../../../src/Domaine/Simulateur/Activite.definitions";
 import { donneesFormulaireSimulateurVide } from "../../../src/Domaine/Simulateur/DonneesFormulaire.constantes";
@@ -63,7 +61,10 @@ describe(genereTransformateurValeursVersOptions, () => {
     expect(optionsPaysUEObtenu).toStrictEqual(attendu);
   });
 
-  type ValeurActivitesPartielles = Extract<ValeursActivites, "entrepriseElectriciteRemplissantFonctionFourniture">
+  type ValeurActivitesPartielles = Extract<
+    ValeursActivites,
+    "entrepriseElectriciteRemplissantFonctionFourniture"
+  >;
   const getSousEnsembleActiviteLabel = (
     value: ValeurActivitesPartielles,
     secteurActivite: Record<ValeurActivitesPartielles, string>,
@@ -74,10 +75,10 @@ describe(genereTransformateurValeursVersOptions, () => {
       entrepriseElectriciteRemplissantFonctionFourniture:
         "Entreprise d’électricité remplissant une fonction de fourniture",
     };
-    const transformateur = genereTransformateurValeursVersOptions<ValeurActivitesPartielles, string>(
-      getSousEnsembleActiviteLabel,
-      "activites",
-    );
+    const transformateur = genereTransformateurValeursVersOptions<
+      ValeurActivitesPartielles,
+      string
+    >(getSousEnsembleActiviteLabel, "activites");
 
     it("genere une liste d'option avec des valeurs préfixées", () => {
       const attendu = [

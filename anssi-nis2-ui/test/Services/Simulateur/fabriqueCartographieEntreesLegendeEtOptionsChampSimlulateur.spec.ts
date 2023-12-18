@@ -6,13 +6,16 @@ import {
   fabriqueArbEnrSecteurSousSecteurs,
 } from "../../utilitaires/manipulationArbitraires";
 import { listeEnrSecteursAvecLeursSousSecteurs } from "./exemples/ListesEnrSecteursSousSecteur";
-import { DonneesSectorielles, IDonneesBrutesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
+import {
+  DonneesSectorielles,
+  IDonneesBrutesFormulaireSimulateur,
+} from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 
-const donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites: fc.Arbitrary<DonneesSectorielles & Pick<IDonneesBrutesFormulaireSimulateur, "activites">> =
-  fabriqueArbEnrSecteurSousSecteurs(listeEnrSecteursAvecLeursSousSecteurs, {
-    minLength: 1,
-  })
-    .chain(ajouteArbitraireActivites);
+const donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites: fc.Arbitrary<
+  DonneesSectorielles & Pick<IDonneesBrutesFormulaireSimulateur, "activites">
+> = fabriqueArbEnrSecteurSousSecteurs(listeEnrSecteursAvecLeursSousSecteurs, {
+  minLength: 1,
+}).chain(ajouteArbitraireActivites);
 
 describe(fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur, () => {
   it("Renvoie des tuples correctes", () => {
@@ -20,7 +23,7 @@ describe(fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur, () => {
       fc.property(
         donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites,
         (donnees) => {
-          const propageActionSimulateur = () => { };
+          const propageActionSimulateur = () => {};
           const cartographieurEntreesLegendeEtOptionsChampSimlulateur =
             fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur(
               donnees,
@@ -38,7 +41,7 @@ describe(fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur, () => {
       fc.property(
         donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites,
         (donnees) => {
-          const propageActionSimulateur = () => { };
+          const propageActionSimulateur = () => {};
           const data =
             fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur(
               donnees,

@@ -21,7 +21,9 @@ import { toujoursFaux } from "../../../Commun/Commun.predicats.ts";
 import { estTableauNonVide } from "../../../Commun/Commun.predicats.ts";
 
 const verifAuMoinsUn = {
-  activiteListee: (donnees: IDonneesBrutesFormulaireSimulateur): donnees is IDonneesBrutesFormulaireSimulateur =>
+  activiteListee: (
+    donnees: IDonneesBrutesFormulaireSimulateur,
+  ): donnees is IDonneesBrutesFormulaireSimulateur =>
     auMoinsUneActiviteListee(donnees.activites),
 };
 
@@ -62,14 +64,14 @@ const verifieDonneesSectorielles = (
       {
         secteurActivite: ["infrastructureNumerique"],
         fournitServicesUnionEuropeenne: ["non"],
-        localisationRepresentant: P.union(P.nullish, [])
+        localisationRepresentant: P.union(P.nullish, []),
       },
       toujoursVrai,
     )
     .with(
       {
         secteurActivite: ["infrastructureNumerique"],
-        localisationRepresentant: P.union(P.nullish, [])
+        localisationRepresentant: P.union(P.nullish, []),
       },
       toujoursFaux,
     )

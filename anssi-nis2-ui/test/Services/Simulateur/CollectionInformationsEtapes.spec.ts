@@ -11,7 +11,7 @@ import { arbitrairesCollectionEtape } from "./arbitraires/collectionInformationE
 import { arbitrairesInformationEtape } from "./arbitraires/informationEtape.arbitraires.";
 import { arbListeEtapesEtIndice } from "./arbitraires/listeEtapes";
 import { CollectionInformationsEtapes } from "../../../src/Domaine/Simulateur/CollectionInformationsEtapes";
-import { EtapeVide } from "../../../src/Domaine/Simulateur/EtatEtapes";
+import { InformationsEtapeVide } from "../../../src/Domaine/Simulateur/EtatEtapes";
 
 const collectionInformationsEtapes =
   exCollectionInformationEtape.longueur2.simple;
@@ -26,7 +26,7 @@ const parametresTests = [
   {
     etapeCourante: exInformationEtape.form2,
     indiceEtapeCourante: 1,
-    informationEtapeSuivante: EtapeVide,
+    informationEtapeSuivante: InformationsEtapeVide,
     estDernier: true,
     numeroEtape: 2,
   },

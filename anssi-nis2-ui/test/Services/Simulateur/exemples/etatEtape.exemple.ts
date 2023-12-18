@@ -1,7 +1,7 @@
 import { exCollectionInformationEtape } from "./collectionInformationEtape.exemples";
 import { fabriqueEtatEtape } from "../../../../src/Domaine/Simulateur/fabriques/EtatEtape.fabrique";
-import { EtatEtapes } from "../../../../src/Services/Simulateur/EtatEtapes";
-import { donneesFormulaireSimulateurVide } from "../../../../src/Domaine/Simulateur/DonneesFormulaire";
+import { donneesFormulaireSimulateurVide } from "../../../../src/Domaine/Simulateur/DonneesFormulaire.constantes";
+import { EtatEtapes } from "../../../../src/Domaine/Simulateur/EtatEtapes";
 
 const indiceEtapeInitiale = 0;
 const etatEtapesInitial = fabriqueEtatEtape(

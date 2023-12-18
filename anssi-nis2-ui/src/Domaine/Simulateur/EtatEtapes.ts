@@ -13,40 +13,45 @@ import {
 } from "../Commun/Commun.predicats";
 import { validationToutesLesReponses } from "./services/ChampSimulateur/ValidationReponses";
 
-export type EtatEtapes = {
-  // Données générales
+/** Situation dans la collection */
+export type SituationEtape = {
   readonly collectionEtapes: CollectionInformationsEtapes;
 
-  // Situation dans la collection
   readonly indiceCourant: number;
   readonly indiceSousEtape: number;
   readonly varianteEtape: number;
   readonly numero: number;
+};
 
-  // Informations sur l'enchainement d'étapes
+/** Informations sur l'enchainement d'étapes */
+export type PredicatsEtape = {
   readonly etapeSuivantExiste: boolean;
   readonly estSurSousEtape: boolean;
   readonly estSurEtapeInitiale: boolean;
+};
 
-  // Informations sur le composant
+/** Informations sur le composant */
+export type RepresentationEtape = {
+  // TODO: Se passer du titre suivant
   readonly titreSuivant?: string;
   readonly donneesFormulaire: IDonneesBrutesFormulaireSimulateur;
   readonly typeEtapeCourante: TypeEtape;
   readonly contenuEtapeCourante: InformationEtapeForm;
+};
 
-  // Capacités
+export type CapacitesEtapes = {
   readonly ignoreEtapeSuivante: (
     etat: EtatEtapes,
     donnees: IDonneesBrutesFormulaireSimulateur,
   ) => boolean;
 };
 
-export const ConstantesEtatEtape = {
-  indiceEtapeInitial: 0,
-  indiceSousEtapeInitial: 0,
-} as const;
+export type EtatEtapes = SituationEtape &
+  PredicatsEtape &
+  RepresentationEtape &
+  CapacitesEtapes;
 
-export const EtapeVide: InformationsEtape & CapaciteEtape = {
+export const InformationsEtapeVide: InformationsEtape & CapaciteEtape = {
   type: "inexistante",
   longueurComptabilisee: 0,
   existe: false,

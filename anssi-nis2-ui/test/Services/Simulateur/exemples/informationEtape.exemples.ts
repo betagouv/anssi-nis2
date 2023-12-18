@@ -1,28 +1,27 @@
 import {
-  fausseValidationReponse,
-  FauxSimulateurEtapeComposant,
-} from "../InformationEtape.faussaire";
-import {
   fabriquesInformationsEtapes,
   optionsInformationEtapeFormParDefaut,
 } from "../../../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
 import { SousEtapeConditionnelle } from "../../../../src/Domaine/Simulateur/InformationsEtape";
-import { toujoursFaux } from "../../../../src/Domaine/Commun/Commun.predicats";
-
-export const predicatVrai = () => true;
-const informationEtapeResult = fabriquesInformationsEtapes.resultat("Resultat");
+import {
+  toujoursFaux,
+  toujoursVrai,
+} from "../../../../src/Domaine/Commun/Commun.predicats";
+import {
+  fausseValidationReponse,
+  FauxSimulateurEtapeComposant,
+} from "../../../Domaine/InformationEtape.faussaire";
 
 const fabriqueFausseInformationEtapeForm = (
   titre: string,
   options = optionsInformationEtapeFormParDefaut,
-) => {
-  return fabriquesInformationsEtapes.form(
+) =>
+  fabriquesInformationsEtapes.form(
     titre,
     fausseValidationReponse,
     FauxSimulateurEtapeComposant,
     options,
   );
-};
 
 const informationEtapeForm = fabriqueFausseInformationEtapeForm("Etape Form");
 const informationEtapeForm1 =
@@ -46,7 +45,7 @@ const informationEtapeFormJamaisEvitee = fabriqueFausseInformationEtapeForm(
 const informationSousEtapeForm =
   fabriqueFausseInformationEtapeForm("Sous-étape");
 const sousEtapeToujoursPresente: SousEtapeConditionnelle = {
-  condition: predicatVrai,
+  condition: toujoursVrai,
   sousEtape: informationSousEtapeForm,
 };
 const etapeEmployesAvecSousEtapeActivite = fabriqueFausseInformationEtapeForm(
@@ -75,7 +74,7 @@ export const exInformationEtape = {
   form1: informationEtapeForm1,
   form2: informationEtapeForm2,
   sousEtape: informationSousEtapeForm,
-  resultat: informationEtapeResult,
+  resultat: fabriquesInformationsEtapes.resultat("Resultat"),
   etapeAvecSousEtape: etapeEmployesAvecSousEtapeActivite,
   evitable: {
     toujours: informationEtapeFormToujoursEvitee,

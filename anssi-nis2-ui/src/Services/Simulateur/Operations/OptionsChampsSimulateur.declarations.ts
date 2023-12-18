@@ -12,6 +12,5 @@ export type TransformeRecordToSelect<
 
 export type GenerateurLibelle<T extends string, P = string> = (
   value: T,
-  valeursMetier: Record<T, P>
+  valeursMetier: Record<T, P>,
 ) => P;
-

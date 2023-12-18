@@ -5,8 +5,7 @@ import { genereTransformateurValeursVersOptions } from "../genereTransformateurV
 const recupereLibelleReponseOSE = (
   value: DesignationOperateurServicesEssentiels,
   reponsesDesigneOse: Record<DesignationOperateurServicesEssentiels, string>,
-) =>
-  reponsesDesigneOse[value];
+) => reponsesDesigneOse[value];
 export const transformeReponsesDesigneOSEPourSelect: TransformeRecordToSelect<DesignationOperateurServicesEssentiels> =
   genereTransformateurValeursVersOptions(
     recupereLibelleReponseOSE,

@@ -20,7 +20,8 @@ import { ValeursActivites } from "../../../Domaine/Simulateur/Activite.definitio
 import { ValeurCleSectorielle } from "../../../Domaine/Simulateur/ValeurCleSectorielle.definitions.ts";
 
 export const fabriqueConstructeurOptionActivite: (
-  donneesFormulaire: Pick<IDonneesBrutesFormulaireSimulateur, "activites"> & DonneesSectorielles,
+  donneesFormulaire: Pick<IDonneesBrutesFormulaireSimulateur, "activites"> &
+    DonneesSectorielles,
   changeMulti: React.ChangeEventHandler<HTMLInputElement>,
 ) => (activite: ValeursActivites) => OptionChampSimulateur =
   (donneesFormulaire, changeMulti) => (activite) => ({
@@ -46,10 +47,10 @@ const fabriqueChangeMulti: (
   };
 
 const fabriqueOptions = (
-    secteurOuSousSecteur: ValeurCleSectorielle,
-    construitOptionActivite: (
-      activite: ValeursActivites,
-    ) => OptionChampSimulateur
+  secteurOuSousSecteur: ValeurCleSectorielle,
+  construitOptionActivite: (
+    activite: ValeursActivites,
+  ) => OptionChampSimulateur,
 ) => {
   const activitesParSecteurEtSousSecteurElement =
     activitesParSecteurEtSousSecteur[secteurOuSousSecteur];
@@ -62,7 +63,8 @@ const fabriqueOptions = (
 };
 
 export const fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur: (
-  donneesFormulaire: Pick<IDonneesBrutesFormulaireSimulateur, "activites"> & DonneesSectorielles,
+  donneesFormulaire: Pick<IDonneesBrutesFormulaireSimulateur, "activites"> &
+    DonneesSectorielles,
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>,
 ) => (
   tupleSecteurEtActivite: AssociationSectorielleActivite,

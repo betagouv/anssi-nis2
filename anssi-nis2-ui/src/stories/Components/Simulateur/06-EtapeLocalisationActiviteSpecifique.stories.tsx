@@ -10,9 +10,7 @@ import {
   libellesFournitServicesUnionEuropeenne,
   libellesPaysUnionEuropeenneLocalisation,
 } from "../../../References/Libelles.ts";
-import {
-  DonneesFormulaireSimulateur,
-} from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { donneesFormulaireSimulateurVide } from "../../../Domaine/Simulateur/DonneesFormulaire.constantes.ts";
 
 const meta: Meta<typeof EtapeLocalisationActiviteSpecifique> = {

@@ -1,8 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { exEtatEtape } from "../Services/Simulateur/exemples/etatEtape.exemple";
-import {
-  DonneesFormulaireSimulateur,
-} from "../../src/Domaine/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../src/Domaine/Simulateur/DonneesFormulaire";
 import {
   fabriqueEtatEtapePrecedent,
   fabriqueEtatEtapeSuivant,

@@ -8,9 +8,7 @@ import {
 } from "../../src/Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
 import { verifieQue } from "../utilitaires/assure";
-import {
-  IDonneesBrutesFormulaireSimulateur,
-} from "../../src/Domaine/Simulateur/DonneesFormulaire";
+import { IDonneesBrutesFormulaireSimulateur } from "../../src/Domaine/Simulateur/DonneesFormulaire";
 import { ChampsFormulaireFacultatifs } from "../../src/Domaine/Simulateur/DonneesFormulaire.valeurs";
 import { donneesFormulaireSimulateurVide } from "../../src/Domaine/Simulateur/DonneesFormulaire.constantes";
 
@@ -70,26 +68,27 @@ const testsActiviteNulle = [
     attendu: false,
   },
   {
-    name: "donneesFormulaireSontCompletes", 
-    actionTestee: donneesFormulaireSontCompletes, 
+    name: "donneesFormulaireSontCompletes",
+    actionTestee: donneesFormulaireSontCompletes,
     attendu: false,
   },
 ];
-const formulairePetitInfraNumSansLocalisation: IDonneesBrutesFormulaireSimulateur = {
-  ...donneesFormulaireSimulateurVide,
-  designeOperateurServicesEssentiels: ["non"],
-  etatMembre: ["france"],
-  typeStructure: ["privee"],
-  secteurActivite: ["infrastructureNumerique"],
-  trancheNombreEmployes: ["petit"],
-  trancheCA: ["petit"],
-  activites: ["fournisseurServicesDNS"],
-};
+const formulairePetitInfraNumSansLocalisation: IDonneesBrutesFormulaireSimulateur =
+  {
+    ...donneesFormulaireSimulateurVide,
+    designeOperateurServicesEssentiels: ["non"],
+    etatMembre: ["france"],
+    typeStructure: ["privee"],
+    secteurActivite: ["infrastructureNumerique"],
+    trancheNombreEmployes: ["petit"],
+    trancheCA: ["petit"],
+    activites: ["fournisseurServicesDNS"],
+  };
 const donneesNonValides: {
   description: string;
   donnees: IDonneesBrutesFormulaireSimulateur;
   tests: {
-    name: string,
+    name: string;
     actionTestee: (donnees: IDonneesBrutesFormulaireSimulateur) => boolean;
     attendu: boolean;
   }[];
@@ -140,13 +139,13 @@ const donneesNonValides: {
         actionTestee: verifieCompletudeDonneesFormulairePrivee,
         attendu: false,
       },
-    ]
+    ],
   },
   {
     description: "Petite Infrastructure numérique sans représentant",
     donnees: {
       ...formulairePetitInfraNumSansLocalisation,
-      fournitServicesUnionEuropeenne: ["oui"]
+      fournitServicesUnionEuropeenne: ["oui"],
     },
     tests: [
       {
@@ -154,13 +153,13 @@ const donneesNonValides: {
         actionTestee: verifieCompletudeDonneesFormulairePrivee,
         attendu: false,
       },
-    ]
+    ],
   },
   {
     description: "Petite Infrastructure numérique ne fournit pas en UE",
     donnees: {
       ...formulairePetitInfraNumSansLocalisation,
-      fournitServicesUnionEuropeenne: ["non"]
+      fournitServicesUnionEuropeenne: ["non"],
     },
     tests: [
       {
@@ -168,7 +167,7 @@ const donneesNonValides: {
         actionTestee: verifieCompletudeDonneesFormulairePrivee,
         attendu: true,
       },
-    ]
+    ],
   },
 ];
 
@@ -188,7 +187,9 @@ describe.each([
     "Doit accepter des données éligibles: $nom",
     ({ arbitraireEligible }) => {
       verifieQue(actionTestee)
-        .quelqueSoit(arbitraireEligible as unknown as fc.Arbitrary<IDonneesBrutesFormulaireSimulateur>)
+        .quelqueSoit(
+          arbitraireEligible as unknown as fc.Arbitrary<IDonneesBrutesFormulaireSimulateur>,
+        )
         .renvoieToujours(true);
     },
   );

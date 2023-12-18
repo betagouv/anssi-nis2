@@ -1,6 +1,4 @@
-import {
-  fabriqueArbEnrSecteurSousSecteurs,
-} from "../../utilitaires/manipulationArbitraires";
+import { fabriqueArbEnrSecteurSousSecteurs } from "../../utilitaires/manipulationArbitraires";
 import {
   listeAutresSecteursSousSecteurs,
   listeEnrSecteursAvecLeursSousSecteurs,
@@ -11,8 +9,7 @@ import { auMoinsUnSousSecteurListe } from "../../../src/Domaine/Simulateur/servi
 
 export const arbitraireSecteursSousSecteurs = fabriqueArbEnrSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs,
-)
-  .filter((donnees) => donnees.secteurActivite.length > 0)
+).filter((donnees) => donnees.secteurActivite.length > 0);
 export const arbSecteursSousSecteursListes = fabriqueArbEnrSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs.filter(secteurEtSousSecteursSontListes),
   { minLength: 1 },

@@ -2,11 +2,7 @@ import { describe, it, expect } from "vitest";
 import { fabriquesInformationsEtapes } from "../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
 
 import { exInformationEtape } from "../Services/Simulateur/exemples/informationEtape.exemples";
-import { fausseValidationReponse } from "../Services/Simulateur/InformationEtape.faussaire";
-import {
-  DonneesFormulaireSimulateur,
-  donneesFormulaireSimulateurVide,
-} from "../../src/Domaine/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../src/Domaine/Simulateur/DonneesFormulaire";
 import { toujoursFaux } from "../../src/Domaine/Commun/Commun.predicats";
 import {
   CapacitesEtapeFormulaire,
@@ -14,6 +10,8 @@ import {
   InformationEtapeForm,
   VariantesEtape,
 } from "../../src/Domaine/Simulateur/InformationsEtape";
+import { fausseValidationReponse } from "./InformationEtape.faussaire";
+import { donneesFormulaireSimulateurVide } from "../../src/Domaine/Simulateur/DonneesFormulaire.constantes";
 
 describe("fabriquesInformationsEtapes", () => {
   describe(fabriquesInformationsEtapes.variantes, () => {

@@ -10,9 +10,7 @@ import {
   ValeursAppartenancePaysUnionEuropeenne,
   ValeursTypeEntitePublique,
 } from "../../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
-import {
-  ArbitraireSurTousLesChamps,
-} from "./arbitraireFormulaire.definitions";
+import { ArbitraireSurTousLesChamps } from "./arbitraireFormulaire.definitions";
 import { ValeursNomChampsFormulaire } from "../../../src/Domaine/Simulateur/DonneesFormulaire.valeurs";
 import {
   arbAppartenancePaysUnionEuropeenne,
@@ -36,13 +34,14 @@ export const arbToutesValeursPossibles = etend(
   etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
 });
 
-export const arbHorsUe: fc.Arbitrary<IDonneesBrutesFormulaireSimulateur> = etend(arbToutesValeursPossibles)
-  .avec({
-    designeOperateurServicesEssentiels:
-      arbDesigneOperateurServicesEssentiels.non,
-    etatMembre: arbAppartenancePaysUnionEuropeenne.horsue,
-  })
-  .chain(ajouteAuMoinsUneActiviteListee);
+export const arbHorsUe: fc.Arbitrary<IDonneesBrutesFormulaireSimulateur> =
+  etend(arbToutesValeursPossibles)
+    .avec({
+      designeOperateurServicesEssentiels:
+        arbDesigneOperateurServicesEssentiels.non,
+      etatMembre: arbAppartenancePaysUnionEuropeenne.horsue,
+    })
+    .chain(ajouteAuMoinsUneActiviteListee);
 
 const initialValue: ArbitraireSurTousLesChamps = {
   activites: arbFormulaireVide,

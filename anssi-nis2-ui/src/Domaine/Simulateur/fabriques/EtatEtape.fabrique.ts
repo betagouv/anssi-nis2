@@ -1,6 +1,4 @@
-import {
-  IDonneesBrutesFormulaireSimulateur,
-} from "../DonneesFormulaire";
+import { IDonneesBrutesFormulaireSimulateur } from "../DonneesFormulaire";
 import { donneesFormulaireSimulateurVide } from "../DonneesFormulaire.constantes";
 import { EtatEtapes } from "../EtatEtapes";
 import { CollectionInformationsEtapes } from "../CollectionInformationsEtapes";

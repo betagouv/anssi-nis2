@@ -65,8 +65,6 @@ export class DonneesFormulaireSimulateur
 }
 
 export type DonneesSectorielles = Pick<
-    IDonneesFormulaireSimulateur,
-    "secteurActivite" | "sousSecteurActivite"
+  IDonneesFormulaireSimulateur,
+  "secteurActivite" | "sousSecteurActivite"
 >;
-
-

@@ -1,5 +1,6 @@
 import { InformationEtapeForm, InformationsEtape } from "./InformationsEtape";
-import { ConstantesEtatEtape, EtapeVide } from "./EtatEtapes";
+import { InformationsEtapeVide } from "./EtatEtapes";
+import { ConstantesEtatEtape } from "./EtatEtape.constantes";
 
 export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   slice = (start?: number, end?: number) =>
@@ -46,7 +47,7 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   ): InformationsEtape =>
     this.reduce(
       this.recuperationEtapeSuivanteOuDefaut(indiceDepart),
-      EtapeVide as unknown as InformationsEtape,
+      InformationsEtapeVide as unknown as InformationsEtape,
     );
 
   recupereSousEtape = (indice: number, indiceSousEtape: number) =>

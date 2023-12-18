@@ -4,9 +4,9 @@ import { genereTransformateurValeursVersOptions } from "../genereTransformateurV
 
 export const transformePaysUnionEuropeennePourSelect: TransformeRecordToSelect<AppartenancePaysUnionEuropeenne> =
   genereTransformateurValeursVersOptions(
-    ((
+    (
       value: string,
-      paysUnionEuropeenne: Record<AppartenancePaysUnionEuropeenne, string>
-    ) => paysUnionEuropeenne[value as AppartenancePaysUnionEuropeenne]),
+      paysUnionEuropeenne: Record<AppartenancePaysUnionEuropeenne, string>,
+    ) => paysUnionEuropeenne[value as AppartenancePaysUnionEuropeenne],
     "etatMembre",
   );
