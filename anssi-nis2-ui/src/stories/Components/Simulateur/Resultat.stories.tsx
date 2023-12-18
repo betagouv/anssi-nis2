@@ -14,9 +14,9 @@ const archetypeDonneesFormulaire = new DonneesFormulaireSimulateur({
   typeStructure: ["privee"],
   trancheCA: ["petit"],
   trancheNombreEmployes: ["petit"],
-  secteurActivite: ["infrastructureNumerique"],
+  secteurActivite: ["eauPotable"],
   sousSecteurActivite: [],
-  activites: ["fournisseurReseauxCommunicationElectroniquesPublics"],
+  activites: ["fournisseursDistributeursEauxConsommation"],
 });
 
 const meta: Meta<typeof SimulateurEtapeResult> = {
@@ -51,10 +51,15 @@ export const ResultatEligibleOSE: Story = {
 };
 export const ResultatEligiblePetiteEntreprise: Story = {
   args: {
-    donneesFormulaire: archetypeDonneesFormulaire.avec({
+    donneesFormulaire: {
+      ...archetypeDonneesFormulaire,
       trancheCA: ["petit"],
       trancheNombreEmployes: ["petit"],
-    }),
+      secteurActivite: ["infrastructureNumerique"],
+      activites: ["registresNomsDomainesPremierNiveau"],
+      fournitServicesUnionEuropeenne: ["oui"],
+      localisationRepresentant: ["france"],
+    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
