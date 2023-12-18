@@ -1,4 +1,7 @@
-import { DesignationOperateurServicesEssentiels, FournitServicesUnionEuropeenne } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+import {
+  DesignationOperateurServicesEssentiels,
+  FournitServicesUnionEuropeenne,
+} from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 import { TransformeRecordToSelect } from "../Operations/optionChampSimulateur";
 import { genereTransformateurValeursVersOptions } from "../genereTransformateurValeursVersOptions.ts";
 
@@ -8,8 +11,10 @@ const recupereLibelleFournitServicesUnionEuropeenne = (
     Record<FournitServicesUnionEuropeenne, string>
   >,
 ) =>
-  reponsesFournitServicesUnionEuropeenne[value as FournitServicesUnionEuropeenne] || value;
-  
+  reponsesFournitServicesUnionEuropeenne[
+    value as FournitServicesUnionEuropeenne
+  ] || value;
+
 export const transformeFournitServicesUnionEuropeennePourSelect: TransformeRecordToSelect<DesignationOperateurServicesEssentiels> =
   genereTransformateurValeursVersOptions(
     recupereLibelleFournitServicesUnionEuropeenne,

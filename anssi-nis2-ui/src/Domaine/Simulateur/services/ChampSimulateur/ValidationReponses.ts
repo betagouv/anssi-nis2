@@ -44,10 +44,15 @@ export const validationReponsesTypeStructure: ValidationReponses = {
   ),
 };
 
-export const validationReponsesLocalisationActiviteSpecifique: ValidationReponses = {
-  message: "Sélectionnez une réponse par question",
-  validateur: et(
-    auMoinsUn("fournitServicesUnionEuropeenne"),
-    lorsque("fournitServicesUnionEuropeenne", "oui", auMoinsUn("localisationRepresentant")),
-  ),
-};
+export const validationReponsesLocalisationActiviteSpecifique: ValidationReponses =
+  {
+    message: "Sélectionnez une réponse par question",
+    validateur: et(
+      auMoinsUn("fournitServicesUnionEuropeenne"),
+      lorsque(
+        "fournitServicesUnionEuropeenne",
+        "oui",
+        auMoinsUn("localisationRepresentant"),
+      ),
+    ),
+  };

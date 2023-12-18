@@ -31,7 +31,7 @@ export const scenarioSousEtapeServicesEnFrance: StoryObj<
 
   await passeEtape([["secteurActivite", "infrastructureNumerique"]]);
   await expect(mockSendFormData).not.toHaveBeenCalled();
-  
+
   await passeEtape([["activites", "fournisseurServicesDNS"]]);
 
   await passeEtape([

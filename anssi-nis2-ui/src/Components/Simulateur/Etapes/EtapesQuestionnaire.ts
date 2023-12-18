@@ -38,7 +38,8 @@ const sousEtapeSousSecteur =
 
 const sousEtapeLocalisationActiviteSpecifique =
   fabriquesInformationsEtapes.sousEtapeConditionnelle(
-    ({ activites }: IDonneesBrutesFormulaireSimulateur) => auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement(activites),
+    ({ activites }: IDonneesBrutesFormulaireSimulateur) =>
+      auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement(activites),
     fabriquesInformationsEtapes.form(
       "Localisation de votre activité",
       validationReponsesLocalisationActiviteSpecifique,
