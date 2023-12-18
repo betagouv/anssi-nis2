@@ -1,7 +1,5 @@
-import {
-  IDonneesBrutesFormulaireSimulateur,
-  donneesFormulaireSimulateurVide,
-} from "anssi-nis2-ui/src/Domaine/Simulateur/DonneesFormulaire";
+import { IDonneesBrutesFormulaireSimulateur } from "~core/Simulateur/DonneesFormulaire";
+import { donneesFormulaireSimulateurVide } from "~core/Simulateur/DonneesFormulaire.constantes";
 
 export type SimulateurFormData = IDonneesBrutesFormulaireSimulateur;
 export const donneesSimulateurVide: IDonneesBrutesFormulaireSimulateur =
