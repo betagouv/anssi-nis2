@@ -1,3 +1,4 @@
+import { fc } from "@fast-check/vitest";
 import { describe, it } from "vitest";
 import {
   verifieCompletudeDonneesCommunes,
@@ -8,16 +9,13 @@ import {
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
 import { verifieQue } from "../utilitaires/assure";
 import { IDonneesBrutesFormulaireSimulateur } from "../../src/Domaine/Simulateur/DonneesFormulaire";
+import { ChampsFormulaireFacultatifs } from "../../src/Domaine/Simulateur/DonneesFormulaire.valeurs";
+import { donneesFormulaireSimulateurVide } from "../../src/Domaine/Simulateur/DonneesFormulaire.constantes";
 
 const donneesAbsentes = Object.entries(arbForm.nonValide.donneeAbsente).filter(
-  ([nom]) =>
-    ![
-      "activites",
-      "sousSecteurActivite",
-      "typeEntitePublique",
-      "trancheCA",
-    ].includes(nom),
+  ([nom]) => !ChampsFormulaireFacultatifs.includes(nom),
 );
+
 const donneesTestsArbitraires = [
   {
     nom: "designeOSE.petit",
@@ -55,26 +53,42 @@ const donneesTestsArbitraires = [
 ];
 const testsActiviteNulle = [
   {
+    name: "verifieCompletudeDonneesCommunes",
     actionTestee: verifieCompletudeDonneesCommunes,
     attendu: true,
   },
   {
+    name: "verifieCompletudeDonneesFormulairePrivee",
     actionTestee: verifieCompletudeDonneesFormulairePrivee,
     attendu: false,
   },
   {
+    name: "verifieCompletudeDonneesFormulairePublique",
     actionTestee: verifieCompletudeDonneesFormulairePublique,
     attendu: false,
   },
   {
+    name: "donneesFormulaireSontCompletes",
     actionTestee: donneesFormulaireSontCompletes,
     attendu: false,
   },
 ];
+const formulairePetitInfraNumSansLocalisation: IDonneesBrutesFormulaireSimulateur =
+  {
+    ...donneesFormulaireSimulateurVide,
+    designeOperateurServicesEssentiels: ["non"],
+    etatMembre: ["france"],
+    typeStructure: ["privee"],
+    secteurActivite: ["infrastructureNumerique"],
+    trancheNombreEmployes: ["petit"],
+    trancheCA: ["petit"],
+    activites: ["fournisseurServicesDNS"],
+  };
 const donneesNonValides: {
   description: string;
   donnees: IDonneesBrutesFormulaireSimulateur;
   tests: {
+    name: string;
     actionTestee: (donnees: IDonneesBrutesFormulaireSimulateur) => boolean;
     attendu: boolean;
   }[];
@@ -82,43 +96,81 @@ const donneesNonValides: {
   {
     description: "activiteNulle",
     donnees: {
-      activites: [],
+      ...donneesFormulaireSimulateurVide,
       designeOperateurServicesEssentiels: ["oui"],
       etatMembre: ["france"],
       secteurActivite: ["espace"],
-      sousSecteurActivite: [],
       trancheCA: ["petit"],
       trancheNombreEmployes: ["petit"],
       typeStructure: ["privee"],
-      typeEntitePublique: [],
     },
     tests: testsActiviteNulle,
   },
   {
     description: "publique",
     donnees: {
-      activites: [],
+      ...donneesFormulaireSimulateurVide,
       designeOperateurServicesEssentiels: ["oui"],
       etatMembre: ["france"],
       secteurActivite: ["energie"],
-      sousSecteurActivite: [],
-      trancheCA: [],
       trancheNombreEmployes: ["petit"],
       typeStructure: ["publique"],
       typeEntitePublique: ["administrationCentrale"],
     },
     tests: [
       {
+        name: "verifieCompletudeDonneesCommunes",
         actionTestee: verifieCompletudeDonneesCommunes,
         attendu: true,
       },
       {
+        name: "verifieCompletudeDonneesFormulairePublique",
         actionTestee: verifieCompletudeDonneesFormulairePublique,
         attendu: false,
       },
     ],
   },
+  {
+    description: "Petite Infrastructure numérique non localisée",
+    donnees: formulairePetitInfraNumSansLocalisation,
+    tests: [
+      {
+        name: "verifieCompletudeDonneesFormulairePrivee",
+        actionTestee: verifieCompletudeDonneesFormulairePrivee,
+        attendu: false,
+      },
+    ],
+  },
+  {
+    description: "Petite Infrastructure numérique sans représentant",
+    donnees: {
+      ...formulairePetitInfraNumSansLocalisation,
+      fournitServicesUnionEuropeenne: ["oui"],
+    },
+    tests: [
+      {
+        name: "verifieCompletudeDonneesgFormulairePrivee",
+        actionTestee: verifieCompletudeDonneesFormulairePrivee,
+        attendu: false,
+      },
+    ],
+  },
+  {
+    description: "Petite Infrastructure numérique ne fournit pas en UE",
+    donnees: {
+      ...formulairePetitInfraNumSansLocalisation,
+      fournitServicesUnionEuropeenne: ["non"],
+    },
+    tests: [
+      {
+        name: "verifieCompletudeDonneesFormulairePrivee",
+        actionTestee: verifieCompletudeDonneesFormulairePrivee,
+        attendu: true,
+      },
+    ],
+  },
 ];
+
 describe.each([
   { actionTestee: verifieCompletudeDonneesCommunes },
   { actionTestee: donneesFormulaireSontCompletes },
@@ -135,7 +187,9 @@ describe.each([
     "Doit accepter des données éligibles: $nom",
     ({ arbitraireEligible }) => {
       verifieQue(actionTestee)
-        .quelqueSoit(arbitraireEligible)
+        .quelqueSoit(
+          arbitraireEligible as unknown as fc.Arbitrary<IDonneesBrutesFormulaireSimulateur>,
+        )
         .renvoieToujours(true);
     },
   );
@@ -145,7 +199,7 @@ describe.each(donneesNonValides)(
   "Cas etranges $description",
   ({ donnees, tests }) => {
     it.each(tests)(
-      "doit répondre $attendu pour $actionTestee.name",
+      "doit répondre $attendu pour $name",
       ({ actionTestee, attendu }) => {
         verifieQue(actionTestee).pour(donnees).renvoieToujours(attendu);
       },

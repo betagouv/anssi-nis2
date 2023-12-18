@@ -2,21 +2,21 @@ import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
 } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
-import { TransformeRecordToSelect } from "../Operations/optionChampSimulateur";
+import { TransformeRecordToSelect } from "../Operations/OptionsChampsSimulateur.declarations.ts";
 import { genereTransformateurValeursVersOptions } from "../genereTransformateurValeursVersOptions.ts";
 
 const getNombreEmployesElement = (
-  value: string,
-  tranchesNombreEmployes: Partial<Record<TrancheNombreEmployes, string>>,
-) => tranchesNombreEmployes[value as TrancheNombreEmployes] || value;
+  value: TrancheNombreEmployes,
+  tranchesNombreEmployes: Record<TrancheNombreEmployes, string>,
+) => tranchesNombreEmployes[value];
 export const transformeTranchesNombreEmployesVersOptions: TransformeRecordToSelect<TrancheNombreEmployes> =
   genereTransformateurValeursVersOptions(
     getNombreEmployesElement,
     "trancheNombreEmployes",
   );
 const getCALabel = (
-  value: string,
-  tranchesCA: Partial<Record<TrancheChiffreAffaire, string>>,
-) => tranchesCA[value as TrancheChiffreAffaire] || value;
+  value: TrancheChiffreAffaire,
+  tranchesCA: Record<TrancheChiffreAffaire, string>,
+) => tranchesCA[value];
 export const transformeTranchesCAVersOptions: TransformeRecordToSelect<TrancheChiffreAffaire> =
   genereTransformateurValeursVersOptions(getCALabel, "trancheCA");

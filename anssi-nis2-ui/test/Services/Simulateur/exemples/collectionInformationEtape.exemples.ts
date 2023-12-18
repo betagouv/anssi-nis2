@@ -1,7 +1,7 @@
-import { CollectionInformationsEtapes } from "../../../../src/Services/Simulateur/CollectionInformationsEtapes";
 import { exInformationEtape } from "./informationEtape.exemples";
 
 import { EtapeInexistante } from "../../../../src/Domaine/Simulateur/fabriques/InformationsEtape.fabrique";
+import { CollectionInformationsEtapes } from "../../../../src/Domaine/Simulateur/CollectionInformationsEtapes";
 
 const collectionInformationsEtapesLongueur2Simple =
   new CollectionInformationsEtapes(

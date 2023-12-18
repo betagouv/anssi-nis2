@@ -13,10 +13,17 @@ import {
   auMoinsUn,
   et,
   exactementUn,
+  non,
+  ou,
 } from "../ChampSimulateur/champs.predicats.ts";
+import { toujoursVrai } from "../../../Commun/Commun.predicats.ts";
+import { toujoursFaux } from "../../../Commun/Commun.predicats.ts";
+import { estTableauNonVide } from "../../../Commun/Commun.predicats.ts";
 
 const verifAuMoinsUn = {
-  activiteListee: (donnees: IDonneesBrutesFormulaireSimulateur) =>
+  activiteListee: (
+    donnees: IDonneesBrutesFormulaireSimulateur,
+  ): donnees is IDonneesBrutesFormulaireSimulateur =>
     auMoinsUneActiviteListee(donnees.activites),
 };
 
@@ -30,19 +37,13 @@ export const predicatDonneesFormulaire = {
       donnees.activites.every(estActiviteAutre),
   },
 };
-const toujoursVrai = () => true;
-const toujoursFaux = () => false;
-const tableauNonVide = <T>(tableau: T[]) => tableau.length > 0;
-export const verifieCompletudeDonneesCommunes = (
-  donnees: IDonneesBrutesFormulaireSimulateur,
-) =>
-  et(
-    exactementUn("designeOperateurServicesEssentiels"),
-    exactementUn("etatMembre"),
-    exactementUn("trancheNombreEmployes"),
-    exactementUn("typeStructure"),
-    auMoinsUn("secteurActivite"),
-  )(donnees);
+export const verifieCompletudeDonneesCommunes = et(
+  exactementUn("designeOperateurServicesEssentiels"),
+  exactementUn("etatMembre"),
+  exactementUn("trancheNombreEmployes"),
+  exactementUn("typeStructure"),
+  auMoinsUn("secteurActivite"),
+);
 
 export const verifieDonneesCommunesPrivee: (
   donnees: IDonneesBrutesFormulaireSimulateur,
@@ -59,6 +60,21 @@ const verifieDonneesSectorielles = (
   donnees: IDonneesBrutesFormulaireSimulateur,
 ) =>
   match<IDonneesBrutesFormulaireSimulateur, boolean>(donnees)
+    .with(
+      {
+        secteurActivite: ["infrastructureNumerique"],
+        fournitServicesUnionEuropeenne: ["non"],
+        localisationRepresentant: P.union(P.nullish, []),
+      },
+      toujoursVrai,
+    )
+    .with(
+      {
+        secteurActivite: ["infrastructureNumerique"],
+        localisationRepresentant: P.union(P.nullish, []),
+      },
+      toujoursFaux,
+    )
     .with(
       {
         secteurActivite: P.when(uniquementDesSecteursAutres),
@@ -79,28 +95,28 @@ const verifieDonneesSectorielles = (
       {
         secteurActivite: P.when(auMoinsUnSecteurListe),
         sousSecteurActivite: P.array(),
-        activites: P.when(tableauNonVide),
+        activites: P.when(estTableauNonVide),
       },
       toujoursVrai,
     )
     .otherwise(toujoursFaux);
 
-export const verifieCompletudeDonneesFormulairePrivee = (
-  donnees: IDonneesBrutesFormulaireSimulateur,
-) =>
-  verifieDonneesCommunesPrivee(donnees) && verifieDonneesSectorielles(donnees);
-export const verifieCompletudeDonneesFormulairePublique = (
-  donnees: IDonneesBrutesFormulaireSimulateur,
-) =>
-  verifieDonneesCommunesPublique(donnees) &&
-  verifieDonneesSectorielles(donnees);
-export const donneesFormulaireSontCompletes = (
-  donnees: IDonneesBrutesFormulaireSimulateur,
-) =>
-  verifieCompletudeDonneesCommunes(donnees) &&
-  (verifieCompletudeDonneesFormulairePrivee(donnees) ||
-    verifieCompletudeDonneesFormulairePublique(donnees));
+export const verifieCompletudeDonneesFormulairePrivee = et(
+  verifieDonneesCommunesPrivee,
+  verifieDonneesSectorielles,
+);
+export const verifieCompletudeDonneesFormulairePublique = et(
+  verifieDonneesCommunesPublique,
+  verifieDonneesSectorielles,
+);
+export const donneesFormulaireSontCompletes = et(
+  verifieCompletudeDonneesCommunes,
+  ou(
+    verifieCompletudeDonneesFormulairePrivee,
+    verifieCompletudeDonneesFormulairePublique,
+  ),
+);
 
-export const donneesFormulaireSontIncompletes = (
-  donnees: IDonneesBrutesFormulaireSimulateur,
-) => !donneesFormulaireSontCompletes(donnees);
+export const donneesFormulaireSontIncompletes = non(
+  donneesFormulaireSontCompletes,
+);

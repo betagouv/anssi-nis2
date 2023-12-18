@@ -1,4 +1,4 @@
-import { EtatEtapes } from "./EtatEtapes.ts";
+import { EtatEtapes } from "../../Domaine/Simulateur/EtatEtapes.ts";
 import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import {
   fabriqueEtatEtapePrecedent,
@@ -8,8 +8,8 @@ import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.tsx";
 import { EnvoieDonneesFormulaire } from "./Operations/appelsApi";
 import { donneesFormulaireSontCompletes } from "../../Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
 
-const centreSurHautFormulaire = () => 
-  window.scrollTo({ top: (document.getElementById("debutForm"))?.offsetTop });
+const centreSurHautFormulaire = () =>
+  window.scrollTo({ top: document.getElementById("debutForm")?.offsetTop });
 
 export const fabriqueGestionSuivant =
   (
@@ -62,5 +62,3 @@ export const fabriqueInformationsBoutonsNavigation = (
     donneesFormulaireSimulateur,
   ),
 });
-
-

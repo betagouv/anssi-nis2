@@ -69,8 +69,14 @@ export const RestezInformesCompletRemplieEtEnvoieInfo: Story = {
       libellesContact.nomOrganisation,
       informationsEmail.nomOrganisation ?? "",
     );
-    await remplieChamp(canvas, libellesContact.adresseElectronique, informationsEmail.email);
-    userEvent.click(await canvas.findByLabelText(libellesContact.optinAccepterNewsletter));
+    await remplieChamp(
+      canvas,
+      libellesContact.adresseElectronique,
+      informationsEmail.email,
+    );
+    userEvent.click(
+      await canvas.findByLabelText(libellesContact.optinAccepterNewsletter),
+    );
     await cliqueValidationForm(canvas);
     await canvas.findByText(libellesContact.confirmationInformationsEmail);
     await expect(mockEnregistreInformationsEmail).toHaveBeenCalledTimes(1);
@@ -92,8 +98,14 @@ export const RestezInformesSimpleRemplieEtEnvoieInfo: Story = {
     expect(
       canvas.queryByText(libellesContact.nomOrganisation),
     ).not.toBeInTheDocument();
-    await remplieChamp(canvas, libellesContact.adresseElectronique, informationsEmail.email);
-    userEvent.click(await canvas.findByLabelText(libellesContact.optinAccepterNewsletter));
+    await remplieChamp(
+      canvas,
+      libellesContact.adresseElectronique,
+      informationsEmail.email,
+    );
+    userEvent.click(
+      await canvas.findByLabelText(libellesContact.optinAccepterNewsletter),
+    );
     await cliqueValidationForm(canvas);
     await canvas.findByText(libellesContact.confirmationInformationsEmail);
     await expect(mockEnregistreInformationsEmail).toHaveBeenCalledTimes(1);
@@ -115,7 +127,11 @@ export const ValidationDesChamps: Story = {
     await canvas.findByText(libellesContact.erreurAdresseElectroniqueRequise);
     await remplieChamp(canvas, libellesContact.adresseElectronique, "toto");
     await canvas.findByText(libellesContact.erreurAdresseElectroniqueBonFormat);
-    await remplieChamp(canvas, libellesContact.adresseElectronique, "@coco.com");
+    await remplieChamp(
+      canvas,
+      libellesContact.adresseElectronique,
+      "@coco.com",
+    );
     await cliqueValidationForm(canvas);
     await canvas.findByText(libellesContact.confirmationInformationsEmail);
     await expect(mockEnregistreInformationsEmail).toHaveBeenCalledTimes(1);

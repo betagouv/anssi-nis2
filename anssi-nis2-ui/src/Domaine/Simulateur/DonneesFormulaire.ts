@@ -3,6 +3,7 @@ import { SousSecteurActivite } from "./SousSecteurActivite.definitions";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
+  FournitServicesUnionEuropeenne,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeEntitePublique,
@@ -25,6 +26,8 @@ export interface IDonneesBrutesFormulaireSimulateur
   trancheNombreEmployes: TrancheNombreEmployes[];
   typeStructure: TypeStructure[];
   typeEntitePublique: TypeEntitePublique[];
+  fournitServicesUnionEuropeenne: FournitServicesUnionEuropeenne[];
+  localisationRepresentant: AppartenancePaysUnionEuropeenne[];
 }
 
 export interface IDonneesFormulaireSimulateur
@@ -47,6 +50,8 @@ export class DonneesFormulaireSimulateur
   trancheNombreEmployes: TrancheNombreEmployes[] = [];
   typeStructure: TypeStructure[] = [];
   typeEntitePublique: TypeEntitePublique[] = [];
+  fournitServicesUnionEuropeenne: FournitServicesUnionEuropeenne[] = [];
+  localisationRepresentant: AppartenancePaysUnionEuropeenne[] = [];
 
   constructor(depuis: Readonly<Partial<IDonneesFormulaireSimulateur>>) {
     Object.assign(this, depuis);
@@ -59,15 +64,7 @@ export class DonneesFormulaireSimulateur
   }
 }
 
-export const donneesFormulaireSimulateurVide: IDonneesBrutesFormulaireSimulateur =
-  {
-    designeOperateurServicesEssentiels: [],
-    etatMembre: [],
-    secteurActivite: [],
-    sousSecteurActivite: [],
-    trancheCA: [],
-    trancheNombreEmployes: [],
-    typeStructure: [],
-    typeEntitePublique: [],
-    activites: [],
-  };
+export type DonneesSectorielles = Pick<
+  IDonneesFormulaireSimulateur,
+  "secteurActivite" | "sousSecteurActivite"
+>;

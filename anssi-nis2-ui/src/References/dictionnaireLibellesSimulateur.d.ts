@@ -23,4 +23,9 @@ export type DictionnaireLibellesSimulateur = {
   trancheNombreEmployes: Record<TrancheNombreEmployes, string>;
   typeStructure: Record<TypeStructure, string>;
   typeEntitePublique: Record<TypeEntitePublique, string>;
+  fournitServicesUnionEuropeenne: Record<
+    FournitServicesUnionEuropeenne,
+    string
+  >;
+  localisationRepresentant: Record<AppartenancePaysUnionEuropeenne, string>;
 };

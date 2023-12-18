@@ -1,9 +1,7 @@
-import {
-  donneesFormulaireSimulateurVide,
-  IDonneesBrutesFormulaireSimulateur,
-} from "../DonneesFormulaire.ts";
-import { EtatEtapes } from "../../../Services/Simulateur/EtatEtapes.ts";
-import { CollectionInformationsEtapes } from "../../../Services/Simulateur/CollectionInformationsEtapes.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../DonneesFormulaire";
+import { donneesFormulaireSimulateurVide } from "../DonneesFormulaire.constantes";
+import { EtatEtapes } from "../EtatEtapes";
+import { CollectionInformationsEtapes } from "../CollectionInformationsEtapes";
 
 const suivantEstIgnore = (
   suivant: EtatEtapes,
@@ -29,6 +27,7 @@ export const fabriqueEtatEtape: (
   );
   const etapeSuivantExiste = collectionEtapes.existeEtapeSuivante(indiceEtape);
   return {
+    typeEtapeCourante: collectionEtapes.typeEtape(indiceEtape, indiceSousEtape),
     donneesFormulaire: donneesFormulaire,
     collectionEtapes: collectionEtapes,
     varianteEtape: contenuEtapeCourante.varianteAffichee(donneesFormulaire),

@@ -5,7 +5,12 @@ export type TransformeRecordToSelect<
   ValeursCles extends string,
   Contenu = string,
 > = (
-  valeurs: Partial<Record<ValeursCles, Contenu>>,
+  valeurs: Record<ValeursCles, Contenu>,
   onChange?: React.ChangeEventHandler<HTMLInputElement>,
   formData?: IDonneesBrutesFormulaireSimulateur,
 ) => OptionsChampSimulateur;
+
+export type GenerateurLibelle<T extends string, P = string> = (
+  value: T,
+  valeursMetier: Record<T, P>,
+) => P;

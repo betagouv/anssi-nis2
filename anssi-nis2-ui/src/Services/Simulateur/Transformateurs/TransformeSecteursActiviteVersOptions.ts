@@ -1,11 +1,11 @@
 import { SecteurActivite } from "../../../Domaine/Simulateur/SecteurActivite.definitions.ts";
-import { TransformeRecordToSelect } from "../Operations/optionChampSimulateur";
+import { TransformeRecordToSelect } from "../Operations/OptionsChampsSimulateur.declarations.ts";
 import { genereTransformateurValeursVersOptions } from "../genereTransformateurValeursVersOptions.ts";
 
 export const getSecteurActiviteLabel = (
-  value: string,
-  secteurActivite: Partial<Record<SecteurActivite, string>>,
-) => secteurActivite[value as SecteurActivite] || value;
+  value: SecteurActivite,
+  secteurActivite: Record<SecteurActivite, string>,
+) => secteurActivite[value];
 export const transformeSecteursActiviteVersOptions: TransformeRecordToSelect<SecteurActivite> =
   genereTransformateurValeursVersOptions(
     getSecteurActiviteLabel,

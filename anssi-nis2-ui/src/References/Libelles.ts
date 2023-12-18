@@ -5,18 +5,26 @@ import { DictionnaireLibellesSimulateur } from "./dictionnaireLibellesSimulateur
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
+  FournitServicesUnionEuropeenne,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeEntitePublique,
   TypeStructure,
 } from "../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 
-export const libellesDesigneOSE: Record<
-  DesignationOperateurServicesEssentiels,
+export const libellesFournitServicesUnionEuropeenne: Record<
+  FournitServicesUnionEuropeenne,
   string
 > = {
   oui: "Oui",
   non: "Non",
+};
+
+export const libellesDesigneOSE: Record<
+  DesignationOperateurServicesEssentiels,
+  string
+> = {
+  ...libellesFournitServicesUnionEuropeenne,
   nsp: "Ne sais pas",
 };
 
@@ -65,4 +73,6 @@ export const libellesSimulateur: DictionnaireLibellesSimulateur = {
   trancheNombreEmployes: libellesTranchesNombreEmployes,
   typeStructure: libellesTypesStructure,
   typeEntitePublique: libellesTypeEntitePublique,
+  fournitServicesUnionEuropeenne: libellesFournitServicesUnionEuropeenne,
+  localisationRepresentant: libellesPaysUnionEuropeenneLocalisation,
 };

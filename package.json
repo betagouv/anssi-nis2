@@ -8,8 +8,8 @@
     "anssi-nis2-api"
   ],
   "engines": {
-    "node": "18",
-    "npm": "9"
+    "node": ">= 18",
+    "npm": ">= 9"
   },
   "scripts": {
     "lint": "eslint \"./anssi-nis2-*/{src,apps,libs,test}/**/*.ts\" --fix",
@@ -18,7 +18,8 @@
     "build": "npm run build --workspaces --if-present",
     "start": "npm run start:prod -w anssi-nis2-api",
     "db:migrate": "npm run -w anssi-nis2-api typeorm migration:run -- --dataSource ./src/dataSource.ts",
-    "db:migrate:revert": "npm run -w anssi-nis2-api typeorm migration:revert -- --dataSource ./src/dataSource.ts"
+    "db:migrate:revert": "npm run -w anssi-nis2-api typeorm migration:revert -- --dataSource ./src/dataSource.ts",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,11 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "eslint-plugin-storybook": "^0.6.15",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.0",
     "typescript": "^5.1.6"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
   }
 }

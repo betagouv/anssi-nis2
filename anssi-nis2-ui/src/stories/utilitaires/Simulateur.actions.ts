@@ -36,6 +36,16 @@ export const passeEtapeEnCochant = async <
   expect(boutonSuivant).toBeEnabled();
   return await userEvent.click(boutonSuivant);
 };
+
+export const cocheEtPasseEtape =
+  (suivantActiveApres: number = 0) =>
+  (canvas: CanvasObject) =>
+  async <NomChamp extends ValeurChampSimulateur>(
+    champsACliquer: [NomsChampsSimulateur, NomChamp][],
+  ) =>
+    passeEtapeEnCochant(canvas, champsACliquer, suivantActiveApres);
+export const cocheAuMoinsUnEtPasseEtape = cocheEtPasseEtape();
+
 export const cliqueSurDebuterLeTest = async (canvas: CanvasObject) =>
   await userEvent.click(
     await canvas.findByRole("button", {

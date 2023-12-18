@@ -31,11 +31,43 @@ describe(calculeEligibilite, () => {
           verifieQue(calculeEligibilite)
             .quelqueSoit(
               arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                .activitesConcernes,
+                .petitInfraNum.activitesConcernes,
+            )
+            .renvoieToujours(Eligibilite.EligiblePetiteEntreprise);
+        });
+        it("Petit Fournisseur d'infranum dans l'UE, représentant en France", () => {
+          verifieQue(calculeEligibilite)
+            .quelqueSoit(
+              arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+                .petitInfraNum.infraNumDNSOuNomDomaine.representantFrance,
             )
             .renvoieToujours(Eligibilite.EligiblePetiteEntreprise);
         });
         describe("N'est pas éligible si", () => {
+          it("Petit Fournisseur d'infranum dans l'UE, représentant en UE", () => {
+            verifieQue(calculeEligibilite)
+              .quelqueSoit(
+                arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+                  .petitInfraNum.infraNumDNSOuNomDomaine.representantUE,
+              )
+              .renvoieToujours(Eligibilite.NonEligible);
+          });
+          it("Petit Fournisseur d'infranum ne fournissant pas dans l'UE", () => {
+            verifieQue(calculeEligibilite)
+              .quelqueSoit(
+                arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+                  .petitInfraNum.infraNumDNSOuNomDomaine.neFournitPasEnUE,
+              )
+              .renvoieToujours(Eligibilite.NonEligible);
+          });
+          it("Petit Fournisseur d'infranum dans l'UE, représentant Hors UE", () => {
+            verifieQue(calculeEligibilite)
+              .quelqueSoit(
+                arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+                  .petitInfraNum.infraNumDNSOuNomDomaine.representantHorsUE,
+              )
+              .renvoieToujours(Eligibilite.NonEligible);
+          });
           it("le secteur d'activité n'est pas 'Infrastructure Numérique'", () => {
             verifieQue(calculeEligibilite)
               .quelqueSoit(
@@ -102,47 +134,42 @@ describe(calculeEligibilite, () => {
             secteurActivite: ["eauxUsees"],
             sousSecteurActivite: [],
             activites: ["collectantEvacuantTraitantEaux"],
+            fournitServicesUnionEuropeenne: [],
+            localisationRepresentant: [],
           })
           .renvoieToujours(Eligibilite.Incertain);
-      });
-      describe("Exceptions 'Etablissement principal en France'", () => {
-        it("Petite Infranum", () => {
-          verifieQue(calculeEligibilite)
-            .quelqueSoit(
-              arbForm.nonDesigneOSE.privee.exceptions
-                .etablissementPrincipalFrance.petitInfraNum,
-            )
-            .renvoieToujours(Eligibilite.Incertain);
-        });
-        it("Moyen grand Infranum", () => {
-          verifieQue(calculeEligibilite)
-            .quelqueSoit(
-              arbForm.nonDesigneOSE.privee.exceptions
-                .etablissementPrincipalFrance.moyenGrandInfraNum,
-            )
-            .renvoieToujours(Eligibilite.Incertain);
-        });
-        it("Moyen grand Gestion TIC", () => {
-          verifieQue(calculeEligibilite)
-            .quelqueSoit(
-              arbForm.nonDesigneOSE.privee.exceptions
-                .etablissementPrincipalFrance.moyenGrandGestionTic,
-            )
-            .renvoieToujours(Eligibilite.Incertain);
-        });
-        it("Moyen grand Fournisseur Numérique", () => {
-          verifieQue(calculeEligibilite)
-            .quelqueSoit(
-              arbForm.nonDesigneOSE.privee.exceptions
-                .etablissementPrincipalFrance.moyenGrandFournisseurNum,
-            )
-            .renvoieToujours(Eligibilite.Incertain);
-        });
       });
     });
   });
 
   describe(Eligibilite.Incertain, () => {
+    describe("Exceptions 'Etablissement principal en France'", () => {
+      it("Moyen grand Infranum", () => {
+        verifieQue(calculeEligibilite)
+          .quelqueSoit(
+            arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance
+              .moyenGrandInfraNum,
+          )
+          .renvoieToujours(Eligibilite.Incertain);
+      });
+      it("Moyen grand Gestion TIC", () => {
+        verifieQue(calculeEligibilite)
+          .quelqueSoit(
+            arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance
+              .moyenGrandGestionTic,
+          )
+          .renvoieToujours(Eligibilite.Incertain);
+      });
+      it("Moyen grand Fournisseur Numérique", () => {
+        verifieQue(calculeEligibilite)
+          .quelqueSoit(
+            arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance
+              .moyenGrandFournisseurNum,
+          )
+          .renvoieToujours(Eligibilite.Incertain);
+      });
+    });
+
     it("lorsque le type structure n'est pas remplie", () => {
       verifieQue(calculeEligibilite)
         .quelqueSoit(arbForm.nonValide.donneeAbsente.typeStructure)

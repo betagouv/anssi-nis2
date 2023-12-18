@@ -3,7 +3,7 @@ import { SimulateurDonneesFormulaireActions } from "./donneesFormulaire";
 import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { Dispatch } from "react";
 import { BoutonsNavigation } from "./boutonsNavigation";
-import { EtatEtapes } from "../EtatEtapes.ts";
+import { EtatEtapes } from "../../../Domaine/Simulateur/EtatEtapes.ts";
 
 export interface SimulateurEtapeProps extends DefaultProps {
   donneesFormulaire: IDonneesBrutesFormulaireSimulateur;

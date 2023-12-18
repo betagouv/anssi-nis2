@@ -2,18 +2,18 @@ import {
   TypeEntitePublique,
   TypeStructure,
 } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
-import { TransformeRecordToSelect } from "../Operations/optionChampSimulateur";
+import { TransformeRecordToSelect } from "../Operations/OptionsChampsSimulateur.declarations.ts";
 import { genereTransformateurValeursVersOptions } from "../genereTransformateurValeursVersOptions.ts";
 
 const getTypesStructureElement = (
-  value: string,
-  typesStructure: Partial<Record<TypeStructure, string>>,
-) => typesStructure[value as TypeStructure] || value;
+  value: TypeStructure,
+  typesStructure: Record<TypeStructure, string>,
+) => typesStructure[value];
 
 const getTypeEntitePubliqueElement = (
-  value: string,
-  typeEntitePublique: Partial<Record<TypeEntitePublique, string>>,
-) => typeEntitePublique[value as TypeEntitePublique] || value;
+  value: TypeEntitePublique,
+  typeEntitePublique: Record<TypeEntitePublique, string>,
+) => typeEntitePublique[value];
 
 export const transformeTypeStructureVersOptions: TransformeRecordToSelect<TypeStructure> =
   genereTransformateurValeursVersOptions(

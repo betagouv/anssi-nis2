@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import {
   DonneesFormulaireSimulateur,
-  donneesFormulaireSimulateurVide,
   IDonneesBrutesFormulaireSimulateur,
 } from "../../src/Domaine/Simulateur/DonneesFormulaire";
 import {
@@ -13,6 +12,7 @@ import {
 } from "../../src/Domaine/Simulateur/services/ChampSimulateur/champs.predicats";
 import { contientAutreSecteurActiviteUniquement } from "../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { PredicatChamp } from "../../src/Domaine/Simulateur/services/ChampSimulateur/champs.domaine";
+import { donneesFormulaireSimulateurVide } from "../../src/Domaine/Simulateur/DonneesFormulaire.constantes";
 
 describe("validateurs", () => {
   describe("valideAuMoinsUn", () => {

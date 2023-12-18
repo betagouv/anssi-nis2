@@ -1,46 +1,26 @@
-import { arbOSEMoyenGrand, arbOSEPetit } from "./arbitrairesSimulateur.OSE";
 import { arbActivitesAutres } from "./arbitrairesSimulateur.activites";
-import {
-  arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance,
-  arbNonOSEPrivesPetitFournisseurInfraNum,
-  arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernes,
-  arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernesFrance,
-  arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes,
-  arbNonOSEPrivesPetitHorsFournisseurInfraNum,
-} from "./arbitrairesSimulateur.infrastructuresNumeriques";
 import {
   arbHorsUe,
   donneeAbsente,
 } from "./arbitrairesSimulateur.toutesValeurs";
 import { arbNonOSEPublique } from "./arbitrairesSimulateur.nonOSEPublique";
 import {
+  arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance,
   arbNonOSEPrivesMoyenGrandFournisseurNumerique,
   arbNonOSEPrivesMoyenGrandGestionTic,
   arbNonOSEPrivesMoyenneGrande,
   arbNonOSEPrivesMoyenneGrandeAutresActivites,
   arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles,
 } from "./arbitrairesSimulateur.nonOSEPriveesMoyennesGrandes";
+import { arbFournisseursInfrastructureNumerique } from "./arbitrairesSimulateur.infrastructuresNumeriques";
+import { arbDesigneOSE } from "./arbitrairesSimulateur.OSE";
 
 export const arbForm = {
-  designeOSE: {
-    petit: arbOSEPetit,
-    moyenGrand: arbOSEMoyenGrand,
-  },
+  designeOSE: arbDesigneOSE,
   nonDesigneOSE: {
     privee: {
       activitesAutres: arbActivitesAutres,
-      petit: {
-        fournisseursInfrastructureNumerique:
-          arbNonOSEPrivesPetitFournisseurInfraNum,
-        fournisseursInfraNum: {
-          activitesConcernes:
-            arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernes,
-          activitesNonConcernes:
-            arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes,
-        },
-        listeNonFournisseursInfrastructureNumerique:
-          arbNonOSEPrivesPetitHorsFournisseurInfraNum,
-      },
+      petit: arbFournisseursInfrastructureNumerique,
       grand: {
         secteursListes: arbNonOSEPrivesMoyenneGrande,
         secteursAutres: arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles,
@@ -48,8 +28,6 @@ export const arbForm = {
       },
       exceptions: {
         etablissementPrincipalFrance: {
-          petitInfraNum:
-            arbNonOSEPrivesPetitFournisseurInfraNumActivitesConcernesFrance,
           moyenGrandInfraNum:
             arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance,
           moyenGrandGestionTic: arbNonOSEPrivesMoyenGrandGestionTic,

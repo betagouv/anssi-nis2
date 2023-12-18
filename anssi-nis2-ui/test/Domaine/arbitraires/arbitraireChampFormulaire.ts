@@ -2,6 +2,7 @@ import { fc } from "@fast-check/vitest";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
+  FournitServicesUnionEuropeenne,
   TypeEntitePublique,
   TypeStructure,
   UnionPetitMoyenGrand,
@@ -45,6 +46,17 @@ export const arbAppartenancePaysUnionEuropeenne: ArbitraireChampFormulaire<
   autre: fc.constant(["autre"]),
   franceOuAutre: fabriqueArbSingleton(["france", "autre"]),
 };
+export const arbFournitServiceUnionEuropeenne: ArbitraireChampFormulaire<FournitServicesUnionEuropeenne> =
+  {
+    non: fc.constant<FournitServicesUnionEuropeenne[]>(["non"]),
+    oui: fc.constant<FournitServicesUnionEuropeenne[]>(["oui"]),
+  };
+export const arbLocalisationRepresentant: ArbitraireChampFormulaire<AppartenancePaysUnionEuropeenne> =
+  {
+    france: fc.constant(["france"]),
+    horsue: fc.constant(["horsue"]),
+    autre: fc.constant(["autre"]),
+  };
 export type ArbitraireChampFormulaire<
   T extends ValeurChampSimulateur,
   TypesAdditionnelles extends string = T,

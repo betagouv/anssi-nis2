@@ -7,30 +7,24 @@ import {
   InformationsEtapesVariantes,
   OptionsInformationEtapeForm,
   SousEtapeConditionnelle,
+  TypeEtape,
   VariantesEtape,
-} from "../../../Services/Simulateur/InformationsEtape.ts";
+} from "../InformationsEtape.ts";
 import { PredicatDonneesSimulateur } from "../../../Services/Simulateur/PredicatDonneesSimulateur.ts";
-import { SimulateurEtapeNodeComponent } from "../../../Services/Simulateur/Props/component";
 import { ValidationReponses } from "../services/ChampSimulateur/champs.domaine.ts";
-import { elementVide } from "../../../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
-import { SimulateurEtapeForm } from "../../../Components/Simulateur/SimulateurEtapeForm.tsx";
 import { IDonneesBrutesFormulaireSimulateur } from "../DonneesFormulaire.ts";
-import { SimulateurEtapePrealable } from "../../../Components/Simulateur/SimulateurEtapePrealable.tsx";
-import { SimulateurEtapeResult } from "../../../Components/Simulateur/SimulateurEtapeResult.tsx";
 import { validationToutesLesReponses } from "../services/ChampSimulateur/ValidationReponses.ts";
 import { match } from "ts-pattern";
-
-export const toujoursFaux = () => false;
-export const toujoursVrai = () => true;
-export const toujourNegatif = () => -1;
+import { toujoursFaux, toujoursVrai } from "../../Commun/Commun.predicats.ts";
+import { toujourNegatif } from "../../Commun/Commun.predicats.ts";
 
 const fabriqueInformationsEtapeResultat: (titre: string) => EtapeResultat = (
   titre,
 ) => ({
+  type: "resultat",
   titre: titre,
   longueurComptabilisee: 0,
   existe: true,
-  conteneurElementRendu: SimulateurEtapeResult,
   remplitContitionSousEtape: toujoursFaux,
   estIgnoree: toujoursFaux,
   validationReponses: validationToutesLesReponses,
@@ -40,7 +34,7 @@ const fabriqueInformationsEtapeResultat: (titre: string) => EtapeResultat = (
 const fabriqueInformationsEtapeForm = (
   titre: string,
   validationReponses: ValidationReponses,
-  composant: SimulateurEtapeNodeComponent,
+  type: TypeEtape,
   options: Partial<OptionsInformationEtapeForm> = optionsInformationEtapeFormParDefaut,
 ): InformationEtapeForm => {
   const optionsCompletes = {
@@ -48,14 +42,12 @@ const fabriqueInformationsEtapeForm = (
     ...options,
   };
   return {
+    type: type,
     titre: titre,
     validationReponses: validationReponses,
-    composant: composant,
-    fabriqueComposant: () => composant,
     options: optionsCompletes,
     longueurComptabilisee: 1,
     existe: true,
-    conteneurElementRendu: SimulateurEtapeForm,
     remplitContitionSousEtape: (donnees: IDonneesBrutesFormulaireSimulateur) =>
       options.sousEtapeConditionnelle?.condition(donnees) || false,
     estIgnoree: optionsCompletes.ignoreSi,
@@ -67,9 +59,9 @@ const fabriqueInformationsEtapeForm = (
 const fabriqueInformationEtapePrealable: (titre: string) => EtapePrealable = (
   titre: string,
 ) => ({
+  type: "prealable",
   existe: true,
   longueurComptabilisee: 0,
-  conteneurElementRendu: SimulateurEtapePrealable,
   titre: titre,
   remplitContitionSousEtape: toujoursFaux,
   estIgnoree: toujoursFaux,
@@ -97,15 +89,13 @@ const fabriqueInformationsEtapesVariantes = <
   const variantes = variantesEtapes.map((variante) => variante.etape);
   const varianteAffichee = fabriqueFonctionEtapeAffichee(variantesEtapes);
   return {
+    type: "variante",
     variantes: variantes,
     varianteAffichee: varianteAffichee,
     longueurComptabilisee: 1,
-    fabriqueComposant: (donnees: IDonneesBrutesFormulaireSimulateur) =>
-      variantes[varianteAffichee(donnees)].composant,
     existe: true,
     titre: variantesEtapes[0]?.etape.titre,
     estIgnoree: toujoursFaux,
-    conteneurElementRendu: SimulateurEtapeForm,
     remplitContitionSousEtape: toujoursFaux,
     validationReponses: variantesEtapes[0]?.etape.validationReponses,
     fabriqueValidationReponses: (donnees: IDonneesBrutesFormulaireSimulateur) =>
@@ -133,11 +123,11 @@ export const EtapeInexistante: InformationsEtape & CapaciteEtape = {
   longueurComptabilisee: 0,
   existe: false,
   titre: "Hors de portee",
-  conteneurElementRendu: elementVide,
   remplitContitionSousEtape: toujoursFaux,
   estIgnoree: toujoursVrai,
   validationReponses: validationToutesLesReponses,
   varianteAffichee: toujourNegatif,
+  type: "inexistante",
 } as const;
 
 export const optionsInformationEtapeFormParDefaut: OptionsInformationEtapeForm =

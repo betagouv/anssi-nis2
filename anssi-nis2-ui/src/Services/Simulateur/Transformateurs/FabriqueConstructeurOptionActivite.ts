@@ -1,4 +1,5 @@
 import {
+  DonneesSectorielles,
   IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
@@ -19,7 +20,8 @@ import { ValeursActivites } from "../../../Domaine/Simulateur/Activite.definitio
 import { ValeurCleSectorielle } from "../../../Domaine/Simulateur/ValeurCleSectorielle.definitions.ts";
 
 export const fabriqueConstructeurOptionActivite: (
-  donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
+  donneesFormulaire: Pick<IDonneesBrutesFormulaireSimulateur, "activites"> &
+    DonneesSectorielles,
   changeMulti: React.ChangeEventHandler<HTMLInputElement>,
 ) => (activite: ValeursActivites) => OptionChampSimulateur =
   (donneesFormulaire, changeMulti) => (activite) => ({
@@ -32,6 +34,7 @@ export const fabriqueConstructeurOptionActivite: (
       name: "activites",
     },
   });
+
 const fabriqueChangeMulti: (
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>,
 ) => React.ChangeEventHandler<HTMLInputElement> =
@@ -43,12 +46,12 @@ const fabriqueChangeMulti: (
     });
   };
 
-function fabriqueOptions(
+const fabriqueOptions = (
   secteurOuSousSecteur: ValeurCleSectorielle,
   construitOptionActivite: (
     activite: ValeursActivites,
   ) => OptionChampSimulateur,
-) {
+) => {
   const activitesParSecteurEtSousSecteurElement =
     activitesParSecteurEtSousSecteur[secteurOuSousSecteur];
   if (!activitesParSecteurEtSousSecteurElement) {
@@ -57,10 +60,11 @@ function fabriqueOptions(
   return (
     activitesParSecteurEtSousSecteurElement?.map(construitOptionActivite) || []
   );
-}
+};
 
 export const fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur: (
-  donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
+  donneesFormulaire: Pick<IDonneesBrutesFormulaireSimulateur, "activites"> &
+    DonneesSectorielles,
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>,
 ) => (
   tupleSecteurEtActivite: AssociationSectorielleActivite,

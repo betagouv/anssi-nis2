@@ -34,6 +34,10 @@ export const ou: (...validateurs: Array<PredicatChamp>) => PredicatChamp =
   (donnees) =>
     validateurs.some(appliqueValidateur(donnees));
 
+export const non: (validateur: PredicatChamp) => PredicatChamp =
+  (validateur) => (d) =>
+    !validateur(d);
+
 export const lorsque: (
   champ: NomsChampsSimulateur,
   valeur: ValeurChampSimulateur,
@@ -89,21 +93,13 @@ export const auMoinsUnSousSecteurParSecteur: PredicatChamp = (
     filtreSecteursAvecSousSecteurs(donneesFormulaireSimulateur.secteurActivite),
   )(donneesFormulaireSimulateur);
 
-const auMoinsUneActiviteEstDansSecteur = (
-  activites: ValeursActivites[],
-  secteurActivite: ValeurCleSectorielle,
-) =>
-  activites.some((activite) =>
-    activiteEstDansSecteur(activite, secteurActivite),
-  );
+const auMoinsUneActiviteEstDansSecteur =
+  (activites: ValeursActivites[]) => (secteurActivite: ValeurCleSectorielle) =>
+    activites.some(activiteEstDansSecteur(secteurActivite));
 
-const fabriqueAuMoinsUneActiviteEstDansSecteur =
-  (donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur) =>
-  (secteurActivite: ValeurCleSectorielle) =>
-    auMoinsUneActiviteEstDansSecteur(
-      donneesFormulaireSimulateur.activites,
-      secteurActivite,
-    );
+const fabriqueAuMoinsUneActiviteEstDansSecteur = (
+  donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur,
+) => auMoinsUneActiviteEstDansSecteur(donneesFormulaireSimulateur.activites);
 
 export const auMoinsUneActiviteParValeurSectorielleListee: PredicatChamp = (
   donneesFormulaireSimulateur,

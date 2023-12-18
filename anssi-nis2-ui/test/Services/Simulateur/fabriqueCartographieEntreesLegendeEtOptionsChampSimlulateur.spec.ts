@@ -1,17 +1,21 @@
 import { describe, it, expect } from "vitest";
 import { fc } from "@fast-check/vitest";
 import { fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur } from "../../../src/Services/Simulateur/Transformateurs/FabriqueConstructeurOptionActivite";
-import { IDonneesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import {
-  ajouteMethodeAvec,
+  ajouteArbitraireActivites,
   fabriqueArbEnrSecteurSousSecteurs,
 } from "../../utilitaires/manipulationArbitraires";
 import { listeEnrSecteursAvecLeursSousSecteurs } from "./exemples/ListesEnrSecteursSousSecteur";
+import {
+  DonneesSectorielles,
+  IDonneesBrutesFormulaireSimulateur,
+} from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 
-const donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites: fc.Arbitrary<IDonneesFormulaireSimulateur> =
-  fabriqueArbEnrSecteurSousSecteurs(listeEnrSecteursAvecLeursSousSecteurs, {
-    minLength: 1,
-  }).chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
+const donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites: fc.Arbitrary<
+  DonneesSectorielles & Pick<IDonneesBrutesFormulaireSimulateur, "activites">
+> = fabriqueArbEnrSecteurSousSecteurs(listeEnrSecteursAvecLeursSousSecteurs, {
+  minLength: 1,
+}).chain(ajouteArbitraireActivites);
 
 describe(fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur, () => {
   it("Renvoie des tuples correctes", () => {

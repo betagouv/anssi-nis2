@@ -1,4 +1,4 @@
-import { EtatEtapes } from "../Simulateur/EtatEtapes.ts";
+import { EtatEtapes } from "../../Domaine/Simulateur/EtatEtapes.ts";
 import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 export const traceEtapeSimulateur = (

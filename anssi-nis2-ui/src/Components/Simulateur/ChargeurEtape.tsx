@@ -2,12 +2,13 @@ import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Helmet } from "react-helmet";
 
 import { DefaultComponent } from "../../Services/Props";
-import { donneesFormulaireSimulateurVide } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { donneesFormulaireSimulateurVide } from "../../Domaine/Simulateur/DonneesFormulaire.constantes.ts";
 import { etatEtapesInitial } from "./Etapes/EtapesQuestionnaire.ts";
 import { useReducteurDonneesFormulaireDuContexte } from "../AppContexte/UseReducteurDonneesFormulaireDuContexte.tsx";
 import { fabriqueInformationsBoutonsNavigation } from "../../Services/Simulateur/BoutonsNavigation.fabrique.ts";
 import { traceEtapeSimulateur } from "../../Services/TraceurWeb/traceEtapeSimulateur.ts";
 import { AppContext } from "../AppContexte/AppContext.tsx";
+import { cartoComposants } from "../../Services/Simulateur/Transformateurs/TypeEtapeVersComposantEtape.transformateur.ts";
 
 const ChargeurEtapeCalcule: DefaultComponent = () => {
   const [donneesFormulaireSimulateur, propageActionSimulateur] = useReducer(
@@ -17,7 +18,7 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
   const [etatEtapes, setEtatEtape] = useState(etatEtapesInitial);
   const { envoieDonneesFormulaire } = useContext(AppContext);
 
-  const ElementRendu = etatEtapes.contenuEtapeCourante.conteneurElementRendu;
+  const ElementRendu = cartoComposants[etatEtapes.typeEtapeCourante].conteneur;
 
   const informationsBoutonsNavigation = fabriqueInformationsBoutonsNavigation(
     setEtatEtape,

@@ -1,14 +1,6 @@
-import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-ui/src/Domaine/Simulateur/DonneesFormulaire";
+import { IDonneesBrutesFormulaireSimulateur } from "~core/Simulateur/DonneesFormulaire";
+import { donneesFormulaireSimulateurVide } from "~core/Simulateur/DonneesFormulaire.constantes";
 
 export type SimulateurFormData = IDonneesBrutesFormulaireSimulateur;
-export const donneesSimulateurVide: IDonneesBrutesFormulaireSimulateur = {
-  activites: [],
-  designeOperateurServicesEssentiels: [],
-  sousSecteurActivite: [],
-  typeEntitePublique: [],
-  etatMembre: [],
-  secteurActivite: [],
-  trancheCA: [],
-  trancheNombreEmployes: [],
-  typeStructure: [],
-};
+export const donneesSimulateurVide: IDonneesBrutesFormulaireSimulateur =
+  donneesFormulaireSimulateurVide;
