@@ -10,9 +10,9 @@ import { arbForm } from "./arbitraires/arbitrairesSimulateur";
 import { verifieQue } from "../utilitaires/assure";
 import {
   IDonneesBrutesFormulaireSimulateur,
-  donneesFormulaireSimulateurVide,
 } from "../../src/Domaine/Simulateur/DonneesFormulaire";
 import { ChampsFormulaireFacultatifs } from "../../src/Domaine/Simulateur/DonneesFormulaire.valeurs";
+import { donneesFormulaireSimulateurVide } from "../../src/Domaine/Simulateur/DonneesFormulaire.constantes";
 
 const donneesAbsentes = Object.entries(arbForm.nonValide.donneeAbsente).filter(
   ([nom]) => !ChampsFormulaireFacultatifs.includes(nom),

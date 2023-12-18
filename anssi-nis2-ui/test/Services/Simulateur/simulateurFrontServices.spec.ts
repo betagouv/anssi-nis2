@@ -2,12 +2,11 @@ import { describe, it, expect } from "vitest";
 import { genereTransformateurValeursVersOptions } from "../../../src/Services/Simulateur/genereTransformateurValeursVersOptions";
 import { libellesPaysUnionEuropeenneLocalisation } from "../../../src/References/Libelles";
 import {
-  donneesFormulaireSimulateurVide,
   DonneesFormulaireSimulateur,
 } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
-import { ValeurChampSimulateur } from "../../../src/Domaine/Simulateur/ChampsSimulateur.definitions";
 import { transformePaysUnionEuropeennePourSelect } from "../../../src/Services/Simulateur/Transformateurs/TransformePaysUnionEuropeennePourSelect";
 import { ValeursActivites } from "../../../src/Domaine/Simulateur/Activite.definitions";
+import { donneesFormulaireSimulateurVide } from "../../../src/Domaine/Simulateur/DonneesFormulaire.constantes";
 
 describe(genereTransformateurValeursVersOptions, () => {
   const onChange: React.ChangeEventHandler<HTMLInputElement> = () => {};
@@ -64,18 +63,18 @@ describe(genereTransformateurValeursVersOptions, () => {
     expect(optionsPaysUEObtenu).toStrictEqual(attendu);
   });
 
+  type ValeurActivitesPartielles = Extract<ValeursActivites, "entrepriseElectriciteRemplissantFonctionFourniture">
+  const getSousEnsembleActiviteLabel = (
+    value: ValeurActivitesPartielles,
+    secteurActivite: Record<ValeurActivitesPartielles, string>,
+  ) => secteurActivite[value];
+
   describe("avec des groupes", () => {
-    // type SousEnsembleActivites =
-    //   "entrepriseElectriciteRemplissantUneFonctionDeFourniture";
-    const getSousEnsembleActiviteLabel = (
-      value: ValeurChampSimulateur,
-      secteurActivite: Record<ValeurChampSimulateur, string>,
-    ) => secteurActivite[value as ValeurChampSimulateur];
-    const activites: Partial<Record<ValeursActivites, string>> = {
+    const activites: Record<ValeurActivitesPartielles, string> = {
       entrepriseElectriciteRemplissantFonctionFourniture:
         "Entreprise d’électricité remplissant une fonction de fourniture",
     };
-    const transformateur = genereTransformateurValeursVersOptions(
+    const transformateur = genereTransformateurValeursVersOptions<ValeurActivitesPartielles, string>(
       getSousEnsembleActiviteLabel,
       "activites",
     );

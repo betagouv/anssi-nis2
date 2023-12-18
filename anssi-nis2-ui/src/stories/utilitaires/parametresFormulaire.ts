@@ -1,8 +1,8 @@
 import {
-  donneesFormulaireSimulateurVide,
   DonneesFormulaireSimulateur,
   IDonneesBrutesFormulaireSimulateur,
 } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { donneesFormulaireSimulateurVide } from "../../Domaine/Simulateur/DonneesFormulaire.constantes.ts";
 
 export class ParametresDonneesFormulaire {
   constructor(

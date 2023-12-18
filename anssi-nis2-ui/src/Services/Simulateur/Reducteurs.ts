@@ -89,10 +89,11 @@ export const reducteurSecteursVersOptions =
     ][],
     secteur: SecteursAvecSousSecteurs,
   ): [SecteursAvecSousSecteurs, OptionsChampSimulateur][] => {
+    const valeursAssocieesLibelles = entreesLibellesSousSecteurs
+      .filter(fabriqueSecteurContientLeSousSecteur(secteur))
+      .reduce(reducteurCleValeurVersObjet, {}) as Record<SousSecteurActivite, string>;
     const sousSecteurActivite = transformateurSousSecteurActivite(
-      entreesLibellesSousSecteurs
-        .filter(fabriqueSecteurContientLeSousSecteur(secteur))
-        .reduce(reducteurCleValeurVersObjet, {}),
+      valeursAssocieesLibelles,
       gereChangement,
       donneesFormulaire,
     );

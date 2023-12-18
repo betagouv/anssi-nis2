@@ -1,12 +1,12 @@
 import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
-import { TransformeRecordToSelect } from "./Operations/optionChampSimulateur";
-import { GenerateurLibelle } from "./Operations/operationsLibelles";
+import { TransformeRecordToSelect } from "./Operations/OptionsChampsSimulateur.declarations.ts";
+import { GenerateurLibelle } from "./Operations/OptionsChampsSimulateur.declarations.ts";
 import { ValeurChampSimulateur } from "../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 
 export const genereTransformateurValeursVersOptions: <
   ValeursCles extends ValeurChampSimulateur,
-  Contenu = string,
+  Contenu extends string = string,
 >(
   generateurLabel: GenerateurLibelle<ValeursCles, Contenu>,
   name: NomsChampsSimulateur,

@@ -1,7 +1,7 @@
 import {
-  donneesFormulaireSimulateurVide,
   IDonneesBrutesFormulaireSimulateur,
 } from "../DonneesFormulaire";
+import { donneesFormulaireSimulateurVide } from "../DonneesFormulaire.constantes";
 import { EtatEtapes } from "../EtatEtapes";
 import { CollectionInformationsEtapes } from "../CollectionInformationsEtapes";
 

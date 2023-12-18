@@ -9,9 +9,9 @@ import { expect } from "@storybook/jest";
 
 import {
   DonneesFormulaireSimulateur,
-  donneesFormulaireSimulateurVide,
   IDonneesBrutesFormulaireSimulateur,
 } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { donneesFormulaireSimulateurVide } from "../../../Domaine/Simulateur/DonneesFormulaire.constantes.ts";
 import { libellesTypesStructure } from "../../../References/Libelles.ts";
 import { TypeStructure } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 

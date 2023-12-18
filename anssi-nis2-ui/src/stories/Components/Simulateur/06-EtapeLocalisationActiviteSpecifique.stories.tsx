@@ -12,8 +12,8 @@ import {
 } from "../../../References/Libelles.ts";
 import {
   DonneesFormulaireSimulateur,
-  donneesFormulaireSimulateurVide,
 } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { donneesFormulaireSimulateurVide } from "../../../Domaine/Simulateur/DonneesFormulaire.constantes.ts";
 
 const meta: Meta<typeof EtapeLocalisationActiviteSpecifique> = {
   title:
