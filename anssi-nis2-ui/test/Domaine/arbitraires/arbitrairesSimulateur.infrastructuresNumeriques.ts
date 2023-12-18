@@ -1,8 +1,7 @@
 import { fc } from "@fast-check/vitest";
-import { IDonneesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
+import { DonneesSectorielles, IDonneesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import {
   ajouteAuMoinsUneActiviteListee,
-  DonneesSectorielles,
   etend,
   fabriqueArbEnrSecteurSousSecteurs,
 } from "../../utilitaires/manipulationArbitraires";

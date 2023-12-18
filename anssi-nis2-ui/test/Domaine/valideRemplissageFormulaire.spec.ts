@@ -1,3 +1,4 @@
+import { fc } from "@fast-check/vitest";
 import { describe, it } from "vitest";
 import {
   verifieCompletudeDonneesCommunes,
@@ -131,7 +132,7 @@ describe.each([
     "Doit accepter des données éligibles: $nom",
     ({ arbitraireEligible }) => {
       verifieQue(actionTestee)
-        .quelqueSoit(arbitraireEligible)
+        .quelqueSoit(arbitraireEligible as unknown as fc.Arbitrary<IDonneesBrutesFormulaireSimulateur>)
         .renvoieToujours(true);
     },
   );

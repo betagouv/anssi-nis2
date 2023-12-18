@@ -64,6 +64,11 @@ export class DonneesFormulaireSimulateur
   }
 }
 
+export type DonneesSectorielles = Pick<
+    IDonneesFormulaireSimulateur,
+    "secteurActivite" | "sousSecteurActivite"
+>;
+
 export const donneesFormulaireSimulateurVide: IDonneesBrutesFormulaireSimulateur =
   {
     designeOperateurServicesEssentiels: [],

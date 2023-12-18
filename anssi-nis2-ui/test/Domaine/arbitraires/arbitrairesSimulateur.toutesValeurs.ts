@@ -11,7 +11,6 @@ import {
   ValeursTypeEntitePublique,
 } from "../../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
 import {
-  ArbitraireFormulaire,
   ArbitraireSurTousLesChamps,
 } from "./arbitraireFormulaire.definitions";
 import { ValeursNomChampsFormulaire } from "../../../src/Domaine/Simulateur/DonneesFormulaire.valeurs";
@@ -19,6 +18,8 @@ import {
   arbAppartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
 } from "./arbitraireChampFormulaire";
+import { arbFormulaireVide } from "./arbitraireFormulaire.constantes";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 
 export const arbToutesValeursPossibles = etend(
   arbSecteursSousSecteursListes,
@@ -33,9 +34,9 @@ export const arbToutesValeursPossibles = etend(
   trancheCA: fabriqueArbTrancheSingleton(),
   trancheNombreEmployes: fabriqueArbTrancheSingleton(),
   etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
-}) as ArbitraireFormulaire;
+});
 
-export const arbHorsUe: ArbitraireFormulaire = etend(arbToutesValeursPossibles)
+export const arbHorsUe: fc.Arbitrary<IDonneesBrutesFormulaireSimulateur> = etend(arbToutesValeursPossibles)
   .avec({
     designeOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
@@ -43,26 +44,23 @@ export const arbHorsUe: ArbitraireFormulaire = etend(arbToutesValeursPossibles)
   })
   .chain(ajouteAuMoinsUneActiviteListee);
 
-const fabriqueArbitraireVidePourChamp = (nom: string) =>
-  etend(arbToutesValeursPossibles).avec({
-    [nom]: fc.constant([]),
-  }) as ArbitraireFormulaire;
-
 const initialValue: ArbitraireSurTousLesChamps = {
-  activites: undefined,
-  designeOperateurServicesEssentiels: undefined,
-  etatMembre: undefined,
-  secteurActivite: undefined,
-  sousSecteurActivite: undefined,
-  trancheCA: undefined,
-  trancheNombreEmployes: undefined,
-  typeEntitePublique: undefined,
-  typeStructure: undefined,
+  activites: arbFormulaireVide,
+  designeOperateurServicesEssentiels: arbFormulaireVide,
+  etatMembre: arbFormulaireVide,
+  secteurActivite: arbFormulaireVide,
+  sousSecteurActivite: arbFormulaireVide,
+  trancheCA: arbFormulaireVide,
+  trancheNombreEmployes: arbFormulaireVide,
+  typeEntitePublique: arbFormulaireVide,
+  typeStructure: arbFormulaireVide,
+  fournitServicesUnionEuropeenne: arbFormulaireVide,
+  localisationRepresentant: arbFormulaireVide,
 };
 export const donneeAbsente = ValeursNomChampsFormulaire.reduce(
   (resultat, nom) => ({
     ...resultat,
-    [nom]: fabriqueArbitraireVidePourChamp(nom),
+    [nom]: arbFormulaireVide,
   }),
   initialValue,
 );

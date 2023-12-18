@@ -1,7 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import {
   ajouteAuMoinsUneActiviteAutre,
-  DonneesSectorielles,
   etend,
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
@@ -9,7 +8,7 @@ import {
 import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
 import { arbDesigneOperateurServicesEssentiels } from "./arbitraireChampFormulaire";
 import { ValeursAppartenancePaysUnionEuropeenne } from "../../../src/Domaine/Simulateur/ChampsSimulateur.valeurs";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
+import { DonneesSectorielles, IDonneesBrutesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 
 export const arbActivitesAutres = etend<DonneesSectorielles>(
   arbSecteursSousSecteursListes,

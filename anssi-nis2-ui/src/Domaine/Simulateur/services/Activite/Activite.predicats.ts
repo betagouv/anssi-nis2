@@ -19,7 +19,7 @@ export const estActiviteAutre = (activite: ValeursActivites) =>
 export const estActiviteListee = (activite: ValeursActivites) =>
   !activite.startsWith(prefixeAutreActivite);
 export const auMoinsUneActiviteListee = (activites: ValeursActivites[]) =>
-  activites && activites.length && activites.some(estActiviteListee);
+  activites && activites.length > 0 && activites.some(estActiviteListee);
 
 export const auMoinsUneActiviteCommuneAvec =
   (listeActivites1: ValeursActivites[]) =>

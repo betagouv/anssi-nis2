@@ -1,5 +1,4 @@
 import {
-  ajouteMethodeAvec,
   fabriqueArbEnrSecteurSousSecteurs,
 } from "../../utilitaires/manipulationArbitraires";
 import {
@@ -7,7 +6,6 @@ import {
   listeEnrSecteursAvecLeursSousSecteurs,
   secteurEtSousSecteursSontListes,
 } from "../../Services/Simulateur/exemples/ListesEnrSecteursSousSecteur";
-import { IDonneesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import { auMoinsUnSecteurListe } from "../../../src/Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { auMoinsUnSousSecteurListe } from "../../../src/Domaine/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 
@@ -15,7 +13,6 @@ export const arbitraireSecteursSousSecteurs = fabriqueArbEnrSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs,
 )
   .filter((donnees) => donnees.secteurActivite.length > 0)
-  .chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
 export const arbSecteursSousSecteursListes = fabriqueArbEnrSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs.filter(secteurEtSousSecteursSontListes),
   { minLength: 1 },

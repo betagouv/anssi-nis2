@@ -51,6 +51,8 @@ export const scenarioSousEtapeServicesEnFrance: StoryObj<
       trancheCA: ["petit"],
       trancheNombreEmployes: ["petit"],
       typeStructure: ["privee"],
+      fournitServicesUnionEuropeenne: ["oui"],
+      localisationRepresentant: ["france"],
     }),
   );
 };

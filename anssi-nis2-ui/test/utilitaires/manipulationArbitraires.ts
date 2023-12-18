@@ -1,8 +1,7 @@
 import { fc } from "@fast-check/vitest";
 import {
-  DonneesFormulaireSimulateur,
+  DonneesSectorielles,
   IDonneesBrutesFormulaireSimulateur,
-  IDonneesFormulaireSimulateur,
 } from "../../src/Domaine/Simulateur/DonneesFormulaire";
 import {
   UnionPetitMoyenGrand,
@@ -26,37 +25,11 @@ import {
   estActiviteAutre,
   estActiviteListee,
 } from "../../src/Domaine/Simulateur/services/Activite/Activite.predicats";
+import { DonneesFormulaireExtensibles, DonneesAjout, Arbitrarise, DonneesBrutesSansActivite, DonneesExtensiblesAvecActivite, OperationAjouteArbitraireActivites } from "./manipulationArbitraires.declarations";
 
 const constantArbitraire = <TypeChamp extends ValeurChampSimulateur>(
   value: TypeChamp[],
 ) => fc.constant(value);
-export type DonneesSectorielles = Pick<
-  IDonneesFormulaireSimulateur,
-  "secteurActivite" | "sousSecteurActivite"
->;
-
-export type DonneesFormulaireExtensibles =
-  | IDonneesBrutesFormulaireSimulateur
-  | DonneesSansActivite
-  | DonneesBrutesSansActivite
-  | DonneesSectorielles
-  | Omit<DonneesBrutesSansActivite, "trancheNombreEmployes">;
-
-export type DonneesAjout =
-  | Pick<IDonneesBrutesFormulaireSimulateur, "trancheCA">
-  | Pick<
-      IDonneesBrutesFormulaireSimulateur,
-      | "designeOperateurServicesEssentiels"
-      | "typeStructure"
-      | "trancheCA"
-      | "trancheNombreEmployes"
-      | "etatMembre"
-    >
-  | Pick<
-      IDonneesBrutesFormulaireSimulateur,
-      "fournitServicesUnionEuropeenne" | "localisationRepresentant"
-    >
-  | Pick<IDonneesBrutesFormulaireSimulateur, "fournitServicesUnionEuropeenne">;
 
 export const propageBase = <
   DonneesPartielles extends DonneesFormulaireExtensibles,
@@ -71,40 +44,19 @@ export const propageBase = <
     {},
   ) as { [K in keyof DonneesPartielles]: fc.Arbitrary<DonneesPartielles[K]> };
 
-export type DonneesBrutesSansActivite = Omit<
-  IDonneesBrutesFormulaireSimulateur,
-  "activites"
->;
-
-export type DonneesSansActivite = Omit<
-  IDonneesFormulaireSimulateur,
-  "activites"
->;
-
-type DonneesExtensiblesAvecActivite<
-  DonneesPartielles extends DonneesSectorielles,
-> = DonneesPartielles & Pick<IDonneesBrutesFormulaireSimulateur, "activites">;
-type OperationAjouteArbitraireActivites = <
-  DonneesPartielles extends DonneesSectorielles,
->(
-  base: DonneesPartielles,
-  options?: ArbitraireOptionsActivites,
-) => fc.Arbitrary<DonneesExtensiblesAvecActivite<DonneesPartielles>>;
-export type Arbitrarise<T> = { [K in keyof T]: fc.Arbitrary<T[K]> };
-
 const fabriqueEtendAvec: <
   DonneesPartielles extends DonneesFormulaireExtensibles,
   TypeAjout extends DonneesAjout = DonneesAjout,
   TypeRetour extends DonneesPartielles & TypeAjout = DonneesPartielles &
-    TypeAjout,
+  TypeAjout,
 >(
   arbitraire: fc.Arbitrary<DonneesPartielles>,
 ) => (ajouts: Arbitrarise<TypeAjout>) => fc.Arbitrary<TypeRetour> =
   (arbitraire) =>
-  <TypeRetour>(ajouts) =>
-    arbitraire.chain((base) =>
-      fc.record({ ...propageBase(base), ...ajouts }),
-    ) as fc.Arbitrary<TypeRetour>;
+    <TypeRetour>(ajouts) =>
+      arbitraire.chain((base) =>
+        fc.record({ ...propageBase(base), ...ajouts }),
+      ) as fc.Arbitrary<TypeRetour>;
 
 export const etend = <DonneesPartielles extends DonneesFormulaireExtensibles>(
   arbitraireOrigine: fc.Arbitrary<DonneesPartielles>,
@@ -112,19 +64,13 @@ export const etend = <DonneesPartielles extends DonneesFormulaireExtensibles>(
   avec<
     TypeAjout extends DonneesAjout = DonneesAjout,
     TypeRetour extends DonneesPartielles & TypeAjout = DonneesPartielles &
-      TypeAjout,
+    TypeAjout,
   >(arbitraireAjoute: Arbitrarise<TypeAjout>) {
     return fabriqueEtendAvec<DonneesPartielles, TypeAjout, TypeRetour>(
       arbitraireOrigine,
     )(arbitraireAjoute);
   },
 });
-
-export const ajouteMethodeAvec = (base: IDonneesFormulaireSimulateur) => {
-  const avecMethod = (data: IDonneesFormulaireSimulateur) =>
-    new DonneesFormulaireSimulateur(Object.assign({}, base, data));
-  return fc.record({ ...propageBase(base), avec: fc.constant(avecMethod) });
-};
 
 export const fabriqueArbSingleton = <T>(valeursPossibles: Readonly<T[]>) =>
   fc.subarray<T>([...valeursPossibles], {
@@ -146,9 +92,9 @@ const etendAvecActivitesVides = <DonneesPartielles extends DonneesSectorielles>(
 const extraitOptionsAjoutArbitrairesActivite = (
   options?: ArbitraireOptionsActivites,
 ): [(activite: ValeursActivites) => boolean, number] => [
-  options?.filtreActivite || (() => true),
-  options?.minLength || 0,
-];
+    options?.filtreActivite || (() => true),
+    options?.minLength || 0,
+  ];
 
 function etendDonneesActivite<DonneesPartielles>(
   base: DonneesPartielles &
@@ -204,10 +150,6 @@ export const contrainteTranchesSansDoublonSurValeur = (
       tranche[0] !== valeurExclusive || base.trancheCA[0] !== valeurExclusive,
   );
 
-const arbSecteursEtSousSecteursVides = fc.record({
-  secteurActivite: fc.constant([]),
-  sousSecteurActivite: fc.constant([]),
-});
 
 const extraitCouplesAvecSecteurUniques = (
   couplesSecteurSousSecteur: EnrSecteurSousSecteur[],
@@ -249,6 +191,11 @@ const fabriqueArbSecteurSousSecteursTailleMini = (
       }),
     );
 
+const arbSecteursEtSousSecteursVides = fc.record({
+  secteurActivite: fc.constant([]),
+  sousSecteurActivite: fc.constant([]),
+});
+
 export const fabriqueArbEnrSecteurSousSecteurs = (
   listeSecteursSousSecteurs: EnrSecteurSousSecteur[],
   { minLength }: ArbitraireOptions = { minLength: 0 },
@@ -274,13 +221,13 @@ export const fabriqueArbContraintSurTrancheCA = (
     | Omit<DonneesBrutesSansActivite, "trancheNombreEmployes">
     | Omit<IDonneesBrutesFormulaireSimulateur, "trancheNombreEmployes">
     | (DonneesSectorielles &
-        Pick<
-          IDonneesBrutesFormulaireSimulateur,
-          | "designeOperateurServicesEssentiels"
-          | "typeStructure"
-          | "trancheCA"
-          | "etatMembre"
-        >),
+      Pick<
+        IDonneesBrutesFormulaireSimulateur,
+        | "designeOperateurServicesEssentiels"
+        | "typeStructure"
+        | "trancheCA"
+        | "etatMembre"
+      >),
 ) =>
   fc.record({
     ...propageBase(base),

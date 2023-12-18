@@ -1,17 +1,18 @@
 import { describe, it, expect } from "vitest";
 import { fc } from "@fast-check/vitest";
 import { fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur } from "../../../src/Services/Simulateur/Transformateurs/FabriqueConstructeurOptionActivite";
-import { IDonneesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 import {
-  ajouteMethodeAvec,
+  ajouteArbitraireActivites,
   fabriqueArbEnrSecteurSousSecteurs,
 } from "../../utilitaires/manipulationArbitraires";
 import { listeEnrSecteursAvecLeursSousSecteurs } from "./exemples/ListesEnrSecteursSousSecteur";
+import { DonneesSectorielles, IDonneesBrutesFormulaireSimulateur } from "../../../src/Domaine/Simulateur/DonneesFormulaire";
 
-const donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites: fc.Arbitrary<IDonneesFormulaireSimulateur> =
+const donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites: fc.Arbitrary<DonneesSectorielles & Pick<IDonneesBrutesFormulaireSimulateur, "activites">> =
   fabriqueArbEnrSecteurSousSecteurs(listeEnrSecteursAvecLeursSousSecteurs, {
     minLength: 1,
-  }).chain<IDonneesFormulaireSimulateur>(ajouteMethodeAvec);
+  })
+    .chain(ajouteArbitraireActivites);
 
 describe(fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur, () => {
   it("Renvoie des tuples correctes", () => {
@@ -19,7 +20,7 @@ describe(fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur, () => {
       fc.property(
         donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites,
         (donnees) => {
-          const propageActionSimulateur = () => {};
+          const propageActionSimulateur = () => { };
           const cartographieurEntreesLegendeEtOptionsChampSimlulateur =
             fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur(
               donnees,
@@ -37,7 +38,7 @@ describe(fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur, () => {
       fc.property(
         donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites,
         (donnees) => {
-          const propageActionSimulateur = () => {};
+          const propageActionSimulateur = () => { };
           const data =
             fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur(
               donnees,

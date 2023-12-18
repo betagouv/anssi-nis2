@@ -21,7 +21,7 @@ import { toujoursFaux } from "../../../Commun/Commun.predicats.ts";
 import { estTableauNonVide } from "../../../Commun/Commun.predicats.ts";
 
 const verifAuMoinsUn = {
-  activiteListee: (donnees: IDonneesBrutesFormulaireSimulateur) =>
+  activiteListee: (donnees: IDonneesBrutesFormulaireSimulateur): donnees is IDonneesBrutesFormulaireSimulateur =>
     auMoinsUneActiviteListee(donnees.activites),
 };
 
