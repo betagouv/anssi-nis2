@@ -215,6 +215,10 @@ input[type="radio"]
   --icon-size: 1.125rem;
 }
 
+.fr-icon-hand {
+  cursor: pointer;
+}
+
 .fr-nis2-infobulle {
   & p {
     margin-top: 0.25rem;
