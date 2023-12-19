@@ -9,7 +9,7 @@ const BandeauQuandSePreparer = () => {
       <div className="fr-bandeau-marianne fr-nis2-bandeau fr-py-10w">
         <div className={"fr-container"}>
           <div className="fr-grid-row--center">
-            <h2 className="fr-mb-7w">Quand se préparer ?</h2>
+            <h2 className="fr-mb-7w fr-h1">Quand se préparer ?</h2>
           </div>
           <div className="fr-grid-row">
             <div className="fr-col-5 calendrier">
