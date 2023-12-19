@@ -1,14 +1,15 @@
 import { DefaultComponent } from "../../Services/Props";
 import { RowContainer } from "../General/RowContainer.tsx";
+import imageSrcMarches from "../../assets/marches.svg";
 
 const BandeauAccueil: DefaultComponent = () => (
-  <div className="fr-pt-5w fr-bandeau-marianne fr-nis2-accueil-principal">
+  <div className="fr-bandeau-marianne fr-nis2-accueil-principal">
     <div className="fr-my-0">
       <RowContainer>
-        <div className="fr-container">
-          <div className="fr-grid-row fr-pt-12w">
-            <div className="fr-col-offset-0 fr-nis2-appel-action fr-mb-8w">
-              <div>
+        <div className="fr-container fr-pl-0">
+          <div className="fr-grid-row ">
+            <div className="fr-col-offset-0 fr-col-7 fr-nis2-appel-action">
+              <div className="fr-pt-12w">
                 <h1>MonEspaceNIS2</h1>
                 <p>
                   Accompagner les organisations dans la compréhension
@@ -16,6 +17,9 @@ const BandeauAccueil: DefaultComponent = () => (
                   et la mise en conformité à NIS&nbsp;2
                 </p>
               </div>
+            </div>
+            <div className="fr-col-5 fr-nis2-marches">
+              <img src={imageSrcMarches} alt="Personne montant les marches" />
             </div>
           </div>
         </div>

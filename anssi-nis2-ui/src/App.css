@@ -1,10 +1,10 @@
 .fr-fieldset
-  .fr-fieldset__content
-  .fr-radio-group:not(.fr-radio-rich)
-  input[type="radio"]
-  + label {
+.fr-fieldset__content
+.fr-radio-group:not(.fr-radio-rich)
+input[type="radio"]
++ label {
   background-position: calc(-0.25rem + 1px) calc(0.25rem + 1px),
-    calc(-0.25rem + 1px) calc(0.25rem + 1px);
+  calc(-0.25rem + 1px) calc(0.25rem + 1px);
 }
 
 .fr-bandeau-marianne {
@@ -39,11 +39,9 @@
 }
 
 .fr-nis2-accueil-principal {
-  background-image: url(assets/marches.svg);
-  background-position-x: right;
-  background-position-y: top;
-  background-repeat: no-repeat;
-  padding-bottom: 305px;
+
+  /*padding-bottom: 305px;*/
+  height: 700px;
 
   .fr-nis2-appel-action {
     & h1 {
@@ -58,6 +56,21 @@
       font-weight: 500;
       line-height: 166.667%;
     }
+  }
+
+  & img {
+  }
+
+  .fr-nis2-marches {
+    /*float: right;*/
+    overflow: visible;
+    width: auto;
+    height: 513px;
+
+    /*background-image: url(assets/marches.svg);*/
+    /*background-position-x: right;*/
+    /*background-position-y: top;*/
+    /*background-repeat: no-repeat;*/
   }
 }
 
@@ -411,8 +424,7 @@ legend.fr-text--medium {
 }
 
 .fr-nis2-aidez-nous {
-  background: var(--yellow-tournesol-975-75, #fef6e3) url(assets/faq.svg)
-    no-repeat;
+  background: var(--yellow-tournesol-975-75, #fef6e3) url(assets/faq.svg) no-repeat;
   background-size: 5rem;
 }
 
