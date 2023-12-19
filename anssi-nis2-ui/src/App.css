@@ -105,6 +105,9 @@ input[type="radio"]
       margin-bottom: 0;
       left: 205px;
       top: 180px;
+      font-size: 2.625rem;
+      line-height: 3.125rem;
+      font-weight: 700;
     }
 
     & > p {
