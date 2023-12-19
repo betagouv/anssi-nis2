@@ -1,4 +1,5 @@
 import React from "react";
+import { texteInfobulleIconeInformation } from "../../References/LibellesQuestionsSimulateur.ts";
 
 export const IconeInfobulle = (props: {
   onClick: React.MouseEventHandler;
@@ -7,6 +8,6 @@ export const IconeInfobulle = (props: {
   <i
     className="fr-nis2-icone-16px fr-icon-information-fill fr-text-action-high--blue-france fr-icon-hand"
     onClick={props.onClick}
-    title={`Informations à propos de l'activité "${props.label}"`}
+    title={`${texteInfobulleIconeInformation} "${props.label}"`}
   />
 );

@@ -197,6 +197,10 @@
   content: "";
 }
 
+.fr-nis2-form {
+  margin-top: 2rem;
+}
+
 .fr-nis2-icone-16px {
   padding-left: 0.5rem;
   float: right;

@@ -9,6 +9,7 @@ import {
   SousSecteurActivite,
 } from "../../../Domaine/Simulateur/SousSecteurActivite.definitions.ts";
 import { transformeSousSecteurEnOptions } from "../../../Services/Simulateur/Transformateurs/TransformeSousSecteurEnOptions.ts";
+import { texteQuestionSousSecteursActivites } from "../../../References/LibellesQuestionsSimulateur.ts";
 
 const EtapeSousSecteursActiviteCalculee = ({
   propageActionSimulateur,
@@ -41,7 +42,7 @@ const EtapeSousSecteursActiviteCalculee = ({
   return (
     <FormSimulateur>
       <legend className="fr-text--medium">
-        Précisez les sous-secteurs concernés :
+        {texteQuestionSousSecteursActivites}
       </legend>
       <div className="fr-fieldset__element">
         {optionsSousSecteurActivite.map(

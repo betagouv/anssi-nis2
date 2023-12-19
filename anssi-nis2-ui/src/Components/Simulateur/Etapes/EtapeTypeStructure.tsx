@@ -13,6 +13,10 @@ import {
   transformeTypeEntitePubliqueVersOptions,
   transformeTypeStructureVersOptions,
 } from "../../../Services/Simulateur/Transformateurs/TransformeTypeStructureVersOptions.ts";
+import {
+  texteLegendeTypeStructure,
+  texteQuestionTypeEntitePublique,
+} from "../../../References/LibellesQuestionsSimulateur.ts";
 
 const EtapeTypeStructureCalculee: SimulateurEtapeNodeComponent = ({
   donneesFormulaire,
@@ -22,8 +26,6 @@ const EtapeTypeStructureCalculee: SimulateurEtapeNodeComponent = ({
     propageActionSimulateur,
   );
 
-  const texteLegendeTypeStructure =
-    "Quel type de structure qualifie votre entité ?";
   const optionsTypeStructure = useMemo(
     () =>
       transformeTypeStructureVersOptions(
@@ -38,7 +40,6 @@ const EtapeTypeStructureCalculee: SimulateurEtapeNodeComponent = ({
     () => donneesFormulaire.typeStructure.includes("publique"),
     [donneesFormulaire],
   );
-  const texteLegendeTypeEntitePublique = "Précisez le type d’entité publique :";
   const optionsTypeEntitePublique = transformeTypeEntitePubliqueVersOptions(
     libellesTypeEntitePublique,
     gestionDonneesFormulaire,
@@ -56,7 +57,7 @@ const EtapeTypeStructureCalculee: SimulateurEtapeNodeComponent = ({
       {estEntitePublique && (
         <div className="fr-fieldset__element">
           <RadioButtons
-            legend={texteLegendeTypeEntitePublique}
+            legend={texteQuestionTypeEntitePublique}
             options={optionsTypeEntitePublique}
           />
         </div>

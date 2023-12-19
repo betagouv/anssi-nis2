@@ -15,6 +15,11 @@ import {
   transformeTranchesCAVersOptions,
   transformeTranchesNombreEmployesVersOptions,
 } from "../../../Services/Simulateur/Transformateurs/TransformeTranchesPetitMoyenGrandVersOptions.ts";
+import {
+  texteEtapeTaille,
+  texteQuestionChiffreAffaire,
+  texteQuestionNombreEmployes,
+} from "../../../References/LibellesQuestionsSimulateur.ts";
 
 const EtapeTailleCalculee = ({
   donneesFormulaire,
@@ -49,15 +54,13 @@ const EtapeTailleCalculee = ({
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
-        <legend className="fr-text--medium">
-          Quelles sont les caractéristiques clés de votre entité ?
-        </legend>
+        <legend className="fr-text--medium">{texteEtapeTaille}</legend>
         <RadioButtons
-          legend="Nombre d’employés (équivalents temps pleins)"
+          legend={texteQuestionNombreEmployes}
           options={optionsTranchesNombreEmployes}
         />
         <RadioButtons
-          legend="Chiffre d’affaires annuel de l’année passée"
+          legend={texteQuestionChiffreAffaire}
           options={optionsTranchesCA}
         />
       </div>

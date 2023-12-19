@@ -6,6 +6,10 @@ import React from "react";
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
 import { TrancheNombreEmployes } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 import { transformeTranchesNombreEmployesVersOptions } from "../../../Services/Simulateur/Transformateurs/TransformeTranchesPetitMoyenGrandVersOptions.ts";
+import {
+  texteEtapeTaillePublique,
+  texteQuestionTaillePublique,
+} from "../../../References/LibellesQuestionsSimulateur.ts";
 
 const EtapeTaillePubliqueCalculee = ({
   donneesFormulaire,
@@ -25,14 +29,13 @@ const EtapeTaillePubliqueCalculee = ({
       gereChangementNombreEmployes,
       donneesFormulaire,
     );
+
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
-        <legend className="fr-text--medium">
-          Quelles sont les caractéristiques clés de votre organisation ?
-        </legend>
+        <legend className="fr-text--medium">{texteEtapeTaillePublique}</legend>
         <RadioButtons
-          legend="Nombre d’employés (équivalents temps pleins)"
+          legend={texteQuestionTaillePublique}
           options={optionsTranchesNombreEmployes}
         />
       </div>

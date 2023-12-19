@@ -11,6 +11,10 @@ import { EnsembleChamps } from "../Inputs/EnsembleChamps.tsx";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
 import { fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur } from "../../../Services/Simulateur/Transformateurs/FabriqueConstructeurOptionActivite.ts";
+import {
+  texteQuestionActivite,
+  texteQuestionActivitesMention,
+} from "../../../References/LibellesQuestionsSimulateur.ts";
 
 const EtapeActivitesCalculee = ({
   propageActionSimulateur,
@@ -36,12 +40,9 @@ const EtapeActivitesCalculee = ({
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
-        <p>
-          Quelles sont les activités pratiquées dans les secteurs sélectionnés ?
-        </p>
+        <p>{texteQuestionActivite}</p>
         <p className="fr-text-mention--grey fr-text--sm">
-          Cliquez sur les info-bulles pour obtenir plus d’informations sur les
-          définitions des activités.
+          {texteQuestionActivitesMention}
         </p>
 
         {optionsParSecteurActivite.map(({ legende, options }, index) => (
