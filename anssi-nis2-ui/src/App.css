@@ -30,6 +30,7 @@
 }
 
 .fr-nis2-mise-en-avant {
+  width: -moz-fit-content;
   width: fit-content;
   background: var(--Yellow, #fdc82e);
   padding: 0.5rem 1rem;
@@ -121,6 +122,7 @@
 
     & h3 {
       color: #272771;
+      width: -moz-fit-content;
       width: fit-content;
       text-align: center;
       margin-left: auto;
@@ -467,7 +469,4 @@ legend.fr-text--medium {
     margin-left: 1rem;
     margin-top: 4rem;
   }
-}
-
-.fr-nis2-restez-informes {
 }
