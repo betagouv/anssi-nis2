@@ -28,7 +28,13 @@ const EtapeLocalisationCalculee = ({
   const texteLegende = (
     <>Dans quel état membre de l’Union Européenne êtes-vous établi&nbsp;?</>
   );
-  const texteIndication = <>Localisation du siège social.</>;
+  const texteIndication = (
+    <>
+      Pour votre entreprise filiale si celle-ci fait partie d’un groupe, ou pour
+      le groupe si celui-ci mène une activité économique. Ce sujet pourra être
+      précisé par la Commission Européenne.
+    </>
+  );
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">

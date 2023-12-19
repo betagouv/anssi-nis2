@@ -10,9 +10,9 @@ import {
   BandeauInformationRS,
   BandeauQuandSePreparer,
   BandeauObligations,
+  BandeauEnSavoirPlus,
 } from "./Components/Accueil";
 import MiseEnPage from "./Components/MiseEnPage.tsx";
-import BandeauEnSavoirPlus from "./Components/Accueil/BandeauEnSavoirPlus.tsx";
 
 const Accueil: DefaultComponent = () => {
   return (
