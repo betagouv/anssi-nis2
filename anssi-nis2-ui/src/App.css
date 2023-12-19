@@ -40,8 +40,7 @@ input[type="radio"]
 
 .fr-nis2-accueil-principal {
 
-  /*padding-bottom: 305px;*/
-  height: 700px;
+  height: 720px;
 
   .fr-nis2-appel-action {
     & h1 {
@@ -52,49 +51,32 @@ input[type="radio"]
     }
 
     & p {
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       font-weight: 500;
-      line-height: 166.667%;
+      line-height: 2.5rem;
     }
-  }
-
-  & img {
-  }
-
-  .fr-nis2-marches {
-    /*float: right;*/
-    overflow: visible;
-    width: auto;
-    height: 513px;
-
-    /*background-image: url(assets/marches.svg);*/
-    /*background-position-x: right;*/
-    /*background-position-y: top;*/
-    /*background-repeat: no-repeat;*/
   }
 }
 
 .fr-nis2-suis-je-concerne {
-  text-align: center;
-  padding: 0 7.5rem 0 7.5rem;
-
-  & h2 {
-    color: #272771;
-  }
-
   .fr-nis2-flottant {
+    & h2 {
+      color: #272771;
+    }
+
+    text-align: center;
     position: relative;
     padding: 3.5rem 0 4.5rem 0;
     background-color: #fff;
-    margin-top: -228px;
+    margin-top: -250px;
     height: 296px;
   }
 }
 
 .fr-nis2-accueil-directive-europeenne {
   background: #f5f5fe;
-  margin-top: -296px;
-  padding-top: 200px;
+  margin-top: -230px;
+  padding-top: 100px;
   z-index: initial;
 
   & h2 {

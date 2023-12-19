@@ -9,8 +9,8 @@ const BandeauAccueil: DefaultComponent = () => (
         <div className="fr-container fr-pl-0">
           <div className="fr-grid-row ">
             <div className="fr-col-offset-0 fr-col-7 fr-nis2-appel-action">
-              <div className="fr-pt-12w">
-                <h1>MonEspaceNIS2</h1>
+              <div className="fr-pt-32v">
+                <h1 className="fr-pt-3w">MonEspaceNIS2</h1>
                 <p>
                   Accompagner les organisations dans la compréhension
                   <br />
@@ -18,7 +18,7 @@ const BandeauAccueil: DefaultComponent = () => (
                 </p>
               </div>
             </div>
-            <div className="fr-col-5 fr-nis2-marches">
+            <div className="fr-col-5">
               <img src={imageSrcMarches} alt="Personne montant les marches" />
             </div>
           </div>
