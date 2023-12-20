@@ -46,6 +46,9 @@
     "typescript": "^5.1.6"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "./anssi-nis2-*/{src,apps,libs,test}/**/*.(ts|tsx)": [
+      "eslint --cache --fix",
+      "prettier -l -w"
+    ]
   }
 }
