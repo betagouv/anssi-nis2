@@ -1,13 +1,13 @@
-import { fc } from "@fast-check/vitest";
+import { TypeStructure } from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
 import {
   ValeursAppartenancePaysUnionEuropeenne,
   ValeursTypeEntitePublique,
 } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../src/Domain/Simulateur/DonneesFormulaire";
 import { ValeursNomChampsFormulaire } from "../../../src/Domain/Simulateur/DonneesFormulaire.valeurs";
 
 import {
   ajouteAuMoinsUneActiviteListee,
+  ajouteChampsFacultatifs,
   etend,
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
@@ -21,28 +21,31 @@ import {
 import { arbFormulaireVide } from "./arbitraireFormulaire.constantes";
 
 export const arbToutesValeursPossibles = etend(
-  arbSecteursSousSecteursListes,
+  arbSecteursSousSecteursListes
 ).avec({
   designeOperateurServicesEssentiels: fabriqueArbSingleton([
     "oui",
     "non",
     "nsp",
   ]),
-  typeStructure: fabriqueArbSingleton(["privee", "publique"]),
+  typeStructure: fabriqueArbSingleton([
+    "privee",
+    "publique",
+  ] as TypeStructure[]),
   typeEntitePublique: fabriqueArbSingleton(ValeursTypeEntitePublique),
   trancheCA: fabriqueArbTrancheSingleton(),
   trancheNombreEmployes: fabriqueArbTrancheSingleton(),
   etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
 });
 
-export const arbHorsUe: fc.Arbitrary<IDonneesBrutesFormulaireSimulateur> =
-  etend(arbToutesValeursPossibles)
-    .avec({
-      designeOperateurServicesEssentiels:
-        arbDesigneOperateurServicesEssentiels.non,
-      etatMembre: arbAppartenancePaysUnionEuropeenne.horsue,
-    })
-    .chain(ajouteAuMoinsUneActiviteListee);
+export const arbHorsUe = etend(arbToutesValeursPossibles)
+  .avec({
+    designeOperateurServicesEssentiels:
+      arbDesigneOperateurServicesEssentiels.non,
+    etatMembre: arbAppartenancePaysUnionEuropeenne.horsue,
+  })
+  .chain(ajouteAuMoinsUneActiviteListee)
+  .chain(ajouteChampsFacultatifs);
 
 const initialValue: ArbitraireSurTousLesChamps = {
   activites: arbFormulaireVide,
@@ -62,5 +65,5 @@ export const donneeAbsente = ValeursNomChampsFormulaire.reduce(
     ...resultat,
     [nom]: arbFormulaireVide,
   }),
-  initialValue,
+  initialValue
 );

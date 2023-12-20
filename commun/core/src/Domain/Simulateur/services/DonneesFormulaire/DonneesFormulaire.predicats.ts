@@ -4,7 +4,10 @@ import {
   toujoursFaux,
   toujoursVrai,
 } from "../../../Commun/Commun.predicats";
-import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire";
+import {
+  DonneesSectorielles,
+  IDonneesBrutesFormulaireSimulateur,
+} from "../../DonneesFormulaire";
 import {
   auMoinsUneActiviteListee,
   estActiviteAutre,
@@ -23,10 +26,12 @@ import {
 import { uniquementDesSousSecteursAutres } from "../SousSecteurActivite/SousSecteurActivite.predicats";
 
 const verifAuMoinsUn = {
-  activiteListee: (
-    donnees: IDonneesBrutesFormulaireSimulateur,
-  ): donnees is IDonneesBrutesFormulaireSimulateur =>
-    auMoinsUneActiviteListee(donnees.activites),
+  activiteListee: <
+    T extends DonneesSectorielles &
+      Pick<IDonneesBrutesFormulaireSimulateur, "activites">,
+  >(
+    donnees: T,
+  ): donnees is T => auMoinsUneActiviteListee(donnees.activites),
 };
 
 export const predicatDonneesFormulaire = {
@@ -35,8 +40,12 @@ export const predicatDonneesFormulaire = {
     une: verifAuMoinsUn,
   },
   uniquement: {
-    activiteAutre: (donnees: IDonneesBrutesFormulaireSimulateur) =>
-      donnees.activites.every(estActiviteAutre),
+    activiteAutre: <
+      T extends DonneesSectorielles &
+        Pick<IDonneesBrutesFormulaireSimulateur, "activites">,
+    >(
+      donnees: T,
+    ) => donnees.activites.every(estActiviteAutre),
   },
 };
 export const verifieCompletudeDonneesCommunes = et(

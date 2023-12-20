@@ -1,8 +1,4 @@
-import { fc } from "@fast-check/vitest";
-import {
-  DonneesSectorielles,
-  IDonneesFormulaireSimulateur,
-} from "../../../src/Domain/Simulateur/DonneesFormulaire";
+import { DonneesSectorielles } from "../../../src/Domain/Simulateur/DonneesFormulaire";
 import {
   ValeursActivitesConcernesInfrastructureNumerique,
   ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
@@ -14,6 +10,7 @@ import {
 } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import {
   ajouteAuMoinsUneActiviteListee,
+  ajouteChampsFacultatifs,
   etend,
   fabriqueArbEnrSecteurSousSecteurs,
 } from "../../utilitaires/manipulationArbitraires";
@@ -53,14 +50,16 @@ const arbNonOSEPrivesPetitFournisseurInfraNum = etend<DonneesSectorielles>(
     trancheNombreEmployes: arbTranche.petit,
     etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
   })
-  .chain(ajouteAuMoinsUneActiviteListee);
+  .chain(ajouteAuMoinsUneActiviteListee)
+  .chain(ajouteChampsFacultatifs);
 
-const arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes: fc.Arbitrary<IDonneesFormulaireSimulateur> =
+const valeursActivitesInfrastructureNumerique = [
+  ...ValeursActivitesConcernesInfrastructureNumerique,
+  ...ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
+];
+const arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes =
   arbNonOSEPrivesPetitFournisseurInfraNum.filter(
-    exerceAucuneActivitesDansListe([
-      ...ValeursActivitesConcernesInfrastructureNumerique,
-      ...ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
-    ]),
+    exerceAucuneActivitesDansListe(valeursActivitesInfrastructureNumerique),
   );
 
 const arbNonOSEPrivesPetitHorsFournisseurInfraNum = etend<DonneesSectorielles>(
@@ -74,7 +73,8 @@ const arbNonOSEPrivesPetitHorsFournisseurInfraNum = etend<DonneesSectorielles>(
     trancheNombreEmployes: arbTranche.petit,
     etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
   })
-  .chain(ajouteAuMoinsUneActiviteListee);
+  .chain(ajouteAuMoinsUneActiviteListee)
+  .chain(ajouteChampsFacultatifs);
 
 const extendInfranumDNSOuNomDomaine = etend(
   arbNonOSEPrivesPetitFournisseurInfraNum.filter(
@@ -110,7 +110,7 @@ export const arbFournisseursInfrastructureNumerique = {
         exerceActiviteDansListe(
           ValeursActivitesConcernesInfrastructureNumerique,
         ),
-      ) as fc.Arbitrary<IDonneesFormulaireSimulateur>,
+      ),
       infraNumDNSOuNomDomaine,
     },
     activitesNonConcernes:

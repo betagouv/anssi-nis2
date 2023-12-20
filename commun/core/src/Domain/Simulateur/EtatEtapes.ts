@@ -42,7 +42,7 @@ export type RepresentationEtape = {
 export type CapacitesEtapes = {
   readonly ignoreEtapeSuivante: (
     etat: EtatEtapes,
-    donnees: IDonneesBrutesFormulaireSimulateur,
+    donnees: IDonneesBrutesFormulaireSimulateur
   ) => boolean;
 };
 

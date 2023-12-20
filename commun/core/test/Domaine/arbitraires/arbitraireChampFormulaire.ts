@@ -59,5 +59,5 @@ export const arbLocalisationRepresentant: ArbitraireChampFormulaire<Appartenance
   };
 export type ArbitraireChampFormulaire<
   T extends ValeurChampSimulateur,
-  TypesAdditionnelles extends string = T,
+  TypesAdditionnelles extends string = T
 > = Record<T | TypesAdditionnelles, fc.Arbitrary<T[]>>;

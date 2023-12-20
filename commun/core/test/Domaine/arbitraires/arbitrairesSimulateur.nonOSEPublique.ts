@@ -1,7 +1,7 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../../../src/Domain/Simulateur/DonneesFormulaire";
 import { predicatDonneesFormulaire } from "../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import {
   ajouteAuMoinsUneActiviteArbitraire,
+  ajouteChampsFacultatifs,
   etend,
   fabriqueArbContraintSurTrancheCA,
   fabriqueArbSingleton,
@@ -25,5 +25,6 @@ export const arbNonOSEPublique = etend(arbSecteursEtSousSecteursListes)
     etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
   })
   .chain(fabriqueArbContraintSurTrancheCA)
-  .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteArbitraire)
+  .chain(ajouteAuMoinsUneActiviteArbitraire)
+  .chain(ajouteChampsFacultatifs)
   .filter(predicatDonneesFormulaire.auMoins.une.activiteListee);

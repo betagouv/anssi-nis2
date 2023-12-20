@@ -5,5 +5,5 @@ import {
 
 export const fabriqueListeValeursSectorielles = (
   secteursSansSousSecteurs: SecteursSansSousSecteur[],
-  sousSecteurs: SousSecteurActivite[],
+  sousSecteurs: SousSecteurActivite[]
 ) => [...secteursSansSousSecteurs, ...sousSecteurs];

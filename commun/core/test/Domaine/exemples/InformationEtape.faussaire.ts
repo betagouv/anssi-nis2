@@ -1,7 +1,7 @@
 import { vi } from "vitest";
-import { fabriquesInformationsEtapes } from "../../src/Domain/Simulateur/fabriques/InformationsEtape.fabrique";
-import { TypeEtape } from "../../src/Domain/Simulateur/InformationsEtape";
-import { ValidationReponses } from "../../src/Domain/Simulateur/services/ChampSimulateur/champs.domaine";
+import { fabriquesInformationsEtapes } from "../../../src/Domain/Simulateur/fabriques/InformationsEtape.fabrique";
+import { TypeEtape } from "../../../src/Domain/Simulateur/InformationsEtape";
+import { ValidationReponses } from "../../../src/Domain/Simulateur/services/ChampSimulateur/champs.domaine";
 
 export const fausseValidationReponse: ValidationReponses = {
   message: "Fausse validation",
@@ -24,8 +24,8 @@ export const faussaireInformationEtapeForm = ({
             fabriquesInformationsEtapes.form(
               sousTitre,
               fausseValidationReponse,
-              FauxSimulateurEtapeComposant,
-            ),
+              FauxSimulateurEtapeComposant
+            )
           ),
       }
     : {};
@@ -33,6 +33,6 @@ export const faussaireInformationEtapeForm = ({
     titre,
     fausseValidationReponse,
     FauxSimulateurEtapeComposant,
-    options,
+    options
   );
 };

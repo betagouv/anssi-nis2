@@ -11,15 +11,20 @@ export type DonneesFormulaireExtensibles =
   | DonneesSansActivite
   | DonneesBrutesSansActivite
   | DonneesSectorielles
-  | Omit<DonneesBrutesSansActivite, "trancheNombreEmployes">;
+  | Omit<DonneesBrutesSansActivite, "trancheNombreEmployes">
+  | Omit<
+      IDonneesBrutesFormulaireSimulateur,
+      | "typeEntitePublique"
+      | "fournitServicesUnionEuropeenne"
+      | "localisationRepresentant"
+    >;
 
 export type PiocheDonneesForm<
-  T extends keyof IDonneesBrutesFormulaireSimulateur,
+  T extends keyof IDonneesBrutesFormulaireSimulateur
 > = Pick<IDonneesBrutesFormulaireSimulateur, T>;
 
 export type DonneesAjout<
-  D extends
-    keyof IDonneesBrutesFormulaireSimulateur = keyof IDonneesBrutesFormulaireSimulateur,
+  D extends keyof IDonneesBrutesFormulaireSimulateur = keyof IDonneesBrutesFormulaireSimulateur
 > = D extends infer U extends keyof IDonneesBrutesFormulaireSimulateur
   ? PiocheDonneesForm<U>
   : never;
@@ -35,13 +40,14 @@ export type DonneesSansActivite = Omit<
 >;
 
 export type DonneesExtensiblesAvecActivite<
-  DonneesPartielles extends DonneesSectorielles,
+  DonneesPartielles extends DonneesSectorielles
 > = DonneesPartielles & Pick<IDonneesBrutesFormulaireSimulateur, "activites">;
+
 export type OperationAjouteArbitraireActivites = <
-  DonneesPartielles extends DonneesSectorielles,
+  DonneesPartielles extends DonneesSectorielles
 >(
   base: DonneesPartielles,
-  options?: ArbitraireOptionsActivites,
+  options?: ArbitraireOptionsActivites
 ) => fc.Arbitrary<DonneesExtensiblesAvecActivite<DonneesPartielles>>;
 
 export type Arbitrarise<T> = { [K in keyof T]: fc.Arbitrary<T[K]> };

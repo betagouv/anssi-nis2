@@ -33,7 +33,7 @@ export interface IDonneesBrutesFormulaireSimulateur
 export interface IDonneesFormulaireSimulateur
   extends IDonneesBrutesFormulaireSimulateur {
   avec(
-    modifie: Partial<IDonneesFormulaireSimulateur>,
+    modifie: Partial<IDonneesFormulaireSimulateur>
   ): IDonneesFormulaireSimulateur;
 }
 
@@ -58,7 +58,7 @@ export class DonneesFormulaireSimulateur
   }
 
   avec(
-    modifie: Partial<IDonneesFormulaireSimulateur>,
+    modifie: Partial<IDonneesFormulaireSimulateur>
   ): IDonneesFormulaireSimulateur {
     return { ...this, ...modifie };
   }

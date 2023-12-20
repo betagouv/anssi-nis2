@@ -5,8 +5,8 @@ export class Intervalle extends Array<number> {
   constructor(debut: number, fin: number) {
     super(
       ...Array.from(Array(Math.abs(fin - debut) + 1).keys()).map(
-        (x) => x + Math.min(debut, fin),
-      ),
+        (x) => x + Math.min(debut, fin)
+      )
     );
   }
 

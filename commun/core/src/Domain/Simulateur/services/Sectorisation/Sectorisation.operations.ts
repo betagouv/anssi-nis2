@@ -19,7 +19,7 @@ export const extraitSectorisationPourSecteur =
           sousSecteur: sousSecteur,
         },
       ],
-      [] as Sectorisation[],
+      [] as Sectorisation[]
     );
   };
 

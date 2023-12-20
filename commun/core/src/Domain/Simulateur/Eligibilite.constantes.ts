@@ -27,5 +27,5 @@ export const ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement: V
 export const R: { [k in ResultatEligibilite]: () => ResultatEligibilite } =
   ValeursResultatEligibilite.reduce(
     (rec, res) => ({ ...rec, [res]: () => Eligibilite[res] }),
-    {} as { [key in ResultatEligibilite]: () => ResultatEligibilite },
+    {} as { [key in ResultatEligibilite]: () => ResultatEligibilite }
   );

@@ -10,7 +10,7 @@ import {
   VariantesEtape,
 } from "../../src/Domain/Simulateur/InformationsEtape";
 import { exInformationEtape } from "./exemples/informationEtape.exemples";
-import { fausseValidationReponse } from "./InformationEtape.faussaire";
+import { fausseValidationReponse } from "./exemples/InformationEtape.faussaire";
 
 describe("fabriquesInformationsEtapes", () => {
   describe(fabriquesInformationsEtapes.variantes, () => {
@@ -55,7 +55,7 @@ describe("fabriquesInformationsEtapes", () => {
       const resultDeuxEtapes =
         fabriquesInformationsEtapes.variantes(variantesDeuxEtapes);
       const donnees = new DonneesFormulaireSimulateur(
-        donneesFormulaireSimulateurVide,
+        donneesFormulaireSimulateurVide
       );
       expect(resultDeuxEtapes).toEqual({
         ...resultatAttendu,
@@ -63,13 +63,13 @@ describe("fabriquesInformationsEtapes", () => {
       });
       expect(
         resultDeuxEtapes.varianteAffichee(
-          donnees.avec({ typeStructure: ["privee"] }),
-        ),
+          donnees.avec({ typeStructure: ["privee"] })
+        )
       ).toBe(0);
       expect(
         resultDeuxEtapes.varianteAffichee(
-          donnees.avec({ typeStructure: ["publique"] }),
-        ),
+          donnees.avec({ typeStructure: ["publique"] })
+        )
       ).toBe(1);
     });
   });

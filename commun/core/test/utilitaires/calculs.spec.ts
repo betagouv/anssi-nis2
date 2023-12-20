@@ -9,7 +9,7 @@ describe(dansIntervalle, () => {
     "%i devrait être dans l'intervale 2 à 8",
     (x) => {
       expect(dansIntervalle(x, 2, 8)).toBe(true);
-    },
+    }
   );
 });
 
@@ -26,7 +26,7 @@ describe(Intervalle, () => {
 
       expect(intervalleCalcule).toBeInstanceOf(Intervalle);
       expect(intervalleCalcule).toEqual(intervalleAttendu);
-    },
+    }
   );
 
   it.each([2, 3, 4, 5, 6, 7, 8])(
@@ -34,6 +34,6 @@ describe(Intervalle, () => {
     (x) => {
       const intervalleCalcule = new Intervalle(2, 8);
       expect(intervalleCalcule.contient(x)).toBe(true);
-    },
+    }
   );
 });

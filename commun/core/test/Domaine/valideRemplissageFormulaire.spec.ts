@@ -13,7 +13,7 @@ import { verifieQue } from "../utilitaires/assure";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
 
 const donneesAbsentes = Object.entries(arbForm.nonValide.donneeAbsente).filter(
-  ([nom]) => !ChampsFormulaireFacultatifs.includes(nom),
+  ([nom]) => !ChampsFormulaireFacultatifs.includes(nom)
 );
 
 const donneesTestsArbitraires = [
@@ -181,17 +181,17 @@ describe.each([
       verifieQue<IDonneesBrutesFormulaireSimulateur, boolean>(actionTestee)
         .quelqueSoit(arbitraireDonneeAbsente)
         .renvoieToujours(false);
-    },
+    }
   );
   it.each(donneesTestsArbitraires)(
     "Doit accepter des données éligibles: $nom",
     ({ arbitraireEligible }) => {
       verifieQue(actionTestee)
         .quelqueSoit(
-          arbitraireEligible as unknown as fc.Arbitrary<IDonneesBrutesFormulaireSimulateur>,
+          arbitraireEligible as unknown as fc.Arbitrary<IDonneesBrutesFormulaireSimulateur>
         )
         .renvoieToujours(true);
-    },
+    }
   );
 });
 
@@ -202,7 +202,7 @@ describe.each(donneesNonValides)(
       "doit répondre $attendu pour $name",
       ({ actionTestee, attendu }) => {
         verifieQue(actionTestee).pour(donnees).renvoieToujours(attendu);
-      },
+      }
     );
-  },
+  }
 );

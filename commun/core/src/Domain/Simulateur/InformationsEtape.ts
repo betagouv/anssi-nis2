@@ -1,4 +1,4 @@
-import { PredicatDonneesSimulateur } from "anssi-nis2-ui/src/Services/Simulateur/PredicatDonneesSimulateur";
+import { PredicatDonneesSimulateurDefinitions } from "anssi-nis2-ui/src/Services/Simulateur/PredicatDonneesSimulateur.definitions";
 import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire";
 import { P } from "ts-pattern";
 import { ValidationReponses } from "./services/ChampSimulateur/champs.domaine";
@@ -28,11 +28,11 @@ export type InformationsEtape = {
 };
 
 export type CapaciteEtape = {
-  readonly remplitContitionSousEtape: PredicatDonneesSimulateur;
+  readonly remplitContitionSousEtape: PredicatDonneesSimulateurDefinitions;
   readonly validationReponses: ValidationReponses;
   readonly estIgnoree: (donnees: IDonneesBrutesFormulaireSimulateur) => boolean;
   readonly varianteAffichee: (
-    donnees: IDonneesBrutesFormulaireSimulateur,
+    donnees: IDonneesBrutesFormulaireSimulateur
   ) => number;
 };
 
@@ -45,18 +45,18 @@ export type EtapeResultat = EtapeExistante;
 export type OptionsInformationEtapeForm = {
   readonly sousEtapeConditionnelle?: SousEtapeConditionnelle;
   readonly ignoreSi: (
-    donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
+    donneesFormulaire: IDonneesBrutesFormulaireSimulateur
   ) => boolean;
 };
 
 export type SousEtapeConditionnelle = {
-  readonly condition: PredicatDonneesSimulateur;
+  readonly condition: PredicatDonneesSimulateurDefinitions;
   readonly sousEtape: InformationEtapeForm;
 };
 
 export type CapacitesEtapeFormulaire = {
   readonly fabriqueValidationReponses: (
-    donnees: IDonneesBrutesFormulaireSimulateur,
+    donnees: IDonneesBrutesFormulaireSimulateur
   ) => ValidationReponses;
 };
 export type InformationEtapeForm = EtapeExistante &
@@ -70,7 +70,7 @@ export type VariantesEtape<TypeEtape extends InformationEtapeForm> = {
 };
 
 export type InformationsEtapesVariantes<
-  TypeEtape extends InformationEtapeForm,
+  TypeEtape extends InformationEtapeForm
 > = EtapeExistante &
   CapacitesEtapeFormulaire & {
     readonly variantes: TypeEtape[];

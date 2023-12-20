@@ -13,14 +13,15 @@ const donneesVides = donneesFormulaireSimulateurVide;
 const attendEtatEtapeEgaux = (
   etatEtapeResultant: EtatEtapes,
   etatEtapeAttendu: EtatEtapes,
-  ignoreProprietes = ["ignoreEtapeSuivante"],
+  ignoreProprietes = ["ignoreEtapeSuivante"]
 ) =>
   Object.keys(etatEtapeAttendu)
     .filter((champ) => !ignoreProprietes.includes(champ))
     .map((champ) =>
-      expect(etatEtapeResultant[champ], `Propriété ${champ}`).toStrictEqual(
-        etatEtapeAttendu[champ],
-      ),
+      expect(
+        etatEtapeResultant[champ as keyof EtatEtapes],
+        `Propriété ${champ}`
+      ).toStrictEqual(etatEtapeAttendu[champ as keyof EtatEtapes])
     );
 
 describe(fabriqueEtatEtapeSuivant, () => {
@@ -29,22 +30,22 @@ describe(fabriqueEtatEtapeSuivant, () => {
       attendEtatEtapeEgaux(
         fabriqueEtatEtapeSuivant(
           exEtatEtape.longueur2.etapeInitiale,
-          donneesVides,
+          donneesVides
         ),
-        exEtatEtape.longueur2.etape2,
+        exEtatEtape.longueur2.etape2
       );
     });
     describe("Sous-étapes conditionnelles", () => {
       it("renvoie l'étape 3 après l'étape 2", () => {
         attendEtatEtapeEgaux(
           fabriqueEtatEtapeSuivant(exEtatEtape.longueur3.etape2, donneesVides),
-          exEtatEtape.longueur3.etape3,
+          exEtatEtape.longueur3.etape3
         );
       });
       it("renvoie l'étape 3 bis après l'étape 3", () => {
         attendEtatEtapeEgaux(
           fabriqueEtatEtapeSuivant(exEtatEtape.longueur3.etape3, donneesVides),
-          exEtatEtape.longueur3.etape3_1,
+          exEtatEtape.longueur3.etape3_1
         );
       });
 
@@ -52,18 +53,18 @@ describe(fabriqueEtatEtapeSuivant, () => {
         attendEtatEtapeEgaux(
           fabriqueEtatEtapeSuivant(
             exEtatEtape.longueur3.etape3_1,
-            donneesVides,
+            donneesVides
           ),
-          exEtatEtape.longueur3.etape3_1,
+          exEtatEtape.longueur3.etape3_1
         );
       });
       it("renvoie l'étape 4 après l'étape 3 bis", () => {
         attendEtatEtapeEgaux(
           fabriqueEtatEtapeSuivant(
             exEtatEtape.longueur4.etape3_1,
-            donneesVides,
+            donneesVides
           ),
-          exEtatEtape.longueur4.etape4,
+          exEtatEtape.longueur4.etape4
         );
       });
     });
@@ -72,9 +73,9 @@ describe(fabriqueEtatEtapeSuivant, () => {
         attendEtatEtapeEgaux(
           fabriqueEtatEtapeSuivant(
             exEtatEtape.longueur3.avantDerniereEtapeEvitable.etapeInitiale,
-            donneesVides,
+            donneesVides
           ),
-          exEtatEtape.longueur3.avantDerniereEtapeEvitable.etape3,
+          exEtatEtape.longueur3.avantDerniereEtapeEvitable.etape3
         );
       });
     });
@@ -86,9 +87,9 @@ describe(fabriqueEtatEtapeSuivant, () => {
         attendEtatEtapeEgaux(
           fabriqueEtatEtapeSuivant(
             exEtatEtape.longueur3.avecVarianteEtape2.etape1,
-            donnees,
+            donnees
           ),
-          exEtatEtape.longueur3.avecVarianteEtape2.etape2.variantePrivee,
+          exEtatEtape.longueur3.avecVarianteEtape2.etape2.variantePrivee
         );
       });
       it("Avance vers l'état étape avec la variante privee", () => {
@@ -98,9 +99,9 @@ describe(fabriqueEtatEtapeSuivant, () => {
         attendEtatEtapeEgaux(
           fabriqueEtatEtapeSuivant(
             exEtatEtape.longueur3.avecVarianteEtape2.etape1,
-            donnees,
+            donnees
           ),
-          exEtatEtape.longueur3.avecVarianteEtape2.etape2.variantePublique,
+          exEtatEtape.longueur3.avecVarianteEtape2.etape2.variantePublique
         );
       });
     });
@@ -113,9 +114,9 @@ describe(fabriqueEtatEtapePrecedent, () => {
       attendEtatEtapeEgaux(
         fabriqueEtatEtapePrecedent(
           exEtatEtape.longueur2.etapeInitiale,
-          donneesVides,
+          donneesVides
         ),
-        exEtatEtape.longueur2.etapeInitiale,
+        exEtatEtape.longueur2.etapeInitiale
       );
     });
 
@@ -124,11 +125,11 @@ describe(fabriqueEtatEtapePrecedent, () => {
         fabriqueEtatEtapePrecedent(
           fabriqueEtatEtapeSuivant(
             exEtatEtape.longueur2.etapeInitiale,
-            donneesVides,
+            donneesVides
           ),
-          donneesVides,
+          donneesVides
         ),
-        exEtatEtape.longueur2.etapeInitiale,
+        exEtatEtape.longueur2.etapeInitiale
       );
     });
     describe("Etape avec Variante", () => {
@@ -139,9 +140,9 @@ describe(fabriqueEtatEtapePrecedent, () => {
         attendEtatEtapeEgaux(
           fabriqueEtatEtapePrecedent(
             exEtatEtape.longueur3.avecVarianteEtape2.etape3,
-            donnees,
+            donnees
           ),
-          exEtatEtape.longueur3.avecVarianteEtape2.etape2.variantePrivee,
+          exEtatEtape.longueur3.avecVarianteEtape2.etape2.variantePrivee
         );
       });
       it("Avance vers l'état étape avec la variante privee", () => {
@@ -151,9 +152,9 @@ describe(fabriqueEtatEtapePrecedent, () => {
         attendEtatEtapeEgaux(
           fabriqueEtatEtapePrecedent(
             exEtatEtape.longueur3.avecVarianteEtape2.etape3,
-            donnees,
+            donnees
           ),
-          exEtatEtape.longueur3.avecVarianteEtape2.etape2.variantePublique,
+          exEtatEtape.longueur3.avecVarianteEtape2.etape2.variantePublique
         );
       });
     });
@@ -164,21 +165,21 @@ describe(fabriqueEtatEtapePrecedent, () => {
       attendEtatEtapeEgaux(
         fabriqueEtatEtapePrecedent(
           exEtatEtape.longueur3.etape3_1,
-          donneesVides,
+          donneesVides
         ),
-        exEtatEtape.longueur3.etape3,
+        exEtatEtape.longueur3.etape3
       );
     });
     it("renvoie l'étape 2 avant l'étape 3", () => {
       attendEtatEtapeEgaux(
         fabriqueEtatEtapePrecedent(exEtatEtape.longueur3.etape3, donneesVides),
-        exEtatEtape.longueur3.etape2,
+        exEtatEtape.longueur3.etape2
       );
     });
     it("renvoie l'étape 3 avant l'étape 4", () => {
       attendEtatEtapeEgaux(
         fabriqueEtatEtapePrecedent(exEtatEtape.longueur4.etape4, donneesVides),
-        exEtatEtape.longueur4.etape3,
+        exEtatEtape.longueur4.etape3
       );
     });
   });

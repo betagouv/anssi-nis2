@@ -1,8 +1,4 @@
 import { fc } from "@fast-check/vitest";
-import {
-  IDonneesBrutesFormulaireSimulateur,
-  IDonneesFormulaireSimulateur,
-} from "../../../src/Domain/Simulateur/DonneesFormulaire";
 import { ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement } from "../../../src/Domain/Simulateur/Eligibilite.constantes";
 import { exerceUniquementActivitesDansListe } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { predicatDonneesFormulaire } from "../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
@@ -11,6 +7,7 @@ import {
   ajouteArbitraireActivites,
   ajouteAuMoinsUneActiviteAutre,
   ajouteAuMoinsUneActiviteListee,
+  ajouteChampsFacultatifs,
   etend,
   fabriqueArbContraintSurTrancheCA,
   fabriqueArbTrancheSingleton,
@@ -28,19 +25,18 @@ import {
 import { arbFournisseursInfrastructureNumerique } from "./arbitrairesSimulateur.infrastructuresNumeriques";
 import { ArbitraireFormulaire } from "./arbitraireFormulaire.definitions";
 
-export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance: fc.Arbitrary<IDonneesFormulaireSimulateur> =
+export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance =
   etend(
-    arbFournisseursInfrastructureNumerique.fournisseursInfrastructureNumerique,
+    arbFournisseursInfrastructureNumerique.fournisseursInfrastructureNumerique
   )
     .avec({ trancheCA: fabriqueArbTrancheSingleton() })
+    .chain(fabriqueArbContraintSurTrancheCA)
     .filter(
       exerceUniquementActivitesDansListe(
-        ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
-      ),
+        ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement
+      )
     )
-    .chain(
-      fabriqueArbContraintSurTrancheCA,
-    ) as fc.Arbitrary<IDonneesFormulaireSimulateur>;
+    .chain(ajouteChampsFacultatifs);
 
 export const arbNonOSEPrivesMoyenneGrande = etend(
   arbSecteursEtSousSecteursListes.filter((d) =>
@@ -50,9 +46,9 @@ export const arbNonOSEPrivesMoyenneGrande = etend(
           "gestionServicesTic",
           "fournisseursNumeriques",
           "infrastructureNumerique",
-        ]),
-    ),
-  ),
+        ])
+    )
+  )
 )
   .avec({
     designeOperateurServicesEssentiels:
@@ -62,10 +58,11 @@ export const arbNonOSEPrivesMoyenneGrande = etend(
     etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
   })
   .chain(fabriqueArbContraintSurTrancheCA)
-  .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteListee);
+  .chain(ajouteAuMoinsUneActiviteListee)
+  .chain(ajouteChampsFacultatifs);
 
 export const arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles = etend(
-  arbEnrAutresSecteursSousSecteurs,
+  arbEnrAutresSecteursSousSecteurs
 )
   .avec({
     designeOperateurServicesEssentiels:
@@ -78,7 +75,7 @@ export const arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles = etend(
   .chain(ajouteArbitraireActivites) as ArbitraireFormulaire;
 
 export const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
-  arbSecteursSousSecteursListes,
+  arbSecteursSousSecteursListes
 )
   .avec({
     designeOperateurServicesEssentiels:
@@ -88,42 +85,43 @@ export const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
     etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
   })
   .chain(fabriqueArbContraintSurTrancheCA)
-  .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteAutre)
+  .chain(ajouteAuMoinsUneActiviteAutre)
+  .chain(ajouteChampsFacultatifs)
   .filter(predicatDonneesFormulaire.uniquement.activiteAutre)
   .filter((d) => d.activites.length > 0);
 
-export const arbNonOSEPrivesMoyenGrandGestionTic: fc.Arbitrary<IDonneesBrutesFormulaireSimulateur> =
-  etend(
-    fc.record({
-      secteurActivite: fc.constant(["gestionServicesTic"]),
-      sousSecteurActivite: fc.constant([]),
-    }),
-  )
-    .avec({
-      designeOperateurServicesEssentiels:
-        arbDesigneOperateurServicesEssentiels.non,
-      typeStructure: arbTypeStructure.privee,
-      trancheCA: fabriqueArbTrancheSingleton(),
-      etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
-    })
-    .chain(fabriqueArbContraintSurTrancheCA)
-    .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteListee)
-    .filter((d) => d.activites.length > 0);
+export const arbNonOSEPrivesMoyenGrandGestionTic = etend(
+  fc.record({
+    secteurActivite: fc.constant(["gestionServicesTic"]),
+    sousSecteurActivite: fc.constant([]),
+  })
+)
+  .avec({
+    designeOperateurServicesEssentiels:
+      arbDesigneOperateurServicesEssentiels.non,
+    typeStructure: arbTypeStructure.privee,
+    trancheCA: fabriqueArbTrancheSingleton(),
+    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+  })
+  .chain(fabriqueArbContraintSurTrancheCA)
+  .chain(ajouteAuMoinsUneActiviteListee)
+  .chain(ajouteChampsFacultatifs)
+  .filter((d) => d.activites.length > 0);
 
-export const arbNonOSEPrivesMoyenGrandFournisseurNumerique: fc.Arbitrary<IDonneesBrutesFormulaireSimulateur> =
-  etend(
-    fc.record({
-      secteurActivite: fc.constant(["fournisseursNumeriques"]),
-      sousSecteurActivite: fc.constant([]),
-    }),
-  )
-    .avec({
-      designeOperateurServicesEssentiels:
-        arbDesigneOperateurServicesEssentiels.non,
-      typeStructure: arbTypeStructure.privee,
-      trancheCA: fabriqueArbTrancheSingleton(),
-      etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
-    })
-    .chain(fabriqueArbContraintSurTrancheCA)
-    .chain<IDonneesBrutesFormulaireSimulateur>(ajouteAuMoinsUneActiviteListee)
-    .filter((d) => d.activites.length > 0);
+export const arbNonOSEPrivesMoyenGrandFournisseurNumerique = etend(
+  fc.record({
+    secteurActivite: fc.constant(["fournisseursNumeriques"]),
+    sousSecteurActivite: fc.constant([]),
+  })
+)
+  .avec({
+    designeOperateurServicesEssentiels:
+      arbDesigneOperateurServicesEssentiels.non,
+    typeStructure: arbTypeStructure.privee,
+    trancheCA: fabriqueArbTrancheSingleton(),
+    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+  })
+  .chain(fabriqueArbContraintSurTrancheCA)
+  .chain(ajouteAuMoinsUneActiviteListee)
+  .chain(ajouteChampsFacultatifs)
+  .filter((d) => d.activites.length > 0);

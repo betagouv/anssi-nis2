@@ -1,5 +1,8 @@
 import { ValeursActivites } from "../../Activite.definitions";
-import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire";
+import {
+  DonneesSectorielles,
+  IDonneesBrutesFormulaireSimulateur,
+} from "../../DonneesFormulaire";
 import {
   ValeursActivitesConcernesInfrastructureNumerique,
   ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
@@ -34,21 +37,39 @@ export const aucuneActiviteListee = (activites: ValeursActivites[]) =>
   activites.every(estActiviteAutre);
 export const auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement =
   auMoinsUneActiviteCommuneAvec(
-    ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
+    ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement
   );
 export const auMoinsUneActiviteInfraNumConcernee =
   auMoinsUneActiviteCommuneAvec(
-    ValeursActivitesConcernesInfrastructureNumerique,
+    ValeursActivitesConcernesInfrastructureNumerique
   );
 export const aucuneActiviteInfraNumConcernee = aucuneActiviteCommuneAvec(
-  ValeursActivitesConcernesInfrastructureNumerique,
+  ValeursActivitesConcernesInfrastructureNumerique
 );
 export const exerceActiviteDansListe =
-  (liste: ValeursActivites[]) => (d: IDonneesBrutesFormulaireSimulateur) =>
+  (liste: ValeursActivites[]) =>
+  <
+    T extends DonneesSectorielles &
+      Pick<IDonneesBrutesFormulaireSimulateur, "activites">
+  >(
+    d: T
+  ) =>
     d.activites.some((a) => liste.includes(a));
 export const exerceUniquementActivitesDansListe =
-  (liste: ValeursActivites[]) => (d: IDonneesBrutesFormulaireSimulateur) =>
+  (liste: ValeursActivites[]) =>
+  <
+    T extends DonneesSectorielles &
+      Pick<IDonneesBrutesFormulaireSimulateur, "activites">
+  >(
+    d: T
+  ) =>
     d.activites.every((a) => liste.includes(a));
 export const exerceAucuneActivitesDansListe =
-  (liste: ValeursActivites[]) => (d: IDonneesBrutesFormulaireSimulateur) =>
+  (liste: ValeursActivites[]) =>
+  <
+    T extends DonneesSectorielles &
+      Pick<IDonneesBrutesFormulaireSimulateur, "activites">
+  >(
+    d: T
+  ) =>
     d.activites.every((a) => !liste.includes(a));

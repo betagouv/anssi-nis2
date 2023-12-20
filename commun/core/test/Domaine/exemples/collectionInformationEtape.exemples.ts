@@ -5,24 +5,24 @@ import { exInformationEtape } from "./informationEtape.exemples";
 const collectionInformationsEtapesLongueur2Simple =
   new CollectionInformationsEtapes(
     exInformationEtape.form1,
-    exInformationEtape.form2,
+    exInformationEtape.form2
   );
 const derniereEtapeFormEvitable = new CollectionInformationsEtapes(
   exInformationEtape.form1,
   exInformationEtape.evitable.toujours,
-  exInformationEtape.form2,
+  exInformationEtape.form2
 );
 const collec3EtapesAvecConditionnelleEnDernier =
   new CollectionInformationsEtapes(
     exInformationEtape.form1,
     exInformationEtape.form2,
-    exInformationEtape.etapeAvecSousEtape,
+    exInformationEtape.etapeAvecSousEtape
   );
 
 const collec3EtapesAvecVarianteEnDeuxieme = new CollectionInformationsEtapes(
   exInformationEtape.form1,
   exInformationEtape.variante,
-  exInformationEtape.form2,
+  exInformationEtape.form2
 );
 
 const collec4EtapesAvecConditionnelleEnAvantDernier =
@@ -30,7 +30,7 @@ const collec4EtapesAvecConditionnelleEnAvantDernier =
     exInformationEtape.form1,
     exInformationEtape.form2,
     exInformationEtape.etapeAvecSousEtape,
-    exInformationEtape.form2,
+    exInformationEtape.form2
   );
 
 export const collectionInformationsEtapesAvecInexistantes =
@@ -40,7 +40,7 @@ export const collectionInformationsEtapesAvecInexistantes =
     exInformationEtape.resultat,
     exInformationEtape.form2,
     exInformationEtape.form,
-    EtapeInexistante,
+    EtapeInexistante
   );
 
 export const exCollectionInformationEtape = {
