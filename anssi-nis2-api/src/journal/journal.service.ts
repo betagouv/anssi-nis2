@@ -1,10 +1,10 @@
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
+import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
+import { extraitSectorisationDonneesSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/services/Sectorisation/Sectorisation.operations";
 import { Evenements } from "./entites/evenements.entite-journal";
 import { Injectable } from "@nestjs/common";
 import { DataSource, Repository } from "typeorm";
 import { SegmentsConcernesNis2 } from "./entites/segments-concernes-nis2.entite-journal";
-import { extraitSectorisationDonneesSimulateur } from "~core/Simulateur/services/Sectorisation/Sectorisation.operations";
-import { IDonneesBrutesFormulaireSimulateur } from "~core/Simulateur/DonneesFormulaire";
 import { emptySegmentsConcernesNis2 } from "./entites/emptySegmentsConcernesNis2";
 import { CreeConcerneNis2Dto } from "./dto/creeConcerneNis2Dto";
 
