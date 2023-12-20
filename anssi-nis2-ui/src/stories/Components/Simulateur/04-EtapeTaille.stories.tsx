@@ -1,4 +1,9 @@
 import {
+  TrancheChiffreAffaire,
+  TrancheNombreEmployes,
+} from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
@@ -6,11 +11,6 @@ import { EtapeTaille } from "../../../Components/Simulateur/Etapes";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import {
-  TrancheChiffreAffaire,
-  TrancheNombreEmployes,
-} from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 
 class ParametresDonneesTrancheNombreEmployes extends ParametresDonneesSpecifiqueField<TrancheNombreEmployes> {
   protected construitDonnees<ValeursTrancheNombreEmployes>(

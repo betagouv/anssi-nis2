@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { fc } from "@fast-check/vitest";
-import { decoreChaineRendue } from "../../utilitaires/manipulationArbitraires";
+import { decoreChaineRendue } from "../../../../commun/core/test/utilitaires/manipulationArbitraires";
 
 import {
   collectionInformationsEtapesAvecInexistantes,
   exCollectionInformationEtape,
-} from "./exemples/collectionInformationEtape.exemples";
-import { exInformationEtape } from "./exemples/informationEtape.exemples";
+} from "../../../../commun/core/test/Domaine/exemples/collectionInformationEtape.exemples";
+import { exInformationEtape } from "../../../../commun/core/test/Domaine/exemples/informationEtape.exemples";
 import { arbitrairesCollectionEtape } from "./arbitraires/collectionInformationEtape";
 import { arbitrairesInformationEtape } from "./arbitraires/informationEtape.arbitraires.";
 import { arbListeEtapesEtIndice } from "./arbitraires/listeEtapes";

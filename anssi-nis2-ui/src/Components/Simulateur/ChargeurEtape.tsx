@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Helmet } from "react-helmet";
+import { donneesFormulaireSimulateurVide } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.constantes.ts";
 
 import { DefaultComponent } from "../../Services/Props";
-import { donneesFormulaireSimulateurVide } from "../../Domaine/Simulateur/DonneesFormulaire.constantes.ts";
 import { etatEtapesInitial } from "./Etapes/EtapesQuestionnaire.ts";
 import { useReducteurDonneesFormulaireDuContexte } from "../AppContexte/UseReducteurDonneesFormulaireDuContexte.tsx";
 import { fabriqueInformationsBoutonsNavigation } from "../../Services/Simulateur/BoutonsNavigation.fabrique.ts";

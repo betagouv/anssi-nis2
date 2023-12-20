@@ -1,9 +1,9 @@
 import { jest } from "@storybook/jest";
-import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
 import {
   AggregatInformationsEmail,
   InformationsEmail,
-} from "../../Domaine/Contact/InformationsEmail.definitions.ts";
+} from "../../../../commun/core/src/Domain/Contact/InformationsEmail.definitions.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 
 export const mockSendFormData = jest.fn(
   async (donnees: IDonneesBrutesFormulaireSimulateur) => {

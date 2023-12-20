@@ -1,8 +1,8 @@
-import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { ValeurChampSimulateur } from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import { NomsChampsSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
 import { TransformeRecordToSelect } from "./Operations/OptionsChampsSimulateur.declarations.ts";
 import { GenerateurLibelle } from "./Operations/OptionsChampsSimulateur.declarations.ts";
-import { ValeurChampSimulateur } from "../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 
 export const genereTransformateurValeursVersOptions: <
   ValeursCles extends ValeurChampSimulateur,

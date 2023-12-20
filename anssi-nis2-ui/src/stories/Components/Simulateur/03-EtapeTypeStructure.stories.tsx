@@ -1,3 +1,9 @@
+import { TypeStructure } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import { donneesFormulaireSimulateurVide } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.constantes.ts";
+import {
+  DonneesFormulaireSimulateur,
+  IDonneesBrutesFormulaireSimulateur,
+} from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
@@ -7,13 +13,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 
-import {
-  DonneesFormulaireSimulateur,
-  IDonneesBrutesFormulaireSimulateur,
-} from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { donneesFormulaireSimulateurVide } from "../../../Domaine/Simulateur/DonneesFormulaire.constantes.ts";
 import { libellesTypesStructure } from "../../../References/Libelles.ts";
-import { TypeStructure } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 
 class ParametresDonneesTypeStructure extends ParametresDonneesSpecifiqueField<TypeStructure> {
   protected construitDonnees<ValeursTypeStructure>(

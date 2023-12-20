@@ -3,7 +3,7 @@
     "allowSyntheticDefaultImports": true,
     "paths": {
       "~core/*": [
-        "../anssi-nis2-ui/src/Domaine/*"
+        "../commun/core/src/Domaine/*"
       ]
     },
     "baseUrl": "./",

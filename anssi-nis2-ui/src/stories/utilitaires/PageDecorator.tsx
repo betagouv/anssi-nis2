@@ -1,3 +1,4 @@
+import { AggregatInformationsEmail } from "../../../../commun/core/src/Domain/Contact/InformationsEmail.definitions.ts";
 import { AppContext } from "../../Components/AppContexte/AppContext.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
@@ -7,7 +8,6 @@ import {
 
 import { Contexte } from "../../Services/contexte";
 import { StoryComponent } from "./typesUtilitaires";
-import { AggregatInformationsEmail } from "../../Domaine/Contact/InformationsEmail.definitions.ts";
 
 const defaultAsyncStringFonctionInjected = async () => {
   return "";

@@ -4,14 +4,15 @@ import { expect } from "@storybook/jest";
 import {
   AppartenancePaysUnionEuropeenne,
   FournitServicesUnionEuropeenne,
-} from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+} from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import { donneesFormulaireSimulateurVide } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.constantes.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+
 import EtapeLocalisationActiviteSpecifique from "../../../Components/Simulateur/Etapes/EtapeLocalisationActiviteSpecifique.tsx";
 import {
   libellesFournitServicesUnionEuropeenne,
   libellesPaysUnionEuropeenneLocalisation,
 } from "../../../References/Libelles.ts";
-import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { donneesFormulaireSimulateurVide } from "../../../Domaine/Simulateur/DonneesFormulaire.constantes.ts";
 
 const meta: Meta<typeof EtapeLocalisationActiviteSpecifique> = {
   title:
