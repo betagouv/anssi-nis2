@@ -1,3 +1,4 @@
+import { FournitServicesUnionEuropeenne } from "../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { ValeursActivites } from "../Domaine/Simulateur/Activite.definitions.ts";
 import {
   AppartenancePaysUnionEuropeenne,

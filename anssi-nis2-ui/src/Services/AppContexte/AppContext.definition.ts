@@ -1,5 +1,5 @@
 import { createContext } from "react";
 
-import { Contexte } from "../../Services/contexte";
+import { Contexte } from "../contexte";
 
 export const AppContext = createContext<Contexte>({} as Contexte);

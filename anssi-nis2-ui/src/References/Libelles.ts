@@ -1,7 +1,3 @@
-import { libellesActivites } from "./LibellesActivites.ts";
-import { libellesSecteursActivite } from "./LibellesSecteursActivite.ts";
-import { libellesSousSecteursActivite } from "./LibellesSousSecteursActivite.ts";
-import { DictionnaireLibellesSimulateur } from "./dictionnaireLibellesSimulateur";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
@@ -10,7 +6,11 @@ import {
   TrancheNombreEmployes,
   TypeEntitePublique,
   TypeStructure,
-} from "../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+} from "../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import { DictionnaireLibellesSimulateur } from "../types/dictionnaireLibellesSimulateur";
+import { libellesActivites } from "./LibellesActivites.ts";
+import { libellesSecteursActivite } from "./LibellesSecteursActivite.ts";
+import { libellesSousSecteursActivite } from "./LibellesSousSecteursActivite.ts";
 
 export const libellesFournitServicesUnionEuropeenne: Record<
   FournitServicesUnionEuropeenne,

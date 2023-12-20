@@ -4,10 +4,10 @@ import { donneesFormulaireSimulateurVide } from "../../../../commun/core/src/Dom
 
 import { DefaultComponent } from "../../Services/Props";
 import { etatEtapesInitial } from "./Etapes/EtapesQuestionnaire.ts";
-import { useReducteurDonneesFormulaireDuContexte } from "../AppContexte/UseReducteurDonneesFormulaireDuContexte.tsx";
+import { useReducteurDonneesFormulaireDuContexte } from "../../Services/AppContexte/AppContext.operations.ts";
 import { fabriqueInformationsBoutonsNavigation } from "../../Services/Simulateur/BoutonsNavigation.fabrique.ts";
 import { traceEtapeSimulateur } from "../../Services/TraceurWeb/traceEtapeSimulateur.ts";
-import { AppContext } from "../AppContexte/AppContext.tsx";
+import { AppContext } from "../../Services/AppContexte/AppContext.definition.ts";
 import { cartoComposants } from "../../Services/Simulateur/Transformateurs/TypeEtapeVersComposantEtape.transformateur.ts";
 
 const ChargeurEtapeCalcule: DefaultComponent = () => {

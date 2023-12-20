@@ -1,5 +1,5 @@
 import { AggregatInformationsEmail } from "../../../../commun/core/src/Domain/Contact/InformationsEmail.definitions.ts";
-import { AppContext } from "../../Components/AppContexte/AppContext.tsx";
+import { AppContext } from "../../Services/AppContexte/AppContext.definition.ts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
   reducerBoutons,

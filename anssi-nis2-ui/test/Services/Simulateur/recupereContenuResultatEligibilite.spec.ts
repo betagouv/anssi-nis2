@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { Eligibilite } from "../../../../commun/core/src/Domain/Simulateur/Eligibilite.constantes";
-import { recupereContenusResultatEligibilite } from "../../../src/Services/Simulateur/recupereContenusResultatEligibilite";
+import { recupereContenusResultatEligibilite } from "../../../src/Services/Simulateur/Operations/RecupereContenusResultatEligibilite.impl";
 import {
   contenusResultatEligiblePetitEntreprise,
   contenusResultatNonEligible,
