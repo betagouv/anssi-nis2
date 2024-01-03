@@ -1,11 +1,7 @@
 import { fc } from "@fast-check/vitest";
 import { expect } from "vitest";
-import { DonneesFormulaireExtensibles } from "./manipulationArbitraires.declarations";
 
-export const verifieQue = <
-  DonneesPartielles extends DonneesFormulaireExtensibles,
-  TypeResultat,
->(
+export const verifieQue = <DonneesPartielles, TypeResultat>(
   acte: (donnees: DonneesPartielles) => TypeResultat,
 ) => ({
   quelqueSoit: (arbitraire: fc.Arbitrary<DonneesPartielles>) => ({

@@ -67,22 +67,30 @@ export const verifieDonneesCommunesPublique = isMatching({
   typeEntitePublique: [P._],
 });
 
-const verifieDonneesSectorielles = (
+// noinspection TypeScriptValidateJSTypes
+export const verifieDonneesSectorielles = (
   donnees: IDonneesBrutesFormulaireSimulateur,
 ) =>
-  match<IDonneesBrutesFormulaireSimulateur, boolean>(donnees)
+  match(donnees)
     .with(
       {
+        trancheCA: ["petit"],
+        trancheNombreEmployes: ["petit"],
         secteurActivite: ["infrastructureNumerique"],
         fournitServicesUnionEuropeenne: ["non"],
-        localisationRepresentant: P.union(P.nullish, []),
+        localisationRepresentant: [],
       },
       toujoursVrai,
     )
     .with(
       {
+        trancheCA: ["petit"],
+        trancheNombreEmployes: ["petit"],
         secteurActivite: ["infrastructureNumerique"],
-        localisationRepresentant: P.union(P.nullish, []),
+        sousSecteurActivite: P.array(),
+        activites: P.when(estTableauNonVide),
+        fournitServicesUnionEuropeenne: ["oui"],
+        localisationRepresentant: [],
       },
       toujoursFaux,
     )

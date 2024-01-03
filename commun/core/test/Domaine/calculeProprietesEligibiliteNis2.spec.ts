@@ -30,7 +30,7 @@ describe(calculeEligibilite, () => {
           verifieQue(calculeEligibilite)
             .quelqueSoit(
               arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                .petitInfraNum.activitesConcernes
+                .petitInfraNum.activitesConcernes,
             )
             .renvoieToujours(Eligibilite.EligiblePetiteEntreprise);
         });
@@ -38,7 +38,7 @@ describe(calculeEligibilite, () => {
           verifieQue(calculeEligibilite)
             .quelqueSoit(
               arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                .petitInfraNum.infraNumDNSOuNomDomaine.representantFrance
+                .petitInfraNum.infraNumDNSOuNomDomaine.representantFrance,
             )
             .renvoieToujours(Eligibilite.EligiblePetiteEntreprise);
         });
@@ -47,7 +47,7 @@ describe(calculeEligibilite, () => {
             verifieQue(calculeEligibilite)
               .quelqueSoit(
                 arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                  .petitInfraNum.infraNumDNSOuNomDomaine.representantUE
+                  .petitInfraNum.infraNumDNSOuNomDomaine.representantUE,
               )
               .renvoieToujours(Eligibilite.NonEligible);
           });
@@ -55,7 +55,7 @@ describe(calculeEligibilite, () => {
             verifieQue(calculeEligibilite)
               .quelqueSoit(
                 arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                  .petitInfraNum.infraNumDNSOuNomDomaine.neFournitPasEnUE
+                  .petitInfraNum.infraNumDNSOuNomDomaine.neFournitPasEnUE,
               )
               .renvoieToujours(Eligibilite.NonEligible);
           });
@@ -63,7 +63,7 @@ describe(calculeEligibilite, () => {
             verifieQue(calculeEligibilite)
               .quelqueSoit(
                 arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                  .petitInfraNum.infraNumDNSOuNomDomaine.representantHorsUE
+                  .petitInfraNum.infraNumDNSOuNomDomaine.representantHorsUE,
               )
               .renvoieToujours(Eligibilite.NonEligible);
           });
@@ -71,7 +71,7 @@ describe(calculeEligibilite, () => {
             verifieQue(calculeEligibilite)
               .quelqueSoit(
                 arbForm.nonDesigneOSE.privee.petit
-                  .listeNonFournisseursInfrastructureNumerique
+                  .listeNonFournisseursInfrastructureNumerique,
               )
               .renvoieToujours(Eligibilite.NonEligible);
           });
@@ -79,7 +79,7 @@ describe(calculeEligibilite, () => {
             verifieQue(calculeEligibilite)
               .quelqueSoit(
                 arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                  .activitesNonConcernes
+                  .activitesNonConcernes,
               )
               .renvoieToujours(Eligibilite.NonEligible);
           });
@@ -147,7 +147,7 @@ describe(calculeEligibilite, () => {
         verifieQue(calculeEligibilite)
           .quelqueSoit(
             arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance
-              .moyenGrandInfraNum
+              .moyenGrandInfraNum,
           )
           .renvoieToujours(Eligibilite.Incertain);
       });
@@ -155,7 +155,7 @@ describe(calculeEligibilite, () => {
         verifieQue(calculeEligibilite)
           .quelqueSoit(
             arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance
-              .moyenGrandGestionTic
+              .moyenGrandGestionTic,
           )
           .renvoieToujours(Eligibilite.Incertain);
       });
@@ -163,7 +163,7 @@ describe(calculeEligibilite, () => {
         verifieQue(calculeEligibilite)
           .quelqueSoit(
             arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance
-              .moyenGrandFournisseurNum
+              .moyenGrandFournisseurNum,
           )
           .renvoieToujours(Eligibilite.Incertain);
       });
@@ -187,7 +187,7 @@ describe(calculeEligibilite, () => {
     it("lorsque OSE NIS 1 n'est pas rempli", () => {
       verifieQue(calculeEligibilite)
         .quelqueSoit(
-          arbForm.nonValide.donneeAbsente.designeOperateurServicesEssentiels
+          arbForm.nonValide.donneeAbsente.designeOperateurServicesEssentiels,
         )
         .renvoieToujours(Eligibilite.Incertain);
     });
