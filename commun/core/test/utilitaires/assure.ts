@@ -4,9 +4,9 @@ import { DonneesFormulaireExtensibles } from "./manipulationArbitraires.declarat
 
 export const verifieQue = <
   DonneesPartielles extends DonneesFormulaireExtensibles,
-  TypeResultat
+  TypeResultat,
 >(
-  acte: (donnees: DonneesPartielles) => TypeResultat
+  acte: (donnees: DonneesPartielles) => TypeResultat,
 ) => ({
   quelqueSoit: (arbitraire: fc.Arbitrary<DonneesPartielles>) => ({
     renvoieToujours: (resultatAttendu: TypeResultat) =>
@@ -17,7 +17,7 @@ export const verifieQue = <
       expect(
         acte(donnees),
         `Conditions non remplies pour '${acte.name}'` +
-          `avec les arguments ${JSON.stringify(donnees)}`
+          `avec les arguments ${JSON.stringify(donnees)}`,
       ).toBe(resultatAttendu),
   }),
 });
@@ -26,11 +26,12 @@ export const Assure = {
   toujoursEgal: <TypeArbitraire, TypeResultat>(
     arbitraire: fc.Arbitrary<TypeArbitraire>,
     acte: (donnees: TypeArbitraire) => TypeResultat,
-    resultatAttendu: TypeResultat
+    resultatAttendu: TypeResultat,
   ) =>
     fc.assert(
       fc.property(arbitraire, (donnees) => {
         expect(acte(donnees)).toStrictEqual(resultatAttendu);
-      })
+      }),
+      { verbose: 2 },
     ),
 };

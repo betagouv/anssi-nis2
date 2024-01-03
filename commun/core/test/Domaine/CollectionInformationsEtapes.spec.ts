@@ -1,17 +1,16 @@
 import { describe, expect, it } from "vitest";
 import { fc } from "@fast-check/vitest";
-import { decoreChaineRendue } from "../../../../commun/core/test/utilitaires/manipulationArbitraires";
-
+import { CollectionInformationsEtapes } from "../../src/Domain/Simulateur/CollectionInformationsEtapes";
+import { InformationsEtapeVide } from "../../src/Domain/Simulateur/EtatEtapes";
+import { decoreChaineRendue } from "../utilitaires/manipulationArbitraires";
+import { arbitrairesCollectionEtape } from "./arbitraires/collectionInformationEtape";
+import { arbitrairesInformationEtape } from "./arbitraires/informationEtape.arbitraires";
+import { arbListeEtapesEtIndice } from "./arbitraires/listeEtapes";
 import {
   collectionInformationsEtapesAvecInexistantes,
   exCollectionInformationEtape,
-} from "../../../../commun/core/test/Domaine/exemples/collectionInformationEtape.exemples";
-import { exInformationEtape } from "../../../../commun/core/test/Domaine/exemples/informationEtape.exemples";
-import { arbitrairesCollectionEtape } from "./arbitraires/collectionInformationEtape";
-import { arbitrairesInformationEtape } from "./arbitraires/informationEtape.arbitraires.";
-import { arbListeEtapesEtIndice } from "./arbitraires/listeEtapes";
-import { CollectionInformationsEtapes } from "../../../src/Domaine/Simulateur/CollectionInformationsEtapes";
-import { InformationsEtapeVide } from "../../../src/Domaine/Simulateur/EtatEtapes";
+} from "./exemples/collectionInformationEtape.exemples";
+import { exInformationEtape } from "./exemples/informationEtape.exemples";
 
 const collectionInformationsEtapes =
   exCollectionInformationEtape.longueur2.simple;
