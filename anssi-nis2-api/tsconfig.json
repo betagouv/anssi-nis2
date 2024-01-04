@@ -3,7 +3,8 @@
     "allowSyntheticDefaultImports": true,
     "paths": {
       "~core/*": [
-        "../commun/core/src/Domaine/*"
+        "../commun/core/*",
+        "../commun/core/dist/*"
       ]
     },
     "baseUrl": "./",

@@ -2,7 +2,8 @@
   "extends": "./tsconfig.json",
   "rootDirs": [
     "./",
-    "../commun/core/src/Domaine/*"
+    "../commun/core/*",
+    "../commun/dist/core/*"
   ],
   "exclude": [
     "node_modules",

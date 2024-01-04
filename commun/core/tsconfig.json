@@ -4,8 +4,8 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
     "strict": true,
-    "skipLibCheck": true,
-    "noEmit": true
+    "skipLibCheck": true
   }
 }

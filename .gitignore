@@ -8,3 +8,4 @@ dist
 /anssi-nis2-ui/coverage/
 
 .eslintcache
+/commun/core/dist/
