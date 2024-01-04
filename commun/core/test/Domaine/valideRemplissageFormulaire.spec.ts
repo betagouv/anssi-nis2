@@ -16,11 +16,19 @@ import {
 import { verifieQue } from "../utilitaires/assure";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
 
-describe("Validation des données formulaire", () => {
+describe("Invalide en cas de données absentes", () => {
   const donneesAbsentes = Object.entries(
     arbForm.nonValide.donneeAbsente,
   ).filter(([nom]) => !ChampsFormulaireFacultatifs.includes(nom));
 
+  it.each(donneesAbsentes)("%s", (nom, donneeAbsente) => {
+    verifieQue(donneesFormulaireSontCompletes)
+      .estToujoursFaux()
+      .quelqueSoit(donneeAbsente);
+  });
+});
+
+describe("Validation des données formulaire", () => {
   const donneesTestsArbPrivee = [
     {
       nom: "designeOSE.petit",
@@ -64,6 +72,7 @@ describe("Validation des données formulaire", () => {
     ...donneesTestsArbPublique,
     ...donneesTestsArbPrivee,
   ];
+
   const formulairePetitInfraNumSansLocalisation: IDonneesBrutesFormulaireSimulateur =
     {
       ...donneesFormulaireSimulateurVide,
@@ -76,65 +85,90 @@ describe("Validation des données formulaire", () => {
       activites: ["fournisseurServicesDNS"],
     };
 
-  describe.each([
-    {
-      nom: "verifieDonneesCommunesPrivee",
-      actionTestee: verifieDonneesCommunesPrivee,
-    },
-    {
-      nom: "verifieCompletudeDonneesFormulairePrivee",
-      actionTestee: verifieCompletudeDonneesFormulairePrivee,
-    },
-  ])("Données privées : $nom", ({ actionTestee }) => {
+  describe("Données privées : verifieDonneesCommunesPrivee", () => {
     it.each(donneesTestsArbPrivee)(
       "Doit accepter des données éligibles: $nom",
       ({ arbitraireEligible }) => {
-        verifieQue(actionTestee)
-          .quelqueSoit(arbitraireEligible)
-          .renvoieToujours(true);
+        verifieQue(verifieDonneesCommunesPrivee)
+          .estToujoursVrai()
+          .quelqueSoit(arbitraireEligible);
       },
     );
   });
 
-  describe.each([
-    {
-      nom: "verifieCompletudeDonneesFormulairePublique",
-      actionTestee: verifieCompletudeDonneesFormulairePublique,
-    },
-    {
-      nom: "verifieDonneesCommunesPublique",
-      actionTestee: verifieDonneesCommunesPublique,
-    },
-  ])("Données publiques : $nom", ({ actionTestee }) => {
-    it.each(donneesTestsArbPublique)(
+  describe("Données privées : verifieCompletudeDonneesFormulairePrivee", () => {
+    it.each(donneesTestsArbPrivee)(
       "Doit accepter des données éligibles: $nom",
       ({ arbitraireEligible }) => {
-        verifieQue(actionTestee)
-          .quelqueSoit(arbitraireEligible)
-          .renvoieToujours(true);
+        verifieQue(verifieCompletudeDonneesFormulairePrivee)
+          .estToujoursVrai()
+          .quelqueSoit(arbitraireEligible);
       },
     );
   });
-  describe.each([
-    {
-      nom: "verifieCompletudeDonneesCommunes",
-      actionTestee: verifieCompletudeDonneesCommunes,
-    },
-    {
-      nom: "donneesFormulaireSontCompletes",
-      actionTestee: donneesFormulaireSontCompletes,
-    },
-    {
-      nom: "verifieDonneesSectorielles",
-      actionTestee: verifieDonneesSectorielles,
-    },
-  ])("$nom", ({ actionTestee }) => {
+
+  describe("verifieCompletudeDonneesFormulairePublique", () => {
+    it.each(donneesTestsArbPublique)(
+      "Doit accepter des données éligibles: $nom",
+      ({ arbitraireEligible }) => {
+        verifieQue(verifieCompletudeDonneesFormulairePublique)
+          .estToujoursVrai()
+          .quelqueSoit(arbitraireEligible);
+      },
+    );
+  });
+
+  describe("verifieDonneesCommunesPublique", () => {
+    it.each(donneesTestsArbPublique)(
+      "Doit accepter des données éligibles: $nom",
+      ({ arbitraireEligible }) => {
+        verifieQue(verifieDonneesCommunesPublique)
+          .estToujoursVrai()
+          .quelqueSoit(arbitraireEligible);
+      },
+    );
+  });
+
+  describe("verifieCompletudeDonneesCommunes", () => {
     it.each(donneesTestsArbitraires)(
       "Doit accepter des données éligibles: $nom",
       ({ arbitraireEligible }) => {
-        verifieQue(actionTestee)
-          .quelqueSoit(arbitraireEligible)
-          .renvoieToujours(true);
+        verifieQue(verifieCompletudeDonneesCommunes)
+          .estToujoursVrai()
+          .quelqueSoit(arbitraireEligible);
+      },
+    );
+  });
+
+  describe("verifieCompletudeDonneesCommunes", () => {
+    it.each(donneesTestsArbitraires)(
+      "Doit accepter des données éligibles: $nom",
+      ({ arbitraireEligible }) => {
+        verifieQue(verifieCompletudeDonneesCommunes)
+          .estToujoursVrai()
+          .quelqueSoit(arbitraireEligible);
+      },
+    );
+  });
+
+  describe("donneesFormulaireSontCompletes", () => {
+    it.each(donneesTestsArbitraires)(
+      "Doit accepter des données éligibles: $nom",
+      ({ arbitraireEligible }) => {
+        verifieQue(donneesFormulaireSontCompletes)
+          .estToujoursVrai()
+          .quelqueSoit(arbitraireEligible);
+      },
+    );
+  });
+
+  describe("verifieDonneesSectorielles", () => {
+    it.each(donneesTestsArbitraires)(
+      "Doit accepter des données éligibles: $nom",
+      ({ arbitraireEligible }) => {
+        verifieQue(verifieDonneesSectorielles)
+          .estToujoursVrai()
+          .quelqueSoit(arbitraireEligible);
       },
     );
   });

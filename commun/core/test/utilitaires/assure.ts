@@ -16,6 +16,24 @@ function erreurPour<TypeResultat, DonneesPartielles>(
 export const verifieQue = <DonneesPartielles, TypeResultat>(
   acte: (donnees: DonneesPartielles) => TypeResultat,
 ) => ({
+  renvoieToujours: (resultatAttendu: TypeResultat) => ({
+    quelqueSoit: (arbitraire: fc.Arbitrary<DonneesPartielles>) =>
+      Assure.toujoursEgal(arbitraire, acte, resultatAttendu),
+  }),
+  estToujoursVrai: () => ({
+    quelqueSoit: (arbitraire: fc.Arbitrary<DonneesPartielles>) =>
+      Assure.toujoursVrai(
+        arbitraire,
+        acte as (donnees: DonneesPartielles) => boolean,
+      ),
+  }),
+  estToujoursFaux: () => ({
+    quelqueSoit: (arbitraire: fc.Arbitrary<DonneesPartielles>) =>
+      Assure.toujoursFaux(
+        arbitraire,
+        acte as (donnees: DonneesPartielles) => boolean,
+      ),
+  }),
   quelqueSoit: (arbitraire: fc.Arbitrary<DonneesPartielles>) => ({
     renvoieToujours: (resultatAttendu: TypeResultat) =>
       Assure.toujoursEgal(arbitraire, acte, resultatAttendu),
@@ -40,8 +58,28 @@ export const Assure = {
     resultatAttendu: TypeResultat,
   ) =>
     fc.assert(
-      fc.property(arbitraire, (donnees) => {
+      fc.property<[TypeArbitraire]>(arbitraire, (donnees) => {
         expect(acte(donnees)).toStrictEqual(resultatAttendu);
+      }),
+      { verbose: 2 },
+    ),
+  toujoursVrai: <TypeArbitraire>(
+    arbitraire: fc.Arbitrary<TypeArbitraire>,
+    acte: (donnees: TypeArbitraire) => boolean,
+  ) =>
+    fc.assert(
+      fc.property<[TypeArbitraire]>(arbitraire, (donnees) => {
+        expect(acte(donnees)).toBeTruthy();
+      }),
+      { verbose: 2 },
+    ),
+  toujoursFaux: <TypeArbitraire>(
+    arbitraire: fc.Arbitrary<TypeArbitraire>,
+    acte: (donnees: TypeArbitraire) => boolean,
+  ) =>
+    fc.assert(
+      fc.property<[TypeArbitraire]>(arbitraire, (donnees) => {
+        expect(acte(donnees)).toBeFalsy();
       }),
       { verbose: 2 },
     ),
