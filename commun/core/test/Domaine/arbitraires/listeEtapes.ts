@@ -3,13 +3,13 @@ import { arbitrairesInformationEtape } from "./informationEtape.arbitraires";
 
 const farbiqueArbitraireListeEtapeEtIndices = (
   arrayOptions = {},
-  arbitraireElement = arbitrairesInformationEtape.mix,
+  arbitraireElement = arbitrairesInformationEtape.mix
 ) =>
   fc.array(arbitraireElement, arrayOptions).chain((liste) =>
     fc.record({
       listeEtapes: fc.constant(liste),
       indice: fc.nat(liste.length),
-    }),
+    })
   );
 export const arbListeEtapesEtIndice = farbiqueArbitraireListeEtapeEtIndices();
 export const arbListeFormEtResult = fc.record({

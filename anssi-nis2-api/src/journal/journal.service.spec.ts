@@ -1,7 +1,7 @@
+import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
 import { JournalService } from "./journal.service";
 import { donneesSimulateurVide } from "../Domaine/donneesSimulateur";
 import { SegmentsConcernesNis2 } from "./entites/segments-concernes-nis2.entite-journal";
-import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-ui/src/Domaine/Simulateur/DonneesFormulaire";
 import { fournisseurTestJournalService } from "./journal.service.fournisseur-test";
 import { Test } from "@nestjs/testing";
 

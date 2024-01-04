@@ -1,20 +1,20 @@
 import { fc } from "@fast-check/vitest";
 import { expect } from "vitest";
 
-function erreurPour<TypeResultat, DonneesPartielles>(
+const erreurPour = <TypeResultat, DonneesPartielles>(
   acte: (donnees: DonneesPartielles) => TypeResultat,
-  donnees: DonneesPartielles,
-) {
+  donnees: DonneesPartielles
+) => {
   const nom =
     acte.prototype === undefined
       ? acte.toString()
       : acte.prototype.constructor.name;
   const arg = JSON.stringify(donnees, null, "\t");
   return `Conditions non remplies pour '${nom}' avec les arguments\n${arg}\n`;
-}
+};
 
 export const verifieQue = <DonneesPartielles, TypeResultat>(
-  acte: (donnees: DonneesPartielles) => TypeResultat,
+  acte: (donnees: DonneesPartielles) => TypeResultat
 ) => ({
   renvoieToujours: (resultatAttendu: TypeResultat) => ({
     quelqueSoit: (arbitraire: fc.Arbitrary<DonneesPartielles>) =>
@@ -24,14 +24,14 @@ export const verifieQue = <DonneesPartielles, TypeResultat>(
     quelqueSoit: (arbitraire: fc.Arbitrary<DonneesPartielles>) =>
       Assure.toujoursVrai(
         arbitraire,
-        acte as (donnees: DonneesPartielles) => boolean,
+        acte as (donnees: DonneesPartielles) => boolean
       ),
   }),
   estToujoursFaux: () => ({
     quelqueSoit: (arbitraire: fc.Arbitrary<DonneesPartielles>) =>
       Assure.toujoursFaux(
         arbitraire,
-        acte as (donnees: DonneesPartielles) => boolean,
+        acte as (donnees: DonneesPartielles) => boolean
       ),
   }),
   pour: (donnees: DonneesPartielles) => ({
@@ -51,32 +51,32 @@ export const Assure = {
   toujoursEgal: <TypeArbitraire, TypeResultat>(
     arbitraire: fc.Arbitrary<TypeArbitraire>,
     acte: (donnees: TypeArbitraire) => TypeResultat,
-    resultatAttendu: TypeResultat,
+    resultatAttendu: TypeResultat
   ) =>
     fc.assert(
       fc.property<[TypeArbitraire]>(arbitraire, (donnees) => {
         expect(acte(donnees)).toStrictEqual(resultatAttendu);
       }),
-      { verbose: 2 },
+      { verbose: 2 }
     ),
   toujoursVrai: <TypeArbitraire>(
     arbitraire: fc.Arbitrary<TypeArbitraire>,
-    acte: (donnees: TypeArbitraire) => boolean,
+    acte: (donnees: TypeArbitraire) => boolean
   ) =>
     fc.assert(
       fc.property<[TypeArbitraire]>(arbitraire, (donnees) => {
         expect(acte(donnees)).toBeTruthy();
       }),
-      { verbose: 2 },
+      { verbose: 2 }
     ),
   toujoursFaux: <TypeArbitraire>(
     arbitraire: fc.Arbitrary<TypeArbitraire>,
-    acte: (donnees: TypeArbitraire) => boolean,
+    acte: (donnees: TypeArbitraire) => boolean
   ) =>
     fc.assert(
       fc.property<[TypeArbitraire]>(arbitraire, (donnees) => {
         expect(acte(donnees)).toBeFalsy();
       }),
-      { verbose: 2 },
+      { verbose: 2 }
     ),
 };

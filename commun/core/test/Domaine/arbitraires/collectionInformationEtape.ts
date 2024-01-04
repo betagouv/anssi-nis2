@@ -9,7 +9,7 @@ const fabriqueCollectionInformationsEtapes = (
 ) => {
   const informationsEtapes = listes.reduce(
     (listeResultat, listeCourante) => listeResultat.concat(...listeCourante),
-    [],
+    []
   );
   return new CollectionInformationsEtapes(...informationsEtapes);
 };
@@ -21,10 +21,10 @@ export const arbRecListeEtapesCommencantParNForm = arbListeFormEtResult.chain(
       collection: fc.constant(
         fabriqueCollectionInformationsEtapes(
           tuple.listeEtapesForm,
-          tuple.listeEtapesResult,
-        ),
+          tuple.listeEtapesResult
+        )
       ),
-    }),
+    })
 );
 export const arbRecListeEtapesCommencantParNResult = arbListeFormEtResult.chain(
   (tuple) =>
@@ -34,10 +34,10 @@ export const arbRecListeEtapesCommencantParNResult = arbListeFormEtResult.chain(
       collection: fc.constant(
         fabriqueCollectionInformationsEtapes(
           tuple.listeEtapesResult,
-          tuple.listeEtapesForm,
-        ),
+          tuple.listeEtapesForm
+        )
       ),
-    }),
+    })
 );
 export const arbitrairesCollectionEtape = {
   resultPuisForm: {

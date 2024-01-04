@@ -13,7 +13,7 @@ export const arbInformationEtapeResult = fc
   .map(fabriquesInformationsEtapes.resultat);
 export const arbEtapeFormOuResult = fc.oneof(
   arbInformationEtapeForm,
-  arbInformationEtapeResult,
+  arbInformationEtapeResult
 );
 export const arbitrairesInformationEtape = {
   form: {

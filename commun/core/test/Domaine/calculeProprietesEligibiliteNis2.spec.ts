@@ -13,7 +13,7 @@ const V = Object.values(Eligibilite).reduce(
     [nom]: verifieQue(calculeEligibilite).renvoieToujours(Eligibilite[nom])
       .quelqueSoit,
   }),
-  {},
+  {}
 ) as Record<
   ResultatEligibilite,
   (arbitraire: fc.Arbitrary<IDonneesBrutesFormulaireSimulateur>) => void
@@ -38,44 +38,44 @@ describe(calculeEligibilite, () => {
         it("Est éligible si le secteur d'activité est 'Infrastructure Numérique'", () => {
           V.EligiblePetiteEntreprise(
             arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-              .petitInfraNum.activitesConcernes,
+              .petitInfraNum.activitesConcernes
           );
         });
         it("Petit Fournisseur d'infranum dans l'UE, représentant en France", () => {
           V.EligiblePetiteEntreprise(
             arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-              .petitInfraNum.infraNumDNSOuNomDomaine.representantFrance,
+              .petitInfraNum.infraNumDNSOuNomDomaine.representantFrance
           );
         });
         describe("N'est pas éligible si", () => {
           it("Petit Fournisseur d'infranum dans l'UE, représentant en UE", () => {
             V.NonEligible(
               arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                .petitInfraNum.infraNumDNSOuNomDomaine.representantUE,
+                .petitInfraNum.infraNumDNSOuNomDomaine.representantUE
             );
           });
           it("Petit Fournisseur d'infranum ne fournissant pas dans l'UE", () => {
             V.NonEligible(
               arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                .petitInfraNum.infraNumDNSOuNomDomaine.neFournitPasEnUE,
+                .petitInfraNum.infraNumDNSOuNomDomaine.neFournitPasEnUE
             );
           });
           it("Petit Fournisseur d'infranum dans l'UE, représentant Hors UE", () => {
             V.NonEligible(
               arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                .petitInfraNum.infraNumDNSOuNomDomaine.representantHorsUE,
+                .petitInfraNum.infraNumDNSOuNomDomaine.representantHorsUE
             );
           });
           it("le secteur d'activité n'est pas 'Infrastructure Numérique'", () => {
             V.NonEligible(
               arbForm.nonDesigneOSE.privee.petit
-                .listeNonFournisseursInfrastructureNumerique,
+                .listeNonFournisseursInfrastructureNumerique
             );
           });
           it("Le secteur d'activité est 'Infrastructure Numérique' mais les activités ne sont pas concernés", () => {
             V.NonEligible(
               arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                .activitesNonConcernes,
+                .activitesNonConcernes
             );
           });
         });
@@ -84,11 +84,10 @@ describe(calculeEligibilite, () => {
       describe("Moyenne ou grande entité localisée en France ou en UE", () => {
         it("Est éligible si le secteur d'activité et l'activité sont listés", () => {
           V.EligibleMoyenneGrandeEntreprise(
-            arbForm.nonDesigneOSE.privee.grand.secteursListes,
+            arbForm.nonDesigneOSE.privee.grand.secteursListes
           );
         });
         describe("N'est pas éligible", () => {
-          // TODO vérifier utilité de ce test
           it("Si le secteur est 'autre'", () => {
             V.NonEligible(arbForm.nonDesigneOSE.privee.grand.secteursAutres);
           });
@@ -133,13 +132,13 @@ describe(calculeEligibilite, () => {
       it("Moyen grand Gestion TIC", () => {
         V.Incertain(
           arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance
-            .moyenGrandGestionTic,
+            .moyenGrandGestionTic
         );
       });
       it("Moyen grand Fournisseur Numérique", () => {
         V.Incertain(
           arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance
-            .moyenGrandFournisseurNum,
+            .moyenGrandFournisseurNum
         );
       });
     });
@@ -155,7 +154,7 @@ describe(calculeEligibilite, () => {
     });
     it("lorsque OSE NIS 1 n'est pas rempli", () => {
       V.Incertain(
-        arbForm.nonValide.donneeAbsente.designeOperateurServicesEssentiels,
+        arbForm.nonValide.donneeAbsente.designeOperateurServicesEssentiels
       );
     });
   });
