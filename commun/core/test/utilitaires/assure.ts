@@ -34,10 +34,6 @@ export const verifieQue = <DonneesPartielles, TypeResultat>(
         acte as (donnees: DonneesPartielles) => boolean,
       ),
   }),
-  quelqueSoit: (arbitraire: fc.Arbitrary<DonneesPartielles>) => ({
-    renvoieToujours: (resultatAttendu: TypeResultat) =>
-      Assure.toujoursEgal(arbitraire, acte, resultatAttendu),
-  }),
   pour: (donnees: DonneesPartielles) => ({
     renvoieToujours: (resultatAttendu: TypeResultat) => {
       expect(acte(donnees), erreurPour(acte, donnees)).toBe(resultatAttendu);

@@ -10,7 +10,7 @@ describe(auMoinsUneActiviteInfraNumConcernee, () => {
       .subarray(ValeursActivites)
       .filter((a) => a.includes("prestataireServiceConfiance"));
     verifieQue(auMoinsUneActiviteInfraNumConcernee)
-      .quelqueSoit(arbActivites)
-      .renvoieToujours(true);
+      .estToujoursVrai()
+      .quelqueSoit(arbActivites);
   });
 });
