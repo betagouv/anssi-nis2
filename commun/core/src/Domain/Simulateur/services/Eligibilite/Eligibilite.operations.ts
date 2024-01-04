@@ -1,5 +1,4 @@
 import { match, P } from "ts-pattern";
-import { VVV } from "../../../utilitaires/debug";
 import { R } from "../../Eligibilite.constantes";
 import {
   aucuneActiviteInfraNumConcernee,
@@ -8,7 +7,6 @@ import {
   auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
   auMoinsUneActiviteListee,
 } from "../Activite/Activite.predicats";
-import { donneesFormulaireSontIncompletes } from "../DonneesFormulaire/DonneesFormulaire.predicats";
 import { auMoinsUnSecteurListe } from "../SecteurActivite/SecteurActivite.predicats";
 import { OperationCalculeEligibilite } from "./Eligibilite.definition";
 
@@ -25,9 +23,8 @@ const calculeEligibiliteOperateurServiceEssentielNis1: OperationCalculeEligibili
       .otherwise(R.EligibleMoyenneGrandeEntreprise);
 const calculeEligibilitePetiteStructurePrivee: OperationCalculeEligibilite = (
   donnees,
-) => {
-  VVV("Eligibilité petite Structure privée");
-  return match(donnees)
+) =>
+  match(donnees)
     .with(
       {
         secteurActivite: ["infrastructureNumerique"],
@@ -60,7 +57,6 @@ const calculeEligibilitePetiteStructurePrivee: OperationCalculeEligibilite = (
       R.NonEligible,
     )
     .otherwise(R.Incertain);
-};
 const calculeEligibiliteMoyenneOuGrandeStructurePrivee: OperationCalculeEligibilite =
   (donnees) =>
     match(donnees)
@@ -93,9 +89,8 @@ const calculeEligibiliteMoyenneOuGrandeStructurePrivee: OperationCalculeEligibil
 
 const calculeEligibiliteStructurePrivee: OperationCalculeEligibilite = (
   donnees,
-) => {
-  VVV("calculeEligibiliteStructurePrivee");
-  return match(donnees)
+) =>
+  match(donnees)
     .with(
       {
         activites: P.when(aucuneActiviteListee),
@@ -122,10 +117,8 @@ const calculeEligibiliteStructurePrivee: OperationCalculeEligibilite = (
       calculeEligibiliteMoyenneOuGrandeStructurePrivee,
     )
     .otherwise(R.Incertain);
-};
 export const calculeEligibilite: OperationCalculeEligibilite = (donnees) =>
   match(donnees)
-    .when(donneesFormulaireSontIncompletes, R.Incertain)
     .with(
       { designeOperateurServicesEssentiels: ["oui"] },
       calculeEligibiliteOperateurServiceEssentielNis1,

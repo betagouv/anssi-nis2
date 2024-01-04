@@ -1,6 +1,18 @@
 import { fc } from "@fast-check/vitest";
 import { expect } from "vitest";
 
+function erreurPour<TypeResultat, DonneesPartielles>(
+  acte: (donnees: DonneesPartielles) => TypeResultat,
+  donnees: DonneesPartielles,
+) {
+  const nom =
+    acte.prototype === undefined
+      ? acte.toString()
+      : acte.prototype.constructor.name;
+  const arg = JSON.stringify(donnees, null, "\t");
+  return `Conditions non remplies pour '${nom}' avec les arguments\n${arg}\n`;
+}
+
 export const verifieQue = <DonneesPartielles, TypeResultat>(
   acte: (donnees: DonneesPartielles) => TypeResultat,
 ) => ({
@@ -9,12 +21,15 @@ export const verifieQue = <DonneesPartielles, TypeResultat>(
       Assure.toujoursEgal(arbitraire, acte, resultatAttendu),
   }),
   pour: (donnees: DonneesPartielles) => ({
-    renvoieToujours: (resultatAttendu: TypeResultat) =>
-      expect(
-        acte(donnees),
-        `Conditions non remplies pour '${acte.name}'` +
-          `avec les arguments ${JSON.stringify(donnees)}`,
-      ).toBe(resultatAttendu),
+    renvoieToujours: (resultatAttendu: TypeResultat) => {
+      expect(acte(donnees), erreurPour(acte, donnees)).toBe(resultatAttendu);
+    },
+    estToujoursVrai: () => {
+      expect(acte(donnees), erreurPour(acte, donnees)).toBeTruthy();
+    },
+    estToujoursFaux: () => {
+      expect(acte(donnees), erreurPour(acte, donnees)).toBeFalsy();
+    },
   }),
 });
 

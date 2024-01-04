@@ -1,7 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement } from "../../../src/Domain/Simulateur/Eligibilite.constantes";
 import { exerceUniquementActivitesDansListe } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
-import { predicatDonneesFormulaire } from "../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { estSecteurParmi } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import {
   ajouteArbitraireActivites,
@@ -22,19 +21,17 @@ import {
   arbDesigneOperateurServicesEssentiels,
   arbTypeStructure,
 } from "./arbitraireChampFormulaire";
-import { arbFournisseursInfrastructureNumerique } from "./arbitrairesSimulateur.infrastructuresNumeriques";
+import { arbNonOSEPrivesPetitFournisseurInfraNum } from "./arbitrairesSimulateur.infrastructuresNumeriques";
 import { ArbitraireFormulaire } from "./arbitraireFormulaire.definitions";
 
 export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance =
-  etend(
-    arbFournisseursInfrastructureNumerique.fournisseursInfrastructureNumerique
-  )
+  etend(arbNonOSEPrivesPetitFournisseurInfraNum)
     .avec({ trancheCA: fabriqueArbTrancheSingleton() })
     .chain(fabriqueArbContraintSurTrancheCA)
     .filter(
       exerceUniquementActivitesDansListe(
-        ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement
-      )
+        ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
+      ),
     )
     .chain(ajouteChampsFacultatifs);
 
@@ -46,9 +43,9 @@ export const arbNonOSEPrivesMoyenneGrande = etend(
           "gestionServicesTic",
           "fournisseursNumeriques",
           "infrastructureNumerique",
-        ])
-    )
-  )
+        ]),
+    ),
+  ),
 )
   .avec({
     designeOperateurServicesEssentiels:
@@ -62,7 +59,7 @@ export const arbNonOSEPrivesMoyenneGrande = etend(
   .chain(ajouteChampsFacultatifs);
 
 export const arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles = etend(
-  arbEnrAutresSecteursSousSecteurs
+  arbEnrAutresSecteursSousSecteurs,
 )
   .avec({
     designeOperateurServicesEssentiels:
@@ -75,7 +72,7 @@ export const arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles = etend(
   .chain(ajouteArbitraireActivites) as ArbitraireFormulaire;
 
 export const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
-  arbSecteursSousSecteursListes
+  arbSecteursSousSecteursListes,
 )
   .avec({
     designeOperateurServicesEssentiels:
@@ -87,14 +84,14 @@ export const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain(ajouteAuMoinsUneActiviteAutre)
   .chain(ajouteChampsFacultatifs)
-  .filter(predicatDonneesFormulaire.uniquement.activiteAutre)
+  // .filter(predicatDonneesFormulaire.uniquement.activiteAutre)
   .filter((d) => d.activites.length > 0);
 
 export const arbNonOSEPrivesMoyenGrandGestionTic = etend(
   fc.record({
     secteurActivite: fc.constant(["gestionServicesTic"]),
     sousSecteurActivite: fc.constant([]),
-  })
+  }),
 )
   .avec({
     designeOperateurServicesEssentiels:
@@ -112,7 +109,7 @@ export const arbNonOSEPrivesMoyenGrandFournisseurNumerique = etend(
   fc.record({
     secteurActivite: fc.constant(["fournisseursNumeriques"]),
     sousSecteurActivite: fc.constant([]),
-  })
+  }),
 )
   .avec({
     designeOperateurServicesEssentiels:

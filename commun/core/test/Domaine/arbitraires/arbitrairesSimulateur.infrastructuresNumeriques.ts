@@ -39,19 +39,18 @@ const arbSecteurSousSecteurNonInfraNum = fabriqueArbEnrSecteurSousSecteurs(
   { minLength: 1 },
 );
 
-const arbNonOSEPrivesPetitFournisseurInfraNum = etend<DonneesSectorielles>(
-  arbSecteurSousSecteurInfraNum,
-)
-  .avec({
-    designeOperateurServicesEssentiels:
-      arbDesigneOperateurServicesEssentiels.non,
-    typeStructure: arbTypeStructure.privee,
-    trancheCA: arbTranche.petit,
-    trancheNombreEmployes: arbTranche.petit,
-    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
-  })
-  .chain(ajouteAuMoinsUneActiviteListee)
-  .chain(ajouteChampsFacultatifs);
+export const arbNonOSEPrivesPetitFournisseurInfraNum =
+  etend<DonneesSectorielles>(arbSecteurSousSecteurInfraNum)
+    .avec({
+      designeOperateurServicesEssentiels:
+        arbDesigneOperateurServicesEssentiels.non,
+      typeStructure: arbTypeStructure.privee,
+      trancheCA: arbTranche.petit,
+      trancheNombreEmployes: arbTranche.petit,
+      etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+    })
+    .chain(ajouteAuMoinsUneActiviteListee)
+    .chain(ajouteChampsFacultatifs);
 
 const valeursActivitesInfrastructureNumerique = [
   ...ValeursActivitesConcernesInfrastructureNumerique,
@@ -102,7 +101,6 @@ const infraNumDNSOuNomDomaine = {
 };
 
 export const arbFournisseursInfrastructureNumerique = {
-  fournisseursInfrastructureNumerique: arbNonOSEPrivesPetitFournisseurInfraNum,
   fournisseursInfraNum: {
     petitInfraNum: {
       /** Petite entité privéé exerçant une Activités dans la liste {@link ValeursActivitesConcernesInfrastructureNumerique} */

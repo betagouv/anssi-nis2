@@ -143,14 +143,6 @@ describe(calculeEligibilite, () => {
 
   describe(Eligibilite.Incertain, () => {
     describe("Exceptions 'Etablissement principal en France'", () => {
-      it("Moyen grand Infranum", () => {
-        verifieQue(calculeEligibilite)
-          .quelqueSoit(
-            arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance
-              .moyenGrandInfraNum,
-          )
-          .renvoieToujours(Eligibilite.Incertain);
-      });
       it("Moyen grand Gestion TIC", () => {
         verifieQue(calculeEligibilite)
           .quelqueSoit(

@@ -15,8 +15,9 @@ export const estSousSecteurAutre = (sousSecteur?: SousSecteurActivite) =>
 export const auMoinsUnSousSecteurListe = (sousSecteur: SousSecteurActivite[]) =>
   sousSecteur.length > 0 && sousSecteur?.some(estSousSecteurListe);
 export const uniquementDesSousSecteursAutres = (
-  sousSecteur: SousSecteurActivite[]
-) => sousSecteur.length > 0 && sousSecteur?.every(estSousSecteurAutre);
+  sousSecteur: SousSecteurActivite[],
+): sousSecteur is SousSecteurActivite[] =>
+  sousSecteur.length > 0 && sousSecteur?.every(estSousSecteurAutre);
 
 export const sousSecteurAppartientASecteur =
   (valeurGroupement: SecteursAvecSousSecteurs) =>
@@ -25,7 +26,9 @@ export const sousSecteurAppartientASecteur =
       "sousSecteurActivite"
     ] as SousSecteurActivite[];
     return donneesSecteursActivite.some((sousSecteur) =>
-      groupementsSecteursParSousSecteurs[valeurGroupement].includes(sousSecteur)
+      groupementsSecteursParSousSecteurs[valeurGroupement].includes(
+        sousSecteur,
+      ),
     );
   };
 export const estDansSecteur =

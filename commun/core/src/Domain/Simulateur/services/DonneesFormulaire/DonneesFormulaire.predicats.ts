@@ -1,9 +1,6 @@
-import { P, isMatching, match } from "ts-pattern";
-import {
-  estTableauNonVide,
-  toujoursFaux,
-  toujoursVrai,
-} from "../../../Commun/Commun.predicats";
+import { P, isMatching } from "ts-pattern";
+import { estTableauNonVide } from "../../../Commun/Commun.predicats";
+import { ValeursActivites } from "../../Activite.definitions";
 import {
   DonneesSectorielles,
   IDonneesBrutesFormulaireSimulateur,
@@ -18,6 +15,7 @@ import {
   exactementUn,
   non,
   ou,
+  oux,
 } from "../ChampSimulateur/champs.predicats";
 import {
   auMoinsUnSecteurListe,
@@ -67,58 +65,55 @@ export const verifieDonneesCommunesPublique = isMatching({
   typeEntitePublique: [P._],
 });
 
-// noinspection TypeScriptValidateJSTypes
-export const verifieDonneesSectorielles = (
-  donnees: IDonneesBrutesFormulaireSimulateur,
-) =>
-  match(donnees)
-    .with(
-      {
-        trancheCA: ["petit"],
-        trancheNombreEmployes: ["petit"],
-        secteurActivite: ["infrastructureNumerique"],
-        fournitServicesUnionEuropeenne: ["non"],
-        localisationRepresentant: [],
-      },
-      toujoursVrai,
-    )
-    .with(
-      {
-        trancheCA: ["petit"],
-        trancheNombreEmployes: ["petit"],
-        secteurActivite: ["infrastructureNumerique"],
-        sousSecteurActivite: P.array(),
-        activites: P.when(estTableauNonVide),
-        fournitServicesUnionEuropeenne: ["oui"],
-        localisationRepresentant: [],
-      },
-      toujoursFaux,
-    )
-    .with(
-      {
-        secteurActivite: P.when(uniquementDesSecteursAutres),
-        sousSecteurActivite: P.array(),
-        activites: P.array(),
-      },
-      toujoursVrai,
-    )
-    .with(
-      {
-        secteurActivite: P.when(auMoinsUnSecteurListe),
-        sousSecteurActivite: P.when(uniquementDesSousSecteursAutres),
-        activites: P.array(),
-      },
-      toujoursVrai,
-    )
-    .with(
-      {
-        secteurActivite: P.when(auMoinsUnSecteurListe),
-        sousSecteurActivite: P.array(),
-        activites: P.when(estTableauNonVide),
-      },
-      toujoursVrai,
-    )
-    .otherwise(toujoursFaux);
+const contientSecteurALocaliser = isMatching({
+  secteurActivite: ["infrastructureNumerique"],
+  activites: P.union(
+    ["fournisseurServicesDNS"],
+    ["registresNomsDomainesPremierNiveau"],
+  ),
+});
+
+const neFournitPasDeServiceDansUE = isMatching({
+  fournitServicesUnionEuropeenne: ["non"],
+  localisationRepresentant: [],
+});
+
+const fournitServiceUEBienRemplit = isMatching({
+  fournitServicesUnionEuropeenne: ["oui"],
+  localisationRepresentant: P.not([]),
+});
+
+export const contientSecteursLocalisesValides = oux(
+  non(contientSecteurALocaliser),
+  et(
+    contientSecteurALocaliser,
+    ou(neFournitPasDeServiceDansUE, fournitServiceUEBienRemplit),
+  ),
+);
+
+const contientUniquementSecteurAutre = isMatching({
+  secteurActivite: P.when(uniquementDesSecteursAutres),
+  sousSecteurActivite: P.array(),
+  activites: P.array(),
+});
+const contientUniquementSousSecteurAutre = isMatching({
+  secteurActivite: P.when(auMoinsUnSecteurListe),
+  sousSecteurActivite: P.when(uniquementDesSousSecteursAutres),
+  activites: P.array(),
+});
+const contientSectorielleComplete = isMatching({
+  secteurActivite: P.when(auMoinsUnSecteurListe),
+  sousSecteurActivite: P.array(),
+  activites: P.when(estTableauNonVide<ValeursActivites>),
+});
+export const verifieDonneesSectorielles = et(
+  ou(
+    contientUniquementSecteurAutre,
+    contientUniquementSousSecteurAutre,
+    contientSectorielleComplete,
+  ),
+  contientSecteursLocalisesValides,
+);
 
 export const verifieCompletudeDonneesFormulairePrivee = et(
   verifieDonneesCommunesPrivee,

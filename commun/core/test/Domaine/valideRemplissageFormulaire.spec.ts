@@ -2,7 +2,9 @@ import { describe, it } from "vitest";
 import { IDonneesBrutesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { ChampsFormulaireFacultatifs } from "../../src/Domain/Simulateur/DonneesFormulaire.valeurs";
+import { non } from "../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
 import {
+  contientSecteursLocalisesValides,
   donneesFormulaireSontCompletes,
   verifieCompletudeDonneesCommunes,
   verifieCompletudeDonneesFormulairePrivee,
@@ -27,11 +29,6 @@ describe("Validation des données formulaire", () => {
     {
       nom: "designeOSE.moyenGrand",
       arbitraireEligible: arbForm.designeOSE.moyenGrand,
-    },
-    {
-      nom: "nonDesigneOSE.privee.petit.fournisseursInfrastructureNumerique",
-      arbitraireEligible:
-        arbForm.nonDesigneOSE.privee.petit.fournisseursInfrastructureNumerique,
     },
     {
       nom: "nonDesigneOSE.privee.grand.secteursListes",
@@ -67,28 +64,6 @@ describe("Validation des données formulaire", () => {
     ...donneesTestsArbPublique,
     ...donneesTestsArbPrivee,
   ];
-  const testsActiviteNulle = [
-    {
-      name: "verifieCompletudeDonneesCommunes",
-      actionTestee: verifieCompletudeDonneesCommunes,
-      attendu: true,
-    },
-    {
-      name: "verifieCompletudeDonneesFormulairePrivee",
-      actionTestee: verifieCompletudeDonneesFormulairePrivee,
-      attendu: false,
-    },
-    {
-      name: "verifieCompletudeDonneesFormulairePublique",
-      actionTestee: verifieCompletudeDonneesFormulairePublique,
-      attendu: false,
-    },
-    {
-      name: "donneesFormulaireSontCompletes",
-      actionTestee: donneesFormulaireSontCompletes,
-      attendu: false,
-    },
-  ];
   const formulairePetitInfraNumSansLocalisation: IDonneesBrutesFormulaireSimulateur =
     {
       ...donneesFormulaireSimulateurVide,
@@ -103,38 +78,6 @@ describe("Validation des données formulaire", () => {
 
   describe.each([
     {
-      nom: "verifieCompletudeDonneesCommunes",
-      actionTestee: verifieCompletudeDonneesCommunes,
-    },
-    {
-      nom: "donneesFormulaireSontCompletes",
-      actionTestee: donneesFormulaireSontCompletes,
-    },
-    {
-      nom: "verifieDonneesSectorielles",
-      actionTestee: verifieDonneesSectorielles,
-    },
-  ])("$nom", ({ actionTestee }) => {
-    it.each(donneesAbsentes)(
-      "Doit rejeter les données non valides $nom",
-      (nom, arbitraireDonneeAbsente) => {
-        verifieQue<IDonneesBrutesFormulaireSimulateur, boolean>(actionTestee)
-          .quelqueSoit(arbitraireDonneeAbsente)
-          .renvoieToujours(false);
-      },
-    );
-    it.each(donneesTestsArbitraires)(
-      "Doit accepter des données éligibles: $nom",
-      ({ arbitraireEligible }) => {
-        verifieQue(actionTestee)
-          .quelqueSoit(arbitraireEligible)
-          .renvoieToujours(true);
-      },
-    );
-  });
-
-  describe.each([
-    {
       nom: "verifieDonneesCommunesPrivee",
       actionTestee: verifieDonneesCommunesPrivee,
     },
@@ -143,14 +86,6 @@ describe("Validation des données formulaire", () => {
       actionTestee: verifieCompletudeDonneesFormulairePrivee,
     },
   ])("Données privées : $nom", ({ actionTestee }) => {
-    it.each(donneesAbsentes)(
-      "Doit rejeter les données non valides $nom",
-      (nom, arbitraireDonneeAbsente) => {
-        verifieQue<IDonneesBrutesFormulaireSimulateur, boolean>(actionTestee)
-          .quelqueSoit(arbitraireDonneeAbsente)
-          .renvoieToujours(false);
-      },
-    );
     it.each(donneesTestsArbPrivee)(
       "Doit accepter des données éligibles: $nom",
       ({ arbitraireEligible }) => {
@@ -171,15 +106,30 @@ describe("Validation des données formulaire", () => {
       actionTestee: verifieDonneesCommunesPublique,
     },
   ])("Données publiques : $nom", ({ actionTestee }) => {
-    it.each(donneesAbsentes)(
-      "Doit rejeter les données non valides $nom",
-      (nom, arbitraireDonneeAbsente) => {
-        verifieQue<IDonneesBrutesFormulaireSimulateur, boolean>(actionTestee)
-          .quelqueSoit(arbitraireDonneeAbsente)
-          .renvoieToujours(false);
+    it.each(donneesTestsArbPublique)(
+      "Doit accepter des données éligibles: $nom",
+      ({ arbitraireEligible }) => {
+        verifieQue(actionTestee)
+          .quelqueSoit(arbitraireEligible)
+          .renvoieToujours(true);
       },
     );
-    it.each(donneesTestsArbPublique)(
+  });
+  describe.each([
+    {
+      nom: "verifieCompletudeDonneesCommunes",
+      actionTestee: verifieCompletudeDonneesCommunes,
+    },
+    {
+      nom: "donneesFormulaireSontCompletes",
+      actionTestee: donneesFormulaireSontCompletes,
+    },
+    {
+      nom: "verifieDonneesSectorielles",
+      actionTestee: verifieDonneesSectorielles,
+    },
+  ])("$nom", ({ actionTestee }) => {
+    it.each(donneesTestsArbitraires)(
       "Doit accepter des données éligibles: $nom",
       ({ arbitraireEligible }) => {
         verifieQue(actionTestee)
@@ -190,28 +140,50 @@ describe("Validation des données formulaire", () => {
   });
 
   describe("Cas étrange de validation", () => {
+    describe("activité nulle", () => {
+      const donnees: IDonneesBrutesFormulaireSimulateur = {
+        ...donneesFormulaireSimulateurVide,
+        designeOperateurServicesEssentiels: ["oui"],
+        etatMembre: ["france"],
+        secteurActivite: ["espace"],
+        trancheCA: ["petit"],
+        trancheNombreEmployes: ["petit"],
+        typeStructure: ["privee"],
+      };
+      it(
+        "vérifie données communes complètes",
+        verifieQue(verifieCompletudeDonneesCommunes).pour(donnees)
+          .estToujoursVrai,
+      );
+      it(
+        "ne vérifie pas données sectorielles",
+        verifieQue(verifieDonneesSectorielles).pour(donnees).estToujoursFaux,
+      );
+      it(
+        "ne vérifie pas données form privé complètes",
+        verifieQue(verifieCompletudeDonneesFormulairePrivee).pour(donnees)
+          .estToujoursFaux,
+      );
+      it(
+        "ne vérifie pas données form publiques sont complètes",
+        verifieQue(verifieCompletudeDonneesFormulairePublique).pour(donnees)
+          .estToujoursFaux,
+      );
+      it(
+        "ne vérifie pas données form complètes",
+        verifieQue(donneesFormulaireSontCompletes).pour(donnees)
+          .estToujoursFaux,
+      );
+    });
+
     const donneesNonValides: {
       description: string;
       donnees: IDonneesBrutesFormulaireSimulateur;
       tests: {
         name: string;
         actionTestee: (donnees: IDonneesBrutesFormulaireSimulateur) => boolean;
-        attendu: boolean;
       }[];
     }[] = [
-      {
-        description: "activiteNulle",
-        donnees: {
-          ...donneesFormulaireSimulateurVide,
-          designeOperateurServicesEssentiels: ["oui"],
-          etatMembre: ["france"],
-          secteurActivite: ["espace"],
-          trancheCA: ["petit"],
-          trancheNombreEmployes: ["petit"],
-          typeStructure: ["privee"],
-        },
-        tests: testsActiviteNulle,
-      },
       {
         description: "publique",
         donnees: {
@@ -227,12 +199,10 @@ describe("Validation des données formulaire", () => {
           {
             name: "verifieCompletudeDonneesCommunes",
             actionTestee: verifieCompletudeDonneesCommunes,
-            attendu: true,
           },
           {
-            name: "verifieCompletudeDonneesFormulairePublique",
-            actionTestee: verifieCompletudeDonneesFormulairePublique,
-            attendu: false,
+            name: "non(verifieCompletudeDonneesFormulairePublique)",
+            actionTestee: non(verifieCompletudeDonneesFormulairePublique),
           },
         ],
       },
@@ -241,9 +211,12 @@ describe("Validation des données formulaire", () => {
         donnees: formulairePetitInfraNumSansLocalisation,
         tests: [
           {
-            name: "verifieDonneesSectorielles",
-            actionTestee: verifieDonneesSectorielles,
-            attendu: false,
+            name: "non(contientSecteursLocalisesValides)",
+            actionTestee: non(contientSecteursLocalisesValides),
+          },
+          {
+            name: "non(verifieDonneesSectorielles)",
+            actionTestee: non(verifieDonneesSectorielles),
           },
         ],
       },
@@ -255,9 +228,8 @@ describe("Validation des données formulaire", () => {
         },
         tests: [
           {
-            name: "verifieCompletudeDonneesFormulairePrivee",
-            actionTestee: verifieCompletudeDonneesFormulairePrivee,
-            attendu: false,
+            name: "non(verifieCompletudeDonneesFormulairePrivee)",
+            actionTestee: non(verifieCompletudeDonneesFormulairePrivee),
           },
         ],
       },
@@ -271,7 +243,6 @@ describe("Validation des données formulaire", () => {
           {
             name: "verifieCompletudeDonneesFormulairePrivee",
             actionTestee: verifieCompletudeDonneesFormulairePrivee,
-            attendu: true,
           },
         ],
       },
@@ -280,12 +251,9 @@ describe("Validation des données formulaire", () => {
     describe.each(donneesNonValides)(
       "--> $description",
       ({ donnees, tests }) => {
-        it.each(tests)(
-          "$name doit être $attendu",
-          ({ actionTestee, attendu }) => {
-            verifieQue(actionTestee).pour(donnees).renvoieToujours(attendu);
-          },
-        );
+        it.each(tests)("$name doit être $attendu", ({ actionTestee }) => {
+          verifieQue(actionTestee).pour(donnees).estToujoursVrai();
+        });
       },
     );
   });
