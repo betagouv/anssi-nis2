@@ -1,3 +1,9 @@
+import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { EtatEtapes } from "anssi-nis2-core/src/Domain/Simulateur/EtatEtapes.ts";
+import {
+  InformationEtapeForm,
+  InformationsEtapesVariantes,
+} from "anssi-nis2-core/src/Domain/Simulateur/InformationsEtape.ts";
 import { RowContainer } from "../General/RowContainer.tsx";
 import { StepperNavigation } from "./StepperNavigation.tsx";
 import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
@@ -5,12 +11,7 @@ import { CenteredContainer } from "../General/CenteredContainer.tsx";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
 import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 import { AidezNousAmeliorerService } from "../AidezNousAmeliorerService.tsx";
-import { EtatEtapes } from "../../Domaine/Simulateur/EtatEtapes.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
-import {
-  InformationsEtapesVariantes,
-  InformationEtapeForm,
-} from "../../Domaine/Simulateur/InformationsEtape.ts";
+
 import { cartoComposants } from "../../Services/Simulateur/Transformateurs/TypeEtapeVersComposantEtape.transformateur.ts";
 
 const etapeVarianteAffichee =

@@ -43,6 +43,10 @@ export const gestionnairesDeChamp: Record<
   localisationRepresentant: gestionValeursSimples,
 };
 
+export const gestionnairesPourChamps = (
+  name: NomsChampsSimulateur,
+): GestionValeursFormulaire => gestionnairesDeChamp[name];
+
 export const fabriqueGestionChangementSimple =
   (
     propageActionSimulateur: React.Dispatch<SimulateurDonneesFormulaireActions>,
