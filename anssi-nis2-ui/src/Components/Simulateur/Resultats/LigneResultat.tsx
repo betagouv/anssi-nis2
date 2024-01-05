@@ -1,13 +1,13 @@
-import { RowContainer } from "../../General/RowContainer.tsx";
-import { CenteredContainer } from "../../General/CenteredContainer.tsx";
 import { Icon } from "@mui/material";
-import Markdown, { Components } from "react-markdown";
 import { useEffect, useReducer } from "react";
+import Markdown, { Components } from "react-markdown";
 import {
   DefaultComponentExtensible,
   DefaultProps,
 } from "../../../Services/Props";
 import { SimulateurResultatProps } from "../../../Services/Simulateur/Props/simulateurResultatProps";
+import { CenteredContainer } from "../../General/CenteredContainer.tsx";
+import { RowContainer } from "../../General/RowContainer.tsx";
 
 const decaleTitre4Niveaux: Partial<Components> = {
   h1: "h4",
@@ -65,20 +65,30 @@ const reducer = (
   action: ActionInformationsResultat,
 ) => ({ ...state, [action.type]: action.value });
 
+type OperationRemplitContenuMarkdown<TAction, TEtat> = (
+  dispatch: React.Dispatch<TAction>,
+) => (
+  typeChamp: keyof TEtat,
+) => (locationMarkdown: string) => Promise<string | void>;
+const remplitContenuMarkdown: OperationRemplitContenuMarkdown<
+  ActionInformationsResultat,
+  EtatInformationsResultat
+> = (dispatch) => (typeChamp) => (locationMarkdown) =>
+  fetch(locationMarkdown)
+    .then((reponse) => reponse.text())
+    .then((t) => dispatch({ type: typeChamp, value: t }));
+
 export const LigneResultat: DefaultComponentExtensible<
   SimulateurResultatProps
 > = ({ contenuResultat }: SimulateurResultatProps) => {
   const [contenuPrecisions, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    contenuResultat.fichierPrecisionSurReponse &&
-      fetch(`/contenus/${contenuResultat.fichierPrecisionSurReponse}.md`)
-        .then((reponse) => reponse.text())
-        .then((t) => dispatch({ type: "principal", value: t }));
-    contenuResultat.fichierPrecisionSurReponse &&
-      fetch(`/contenus/${contenuResultat.fichierPrecisionSurReponse}.plus.md`)
-        .then((reponse) => reponse.text())
-        .then((t) => dispatch({ type: "annexe", value: t }));
+    if (contenuResultat.fichierPrecisionSurReponse) {
+      const baseUri = `/contenus/${contenuResultat.fichierPrecisionSurReponse}`;
+      remplitContenuMarkdown(dispatch)("principal")(`${baseUri}.md`);
+      remplitContenuMarkdown(dispatch)("annexe")(`${baseUri}.plus.md`);
+    }
   }, [contenuResultat.fichierPrecisionSurReponse]);
 
   const basculePlus = () =>
