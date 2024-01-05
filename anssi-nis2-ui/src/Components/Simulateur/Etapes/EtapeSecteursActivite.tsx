@@ -7,7 +7,6 @@ import { useCallback, useMemo } from "react";
 import React from "react";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
-import { OptionsChampSimulateur } from "../../../Services/Simulateur/Props/optionChampSimulateur";
 import { transformeSecteursActiviteVersOptions } from "../../../Services/Simulateur/Transformateurs/TransformeSecteursActiviteVersOptions.ts";
 import { texteQuestionSecteurActivites } from "../../../References/LibellesQuestionsSimulateur.ts";
 
