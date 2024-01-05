@@ -27,33 +27,47 @@ const IconeResultat: DefaultComponentExtensible<
   </>
 );
 
-type EtatInformationsResultat = {
-  principal: string;
-  cache: string;
+type ContenuAffichagePlus = {
   affichePlus: string;
   libelleBouton: string;
 };
+
+type EtatInformationsResultat = {
+  principal: string;
+  annexe: string;
+  estAfficheAnnexe: boolean;
+};
+
 type ActionInformationsResultat = {
   type: keyof EtatInformationsResultat;
-  value: string;
+  value: string | boolean;
 };
+
+const statusAffichePlus: Record<`${boolean}`, ContenuAffichagePlus> = {
+  false: {
+    affichePlus: "fr-nis2-hidden",
+    libelleBouton: "Plus d'informations",
+  },
+  true: {
+    affichePlus: "",
+    libelleBouton: "Moins d'informations",
+  },
+};
+
+const initialState: EtatInformationsResultat = {
+  principal: "",
+  annexe: "",
+  estAfficheAnnexe: false,
+};
+
+const reducer = (
+  state: EtatInformationsResultat,
+  action: ActionInformationsResultat,
+) => ({ ...state, [action.type]: action.value });
+
 export const LigneResultat: DefaultComponentExtensible<
   SimulateurResultatProps
 > = ({ contenuResultat }: SimulateurResultatProps) => {
-  const initialState: EtatInformationsResultat = {
-    principal: "",
-    cache: "",
-    affichePlus: "fr-nis2-hidden",
-    libelleBouton: "Plus d'informations",
-  };
-
-  const reducer = (
-    state: EtatInformationsResultat,
-    action: ActionInformationsResultat,
-  ) => {
-    return { ...state, [action.type]: action.value };
-  };
-
   const [contenuPrecisions, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -64,18 +78,17 @@ export const LigneResultat: DefaultComponentExtensible<
     contenuResultat.fichierPrecisionSurReponse &&
       fetch(`/contenus/${contenuResultat.fichierPrecisionSurReponse}.plus.md`)
         .then((reponse) => reponse.text())
-        .then((t) => dispatch({ type: "cache", value: t }));
+        .then((t) => dispatch({ type: "annexe", value: t }));
   }, [contenuResultat.fichierPrecisionSurReponse]);
 
-  const basculePlus = () => {
-    if (contenuPrecisions.affichePlus === "") {
-      dispatch({ type: "affichePlus", value: "fr-nis2-hidden" });
-      dispatch({ type: "libelleBouton", value: "Plus d'informations" });
-    } else {
-      dispatch({ type: "affichePlus", value: "" });
-      dispatch({ type: "libelleBouton", value: "Moins d'informations" });
-    }
-  };
+  const basculePlus = () =>
+    dispatch({
+      type: "estAfficheAnnexe",
+      value: !contenuPrecisions.estAfficheAnnexe,
+    });
+
+  const statusAfficheAnnexe =
+    statusAffichePlus[`${contenuPrecisions.estAfficheAnnexe}`];
 
   return (
     <RowContainer>
@@ -100,12 +113,12 @@ export const LigneResultat: DefaultComponentExtensible<
 
             <Markdown
               components={decaleTitre4Niveaux}
-              className={contenuPrecisions.affichePlus}
+              className={statusAfficheAnnexe.affichePlus}
             >
-              {contenuPrecisions.cache}
+              {contenuPrecisions.annexe}
             </Markdown>
             <button onClick={basculePlus}>
-              {contenuPrecisions.libelleBouton}
+              {statusAfficheAnnexe.libelleBouton}
             </button>
           </div>
         )}

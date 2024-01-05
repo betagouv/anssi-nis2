@@ -26,7 +26,7 @@ export const LigneResultatPetiteEntreprise: Story = {
     const moinsInformations = await canvas.findByText("Moins d'informations");
     await expect(moinsInformations).toBeVisible();
     await userEvent.click(moinsInformations);
-    await expect(await canvas.findByText("REC")).not.toBeVisible();
+    await expect(await canvas.queryByText("REC")).not.toBeVisible();
     await canvas.findByText("Plus d'informations");
   },
 };
