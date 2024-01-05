@@ -1,3 +1,4 @@
+import { TypeEtape } from "../../../../../commun/core/src/Domain/Simulateur/InformationsEtape.ts";
 import { SimulateurEtapePrealable } from "../../../Components/Simulateur/SimulateurEtapePrealable.tsx";
 import { SimulateurEtapeResult } from "../../../Components/Simulateur/SimulateurEtapeResult.tsx";
 import {
@@ -16,7 +17,6 @@ import {
 } from "../Props/component";
 import { SimulateurEtapeForm } from "../../../Components/Simulateur/SimulateurEtapeForm.tsx";
 import { elementVide } from "../../Echaffaudages/AssistantsEchaffaudages.tsx";
-import { TypeEtape } from "../../../Domaine/Simulateur/InformationsEtape.ts";
 import EtapeLocalisationActiviteSpecifique from "../../../Components/Simulateur/Etapes/EtapeLocalisationActiviteSpecifique.tsx";
 
 type RepresentationEtape = {

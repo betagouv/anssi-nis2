@@ -1,8 +1,11 @@
+import { ValeursActivites } from "../../../../../commun/core/src/Domain/Simulateur/Activite.definitions.ts";
+import { ValeurChampSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import {
   DonneesSectorielles,
   IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+} from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { ValeurCleSectorielle } from "../../../../../commun/core/src/Domain/Simulateur/ValeurCleSectorielle.definitions.ts";
 import {
   AttributsEntreeChoixMultiple,
   OptionChampSimulateur,
@@ -10,14 +13,11 @@ import {
 import { libellesActivites } from "../../../References/LibellesActivites.ts";
 import { listeDescriptionsActivites } from "../../../References/ListeDescriptionsActivites.ts";
 import { SimulateurDonneesFormulaireActions } from "../Props/donneesFormulaire";
-import { ValeurChampSimulateur } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 import {
   activitesParSecteurEtSousSecteur,
   AssociationSectorielleActivite,
-} from "../../../Domaine/Simulateur/services/Activite/Activite.operations.ts";
+} from "../../../../../commun/core/src/Domain/Simulateur/services/Activite/Activite.operations.ts";
 import React, { Dispatch } from "react";
-import { ValeursActivites } from "../../../Domaine/Simulateur/Activite.definitions.ts";
-import { ValeurCleSectorielle } from "../../../Domaine/Simulateur/ValeurCleSectorielle.definitions.ts";
 
 export const fabriqueConstructeurOptionActivite: (
   donneesFormulaire: Pick<IDonneesBrutesFormulaireSimulateur, "activites"> &

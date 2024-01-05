@@ -1,4 +1,11 @@
 import {
+  TrancheChiffreAffaire,
+  TrancheNombreEmployes,
+  TypeStructure,
+} from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions";
+import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions";
+import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions";
+import {
   Column,
   Entity,
   ManyToOne,
@@ -6,13 +13,6 @@ import {
   RelationId,
 } from "typeorm";
 import { Evenements } from "./evenements.entite-journal";
-import { SecteurActivite } from "anssi-nis2-ui/src/Domaine/Simulateur/SecteurActivite.definitions";
-import { SousSecteurActivite } from "anssi-nis2-ui/src/Domaine/Simulateur/SousSecteurActivite.definitions";
-import {
-  TrancheChiffreAffaire,
-  TrancheNombreEmployes,
-  TypeStructure,
-} from "anssi-nis2-ui/src/Domaine/Simulateur/ChampsSimulateur.definitions";
 
 @Entity({ name: "segments_concernes_nis2" })
 export class SegmentsConcernesNis2 {

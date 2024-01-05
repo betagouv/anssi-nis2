@@ -1,4 +1,8 @@
 import {
+  TrancheChiffreAffaire,
+  TrancheNombreEmployes,
+} from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import {
   libellesTranchesCA,
   libellesTranchesNombreEmployes,
 } from "../../../References/Libelles.ts";
@@ -7,10 +11,7 @@ import { FormSimulateur } from "./index.ts";
 import React from "react";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
-import {
-  TrancheChiffreAffaire,
-  TrancheNombreEmployes,
-} from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+
 import {
   transformeTranchesCAVersOptions,
   transformeTranchesNombreEmployesVersOptions,

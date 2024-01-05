@@ -5,7 +5,8 @@
   "main": "index.js",
   "workspaces": [
     "anssi-nis2-ui",
-    "anssi-nis2-api"
+    "anssi-nis2-api",
+    "commun/core"
   ],
   "engines": {
     "node": ">= 18",
@@ -46,6 +47,9 @@
     "typescript": "^5.1.6"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "./anssi-nis2-*/{src,apps,libs,test}/**/*.(ts|tsx)": [
+      "eslint --cache --fix",
+      "prettier -l -w"
+    ]
   }
 }

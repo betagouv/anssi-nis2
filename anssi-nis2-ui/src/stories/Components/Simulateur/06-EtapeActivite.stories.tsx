@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import { EtapeActivites } from "../../../Components/Simulateur/Etapes";
 import { userEvent, waitFor, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 import { libellesSecteursActivite } from "../../../References/LibellesSecteursActivite.ts";
 import { CanvasObject } from "../../utilitaires/Canvas.d.tsx";
 

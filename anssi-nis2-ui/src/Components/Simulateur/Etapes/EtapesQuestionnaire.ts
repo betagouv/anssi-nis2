@@ -1,11 +1,11 @@
-import { CollectionInformationsEtapes } from "../../../Domaine/Simulateur/CollectionInformationsEtapes.ts";
+import { CollectionInformationsEtapes } from "../../../../../commun/core/src/Domain/Simulateur/CollectionInformationsEtapes.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { fabriqueEtatEtape } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/EtatEtape.fabrique.ts";
+import { fabriquesInformationsEtapes } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/InformationsEtape.fabrique.ts";
 import {
   contientSousSecteurAutresUniquement,
   ou,
-} from "../../../Domaine/Simulateur/services/ChampSimulateur/champs.predicats.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { fabriqueEtatEtape } from "../../../Domaine/Simulateur/fabriques/EtatEtape.fabrique.ts";
-import { fabriquesInformationsEtapes } from "../../../Domaine/Simulateur/fabriques/InformationsEtape.fabrique.ts";
+} from "../../../../../commun/core/src/Domain/Simulateur/services/ChampSimulateur/champs.predicats.ts";
 import {
   fabriqueValidationUneReponses,
   validationReponsesActivites,
@@ -14,12 +14,12 @@ import {
   validationReponsesSousActivites,
   validationReponsesTaille,
   validationReponsesTypeStructure,
-} from "../../../Domaine/Simulateur/services/ChampSimulateur/ValidationReponses.ts";
+} from "../../../../../commun/core/src/Domain/Simulateur/services/ChampSimulateur/ValidationReponses.ts";
 import {
   contientAutreSecteurActiviteUniquement,
   estUnSecteurAvecDesSousSecteurs,
-} from "../../../Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
-import { auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement } from "../../../Domaine/Simulateur/services/Activite/Activite.predicats.ts";
+} from "../../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
+import { auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement } from "../../../../../commun/core/src/Domain/Simulateur/services/Activite/Activite.predicats.ts";
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,

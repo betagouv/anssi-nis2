@@ -1,21 +1,23 @@
-import React, { Reducer } from "react";
 import {
   DonneesFormulaireSimulateur,
   IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
-import { gestionnairesDeChamp } from "./gestionnaires.ts";
+} from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import {
   LibellesSousSecteurs,
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
-} from "../../Domaine/Simulateur/SousSecteurActivite.definitions.ts";
+} from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
+import React, { Reducer } from "react";
+import { fabriqueSecteurContientLeSousSecteur } from "../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.operations.ts";
+
 import { entreesLibellesSousSecteurs } from "../../References/LibellesSousSecteursActivite.ts";
-import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
+import { gestionnairesPourChamps } from "./gestionnaires.ts";
 import { BoutonsNavigation } from "./Props/boutonsNavigation";
+
+import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
+import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
 import { transformateurSousSecteurActivite } from "./Transformateurs/TransformateurSousSecteurActivite.ts";
-import { fabriqueSecteurContientLeSousSecteur } from "../../Domaine/Simulateur/services/SecteurActivite/SecteurActivite.operations.ts";
 
 const generateNewStateFrom: (
   state: IDonneesBrutesFormulaireSimulateur,
@@ -38,7 +40,7 @@ export const reducerFormData: Reducer<
       return generateNewStateFrom(
         state,
         name,
-        gestionnairesDeChamp[name](newValue, state),
+        gestionnairesPourChamps(name)(newValue, state),
       );
     default:
       throw Error(`Unknown action: ${type}`);

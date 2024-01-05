@@ -1,13 +1,14 @@
+import {
+  SecteursAvecSousSecteurs,
+  SousSecteurActivite,
+} from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import { FormSimulateur } from "./index.ts";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { SousSecteurCheckbox } from "../Inputs/SousSecteurCheckbox.tsx";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
 import { OptionsChampSimulateur } from "../../../Services/Simulateur/Props/optionChampSimulateur";
-import {
-  SecteursAvecSousSecteurs,
-  SousSecteurActivite,
-} from "../../../Domaine/Simulateur/SousSecteurActivite.definitions.ts";
+
 import { transformeSousSecteurEnOptions } from "../../../Services/Simulateur/Transformateurs/TransformeSousSecteurEnOptions.ts";
 import { texteQuestionSousSecteursActivites } from "../../../References/LibellesQuestionsSimulateur.ts";
 

@@ -1,9 +1,9 @@
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { SecteursAvecSousSecteurs } from "../../../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import { SimulateurContenuEtapeProps } from "../Props/simulateurEtapeProps";
-import { SecteursAvecSousSecteurs } from "../../../Domaine/Simulateur/SousSecteurActivite.definitions.ts";
 import { OptionsChampSimulateur } from "../Props/optionChampSimulateur";
 import { reducteurSecteursVersOptions } from "../Reducteurs.ts";
-import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { estUnSecteurAvecDesSousSecteurs } from "../../../Domaine/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
+import { estUnSecteurAvecDesSousSecteurs } from "../../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
 
 export const transformeSousSecteurEnOptions = (
   donneesFormulaire: SimulateurContenuEtapeProps["donneesFormulaire"],
@@ -11,7 +11,6 @@ export const transformeSousSecteurEnOptions = (
 ): [SecteursAvecSousSecteurs, OptionsChampSimulateur][] => {
   return donneesFormulaire.secteurActivite
     .filter(estUnSecteurAvecDesSousSecteurs)
-    .map((secteur) => secteur as SecteursAvecSousSecteurs)
     .reduce(
       reducteurSecteursVersOptions(
         gereChangement,

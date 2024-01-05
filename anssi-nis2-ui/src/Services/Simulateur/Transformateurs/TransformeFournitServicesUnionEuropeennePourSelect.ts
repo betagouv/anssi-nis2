@@ -1,4 +1,4 @@
-import { FournitServicesUnionEuropeenne } from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+import { FournitServicesUnionEuropeenne } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { TransformeRecordToSelect } from "../Operations/OptionsChampsSimulateur.declarations.ts";
 import { genereTransformateurValeursVersOptions } from "../genereTransformateurValeursVersOptions.ts";
 

@@ -1,11 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { recupereContenusResultatEligibilite } from "../../../src/Services/Simulateur/recupereContenusResultatEligibilite";
+import { Eligibilite } from "../../../../commun/core/src/Domain/Simulateur/Eligibilite.constantes";
+import { recupereContenusResultatEligibilite } from "../../../src/Services/Simulateur/Operations/RecupereContenusResultatEligibilite.impl";
 import {
   contenusResultatEligiblePetitEntreprise,
   contenusResultatNonEligible,
 } from "../../../src/References/contenusResultatEligibilite";
-
-import { Eligibilite } from "../../../src/Domaine/Simulateur/Eligibilite.constantes";
 
 describe(recupereContenusResultatEligibilite, () => {
   it("retourne les contenus pour éligible lorsque le résultat est éligible", () => {

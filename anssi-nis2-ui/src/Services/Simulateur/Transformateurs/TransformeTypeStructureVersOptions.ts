@@ -1,7 +1,7 @@
 import {
   TypeEntitePublique,
   TypeStructure,
-} from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+} from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { TransformeRecordToSelect } from "../Operations/OptionsChampsSimulateur.declarations.ts";
 import { genereTransformateurValeursVersOptions } from "../genereTransformateurValeursVersOptions.ts";
 

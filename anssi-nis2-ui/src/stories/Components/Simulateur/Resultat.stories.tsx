@@ -2,8 +2,8 @@ import { expect } from "@storybook/jest";
 import { within } from "@storybook/testing-library";
 
 import { Meta, StoryObj } from "@storybook/react";
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import { SimulateurEtapeResult } from "../../../Components/Simulateur/SimulateurEtapeResult.tsx";
-import { DonneesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
 
 import { contenusResultats } from "../../../References/contenusResultatEligibilite.ts";
 import { verifieContenuResultatDansPage } from "../../utilitaires/VerifieContenuResultatDansPage.ts";
