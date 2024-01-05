@@ -1,5 +1,5 @@
+import { SousSecteurActivite } from "../../../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import { GenerateurLibelle } from "../Operations/OptionsChampsSimulateur.declarations.ts";
-import { SousSecteurActivite } from "../../../Domaine/Simulateur/SousSecteurActivite.definitions.ts";
 import { TransformeRecordToSelect } from "../Operations/OptionsChampsSimulateur.declarations.ts";
 import { genereTransformateurValeursVersOptions } from "../genereTransformateurValeursVersOptions.ts";
 

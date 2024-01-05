@@ -1,9 +1,9 @@
-import { FormSimulateur } from "./index.ts";
-import React, { useMemo } from "react";
 import {
   AssociationSectorielleActivite,
   collecteTitresPourActivite,
-} from "../../../Domaine/Simulateur/services/Activite/Activite.operations.ts";
+} from "../../../../../commun/core/src/Domain/Simulateur/services/Activite/Activite.operations.ts";
+import { FormSimulateur } from "./index.ts";
+import React, { useMemo } from "react";
 import { libellesSecteursActivite } from "../../../References/LibellesSecteursActivite.ts";
 import { libellesSousSecteursActivite } from "../../../References/LibellesSousSecteursActivite.ts";
 

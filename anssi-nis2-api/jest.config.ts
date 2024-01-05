@@ -11,8 +11,7 @@ const config: Config = {
   testEnvironment: "node",
   setupFilesAfterEnv: ["./testSetup.ts"],
   moduleNameMapper: {
-    "^~core/(.*)$":
-      path.resolve(__dirname + "/../anssi-nis2-ui/src/Domaine/") + "/$1",
+    "^~core/(.*)$": path.resolve(__dirname + "/../commun/core") + "/$1",
   },
   transform: {
     "^.+\\.[tj]sx?$": "ts-jest",

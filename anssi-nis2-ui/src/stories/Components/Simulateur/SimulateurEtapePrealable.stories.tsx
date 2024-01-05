@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { donneesFormulaireSimulateurVide } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.constantes.ts";
 import { SimulateurEtapePrealable } from "../../../Components/Simulateur/SimulateurEtapePrealable.tsx";
 import { pageDecorator } from "../../utilitaires/PageDecorator.tsx";
 import { jest } from "@storybook/jest";
-import { donneesFormulaireSimulateurVide } from "../../../Domaine/Simulateur/DonneesFormulaire.constantes.ts";
 import { etatEtapesInitial } from "../../../Components/Simulateur/Etapes/EtapesQuestionnaire.ts";
 
 const meta = {

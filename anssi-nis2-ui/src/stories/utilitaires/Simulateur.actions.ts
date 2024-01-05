@@ -1,9 +1,9 @@
+import { ValeurChampSimulateur } from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import { NomsChampsSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import { CanvasObject } from "./Canvas.d.tsx";
 import { userEvent } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { libellesSimulateur } from "../../References/Libelles.ts";
-import { NomsChampsSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { ValeurChampSimulateur } from "../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 
 const libellesValeurDeChamp = <NomChamp extends ValeurChampSimulateur>(
   champ: NomsChampsSimulateur,

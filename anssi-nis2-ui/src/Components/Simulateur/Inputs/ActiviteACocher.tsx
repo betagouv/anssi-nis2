@@ -9,7 +9,7 @@ import { Infobulle } from "../Infobulle.tsx";
 import { fr } from "@codegouvfr/react-dsfr";
 import { OptionChampSimulateur } from "../../../Services/Simulateur/Props/optionChampSimulateur";
 import Markdown from "react-markdown";
-import { elementMarkdownSimples } from "../../../utilitaires/constantes.ts";
+import { elementMarkdownSimples } from "../../../Services/constantes.ts";
 
 type Propiprops = DefaultProps & {
   optionChampSimulateur: OptionChampSimulateur;

@@ -2,7 +2,8 @@
   "extends": "./tsconfig.json",
   "rootDirs": [
     "./",
-    "../anssi-nis2-ui/src/Domaine"
+    "../commun/core/*",
+    "../commun/dist/core/*"
   ],
   "exclude": [
     "node_modules",

@@ -1,12 +1,12 @@
 import React from "react";
+import { ValeurChampSimulateur } from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import {
   IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+} from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 
 import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
 import { GestionValeursFormulaire } from "./Props/gestionValeursFormulaire";
-import { ValeurChampSimulateur } from "../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 
 export const gestionValeursSimples = (value: ValeurChampSimulateur) => [value];
 
@@ -42,6 +42,10 @@ export const gestionnairesDeChamp: Record<
   fournitServicesUnionEuropeenne: gestionValeursSimples,
   localisationRepresentant: gestionValeursSimples,
 };
+
+export const gestionnairesPourChamps = (
+  name: NomsChampsSimulateur,
+): GestionValeursFormulaire => gestionnairesDeChamp[name];
 
 export const fabriqueGestionChangementSimple =
   (

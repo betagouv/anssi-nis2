@@ -1,3 +1,5 @@
+import { IDonneesBrutesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { SecteurActivite } from "../../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
@@ -6,9 +8,6 @@ import { EtapeSecteursActivite } from "../../../Components/Simulateur/Etapes";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-
-import { SecteurActivite } from "../../../Domaine/Simulateur/SecteurActivite.definitions.ts";
 
 class ParametresDonneesSecteurActivite extends ParametresDonneesSpecifiqueField<SecteurActivite> {
   protected construitDonnees<ValeursSecteurActivite>(

@@ -1,4 +1,8 @@
 import {
+  AppartenancePaysUnionEuropeenne,
+  FournitServicesUnionEuropeenne,
+} from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import {
   libellesFournitServicesUnionEuropeenne,
   libellesPaysUnionEuropeenneLocalisation,
 } from "../../../References/Libelles.ts";
@@ -7,10 +11,6 @@ import { FormSimulateur } from "./index.ts";
 import React, { useMemo } from "react";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
-import {
-  AppartenancePaysUnionEuropeenne,
-  FournitServicesUnionEuropeenne,
-} from "../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
 import { transformeFournitServicesUnionEuropeennePourSelect } from "../../../Services/Simulateur/Transformateurs/TransformeFournitServicesUnionEuropeennePourSelect.ts";
 import { transformeLocalisationRepresentantPourSelect } from "../../../Services/Simulateur/Transformateurs/transformeLocalisationRepresentantPourSelect.ts";
 

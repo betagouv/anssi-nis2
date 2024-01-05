@@ -9,7 +9,7 @@ import {
 } from "../../../utilitaires/Simulateur.actions.ts";
 import { mockSendFormData } from "../../../utilitaires/mocks.ts";
 import { contenusResultatEligiblePetitEntreprise } from "../../../../References/contenusResultatEligibilite.ts";
-import { DonneesFormulaireSimulateur } from "../../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 
 export const scenarioEtapeActivitePourSecteurActiviteAutreEtListes: StoryObj<
   typeof ChargeurEtape

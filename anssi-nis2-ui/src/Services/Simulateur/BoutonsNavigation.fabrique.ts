@@ -1,12 +1,12 @@
-import { EtatEtapes } from "../../Domaine/Simulateur/EtatEtapes.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { EtatEtapes } from "../../../../commun/core/src/Domain/Simulateur/EtatEtapes.ts";
 import {
   fabriqueEtatEtapePrecedent,
   fabriqueEtatEtapeSuivant,
-} from "../../Domaine/Simulateur/services/EtatEtape/EtatEtape.operations.ts";
+} from "../../../../commun/core/src/Domain/Simulateur/services/EtatEtape/EtatEtape.operations.ts";
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.tsx";
 import { EnvoieDonneesFormulaire } from "./Operations/appelsApi";
-import { donneesFormulaireSontCompletes } from "../../Domaine/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
+import { donneesFormulaireSontCompletes } from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
 
 const centreSurHautFormulaire = () =>
   window.scrollTo({ top: document.getElementById("debutForm")?.offsetTop });

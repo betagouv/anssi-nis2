@@ -1,4 +1,4 @@
-import { SecteurActivite } from "../../../Domaine/Simulateur/SecteurActivite.definitions.ts";
+import { SecteurActivite } from "../../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { TransformeRecordToSelect } from "../Operations/OptionsChampsSimulateur.declarations.ts";
 import { genereTransformateurValeursVersOptions } from "../genereTransformateurValeursVersOptions.ts";
 

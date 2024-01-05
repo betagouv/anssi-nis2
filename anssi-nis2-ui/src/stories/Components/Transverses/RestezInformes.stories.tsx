@@ -1,5 +1,6 @@
 import { expect } from "@storybook/jest";
 import { Meta, StoryObj } from "@storybook/react";
+import { InformationsEmail } from "../../../../../commun/core/src/Domain/Contact/InformationsEmail.definitions.ts";
 import RestezInformes from "../../../Components/RestezInformes.tsx";
 import { genereDecorateurPourContexte } from "../../utilitaires/generateursDecorateurs.tsx";
 import { defaultContext } from "../../utilitaires/PageDecorator.tsx";
@@ -7,7 +8,6 @@ import { Contexte } from "../../../Services/contexte";
 import { mockEnregistreInformationsEmail } from "../../utilitaires/mocks.ts";
 import { userEvent, within } from "@storybook/testing-library";
 import { CanvasObject } from "../../utilitaires/Canvas.d.tsx";
-import { InformationsEmail } from "../../../Domaine/Contact/InformationsEmail.definitions.ts";
 import { libellesContact } from "../../../References/LibellesContact.ts";
 
 const enregistreEmailContexte: Contexte = {

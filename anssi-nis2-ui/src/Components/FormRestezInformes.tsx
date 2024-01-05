@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { InformationsEmail } from "../../../commun/core/src/Domain/Contact/InformationsEmail.definitions.ts";
 
 import {
   DefaultComponentExtensible,
@@ -8,8 +9,7 @@ import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import Button from "@codegouvfr/react-dsfr/Button";
 import Alert from "@codegouvfr/react-dsfr/Alert";
 import Input from "@codegouvfr/react-dsfr/Input";
-import { AppContext } from "./AppContexte/AppContext.tsx";
-import { InformationsEmail } from "../Domaine/Contact/InformationsEmail.definitions.ts";
+import { AppContext } from "../Services/AppContexte/AppContext.definition.ts";
 import { RegisterOptions, SubmitHandler, useForm } from "react-hook-form";
 import { libellesContact } from "../References/LibellesContact.ts";
 

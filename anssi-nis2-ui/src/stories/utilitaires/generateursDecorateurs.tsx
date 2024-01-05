@@ -1,4 +1,4 @@
-import { AppContext } from "../../Components/AppContexte/AppContext.tsx";
+import { AppContext } from "../../Services/AppContexte/AppContext.definition.ts";
 import { Component } from "@storybook/blocks";
 
 import { Contexte } from "../../Services/contexte";

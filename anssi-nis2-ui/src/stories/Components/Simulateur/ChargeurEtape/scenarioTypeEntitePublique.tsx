@@ -8,8 +8,8 @@ import {
 } from "../../../utilitaires/Simulateur.actions.ts";
 import { mockSendFormData } from "../../../utilitaires/mocks.ts";
 import { contenusResultatEligiblePetitEntreprise } from "../../../../References/contenusResultatEligibilite.ts";
-import { DonneesFormulaireSimulateur } from "../../../../Domaine/Simulateur/DonneesFormulaire.ts";
-import { TypeStructure } from "../../../../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { TypeStructure } from "../../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 
 export const scenarioTypeEntitePublique: StoryObj<
   typeof ChargeurEtape

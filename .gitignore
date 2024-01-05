@@ -6,3 +6,6 @@ dist
 .env
 /anssi-nis2-ui/storybook-static/
 /anssi-nis2-ui/coverage/
+
+.eslintcache
+/commun/core/dist/

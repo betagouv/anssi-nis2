@@ -1,6 +1,6 @@
 import React from "react";
-import { AppContext } from "./Components/AppContexte/AppContext.tsx";
-import { defaultContext } from "./Components/AppContexte/defaultContext.tsx";
+import { AppContext } from "./Services/AppContexte/AppContext.definition.ts";
+import { defaultContext } from "./Services/AppContexte/AppContext.constantes.ts";
 import { router } from "./router.tsx";
 import { RouterProvider } from "react-router-dom";
 

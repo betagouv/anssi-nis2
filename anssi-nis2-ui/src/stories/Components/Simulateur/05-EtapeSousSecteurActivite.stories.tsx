@@ -1,4 +1,9 @@
 import {
+  DonneesFormulaireSimulateur,
+  IDonneesBrutesFormulaireSimulateur,
+} from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { SousSecteurEnergie } from "../../../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
+import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
 } from "../../utilitaires/parametresFormulaire.ts";
@@ -6,12 +11,6 @@ import { EtapeSousSecteursActivite } from "../../../Components/Simulateur/Etapes
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import {
-  DonneesFormulaireSimulateur,
-  IDonneesBrutesFormulaireSimulateur,
-} from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
-
-import { SousSecteurEnergie } from "../../../Domaine/Simulateur/SousSecteurActivite.definitions.ts";
 
 class ParametresDonneesSousSecteurActivite extends ParametresDonneesSpecifiqueField<SousSecteurEnergie> {
   protected construitDonnees<ValeursSecteurActivite>(

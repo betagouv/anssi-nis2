@@ -1,15 +1,15 @@
 import { describe, it, expect } from "vitest";
 import { fc } from "@fast-check/vitest";
+import {
+  DonneesSectorielles,
+  IDonneesBrutesFormulaireSimulateur,
+} from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire";
 import { fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur } from "../../../src/Services/Simulateur/Transformateurs/FabriqueConstructeurOptionActivite";
 import {
   ajouteArbitraireActivites,
   fabriqueArbEnrSecteurSousSecteurs,
-} from "../../utilitaires/manipulationArbitraires";
-import { listeEnrSecteursAvecLeursSousSecteurs } from "./exemples/ListesEnrSecteursSousSecteur";
-import {
-  DonneesSectorielles,
-  IDonneesBrutesFormulaireSimulateur,
-} from "../../../src/Domaine/Simulateur/DonneesFormulaire";
+} from "../../../../commun/core/test/utilitaires/manipulationArbitraires";
+import { listeEnrSecteursAvecLeursSousSecteurs } from "../../../../commun/core/test/Domaine/exemples/ListesEnrSecteursSousSecteur";
 
 const donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites: fc.Arbitrary<
   DonneesSectorielles & Pick<IDonneesBrutesFormulaireSimulateur, "activites">
