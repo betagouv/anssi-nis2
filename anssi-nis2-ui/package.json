@@ -15,7 +15,7 @@
     "prebuild": "only-include-used-icons",
     "test": "vitest run",
     "storybook": "storybook dev -p 6006",
-    "storybook:build": "storybook build",
+    "storybook:build": "storybook build  --test",
     "storybook:test": "test-storybook",
     "storybook:test:watch": "test-storybook --watch"
   },

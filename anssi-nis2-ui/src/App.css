@@ -403,6 +403,10 @@ legend.fr-text--medium {
   }
 }
 
+.fr-nis2-hidden {
+  display: none;
+}
+
 .fr-nis2-en-cours-developpement {
   background: #fef4f2 url(assets/in-progress.svg) no-repeat;
 }
