@@ -4,9 +4,9 @@
   "description": "Mon Espace NIS 2",
   "main": "index.js",
   "workspaces": [
-    "anssi-nis2-ui",
+    "commun/core",
     "anssi-nis2-api",
-    "commun/core"
+    "anssi-nis2-ui"
   ],
   "engines": {
     "node": ">= 18",
