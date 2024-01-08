@@ -14,9 +14,9 @@ const BandeauNis2EU: DefaultComponent = () => (
         <div className="fr-grid-row fr-pb-4w">
           <div className="fr-col-5 fr-pt-4w  fr-col-offset-1">
             <p className="fr-h4">
-              En France, la menace cybercriminelle et plus spécifiquement
-              celle liée aux rançongiciels se maintient avec un regain
-              d’activités fin 2022.
+              En France, la menace cybercriminelle et plus spécifiquement celle
+              liée aux rançongiciels se maintient avec un regain d’activités fin
+              2022.
             </p>
             <p>
               Elle touche particulièrement les TPE, PME et ETI (40&nbsp;% des

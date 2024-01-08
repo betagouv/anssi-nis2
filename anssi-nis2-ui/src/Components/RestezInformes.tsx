@@ -16,10 +16,10 @@ const RestezInformes: DefaultComponentExtensible<RestezInformesProps> = ({
         Restez informés
       </h2>
       <p className="fr-text">
-        Nous déploierons dans les mois à venir un panel d&apos;outils pour faciliter
-        l&apos;accompagnement des organisations régulées, à commencer par évolutions
-        du contexte réglementaire et ce que devra faire votre entité pour se
-        protéger des cyber-menaces.
+        Nous déploierons dans les mois à venir un panel d&apos;outils pour
+        faciliter l&apos;accompagnement des organisations régulées, à commencer
+        par évolutions du contexte réglementaire et ce que devra faire votre
+        entité pour se protéger des cyber-menaces.
       </p>
       {emailEnregistre && (
         <p>
