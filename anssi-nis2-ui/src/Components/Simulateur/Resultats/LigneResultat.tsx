@@ -7,44 +7,12 @@ import { SimulateurResultatProps } from "../../../Services/Simulateur/Props/simu
 import { CenteredContainer } from "../../General/CenteredContainer.tsx";
 import { RowContainer } from "../../General/RowContainer.tsx";
 import { IconeResultat } from "./IconeResultat.tsx";
-
-type EtatInformationsResultat = {
-  principal: string;
-  annexe: string;
-  estAfficheAnnexe: boolean;
-};
-
-type ActionInformationsResultat = {
-  type: keyof EtatInformationsResultat;
-  value: string | boolean;
-};
-
-const initialState: EtatInformationsResultat = {
-  principal: "",
-  annexe: "",
-  estAfficheAnnexe: false,
-};
-
-const changePropriete = (
-  state: EtatInformationsResultat,
-  action: ActionInformationsResultat,
-) => ({ ...state, [action.type]: action.value });
-
-type ContenuAffichagePlus = {
-  affichePlus: string;
-  libelleBouton: string;
-};
-
-const statusAffichePlus: Record<`${boolean}`, ContenuAffichagePlus> = {
-  false: {
-    affichePlus: "fr-nis2-hidden",
-    libelleBouton: "Plus d'informations",
-  },
-  true: {
-    affichePlus: "",
-    libelleBouton: "Moins d'informations",
-  },
-};
+import { initialState, statusAffichePlus } from "./LigneResultat.constantes.ts";
+import { changePropriete } from "./LigneResultat.operations.ts";
+import {
+  ActionPrecisionsResultat,
+  EtatPrecisionsResultat,
+} from "./PrecisionsResultat.declarations.ts";
 
 export const LigneResultat: DefaultComponentExtensible<
   SimulateurResultatProps
@@ -55,8 +23,8 @@ export const LigneResultat: DefaultComponentExtensible<
   );
 
   const modifieProprietePrecisions = remplitContenuMarkdown<
-    EtatInformationsResultat,
-    ActionInformationsResultat
+    EtatPrecisionsResultat,
+    ActionPrecisionsResultat
   >(propageContenuPrecisions);
 
   useEffect(() => {
