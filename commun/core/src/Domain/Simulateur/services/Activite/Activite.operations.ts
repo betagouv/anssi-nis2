@@ -1,4 +1,4 @@
-import { ValeursActivites } from "../../Activite.definitions";
+import { Activites } from "../../Activite.definitions";
 import {
   ValeursActivitesAdministrationPublique,
   ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
@@ -43,7 +43,7 @@ import { cartographieSousSecteursParSecteur } from "../SousSecteurActivite/SousS
 
 export const activitesParSecteurEtSousSecteur: Record<
   ValeurCleSectorielle,
-  readonly ValeursActivites[]
+  readonly Activites[]
 > = {
   administrationPublique: ValeursActivitesAdministrationPublique,
   autreSecteurActivite: [],
@@ -95,7 +95,7 @@ export type AssociationSectorielleActivite = {
 };
 const collecteTitresSecteursSimples = (
   libelleSecteursActivite: string,
-  secteur: SecteursSansSousSecteur
+  secteur: SecteursSansSousSecteur,
 ): AssociationSectorielleActivite[] => [
   {
     titreActivite: libelleSecteursActivite,
@@ -105,11 +105,11 @@ const collecteTitresSecteursSimples = (
 const collecteTitreSousSecteurs: (
   libelleSecteursActivite: string,
   listeSousSecteurs: SousSecteurActivite[],
-  libellesSousSecteursActivite: Record<SousSecteurActivite, string>
+  libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
 ) => AssociationSectorielleActivite[] = (
   libelleSecteursActivite: string,
   listeSousSecteurs: SousSecteurActivite[],
-  libellesSousSecteursActivite: Record<SousSecteurActivite, string>
+  libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
 ) =>
   listeSousSecteurs.map((sousSecteur: SousSecteurActivite) => ({
     secteurOuSousSecteur: sousSecteur,
@@ -119,34 +119,34 @@ const rempliSousSecteurs = (
   listeSousSecteurs: SousSecteurActivite[],
   secteur: SecteurActivite,
   libelleSecteursActivite: string,
-  libellesSousSecteursActivite: Record<SousSecteurActivite, string>
+  libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
 ): AssociationSectorielleActivite[] => {
   if (
     estUnSecteurAvecDesSousSecteurs(secteur) &&
     listeSousSecteurs.length === 0
   )
     throw Error(
-      `Houla! un secteur avec sous secteurs n'en n'a pas ! ${secteur}`
+      `Houla! un secteur avec sous secteurs n'en n'a pas ! ${secteur}`,
     );
   return listeSousSecteurs.length === 0
     ? collecteTitresSecteursSimples(
         libelleSecteursActivite,
-        secteur as SecteursSansSousSecteur
+        secteur as SecteursSansSousSecteur,
       )
     : collecteTitreSousSecteurs(
         libelleSecteursActivite,
         listeSousSecteurs,
-        libellesSousSecteursActivite
+        libellesSousSecteursActivite,
       );
 };
 export const collecteTitresPourActivite: (
   libellesSecteursActivite: Record<SecteurActivite, string>,
   libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
-  donneesFormulaire: DonneesFormulaireSimulateur
+  donneesFormulaire: DonneesFormulaireSimulateur,
 ) => AssociationSectorielleActivite[] = (
   libellesSecteursActivite,
   libellesSousSecteursActivite,
-  donneesFormulaire
+  donneesFormulaire,
 ) =>
   cartographieSousSecteursParSecteur(donneesFormulaire).reduce<
     AssociationSectorielleActivite[]
@@ -157,20 +157,20 @@ export const collecteTitresPourActivite: (
           listeSousSecteurs,
           secteur,
           libellesSecteursActivite[secteur],
-          libellesSousSecteursActivite
-        )
+          libellesSousSecteursActivite,
+        ),
       ),
-    []
+    [],
   );
 export const fabriqueListeActivitesDesSecteurs = (
   secteurActivite: ValeurCleSectorielle[],
-  filtreActivite: (activite: ValeursActivites) => boolean
-): ValeursActivites[] =>
+  filtreActivite: (activite: Activites) => boolean,
+): Activites[] =>
   Array.from(
     secteurActivite.reduce((ensembleActivites, secteur) => {
       activitesParSecteurEtSousSecteur[secteur]
         ?.filter(filtreActivite)
-        .map((activite: ValeursActivites) => ensembleActivites.add(activite));
+        .map((activite: Activites) => ensembleActivites.add(activite));
       return ensembleActivites;
-    }, new Set<ValeursActivites>())
+    }, new Set<Activites>()),
   );

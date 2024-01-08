@@ -10,14 +10,14 @@ import {
   TypeStructure,
   ValeurChampSimulateur,
 } from "./ChampsSimulateur.definitions";
-import { ValeursActivites } from "./Activite.definitions";
+import { Activites } from "./Activite.definitions";
 import { ValeursNomChampsFormulaire } from "./DonneesFormulaire.valeurs";
 
 export type NomsChampsSimulateur = (typeof ValeursNomChampsFormulaire)[number];
 
 export interface DonneesFormulaireSimulateur
   extends Record<NomsChampsSimulateur, ValeurChampSimulateur[]> {
-  activites: ValeursActivites[];
+  activites: Activites[];
   designeOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[];
   etatMembre: AppartenancePaysUnionEuropeenne[];
   secteurActivite: SecteurActivite[];
