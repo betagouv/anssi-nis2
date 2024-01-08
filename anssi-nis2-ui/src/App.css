@@ -295,6 +295,13 @@ legend.fr-text--medium {
 }
 
 .fr-nis2-resultat {
+  & h4 {
+    text-align: center;
+    margin: 1rem 0 0 0;
+    padding: 0;
+    line-height: 2.25rem;
+  }
+
   &.fr-nis2-eligible {
     background-color: var(--green-menthe-975-75);
   }

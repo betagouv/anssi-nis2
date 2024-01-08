@@ -49,14 +49,14 @@ export const LigneResultat: DefaultComponentExtensible<
       <CenteredContainer>
         <div
           className={[
-            "fr-px-4w fr-py-3w fr-nis2-resultat",
+            "fr-px-4w fr-pt-3w fr-pb-4w fr-nis2-resultat",
             contenuResultat.classeDivResultat,
           ].join(" ")}
         >
           {contenuResultat.classIcone && (
             <IconeResultat classIcone={contenuResultat.classIcone} />
           )}
-          <h4>{contenuResultat.titre}</h4>
+          <Markdown components={{ p: "h4" }}>{contenuResultat.titre}</Markdown>
           {contenuResultat.sousTitre && <p>{contenuResultat.sousTitre}</p>}
         </div>
         {contenuResultat.fichierPrecisionSurReponse && (
