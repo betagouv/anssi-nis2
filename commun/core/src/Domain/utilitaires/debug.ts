@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "../Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateurExtensibles } from "../Simulateur/DonneesFormulaire";
 
 export const VVV = (...debugMessage: unknown[]) =>
   console.log("VVV ", ...debugMessage);
@@ -23,8 +23,8 @@ function compareDonnees(
 }
 
 export const seulementAGauche = (
-  gauche: DonneesFormulaireSimulateur,
-  droite: DonneesFormulaireSimulateur
+  gauche: DonneesFormulaireSimulateurExtensibles,
+  droite: DonneesFormulaireSimulateurExtensibles
 ) =>
   Object.entries(gauche).filter(
     (leftValue) =>

@@ -1,5 +1,5 @@
 import {
-  DonneesFormulaireSimulateur,
+  DonneesFormulaireSimulateurExtensibles,
   IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire.ts";
@@ -9,6 +9,7 @@ import {
   SousSecteurActivite,
 } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import React, { Reducer } from "react";
+import { fabriqueDonneesFormulaire } from "../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
 import { fabriqueSecteurContientLeSousSecteur } from "../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.operations.ts";
 
 import { entreesLibellesSousSecteurs } from "../../References/LibellesSousSecteursActivite.ts";
@@ -27,7 +28,11 @@ const generateNewStateFrom: (
   state: IDonneesBrutesFormulaireSimulateur,
   fieldName: NomsChampsSimulateur,
   newFieldValue: string[],
-) => new DonneesFormulaireSimulateur({ ...state, [fieldName]: newFieldValue });
+) =>
+  fabriqueDonneesFormulaire({
+    ...state,
+    [fieldName]: newFieldValue,
+  });
 
 export const reducerFormData: Reducer<
   IDonneesBrutesFormulaireSimulateur,
@@ -82,7 +87,7 @@ const reducteurCleValeurVersObjet = (
 export const reducteurSecteursVersOptions =
   (
     gereChangement: (event: React.ChangeEvent<HTMLInputElement>) => void,
-    donneesFormulaire: DonneesFormulaireSimulateur,
+    donneesFormulaire: DonneesFormulaireSimulateurExtensibles,
   ) =>
   (
     secteursAvecOptionsSousSecteurs: [

@@ -31,13 +31,9 @@ export interface IDonneesBrutesFormulaireSimulateur
 }
 
 export interface IDonneesFormulaireSimulateur
-  extends IDonneesBrutesFormulaireSimulateur {
-  avec(
-    modifie: Partial<IDonneesFormulaireSimulateur>
-  ): IDonneesFormulaireSimulateur;
-}
+  extends IDonneesBrutesFormulaireSimulateur {}
 
-export class DonneesFormulaireSimulateur
+export class DonneesFormulaireSimulateurExtensibles
   implements IDonneesFormulaireSimulateur
 {
   activites: ValeursActivites[] = [];
@@ -55,12 +51,6 @@ export class DonneesFormulaireSimulateur
 
   constructor(depuis: Readonly<Partial<IDonneesFormulaireSimulateur>>) {
     Object.assign(this, depuis);
-  }
-
-  avec(
-    modifie: Partial<IDonneesFormulaireSimulateur>
-  ): IDonneesFormulaireSimulateur {
-    return { ...this, ...modifie };
   }
 }
 

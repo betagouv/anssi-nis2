@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire";
+import { IDonneesBrutesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { EtatEtapes } from "../../src/Domain/Simulateur/EtatEtapes";
 import {
@@ -81,9 +81,10 @@ describe(fabriqueEtatEtapeSuivant, () => {
     });
     describe("Etape avec Variante", () => {
       it("Avance vers l'état étape avec la variante privee", () => {
-        const donnees = new DonneesFormulaireSimulateur(donneesVides).avec({
+        const donnees: IDonneesBrutesFormulaireSimulateur = {
+          ...donneesVides,
           typeStructure: ["privee"],
-        });
+        };
         attendEtatEtapeEgaux(
           fabriqueEtatEtapeSuivant(
             exEtatEtape.longueur3.avecVarianteEtape2.etape1,
@@ -93,9 +94,10 @@ describe(fabriqueEtatEtapeSuivant, () => {
         );
       });
       it("Avance vers l'état étape avec la variante privee", () => {
-        const donnees = new DonneesFormulaireSimulateur(donneesVides).avec({
+        const donnees: IDonneesBrutesFormulaireSimulateur = {
+          ...donneesVides,
           typeStructure: ["publique"],
-        });
+        };
         attendEtatEtapeEgaux(
           fabriqueEtatEtapeSuivant(
             exEtatEtape.longueur3.avecVarianteEtape2.etape1,
@@ -134,9 +136,10 @@ describe(fabriqueEtatEtapePrecedent, () => {
     });
     describe("Etape avec Variante", () => {
       it("Avance vers l'état étape avec la variante privee", () => {
-        const donnees = new DonneesFormulaireSimulateur(donneesVides).avec({
+        const donnees: IDonneesBrutesFormulaireSimulateur = {
+          ...donneesVides,
           typeStructure: ["privee"],
-        });
+        };
         attendEtatEtapeEgaux(
           fabriqueEtatEtapePrecedent(
             exEtatEtape.longueur3.avecVarianteEtape2.etape3,
@@ -146,9 +149,10 @@ describe(fabriqueEtatEtapePrecedent, () => {
         );
       });
       it("Avance vers l'état étape avec la variante privee", () => {
-        const donnees = new DonneesFormulaireSimulateur(donneesVides).avec({
+        const donnees: IDonneesBrutesFormulaireSimulateur = {
+          ...donneesVides,
           typeStructure: ["publique"],
-        });
+        };
         attendEtatEtapeEgaux(
           fabriqueEtatEtapePrecedent(
             exEtatEtape.longueur3.avecVarianteEtape2.etape3,

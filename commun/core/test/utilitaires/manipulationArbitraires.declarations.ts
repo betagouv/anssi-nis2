@@ -1,10 +1,7 @@
-import { fc } from "@fast-check/vitest";
 import {
   DonneesSectorielles,
   IDonneesBrutesFormulaireSimulateur,
-  IDonneesFormulaireSimulateur,
 } from "../../src/Domain/Simulateur/DonneesFormulaire";
-import { ArbitraireOptionsActivites } from "../Domaine/arbitraires/arbitraireOptions";
 
 export type DonneesFormulaireExtensibles =
   | IDonneesBrutesFormulaireSimulateur
@@ -35,19 +32,10 @@ export type DonneesBrutesSansActivite = Omit<
 >;
 
 export type DonneesSansActivite = Omit<
-  IDonneesFormulaireSimulateur,
+  IDonneesBrutesFormulaireSimulateur,
   "activites"
 >;
 
 export type DonneesExtensiblesAvecActivite<
   DonneesPartielles extends DonneesSectorielles
 > = DonneesPartielles & Pick<IDonneesBrutesFormulaireSimulateur, "activites">;
-
-export type OperationAjouteArbitraireActivites = <
-  DonneesPartielles extends DonneesSectorielles
->(
-  base: DonneesPartielles,
-  options?: ArbitraireOptionsActivites
-) => fc.Arbitrary<DonneesExtensiblesAvecActivite<DonneesPartielles>>;
-
-export type Arbitrarise<T> = { [K in keyof T]: fc.Arbitrary<T[K]> };

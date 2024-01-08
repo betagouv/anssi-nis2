@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { toujoursFaux } from "../../src/Domain/Commun/Commun.predicats";
-import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/DonneesFormulaire.constantes";
+import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
 import { fabriquesInformationsEtapes } from "../../src/Domain/Simulateur/fabriques/InformationsEtape.fabrique";
 import {
   CapacitesEtapeFormulaire,
@@ -54,7 +54,7 @@ describe("fabriquesInformationsEtapes", () => {
       ];
       const resultDeuxEtapes =
         fabriquesInformationsEtapes.variantes(variantesDeuxEtapes);
-      const donnees = new DonneesFormulaireSimulateur(
+      const donnees = fabriqueDonneesFormulaire(
         donneesFormulaireSimulateurVide
       );
       expect(resultDeuxEtapes).toEqual({
@@ -62,14 +62,16 @@ describe("fabriquesInformationsEtapes", () => {
         variantes: [exInformationEtape.form1, exInformationEtape.form2],
       });
       expect(
-        resultDeuxEtapes.varianteAffichee(
-          donnees.avec({ typeStructure: ["privee"] })
-        )
+        resultDeuxEtapes.varianteAffichee({
+          ...donnees,
+          typeStructure: ["privee"],
+        })
       ).toBe(0);
       expect(
-        resultDeuxEtapes.varianteAffichee(
-          donnees.avec({ typeStructure: ["publique"] })
-        )
+        resultDeuxEtapes.varianteAffichee({
+          ...donnees,
+          typeStructure: ["publique"],
+        })
       ).toBe(1);
     });
   });

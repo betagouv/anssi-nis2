@@ -1,7 +1,7 @@
 import { expect } from "@storybook/jest";
 import { StoryObj } from "@storybook/react";
 import { within } from "@storybook/testing-library";
-import { DonneesFormulaireSimulateur } from "../../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
 import { ChargeurEtape } from "../../../../Components/Simulateur/ChargeurEtape.tsx";
 import { contenusResultatEligiblePetitEntreprise } from "../../../../References/contenusResultatEligibilite.ts";
 import { nettoieBrMd } from "../../../../Services/Markdown/nettoieMarkdown.operation.ts";
@@ -43,7 +43,7 @@ export const scenarioDerniereEtapeEstResultat: StoryObj<
 
   await expect(mockSendFormData).toHaveBeenCalledTimes(1);
   await expect(mockSendFormData).toHaveBeenCalledWith(
-    new DonneesFormulaireSimulateur({
+    fabriqueDonneesFormulaire({
       activites: [
         "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
       ],

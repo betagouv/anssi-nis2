@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { fabriqueDonneesFormulaire } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
 import { EtapeActivites } from "../../../Components/Simulateur/Etapes";
 import { userEvent, waitFor, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { libellesSecteursActivite } from "../../../References/LibellesSecteursActivite.ts";
+import { libellesSecteursActivite } from "../../../References/LibellesSecteursActivite";
 import { CanvasObject } from "../../utilitaires/Canvas.d.tsx";
 
 const meta: Meta<typeof EtapeActivites> = {
   title: "Composants/Simulateur/Etapes/6 - Activites",
   component: EtapeActivites,
   args: {
-    donneesFormulaire: new DonneesFormulaireSimulateur({
+    donneesFormulaire: fabriqueDonneesFormulaire({
       secteurActivite: ["energie"],
       sousSecteurActivite: ["electricite"],
     }),
@@ -33,7 +33,7 @@ const creeActionPropagationFormulaireActivite = (newValue: string) => {
 
 export const AffichageActivitesEtLibellesParSecteurs: Story = {
   args: {
-    donneesFormulaire: new DonneesFormulaireSimulateur({
+    donneesFormulaire: fabriqueDonneesFormulaire({
       secteurActivite: ["energie", "espace", "autreSecteurActivite"],
       sousSecteurActivite: ["electricite", "autreSousSecteurEnergie"],
     }),

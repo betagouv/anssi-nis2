@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateurExtensibles } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
 import { SimulateurReponseService } from "./simulateur-reponse.service";
 import { SimulateurReponse } from "./simulateur-reponse.entity";
 import { donneesSimulateurVide } from "../Domaine/donneesSimulateur";
@@ -14,7 +14,8 @@ describe("SimulateurReponseService", () => {
   };
 
   const depotSauve = jest.fn(
-    async (donneesSimulateur: DonneesFormulaireSimulateur) => donneesSimulateur,
+    async (donneesSimulateur: DonneesFormulaireSimulateurExtensibles) =>
+      donneesSimulateur,
   );
   const depotDonneesSimu = fabriqueMockRepository({
     save: depotSauve,

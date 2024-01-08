@@ -2,13 +2,13 @@ import { expect } from "@storybook/jest";
 import { within } from "@storybook/testing-library";
 
 import { Meta, StoryObj } from "@storybook/react";
-import { DonneesFormulaireSimulateur } from "../../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
 import { SimulateurEtapeResult } from "../../../../Components/Simulateur/SimulateurEtapeResult.tsx";
 
 import { contenusResultats } from "../../../../References/contenusResultatEligibilite.ts";
 import { verifieContenuResultatDansPage } from "../../../utilitaires/VerifieContenuResultatDansPage.ts";
 
-const archetypeDonneesFormulaire = new DonneesFormulaireSimulateur({
+const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
   designeOperateurServicesEssentiels: ["non"],
   etatMembre: ["france"],
   typeStructure: ["privee"],
@@ -32,11 +32,12 @@ type Story = StoryObj<typeof SimulateurEtapeResult>;
 
 export const ResultatEligibleOSE: Story = {
   args: {
-    donneesFormulaire: archetypeDonneesFormulaire.avec({
+    donneesFormulaire: {
+      ...archetypeDonneesFormulaire,
       designeOperateurServicesEssentiels: ["oui"],
       trancheNombreEmployes: ["petit"],
       trancheCA: ["petit"],
-    }),
+    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -82,10 +83,11 @@ export const ResultatEligiblePetiteEntreprise: Story = {
 };
 export const ResultatEligibleGrandeEntreprise: Story = {
   args: {
-    donneesFormulaire: archetypeDonneesFormulaire.avec({
+    donneesFormulaire: {
+      ...archetypeDonneesFormulaire,
       trancheCA: ["grand"],
       trancheNombreEmployes: ["grand"],
-    }),
+    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -109,12 +111,13 @@ export const ResultatEligibleGrandeEntreprise: Story = {
 
 export const ResultatNonEligible: Story = {
   args: {
-    donneesFormulaire: archetypeDonneesFormulaire.avec({
+    donneesFormulaire: {
+      ...archetypeDonneesFormulaire,
       designeOperateurServicesEssentiels: ["non"],
       typeStructure: ["privee"],
       secteurActivite: ["autreSecteurActivite"],
       activites: [],
-    }),
+    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

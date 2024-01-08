@@ -1,5 +1,6 @@
 import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
 import { nettoieBrMd } from "../../../../Services/Markdown/nettoieMarkdown.operation.ts";
 import {
   cliqueSurDebuterLeTest,
@@ -8,7 +9,6 @@ import {
 } from "../../../utilitaires/Simulateur.actions.ts";
 import { mockSendFormData } from "../../../utilitaires/mocks.ts";
 import { contenusResultatEligiblePetitEntreprise } from "../../../../References/contenusResultatEligibilite.ts";
-import { DonneesFormulaireSimulateur } from "../../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import { StoryObj } from "@storybook/react";
 import { ChargeurEtape } from "../../../../Components/Simulateur/ChargeurEtape.tsx";
 
@@ -53,7 +53,7 @@ export const scenarioEtapeSousActiviteConditionnelle: StoryObj<
 
   await expect(mockSendFormData).toHaveBeenCalledTimes(1);
   await expect(mockSendFormData).toHaveBeenCalledWith(
-    new DonneesFormulaireSimulateur({
+    fabriqueDonneesFormulaire({
       activites: [
         "entrepriseElectriciteRemplissantFonctionFourniture",
         "gestionnaireReseauDistribution",
