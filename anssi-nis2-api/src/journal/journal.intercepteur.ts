@@ -5,7 +5,7 @@ import {
   Injectable,
   NestInterceptor,
 } from "@nestjs/common";
-import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
 import { Observable, switchMap } from "rxjs";
 import { JournalService } from "./journal.service";
 import { SegmentsConcernesNis2 } from "./entites/segments-concernes-nis2.entite-journal";
@@ -13,10 +13,7 @@ import { SegmentsConcernesNis2 } from "./entites/segments-concernes-nis2.entite-
 @Injectable()
 export class JournalIntercepteur
   implements
-    NestInterceptor<
-      IDonneesBrutesFormulaireSimulateur,
-      SegmentsConcernesNis2[]
-    >
+    NestInterceptor<DonneesFormulaireSimulateur, SegmentsConcernesNis2[]>
 {
   @Inject(JournalService)
   private readonly journalService: JournalService;

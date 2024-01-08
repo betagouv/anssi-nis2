@@ -1,6 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { describe, it } from "vitest";
-import { IDonneesBrutesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire";
 import { Eligibilite } from "../../src/Domain/Simulateur/Eligibilite.constantes";
 import { ResultatEligibilite } from "../../src/Domain/Simulateur/Eligibilite.definitions";
 import { calculeEligibilite } from "../../src/Domain/Simulateur/services/Eligibilite/Eligibilite.operations";
@@ -16,7 +16,7 @@ const V = Object.values(Eligibilite).reduce(
   {}
 ) as Record<
   ResultatEligibilite,
-  (arbitraire: fc.Arbitrary<IDonneesBrutesFormulaireSimulateur>) => void
+  (arbitraire: fc.Arbitrary<DonneesFormulaireSimulateur>) => void
 >;
 
 describe(calculeEligibilite, () => {

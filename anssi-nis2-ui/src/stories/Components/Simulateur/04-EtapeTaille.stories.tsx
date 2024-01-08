@@ -2,7 +2,7 @@ import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
 } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
@@ -15,7 +15,7 @@ import { expect } from "@storybook/jest";
 class ParametresDonneesTrancheNombreEmployes extends ParametresDonneesSpecifiqueField<TrancheNombreEmployes> {
   protected construitDonnees<ValeursTrancheNombreEmployes>(
     valeurs: ValeursTrancheNombreEmployes[],
-  ): IDonneesBrutesFormulaireSimulateur {
+  ): DonneesFormulaireSimulateur {
     return this.construitDonneesPourField("trancheNombreEmployes", valeurs);
   }
 }

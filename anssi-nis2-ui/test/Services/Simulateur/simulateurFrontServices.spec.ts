@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { ValeursActivites } from "../../../../commun/core/src/Domain/Simulateur/Activite.definitions";
-import { DonneesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire";
+import { Activites } from "../../../../commun/core/src/Domain/Simulateur/Activite.definitions";
 import { donneesFormulaireSimulateurVide } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.constantes";
+import { fabriqueDonneesFormulaire } from "../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
 import { genereTransformateurValeursVersOptions } from "../../../src/Services/Simulateur/genereTransformateurValeursVersOptions";
 import { libellesPaysUnionEuropeenneLocalisation } from "../../../src/References/Libelles";
 import { transformePaysUnionEuropeennePourSelect } from "../../../src/Services/Simulateur/Transformateurs/TransformePaysUnionEuropeennePourSelect";
@@ -50,7 +50,7 @@ describe(genereTransformateurValeursVersOptions, () => {
 
   it("génère un champ d'option avec les bons états checked", () => {
     const attendu = optionsPaysUE([true, false, false]);
-    const defaultDataForm = new DonneesFormulaireSimulateur({
+    const defaultDataForm = fabriqueDonneesFormulaire({
       etatMembre: ["france"],
     });
     const optionsPaysUEObtenu = transformePaysUnionEuropeennePourSelect(
@@ -62,7 +62,7 @@ describe(genereTransformateurValeursVersOptions, () => {
   });
 
   type ValeurActivitesPartielles = Extract<
-    ValeursActivites,
+    Activites,
     "entrepriseElectriciteRemplissantFonctionFourniture"
   >;
   const getSousEnsembleActiviteLabel = (
@@ -103,7 +103,7 @@ describe(genereTransformateurValeursVersOptions, () => {
     });
 
     it("genere une liste d'option avec la bonne option cochée", () => {
-      const valeurSelectionnee: ValeursActivites =
+      const valeurSelectionnee: Activites =
         "entrepriseElectriciteRemplissantFonctionFourniture";
       const attendu = [
         {
@@ -117,7 +117,7 @@ describe(genereTransformateurValeursVersOptions, () => {
           },
         },
       ];
-      const currentDataForm = new DonneesFormulaireSimulateur({
+      const currentDataForm = fabriqueDonneesFormulaire({
         activites: [valeurSelectionnee],
       });
 

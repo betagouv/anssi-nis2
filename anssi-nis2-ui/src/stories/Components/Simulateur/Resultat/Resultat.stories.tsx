@@ -1,14 +1,16 @@
+// noinspection TypeScriptValidateJSTypes - Incompatibilité des selecteurs testing-library (any) et des string
+
 import { expect } from "@storybook/jest";
-import { within } from "@storybook/testing-library";
+import { waitFor, within } from "@storybook/testing-library";
 
 import { Meta, StoryObj } from "@storybook/react";
-import { DonneesFormulaireSimulateur } from "../../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
 import { SimulateurEtapeResult } from "../../../../Components/Simulateur/SimulateurEtapeResult.tsx";
 
 import { contenusResultats } from "../../../../References/contenusResultatEligibilite.ts";
 import { verifieContenuResultatDansPage } from "../../../utilitaires/VerifieContenuResultatDansPage.ts";
 
-const archetypeDonneesFormulaire = new DonneesFormulaireSimulateur({
+const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
   designeOperateurServicesEssentiels: ["non"],
   etatMembre: ["france"],
   typeStructure: ["privee"],
@@ -19,9 +21,27 @@ const archetypeDonneesFormulaire = new DonneesFormulaireSimulateur({
   activites: ["fournisseursDistributeursEauxConsommation"],
 });
 
+// const mockRemplitContenuMarkdown: RemplitContenuMarkdownOperation =
+//   <TEtat, TAction extends ActionSurEtat<TEtat>>(
+//     dispatch: React.Dispatch<TAction>,
+//   ) =>
+//   (typeChamp: keyof TEtat) =>
+//   () => {
+//     dispatch(fabriqueAction(typeChamp, "toto"));
+//     return new Promise(() => "");
+//   };
+
 const meta: Meta<typeof SimulateurEtapeResult> = {
   title: "Composants/Simulateur/Résultat",
   component: SimulateurEtapeResult,
+  // decorators: [
+  //   genereDecorateurPourContexte({
+  //     ...defaultContext,
+  //     contenu: {
+  //       remplitContenuMarkdown: mockRemplitContenuMarkdown,
+  //     },
+  //   }),
+  // ],
   args: {
     donneesFormulaire: archetypeDonneesFormulaire,
   },
@@ -30,13 +50,16 @@ const meta: Meta<typeof SimulateurEtapeResult> = {
 export default meta;
 type Story = StoryObj<typeof SimulateurEtapeResult>;
 
+const pointsDAttention = "Points d'attention";
+
 export const ResultatEligibleOSE: Story = {
   args: {
-    donneesFormulaire: archetypeDonneesFormulaire.avec({
+    donneesFormulaire: {
+      ...archetypeDonneesFormulaire,
       designeOperateurServicesEssentiels: ["oui"],
       trancheNombreEmployes: ["petit"],
       trancheCA: ["petit"],
-    }),
+    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -44,7 +67,9 @@ export const ResultatEligibleOSE: Story = {
       canvasElement,
       contenusResultats.EligiblePetiteEntreprise,
     );
-    expect(await canvas.findByText("Points d'attention")).toBeInTheDocument();
+    await waitFor(async () => canvas.queryByText(pointsDAttention));
+
+    expect(await canvas.findByText(pointsDAttention)).toBeInTheDocument();
 
     await canvas.findByText("Et Maintenant ?");
   },
@@ -68,8 +93,9 @@ export const ResultatEligiblePetiteEntreprise: Story = {
       canvasElement,
       contenusResultats.EligiblePetiteEntreprise,
     );
+    await waitFor(async () => canvas.queryByText(pointsDAttention));
 
-    const titrePrecisions = await canvas.findByText("Points d'attention");
+    const titrePrecisions = await canvas.findByText(pointsDAttention);
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H4");
 
@@ -82,10 +108,11 @@ export const ResultatEligiblePetiteEntreprise: Story = {
 };
 export const ResultatEligibleGrandeEntreprise: Story = {
   args: {
-    donneesFormulaire: archetypeDonneesFormulaire.avec({
+    donneesFormulaire: {
+      ...archetypeDonneesFormulaire,
       trancheCA: ["grand"],
       trancheNombreEmployes: ["grand"],
-    }),
+    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -94,8 +121,9 @@ export const ResultatEligibleGrandeEntreprise: Story = {
       canvasElement,
       contenusResultats.EligibleMoyenneGrandeEntreprise,
     );
+    await waitFor(async () => canvas.queryByText(pointsDAttention));
 
-    const titrePrecisions = await canvas.findByText("Points d'attention");
+    const titrePrecisions = await canvas.findByText(pointsDAttention);
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H4");
 
@@ -109,12 +137,13 @@ export const ResultatEligibleGrandeEntreprise: Story = {
 
 export const ResultatNonEligible: Story = {
   args: {
-    donneesFormulaire: archetypeDonneesFormulaire.avec({
+    donneesFormulaire: {
+      ...archetypeDonneesFormulaire,
       designeOperateurServicesEssentiels: ["non"],
       typeStructure: ["privee"],
       secteurActivite: ["autreSecteurActivite"],
       activites: [],
-    }),
+    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -124,8 +153,12 @@ export const ResultatNonEligible: Story = {
       contenusResultats.NonEligible,
     );
 
+    const criteresDePossibleInclusion = "Critères de possible inclusion";
+
+    await waitFor(async () => canvas.queryByText(criteresDePossibleInclusion));
+
     const titrePrecisions = await canvas.findByText(
-      "Critères de possible inclusion",
+      criteresDePossibleInclusion,
     );
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H5");

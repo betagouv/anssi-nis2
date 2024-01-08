@@ -1,5 +1,5 @@
 import { PredicatDonneesSimulateurDefinitions } from "anssi-nis2-ui/src/Services/Simulateur/PredicatDonneesSimulateur.definitions";
-import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "./DonneesFormulaire";
 import { P } from "ts-pattern";
 import { ValidationReponses } from "./services/ChampSimulateur/champs.domaine";
 
@@ -30,10 +30,8 @@ export type InformationsEtape = {
 export type CapaciteEtape = {
   readonly remplitContitionSousEtape: PredicatDonneesSimulateurDefinitions;
   readonly validationReponses: ValidationReponses;
-  readonly estIgnoree: (donnees: IDonneesBrutesFormulaireSimulateur) => boolean;
-  readonly varianteAffichee: (
-    donnees: IDonneesBrutesFormulaireSimulateur
-  ) => number;
+  readonly estIgnoree: (donnees: DonneesFormulaireSimulateur) => boolean;
+  readonly varianteAffichee: (donnees: DonneesFormulaireSimulateur) => number;
 };
 
 export type EtapeExistante = InformationsEtape & CapaciteEtape;
@@ -45,7 +43,7 @@ export type EtapeResultat = EtapeExistante;
 export type OptionsInformationEtapeForm = {
   readonly sousEtapeConditionnelle?: SousEtapeConditionnelle;
   readonly ignoreSi: (
-    donneesFormulaire: IDonneesBrutesFormulaireSimulateur
+    donneesFormulaire: DonneesFormulaireSimulateur
   ) => boolean;
 };
 
@@ -56,7 +54,7 @@ export type SousEtapeConditionnelle = {
 
 export type CapacitesEtapeFormulaire = {
   readonly fabriqueValidationReponses: (
-    donnees: IDonneesBrutesFormulaireSimulateur
+    donnees: DonneesFormulaireSimulateur
   ) => ValidationReponses;
 };
 export type InformationEtapeForm = EtapeExistante &
@@ -65,7 +63,7 @@ export type InformationEtapeForm = EtapeExistante &
   };
 
 export type VariantesEtape<TypeEtape extends InformationEtapeForm> = {
-  conditions: P.Pattern<IDonneesBrutesFormulaireSimulateur>;
+  conditions: P.Pattern<DonneesFormulaireSimulateur>;
   etape: TypeEtape;
 };
 

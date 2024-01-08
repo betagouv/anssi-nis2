@@ -1,4 +1,4 @@
-import { nettoieBrMd } from "../../Services/Markdown/nettoieMarkdown.operation.ts";
+import { nettoieBrMd } from "../../Services/Markdown/TransformeMarkdown.operations.ts";
 import {
   BlocResultatSpecifiques,
   ContenusResultatEligibilite,

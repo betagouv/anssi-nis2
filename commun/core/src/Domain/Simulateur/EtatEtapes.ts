@@ -10,7 +10,7 @@ import {
   InformationsEtape,
   TypeEtape,
 } from "./InformationsEtape";
-import { IDonneesBrutesFormulaireSimulateur } from "./DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "./DonneesFormulaire";
 import { validationToutesLesReponses } from "./services/ChampSimulateur/ValidationReponses";
 
 /** Situation dans la collection */
@@ -34,7 +34,7 @@ export type PredicatsEtape = {
 export type RepresentationEtape = {
   // TODO: Se passer du titre suivant
   readonly titreSuivant?: string;
-  readonly donneesFormulaire: IDonneesBrutesFormulaireSimulateur;
+  readonly donneesFormulaire: DonneesFormulaireSimulateur;
   readonly typeEtapeCourante: TypeEtape;
   readonly contenuEtapeCourante: InformationEtapeForm;
 };
@@ -42,7 +42,7 @@ export type RepresentationEtape = {
 export type CapacitesEtapes = {
   readonly ignoreEtapeSuivante: (
     etat: EtatEtapes,
-    donnees: IDonneesBrutesFormulaireSimulateur
+    donnees: DonneesFormulaireSimulateur
   ) => boolean;
 };
 

@@ -1,7 +1,7 @@
 import { Test } from "@nestjs/testing";
-import { SimulateurReponseController } from "./simulateur-reponse.controller";
-import { donneesSimulateurVide } from "../Domaine/donneesSimulateur";
+import { donneesFormulaireSimulateurVide } from "~core/src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { fournisseurTestJournalService } from "../journal/journal.service.fournisseur-test";
+import { SimulateurReponseController } from "./simulateur-reponse.controller";
 import { fournisseurTestSimulateurReponseService } from "./simulateur-reponse.service.fournisseur-test";
 
 describe("SimulateurReponseController", () => {
@@ -12,7 +12,7 @@ describe("SimulateurReponseController", () => {
     ],
     controllers: [SimulateurReponseController],
   });
-  const simulateurReponseJson = JSON.stringify(donneesSimulateurVide);
+  const simulateurReponseJson = JSON.stringify(donneesFormulaireSimulateurVide);
 
   it('should return "OK"', async () => {
     const module = await moduleConstructeur.compile();
@@ -20,7 +20,9 @@ describe("SimulateurReponseController", () => {
       SimulateurReponseController,
     );
     expect(
-      await controller.enregistreDonneesSimulateur(donneesSimulateurVide),
+      await controller.enregistreDonneesSimulateur(
+        donneesFormulaireSimulateurVide,
+      ),
     ).toBe(simulateurReponseJson);
   });
 });

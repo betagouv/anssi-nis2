@@ -2,7 +2,7 @@ import {
   AggregatInformationsEmail,
   InformationsEmail,
 } from "../../../commun/core/src/Domain/Contact/InformationsEmail.definitions.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import { genereClientApi } from "./prepare.ts";
 import {
   EnregistreInformationsEmail,
@@ -10,7 +10,7 @@ import {
 } from "./Simulateur/Operations/appelsApi";
 
 export const sendFormDataToApi: EnvoieDonneesFormulaire = async (
-  formData: IDonneesBrutesFormulaireSimulateur,
+  formData: DonneesFormulaireSimulateur,
 ) => {
   const data = JSON.stringify(formData);
   const simulationApi = genereClientApi();

@@ -81,9 +81,10 @@ describe(fabriqueEtatEtapeSuivant, () => {
     });
     describe("Etape avec Variante", () => {
       it("Avance vers l'état étape avec la variante privee", () => {
-        const donnees = new DonneesFormulaireSimulateur(donneesVides).avec({
+        const donnees: DonneesFormulaireSimulateur = {
+          ...donneesVides,
           typeStructure: ["privee"],
-        });
+        };
         attendEtatEtapeEgaux(
           fabriqueEtatEtapeSuivant(
             exEtatEtape.longueur3.avecVarianteEtape2.etape1,
@@ -93,9 +94,10 @@ describe(fabriqueEtatEtapeSuivant, () => {
         );
       });
       it("Avance vers l'état étape avec la variante privee", () => {
-        const donnees = new DonneesFormulaireSimulateur(donneesVides).avec({
+        const donnees: DonneesFormulaireSimulateur = {
+          ...donneesVides,
           typeStructure: ["publique"],
-        });
+        };
         attendEtatEtapeEgaux(
           fabriqueEtatEtapeSuivant(
             exEtatEtape.longueur3.avecVarianteEtape2.etape1,
@@ -134,9 +136,10 @@ describe(fabriqueEtatEtapePrecedent, () => {
     });
     describe("Etape avec Variante", () => {
       it("Avance vers l'état étape avec la variante privee", () => {
-        const donnees = new DonneesFormulaireSimulateur(donneesVides).avec({
+        const donnees: DonneesFormulaireSimulateur = {
+          ...donneesVides,
           typeStructure: ["privee"],
-        });
+        };
         attendEtatEtapeEgaux(
           fabriqueEtatEtapePrecedent(
             exEtatEtape.longueur3.avecVarianteEtape2.etape3,
@@ -146,9 +149,10 @@ describe(fabriqueEtatEtapePrecedent, () => {
         );
       });
       it("Avance vers l'état étape avec la variante privee", () => {
-        const donnees = new DonneesFormulaireSimulateur(donneesVides).avec({
+        const donnees: DonneesFormulaireSimulateur = {
+          ...donneesVides,
           typeStructure: ["publique"],
-        });
+        };
         attendEtatEtapeEgaux(
           fabriqueEtatEtapePrecedent(
             exEtatEtape.longueur3.avecVarianteEtape2.etape3,

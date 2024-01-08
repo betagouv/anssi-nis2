@@ -1,8 +1,6 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire";
 
-export type PredicatChamp = (
-  donnees: IDonneesBrutesFormulaireSimulateur
-) => boolean;
+export type PredicatChamp = (donnees: DonneesFormulaireSimulateur) => boolean;
 export type ValidationReponses = {
   message: string;
   validateur: PredicatChamp;

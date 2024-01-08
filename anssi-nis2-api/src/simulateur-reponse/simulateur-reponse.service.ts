@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
-import { SimulateurReponse } from "./simulateur-reponse.entity";
-import { Repository } from "typeorm";
-import { SimulateurFormData } from "../Domaine/donneesSimulateur";
 import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/DonneesFormulaire";
+import { SimulateurReponse } from "./simulateur-reponse.entity";
 
 @Injectable()
 export class SimulateurReponseService {
@@ -11,7 +11,7 @@ export class SimulateurReponseService {
     private simulateurReponseRepository: Repository<SimulateurReponse>,
   ) {}
 
-  save(reponses: SimulateurFormData): Promise<SimulateurReponse> {
+  save(reponses: DonneesFormulaireSimulateur): Promise<SimulateurReponse> {
     const simulateurReponse = new SimulateurReponse();
     simulateurReponse.reponseJson = JSON.stringify(reponses);
     return this.simulateurReponseRepository.save(simulateurReponse);

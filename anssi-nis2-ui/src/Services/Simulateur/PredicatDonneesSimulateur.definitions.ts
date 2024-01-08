@@ -1,5 +1,5 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire";
 
 export type PredicatDonneesSimulateurDefinitions = (
-  formData: IDonneesBrutesFormulaireSimulateur,
+  formData: DonneesFormulaireSimulateur,
 ) => boolean;

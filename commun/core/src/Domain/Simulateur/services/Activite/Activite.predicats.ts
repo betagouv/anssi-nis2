@@ -1,7 +1,7 @@
-import { ValeursActivites } from "../../Activite.definitions";
+import { Activites } from "../../Activite.definitions";
 import {
   DonneesSectorielles,
-  IDonneesBrutesFormulaireSimulateur,
+  DonneesFormulaireSimulateur,
 } from "../../DonneesFormulaire";
 import {
   ValeursActivitesConcernesInfrastructureNumerique,
@@ -13,27 +13,25 @@ import { activitesParSecteurEtSousSecteur } from "./Activite.operations";
 const prefixeAutreActivite = "autreActivite";
 
 export const activiteEstDansSecteur =
-  (secteurActivite: ValeurCleSectorielle) => (activite: ValeursActivites) =>
+  (secteurActivite: ValeurCleSectorielle) => (activite: Activites) =>
     activitesParSecteurEtSousSecteur[secteurActivite].includes(activite);
 
-export const estActiviteAutre = (activite: ValeursActivites) =>
+export const estActiviteAutre = (activite: Activites) =>
   activite.startsWith(prefixeAutreActivite);
-export const estActiviteListee = (activite: ValeursActivites) =>
+export const estActiviteListee = (activite: Activites) =>
   !activite.startsWith(prefixeAutreActivite);
-export const auMoinsUneActiviteListee = (activites: ValeursActivites[]) =>
+export const auMoinsUneActiviteListee = (activites: Activites[]) =>
   activites && activites.length > 0 && activites.some(estActiviteListee);
 
 export const auMoinsUneActiviteCommuneAvec =
-  (listeActivites1: ValeursActivites[]) =>
-  (listeActivites2: ValeursActivites[]) =>
+  (listeActivites1: Activites[]) => (listeActivites2: Activites[]) =>
     listeActivites1.some((activite) => listeActivites2.includes(activite));
 export const aucuneActiviteCommuneAvec =
-  (listeActivites1: ValeursActivites[]) =>
-  (listeActivites2: ValeursActivites[]) =>
+  (listeActivites1: Activites[]) => (listeActivites2: Activites[]) =>
     listeActivites1.every((activite) => !listeActivites2.includes(activite));
-export const auMoinsUneActiviteAutre = (activites: ValeursActivites[]) =>
+export const auMoinsUneActiviteAutre = (activites: Activites[]) =>
   activites && activites.length && activites.some(estActiviteAutre);
-export const aucuneActiviteListee = (activites: ValeursActivites[]) =>
+export const aucuneActiviteListee = (activites: Activites[]) =>
   activites.every(estActiviteAutre);
 export const auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement =
   auMoinsUneActiviteCommuneAvec(
@@ -47,28 +45,28 @@ export const aucuneActiviteInfraNumConcernee = aucuneActiviteCommuneAvec(
   ValeursActivitesConcernesInfrastructureNumerique
 );
 export const exerceActiviteDansListe =
-  (liste: ValeursActivites[]) =>
+  (liste: Activites[]) =>
   <
     T extends DonneesSectorielles &
-      Pick<IDonneesBrutesFormulaireSimulateur, "activites">
+      Pick<DonneesFormulaireSimulateur, "activites">
   >(
     d: T
   ) =>
     d.activites.some((a) => liste.includes(a));
 export const exerceUniquementActivitesDansListe =
-  (liste: ValeursActivites[]) =>
+  (liste: Activites[]) =>
   <
     T extends DonneesSectorielles &
-      Pick<IDonneesBrutesFormulaireSimulateur, "activites">
+      Pick<DonneesFormulaireSimulateur, "activites">
   >(
     d: T
   ) =>
     d.activites.every((a) => liste.includes(a));
 export const exerceAucuneActivitesDansListe =
-  (liste: ValeursActivites[]) =>
+  (liste: Activites[]) =>
   <
     T extends DonneesSectorielles &
-      Pick<IDonneesBrutesFormulaireSimulateur, "activites">
+      Pick<DonneesFormulaireSimulateur, "activites">
   >(
     d: T
   ) =>

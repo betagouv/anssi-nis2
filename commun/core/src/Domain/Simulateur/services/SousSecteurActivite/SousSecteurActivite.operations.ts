@@ -1,4 +1,4 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import {
   SecteursAvecSousSecteurs,
@@ -31,7 +31,7 @@ const extraitSousSecteursOuListeVide = (
 export const cartographieSousSecteursParSecteur = ({
   secteurActivite,
   sousSecteurActivite,
-}: IDonneesBrutesFormulaireSimulateur) =>
+}: DonneesFormulaireSimulateur) =>
   secteurActivite
     .filter(estSecteurListe)
     .reduce<[SecteurActivite, SousSecteurActivite[]][]>(

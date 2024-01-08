@@ -1,5 +1,5 @@
 import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
-import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
 
 import { ValidationReponses } from "../../../../commun/core/src/Domain/Simulateur/services/ChampSimulateur/champs.domaine.ts";
@@ -13,7 +13,7 @@ export const StepperNavigation = ({
   validationReponses: ValidationReponses;
   onClickPrevious: (e: React.MouseEvent) => void;
   onClickNext: (e: React.MouseEvent) => void;
-  donneesFormulaire: IDonneesBrutesFormulaireSimulateur;
+  donneesFormulaire: DonneesFormulaireSimulateur;
 }) => (
   <div className="fr-grid-row fr-mr-auto" style={{ width: "100%" }}>
     <div

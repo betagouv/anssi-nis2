@@ -100,7 +100,7 @@ export type ActivitesFabrication =
 export type ActivitesFournisseursNumeriques =
   (typeof ValeursActivitesFournisseursNumeriques)[number];
 export type ActivitesRecherche = (typeof ValeursActivitesRecherche)[number];
-export type ValeursActivites =
+export type Activites =
   // Annexe 1
   | ActivitesEnergie
   | ActivitesTransports

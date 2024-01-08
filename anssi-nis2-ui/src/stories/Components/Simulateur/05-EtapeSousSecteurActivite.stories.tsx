@@ -1,7 +1,5 @@
-import {
-  DonneesFormulaireSimulateur,
-  IDonneesBrutesFormulaireSimulateur,
-} from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { fabriqueDonneesFormulaire } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
 import { SousSecteurEnergie } from "../../../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import {
   CollectionParametresDonnees,
@@ -15,7 +13,7 @@ import { expect } from "@storybook/jest";
 class ParametresDonneesSousSecteurActivite extends ParametresDonneesSpecifiqueField<SousSecteurEnergie> {
   protected construitDonnees<ValeursSecteurActivite>(
     valeurs: ValeursSecteurActivite[],
-  ): IDonneesBrutesFormulaireSimulateur {
+  ): DonneesFormulaireSimulateur {
     return this.construitDonneesPourField("sousSecteurActivite", valeurs);
   }
 }
@@ -29,7 +27,7 @@ const meta: Meta<typeof EtapeSousSecteursActivite> = {
   title: "Composants/Simulateur/Etapes/5 bis - Sous secteur d'activité",
   component: EtapeSousSecteursActivite,
   args: {
-    donneesFormulaire: new DonneesFormulaireSimulateur({
+    donneesFormulaire: fabriqueDonneesFormulaire({
       secteurActivite: ["energie"],
       sousSecteurActivite: ["electricite"],
     }),
@@ -87,7 +85,7 @@ export const SelectionneSousSecteurEnergie: Story = {
 export const MixSecteursEtSousSecteurs: Story = {
   name: "Sous-Secteurs (Mix)",
   args: {
-    donneesFormulaire: new DonneesFormulaireSimulateur({
+    donneesFormulaire: fabriqueDonneesFormulaire({
       secteurActivite: ["espace", "energie", "transports"],
       sousSecteurActivite: ["electricite", "hydrogene"],
     }),

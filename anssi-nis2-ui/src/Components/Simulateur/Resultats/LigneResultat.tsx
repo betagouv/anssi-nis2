@@ -1,7 +1,6 @@
-import { useEffect, useReducer } from "react";
+import { useReducer } from "react";
 import Markdown from "react-markdown";
 import { decaleTitre4Niveaux } from "../../../Services/constantes.ts";
-import { remplitContenuMarkdown } from "../../../Services/Markdown/remplitContenuMarkdown.operation.ts";
 import { DefaultComponentExtensible } from "../../../Services/Props";
 import { SimulateurResultatProps } from "../../../Services/Simulateur/Props/simulateurResultatProps";
 import { CenteredContainer } from "../../General/CenteredContainer.tsx";
@@ -9,31 +8,14 @@ import { RowContainer } from "../../General/RowContainer.tsx";
 import { IconeResultat } from "./IconeResultat.tsx";
 import { initialState, statusAffichePlus } from "./LigneResultat.constantes.ts";
 import { changePropriete } from "./LigneResultat.operations.ts";
-import {
-  ActionPrecisionsResultat,
-  EtatPrecisionsResultat,
-} from "./PrecisionsResultat.declarations.ts";
 
 export const LigneResultat: DefaultComponentExtensible<
   SimulateurResultatProps
 > = ({ contenuResultat }: SimulateurResultatProps) => {
   const [contenuPrecisions, propageContenuPrecisions] = useReducer(
     changePropriete,
-    initialState,
+    { ...initialState, ...contenuResultat.precisions },
   );
-
-  const modifieProprietePrecisions = remplitContenuMarkdown<
-    EtatPrecisionsResultat,
-    ActionPrecisionsResultat
-  >(propageContenuPrecisions);
-
-  useEffect(() => {
-    if (contenuResultat.fichierPrecisionSurReponse) {
-      const baseUri = `/contenus/${contenuResultat.fichierPrecisionSurReponse}`;
-      modifieProprietePrecisions("principal")(`${baseUri}.md`);
-      modifieProprietePrecisions("annexe")(`${baseUri}.plus.md`);
-    }
-  }, [contenuResultat.fichierPrecisionSurReponse, modifieProprietePrecisions]);
 
   const basculePlus = () =>
     propageContenuPrecisions({

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { AppartenancePaysUnionEuropeenne } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
-import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { fabriqueDonneesFormulaire } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
 import { EtapeLocalisation } from "../../../Components/Simulateur/Etapes";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
@@ -87,7 +87,7 @@ export const LocalisationStandard: Story = {
 
 export const CocheFrance: Story = {
   args: {
-    donneesFormulaire: new DonneesFormulaireSimulateur({
+    donneesFormulaire: fabriqueDonneesFormulaire({
       etatMembre: ["france"],
     }),
   },
@@ -109,7 +109,7 @@ export const CocheFrance: Story = {
 
 export const CocheHorsUE: Story = {
   args: {
-    donneesFormulaire: new DonneesFormulaireSimulateur({
+    donneesFormulaire: fabriqueDonneesFormulaire({
       etatMembre: ["horsue"],
     }),
   },

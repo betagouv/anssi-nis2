@@ -1,5 +1,5 @@
 import { CollectionInformationsEtapes } from "../../../../../commun/core/src/Domain/Simulateur/CollectionInformationsEtapes.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import { fabriqueEtatEtape } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/EtatEtape.fabrique.ts";
 import { fabriquesInformationsEtapes } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/InformationsEtape.fabrique.ts";
 import {
@@ -23,7 +23,7 @@ import { auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement } from "../../../
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
-}: IDonneesBrutesFormulaireSimulateur) =>
+}: DonneesFormulaireSimulateur) =>
   secteurActivite.some(estUnSecteurAvecDesSousSecteurs);
 
 const sousEtapeSousSecteur =
@@ -38,7 +38,7 @@ const sousEtapeSousSecteur =
 
 const sousEtapeLocalisationActiviteSpecifique =
   fabriquesInformationsEtapes.sousEtapeConditionnelle(
-    ({ activites }: IDonneesBrutesFormulaireSimulateur) =>
+    ({ activites }: DonneesFormulaireSimulateur) =>
       auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement(activites),
     fabriquesInformationsEtapes.form(
       "Localisation de votre activité",

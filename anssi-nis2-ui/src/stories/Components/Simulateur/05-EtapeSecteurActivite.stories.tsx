@@ -1,4 +1,4 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import { SecteurActivite } from "../../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import {
   CollectionParametresDonnees,
@@ -12,7 +12,7 @@ import { expect } from "@storybook/jest";
 class ParametresDonneesSecteurActivite extends ParametresDonneesSpecifiqueField<SecteurActivite> {
   protected construitDonnees<ValeursSecteurActivite>(
     valeurs: ValeursSecteurActivite[],
-  ): IDonneesBrutesFormulaireSimulateur {
+  ): DonneesFormulaireSimulateur {
     return this.construitDonneesPourField("secteurActivite", valeurs);
   }
 }

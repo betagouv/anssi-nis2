@@ -1,4 +1,4 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import {
   SecteursAvecSousSecteurs,
@@ -10,7 +10,7 @@ import {
 } from "../../SousSecteurActivite.valeurs";
 
 export const contientAutreSecteurActiviteUniquement = (
-  donneesFormulaire: IDonneesBrutesFormulaireSimulateur
+  donneesFormulaire: DonneesFormulaireSimulateur
 ) =>
   donneesFormulaire.secteurActivite.length === 1 &&
   donneesFormulaire.secteurActivite[0] === "autreSecteurActivite";

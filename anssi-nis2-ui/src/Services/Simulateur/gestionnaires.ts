@@ -1,7 +1,7 @@
 import React from "react";
 import { ValeurChampSimulateur } from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import {
-  IDonneesBrutesFormulaireSimulateur,
+  DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 
@@ -13,7 +13,7 @@ export const gestionValeursSimples = (value: ValeurChampSimulateur) => [value];
 export const genereGestionValeursMultiples = (name: NomsChampsSimulateur) => {
   function gestionValeursMultiples(
     value: ValeurChampSimulateur,
-    donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
+    donneesFormulaire: DonneesFormulaireSimulateur,
   ) {
     const valeursChampFormulaire: ValeurChampSimulateur[] =
       donneesFormulaire[name];

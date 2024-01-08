@@ -1,4 +1,4 @@
-import { ValeursActivites } from "../../Activite.definitions";
+import { Activites } from "../../Activite.definitions";
 import {
   ValeursActivitesAdministrationPublique,
   ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
@@ -31,7 +31,7 @@ import {
   ValeursActivitesTransportsParEaux,
   ValeursActivitesTransportsRoutiers,
 } from "../../Activite.valeurs";
-import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import {
   SecteursSansSousSecteur,
@@ -43,7 +43,7 @@ import { cartographieSousSecteursParSecteur } from "../SousSecteurActivite/SousS
 
 export const activitesParSecteurEtSousSecteur: Record<
   ValeurCleSectorielle,
-  readonly ValeursActivites[]
+  readonly Activites[]
 > = {
   administrationPublique: ValeursActivitesAdministrationPublique,
   autreSecteurActivite: [],
@@ -142,7 +142,7 @@ const rempliSousSecteurs = (
 export const collecteTitresPourActivite: (
   libellesSecteursActivite: Record<SecteurActivite, string>,
   libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
-  donneesFormulaire: IDonneesBrutesFormulaireSimulateur
+  donneesFormulaire: DonneesFormulaireSimulateur
 ) => AssociationSectorielleActivite[] = (
   libellesSecteursActivite,
   libellesSousSecteursActivite,
@@ -164,13 +164,13 @@ export const collecteTitresPourActivite: (
   );
 export const fabriqueListeActivitesDesSecteurs = (
   secteurActivite: ValeurCleSectorielle[],
-  filtreActivite: (activite: ValeursActivites) => boolean
-): ValeursActivites[] =>
+  filtreActivite: (activite: Activites) => boolean
+): Activites[] =>
   Array.from(
     secteurActivite.reduce((ensembleActivites, secteur) => {
       activitesParSecteurEtSousSecteur[secteur]
         ?.filter(filtreActivite)
-        .map((activite: ValeursActivites) => ensembleActivites.add(activite));
+        .map((activite: Activites) => ensembleActivites.add(activite));
       return ensembleActivites;
-    }, new Set<ValeursActivites>())
+    }, new Set<Activites>())
   );

@@ -1,5 +1,11 @@
 import { ResultatEligibilite } from "../../../commun/core/src/Domain/Simulateur/Eligibilite.definitions.ts";
+import { separeMarkdownParLignes } from "../Services/Markdown/TransformeMarkdown.operations.ts";
 import { ContenusResultatEligibilite } from "../Services/Simulateur/Props/ContenusResultatEligibilite.declaration.ts";
+import resultatKOComplet from "./Documents/precisionsSurReponseNegative.md";
+import resultatOKComplet from "./Documents/precisionsSurReponsePositive.md";
+
+const [resultatOK, resultatOKPlus] = separeMarkdownParLignes(resultatOKComplet);
+const [resultatKO, resultatKOPlus] = separeMarkdownParLignes(resultatKOComplet);
 
 export const contenusResultatEligiblePetitEntreprise: ContenusResultatEligibilite =
   {
@@ -7,6 +13,10 @@ export const contenusResultatEligiblePetitEntreprise: ContenusResultatEligibilit
     classIcone: "fr-icon-check-line",
     titre: "Votre entité serait régulée  \npar la directive NIS 2",
     fichierPrecisionSurReponse: "precisionsSurReponsePositive",
+    precisions: {
+      principal: resultatOK,
+      annexe: resultatOKPlus,
+    },
     modeFormulaireEmail: "complet",
     afficheBlocs: {
       etMaintenant: true,
@@ -29,6 +39,10 @@ export const contenusResultatNonEligible: ContenusResultatEligibilite = {
   titre: "Votre entité ne serait pas régulée  \npar la directive NIS 2",
   fichierPrecisionSurReponse: "precisionsSurReponseNegative",
   modeFormulaireEmail: "simple",
+  precisions: {
+    principal: resultatKO,
+    annexe: resultatKOPlus,
+  },
   afficheBlocs: {
     etMaintenant: false,
     enSavoirPlus: false,

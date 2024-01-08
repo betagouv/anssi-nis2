@@ -1,11 +1,11 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../DonneesFormulaire";
 import { donneesFormulaireSimulateurVide } from "../DonneesFormulaire.constantes";
 import { EtatEtapes } from "../EtatEtapes";
 import { CollectionInformationsEtapes } from "../CollectionInformationsEtapes";
 
 const suivantEstIgnore = (
   suivant: EtatEtapes,
-  donnees: IDonneesBrutesFormulaireSimulateur
+  donnees: DonneesFormulaireSimulateur
 ) => suivant.contenuEtapeCourante.estIgnoree(donnees);
 const fabriqueIgnoreEtape = (etapeSuivantExiste: boolean) =>
   etapeSuivantExiste ? suivantEstIgnore : () => false;
@@ -14,7 +14,7 @@ export const fabriqueEtatEtape: (
   collectionEtapes: CollectionInformationsEtapes,
   indiceEtape: number,
   indiceSousEtape?: number,
-  donneesFormulaire?: IDonneesBrutesFormulaireSimulateur
+  donneesFormulaire?: DonneesFormulaireSimulateur
 ) => EtatEtapes = (
   collectionEtapes,
   indiceEtape,
