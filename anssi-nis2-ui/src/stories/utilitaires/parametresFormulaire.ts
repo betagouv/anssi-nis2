@@ -1,10 +1,10 @@
 import { donneesFormulaireSimulateurVide } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.constantes.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 
 export class ParametresDonneesFormulaire {
   constructor(
     public libelle: string,
-    public donnees: IDonneesBrutesFormulaireSimulateur,
+    public donnees: DonneesFormulaireSimulateur,
   ) {}
 }
 
@@ -18,15 +18,15 @@ export abstract class ParametresDonneesSpecifiqueField<
 
   protected abstract construitDonnees<TypeValeurs>(
     valeurs: TypeValeurs[],
-  ): IDonneesBrutesFormulaireSimulateur;
+  ): DonneesFormulaireSimulateur;
 
   protected construitDonneesPourField<TypeField extends string, TypeValeurs>(
     fieldName: TypeField,
     listeValeurs: TypeValeurs[],
-  ): IDonneesBrutesFormulaireSimulateur {
+  ): DonneesFormulaireSimulateur {
     return {
       [fieldName as TypeField]: listeValeurs,
-    } as unknown as IDonneesBrutesFormulaireSimulateur;
+    } as unknown as DonneesFormulaireSimulateur;
   }
 }
 

@@ -15,7 +15,7 @@ import { ValeursNomChampsFormulaire } from "./DonneesFormulaire.valeurs";
 
 export type NomsChampsSimulateur = (typeof ValeursNomChampsFormulaire)[number];
 
-export interface IDonneesBrutesFormulaireSimulateur
+export interface DonneesFormulaireSimulateur
   extends Record<NomsChampsSimulateur, ValeurChampSimulateur[]> {
   activites: ValeursActivites[];
   designeOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[];
@@ -31,6 +31,6 @@ export interface IDonneesBrutesFormulaireSimulateur
 }
 
 export type DonneesSectorielles = Pick<
-  IDonneesBrutesFormulaireSimulateur,
+  DonneesFormulaireSimulateur,
   "secteurActivite" | "sousSecteurActivite"
 >;

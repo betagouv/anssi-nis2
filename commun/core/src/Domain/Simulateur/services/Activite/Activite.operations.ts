@@ -31,7 +31,7 @@ import {
   ValeursActivitesTransportsParEaux,
   ValeursActivitesTransportsRoutiers,
 } from "../../Activite.valeurs";
-import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import {
   SecteursSansSousSecteur,
@@ -142,7 +142,7 @@ const rempliSousSecteurs = (
 export const collecteTitresPourActivite: (
   libellesSecteursActivite: Record<SecteurActivite, string>,
   libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
-  donneesFormulaire: IDonneesBrutesFormulaireSimulateur
+  donneesFormulaire: DonneesFormulaireSimulateur
 ) => AssociationSectorielleActivite[] = (
   libellesSecteursActivite,
   libellesSousSecteursActivite,

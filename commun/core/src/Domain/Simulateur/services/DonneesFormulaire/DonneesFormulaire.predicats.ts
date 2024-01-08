@@ -3,7 +3,7 @@ import { estTableauNonVide } from "../../../Commun/Commun.predicats";
 import { ValeursActivites } from "../../Activite.definitions";
 import {
   DonneesSectorielles,
-  IDonneesBrutesFormulaireSimulateur,
+  DonneesFormulaireSimulateur,
 } from "../../DonneesFormulaire";
 import {
   auMoinsUneActiviteListee,
@@ -26,7 +26,7 @@ import { uniquementDesSousSecteursAutres } from "../SousSecteurActivite/SousSect
 const verifAuMoinsUn = {
   activiteListee: <
     T extends DonneesSectorielles &
-      Pick<IDonneesBrutesFormulaireSimulateur, "activites">
+      Pick<DonneesFormulaireSimulateur, "activites">
   >(
     donnees: T
   ): donnees is T => auMoinsUneActiviteListee(donnees.activites),
@@ -40,7 +40,7 @@ export const predicatDonneesFormulaire = {
   uniquement: {
     activiteAutre: <
       T extends DonneesSectorielles &
-        Pick<IDonneesBrutesFormulaireSimulateur, "activites">
+        Pick<DonneesFormulaireSimulateur, "activites">
     >(
       donnees: T
     ) => donnees.activites.every(estActiviteAutre),
@@ -55,7 +55,7 @@ export const verifieCompletudeDonneesCommunes = et(
 );
 
 export const verifieDonneesCommunesPrivee: (
-  donnees: IDonneesBrutesFormulaireSimulateur
+  donnees: DonneesFormulaireSimulateur
 ) => boolean = isMatching({
   trancheCA: [P._],
   typeStructure: ["privee"],

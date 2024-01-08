@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { IDonneesBrutesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { EtatEtapes } from "../../src/Domain/Simulateur/EtatEtapes";
 import {
@@ -81,7 +81,7 @@ describe(fabriqueEtatEtapeSuivant, () => {
     });
     describe("Etape avec Variante", () => {
       it("Avance vers l'état étape avec la variante privee", () => {
-        const donnees: IDonneesBrutesFormulaireSimulateur = {
+        const donnees: DonneesFormulaireSimulateur = {
           ...donneesVides,
           typeStructure: ["privee"],
         };
@@ -94,7 +94,7 @@ describe(fabriqueEtatEtapeSuivant, () => {
         );
       });
       it("Avance vers l'état étape avec la variante privee", () => {
-        const donnees: IDonneesBrutesFormulaireSimulateur = {
+        const donnees: DonneesFormulaireSimulateur = {
           ...donneesVides,
           typeStructure: ["publique"],
         };
@@ -136,7 +136,7 @@ describe(fabriqueEtatEtapePrecedent, () => {
     });
     describe("Etape avec Variante", () => {
       it("Avance vers l'état étape avec la variante privee", () => {
-        const donnees: IDonneesBrutesFormulaireSimulateur = {
+        const donnees: DonneesFormulaireSimulateur = {
           ...donneesVides,
           typeStructure: ["privee"],
         };
@@ -149,7 +149,7 @@ describe(fabriqueEtatEtapePrecedent, () => {
         );
       });
       it("Avance vers l'état étape avec la variante privee", () => {
-        const donnees: IDonneesBrutesFormulaireSimulateur = {
+        const donnees: DonneesFormulaireSimulateur = {
           ...donneesVides,
           typeStructure: ["publique"],
         };

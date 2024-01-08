@@ -1,7 +1,7 @@
 import { ValeursActivites } from "../../Activite.definitions";
 import {
   DonneesSectorielles,
-  IDonneesBrutesFormulaireSimulateur,
+  DonneesFormulaireSimulateur,
 } from "../../DonneesFormulaire";
 import {
   ValeursActivitesConcernesInfrastructureNumerique,
@@ -50,7 +50,7 @@ export const exerceActiviteDansListe =
   (liste: ValeursActivites[]) =>
   <
     T extends DonneesSectorielles &
-      Pick<IDonneesBrutesFormulaireSimulateur, "activites">
+      Pick<DonneesFormulaireSimulateur, "activites">
   >(
     d: T
   ) =>
@@ -59,7 +59,7 @@ export const exerceUniquementActivitesDansListe =
   (liste: ValeursActivites[]) =>
   <
     T extends DonneesSectorielles &
-      Pick<IDonneesBrutesFormulaireSimulateur, "activites">
+      Pick<DonneesFormulaireSimulateur, "activites">
   >(
     d: T
   ) =>
@@ -68,7 +68,7 @@ export const exerceAucuneActivitesDansListe =
   (liste: ValeursActivites[]) =>
   <
     T extends DonneesSectorielles &
-      Pick<IDonneesBrutesFormulaireSimulateur, "activites">
+      Pick<DonneesFormulaireSimulateur, "activites">
   >(
     d: T
   ) =>

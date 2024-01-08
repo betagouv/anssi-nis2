@@ -3,10 +3,10 @@ import {
   AggregatInformationsEmail,
   InformationsEmail,
 } from "../../../../commun/core/src/Domain/Contact/InformationsEmail.definitions.ts";
-import { IDonneesBrutesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 
 export const mockSendFormData = jest.fn(
-  async (donnees: IDonneesBrutesFormulaireSimulateur) => {
+  async (donnees: DonneesFormulaireSimulateur) => {
     const donneesEnvoyees = JSON.stringify(donnees);
     console.log("Appel de mockSendFormData avec arguments: ", donneesEnvoyees);
     return donneesEnvoyees;

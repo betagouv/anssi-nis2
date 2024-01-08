@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { fc } from "@fast-check/vitest";
 import {
   DonneesSectorielles,
-  IDonneesBrutesFormulaireSimulateur,
+  DonneesFormulaireSimulateur,
 } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire";
 import { fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur } from "../../../src/Services/Simulateur/Transformateurs/FabriqueConstructeurOptionActivite";
 import {
@@ -12,7 +12,7 @@ import {
 import { listeEnrSecteursAvecLeursSousSecteurs } from "../../../../commun/core/test/Domaine/exemples/ListesEnrSecteursSousSecteur";
 
 const donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites: fc.Arbitrary<
-  DonneesSectorielles & Pick<IDonneesBrutesFormulaireSimulateur, "activites">
+  DonneesSectorielles & Pick<DonneesFormulaireSimulateur, "activites">
 > = fabriqueArbEnrSecteurSousSecteurs(listeEnrSecteursAvecLeursSousSecteurs, {
   minLength: 1,
 }).chain(ajouteArbitraireActivites);

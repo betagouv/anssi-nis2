@@ -1,6 +1,6 @@
 import { Test } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
-import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
 import { donneesFormulaireSimulateurVide } from "~core/src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { fabriqueMockRepository } from "../test/utilitaires/facilitateurs";
 import { SimulateurReponse } from "./simulateur-reponse.entity";
@@ -14,8 +14,7 @@ describe("SimulateurReponseService", () => {
   };
 
   const depotSauve = jest.fn(
-    async (donneesSimulateur: IDonneesBrutesFormulaireSimulateur) =>
-      donneesSimulateur,
+    async (donneesSimulateur: DonneesFormulaireSimulateur) => donneesSimulateur,
   );
   const depotDonneesSimu = fabriqueMockRepository({
     save: depotSauve,

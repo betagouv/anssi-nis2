@@ -1,5 +1,5 @@
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
-import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
 import { extraitSectorisationDonneesSimulateur } from "~core/src/Domain/Simulateur/services/Sectorisation/Sectorisation.operations";
 import { Evenements } from "./entites/evenements.entite-journal";
 import { Injectable } from "@nestjs/common";
@@ -20,7 +20,7 @@ export class JournalService {
   ) {}
 
   async trace(
-    reponses: IDonneesBrutesFormulaireSimulateur,
+    reponses: DonneesFormulaireSimulateur,
   ): Promise<SegmentsConcernesNis2[]> {
     const donnees = this.assaini(reponses);
     const evenement: Evenements = await this.evenementsRepository.save({
@@ -52,7 +52,7 @@ export class JournalService {
     return this.concerneNis2Repository.save(segments);
   }
 
-  private assaini(reponses: IDonneesBrutesFormulaireSimulateur) {
+  private assaini(reponses: DonneesFormulaireSimulateur) {
     return reponses.secteurActivite === undefined
       ? JSON.parse(reponses as unknown as string)
       : reponses;

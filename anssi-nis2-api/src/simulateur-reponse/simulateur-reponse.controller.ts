@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, UseInterceptors } from "@nestjs/common";
-import { IDonneesBrutesFormulaireSimulateur } from "~core/src/Domain/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/DonneesFormulaire";
 import { JournalIntercepteur } from "../journal/journal.intercepteur";
 import { SimulateurReponse } from "./simulateur-reponse.entity";
 import { SimulateurReponseService } from "./simulateur-reponse.service";
@@ -13,7 +13,7 @@ export class SimulateurReponseController {
 
   @Post()
   async enregistreDonneesSimulateur(
-    @Body() formData: IDonneesBrutesFormulaireSimulateur,
+    @Body() formData: DonneesFormulaireSimulateur,
   ): Promise<string> {
     return (await this.simulateurReponseService.save(formData)).reponseJson;
   }

@@ -1,4 +1,4 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import { SecteursAvecSousSecteurs } from "../../../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import { SimulateurContenuEtapeProps } from "../Props/simulateurEtapeProps";
 import { OptionsChampSimulateur } from "../Props/optionChampSimulateur";
@@ -14,7 +14,7 @@ export const transformeSousSecteurEnOptions = (
     .reduce(
       reducteurSecteursVersOptions(
         gereChangement,
-        donneesFormulaire as IDonneesBrutesFormulaireSimulateur,
+        donneesFormulaire as DonneesFormulaireSimulateur,
       ),
       [],
     );

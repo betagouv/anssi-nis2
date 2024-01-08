@@ -7,7 +7,7 @@ import {
 import { ValeursPetitMoyenGrand } from "../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
 import {
   DonneesSectorielles,
-  IDonneesBrutesFormulaireSimulateur,
+  DonneesFormulaireSimulateur,
 } from "../../src/Domain/Simulateur/DonneesFormulaire";
 import { SecteurActivite } from "../../src/Domain/Simulateur/SecteurActivite.definitions";
 import { fabriqueListeActivitesDesSecteurs } from "../../src/Domain/Simulateur/services/Activite/Activite.operations";
@@ -98,7 +98,7 @@ export const fabriqueArbSingleton = <T>(valeursPossibles: Readonly<T[]>) =>
 
 const etendAvecActivitesVides = <DonneesPartielles extends DonneesSectorielles>(
   base: DonneesPartielles &
-    Partial<Pick<IDonneesBrutesFormulaireSimulateur, "activites">>
+    Partial<Pick<DonneesFormulaireSimulateur, "activites">>
 ) =>
   fc.record({
     ...propageBase(base),
@@ -116,7 +116,7 @@ const extraitOptionsAjoutArbitrairesActivite = (
 
 function etendDonneesActivite<DonneesPartielles>(
   base: DonneesPartielles &
-    Partial<Pick<IDonneesBrutesFormulaireSimulateur, "activites">>,
+    Partial<Pick<DonneesFormulaireSimulateur, "activites">>,
   listeActivitesDesSecteurs: ValeursActivites[]
 ) {
   return base.activites
@@ -130,7 +130,7 @@ export const ajouteArbitraireActivites = <
   base: DonneesPartielles,
   options?: ArbitraireOptionsActivites
 ): fc.Arbitrary<
-  Pick<IDonneesBrutesFormulaireSimulateur, "activites"> & DonneesPartielles
+  Pick<DonneesFormulaireSimulateur, "activites"> & DonneesPartielles
 > => {
   const [filtreActivite, minLength] =
     extraitOptionsAjoutArbitrairesActivite(options);
@@ -160,12 +160,12 @@ export const ajouteArbitraireActivites = <
     activites: arbAuMoinsUneActivites,
   };
   return fc.record(enregistrementAvecActivites) as fc.Arbitrary<
-    Pick<IDonneesBrutesFormulaireSimulateur, "activites"> & DonneesPartielles
+    Pick<DonneesFormulaireSimulateur, "activites"> & DonneesPartielles
   >;
 };
 
 export const contrainteTranchesSansDoublonSurValeur = <
-  T extends DonneesFormulairesAvantTrancheCA = IDonneesBrutesFormulaireSimulateur
+  T extends DonneesFormulairesAvantTrancheCA = DonneesFormulaireSimulateur
 >(
   base: T,
   valeurExclusive: UnionPetitMoyenGrand
@@ -242,10 +242,10 @@ export const decoreChaineRendue = <T extends object>(objet: T) => {
 
 type DonneesFormulairesAvantTrancheCA =
   | Omit<DonneesBrutesSansActivite, "trancheNombreEmployes">
-  | Omit<IDonneesBrutesFormulaireSimulateur, "trancheNombreEmployes">
+  | Omit<DonneesFormulaireSimulateur, "trancheNombreEmployes">
   | (DonneesSectorielles &
       Pick<
-        IDonneesBrutesFormulaireSimulateur,
+        DonneesFormulaireSimulateur,
         | "designeOperateurServicesEssentiels"
         | "typeStructure"
         | "trancheCA"
@@ -293,7 +293,7 @@ export const fabriqueArbTrancheSingleton = () =>
 
 export const ajouteChampsFacultatifs = <
   T extends Omit<
-    IDonneesBrutesFormulaireSimulateur,
+    DonneesFormulaireSimulateur,
     | "typeEntitePublique"
     | "fournitServicesUnionEuropeenne"
     | "localisationRepresentant"

@@ -1,5 +1,5 @@
 import { Test } from "@nestjs/testing";
-import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
 import { donneesFormulaireSimulateurVide } from "~core/src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { SegmentsConcernesNis2 } from "./entites/segments-concernes-nis2.entite-journal";
 import { JournalService } from "./journal.service";
@@ -7,7 +7,7 @@ import { fournisseurTestJournalService } from "./journal.service.fournisseur-tes
 
 const attendResultatConforme = (
   result: SegmentsConcernesNis2[],
-  donnees: IDonneesBrutesFormulaireSimulateur,
+  donnees: DonneesFormulaireSimulateur,
 ) => {
   expect(result[0].evenement.type).toBe("resultatTestConcerneNis2");
   expect(result[0].evenement.donnees).toBe(JSON.stringify(donnees));
@@ -37,7 +37,7 @@ describe("JournalService", () => {
   it("Insère un résultat simple", async () => {
     const mockModule = await constructeurJournalModuleTest.compile();
     const service = mockModule.get<JournalService>(JournalService);
-    const donnees: IDonneesBrutesFormulaireSimulateur = {
+    const donnees: DonneesFormulaireSimulateur = {
       ...donneesFormulaireSimulateurVide,
       secteurActivite: ["eauPotable"],
       typeStructure: ["privee"],
@@ -54,7 +54,7 @@ describe("JournalService", () => {
   it("Insère un résultat avec sous-secteur", async () => {
     const mockModule = await constructeurJournalModuleTest.compile();
     const service = mockModule.get<JournalService>(JournalService);
-    const donnees: IDonneesBrutesFormulaireSimulateur = {
+    const donnees: DonneesFormulaireSimulateur = {
       ...donneesFormulaireSimulateurVide,
       secteurActivite: ["energie"],
       sousSecteurActivite: ["hydrogene"],
@@ -71,7 +71,7 @@ describe("JournalService", () => {
   it("Insère un résultat avec plusieurs secteurs", async () => {
     const mockModule = await constructeurJournalModuleTest.compile();
     const service = mockModule.get<JournalService>(JournalService);
-    const donnees: IDonneesBrutesFormulaireSimulateur = {
+    const donnees: DonneesFormulaireSimulateur = {
       ...donneesFormulaireSimulateurVide,
       secteurActivite: ["eauxUsees", "eauPotable"],
       typeStructure: ["privee"],
@@ -88,7 +88,7 @@ describe("JournalService", () => {
   it("Insère un résultat avec plusieurs sous-secteurs", async () => {
     const mockModule = await constructeurJournalModuleTest.compile();
     const service = mockModule.get<JournalService>(JournalService);
-    const donnees: IDonneesBrutesFormulaireSimulateur = {
+    const donnees: DonneesFormulaireSimulateur = {
       ...donneesFormulaireSimulateurVide,
       secteurActivite: ["energie"],
       sousSecteurActivite: ["hydrogene", "electricite"],
@@ -108,7 +108,7 @@ describe("JournalService", () => {
   it("Insère un résultat avec plusieurs secteurs et sous-secteurs", async () => {
     const mockModule = await constructeurJournalModuleTest.compile();
     const service = mockModule.get<JournalService>(JournalService);
-    const donnees: IDonneesBrutesFormulaireSimulateur = {
+    const donnees: DonneesFormulaireSimulateur = {
       ...donneesFormulaireSimulateurVide,
       secteurActivite: ["eauxUsees", "energie", "transports"],
       sousSecteurActivite: [

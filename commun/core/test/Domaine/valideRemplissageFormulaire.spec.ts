@@ -1,5 +1,5 @@
 import { describe, it } from "vitest";
-import { IDonneesBrutesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { ChampsFormulaireFacultatifs } from "../../src/Domain/Simulateur/DonneesFormulaire.valeurs";
 import { non } from "../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
@@ -73,17 +73,16 @@ describe("Validation des données formulaire", () => {
     ...donneesTestsArbPrivee,
   ];
 
-  const formulairePetitInfraNumSansLocalisation: IDonneesBrutesFormulaireSimulateur =
-    {
-      ...donneesFormulaireSimulateurVide,
-      designeOperateurServicesEssentiels: ["non"],
-      etatMembre: ["france"],
-      typeStructure: ["privee"],
-      secteurActivite: ["infrastructureNumerique"],
-      trancheNombreEmployes: ["petit"],
-      trancheCA: ["petit"],
-      activites: ["fournisseurServicesDNS"],
-    };
+  const formulairePetitInfraNumSansLocalisation: DonneesFormulaireSimulateur = {
+    ...donneesFormulaireSimulateurVide,
+    designeOperateurServicesEssentiels: ["non"],
+    etatMembre: ["france"],
+    typeStructure: ["privee"],
+    secteurActivite: ["infrastructureNumerique"],
+    trancheNombreEmployes: ["petit"],
+    trancheCA: ["petit"],
+    activites: ["fournisseurServicesDNS"],
+  };
 
   describe("Données privées : verifieDonneesCommunesPrivee", () => {
     it.each(donneesTestsArbPrivee)(
@@ -175,7 +174,7 @@ describe("Validation des données formulaire", () => {
 
   describe("Cas étrange de validation", () => {
     describe("activité nulle", () => {
-      const donnees: IDonneesBrutesFormulaireSimulateur = {
+      const donnees: DonneesFormulaireSimulateur = {
         ...donneesFormulaireSimulateurVide,
         designeOperateurServicesEssentiels: ["oui"],
         etatMembre: ["france"],
@@ -211,10 +210,10 @@ describe("Validation des données formulaire", () => {
 
     const donneesNonValides: {
       description: string;
-      donnees: IDonneesBrutesFormulaireSimulateur;
+      donnees: DonneesFormulaireSimulateur;
       tests: {
         name: string;
-        actionTestee: (donnees: IDonneesBrutesFormulaireSimulateur) => boolean;
+        actionTestee: (donnees: DonneesFormulaireSimulateur) => boolean;
       }[];
     }[] = [
       {

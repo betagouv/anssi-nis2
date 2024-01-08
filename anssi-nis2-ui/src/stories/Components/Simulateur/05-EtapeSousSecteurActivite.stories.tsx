@@ -1,4 +1,4 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import { fabriqueDonneesFormulaire } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
 import { SousSecteurEnergie } from "../../../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import {
@@ -13,7 +13,7 @@ import { expect } from "@storybook/jest";
 class ParametresDonneesSousSecteurActivite extends ParametresDonneesSpecifiqueField<SousSecteurEnergie> {
   protected construitDonnees<ValeursSecteurActivite>(
     valeurs: ValeursSecteurActivite[],
-  ): IDonneesBrutesFormulaireSimulateur {
+  ): DonneesFormulaireSimulateur {
     return this.construitDonneesPourField("sousSecteurActivite", valeurs);
   }
 }

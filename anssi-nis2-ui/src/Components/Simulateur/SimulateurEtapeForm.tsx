@@ -1,4 +1,4 @@
-import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import { EtatEtapes } from "anssi-nis2-core/src/Domain/Simulateur/EtatEtapes.ts";
 import {
   InformationEtapeForm,
@@ -15,7 +15,7 @@ import { AidezNousAmeliorerService } from "../AidezNousAmeliorerService.tsx";
 import { cartoComposants } from "../../Services/Simulateur/Transformateurs/TypeEtapeVersComposantEtape.transformateur.ts";
 
 const etapeVarianteAffichee =
-  (etatEtapes: EtatEtapes) => (donnees: IDonneesBrutesFormulaireSimulateur) => {
+  (etatEtapes: EtatEtapes) => (donnees: DonneesFormulaireSimulateur) => {
     const variante = etatEtapes.collectionEtapes.recupereEtape(
       etatEtapes.indiceCourant,
     ) as InformationsEtapesVariantes<InformationEtapeForm>;

@@ -1,41 +1,40 @@
 import {
   DonneesSectorielles,
-  IDonneesBrutesFormulaireSimulateur,
+  DonneesFormulaireSimulateur,
 } from "../../src/Domain/Simulateur/DonneesFormulaire";
 
 export type DonneesFormulaireExtensibles =
-  | IDonneesBrutesFormulaireSimulateur
+  | DonneesFormulaireSimulateur
   | DonneesSansActivite
   | DonneesBrutesSansActivite
   | DonneesSectorielles
   | Omit<DonneesBrutesSansActivite, "trancheNombreEmployes">
   | Omit<
-      IDonneesBrutesFormulaireSimulateur,
+      DonneesFormulaireSimulateur,
       | "typeEntitePublique"
       | "fournitServicesUnionEuropeenne"
       | "localisationRepresentant"
     >;
 
-export type PiocheDonneesForm<
-  T extends keyof IDonneesBrutesFormulaireSimulateur
-> = Pick<IDonneesBrutesFormulaireSimulateur, T>;
+export type PiocheDonneesForm<T extends keyof DonneesFormulaireSimulateur> =
+  Pick<DonneesFormulaireSimulateur, T>;
 
 export type DonneesAjout<
-  D extends keyof IDonneesBrutesFormulaireSimulateur = keyof IDonneesBrutesFormulaireSimulateur
-> = D extends infer U extends keyof IDonneesBrutesFormulaireSimulateur
+  D extends keyof DonneesFormulaireSimulateur = keyof DonneesFormulaireSimulateur
+> = D extends infer U extends keyof DonneesFormulaireSimulateur
   ? PiocheDonneesForm<U>
   : never;
 
 export type DonneesBrutesSansActivite = Omit<
-  IDonneesBrutesFormulaireSimulateur,
+  DonneesFormulaireSimulateur,
   "activites"
 >;
 
 export type DonneesSansActivite = Omit<
-  IDonneesBrutesFormulaireSimulateur,
+  DonneesFormulaireSimulateur,
   "activites"
 >;
 
 export type DonneesExtensiblesAvecActivite<
   DonneesPartielles extends DonneesSectorielles
-> = DonneesPartielles & Pick<IDonneesBrutesFormulaireSimulateur, "activites">;
+> = DonneesPartielles & Pick<DonneesFormulaireSimulateur, "activites">;

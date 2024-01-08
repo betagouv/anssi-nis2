@@ -1,5 +1,5 @@
 import {
-  IDonneesBrutesFormulaireSimulateur,
+  DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import {
@@ -20,11 +20,11 @@ import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
 import { transformateurSousSecteurActivite } from "./Transformateurs/TransformateurSousSecteurActivite.ts";
 
 const generateNewStateFrom: (
-  state: IDonneesBrutesFormulaireSimulateur,
+  state: DonneesFormulaireSimulateur,
   fieldName: NomsChampsSimulateur,
   newFieldValue: string[],
-) => IDonneesBrutesFormulaireSimulateur = (
-  state: IDonneesBrutesFormulaireSimulateur,
+) => DonneesFormulaireSimulateur = (
+  state: DonneesFormulaireSimulateur,
   fieldName: NomsChampsSimulateur,
   newFieldValue: string[],
 ) =>
@@ -34,7 +34,7 @@ const generateNewStateFrom: (
   });
 
 export const reducerFormData: Reducer<
-  IDonneesBrutesFormulaireSimulateur,
+  DonneesFormulaireSimulateur,
   SimulateurDonneesFormulaireActions
 > = (state, { name, newValue, type }) => {
   switch (type) {
@@ -86,7 +86,7 @@ const reducteurCleValeurVersObjet = (
 export const reducteurSecteursVersOptions =
   (
     gereChangement: (event: React.ChangeEvent<HTMLInputElement>) => void,
-    donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
+    donneesFormulaire: DonneesFormulaireSimulateur,
   ) =>
   (
     secteursAvecOptionsSousSecteurs: [

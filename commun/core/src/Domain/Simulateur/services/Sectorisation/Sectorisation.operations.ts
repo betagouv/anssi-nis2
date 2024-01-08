@@ -1,4 +1,4 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import { Sectorisation } from "../../Sectorisation.definitions";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
@@ -26,5 +26,5 @@ export const extraitSectorisationPourSecteur =
 export const extraitSectorisationDonneesSimulateur = ({
   secteurActivite,
   sousSecteurActivite,
-}: IDonneesBrutesFormulaireSimulateur): Sectorisation[] =>
+}: DonneesFormulaireSimulateur): Sectorisation[] =>
   secteurActivite.flatMap(extraitSectorisationPourSecteur(sousSecteurActivite));

@@ -2,7 +2,7 @@ import { ValeursActivites } from "../../../../../commun/core/src/Domain/Simulate
 import { ValeurChampSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import {
   DonneesSectorielles,
-  IDonneesBrutesFormulaireSimulateur,
+  DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import { ValeurCleSectorielle } from "../../../../../commun/core/src/Domain/Simulateur/ValeurCleSectorielle.definitions.ts";
@@ -20,7 +20,7 @@ import {
 import React, { Dispatch } from "react";
 
 export const fabriqueConstructeurOptionActivite: (
-  donneesFormulaire: Pick<IDonneesBrutesFormulaireSimulateur, "activites"> &
+  donneesFormulaire: Pick<DonneesFormulaireSimulateur, "activites"> &
     DonneesSectorielles,
   changeMulti: React.ChangeEventHandler<HTMLInputElement>,
 ) => (activite: ValeursActivites) => OptionChampSimulateur =
@@ -63,7 +63,7 @@ const fabriqueOptions = (
 };
 
 export const fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur: (
-  donneesFormulaire: Pick<IDonneesBrutesFormulaireSimulateur, "activites"> &
+  donneesFormulaire: Pick<DonneesFormulaireSimulateur, "activites"> &
     DonneesSectorielles,
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>,
 ) => (
