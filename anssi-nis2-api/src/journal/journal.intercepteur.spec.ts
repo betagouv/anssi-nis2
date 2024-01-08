@@ -1,14 +1,14 @@
-import { JournalIntercepteur } from "./journal.intercepteur";
 import { Test } from "@nestjs/testing";
-import { SimulateurReponseService } from "../simulateur-reponse/simulateur-reponse.service";
+import { donneesFormulaireSimulateurVide } from "~core/src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { SimulateurReponseController } from "../simulateur-reponse/simulateur-reponse.controller";
-import { donneesSimulateurVide } from "../Domaine/donneesSimulateur";
+import { SimulateurReponseService } from "../simulateur-reponse/simulateur-reponse.service";
+import { JournalIntercepteur } from "./journal.intercepteur";
 import { fournisseurTestJournalService } from "./journal.service.fournisseur-test";
 
 describe(JournalIntercepteur, () => {
   const mockSimulateurReponseService = {
     save: jest.fn().mockReturnValue({
-      reponseJson: JSON.stringify(donneesSimulateurVide),
+      reponseJson: JSON.stringify(donneesFormulaireSimulateurVide),
       id: 1,
     }),
   };
@@ -33,7 +33,9 @@ describe(JournalIntercepteur, () => {
     //   handle: jest.fn(),
     // };
     // const mockExecutionContext = {} as unknown as ExecutionContext;
-    await controller.enregistreDonneesSimulateur(donneesSimulateurVide);
+    await controller.enregistreDonneesSimulateur(
+      donneesFormulaireSimulateurVide,
+    );
     // expect();
   });
 });

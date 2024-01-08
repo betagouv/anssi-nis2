@@ -1,5 +1,4 @@
 import {
-  DonneesFormulaireSimulateurExtensibles,
   IDonneesBrutesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire.ts";
@@ -87,7 +86,7 @@ const reducteurCleValeurVersObjet = (
 export const reducteurSecteursVersOptions =
   (
     gereChangement: (event: React.ChangeEvent<HTMLInputElement>) => void,
-    donneesFormulaire: DonneesFormulaireSimulateurExtensibles,
+    donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
   ) =>
   (
     secteursAvecOptionsSousSecteurs: [

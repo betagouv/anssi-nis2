@@ -1,20 +1,20 @@
-import { DonneesFormulaireSimulateurExtensibles } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
-import { SimulateurReponseService } from "./simulateur-reponse.service";
-import { SimulateurReponse } from "./simulateur-reponse.entity";
-import { donneesSimulateurVide } from "../Domaine/donneesSimulateur";
-import { fabriqueMockRepository } from "../test/utilitaires/facilitateurs";
-import { getRepositoryToken } from "@nestjs/typeorm";
 import { Test } from "@nestjs/testing";
+import { getRepositoryToken } from "@nestjs/typeorm";
+import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
+import { donneesFormulaireSimulateurVide } from "~core/src/Domain/Simulateur/DonneesFormulaire.constantes";
+import { fabriqueMockRepository } from "../test/utilitaires/facilitateurs";
+import { SimulateurReponse } from "./simulateur-reponse.entity";
+import { SimulateurReponseService } from "./simulateur-reponse.service";
 
 describe("SimulateurReponseService", () => {
-  const simulateurReponseJson = JSON.stringify(donneesSimulateurVide);
+  const simulateurReponseJson = JSON.stringify(donneesFormulaireSimulateurVide);
   const simulateurReponse = {
     ...new SimulateurReponse(),
     reponseJson: simulateurReponseJson,
   };
 
   const depotSauve = jest.fn(
-    async (donneesSimulateur: DonneesFormulaireSimulateurExtensibles) =>
+    async (donneesSimulateur: IDonneesBrutesFormulaireSimulateur) =>
       donneesSimulateur,
   );
   const depotDonneesSimu = fabriqueMockRepository({
@@ -36,7 +36,7 @@ describe("SimulateurReponseService", () => {
     const srv = mockModule.get<SimulateurReponseService>(
       SimulateurReponseService,
     );
-    const result = await srv.save(donneesSimulateurVide);
+    const result = await srv.save(donneesFormulaireSimulateurVide);
     expect(depotDonneesSimu.save).toHaveBeenCalledTimes(1);
     expect(result.reponseJson).toBe(simulateurReponse.reponseJson);
   });

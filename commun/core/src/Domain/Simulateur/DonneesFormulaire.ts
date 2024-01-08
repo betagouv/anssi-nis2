@@ -30,31 +30,7 @@ export interface IDonneesBrutesFormulaireSimulateur
   localisationRepresentant: AppartenancePaysUnionEuropeenne[];
 }
 
-export interface IDonneesFormulaireSimulateur
-  extends IDonneesBrutesFormulaireSimulateur {}
-
-export class DonneesFormulaireSimulateurExtensibles
-  implements IDonneesFormulaireSimulateur
-{
-  activites: ValeursActivites[] = [];
-  designeOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[] =
-    [];
-  etatMembre: AppartenancePaysUnionEuropeenne[] = [];
-  secteurActivite: SecteurActivite[] = [];
-  sousSecteurActivite: SousSecteurActivite[] = [];
-  trancheCA: TrancheChiffreAffaire[] = [];
-  trancheNombreEmployes: TrancheNombreEmployes[] = [];
-  typeStructure: TypeStructure[] = [];
-  typeEntitePublique: TypeEntitePublique[] = [];
-  fournitServicesUnionEuropeenne: FournitServicesUnionEuropeenne[] = [];
-  localisationRepresentant: AppartenancePaysUnionEuropeenne[] = [];
-
-  constructor(depuis: Readonly<Partial<IDonneesFormulaireSimulateur>>) {
-    Object.assign(this, depuis);
-  }
-}
-
 export type DonneesSectorielles = Pick<
-  IDonneesFormulaireSimulateur,
+  IDonneesBrutesFormulaireSimulateur,
   "secteurActivite" | "sousSecteurActivite"
 >;
