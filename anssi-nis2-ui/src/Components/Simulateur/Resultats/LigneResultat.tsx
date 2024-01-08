@@ -75,6 +75,9 @@ export const LigneResultat: DefaultComponentExtensible<
                 </Markdown>
                 <button onClick={basculePlus}>
                   {statusAfficheAnnexe.libelleBouton}
+                  <i
+                    className={`fr-fi-arrow-${statusAfficheAnnexe.directionIcone}-s-line`}
+                  />
                 </button>
               </>
             )}

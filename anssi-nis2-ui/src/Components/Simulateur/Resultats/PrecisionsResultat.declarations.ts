@@ -10,4 +10,5 @@ export type ActionPrecisionsResultat = {
 export type ContenuAffichagePlus = {
   affichePlus: string;
   libelleBouton: string;
+  directionIcone: "up" | "down";
 };
