@@ -1,7 +1,7 @@
 import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
-import { nettoieBrMd } from "../../../../Services/Markdown/nettoieMarkdown.operation.ts";
+import { nettoieBrMd } from "../../../../Services/Markdown/TransformeMarkdown.operations.ts";
 import {
   cliqueSurDebuterLeTest,
   cocheAuMoinsUnEtPasseEtape,

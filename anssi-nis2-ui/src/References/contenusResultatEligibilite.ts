@@ -1,9 +1,11 @@
 import { ResultatEligibilite } from "../../../commun/core/src/Domain/Simulateur/Eligibilite.definitions.ts";
+import { separeMarkdownParLignes } from "../Services/Markdown/TransformeMarkdown.operations.ts";
 import { ContenusResultatEligibilite } from "../Services/Simulateur/Props/ContenusResultatEligibilite.declaration.ts";
-import resultatOK from "./Documents/precisionsSurReponsePositive.md";
-import resultatOKPlus from "./Documents/precisionsSurReponsePositive.plus.md";
-import resultatKO from "./Documents/precisionsSurReponseNegative.md";
-import resultatKOPlus from "./Documents/precisionsSurReponseNegative.plus.md";
+import resultatKOComplet from "./Documents/precisionsSurReponseNegative.md";
+import resultatOKComplet from "./Documents/precisionsSurReponsePositive.md";
+
+const [resultatOK, resultatOKPlus] = separeMarkdownParLignes(resultatOKComplet);
+const [resultatKO, resultatKOPlus] = separeMarkdownParLignes(resultatKOComplet);
 
 export const contenusResultatEligiblePetitEntreprise: ContenusResultatEligibilite =
   {
