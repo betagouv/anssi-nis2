@@ -1,36 +1,12 @@
-import { Icon } from "@mui/material";
 import { useEffect, useReducer } from "react";
-import Markdown, { Components } from "react-markdown";
-import {
-  DefaultComponentExtensible,
-  DefaultProps,
-} from "../../../Services/Props";
+import Markdown from "react-markdown";
+import { decaleTitre4Niveaux } from "../../../Services/constantes.ts";
+import { remplitContenuMarkdown } from "../../../Services/Markdown/remplitContenuMarkdown.operation.ts";
+import { DefaultComponentExtensible } from "../../../Services/Props";
 import { SimulateurResultatProps } from "../../../Services/Simulateur/Props/simulateurResultatProps";
 import { CenteredContainer } from "../../General/CenteredContainer.tsx";
 import { RowContainer } from "../../General/RowContainer.tsx";
-
-const decaleTitre4Niveaux: Partial<Components> = {
-  h1: "h4",
-  h2: "h5",
-  h3: "h6",
-};
-
-const IconeResultat: DefaultComponentExtensible<
-  DefaultProps & { classIcone: string }
-> = ({ classIcone }: { classIcone: string }) => (
-  <>
-    <div className="fr-grid-row">
-      <div className="fr-col fr-nis2-icone">
-        <Icon className={[classIcone, "fr-icon--xl"].join(" ")} />
-      </div>
-    </div>
-  </>
-);
-
-type ContenuAffichagePlus = {
-  affichePlus: string;
-  libelleBouton: string;
-};
+import { IconeResultat } from "./IconeResultat.tsx";
 
 type EtatInformationsResultat = {
   principal: string;
@@ -41,6 +17,22 @@ type EtatInformationsResultat = {
 type ActionInformationsResultat = {
   type: keyof EtatInformationsResultat;
   value: string | boolean;
+};
+
+const initialState: EtatInformationsResultat = {
+  principal: "",
+  annexe: "",
+  estAfficheAnnexe: false,
+};
+
+const changePropriete = (
+  state: EtatInformationsResultat,
+  action: ActionInformationsResultat,
+) => ({ ...state, [action.type]: action.value });
+
+type ContenuAffichagePlus = {
+  affichePlus: string;
+  libelleBouton: string;
 };
 
 const statusAffichePlus: Record<`${boolean}`, ContenuAffichagePlus> = {
@@ -54,45 +46,29 @@ const statusAffichePlus: Record<`${boolean}`, ContenuAffichagePlus> = {
   },
 };
 
-const initialState: EtatInformationsResultat = {
-  principal: "",
-  annexe: "",
-  estAfficheAnnexe: false,
-};
-
-const reducer = (
-  state: EtatInformationsResultat,
-  action: ActionInformationsResultat,
-) => ({ ...state, [action.type]: action.value });
-
-type OperationRemplitContenuMarkdown<TAction, TEtat> = (
-  dispatch: React.Dispatch<TAction>,
-) => (
-  typeChamp: keyof TEtat,
-) => (locationMarkdown: string) => Promise<string | void>;
-const remplitContenuMarkdown: OperationRemplitContenuMarkdown<
-  ActionInformationsResultat,
-  EtatInformationsResultat
-> = (dispatch) => (typeChamp) => (locationMarkdown) =>
-  fetch(locationMarkdown)
-    .then((reponse) => reponse.text())
-    .then((t) => dispatch({ type: typeChamp, value: t }));
-
 export const LigneResultat: DefaultComponentExtensible<
   SimulateurResultatProps
 > = ({ contenuResultat }: SimulateurResultatProps) => {
-  const [contenuPrecisions, dispatch] = useReducer(reducer, initialState);
+  const [contenuPrecisions, propageContenuPrecisions] = useReducer(
+    changePropriete,
+    initialState,
+  );
+
+  const modifieProprietePrecisions = remplitContenuMarkdown<
+    EtatInformationsResultat,
+    ActionInformationsResultat
+  >(propageContenuPrecisions);
 
   useEffect(() => {
     if (contenuResultat.fichierPrecisionSurReponse) {
       const baseUri = `/contenus/${contenuResultat.fichierPrecisionSurReponse}`;
-      remplitContenuMarkdown(dispatch)("principal")(`${baseUri}.md`);
-      remplitContenuMarkdown(dispatch)("annexe")(`${baseUri}.plus.md`);
+      modifieProprietePrecisions("principal")(`${baseUri}.md`);
+      modifieProprietePrecisions("annexe")(`${baseUri}.plus.md`);
     }
-  }, [contenuResultat.fichierPrecisionSurReponse]);
+  }, [contenuResultat.fichierPrecisionSurReponse, modifieProprietePrecisions]);
 
   const basculePlus = () =>
-    dispatch({
+    propageContenuPrecisions({
       type: "estAfficheAnnexe",
       value: !contenuPrecisions.estAfficheAnnexe,
     });

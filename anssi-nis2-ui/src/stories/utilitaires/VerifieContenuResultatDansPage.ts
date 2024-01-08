@@ -1,7 +1,7 @@
 import {
   BlocResultatSpecifiques,
   ContenusResultatEligibilite,
-} from "../../Services/Simulateur/Props/contenusResultatEligibilite";
+} from "../../Services/Simulateur/Props/ContenusResultatEligibilite.declaration.ts";
 import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 
