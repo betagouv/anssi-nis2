@@ -2,6 +2,7 @@ import { StoryObj } from "@storybook/react";
 import { ChargeurEtape } from "../../../../Components/Simulateur/ChargeurEtape.tsx";
 import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { nettoieBrMd } from "../../../../Services/Markdown/nettoieMarkdown.operation.ts";
 import {
   cliqueSurDebuterLeTest,
   cocheAuMoinsUnEtPasseEtape,
@@ -33,7 +34,9 @@ export const scenarioTypeEntitePublique: StoryObj<
   await passeEtape([["secteurActivite", "energie"]]);
   await passeEtape([["sousSecteurActivite", "autreSousSecteurEnergie"]]);
 
-  await canvas.findByText(contenusResultatEligiblePetitEntreprise.titre);
+  await canvas.findByText(
+    nettoieBrMd(contenusResultatEligiblePetitEntreprise.titre),
+  );
 
   await expect(mockSendFormData).toHaveBeenCalledTimes(1);
   await expect(mockSendFormData).toHaveBeenCalledWith(

@@ -1,3 +1,4 @@
+import { nettoieBrMd } from "../../Services/Markdown/nettoieMarkdown.operation.ts";
 import {
   BlocResultatSpecifiques,
   ContenusResultatEligibilite,
@@ -19,7 +20,10 @@ export const verifieContenuResultatDansPage = async (
     `span.${contenusResultat.classIcone}`,
   );
   expect(icone).toBeInTheDocument();
-  expect(canvas.getByText(contenusResultat.titre)).toBeInTheDocument();
+
+  expect(
+    canvas.getByText(nettoieBrMd(contenusResultat.titre)),
+  ).toBeInTheDocument();
   expect(
     canvasElement.querySelector("div.fr-nis2-resultat")?.className,
   ).toContain(contenusResultat.classeDivResultat);
