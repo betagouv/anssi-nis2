@@ -13,6 +13,10 @@ import React, { useMemo } from "react";
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
 import { transformeFournitServicesUnionEuropeennePourSelect } from "../../../Services/Simulateur/Transformateurs/TransformeFournitServicesUnionEuropeennePourSelect.ts";
 import { transformeLocalisationRepresentantPourSelect } from "../../../Services/Simulateur/Transformateurs/transformeLocalisationRepresentantPourSelect.ts";
+import {
+  texteQuestionLocalisastionRepresentant,
+  texteQuestionLocalisationActivite,
+} from "../../../References/LibellesQuestionsSimulateur.ts";
 
 const EtapeLocalisationActiviteSpecifiqueCalculee = ({
   donneesFormulaire,
@@ -50,20 +54,19 @@ const EtapeLocalisationActiviteSpecifiqueCalculee = ({
     () => donneesFormulaire.fournitServicesUnionEuropeenne?.includes("oui"),
     [donneesFormulaire],
   );
+
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
         <legend className="fr-text--medium">
-          Fournissez-vous des services numériques dans au moins un état membre
-          de l&apos;Union Européenne&nbsp;?
+          {texteQuestionLocalisationActivite}
         </legend>
         <RadioButtons options={optionsFournitServicesUnionEuropeenne} />
       </div>
       {estFournisseurServiceUnionEuropeenne && (
         <div className="fr-fieldset__element">
           <legend className="fr-text--medium">
-            Dans quel pays sera établi votre représentant dans l&apos;Union
-            Européenne&nbsp;?
+            {texteQuestionLocalisastionRepresentant}
           </legend>
           <RadioButtons options={optionsLocalisationRepresentant} />
         </div>

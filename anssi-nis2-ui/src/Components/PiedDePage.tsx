@@ -14,13 +14,13 @@ const PiedDePage = () => (
           </div>
           <div className="fr-footer__content">
             <p className="fr-footer__content-desc">
-              MonEspaceNIS2 aide les entités publiques et privées à sécuriser et
-              homologuer leurs services numériques au prisme des obligations de
-              la directive européenne NIS2.
+              MonEspaceNIS2 accompagne les entités publiques et privées qui
+              seront concernées par la directive européenne NIS 2 dans leur mise
+              en conformité
               <br />
               <br />
-              Il est développé par l’Agence nationale de la sécurité des
-              systèmes d’information, en lien avec BetaGouv de la Direction
+              Il est développé par l&apos;Agence nationale de la sécurité des
+              systèmes d&apos;information, en lien avec BetaGouv de la Direction
               interministérielle du numérique.
             </p>
             <ul className="fr-footer__content-list">
@@ -29,7 +29,7 @@ const PiedDePage = () => (
                   className="fr-footer__content-link"
                   target="_blank"
                   href="https://legifrance.gouv.fr"
-                  rel="noreferrer"
+                  rel="noreferrer noopener"
                 >
                   legifrance.gouv.fr
                 </a>
@@ -39,7 +39,7 @@ const PiedDePage = () => (
                   className="fr-footer__content-link"
                   target="_blank"
                   href="https://gouvernement.fr"
-                  rel="noreferrer"
+                  rel="noreferrer noopener"
                 >
                   gouvernement.fr
                 </a>
@@ -49,7 +49,7 @@ const PiedDePage = () => (
                   className="fr-footer__content-link"
                   target="_blank"
                   href="https://service-public.fr"
-                  rel="noreferrer"
+                  rel="noreferrer noopener"
                 >
                   service-public.fr
                 </a>
@@ -59,7 +59,7 @@ const PiedDePage = () => (
                   className="fr-footer__content-link"
                   target="_blank"
                   href="https://data.gouv.fr"
-                  rel="noreferrer"
+                  rel="noreferrer noopener"
                 >
                   data.gouv.fr
                 </a>
@@ -91,7 +91,7 @@ const PiedDePage = () => (
               <a
                 href="https://github.com/etalab/licence-ouverte/blob/master/LO.md"
                 target="_blank"
-                rel="noreferrer"
+                rel="noreferrer noopener"
               >
                 licence etalab-2.0
               </a>

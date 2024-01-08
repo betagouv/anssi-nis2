@@ -2,7 +2,7 @@ export const LogoUnionEuropeenneNIS2 = () => {
   return (
     <div className="fr-col-5 fr-nis2-logo-ue">
       <div className="fr-col--middle">
-        <p className="fr-h2">NIS&nbsp;2</p>
+        <p>NIS&nbsp;2</p>
       </div>
       <p>
         <span className="fr-text--bold">

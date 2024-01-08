@@ -1,5 +1,5 @@
 import { DefaultProps } from "../../Props";
-import { ContenusResultatEligibilite } from "./contenusResultatEligibilite";
+import { ContenusResultatEligibilite } from "./ContenusResultatEligibilite.declaration.ts";
 
 export interface SimulateurResultatProps extends DefaultProps {
   contenuResultat: ContenusResultatEligibilite;

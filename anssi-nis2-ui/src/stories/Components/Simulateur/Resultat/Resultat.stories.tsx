@@ -2,11 +2,11 @@ import { expect } from "@storybook/jest";
 import { within } from "@storybook/testing-library";
 
 import { Meta, StoryObj } from "@storybook/react";
-import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
-import { SimulateurEtapeResult } from "../../../Components/Simulateur/SimulateurEtapeResult.tsx";
+import { DonneesFormulaireSimulateur } from "../../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { SimulateurEtapeResult } from "../../../../Components/Simulateur/SimulateurEtapeResult.tsx";
 
-import { contenusResultats } from "../../../References/contenusResultatEligibilite.ts";
-import { verifieContenuResultatDansPage } from "../../utilitaires/VerifieContenuResultatDansPage.ts";
+import { contenusResultats } from "../../../../References/contenusResultatEligibilite.ts";
+import { verifieContenuResultatDansPage } from "../../../utilitaires/VerifieContenuResultatDansPage.ts";
 
 const archetypeDonneesFormulaire = new DonneesFormulaireSimulateur({
   designeOperateurServicesEssentiels: ["non"],
@@ -20,7 +20,7 @@ const archetypeDonneesFormulaire = new DonneesFormulaireSimulateur({
 });
 
 const meta: Meta<typeof SimulateurEtapeResult> = {
-  title: "Composants/Simulateur/ConteneursEtape",
+  title: "Composants/Simulateur/Résultat",
   component: SimulateurEtapeResult,
   args: {
     donneesFormulaire: archetypeDonneesFormulaire,

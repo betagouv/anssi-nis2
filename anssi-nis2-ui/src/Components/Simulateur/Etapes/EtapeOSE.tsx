@@ -1,4 +1,3 @@
-import { libellesDesigneOSE } from "../../../References/Libelles.ts";
 import { FormSimulateur } from "./index.ts";
 import React, { useMemo } from "react";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
@@ -6,6 +5,8 @@ import { fabriqueGestionChangementSimple } from "../../../Services/Simulateur/ge
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
 import { transformeReponsesDesigneOSEPourSelect } from "../../../Services/Simulateur/Transformateurs/TransformeReponsesDesigneOSEPourSelect.ts";
+import { texteQuestionOperateurServiceEssentiel } from "../../../References/LibellesQuestionsSimulateur.ts";
+import { libellesDesigneOSE } from "../../../References/Libelles.ts";
 
 const EtapeOSECalculee = ({
   donneesFormulaire,
@@ -23,17 +24,13 @@ const EtapeOSECalculee = ({
     [donneesFormulaire, changeSimple],
   );
 
-  const texteLegende = (
-    <>
-      Avez-vous été désigné opérateur de services essentiels (OSE) au titre de
-      NIS&nbsp;1 ?
-    </>
-  );
-
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
-        <RadioButtons legend={texteLegende} options={optionsMemorisees} />
+        <RadioButtons
+          legend={texteQuestionOperateurServiceEssentiel}
+          options={optionsMemorisees}
+        />
       </div>
     </FormSimulateur>
   );

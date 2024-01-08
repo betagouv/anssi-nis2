@@ -8,7 +8,7 @@ const BandeauQuiEstANSSI = () => (
     <div className="fr-nis2-qui-est-anssi fr-pt-10w fr-pb-13w">
       <div className={"fr-container"}>
         <div className="fr-grid-row--center">
-          <h2 className="fr-mb-7w">Qui est l’ANSSI ?</h2>
+          <h2 className="fr-mb-7w fr-h1">Qui est l’ANSSI ?</h2>
           <img src={AnssiLogo} alt="Logo ANSSI" className="fr-mb-6w" />
           <div className="fr-col-8 fr-col-offset-2">
             <p className="fr-text--lead fr-mb-2w">

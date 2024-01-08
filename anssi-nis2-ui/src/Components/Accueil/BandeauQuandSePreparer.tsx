@@ -9,7 +9,7 @@ const BandeauQuandSePreparer = () => {
       <div className="fr-bandeau-marianne fr-nis2-bandeau fr-py-10w">
         <div className={"fr-container"}>
           <div className="fr-grid-row--center">
-            <h2 className="fr-mb-7w">Quand se préparer ?</h2>
+            <h2 className="fr-mb-7w fr-h1">Quand se préparer ?</h2>
           </div>
           <div className="fr-grid-row">
             <div className="fr-col-5 calendrier">
@@ -19,14 +19,14 @@ const BandeauQuandSePreparer = () => {
               />
             </div>
             <div className="fr-col">
-              <p className="fr-text--lead fr-pb-4v">
+              <p className="fr-text--lead fr-py-4v fr-mb-2w">
                 La France a jusqu’au{" "}
                 <span className="fr-text--bold">17 octobre 2024</span> pour
                 transposer les obligations de cette directive dans le droit
                 national. Les délais de mise en conformité seront alors précisés
                 et débuteront au plus tard le 18 octobre 2024.
               </p>
-              <p className="fr-text--lead fr-text--bold fr-pb-4v">
+              <p className="fr-text--lead fr-text--bold fr-mb-4w">
                 Pour estimer rapidement si votre entité peut être concernée et
                 recevoir des informations concernant la directive, effectuez dès
                 à présent une simulation de l’ANSSI.

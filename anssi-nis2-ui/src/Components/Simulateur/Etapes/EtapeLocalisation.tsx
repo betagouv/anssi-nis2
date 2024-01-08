@@ -7,6 +7,10 @@ import React from "react";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
 import { transformePaysUnionEuropeennePourSelect } from "../../../Services/Simulateur/Transformateurs/TransformePaysUnionEuropeennePourSelect.ts";
+import {
+  texteQuestionMembreUE,
+  texteQuestionMembreUEIndication,
+} from "../../../References/LibellesQuestionsSimulateur.ts";
 
 const EtapeLocalisationCalculee = ({
   donneesFormulaire,
@@ -25,16 +29,12 @@ const EtapeLocalisationCalculee = ({
     [donneesFormulaire, gestionDonneesFormulaire],
   );
 
-  const texteLegende = (
-    <>Dans quel état membre de l’Union Européenne êtes-vous établi&nbsp;?</>
-  );
-  const texteIndication = <>Localisation du siège social.</>;
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
         <RadioButtons
-          legend={texteLegende}
-          hintText={texteIndication}
+          legend={texteQuestionMembreUE}
+          hintText={texteQuestionMembreUEIndication}
           options={options}
         />
       </div>

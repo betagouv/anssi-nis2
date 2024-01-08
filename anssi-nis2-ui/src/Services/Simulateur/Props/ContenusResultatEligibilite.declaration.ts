@@ -2,6 +2,7 @@ export type BlocResultatSpecifiques =
   | "etMaintenant"
   | "enSavoirPlus"
   | "bienDebuterAvecPdf";
+
 export type ContenusResultatEligibilite = {
   titre: string;
   sousTitre?: string;

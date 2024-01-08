@@ -7,22 +7,8 @@ import { useCallback, useMemo } from "react";
 import React from "react";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
-import { OptionsChampSimulateur } from "../../../Services/Simulateur/Props/optionChampSimulateur";
 import { transformeSecteursActiviteVersOptions } from "../../../Services/Simulateur/Transformateurs/TransformeSecteursActiviteVersOptions.ts";
-
-const CheckboxWrapper = ({
-  legend,
-  options,
-}: {
-  legend: string;
-  options: OptionsChampSimulateur;
-}) => {
-  return (
-    <div className="fr-fieldset__element">
-      {options && <Checkbox legend={legend} options={options} />}
-    </div>
-  );
-};
+import { texteQuestionSecteurActivites } from "../../../References/LibellesQuestionsSimulateur.ts";
 
 const EtapeSecteursActiviteCalculee = ({
   propageActionSimulateur,
@@ -52,10 +38,11 @@ const EtapeSecteursActiviteCalculee = ({
 
   return (
     <FormSimulateur>
-      <CheckboxWrapper
-        legend="Dans quels secteurs d’activités votre organisation produit-elle des biens et/ou des services ?"
-        options={options}
-      />
+      <div className="fr-fieldset__element">
+        {options && (
+          <Checkbox legend={texteQuestionSecteurActivites} options={options} />
+        )}
+      </div>
     </FormSimulateur>
   );
 };

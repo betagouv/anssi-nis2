@@ -1,7 +1,8 @@
+import { nettoieBrMd } from "../../Services/Markdown/nettoieMarkdown.operation.ts";
 import {
   BlocResultatSpecifiques,
   ContenusResultatEligibilite,
-} from "../../Services/Simulateur/Props/contenusResultatEligibilite";
+} from "../../Services/Simulateur/Props/ContenusResultatEligibilite.declaration.ts";
 import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 
@@ -19,7 +20,10 @@ export const verifieContenuResultatDansPage = async (
     `span.${contenusResultat.classIcone}`,
   );
   expect(icone).toBeInTheDocument();
-  expect(canvas.getByText(contenusResultat.titre)).toBeInTheDocument();
+
+  expect(
+    canvas.getByText(nettoieBrMd(contenusResultat.titre)),
+  ).toBeInTheDocument();
   expect(
     canvasElement.querySelector("div.fr-nis2-resultat")?.className,
   ).toContain(contenusResultat.classeDivResultat);

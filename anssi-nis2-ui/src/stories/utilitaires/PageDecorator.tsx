@@ -37,7 +37,11 @@ export const pageDecorator = (Story: StoryComponent) => {
   const router = createBrowserRouter([
     {
       path: "/*",
-      element: <Story />,
+      element: (
+        <>
+          <Story />
+        </>
+      ),
     },
   ]);
   return (

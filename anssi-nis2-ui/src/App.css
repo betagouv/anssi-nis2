@@ -1,12 +1,3 @@
-.fr-fieldset
-  .fr-fieldset__content
-  .fr-radio-group:not(.fr-radio-rich)
-  input[type="radio"]
-  + label {
-  background-position: calc(-0.25rem + 1px) calc(0.25rem + 1px),
-    calc(-0.25rem + 1px) calc(0.25rem + 1px);
-}
-
 .fr-bandeau-marianne {
   background-color: #101070;
   color: var(--dark-text-title-grey, #fff);
@@ -30,6 +21,7 @@
 }
 
 .fr-nis2-mise-en-avant {
+  width: -moz-fit-content;
   width: fit-content;
   background: var(--Yellow, #fdc82e);
   padding: 0.5rem 1rem;
@@ -38,11 +30,7 @@
 }
 
 .fr-nis2-accueil-principal {
-  background-image: url(assets/marches.svg);
-  background-position-x: right;
-  background-position-y: top;
-  background-repeat: no-repeat;
-  padding-bottom: 305px;
+  height: 720px;
 
   .fr-nis2-appel-action {
     & h1 {
@@ -53,34 +41,32 @@
     }
 
     & p {
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       font-weight: 500;
-      line-height: 166.667%;
+      line-height: 2.5rem;
     }
   }
 }
 
 .fr-nis2-suis-je-concerne {
-  text-align: center;
-  padding: 0 7.5rem 0 7.5rem;
-
-  & h2 {
-    color: #272771;
-  }
-
   .fr-nis2-flottant {
+    & h2 {
+      color: #272771;
+    }
+
+    text-align: center;
     position: relative;
     padding: 3.5rem 0 4.5rem 0;
     background-color: #fff;
-    margin-top: -228px;
+    margin-top: -250px;
     height: 296px;
   }
 }
 
 .fr-nis2-accueil-directive-europeenne {
   background: #f5f5fe;
-  margin-top: -296px;
-  padding-top: 200px;
+  margin-top: -230px;
+  padding-top: 100px;
   z-index: initial;
 
   & h2 {
@@ -109,6 +95,9 @@
       margin-bottom: 0;
       left: 205px;
       top: 180px;
+      font-size: 2.625rem;
+      line-height: 3.125rem;
+      font-weight: 700;
     }
 
     & > p {
@@ -121,6 +110,7 @@
 
     & h3 {
       color: #272771;
+      width: -moz-fit-content;
       width: fit-content;
       text-align: center;
       margin-left: auto;
@@ -206,6 +196,10 @@
   content: "";
 }
 
+.fr-nis2-form {
+  margin-top: 2rem;
+}
+
 .fr-nis2-icone-16px {
   padding-left: 0.5rem;
   float: right;
@@ -213,6 +207,10 @@
 
 .fr-nis2-icone-16px::before {
   --icon-size: 1.125rem;
+}
+
+.fr-icon-hand {
+  cursor: pointer;
 }
 
 .fr-nis2-infobulle {
@@ -296,6 +294,13 @@ legend.fr-text--medium {
 }
 
 .fr-nis2-resultat {
+  & h4 {
+    text-align: center;
+    margin: 1rem 0 0 0;
+    padding: 0;
+    line-height: 2.25rem;
+  }
+
   &.fr-nis2-eligible {
     background-color: var(--green-menthe-975-75);
   }
@@ -402,6 +407,26 @@ legend.fr-text--medium {
   & li {
     margin-bottom: 0.25rem;
   }
+
+  & i::before {
+    vertical-align: middle;
+    margin-left: 0.5rem;
+    height: 1rem;
+    width: 1rem;
+  }
+
+  & button {
+    color: var(--light-text-action-high-blue-france, #000091);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.fr-nis2-hidden {
+  display: none;
 }
 
 .fr-nis2-en-cours-developpement {
@@ -469,5 +494,28 @@ legend.fr-text--medium {
   }
 }
 
-.fr-nis2-restez-informes {
+.fr-input,
+.fr-checkbox-group input[type="checkbox"] + label::before {
+  background-color: #fff;
+}
+
+.fr-radio-group input[type="radio"] + label {
+  background-image: radial-gradient(
+    #fff 10px,
+    var(--background-action-high-blue-france) 11px,
+    transparent 12px
+  );
+}
+
+.fr-radio-group input[type="radio"]:checked + label {
+  background-image: radial-gradient(
+      transparent 10px,
+      var(--background-action-high-blue-france) 11px,
+      transparent 12px
+    ),
+    radial-gradient(transparent 7px, #fff 8px, transparent 9px),
+    radial-gradient(
+      var(--background-action-high-blue-france) 5px,
+      transparent 6px
+    );
 }

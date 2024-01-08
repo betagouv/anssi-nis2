@@ -1,14 +1,15 @@
-import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { StoryObj } from "@storybook/react";
+import { within } from "@storybook/testing-library";
+import { DonneesFormulaireSimulateur } from "../../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { ChargeurEtape } from "../../../../Components/Simulateur/ChargeurEtape.tsx";
+import { contenusResultatEligiblePetitEntreprise } from "../../../../References/contenusResultatEligibilite.ts";
+import { nettoieBrMd } from "../../../../Services/Markdown/nettoieMarkdown.operation.ts";
+import { mockSendFormData } from "../../../utilitaires/mocks.ts";
 import {
   cliqueSurDebuterLeTest,
   cocheAuMoinsUnEtPasseEtape,
 } from "../../../utilitaires/Simulateur.actions.ts";
-import { mockSendFormData } from "../../../utilitaires/mocks.ts";
-import { contenusResultatEligiblePetitEntreprise } from "../../../../References/contenusResultatEligibilite.ts";
-import { DonneesFormulaireSimulateur } from "../../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
-import { StoryObj } from "@storybook/react";
-import { ChargeurEtape } from "../../../../Components/Simulateur/ChargeurEtape.tsx";
 
 export const scenarioDerniereEtapeEstResultat: StoryObj<
   typeof ChargeurEtape
@@ -36,7 +37,9 @@ export const scenarioDerniereEtapeEstResultat: StoryObj<
     ],
   ]);
 
-  await canvas.findByText(contenusResultatEligiblePetitEntreprise.titre);
+  await canvas.findByText(
+    nettoieBrMd(contenusResultatEligiblePetitEntreprise.titre),
+  );
 
   await expect(mockSendFormData).toHaveBeenCalledTimes(1);
   await expect(mockSendFormData).toHaveBeenCalledWith(

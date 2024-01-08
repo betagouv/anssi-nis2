@@ -1,11 +1,11 @@
 import { ResultatEligibilite } from "../../../commun/core/src/Domain/Simulateur/Eligibilite.definitions.ts";
-import { ContenusResultatEligibilite } from "../Services/Simulateur/Props/contenusResultatEligibilite";
+import { ContenusResultatEligibilite } from "../Services/Simulateur/Props/ContenusResultatEligibilite.declaration.ts";
 
 export const contenusResultatEligiblePetitEntreprise: ContenusResultatEligibilite =
   {
     classeDivResultat: "fr-nis2-eligible",
     classIcone: "fr-icon-check-line",
-    titre: "La directive s'appliquerait à votre entité",
+    titre: "Votre entité serait régulée  \npar la directive NIS 2",
     fichierPrecisionSurReponse: "precisionsSurReponsePositive",
     modeFormulaireEmail: "complet",
     afficheBlocs: {
@@ -26,7 +26,7 @@ export const contenusResultatEligibleGrandeEntreprise: ContenusResultatEligibili
 export const contenusResultatNonEligible: ContenusResultatEligibilite = {
   classeDivResultat: "fr-nis2-non-eligible",
   classIcone: "fr-icon-close-line",
-  titre: "La directive ne s'appliquerait pas à votre entité",
+  titre: "Votre entité ne serait pas régulée  \npar la directive NIS 2",
   fichierPrecisionSurReponse: "precisionsSurReponseNegative",
   modeFormulaireEmail: "simple",
   afficheBlocs: {

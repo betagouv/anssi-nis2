@@ -11,15 +11,15 @@ const RestezInformes: DefaultComponentExtensible<RestezInformesProps> = ({
   const [emailEnregistre, setEmailEnregistre] = useState(false);
 
   return (
-    <div className="fr-container fr-nis2-restez-informes">
+    <div className="fr-container">
       <h2 className="fr-text-action-high--blue-france fr-h1">
         Restez informés
       </h2>
       <p className="fr-text">
-        Nous déploierons dans les mois à venir un panel d’outils pour faciliter
-        l’accompagnement des organisations régulées, à commencer par évolutions
-        du contexte réglementaire et ce que devra faire votre entité pour se
-        protéger des cyber-menaces.
+        Nous déploierons dans les mois à venir un panel d&apos;outils pour
+        faciliter l&apos;accompagnement des organisations régulées, à commencer
+        par évolutions du contexte réglementaire et ce que devra faire votre
+        entité pour se protéger des cyber-menaces.
       </p>
       {emailEnregistre && (
         <p>
