@@ -65,15 +65,19 @@ export const LigneResultat: DefaultComponentExtensible<
               {contenuPrecisions.principal}
             </Markdown>
 
-            <Markdown
-              components={decaleTitre4Niveaux}
-              className={statusAfficheAnnexe.affichePlus}
-            >
-              {contenuPrecisions.annexe}
-            </Markdown>
-            <button onClick={basculePlus}>
-              {statusAfficheAnnexe.libelleBouton}
-            </button>
+            {contenuPrecisions.annexe !== "" && (
+              <>
+                <Markdown
+                  components={decaleTitre4Niveaux}
+                  className={statusAfficheAnnexe.affichePlus}
+                >
+                  {contenuPrecisions.annexe}
+                </Markdown>
+                <button onClick={basculePlus}>
+                  {statusAfficheAnnexe.libelleBouton}
+                </button>
+              </>
+            )}
           </div>
         )}
       </CenteredContainer>

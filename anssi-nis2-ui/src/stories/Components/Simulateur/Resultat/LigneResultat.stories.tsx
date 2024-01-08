@@ -5,6 +5,7 @@ import { LigneResultat } from "../../../../Components/Simulateur/Resultats/Ligne
 import {
   contenusResultatEligibleGrandeEntreprise,
   contenusResultatEligiblePetitEntreprise,
+  contenusResultatIncertain,
   contenusResultatNonEligible,
 } from "../../../../References/contenusResultatEligibilite.ts";
 
@@ -76,5 +77,21 @@ export const LigneResultatNonEligible: Story = {
       await canvas.queryByText("Critères de possible inclusion"),
     ).not.toBeVisible();
     await canvas.findByText("Plus d'informations");
+  },
+};
+
+export const LigneResultatIncertain: Story = {
+  args: {
+    contenuResultat: contenusResultatIncertain,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    expect(
+      await canvas.queryByText("Plus d'informations"),
+    ).not.toBeInTheDocument();
+    expect(
+      await canvas.queryByText("Moins d'informations"),
+    ).not.toBeInTheDocument();
   },
 };
