@@ -13,6 +13,8 @@ import {
   ActionPrecisionsResultat,
   EtatPrecisionsResultat,
 } from "./PrecisionsResultat.declarations.ts";
+import resultatOK from "../../../References/Documents/precisionsSurReponsePositive.md";
+import resultatOKPlus from "../../../References/Documents/precisionsSurReponsePositive.plus.md";
 
 export const LigneResultat: DefaultComponentExtensible<
   SimulateurResultatProps
@@ -61,9 +63,7 @@ export const LigneResultat: DefaultComponentExtensible<
         </div>
         {contenuResultat.fichierPrecisionSurReponse && (
           <div className="fr-px-4w fr-py-3w fr-nis2-resultat-explications">
-            <Markdown components={decaleTitre4Niveaux}>
-              {contenuPrecisions.principal}
-            </Markdown>
+            <Markdown components={decaleTitre4Niveaux}>{resultatOK}</Markdown>
 
             {contenuPrecisions.annexe !== "" && (
               <>
@@ -71,7 +71,7 @@ export const LigneResultat: DefaultComponentExtensible<
                   components={decaleTitre4Niveaux}
                   className={statusAfficheAnnexe.affichePlus}
                 >
-                  {contenuPrecisions.annexe}
+                  {resultatOKPlus}
                 </Markdown>
                 <button onClick={basculePlus}>
                   {statusAfficheAnnexe.libelleBouton}

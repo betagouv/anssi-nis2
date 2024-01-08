@@ -1,5 +1,7 @@
+// noinspection TypeScriptValidateJSTypes - Incompatibilité des selecteurs testing-library (any) et des string
+
 import { expect } from "@storybook/jest";
-import { within } from "@storybook/testing-library";
+import { waitFor, within } from "@storybook/testing-library";
 
 import { Meta, StoryObj } from "@storybook/react";
 import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
@@ -19,9 +21,27 @@ const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
   activites: ["fournisseursDistributeursEauxConsommation"],
 });
 
+// const mockRemplitContenuMarkdown: RemplitContenuMarkdownOperation =
+//   <TEtat, TAction extends ActionSurEtat<TEtat>>(
+//     dispatch: React.Dispatch<TAction>,
+//   ) =>
+//   (typeChamp: keyof TEtat) =>
+//   () => {
+//     dispatch(fabriqueAction(typeChamp, "toto"));
+//     return new Promise(() => "");
+//   };
+
 const meta: Meta<typeof SimulateurEtapeResult> = {
   title: "Composants/Simulateur/Résultat",
   component: SimulateurEtapeResult,
+  // decorators: [
+  //   genereDecorateurPourContexte({
+  //     ...defaultContext,
+  //     contenu: {
+  //       remplitContenuMarkdown: mockRemplitContenuMarkdown,
+  //     },
+  //   }),
+  // ],
   args: {
     donneesFormulaire: archetypeDonneesFormulaire,
   },
@@ -29,6 +49,8 @@ const meta: Meta<typeof SimulateurEtapeResult> = {
 
 export default meta;
 type Story = StoryObj<typeof SimulateurEtapeResult>;
+
+const pointsDAttention = "Points d'attention";
 
 export const ResultatEligibleOSE: Story = {
   args: {
@@ -45,7 +67,9 @@ export const ResultatEligibleOSE: Story = {
       canvasElement,
       contenusResultats.EligiblePetiteEntreprise,
     );
-    expect(await canvas.findByText("Points d'attention")).toBeInTheDocument();
+    await waitFor(async () => canvas.queryByText(pointsDAttention));
+
+    expect(await canvas.findByText(pointsDAttention)).toBeInTheDocument();
 
     await canvas.findByText("Et Maintenant ?");
   },
@@ -69,8 +93,9 @@ export const ResultatEligiblePetiteEntreprise: Story = {
       canvasElement,
       contenusResultats.EligiblePetiteEntreprise,
     );
+    await waitFor(async () => canvas.queryByText(pointsDAttention));
 
-    const titrePrecisions = await canvas.findByText("Points d'attention");
+    const titrePrecisions = await canvas.findByText(pointsDAttention);
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H4");
 
@@ -96,8 +121,9 @@ export const ResultatEligibleGrandeEntreprise: Story = {
       canvasElement,
       contenusResultats.EligibleMoyenneGrandeEntreprise,
     );
+    await waitFor(async () => canvas.queryByText(pointsDAttention));
 
-    const titrePrecisions = await canvas.findByText("Points d'attention");
+    const titrePrecisions = await canvas.findByText(pointsDAttention);
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H4");
 
@@ -127,8 +153,12 @@ export const ResultatNonEligible: Story = {
       contenusResultats.NonEligible,
     );
 
+    const criteresDePossibleInclusion = "Critères de possible inclusion";
+
+    await waitFor(async () => canvas.queryByText(criteresDePossibleInclusion));
+
     const titrePrecisions = await canvas.findByText(
-      "Critères de possible inclusion",
+      criteresDePossibleInclusion,
     );
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H5");

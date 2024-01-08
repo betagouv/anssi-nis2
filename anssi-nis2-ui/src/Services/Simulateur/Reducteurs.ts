@@ -8,6 +8,7 @@ import {
   SousSecteurActivite,
 } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import React, { Reducer } from "react";
+import { ValeurChampSimulateur } from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { fabriqueDonneesFormulaire } from "../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
 import { fabriqueSecteurContientLeSousSecteur } from "../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.operations.ts";
 
@@ -15,48 +16,55 @@ import { entreesLibellesSousSecteurs } from "../../References/LibellesSousSecteu
 import { gestionnairesPourChamps } from "./gestionnaires.ts";
 import { BoutonsNavigation } from "./Props/boutonsNavigation";
 
-import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
+import {
+  SimulateurDonneesFormulaireActions,
+  SimulateurDonneesFormulaireActionType,
+} from "./Props/donneesFormulaire";
 import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
 import { transformateurSousSecteurActivite } from "./Transformateurs/TransformateurSousSecteurActivite.ts";
 
-const generateNewStateFrom: (
+const fabriqueDonneesFormulaireSimulateurSimple = (
   state: DonneesFormulaireSimulateur,
-  fieldName: NomsChampsSimulateur,
-  newFieldValue: string[],
-) => DonneesFormulaireSimulateur = (
-  state: DonneesFormulaireSimulateur,
-  fieldName: NomsChampsSimulateur,
-  newFieldValue: string[],
+  name: NomsChampsSimulateur,
+  newValue: ValeurChampSimulateur,
 ) =>
   fabriqueDonneesFormulaire({
     ...state,
-    [fieldName]: newFieldValue,
+    [name]: [newValue],
   });
 
-export const reducerFormData: Reducer<
-  DonneesFormulaireSimulateur,
-  SimulateurDonneesFormulaireActions
-> = (state, { name, newValue, type }) => {
-  switch (type) {
-    case "checkSingle":
-      return generateNewStateFrom(state, name, [newValue]);
-    case "checkMulti":
-      return generateNewStateFrom(
-        state,
-        name,
-        gestionnairesPourChamps(name)(newValue, state),
-      );
-    default:
-      throw Error(`Unknown action: ${type}`);
-  }
+const fabriqueDonneesFormulaireSimulateurMulti = (
+  state: DonneesFormulaireSimulateur,
+  name: NomsChampsSimulateur,
+  newValue: ValeurChampSimulateur,
+) =>
+  fabriqueDonneesFormulaire({
+    ...state,
+    [name]: gestionnairesPourChamps(name)(newValue, state),
+  });
+
+const actionsFabriqueDonneesFormulaire: Record<
+  SimulateurDonneesFormulaireActionType,
+  (
+    state: DonneesFormulaireSimulateur,
+    name: NomsChampsSimulateur,
+    newValue: ValeurChampSimulateur,
+  ) => DonneesFormulaireSimulateur
+> = {
+  checkMulti: fabriqueDonneesFormulaireSimulateurMulti,
+  checkSingle: fabriqueDonneesFormulaireSimulateurSimple,
 };
 
-export class ActionsBoutonNavigation {
-  constructor(
-    public readonly bouton: "precedent" | "suivant",
-    public readonly newHandler: React.MouseEventHandler,
-  ) {}
-}
+export const reduitDonneesFormulaire: Reducer<
+  DonneesFormulaireSimulateur,
+  SimulateurDonneesFormulaireActions
+> = (state, { name, newValue, type }) =>
+  actionsFabriqueDonneesFormulaire[type](state, name, newValue);
+
+export type ActionsBoutonNavigation = {
+  readonly bouton: "precedent" | "suivant";
+  readonly newHandler: React.MouseEventHandler;
+};
 
 export const reducerBoutons: Reducer<
   BoutonsNavigation,

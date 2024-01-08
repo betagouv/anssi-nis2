@@ -1,6 +1,8 @@
+// noinspection TypeScriptValidateJSTypes - Incompatibilité des selecteurs testing-library (any) et des string
+
 import { expect } from "@storybook/jest";
 import { Meta, StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/testing-library";
+import { userEvent, waitFor, within } from "@storybook/testing-library";
 import { LigneResultat } from "../../../../Components/Simulateur/Resultats/LigneResultat.tsx";
 import {
   contenusResultatEligibleGrandeEntreprise,
@@ -24,14 +26,17 @@ export const LigneResultatPetiteEntreprise: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    expect(await canvas.findByText("REC")).not.toBeVisible();
+    const texteEnAnnexe = "REC";
+    await waitFor(async () => canvas.queryByText(texteEnAnnexe));
+    expect(await canvas.findByText(texteEnAnnexe)).not.toBeVisible();
 
     await userEvent.click(await canvas.findByText("Plus d'informations"));
-    await expect(await canvas.findByText("REC")).toBeVisible();
+    await expect(canvas.queryByText(texteEnAnnexe)).toBeVisible();
+
     const moinsInformations = await canvas.findByText("Moins d'informations");
     await expect(moinsInformations).toBeVisible();
     await userEvent.click(moinsInformations);
-    await expect(await canvas.queryByText("REC")).not.toBeVisible();
+    await expect(canvas.queryByText(texteEnAnnexe)).not.toBeVisible();
     await canvas.findByText("Plus d'informations");
   },
 };
@@ -43,14 +48,17 @@ export const LigneResultatMoyenneGrandeEntreprise: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    expect(await canvas.findByText("REC")).not.toBeVisible();
+    const texteEnAnnexe = "REC";
+    await waitFor(async () => canvas.queryByText(texteEnAnnexe));
+    expect(await canvas.findByText(texteEnAnnexe)).not.toBeVisible();
 
     await userEvent.click(await canvas.findByText("Plus d'informations"));
-    await expect(await canvas.findByText("REC")).toBeVisible();
+    await expect(canvas.queryByText(texteEnAnnexe)).toBeVisible();
+
     const moinsInformations = await canvas.findByText("Moins d'informations");
     await expect(moinsInformations).toBeVisible();
     await userEvent.click(moinsInformations);
-    await expect(await canvas.queryByText("REC")).not.toBeVisible();
+    await expect(canvas.queryByText(texteEnAnnexe)).not.toBeVisible();
     await canvas.findByText("Plus d'informations");
   },
 };
@@ -62,20 +70,17 @@ export const LigneResultatNonEligible: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    expect(
-      await canvas.findByText("Critères de possible inclusion"),
-    ).not.toBeVisible();
+    const texteEnAnnexe = "Critères de possible inclusion";
+    await waitFor(async () => canvas.queryByText(texteEnAnnexe));
+    expect(await canvas.findByText(texteEnAnnexe)).not.toBeVisible();
 
     await userEvent.click(await canvas.findByText("Plus d'informations"));
-    await expect(
-      await canvas.findByText("Critères de possible inclusion"),
-    ).toBeVisible();
+    await expect(canvas.queryByText(texteEnAnnexe)).toBeVisible();
+
     const moinsInformations = await canvas.findByText("Moins d'informations");
     await expect(moinsInformations).toBeVisible();
     await userEvent.click(moinsInformations);
-    await expect(
-      await canvas.queryByText("Critères de possible inclusion"),
-    ).not.toBeVisible();
+    await expect(canvas.queryByText(texteEnAnnexe)).not.toBeVisible();
     await canvas.findByText("Plus d'informations");
   },
 };
@@ -87,11 +92,11 @@ export const LigneResultatIncertain: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    expect(
-      await canvas.queryByText("Plus d'informations"),
+    await expect(
+      canvas.queryByText("Plus d'informations"),
     ).not.toBeInTheDocument();
-    expect(
-      await canvas.queryByText("Moins d'informations"),
+    await expect(
+      canvas.queryByText("Moins d'informations"),
     ).not.toBeInTheDocument();
   },
 };
