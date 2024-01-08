@@ -26,9 +26,9 @@ import { uniquementDesSousSecteursAutres } from "../SousSecteurActivite/SousSect
 const verifAuMoinsUn = {
   activiteListee: <
     T extends DonneesSectorielles &
-      Pick<DonneesFormulaireSimulateur, "activites">,
+      Pick<DonneesFormulaireSimulateur, "activites">
   >(
-    donnees: T,
+    donnees: T
   ): donnees is T => auMoinsUneActiviteListee(donnees.activites),
 };
 
@@ -40,9 +40,9 @@ export const predicatDonneesFormulaire = {
   uniquement: {
     activiteAutre: <
       T extends DonneesSectorielles &
-        Pick<DonneesFormulaireSimulateur, "activites">,
+        Pick<DonneesFormulaireSimulateur, "activites">
     >(
-      donnees: T,
+      donnees: T
     ) => donnees.activites.every(estActiviteAutre),
   },
 };
@@ -51,11 +51,11 @@ export const verifieCompletudeDonneesCommunes = et(
   exactementUn("etatMembre"),
   exactementUn("trancheNombreEmployes"),
   exactementUn("typeStructure"),
-  auMoinsUn("secteurActivite"),
+  auMoinsUn("secteurActivite")
 );
 
 export const verifieDonneesCommunesPrivee: (
-  donnees: DonneesFormulaireSimulateur,
+  donnees: DonneesFormulaireSimulateur
 ) => boolean = isMatching({
   trancheCA: [P._],
   typeStructure: ["privee"],
@@ -69,7 +69,7 @@ const contientSecteurALocaliser = isMatching({
   secteurActivite: ["infrastructureNumerique"],
   activites: P.union(
     ["fournisseurServicesDNS"],
-    ["registresNomsDomainesPremierNiveau"],
+    ["registresNomsDomainesPremierNiveau"]
   ),
 });
 
@@ -87,8 +87,8 @@ export const contientSecteursLocalisesValides = oux(
   non(contientSecteurALocaliser),
   et(
     contientSecteurALocaliser,
-    ou(neFournitPasDeServiceDansUE, fournitServiceUEBienRemplit),
-  ),
+    ou(neFournitPasDeServiceDansUE, fournitServiceUEBienRemplit)
+  )
 );
 
 const contientUniquementSecteurAutre = isMatching({
@@ -110,27 +110,27 @@ export const verifieDonneesSectorielles = et(
   ou(
     contientUniquementSecteurAutre,
     contientUniquementSousSecteurAutre,
-    contientSectorielleComplete,
+    contientSectorielleComplete
   ),
-  contientSecteursLocalisesValides,
+  contientSecteursLocalisesValides
 );
 
 export const verifieCompletudeDonneesFormulairePrivee = et(
   verifieDonneesCommunesPrivee,
-  verifieDonneesSectorielles,
+  verifieDonneesSectorielles
 );
 export const verifieCompletudeDonneesFormulairePublique = et(
   verifieDonneesCommunesPublique,
-  verifieDonneesSectorielles,
+  verifieDonneesSectorielles
 );
 export const donneesFormulaireSontCompletes = et(
   verifieCompletudeDonneesCommunes,
   ou(
     verifieCompletudeDonneesFormulairePrivee,
-    verifieCompletudeDonneesFormulairePublique,
-  ),
+    verifieCompletudeDonneesFormulairePublique
+  )
 );
 
 export const donneesFormulaireSontIncompletes = non(
-  donneesFormulaireSontCompletes,
+  donneesFormulaireSontCompletes
 );
