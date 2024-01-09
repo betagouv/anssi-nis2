@@ -8,3 +8,8 @@ export const ValeursPrecisionsResultatNonRegule = [
   "Standard",
   "HorsUnionEuropeenne",
 ] as const;
+
+export const ValeursPrecisionsResultatIncertain = [
+  "Standard",
+  "AutrePaysUnionEuropeenne",
+] as const;

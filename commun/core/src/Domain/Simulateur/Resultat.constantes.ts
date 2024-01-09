@@ -7,5 +7,6 @@ export const PrecisionsResultat: Record<PrecisionResultat, PrecisionResultat> =
     ReguleEnregistrementDeNomsDeDomaine: "ReguleEnregistrementDeNomsDeDomaine",
     NonReguleStandard: "NonReguleStandard",
     NonReguleHorsUnionEuropeenne: "NonReguleHorsUnionEuropeenne",
-    Incertain: "Incertain",
+    IncertainStandard: "IncertainStandard",
+    IncertainAutrePaysUnionEuropeenne: "IncertainAutrePaysUnionEuropeenne",
   };

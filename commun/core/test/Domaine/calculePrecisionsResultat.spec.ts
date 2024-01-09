@@ -15,7 +15,7 @@ describe(calculePrecisionsResultat, () => {
     it("Renvoie une précision Incertain un résultat Incertain", () => {
       verifieQue(calculePrecisionsResultatIncertain)
         .pour(donneesFormulaireSimulateurVide)
-        .renvoieToujours(PrecisionsResultat.Incertain);
+        .renvoieToujours(PrecisionsResultat.IncertainStandard);
     });
   });
 

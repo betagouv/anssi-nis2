@@ -4,7 +4,13 @@ import { RegulationEntite } from "./Regulation.definitions";
 import { PrecisionsResultat } from "./Resultat.constantes";
 import { PrecisionResultat } from "./Resultat.declarations";
 
-const calculePrecisionResultatIncertain = () => PrecisionsResultat.Incertain;
+const calculePrecisionResultatIncertain = (d: DonneesFormulaireSimulateur) =>
+  match(d)
+    .with(
+      { etatMembre: ["autre"] },
+      () => PrecisionsResultat.IncertainAutrePaysUnionEuropeenne,
+    )
+    .otherwise(() => PrecisionsResultat.IncertainStandard);
 
 const calculePrecisionsResultatRegule = (d: DonneesFormulaireSimulateur) =>
   match(d)

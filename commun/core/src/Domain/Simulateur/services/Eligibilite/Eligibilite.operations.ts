@@ -1,4 +1,4 @@
-import { isMatching, match, P } from "ts-pattern";
+import { match, P } from "ts-pattern";
 import { R } from "../../Eligibilite.constantes";
 import {
   aucuneActiviteInfraNumConcernee,
@@ -126,7 +126,3 @@ export const calculeEligibilite: OperationCalculeEligibilite = (donnees) =>
     )
     .with({ typeStructure: ["privee"] }, calculeEligibiliteStructurePrivee)
     .otherwise(R.Incertain);
-
-export const estOperateurServicesEssentiels = isMatching({
-  designeOperateurServicesEssentiels: ["oui"],
-});
