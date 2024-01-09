@@ -4,7 +4,7 @@ export const PrecisionsResultat: Record<PrecisionResultat, PrecisionResultat> =
   {
     ReguleStandard: "ReguleStandard",
     ReguleDORA: "ReguleDORA",
-    ReguleEnregistrementNomsDeDomaine: "ReguleEnregistrementNomsDeDomaine",
+    ReguleEnregistrementDeNomsDeDomaine: "ReguleEnregistrementDeNomsDeDomaine",
     NonReguleStandard: "NonReguleStandard",
     NonReguleHorsUnionEuropeenne: "NonReguleHorsUnionEuropeenne",
     Incertain: "Incertain",

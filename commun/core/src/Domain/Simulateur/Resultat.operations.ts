@@ -14,7 +14,7 @@ const calculePrecisionsResultatRegule = (d: DonneesFormulaireSimulateur) =>
     )
     .with(
       { activites: ["registresNomsDomainesPremierNiveau"] },
-      () => PrecisionsResultat.ReguleEnregistrementNomsDeDomaine,
+      () => PrecisionsResultat.ReguleEnregistrementDeNomsDeDomaine,
     )
     .otherwise(() => PrecisionsResultat.ReguleStandard);
 

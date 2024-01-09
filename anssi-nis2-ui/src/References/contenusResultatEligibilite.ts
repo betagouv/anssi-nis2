@@ -9,6 +9,7 @@ import resultatKOComplet from "./Documents/precisionsSurReponseNegative.md";
 import resultatOKComplet from "./Documents/precisionsSurReponsePositive.md";
 import PrecisionsResultatReguleStandard from "./Documents/PrecisionsResultat.ReguleStandard.md";
 import PrecisionsResultatReguleDORA from "./Documents/PrecisionsResultat.ReguleDora.md";
+import PrecisionsResultatReguleEnregistrementDeNomsDeDomaine from "./Documents/PrecisionsResultat.ReguleEnregistrementDeNomsDeDomaine.md";
 import PrecisionsResultatNonReguleStandard from "./Documents/PrecisionsResultat.NonReguleStandard.md";
 
 const precisionsResultatVide: PrecisionsResultat = {
@@ -35,8 +36,8 @@ export const precisionPourResultat: Record<
     PrecisionsResultatNonReguleStandard,
   ),
   ReguleDORA: fabriquePrecisionsResultat(PrecisionsResultatReguleDORA),
-  ReguleEnregistrementNomsDeDomaine: fabriquePrecisionsResultat(
-    PrecisionsResultatReguleStandard,
+  ReguleEnregistrementDeNomsDeDomaine: fabriquePrecisionsResultat(
+    PrecisionsResultatReguleEnregistrementDeNomsDeDomaine,
   ),
   ReguleStandard: fabriquePrecisionsResultat(PrecisionsResultatReguleStandard),
 };

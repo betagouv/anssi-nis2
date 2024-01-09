@@ -10,7 +10,7 @@ import { verifieQue } from "../utilitaires/assure";
 describe(calculePrecisionsResultat, () => {
   describe(Regulation.Incertain, () => {
     const calculePrecisionsResultatIncertain = calculePrecisionsResultat(
-      Regulation.Incertain
+      Regulation.Incertain,
     );
     it("Renvoie une précision Incertain un résultat Incertain", () => {
       verifieQue(calculePrecisionsResultatIncertain)
@@ -21,7 +21,7 @@ describe(calculePrecisionsResultat, () => {
 
   describe(Regulation.Regule, () => {
     const calculePrecisionsResultatRegule = calculePrecisionsResultat(
-      Regulation.Regule
+      Regulation.Regule,
     );
     it("Renvoie une précision Regulé Standard par défaut pour un résultat Regulé", () => {
       verifieQue(calculePrecisionsResultatRegule)
@@ -43,13 +43,15 @@ describe(calculePrecisionsResultat, () => {
       });
       verifieQue(calculePrecisionsResultatRegule)
         .pour(donneesFormulaireSimulateur)
-        .renvoieToujours(PrecisionsResultat.ReguleEnregistrementNomsDeDomaine);
+        .renvoieToujours(
+          PrecisionsResultat.ReguleEnregistrementDeNomsDeDomaine,
+        );
     });
   });
 
   describe(Regulation.NonRegule, () => {
     const calculePrecisionsResultatNonRegule = calculePrecisionsResultat(
-      Regulation.NonRegule
+      Regulation.NonRegule,
     );
     it("Precise un résultat enregistrement nom de domaine", () => {
       verifieQue(calculePrecisionsResultatNonRegule)

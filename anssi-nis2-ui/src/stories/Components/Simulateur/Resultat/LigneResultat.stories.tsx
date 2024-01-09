@@ -75,7 +75,20 @@ export const LigneResultatDORA: Story = {
     const canvas = within(canvasElement);
 
     const texteEnAnnexe = "DORA";
-    await waitFor(async () => canvas.queryByText(texteEnAnnexe));
+    await canvas.findByText(texteEnAnnexe);
+  },
+};
+
+export const LigneResultatEnregistrementDeNomsDeDomaines: Story = {
+  args: {
+    contenuResultat: contenusResultatEligibleGrandeEntreprise,
+    precisionResultat: PrecisionsResultat.ReguleEnregistrementDeNomsDeDomaine,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const texteEnAnnexe = "Enregistrement de noms de domaines";
+    await canvas.findByText(texteEnAnnexe);
   },
 };
 

@@ -13,17 +13,17 @@ export const Regulation: Record<RegulationEntite, RegulationEntite> = {
 };
 
 export type ResultatRegulationPositif = {
-  decision: "Regule";
+  decision: typeof Regulation.Regule;
   causes: CausesRegulation;
   donnees: DonneesFormulaireSimulateur;
 };
 
 export type ResultatIncertain = {
-  decision: "Incertain";
+  decision: typeof Regulation.Incertain;
 };
 
 export type ResultatRegulationNonRegule = {
-  decision: "NonRegule";
+  decision: typeof Regulation.NonRegule;
 };
 
 export type ResultatRegulationEntite =

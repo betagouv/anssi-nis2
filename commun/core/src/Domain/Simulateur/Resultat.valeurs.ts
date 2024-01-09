@@ -1,7 +1,7 @@
 export const ValeursPrecisionsResultatRegule = [
   "Standard",
   "DORA",
-  "EnregistrementNomsDeDomaine",
+  "EnregistrementDeNomsDeDomaine",
 ] as const;
 
 export const ValeursPrecisionsResultatNonRegule = [
