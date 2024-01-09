@@ -1,6 +1,6 @@
 import { DonneesFormulaireSimulateur } from "../DonneesFormulaire";
-import { causeReguleOSE, Regulation } from "../Regulation.constantes";
-import { CausesRegulation } from "../Regulation.definitions";
+import { causeReguleOSE } from "../Regulation.constantes";
+import { CausesRegulation, Regulation } from "../Regulation.definitions";
 
 export const fabriqueRegule =
   (causes: CausesRegulation) => (donnees: DonneesFormulaireSimulateur) => ({

@@ -6,6 +6,12 @@ export type RegulationEntite = (typeof ValeursRegulationEntite)[number];
 
 export type CausesRegulation = Partial<DonneesFormulaireSimulateur>;
 
+export const Regulation: Record<RegulationEntite, RegulationEntite> = {
+  Regule: "Regule",
+  NonRegule: "NonRegule",
+  Incertain: "Incertain",
+};
+
 export type ResultatRegulationPositif = {
   decision: "Regule";
   causes: CausesRegulation;
@@ -19,7 +25,6 @@ export type ResultatIncertain = {
 export type ResultatRegulationNonRegule = {
   decision: "NonRegule";
 };
-
 export type ResultatRegulationEntite =
   | ResultatRegulationPositif
   | ResultatRegulationNonRegule

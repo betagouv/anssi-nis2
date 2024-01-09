@@ -1,6 +1,6 @@
 import {
   CausesRegulation,
-  RegulationEntite,
+  Regulation,
   ResultatRegulationEntite,
 } from "./Regulation.definitions";
 
@@ -9,11 +9,9 @@ export const causeReguleOSE: CausesRegulation = {
 };
 
 export const resultatIncertain: ResultatRegulationEntite = {
-  decision: "Incertain",
+  decision: Regulation.Incertain,
 };
 
-export const Regulation: Record<RegulationEntite, RegulationEntite> = {
-  Regule: "Regule",
-  NonRegule: "NonRegule",
-  Incertain: "Incertain",
+export const resultatNonRegule: ResultatRegulationEntite = {
+  decision: Regulation.NonRegule,
 };

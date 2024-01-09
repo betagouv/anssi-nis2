@@ -1,7 +1,6 @@
 import { match } from "ts-pattern";
 import { DonneesFormulaireSimulateur } from "./DonneesFormulaire";
-import { RegulationEntite } from "./Regulation.definitions";
-import { Regulation } from "./Regulation.constantes";
+import { Regulation, RegulationEntite } from "./Regulation.definitions";
 import { PrecisionsResultat } from "./Resultat.constantes";
 
 const calculatePrecisionResultatIncertain = () => PrecisionsResultat.Incertain;
@@ -28,12 +27,11 @@ const calculePrecisionsResultatNonRegule = (d: DonneesFormulaireSimulateur) =>
 
 export const calculePrecisionsResultat = (e: RegulationEntite) => {
   switch (e) {
-    case Regulation.Incertain:
-      return calculatePrecisionResultatIncertain;
     case Regulation.Regule:
       return calculePrecisionsResultatRegule;
     case Regulation.NonRegule:
       return calculePrecisionsResultatNonRegule;
+    case Regulation.Incertain:
     default:
       return calculatePrecisionResultatIncertain;
   }

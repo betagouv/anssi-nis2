@@ -1,7 +1,8 @@
 import { describe, it } from "vitest";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
-import { Regulation } from "../../src/Domain/Simulateur/Regulation.constantes";
+
+import { Regulation } from "../../src/Domain/Simulateur/Regulation.definitions";
 import { PrecisionsResultat } from "../../src/Domain/Simulateur/Resultat.constantes";
 import { calculePrecisionsResultat } from "../../src/Domain/Simulateur/Resultat.operations";
 import { verifieQue } from "../utilitaires/assure";
@@ -17,7 +18,7 @@ describe(calculePrecisionsResultat, () => {
         .renvoieToujours(PrecisionsResultat.Incertain);
     });
   });
-  
+
   describe(Regulation.Regule, () => {
     const calculePrecisionsResultatRegule = calculePrecisionsResultat(
       Regulation.Regule,

@@ -27,12 +27,16 @@ export const precisionPourResultat: Record<
   PrecisionsResultat
 > = {
   Incertain: precisionsResultatVide,
-  NonReguleHorsUnionEuropeenne: precisionsResultatVide,
+  NonReguleHorsUnionEuropeenne: fabriquePrecisionsResultat(
+    PrecisionsResultatNonReguleStandard,
+  ),
   NonReguleStandard: fabriquePrecisionsResultat(
     PrecisionsResultatNonReguleStandard,
   ),
   ReguleDORA: precisionsResultatVide,
-  ReguleEnregistrementNomsDeDomaine: precisionsResultatVide,
+  ReguleEnregistrementNomsDeDomaine: fabriquePrecisionsResultat(
+    PrecisionsResultatReguleStandard,
+  ),
   ReguleStandard: fabriquePrecisionsResultat(PrecisionsResultatReguleStandard),
 };
 
