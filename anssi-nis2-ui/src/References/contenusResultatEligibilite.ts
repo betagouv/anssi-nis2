@@ -1,8 +1,40 @@
 import { ResultatEligibilite } from "../../../commun/core/src/Domain/Simulateur/Eligibilite.definitions.ts";
+import { PrecisionResultat } from "../../../commun/core/src/Domain/Simulateur/Resultat.declarations.ts";
 import { separeMarkdownParLignes } from "../Services/Markdown/TransformeMarkdown.operations.ts";
-import { ContenusResultatEligibilite } from "../Services/Simulateur/Props/ContenusResultatEligibilite.declaration.ts";
+import {
+  ContenusResultatEligibilite,
+  PrecisionsResultat,
+} from "../Services/Simulateur/Props/ContenusResultatEligibilite.declaration.ts";
 import resultatKOComplet from "./Documents/precisionsSurReponseNegative.md";
 import resultatOKComplet from "./Documents/precisionsSurReponsePositive.md";
+import PrecisionsResultatReguleStandard from "./Documents/PrecisionsResultat.ReguleStandard.md";
+import PrecisionsResultatNonReguleStandard from "./Documents/PrecisionsResultat.NonReguleStandard.md";
+
+const precisionsResultatVide: PrecisionsResultat = {
+  principal: "",
+  annexe: "",
+};
+export const fabriquePrecisionsResultat = (md: string): PrecisionsResultat => {
+  const [principal, annexe] = separeMarkdownParLignes(md);
+  return {
+    principal,
+    annexe,
+  };
+};
+
+export const precisionPourResultat: Record<
+  PrecisionResultat,
+  PrecisionsResultat
+> = {
+  Incertain: precisionsResultatVide,
+  NonReguleHorsUnionEuropeenne: precisionsResultatVide,
+  NonReguleStandard: fabriquePrecisionsResultat(
+    PrecisionsResultatNonReguleStandard,
+  ),
+  ReguleDORA: precisionsResultatVide,
+  ReguleEnregistrementNomsDeDomaine: precisionsResultatVide,
+  ReguleStandard: fabriquePrecisionsResultat(PrecisionsResultatReguleStandard),
+};
 
 const [resultatOK, resultatOKPlus] = separeMarkdownParLignes(resultatOKComplet);
 const [resultatKO, resultatKOPlus] = separeMarkdownParLignes(resultatKOComplet);

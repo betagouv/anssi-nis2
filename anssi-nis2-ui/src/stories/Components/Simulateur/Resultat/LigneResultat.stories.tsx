@@ -3,6 +3,7 @@
 import { expect } from "@storybook/jest";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, waitFor, within } from "@storybook/testing-library";
+import { PrecisionsResultat } from "../../../../../../commun/core/src/Domain/Simulateur/Resultat.constantes.ts";
 import { LigneResultat } from "../../../../Components/Simulateur/Resultats/LigneResultat.tsx";
 import {
   contenusResultatEligibleGrandeEntreprise,
@@ -22,6 +23,7 @@ type Story = StoryObj<typeof LigneResultat>;
 export const LigneResultatPetiteEntreprise: Story = {
   args: {
     contenuResultat: contenusResultatEligiblePetitEntreprise,
+    precisionResultat: PrecisionsResultat.ReguleStandard,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -44,6 +46,7 @@ export const LigneResultatPetiteEntreprise: Story = {
 export const LigneResultatMoyenneGrandeEntreprise: Story = {
   args: {
     contenuResultat: contenusResultatEligibleGrandeEntreprise,
+    precisionResultat: PrecisionsResultat.ReguleStandard,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -66,6 +69,7 @@ export const LigneResultatMoyenneGrandeEntreprise: Story = {
 export const LigneResultatNonEligible: Story = {
   args: {
     contenuResultat: contenusResultatNonEligible,
+    precisionResultat: PrecisionsResultat.NonReguleStandard,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -88,6 +92,7 @@ export const LigneResultatNonEligible: Story = {
 export const LigneResultatIncertain: Story = {
   args: {
     contenuResultat: contenusResultatIncertain,
+    precisionResultat: PrecisionsResultat.Incertain,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

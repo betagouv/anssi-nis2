@@ -1,4 +1,6 @@
 import React from "react";
+import { PrecisionResultat } from "../../../commun/core/src/Domain/Simulateur/Resultat.declarations.ts";
+import { ContenusResultatEligibilite } from "./Simulateur/Props/ContenusResultatEligibilite.declaration.ts";
 
 export type Props = {
   className?: string;
@@ -35,4 +37,9 @@ export type RestezInformesProps = DefaultProps & {
 };
 export type FormulaireRestezInformesProps = RestezInformesProps & {
   setEmailEnregistre: React.Dispatch<boolean>;
+};
+
+export type LigneResultatProps = {
+  contenuResultat: ContenusResultatEligibilite;
+  precisionResultat: PrecisionResultat;
 };
