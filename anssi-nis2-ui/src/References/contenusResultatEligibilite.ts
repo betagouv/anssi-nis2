@@ -5,12 +5,11 @@ import {
   ContenusResultatEligibilite,
   PrecisionsResultat,
 } from "../Services/Simulateur/Props/ContenusResultatEligibilite.declaration.ts";
-import resultatKOComplet from "./Documents/precisionsSurReponseNegative.md";
-import resultatOKComplet from "./Documents/precisionsSurReponsePositive.md";
 import PrecisionsResultatReguleStandard from "./Documents/PrecisionsResultat.ReguleStandard.md";
 import PrecisionsResultatReguleDORA from "./Documents/PrecisionsResultat.ReguleDora.md";
 import PrecisionsResultatReguleEnregistrementDeNomsDeDomaine from "./Documents/PrecisionsResultat.ReguleEnregistrementDeNomsDeDomaine.md";
 import PrecisionsResultatNonReguleStandard from "./Documents/PrecisionsResultat.NonReguleStandard.md";
+import PrecisionsResultatNonReguleHorsUnionEuropeenne from "./Documents/PrecisionsResultat.NonReguleHorsUnionEuropeenne.md";
 
 const precisionsResultatVide: PrecisionsResultat = {
   principal: "",
@@ -19,8 +18,8 @@ const precisionsResultatVide: PrecisionsResultat = {
 export const fabriquePrecisionsResultat = (md: string): PrecisionsResultat => {
   const [principal, annexe] = separeMarkdownParLignes(md);
   return {
-    principal,
-    annexe,
+    principal: principal ?? "",
+    annexe: annexe ?? "",
   };
 };
 
@@ -30,7 +29,7 @@ export const precisionPourResultat: Record<
 > = {
   Incertain: precisionsResultatVide,
   NonReguleHorsUnionEuropeenne: fabriquePrecisionsResultat(
-    PrecisionsResultatNonReguleStandard,
+    PrecisionsResultatNonReguleHorsUnionEuropeenne,
   ),
   NonReguleStandard: fabriquePrecisionsResultat(
     PrecisionsResultatNonReguleStandard,
@@ -42,19 +41,12 @@ export const precisionPourResultat: Record<
   ReguleStandard: fabriquePrecisionsResultat(PrecisionsResultatReguleStandard),
 };
 
-const [resultatOK, resultatOKPlus] = separeMarkdownParLignes(resultatOKComplet);
-const [resultatKO, resultatKOPlus] = separeMarkdownParLignes(resultatKOComplet);
-
 export const contenusResultatEligiblePetitEntreprise: ContenusResultatEligibilite =
   {
     classeDivResultat: "fr-nis2-eligible",
     classIcone: "fr-icon-check-line",
     titre: "Votre entité serait régulée  \npar la directive NIS 2",
     fichierPrecisionSurReponse: "precisionsSurReponsePositive",
-    precisions: {
-      principal: resultatOK,
-      annexe: resultatOKPlus,
-    },
     modeFormulaireEmail: "complet",
     blocs: new Set(["etMaintenant", "enSavoirPlus", "bienDebuterAvecPdf"]),
   };
@@ -70,10 +62,6 @@ export const contenusResultatNonEligible: ContenusResultatEligibilite = {
   titre: "Votre entité ne serait pas régulée  \npar la directive NIS 2",
   fichierPrecisionSurReponse: "precisionsSurReponseNegative",
   modeFormulaireEmail: "simple",
-  precisions: {
-    principal: resultatKO,
-    annexe: resultatKOPlus,
-  },
   blocs: new Set([]),
 };
 export const contenusResultatIncertain: ContenusResultatEligibilite = {

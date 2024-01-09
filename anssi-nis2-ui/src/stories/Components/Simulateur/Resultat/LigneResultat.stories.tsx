@@ -92,6 +92,20 @@ export const LigneResultatEnregistrementDeNomsDeDomaines: Story = {
   },
 };
 
+export const LigneResultatHorsUE: Story = {
+  args: {
+    contenuResultat: contenusResultatNonEligible,
+    precisionResultat: PrecisionsResultat.NonReguleHorsUnionEuropeenne,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const texteEnAnnexe = "Ce résultat est présenté au vu des éléments saisis.";
+    await canvas.findByText(texteEnAnnexe);
+    expect(canvas.queryByText("Plus d'informations")).not.toBeInTheDocument();
+  },
+};
+
 export const LigneResultatNonEligible: Story = {
   args: {
     contenuResultat: contenusResultatNonEligible,

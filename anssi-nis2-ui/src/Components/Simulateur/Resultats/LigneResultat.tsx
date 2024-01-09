@@ -50,7 +50,7 @@ export const LigneResultat: DefaultComponentExtensible<
               {contenuPrecisions.principal}
             </Markdown>
 
-            {contenuPrecisions.annexe !== "" && (
+            {contenuPrecisions.annexe && (
               <>
                 <Markdown
                   components={decaleTitre4Niveaux}
