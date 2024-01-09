@@ -30,8 +30,8 @@ export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFranc
     .chain(fabriqueArbContraintSurTrancheCA)
     .filter(
       exerceUniquementActivitesDansListe(
-        ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement
-      )
+        ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
+      ),
     )
     .chain(ajouteChampsFacultatifs);
 
@@ -43,43 +43,43 @@ export const arbNonOSEPrivesMoyenneGrande = etend(
           "gestionServicesTic",
           "fournisseursNumeriques",
           "infrastructureNumerique",
-        ])
-    )
-  )
+        ]),
+    ),
+  ),
 )
   .avec({
     designeOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.privee,
     trancheCA: fabriqueArbTrancheSingleton(),
-    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+    etatMembre: arbAppartenancePaysUnionEuropeenne.france,
   })
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain(ajouteAuMoinsUneActiviteListee)
   .chain(ajouteChampsFacultatifs);
 
 export const arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles = etend(
-  arbEnrAutresSecteursSousSecteurs
+  arbEnrAutresSecteursSousSecteurs,
 )
   .avec({
     designeOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.privee,
     trancheCA: fabriqueArbTrancheSingleton(),
-    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+    etatMembre: arbAppartenancePaysUnionEuropeenne.france,
   })
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain(ajouteArbitraireActivites) as ArbitraireFormulaire;
 
 export const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
-  arbSecteursSousSecteursListes
+  arbSecteursSousSecteursListes,
 )
   .avec({
     designeOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.privee,
     trancheCA: fabriqueArbTrancheSingleton(),
-    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+    etatMembre: arbAppartenancePaysUnionEuropeenne.france,
   })
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain(ajouteAuMoinsUneActiviteAutre)
@@ -91,14 +91,14 @@ export const arbNonOSEPrivesMoyenGrandGestionTic = etend(
   fc.record({
     secteurActivite: fc.constant(["gestionServicesTic"]),
     sousSecteurActivite: fc.constant([]),
-  })
+  }),
 )
   .avec({
     designeOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.privee,
     trancheCA: fabriqueArbTrancheSingleton(),
-    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+    etatMembre: arbAppartenancePaysUnionEuropeenne.france,
   })
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain(ajouteAuMoinsUneActiviteListee)
@@ -109,14 +109,14 @@ export const arbNonOSEPrivesMoyenGrandFournisseurNumerique = etend(
   fc.record({
     secteurActivite: fc.constant(["fournisseursNumeriques"]),
     sousSecteurActivite: fc.constant([]),
-  })
+  }),
 )
   .avec({
     designeOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.privee,
     trancheCA: fabriqueArbTrancheSingleton(),
-    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+    etatMembre: arbAppartenancePaysUnionEuropeenne.france,
   })
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain(ajouteAuMoinsUneActiviteListee)

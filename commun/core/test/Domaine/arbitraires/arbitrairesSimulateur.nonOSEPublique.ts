@@ -22,7 +22,7 @@ export const arbNonOSEPublique = etend(arbSecteursEtSousSecteursListes)
     typeStructure: arbTypeStructure.publique,
     typeEntitePublique: fabriqueArbSingleton(ValeursTypeEntitePublique),
     trancheCA: fabriqueArbTrancheSingleton(),
-    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+    etatMembre: arbAppartenancePaysUnionEuropeenne.france,
   })
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain(ajouteAuMoinsUneActiviteArbitraire)
