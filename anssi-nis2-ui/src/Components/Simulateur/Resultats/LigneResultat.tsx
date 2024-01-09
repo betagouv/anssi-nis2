@@ -2,7 +2,10 @@ import { useReducer } from "react";
 import Markdown from "react-markdown";
 import {
   classDivPourPrecisionResultat,
+  classIconePourPrecisionResultat,
+  explicationContenuIncertain,
   precisionPourResultat,
+  titresPourPrecisionResultat,
 } from "../../../References/contenusResultatEligibilite.ts";
 import { decaleTitre4Niveaux } from "../../../Services/constantes.ts";
 import {
@@ -18,7 +21,7 @@ import { changePropriete } from "./LigneResultat.operations.ts";
 
 export const LigneResultat: DefaultComponentExtensible<
   DefaultProps & LigneResultatProps
-> = ({ contenuResultat, precisionResultat }: LigneResultatProps) => {
+> = ({ precisionResultat }: LigneResultatProps) => {
   const [contenuPrecisions, propageContenuPrecisions] = useReducer(
     changePropriete,
     { ...initialState, ...precisionPourResultat[precisionResultat] },
@@ -41,13 +44,17 @@ export const LigneResultat: DefaultComponentExtensible<
     <RowContainer>
       <CenteredContainer>
         <div className={classesDivResultat}>
-          {contenuResultat.classIcone && (
-            <IconeResultat classIcone={contenuResultat.classIcone} />
+          <IconeResultat
+            classIcone={classIconePourPrecisionResultat[precisionResultat]}
+          />
+          <Markdown components={{ p: "h4" }}>
+            {titresPourPrecisionResultat[precisionResultat]}
+          </Markdown>
+          {precisionResultat === "IncertainStandard" && (
+            <p>{explicationContenuIncertain}</p>
           )}
-          <Markdown components={{ p: "h4" }}>{contenuResultat.titre}</Markdown>
-          {contenuResultat.sousTitre && <p>{contenuResultat.sousTitre}</p>}
         </div>
-        {contenuResultat.fichierPrecisionSurReponse && (
+        {precisionResultat !== "IncertainStandard" && (
           <div className="fr-px-4w fr-py-3w fr-nis2-resultat-explications">
             <Markdown components={decaleTitre4Niveaux}>
               {contenuPrecisions.principal}

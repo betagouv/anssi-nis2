@@ -11,10 +11,6 @@ export type PrecisionsResultatProps = {
 type BlocsAffiches = Set<BlocResultatSpecifiques>;
 
 export type ContenusResultatEligibilite = {
-  titre: string;
-  sousTitre?: string;
-  classIcone: string;
   modeFormulaireEmail: "simple" | "complet";
-  fichierPrecisionSurReponse?: string;
   blocs: BlocsAffiches;
 };
