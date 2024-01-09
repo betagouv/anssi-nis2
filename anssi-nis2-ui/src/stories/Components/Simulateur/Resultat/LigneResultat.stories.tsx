@@ -66,6 +66,19 @@ export const LigneResultatMoyenneGrandeEntreprise: Story = {
   },
 };
 
+export const LigneResultatDORA: Story = {
+  args: {
+    contenuResultat: contenusResultatEligibleGrandeEntreprise,
+    precisionResultat: PrecisionsResultat.ReguleDORA,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const texteEnAnnexe = "DORA";
+    await waitFor(async () => canvas.queryByText(texteEnAnnexe));
+  },
+};
+
 export const LigneResultatNonEligible: Story = {
   args: {
     contenuResultat: contenusResultatNonEligible,

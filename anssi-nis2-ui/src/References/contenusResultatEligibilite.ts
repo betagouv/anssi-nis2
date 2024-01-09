@@ -8,6 +8,7 @@ import {
 import resultatKOComplet from "./Documents/precisionsSurReponseNegative.md";
 import resultatOKComplet from "./Documents/precisionsSurReponsePositive.md";
 import PrecisionsResultatReguleStandard from "./Documents/PrecisionsResultat.ReguleStandard.md";
+import PrecisionsResultatReguleDORA from "./Documents/PrecisionsResultat.ReguleDora.md";
 import PrecisionsResultatNonReguleStandard from "./Documents/PrecisionsResultat.NonReguleStandard.md";
 
 const precisionsResultatVide: PrecisionsResultat = {
@@ -33,7 +34,7 @@ export const precisionPourResultat: Record<
   NonReguleStandard: fabriquePrecisionsResultat(
     PrecisionsResultatNonReguleStandard,
   ),
-  ReguleDORA: precisionsResultatVide,
+  ReguleDORA: fabriquePrecisionsResultat(PrecisionsResultatReguleDORA),
   ReguleEnregistrementNomsDeDomaine: fabriquePrecisionsResultat(
     PrecisionsResultatReguleStandard,
   ),
