@@ -1,4 +1,3 @@
-import { fabriqueDonneesFormulaire } from "./fabriques/DonneesFormulaire.fabrique";
 import {
   CausesRegulation,
   RegulationEntite,
@@ -8,11 +7,7 @@ import {
 export const causeReguleOSE: CausesRegulation = {
   designeOperateurServicesEssentiels: ["oui"],
 };
-export const reguleOSE: ResultatRegulationEntite = {
-  decision: "Regule",
-  causes: causeReguleOSE,
-  donnees: fabriqueDonneesFormulaire(causeReguleOSE),
-};
+
 export const resultatIncertain: ResultatRegulationEntite = {
   decision: "Incertain",
 };

@@ -1,10 +1,9 @@
 import { describe, it, expect } from "vitest";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { Eligibilite } from "../../src/Domain/Simulateur/Eligibilite.constantes";
-import { ResultatEligibilite } from "../../src/Domain/Simulateur/Eligibilite.definitions";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
 import { fabriqueReguleOSE } from "../../src/Domain/Simulateur/fabriques/Regulation.fabrique";
-import { ResultatRegulationEntite } from "../../src/Domain/Simulateur/Regulation.definitions";
+import { resultatIncertain } from "../../src/Domain/Simulateur/Regulation.constantes";
 import { transformeEligibiliteEnRegulationEntite } from "../../src/Domain/Simulateur/services/Regulation/Regulation.operations";
 
 describe(transformeEligibiliteEnRegulationEntite, () => {
@@ -13,14 +12,13 @@ describe(transformeEligibiliteEnRegulationEntite, () => {
   });
 
   it("devrait retourner resultatIncertain lorsqu'un résultat d'éligibilité est donné", () => {
-    const eligibilityResult: ResultatEligibilite = "Incertain";
-    const expectedResult: ResultatRegulationEntite = { decision: "Incertain" };
+    const eligibilityResult = Eligibilite.Incertain;
     const result = transformeEligibiliteEnRegulationEntite(eligibilityResult)(
       donneesFormulaireSimulateurVide,
     );
-    expect(result).toEqual(expectedResult);
+    expect(result).toEqual(resultatIncertain);
   });
-  
+
   it("devrait retourner reguleOSE lorsqu'un résultat d'éligibilité est donné", () => {
     const eligibilityResult = Eligibilite.EligiblePetiteEntreprise;
     const donneesOSEPetiteEntreprise = fabriqueDonneesFormulaire({
