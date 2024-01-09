@@ -1,19 +1,20 @@
 import { match } from "ts-pattern";
 import { DonneesFormulaireSimulateur } from "./DonneesFormulaire";
-import { Regulation, RegulationEntite } from "./Regulation.definitions";
+import { RegulationEntite } from "./Regulation.definitions";
 import { PrecisionsResultat } from "./Resultat.constantes";
+import { PrecisionResultat } from "./Resultat.declarations";
 
-const calculatePrecisionResultatIncertain = () => PrecisionsResultat.Incertain;
+const calculePrecisionResultatIncertain = () => PrecisionsResultat.Incertain;
 
 const calculePrecisionsResultatRegule = (d: DonneesFormulaireSimulateur) =>
   match(d)
     .with(
       { secteurActivite: ["banqueSecteurBancaire"] },
-      () => PrecisionsResultat.ReguleDORA
+      () => PrecisionsResultat.ReguleDORA,
     )
     .with(
       { activites: ["registresNomsDomainesPremierNiveau"] },
-      () => PrecisionsResultat.ReguleEnregistrementNomsDeDomaine
+      () => PrecisionsResultat.ReguleEnregistrementNomsDeDomaine,
     )
     .otherwise(() => PrecisionsResultat.ReguleStandard);
 
@@ -21,18 +22,18 @@ const calculePrecisionsResultatNonRegule = (d: DonneesFormulaireSimulateur) =>
   match(d)
     .with(
       { etatMembre: ["horsue"] },
-      () => PrecisionsResultat.NonReguleHorsUnionEuropeenne
+      () => PrecisionsResultat.NonReguleHorsUnionEuropeenne,
     )
     .otherwise(() => PrecisionsResultat.NonReguleStandard);
 
-export const calculePrecisionsResultat = (e: RegulationEntite) => {
-  switch (e) {
-    case Regulation.Regule:
-      return calculePrecisionsResultatRegule;
-    case Regulation.NonRegule:
-      return calculePrecisionsResultatNonRegule;
-    case Regulation.Incertain:
-    default:
-      return calculatePrecisionResultatIncertain;
-  }
+const calculateurPrecisionsResultat: Record<
+  RegulationEntite,
+  (d: DonneesFormulaireSimulateur) => PrecisionResultat
+> = {
+  Regule: calculePrecisionsResultatRegule,
+  NonRegule: calculePrecisionsResultatNonRegule,
+  Incertain: calculePrecisionResultatIncertain,
 };
+
+export const calculePrecisionsResultat = (e: RegulationEntite) =>
+  calculateurPrecisionsResultat[e];
