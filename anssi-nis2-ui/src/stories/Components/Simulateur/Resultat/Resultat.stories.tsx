@@ -21,27 +21,9 @@ const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
   activites: ["fournisseursDistributeursEauxConsommation"],
 });
 
-// const mockRemplitContenuMarkdown: RemplitContenuMarkdownOperation =
-//   <TEtat, TAction extends ActionSurEtat<TEtat>>(
-//     dispatch: React.Dispatch<TAction>,
-//   ) =>
-//   (typeChamp: keyof TEtat) =>
-//   () => {
-//     dispatch(fabriqueAction(typeChamp, "toto"));
-//     return new Promise(() => "");
-//   };
-
 const meta: Meta<typeof SimulateurEtapeResult> = {
   title: "Composants/Simulateur/Résultat",
   component: SimulateurEtapeResult,
-  // decorators: [
-  //   genereDecorateurPourContexte({
-  //     ...defaultContext,
-  //     contenu: {
-  //       remplitContenuMarkdown: mockRemplitContenuMarkdown,
-  //     },
-  //   }),
-  // ],
   args: {
     donneesFormulaire: archetypeDonneesFormulaire,
   },

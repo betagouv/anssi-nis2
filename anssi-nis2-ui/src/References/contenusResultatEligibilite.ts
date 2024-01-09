@@ -18,19 +18,12 @@ export const contenusResultatEligiblePetitEntreprise: ContenusResultatEligibilit
       annexe: resultatOKPlus,
     },
     modeFormulaireEmail: "complet",
-    afficheBlocs: {
-      etMaintenant: true,
-      enSavoirPlus: true,
-      bienDebuterAvecPdf: true,
-    },
+    blocs: new Set(["etMaintenant", "enSavoirPlus", "bienDebuterAvecPdf"]),
   };
 export const contenusResultatEligibleGrandeEntreprise: ContenusResultatEligibilite =
   {
     ...contenusResultatEligiblePetitEntreprise,
-    afficheBlocs: {
-      ...contenusResultatEligiblePetitEntreprise.afficheBlocs,
-      bienDebuterAvecPdf: false,
-    },
+    blocs: new Set(["etMaintenant", "enSavoirPlus"]),
   };
 
 export const contenusResultatNonEligible: ContenusResultatEligibilite = {
@@ -43,11 +36,7 @@ export const contenusResultatNonEligible: ContenusResultatEligibilite = {
     principal: resultatKO,
     annexe: resultatKOPlus,
   },
-  afficheBlocs: {
-    etMaintenant: false,
-    enSavoirPlus: false,
-    bienDebuterAvecPdf: false,
-  },
+  blocs: new Set([]),
 };
 export const contenusResultatIncertain: ContenusResultatEligibilite = {
   classeDivResultat: "fr-nis2-incertain",
@@ -58,11 +47,7 @@ export const contenusResultatIncertain: ContenusResultatEligibilite = {
     "Le test est en cours d’évolution pour prendre en compte l’ensemble des " +
     "typologies d’entités, mais n’est pas encore en mesure de couvrir les " +
     "paramètres qui ont été saisis.",
-  afficheBlocs: {
-    etMaintenant: false,
-    enSavoirPlus: false,
-    bienDebuterAvecPdf: true,
-  },
+  blocs: new Set(["bienDebuterAvecPdf"]),
 };
 
 export const contenusResultats: Record<

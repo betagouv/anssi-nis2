@@ -16,5 +16,5 @@ export type ContenusResultatEligibilite = {
   classeDivResultat: string;
   fichierPrecisionSurReponse?: string;
   precisions?: PrecisionsResultat;
-  afficheBlocs: Record<BlocResultatSpecifiques, boolean>;
+  blocs: Set<BlocResultatSpecifiques>;
 };

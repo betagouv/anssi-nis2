@@ -18,7 +18,7 @@ const LigneBienDebuterCalculee: DefaultComponentExtensible<SimulateurResultatPro
           <h2 className="fr-text-action-high--blue-france fr-h1">
             Pour bien débuter
           </h2>
-          {(contenuResultat.afficheBlocs.bienDebuterAvecPdf && (
+          {(contenuResultat.blocs.has("bienDebuterAvecPdf") && (
             <BienDebuterAvecPdf />
           )) || <BienDebuterSansPdf />}
 

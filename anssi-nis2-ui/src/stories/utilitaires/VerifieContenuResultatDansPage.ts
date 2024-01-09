@@ -28,10 +28,10 @@ export const verifieContenuResultatDansPage = async (
     canvasElement.querySelector("div.fr-nis2-resultat")?.className,
   ).toContain(contenusResultat.classeDivResultat);
 
-  contenusResultat.afficheBlocs.etMaintenant &&
+  contenusResultat.blocs.has("etMaintenant") &&
     (await canvas.findByText(titreDeSections.etMaintenant));
-  contenusResultat.afficheBlocs.enSavoirPlus &&
+  contenusResultat.blocs.has("enSavoirPlus") &&
     (await canvas.findByText(titreDeSections.enSavoirPlus));
-  contenusResultat.afficheBlocs.bienDebuterAvecPdf &&
+  contenusResultat.blocs.has("bienDebuterAvecPdf") &&
     (await canvas.findByText(titreDeSections.bienDebuterAvecPdf));
 };
