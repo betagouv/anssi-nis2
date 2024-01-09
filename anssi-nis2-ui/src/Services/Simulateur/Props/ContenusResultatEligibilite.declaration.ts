@@ -3,10 +3,12 @@ export type BlocResultatSpecifiques =
   | "enSavoirPlus"
   | "bienDebuterAvecPdf";
 
-export type PrecisionsResultat = {
+export type PrecisionsResultatProps = {
   principal: string;
   annexe: string;
 };
+
+type BlocsAffiches = Set<BlocResultatSpecifiques>;
 
 export type ContenusResultatEligibilite = {
   titre: string;
@@ -15,6 +17,5 @@ export type ContenusResultatEligibilite = {
   modeFormulaireEmail: "simple" | "complet";
   classeDivResultat: string;
   fichierPrecisionSurReponse?: string;
-  precisions?: PrecisionsResultat;
-  blocs: Set<BlocResultatSpecifiques>;
+  blocs: BlocsAffiches;
 };

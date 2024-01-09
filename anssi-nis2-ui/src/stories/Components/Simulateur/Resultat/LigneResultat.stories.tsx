@@ -2,48 +2,41 @@
 
 import { expect } from "@storybook/jest";
 import { Meta, StoryObj } from "@storybook/react";
-import { userEvent, waitFor, within } from "@storybook/testing-library";
+import { userEvent, within } from "@storybook/testing-library";
 import { PrecisionsResultat } from "../../../../../../commun/core/src/Domain/Simulateur/Resultat.constantes.ts";
 import { LigneResultat } from "../../../../Components/Simulateur/Resultats/LigneResultat.tsx";
 import {
   contenusResultatEligibleGrandeEntreprise,
-  contenusResultatEligiblePetitEntreprise,
   contenusResultatIncertain,
   contenusResultatNonEligible,
 } from "../../../../References/contenusResultatEligibilite.ts";
+import { CanvasObject } from "../../../utilitaires/Canvas.d.tsx";
 
 const meta: Meta<typeof LigneResultat> = {
-  title: "Composants/Simulateur/Résultat",
+  title: "Composants/Simulateur/Ligne Résultat",
   component: LigneResultat,
 };
 export default meta;
 
 type Story = StoryObj<typeof LigneResultat>;
 
-export const LigneResultatPetiteEntreprise: Story = {
-  args: {
-    contenuResultat: contenusResultatEligiblePetitEntreprise,
-    precisionResultat: PrecisionsResultat.ReguleStandard,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+const verifieTexteEnAnnexe = async (
+  canvas: CanvasObject,
+  texteEnAnnexe: string,
+) => {
+  expect(await canvas.findByText(texteEnAnnexe)).not.toBeVisible();
 
-    const texteEnAnnexe = "REC";
-    await waitFor(async () => canvas.queryByText(texteEnAnnexe));
-    expect(await canvas.findByText(texteEnAnnexe)).not.toBeVisible();
+  await userEvent.click(await canvas.findByText("Plus d'informations"));
+  await expect(canvas.queryByText(texteEnAnnexe)).toBeVisible();
 
-    await userEvent.click(await canvas.findByText("Plus d'informations"));
-    await expect(canvas.queryByText(texteEnAnnexe)).toBeVisible();
-
-    const moinsInformations = await canvas.findByText("Moins d'informations");
-    await expect(moinsInformations).toBeVisible();
-    await userEvent.click(moinsInformations);
-    await expect(canvas.queryByText(texteEnAnnexe)).not.toBeVisible();
-    await canvas.findByText("Plus d'informations");
-  },
+  const moinsInformations = await canvas.findByText("Moins d'informations");
+  await expect(moinsInformations).toBeVisible();
+  await userEvent.click(moinsInformations);
+  await expect(canvas.queryByText(texteEnAnnexe)).not.toBeVisible();
+  await canvas.findByText("Plus d'informations");
 };
 
-export const LigneResultatMoyenneGrandeEntreprise: Story = {
+export const ReguleStandard: Story = {
   args: {
     contenuResultat: contenusResultatEligibleGrandeEntreprise,
     precisionResultat: PrecisionsResultat.ReguleStandard,
@@ -52,21 +45,11 @@ export const LigneResultatMoyenneGrandeEntreprise: Story = {
     const canvas = within(canvasElement);
 
     const texteEnAnnexe = "REC";
-    await waitFor(async () => canvas.queryByText(texteEnAnnexe));
-    expect(await canvas.findByText(texteEnAnnexe)).not.toBeVisible();
-
-    await userEvent.click(await canvas.findByText("Plus d'informations"));
-    await expect(canvas.queryByText(texteEnAnnexe)).toBeVisible();
-
-    const moinsInformations = await canvas.findByText("Moins d'informations");
-    await expect(moinsInformations).toBeVisible();
-    await userEvent.click(moinsInformations);
-    await expect(canvas.queryByText(texteEnAnnexe)).not.toBeVisible();
-    await canvas.findByText("Plus d'informations");
+    await verifieTexteEnAnnexe(canvas, texteEnAnnexe);
   },
 };
 
-export const LigneResultatDORA: Story = {
+export const ReguleDORA: Story = {
   args: {
     contenuResultat: contenusResultatEligibleGrandeEntreprise,
     precisionResultat: PrecisionsResultat.ReguleDORA,
@@ -75,11 +58,11 @@ export const LigneResultatDORA: Story = {
     const canvas = within(canvasElement);
 
     const texteEnAnnexe = "DORA";
-    await canvas.findByText(texteEnAnnexe);
+    await verifieTexteEnAnnexe(canvas, texteEnAnnexe);
   },
 };
 
-export const LigneResultatEnregistrementDeNomsDeDomaines: Story = {
+export const ReguleEnregistrementDeNomsDeDomaines: Story = {
   args: {
     contenuResultat: contenusResultatEligibleGrandeEntreprise,
     precisionResultat: PrecisionsResultat.ReguleEnregistrementDeNomsDeDomaine,
@@ -88,11 +71,24 @@ export const LigneResultatEnregistrementDeNomsDeDomaines: Story = {
     const canvas = within(canvasElement);
 
     const texteEnAnnexe = "Enregistrement de noms de domaines";
-    await canvas.findByText(texteEnAnnexe);
+    await verifieTexteEnAnnexe(canvas, texteEnAnnexe);
   },
 };
 
-export const LigneResultatHorsUE: Story = {
+export const NonReguleStandard: Story = {
+  args: {
+    contenuResultat: contenusResultatNonEligible,
+    precisionResultat: PrecisionsResultat.NonReguleStandard,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const texteEnAnnexe = "Critères de possible inclusion";
+    await verifieTexteEnAnnexe(canvas, texteEnAnnexe);
+  },
+};
+
+export const NonReguleHorsUE: Story = {
   args: {
     contenuResultat: contenusResultatNonEligible,
     precisionResultat: PrecisionsResultat.NonReguleHorsUnionEuropeenne,
@@ -106,30 +102,7 @@ export const LigneResultatHorsUE: Story = {
   },
 };
 
-export const LigneResultatNonEligible: Story = {
-  args: {
-    contenuResultat: contenusResultatNonEligible,
-    precisionResultat: PrecisionsResultat.NonReguleStandard,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    const texteEnAnnexe = "Critères de possible inclusion";
-    await waitFor(async () => canvas.queryByText(texteEnAnnexe));
-    expect(await canvas.findByText(texteEnAnnexe)).not.toBeVisible();
-
-    await userEvent.click(await canvas.findByText("Plus d'informations"));
-    await expect(canvas.queryByText(texteEnAnnexe)).toBeVisible();
-
-    const moinsInformations = await canvas.findByText("Moins d'informations");
-    await expect(moinsInformations).toBeVisible();
-    await userEvent.click(moinsInformations);
-    await expect(canvas.queryByText(texteEnAnnexe)).not.toBeVisible();
-    await canvas.findByText("Plus d'informations");
-  },
-};
-
-export const LigneResultatIncertain: Story = {
+export const Incertain: Story = {
   args: {
     contenuResultat: contenusResultatIncertain,
     precisionResultat: PrecisionsResultat.Incertain,

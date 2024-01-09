@@ -1,44 +1,39 @@
 import { ResultatEligibilite } from "../../../commun/core/src/Domain/Simulateur/Eligibilite.definitions.ts";
 import { PrecisionResultat } from "../../../commun/core/src/Domain/Simulateur/Resultat.declarations.ts";
-import { separeMarkdownParLignes } from "../Services/Markdown/TransformeMarkdown.operations.ts";
+import { fabriquePrecisionsResultatProps } from "../Services/fabriques/PrecisionsResultatProps.fabrique.ts";
 import {
   ContenusResultatEligibilite,
-  PrecisionsResultat,
+  PrecisionsResultatProps,
 } from "../Services/Simulateur/Props/ContenusResultatEligibilite.declaration.ts";
-import PrecisionsResultatReguleStandard from "./Documents/PrecisionsResultat.ReguleStandard.md";
+import PrecisionsResultatNonReguleHorsUnionEuropeenne from "./Documents/PrecisionsResultat.NonReguleHorsUnionEuropeenne.md";
+import PrecisionsResultatNonReguleStandard from "./Documents/PrecisionsResultat.NonReguleStandard.md";
 import PrecisionsResultatReguleDORA from "./Documents/PrecisionsResultat.ReguleDora.md";
 import PrecisionsResultatReguleEnregistrementDeNomsDeDomaine from "./Documents/PrecisionsResultat.ReguleEnregistrementDeNomsDeDomaine.md";
-import PrecisionsResultatNonReguleStandard from "./Documents/PrecisionsResultat.NonReguleStandard.md";
-import PrecisionsResultatNonReguleHorsUnionEuropeenne from "./Documents/PrecisionsResultat.NonReguleHorsUnionEuropeenne.md";
+import PrecisionsResultatReguleStandard from "./Documents/PrecisionsResultat.ReguleStandard.md";
 
-const precisionsResultatVide: PrecisionsResultat = {
+const precisionsResultatVide: PrecisionsResultatProps = {
   principal: "",
   annexe: "",
-};
-export const fabriquePrecisionsResultat = (md: string): PrecisionsResultat => {
-  const [principal, annexe] = separeMarkdownParLignes(md);
-  return {
-    principal: principal ?? "",
-    annexe: annexe ?? "",
-  };
 };
 
 export const precisionPourResultat: Record<
   PrecisionResultat,
-  PrecisionsResultat
+  PrecisionsResultatProps
 > = {
   Incertain: precisionsResultatVide,
-  NonReguleHorsUnionEuropeenne: fabriquePrecisionsResultat(
+  NonReguleHorsUnionEuropeenne: fabriquePrecisionsResultatProps(
     PrecisionsResultatNonReguleHorsUnionEuropeenne,
   ),
-  NonReguleStandard: fabriquePrecisionsResultat(
+  NonReguleStandard: fabriquePrecisionsResultatProps(
     PrecisionsResultatNonReguleStandard,
   ),
-  ReguleDORA: fabriquePrecisionsResultat(PrecisionsResultatReguleDORA),
-  ReguleEnregistrementDeNomsDeDomaine: fabriquePrecisionsResultat(
+  ReguleDORA: fabriquePrecisionsResultatProps(PrecisionsResultatReguleDORA),
+  ReguleEnregistrementDeNomsDeDomaine: fabriquePrecisionsResultatProps(
     PrecisionsResultatReguleEnregistrementDeNomsDeDomaine,
   ),
-  ReguleStandard: fabriquePrecisionsResultat(PrecisionsResultatReguleStandard),
+  ReguleStandard: fabriquePrecisionsResultatProps(
+    PrecisionsResultatReguleStandard,
+  ),
 };
 
 export const contenusResultatEligiblePetitEntreprise: ContenusResultatEligibilite =

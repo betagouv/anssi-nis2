@@ -1,6 +1,5 @@
 import { calculePrecisionsResultat } from "../../../../commun/core/src/Domain/Simulateur/Resultat.operations.ts";
 import { transformeEligibiliteEnRegulationEntite } from "../../../../commun/core/src/Domain/Simulateur/services/Regulation/Regulation.operations.ts";
-import { VVV } from "../../../../commun/core/src/Domain/utilitaires/debug.ts";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
 import { LigneReseauxSociaux } from "./Resultats/LigneReseauxSociaux.tsx";
 import { LigneBienDebuter } from "./Resultats/LigneBienDebuter.tsx";
@@ -25,7 +24,6 @@ export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
   const precisionResultat = calculePrecisionsResultat(
     regulationEntite.decision,
   )(donneesFormulaire);
-  VVV(statutEligibiliteNIS2, regulationEntite, precisionResultat);
   return (
     <>
       <LigneResultat

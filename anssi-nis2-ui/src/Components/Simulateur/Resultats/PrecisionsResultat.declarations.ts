@@ -1,6 +1,6 @@
-import { PrecisionsResultat } from "../../../Services/Simulateur/Props/ContenusResultatEligibilite.declaration.ts";
+import { PrecisionsResultatProps } from "../../../Services/Simulateur/Props/ContenusResultatEligibilite.declaration.ts";
 
-export type EtatPrecisionsResultat = PrecisionsResultat & {
+export type EtatPrecisionsResultat = PrecisionsResultatProps & {
   estAfficheAnnexe: boolean;
 };
 

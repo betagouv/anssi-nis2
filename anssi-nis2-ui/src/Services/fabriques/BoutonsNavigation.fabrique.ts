@@ -5,7 +5,7 @@ import {
   fabriqueEtatEtapeSuivant,
 } from "../../../../commun/core/src/Domain/Simulateur/services/EtatEtape/EtatEtape.operations.ts";
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.tsx";
-import { EnvoieDonneesFormulaire } from "./Operations/appelsApi";
+import { EnvoieDonneesFormulaire } from "../Simulateur/Operations/appelsApi";
 import { donneesFormulaireSontCompletes } from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
 
 const centreSurHautFormulaire = () =>

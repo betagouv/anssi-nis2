@@ -4,7 +4,7 @@ import {
   DonneesSectorielles,
   DonneesFormulaireSimulateur,
 } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire";
-import { fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur } from "../../../src/Services/Simulateur/Transformateurs/FabriqueConstructeurOptionActivite";
+import { fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur } from "../../../src/Services/fabriques/ConstructeurOptionActivite.fabrique";
 import {
   ajouteArbitraireActivites,
   fabriqueArbEnrSecteurSousSecteurs,
