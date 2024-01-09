@@ -25,6 +25,7 @@ export type ResultatIncertain = {
 export type ResultatRegulationNonRegule = {
   decision: "NonRegule";
 };
+
 export type ResultatRegulationEntite =
   | ResultatRegulationPositif
   | ResultatRegulationNonRegule

@@ -19,7 +19,7 @@ describe(transformeEligibiliteEnRegulationEntite, () => {
     it("devrait retourner resultatIncertain lorsqu'un résultat d'éligibilité est donné", () => {
       const eligibilityResult = Eligibilite.Incertain;
       const result = transformeEligibiliteEnRegulationEntite(eligibilityResult)(
-        donneesFormulaireSimulateurVide,
+        donneesFormulaireSimulateurVide
       );
       expect(result).toEqual(resultatIncertain);
     });
@@ -36,7 +36,7 @@ describe(transformeEligibiliteEnRegulationEntite, () => {
       const expectedResult = fabriqueReguleOSE(donneesOSEPetiteEntreprise);
 
       const result = transformeEligibiliteEnRegulationEntite(eligibilityResult)(
-        donneesOSEPetiteEntreprise,
+        donneesOSEPetiteEntreprise
       );
       expect(result).toEqual(expectedResult);
     });
@@ -48,14 +48,14 @@ describe(transformeEligibiliteEnRegulationEntite, () => {
       "devrait retourner reguleOSE lorsqu'un résultat d'éligibilité est %s",
       (eligibilityResult) => {
         const expectedResult = fabriqueReguleOSE(
-          donneesFormulaireSimulateurOSE,
+          donneesFormulaireSimulateurOSE
         );
 
         const result = transformeEligibiliteEnRegulationEntite(
-          eligibilityResult,
+          eligibilityResult
         )(donneesFormulaireSimulateurOSE);
         expect(result).toEqual(expectedResult);
-      },
+      }
     );
   });
 
@@ -64,7 +64,7 @@ describe(transformeEligibiliteEnRegulationEntite, () => {
       const expectedResult = resultatNonRegule;
 
       const result = transformeEligibiliteEnRegulationEntite(
-        Eligibilite.NonEligible,
+        Eligibilite.NonEligible
       )(donneesFormulaireSimulateurOSE);
       expect(result).toEqual(expectedResult);
     });

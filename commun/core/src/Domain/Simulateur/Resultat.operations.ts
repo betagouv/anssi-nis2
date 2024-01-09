@@ -9,11 +9,11 @@ const calculePrecisionsResultatRegule = (d: DonneesFormulaireSimulateur) =>
   match(d)
     .with(
       { secteurActivite: ["banqueSecteurBancaire"] },
-      () => PrecisionsResultat.ReguleDORA,
+      () => PrecisionsResultat.ReguleDORA
     )
     .with(
       { activites: ["registresNomsDomainesPremierNiveau"] },
-      () => PrecisionsResultat.ReguleEnregistrementNomsDeDomaine,
+      () => PrecisionsResultat.ReguleEnregistrementNomsDeDomaine
     )
     .otherwise(() => PrecisionsResultat.ReguleStandard);
 
@@ -21,7 +21,7 @@ const calculePrecisionsResultatNonRegule = (d: DonneesFormulaireSimulateur) =>
   match(d)
     .with(
       { etatMembre: ["horsue"] },
-      () => PrecisionsResultat.NonReguleHorsUnionEuropeenne,
+      () => PrecisionsResultat.NonReguleHorsUnionEuropeenne
     )
     .otherwise(() => PrecisionsResultat.NonReguleStandard);
 
