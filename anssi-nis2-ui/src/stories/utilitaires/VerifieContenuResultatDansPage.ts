@@ -24,9 +24,6 @@ export const verifieContenuResultatDansPage = async (
   expect(
     canvas.getByText(nettoieBrMd(contenusResultat.titre)),
   ).toBeInTheDocument();
-  expect(
-    canvasElement.querySelector("div.fr-nis2-resultat")?.className,
-  ).toContain(contenusResultat.classeDivResultat);
 
   contenusResultat.blocs.has("etMaintenant") &&
     (await canvas.findByText(titreDeSections.etMaintenant));

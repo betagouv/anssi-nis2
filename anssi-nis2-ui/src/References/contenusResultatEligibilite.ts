@@ -20,7 +20,8 @@ export const precisionPourResultat: Record<
   PrecisionResultat,
   PrecisionsResultatProps
 > = {
-  Incertain: precisionsResultatVide,
+  IncertainStandard: precisionsResultatVide,
+  IncertainAutrePaysUnionEuropeenne: precisionsResultatVide,
   NonReguleHorsUnionEuropeenne: fabriquePrecisionsResultatProps(
     PrecisionsResultatNonReguleHorsUnionEuropeenne,
   ),
@@ -36,9 +37,19 @@ export const precisionPourResultat: Record<
   ),
 };
 
+export const classDivPourPrecisionResultat: Record<PrecisionResultat, string> =
+  {
+    IncertainAutrePaysUnionEuropeenne: "fr-nis2-incertain",
+    IncertainStandard: "fr-nis2-incertain",
+    NonReguleHorsUnionEuropeenne: "fr-nis2-non-eligible",
+    NonReguleStandard: "fr-nis2-non-eligible",
+    ReguleDORA: "fr-nis2-eligible",
+    ReguleEnregistrementDeNomsDeDomaine: "fr-nis2-eligible",
+    ReguleStandard: "fr-nis2-eligible",
+  };
+
 export const contenusResultatEligiblePetitEntreprise: ContenusResultatEligibilite =
   {
-    classeDivResultat: "fr-nis2-eligible",
     classIcone: "fr-icon-check-line",
     titre: "Votre entité serait régulée  \npar la directive NIS 2",
     fichierPrecisionSurReponse: "precisionsSurReponsePositive",
@@ -52,7 +63,6 @@ export const contenusResultatEligibleGrandeEntreprise: ContenusResultatEligibili
   };
 
 export const contenusResultatNonEligible: ContenusResultatEligibilite = {
-  classeDivResultat: "fr-nis2-non-eligible",
   classIcone: "fr-icon-close-line",
   titre: "Votre entité ne serait pas régulée  \npar la directive NIS 2",
   fichierPrecisionSurReponse: "precisionsSurReponseNegative",
@@ -60,7 +70,6 @@ export const contenusResultatNonEligible: ContenusResultatEligibilite = {
   blocs: new Set([]),
 };
 export const contenusResultatIncertain: ContenusResultatEligibilite = {
-  classeDivResultat: "fr-nis2-incertain",
   classIcone: "fr-nis2-icon-in-progress",
   titre: "Nous ne pouvons vous répondre dans l’immédiat",
   modeFormulaireEmail: "simple",

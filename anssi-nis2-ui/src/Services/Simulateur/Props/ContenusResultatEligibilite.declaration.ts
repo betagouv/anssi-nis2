@@ -13,9 +13,8 @@ type BlocsAffiches = Set<BlocResultatSpecifiques>;
 export type ContenusResultatEligibilite = {
   titre: string;
   sousTitre?: string;
-  classIcone?: string;
+  classIcone: string;
   modeFormulaireEmail: "simple" | "complet";
-  classeDivResultat: string;
   fichierPrecisionSurReponse?: string;
   blocs: BlocsAffiches;
 };

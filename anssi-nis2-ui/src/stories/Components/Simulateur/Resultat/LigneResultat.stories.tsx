@@ -6,6 +6,7 @@ import { userEvent, within } from "@storybook/testing-library";
 import { PrecisionsResultat } from "../../../../../../commun/core/src/Domain/Simulateur/Resultat.constantes.ts";
 import { LigneResultat } from "../../../../Components/Simulateur/Resultats/LigneResultat.tsx";
 import {
+  classDivPourPrecisionResultat,
   contenusResultatEligibleGrandeEntreprise,
   contenusResultatIncertain,
   contenusResultatNonEligible,
@@ -41,11 +42,15 @@ export const ReguleStandard: Story = {
     contenuResultat: contenusResultatEligibleGrandeEntreprise,
     precisionResultat: PrecisionsResultat.ReguleStandard,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
 
     const texteEnAnnexe = "REC";
     await verifieTexteEnAnnexe(canvas, texteEnAnnexe);
+
+    await expect(
+      canvasElement.querySelector("div.fr-nis2-resultat")?.className,
+    ).toContain(classDivPourPrecisionResultat[args.precisionResultat]);
   },
 };
 
@@ -54,11 +59,14 @@ export const ReguleDORA: Story = {
     contenuResultat: contenusResultatEligibleGrandeEntreprise,
     precisionResultat: PrecisionsResultat.ReguleDORA,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
 
     const texteEnAnnexe = "DORA";
     await verifieTexteEnAnnexe(canvas, texteEnAnnexe);
+    await expect(
+      canvasElement.querySelector("div.fr-nis2-resultat")?.className,
+    ).toContain(classDivPourPrecisionResultat[args.precisionResultat]);
   },
 };
 
@@ -67,11 +75,14 @@ export const ReguleEnregistrementDeNomsDeDomaines: Story = {
     contenuResultat: contenusResultatEligibleGrandeEntreprise,
     precisionResultat: PrecisionsResultat.ReguleEnregistrementDeNomsDeDomaine,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
 
     const texteEnAnnexe = "Enregistrement de noms de domaines";
     await verifieTexteEnAnnexe(canvas, texteEnAnnexe);
+    await expect(
+      canvasElement.querySelector("div.fr-nis2-resultat")?.className,
+    ).toContain(classDivPourPrecisionResultat[args.precisionResultat]);
   },
 };
 
@@ -80,11 +91,14 @@ export const NonReguleStandard: Story = {
     contenuResultat: contenusResultatNonEligible,
     precisionResultat: PrecisionsResultat.NonReguleStandard,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
 
     const texteEnAnnexe = "Critères de possible inclusion";
     await verifieTexteEnAnnexe(canvas, texteEnAnnexe);
+    await expect(
+      canvasElement.querySelector("div.fr-nis2-resultat")?.className,
+    ).toContain(classDivPourPrecisionResultat[args.precisionResultat]);
   },
 };
 
@@ -93,21 +107,24 @@ export const NonReguleHorsUE: Story = {
     contenuResultat: contenusResultatNonEligible,
     precisionResultat: PrecisionsResultat.NonReguleHorsUnionEuropeenne,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
 
     const texteEnAnnexe = "Ce résultat est présenté au vu des éléments saisis.";
     await canvas.findByText(texteEnAnnexe);
     expect(canvas.queryByText("Plus d'informations")).not.toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector("div.fr-nis2-resultat")?.className,
+    ).toContain(classDivPourPrecisionResultat[args.precisionResultat]);
   },
 };
 
-export const Incertain: Story = {
+export const IncertainStandard: Story = {
   args: {
     contenuResultat: contenusResultatIncertain,
-    precisionResultat: PrecisionsResultat.Incertain,
+    precisionResultat: PrecisionsResultat.IncertainStandard,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
 
     await expect(
@@ -116,5 +133,8 @@ export const Incertain: Story = {
     await expect(
       canvas.queryByText("Moins d'informations"),
     ).not.toBeInTheDocument();
+    await expect(
+      canvasElement.querySelector("div.fr-nis2-resultat")?.className,
+    ).toContain(classDivPourPrecisionResultat[args.precisionResultat]);
   },
 };

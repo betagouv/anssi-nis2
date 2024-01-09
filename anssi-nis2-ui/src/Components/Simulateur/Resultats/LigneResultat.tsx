@@ -1,6 +1,9 @@
 import { useReducer } from "react";
 import Markdown from "react-markdown";
-import { precisionPourResultat } from "../../../References/contenusResultatEligibilite.ts";
+import {
+  classDivPourPrecisionResultat,
+  precisionPourResultat,
+} from "../../../References/contenusResultatEligibilite.ts";
 import { decaleTitre4Niveaux } from "../../../Services/constantes.ts";
 import {
   DefaultComponentExtensible,
@@ -29,15 +32,15 @@ export const LigneResultat: DefaultComponentExtensible<
   const statusAfficheAnnexe =
     statusAffichePlus[`${contenuPrecisions.estAfficheAnnexe}`];
 
+  const classesDivResultat = [
+    "fr-px-4w fr-pt-3w fr-pb-4w fr-nis2-resultat",
+    classDivPourPrecisionResultat[precisionResultat],
+  ].join(" ");
+
   return (
     <RowContainer>
       <CenteredContainer>
-        <div
-          className={[
-            "fr-px-4w fr-pt-3w fr-pb-4w fr-nis2-resultat",
-            contenuResultat.classeDivResultat,
-          ].join(" ")}
-        >
+        <div className={classesDivResultat}>
           {contenuResultat.classIcone && (
             <IconeResultat classIcone={contenuResultat.classIcone} />
           )}
