@@ -93,6 +93,9 @@ describe(calculeEligibilite, () => {
       it("Hors Union Européenne", () => {
         V.Incertain(arbForm.nonDesigneOSE.horsUE);
       });
+      it("Hors Union Européenne", () => {
+        V.Incertain(arbForm.nonDesigneOSE.autrePaysUe);
+      });
       it("Hors Union Européenne, grande entreprise", () => {
         verifieQue(calculeEligibilite)
           .pour({

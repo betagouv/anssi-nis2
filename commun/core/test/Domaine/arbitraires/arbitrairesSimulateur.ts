@@ -1,5 +1,6 @@
 import { arbActivitesAutres } from "./arbitrairesSimulateur.activites";
 import {
+  arbAutrePaysUe,
   arbHorsUe,
   donneeAbsente,
 } from "./arbitrairesSimulateur.toutesValeurs";
@@ -38,6 +39,7 @@ export const arbForm = {
     },
     publique: arbNonOSEPublique,
     horsUE: arbHorsUe,
+    autrePaysUe: arbAutrePaysUe,
   },
   nonValide: {
     donneeAbsente: donneeAbsente,

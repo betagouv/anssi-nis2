@@ -21,7 +21,7 @@ import {
 import { arbFormulaireVide } from "./arbitraireFormulaire.constantes";
 
 export const arbToutesValeursPossibles = etend(
-  arbSecteursSousSecteursListes
+  arbSecteursSousSecteursListes,
 ).avec({
   designeOperateurServicesEssentiels: fabriqueArbSingleton([
     "oui",
@@ -46,6 +46,14 @@ export const arbHorsUe = etend(arbToutesValeursPossibles)
   })
   .chain(ajouteAuMoinsUneActiviteListee)
   .chain(ajouteChampsFacultatifs);
+export const arbAutrePaysUe = etend(arbToutesValeursPossibles)
+  .avec({
+    designeOperateurServicesEssentiels:
+      arbDesigneOperateurServicesEssentiels.non,
+    etatMembre: arbAppartenancePaysUnionEuropeenne.autre,
+  })
+  .chain(ajouteAuMoinsUneActiviteListee)
+  .chain(ajouteChampsFacultatifs);
 
 const initialValue: ArbitraireSurTousLesChamps = {
   activites: arbFormulaireVide,
@@ -65,5 +73,5 @@ export const donneeAbsente = ValeursNomChampsFormulaire.reduce(
     ...resultat,
     [nom]: arbFormulaireVide,
   }),
-  initialValue
+  initialValue,
 );
