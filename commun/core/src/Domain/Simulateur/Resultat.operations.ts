@@ -1,60 +1,8 @@
 import { match } from "ts-pattern";
 import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.definitions";
 import { RegulationEntite } from "./Regulation.definitions";
-import {
-  PrecisionsResultat,
-  PrecisionsResultatRegulation,
-} from "./Resultat.constantes";
-import {
-  PrecisionResultat,
-  PrecisionResultatRegulation,
-} from "./Resultat.declarations";
-
-const calculePrecisionResultatRegulationIncertain = (
-  d: DonneesFormulaireSimulateur,
-) =>
-  match(d)
-    .with(
-      { appartenancePaysUnionEurpopeenne: ["autre"] },
-      () => PrecisionsResultatRegulation.IncertainAutrePaysUnionEuropeenne,
-    )
-    .otherwise(() => PrecisionsResultatRegulation.IncertainStandard);
-
-const calculePrecisionResultatRegulationRegule = (
-  d: DonneesFormulaireSimulateur,
-) =>
-  match(d)
-    .with(
-      { secteurActivite: ["banqueSecteurBancaire"] },
-      () => PrecisionsResultatRegulation.ReguleDORA,
-    )
-    .with(
-      { activites: ["registresNomsDomainesPremierNiveau"] },
-      () => PrecisionsResultatRegulation.ReguleEnregistrementDeNomsDeDomaine,
-    )
-    .otherwise(() => PrecisionsResultatRegulation.ReguleStandard);
-
-const calculePrecisionResultatRegulationNonRegule = (
-  d: DonneesFormulaireSimulateur,
-) =>
-  match(d)
-    .with(
-      { appartenancePaysUnionEurpopeenne: ["horsue"] },
-      () => PrecisionsResultatRegulation.NonReguleHorsUnionEuropeenne,
-    )
-    .otherwise(() => PrecisionsResultatRegulation.NonReguleStandard);
-
-const calculateurPrecisionsResultatRegulation: Record<
-  RegulationEntite,
-  (d: DonneesFormulaireSimulateur) => PrecisionResultatRegulation
-> = {
-  Regule: calculePrecisionResultatRegulationRegule,
-  NonRegule: calculePrecisionResultatRegulationNonRegule,
-  Incertain: calculePrecisionResultatRegulationIncertain,
-};
-
-export const calculePrecisionResultatRegulation = (e: RegulationEntite) =>
-  calculateurPrecisionsResultatRegulation[e];
+import { PrecisionsResultat } from "./Resultat.constantes";
+import { PrecisionResultat } from "./Resultat.declarations";
 
 const calculePrecisionResultatIncertain = (d: DonneesFormulaireSimulateur) =>
   match(d)

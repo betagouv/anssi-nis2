@@ -1,14 +1,13 @@
 import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
-import { PrecisionsResultatRegulation } from "../../../../../../commun/core/src/Domain/Simulateur/Resultat.constantes.ts";
+import { libelleTitreRegule } from "../../../../References/contenusResultatEligibilite.ts";
 import { nettoieBrMd } from "../../../../Services/Markdown/TransformeMarkdown.operations.ts";
 import {
   cliqueSurDebuterLeTest,
   cocheAuMoinsUnEtPasseEtape,
 } from "../../../utilitaires/Simulateur.actions.ts";
 import { mockSendFormData } from "../../../utilitaires/mocks.ts";
-import { titresPourPrecisionResultat } from "../../../../References/contenusResultatEligibilite.ts";
 import { StoryObj } from "@storybook/react";
 import { ChargeurEtape } from "../../../../Components/Simulateur/ChargeurEtape.tsx";
 
@@ -41,11 +40,7 @@ export const scenarioSousEtapeServicesEnFrance: StoryObj<
     ["localisationRepresentant", "france"],
   ]);
 
-  await canvas.findByText(
-    nettoieBrMd(
-      titresPourPrecisionResultat[PrecisionsResultatRegulation.ReguleStandard],
-    ),
-  );
+  await canvas.findByText(nettoieBrMd(libelleTitreRegule));
 
   await expect(mockSendFormData).toHaveBeenCalledTimes(1);
   await expect(mockSendFormData).toHaveBeenCalledWith(

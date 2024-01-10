@@ -23,7 +23,7 @@ const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
 });
 
 const meta: Meta<typeof SimulateurEtapeResult> = {
-  title: "Composants/Simulateur/Résultat",
+  title: "Composants/Simulateur/Resultat",
   component: SimulateurEtapeResult,
   args: {
     donneesFormulaire: archetypeDonneesFormulaire,
