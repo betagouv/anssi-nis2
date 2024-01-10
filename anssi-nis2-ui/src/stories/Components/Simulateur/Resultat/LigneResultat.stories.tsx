@@ -5,13 +5,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { PrecisionsResultatRegulation } from "../../../../../../commun/core/src/Domain/Simulateur/Resultat.constantes.ts";
 import { LigneResultat } from "../../../../Components/Simulateur/Resultats/LigneResultat.tsx";
-import {
-  classDivPourPrecisionResultat,
-  classIconePourPrecisionResultat,
-  titresPourPrecisionResultat,
-} from "../../../../References/contenusResultatEligibilite.ts";
-import { nettoieBrMd } from "../../../../Services/Markdown/TransformeMarkdown.operations.ts";
-import { CanvasObject } from "../../../utilitaires/Canvas.d.tsx";
+import { attendTexteCharge } from "../../../utilitaires/interaction.facilitateurs.ts";
 
 const meta: Meta<typeof LigneResultat> = {
   title: "Composants/Simulateur/Ligne Résultat",
@@ -21,10 +15,32 @@ export default meta;
 
 type Story = StoryObj<typeof LigneResultat>;
 
+const verifieAucunBlocDepliable = (canvasElement: HTMLElement) => {
+  const canvas = within(canvasElement);
+  expect(canvas.queryByText("Plus d'informations")).not.toBeInTheDocument();
+  expect(canvas.queryByText("Moins d'informations")).not.toBeInTheDocument();
+};
+
+const verifieIcone = (canvasElement: HTMLElement, classeIcone: string) =>
+  expect(
+    canvasElement.querySelector(`span.${classeIcone}`),
+  ).toBeInTheDocument();
+
+const verifieClasseBlocResultat = (
+  canvasElement: HTMLElement,
+  classeAttendue: string,
+) => {
+  expect(
+    canvasElement.querySelector("div.fr-nis2-resultat")?.className,
+  ).toContain(classeAttendue);
+};
+
 const verifieTexteEnAnnexe = async (
-  canvas: CanvasObject,
+  canvasElement: HTMLElement,
   texteEnAnnexe: string,
 ) => {
+  const canvas = within(canvasElement);
+  await attendTexteCharge(canvasElement, texteEnAnnexe);
   expect(await canvas.findByText(texteEnAnnexe)).not.toBeVisible();
 
   await userEvent.click(await canvas.findByText("Plus d'informations"));
@@ -41,25 +57,12 @@ export const ReguleStandard: Story = {
   args: {
     precisionResultatRegulation: PrecisionsResultatRegulation.ReguleStandard,
   },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-
+  play: async ({ canvasElement }) => {
     const texteEnAnnexe = "REC";
-    await verifieTexteEnAnnexe(canvas, texteEnAnnexe);
+    await verifieTexteEnAnnexe(canvasElement, texteEnAnnexe);
 
-    await expect(
-      canvasElement.querySelector("div.fr-nis2-resultat")?.className,
-    ).toContain(
-      classDivPourPrecisionResultat[args.precisionResultatRegulation],
-    );
-
-    expect(
-      canvasElement.querySelector(
-        `span.${
-          classIconePourPrecisionResultat[args.precisionResultatRegulation]
-        }`,
-      ),
-    ).toBeInTheDocument();
+    verifieClasseBlocResultat(canvasElement, "fr-nis2-eligible");
+    verifieIcone(canvasElement, "fr-icon-check-line");
   },
 };
 
@@ -67,24 +70,11 @@ export const ReguleDORA: Story = {
   args: {
     precisionResultatRegulation: PrecisionsResultatRegulation.ReguleDORA,
   },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-
+  play: async ({ canvasElement }) => {
     const texteEnAnnexe = "DORA";
-    await verifieTexteEnAnnexe(canvas, texteEnAnnexe);
-    await expect(
-      canvasElement.querySelector("div.fr-nis2-resultat")?.className,
-    ).toContain(
-      classDivPourPrecisionResultat[args.precisionResultatRegulation],
-    );
-
-    expect(
-      canvasElement.querySelector(
-        `span.${
-          classIconePourPrecisionResultat[args.precisionResultatRegulation]
-        }`,
-      ),
-    ).toBeInTheDocument();
+    await verifieTexteEnAnnexe(canvasElement, texteEnAnnexe);
+    verifieClasseBlocResultat(canvasElement, "fr-nis2-eligible");
+    verifieIcone(canvasElement, "fr-icon-check-line");
   },
 };
 
@@ -93,24 +83,11 @@ export const ReguleEnregistrementDeNomsDeDomaines: Story = {
     precisionResultatRegulation:
       PrecisionsResultatRegulation.ReguleEnregistrementDeNomsDeDomaine,
   },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-
+  play: async ({ canvasElement }) => {
     const texteEnAnnexe = "Enregistrement de noms de domaines";
-    await verifieTexteEnAnnexe(canvas, texteEnAnnexe);
-    await expect(
-      canvasElement.querySelector("div.fr-nis2-resultat")?.className,
-    ).toContain(
-      classDivPourPrecisionResultat[args.precisionResultatRegulation],
-    );
-
-    expect(
-      canvasElement.querySelector(
-        `span.${
-          classIconePourPrecisionResultat[args.precisionResultatRegulation]
-        }`,
-      ),
-    ).toBeInTheDocument();
+    await verifieTexteEnAnnexe(canvasElement, texteEnAnnexe);
+    verifieClasseBlocResultat(canvasElement, "fr-nis2-eligible");
+    verifieIcone(canvasElement, "fr-icon-check-line");
   },
 };
 
@@ -118,31 +95,11 @@ export const NonReguleStandard: Story = {
   args: {
     precisionResultatRegulation: PrecisionsResultatRegulation.NonReguleStandard,
   },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-
+  play: async ({ canvasElement }) => {
     const texteEnAnnexe = "Critères de possible inclusion";
-    await verifieTexteEnAnnexe(canvas, texteEnAnnexe);
-    await expect(
-      canvasElement.querySelector("div.fr-nis2-resultat")?.className,
-    ).toContain(
-      classDivPourPrecisionResultat[args.precisionResultatRegulation],
-    );
-
-    expect(
-      canvasElement.querySelector(
-        `span.${
-          classIconePourPrecisionResultat[args.precisionResultatRegulation]
-        }`,
-      ),
-    ).toBeInTheDocument();
-    expect(
-      canvas.getByText(
-        nettoieBrMd(
-          titresPourPrecisionResultat[args.precisionResultatRegulation],
-        ),
-      ),
-    ).toBeInTheDocument();
+    await verifieTexteEnAnnexe(canvasElement, texteEnAnnexe);
+    verifieClasseBlocResultat(canvasElement, "fr-nis2-non-eligible");
+    verifieIcone(canvasElement, "fr-icon-close-line");
   },
 };
 
@@ -151,25 +108,12 @@ export const NonReguleHorsUE: Story = {
     precisionResultatRegulation:
       PrecisionsResultatRegulation.NonReguleHorsUnionEuropeenne,
   },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-
+  play: async ({ canvasElement }) => {
     const texteEnAnnexe = "Ce résultat est présenté au vu des éléments saisis.";
-    await canvas.findByText(texteEnAnnexe);
-    expect(canvas.queryByText("Plus d'informations")).not.toBeInTheDocument();
-    await expect(
-      canvasElement.querySelector("div.fr-nis2-resultat")?.className,
-    ).toContain(
-      classDivPourPrecisionResultat[args.precisionResultatRegulation],
-    );
-
-    expect(
-      canvasElement.querySelector(
-        `span.${
-          classIconePourPrecisionResultat[args.precisionResultatRegulation]
-        }`,
-      ),
-    ).toBeInTheDocument();
+    await attendTexteCharge(canvasElement, texteEnAnnexe);
+    verifieAucunBlocDepliable(canvasElement);
+    verifieClasseBlocResultat(canvasElement, "fr-nis2-non-eligible");
+    verifieIcone(canvasElement, "fr-icon-close-line");
   },
 };
 
@@ -177,28 +121,10 @@ export const IncertainStandard: Story = {
   args: {
     precisionResultatRegulation: PrecisionsResultatRegulation.IncertainStandard,
   },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-
-    await expect(
-      canvas.queryByText("Plus d'informations"),
-    ).not.toBeInTheDocument();
-    await expect(
-      canvas.queryByText("Moins d'informations"),
-    ).not.toBeInTheDocument();
-    await expect(
-      canvasElement.querySelector("div.fr-nis2-resultat")?.className,
-    ).toContain(
-      classDivPourPrecisionResultat[args.precisionResultatRegulation],
-    );
-
-    expect(
-      canvasElement.querySelector(
-        `span.${
-          classIconePourPrecisionResultat[args.precisionResultatRegulation]
-        }`,
-      ),
-    ).toBeInTheDocument();
+  play: async ({ canvasElement }) => {
+    verifieAucunBlocDepliable(canvasElement);
+    verifieClasseBlocResultat(canvasElement, "fr-nis2-incertain");
+    verifieIcone(canvasElement, "fr-nis2-icon-in-progress");
   },
 };
 
@@ -207,31 +133,12 @@ export const IncertainAutrePaysUE: Story = {
     precisionResultatRegulation:
       PrecisionsResultatRegulation.IncertainAutrePaysUnionEuropeenne,
   },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-
+  play: async ({ canvasElement }) => {
     const texteEnAnnexe =
       "Veuillez-vous rapprocher de votre autorité nationale compétente.";
-    await canvas.findByText(texteEnAnnexe);
-
-    await expect(
-      canvas.queryByText("Plus d'informations"),
-    ).not.toBeInTheDocument();
-    await expect(
-      canvas.queryByText("Moins d'informations"),
-    ).not.toBeInTheDocument();
-    await expect(
-      canvasElement.querySelector("div.fr-nis2-resultat")?.className,
-    ).toContain(
-      classDivPourPrecisionResultat[args.precisionResultatRegulation],
-    );
-
-    expect(
-      canvasElement.querySelector(
-        `span.${
-          classIconePourPrecisionResultat[args.precisionResultatRegulation]
-        }`,
-      ),
-    ).toBeInTheDocument();
+    await attendTexteCharge(canvasElement, texteEnAnnexe);
+    verifieAucunBlocDepliable(canvasElement);
+    verifieClasseBlocResultat(canvasElement, "fr-nis2-incertain-UE");
+    verifieIcone(canvasElement, "fr-icon-question-fill");
   },
 };

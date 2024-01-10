@@ -1,13 +1,14 @@
 // noinspection TypeScriptValidateJSTypes - Incompatibilité des selecteurs testing-library (any) et des string
 
 import { expect } from "@storybook/jest";
-import { waitFor, within } from "@storybook/testing-library";
+import { within } from "@storybook/testing-library";
 
 import { Meta, StoryObj } from "@storybook/react";
 import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
 import { SimulateurEtapeResult } from "../../../../Components/Simulateur/SimulateurEtapeResult.tsx";
 
 import { contenusResultats } from "../../../../References/contenusResultatEligibilite.ts";
+import { attendTexteCharge } from "../../../utilitaires/interaction.facilitateurs.ts";
 import { verifieContenuResultatDansPage } from "../../../utilitaires/VerifieContenuResultatDansPage.ts";
 
 const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
@@ -45,11 +46,13 @@ export const ResultatEligibleOSE: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+
+    await attendTexteCharge(canvasElement, pointsDAttention);
+
     await verifieContenuResultatDansPage(
       canvasElement,
       contenusResultats.EligiblePetiteEntreprise,
     );
-    await waitFor(async () => canvas.queryByText(pointsDAttention));
 
     expect(await canvas.findByText(pointsDAttention)).toBeInTheDocument();
 
@@ -70,12 +73,12 @@ export const ResultatEligiblePetiteEntreprise: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    await attendTexteCharge(canvasElement, pointsDAttention);
 
     await verifieContenuResultatDansPage(
       canvasElement,
       contenusResultats.EligiblePetiteEntreprise,
     );
-    await waitFor(async () => canvas.queryByText(pointsDAttention));
 
     const titrePrecisions = await canvas.findByText(pointsDAttention);
     expect(titrePrecisions).toBeInTheDocument();
@@ -98,12 +101,12 @@ export const ResultatEligibleGrandeEntreprise: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    await attendTexteCharge(canvasElement, pointsDAttention);
 
     await verifieContenuResultatDansPage(
       canvasElement,
       contenusResultats.EligibleMoyenneGrandeEntreprise,
     );
-    await waitFor(async () => canvas.queryByText(pointsDAttention));
 
     const titrePrecisions = await canvas.findByText(pointsDAttention);
     expect(titrePrecisions).toBeInTheDocument();
@@ -129,6 +132,7 @@ export const ResultatNonEligible: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    await attendTexteCharge(canvasElement, pointsDAttention);
 
     await verifieContenuResultatDansPage(
       canvasElement,
@@ -136,8 +140,6 @@ export const ResultatNonEligible: Story = {
     );
 
     const criteresDePossibleInclusion = "Critères de possible inclusion";
-
-    await waitFor(async () => canvas.queryByText(criteresDePossibleInclusion));
 
     const titrePrecisions = await canvas.findByText(
       criteresDePossibleInclusion,
