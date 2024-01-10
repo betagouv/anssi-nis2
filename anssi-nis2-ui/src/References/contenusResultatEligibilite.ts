@@ -2,18 +2,6 @@ import { ResultatEligibilite } from "../../../commun/core/src/Domain/Simulateur/
 import { PrecisionResultatRegulation } from "../../../commun/core/src/Domain/Simulateur/Resultat.declarations.ts";
 import { ContenusResultatEligibilite } from "../Services/Simulateur/Props/ContenusResultatEligibilite.declaration.ts";
 
-export const classDivPourPrecisionResultat: Record<
-  PrecisionResultatRegulation,
-  string
-> = {
-  IncertainAutrePaysUnionEuropeenne: "fr-nis2-incertain-UE",
-  IncertainStandard: "fr-nis2-incertain",
-  NonReguleHorsUnionEuropeenne: "fr-nis2-non-eligible",
-  NonReguleStandard: "fr-nis2-non-eligible",
-  ReguleDORA: "fr-nis2-eligible",
-  ReguleEnregistrementDeNomsDeDomaine: "fr-nis2-eligible",
-  ReguleStandard: "fr-nis2-eligible",
-};
 export const classIconePourPrecisionResultat: Record<
   PrecisionResultatRegulation,
   string
@@ -26,21 +14,26 @@ export const classIconePourPrecisionResultat: Record<
   ReguleEnregistrementDeNomsDeDomaine: "fr-icon-check-line",
   ReguleStandard: "fr-icon-check-line",
 };
+export const libelleTitreIncertainAutrePaysUnionEuropeenne =
+  "Nous ne pouvons pas déterminer si votre  \nentité serait régulée par la directive NIS 2";
+export const libelleTitreIncertainStandard =
+  "Nous ne pouvons vous répondre dans l’immédiat";
+export const libelleTitreNonRegule =
+  "Votre entité ne serait pas régulée  \npar la directive NIS 2";
+export const libelleTitreRegule =
+  "Votre entité serait régulée  \npar la directive NIS 2";
 export const titresPourPrecisionResultat: Record<
   PrecisionResultatRegulation,
   string
 > = {
   IncertainAutrePaysUnionEuropeenne:
-    "Nous ne pouvons pas déterminer si votre  \nentité serait régulée par la directive NIS 2",
-  IncertainStandard: "Nous ne pouvons vous répondre dans l’immédiat",
-  NonReguleHorsUnionEuropeenne:
-    "Votre entité ne serait pas régulée  \npar la directive NIS 2",
-  NonReguleStandard:
-    "Votre entité ne serait pas régulée  \npar la directive NIS 2",
-  ReguleDORA: "Votre entité serait régulée  \npar la directive NIS 2",
-  ReguleEnregistrementDeNomsDeDomaine:
-    "Votre entité serait régulée  \npar la directive NIS 2",
-  ReguleStandard: "Votre entité serait régulée  \npar la directive NIS 2",
+    libelleTitreIncertainAutrePaysUnionEuropeenne,
+  IncertainStandard: libelleTitreIncertainStandard,
+  NonReguleHorsUnionEuropeenne: libelleTitreNonRegule,
+  NonReguleStandard: libelleTitreNonRegule,
+  ReguleDORA: libelleTitreRegule,
+  ReguleEnregistrementDeNomsDeDomaine: libelleTitreRegule,
+  ReguleStandard: libelleTitreRegule,
 };
 
 export const explicationContenuIncertain =

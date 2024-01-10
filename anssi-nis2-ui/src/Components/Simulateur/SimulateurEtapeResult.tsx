@@ -1,7 +1,4 @@
-import {
-  calculePrecisionResultat,
-  calculePrecisionResultatRegulation,
-} from "../../../../commun/core/src/Domain/Simulateur/Resultat.operations.ts";
+import { calculePrecisionResultat } from "../../../../commun/core/src/Domain/Simulateur/Resultat.operations.ts";
 import { transformeEligibiliteEnRegulationEntite } from "../../../../commun/core/src/Domain/Simulateur/services/Regulation/Regulation.operations.ts";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
 import { LigneReseauxSociaux } from "./Resultats/LigneReseauxSociaux.tsx";
@@ -24,16 +21,12 @@ export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
   const regulationEntite = transformeEligibiliteEnRegulationEntite(
     statutEligibiliteNIS2,
   )(donneesFormulaire);
-  const precisionResultat = calculePrecisionResultatRegulation(
-    regulationEntite.decision,
-  )(donneesFormulaire);
   const precision = calculePrecisionResultat(regulationEntite.decision)(
     donneesFormulaire,
   );
   return (
     <>
       <LigneResultat
-        precisionResultatRegulation={precisionResultat}
         regulation={regulationEntite.decision}
         precision={precision}
       />
