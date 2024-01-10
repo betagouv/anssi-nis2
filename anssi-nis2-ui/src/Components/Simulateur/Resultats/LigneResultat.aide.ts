@@ -1,4 +1,7 @@
-import { RegulationEntite } from "../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
+import {
+  Regulation,
+  RegulationEntite,
+} from "../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 import { PrecisionsResultat } from "../../../../../commun/core/src/Domain/Simulateur/Resultat.constantes.ts";
 import { PrecisionResultat } from "../../../../../commun/core/src/Domain/Simulateur/Resultat.declarations.ts";
 import {
@@ -10,7 +13,7 @@ import {
 import {
   ActionPrecisionsResultat,
   EtatPrecisionsResultat,
-} from "./PrecisionsResultat.declarations.ts";
+} from "./LigneResultat.declarations.ts";
 
 export const changePropriete = (
   state: EtatPrecisionsResultat,
@@ -67,3 +70,10 @@ export const recupereTitrePourResultat = (
   regulation: RegulationEntite,
   precision: PrecisionResultat,
 ) => titrePourResultat[regulation](precision);
+
+export const estIncertainStandard = (
+  regulation: RegulationEntite,
+  precision: PrecisionResultat,
+) =>
+  regulation === Regulation.Incertain &&
+  precision === PrecisionsResultat.Standard;

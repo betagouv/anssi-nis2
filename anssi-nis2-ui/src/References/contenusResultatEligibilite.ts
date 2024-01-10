@@ -17,7 +17,6 @@ export const explicationContenuIncertain =
 
 export const contenusResultatEligiblePetitEntreprise: ContenusResultatEligibilite =
   {
-    modeFormulaireEmail: "complet",
     blocs: new Set(["etMaintenant", "enSavoirPlus", "bienDebuterAvecPdf"]),
   };
 export const contenusResultatEligibleGrandeEntreprise: ContenusResultatEligibilite =
@@ -27,11 +26,9 @@ export const contenusResultatEligibleGrandeEntreprise: ContenusResultatEligibili
   };
 
 export const contenusResultatNonEligible: ContenusResultatEligibilite = {
-  modeFormulaireEmail: "simple",
   blocs: new Set([]),
 };
 export const contenusResultatIncertain: ContenusResultatEligibilite = {
-  modeFormulaireEmail: "simple",
   blocs: new Set(["bienDebuterAvecPdf"]),
 };
 

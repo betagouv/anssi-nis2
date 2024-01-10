@@ -17,9 +17,9 @@ import {
   changePropriete,
   classDivResultat,
   classPourIconeResultat,
+  estIncertainStandard,
   recupereTitrePourResultat,
-} from "./LigneResultat.operations.ts";
-import { estIncertainStandard } from "./LigneResultat.predicats.ts";
+} from "./LigneResultat.aide.ts";
 
 export const LigneResultat: DefaultComponentExtensible<
   DefaultProps & LigneResultatProps

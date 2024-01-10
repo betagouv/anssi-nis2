@@ -11,6 +11,5 @@ export type PrecisionsResultatProps = {
 type BlocsAffiches = Set<BlocResultatSpecifiques>;
 
 export type ContenusResultatEligibilite = {
-  modeFormulaireEmail: "simple" | "complet";
   blocs: BlocsAffiches;
 };
