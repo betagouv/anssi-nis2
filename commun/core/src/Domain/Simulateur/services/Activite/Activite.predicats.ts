@@ -2,7 +2,7 @@ import { Activites } from "../../Activite.definitions";
 import {
   DonneesSectorielles,
   DonneesFormulaireSimulateur,
-} from "../../DonneesFormulaire";
+} from "../../DonneesFormulaire.definitions";
 import {
   ValeursActivitesConcernesInfrastructureNumerique,
   ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
@@ -35,39 +35,39 @@ export const aucuneActiviteListee = (activites: Activites[]) =>
   activites.every(estActiviteAutre);
 export const auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement =
   auMoinsUneActiviteCommuneAvec(
-    ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement
+    ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
   );
 export const auMoinsUneActiviteInfraNumConcernee =
   auMoinsUneActiviteCommuneAvec(
-    ValeursActivitesConcernesInfrastructureNumerique
+    ValeursActivitesConcernesInfrastructureNumerique,
   );
 export const aucuneActiviteInfraNumConcernee = aucuneActiviteCommuneAvec(
-  ValeursActivitesConcernesInfrastructureNumerique
+  ValeursActivitesConcernesInfrastructureNumerique,
 );
 export const exerceActiviteDansListe =
   (liste: Activites[]) =>
   <
     T extends DonneesSectorielles &
-      Pick<DonneesFormulaireSimulateur, "activites">
+      Pick<DonneesFormulaireSimulateur, "activites">,
   >(
-    d: T
+    d: T,
   ) =>
     d.activites.some((a) => liste.includes(a));
 export const exerceUniquementActivitesDansListe =
   (liste: Activites[]) =>
   <
     T extends DonneesSectorielles &
-      Pick<DonneesFormulaireSimulateur, "activites">
+      Pick<DonneesFormulaireSimulateur, "activites">,
   >(
-    d: T
+    d: T,
   ) =>
     d.activites.every((a) => liste.includes(a));
 export const exerceAucuneActivitesDansListe =
   (liste: Activites[]) =>
   <
     T extends DonneesSectorielles &
-      Pick<DonneesFormulaireSimulateur, "activites">
+      Pick<DonneesFormulaireSimulateur, "activites">,
   >(
-    d: T
+    d: T,
   ) =>
     d.activites.every((a) => !liste.includes(a));

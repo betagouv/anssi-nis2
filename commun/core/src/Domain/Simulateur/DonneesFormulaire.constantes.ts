@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "./DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.definitions";
 
 export const donneesFormulaireSimulateurVide: DonneesFormulaireSimulateur = {
   designeOperateurServicesEssentiels: [],

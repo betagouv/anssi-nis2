@@ -31,7 +31,7 @@ import {
   ValeursActivitesTransportsParEaux,
   ValeursActivitesTransportsRoutiers,
 } from "../../Activite.valeurs";
-import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import {
   SecteursSansSousSecteur,
@@ -95,7 +95,7 @@ export type AssociationSectorielleActivite = {
 };
 const collecteTitresSecteursSimples = (
   libelleSecteursActivite: string,
-  secteur: SecteursSansSousSecteur
+  secteur: SecteursSansSousSecteur,
 ): AssociationSectorielleActivite[] => [
   {
     titreActivite: libelleSecteursActivite,
@@ -105,11 +105,11 @@ const collecteTitresSecteursSimples = (
 const collecteTitreSousSecteurs: (
   libelleSecteursActivite: string,
   listeSousSecteurs: SousSecteurActivite[],
-  libellesSousSecteursActivite: Record<SousSecteurActivite, string>
+  libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
 ) => AssociationSectorielleActivite[] = (
   libelleSecteursActivite: string,
   listeSousSecteurs: SousSecteurActivite[],
-  libellesSousSecteursActivite: Record<SousSecteurActivite, string>
+  libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
 ) =>
   listeSousSecteurs.map((sousSecteur: SousSecteurActivite) => ({
     secteurOuSousSecteur: sousSecteur,
@@ -119,34 +119,34 @@ const rempliSousSecteurs = (
   listeSousSecteurs: SousSecteurActivite[],
   secteur: SecteurActivite,
   libelleSecteursActivite: string,
-  libellesSousSecteursActivite: Record<SousSecteurActivite, string>
+  libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
 ): AssociationSectorielleActivite[] => {
   if (
     estUnSecteurAvecDesSousSecteurs(secteur) &&
     listeSousSecteurs.length === 0
   )
     throw Error(
-      `Houla! un secteur avec sous secteurs n'en n'a pas ! ${secteur}`
+      `Houla! un secteur avec sous secteurs n'en n'a pas ! ${secteur}`,
     );
   return listeSousSecteurs.length === 0
     ? collecteTitresSecteursSimples(
         libelleSecteursActivite,
-        secteur as SecteursSansSousSecteur
+        secteur as SecteursSansSousSecteur,
       )
     : collecteTitreSousSecteurs(
         libelleSecteursActivite,
         listeSousSecteurs,
-        libellesSousSecteursActivite
+        libellesSousSecteursActivite,
       );
 };
 export const collecteTitresPourActivite: (
   libellesSecteursActivite: Record<SecteurActivite, string>,
   libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
-  donneesFormulaire: DonneesFormulaireSimulateur
+  donneesFormulaire: DonneesFormulaireSimulateur,
 ) => AssociationSectorielleActivite[] = (
   libellesSecteursActivite,
   libellesSousSecteursActivite,
-  donneesFormulaire
+  donneesFormulaire,
 ) =>
   cartographieSousSecteursParSecteur(donneesFormulaire).reduce<
     AssociationSectorielleActivite[]
@@ -157,14 +157,14 @@ export const collecteTitresPourActivite: (
           listeSousSecteurs,
           secteur,
           libellesSecteursActivite[secteur],
-          libellesSousSecteursActivite
-        )
+          libellesSousSecteursActivite,
+        ),
       ),
-    []
+    [],
   );
 export const fabriqueListeActivitesDesSecteurs = (
   secteurActivite: ValeurCleSectorielle[],
-  filtreActivite: (activite: Activites) => boolean
+  filtreActivite: (activite: Activites) => boolean,
 ): Activites[] =>
   Array.from(
     secteurActivite.reduce((ensembleActivites, secteur) => {
@@ -172,5 +172,5 @@ export const fabriqueListeActivitesDesSecteurs = (
         ?.filter(filtreActivite)
         .map((activite: Activites) => ensembleActivites.add(activite));
       return ensembleActivites;
-    }, new Set<Activites>())
+    }, new Set<Activites>()),
   );

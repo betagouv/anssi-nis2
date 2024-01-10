@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
 import { OptionsChampSimulateur } from "../Props/optionChampSimulateur";
 
 export type TransformeRecordToSelect<

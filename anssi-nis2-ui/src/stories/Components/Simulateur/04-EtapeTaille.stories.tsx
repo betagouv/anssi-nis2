@@ -2,7 +2,7 @@ import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
 } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
-import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
 import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,

@@ -1,6 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { ValeursAppartenancePaysUnionEuropeenne } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
-import { DonneesSectorielles } from "../../../src/Domain/Simulateur/DonneesFormulaire";
+import { DonneesSectorielles } from "../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
 import {
   ajouteAuMoinsUneActiviteAutre,
   ajouteChampsFacultatifs,
@@ -13,7 +13,7 @@ import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSe
 import { arbDesigneOperateurServicesEssentiels } from "./arbitraireChampFormulaire";
 
 export const arbActivitesAutres = etend<DonneesSectorielles>(
-  arbSecteursSousSecteursListes
+  arbSecteursSousSecteursListes,
 )
   .avec<
     PiocheDonneesForm<

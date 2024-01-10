@@ -4,7 +4,7 @@ import {
   DonneesSectorielles,
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+} from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
 import { ValeurCleSectorielle } from "../../../../commun/core/src/Domain/Simulateur/ValeurCleSectorielle.definitions.ts";
 import {
   AttributsEntreeChoixMultiple,

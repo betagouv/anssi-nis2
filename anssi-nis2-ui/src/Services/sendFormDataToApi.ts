@@ -2,7 +2,7 @@ import {
   AggregatInformationsEmail,
   InformationsEmail,
 } from "../../../commun/core/src/Domain/Contact/InformationsEmail.definitions.ts";
-import { DonneesFormulaireSimulateur } from "../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
 import { genereClientApi } from "./prepare.ts";
 import {
   EnregistreInformationsEmail,

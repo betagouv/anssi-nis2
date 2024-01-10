@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import { Sectorisation } from "../../Sectorisation.definitions";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
@@ -19,7 +19,7 @@ export const extraitSectorisationPourSecteur =
           sousSecteur: sousSecteur,
         },
       ],
-      [] as Sectorisation[]
+      [] as Sectorisation[],
     );
   };
 

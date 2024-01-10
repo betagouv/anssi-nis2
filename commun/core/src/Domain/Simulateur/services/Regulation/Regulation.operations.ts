@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
 import { ResultatEligibilite } from "../../Eligibilite.definitions";
 import { fabriqueRegule } from "../../fabriques/Regulation.fabrique";
 import {
@@ -19,5 +19,5 @@ const calculateurRegulationParStatutEligibilite: Record<
 };
 
 export const transformeEligibiliteEnRegulationEntite = (
-  e: ResultatEligibilite
+  e: ResultatEligibilite,
 ) => calculateurRegulationParStatutEligibilite[e];

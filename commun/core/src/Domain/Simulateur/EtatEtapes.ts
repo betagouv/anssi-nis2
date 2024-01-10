@@ -10,7 +10,7 @@ import {
   InformationsEtape,
   TypeEtape,
 } from "./InformationsEtape";
-import { DonneesFormulaireSimulateur } from "./DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.definitions";
 import { validationToutesLesReponses } from "./services/ChampSimulateur/ValidationReponses";
 
 /** Situation dans la collection */
@@ -42,7 +42,7 @@ export type RepresentationEtape = {
 export type CapacitesEtapes = {
   readonly ignoreEtapeSuivante: (
     etat: EtatEtapes,
-    donnees: DonneesFormulaireSimulateur
+    donnees: DonneesFormulaireSimulateur,
   ) => boolean;
 };
 

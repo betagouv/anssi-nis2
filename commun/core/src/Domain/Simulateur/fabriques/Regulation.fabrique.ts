@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "../DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../DonneesFormulaire.definitions";
 import { causeReguleOSE } from "../Regulation.constantes";
 import { CausesRegulation, Regulation } from "../Regulation.definitions";
 

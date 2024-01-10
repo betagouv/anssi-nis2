@@ -1,5 +1,5 @@
 import { Test } from "@nestjs/testing";
-import { DonneesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/DonneesFormulaire.definitions";
 import { donneesFormulaireSimulateurVide } from "~core/src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { SegmentsConcernesNis2 } from "./entites/segments-concernes-nis2.entite-journal";
 import { JournalService } from "./journal.service";
