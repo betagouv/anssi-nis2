@@ -1,45 +1,97 @@
 import { match } from "ts-pattern";
 import { DonneesFormulaireSimulateur } from "./DonneesFormulaire";
 import { RegulationEntite } from "./Regulation.definitions";
-import { PrecisionsResultat } from "./Resultat.constantes";
-import { PrecisionResultat } from "./Resultat.declarations";
+import {
+  PrecisionsResultat,
+  PrecisionsResultatRegulation,
+} from "./Resultat.constantes";
+import {
+  PrecisionResultat,
+  PrecisionResultatRegulation,
+} from "./Resultat.declarations";
+
+const calculePrecisionResultatRegulationIncertain = (
+  d: DonneesFormulaireSimulateur,
+) =>
+  match(d)
+    .with(
+      { etatMembre: ["autre"] },
+      () => PrecisionsResultatRegulation.IncertainAutrePaysUnionEuropeenne,
+    )
+    .otherwise(() => PrecisionsResultatRegulation.IncertainStandard);
+
+const calculePrecisionResultatRegulationRegule = (
+  d: DonneesFormulaireSimulateur,
+) =>
+  match(d)
+    .with(
+      { secteurActivite: ["banqueSecteurBancaire"] },
+      () => PrecisionsResultatRegulation.ReguleDORA,
+    )
+    .with(
+      { activites: ["registresNomsDomainesPremierNiveau"] },
+      () => PrecisionsResultatRegulation.ReguleEnregistrementDeNomsDeDomaine,
+    )
+    .otherwise(() => PrecisionsResultatRegulation.ReguleStandard);
+
+const calculePrecisionResultatRegulationNonRegule = (
+  d: DonneesFormulaireSimulateur,
+) =>
+  match(d)
+    .with(
+      { etatMembre: ["horsue"] },
+      () => PrecisionsResultatRegulation.NonReguleHorsUnionEuropeenne,
+    )
+    .otherwise(() => PrecisionsResultatRegulation.NonReguleStandard);
+
+const calculateurPrecisionsResultatRegulation: Record<
+  RegulationEntite,
+  (d: DonneesFormulaireSimulateur) => PrecisionResultatRegulation
+> = {
+  Regule: calculePrecisionResultatRegulationRegule,
+  NonRegule: calculePrecisionResultatRegulationNonRegule,
+  Incertain: calculePrecisionResultatRegulationIncertain,
+};
+
+export const calculePrecisionResultatRegulation = (e: RegulationEntite) =>
+  calculateurPrecisionsResultatRegulation[e];
 
 const calculePrecisionResultatIncertain = (d: DonneesFormulaireSimulateur) =>
   match(d)
     .with(
       { etatMembre: ["autre"] },
-      () => PrecisionsResultat.IncertainAutrePaysUnionEuropeenne,
+      () => PrecisionsResultat.AutrePaysUnionEuropeenne,
     )
-    .otherwise(() => PrecisionsResultat.IncertainStandard);
+    .otherwise(() => PrecisionsResultat.Standard);
 
-const calculePrecisionsResultatRegule = (d: DonneesFormulaireSimulateur) =>
+const calculePrecisionResultatRegule = (d: DonneesFormulaireSimulateur) =>
   match(d)
     .with(
       { secteurActivite: ["banqueSecteurBancaire"] },
-      () => PrecisionsResultat.ReguleDORA,
+      () => PrecisionsResultat.DORA,
     )
     .with(
       { activites: ["registresNomsDomainesPremierNiveau"] },
-      () => PrecisionsResultat.ReguleEnregistrementDeNomsDeDomaine,
+      () => PrecisionsResultat.EnregistrementDeNomsDeDomaine,
     )
-    .otherwise(() => PrecisionsResultat.ReguleStandard);
+    .otherwise(() => PrecisionsResultat.Standard);
 
-const calculePrecisionsResultatNonRegule = (d: DonneesFormulaireSimulateur) =>
+const calculePrecisionResultatNonRegule = (d: DonneesFormulaireSimulateur) =>
   match(d)
     .with(
       { etatMembre: ["horsue"] },
-      () => PrecisionsResultat.NonReguleHorsUnionEuropeenne,
+      () => PrecisionsResultat.HorsUnionEuropeenne,
     )
-    .otherwise(() => PrecisionsResultat.NonReguleStandard);
+    .otherwise(() => PrecisionsResultat.Standard);
 
 const calculateurPrecisionsResultat: Record<
   RegulationEntite,
   (d: DonneesFormulaireSimulateur) => PrecisionResultat
 > = {
-  Regule: calculePrecisionsResultatRegule,
-  NonRegule: calculePrecisionsResultatNonRegule,
+  Regule: calculePrecisionResultatRegule,
+  NonRegule: calculePrecisionResultatNonRegule,
   Incertain: calculePrecisionResultatIncertain,
 };
 
-export const calculePrecisionsResultat = (e: RegulationEntite) =>
+export const calculePrecisionResultat = (e: RegulationEntite) =>
   calculateurPrecisionsResultat[e];

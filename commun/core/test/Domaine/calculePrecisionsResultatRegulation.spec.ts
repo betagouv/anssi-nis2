@@ -3,35 +3,29 @@ import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/Don
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
 
 import { Regulation } from "../../src/Domain/Simulateur/Regulation.definitions";
-import { PrecisionsResultat } from "../../src/Domain/Simulateur/Resultat.constantes";
-import { calculePrecisionResultat } from "../../src/Domain/Simulateur/Resultat.operations";
+import { PrecisionsResultatRegulation } from "../../src/Domain/Simulateur/Resultat.constantes";
+import { calculePrecisionResultatRegulation } from "../../src/Domain/Simulateur/Resultat.operations";
 import { verifieQue } from "../utilitaires/assure";
 
-describe(calculePrecisionResultat, () => {
+describe(calculePrecisionResultatRegulation, () => {
   describe(Regulation.Incertain, () => {
-    const calculePrecisionsResultatIncertain = calculePrecisionResultat(
-      Regulation.Incertain,
-    );
+    const calculePrecisionsResultatIncertain =
+      calculePrecisionResultatRegulation(Regulation.Incertain);
     it("Renvoie une précision Incertain un résultat Incertain", () => {
       verifieQue(calculePrecisionsResultatIncertain)
         .pour(donneesFormulaireSimulateurVide)
-        .renvoieToujours(PrecisionsResultat.Standard);
-    });
-    it("Renvoie une précision Hors UE pour un résultat Incertain", () => {
-      verifieQue(calculePrecisionsResultatIncertain)
-        .pour(fabriqueDonneesFormulaire({ etatMembre: ["autre"] }))
-        .renvoieToujours(PrecisionsResultat.AutrePaysUnionEuropeenne);
+        .renvoieToujours(PrecisionsResultatRegulation.IncertainStandard);
     });
   });
 
   describe(Regulation.Regule, () => {
-    const calculePrecisionsResultatRegule = calculePrecisionResultat(
+    const calculePrecisionsResultatRegule = calculePrecisionResultatRegulation(
       Regulation.Regule,
     );
     it("Renvoie une précision Regulé Standard par défaut pour un résultat Regulé", () => {
       verifieQue(calculePrecisionsResultatRegule)
         .pour(donneesFormulaireSimulateurVide)
-        .renvoieToujours(PrecisionsResultat.Standard);
+        .renvoieToujours(PrecisionsResultatRegulation.ReguleStandard);
     });
     it("Precise un résultat DORA", () => {
       const donneesFormulaireSimulateur = fabriqueDonneesFormulaire({
@@ -39,7 +33,7 @@ describe(calculePrecisionResultat, () => {
       });
       verifieQue(calculePrecisionsResultatRegule)
         .pour(donneesFormulaireSimulateur)
-        .renvoieToujours(PrecisionsResultat.DORA);
+        .renvoieToujours(PrecisionsResultatRegulation.ReguleDORA);
     });
     it("Precise un résultat enregistrement nom de domaine", () => {
       const donneesFormulaireSimulateur = fabriqueDonneesFormulaire({
@@ -48,18 +42,19 @@ describe(calculePrecisionResultat, () => {
       });
       verifieQue(calculePrecisionsResultatRegule)
         .pour(donneesFormulaireSimulateur)
-        .renvoieToujours(PrecisionsResultat.EnregistrementDeNomsDeDomaine);
+        .renvoieToujours(
+          PrecisionsResultatRegulation.ReguleEnregistrementDeNomsDeDomaine,
+        );
     });
   });
 
   describe(Regulation.NonRegule, () => {
-    const calculePrecisionsResultatNonRegule = calculePrecisionResultat(
-      Regulation.NonRegule,
-    );
+    const calculePrecisionsResultatNonRegule =
+      calculePrecisionResultatRegulation(Regulation.NonRegule);
     it("Precise un résultat enregistrement nom de domaine", () => {
       verifieQue(calculePrecisionsResultatNonRegule)
         .pour(donneesFormulaireSimulateurVide)
-        .renvoieToujours(PrecisionsResultat.Standard);
+        .renvoieToujours(PrecisionsResultatRegulation.NonReguleStandard);
     });
     it("Precise un résultat enregistrement nom de domaine", () => {
       const donneesFormulaireSimulateur = fabriqueDonneesFormulaire({
@@ -67,7 +62,9 @@ describe(calculePrecisionResultat, () => {
       });
       verifieQue(calculePrecisionsResultatNonRegule)
         .pour(donneesFormulaireSimulateur)
-        .renvoieToujours(PrecisionsResultat.HorsUnionEuropeenne);
+        .renvoieToujours(
+          PrecisionsResultatRegulation.NonReguleHorsUnionEuropeenne,
+        );
     });
   });
 });

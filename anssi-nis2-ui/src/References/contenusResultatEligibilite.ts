@@ -1,57 +1,21 @@
 import { ResultatEligibilite } from "../../../commun/core/src/Domain/Simulateur/Eligibilite.definitions.ts";
-import { PrecisionResultat } from "../../../commun/core/src/Domain/Simulateur/Resultat.declarations.ts";
-import { fabriquePrecisionsResultatProps } from "../Services/fabriques/PrecisionsResultatProps.fabrique.ts";
-import {
-  ContenusResultatEligibilite,
-  PrecisionsResultatProps,
-} from "../Services/Simulateur/Props/ContenusResultatEligibilite.declaration.ts";
-import PrecisionsResultatNonReguleHorsUnionEuropeenne from "./Documents/PrecisionsResultat.NonReguleHorsUnionEuropeenne.md";
-import PrecisionsResultatNonReguleStandard from "./Documents/PrecisionsResultat.NonReguleStandard.md";
-import PrecisionsResultatReguleDORA from "./Documents/PrecisionsResultat.ReguleDora.md";
-import PrecisionsResultatReguleEnregistrementDeNomsDeDomaine from "./Documents/PrecisionsResultat.ReguleEnregistrementDeNomsDeDomaine.md";
-import PrecisionsResultatReguleStandard from "./Documents/PrecisionsResultat.ReguleStandard.md";
-import PrecisionsResultatIncertainAutrePaysUnionEuropeenne from "./Documents/PrecisionsResultat.IncertainAutrePaysUnionEuropeenne.md";
+import { PrecisionResultatRegulation } from "../../../commun/core/src/Domain/Simulateur/Resultat.declarations.ts";
+import { ContenusResultatEligibilite } from "../Services/Simulateur/Props/ContenusResultatEligibilite.declaration.ts";
 
-const precisionsResultatVide: PrecisionsResultatProps = {
-  principal: "",
-  annexe: "",
-};
-
-export const precisionPourResultat: Record<
-  PrecisionResultat,
-  PrecisionsResultatProps
+export const classDivPourPrecisionResultat: Record<
+  PrecisionResultatRegulation,
+  string
 > = {
-  IncertainStandard: precisionsResultatVide,
-  IncertainAutrePaysUnionEuropeenne: fabriquePrecisionsResultatProps(
-    PrecisionsResultatIncertainAutrePaysUnionEuropeenne,
-  ),
-  NonReguleHorsUnionEuropeenne: fabriquePrecisionsResultatProps(
-    PrecisionsResultatNonReguleHorsUnionEuropeenne,
-  ),
-  NonReguleStandard: fabriquePrecisionsResultatProps(
-    PrecisionsResultatNonReguleStandard,
-  ),
-  ReguleDORA: fabriquePrecisionsResultatProps(PrecisionsResultatReguleDORA),
-  ReguleEnregistrementDeNomsDeDomaine: fabriquePrecisionsResultatProps(
-    PrecisionsResultatReguleEnregistrementDeNomsDeDomaine,
-  ),
-  ReguleStandard: fabriquePrecisionsResultatProps(
-    PrecisionsResultatReguleStandard,
-  ),
+  IncertainAutrePaysUnionEuropeenne: "fr-nis2-incertain-UE",
+  IncertainStandard: "fr-nis2-incertain",
+  NonReguleHorsUnionEuropeenne: "fr-nis2-non-eligible",
+  NonReguleStandard: "fr-nis2-non-eligible",
+  ReguleDORA: "fr-nis2-eligible",
+  ReguleEnregistrementDeNomsDeDomaine: "fr-nis2-eligible",
+  ReguleStandard: "fr-nis2-eligible",
 };
-
-export const classDivPourPrecisionResultat: Record<PrecisionResultat, string> =
-  {
-    IncertainAutrePaysUnionEuropeenne: "fr-nis2-incertain-UE",
-    IncertainStandard: "fr-nis2-incertain",
-    NonReguleHorsUnionEuropeenne: "fr-nis2-non-eligible",
-    NonReguleStandard: "fr-nis2-non-eligible",
-    ReguleDORA: "fr-nis2-eligible",
-    ReguleEnregistrementDeNomsDeDomaine: "fr-nis2-eligible",
-    ReguleStandard: "fr-nis2-eligible",
-  };
 export const classIconePourPrecisionResultat: Record<
-  PrecisionResultat,
+  PrecisionResultatRegulation,
   string
 > = {
   IncertainAutrePaysUnionEuropeenne: "fr-icon-question-fill",
@@ -62,7 +26,10 @@ export const classIconePourPrecisionResultat: Record<
   ReguleEnregistrementDeNomsDeDomaine: "fr-icon-check-line",
   ReguleStandard: "fr-icon-check-line",
 };
-export const titresPourPrecisionResultat: Record<PrecisionResultat, string> = {
+export const titresPourPrecisionResultat: Record<
+  PrecisionResultatRegulation,
+  string
+> = {
   IncertainAutrePaysUnionEuropeenne:
     "Nous ne pouvons pas déterminer si votre  \nentité serait régulée par la directive NIS 2",
   IncertainStandard: "Nous ne pouvons vous répondre dans l’immédiat",

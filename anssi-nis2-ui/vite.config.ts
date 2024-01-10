@@ -18,6 +18,7 @@ export default defineConfig({
       },
     },
   ],
+  assetsInclude: ["**/*.md"],
   publicDir: "public",
   server: {
     host: "0.0.0.0",
