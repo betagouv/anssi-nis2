@@ -1,5 +1,5 @@
 import { fc } from "@fast-check/vitest";
-import { Activites } from "../../src/Domain/Simulateur/Activite.definitions";
+import { Activite } from "../../src/Domain/Simulateur/Activite.definitions";
 import {
   UnionPetitMoyenGrand,
   ValeurChampSimulateur,
@@ -109,7 +109,7 @@ const etendAvecActivitesVides = <DonneesPartielles extends DonneesSectorielles>(
 
 const extraitOptionsAjoutArbitrairesActivite = (
   options?: ArbitraireOptionsActivites,
-): [(activite: Activites) => boolean, number] => [
+): [(activite: Activite) => boolean, number] => [
   options?.filtreActivite || (() => true),
   options?.minLength || 0,
 ];
@@ -117,7 +117,7 @@ const extraitOptionsAjoutArbitrairesActivite = (
 function etendDonneesActivite<DonneesPartielles>(
   base: DonneesPartielles &
     Partial<Pick<DonneesFormulaireSimulateur, "activites">>,
-  listeActivitesDesSecteurs: Activites[],
+  listeActivitesDesSecteurs: Activite[],
 ) {
   return base.activites
     ? [...listeActivitesDesSecteurs, ...base.activites]
@@ -147,14 +147,14 @@ export const ajouteArbitraireActivites = <
   if (listeActivitesDesSecteurs.length === 0) {
     return etendAvecActivitesVides(base);
   }
-  const arbAuMoinsUneActivites = fc.subarray<Activites>(
+  const arbAuMoinsUneActivites = fc.subarray<Activite>(
     Array.from(new Set(donneesActivite)),
     { minLength: minLength },
   );
   const enregistrementAvecActivites: {
     [K in keyof DonneesPartielles]: fc.Arbitrary<DonneesPartielles[K]>;
   } & {
-    activites: fc.Arbitrary<Activites[]>;
+    activites: fc.Arbitrary<Activite[]>;
   } = {
     ...propageBase(base),
     activites: arbAuMoinsUneActivites,

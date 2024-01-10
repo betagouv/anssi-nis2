@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { Activites } from "../../../../commun/core/src/Domain/Simulateur/Activite.definitions";
+import { Activite } from "../../../../commun/core/src/Domain/Simulateur/Activite.definitions";
 import { donneesFormulaireSimulateurVide } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { fabriqueDonneesFormulaire } from "../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
 import { genereTransformateurValeursVersOptions } from "../../../src/Services/Simulateur/genereTransformateurValeursVersOptions";
@@ -62,7 +62,7 @@ describe(genereTransformateurValeursVersOptions, () => {
   });
 
   type ValeurActivitesPartielles = Extract<
-    Activites,
+    Activite,
     "entrepriseElectriciteRemplissantFonctionFourniture"
   >;
   const getSousEnsembleActiviteLabel = (
@@ -103,7 +103,7 @@ describe(genereTransformateurValeursVersOptions, () => {
     });
 
     it("genere une liste d'option avec la bonne option cochée", () => {
-      const valeurSelectionnee: Activites =
+      const valeurSelectionnee: Activite =
         "entrepriseElectriciteRemplissantFonctionFourniture";
       const attendu = [
         {

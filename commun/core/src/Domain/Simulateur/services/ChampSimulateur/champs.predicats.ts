@@ -1,4 +1,4 @@
-import { Activites } from "../../Activite.definitions";
+import { Activite } from "../../Activite.definitions";
 import { ValeurChampSimulateur } from "../../ChampsSimulateur.definitions";
 import {
   DonneesFormulaireSimulateur,
@@ -99,7 +99,7 @@ export const auMoinsUnSousSecteurParSecteur: PredicatChamp = (
   )(donneesFormulaireSimulateur);
 
 const auMoinsUneActiviteEstDansSecteur =
-  (activites: Activites[]) => (secteurActivite: ValeurCleSectorielle) =>
+  (activites: Activite[]) => (secteurActivite: ValeurCleSectorielle) =>
     activites.some(activiteEstDansSecteur(secteurActivite));
 
 const fabriqueAuMoinsUneActiviteEstDansSecteur = (

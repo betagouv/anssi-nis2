@@ -1,4 +1,4 @@
-import { Activites } from "./Activite.definitions";
+import { Activite } from "./Activite.definitions";
 import { ResultatEligibilite } from "./Eligibilite.definitions";
 import { ValeursResultatEligibilite } from "./Eligibilite.valeurs";
 
@@ -13,18 +13,18 @@ export const Eligibilite: Readonly<
 } as const;
 
 /** Activités toujours concernées pour une petite entreprise privée */
-export const ValeursActivitesConcernesInfrastructureNumerique: Activites[] = [
+export const ValeursActivitesConcernesInfrastructureNumerique: Activite[] = [
   "fournisseurReseauxCommunicationElectroniquesPublics",
   "fournisseurServiceCommunicationElectroniquesPublics",
   "prestataireServiceConfiance",
 ];
 /** Activités concernées uniquement si le représenbant est en France */
-export const ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement: Activites[] =
+export const ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement: Activite[] =
   ["registresNomsDomainesPremierNiveau", "fournisseurServicesDNS"];
 
 /** Enregistrement des types de résultats sous forme de fonction pour pqttern matching */
 export const R: { [k in ResultatEligibilite]: () => ResultatEligibilite } =
   ValeursResultatEligibilite.reduce(
     (rec, res) => ({ ...rec, [res]: () => Eligibilite[res] }),
-    {} as { [key in ResultatEligibilite]: () => ResultatEligibilite }
+    {} as { [key in ResultatEligibilite]: () => ResultatEligibilite },
   );

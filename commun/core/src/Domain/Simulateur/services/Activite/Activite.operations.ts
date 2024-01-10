@@ -1,4 +1,4 @@
-import { Activites } from "../../Activite.definitions";
+import { Activite } from "../../Activite.definitions";
 import {
   ValeursActivitesAdministrationPublique,
   ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
@@ -43,7 +43,7 @@ import { cartographieSousSecteursParSecteur } from "../SousSecteurActivite/SousS
 
 export const activitesParSecteurEtSousSecteur: Record<
   ValeurCleSectorielle,
-  readonly Activites[]
+  readonly Activite[]
 > = {
   administrationPublique: ValeursActivitesAdministrationPublique,
   autreSecteurActivite: [],
@@ -164,13 +164,13 @@ export const collecteTitresPourActivite: (
   );
 export const fabriqueListeActivitesDesSecteurs = (
   secteurActivite: ValeurCleSectorielle[],
-  filtreActivite: (activite: Activites) => boolean,
-): Activites[] =>
+  filtreActivite: (activite: Activite) => boolean,
+): Activite[] =>
   Array.from(
     secteurActivite.reduce((ensembleActivites, secteur) => {
       activitesParSecteurEtSousSecteur[secteur]
         ?.filter(filtreActivite)
-        .map((activite: Activites) => ensembleActivites.add(activite));
+        .map((activite: Activite) => ensembleActivites.add(activite));
       return ensembleActivites;
-    }, new Set<Activites>()),
+    }, new Set<Activite>()),
   );
