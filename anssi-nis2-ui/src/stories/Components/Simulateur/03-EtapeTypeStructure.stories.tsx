@@ -1,9 +1,6 @@
 import { TypeStructure } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { donneesFormulaireSimulateurVide } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.constantes.ts";
-import {
-  DonneesFormulaireSimulateur,
-  IDonneesBrutesFormulaireSimulateur,
-} from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
@@ -18,7 +15,7 @@ import { libellesTypesStructure } from "../../../References/Libelles.ts";
 class ParametresDonneesTypeStructure extends ParametresDonneesSpecifiqueField<TypeStructure> {
   protected construitDonnees<ValeursTypeStructure>(
     valeurs: ValeursTypeStructure[],
-  ): IDonneesBrutesFormulaireSimulateur {
+  ): DonneesFormulaireSimulateur {
     return this.construitDonneesPourField("typeStructure", valeurs);
   }
 }
@@ -87,9 +84,10 @@ export const TypeStructureCoche: Story = {
 
 export const SousQuestionPublique: Story = {
   args: {
-    donneesFormulaire: new DonneesFormulaireSimulateur(
-      donneesFormulaireSimulateurVide,
-    ).avec({ typeStructure: ["publique"] }),
+    donneesFormulaire: {
+      ...donneesFormulaireSimulateurVide,
+      typeStructure: ["publique"],
+    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

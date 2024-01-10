@@ -1,11 +1,10 @@
 import { fc } from "@fast-check/vitest";
 import {
-  IDonneesBrutesFormulaireSimulateur,
+  DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../../src/Domain/Simulateur/DonneesFormulaire";
 
-export type ArbitraireFormulaire =
-  fc.Arbitrary<IDonneesBrutesFormulaireSimulateur>;
+export type ArbitraireFormulaire = fc.Arbitrary<DonneesFormulaireSimulateur>;
 export type ArbitraireSurTousLesChamps = Record<
   NomsChampsSimulateur,
   ArbitraireFormulaire

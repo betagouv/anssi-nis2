@@ -46,6 +46,14 @@ export const arbHorsUe = etend(arbToutesValeursPossibles)
   })
   .chain(ajouteAuMoinsUneActiviteListee)
   .chain(ajouteChampsFacultatifs);
+export const arbAutrePaysUe = etend(arbToutesValeursPossibles)
+  .avec({
+    designeOperateurServicesEssentiels:
+      arbDesigneOperateurServicesEssentiels.non,
+    etatMembre: arbAppartenancePaysUnionEuropeenne.autre,
+  })
+  .chain(ajouteAuMoinsUneActiviteListee)
+  .chain(ajouteChampsFacultatifs);
 
 const initialValue: ArbitraireSurTousLesChamps = {
   activites: arbFormulaireVide,

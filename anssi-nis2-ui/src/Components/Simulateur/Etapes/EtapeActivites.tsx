@@ -10,7 +10,7 @@ import { libellesSousSecteursActivite } from "../../../References/LibellesSousSe
 import { EnsembleChamps } from "../Inputs/EnsembleChamps.tsx";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
-import { fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur } from "../../../Services/Simulateur/Transformateurs/FabriqueConstructeurOptionActivite.ts";
+import { fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur } from "../../../Services/fabriques/ConstructeurOptionActivite.fabrique.ts";
 import {
   texteQuestionActivite,
   texteQuestionActivitesMention,

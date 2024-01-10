@@ -1,7 +1,7 @@
 import { libellesSecteursActivite } from "anssi-nis2-ui/src/References/LibellesSecteursActivite";
 import { libellesSousSecteursActivite } from "anssi-nis2-ui/src/References/LibellesSousSecteursActivite";
 import { describe, expect, it } from "vitest";
-import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire";
+import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
 import {
   AssociationSectorielleActivite,
   collecteTitresPourActivite,
@@ -11,7 +11,7 @@ import { cartographieSousSecteursParSecteur } from "../../src/Domain/Simulateur/
 describe("Questionnaire activités", () => {
   describe(cartographieSousSecteursParSecteur, () => {
     it("Construit un tableau avec les sous-secteurs sélectionnés remplaçant le secteur correspondant", () => {
-      const donneesFormulaire = new DonneesFormulaireSimulateur({
+      const donneesFormulaire = fabriqueDonneesFormulaire({
         secteurActivite: ["espace", "energie", "fabrication"],
         sousSecteurActivite: [
           "electricite",
@@ -34,7 +34,7 @@ describe("Questionnaire activités", () => {
       );
     });
     it("Omet les secteurs et sous secteurs autres", () => {
-      const donneesFormulaire = new DonneesFormulaireSimulateur({
+      const donneesFormulaire = fabriqueDonneesFormulaire({
         secteurActivite: [
           "espace",
           "energie",
@@ -64,7 +64,7 @@ describe("Questionnaire activités", () => {
     });
   });
   it("Retourne le titre du secteur 'Espace' s'il est seul présent dans les données formulaire", () => {
-    const donneesFormulaire = new DonneesFormulaireSimulateur({
+    const donneesFormulaire = fabriqueDonneesFormulaire({
       secteurActivite: ["espace"],
     });
     const titresAttendus: AssociationSectorielleActivite[] = [
@@ -84,7 +84,7 @@ describe("Questionnaire activités", () => {
   });
 
   it("Retourne le titre du secteur 'Énergie / Électricité' si seul le sous secteur 'Électricité' est présent dans les données formulaire", () => {
-    const donneesFormulaire = new DonneesFormulaireSimulateur({
+    const donneesFormulaire = fabriqueDonneesFormulaire({
       secteurActivite: ["energie"],
       sousSecteurActivite: ["electricite"],
     });
@@ -105,7 +105,7 @@ describe("Questionnaire activités", () => {
   });
 
   it("Retourne un mix de titres avec ou sans sous secteurs", () => {
-    const donneesFormulaire = new DonneesFormulaireSimulateur({
+    const donneesFormulaire = fabriqueDonneesFormulaire({
       secteurActivite: ["espace", "energie"],
       sousSecteurActivite: ["electricite", "hydrogene"],
     });

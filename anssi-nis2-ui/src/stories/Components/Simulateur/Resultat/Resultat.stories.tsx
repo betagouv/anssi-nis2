@@ -1,14 +1,17 @@
+// noinspection TypeScriptValidateJSTypes - Incompatibilité des selecteurs testing-library (any) et des string
+
 import { expect } from "@storybook/jest";
 import { within } from "@storybook/testing-library";
 
 import { Meta, StoryObj } from "@storybook/react";
-import { DonneesFormulaireSimulateur } from "../../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
 import { SimulateurEtapeResult } from "../../../../Components/Simulateur/SimulateurEtapeResult.tsx";
 
 import { contenusResultats } from "../../../../References/contenusResultatEligibilite.ts";
+import { attendTexteCharge } from "../../../utilitaires/interaction.facilitateurs.ts";
 import { verifieContenuResultatDansPage } from "../../../utilitaires/VerifieContenuResultatDansPage.ts";
 
-const archetypeDonneesFormulaire = new DonneesFormulaireSimulateur({
+const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
   designeOperateurServicesEssentiels: ["non"],
   etatMembre: ["france"],
   typeStructure: ["privee"],
@@ -30,21 +33,28 @@ const meta: Meta<typeof SimulateurEtapeResult> = {
 export default meta;
 type Story = StoryObj<typeof SimulateurEtapeResult>;
 
+const pointsDAttention = "Points d'attention";
+
 export const ResultatEligibleOSE: Story = {
   args: {
-    donneesFormulaire: archetypeDonneesFormulaire.avec({
+    donneesFormulaire: {
+      ...archetypeDonneesFormulaire,
       designeOperateurServicesEssentiels: ["oui"],
       trancheNombreEmployes: ["petit"],
       trancheCA: ["petit"],
-    }),
+    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+
+    await attendTexteCharge(canvasElement, pointsDAttention);
+
     await verifieContenuResultatDansPage(
       canvasElement,
       contenusResultats.EligiblePetiteEntreprise,
     );
-    expect(await canvas.findByText("Points d'attention")).toBeInTheDocument();
+
+    expect(await canvas.findByText(pointsDAttention)).toBeInTheDocument();
 
     await canvas.findByText("Et Maintenant ?");
   },
@@ -63,13 +73,14 @@ export const ResultatEligiblePetiteEntreprise: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    await attendTexteCharge(canvasElement, pointsDAttention);
 
     await verifieContenuResultatDansPage(
       canvasElement,
       contenusResultats.EligiblePetiteEntreprise,
     );
 
-    const titrePrecisions = await canvas.findByText("Points d'attention");
+    const titrePrecisions = await canvas.findByText(pointsDAttention);
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H4");
 
@@ -82,20 +93,22 @@ export const ResultatEligiblePetiteEntreprise: Story = {
 };
 export const ResultatEligibleGrandeEntreprise: Story = {
   args: {
-    donneesFormulaire: archetypeDonneesFormulaire.avec({
+    donneesFormulaire: {
+      ...archetypeDonneesFormulaire,
       trancheCA: ["grand"],
       trancheNombreEmployes: ["grand"],
-    }),
+    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    await attendTexteCharge(canvasElement, pointsDAttention);
 
     await verifieContenuResultatDansPage(
       canvasElement,
       contenusResultats.EligibleMoyenneGrandeEntreprise,
     );
 
-    const titrePrecisions = await canvas.findByText("Points d'attention");
+    const titrePrecisions = await canvas.findByText(pointsDAttention);
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H4");
 
@@ -109,23 +122,27 @@ export const ResultatEligibleGrandeEntreprise: Story = {
 
 export const ResultatNonEligible: Story = {
   args: {
-    donneesFormulaire: archetypeDonneesFormulaire.avec({
+    donneesFormulaire: {
+      ...archetypeDonneesFormulaire,
       designeOperateurServicesEssentiels: ["non"],
       typeStructure: ["privee"],
       secteurActivite: ["autreSecteurActivite"],
       activites: [],
-    }),
+    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    await attendTexteCharge(canvasElement, pointsDAttention);
 
     await verifieContenuResultatDansPage(
       canvasElement,
       contenusResultats.NonEligible,
     );
 
+    const criteresDePossibleInclusion = "Critères de possible inclusion";
+
     const titrePrecisions = await canvas.findByText(
-      "Critères de possible inclusion",
+      criteresDePossibleInclusion,
     );
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H5");

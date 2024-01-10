@@ -5,7 +5,7 @@ import {
   toujoursFaux,
   toujoursVrai,
 } from "../../Commun/Commun.predicats";
-import { IDonneesBrutesFormulaireSimulateur } from "../DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../DonneesFormulaire";
 import {
   CapaciteEtape,
   EtapePrealable,
@@ -51,7 +51,7 @@ const fabriqueInformationsEtapeForm = (
     options: optionsCompletes,
     longueurComptabilisee: 1,
     existe: true,
-    remplitContitionSousEtape: (donnees: IDonneesBrutesFormulaireSimulateur) =>
+    remplitContitionSousEtape: (donnees: DonneesFormulaireSimulateur) =>
       options.sousEtapeConditionnelle?.condition(donnees) || false,
     estIgnoree: optionsCompletes.ignoreSi,
     varianteAffichee: toujourNegatif,
@@ -76,11 +76,11 @@ const fabriqueFonctionEtapeAffichee =
   <TypeEtape extends InformationEtapeForm>(
     variantesEtapes: VariantesEtape<TypeEtape>[]
   ) =>
-  (donnees: IDonneesBrutesFormulaireSimulateur) =>
+  (donnees: DonneesFormulaireSimulateur) =>
     variantesEtapes
       .reduce(
         (acc, variante, indice) => acc.with(variante.conditions, () => indice),
-        match<IDonneesBrutesFormulaireSimulateur, number>(donnees)
+        match<DonneesFormulaireSimulateur, number>(donnees)
       )
       .otherwise(() => 0);
 
@@ -101,7 +101,7 @@ const fabriqueInformationsEtapesVariantes = <
     estIgnoree: toujoursFaux,
     remplitContitionSousEtape: toujoursFaux,
     validationReponses: variantesEtapes[0]?.etape.validationReponses,
-    fabriqueValidationReponses: (donnees: IDonneesBrutesFormulaireSimulateur) =>
+    fabriqueValidationReponses: (donnees: DonneesFormulaireSimulateur) =>
       variantes[varianteAffichee(donnees)].validationReponses,
   };
 };

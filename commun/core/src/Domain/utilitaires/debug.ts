@@ -6,7 +6,9 @@ export const VVValue = (...debugMessage: unknown[]) => {
   const messageTransforme: unknown[] = debugMessage.reduce<unknown[]>(
     (acc, message) =>
       acc.concat([
-        typeof message === typeof "" ? message : JSON.stringify(message),
+        typeof message === typeof ""
+          ? message
+          : JSON.stringify(message, null, "\t"),
       ]),
     []
   );

@@ -10,14 +10,14 @@ import {
   TypeStructure,
   ValeurChampSimulateur,
 } from "./ChampsSimulateur.definitions";
-import { ValeursActivites } from "./Activite.definitions";
+import { Activites } from "./Activite.definitions";
 import { ValeursNomChampsFormulaire } from "./DonneesFormulaire.valeurs";
 
 export type NomsChampsSimulateur = (typeof ValeursNomChampsFormulaire)[number];
 
-export interface IDonneesBrutesFormulaireSimulateur
+export interface DonneesFormulaireSimulateur
   extends Record<NomsChampsSimulateur, ValeurChampSimulateur[]> {
-  activites: ValeursActivites[];
+  activites: Activites[];
   designeOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[];
   etatMembre: AppartenancePaysUnionEuropeenne[];
   secteurActivite: SecteurActivite[];
@@ -30,41 +30,7 @@ export interface IDonneesBrutesFormulaireSimulateur
   localisationRepresentant: AppartenancePaysUnionEuropeenne[];
 }
 
-export interface IDonneesFormulaireSimulateur
-  extends IDonneesBrutesFormulaireSimulateur {
-  avec(
-    modifie: Partial<IDonneesFormulaireSimulateur>
-  ): IDonneesFormulaireSimulateur;
-}
-
-export class DonneesFormulaireSimulateur
-  implements IDonneesFormulaireSimulateur
-{
-  activites: ValeursActivites[] = [];
-  designeOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[] =
-    [];
-  etatMembre: AppartenancePaysUnionEuropeenne[] = [];
-  secteurActivite: SecteurActivite[] = [];
-  sousSecteurActivite: SousSecteurActivite[] = [];
-  trancheCA: TrancheChiffreAffaire[] = [];
-  trancheNombreEmployes: TrancheNombreEmployes[] = [];
-  typeStructure: TypeStructure[] = [];
-  typeEntitePublique: TypeEntitePublique[] = [];
-  fournitServicesUnionEuropeenne: FournitServicesUnionEuropeenne[] = [];
-  localisationRepresentant: AppartenancePaysUnionEuropeenne[] = [];
-
-  constructor(depuis: Readonly<Partial<IDonneesFormulaireSimulateur>>) {
-    Object.assign(this, depuis);
-  }
-
-  avec(
-    modifie: Partial<IDonneesFormulaireSimulateur>
-  ): IDonneesFormulaireSimulateur {
-    return { ...this, ...modifie };
-  }
-}
-
 export type DonneesSectorielles = Pick<
-  IDonneesFormulaireSimulateur,
+  DonneesFormulaireSimulateur,
   "secteurActivite" | "sousSecteurActivite"
 >;

@@ -1,27 +1,16 @@
 import { describe, expect, it } from "vitest";
-import { Eligibilite } from "../../../../commun/core/src/Domain/Simulateur/Eligibilite.constantes";
+import { ValeursResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Eligibilite.valeurs";
 import { recupereContenusResultatEligibilite } from "../../../src/Services/Simulateur/Operations/RecupereContenusResultatEligibilite.impl";
-import {
-  contenusResultatEligiblePetitEntreprise,
-  contenusResultatNonEligible,
-} from "../../../src/References/contenusResultatEligibilite";
+import { contenusResultats } from "../../../src/References/contenusResultatEligibilite";
 
 describe(recupereContenusResultatEligibilite, () => {
-  it("retourne les contenus pour éligible lorsque le résultat est éligible", () => {
-    const resultatEligibilite = Eligibilite.EligiblePetiteEntreprise;
-    const contenusAttendus = contenusResultatEligiblePetitEntreprise;
-    const contenusObtenus =
-      recupereContenusResultatEligibilite(resultatEligibilite);
+  it.each(ValeursResultatEligibilite)(
+    `"Renvoie le contenu adequat pour le résultat %s"`,
+    (valeur) => {
+      const contenusAttendus = contenusResultats[valeur];
+      const contenusObtenus = recupereContenusResultatEligibilite(valeur);
 
-    expect(contenusObtenus).toStrictEqual(contenusAttendus);
-  });
-
-  it("retourne les contenus pour non-éligible lorsque le résultat est non-éligible", () => {
-    const resultatEligibilite = Eligibilite.NonEligible;
-    const contenusAttendus = contenusResultatNonEligible;
-    const contenusObtenus =
-      recupereContenusResultatEligibilite(resultatEligibilite);
-
-    expect(contenusObtenus).toStrictEqual(contenusAttendus);
-  });
+      expect(contenusObtenus).toStrictEqual(contenusAttendus);
+    },
+  );
 });

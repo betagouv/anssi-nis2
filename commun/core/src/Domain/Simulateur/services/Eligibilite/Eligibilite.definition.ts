@@ -1,6 +1,6 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire";
 import { ResultatEligibilite } from "../../Eligibilite.definitions";
 
 export type OperationCalculeEligibilite = (
-  donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur
+  donneesFormulaireSimulateur: DonneesFormulaireSimulateur
 ) => ResultatEligibilite;

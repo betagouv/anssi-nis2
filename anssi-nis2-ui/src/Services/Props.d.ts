@@ -1,4 +1,9 @@
 import React from "react";
+import { RegulationEntite } from "../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
+import {
+  PrecisionResultat,
+  PrecisionResultatRegulation,
+} from "../../../commun/core/src/Domain/Simulateur/Resultat.declarations.ts";
 
 export type Props = {
   className?: string;
@@ -35,4 +40,10 @@ export type RestezInformesProps = DefaultProps & {
 };
 export type FormulaireRestezInformesProps = RestezInformesProps & {
   setEmailEnregistre: React.Dispatch<boolean>;
+};
+
+export type LigneResultatProps = {
+  precisionResultatRegulation: PrecisionResultatRegulation;
+  regulation: RegulationEntite;
+  precision: PrecisionResultat;
 };

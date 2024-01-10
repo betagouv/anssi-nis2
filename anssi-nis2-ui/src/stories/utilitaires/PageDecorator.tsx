@@ -3,7 +3,7 @@ import { AppContext } from "../../Services/AppContexte/AppContext.definition.ts"
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
   reducerBoutons,
-  reducerFormData,
+  reduitDonneesFormulaire,
 } from "../../Services/Simulateur/Reducteurs.ts";
 
 import { Contexte } from "../../Services/contexte";
@@ -29,7 +29,7 @@ export const defaultContext: Contexte = {
     defaultAsyncAggregatInformationsEmailFonctionInjected,
   simulateur: {
     reducteurActionsBoutonNavigation: reducerBoutons,
-    reducteurDonneesFormulaire: reducerFormData,
+    reducteurDonneesFormulaire: reduitDonneesFormulaire,
   },
 };
 

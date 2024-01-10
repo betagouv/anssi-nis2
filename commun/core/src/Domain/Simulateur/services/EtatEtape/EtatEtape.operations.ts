@@ -1,5 +1,5 @@
 import { match, P } from "ts-pattern";
-import { IDonneesBrutesFormulaireSimulateur } from "../../DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire";
 import { ConstantesEtatEtape } from "../../EtatEtape.constantes";
 import { EtatEtapes } from "../../EtatEtapes";
 import { fabriqueEtatEtape } from "../../fabriques/EtatEtape.fabrique";
@@ -8,15 +8,15 @@ type ConstruitSuccesseur = (
   etatEtapeCourant: EtatEtapes,
   indiceEtape: number,
   indiceSousEtape: number,
-  donneesFormulaire: IDonneesBrutesFormulaireSimulateur
+  donneesFormulaire: DonneesFormulaireSimulateur
 ) => EtatEtapes;
 type FabriqueSuccesseurEtatEtape = (
   etatEtapes: EtatEtapes,
-  donnees: IDonneesBrutesFormulaireSimulateur
+  donnees: DonneesFormulaireSimulateur
 ) => EtatEtapes;
 type FabriqueChangementEtatEtape = (
   etatEtapes: EtatEtapes,
-  donnees: IDonneesBrutesFormulaireSimulateur
+  donnees: DonneesFormulaireSimulateur
 ) => () => EtatEtapes;
 const construitEtatEtapeSuccesseur: ConstruitSuccesseur = (
   etatEtapes,
@@ -65,14 +65,14 @@ const descendSousEtape: FabriqueChangementEtatEtape =
     );
 const quandRempliContitionSousEtape = (
   etatEtapes: EtatEtapes,
-  donnees: IDonneesBrutesFormulaireSimulateur
+  donnees: DonneesFormulaireSimulateur
 ) =>
   P.when(() =>
     etatEtapes.contenuEtapeCourante.remplitContitionSousEtape(donnees)
   );
 const fabriqueEtatEtapeSuivantSansCondition = (
   etatEtapes: EtatEtapes,
-  donnees: IDonneesBrutesFormulaireSimulateur
+  donnees: DonneesFormulaireSimulateur
 ) => {
   return match<EtatEtapes>(etatEtapes)
     .with(

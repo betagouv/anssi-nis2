@@ -331,6 +331,25 @@ legend.fr-text--medium {
     }
   }
 
+  &.fr-nis2-incertain-UE {
+    background-color: var(--background-alt-grey, #f6f6f6);
+
+    & .fr-nis2-icone {
+      text-align: center;
+    }
+  }
+
+  &.fr-nis2-non-eligible {
+    & h4,
+    & .fr-nis2-icone {
+      color: #a88e26;
+    }
+
+    & .fr-nis2-icone {
+      text-align: center;
+    }
+  }
+
   &.fr-nis2-incertain {
     background-color: var(--orange-terre-battue-975-75, #fef4f2);
     background-repeat: no-repeat;

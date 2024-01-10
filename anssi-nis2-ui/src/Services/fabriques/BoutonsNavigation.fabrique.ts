@@ -1,11 +1,11 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 import { EtatEtapes } from "../../../../commun/core/src/Domain/Simulateur/EtatEtapes.ts";
 import {
   fabriqueEtatEtapePrecedent,
   fabriqueEtatEtapeSuivant,
 } from "../../../../commun/core/src/Domain/Simulateur/services/EtatEtape/EtatEtape.operations.ts";
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.tsx";
-import { EnvoieDonneesFormulaire } from "./Operations/appelsApi";
+import { EnvoieDonneesFormulaire } from "../Simulateur/Operations/appelsApi";
 import { donneesFormulaireSontCompletes } from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
 
 const centreSurHautFormulaire = () =>
@@ -15,7 +15,7 @@ export const fabriqueGestionSuivant =
   (
     setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
     etatEtapes: EtatEtapes,
-    donneesSimulateur: IDonneesBrutesFormulaireSimulateur,
+    donneesSimulateur: DonneesFormulaireSimulateur,
     envoieDonneesFormulaire: EnvoieDonneesFormulaire,
   ) =>
   (e: React.MouseEvent) => {
@@ -33,7 +33,7 @@ export const fabriqueGestionSuivant =
 export const fabriqueGestionPrecedent = (
   setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
   etatEtapes: EtatEtapes,
-  donneesSimulateur: IDonneesBrutesFormulaireSimulateur,
+  donneesSimulateur: DonneesFormulaireSimulateur,
 ) => {
   if (etatEtapes.collectionEtapes.estPremiereEtape(etatEtapes.indiceCourant))
     return noRefClick;
@@ -47,7 +47,7 @@ export const fabriqueGestionPrecedent = (
 export const fabriqueInformationsBoutonsNavigation = (
   setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
   etatEtapes: EtatEtapes,
-  donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur,
+  donneesFormulaireSimulateur: DonneesFormulaireSimulateur,
   envoieDonneesFormulaire: EnvoieDonneesFormulaire,
 ) => ({
   suivant: fabriqueGestionSuivant(

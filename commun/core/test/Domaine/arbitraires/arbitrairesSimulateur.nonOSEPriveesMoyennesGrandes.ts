@@ -52,7 +52,7 @@ export const arbNonOSEPrivesMoyenneGrande = etend(
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.privee,
     trancheCA: fabriqueArbTrancheSingleton(),
-    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+    etatMembre: arbAppartenancePaysUnionEuropeenne.france,
   })
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain(ajouteAuMoinsUneActiviteListee)
@@ -66,7 +66,7 @@ export const arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles = etend(
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.privee,
     trancheCA: fabriqueArbTrancheSingleton(),
-    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+    etatMembre: arbAppartenancePaysUnionEuropeenne.france,
   })
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain(ajouteArbitraireActivites) as ArbitraireFormulaire;
@@ -79,7 +79,7 @@ export const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.privee,
     trancheCA: fabriqueArbTrancheSingleton(),
-    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+    etatMembre: arbAppartenancePaysUnionEuropeenne.france,
   })
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain(ajouteAuMoinsUneActiviteAutre)
@@ -98,7 +98,7 @@ export const arbNonOSEPrivesMoyenGrandGestionTic = etend(
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.privee,
     trancheCA: fabriqueArbTrancheSingleton(),
-    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+    etatMembre: arbAppartenancePaysUnionEuropeenne.france,
   })
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain(ajouteAuMoinsUneActiviteListee)
@@ -116,7 +116,7 @@ export const arbNonOSEPrivesMoyenGrandFournisseurNumerique = etend(
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.privee,
     trancheCA: fabriqueArbTrancheSingleton(),
-    etatMembre: arbAppartenancePaysUnionEuropeenne.franceOuAutre,
+    etatMembre: arbAppartenancePaysUnionEuropeenne.france,
   })
   .chain(fabriqueArbContraintSurTrancheCA)
   .chain(ajouteAuMoinsUneActiviteListee)

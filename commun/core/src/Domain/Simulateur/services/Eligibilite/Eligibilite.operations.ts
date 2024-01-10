@@ -98,6 +98,7 @@ const calculeEligibiliteStructurePrivee: OperationCalculeEligibilite = (
       R.NonEligible
     )
     .with({ etatMembre: ["horsue"] }, R.Incertain)
+    .with({ etatMembre: ["autre"] }, R.Incertain)
     .with(
       {
         trancheCA: ["petit"],

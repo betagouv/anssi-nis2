@@ -1,29 +1,29 @@
-import { ValeursActivites } from "../../../../../commun/core/src/Domain/Simulateur/Activite.definitions.ts";
-import { ValeurChampSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import { Activites } from "../../../../commun/core/src/Domain/Simulateur/Activite.definitions.ts";
+import { ValeurChampSimulateur } from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import {
   DonneesSectorielles,
-  IDonneesBrutesFormulaireSimulateur,
+  DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
-import { ValeurCleSectorielle } from "../../../../../commun/core/src/Domain/Simulateur/ValeurCleSectorielle.definitions.ts";
+} from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { ValeurCleSectorielle } from "../../../../commun/core/src/Domain/Simulateur/ValeurCleSectorielle.definitions.ts";
 import {
   AttributsEntreeChoixMultiple,
   OptionChampSimulateur,
-} from "../Props/optionChampSimulateur";
-import { libellesActivites } from "../../../References/LibellesActivites.ts";
-import { listeDescriptionsActivites } from "../../../References/ListeDescriptionsActivites.ts";
-import { SimulateurDonneesFormulaireActions } from "../Props/donneesFormulaire";
+} from "../Simulateur/Props/optionChampSimulateur";
+import { libellesActivites } from "../../References/LibellesActivites.ts";
+import { listeDescriptionsActivites } from "../../References/ListeDescriptionsActivites.ts";
+import { SimulateurDonneesFormulaireActions } from "../Simulateur/Props/donneesFormulaire";
 import {
   activitesParSecteurEtSousSecteur,
   AssociationSectorielleActivite,
-} from "../../../../../commun/core/src/Domain/Simulateur/services/Activite/Activite.operations.ts";
+} from "../../../../commun/core/src/Domain/Simulateur/services/Activite/Activite.operations.ts";
 import React, { Dispatch } from "react";
 
-export const fabriqueConstructeurOptionActivite: (
-  donneesFormulaire: Pick<IDonneesBrutesFormulaireSimulateur, "activites"> &
+export const constructeurOptionActiviteFabrique: (
+  donneesFormulaire: Pick<DonneesFormulaireSimulateur, "activites"> &
     DonneesSectorielles,
   changeMulti: React.ChangeEventHandler<HTMLInputElement>,
-) => (activite: ValeursActivites) => OptionChampSimulateur =
+) => (activite: Activites) => OptionChampSimulateur =
   (donneesFormulaire, changeMulti) => (activite) => ({
     label: libellesActivites[activite],
     contenuInfobulle: listeDescriptionsActivites[activite],
@@ -48,9 +48,7 @@ const fabriqueChangeMulti: (
 
 const fabriqueOptions = (
   secteurOuSousSecteur: ValeurCleSectorielle,
-  construitOptionActivite: (
-    activite: ValeursActivites,
-  ) => OptionChampSimulateur,
+  construitOptionActivite: (activite: Activites) => OptionChampSimulateur,
 ) => {
   const activitesParSecteurEtSousSecteurElement =
     activitesParSecteurEtSousSecteur[secteurOuSousSecteur];
@@ -63,7 +61,7 @@ const fabriqueOptions = (
 };
 
 export const fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur: (
-  donneesFormulaire: Pick<IDonneesBrutesFormulaireSimulateur, "activites"> &
+  donneesFormulaire: Pick<DonneesFormulaireSimulateur, "activites"> &
     DonneesSectorielles,
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>,
 ) => (
@@ -72,7 +70,7 @@ export const fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur: (
   donneesFormulaire,
   propageActionSimulateur,
 ) => {
-  const construitOptionActivite = fabriqueConstructeurOptionActivite(
+  const construitOptionActivite = constructeurOptionActiviteFabrique(
     donneesFormulaire,
     fabriqueChangeMulti(propageActionSimulateur),
   );

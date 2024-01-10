@@ -1,5 +1,5 @@
 import { Body, Controller, Injectable, Post } from "@nestjs/common";
-import { IDonneesBrutesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
 import { JournalService } from "./journal.service";
 
 @Controller("journal")
@@ -9,7 +9,7 @@ export class JournalController {
 
   @Post()
   async trace(
-    @Body() donneesFormulaire: IDonneesBrutesFormulaireSimulateur,
+    @Body() donneesFormulaire: DonneesFormulaireSimulateur,
   ): Promise<string> {
     return JSON.stringify(await this.journalService.trace(donneesFormulaire));
   }

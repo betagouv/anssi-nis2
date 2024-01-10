@@ -1,23 +1,9 @@
-import { fc } from "@fast-check/vitest";
 import { describe, it } from "vitest";
-import { IDonneesBrutesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire";
 import { Eligibilite } from "../../src/Domain/Simulateur/Eligibilite.constantes";
-import { ResultatEligibilite } from "../../src/Domain/Simulateur/Eligibilite.definitions";
 import { calculeEligibilite } from "../../src/Domain/Simulateur/services/Eligibilite/Eligibilite.operations";
 import { verifieQue } from "../utilitaires/assure";
+import { VerifieEligibilite as V } from "../utilitaires/Eligibilite.Verification";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
-
-const V = Object.values(Eligibilite).reduce(
-  (acc, nom) => ({
-    ...acc,
-    [nom]: verifieQue(calculeEligibilite).renvoieToujours(Eligibilite[nom])
-      .quelqueSoit,
-  }),
-  {}
-) as Record<
-  ResultatEligibilite,
-  (arbitraire: fc.Arbitrary<IDonneesBrutesFormulaireSimulateur>) => void
->;
 
 describe(calculeEligibilite, () => {
   describe("Entité OSE pour NIS1", () => {
@@ -106,6 +92,9 @@ describe(calculeEligibilite, () => {
       });
       it("Hors Union Européenne", () => {
         V.Incertain(arbForm.nonDesigneOSE.horsUE);
+      });
+      it("Hors Union Européenne", () => {
+        V.Incertain(arbForm.nonDesigneOSE.autrePaysUe);
       });
       it("Hors Union Européenne, grande entreprise", () => {
         verifieQue(calculeEligibilite)

@@ -6,7 +6,6 @@ import {
   FournitServicesUnionEuropeenne,
 } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { donneesFormulaireSimulateurVide } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.constantes.ts";
-import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
 
 import EtapeLocalisationActiviteSpecifique from "../../../Components/Simulateur/Etapes/EtapeLocalisationActiviteSpecifique.tsx";
 import {
@@ -88,9 +87,10 @@ export const FournitServicesUnionEuropeenneSeul: Story = {
 export const LocalisationDuRepresentant: Story = {
   name: "Localisation du représentant",
   args: {
-    donneesFormulaire: new DonneesFormulaireSimulateur(
-      donneesFormulaireSimulateurVide,
-    ).avec({ fournitServicesUnionEuropeenne: ["oui"] }),
+    donneesFormulaire: {
+      ...donneesFormulaireSimulateurVide,
+      fournitServicesUnionEuropeenne: ["oui"],
+    },
   },
   play: async ({ args, canvasElement, step }) => {
     const canvas = within(canvasElement);

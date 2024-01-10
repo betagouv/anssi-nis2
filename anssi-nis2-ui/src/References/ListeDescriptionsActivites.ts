@@ -1,10 +1,10 @@
 import {
   DescriptionActivite,
-  ValeursActivites,
+  Activites,
 } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
 
 export const listeDescriptionsActivites: Record<
-  ValeursActivites,
+  Activites,
   DescriptionActivite[]
 > = {
   autreActiviteAdministrationPublique: [],

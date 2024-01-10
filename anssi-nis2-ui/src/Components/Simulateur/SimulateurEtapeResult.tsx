@@ -1,3 +1,8 @@
+import {
+  calculePrecisionResultat,
+  calculePrecisionResultatRegulation,
+} from "../../../../commun/core/src/Domain/Simulateur/Resultat.operations.ts";
+import { transformeEligibiliteEnRegulationEntite } from "../../../../commun/core/src/Domain/Simulateur/services/Regulation/Regulation.operations.ts";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
 import { LigneReseauxSociaux } from "./Resultats/LigneReseauxSociaux.tsx";
 import { LigneBienDebuter } from "./Resultats/LigneBienDebuter.tsx";
@@ -16,12 +21,25 @@ export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
   const contenuResultat = recupereContenusResultatEligibilite(
     statutEligibiliteNIS2,
   );
+  const regulationEntite = transformeEligibiliteEnRegulationEntite(
+    statutEligibiliteNIS2,
+  )(donneesFormulaire);
+  const precisionResultat = calculePrecisionResultatRegulation(
+    regulationEntite.decision,
+  )(donneesFormulaire);
+  const precision = calculePrecisionResultat(regulationEntite.decision)(
+    donneesFormulaire,
+  );
   return (
     <>
-      <LigneResultat contenuResultat={contenuResultat} />
+      <LigneResultat
+        precisionResultatRegulation={precisionResultat}
+        regulation={regulationEntite.decision}
+        precision={precision}
+      />
       <LigneResterInformer mode={contenuResultat.modeFormulaireEmail} />
-      {contenuResultat.afficheBlocs.etMaintenant && <LigneEtMaintenant />}
-      {contenuResultat.afficheBlocs.enSavoirPlus && <EnSavoirPlus />}
+      {contenuResultat.blocs.has("etMaintenant") && <LigneEtMaintenant />}
+      {contenuResultat.blocs.has("enSavoirPlus") && <EnSavoirPlus />}
       <LigneBienDebuter contenuResultat={contenuResultat} />
       <LigneReseauxSociaux />
     </>

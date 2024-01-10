@@ -1,7 +1,7 @@
-import { ValeursActivites } from "../../Activite.definitions";
+import { Activites } from "../../Activite.definitions";
 import { ValeurChampSimulateur } from "../../ChampsSimulateur.definitions";
 import {
-  IDonneesBrutesFormulaireSimulateur,
+  DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../DonneesFormulaire";
 import { SecteursAvecSousSecteurs } from "../../SousSecteurActivite.definitions";
@@ -21,7 +21,7 @@ import { fabriqueListeValeursSectorielles } from "../ValeursSectorielles/Valeurs
 import { PredicatChamp } from "./champs.domaine";
 
 const appliqueValidateur: (
-  donnees: IDonneesBrutesFormulaireSimulateur
+  donnees: DonneesFormulaireSimulateur
 ) => (validateur: PredicatChamp) => boolean = (donnees) => (validateur) =>
   validateur(donnees);
 export const et: (...validateurs: Array<PredicatChamp>) => PredicatChamp =
@@ -48,7 +48,7 @@ export const lorsque: (
   valeur: ValeurChampSimulateur,
   predicat: PredicatChamp
 ) => PredicatChamp =
-  (champ, valeur, predicat) => (donnees: IDonneesBrutesFormulaireSimulateur) =>
+  (champ, valeur, predicat) => (donnees: DonneesFormulaireSimulateur) =>
     donnees[champ][0] != valeur || predicat(donnees);
 
 export const estChaineNonVide = <T extends string>(listeValeurs: T) =>
@@ -60,7 +60,7 @@ export const auMoinsN = (
   fonctionNommee = `auMoinsN_${n}_${nomChamp}`
 ) =>
   ({
-    [fonctionNommee]: (donnees: IDonneesBrutesFormulaireSimulateur) =>
+    [fonctionNommee]: (donnees: DonneesFormulaireSimulateur) =>
       donnees[nomChamp].filter(estChaineNonVide).length > n - 1,
   }[fonctionNommee]);
 
@@ -70,7 +70,7 @@ export const exactementN = (
   fonctionNommee = `exactement_${n}_${nomChamp}`
 ) =>
   ({
-    [fonctionNommee]: (donnees: IDonneesBrutesFormulaireSimulateur) =>
+    [fonctionNommee]: (donnees: DonneesFormulaireSimulateur) =>
       donnees[nomChamp].filter(estChaineNonVide).length === n,
   }[fonctionNommee]);
 
@@ -99,11 +99,11 @@ export const auMoinsUnSousSecteurParSecteur: PredicatChamp = (
   )(donneesFormulaireSimulateur);
 
 const auMoinsUneActiviteEstDansSecteur =
-  (activites: ValeursActivites[]) => (secteurActivite: ValeurCleSectorielle) =>
+  (activites: Activites[]) => (secteurActivite: ValeurCleSectorielle) =>
     activites.some(activiteEstDansSecteur(secteurActivite));
 
 const fabriqueAuMoinsUneActiviteEstDansSecteur = (
-  donneesFormulaireSimulateur: IDonneesBrutesFormulaireSimulateur
+  donneesFormulaireSimulateur: DonneesFormulaireSimulateur
 ) => auMoinsUneActiviteEstDansSecteur(donneesFormulaireSimulateur.activites);
 
 export const auMoinsUneActiviteParValeurSectorielleListee: PredicatChamp = (
@@ -119,7 +119,7 @@ export const auMoinsUneActiviteParValeurSectorielleListee: PredicatChamp = (
   );
 
 export const contientSousSecteurAutresUniquement = (
-  donneesFormulaire: IDonneesBrutesFormulaireSimulateur
+  donneesFormulaire: DonneesFormulaireSimulateur
 ) =>
   donneesFormulaire.sousSecteurActivite.length > 0 &&
   donneesFormulaire.sousSecteurActivite.every(estSousSecteurAutre);
