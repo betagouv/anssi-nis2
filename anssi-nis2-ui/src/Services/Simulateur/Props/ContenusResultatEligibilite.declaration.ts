@@ -1,7 +1,11 @@
+export const ValeursLigneResultatSpecifique = [
+  "etMaintenant",
+  "enSavoirPlus",
+  "bienDebuter",
+] as const;
+
 export type BlocResultatSpecifiques =
-  | "etMaintenant"
-  | "enSavoirPlus"
-  | "bienDebuter";
+  (typeof ValeursLigneResultatSpecifique)[number];
 
 export type PrecisionsResultatProps = {
   principal: string;

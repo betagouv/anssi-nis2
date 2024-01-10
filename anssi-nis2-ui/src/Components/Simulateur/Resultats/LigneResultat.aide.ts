@@ -9,7 +9,7 @@ import {
   libelleTitreIncertainStandard,
   libelleTitreNonRegule,
   libelleTitreRegule,
-} from "../../../References/contenusResultatEligibilite.ts";
+} from "../../../References/LibellesResultatsEligibilite.ts";
 import {
   ActionPrecisionsResultat,
   EtatPrecisionsResultat,

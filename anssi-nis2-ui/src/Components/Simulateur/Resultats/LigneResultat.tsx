@@ -1,6 +1,7 @@
 import { useEffect, useReducer } from "react";
 import Markdown from "react-markdown";
-import { explicationContenuIncertain } from "../../../References/contenusResultatEligibilite.ts";
+
+import { explicationContenuIncertain } from "../../../References/LibellesResultatsEligibilite.ts";
 import { decaleTitre4Niveaux } from "../../../Services/constantes.ts";
 import { chargeContenuPour } from "../../../Services/fabriques/PrecisionsResultatProps.fabrique.ts";
 import {

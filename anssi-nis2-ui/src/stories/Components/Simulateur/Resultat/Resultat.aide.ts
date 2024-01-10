@@ -1,16 +1,23 @@
 import { within } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 import { titreDeSections } from "../../../../References/LibellesResultatsEligibilite.ts";
-import { BlocsAffiches } from "../../../../Services/Simulateur/Props/ContenusResultatEligibilite.declaration.ts";
+import {
+  BlocsAffiches,
+  ValeursLigneResultatSpecifique,
+} from "../../../../Services/Simulateur/Props/ContenusResultatEligibilite.declaration.ts";
 
 export const verifieTitresSectionsPresentes = async (
   canvasElement: HTMLElement,
   sections: BlocsAffiches,
 ) => {
   const canvas = within(canvasElement);
-  sections.has("etMaintenant") &&
-    (await canvas.findByText(titreDeSections.etMaintenant));
-  sections.has("enSavoirPlus") &&
-    (await canvas.findByText(titreDeSections.enSavoirPlus));
-  sections.has("bienDebuter") &&
-    (await canvas.findByText(titreDeSections.bienDebuter));
+  for (const nomLigne of ValeursLigneResultatSpecifique) {
+    if (sections.has(nomLigne)) {
+      await canvas.findByText(titreDeSections[nomLigne]);
+    } else {
+      await expect(
+        canvas.queryByText(titreDeSections[nomLigne]),
+      ).not.toBeInTheDocument();
+    }
+  }
 };

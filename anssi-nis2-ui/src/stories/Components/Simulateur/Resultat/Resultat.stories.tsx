@@ -7,7 +7,10 @@ import { within } from "@storybook/testing-library";
 import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
 import { SimulateurEtapeResult } from "../../../../Components/Simulateur/SimulateurEtapeResult.tsx";
 
-import { texteIntroductionPdfPetiteEntite } from "../../../../References/LibellesResultatsEligibilite.ts";
+import {
+  texteIntroductionBienDebuterGrandeEntite,
+  texteIntroductionBienDebuterPetiteEntite,
+} from "../../../../References/LibellesResultatsEligibilite.ts";
 import { attendTexteCharge } from "../../../utilitaires/interaction.facilitateurs.ts";
 import { verifieTitresSectionsPresentes } from "./Resultat.aide.ts";
 
@@ -57,6 +60,10 @@ export const ResultatEligibleOSE: Story = {
     expect(await canvas.findByText(pointsDAttention)).toBeInTheDocument();
 
     await canvas.findByText("Et Maintenant ?");
+    await canvas.findByText(texteIntroductionBienDebuterPetiteEntite);
+    await expect(
+      canvas.queryByText(texteIntroductionBienDebuterGrandeEntite),
+    ).not.toBeInTheDocument();
   },
 };
 export const ResultatEligiblePetiteEntreprise: Story = {
@@ -83,11 +90,10 @@ export const ResultatEligiblePetiteEntreprise: Story = {
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H4");
 
-    await canvas.findByText(
-      "Dans l’attente des exigences françaises pour votre organisation, " +
-        "retrouvez les guides essentiels de bonne pratique de l’ANSSI pour " +
-        "débuter dès à présent votre montée en maturité cyber.",
-    );
+    await canvas.findByText(texteIntroductionBienDebuterPetiteEntite);
+    await expect(
+      canvas.queryByText(texteIntroductionBienDebuterGrandeEntite),
+    ).not.toBeInTheDocument();
   },
 };
 export const ResultatEligibleGrandeEntreprise: Story = {
@@ -107,19 +113,15 @@ export const ResultatEligibleGrandeEntreprise: Story = {
       new Set(["etMaintenant", "enSavoirPlus", "bienDebuter"]),
     );
 
-    await expect(
-      canvas.queryByText(texteIntroductionPdfPetiteEntite),
-    ).not.toBeInTheDocument();
-
     const titrePrecisions = await canvas.findByText(pointsDAttention);
+
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H4");
 
-    await canvas.findByText(
-      "Dans l’attente des exigences françaises pour votre organisation, " +
-        "retrouvez sur le site de l’ANSSI l’ensemble des guides de bonnes " +
-        "pratiques ainsi que les mesures cyber préventives prioritaires.",
-    );
+    await expect(
+      canvas.queryByText(texteIntroductionBienDebuterPetiteEntite),
+    ).not.toBeInTheDocument();
+    await canvas.findByText(texteIntroductionBienDebuterGrandeEntite);
   },
 };
 
@@ -137,7 +139,10 @@ export const ResultatNonEligible: Story = {
     const canvas = within(canvasElement);
     await attendTexteCharge(canvasElement, pointsDAttention);
 
-    await verifieTitresSectionsPresentes(canvasElement, new Set([]));
+    await verifieTitresSectionsPresentes(
+      canvasElement,
+      new Set(["bienDebuter"]),
+    );
 
     const criteresDePossibleInclusion = "Critères de possible inclusion";
 
@@ -146,5 +151,9 @@ export const ResultatNonEligible: Story = {
     );
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H5");
+    await canvas.findByText(texteIntroductionBienDebuterPetiteEntite);
+    await expect(
+      canvas.queryByText(texteIntroductionBienDebuterGrandeEntite),
+    ).not.toBeInTheDocument();
   },
 };

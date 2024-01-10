@@ -3,7 +3,8 @@ import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Dom
 import { ChargeurEtape } from "../../../../Components/Simulateur/ChargeurEtape.tsx";
 import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { libelleTitreRegule } from "../../../../References/contenusResultatEligibilite.ts";
+
+import { libelleTitreRegule } from "../../../../References/LibellesResultatsEligibilite.ts";
 import { nettoieBrMd } from "../../../../Services/Markdown/TransformeMarkdown.operations.ts";
 import {
   cliqueSurDebuterLeTest,
