@@ -11,36 +11,36 @@ import {
 } from "./Resultat.declarations";
 
 const calculePrecisionResultatRegulationIncertain = (
-  d: DonneesFormulaireSimulateur,
+  d: DonneesFormulaireSimulateur
 ) =>
   match(d)
     .with(
       { etatMembre: ["autre"] },
-      () => PrecisionsResultatRegulation.IncertainAutrePaysUnionEuropeenne,
+      () => PrecisionsResultatRegulation.IncertainAutrePaysUnionEuropeenne
     )
     .otherwise(() => PrecisionsResultatRegulation.IncertainStandard);
 
 const calculePrecisionResultatRegulationRegule = (
-  d: DonneesFormulaireSimulateur,
+  d: DonneesFormulaireSimulateur
 ) =>
   match(d)
     .with(
       { secteurActivite: ["banqueSecteurBancaire"] },
-      () => PrecisionsResultatRegulation.ReguleDORA,
+      () => PrecisionsResultatRegulation.ReguleDORA
     )
     .with(
       { activites: ["registresNomsDomainesPremierNiveau"] },
-      () => PrecisionsResultatRegulation.ReguleEnregistrementDeNomsDeDomaine,
+      () => PrecisionsResultatRegulation.ReguleEnregistrementDeNomsDeDomaine
     )
     .otherwise(() => PrecisionsResultatRegulation.ReguleStandard);
 
 const calculePrecisionResultatRegulationNonRegule = (
-  d: DonneesFormulaireSimulateur,
+  d: DonneesFormulaireSimulateur
 ) =>
   match(d)
     .with(
       { etatMembre: ["horsue"] },
-      () => PrecisionsResultatRegulation.NonReguleHorsUnionEuropeenne,
+      () => PrecisionsResultatRegulation.NonReguleHorsUnionEuropeenne
     )
     .otherwise(() => PrecisionsResultatRegulation.NonReguleStandard);
 
@@ -60,7 +60,7 @@ const calculePrecisionResultatIncertain = (d: DonneesFormulaireSimulateur) =>
   match(d)
     .with(
       { etatMembre: ["autre"] },
-      () => PrecisionsResultat.AutrePaysUnionEuropeenne,
+      () => PrecisionsResultat.AutrePaysUnionEuropeenne
     )
     .otherwise(() => PrecisionsResultat.Standard);
 
@@ -68,11 +68,11 @@ const calculePrecisionResultatRegule = (d: DonneesFormulaireSimulateur) =>
   match(d)
     .with(
       { secteurActivite: ["banqueSecteurBancaire"] },
-      () => PrecisionsResultat.DORA,
+      () => PrecisionsResultat.DORA
     )
     .with(
       { activites: ["registresNomsDomainesPremierNiveau"] },
-      () => PrecisionsResultat.EnregistrementDeNomsDeDomaine,
+      () => PrecisionsResultat.EnregistrementDeNomsDeDomaine
     )
     .otherwise(() => PrecisionsResultat.Standard);
 
@@ -80,7 +80,7 @@ const calculePrecisionResultatNonRegule = (d: DonneesFormulaireSimulateur) =>
   match(d)
     .with(
       { etatMembre: ["horsue"] },
-      () => PrecisionsResultat.HorsUnionEuropeenne,
+      () => PrecisionsResultat.HorsUnionEuropeenne
     )
     .otherwise(() => PrecisionsResultat.Standard);
 

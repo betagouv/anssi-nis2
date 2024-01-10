@@ -20,7 +20,7 @@ describe(calculePrecisionResultatRegulation, () => {
 
   describe(Regulation.Regule, () => {
     const calculePrecisionsResultatRegule = calculePrecisionResultatRegulation(
-      Regulation.Regule,
+      Regulation.Regule
     );
     it("Renvoie une précision Regulé Standard par défaut pour un résultat Regulé", () => {
       verifieQue(calculePrecisionsResultatRegule)
@@ -43,7 +43,7 @@ describe(calculePrecisionResultatRegulation, () => {
       verifieQue(calculePrecisionsResultatRegule)
         .pour(donneesFormulaireSimulateur)
         .renvoieToujours(
-          PrecisionsResultatRegulation.ReguleEnregistrementDeNomsDeDomaine,
+          PrecisionsResultatRegulation.ReguleEnregistrementDeNomsDeDomaine
         );
     });
   });
@@ -63,7 +63,7 @@ describe(calculePrecisionResultatRegulation, () => {
       verifieQue(calculePrecisionsResultatNonRegule)
         .pour(donneesFormulaireSimulateur)
         .renvoieToujours(
-          PrecisionsResultatRegulation.NonReguleHorsUnionEuropeenne,
+          PrecisionsResultatRegulation.NonReguleHorsUnionEuropeenne
         );
     });
   });
