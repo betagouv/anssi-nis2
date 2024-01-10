@@ -80,7 +80,7 @@ describe("Validation des données formulaire", () => {
     typeStructure: ["privee"],
     secteurActivite: ["infrastructureNumerique"],
     trancheNombreEmployes: ["petit"],
-    trancheCA: ["petit"],
+    trancheChiffreAffaire: ["petit"],
     activites: ["fournisseurServicesDNS"],
   };
 
@@ -179,7 +179,7 @@ describe("Validation des données formulaire", () => {
         designeOperateurServicesEssentiels: ["oui"],
         appartenancePaysUnionEurpopeenne: ["france"],
         secteurActivite: ["espace"],
-        trancheCA: ["petit"],
+        trancheChiffreAffaire: ["petit"],
         trancheNombreEmployes: ["petit"],
         typeStructure: ["privee"],
       };

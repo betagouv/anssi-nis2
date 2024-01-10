@@ -45,7 +45,7 @@ export const arbNonOSEPrivesPetitFournisseurInfraNum =
       designeOperateurServicesEssentiels:
         arbDesigneOperateurServicesEssentiels.non,
       typeStructure: arbTypeStructure.privee,
-      trancheCA: arbTranche.petit,
+      trancheChiffreAffaire: arbTranche.petit,
       trancheNombreEmployes: arbTranche.petit,
       appartenancePaysUnionEurpopeenne:
         arbAppartenancePaysUnionEuropeenne.france,
@@ -69,7 +69,7 @@ const arbNonOSEPrivesPetitHorsFournisseurInfraNum = etend<DonneesSectorielles>(
     designeOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.privee,
-    trancheCA: arbTranche.petit,
+    trancheChiffreAffaire: arbTranche.petit,
     trancheNombreEmployes: arbTranche.petit,
     appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.france,
   })

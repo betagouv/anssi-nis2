@@ -33,7 +33,7 @@ export const arbToutesValeursPossibles = etend(
     "publique",
   ] as TypeStructure[]),
   typeEntitePublique: fabriqueArbSingleton(ValeursTypeEntitePublique),
-  trancheCA: fabriqueArbTrancheSingleton(),
+  trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
   trancheNombreEmployes: fabriqueArbTrancheSingleton(),
   appartenancePaysUnionEurpopeenne: fabriqueArbSingleton(
     ValeursAppartenancePaysUnionEuropeenne,
@@ -63,7 +63,7 @@ const initialValue: ArbitraireSurTousLesChamps = {
   appartenancePaysUnionEurpopeenne: arbFormulaireVide,
   secteurActivite: arbFormulaireVide,
   sousSecteurActivite: arbFormulaireVide,
-  trancheCA: arbFormulaireVide,
+  trancheChiffreAffaire: arbFormulaireVide,
   trancheNombreEmployes: arbFormulaireVide,
   typeEntitePublique: arbFormulaireVide,
   typeStructure: arbFormulaireVide,

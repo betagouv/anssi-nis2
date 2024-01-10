@@ -19,7 +19,7 @@ export const arbActivitesAutres = etend<DonneesSectorielles>(
     PiocheDonneesForm<
       | "designeOperateurServicesEssentiels"
       | "typeStructure"
-      | "trancheCA"
+      | "trancheChiffreAffaire"
       | "trancheNombreEmployes"
       | "appartenancePaysUnionEurpopeenne"
     >
@@ -27,7 +27,7 @@ export const arbActivitesAutres = etend<DonneesSectorielles>(
     designeOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: fc.constant(["privee"]),
-    trancheCA: fabriqueArbTrancheSingleton(),
+    trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
     trancheNombreEmployes: fabriqueArbTrancheSingleton(),
     appartenancePaysUnionEurpopeenne: fabriqueArbSingleton(
       ValeursAppartenancePaysUnionEuropeenne,

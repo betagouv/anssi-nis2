@@ -35,7 +35,7 @@ export const gestionnairesDeChamp: Record<
   secteurActivite: genereGestionValeursMultiples("secteurActivite"),
   sousSecteurActivite: genereGestionValeursMultiples("sousSecteurActivite"),
   activites: genereGestionValeursMultiples("activites"),
-  trancheCA: gestionValeursSimples,
+  trancheChiffreAffaire: gestionValeursSimples,
   trancheNombreEmployes: gestionValeursSimples,
   typeStructure: gestionValeursSimples,
   typeEntitePublique: gestionValeursSimples,

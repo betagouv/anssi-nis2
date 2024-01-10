@@ -9,7 +9,7 @@ export const arbFormulaireVide: ArbitraireFormulaire = fc.record({
   localisationRepresentant: fc.constant([]),
   secteurActivite: fc.constant([]),
   sousSecteurActivite: fc.constant([]),
-  trancheCA: fc.constant([]),
+  trancheChiffreAffaire: fc.constant([]),
   trancheNombreEmployes: fc.constant([]),
   typeEntitePublique: fc.constant([]),
   typeStructure: fc.constant([]),

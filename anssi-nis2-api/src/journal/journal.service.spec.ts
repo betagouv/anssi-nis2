@@ -12,7 +12,9 @@ const attendResultatConforme = (
   expect(result[0].evenement.type).toBe("resultatTestConcerneNis2");
   expect(result[0].evenement.donnees).toBe(JSON.stringify(donnees));
   expect(result[0].typeStructure).toBe(donnees.typeStructure[0]);
-  expect(result[0].trancheChiffreAffaire).toBe(donnees.trancheCA[0]);
+  expect(result[0].trancheChiffreAffaire).toBe(
+    donnees.trancheChiffreAffaire[0],
+  );
   expect(result[0].trancheNombreEmployes).toBe(
     donnees.trancheNombreEmployes[0],
   );
@@ -42,7 +44,7 @@ describe("JournalService", () => {
       secteurActivite: ["eauPotable"],
       typeStructure: ["privee"],
       trancheNombreEmployes: ["grand"],
-      trancheCA: ["grand"],
+      trancheChiffreAffaire: ["grand"],
     };
 
     const result = await service.trace(donnees);
@@ -60,7 +62,7 @@ describe("JournalService", () => {
       sousSecteurActivite: ["hydrogene"],
       typeStructure: ["privee"],
       trancheNombreEmployes: ["grand"],
-      trancheCA: ["grand"],
+      trancheChiffreAffaire: ["grand"],
     };
 
     const result = await service.trace(donnees);
@@ -76,7 +78,7 @@ describe("JournalService", () => {
       secteurActivite: ["eauxUsees", "eauPotable"],
       typeStructure: ["privee"],
       trancheNombreEmployes: ["grand"],
-      trancheCA: ["grand"],
+      trancheChiffreAffaire: ["grand"],
     };
 
     const result = await service.trace(donnees);
@@ -94,7 +96,7 @@ describe("JournalService", () => {
       sousSecteurActivite: ["hydrogene", "electricite"],
       typeStructure: ["privee"],
       trancheNombreEmployes: ["grand"],
-      trancheCA: ["grand"],
+      trancheChiffreAffaire: ["grand"],
     };
 
     const result = await service.trace(donnees);
@@ -118,7 +120,7 @@ describe("JournalService", () => {
       ],
       typeStructure: ["privee"],
       trancheNombreEmployes: ["grand"],
-      trancheCA: ["grand"],
+      trancheChiffreAffaire: ["grand"],
     };
 
     const result = await service.trace(donnees);

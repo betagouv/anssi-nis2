@@ -29,7 +29,7 @@ export const scenarioEtapeSousActiviteConditionnelle: StoryObj<
     await passeEtape([["typeStructure", "privee"]]);
     await passeEtape([
       ["trancheNombreEmployes", "petit"],
-      ["trancheCA", "petit"],
+      ["trancheChiffreAffaire", "petit"],
     ]);
   });
 
@@ -65,7 +65,7 @@ export const scenarioEtapeSousActiviteConditionnelle: StoryObj<
       appartenancePaysUnionEurpopeenne: ["france"],
       secteurActivite: ["energie"],
       sousSecteurActivite: ["electricite", "gaz"],
-      trancheCA: ["petit"],
+      trancheChiffreAffaire: ["petit"],
       trancheNombreEmployes: ["petit"],
       typeStructure: ["privee"],
     }),

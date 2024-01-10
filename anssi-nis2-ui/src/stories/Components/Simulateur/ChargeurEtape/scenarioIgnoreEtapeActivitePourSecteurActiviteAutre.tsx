@@ -28,7 +28,7 @@ export const scenarioIgnoreEtapeActivitePourSecteurActiviteAutre: StoryObj<
 
   await passeEtape([
     ["trancheNombreEmployes", "petit"],
-    ["trancheCA", "petit"],
+    ["trancheChiffreAffaire", "petit"],
   ]);
   await passeEtape([["secteurActivite", "autreSecteurActivite"]]);
 
@@ -46,7 +46,7 @@ export const scenarioIgnoreEtapeActivitePourSecteurActiviteAutre: StoryObj<
       appartenancePaysUnionEurpopeenne: ["france"],
       secteurActivite: ["autreSecteurActivite"],
       sousSecteurActivite: [],
-      trancheCA: ["petit"],
+      trancheChiffreAffaire: ["petit"],
       trancheNombreEmployes: ["petit"],
       typeStructure: ["privee"],
     }),

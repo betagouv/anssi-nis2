@@ -30,7 +30,7 @@ export const scenarioEtapeActivitePourSecteurActiviteAutreEtListes: StoryObj<
 
   await passeEtape([
     ["trancheNombreEmployes", "petit"],
-    ["trancheCA", "petit"],
+    ["trancheChiffreAffaire", "petit"],
   ]);
   await passeEtapeValidableAvecUnSeulCheck([
     ["secteurActivite", "eauPotable"],
@@ -54,7 +54,7 @@ export const scenarioEtapeActivitePourSecteurActiviteAutreEtListes: StoryObj<
       appartenancePaysUnionEurpopeenne: ["france"],
       secteurActivite: ["eauPotable", "autreSecteurActivite"],
       sousSecteurActivite: [],
-      trancheCA: ["petit"],
+      trancheChiffreAffaire: ["petit"],
       trancheNombreEmployes: ["petit"],
       typeStructure: ["privee"],
     }),

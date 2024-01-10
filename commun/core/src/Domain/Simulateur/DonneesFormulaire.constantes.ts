@@ -5,7 +5,7 @@ export const donneesFormulaireSimulateurVide: DonneesFormulaireSimulateur = {
   appartenancePaysUnionEurpopeenne: [],
   secteurActivite: [],
   sousSecteurActivite: [],
-  trancheCA: [],
+  trancheChiffreAffaire: [],
   trancheNombreEmployes: [],
   typeStructure: [],
   typeEntitePublique: [],

@@ -49,7 +49,7 @@ export const scenarioTypeEntitePublique: StoryObj<
       appartenancePaysUnionEurpopeenne: ["france"],
       secteurActivite: ["energie"],
       sousSecteurActivite: ["autreSousSecteurEnergie"],
-      trancheCA: [],
+      trancheChiffreAffaire: [],
       trancheNombreEmployes: ["petit"],
       typeStructure: [typeStructure],
       typeEntitePublique: ["administrationCentrale"],

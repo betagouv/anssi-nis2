@@ -15,7 +15,7 @@ const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
   designeOperateurServicesEssentiels: ["non"],
   appartenancePaysUnionEurpopeenne: ["france"],
   typeStructure: ["privee"],
-  trancheCA: ["petit"],
+  trancheChiffreAffaire: ["petit"],
   trancheNombreEmployes: ["petit"],
   secteurActivite: ["eauPotable"],
   sousSecteurActivite: [],
@@ -41,7 +41,7 @@ export const ResultatEligibleOSE: Story = {
       ...archetypeDonneesFormulaire,
       designeOperateurServicesEssentiels: ["oui"],
       trancheNombreEmployes: ["petit"],
-      trancheCA: ["petit"],
+      trancheChiffreAffaire: ["petit"],
     },
   },
   play: async ({ canvasElement }) => {
@@ -63,7 +63,7 @@ export const ResultatEligiblePetiteEntreprise: Story = {
   args: {
     donneesFormulaire: {
       ...archetypeDonneesFormulaire,
-      trancheCA: ["petit"],
+      trancheChiffreAffaire: ["petit"],
       trancheNombreEmployes: ["petit"],
       secteurActivite: ["infrastructureNumerique"],
       activites: ["registresNomsDomainesPremierNiveau"],
@@ -95,7 +95,7 @@ export const ResultatEligibleGrandeEntreprise: Story = {
   args: {
     donneesFormulaire: {
       ...archetypeDonneesFormulaire,
-      trancheCA: ["grand"],
+      trancheChiffreAffaire: ["grand"],
       trancheNombreEmployes: ["grand"],
     },
   },

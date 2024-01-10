@@ -17,7 +17,10 @@ export const fabriqueValidationUneReponses = (
 });
 export const validationReponsesTaille: ValidationReponses = {
   message: "Sélectionnez une réponse pour chaque critère",
-  validateur: et(auMoinsUn("trancheNombreEmployes"), auMoinsUn("trancheCA")),
+  validateur: et(
+    auMoinsUn("trancheNombreEmployes"),
+    auMoinsUn("trancheChiffreAffaire"),
+  ),
 };
 export const validationReponsesSecteurs: ValidationReponses = {
   message: "Sélectionnez au moins une réponse",

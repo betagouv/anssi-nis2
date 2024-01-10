@@ -25,7 +25,7 @@ export const scenarioDerniereEtapeEstResultat: StoryObj<
 
   await passeEtape([
     ["trancheNombreEmployes", "petit"],
-    ["trancheCA", "petit"],
+    ["trancheChiffreAffaire", "petit"],
   ]);
   await passeEtape([["secteurActivite", "espace"]]);
   await passeEtape([
@@ -45,7 +45,7 @@ export const scenarioDerniereEtapeEstResultat: StoryObj<
       appartenancePaysUnionEurpopeenne: ["france"],
       secteurActivite: ["espace"],
       sousSecteurActivite: [],
-      trancheCA: ["petit"],
+      trancheChiffreAffaire: ["petit"],
       trancheNombreEmployes: ["petit"],
       typeStructure: ["privee"],
     }),

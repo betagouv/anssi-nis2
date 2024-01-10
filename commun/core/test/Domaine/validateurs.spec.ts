@@ -43,11 +43,11 @@ describe("validateurs", () => {
     it("peut appeler plusieurs validateurs sur une même fonction et retourne vrai", () => {
       const donneesFormulaireSimulateur = fabriqueDonneesFormulaire({
         trancheNombreEmployes: ["petit"],
-        trancheCA: ["petit"],
+        trancheChiffreAffaire: ["petit"],
       });
       const validateur = et(
         auMoinsUn("trancheNombreEmployes"),
-        auMoinsUn("trancheCA"),
+        auMoinsUn("trancheChiffreAffaire"),
       );
       const result = validateur(donneesFormulaireSimulateur);
       expect(result).toBeTruthy();
@@ -56,11 +56,11 @@ describe("validateurs", () => {
     it("peut appeler plusieurs validateurs sur une même fonction et retourne faux", () => {
       const donneesFormulaireSimulateur = fabriqueDonneesFormulaire({
         trancheNombreEmployes: ["petit"],
-        trancheCA: [],
+        trancheChiffreAffaire: [],
       });
       const validateur = et(
         auMoinsUn("trancheNombreEmployes"),
-        auMoinsUn("trancheCA"),
+        auMoinsUn("trancheChiffreAffaire"),
       );
       const result = validateur(donneesFormulaireSimulateur);
       expect(result).toBeFalsy();

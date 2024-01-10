@@ -57,7 +57,7 @@ export const verifieCompletudeDonneesCommunes = et(
 export const verifieDonneesCommunesPrivee: (
   donnees: DonneesFormulaireSimulateur,
 ) => boolean = isMatching({
-  trancheCA: [P._],
+  trancheChiffreAffaire: [P._],
   typeStructure: ["privee"],
 });
 export const verifieDonneesCommunesPublique = isMatching({

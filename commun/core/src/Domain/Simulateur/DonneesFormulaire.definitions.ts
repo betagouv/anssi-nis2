@@ -22,7 +22,7 @@ export interface DonneesFormulaireSimulateur
   appartenancePaysUnionEurpopeenne: AppartenancePaysUnionEuropeenne[];
   secteurActivite: SecteurActivite[];
   sousSecteurActivite: SousSecteurActivite[];
-  trancheCA: TrancheChiffreAffaire[];
+  trancheChiffreAffaire: TrancheChiffreAffaire[];
   trancheNombreEmployes: TrancheNombreEmployes[];
   typeStructure: TypeStructure[];
   typeEntitePublique: TypeEntitePublique[];

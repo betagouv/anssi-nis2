@@ -3,7 +3,7 @@ import {
   ajouteAuMoinsUneActiviteArbitraire,
   ajouteChampsFacultatifs,
   etend,
-  fabriqueArbContraintSurTrancheCA,
+  fabriqueArbContraintSurtrancheChiffreAffaire,
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
 } from "../../utilitaires/manipulationArbitraires";
@@ -21,10 +21,10 @@ export const arbNonOSEPublique = etend(arbSecteursEtSousSecteursListes)
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.publique,
     typeEntitePublique: fabriqueArbSingleton(ValeursTypeEntitePublique),
-    trancheCA: fabriqueArbTrancheSingleton(),
+    trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
     appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.france,
   })
-  .chain(fabriqueArbContraintSurTrancheCA)
+  .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
   .chain(ajouteAuMoinsUneActiviteArbitraire)
   .chain(ajouteChampsFacultatifs)
   .filter(predicatDonneesFormulaire.auMoins.une.activiteListee);

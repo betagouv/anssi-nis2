@@ -38,7 +38,7 @@ export class JournalService {
         ...emptySegmentsConcernesNis2,
         evenement: evenement,
         typeStructure: donnees.typeStructure[0],
-        trancheChiffreAffaire: donnees.trancheCA[0],
+        trancheChiffreAffaire: donnees.trancheChiffreAffaire[0],
         trancheNombreEmployes: donnees.trancheNombreEmployes[0],
         secteur: secteur,
         sousSecteur: sousSecteur,

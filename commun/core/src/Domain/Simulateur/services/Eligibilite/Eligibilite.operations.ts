@@ -15,7 +15,7 @@ const calculeEligibiliteOperateurServiceEssentielNis1: OperationCalculeEligibili
     match(donnees)
       .with(
         {
-          trancheCA: ["petit"],
+          trancheChiffreAffaire: ["petit"],
           trancheNombreEmployes: ["petit"],
         },
         R.EligiblePetiteEntreprise,
@@ -101,7 +101,7 @@ const calculeEligibiliteStructurePrivee: OperationCalculeEligibilite = (
     .with({ appartenancePaysUnionEurpopeenne: ["autre"] }, R.Incertain)
     .with(
       {
-        trancheCA: ["petit"],
+        trancheChiffreAffaire: ["petit"],
         trancheNombreEmployes: ["petit"],
       },
       calculeEligibilitePetiteStructurePrivee,
@@ -112,7 +112,7 @@ const calculeEligibiliteStructurePrivee: OperationCalculeEligibilite = (
           trancheNombreEmployes: P.union(["moyen"], ["grand"]),
         },
         {
-          trancheCA: P.union(["moyen"], ["grand"]),
+          trancheChiffreAffaire: P.union(["moyen"], ["grand"]),
         },
       ),
       calculeEligibiliteMoyenneOuGrandeStructurePrivee,

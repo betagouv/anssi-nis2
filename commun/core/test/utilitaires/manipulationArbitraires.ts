@@ -165,14 +165,16 @@ export const ajouteArbitraireActivites = <
 };
 
 export const contrainteTranchesSansDoublonSurValeur = <
-  T extends DonneesFormulairesAvantTrancheCA = DonneesFormulaireSimulateur,
+  T extends
+    DonneesFormulairesAvanttrancheChiffreAffaire = DonneesFormulaireSimulateur,
 >(
   base: T,
   valeurExclusive: UnionPetitMoyenGrand,
 ) =>
   fabriqueArbSingleton(ValeursPetitMoyenGrand).filter(
     (tranche) =>
-      tranche[0] !== valeurExclusive || base.trancheCA[0] !== valeurExclusive,
+      tranche[0] !== valeurExclusive ||
+      base.trancheChiffreAffaire[0] !== valeurExclusive,
   );
 
 const extraitCouplesAvecSecteurUniques = (
@@ -240,7 +242,7 @@ export const decoreChaineRendue = <T extends object>(objet: T) => {
   return objet;
 };
 
-type DonneesFormulairesAvantTrancheCA =
+type DonneesFormulairesAvanttrancheChiffreAffaire =
   | Omit<DonneesBrutesSansActivite, "trancheNombreEmployes">
   | Omit<DonneesFormulaireSimulateur, "trancheNombreEmployes">
   | (DonneesSectorielles &
@@ -248,11 +250,11 @@ type DonneesFormulairesAvantTrancheCA =
         DonneesFormulaireSimulateur,
         | "designeOperateurServicesEssentiels"
         | "typeStructure"
-        | "trancheCA"
+        | "trancheChiffreAffaire"
         | "appartenancePaysUnionEurpopeenne"
       >);
-export const fabriqueArbContraintSurTrancheCA = <
-  T extends DonneesFormulairesAvantTrancheCA,
+export const fabriqueArbContraintSurtrancheChiffreAffaire = <
+  T extends DonneesFormulairesAvanttrancheChiffreAffaire,
 >(
   base: T,
 ) =>

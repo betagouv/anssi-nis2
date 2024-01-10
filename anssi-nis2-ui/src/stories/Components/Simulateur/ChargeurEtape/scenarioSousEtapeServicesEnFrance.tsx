@@ -27,7 +27,7 @@ export const scenarioSousEtapeServicesEnFrance: StoryObj<
     await passeEtape([["typeStructure", "privee"]]);
     await passeEtape([
       ["trancheNombreEmployes", "petit"],
-      ["trancheCA", "petit"],
+      ["trancheChiffreAffaire", "petit"],
     ]);
   });
 
@@ -54,7 +54,7 @@ export const scenarioSousEtapeServicesEnFrance: StoryObj<
       designeOperateurServicesEssentiels: ["non"],
       appartenancePaysUnionEurpopeenne: ["france"],
       secteurActivite: ["infrastructureNumerique"],
-      trancheCA: ["petit"],
+      trancheChiffreAffaire: ["petit"],
       trancheNombreEmployes: ["petit"],
       typeStructure: ["privee"],
       fournitServicesUnionEuropeenne: ["oui"],

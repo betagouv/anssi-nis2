@@ -103,7 +103,7 @@ describe(calculeEligibilite, () => {
             appartenancePaysUnionEurpopeenne: ["horsue"],
             typeStructure: ["privee"],
             typeEntitePublique: [],
-            trancheCA: ["grand"],
+            trancheChiffreAffaire: ["grand"],
             trancheNombreEmployes: ["grand"],
             secteurActivite: ["eauxUsees"],
             sousSecteurActivite: [],

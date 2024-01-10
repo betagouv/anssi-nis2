@@ -69,7 +69,7 @@ export const libellesSimulateur: DictionnaireLibellesSimulateur = {
   appartenancePaysUnionEurpopeenne: libellesPaysUnionEuropeenneLocalisation,
   secteurActivite: libellesSecteursActivite,
   sousSecteurActivite: libellesSousSecteursActivite,
-  trancheCA: libellesTranchesCA,
+  trancheChiffreAffaire: libellesTranchesCA,
   trancheNombreEmployes: libellesTranchesNombreEmployes,
   typeStructure: libellesTypesStructure,
   typeEntitePublique: libellesTypeEntitePublique,
