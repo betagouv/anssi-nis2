@@ -71,7 +71,7 @@ export const LigneResultat: DefaultComponentExtensible<
           )}
         </div>
         {precisionResultatRegulation !== "IncertainStandard" && (
-          <div className="fr-px-4w fr-py-3w fr-nis2-resultat-explications">
+          <div className="fr-mt-1v fr-px-4w fr-py-3w fr-nis2-resultat-explications">
             <Markdown components={decaleTitre4Niveaux}>
               {contenuPrecisions.principal}
             </Markdown>
