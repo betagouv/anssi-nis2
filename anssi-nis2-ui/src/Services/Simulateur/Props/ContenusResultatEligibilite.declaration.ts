@@ -1,15 +1,11 @@
 export type BlocResultatSpecifiques =
   | "etMaintenant"
   | "enSavoirPlus"
-  | "bienDebuterAvecPdf";
+  | "bienDebuter";
 
 export type PrecisionsResultatProps = {
   principal: string;
   annexe: string;
 };
 
-type BlocsAffiches = Set<BlocResultatSpecifiques>;
-
-export type ContenusResultatEligibilite = {
-  blocs: BlocsAffiches;
-};
+export type BlocsAffiches = Set<BlocResultatSpecifiques>;

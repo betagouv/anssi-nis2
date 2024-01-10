@@ -1,15 +1,15 @@
 // noinspection TypeScriptValidateJSTypes - Incompatibilité des selecteurs testing-library (any) et des string
 
 import { expect } from "@storybook/jest";
-import { within } from "@storybook/testing-library";
 
 import { Meta, StoryObj } from "@storybook/react";
+import { within } from "@storybook/testing-library";
 import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
 import { SimulateurEtapeResult } from "../../../../Components/Simulateur/SimulateurEtapeResult.tsx";
 
-import { contenusResultats } from "../../../../References/contenusResultatEligibilite.ts";
+import { texteIntroductionPdfPetiteEntite } from "../../../../References/LibellesResultatsEligibilite.ts";
 import { attendTexteCharge } from "../../../utilitaires/interaction.facilitateurs.ts";
-import { verifieContenuResultatDansPage } from "../../../utilitaires/VerifieContenuResultatDansPage.ts";
+import { verifieTitresSectionsPresentes } from "./Resultat.aide.ts";
 
 const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
   designeOperateurServicesEssentiels: ["non"],
@@ -49,9 +49,9 @@ export const ResultatEligibleOSE: Story = {
 
     await attendTexteCharge(canvasElement, pointsDAttention);
 
-    await verifieContenuResultatDansPage(
+    await verifieTitresSectionsPresentes(
       canvasElement,
-      contenusResultats.EligiblePetiteEntreprise,
+      new Set(["etMaintenant", "enSavoirPlus", "bienDebuter"]),
     );
 
     expect(await canvas.findByText(pointsDAttention)).toBeInTheDocument();
@@ -74,10 +74,9 @@ export const ResultatEligiblePetiteEntreprise: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await attendTexteCharge(canvasElement, pointsDAttention);
-
-    await verifieContenuResultatDansPage(
+    await verifieTitresSectionsPresentes(
       canvasElement,
-      contenusResultats.EligiblePetiteEntreprise,
+      new Set(["etMaintenant", "enSavoirPlus", "bienDebuter"]),
     );
 
     const titrePrecisions = await canvas.findByText(pointsDAttention);
@@ -103,10 +102,14 @@ export const ResultatEligibleGrandeEntreprise: Story = {
     const canvas = within(canvasElement);
     await attendTexteCharge(canvasElement, pointsDAttention);
 
-    await verifieContenuResultatDansPage(
+    await verifieTitresSectionsPresentes(
       canvasElement,
-      contenusResultats.EligibleMoyenneGrandeEntreprise,
+      new Set(["etMaintenant", "enSavoirPlus", "bienDebuter"]),
     );
+
+    await expect(
+      canvas.queryByText(texteIntroductionPdfPetiteEntite),
+    ).not.toBeInTheDocument();
 
     const titrePrecisions = await canvas.findByText(pointsDAttention);
     expect(titrePrecisions).toBeInTheDocument();
@@ -134,10 +137,7 @@ export const ResultatNonEligible: Story = {
     const canvas = within(canvasElement);
     await attendTexteCharge(canvasElement, pointsDAttention);
 
-    await verifieContenuResultatDansPage(
-      canvasElement,
-      contenusResultats.NonEligible,
-    );
+    await verifieTitresSectionsPresentes(canvasElement, new Set([]));
 
     const criteresDePossibleInclusion = "Critères de possible inclusion";
 
