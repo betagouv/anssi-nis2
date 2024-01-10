@@ -15,7 +15,7 @@ const calculePrecisionResultatRegulationIncertain = (
 ) =>
   match(d)
     .with(
-      { etatMembre: ["autre"] },
+      { appartenancePaysUnionEurpopeenne: ["autre"] },
       () => PrecisionsResultatRegulation.IncertainAutrePaysUnionEuropeenne,
     )
     .otherwise(() => PrecisionsResultatRegulation.IncertainStandard);
@@ -39,7 +39,7 @@ const calculePrecisionResultatRegulationNonRegule = (
 ) =>
   match(d)
     .with(
-      { etatMembre: ["horsue"] },
+      { appartenancePaysUnionEurpopeenne: ["horsue"] },
       () => PrecisionsResultatRegulation.NonReguleHorsUnionEuropeenne,
     )
     .otherwise(() => PrecisionsResultatRegulation.NonReguleStandard);
@@ -59,7 +59,7 @@ export const calculePrecisionResultatRegulation = (e: RegulationEntite) =>
 const calculePrecisionResultatIncertain = (d: DonneesFormulaireSimulateur) =>
   match(d)
     .with(
-      { etatMembre: ["autre"] },
+      { appartenancePaysUnionEurpopeenne: ["autre"] },
       () => PrecisionsResultat.AutrePaysUnionEuropeenne,
     )
     .otherwise(() => PrecisionsResultat.Standard);
@@ -79,7 +79,7 @@ const calculePrecisionResultatRegule = (d: DonneesFormulaireSimulateur) =>
 const calculePrecisionResultatNonRegule = (d: DonneesFormulaireSimulateur) =>
   match(d)
     .with(
-      { etatMembre: ["horsue"] },
+      { appartenancePaysUnionEurpopeenne: ["horsue"] },
       () => PrecisionsResultat.HorsUnionEuropeenne,
     )
     .otherwise(() => PrecisionsResultat.Standard);

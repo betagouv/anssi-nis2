@@ -21,7 +21,7 @@ export const arbActivitesAutres = etend<DonneesSectorielles>(
       | "typeStructure"
       | "trancheCA"
       | "trancheNombreEmployes"
-      | "etatMembre"
+      | "appartenancePaysUnionEurpopeenne"
     >
   >({
     designeOperateurServicesEssentiels:
@@ -29,7 +29,9 @@ export const arbActivitesAutres = etend<DonneesSectorielles>(
     typeStructure: fc.constant(["privee"]),
     trancheCA: fabriqueArbTrancheSingleton(),
     trancheNombreEmployes: fabriqueArbTrancheSingleton(),
-    etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
+    appartenancePaysUnionEurpopeenne: fabriqueArbSingleton(
+      ValeursAppartenancePaysUnionEuropeenne,
+    ),
   })
   .chain(ajouteAuMoinsUneActiviteAutre)
   .chain(ajouteChampsFacultatifs)

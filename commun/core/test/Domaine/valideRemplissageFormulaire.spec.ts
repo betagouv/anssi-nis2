@@ -76,7 +76,7 @@ describe("Validation des données formulaire", () => {
   const formulairePetitInfraNumSansLocalisation: DonneesFormulaireSimulateur = {
     ...donneesFormulaireSimulateurVide,
     designeOperateurServicesEssentiels: ["non"],
-    etatMembre: ["france"],
+    appartenancePaysUnionEurpopeenne: ["france"],
     typeStructure: ["privee"],
     secteurActivite: ["infrastructureNumerique"],
     trancheNombreEmployes: ["petit"],
@@ -177,7 +177,7 @@ describe("Validation des données formulaire", () => {
       const donnees: DonneesFormulaireSimulateur = {
         ...donneesFormulaireSimulateurVide,
         designeOperateurServicesEssentiels: ["oui"],
-        etatMembre: ["france"],
+        appartenancePaysUnionEurpopeenne: ["france"],
         secteurActivite: ["espace"],
         trancheCA: ["petit"],
         trancheNombreEmployes: ["petit"],
@@ -222,7 +222,7 @@ describe("Validation des données formulaire", () => {
         donnees: {
           ...donneesFormulaireSimulateurVide,
           designeOperateurServicesEssentiels: ["oui"],
-          etatMembre: ["france"],
+          appartenancePaysUnionEurpopeenne: ["france"],
           secteurActivite: ["energie"],
           trancheNombreEmployes: ["petit"],
           typeStructure: ["publique"],

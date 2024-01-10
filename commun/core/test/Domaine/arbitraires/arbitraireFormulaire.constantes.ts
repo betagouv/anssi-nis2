@@ -4,7 +4,7 @@ import { ArbitraireFormulaire } from "./arbitraireFormulaire.definitions";
 export const arbFormulaireVide: ArbitraireFormulaire = fc.record({
   activites: fc.constant([]),
   designeOperateurServicesEssentiels: fc.constant([]),
-  etatMembre: fc.constant([]),
+  appartenancePaysUnionEurpopeenne: fc.constant([]),
   fournitServicesUnionEuropeenne: fc.constant([]),
   localisationRepresentant: fc.constant([]),
   secteurActivite: fc.constant([]),

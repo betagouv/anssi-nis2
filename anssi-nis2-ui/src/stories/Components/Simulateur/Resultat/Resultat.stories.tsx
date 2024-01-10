@@ -13,7 +13,7 @@ import { verifieContenuResultatDansPage } from "../../../utilitaires/VerifieCont
 
 const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
   designeOperateurServicesEssentiels: ["non"],
-  etatMembre: ["france"],
+  appartenancePaysUnionEurpopeenne: ["france"],
   typeStructure: ["privee"],
   trancheCA: ["petit"],
   trancheNombreEmployes: ["petit"],

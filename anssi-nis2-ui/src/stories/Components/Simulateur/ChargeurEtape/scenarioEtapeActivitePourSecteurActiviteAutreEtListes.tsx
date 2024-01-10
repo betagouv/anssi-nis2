@@ -25,7 +25,7 @@ export const scenarioEtapeActivitePourSecteurActiviteAutreEtListes: StoryObj<
   await cliqueSurDebuterLeTest(canvas);
 
   await passeEtape([["designeOperateurServicesEssentiels", "oui"]]);
-  await passeEtape([["etatMembre", "france"]]);
+  await passeEtape([["appartenancePaysUnionEurpopeenne", "france"]]);
   await passeEtape([["typeStructure", "privee"]]);
 
   await passeEtape([
@@ -51,7 +51,7 @@ export const scenarioEtapeActivitePourSecteurActiviteAutreEtListes: StoryObj<
     fabriqueDonneesFormulaire({
       activites: ["fournisseursDistributeursEauxConsommation"],
       designeOperateurServicesEssentiels: ["oui"],
-      etatMembre: ["france"],
+      appartenancePaysUnionEurpopeenne: ["france"],
       secteurActivite: ["eauPotable", "autreSecteurActivite"],
       sousSecteurActivite: [],
       trancheCA: ["petit"],

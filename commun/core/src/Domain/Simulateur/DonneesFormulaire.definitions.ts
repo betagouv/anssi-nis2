@@ -19,7 +19,7 @@ export interface DonneesFormulaireSimulateur
   extends Record<NomsChampsSimulateur, ValeurChampSimulateur[]> {
   activites: Activites[];
   designeOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[];
-  etatMembre: AppartenancePaysUnionEuropeenne[];
+  appartenancePaysUnionEurpopeenne: AppartenancePaysUnionEuropeenne[];
   secteurActivite: SecteurActivite[];
   sousSecteurActivite: SousSecteurActivite[];
   trancheCA: TrancheChiffreAffaire[];

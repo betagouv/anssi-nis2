@@ -14,7 +14,7 @@ describe(genereTransformateurValeursVersOptions, () => {
       nativeInputProps: {
         checked: optionsChecked[0],
         onChange: onChange,
-        name: "etatMembre",
+        name: "appartenancePaysUnionEurpopeenne",
         value: "france",
       },
     },
@@ -23,7 +23,7 @@ describe(genereTransformateurValeursVersOptions, () => {
       nativeInputProps: {
         checked: optionsChecked[1],
         onChange: onChange,
-        name: "etatMembre",
+        name: "appartenancePaysUnionEurpopeenne",
         value: "autre",
       },
     },
@@ -32,7 +32,7 @@ describe(genereTransformateurValeursVersOptions, () => {
       nativeInputProps: {
         checked: optionsChecked[2],
         onChange: onChange,
-        name: "etatMembre",
+        name: "appartenancePaysUnionEurpopeenne",
         value: "horsue",
       },
     },
@@ -51,7 +51,7 @@ describe(genereTransformateurValeursVersOptions, () => {
   it("génère un champ d'option avec les bons états checked", () => {
     const attendu = optionsPaysUE([true, false, false]);
     const defaultDataForm = fabriqueDonneesFormulaire({
-      etatMembre: ["france"],
+      appartenancePaysUnionEurpopeenne: ["france"],
     });
     const optionsPaysUEObtenu = transformePaysUnionEuropeennePourSelect(
       libellesPaysUnionEuropeenneLocalisation,

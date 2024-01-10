@@ -21,7 +21,9 @@ export const arbOSEPetit = etend(arbitraireSecteursSousSecteurs)
     typeStructure: arbTypeStructure.privee,
     trancheCA: arbTranche.petit,
     trancheNombreEmployes: arbTranche.petit,
-    etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
+    appartenancePaysUnionEurpopeenne: fabriqueArbSingleton(
+      ValeursAppartenancePaysUnionEuropeenne,
+    ),
   })
   .chain(ajouteArbitraireActivites)
   .filter((d) => d.activites.length > 0) as ArbitraireFormulaire;
@@ -31,7 +33,9 @@ export const arbOSEMoyenGrand = etend(arbitraireSecteursSousSecteurs)
     designeOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.oui,
     typeStructure: arbTypeStructure.privee,
-    etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
+    appartenancePaysUnionEurpopeenne: fabriqueArbSingleton(
+      ValeursAppartenancePaysUnionEuropeenne,
+    ),
     trancheCA: fabriqueArbTrancheSingleton(),
   })
   .chain(fabriqueArbContraintSurTrancheCA)

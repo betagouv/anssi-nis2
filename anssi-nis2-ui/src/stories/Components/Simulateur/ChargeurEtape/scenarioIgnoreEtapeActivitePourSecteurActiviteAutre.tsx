@@ -23,7 +23,7 @@ export const scenarioIgnoreEtapeActivitePourSecteurActiviteAutre: StoryObj<
   await cliqueSurDebuterLeTest(canvas);
 
   await passeEtape([["designeOperateurServicesEssentiels", "oui"]]);
-  await passeEtape([["etatMembre", "france"]]);
+  await passeEtape([["appartenancePaysUnionEurpopeenne", "france"]]);
   await passeEtape([["typeStructure", "privee"]]);
 
   await passeEtape([
@@ -43,7 +43,7 @@ export const scenarioIgnoreEtapeActivitePourSecteurActiviteAutre: StoryObj<
     fabriqueDonneesFormulaire({
       activites: [],
       designeOperateurServicesEssentiels: ["oui"],
-      etatMembre: ["france"],
+      appartenancePaysUnionEurpopeenne: ["france"],
       secteurActivite: ["autreSecteurActivite"],
       sousSecteurActivite: [],
       trancheCA: ["petit"],

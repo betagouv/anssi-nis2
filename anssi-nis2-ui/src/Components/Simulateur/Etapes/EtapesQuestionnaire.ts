@@ -75,7 +75,7 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
     ),
     fabriquesInformationsEtapes.form(
       "Localisation de l'activité",
-      fabriqueValidationUneReponses("etatMembre"),
+      fabriqueValidationUneReponses("appartenancePaysUnionEurpopeenne"),
       "appartenanceUnionEuropeenne",
     ),
     fabriquesInformationsEtapes.form(

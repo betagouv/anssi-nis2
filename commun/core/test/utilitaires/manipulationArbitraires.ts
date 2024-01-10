@@ -249,7 +249,7 @@ type DonneesFormulairesAvantTrancheCA =
         | "designeOperateurServicesEssentiels"
         | "typeStructure"
         | "trancheCA"
-        | "etatMembre"
+        | "appartenancePaysUnionEurpopeenne"
       >);
 export const fabriqueArbContraintSurTrancheCA = <
   T extends DonneesFormulairesAvantTrancheCA,

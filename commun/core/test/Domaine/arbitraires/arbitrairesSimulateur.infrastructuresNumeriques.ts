@@ -47,7 +47,8 @@ export const arbNonOSEPrivesPetitFournisseurInfraNum =
       typeStructure: arbTypeStructure.privee,
       trancheCA: arbTranche.petit,
       trancheNombreEmployes: arbTranche.petit,
-      etatMembre: arbAppartenancePaysUnionEuropeenne.france,
+      appartenancePaysUnionEurpopeenne:
+        arbAppartenancePaysUnionEuropeenne.france,
     })
     .chain(ajouteAuMoinsUneActiviteListee)
     .chain(ajouteChampsFacultatifs);
@@ -70,7 +71,7 @@ const arbNonOSEPrivesPetitHorsFournisseurInfraNum = etend<DonneesSectorielles>(
     typeStructure: arbTypeStructure.privee,
     trancheCA: arbTranche.petit,
     trancheNombreEmployes: arbTranche.petit,
-    etatMembre: arbAppartenancePaysUnionEuropeenne.france,
+    appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.france,
   })
   .chain(ajouteAuMoinsUneActiviteListee)
   .chain(ajouteChampsFacultatifs);

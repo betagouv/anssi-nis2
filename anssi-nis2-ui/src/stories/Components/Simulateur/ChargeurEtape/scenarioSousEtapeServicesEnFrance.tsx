@@ -23,7 +23,7 @@ export const scenarioSousEtapeServicesEnFrance: StoryObj<
   step("Va jusqu'à l'étape Secteurs d'activité", async () => {
     await cliqueSurDebuterLeTest(canvas);
     await passeEtape([["designeOperateurServicesEssentiels", "non"]]);
-    await passeEtape([["etatMembre", "france"]]);
+    await passeEtape([["appartenancePaysUnionEurpopeenne", "france"]]);
     await passeEtape([["typeStructure", "privee"]]);
     await passeEtape([
       ["trancheNombreEmployes", "petit"],
@@ -52,7 +52,7 @@ export const scenarioSousEtapeServicesEnFrance: StoryObj<
     fabriqueDonneesFormulaire({
       activites: ["fournisseurServicesDNS"],
       designeOperateurServicesEssentiels: ["non"],
-      etatMembre: ["france"],
+      appartenancePaysUnionEurpopeenne: ["france"],
       secteurActivite: ["infrastructureNumerique"],
       trancheCA: ["petit"],
       trancheNombreEmployes: ["petit"],

@@ -25,7 +25,7 @@ export const scenarioTypeEntitePublique: StoryObj<
 
   await cliqueSurDebuterLeTest(canvas);
   await passeEtape([["designeOperateurServicesEssentiels", "oui"]]);
-  await passeEtape([["etatMembre", "france"]]);
+  await passeEtape([["appartenancePaysUnionEurpopeenne", "france"]]);
   await passeEtape([
     ["typeStructure", typeStructure],
     ["typeEntitePublique", "administrationCentrale"],
@@ -46,7 +46,7 @@ export const scenarioTypeEntitePublique: StoryObj<
     fabriqueDonneesFormulaire({
       activites: [],
       designeOperateurServicesEssentiels: ["oui"],
-      etatMembre: ["france"],
+      appartenancePaysUnionEurpopeenne: ["france"],
       secteurActivite: ["energie"],
       sousSecteurActivite: ["autreSousSecteurEnergie"],
       trancheCA: [],

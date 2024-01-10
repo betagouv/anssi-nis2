@@ -48,7 +48,7 @@ export const predicatDonneesFormulaire = {
 };
 export const verifieCompletudeDonneesCommunes = et(
   exactementUn("designeOperateurServicesEssentiels"),
-  exactementUn("etatMembre"),
+  exactementUn("appartenancePaysUnionEurpopeenne"),
   exactementUn("trancheNombreEmployes"),
   exactementUn("typeStructure"),
   auMoinsUn("secteurActivite"),
