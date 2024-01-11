@@ -3,7 +3,7 @@ import { ValeurChampSimulateur } from "../../../../commun/core/src/Domain/Simula
 import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+} from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
 
 import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
 import { GestionValeursFormulaire } from "./Props/gestionValeursFormulaire";
@@ -31,11 +31,11 @@ export const gestionnairesDeChamp: Record<
   GestionValeursFormulaire
 > = {
   designeOperateurServicesEssentiels: gestionValeursSimples,
-  etatMembre: gestionValeursSimples,
+  appartenancePaysUnionEurpopeenne: gestionValeursSimples,
   secteurActivite: genereGestionValeursMultiples("secteurActivite"),
   sousSecteurActivite: genereGestionValeursMultiples("sousSecteurActivite"),
   activites: genereGestionValeursMultiples("activites"),
-  trancheCA: gestionValeursSimples,
+  trancheChiffreAffaire: gestionValeursSimples,
   trancheNombreEmployes: gestionValeursSimples,
   typeStructure: gestionValeursSimples,
   typeEntitePublique: gestionValeursSimples,

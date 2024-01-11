@@ -19,4 +19,4 @@ const getCALabel = (
   tranchesCA: Record<TrancheChiffreAffaire, string>,
 ) => tranchesCA[value];
 export const transformeTranchesCAVersOptions: TransformeRecordToSelect<TrancheChiffreAffaire> =
-  genereTransformateurValeursVersOptions(getCALabel, "trancheCA");
+  genereTransformateurValeursVersOptions(getCALabel, "trancheChiffreAffaire");

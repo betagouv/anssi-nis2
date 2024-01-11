@@ -8,7 +8,7 @@ import {
   ValeursTypeEntitePublique,
   ValeursTypeStructure,
 } from "./ChampsSimulateur.valeurs";
-import { Activites } from "./Activite.definitions";
+import { Activite } from "./Activite.definitions";
 
 type UnionDe<T extends Readonly<Array<string>>> = T[number];
 
@@ -33,5 +33,5 @@ export type ValeurChampSimulateur =
   | TrancheNombreEmployes
   | SecteurActivite
   | SousSecteurActivite
-  | Activites
+  | Activite
   | FournitServicesUnionEuropeenne;

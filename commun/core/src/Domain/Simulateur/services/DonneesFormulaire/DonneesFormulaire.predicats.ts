@@ -1,10 +1,10 @@
 import { P, isMatching } from "ts-pattern";
 import { estTableauNonVide } from "../../../Commun/Commun.predicats";
-import { Activites } from "../../Activite.definitions";
+import { Activite } from "../../Activite.definitions";
 import {
   DonneesSectorielles,
   DonneesFormulaireSimulateur,
-} from "../../DonneesFormulaire";
+} from "../../DonneesFormulaire.definitions";
 import {
   auMoinsUneActiviteListee,
   estActiviteAutre,
@@ -26,9 +26,9 @@ import { uniquementDesSousSecteursAutres } from "../SousSecteurActivite/SousSect
 const verifAuMoinsUn = {
   activiteListee: <
     T extends DonneesSectorielles &
-      Pick<DonneesFormulaireSimulateur, "activites">
+      Pick<DonneesFormulaireSimulateur, "activites">,
   >(
-    donnees: T
+    donnees: T,
   ): donnees is T => auMoinsUneActiviteListee(donnees.activites),
 };
 
@@ -40,24 +40,24 @@ export const predicatDonneesFormulaire = {
   uniquement: {
     activiteAutre: <
       T extends DonneesSectorielles &
-        Pick<DonneesFormulaireSimulateur, "activites">
+        Pick<DonneesFormulaireSimulateur, "activites">,
     >(
-      donnees: T
+      donnees: T,
     ) => donnees.activites.every(estActiviteAutre),
   },
 };
 export const verifieCompletudeDonneesCommunes = et(
   exactementUn("designeOperateurServicesEssentiels"),
-  exactementUn("etatMembre"),
+  exactementUn("appartenancePaysUnionEurpopeenne"),
   exactementUn("trancheNombreEmployes"),
   exactementUn("typeStructure"),
-  auMoinsUn("secteurActivite")
+  auMoinsUn("secteurActivite"),
 );
 
 export const verifieDonneesCommunesPrivee: (
-  donnees: DonneesFormulaireSimulateur
+  donnees: DonneesFormulaireSimulateur,
 ) => boolean = isMatching({
-  trancheCA: [P._],
+  trancheChiffreAffaire: [P._],
   typeStructure: ["privee"],
 });
 export const verifieDonneesCommunesPublique = isMatching({
@@ -69,7 +69,7 @@ const contientSecteurALocaliser = isMatching({
   secteurActivite: ["infrastructureNumerique"],
   activites: P.union(
     ["fournisseurServicesDNS"],
-    ["registresNomsDomainesPremierNiveau"]
+    ["registresNomsDomainesPremierNiveau"],
   ),
 });
 
@@ -87,8 +87,8 @@ export const contientSecteursLocalisesValides = oux(
   non(contientSecteurALocaliser),
   et(
     contientSecteurALocaliser,
-    ou(neFournitPasDeServiceDansUE, fournitServiceUEBienRemplit)
-  )
+    ou(neFournitPasDeServiceDansUE, fournitServiceUEBienRemplit),
+  ),
 );
 
 const contientUniquementSecteurAutre = isMatching({
@@ -104,33 +104,33 @@ const contientUniquementSousSecteurAutre = isMatching({
 const contientSectorielleComplete = isMatching({
   secteurActivite: P.when(auMoinsUnSecteurListe),
   sousSecteurActivite: P.array(),
-  activites: P.when(estTableauNonVide<Activites>),
+  activites: P.when(estTableauNonVide<Activite>),
 });
 export const verifieDonneesSectorielles = et(
   ou(
     contientUniquementSecteurAutre,
     contientUniquementSousSecteurAutre,
-    contientSectorielleComplete
+    contientSectorielleComplete,
   ),
-  contientSecteursLocalisesValides
+  contientSecteursLocalisesValides,
 );
 
 export const verifieCompletudeDonneesFormulairePrivee = et(
   verifieDonneesCommunesPrivee,
-  verifieDonneesSectorielles
+  verifieDonneesSectorielles,
 );
 export const verifieCompletudeDonneesFormulairePublique = et(
   verifieDonneesCommunesPublique,
-  verifieDonneesSectorielles
+  verifieDonneesSectorielles,
 );
 export const donneesFormulaireSontCompletes = et(
   verifieCompletudeDonneesCommunes,
   ou(
     verifieCompletudeDonneesFormulairePrivee,
-    verifieCompletudeDonneesFormulairePublique
-  )
+    verifieCompletudeDonneesFormulairePublique,
+  ),
 );
 
 export const donneesFormulaireSontIncompletes = non(
-  donneesFormulaireSontCompletes
+  donneesFormulaireSontCompletes,
 );

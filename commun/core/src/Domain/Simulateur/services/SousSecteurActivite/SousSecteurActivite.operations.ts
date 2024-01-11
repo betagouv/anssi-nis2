@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import {
   SecteursAvecSousSecteurs,
@@ -13,19 +13,19 @@ import { estSousSecteurListe } from "./SousSecteurActivite.predicats";
 
 const extraitSousSecteurs = (
   secteur: SecteursAvecSousSecteurs,
-  sousSecteurActivite: SousSecteurActivite[]
+  sousSecteurActivite: SousSecteurActivite[],
 ) =>
   sousSecteurActivite.filter((sousSecteur) =>
-    contientSousSecteur(secteur, sousSecteur)
+    contientSousSecteur(secteur, sousSecteur),
   );
 const extraitSousSecteursOuListeVide = (
   secteur: string,
-  sousSecteurActivite: SousSecteurActivite[]
+  sousSecteurActivite: SousSecteurActivite[],
 ) =>
   estUnSecteurAvecDesSousSecteurs(secteur)
     ? extraitSousSecteurs(
         secteur as SecteursAvecSousSecteurs,
-        sousSecteurActivite
+        sousSecteurActivite,
       )
     : [];
 export const cartographieSousSecteursParSecteur = ({
@@ -41,9 +41,9 @@ export const cartographieSousSecteursParSecteur = ({
           secteur,
           extraitSousSecteursOuListeVide(
             secteur,
-            sousSecteurActivite.filter(estSousSecteurListe)
+            sousSecteurActivite.filter(estSousSecteurListe),
           ),
         ],
       ],
-      []
+      [],
     );

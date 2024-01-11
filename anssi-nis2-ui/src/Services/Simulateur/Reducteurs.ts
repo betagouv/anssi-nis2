@@ -1,7 +1,7 @@
 import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire.ts";
+} from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
 import {
   LibellesSousSecteurs,
   SecteursAvecSousSecteurs,

@@ -1,26 +1,22 @@
-import { RowContainer } from "../../General/RowContainer.tsx";
-import { CenteredContainer } from "../../General/CenteredContainer.tsx";
+import Button from "@codegouvfr/react-dsfr/Button";
 import React, { memo } from "react";
+import { liens } from "../../../References/liens.tsx";
 import { DefaultComponentExtensible } from "../../../Services/Props";
-import { SimulateurResultatProps } from "../../../Services/Simulateur/Props/simulateurResultatProps";
+import { CenteredContainer } from "../../General/CenteredContainer.tsx";
+import { RowContainer } from "../../General/RowContainer.tsx";
 import { BienDebuterAvecPdf } from "./BienDebuterAvecPdf.tsx";
 import { BienDebuterSansPdf } from "./BienDebuterSansPdf.tsx";
-import Button from "@codegouvfr/react-dsfr/Button";
-import { liens } from "../../../References/liens.tsx";
+import { LigneBienDebuterProps } from "./LigneBienDebuter.declarations.ts";
 
-const LigneBienDebuterCalculee: DefaultComponentExtensible<SimulateurResultatProps> =
-  memo(function LigneBienDebuterCalculee({
-    contenuResultat,
-  }: SimulateurResultatProps) {
+const LigneBienDebuterCalculee: DefaultComponentExtensible<LigneBienDebuterProps> =
+  memo(function LigneBienDebuterCalculee({ avecPdf }: LigneBienDebuterProps) {
     return (
       <RowContainer>
         <CenteredContainer>
           <h2 className="fr-text-action-high--blue-france fr-h1">
             Pour bien débuter
           </h2>
-          {(contenuResultat.blocs.has("bienDebuterAvecPdf") && (
-            <BienDebuterAvecPdf />
-          )) || <BienDebuterSansPdf />}
+          {(avecPdf && <BienDebuterAvecPdf />) || <BienDebuterSansPdf />}
 
           <div className="fr-btns-group fr-btns-group--inline">
             <Button

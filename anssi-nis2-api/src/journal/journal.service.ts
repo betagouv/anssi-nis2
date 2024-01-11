@@ -1,5 +1,5 @@
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
-import { DonneesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/DonneesFormulaire.definitions";
 import { extraitSectorisationDonneesSimulateur } from "~core/src/Domain/Simulateur/services/Sectorisation/Sectorisation.operations";
 import { Evenements } from "./entites/evenements.entite-journal";
 import { Injectable } from "@nestjs/common";
@@ -38,7 +38,7 @@ export class JournalService {
         ...emptySegmentsConcernesNis2,
         evenement: evenement,
         typeStructure: donnees.typeStructure[0],
-        trancheChiffreAffaire: donnees.trancheCA[0],
+        trancheChiffreAffaire: donnees.trancheChiffreAffaire[0],
         trancheNombreEmployes: donnees.trancheNombreEmployes[0],
         secteur: secteur,
         sousSecteur: sousSecteur,

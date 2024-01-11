@@ -21,7 +21,7 @@ import {
 import { arbFormulaireVide } from "./arbitraireFormulaire.constantes";
 
 export const arbToutesValeursPossibles = etend(
-  arbSecteursSousSecteursListes
+  arbSecteursSousSecteursListes,
 ).avec({
   designeOperateurServicesEssentiels: fabriqueArbSingleton([
     "oui",
@@ -33,16 +33,18 @@ export const arbToutesValeursPossibles = etend(
     "publique",
   ] as TypeStructure[]),
   typeEntitePublique: fabriqueArbSingleton(ValeursTypeEntitePublique),
-  trancheCA: fabriqueArbTrancheSingleton(),
+  trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
   trancheNombreEmployes: fabriqueArbTrancheSingleton(),
-  etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
+  appartenancePaysUnionEurpopeenne: fabriqueArbSingleton(
+    ValeursAppartenancePaysUnionEuropeenne,
+  ),
 });
 
 export const arbHorsUe = etend(arbToutesValeursPossibles)
   .avec({
     designeOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
-    etatMembre: arbAppartenancePaysUnionEuropeenne.horsue,
+    appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.horsue,
   })
   .chain(ajouteAuMoinsUneActiviteListee)
   .chain(ajouteChampsFacultatifs);
@@ -50,7 +52,7 @@ export const arbAutrePaysUe = etend(arbToutesValeursPossibles)
   .avec({
     designeOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
-    etatMembre: arbAppartenancePaysUnionEuropeenne.autre,
+    appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.autre,
   })
   .chain(ajouteAuMoinsUneActiviteListee)
   .chain(ajouteChampsFacultatifs);
@@ -58,10 +60,10 @@ export const arbAutrePaysUe = etend(arbToutesValeursPossibles)
 const initialValue: ArbitraireSurTousLesChamps = {
   activites: arbFormulaireVide,
   designeOperateurServicesEssentiels: arbFormulaireVide,
-  etatMembre: arbFormulaireVide,
+  appartenancePaysUnionEurpopeenne: arbFormulaireVide,
   secteurActivite: arbFormulaireVide,
   sousSecteurActivite: arbFormulaireVide,
-  trancheCA: arbFormulaireVide,
+  trancheChiffreAffaire: arbFormulaireVide,
   trancheNombreEmployes: arbFormulaireVide,
   typeEntitePublique: arbFormulaireVide,
   typeStructure: arbFormulaireVide,
@@ -73,5 +75,5 @@ export const donneeAbsente = ValeursNomChampsFormulaire.reduce(
     ...resultat,
     [nom]: arbFormulaireVide,
   }),
-  initialValue
+  initialValue,
 );

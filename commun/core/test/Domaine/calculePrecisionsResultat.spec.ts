@@ -10,7 +10,7 @@ import { verifieQue } from "../utilitaires/assure";
 describe(calculePrecisionResultat, () => {
   describe(Regulation.Incertain, () => {
     const calculePrecisionsResultatIncertain = calculePrecisionResultat(
-      Regulation.Incertain
+      Regulation.Incertain,
     );
     it("Renvoie une précision Incertain un résultat Incertain", () => {
       verifieQue(calculePrecisionsResultatIncertain)
@@ -19,14 +19,18 @@ describe(calculePrecisionResultat, () => {
     });
     it("Renvoie une précision Hors UE pour un résultat Incertain", () => {
       verifieQue(calculePrecisionsResultatIncertain)
-        .pour(fabriqueDonneesFormulaire({ etatMembre: ["autre"] }))
+        .pour(
+          fabriqueDonneesFormulaire({
+            appartenancePaysUnionEurpopeenne: ["autre"],
+          }),
+        )
         .renvoieToujours(PrecisionsResultat.AutrePaysUnionEuropeenne);
     });
   });
 
   describe(Regulation.Regule, () => {
     const calculePrecisionsResultatRegule = calculePrecisionResultat(
-      Regulation.Regule
+      Regulation.Regule,
     );
     it("Renvoie une précision Regulé Standard par défaut pour un résultat Regulé", () => {
       verifieQue(calculePrecisionsResultatRegule)
@@ -54,7 +58,7 @@ describe(calculePrecisionResultat, () => {
 
   describe(Regulation.NonRegule, () => {
     const calculePrecisionsResultatNonRegule = calculePrecisionResultat(
-      Regulation.NonRegule
+      Regulation.NonRegule,
     );
     it("Precise un résultat enregistrement nom de domaine", () => {
       verifieQue(calculePrecisionsResultatNonRegule)
@@ -63,7 +67,7 @@ describe(calculePrecisionResultat, () => {
     });
     it("Precise un résultat enregistrement nom de domaine", () => {
       const donneesFormulaireSimulateur = fabriqueDonneesFormulaire({
-        etatMembre: ["horsue"],
+        appartenancePaysUnionEurpopeenne: ["horsue"],
       });
       verifieQue(calculePrecisionsResultatNonRegule)
         .pour(donneesFormulaireSimulateur)

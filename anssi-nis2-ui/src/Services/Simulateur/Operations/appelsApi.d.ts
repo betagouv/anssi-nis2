@@ -1,4 +1,4 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.definitions.ts";
 import { AggregatInformationsEmail } from "../../../Domaine/Contact/InformationsEmail.definitions.ts";
 
 export type EnvoieDonneesFormulaire = (

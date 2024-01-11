@@ -1,6 +1,6 @@
-import { Activites } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
+import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
 
-export const libellesActivites: Record<Activites, string> = {
+export const libellesActivites: Record<Activite, string> = {
   acteurDuMarche:
     "Acteurs du marché fournissant des services d’agrégation, de " +
     "participation active de la demande ou de stockage d’énergie",

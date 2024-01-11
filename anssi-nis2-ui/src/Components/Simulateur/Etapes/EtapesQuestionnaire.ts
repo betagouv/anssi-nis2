@@ -1,5 +1,5 @@
 import { CollectionInformationsEtapes } from "../../../../../commun/core/src/Domain/Simulateur/CollectionInformationsEtapes.ts";
-import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
 import { fabriqueEtatEtape } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/EtatEtape.fabrique.ts";
 import { fabriquesInformationsEtapes } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/InformationsEtape.fabrique.ts";
 import {
@@ -75,7 +75,7 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
     ),
     fabriquesInformationsEtapes.form(
       "Localisation de l'activité",
-      fabriqueValidationUneReponses("etatMembre"),
+      fabriqueValidationUneReponses("appartenancePaysUnionEurpopeenne"),
       "appartenanceUnionEuropeenne",
     ),
     fabriquesInformationsEtapes.form(

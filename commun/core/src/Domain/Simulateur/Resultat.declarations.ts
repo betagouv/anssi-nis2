@@ -17,8 +17,3 @@ export type PrecisionResultat =
   | PrecisionResultatIncertain
   | PrecisionResultatNonRegule
   | PrecisionResultatRegule;
-
-export type PrecisionResultatRegulation =
-  | `Regule${PrecisionResultatRegule}`
-  | `NonRegule${PrecisionResultatNonRegule}`
-  | `Incertain${PrecisionResultatIncertain}`;

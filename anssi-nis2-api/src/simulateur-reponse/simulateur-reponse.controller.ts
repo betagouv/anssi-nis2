@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, UseInterceptors } from "@nestjs/common";
-import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/DonneesFormulaire.definitions";
 import { JournalIntercepteur } from "../journal/journal.intercepteur";
 import { SimulateurReponse } from "./simulateur-reponse.entity";
 import { SimulateurReponseService } from "./simulateur-reponse.service";

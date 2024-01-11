@@ -10,21 +10,26 @@ import {
 } from "../../utilitaires/parametresFormulaire.ts";
 import { libellesPaysUnionEuropeenneLocalisation } from "../../../References/Libelles.ts";
 
-class ParametresDonneesEtatMembre extends ParametresDonneesSpecifiqueField<AppartenancePaysUnionEuropeenne> {
+class ParametresDonneesappartenancePaysUnionEurpopeenne extends ParametresDonneesSpecifiqueField<AppartenancePaysUnionEuropeenne> {
   protected construitDonnees<ValeursClePaysUnionEuropeenne>(
     listeEtatsMembres: ValeursClePaysUnionEuropeenne[],
   ) {
-    return this.construitDonneesPourField("etatMembre", listeEtatsMembres);
+    return this.construitDonneesPourField(
+      "appartenancePaysUnionEurpopeenne",
+      listeEtatsMembres,
+    );
   }
 }
 
-class CollectionParametresDonneesEtatMembre extends CollectionParametresDonnees<ParametresDonneesEtatMembre> {}
+class CollectionParametresDonneesappartenancePaysUnionEurpopeenne extends CollectionParametresDonnees<ParametresDonneesappartenancePaysUnionEurpopeenne> {}
 
-const donneesFormulaireOptions: CollectionParametresDonneesEtatMembre =
-  new CollectionParametresDonneesEtatMembre(
-    new ParametresDonneesEtatMembre("France", ["france"]),
-    new ParametresDonneesEtatMembre("Autre", ["autre"]),
-    new ParametresDonneesEtatMembre("Hors UE", ["horsue"]),
+const donneesFormulaireOptions: CollectionParametresDonneesappartenancePaysUnionEurpopeenne =
+  new CollectionParametresDonneesappartenancePaysUnionEurpopeenne(
+    new ParametresDonneesappartenancePaysUnionEurpopeenne("France", ["france"]),
+    new ParametresDonneesappartenancePaysUnionEurpopeenne("Autre", ["autre"]),
+    new ParametresDonneesappartenancePaysUnionEurpopeenne("Hors UE", [
+      "horsue",
+    ]),
   );
 
 const meta: Meta<typeof EtapeLocalisation> = {
@@ -42,7 +47,7 @@ type Story = StoryObj<typeof EtapeLocalisation>;
 const creeActionPropagationFormulaireSimu = (newValue: string) => {
   const actionTypique = {
     type: "checkSingle",
-    name: "etatMembre",
+    name: "appartenancePaysUnionEurpopeenne",
   };
   return {
     ...actionTypique,
@@ -88,7 +93,7 @@ export const LocalisationStandard: Story = {
 export const CocheFrance: Story = {
   args: {
     donneesFormulaire: fabriqueDonneesFormulaire({
-      etatMembre: ["france"],
+      appartenancePaysUnionEurpopeenne: ["france"],
     }),
   },
   play: async ({ canvasElement, step }) => {
@@ -110,7 +115,7 @@ export const CocheFrance: Story = {
 export const CocheHorsUE: Story = {
   args: {
     donneesFormulaire: fabriqueDonneesFormulaire({
-      etatMembre: ["horsue"],
+      appartenancePaysUnionEurpopeenne: ["horsue"],
     }),
   },
   play: async ({ canvasElement, step }) => {

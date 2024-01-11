@@ -1,10 +1,10 @@
 export const ValeursNomChampsFormulaire = [
   "designeOperateurServicesEssentiels",
-  "etatMembre",
+  "appartenancePaysUnionEurpopeenne",
   "typeStructure",
   "typeEntitePublique",
   "trancheNombreEmployes",
-  "trancheCA",
+  "trancheChiffreAffaire",
   "secteurActivite",
   "sousSecteurActivite",
   "activites",
@@ -16,7 +16,7 @@ export const ChampsFormulaireFacultatifs = [
   "activites",
   "sousSecteurActivite",
   "typeEntitePublique",
-  "trancheCA",
+  "trancheChiffreAffaire",
   "fournitServicesUnionEuropeenne",
   "localisationRepresentant",
 ];

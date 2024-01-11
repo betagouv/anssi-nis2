@@ -1,5 +1,5 @@
 import { ValeurChampSimulateur } from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
-import { NomsChampsSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { NomsChampsSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
 import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
 import { TransformeRecordToSelect } from "./Operations/OptionsChampsSimulateur.declarations.ts";
 import { GenerateurLibelle } from "./Operations/OptionsChampsSimulateur.declarations.ts";

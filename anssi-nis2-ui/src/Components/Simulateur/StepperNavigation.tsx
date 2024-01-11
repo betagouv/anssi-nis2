@@ -1,5 +1,5 @@
 import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
-import { DonneesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
 import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
 
 import { ValidationReponses } from "../../../../commun/core/src/Domain/Simulateur/services/ChampSimulateur/champs.domaine.ts";

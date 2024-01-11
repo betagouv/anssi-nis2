@@ -1,11 +1,16 @@
 // noinspection TypeScriptValidateJSTypes - Incompatibilité des selecteurs testing-library (any) et des string
 
-import { expect } from "@storybook/jest";
 import { Meta, StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/testing-library";
-import { PrecisionsResultatRegulation } from "../../../../../../commun/core/src/Domain/Simulateur/Resultat.constantes.ts";
+import { Regulation } from "../../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
+import { PrecisionsResultat } from "../../../../../../commun/core/src/Domain/Simulateur/Resultat.constantes.ts";
 import { LigneResultat } from "../../../../Components/Simulateur/Resultats/LigneResultat.tsx";
 import { attendTexteCharge } from "../../../utilitaires/interaction.facilitateurs.ts";
+import {
+  verifieAucunBlocDepliable,
+  verifieClasseBlocResultat,
+  verifieIcone,
+  verifieTexteEnAnnexe,
+} from "./LigneResultat.predicats.ts";
 
 const meta: Meta<typeof LigneResultat> = {
   title: "Composants/Simulateur/Ligne Résultat",
@@ -15,47 +20,10 @@ export default meta;
 
 type Story = StoryObj<typeof LigneResultat>;
 
-const verifieAucunBlocDepliable = (canvasElement: HTMLElement) => {
-  const canvas = within(canvasElement);
-  expect(canvas.queryByText("Plus d'informations")).not.toBeInTheDocument();
-  expect(canvas.queryByText("Moins d'informations")).not.toBeInTheDocument();
-};
-
-const verifieIcone = (canvasElement: HTMLElement, classeIcone: string) =>
-  expect(
-    canvasElement.querySelector(`span.${classeIcone}`),
-  ).toBeInTheDocument();
-
-const verifieClasseBlocResultat = (
-  canvasElement: HTMLElement,
-  classeAttendue: string,
-) => {
-  expect(
-    canvasElement.querySelector("div.fr-nis2-resultat")?.className,
-  ).toContain(classeAttendue);
-};
-
-const verifieTexteEnAnnexe = async (
-  canvasElement: HTMLElement,
-  texteEnAnnexe: string,
-) => {
-  const canvas = within(canvasElement);
-  await attendTexteCharge(canvasElement, texteEnAnnexe);
-  expect(await canvas.findByText(texteEnAnnexe)).not.toBeVisible();
-
-  await userEvent.click(await canvas.findByText("Plus d'informations"));
-  await expect(canvas.queryByText(texteEnAnnexe)).toBeVisible();
-
-  const moinsInformations = await canvas.findByText("Moins d'informations");
-  await expect(moinsInformations).toBeVisible();
-  await userEvent.click(moinsInformations);
-  await expect(canvas.queryByText(texteEnAnnexe)).not.toBeVisible();
-  await canvas.findByText("Plus d'informations");
-};
-
 export const ReguleStandard: Story = {
   args: {
-    precisionResultatRegulation: PrecisionsResultatRegulation.ReguleStandard,
+    regulation: Regulation.Regule,
+    precision: PrecisionsResultat.Standard,
   },
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "REC";
@@ -68,7 +36,8 @@ export const ReguleStandard: Story = {
 
 export const ReguleDORA: Story = {
   args: {
-    precisionResultatRegulation: PrecisionsResultatRegulation.ReguleDORA,
+    regulation: Regulation.Regule,
+    precision: PrecisionsResultat.DORA,
   },
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "DORA";
@@ -80,8 +49,8 @@ export const ReguleDORA: Story = {
 
 export const ReguleEnregistrementDeNomsDeDomaines: Story = {
   args: {
-    precisionResultatRegulation:
-      PrecisionsResultatRegulation.ReguleEnregistrementDeNomsDeDomaine,
+    regulation: Regulation.Regule,
+    precision: PrecisionsResultat.EnregistrementDeNomsDeDomaine,
   },
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "Enregistrement de noms de domaines";
@@ -93,7 +62,8 @@ export const ReguleEnregistrementDeNomsDeDomaines: Story = {
 
 export const NonReguleStandard: Story = {
   args: {
-    precisionResultatRegulation: PrecisionsResultatRegulation.NonReguleStandard,
+    regulation: Regulation.NonRegule,
+    precision: PrecisionsResultat.Standard,
   },
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "Critères de possible inclusion";
@@ -105,8 +75,8 @@ export const NonReguleStandard: Story = {
 
 export const NonReguleHorsUE: Story = {
   args: {
-    precisionResultatRegulation:
-      PrecisionsResultatRegulation.NonReguleHorsUnionEuropeenne,
+    regulation: Regulation.NonRegule,
+    precision: PrecisionsResultat.HorsUnionEuropeenne,
   },
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "Ce résultat est présenté au vu des éléments saisis.";
@@ -119,7 +89,8 @@ export const NonReguleHorsUE: Story = {
 
 export const IncertainStandard: Story = {
   args: {
-    precisionResultatRegulation: PrecisionsResultatRegulation.IncertainStandard,
+    regulation: Regulation.Incertain,
+    precision: PrecisionsResultat.Standard,
   },
   play: async ({ canvasElement }) => {
     verifieAucunBlocDepliable(canvasElement);
@@ -130,8 +101,8 @@ export const IncertainStandard: Story = {
 
 export const IncertainAutrePaysUE: Story = {
   args: {
-    precisionResultatRegulation:
-      PrecisionsResultatRegulation.IncertainAutrePaysUnionEuropeenne,
+    regulation: Regulation.Incertain,
+    precision: PrecisionsResultat.AutrePaysUnionEuropeenne,
   },
   play: async ({ canvasElement }) => {
     const texteEnAnnexe =

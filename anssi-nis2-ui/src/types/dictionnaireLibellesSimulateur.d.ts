@@ -17,10 +17,13 @@ export type DictionnaireLibellesSimulateur = {
     DesignationOperateurServicesEssentiels,
     string
   >;
-  etatMembre: Record<AppartenancePaysUnionEuropeenne, string>;
+  appartenancePaysUnionEurpopeenne: Record<
+    AppartenancePaysUnionEuropeenne,
+    string
+  >;
   secteurActivite: Record<SecteurActivite, string>;
   sousSecteurActivite: Record<SousSecteurActivite, string>;
-  trancheCA: Record<TrancheChiffreAffaire, string>;
+  trancheChiffreAffaire: Record<TrancheChiffreAffaire, string>;
   trancheNombreEmployes: Record<TrancheNombreEmployes, string>;
   typeStructure: Record<TypeStructure, string>;
   typeEntitePublique: Record<TypeEntitePublique, string>;

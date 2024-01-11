@@ -1,7 +1,7 @@
 import {
   ContenuAffichagePlus,
   EtatPrecisionsResultat,
-} from "./PrecisionsResultat.declarations.ts";
+} from "./LigneResultat.declarations.ts";
 
 export const initialState: EtatPrecisionsResultat = {
   principal: "",

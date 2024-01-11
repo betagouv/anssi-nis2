@@ -1,4 +1,4 @@
-import { NomsChampsSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.ts";
+import { NomsChampsSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.definitions.ts";
 
 import { ValeurChampSimulateur } from "../../../Domaine/Simulateur/ChampsSimulateur.valeurs.ts";
 

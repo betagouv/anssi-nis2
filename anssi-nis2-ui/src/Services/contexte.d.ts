@@ -2,7 +2,7 @@ import {
   EnregistreInformationsEmail,
   EnvoieDonneesFormulaire,
 } from "./Simulateur/Operations/appelsApi";
-import { IDonneesBrutesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormulaire.ts";
+import { IDonneesBrutesFormulaireSimulateur } from "../Domaine/Simulateur/DonneesFormulaire.definitions.ts";
 import { SimulateurDonneesFormulaireActions } from "./Simulateur/Props/donneesFormulaire";
 import { BoutonsNavigation } from "./Simulateur/Props/boutonsNavigation.d.ts";
 import { ActionsBoutonNavigation } from "./Simulateur/Reducteurs.ts";

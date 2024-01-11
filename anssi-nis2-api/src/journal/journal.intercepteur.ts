@@ -5,7 +5,7 @@ import {
   Injectable,
   NestInterceptor,
 } from "@nestjs/common";
-import { DonneesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/DonneesFormulaire.definitions";
 import { Observable, switchMap } from "rxjs";
 import { JournalService } from "./journal.service";
 import { SegmentsConcernesNis2 } from "./entites/segments-concernes-nis2.entite-journal";

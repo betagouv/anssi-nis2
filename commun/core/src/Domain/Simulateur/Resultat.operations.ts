@@ -1,66 +1,14 @@
 import { match } from "ts-pattern";
-import { DonneesFormulaireSimulateur } from "./DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.definitions";
 import { RegulationEntite } from "./Regulation.definitions";
-import {
-  PrecisionsResultat,
-  PrecisionsResultatRegulation,
-} from "./Resultat.constantes";
-import {
-  PrecisionResultat,
-  PrecisionResultatRegulation,
-} from "./Resultat.declarations";
-
-const calculePrecisionResultatRegulationIncertain = (
-  d: DonneesFormulaireSimulateur
-) =>
-  match(d)
-    .with(
-      { etatMembre: ["autre"] },
-      () => PrecisionsResultatRegulation.IncertainAutrePaysUnionEuropeenne
-    )
-    .otherwise(() => PrecisionsResultatRegulation.IncertainStandard);
-
-const calculePrecisionResultatRegulationRegule = (
-  d: DonneesFormulaireSimulateur
-) =>
-  match(d)
-    .with(
-      { secteurActivite: ["banqueSecteurBancaire"] },
-      () => PrecisionsResultatRegulation.ReguleDORA
-    )
-    .with(
-      { activites: ["registresNomsDomainesPremierNiveau"] },
-      () => PrecisionsResultatRegulation.ReguleEnregistrementDeNomsDeDomaine
-    )
-    .otherwise(() => PrecisionsResultatRegulation.ReguleStandard);
-
-const calculePrecisionResultatRegulationNonRegule = (
-  d: DonneesFormulaireSimulateur
-) =>
-  match(d)
-    .with(
-      { etatMembre: ["horsue"] },
-      () => PrecisionsResultatRegulation.NonReguleHorsUnionEuropeenne
-    )
-    .otherwise(() => PrecisionsResultatRegulation.NonReguleStandard);
-
-const calculateurPrecisionsResultatRegulation: Record<
-  RegulationEntite,
-  (d: DonneesFormulaireSimulateur) => PrecisionResultatRegulation
-> = {
-  Regule: calculePrecisionResultatRegulationRegule,
-  NonRegule: calculePrecisionResultatRegulationNonRegule,
-  Incertain: calculePrecisionResultatRegulationIncertain,
-};
-
-export const calculePrecisionResultatRegulation = (e: RegulationEntite) =>
-  calculateurPrecisionsResultatRegulation[e];
+import { PrecisionsResultat } from "./Resultat.constantes";
+import { PrecisionResultat } from "./Resultat.declarations";
 
 const calculePrecisionResultatIncertain = (d: DonneesFormulaireSimulateur) =>
   match(d)
     .with(
-      { etatMembre: ["autre"] },
-      () => PrecisionsResultat.AutrePaysUnionEuropeenne
+      { appartenancePaysUnionEurpopeenne: ["autre"] },
+      () => PrecisionsResultat.AutrePaysUnionEuropeenne,
     )
     .otherwise(() => PrecisionsResultat.Standard);
 
@@ -68,19 +16,19 @@ const calculePrecisionResultatRegule = (d: DonneesFormulaireSimulateur) =>
   match(d)
     .with(
       { secteurActivite: ["banqueSecteurBancaire"] },
-      () => PrecisionsResultat.DORA
+      () => PrecisionsResultat.DORA,
     )
     .with(
       { activites: ["registresNomsDomainesPremierNiveau"] },
-      () => PrecisionsResultat.EnregistrementDeNomsDeDomaine
+      () => PrecisionsResultat.EnregistrementDeNomsDeDomaine,
     )
     .otherwise(() => PrecisionsResultat.Standard);
 
 const calculePrecisionResultatNonRegule = (d: DonneesFormulaireSimulateur) =>
   match(d)
     .with(
-      { etatMembre: ["horsue"] },
-      () => PrecisionsResultat.HorsUnionEuropeenne
+      { appartenancePaysUnionEurpopeenne: ["horsue"] },
+      () => PrecisionsResultat.HorsUnionEuropeenne,
     )
     .otherwise(() => PrecisionsResultat.Standard);
 

@@ -1,5 +1,5 @@
 import { describe, it } from "vitest";
-import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire";
+import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire.definitions";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { ChampsFormulaireFacultatifs } from "../../src/Domain/Simulateur/DonneesFormulaire.valeurs";
 import { non } from "../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
@@ -18,7 +18,7 @@ import { arbForm } from "./arbitraires/arbitrairesSimulateur";
 
 describe("Invalide en cas de données absentes", () => {
   const donneesAbsentes = Object.entries(
-    arbForm.nonValide.donneeAbsente
+    arbForm.nonValide.donneeAbsente,
   ).filter(([nom]) => !ChampsFormulaireFacultatifs.includes(nom));
 
   it.each(donneesAbsentes)("%s", (nom, donneeAbsente) => {
@@ -76,11 +76,11 @@ describe("Validation des données formulaire", () => {
   const formulairePetitInfraNumSansLocalisation: DonneesFormulaireSimulateur = {
     ...donneesFormulaireSimulateurVide,
     designeOperateurServicesEssentiels: ["non"],
-    etatMembre: ["france"],
+    appartenancePaysUnionEurpopeenne: ["france"],
     typeStructure: ["privee"],
     secteurActivite: ["infrastructureNumerique"],
     trancheNombreEmployes: ["petit"],
-    trancheCA: ["petit"],
+    trancheChiffreAffaire: ["petit"],
     activites: ["fournisseurServicesDNS"],
   };
 
@@ -91,7 +91,7 @@ describe("Validation des données formulaire", () => {
         verifieQue(verifieDonneesCommunesPrivee)
           .estToujoursVrai()
           .quelqueSoit(arbitraireEligible);
-      }
+      },
     );
   });
 
@@ -102,7 +102,7 @@ describe("Validation des données formulaire", () => {
         verifieQue(verifieCompletudeDonneesFormulairePrivee)
           .estToujoursVrai()
           .quelqueSoit(arbitraireEligible);
-      }
+      },
     );
   });
 
@@ -113,7 +113,7 @@ describe("Validation des données formulaire", () => {
         verifieQue(verifieCompletudeDonneesFormulairePublique)
           .estToujoursVrai()
           .quelqueSoit(arbitraireEligible);
-      }
+      },
     );
   });
 
@@ -124,7 +124,7 @@ describe("Validation des données formulaire", () => {
         verifieQue(verifieDonneesCommunesPublique)
           .estToujoursVrai()
           .quelqueSoit(arbitraireEligible);
-      }
+      },
     );
   });
 
@@ -135,7 +135,7 @@ describe("Validation des données formulaire", () => {
         verifieQue(verifieCompletudeDonneesCommunes)
           .estToujoursVrai()
           .quelqueSoit(arbitraireEligible);
-      }
+      },
     );
   });
 
@@ -146,7 +146,7 @@ describe("Validation des données formulaire", () => {
         verifieQue(verifieCompletudeDonneesCommunes)
           .estToujoursVrai()
           .quelqueSoit(arbitraireEligible);
-      }
+      },
     );
   });
 
@@ -157,7 +157,7 @@ describe("Validation des données formulaire", () => {
         verifieQue(donneesFormulaireSontCompletes)
           .estToujoursVrai()
           .quelqueSoit(arbitraireEligible);
-      }
+      },
     );
   });
 
@@ -168,7 +168,7 @@ describe("Validation des données formulaire", () => {
         verifieQue(verifieDonneesSectorielles)
           .estToujoursVrai()
           .quelqueSoit(arbitraireEligible);
-      }
+      },
     );
   });
 
@@ -177,34 +177,35 @@ describe("Validation des données formulaire", () => {
       const donnees: DonneesFormulaireSimulateur = {
         ...donneesFormulaireSimulateurVide,
         designeOperateurServicesEssentiels: ["oui"],
-        etatMembre: ["france"],
+        appartenancePaysUnionEurpopeenne: ["france"],
         secteurActivite: ["espace"],
-        trancheCA: ["petit"],
+        trancheChiffreAffaire: ["petit"],
         trancheNombreEmployes: ["petit"],
         typeStructure: ["privee"],
       };
       it(
         "vérifie données communes complètes",
         verifieQue(verifieCompletudeDonneesCommunes).pour(donnees)
-          .estToujoursVrai
+          .estToujoursVrai,
       );
       it(
         "ne vérifie pas données sectorielles",
-        verifieQue(verifieDonneesSectorielles).pour(donnees).estToujoursFaux
+        verifieQue(verifieDonneesSectorielles).pour(donnees).estToujoursFaux,
       );
       it(
         "ne vérifie pas données form privé complètes",
         verifieQue(verifieCompletudeDonneesFormulairePrivee).pour(donnees)
-          .estToujoursFaux
+          .estToujoursFaux,
       );
       it(
         "ne vérifie pas données form publiques sont complètes",
         verifieQue(verifieCompletudeDonneesFormulairePublique).pour(donnees)
-          .estToujoursFaux
+          .estToujoursFaux,
       );
       it(
         "ne vérifie pas données form complètes",
-        verifieQue(donneesFormulaireSontCompletes).pour(donnees).estToujoursFaux
+        verifieQue(donneesFormulaireSontCompletes).pour(donnees)
+          .estToujoursFaux,
       );
     });
 
@@ -221,7 +222,7 @@ describe("Validation des données formulaire", () => {
         donnees: {
           ...donneesFormulaireSimulateurVide,
           designeOperateurServicesEssentiels: ["oui"],
-          etatMembre: ["france"],
+          appartenancePaysUnionEurpopeenne: ["france"],
           secteurActivite: ["energie"],
           trancheNombreEmployes: ["petit"],
           typeStructure: ["publique"],
@@ -286,7 +287,7 @@ describe("Validation des données formulaire", () => {
         it.each(tests)("$name doit être $attendu", ({ actionTestee }) => {
           verifieQue(actionTestee).pour(donnees).estToujoursVrai();
         });
-      }
+      },
     );
   });
 });

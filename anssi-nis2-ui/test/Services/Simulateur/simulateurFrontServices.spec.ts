@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { Activites } from "../../../../commun/core/src/Domain/Simulateur/Activite.definitions";
+import { Activite } from "../../../../commun/core/src/Domain/Simulateur/Activite.definitions";
 import { donneesFormulaireSimulateurVide } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { fabriqueDonneesFormulaire } from "../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
 import { genereTransformateurValeursVersOptions } from "../../../src/Services/Simulateur/genereTransformateurValeursVersOptions";
@@ -14,7 +14,7 @@ describe(genereTransformateurValeursVersOptions, () => {
       nativeInputProps: {
         checked: optionsChecked[0],
         onChange: onChange,
-        name: "etatMembre",
+        name: "appartenancePaysUnionEurpopeenne",
         value: "france",
       },
     },
@@ -23,7 +23,7 @@ describe(genereTransformateurValeursVersOptions, () => {
       nativeInputProps: {
         checked: optionsChecked[1],
         onChange: onChange,
-        name: "etatMembre",
+        name: "appartenancePaysUnionEurpopeenne",
         value: "autre",
       },
     },
@@ -32,7 +32,7 @@ describe(genereTransformateurValeursVersOptions, () => {
       nativeInputProps: {
         checked: optionsChecked[2],
         onChange: onChange,
-        name: "etatMembre",
+        name: "appartenancePaysUnionEurpopeenne",
         value: "horsue",
       },
     },
@@ -51,7 +51,7 @@ describe(genereTransformateurValeursVersOptions, () => {
   it("génère un champ d'option avec les bons états checked", () => {
     const attendu = optionsPaysUE([true, false, false]);
     const defaultDataForm = fabriqueDonneesFormulaire({
-      etatMembre: ["france"],
+      appartenancePaysUnionEurpopeenne: ["france"],
     });
     const optionsPaysUEObtenu = transformePaysUnionEuropeennePourSelect(
       libellesPaysUnionEuropeenneLocalisation,
@@ -62,7 +62,7 @@ describe(genereTransformateurValeursVersOptions, () => {
   });
 
   type ValeurActivitesPartielles = Extract<
-    Activites,
+    Activite,
     "entrepriseElectriciteRemplissantFonctionFourniture"
   >;
   const getSousEnsembleActiviteLabel = (
@@ -103,7 +103,7 @@ describe(genereTransformateurValeursVersOptions, () => {
     });
 
     it("genere une liste d'option avec la bonne option cochée", () => {
-      const valeurSelectionnee: Activites =
+      const valeurSelectionnee: Activite =
         "entrepriseElectriciteRemplissantFonctionFourniture";
       const attendu = [
         {

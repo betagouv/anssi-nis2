@@ -1,16 +1,15 @@
+export const ValeursLigneResultatSpecifique = [
+  "etMaintenant",
+  "enSavoirPlus",
+  "bienDebuter",
+] as const;
+
 export type BlocResultatSpecifiques =
-  | "etMaintenant"
-  | "enSavoirPlus"
-  | "bienDebuterAvecPdf";
+  (typeof ValeursLigneResultatSpecifique)[number];
 
 export type PrecisionsResultatProps = {
   principal: string;
   annexe: string;
 };
 
-type BlocsAffiches = Set<BlocResultatSpecifiques>;
-
-export type ContenusResultatEligibilite = {
-  modeFormulaireEmail: "simple" | "complet";
-  blocs: BlocsAffiches;
-};
+export type BlocsAffiches = Set<BlocResultatSpecifiques>;

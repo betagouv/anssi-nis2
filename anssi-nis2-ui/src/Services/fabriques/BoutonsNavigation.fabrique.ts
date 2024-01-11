@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
 import { EtatEtapes } from "../../../../commun/core/src/Domain/Simulateur/EtatEtapes.ts";
 import {
   fabriqueEtatEtapePrecedent,

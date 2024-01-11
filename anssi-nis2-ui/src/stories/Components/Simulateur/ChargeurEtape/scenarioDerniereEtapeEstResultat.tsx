@@ -20,12 +20,12 @@ export const scenarioDerniereEtapeEstResultat: StoryObj<
   await cliqueSurDebuterLeTest(canvas);
 
   await passeEtape([["designeOperateurServicesEssentiels", "oui"]]);
-  await passeEtape([["etatMembre", "france"]]);
+  await passeEtape([["appartenancePaysUnionEurpopeenne", "france"]]);
   await passeEtape([["typeStructure", "privee"]]);
 
   await passeEtape([
     ["trancheNombreEmployes", "petit"],
-    ["trancheCA", "petit"],
+    ["trancheChiffreAffaire", "petit"],
   ]);
   await passeEtape([["secteurActivite", "espace"]]);
   await passeEtape([
@@ -42,10 +42,10 @@ export const scenarioDerniereEtapeEstResultat: StoryObj<
         "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
       ],
       designeOperateurServicesEssentiels: ["oui"],
-      etatMembre: ["france"],
+      appartenancePaysUnionEurpopeenne: ["france"],
       secteurActivite: ["espace"],
       sousSecteurActivite: [],
-      trancheCA: ["petit"],
+      trancheChiffreAffaire: ["petit"],
       trancheNombreEmployes: ["petit"],
       typeStructure: ["privee"],
     }),

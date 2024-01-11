@@ -2,7 +2,7 @@ import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
 } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
-import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
 import {
   CollectionParametresDonnees,
   ParametresDonneesSpecifiqueField,
@@ -46,12 +46,12 @@ const creeActionPropagationFormulaireTrancheNombreEmployes = (
   };
   return { ...actionTypique, newValue: newValue };
 };
-const creeActionPropagationFormulaireTrancheCA = (
+const creeActionPropagationFormulairetrancheChiffreAffaire = (
   newValue: TrancheChiffreAffaire,
 ) => {
   const actionTypique = {
     type: "checkSingle",
-    name: "trancheCA",
+    name: "trancheChiffreAffaire",
   };
   return { ...actionTypique, newValue: newValue };
 };
@@ -99,7 +99,7 @@ export const TailleStandard: Story = {
       ];
       for (const { libelle, newValue } of optionsATester) {
         const actionPropagee =
-          creeActionPropagationFormulaireTrancheCA(newValue);
+          creeActionPropagationFormulairetrancheChiffreAffaire(newValue);
         await step(
           `Clique sur '${libelle}' déclanche le dispatch d'action '${actionPropagee.type}' sur le champs '${actionPropagee.name}' pour une valeur '${newValue}'`,
           async () => {

@@ -1,4 +1,4 @@
-import { NomsChampsSimulateur } from "../../DonneesFormulaire";
+import { NomsChampsSimulateur } from "../../DonneesFormulaire.definitions";
 import { ValidationReponses } from "./champs.domaine";
 import {
   auMoinsUn,
@@ -10,14 +10,17 @@ import {
 } from "./champs.predicats";
 
 export const fabriqueValidationUneReponses = (
-  nomChamp: NomsChampsSimulateur
+  nomChamp: NomsChampsSimulateur,
 ): ValidationReponses => ({
   message: "Selectionnez une réponse",
   validateur: exactementUn(nomChamp),
 });
 export const validationReponsesTaille: ValidationReponses = {
   message: "Sélectionnez une réponse pour chaque critère",
-  validateur: et(auMoinsUn("trancheNombreEmployes"), auMoinsUn("trancheCA")),
+  validateur: et(
+    auMoinsUn("trancheNombreEmployes"),
+    auMoinsUn("trancheChiffreAffaire"),
+  ),
 };
 export const validationReponsesSecteurs: ValidationReponses = {
   message: "Sélectionnez au moins une réponse",
@@ -40,7 +43,7 @@ export const validationReponsesTypeStructure: ValidationReponses = {
   message: "Sélectionnez une réponse par question",
   validateur: et(
     auMoinsUn("typeStructure"),
-    lorsque("typeStructure", "publique", auMoinsUn("typeEntitePublique"))
+    lorsque("typeStructure", "publique", auMoinsUn("typeEntitePublique")),
   ),
 };
 
@@ -52,7 +55,7 @@ export const validationReponsesLocalisationActiviteSpecifique: ValidationReponse
       lorsque(
         "fournitServicesUnionEuropeenne",
         "oui",
-        auMoinsUn("localisationRepresentant")
-      )
+        auMoinsUn("localisationRepresentant"),
+      ),
     ),
   };

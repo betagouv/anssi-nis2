@@ -1,10 +1,10 @@
-import { Activites } from "../../../../commun/core/src/Domain/Simulateur/Activite.definitions.ts";
+import { Activite } from "../../../../commun/core/src/Domain/Simulateur/Activite.definitions.ts";
 import { ValeurChampSimulateur } from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import {
   DonneesSectorielles,
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.ts";
+} from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
 import { ValeurCleSectorielle } from "../../../../commun/core/src/Domain/Simulateur/ValeurCleSectorielle.definitions.ts";
 import {
   AttributsEntreeChoixMultiple,
@@ -23,7 +23,7 @@ export const constructeurOptionActiviteFabrique: (
   donneesFormulaire: Pick<DonneesFormulaireSimulateur, "activites"> &
     DonneesSectorielles,
   changeMulti: React.ChangeEventHandler<HTMLInputElement>,
-) => (activite: Activites) => OptionChampSimulateur =
+) => (activite: Activite) => OptionChampSimulateur =
   (donneesFormulaire, changeMulti) => (activite) => ({
     label: libellesActivites[activite],
     contenuInfobulle: listeDescriptionsActivites[activite],
@@ -48,7 +48,7 @@ const fabriqueChangeMulti: (
 
 const fabriqueOptions = (
   secteurOuSousSecteur: ValeurCleSectorielle,
-  construitOptionActivite: (activite: Activites) => OptionChampSimulateur,
+  construitOptionActivite: (activite: Activite) => OptionChampSimulateur,
 ) => {
   const activitesParSecteurEtSousSecteurElement =
     activitesParSecteurEtSousSecteur[secteurOuSousSecteur];

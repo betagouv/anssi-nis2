@@ -1,21 +1,24 @@
 // noinspection TypeScriptValidateJSTypes - Incompatibilité des selecteurs testing-library (any) et des string
 
 import { expect } from "@storybook/jest";
-import { within } from "@storybook/testing-library";
 
 import { Meta, StoryObj } from "@storybook/react";
+import { within } from "@storybook/testing-library";
 import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
 import { SimulateurEtapeResult } from "../../../../Components/Simulateur/SimulateurEtapeResult.tsx";
 
-import { contenusResultats } from "../../../../References/contenusResultatEligibilite.ts";
+import {
+  texteIntroductionBienDebuterGrandeEntite,
+  texteIntroductionBienDebuterPetiteEntite,
+} from "../../../../References/LibellesResultatsEligibilite.ts";
 import { attendTexteCharge } from "../../../utilitaires/interaction.facilitateurs.ts";
-import { verifieContenuResultatDansPage } from "../../../utilitaires/VerifieContenuResultatDansPage.ts";
+import { verifieTitresSectionsPresentes } from "./Resultat.aide.ts";
 
 const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
   designeOperateurServicesEssentiels: ["non"],
-  etatMembre: ["france"],
+  appartenancePaysUnionEurpopeenne: ["france"],
   typeStructure: ["privee"],
-  trancheCA: ["petit"],
+  trancheChiffreAffaire: ["petit"],
   trancheNombreEmployes: ["petit"],
   secteurActivite: ["eauPotable"],
   sousSecteurActivite: [],
@@ -23,7 +26,7 @@ const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
 });
 
 const meta: Meta<typeof SimulateurEtapeResult> = {
-  title: "Composants/Simulateur/Résultat",
+  title: "Composants/Simulateur/Resultat",
   component: SimulateurEtapeResult,
   args: {
     donneesFormulaire: archetypeDonneesFormulaire,
@@ -41,7 +44,7 @@ export const ResultatEligibleOSE: Story = {
       ...archetypeDonneesFormulaire,
       designeOperateurServicesEssentiels: ["oui"],
       trancheNombreEmployes: ["petit"],
-      trancheCA: ["petit"],
+      trancheChiffreAffaire: ["petit"],
     },
   },
   play: async ({ canvasElement }) => {
@@ -49,21 +52,25 @@ export const ResultatEligibleOSE: Story = {
 
     await attendTexteCharge(canvasElement, pointsDAttention);
 
-    await verifieContenuResultatDansPage(
+    await verifieTitresSectionsPresentes(
       canvasElement,
-      contenusResultats.EligiblePetiteEntreprise,
+      new Set(["etMaintenant", "enSavoirPlus", "bienDebuter"]),
     );
 
     expect(await canvas.findByText(pointsDAttention)).toBeInTheDocument();
 
     await canvas.findByText("Et Maintenant ?");
+    await canvas.findByText(texteIntroductionBienDebuterPetiteEntite);
+    await expect(
+      canvas.queryByText(texteIntroductionBienDebuterGrandeEntite),
+    ).not.toBeInTheDocument();
   },
 };
 export const ResultatEligiblePetiteEntreprise: Story = {
   args: {
     donneesFormulaire: {
       ...archetypeDonneesFormulaire,
-      trancheCA: ["petit"],
+      trancheChiffreAffaire: ["petit"],
       trancheNombreEmployes: ["petit"],
       secteurActivite: ["infrastructureNumerique"],
       activites: ["registresNomsDomainesPremierNiveau"],
@@ -74,28 +81,26 @@ export const ResultatEligiblePetiteEntreprise: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await attendTexteCharge(canvasElement, pointsDAttention);
-
-    await verifieContenuResultatDansPage(
+    await verifieTitresSectionsPresentes(
       canvasElement,
-      contenusResultats.EligiblePetiteEntreprise,
+      new Set(["etMaintenant", "enSavoirPlus", "bienDebuter"]),
     );
 
     const titrePrecisions = await canvas.findByText(pointsDAttention);
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H4");
 
-    await canvas.findByText(
-      "Dans l’attente des exigences françaises pour votre organisation, " +
-        "retrouvez les guides essentiels de bonne pratique de l’ANSSI pour " +
-        "débuter dès à présent votre montée en maturité cyber.",
-    );
+    await canvas.findByText(texteIntroductionBienDebuterPetiteEntite);
+    await expect(
+      canvas.queryByText(texteIntroductionBienDebuterGrandeEntite),
+    ).not.toBeInTheDocument();
   },
 };
 export const ResultatEligibleGrandeEntreprise: Story = {
   args: {
     donneesFormulaire: {
       ...archetypeDonneesFormulaire,
-      trancheCA: ["grand"],
+      trancheChiffreAffaire: ["grand"],
       trancheNombreEmployes: ["grand"],
     },
   },
@@ -103,20 +108,20 @@ export const ResultatEligibleGrandeEntreprise: Story = {
     const canvas = within(canvasElement);
     await attendTexteCharge(canvasElement, pointsDAttention);
 
-    await verifieContenuResultatDansPage(
+    await verifieTitresSectionsPresentes(
       canvasElement,
-      contenusResultats.EligibleMoyenneGrandeEntreprise,
+      new Set(["etMaintenant", "enSavoirPlus", "bienDebuter"]),
     );
 
     const titrePrecisions = await canvas.findByText(pointsDAttention);
+
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H4");
 
-    await canvas.findByText(
-      "Dans l’attente des exigences françaises pour votre organisation, " +
-        "retrouvez sur le site de l’ANSSI l’ensemble des guides de bonnes " +
-        "pratiques ainsi que les mesures cyber préventives prioritaires.",
-    );
+    await expect(
+      canvas.queryByText(texteIntroductionBienDebuterPetiteEntite),
+    ).not.toBeInTheDocument();
+    await canvas.findByText(texteIntroductionBienDebuterGrandeEntite);
   },
 };
 
@@ -134,9 +139,9 @@ export const ResultatNonEligible: Story = {
     const canvas = within(canvasElement);
     await attendTexteCharge(canvasElement, pointsDAttention);
 
-    await verifieContenuResultatDansPage(
+    await verifieTitresSectionsPresentes(
       canvasElement,
-      contenusResultats.NonEligible,
+      new Set(["bienDebuter"]),
     );
 
     const criteresDePossibleInclusion = "Critères de possible inclusion";
@@ -146,5 +151,9 @@ export const ResultatNonEligible: Story = {
     );
     expect(titrePrecisions).toBeInTheDocument();
     expect(titrePrecisions.tagName).toBe("H5");
+    await canvas.findByText(texteIntroductionBienDebuterPetiteEntite);
+    await expect(
+      canvas.queryByText(texteIntroductionBienDebuterGrandeEntite),
+    ).not.toBeInTheDocument();
   },
 };

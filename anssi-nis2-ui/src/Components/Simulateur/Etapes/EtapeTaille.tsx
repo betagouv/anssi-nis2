@@ -37,7 +37,7 @@ const EtapeTailleCalculee = ({
   const gereChangementCA = (event: React.ChangeEvent<HTMLInputElement>) =>
     propageActionSimulateur({
       type: "checkSingle",
-      name: "trancheCA",
+      name: "trancheChiffreAffaire",
       newValue: event.target.value as TrancheChiffreAffaire,
     });
   const optionsTranchesNombreEmployes =

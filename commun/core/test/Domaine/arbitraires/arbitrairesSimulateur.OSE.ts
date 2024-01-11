@@ -2,7 +2,7 @@ import { ValeursAppartenancePaysUnionEuropeenne } from "../../../src/Domain/Simu
 import {
   ajouteArbitraireActivites,
   etend,
-  fabriqueArbContraintSurTrancheCA,
+  fabriqueArbContraintSurtrancheChiffreAffaire,
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
 } from "../../utilitaires/manipulationArbitraires";
@@ -19,9 +19,11 @@ export const arbOSEPetit = etend(arbitraireSecteursSousSecteurs)
     designeOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.oui,
     typeStructure: arbTypeStructure.privee,
-    trancheCA: arbTranche.petit,
+    trancheChiffreAffaire: arbTranche.petit,
     trancheNombreEmployes: arbTranche.petit,
-    etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
+    appartenancePaysUnionEurpopeenne: fabriqueArbSingleton(
+      ValeursAppartenancePaysUnionEuropeenne,
+    ),
   })
   .chain(ajouteArbitraireActivites)
   .filter((d) => d.activites.length > 0) as ArbitraireFormulaire;
@@ -31,10 +33,12 @@ export const arbOSEMoyenGrand = etend(arbitraireSecteursSousSecteurs)
     designeOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.oui,
     typeStructure: arbTypeStructure.privee,
-    etatMembre: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
-    trancheCA: fabriqueArbTrancheSingleton(),
+    appartenancePaysUnionEurpopeenne: fabriqueArbSingleton(
+      ValeursAppartenancePaysUnionEuropeenne,
+    ),
+    trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
   })
-  .chain(fabriqueArbContraintSurTrancheCA)
+  .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
   .chain(ajouteArbitraireActivites)
   .filter((d) => d.activites.length > 0) as ArbitraireFormulaire;
 
