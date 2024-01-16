@@ -543,4 +543,25 @@ legend.fr-text--medium {
     height: 337px;
     background-image: url(assets/ImageVide.svg);
   }
+
+  & li.fr-sidemenu__item {
+    /*max-width: 226px;*/
+    padding: .25rem;
+  }
+
+  & .fr-sidemenu__list .fr-sidemenu__link {
+    font-size: .875rem;
+    /*margin-left: 1rem;*/
+  }
+
+  & .fr-nis2-retrait {
+    vertical-align: top;
+    position: relative;
+    left: -.925rem;
+    top: -.75rem;
+  }
+
+  /*& .fr-sidemenu__list .fr-sidemenu__link::first-line {*/
+  /*  margin-left: 0;*/
+  /*}*/
 }
