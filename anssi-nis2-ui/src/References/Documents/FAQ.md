@@ -4,18 +4,17 @@
 
 Alors que la menace complexe, professionnelle et en constante évolution ne faiblit pas et que les systèmes d’information
 restent pour partie vulnérables, la directive NIS\xa02, publiée au Journal Officiel de l'Union Européenne en décembre
-2022,
-représente une opportunité unique. Sa mise en application va permettre à des milliers d’entités, importantes pour le
-quotidien des citoyens, de mieux se protéger.
+2022, représente une opportunité unique. Sa mise en application va permettre à des milliers d’entités, importantes pour
+le quotidien des citoyens, de mieux se protéger.
 
 La directive NIS\xa02 s’appuie sur les acquis de la directive NIS 1 pour marquer un réel changement de paradigme, tant à
 l’échelon national qu’à l’échelon européen.
+
 Face à des acteurs malveillants toujours plus performants et mieux outillés, touchant de plus en plus d’entités trop
 souvent mal protégées, la directive NIS\xa02 élargit en effet ses objectifs et son périmètre d’applicabilité pour
-apporter
-davantage de protection. Cette extension du périmètre prévue par NIS\xa02 est sans précédent en matière de
-réglementation
-cyber.
+apporter davantage de protection. Cette extension du périmètre prévue par NIS\xa02 est sans précédent en matière de
+réglementation cyber.
+
 Elle amène aussi les Etats membres à renforcer leur coopération en matière de gestion de crise cyber, en donnant
 notamment un cadre formel au réseau CyCLONe qui rassemble l’ANSSI et ses homologues européens.
 
