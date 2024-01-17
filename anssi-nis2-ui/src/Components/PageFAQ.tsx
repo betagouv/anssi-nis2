@@ -6,50 +6,50 @@ export const PageFAQ: DefaultComponentExtensible<DefaultProps> = () => {
   const elementsPerimetreEntitesConcernees = [
     {
       linkProps: {
-        href: "#",
+        href: "#faq-5",
       },
       text: "5. Comment savoir si je suis concerné ?",
     },
     {
       linkProps: {
-        href: "#",
+        href: "#faq-6",
       },
       text: "6. Quelle mise en œuvre et pilotage en Outre-mer ?",
     },
     {
       linkProps: {
-        href: "#",
+        href: "#faq-7",
       },
       text: "7. Serais-je concerné par NIS 2 en tant que collectivité territoriale ?",
     },
     {
       isActive: true,
       linkProps: {
-        href: "#",
+        href: "#faq-8",
       },
       text: "8. Suis-je assujetti à la transposition française si sur deux États membres ?",
     },
     {
       linkProps: {
-        href: "#",
+        href: "#faq-9",
       },
       text: "9. Quelles actions pour faciliter la mise en relation avec l’ANSSI ?",
     },
     {
       linkProps: {
-        href: "#",
+        href: "#faq-10",
       },
       text: "10. Quelle gestion des exceptions ?",
     },
     {
       linkProps: {
-        href: "#",
+        href: "#faq-11",
       },
       text: "11. Qui sera concerné ?",
     },
     {
       linkProps: {
-        href: "#",
+        href: "#faq-12",
       },
       text: "12. Qu’en est-il des acteurs tiers ?",
     },
@@ -92,71 +92,36 @@ export const PageFAQ: DefaultComponentExtensible<DefaultProps> = () => {
   ];
   return (
     <MiseEnPage page="FAQ NIS2">
-      <div className="fr-container fr-nis2-faq" id="haut-faq">
-        <nav
-          role="navigation"
-          className="fr-breadcrumb"
-          aria-label="vous êtes ici :"
-        >
-          <button
-            className="fr-breadcrumb__button"
-            aria-expanded="false"
-            aria-controls="breadcrumb-1"
-          >
-            Voir le fil d’Ariane
-          </button>
-          <div className="fr-collapse" id="breadcrumb-1">
-            <ol className="fr-breadcrumb__list">
-              <li>
-                <a className="fr-breadcrumb__link" href="/">
-                  Accueil
-                </a>
-              </li>
-              <li>
-                <a className="fr-breadcrumb__link" href="/segment-1/">
-                  FAQ NIS&nbsp;2
-                </a>
-              </li>
-              <li>
-                <a className="fr-breadcrumb__link" href="/segment-1/segment-2/">
-                  Périmètre des entités concernées
-                </a>
-              </li>
-              <li>
-                <a className="fr-breadcrumb__link" aria-current="page">
-                  Suis-je assujetti à la transposition française si sur deux
-                  États membres ?
-                </a>
-              </li>
-            </ol>
-          </div>
-        </nav>
-
-        <div className="fr-grid-row fr-nis2-bandeau-temporaire"></div>
-        <div className="fr-grid-row">Description, Source</div>
-
+      <div className="fr-container fr-mt-4w">
         <div className="fr-grid-row">
           <SideMenu
             align="left"
             burgerMenuButtonText="Dans cette rubrique"
             items={elementsMenuFaq}
             title="Sommaire"
-            className="fr-col-3"
+            className="fr-col-3 fr-sidemenu--sticky-full-height"
           />
-          <div className="fr-col-offset-1 fr-col-7">
-            <h1>FAQ NIS2</h1>
+          <div className="fr-col-offset-1 fr-col-7 fr-pt-4w fr-nis2-faq">
+            <h1 id="haut-faq">FAQ NIS&nbsp;2</h1>
+            <hr />
+            <span className="fr-text--bold fr-text--sm">Publié jj/mm/aaaa</span>
+            <span className="fr-ml-1w fr-text--sm">Modifié jj/mm/aaaa</span>
+            <span className="fr-text--sm fr-nis2--float-right">
+              Lecture 30 minutes
+            </span>
             <h2>Périmètre des entités concernées</h2>
 
             <section>
-              <h3>
+              <h3 id="faq-8">
                 8. Si mon entreprise est sur deux Etats membres, est-ce que je
-                suis assujetti à la transposition en droit français de NIS 2 ?
+                suis assujetti à la transposition en droit français de
+                NIS&nbsp;2&nbsp;?
               </h3>
               <p>
                 À ce stade, si votre entreprise est sur deux États membres de
                 l’Union Européenne, que vous réalisez une activité incluse dans
                 les types d’entité des annexes 1 ou 2 et que vous disposez de 50
-                employés ou plus, vous serez soumis à la directive NIS 2.
+                employés ou plus, vous serez soumis à la directive NIS&nbsp;2.
               </p>
               <p>
                 En revanche, si vous souhaitez connaitre la juridiction, c’est
@@ -166,10 +131,10 @@ export const PageFAQ: DefaultComponentExtensible<DefaultProps> = () => {
               </p>
             </section>
             <section>
-              <h3>
+              <h3 id="faq-9">
                 9. Les entités n’étant plus désignées par arrêté et devant se
                 faire connaitre auprès d’elle, l’ANSSI envisage-t-elle des
-                actions pour faciliter la mise en relation ?
+                actions pour faciliter la mise en relation&nbsp;?
               </h3>
               <p>
                 Effectivement, la règle de base impliquera une inclusion par
@@ -188,11 +153,11 @@ export const PageFAQ: DefaultComponentExtensible<DefaultProps> = () => {
               </p>
             </section>
             <section>
-              <h3>
+              <h3 id="faq-10">
                 10. Le texte prévoit un certain nombre d’exceptions ou de cas
                 particuliers au périmètre de base. Dans quels cas, l’ANSSI
                 sera-t-elle amenée à actionner les mécanismes d’ajustement du
-                périmètre ?
+                périmètre&nbsp;?
               </h3>
               <p>
                 La directive prévoit effectivement un mécanisme d’ajustement du
@@ -238,7 +203,7 @@ export const PageFAQ: DefaultComponentExtensible<DefaultProps> = () => {
               </p>
             </section>
             <section>
-              <h3>
+              <h3 id="faq-11">
                 11. Concrètement, qui sera concerné par le nouveau périmètre
                 d’application de NIS 2 ?
               </h3>
@@ -257,7 +222,7 @@ export const PageFAQ: DefaultComponentExtensible<DefaultProps> = () => {
               </p>
             </section>
             <section>
-              <h3>
+              <h3 id="faq-12">
                 12. Qu’en est-il des acteurs de la chaine d’approvisionnement,
                 des administrations et des collectivités territoriales ?
               </h3>
