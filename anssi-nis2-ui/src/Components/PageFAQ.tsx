@@ -242,7 +242,7 @@ export const PageFAQ: DefaultComponentExtensible<DefaultProps> = () => {
               </p>
             </section>
             <div>
-              <a href="#haut-faq">
+              <a href="#top">
                 <i className="fr-fi-arrow-up-s-line" />
                 Haut de page
               </a>

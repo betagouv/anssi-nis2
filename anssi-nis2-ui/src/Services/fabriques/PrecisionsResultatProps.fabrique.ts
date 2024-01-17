@@ -1,5 +1,6 @@
 import { RegulationEntite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 import { PrecisionResultat } from "../../../../commun/core/src/Domain/Simulateur/Resultat.declarations.ts";
+import { chargeContenuMarkdown } from "../depots/ChargeContenuMarkdown.depot.ts";
 import { separeMarkdownParLignes } from "../Markdown/TransformeMarkdown.operations.ts";
 import { precisionsResultatVide } from "../Simulateur/Props/ContenusResultatEligibilite.constantes.ts";
 import { PrecisionsResultatProps } from "../Simulateur/Props/ContenusResultatEligibilite.declaration.ts";
@@ -16,11 +17,8 @@ export const fabriquePrecisionsResultatProps = (
 
 export const chargeContenuPour =
   (r: RegulationEntite) => async (p: PrecisionResultat) =>
-    import(
-      `../../References/Documents/PrecisionsResultat.${r}${p}.md?url`
-    ).then((resultat) =>
-      fetch(resultat.default)
-        .then((res) => res.text())
-        .then(fabriquePrecisionsResultatProps)
-        .catch(() => precisionsResultatVide),
+    chargeContenuMarkdown(
+      `PrecisionsResultat.${r}${p}`,
+      fabriquePrecisionsResultatProps,
+      precisionsResultatVide,
     );
