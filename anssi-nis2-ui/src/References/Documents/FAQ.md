@@ -8,8 +8,7 @@ restent pour partie vulnérables, la directive NIS&nbsp;2, publiée au Journal O
 le quotidien des citoyens, de mieux se protéger.
 
 La directive NIS&nbsp;2 s’appuie sur les acquis de la directive NIS 1 pour marquer un réel changement de paradigme, tant
-à
-l’échelon national qu’à l’échelon européen.
+à l’échelon national qu’à l’échelon européen.
 
 Face à des acteurs malveillants toujours plus performants et mieux outillés, touchant de plus en plus d’entités trop
 souvent mal protégées, la directive NIS&nbsp;2 élargit en effet ses objectifs et son périmètre d’applicabilité pour
