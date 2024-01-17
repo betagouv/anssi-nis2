@@ -1,6 +1,13 @@
 import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
+import { chargeContenuMarkdown } from "../Services/depots/ChargeContenuMarkdown.depot.ts";
+import {
+  contenuFaqParDefaut,
+  fabriqueContenuFAQ,
+} from "../Services/fabriques/FAQContenu.fabrique.ts";
 import { DefaultComponentExtensible, DefaultProps } from "../Services/Props";
 import MiseEnPage from "./MiseEnPage.tsx";
+import Markdown from "react-markdown";
+import { useEffect, useState } from "react";
 
 export const PageFAQ: DefaultComponentExtensible<DefaultProps> = () => {
   const elementsPerimetreEntitesConcernees = [
@@ -90,6 +97,13 @@ export const PageFAQ: DefaultComponentExtensible<DefaultProps> = () => {
       text: "Articulation avec les autres réglementations",
     },
   ];
+  const [contenuFaq, setContenuFaq] = useState(contenuFaqParDefaut);
+  useEffect(() => {
+    chargeContenuMarkdown("FAQ", fabriqueContenuFAQ, contenuFaqParDefaut).then(
+      setContenuFaq,
+    );
+  }, []);
+
   return (
     <MiseEnPage page="FAQ NIS2">
       <div className="fr-container fr-mt-4w">
@@ -102,145 +116,7 @@ export const PageFAQ: DefaultComponentExtensible<DefaultProps> = () => {
             className="fr-col-3 fr-sidemenu--sticky-full-height"
           />
           <div className="fr-col-offset-1 fr-col-7 fr-pt-4w fr-nis2-faq">
-            <h1 id="haut-faq">FAQ NIS&nbsp;2</h1>
-            <hr />
-            <span className="fr-text--bold fr-text--sm">Publié jj/mm/aaaa</span>
-            <span className="fr-ml-1w fr-text--sm">Modifié jj/mm/aaaa</span>
-            <span className="fr-text--sm fr-nis2--float-right">
-              Lecture 30 minutes
-            </span>
-            <h2>Périmètre des entités concernées</h2>
-
-            <section>
-              <h3 id="faq-8">
-                8. Si mon entreprise est sur deux Etats membres, est-ce que je
-                suis assujetti à la transposition en droit français de
-                NIS&nbsp;2&nbsp;?
-              </h3>
-              <p>
-                À ce stade, si votre entreprise est sur deux États membres de
-                l’Union Européenne, que vous réalisez une activité incluse dans
-                les types d’entité des annexes 1 ou 2 et que vous disposez de 50
-                employés ou plus, vous serez soumis à la directive NIS&nbsp;2.
-              </p>
-              <p>
-                En revanche, si vous souhaitez connaitre la juridiction, c’est
-                encore un peu tôt pour obtenir une réponse car ce point fera
-                l’objet de clarifications dans le cadre des consultations menées
-                dans les prochains mois.
-              </p>
-            </section>
-            <section>
-              <h3 id="faq-9">
-                9. Les entités n’étant plus désignées par arrêté et devant se
-                faire connaitre auprès d’elle, l’ANSSI envisage-t-elle des
-                actions pour faciliter la mise en relation&nbsp;?
-              </h3>
-              <p>
-                Effectivement, la règle de base impliquera une inclusion par
-                défaut des entités en tant qu’EE ou EI. La désignation unitaire,
-                dont le processus sera défini dans le cadre de la transposition
-                nationale, se limitera à affiner le périmètre à la marge et à
-                gérer les cas très spécifiques.
-              </p>
-              <p>
-                Pour communiquer sur l’existence de la directive et attirer
-                l’attention des entités sur leurs obligations, en parallèle des
-                actions de communication propres à l’ANSSI, nous nous appuierons
-                sur des relais sectoriels et/ou professionnels, que nous
-                rencontrerons notamment dans le cadre des consultations sur S2
-                2023.
-              </p>
-            </section>
-            <section>
-              <h3 id="faq-10">
-                10. Le texte prévoit un certain nombre d’exceptions ou de cas
-                particuliers au périmètre de base. Dans quels cas, l’ANSSI
-                sera-t-elle amenée à actionner les mécanismes d’ajustement du
-                périmètre&nbsp;?
-              </h3>
-              <p>
-                La directive prévoit effectivement un mécanisme d’ajustement du
-                périmètre de base permettant d’affiner la liste des entités
-                concernées, au regard de spécificités propres à chaque Etat
-                membre de l’UE.
-              </p>
-              <p>
-                Ainsi, dans le cas où le critère de taille n’est pas atteint, il
-                pourra être envisagé d’intégrer par désignation, au sein du
-                périmètre qui sera définit lors des travaux de transposition :
-              </p>
-              <ul>
-                <li>
-                  les entités ayant des monopoles d’activité essentielle au
-                  maintien d’activités sociétales ou économiques critiques ;
-                </li>
-                <li>
-                  les entités réalisant des activités pouvant avoir un impact
-                  important sur la sécurité publique, la sûreté publique ou la
-                  santé publique ;
-                </li>
-                <li>
-                  les entités réalisant des activités transfrontières pouvant
-                  avoir un impact systémique ;
-                </li>
-                <li>
-                  les entités ayant une importance spécifique au niveau national
-                  ou régional.
-                </li>
-              </ul>
-              <p>
-                Enfin la directive prévoit également un mécanisme d’exclusion
-                pouvant impacter des entités réalisant des activités en lien
-                avec la défense et la sécurité nationale. Plus précisément, cela
-                concernera uniquement les domaines de la sécurité nationale, de
-                la sécurité publique, de la défense ou de l’application de la
-                loi.
-              </p>
-              <p>
-                Les modalités de gestion de ces particuliers seront définies au
-                cours des travaux de transposition.
-              </p>
-            </section>
-            <section>
-              <h3 id="faq-11">
-                11. Concrètement, qui sera concerné par le nouveau périmètre
-                d’application de NIS 2 ?
-              </h3>
-              <p>
-                A l’échelle nationale, NIS 2 s’appliquera à des milliers
-                d’entités appartenant à plus de dix-huit secteurs qui seront
-                désormais régulés. Environ 600 types d’entités différentes
-                seront concernés, parmi eux des administrations de toutes
-                tailles et des entreprises allant des PME aux groupes du CAC40.
-              </p>
-              <p>
-                Les principaux critères d’intégration ont été définis au niveau
-                européen. Il s’agit principalement du nombre d’employés, du
-                chiffre d’affaire et de la nature de l’activité réalisée par
-                l’entité.
-              </p>
-            </section>
-            <section>
-              <h3 id="faq-12">
-                12. Qu’en est-il des acteurs de la chaine d’approvisionnement,
-                des administrations et des collectivités territoriales ?
-              </h3>
-              <p>
-                Les acteurs de la chaîne d’approvisionnement, dont les acteurs
-                du numérique, seront soumis au dispositif. Ces nombreux acteurs
-                sont en effet de plus en plus ciblés par des cyberattaques qui
-                visent à atteindre, à travers eux, des clients finaux
-                d’importance plus critiques.
-              </p>
-              <p>
-                Ils verront donc également leur niveau de sécurité numérique
-                renforcé. Autre nouveauté, et non des moindres, les
-                administrations centrales des Etats membres ainsi que certaines
-                collectivités territoriales intègreront également le périmètre
-                de NIS 2.
-              </p>
-            </section>
+            <Markdown>{contenuFaq.contenu}</Markdown>
             <div>
               <a href="#top">
                 <i className="fr-fi-arrow-up-s-line" />
