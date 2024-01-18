@@ -2,13 +2,14 @@ import { map } from "fp-ts/Array";
 import { flow } from "fp-ts/lib/function";
 import { describe, expect, it } from "vitest";
 import {
+  ChampFrontMatter,
+  NiveauTitre,
+} from "../../../src/Services/Markdown/Markdown.declarations";
+import {
   extraitFrontMatter,
   extraitFrontMatterBrute,
   extraitFrontMatterSectionsBrute,
 } from "../../../src/Services/Markdown/TransformeMarkdown.operations";
-
-type ChampFrontMatter = [string, string];
-type NiveauTitre = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 const loremIpsum = `Lorem ipsum dolor sit amet, consectetur adipiscing elit
   sed do eiusmod tempor incididunt ut labore`;
@@ -83,13 +84,14 @@ describe("Fonctions support Markdow", () => {
 describe(extraitFrontMatter, () => {
   describe("seul dans le document", () => {
     it("n'extrait rien pour un Front Matter vide", () => {
-      expect(extraitFrontMatter("")).toStrictEqual({});
+      expect(extraitFrontMatter("")).toStrictEqual({ sections: [] });
     });
     it("extrait pour un champ simple", () => {
       expect(
         extraitFrontMatter(fmChamps([["champ", "contenu"]])),
       ).toStrictEqual({
         champ: "contenu",
+        sections: [],
       });
     });
     it("extrait pour un champ simple", () => {
@@ -101,6 +103,7 @@ describe(extraitFrontMatter, () => {
       const objetAttendu = {
         champ: "contenu",
         champ2: "contenu 2",
+        sections: [],
       };
       expect(frontMatter).toStrictEqual(objetAttendu);
     });
