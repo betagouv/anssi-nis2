@@ -1,34 +1,18 @@
-import { map } from "fp-ts/Array";
-import { flow } from "fp-ts/lib/function";
 import { describe, expect, it } from "vitest";
 import {
-  ChampFrontMatter,
-  NiveauTitre,
-} from "../../../src/Services/Markdown/Markdown.declarations";
+  champ,
+  composeMarkdown,
+  fmChamps,
+  t1,
+  t2,
+} from "../../../src/Services/Markdown/Markdown.constructeurs";
+import { ChampFrontMatter } from "../../../src/Services/Markdown/Markdown.declarations";
 import {
   extraitFrontMatter,
   extraitFrontMatterBrute,
   extraitFrontMatterSectionsBrute,
 } from "../../../src/Services/Markdown/TransformeMarkdown.operations";
-
-const loremIpsum = `Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  sed do eiusmod tempor incididunt ut labore`;
-const champ = ([nom, contenu]: ChampFrontMatter) => `${nom}: ${contenu}`;
-const frontMatter = (champBrut: string) => `
-  ---
-  ${champBrut}
-  ---
-  `;
-const join = (glue: string) => (s: string[]) => s.join(glue);
-const champs = flow(map(champ), join("\n"));
-const titre = (niveau: NiveauTitre) => (libelle: string) =>
-  `${"#".repeat(niveau)}${libelle}`;
-const t1 = titre(1);
-const t2 = titre(2);
-
-const fmChamps = flow(champs, frontMatter);
-
-const composeMarkdown = (...s: string[]) => join("\n\n")(s) + "\n";
+import { loremIpsum } from "./constantes";
 
 const section = (indice: string) =>
   composeMarkdown(
