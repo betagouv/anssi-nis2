@@ -12,12 +12,13 @@ export const nettoieBrMd = replace("  \n", " ");
 export const separeMarkdownParLignes = split("---");
 
 const regexFrontMatterBase = /^\s*---\n([\w\s\n:.]+)\n\s*---/;
-const regexFrontMatterSections = /---\n([\w\s\n:.]+)\n\s*---\n\s*#+([^\n]+)\n/g;
+const regexFrontMatterSections =
+  /---\n([\w\s\n:.]+)\n\s*---\n\s*(#+)([^\n]+)\n/g;
 const reduitTuplesChamps = reduce(
   [],
   (acc: ReadonlyArray<string[]>, m: ReadonlyArray<string>) => [
     ...acc,
-    [trim(m[1]), trim(m[2])],
+    [trim(m[1]), trim(m[2]), trim(m[3])],
   ],
 );
 
@@ -58,7 +59,8 @@ const reduitSectionsBrutes = reduce(
     sections: [
       ...(sections ?? []),
       {
-        titre: elt[1],
+        titre: elt[2],
+        niveau: elt[1].length,
         ...decoupeFrontMatterBrute(elt[0]),
       },
     ],

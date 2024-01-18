@@ -10,7 +10,7 @@ const frontMatter = (champBrut: string) => `
   `;
 export const champ = ([nom, contenu]: ChampFrontMatter) => `${nom}: ${contenu}`;
 const champs = flow(map(champ), join("\n"));
-const titre = (niveau: NiveauTitre) => (libelle: string) =>
+export const titre = (niveau: NiveauTitre) => (libelle: string) =>
   `${"#".repeat(niveau)} ${libelle}`;
 export const t1 = titre(1);
 export const t2 = titre(2);
