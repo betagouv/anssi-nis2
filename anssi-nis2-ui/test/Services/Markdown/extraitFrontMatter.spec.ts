@@ -24,7 +24,7 @@ const section = (indice: string) =>
     loremIpsum,
   );
 describe("Fonctions support Markdow", () => {
-  describe(extraitFrontMatterSectionsBrute, () => {
+  describe("extraitFrontMatterSectionsBrute", () => {
     it("retourne le contenu simple", () => {
       const markdown = composeMarkdown(
         fmChamps([["champ", "contenu"]]),
@@ -48,7 +48,7 @@ describe("Fonctions support Markdow", () => {
     });
   });
 
-  describe(extraitFrontMatterBrute, () => {
+  describe("extraitFrontMatterBrute", () => {
     it("retourne le contenu simple", () => {
       const tupleChamp: ChampFrontMatter = ["champ", "contenu"];
       const champAttendu = champ(tupleChamp);
