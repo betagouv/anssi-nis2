@@ -1,4 +1,4 @@
-import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
+import { SideMenu, SideMenuProps } from "@codegouvfr/react-dsfr/SideMenu";
 import { chargeContenuMarkdown } from "../Services/depots/ChargeContenuMarkdown.depot.ts";
 import {
   contenuFaqParDefaut,
@@ -61,7 +61,7 @@ export const PageFAQ: DefaultComponentExtensible<DefaultProps> = () => {
       text: "12. Qu’en est-il des acteurs tiers ?",
     },
   ];
-  const elementsMenuFaq = [
+  const elementsMenuFaq: SideMenuProps.Item[] = [
     {
       text: "Introduction",
       linkProps: { href: "#" },

@@ -23,7 +23,7 @@ const section = (indice: string) =>
     t2(`Titre de section ${indice}`),
     loremIpsum,
   );
-describe("Fonctions support Markdow", () => {
+describe("Fonctions support Markdown", () => {
   describe("extraitFrontMatterSectionsBrute", () => {
     it("retourne le contenu simple", () => {
       const markdown = composeMarkdown(
@@ -38,6 +38,21 @@ describe("Fonctions support Markdow", () => {
     });
     it("retourne le contenu avec 2 sections", () => {
       const markdown = composeMarkdown(loremIpsum, section("A"), section("B"));
+      const listeChampsAttendus = [
+        ["champA1: contenu A1\nchampA2: contenu A2", "Titre de section A"],
+        ["champB1: contenu B1\nchampB2: contenu B2", "Titre de section B"],
+      ];
+      expect(extraitFrontMatterSectionsBrute(markdown)).toEqual(
+        listeChampsAttendus,
+      );
+    });
+    it("retourne le contenu avec 2 sections après un front matter global", () => {
+      const markdown = composeMarkdown(
+        fmChamps([["titre", "Titre du document"]]),
+        loremIpsum,
+        section("A"),
+        section("B"),
+      );
       const listeChampsAttendus = [
         ["champA1: contenu A1\nchampA2: contenu A2", "Titre de section A"],
         ["champB1: contenu B1\nchampB2: contenu B2", "Titre de section B"],
@@ -65,6 +80,7 @@ describe("Fonctions support Markdow", () => {
     });
   });
 });
+
 describe(extraitFrontMatter, () => {
   describe("seul dans le document", () => {
     it("n'extrait rien pour un Front Matter vide", () => {
@@ -92,6 +108,7 @@ describe(extraitFrontMatter, () => {
       expect(frontMatter).toStrictEqual(objetAttendu);
     });
   });
+
   describe("Au milieu d'un document, inclue le titre qui suit", () => {
     it("front matter d'un titre", () => {
       const markdown = composeMarkdown(
@@ -118,6 +135,30 @@ describe(extraitFrontMatter, () => {
       const markdown = composeMarkdown(loremIpsum, section("A"), section("B"));
 
       expect(extraitFrontMatter(markdown)).toStrictEqual({
+        sections: [
+          {
+            titre: "Titre de section A",
+            champA1: "contenu A1",
+            champA2: "contenu A2",
+          },
+          {
+            titre: "Titre de section B",
+            champB1: "contenu B1",
+            champB2: "contenu B2",
+          },
+        ],
+      });
+    });
+    it("front matter du document et de 2 titres", () => {
+      const markdown = composeMarkdown(
+        fmChamps([["titre", "Titre du document"]]),
+        loremIpsum,
+        section("A"),
+        section("B"),
+      );
+
+      expect(extraitFrontMatter(markdown)).toStrictEqual({
+        titre: "Titre du document",
         sections: [
           {
             titre: "Titre de section A",

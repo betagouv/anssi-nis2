@@ -11,8 +11,8 @@ import { StructureMarkdown } from "./Markdown.declarations.ts";
 export const nettoieBrMd = replace("  \n", " ");
 export const separeMarkdownParLignes = split("---");
 
-const regexFrontMatterBase = /^\s*---\n([\s\S]*?)\n\s*---/;
-const regexFrontMatterSections = /---\n([\s\S]*?)\n\s*---\n\s*#+([^\n]+)\n/g;
+const regexFrontMatterBase = /^\s*---\n([\w\s\n:.]+)\n\s*---/;
+const regexFrontMatterSections = /---\n([\w\s\n:.]+)\n\s*---\n\s*#+([^\n]+)\n/g;
 const reduitTuplesChamps = reduce(
   [],
   (acc: ReadonlyArray<string[]>, m: ReadonlyArray<string>) => [
@@ -68,6 +68,7 @@ const extraitSections = flow(
   extraitFrontMatterSectionsBrute,
   reduitSectionsBrutes,
 );
+
 export const extraitFrontMatter = (texte: string): StructureMarkdown => ({
   ...decoupeFrontMatterBrute(extraitFrontMatterBrute(texte)),
   ...extraitSections(texte),
