@@ -1,7 +1,6 @@
 import { SideMenuProps } from "@codegouvfr/react-dsfr/SideMenu";
 import { construitAncre } from "../../../commun/utils/services/string.operations.ts";
 import {
-  FrontMatter,
   InformationsSection,
   NiveauTitre,
   SectionsImbriquees,
@@ -9,17 +8,36 @@ import {
 import { flow } from "fp-ts/lib/function";
 import { reduce } from "fp-ts/lib/ReadonlyArray";
 
-const construitItemSectionFeuille = ({ titreCourt }: FrontMatter) => ({
+const fabriqueItemSectionFeuille = ({
+  titreCourt,
+}: InformationsSection): SideMenuProps.Item => ({
   expandedByDefault: true,
   isActive: true,
   linkProps: { href: construitAncre(`${titreCourt}`) },
   text: titreCourt,
 });
+const fabriqueItemSectionBranche = ({
+  titreCourt,
+  sections,
+}: SectionsImbriquees): SideMenuProps.Item => ({
+  expandedByDefault: true,
+  isActive: true,
+  items: flow(
+    imbriqueSectionsParNiveau,
+    reduce([], construitItemSection),
+  )(sections),
+  text: titreCourt,
+});
+
+const fabriqueSectionCourante = (section: Partial<SectionsImbriquees>) =>
+  section["sections"]
+    ? fabriqueItemSectionBranche(section as SectionsImbriquees)
+    : fabriqueItemSectionFeuille(section as InformationsSection);
 
 const construitItemSection = (
   sections: SideMenuProps.Item[],
-  { titreCourt }: InformationsSection,
-) => [...sections, construitItemSectionFeuille({ titreCourt })];
+  section: InformationsSection | SectionsImbriquees,
+) => [...sections, fabriqueSectionCourante(section)];
 
 const incrementeNiveauTitre = (niveau: NiveauTitre): NiveauTitre =>
   niveau < 8 ? ((niveau + 1) as NiveauTitre) : niveau;
