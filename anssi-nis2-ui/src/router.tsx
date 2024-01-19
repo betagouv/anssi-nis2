@@ -1,5 +1,5 @@
 import Accueil from "./Accueil.tsx";
-import { PageFAQ } from "./Components/PageFAQ.tsx";
+import { PageFaq } from "./Components/PageFaq.tsx";
 import Simulateur from "./Simulateur.tsx";
 import PageEdito from "./Components/PagesEdito/PageEdito.tsx";
 import APropos from "./Components/PagesEdito/APropos.tsx";
@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/faq",
-    element: <PageFAQ />,
+    element: <PageFaq />,
   },
   {
     path: "/a-propos",

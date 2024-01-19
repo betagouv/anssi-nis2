@@ -1,15 +1,13 @@
 import { SideMenu, SideMenuProps } from "@codegouvfr/react-dsfr/SideMenu";
 import { chargeContenuMarkdown } from "../Services/depots/ChargeContenuMarkdown.depot.ts";
-import {
-  contenuFaqParDefaut,
-  fabriqueContenuFAQ,
-} from "../Services/fabriques/FAQContenu.fabrique.ts";
+import { contenuFaqParDefaut } from "../Services/fabriques/ContenuFaq.constantes.ts";
+import { fabriqueContenuFaq } from "../Services/fabriques/ContenuFaq.fabrique.ts";
 import { DefaultComponentExtensible, DefaultProps } from "../Services/Props";
 import MiseEnPage from "./MiseEnPage.tsx";
 import Markdown from "react-markdown";
 import { useEffect, useState } from "react";
 
-export const PageFAQ: DefaultComponentExtensible<DefaultProps> = () => {
+export const PageFaq: DefaultComponentExtensible<DefaultProps> = () => {
   const elementsPerimetreEntitesConcernees = [
     {
       linkProps: {
@@ -99,7 +97,7 @@ export const PageFAQ: DefaultComponentExtensible<DefaultProps> = () => {
   ];
   const [contenuFaq, setContenuFaq] = useState(contenuFaqParDefaut);
   useEffect(() => {
-    chargeContenuMarkdown("FAQ", fabriqueContenuFAQ, contenuFaqParDefaut).then(
+    chargeContenuMarkdown("FAQ", fabriqueContenuFaq, contenuFaqParDefaut).then(
       setContenuFaq,
     );
   }, []);

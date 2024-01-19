@@ -1,13 +1,13 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { PageFAQ } from "../../../Components/PageFAQ.tsx";
+import { PageFaq } from "../../../Components/PageFaq.tsx";
 
-const meta: Meta<typeof PageFAQ> = {
+const meta: Meta<typeof PageFaq> = {
   title: "Composants/Transverses/FAQ",
-  component: PageFAQ,
+  component: PageFaq,
 };
 
 export default meta;
 
-type Story = StoryObj<typeof PageFAQ>;
+type Story = StoryObj<typeof PageFaq>;
 
 export const PageFAQPincipale: Story = {};

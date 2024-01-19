@@ -53,17 +53,16 @@ const decoupeFrontMatterBrute = flow(
   fabriqueChamps,
 );
 
+const fabriqueSection = (elt: ReadonlyArray<string>) => ({
+  titre: elt[2],
+  niveau: elt[1].length,
+  ...decoupeFrontMatterBrute(elt[0]),
+});
+
 const reduitSectionsBrutes = reduce(
   { sections: [] },
   ({ sections }: StructureMarkdown, elt: ReadonlyArray<string>) => ({
-    sections: [
-      ...(sections ?? []),
-      {
-        titre: elt[2],
-        niveau: elt[1].length,
-        ...decoupeFrontMatterBrute(elt[0]),
-      },
-    ],
+    sections: [...sections, fabriqueSection(elt)],
   }),
 );
 const extraitSections = flow(
