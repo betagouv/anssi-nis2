@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { imbriqueSectionsParNiveau } from "../../../src/Services/ElementsFaq.operations";
 import {
   champ,
   composeMarkdown,
@@ -8,6 +9,7 @@ import {
 } from "../../../src/Services/Markdown/Markdown.constructeurs";
 import {
   ChampFrontMatter,
+  InformationsSection,
   NiveauTitre,
 } from "../../../src/Services/Markdown/Markdown.declarations";
 import {
@@ -217,5 +219,39 @@ describe(extraitFrontMatter, () => {
         ],
       });
     });
+  });
+});
+
+describe(imbriqueSectionsParNiveau, () => {
+  it("Imbrique un niveau 1 dans un niveau 2", () => {
+    const listeSectionsPlate: readonly InformationsSection[] = [
+      {
+        titre: "Titre de section A",
+        titreCourt: "Titre court A",
+        niveau: 1,
+      },
+      {
+        titre: "Titre de section B",
+        titreCourt: "Titre court B",
+        niveau: 2,
+      },
+    ];
+    const listeSectionImbriquees = [
+      {
+        titre: "Titre de section A",
+        titreCourt: "Titre court A",
+        niveau: 1,
+        sections: [
+          {
+            titre: "Titre de section B",
+            titreCourt: "Titre court B",
+            niveau: 2,
+          },
+        ],
+      },
+    ];
+    expect(imbriqueSectionsParNiveau(listeSectionsPlate)).toStrictEqual(
+      listeSectionImbriquees,
+    );
   });
 });

@@ -15,8 +15,12 @@ export const matchAllWith = (regexp: RegExp) =>
 export const ajoutePrefixe = (prefix: string) => (texte: string) =>
   `${prefix}${texte}`;
 
+export const supprimeAccents = (texte: string) =>
+  texte.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
 export const construitAncre = flow(
   toLowerCase,
+  supprimeAccents,
   split(/[\s.]+/),
   join("-"),
   ajoutePrefixe("#")

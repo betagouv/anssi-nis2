@@ -4,6 +4,7 @@ import { transformeFrontMatterVersSideMenuPropItems } from "../../src/Services/E
 import {
   composeMarkdown,
   fmChamps,
+  t1,
   t2,
 } from "../../src/Services/Markdown/Markdown.constructeurs";
 import { extraitFrontMatter } from "../../src/Services/Markdown/TransformeMarkdown.operations";
@@ -16,7 +17,7 @@ describe("Elements Faq", () => {
       const markdown = composeMarkdown(
         loremIpsum,
         fmChamps([["titreCourt", "5. Titre court"]]),
-        t2("5. Titre long de section"),
+        t1("5. Titre long de section"),
         loremIpsum,
       );
       const frontMatter = extraitFrontMatter(markdown);
@@ -31,6 +32,63 @@ describe("Elements Faq", () => {
       ];
       expect(elements).toStrictEqual(elementsAttendus);
     });
+    it("Renvoie un élément déployé et sélectionné pour 2 titre frontmatter.", () => {
+      const markdown = composeMarkdown(
+        loremIpsum,
+        fmChamps([["titreCourt", "5. Titre court"]]),
+        t1("5. Titre long de section"),
+        loremIpsum,
+        fmChamps([["titreCourt", "6. Titre court"]]),
+        t1("6. Titre long de section"),
+        loremIpsum,
+      );
+      const frontMatter = extraitFrontMatter(markdown);
+      const elements = transformeFrontMatterVersSideMenuPropItems(frontMatter);
+      const elementsAttendus: SideMenuProps.Item[] = [
+        {
+          expandedByDefault: true,
+          isActive: true,
+          linkProps: { href: "#5-titre-court" },
+          text: "5. Titre court",
+        },
+        {
+          expandedByDefault: true,
+          isActive: true,
+          linkProps: { href: "#6-titre-court" },
+          text: "6. Titre court",
+        },
+      ];
+      expect(elements).toStrictEqual(elementsAttendus);
+    });
+    it("Renvoie un élément déployé et sélectionné pour 2 titre frontmatter.", () => {
+      const markdown = composeMarkdown(
+        loremIpsum,
+        fmChamps([["titreCourt", "5. Titre court"]]),
+        t1("5. Titre long de section"),
+        loremIpsum,
+        fmChamps([["titreCourt", "5.1 Titre court"]]),
+        t2("5.1 Titre long de section"),
+        loremIpsum,
+      );
+      const frontMatter = extraitFrontMatter(markdown);
+      const elements = transformeFrontMatterVersSideMenuPropItems(frontMatter);
+      const elementsAttendus: SideMenuProps.Item[] = [
+        {
+          expandedByDefault: true,
+          isActive: true,
+          items: [
+            {
+              expandedByDefault: true,
+              isActive: true,
+              linkProps: { href: "#5-1-titre-court" },
+              text: "5.1 Titre court",
+            },
+          ],
+          text: "5. Titre court",
+        },
+      ];
+      expect(elements).toStrictEqual(elementsAttendus);
+    });
   });
 
   describe("Transformation des titres", () => {
@@ -38,6 +96,11 @@ describe("Elements Faq", () => {
       const titre = "5. Titre court";
       const ancre = construitAncre(titre);
       expect(ancre).toEqual("#5-titre-court");
+    });
+    it("Transforme les caractères accentués", () => {
+      const titre = "àâä"; // éèêë îï";
+      const ancre = construitAncre(titre);
+      expect(ancre).toEqual("#aaa");
     });
   });
 });

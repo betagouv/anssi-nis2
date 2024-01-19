@@ -1,12 +1,15 @@
 import { flow } from "fp-ts/lib/function";
 import { replace, split, trim } from "fp-ts/lib/string";
-import { map, reduce } from "fp-ts/ReadonlyArray";
 import * as O from "fp-ts/Option";
+import { map, reduce } from "fp-ts/ReadonlyArray";
 import {
   match,
   matchAllWith,
 } from "../../../../commun/utils/services/string.operations.ts";
-import { StructureMarkdown } from "./Markdown.declarations.ts";
+import {
+  ExtractionSection,
+  StructureMarkdown,
+} from "./Markdown.declarations.ts";
 
 export const nettoieBrMd = replace("  \n", " ");
 export const separeMarkdownParLignes = split("---");
@@ -53,7 +56,7 @@ const decoupeFrontMatterBrute = flow(
   fabriqueChamps,
 );
 
-const fabriqueSection = (elt: ReadonlyArray<string>) => ({
+const fabriqueSection = (elt: ReadonlyArray<string>): ExtractionSection => ({
   titre: elt[2],
   niveau: elt[1].length,
   ...decoupeFrontMatterBrute(elt[0]),
