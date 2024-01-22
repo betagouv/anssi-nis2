@@ -1,4 +1,5 @@
 import { SideMenuProps } from "@codegouvfr/react-dsfr/SideMenu";
+import { VVV } from "../../../commun/core/src/Domain/utilitaires/debug.ts";
 import { construitAncre } from "../../../commun/utils/services/string.operations.ts";
 import {
   InformationsSection,
@@ -76,6 +77,7 @@ export const imbriqueSectionsParNiveau = (
 ): (SectionsImbriquees | InformationsSection)[] => {
   if (listeSections.length === 0) return [];
   const section = listeSections[0];
+  VVV(listeSections);
   const [sousListe, suite] = sousListePourNiveau(1, listeSections.slice(1));
   return [
     fabriqueSection(section, sousListe, niveauSection),

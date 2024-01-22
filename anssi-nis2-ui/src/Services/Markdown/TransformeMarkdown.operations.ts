@@ -2,6 +2,7 @@ import { flow } from "fp-ts/lib/function";
 import { replace, split, trim } from "fp-ts/lib/string";
 import * as O from "fp-ts/Option";
 import { map, reduce } from "fp-ts/ReadonlyArray";
+import { VVVPipe } from "../../../../commun/core/src/Domain/utilitaires/debug.ts";
 import {
   match,
   matchAllWith,
@@ -14,9 +15,10 @@ import {
 export const nettoieBrMd = replace("  \n", " ");
 export const separeMarkdownParLignes = split("---");
 
-const regexFrontMatterBase = /^\s*---\n([\w\s\n:.]+)\n\s*---/;
+const regexFrontMatterBase =
+  /^\s*---\n([\w\s\n&'’?:.;,àâäéèêëîïûüùôö-]+)\n\s*---\n/;
 const regexFrontMatterSections =
-  /---\n([\w\s\n:.]+)\n\s*---\n\s*(#+)([^\n]+)\n/g;
+  /---\n([\w\s\n&'’?:.;,éè]+)\n\s*---\n\s*(#+)([^\n]+)\n/g;
 const reduitTuplesChamps = reduce(
   [],
   (acc: ReadonlyArray<string[]>, m: ReadonlyArray<string>) => [
@@ -27,6 +29,7 @@ const reduitTuplesChamps = reduce(
 
 export const extraitFrontMatterBrute = flow(
   match(regexFrontMatterBase),
+  VVVPipe("FrontMatter brute Base"),
   O.fromNullable,
   O.match(
     () => "",
@@ -74,6 +77,6 @@ const extraitSections = flow(
 );
 
 export const extraitFrontMatter = (texte: string): StructureMarkdown => ({
-  ...decoupeFrontMatterBrute(extraitFrontMatterBrute(texte)),
   ...extraitSections(texte),
+  ...decoupeFrontMatterBrute(extraitFrontMatterBrute(texte)),
 });

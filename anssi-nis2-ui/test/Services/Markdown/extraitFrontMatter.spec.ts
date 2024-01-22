@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { VVV } from "../../../../commun/core/src/Domain/utilitaires/debug";
 import { imbriqueSectionsParNiveau } from "../../../src/Services/ElementsFaq.operations";
 import {
   champ,
@@ -18,6 +19,7 @@ import {
   extraitFrontMatterSectionsBrute,
 } from "../../../src/Services/Markdown/TransformeMarkdown.operations";
 import { loremIpsum } from "./constantes";
+import { extraitFaq, extraitFaqFrontMatter } from "./extraitFaq";
 
 const section = (niveau: NiveauTitre) => (indice: string) =>
   composeMarkdown(
@@ -49,6 +51,7 @@ describe("Fonctions support Markdown", () => {
         sectionN1("A"),
         sectionN1("B"),
       );
+      VVV("retourne le contenu avec 2 sections, markdown généré:", markdown);
       const listeChampsAttendus = [
         ["champA1: contenu A1\nchampA2: contenu A2", "#", "Titre de section A"],
         ["champB1: contenu B1\nchampB2: contenu B2", "#", "Titre de section B"],
@@ -69,6 +72,19 @@ describe("Fonctions support Markdown", () => {
         ["champB1: contenu B1\nchampB2: contenu B2", "#", "Titre de section B"],
       ];
       expect(extraitFrontMatterSectionsBrute(markdown)).toEqual(
+        listeChampsAttendus,
+      );
+    });
+    it("retourne le contenu avec 2 sections après un front matter global", () => {
+      const listeChampsAttendus = [
+        ["titreCourt: Introduction", "#", "Introduction"],
+        [
+          "titreCourt: En quoi consistait la directive NIS 1&nbsp;?",
+          "##",
+          "1. En 2016, le Parlement et le Conseil de l’UE ont adopté une première série de mesures concernant la cybersécurité du marché européen. En quoi consistait exactement cette directive connue sous le nom de NIS 1&nbsp;?",
+        ],
+      ];
+      expect(extraitFrontMatterSectionsBrute(extraitFaq)).toEqual(
         listeChampsAttendus,
       );
     });
@@ -219,6 +235,11 @@ describe(extraitFrontMatter, () => {
         ],
       });
     });
+    it("front matter du document extrait Faq", () => {
+      expect(extraitFrontMatter(extraitFaq)).toStrictEqual(
+        extraitFaqFrontMatter,
+      );
+    });
   });
 });
 
@@ -253,5 +274,25 @@ describe(imbriqueSectionsParNiveau, () => {
     expect(imbriqueSectionsParNiveau(listeSectionsPlate)).toStrictEqual(
       listeSectionImbriquees,
     );
+  });
+  it("Imbrique les section de la Faq", () => {
+    const listeSectionImbriquees = [
+      {
+        titre: "Introduction",
+        niveau: 2,
+        titreCourt: "Introduction",
+        sections: [
+          {
+            titre:
+              "1. En 2016, le Parlement et le Conseil de l’UE ont adopté une première série de mesures concernant la cybersécurité du marché européen. En quoi consistait exactement cette directive connue sous le nom de NIS 1&nbsp;?",
+            niveau: 3,
+            titreCourt: "En quoi consistait la directive NIS 1&nbsp;?",
+          },
+        ],
+      },
+    ];
+    expect(
+      imbriqueSectionsParNiveau(extraitFaqFrontMatter.sections),
+    ).toStrictEqual(listeSectionImbriquees);
   });
 });

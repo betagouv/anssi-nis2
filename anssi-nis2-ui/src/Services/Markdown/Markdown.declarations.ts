@@ -5,9 +5,10 @@ export type ExtractionSection = {
   titre: string;
   niveau: number;
 };
-export type InformationsSection = ExtractionSection & {
-  titreCourt: string;
-};
+export type InformationsSection<T extends object = object> =
+  ExtractionSection & {
+    titreCourt: string;
+  } & T;
 export type StructureMarkdown = {
   sections: ExtractionSection[];
 };
