@@ -1,4 +1,5 @@
 import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
+import { VVV } from "../../../commun/core/src/Domain/utilitaires/debug.ts";
 import { chargeContenuMarkdown } from "../Services/depots/ChargeContenuMarkdown.depot.ts";
 import { contenuFaqParDefaut } from "../Services/fabriques/ContenuFaq.constantes.ts";
 import { fabriqueContenuFaq } from "../Services/fabriques/ContenuFaq.fabrique.ts";
@@ -6,6 +7,17 @@ import { DefaultComponentExtensible, DefaultProps } from "../Services/Props";
 import MiseEnPage from "./MiseEnPage.tsx";
 import Markdown from "react-markdown";
 import { useEffect, useState } from "react";
+import remarkFrontmatter from "remark-frontmatter";
+
+import { Plugin } from "unified";
+import { Node } from "unist";
+
+const removeMatter: Plugin = () => {
+  return function (tree: Node) {
+    const fromtMatter = tree.children.filter((c) => c.type === "yaml");
+    VVV(fromtMatter);
+  };
+};
 
 export const PageFaq: DefaultComponentExtensible<DefaultProps> = () => {
   const [contenuFaq, setContenuFaq] = useState(contenuFaqParDefaut);
@@ -27,7 +39,17 @@ export const PageFaq: DefaultComponentExtensible<DefaultProps> = () => {
             className="fr-col-3 fr-sidemenu--sticky-full-height"
           />
           <div className="fr-col-offset-1 fr-col-7 fr-pt-4w fr-nis2-faq">
-            <Markdown>{contenuFaq.contenu}</Markdown>
+            <Markdown
+              remarkPlugins={[
+                [
+                  remarkFrontmatter,
+                  { marker: "-", type: "yaml", anywhere: true },
+                ],
+                removeMatter,
+              ]}
+            >
+              {contenuFaq.contenu}
+            </Markdown>
             <div>
               <a href="#top">
                 <i className="fr-fi-arrow-up-s-line" />

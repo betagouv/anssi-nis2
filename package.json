@@ -53,6 +53,9 @@
     ]
   },
   "dependencies": {
-    "fp-ts": "^2.16.2"
+    "fp-ts": "^2.16.2",
+    "remark-frontmatter": "^5.0.0",
+    "remark-yaml-config": "^7.0.0",
+    "unified": "^11.0.4"
   }
 }
