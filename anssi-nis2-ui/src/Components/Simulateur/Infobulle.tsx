@@ -10,14 +10,14 @@ export const Infobulle = ({
   id: string;
   cachee: boolean;
   contenu: ReactNode;
-  action: () => void;
+  action: React.MouseEventHandler;
 }) => {
   const estAffichee = cachee ? " fr-hidden" : "";
   return (
     <div className={"fr-callout fr-nis2-infobulle" + estAffichee} id={id}>
       {contenu}
-      <button
-        className="fr-btn--close fr-btn"
+      <i
+        className="fr-btn--close fr-btn fr-icon-hand"
         title={texteInfobulleBoutonFermer}
         onClick={action}
       />

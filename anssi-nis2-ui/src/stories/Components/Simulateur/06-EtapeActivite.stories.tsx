@@ -97,7 +97,7 @@ export const AffichageInfobulles: Story = {
     const iconeInformation = await canvas.findByTitle(
       `Informations à propos de l'activité "${elementInfobulle}"`,
     );
-    const paragraphe = await canvas.getByText(contenuAffiche);
+    const paragraphe = canvas.getByText(contenuAffiche);
     expect(paragraphe.parentElement).toBeDefined();
     const parentElement = paragraphe.parentElement as HTMLElement;
     const divInfobulle = parentElement.classList;
@@ -108,6 +108,7 @@ export const AffichageInfobulles: Story = {
     expect(propageActionSimulateur).not.toHaveBeenCalled();
     await userEvent.click(iconeInformation);
     expect(divInfobulle).toContain("fr-hidden");
+
     expect(propageActionSimulateur).not.toHaveBeenCalled();
     await userEvent.click(iconeInformation);
     expect(propageActionSimulateur).not.toHaveBeenCalled();
