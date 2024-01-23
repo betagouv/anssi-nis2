@@ -30,17 +30,15 @@ export const ActiviteACocher: DefaultComponentExtensible<Propiprops> = ({
     changeInfobulleOuverte,
     { id: "" },
   );
+  const surCliqueBascule = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    propageInfobulleAffichee(idInfobulle);
+  };
   return (
     <>
       <div className={fr.cx(`fr-${type}-group`)}>
         {!!contenuInfobulle?.length && (
-          <IconeInfobulle
-            onClick={(e: React.MouseEvent<HTMLElement>) => {
-              e.stopPropagation();
-              propageInfobulleAffichee(idInfobulle);
-            }}
-            label={label}
-          />
+          <IconeInfobulle onClick={surCliqueBascule} label={label} />
         )}
         <input
           type={type}
@@ -65,9 +63,7 @@ export const ActiviteACocher: DefaultComponentExtensible<Propiprops> = ({
                 </Markdown>
               </>
             ))}
-            action={() => {
-              propageInfobulleAffichee(idInfobulle);
-            }}
+            action={surCliqueBascule}
           />
         </>
       )}
