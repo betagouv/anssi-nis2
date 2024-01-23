@@ -4,10 +4,10 @@ import { join } from "../../../../commun/utils/services/string.operations.ts";
 import { ChampFrontMatter, NiveauTitre } from "./Markdown.declarations.ts";
 
 const frontMatter = (champBrut: string) => `
-  ---
-  ${champBrut}
-  ---
-  `;
+---
+${champBrut}
+---
+`;
 export const champ = ([nom, contenu]: ChampFrontMatter) => `${nom}: ${contenu}`;
 const champs = flow(map(champ), join("\n"));
 export const titre = (niveau: NiveauTitre) => (libelle: string) =>

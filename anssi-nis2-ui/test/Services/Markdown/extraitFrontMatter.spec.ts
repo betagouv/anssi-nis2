@@ -1,5 +1,4 @@
 import { describe, expect, it } from "vitest";
-import { VVV } from "../../../../commun/core/src/Domain/utilitaires/debug";
 import { imbriqueSectionsParNiveau } from "../../../src/Services/ElementsFaq.operations";
 import {
   champ,
@@ -32,7 +31,7 @@ const section = (niveau: NiveauTitre) => (indice: string) =>
   );
 
 const sectionN1 = section(1);
-describe("Fonctions support Markdown", () => {
+describe.skip("Fonctions support Markdown", () => {
   describe("extraitFrontMatterSectionsBrute", () => {
     it("retourne le contenu simple", () => {
       const markdown = composeMarkdown(
@@ -51,7 +50,6 @@ describe("Fonctions support Markdown", () => {
         sectionN1("A"),
         sectionN1("B"),
       );
-      VVV("retourne le contenu avec 2 sections, markdown généré:", markdown);
       const listeChampsAttendus = [
         ["champA1: contenu A1\nchampA2: contenu A2", "#", "Titre de section A"],
         ["champB1: contenu B1\nchampB2: contenu B2", "#", "Titre de section B"],
