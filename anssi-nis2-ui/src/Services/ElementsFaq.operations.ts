@@ -112,6 +112,6 @@ const prop =
     o[p];
 export const transformeFrontMatterVersSideMenuPropItems = flow(
   prop<Readonly<InformationsSection[]>>("sections"),
-  imbriqueSectionsParNiveauSure,
+  imbriqueSectionsParNiveau,
   reduce([], construitItemSection),
 );

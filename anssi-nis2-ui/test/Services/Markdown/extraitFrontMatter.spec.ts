@@ -6,6 +6,7 @@ import {
 import {
   composeMarkdown,
   fmChamps,
+  t1,
   t2,
   titre,
 } from "../../../src/Services/Markdown/Markdown.constructeurs";
@@ -131,6 +132,28 @@ describe(extraitFrontMatter, () => {
         ],
       });
     });
+    it("si la front matter est absente des titres, elle est créée à partir de celui-ci", () => {
+      const markdown = composeMarkdown(
+        loremIpsum,
+        t1("Titre de section A"),
+        loremIpsum,
+        t1("Titre de section B"),
+        loremIpsum,
+      );
+
+      expect(extraitFrontMatter(markdown)).toStrictEqual({
+        sections: [
+          {
+            titre: "Titre de section A",
+            niveau: 1,
+          },
+          {
+            titre: "Titre de section B",
+            niveau: 1,
+          },
+        ],
+      });
+    });
     it("front matter du document et de 2 titres imbriqués", () => {
       const markdown = composeMarkdown(
         fmChamps([["titre", "Titre du document"]]),
@@ -245,5 +268,32 @@ describe(imbriqueSectionsParNiveauSure, () => {
     expect(
       imbriqueSectionsParNiveauSure(extraitFaqFrontMatter.sections),
     ).toStrictEqual(listeSectionImbriquees);
+    it("N'imbrique pas des titres de même niveau", () => {
+      const listeSectionImbriquees = [
+        {
+          titre: "Titre de section A",
+          titreCourt: "Titre de section A",
+          niveau: 1,
+        },
+        {
+          titre: "Titre de section B",
+          titreCourt: "Titre de section B",
+          niveau: 1,
+        },
+      ];
+      const liste = [
+        {
+          titre: "Titre de section A",
+          niveau: 1,
+        },
+        {
+          titre: "Titre de section B",
+          niveau: 1,
+        },
+      ];
+      expect(imbriqueSectionsParNiveau(liste)).toStrictEqual(
+        listeSectionImbriquees,
+      );
+    });
   });
 });

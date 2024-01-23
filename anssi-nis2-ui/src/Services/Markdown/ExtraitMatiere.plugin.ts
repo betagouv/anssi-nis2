@@ -45,13 +45,24 @@ const ajouteYaml = (
   isHeading(a[i + 1])
     ? ajouteUneSection(acc, parse(node.value), a[i + 1] as unknown as Heading)
     : ajouteMatter(acc, parse(node.value));
-const id = <T>(acc: T) => acc;
+const creeMatiereAvecTitre = (
+  acc: StructureMarkdown,
+  node: Literal<string>,
+  i: number,
+  a: readonly Literal<string>[],
+) =>
+  (i === 0 || isHeading(a[i - 1])) && isHeading(node)
+    ? ajouteSection(acc)(fabriqueInformationsTitre(node))
+    : acc;
 const accumulateurMatiere = (
   acc: StructureMarkdown,
   node: Literal<string>,
   i: number,
   a: readonly Literal<string>[],
-) => (node.type === "yaml" ? ajouteYaml(acc, node, i, a) : id(acc));
+) =>
+  node.type === "yaml"
+    ? ajouteYaml(acc, node, i, a)
+    : creeMatiereAvecTitre(acc, node, i, a);
 export const extraitMatiere: Plugin<[], Parent<Literal<string>>> =
   () => (tree, file) => {
     file.data.frontmatter = filtreYamlHeading(tree.children).reduce(
