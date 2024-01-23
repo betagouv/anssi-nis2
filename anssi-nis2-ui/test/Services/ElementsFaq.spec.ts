@@ -98,9 +98,17 @@ describe("Elements Faq", () => {
       expect(ancre).toEqual("#5-titre-court");
     });
     it("Transforme les caractères accentués", () => {
-      const titre = "àâä"; // éèêë îï";
+      const titre = "àâä?/xxx"; // éèêë îï";
       const ancre = construitAncre(titre);
-      expect(ancre).toEqual("#aaa");
+      expect(ancre).toEqual("#aaa-xxx");
+    });
+    it("titre buggé", () => {
+      const titre =
+        "4. Quel est l’objectif derrière la régulation des TPE / PME ?";
+      const ancreAttendue =
+        "#4-quel-est-l-objectif-derriere-la-regulation-des-tpe-pme";
+      const ancre = construitAncre(titre);
+      expect(ancre).toEqual(ancreAttendue);
     });
   });
 });
