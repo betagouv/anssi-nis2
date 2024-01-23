@@ -10,10 +10,7 @@ import {
   InformationsSection,
   NiveauTitre,
 } from "../../../src/Services/Markdown/Markdown.declarations";
-import {
-  extraitFrontMatter,
-  extraitFrontMatterSectionsBrute,
-} from "../../../src/Services/Markdown/TransformeMarkdown.operations";
+import { extraitFrontMatter } from "../../../src/Services/Markdown/TransformeMarkdown.operations";
 import { loremIpsum } from "./constantes";
 import { extraitFaq, extraitFaqFrontMatter } from "./extraitFaq";
 
@@ -28,63 +25,6 @@ const section = (niveau: NiveauTitre) => (indice: string) =>
   );
 
 const sectionN1 = section(1);
-describe("Fonctions support Markdown", () => {
-  describe("extraitFrontMatterSectionsBrute", () => {
-    it("retourne le contenu simple", () => {
-      const markdown = composeMarkdown(
-        fmChamps([["champ", "contenu"]]),
-        t2("titre"),
-      );
-
-      const listeChampsAttendus = [["champ: contenu", "##", "titre"]];
-      expect(extraitFrontMatterSectionsBrute(markdown)).toEqual(
-        listeChampsAttendus,
-      );
-    });
-    it("retourne le contenu avec 2 sections", () => {
-      const markdown = composeMarkdown(
-        loremIpsum,
-        sectionN1("A"),
-        sectionN1("B"),
-      );
-      const listeChampsAttendus = [
-        ["champA1: contenu A1\nchampA2: contenu A2", "#", "Titre de section A"],
-        ["champB1: contenu B1\nchampB2: contenu B2", "#", "Titre de section B"],
-      ];
-      expect(extraitFrontMatterSectionsBrute(markdown)).toEqual(
-        listeChampsAttendus,
-      );
-    });
-    it("retourne le contenu avec 2 sections après un front matter global", () => {
-      const markdown = composeMarkdown(
-        fmChamps([["titre", "Titre du document"]]),
-        loremIpsum,
-        sectionN1("A"),
-        sectionN1("B"),
-      );
-      const listeChampsAttendus = [
-        ["champA1: contenu A1\nchampA2: contenu A2", "#", "Titre de section A"],
-        ["champB1: contenu B1\nchampB2: contenu B2", "#", "Titre de section B"],
-      ];
-      expect(extraitFrontMatterSectionsBrute(markdown)).toEqual(
-        listeChampsAttendus,
-      );
-    });
-    it("retourne le contenu avec 2 sections après un front matter global", () => {
-      const listeChampsAttendus = [
-        ["titreCourt: Introduction", "#", "Introduction"],
-        [
-          "titreCourt: En quoi consistait la directive NIS 1&nbsp;?",
-          "##",
-          "1. En 2016, le Parlement et le Conseil de l’UE ont adopté une première série de mesures concernant la cybersécurité du marché européen. En quoi consistait exactement cette directive connue sous le nom de NIS 1&nbsp;?",
-        ],
-      ];
-      expect(extraitFrontMatterSectionsBrute(extraitFaq)).toEqual(
-        listeChampsAttendus,
-      );
-    });
-  });
-});
 
 describe(extraitFrontMatter, () => {
   describe("seul dans le document", () => {
