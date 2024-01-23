@@ -11,7 +11,7 @@ import { extraitFrontMatter } from "../../src/Services/Markdown/TransformeMarkdo
 import { loremIpsum } from "./Markdown/constantes";
 import { SideMenuProps } from "@codegouvfr/react-dsfr/SideMenu";
 
-describe.skip("Elements Faq", () => {
+describe("Elements Faq", () => {
   describe(transformeFrontMatterVersSideMenuPropItems, () => {
     it("Renvoie un élément déployé et sélectionné pour un titre frontmatter.", () => {
       const markdown = composeMarkdown(

@@ -1,20 +1,17 @@
 import { describe, expect, it } from "vitest";
 import { imbriqueSectionsParNiveau } from "../../../src/Services/ElementsFaq.operations";
 import {
-  champ,
   composeMarkdown,
   fmChamps,
   t2,
   titre,
 } from "../../../src/Services/Markdown/Markdown.constructeurs";
 import {
-  ChampFrontMatter,
   InformationsSection,
   NiveauTitre,
 } from "../../../src/Services/Markdown/Markdown.declarations";
 import {
   extraitFrontMatter,
-  extraitFrontMatterBrute,
   extraitFrontMatterSectionsBrute,
 } from "../../../src/Services/Markdown/TransformeMarkdown.operations";
 import { loremIpsum } from "./constantes";
@@ -31,7 +28,7 @@ const section = (niveau: NiveauTitre) => (indice: string) =>
   );
 
 const sectionN1 = section(1);
-describe.skip("Fonctions support Markdown", () => {
+describe("Fonctions support Markdown", () => {
   describe("extraitFrontMatterSectionsBrute", () => {
     it("retourne le contenu simple", () => {
       const markdown = composeMarkdown(
@@ -84,23 +81,6 @@ describe.skip("Fonctions support Markdown", () => {
       ];
       expect(extraitFrontMatterSectionsBrute(extraitFaq)).toEqual(
         listeChampsAttendus,
-      );
-    });
-  });
-
-  describe("extraitFrontMatterBrute", () => {
-    it("retourne le contenu simple", () => {
-      const tupleChamp: ChampFrontMatter = ["champ", "contenu"];
-      const champAttendu = champ(tupleChamp);
-      expect(extraitFrontMatterBrute(fmChamps([tupleChamp]))).toEqual(
-        champAttendu,
-      );
-    });
-    it("retourne le contenu simple, insensible à l'indentation", () => {
-      const tupleChamp: ChampFrontMatter = ["    champ", "contenu"];
-      const champAttendu = champ(["champ", "contenu"]);
-      expect(extraitFrontMatterBrute(fmChamps([tupleChamp]))).toEqual(
-        champAttendu,
       );
     });
   });

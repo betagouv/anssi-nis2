@@ -1,9 +1,12 @@
 import { flow } from "fp-ts/lib/function";
 import { replace, split, trim } from "fp-ts/lib/string";
-import { reduce } from "fp-ts/ReadonlyArray";
+import { filter, reduce } from "fp-ts/ReadonlyArray";
 import { parse } from "yaml";
 import { matchAllWith } from "../../../../commun/utils/services/string.operations.ts";
-import { StructureMarkdown } from "./Markdown.declarations.ts";
+import {
+  ExtractionSection,
+  StructureMarkdown,
+} from "./Markdown.declarations.ts";
 
 export const nettoieBrMd = replace("  \n", " ");
 export const separeMarkdownParLignes = split("---");
@@ -24,9 +27,6 @@ import { remark } from "remark";
 import remarkFrontmatter from "remark-frontmatter";
 import { Heading, Text } from "mdast";
 
-export const extraitFrontMatterBrute = (t: string) =>
-  remark().use(remarkFrontmatter).processSync(t);
-
 export const extraitFrontMatterSectionsBrute = flow(
   matchAllWith(regexFrontMatterSections),
   reduitTuplesChamps,
@@ -40,36 +40,57 @@ const fabriqueInformationsTitre = (noeud: Heading) => {
 };
 
 const isHeading = (n: Literal<string> | Heading): n is Heading =>
-  n.type === "heading";
+  n !== undefined && n.type === "heading";
+
+const ajouteSection =
+  (acc: StructureMarkdown) => (nouvelleSection: ExtractionSection) => ({
+    ...acc,
+    sections: [...acc.sections, nouvelleSection],
+  });
+
+const filtre = (listeTypesFiltre: string[]) =>
+  filter((c: Literal<string>) => listeTypesFiltre.includes(c.type));
+const filtreYamlHeading = filtre(["yaml", "heading"]);
+
+function ajouteUneSection(
+  acc: StructureMarkdown,
+  yamlParse: ExtractionSection,
+  noeudSuivant: Heading,
+) {
+  const nouvelleSection = {
+    ...yamlParse,
+    ...fabriqueInformationsTitre(noeudSuivant),
+  };
+  return ajouteSection(acc)(nouvelleSection);
+}
+
+function ajouteMatter(acc: StructureMarkdown, yamlParse: ExtractionSection) {
+  return { ...acc, ...yamlParse };
+}
+
+function ajouteYaml(
+  acc: StructureMarkdown,
+  node: Literal<string>,
+  i: number,
+  a: readonly Literal<string>[],
+) {
+  const yamlParse = parse(node.value);
+  const noeudSuivant = a[i + 1];
+  return isHeading(noeudSuivant)
+    ? ajouteUneSection(acc, yamlParse, noeudSuivant)
+    : ajouteMatter(acc, yamlParse);
+}
+
+const id = <T>(acc: T) => acc;
+
+// const accumulateurMatiere = flow();
 
 const extraitMatiere: Plugin<[], Parent<Literal<string>>> =
   () => (tree, file) => {
-    const nodes = tree.children.filter((c) =>
-      ["yaml", "heading"].includes(c.type),
-    );
+    const nodes = filtreYamlHeading(tree.children);
     file.data.frontmatter = nodes.reduce(
-      (acc, node, i, a) => {
-        if (node.type === "yaml") {
-          const yamlParse = parse(node.value);
-          if (a.length > i + 1) {
-            const noeudSuivant = a[i + 1];
-            if (isHeading(noeudSuivant)) {
-              return {
-                ...acc,
-                sections: [
-                  ...acc.sections,
-                  {
-                    ...yamlParse,
-                    ...fabriqueInformationsTitre(noeudSuivant),
-                  },
-                ],
-              };
-            }
-          }
-          return { ...acc, ...yamlParse };
-        }
-        return acc;
-      },
+      (acc: StructureMarkdown, node, i, a) =>
+        node.type === "yaml" ? ajouteYaml(acc, node, i, a) : id(acc),
       { sections: [] },
     );
   };
