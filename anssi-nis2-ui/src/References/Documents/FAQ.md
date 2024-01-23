@@ -3,7 +3,7 @@ source: Agence Nationale de la Sécurité des Systèmes d’Information
 titre: FAQ - NIS&nbsp;2
 ---
 
-# FAQ - NIS&nbsp;2
+FAQ - NIS&nbsp;2
 
 Alors que la menace complexe, professionnelle et en constante évolution ne faiblit pas et que les systèmes d’information
 restent pour partie vulnérables, la directive NIS&nbsp;2, publiée au Journal Officiel de l'Union Européenne en décembre

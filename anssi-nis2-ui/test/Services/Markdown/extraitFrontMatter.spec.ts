@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { imbriqueSectionsParNiveau } from "../../../src/Services/ElementsFaq.operations";
+import {
+  imbriqueSectionsParNiveau,
+  imbriqueSectionsParNiveauSure,
+} from "../../../src/Services/ElementsFaq.operations";
 import {
   composeMarkdown,
   fmChamps,
@@ -7,6 +10,7 @@ import {
   titre,
 } from "../../../src/Services/Markdown/Markdown.constructeurs";
 import {
+  ExtractionSection,
   InformationsSection,
   NiveauTitre,
 } from "../../../src/Services/Markdown/Markdown.declarations";
@@ -161,7 +165,7 @@ describe(extraitFrontMatter, () => {
   });
 });
 
-describe(imbriqueSectionsParNiveau, () => {
+describe(imbriqueSectionsParNiveauSure, () => {
   it("Imbrique un niveau 1 dans un niveau 2", () => {
     const listeSectionsPlate: readonly InformationsSection[] = [
       {
@@ -189,6 +193,35 @@ describe(imbriqueSectionsParNiveau, () => {
         ],
       },
     ];
+    expect(imbriqueSectionsParNiveauSure(listeSectionsPlate)).toStrictEqual(
+      listeSectionImbriquees,
+    );
+  });
+  it("Ajoute un titre court depuis le titre s'il est inexistant", () => {
+    const listeSectionsPlate: readonly ExtractionSection[] = [
+      {
+        titre: "Titre de section A",
+        niveau: 1,
+      },
+      {
+        titre: "Titre de section B",
+        niveau: 2,
+      },
+    ];
+    const listeSectionImbriquees = [
+      {
+        titre: "Titre de section A",
+        titreCourt: "Titre de section A",
+        niveau: 1,
+        sections: [
+          {
+            titre: "Titre de section B",
+            titreCourt: "Titre de section B",
+            niveau: 2,
+          },
+        ],
+      },
+    ];
     expect(imbriqueSectionsParNiveau(listeSectionsPlate)).toStrictEqual(
       listeSectionImbriquees,
     );
@@ -210,7 +243,7 @@ describe(imbriqueSectionsParNiveau, () => {
       },
     ];
     expect(
-      imbriqueSectionsParNiveau(extraitFaqFrontMatter.sections),
+      imbriqueSectionsParNiveauSure(extraitFaqFrontMatter.sections),
     ).toStrictEqual(listeSectionImbriquees);
   });
 });

@@ -1,12 +1,13 @@
 import { SideMenuProps } from "@codegouvfr/react-dsfr/SideMenu";
+import { flow } from "fp-ts/lib/function";
+import { reduce } from "fp-ts/lib/ReadonlyArray";
 import { construitAncre } from "../../../commun/utils/services/string.operations.ts";
 import {
+  ExtractionSection,
   InformationsSection,
   NiveauTitre,
   SectionsImbriquees,
 } from "./Markdown/Markdown.declarations.ts";
-import { flow } from "fp-ts/lib/function";
-import { reduce } from "fp-ts/lib/ReadonlyArray";
 
 const fabriqueItemSectionFeuille = ({
   titreCourt,
@@ -23,7 +24,7 @@ const fabriqueItemSectionBranche = ({
   expandedByDefault: true,
   isActive: true,
   items: flow(
-    imbriqueSectionsParNiveau,
+    imbriqueSectionsParNiveauSure,
     reduce([], construitItemSection),
   )(sections),
   text: titreCourt,
@@ -58,30 +59,52 @@ const sousListePourNiveau = (
 const fabriqueSection = (
   section: InformationsSection,
   sousListe: (SectionsImbriquees | InformationsSection)[],
-  niveauSection: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8,
+  niveauSection: NiveauTitre,
 ) =>
   sousListe.length > 0
     ? {
         ...section,
-        sections: imbriqueSectionsParNiveau(
+        sections: imbriqueSectionsParNiveauSure(
           sousListe,
           incrementeNiveauTitre(niveauSection),
         ),
       }
     : section;
 
-export const imbriqueSectionsParNiveau = (
+export const imbriqueSectionsParNiveauSure = (
   listeSections: readonly InformationsSection[],
   niveauSection: NiveauTitre = 1,
 ): (SectionsImbriquees | InformationsSection)[] => {
   if (listeSections.length === 0) return [];
-  const section = listeSections[0];
   const [sousListe, suite] = sousListePourNiveau(1, listeSections.slice(1));
   return [
-    fabriqueSection(section, sousListe, niveauSection),
-    ...imbriqueSectionsParNiveau(suite, niveauSection),
+    fabriqueSection(listeSections[0], sousListe, niveauSection),
+    ...imbriqueSectionsParNiveauSure(suite, niveauSection),
   ];
 };
+
+const estInformationSection = (
+  section: ExtractionSection | InformationsSection,
+): section is InformationsSection =>
+  Object.keys(section).includes("titreCourt");
+
+const transformeExtractionEnInformationSection = (
+  section: ExtractionSection | InformationsSection,
+): InformationsSection =>
+  estInformationSection(section)
+    ? section
+    : ({
+        ...section,
+        titreCourt: section.titre,
+      } as InformationsSection);
+export const imbriqueSectionsParNiveau = (
+  listeSections: readonly (ExtractionSection | InformationsSection)[],
+  niveauSection: NiveauTitre = 1,
+): (SectionsImbriquees | InformationsSection)[] =>
+  imbriqueSectionsParNiveauSure(
+    listeSections.map(transformeExtractionEnInformationSection),
+    niveauSection,
+  );
 
 const prop =
   <TypeRetour = unknown, P extends string | number | symbol = string>(p: P) =>
@@ -89,6 +112,6 @@ const prop =
     o[p];
 export const transformeFrontMatterVersSideMenuPropItems = flow(
   prop<Readonly<InformationsSection[]>>("sections"),
-  imbriqueSectionsParNiveau,
+  imbriqueSectionsParNiveauSure,
   reduce([], construitItemSection),
 );
