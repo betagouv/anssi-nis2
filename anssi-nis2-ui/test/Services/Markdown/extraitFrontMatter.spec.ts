@@ -277,13 +277,13 @@ describe(imbriqueSectionsParNiveau, () => {
     const listeSectionImbriquees = [
       {
         titre: "Introduction",
-        niveau: 2,
+        niveau: 1,
         titreCourt: "Introduction",
         sections: [
           {
             titre:
-              "1. En 2016, le Parlement et le Conseil de l’UE ont adopté une première série de mesures concernant la cybersécurité du marché européen. En quoi consistait exactement cette directive connue sous le nom de NIS 1&nbsp;?",
-            niveau: 3,
+              "1. En 2016, le Parlement et le Conseil de l’UE ont adopté une première série de mesures concernant la cybersécurité du marché européen. En quoi consistait exactement cette directive connue sous le nom de NIS 1 ?",
+            niveau: 2,
             titreCourt: "En quoi consistait la directive NIS 1&nbsp;?",
           },
         ],
