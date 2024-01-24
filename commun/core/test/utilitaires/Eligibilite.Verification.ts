@@ -11,7 +11,7 @@ export const VerifieEligibilite = Object.values(Eligibilite).reduce(
     [nom]: verifieQue(calculeEligibilite).renvoieToujours(Eligibilite[nom])
       .quelqueSoit,
   }),
-  {},
+  {}
 ) as Record<
   ResultatEligibilite,
   (arbitraire: fc.Arbitrary<DonneesFormulaireSimulateur>) => void

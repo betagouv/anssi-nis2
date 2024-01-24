@@ -22,7 +22,7 @@ export const arbOSEPetit = etend(arbitraireSecteursSousSecteurs)
     trancheChiffreAffaire: arbTranche.petit,
     trancheNombreEmployes: arbTranche.petit,
     appartenancePaysUnionEurpopeenne: fabriqueArbSingleton(
-      ValeursAppartenancePaysUnionEuropeenne,
+      ValeursAppartenancePaysUnionEuropeenne
     ),
   })
   .chain(ajouteArbitraireActivites)
@@ -34,7 +34,7 @@ export const arbOSEMoyenGrand = etend(arbitraireSecteursSousSecteurs)
       arbDesigneOperateurServicesEssentiels.oui,
     typeStructure: arbTypeStructure.privee,
     appartenancePaysUnionEurpopeenne: fabriqueArbSingleton(
-      ValeursAppartenancePaysUnionEuropeenne,
+      ValeursAppartenancePaysUnionEuropeenne
     ),
     trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
   })

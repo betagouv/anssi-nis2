@@ -22,7 +22,7 @@ import { ValidationReponses } from "../services/ChampSimulateur/champs.domaine";
 import { validationToutesLesReponses } from "../services/ChampSimulateur/ValidationReponses";
 
 const fabriqueInformationsEtapeResultat: (titre: string) => EtapeResultat = (
-  titre,
+  titre
 ) => ({
   type: "resultat",
   titre: titre,
@@ -38,7 +38,7 @@ const fabriqueInformationsEtapeForm = (
   titre: string,
   validationReponses: ValidationReponses,
   type: TypeEtape,
-  options: Partial<OptionsInformationEtapeForm> = optionsInformationEtapeFormParDefaut,
+  options: Partial<OptionsInformationEtapeForm> = optionsInformationEtapeFormParDefaut
 ): InformationEtapeForm => {
   const optionsCompletes = {
     ...optionsInformationEtapeFormParDefaut,
@@ -60,7 +60,7 @@ const fabriqueInformationsEtapeForm = (
 };
 
 const fabriqueInformationEtapePrealable: (titre: string) => EtapePrealable = (
-  titre: string,
+  titre: string
 ) => ({
   type: "prealable",
   existe: true,
@@ -74,20 +74,20 @@ const fabriqueInformationEtapePrealable: (titre: string) => EtapePrealable = (
 
 const fabriqueFonctionEtapeAffichee =
   <TypeEtape extends InformationEtapeForm>(
-    variantesEtapes: VariantesEtape<TypeEtape>[],
+    variantesEtapes: VariantesEtape<TypeEtape>[]
   ) =>
   (donnees: DonneesFormulaireSimulateur) =>
     variantesEtapes
       .reduce(
         (acc, variante, indice) => acc.with(variante.conditions, () => indice),
-        match<DonneesFormulaireSimulateur, number>(donnees),
+        match<DonneesFormulaireSimulateur, number>(donnees)
       )
       .otherwise(() => 0);
 
 const fabriqueInformationsEtapesVariantes = <
-  TypeEtape extends InformationEtapeForm,
+  TypeEtape extends InformationEtapeForm
 >(
-  variantesEtapes: VariantesEtape<TypeEtape>[],
+  variantesEtapes: VariantesEtape<TypeEtape>[]
 ): InformationsEtapesVariantes<TypeEtape> => {
   const variantes = variantesEtapes.map((variante) => variante.etape);
   const varianteAffichee = fabriqueFonctionEtapeAffichee(variantesEtapes);
@@ -108,7 +108,7 @@ const fabriqueInformationsEtapesVariantes = <
 
 const fabriqueSousEtapeConditionnelle: (
   condition: PredicatDonneesSimulateurDefinitions,
-  sousEtape: InformationEtapeForm,
+  sousEtape: InformationEtapeForm
 ) => SousEtapeConditionnelle = (condition, sousEtape) => ({
   condition: condition,
   sousEtape: sousEtape,
@@ -138,6 +138,6 @@ export const optionsInformationEtapeFormParDefaut: OptionsInformationEtapeForm =
     ignoreSi: toujoursFaux,
     sousEtapeConditionnelle: fabriqueSousEtapeConditionnelle(
       toujoursFaux,
-      EtapeInexistante as InformationEtapeForm,
+      EtapeInexistante as InformationEtapeForm
     ),
   } as const;

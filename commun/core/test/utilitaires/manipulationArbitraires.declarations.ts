@@ -20,8 +20,7 @@ export type PiocheDonneesForm<T extends keyof DonneesFormulaireSimulateur> =
   Pick<DonneesFormulaireSimulateur, T>;
 
 export type DonneesAjout<
-  D extends
-    keyof DonneesFormulaireSimulateur = keyof DonneesFormulaireSimulateur,
+  D extends keyof DonneesFormulaireSimulateur = keyof DonneesFormulaireSimulateur
 > = D extends infer U extends keyof DonneesFormulaireSimulateur
   ? PiocheDonneesForm<U>
   : never;
@@ -37,5 +36,5 @@ export type DonneesSansActivite = Omit<
 >;
 
 export type DonneesExtensiblesAvecActivite<
-  DonneesPartielles extends DonneesSectorielles,
+  DonneesPartielles extends DonneesSectorielles
 > = DonneesPartielles & Pick<DonneesFormulaireSimulateur, "activites">;

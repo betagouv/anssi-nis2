@@ -8,7 +8,7 @@ const calculePrecisionResultatIncertain = (d: DonneesFormulaireSimulateur) =>
   match(d)
     .with(
       { appartenancePaysUnionEurpopeenne: ["autre"] },
-      () => PrecisionsResultat.AutrePaysUnionEuropeenne,
+      () => PrecisionsResultat.AutrePaysUnionEuropeenne
     )
     .otherwise(() => PrecisionsResultat.Standard);
 
@@ -16,11 +16,11 @@ const calculePrecisionResultatRegule = (d: DonneesFormulaireSimulateur) =>
   match(d)
     .with(
       { secteurActivite: ["banqueSecteurBancaire"] },
-      () => PrecisionsResultat.DORA,
+      () => PrecisionsResultat.DORA
     )
     .with(
       { activites: ["registresNomsDomainesPremierNiveau"] },
-      () => PrecisionsResultat.EnregistrementDeNomsDeDomaine,
+      () => PrecisionsResultat.EnregistrementDeNomsDeDomaine
     )
     .otherwise(() => PrecisionsResultat.Standard);
 
@@ -28,7 +28,7 @@ const calculePrecisionResultatNonRegule = (d: DonneesFormulaireSimulateur) =>
   match(d)
     .with(
       { appartenancePaysUnionEurpopeenne: ["horsue"] },
-      () => PrecisionsResultat.HorsUnionEuropeenne,
+      () => PrecisionsResultat.HorsUnionEuropeenne
     )
     .otherwise(() => PrecisionsResultat.Standard);
 

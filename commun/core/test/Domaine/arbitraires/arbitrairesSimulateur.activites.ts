@@ -13,7 +13,7 @@ import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSe
 import { arbDesigneOperateurServicesEssentiels } from "./arbitraireChampFormulaire";
 
 export const arbActivitesAutres = etend<DonneesSectorielles>(
-  arbSecteursSousSecteursListes,
+  arbSecteursSousSecteursListes
 )
   .avec<
     PiocheDonneesForm<
@@ -30,7 +30,7 @@ export const arbActivitesAutres = etend<DonneesSectorielles>(
     trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
     trancheNombreEmployes: fabriqueArbTrancheSingleton(),
     appartenancePaysUnionEurpopeenne: fabriqueArbSingleton(
-      ValeursAppartenancePaysUnionEuropeenne,
+      ValeursAppartenancePaysUnionEuropeenne
     ),
   })
   .chain(ajouteAuMoinsUneActiviteAutre)

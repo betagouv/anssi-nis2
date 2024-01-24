@@ -5,7 +5,7 @@ import { CollectionInformationsEtapes } from "../CollectionInformationsEtapes";
 
 const suivantEstIgnore = (
   suivant: EtatEtapes,
-  donnees: DonneesFormulaireSimulateur,
+  donnees: DonneesFormulaireSimulateur
 ) => suivant.contenuEtapeCourante.estIgnoree(donnees);
 const fabriqueIgnoreEtape = (etapeSuivantExiste: boolean) =>
   etapeSuivantExiste ? suivantEstIgnore : () => false;
@@ -14,16 +14,16 @@ export const fabriqueEtatEtape: (
   collectionEtapes: CollectionInformationsEtapes,
   indiceEtape: number,
   indiceSousEtape?: number,
-  donneesFormulaire?: DonneesFormulaireSimulateur,
+  donneesFormulaire?: DonneesFormulaireSimulateur
 ) => EtatEtapes = (
   collectionEtapes,
   indiceEtape,
   indiceSousEtape = 0,
-  donneesFormulaire = donneesFormulaireSimulateurVide,
+  donneesFormulaire = donneesFormulaireSimulateurVide
 ) => {
   const contenuEtapeCourante = collectionEtapes.contenuEtape(
     indiceEtape,
-    indiceSousEtape,
+    indiceSousEtape
   );
   const etapeSuivantExiste = collectionEtapes.existeEtapeSuivante(indiceEtape);
   return {

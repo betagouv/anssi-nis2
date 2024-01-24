@@ -1,6 +1,7 @@
 import { SideMenuProps } from "@codegouvfr/react-dsfr/SideMenu";
 import { flow } from "fp-ts/lib/function";
 import { reduce } from "fp-ts/lib/ReadonlyArray";
+import { prop } from "../../../commun/utils/services/objects.operations.ts";
 import { construitAncre } from "../../../commun/utils/services/string.operations.ts";
 import {
   ExtractionSection,
@@ -105,11 +106,6 @@ export const imbriqueSectionsParNiveau = (
     listeSections.map(transformeExtractionEnInformationSection),
     niveauSection,
   );
-
-const prop =
-  <TypeRetour = unknown, P extends string | number | symbol = string>(p: P) =>
-  <Rest, T extends Record<P, TypeRetour> & Rest>(o: T): TypeRetour =>
-    o[p];
 
 export const transformeFrontMatterVersSideMenuPropItems = flow(
   prop("sections"),

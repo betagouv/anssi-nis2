@@ -47,7 +47,7 @@ describe("validateurs", () => {
       });
       const validateur = et(
         auMoinsUn("trancheNombreEmployes"),
-        auMoinsUn("trancheChiffreAffaire"),
+        auMoinsUn("trancheChiffreAffaire")
       );
       const result = validateur(donneesFormulaireSimulateur);
       expect(result).toBeTruthy();
@@ -60,7 +60,7 @@ describe("validateurs", () => {
       });
       const validateur = et(
         auMoinsUn("trancheNombreEmployes"),
-        auMoinsUn("trancheChiffreAffaire"),
+        auMoinsUn("trancheChiffreAffaire")
       );
       const result = validateur(donneesFormulaireSimulateur);
       expect(result).toBeFalsy();
@@ -73,7 +73,7 @@ describe("validateurs", () => {
         sousSecteurActivite: ["electricite"],
       });
       const result = auMoinsUnSousSecteurParSecteur(
-        donneesFormulaireSimulateur,
+        donneesFormulaireSimulateur
       );
       expect(result).toBeTruthy();
     });
@@ -84,7 +84,7 @@ describe("validateurs", () => {
         sousSecteurActivite: ["electricite"],
       });
       const result = auMoinsUnSousSecteurParSecteur(
-        donneesFormulaireSimulateur,
+        donneesFormulaireSimulateur
       );
       expect(result).toBeFalsy();
     });
@@ -95,7 +95,7 @@ describe("validateurs", () => {
         sousSecteurActivite: ["electricite", "hydrogene"],
       });
       const result = auMoinsUnSousSecteurParSecteur(
-        donneesFormulaireSimulateur,
+        donneesFormulaireSimulateur
       );
       expect(result).toBeFalsy();
     });
@@ -106,7 +106,7 @@ describe("validateurs", () => {
         sousSecteurActivite: ["autreSousSecteurFabrication"],
       });
       const result = auMoinsUnSousSecteurParSecteur(
-        donneesFormulaireSimulateur,
+        donneesFormulaireSimulateur
       );
       expect(result).toBeTruthy();
     });
@@ -118,7 +118,7 @@ describe("validateurs", () => {
         activites: ["autreActiviteEspace"],
       });
       const result = auMoinsUneActiviteParValeurSectorielleListee(
-        donneesFormulaireSimulateur,
+        donneesFormulaireSimulateur
       );
       expect(result).toBeTruthy();
     });
@@ -129,7 +129,7 @@ describe("validateurs", () => {
         activites: ["autreActiviteEspace", "prestataireSoinsSante"],
       });
       const result = auMoinsUneActiviteParValeurSectorielleListee(
-        donneesFormulaireSimulateur,
+        donneesFormulaireSimulateur
       );
       expect(result).toBeTruthy();
     });
@@ -140,7 +140,7 @@ describe("validateurs", () => {
         activites: ["laboratoireReferenceUE", "prestataireSoinsSante"],
       });
       const result = auMoinsUneActiviteParValeurSectorielleListee(
-        donneesFormulaireSimulateur,
+        donneesFormulaireSimulateur
       );
       expect(result).toBeFalsy();
     });
@@ -152,7 +152,7 @@ describe("validateurs", () => {
         activites: ["acteurDuMarche"],
       });
       const result = auMoinsUneActiviteParValeurSectorielleListee(
-        donneesFormulaireSimulateur,
+        donneesFormulaireSimulateur
       );
       expect(result).toBeFalsy();
     });
@@ -163,7 +163,7 @@ describe("validateurs", () => {
         activites: ["prestataireSoinsSante", "laboratoireReferenceUE"],
       });
       const result = auMoinsUneActiviteParValeurSectorielleListee(
-        donneesFormulaireSimulateur,
+        donneesFormulaireSimulateur
       );
       expect(result).toBeTruthy();
     });
@@ -174,7 +174,7 @@ describe("validateurs", () => {
         activites: ["autreActiviteEspace"],
       });
       const result = auMoinsUneActiviteParValeurSectorielleListee(
-        donneesFormulaireSimulateur,
+        donneesFormulaireSimulateur
       );
       expect(result).toBeTruthy();
     });
@@ -186,7 +186,7 @@ describe("validateurs", () => {
         activites: ["entrepriseElectriciteRemplissantFonctionFourniture"],
       });
       const result = auMoinsUneActiviteParValeurSectorielleListee(
-        donneesFormulaireSimulateur,
+        donneesFormulaireSimulateur
       );
       expect(result).toBeTruthy();
     });

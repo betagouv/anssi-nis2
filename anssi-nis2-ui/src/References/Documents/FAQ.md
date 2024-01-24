@@ -28,14 +28,14 @@ FAQ est évolutive, et sera complétée au fil des questions reçues.
 Dernière mise à jour de cette FAQ&nbsp;: 07/07/2023
 
 ---
-titreCourt: Introduction
----
+
+## titreCourt: Introduction
 
 # Introduction
 
 ---
-titreCourt: En quoi consistait exactement cette directive connue sous le nom de NIS 1 ?
----
+
+## titreCourt: En quoi consistait exactement cette directive connue sous le nom de NIS 1 ?
 
 ## 1. En 2016, le Parlement et le Conseil de l’UE ont adopté une première série de mesures concernant la cybersécurité du marché européen. En quoi consistait exactement cette directive connue sous le nom de NIS 1&nbsp;?
 
@@ -50,8 +50,8 @@ les mesures de sécurité nécessaires pour réduire fortement l’exposition de
 risques cybers.
 
 ---
-titreCourt: 2. Qu’est-ce qui va changer avec la directive NIS 2 ?
----
+
+## titreCourt: 2. Qu’est-ce qui va changer avec la directive NIS 2 ?
 
 ## 2. Qu’est-ce qui va changer avec l’adoption de la directive NIS&nbsp;2&nbsp;?
 
@@ -139,12 +139,12 @@ entités concernées, au regard de spécificités propres à chaque Etat membre 
 Ainsi, dans le cas où le critère de taille n’est pas atteint, il pourra être envisagé d’intégrer par désignation, au
 sein du périmètre qui sera définie lors des travaux de transposition :
 
-* les entités ayant des monopoles d’activité essentielle au maintien d’activités sociétales ou économiques
+- les entités ayant des monopoles d’activité essentielle au maintien d’activités sociétales ou économiques
   critiques&nbsp;;
-* les entités réalisant des activités pouvant avoir un impact important sur la sécurité publique, la sûreté publique ou
+- les entités réalisant des activités pouvant avoir un impact important sur la sécurité publique, la sûreté publique ou
   la santé publique ;
-* les entités réalisant des activités transfrontières pouvant avoir un impact systémique ;
-* les entités ayant une importance spécifique au niveau national ou régional
+- les entités réalisant des activités transfrontières pouvant avoir un impact systémique ;
+- les entités ayant une importance spécifique au niveau national ou régional
 
 Enfin la directive prévoit également un mécanisme d’exclusion pouvant impacter des entités réalisant des activités en
 lien avec la défense et la sécurité nationale. Plus précisément, cela concernera uniquement les domaines de la
@@ -267,9 +267,9 @@ l'implémentation des exigences de gestion des risques.
 
 Afin de respecter l’échéance européenne fixée en octobre 2024, l’ANSSI envisage&nbsp;:
 
-* La phase de préparation du projet de loi en 2023, en vue de sa présentation aux assemblées et de son adoption au plus
+- La phase de préparation du projet de loi en 2023, en vue de sa présentation aux assemblées et de son adoption au plus
   tôt pendant l’année 2024 ;
-* La phase de production des décrets et arrêtés qui aboutira à l’issue des consultations, afin de les soumettre à une
+- La phase de production des décrets et arrêtés qui aboutira à l’issue des consultations, afin de les soumettre à une
   validation interministérielle pour publication des textes en 2024 dans les mois suivants la promulgation de la loi.
 
 # Régulation
