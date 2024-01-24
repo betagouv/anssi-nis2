@@ -20,18 +20,26 @@ describe(calculeEligibilite, () => {
       it("n'est pas eligible si activites cochees sont uniquement autres", () => {
         V.NonEligible(arbForm.nonDesigneOSE.privee.activitesAutres);
       });
-      describe("Petite entité localisée en France ou en UE", () => {
-        it("Est éligible si le secteur d'activité est 'Infrastructure Numérique'", () => {
-          V.EligiblePetiteEntreprise(
-            arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-              .petitInfraNum.activitesConcernes,
-          );
-        });
-        it("Petit Fournisseur d'infranum dans l'UE, représentant en France", () => {
-          V.EligiblePetiteEntreprise(
-            arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-              .petitInfraNum.infraNumDNSOuNomDomaine.representantFrance,
-          );
+      describe("Infrastructure Numérique", () => {
+        describe("Petite entité localisée en France ou en UE", () => {
+          it("Est éligible si le secteur d'activité est 'Infrastructure Numérique'", () => {
+            V.EligiblePetiteEntreprise(
+              arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+                .petitInfraNum.activitesConcernes,
+            );
+          });
+          it("Petit Fournisseur d'infranum dans l'UE, représentant en France", () => {
+            V.EligiblePetiteEntreprise(
+              arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+                .petitInfraNum.infraNumDNSOuNomDomaine.representantFrance,
+            );
+          });
+          it("Moyen/Grand Fournisseur d'infranum dans l'UE, représentant en France", () => {
+            V.EligibleMoyenneGrandeEntreprise(
+              arbForm.nonDesigneOSE.privee.exceptions
+                .etablissementPrincipalFrance.moyenGrandInfraNum,
+            );
+          });
         });
         describe("N'est pas éligible si", () => {
           it("Petit Fournisseur d'infranum dans l'UE, représentant en UE", () => {

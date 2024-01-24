@@ -63,11 +63,13 @@ const calculeEligibiliteMoyenneOuGrandeStructurePrivee: OperationCalculeEligibil
       .with(
         {
           secteurActivite: ["infrastructureNumerique"],
+          fournitServicesUnionEuropeenne: ["oui"],
+          localisationRepresentant: ["france"],
           activites: P.when(
             auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
           ),
         },
-        R.Incertain,
+        R.EligibleMoyenneGrandeEntreprise,
       )
       .with(
         {

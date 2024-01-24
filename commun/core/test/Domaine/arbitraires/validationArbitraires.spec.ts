@@ -32,6 +32,12 @@ describe("validation des arbitraires", () => {
                   donnees.trancheChiffreAffaire,
                 ),
               ).toBeFalsy();
+              expect(donnees.fournitServicesUnionEuropeenne).toStrictEqual([
+                "oui",
+              ]);
+              expect(donnees.localisationRepresentant).toStrictEqual([
+                "france",
+              ]);
             },
           ),
         );

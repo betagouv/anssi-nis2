@@ -19,6 +19,8 @@ import {
 import {
   arbAppartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
+  arbFournitServiceUnionEuropeenne,
+  arbLocalisationRepresentant,
   arbTypeStructure,
 } from "./arbitraireChampFormulaire";
 import { arbNonOSEPrivesPetitFournisseurInfraNum } from "./arbitrairesSimulateur.infrastructuresNumeriques";
@@ -26,7 +28,11 @@ import { ArbitraireFormulaire } from "./arbitraireFormulaire.definitions";
 
 export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance =
   etend(arbNonOSEPrivesPetitFournisseurInfraNum)
-    .avec({ trancheChiffreAffaire: fabriqueArbTrancheSingleton() })
+    .avec({
+      trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
+      fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.oui,
+      localisationRepresentant: arbLocalisationRepresentant.france,
+    })
     .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
     .filter(
       exerceUniquementActivitesDansListe(
