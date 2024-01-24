@@ -108,10 +108,11 @@ export const imbriqueSectionsParNiveau = (
 
 const prop =
   <TypeRetour = unknown, P extends string | number | symbol = string>(p: P) =>
-  <T extends { [s in P]: T[s] }>(o: T): TypeRetour =>
+  <Rest, T extends Record<P, TypeRetour> & Rest>(o: T): TypeRetour =>
     o[p];
+
 export const transformeFrontMatterVersSideMenuPropItems = flow(
-  prop<Readonly<InformationsSection[]>>("sections"),
+  prop("sections"),
   imbriqueSectionsParNiveau,
   reduce([], construitItemSection),
 );

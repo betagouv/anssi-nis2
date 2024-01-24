@@ -7,6 +7,7 @@ import MiseEnPage from "./MiseEnPage.tsx";
 import Markdown from "react-markdown";
 import { useEffect, useState } from "react";
 import remarkFrontmatter from "remark-frontmatter";
+import rehypeSlug from "rehype-slug";
 import { PluggableList } from "unified";
 
 export const PageFaq: DefaultComponentExtensible<DefaultProps> = () => {
@@ -32,7 +33,10 @@ export const PageFaq: DefaultComponentExtensible<DefaultProps> = () => {
             className="fr-col-3 fr-sidemenu--sticky-full-height"
           />
           <div className="fr-col-offset-1 fr-col-7 fr-pt-4w fr-nis2-faq">
-            <Markdown remarkPlugins={remarkPlugins}>
+            <Markdown
+              remarkPlugins={remarkPlugins}
+              rehypePlugins={[rehypeSlug]}
+            >
               {contenuFaq.contenu}
             </Markdown>
             <div>

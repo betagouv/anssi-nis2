@@ -80,7 +80,7 @@ describe("Elements Faq", () => {
             {
               expandedByDefault: true,
               isActive: true,
-              linkProps: { href: "#5-1-titre-court" },
+              linkProps: { href: "#51-titre-court" },
               text: "5.1 Titre court",
             },
           ],
@@ -100,13 +100,13 @@ describe("Elements Faq", () => {
     it("Transforme les caractères accentués", () => {
       const titre = "àâä?/xxx"; // éèêë îï";
       const ancre = construitAncre(titre);
-      expect(ancre).toEqual("#aaa-xxx");
+      expect(ancre).toEqual("#àâäxxx");
     });
     it("titre buggé", () => {
       const titre =
         "4. Quel est l’objectif derrière la régulation des TPE / PME ?";
       const ancreAttendue =
-        "#4-quel-est-l-objectif-derriere-la-regulation-des-tpe-pme";
+        "#4-quel-est-lobjectif-derrière-la-régulation-des-tpe--pme-";
       const ancre = construitAncre(titre);
       expect(ancre).toEqual(ancreAttendue);
     });
