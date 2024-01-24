@@ -152,7 +152,7 @@ describe("Validation des données formulaire", () => {
 
   describe("donneesFormulaireSontCompletes", () => {
     it.each(donneesTestsArbitraires)(
-      "Doit accepter des données éligibles: $nom",
+      "Accepte données éligibles: $nom",
       ({ arbitraireEligible }) => {
         verifieQue(donneesFormulaireSontCompletes)
           .estToujoursVrai()
