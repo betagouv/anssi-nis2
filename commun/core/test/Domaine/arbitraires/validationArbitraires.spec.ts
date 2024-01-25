@@ -1,7 +1,7 @@
 import { describe, it } from "vitest";
 import { fc } from "@fast-check/vitest";
 import { DonneesFormulaireSimulateur } from "../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
-import { auMoinsUneActiviteListee } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { predicatDonneesFormulaire as P } from "../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { estPetiteEntreprise } from "../../../src/Domain/Simulateur/services/TailleEntreprise/TailleEntite.predicats";
 import { arbForm } from "./arbitrairesSimulateur";
 import { expect } from "vitest";
@@ -15,10 +15,12 @@ describe("validation des arbitraires", () => {
             arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance
               .moyenGrandInfraNum,
             (donnees: DonneesFormulaireSimulateur) => {
-              expect(donnees.secteurActivite).toContain(
-                "infrastructureNumerique",
+              expect(donnees).toSatisfy(
+                P.champs("secteurActivite").contient("infrastructureNumerique"),
               );
-              expect(donnees.activites).toSatisfy(auMoinsUneActiviteListee);
+              expect(donnees).toSatisfy(
+                P.auMoins.une.activiteListee<DonneesFormulaireSimulateur>,
+              );
               expect(donnees.designeOperateurServicesEssentiels).toStrictEqual([
                 "non",
               ]);
@@ -40,6 +42,7 @@ describe("validation des arbitraires", () => {
               ]);
             },
           ),
+          { verbose: 2 },
         );
       });
     });

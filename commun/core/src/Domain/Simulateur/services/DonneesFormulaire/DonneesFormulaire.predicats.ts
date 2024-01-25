@@ -4,6 +4,7 @@ import { Activite } from "../../Activite.definitions";
 import {
   DonneesSectorielles,
   DonneesFormulaireSimulateur,
+  NomsChampsSimulateur,
 } from "../../DonneesFormulaire.definitions";
 import {
   auMoinsUneActiviteListee,
@@ -45,7 +46,14 @@ export const predicatDonneesFormulaire = {
       donnees: T,
     ) => donnees.activites.every(estActiviteAutre),
   },
+  champs: <C extends NomsChampsSimulateur>(champ: C) => ({
+    contient:
+      <T extends DonneesFormulaireSimulateur[C][number]>(valeur: T) =>
+      (donnees: DonneesFormulaireSimulateur) =>
+        donnees[champ].includes(valeur as never),
+  }),
 };
+
 export const verifieCompletudeDonneesCommunes = et(
   exactementUn("designeOperateurServicesEssentiels"),
   exactementUn("appartenancePaysUnionEurpopeenne"),
