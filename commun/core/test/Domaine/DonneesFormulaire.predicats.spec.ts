@@ -31,11 +31,14 @@ describe("predicatDonneesFormulaire", () => {
 
   describe(contientPetiteEntreprise, () => {
     it("est vrai pour petit / petit", () => {
-      const donnees = fabriqueDonneesFormulaire({
-        trancheNombreEmployes: ["petit"],
-        trancheChiffreAffaire: ["petit"],
-      });
-      expect(contientPetiteEntreprise(donnees)).toBeTruthy();
+      expect(
+        contientPetiteEntreprise(
+          fabriqueDonneesFormulaire({
+            trancheNombreEmployes: ["petit"],
+            trancheChiffreAffaire: ["petit"],
+          }),
+        ),
+      ).toBeTruthy();
     });
 
     const moyenGrand: UnionPetitMoyenGrand[] = ["moyen", "grand"];

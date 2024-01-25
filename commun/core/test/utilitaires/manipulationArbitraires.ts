@@ -73,7 +73,7 @@ const fabriqueEtendAvec: <
       } as unknown as { [K in keyof TypeRetour]: fc.Arbitrary<TypeRetour[K]> }),
     ) as fc.Arbitrary<TypeRetour>;
 
-type AvecParams<TypeAjout extends DonneesAjout = DonneesAjout> = {
+export type AvecParams<TypeAjout extends DonneesAjout = DonneesAjout> = {
   [k in keyof TypeAjout]: fc.Arbitrary<TypeAjout[k]>;
 };
 export const etend = <DonneesPartielles extends DonneesFormulaireExtensibles>(

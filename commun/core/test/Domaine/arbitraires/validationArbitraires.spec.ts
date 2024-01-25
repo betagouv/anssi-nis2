@@ -1,10 +1,18 @@
 import { describe, it } from "vitest";
 import { fc } from "@fast-check/vitest";
 import { DonneesFormulaireSimulateur } from "../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
-import { predicatDonneesFormulaire as P } from "../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
-import { estPetiteEntreprise } from "../../../src/Domain/Simulateur/services/TailleEntreprise/TailleEntite.predicats";
+import { non } from "../../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
+import {
+  contientPetiteEntreprise,
+  predicatDonneesFormulaire as P,
+} from "../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { arbForm } from "./arbitrairesSimulateur";
 import { expect } from "vitest";
+
+const getSatisfait =
+  (donnees: DonneesFormulaireSimulateur) =>
+  (f: (d: DonneesFormulaireSimulateur) => boolean) =>
+    expect(donnees).toSatisfy(f);
 
 describe("validation des arbitraires", () => {
   describe("Entite non OSE pour NIS 1", () => {
@@ -15,33 +23,85 @@ describe("validation des arbitraires", () => {
             arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance
               .moyenGrandInfraNum,
             (donnees: DonneesFormulaireSimulateur) => {
-              expect(donnees).toSatisfy(
-                P.champs("secteurActivite").contient("infrastructureNumerique"),
-              );
-              expect(donnees).toSatisfy(
+              const satisfait = getSatisfait(donnees);
+              satisfait(
                 P.auMoins.une.activiteListee<DonneesFormulaireSimulateur>,
               );
-              expect(donnees).toSatisfy(
+              satisfait(non(contientPetiteEntreprise));
+              satisfait(
+                P.champs("secteurActivite").contient("infrastructureNumerique"),
+              );
+              satisfait(
                 P.champs("designeOperateurServicesEssentiels").est(["non"]),
               );
-              expect(donnees).toSatisfy(
-                P.champs("typeStructure").est(["privee"]),
-              );
-              expect(donnees).toSatisfy(
+              satisfait(P.champs("typeStructure").est(["privee"]));
+              satisfait(
                 P.champs("appartenancePaysUnionEurpopeenne").est(["france"]),
               );
-              expect(
-                estPetiteEntreprise(
-                  donnees.trancheNombreEmployes,
-                  donnees.trancheChiffreAffaire,
-                ),
-              ).toBeFalsy();
-              expect(donnees.fournitServicesUnionEuropeenne).toStrictEqual([
-                "oui",
-              ]);
-              expect(donnees.localisationRepresentant).toStrictEqual([
-                "france",
-              ]);
+              satisfait(
+                P.champs("fournitServicesUnionEuropeenne").est(["oui"]),
+              );
+              satisfait(P.champs("localisationRepresentant").est(["france"]));
+            },
+          ),
+          { verbose: 2 },
+        );
+      });
+      it("arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance.moyenGrandGestionTic", () => {
+        fc.assert(
+          fc.property(
+            arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance
+              .moyenGrandGestionTic,
+            (donnees: DonneesFormulaireSimulateur) => {
+              const satisfait = getSatisfait(donnees);
+              satisfait(
+                P.auMoins.une.activiteListee<DonneesFormulaireSimulateur>,
+              );
+              satisfait(non(contientPetiteEntreprise));
+              satisfait(
+                P.champs("secteurActivite").contient("gestionServicesTic"),
+              );
+              satisfait(
+                P.champs("designeOperateurServicesEssentiels").est(["non"]),
+              );
+              satisfait(P.champs("typeStructure").est(["privee"]));
+              satisfait(
+                P.champs("appartenancePaysUnionEurpopeenne").est(["france"]),
+              );
+              satisfait(
+                P.champs("fournitServicesUnionEuropeenne").est(["oui"]),
+              );
+              satisfait(P.champs("localisationRepresentant").est(["france"]));
+            },
+          ),
+          { verbose: 2 },
+        );
+      });
+      it("arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance.moyenGrandFournisseurNum", () => {
+        fc.assert(
+          fc.property(
+            arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance
+              .moyenGrandFournisseurNum,
+            (donnees: DonneesFormulaireSimulateur) => {
+              const satisfait = getSatisfait(donnees);
+              satisfait(
+                P.auMoins.une.activiteListee<DonneesFormulaireSimulateur>,
+              );
+              satisfait(non(contientPetiteEntreprise));
+              satisfait(
+                P.champs("secteurActivite").contient("fournisseursNumeriques"),
+              );
+              satisfait(
+                P.champs("designeOperateurServicesEssentiels").est(["non"]),
+              );
+              satisfait(P.champs("typeStructure").est(["privee"]));
+              satisfait(
+                P.champs("appartenancePaysUnionEurpopeenne").est(["france"]),
+              );
+              satisfait(
+                P.champs("fournitServicesUnionEuropeenne").est(["oui"]),
+              );
+              satisfait(P.champs("localisationRepresentant").est(["france"]));
             },
           ),
           { verbose: 2 },

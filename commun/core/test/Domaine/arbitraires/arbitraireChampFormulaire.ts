@@ -51,13 +51,16 @@ export const arbFournitServiceUnionEuropeenne: ArbitraireChampFormulaire<Fournit
     non: fc.constant<FournitServicesUnionEuropeenne[]>(["non"]),
     oui: fc.constant<FournitServicesUnionEuropeenne[]>(["oui"]),
   };
-export const arbLocalisationRepresentant: ArbitraireChampFormulaire<AppartenancePaysUnionEuropeenne> =
-  {
-    france: fc.constant(["france"]),
-    horsue: fc.constant(["horsue"]),
-    autre: fc.constant(["autre"]),
-  };
+export const arbLocalisationRepresentant: ArbitraireChampFormulaire<
+  AppartenancePaysUnionEuropeenne,
+  "horsFrance"
+> = {
+  france: fc.constant(["france"]),
+  horsue: fc.constant(["horsue"]),
+  autre: fc.constant(["autre"]),
+  horsFrance: fabriqueArbSingleton(["horsue", "autre"]),
+};
 export type ArbitraireChampFormulaire<
   T extends ValeurChampSimulateur,
-  TypesAdditionnelles extends string = T
+  TypesAdditionnelles extends string = T,
 > = Record<T | TypesAdditionnelles, fc.Arbitrary<T[]>>;

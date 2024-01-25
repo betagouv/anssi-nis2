@@ -90,7 +90,6 @@ export const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
   .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
   .chain(ajouteAuMoinsUneActiviteAutre)
   .chain(ajouteChampsFacultatifs)
-  // .filter(predicatDonneesFormulaire.uniquement.activiteAutre)
   .filter((d) => d.activites.length > 0);
 
 export const arbNonOSEPrivesMoyenGrandGestionTic = etend(
@@ -105,6 +104,8 @@ export const arbNonOSEPrivesMoyenGrandGestionTic = etend(
     typeStructure: arbTypeStructure.privee,
     trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
     appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.france,
+    fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.oui,
+    localisationRepresentant: arbLocalisationRepresentant.france,
   })
   .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
   .chain(ajouteAuMoinsUneActiviteListee)
@@ -123,6 +124,8 @@ export const arbNonOSEPrivesMoyenGrandFournisseurNumerique = etend(
     typeStructure: arbTypeStructure.privee,
     trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
     appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.france,
+    fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.oui,
+    localisationRepresentant: arbLocalisationRepresentant.france,
   })
   .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
   .chain(ajouteAuMoinsUneActiviteListee)
