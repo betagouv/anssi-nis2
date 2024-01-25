@@ -52,6 +52,10 @@ export const predicatDonneesFormulaire = {
       <T extends DonneesFormulaireSimulateur[C][number]>(valeur: T) =>
       (donnees: DonneesFormulaireSimulateur) =>
         donnees[champ].includes(valeur as never),
+    verifie:
+      (f: <T extends DonneesFormulaireSimulateur[C]>(valeurs: T) => boolean) =>
+      (d: DonneesFormulaireSimulateur) =>
+        f(d[champ]),
     est: <T extends DonneesFormulaireSimulateur[C]>(valeurs: T) =>
       isMatching({ [champ]: valeurs }),
   }),

@@ -20,6 +20,7 @@ import {
   estUnSecteurAvecDesSousSecteurs,
 } from "../../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
 import { auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement } from "../../../../../commun/core/src/Domain/Simulateur/services/Activite/Activite.predicats.ts";
+import { predicatDonneesFormulaire as P } from "../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
@@ -38,8 +39,13 @@ const sousEtapeSousSecteur =
 
 const sousEtapeLocalisationActiviteSpecifique =
   fabriquesInformationsEtapes.sousEtapeConditionnelle(
-    ({ activites }: DonneesFormulaireSimulateur) =>
-      auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement(activites),
+    ou(
+      P.champs("activites").verifie(
+        auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
+      ),
+      P.champs("secteurActivite").contient("fournisseursNumeriques"),
+      P.champs("secteurActivite").contient("gestionServicesTic"),
+    ),
     fabriquesInformationsEtapes.form(
       "Localisation de votre activité",
       validationReponsesLocalisationActiviteSpecifique,

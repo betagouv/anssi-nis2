@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { UnionPetitMoyenGrand } from "../../src/Domain/Simulateur/ChampsSimulateur.definitions";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
+import { auMoinsUneActiviteListee } from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import {
   contientPetiteEntreprise,
   predicatDonneesFormulaire,
@@ -27,6 +28,16 @@ describe("predicatDonneesFormulaire", () => {
           .contient("fournisseursNumeriques"),
       );
     });
+  });
+  describe("Champ vérifie", () => {
+    const donnees = fabriqueDonneesFormulaire({
+      activites: ["entiteCentralesStockage"],
+    });
+    expect(donnees).toSatisfy(
+      predicatDonneesFormulaire
+        .champs("activites")
+        .verifie(auMoinsUneActiviteListee),
+    );
   });
 
   describe(contientPetiteEntreprise, () => {
