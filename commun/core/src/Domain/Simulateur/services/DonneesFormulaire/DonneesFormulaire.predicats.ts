@@ -80,13 +80,21 @@ export const verifieDonneesCommunesPublique = isMatching({
   typeEntitePublique: [P._],
 });
 
-const contientSecteurALocaliser = isMatching({
-  secteurActivite: ["infrastructureNumerique"],
-  activites: P.union(
-    ["fournisseurServicesDNS"],
-    ["registresNomsDomainesPremierNiveau"],
-  ),
-});
+const contientSecteurALocaliser = ou(
+  isMatching({
+    secteurActivite: ["infrastructureNumerique"],
+    activites: P.union(
+      ["fournisseurServicesDNS"],
+      ["registresNomsDomainesPremierNiveau"],
+    ),
+  }),
+  isMatching({
+    secteurActivite: P.union(
+      ["gestionServicesTic"],
+      ["fournisseursNumeriques"],
+    ),
+  }),
+);
 
 const neFournitPasDeServiceDansUE = isMatching({
   fournitServicesUnionEuropeenne: ["non"],

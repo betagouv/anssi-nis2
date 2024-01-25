@@ -1,6 +1,7 @@
 import { ValeursAppartenancePaysUnionEuropeenne } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
 import {
   ajouteArbitraireActivites,
+  ajouteChampsFacultatifs,
   etend,
   fabriqueArbContraintSurtrancheChiffreAffaire,
   fabriqueArbSingleton,
@@ -26,7 +27,8 @@ export const arbOSEPetit = etend(arbitraireSecteursSousSecteurs)
     ),
   })
   .chain(ajouteArbitraireActivites)
-  .filter((d) => d.activites.length > 0) as ArbitraireFormulaire;
+  .filter((d) => d.activites.length > 0)
+  .chain(ajouteChampsFacultatifs) as ArbitraireFormulaire;
 
 export const arbOSEMoyenGrand = etend(arbitraireSecteursSousSecteurs)
   .avec({
@@ -40,7 +42,8 @@ export const arbOSEMoyenGrand = etend(arbitraireSecteursSousSecteurs)
   })
   .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
   .chain(ajouteArbitraireActivites)
-  .filter((d) => d.activites.length > 0) as ArbitraireFormulaire;
+  .filter((d) => d.activites.length > 0)
+  .chain(ajouteChampsFacultatifs) as ArbitraireFormulaire;
 
 export const arbDesigneOSE = {
   petit: arbOSEPetit,

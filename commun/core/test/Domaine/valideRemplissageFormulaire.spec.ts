@@ -2,7 +2,7 @@ import { describe, it } from "vitest";
 import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire.definitions";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { ChampsFormulaireFacultatifs } from "../../src/Domain/Simulateur/DonneesFormulaire.valeurs";
-import { non } from "../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
+import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
 import {
   contientSecteursLocalisesValides,
   donneesFormulaireSontCompletes,
@@ -150,6 +150,11 @@ describe("Validation des données formulaire", () => {
     );
   });
 
+  /*
+  Error: Property failed after 54 tests
+{ seed: -1306139177, path: "53", endOnFailure: true }
+Counterexample: [{"typeEntitePublique":["administrationCentrale"],"fournitServicesUnionEuropeenne":[],"localisationRepresentant":[],"secteurActivite":["infrastructureNumerique"],"sousSecteurActivite":[],"designeOperateurServicesEssentiels":["non"],"typeStructure":["publique"],"trancheChiffreAffaire":["moyen"],"appartenancePaysUnionEurpopeenne":["france"],"trancheNombreEmployes":["grand"],"activites":["registresNomsDomainesPremierNiveau"]}]
+   */
   describe("donneesFormulaireSontCompletes", () => {
     it.each(donneesTestsArbitraires)(
       "Accepte données éligibles: $nom",
@@ -209,85 +214,75 @@ describe("Validation des données formulaire", () => {
       );
     });
 
-    const donneesNonValides: {
-      description: string;
-      donnees: DonneesFormulaireSimulateur;
-      tests: {
-        name: string;
-        actionTestee: (donnees: DonneesFormulaireSimulateur) => boolean;
-      }[];
-    }[] = [
-      {
-        description: "publique",
-        donnees: {
-          ...donneesFormulaireSimulateurVide,
-          designeOperateurServicesEssentiels: ["oui"],
-          appartenancePaysUnionEurpopeenne: ["france"],
-          secteurActivite: ["energie"],
-          trancheNombreEmployes: ["petit"],
-          typeStructure: ["publique"],
-          typeEntitePublique: ["administrationCentrale"],
-        },
-        tests: [
-          {
-            name: "verifieCompletudeDonneesCommunes",
-            actionTestee: verifieCompletudeDonneesCommunes,
-          },
-          {
-            name: "non(verifieCompletudeDonneesFormulairePublique)",
-            actionTestee: non(verifieCompletudeDonneesFormulairePublique),
-          },
-        ],
-      },
-      {
-        description: "Petite Infrastructure numérique non localisée",
-        donnees: formulairePetitInfraNumSansLocalisation,
-        tests: [
-          {
-            name: "non(contientSecteursLocalisesValides)",
-            actionTestee: non(contientSecteursLocalisesValides),
-          },
-          {
-            name: "non(verifieDonneesSectorielles)",
-            actionTestee: non(verifieDonneesSectorielles),
-          },
-        ],
-      },
-      {
-        description: "Petite Infrastructure numérique sans représentant",
-        donnees: {
+    describe("publique", () => {
+      const donnees = fabriqueDonneesFormulaire({
+        designeOperateurServicesEssentiels: ["oui"],
+        appartenancePaysUnionEurpopeenne: ["france"],
+        secteurActivite: ["energie"],
+        trancheNombreEmployes: ["petit"],
+        typeStructure: ["publique"],
+        typeEntitePublique: ["administrationCentrale"],
+      });
+      it(
+        "verifieCompletudeDonneesCommunes",
+        verifieQue(verifieCompletudeDonneesCommunes).pour(donnees)
+          .estToujoursVrai,
+      );
+      it(
+        "verifieCompletudeDonneesFormulairePublique",
+        verifieQue(verifieCompletudeDonneesFormulairePublique).pour(donnees)
+          .estToujoursFaux,
+      );
+    });
+    describe("Petite Infrastructure numérique non localisée", () => {
+      it(
+        "contientSecteursLocalisesValides",
+        verifieQue(contientSecteursLocalisesValides).pour(
+          formulairePetitInfraNumSansLocalisation,
+        ).estToujoursFaux,
+      );
+      it(
+        "verifieDonneesSectorielles",
+        verifieQue(verifieDonneesSectorielles).pour(
+          formulairePetitInfraNumSansLocalisation,
+        ).estToujoursFaux,
+      );
+      it(
+        "contientSecteursLocalisesValides",
+        verifieQue(contientSecteursLocalisesValides).pour({
           ...formulairePetitInfraNumSansLocalisation,
-          fournitServicesUnionEuropeenne: ["oui"],
-        },
-        tests: [
-          {
-            name: "non(verifieCompletudeDonneesFormulairePrivee)",
-            actionTestee: non(verifieCompletudeDonneesFormulairePrivee),
-          },
-        ],
-      },
-      {
-        description: "Petite Infrastructure numérique ne fournit pas en UE",
-        donnees: {
-          ...formulairePetitInfraNumSansLocalisation,
-          fournitServicesUnionEuropeenne: ["non"],
-        },
-        tests: [
-          {
-            name: "verifieCompletudeDonneesFormulairePrivee",
-            actionTestee: verifieCompletudeDonneesFormulairePrivee,
-          },
-        ],
-      },
-    ];
-
-    describe.each(donneesNonValides)(
-      "--> $description",
-      ({ donnees, tests }) => {
-        it.each(tests)("$name doit être $attendu", ({ actionTestee }) => {
-          verifieQue(actionTestee).pour(donnees).estToujoursVrai();
-        });
-      },
-    );
+          secteurActivite: ["gestionServicesTic"],
+          activites: ["fournisseurServicesSecuriteGeres"],
+        }).estToujoursFaux,
+      );
+      it(
+        "verifieDonneesSectorielles",
+        verifieQue(verifieDonneesSectorielles).pour(
+          formulairePetitInfraNumSansLocalisation,
+        ).estToujoursFaux,
+      );
+    });
+    describe("Petite Infrastructure numérique sans représentant", () => {
+      const donnees: DonneesFormulaireSimulateur = {
+        ...formulairePetitInfraNumSansLocalisation,
+        fournitServicesUnionEuropeenne: ["oui"],
+      };
+      it(
+        "verifieCompletudeDonneesFormulairePrivee",
+        verifieQue(verifieCompletudeDonneesFormulairePrivee).pour(donnees)
+          .estToujoursFaux,
+      );
+    });
+    describe("Petite Infrastructure numérique ne fournit pas en UE", () => {
+      const donnees: DonneesFormulaireSimulateur = {
+        ...formulairePetitInfraNumSansLocalisation,
+        fournitServicesUnionEuropeenne: ["non"],
+      };
+      it(
+        "verifieCompletudeDonneesFormulairePrivee",
+        verifieQue(verifieCompletudeDonneesFormulairePrivee).pour(donnees)
+          .estToujoursVrai,
+      );
+    });
   });
 });

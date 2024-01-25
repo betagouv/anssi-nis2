@@ -35,4 +35,5 @@ export const arbActivitesAutres = etend<DonneesSectorielles>(
   })
   .chain(ajouteAuMoinsUneActiviteAutre)
   .chain(ajouteChampsFacultatifs)
-  .filter((d) => d.activites.length > 0);
+  .filter((d) => d.activites.length > 0)
+  .chain(ajouteChampsFacultatifs);
