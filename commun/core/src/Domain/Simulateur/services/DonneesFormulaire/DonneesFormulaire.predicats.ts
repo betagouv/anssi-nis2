@@ -23,6 +23,7 @@ import {
   uniquementDesSecteursAutres,
 } from "../SecteurActivite/SecteurActivite.predicats";
 import { uniquementDesSousSecteursAutres } from "../SousSecteurActivite/SousSecteurActivite.predicats";
+import { estPetiteEntreprise } from "../TailleEntreprise/TailleEntite.predicats";
 
 const verifAuMoinsUn = {
   activiteListee: <
@@ -51,6 +52,8 @@ export const predicatDonneesFormulaire = {
       <T extends DonneesFormulaireSimulateur[C][number]>(valeur: T) =>
       (donnees: DonneesFormulaireSimulateur) =>
         donnees[champ].includes(valeur as never),
+    est: <T extends DonneesFormulaireSimulateur[C]>(valeurs: T) =>
+      isMatching({ [champ]: valeurs }),
   }),
 };
 
@@ -114,6 +117,9 @@ const contientSectorielleComplete = isMatching({
   sousSecteurActivite: P.array(),
   activites: P.when(estTableauNonVide<Activite>),
 });
+
+export const contientPetiteEntreprise = (d: DonneesFormulaireSimulateur) =>
+  estPetiteEntreprise(d.trancheNombreEmployes, d.trancheChiffreAffaire);
 export const verifieDonneesSectorielles = et(
   ou(
     contientUniquementSecteurAutre,

@@ -21,13 +21,15 @@ describe("validation des arbitraires", () => {
               expect(donnees).toSatisfy(
                 P.auMoins.une.activiteListee<DonneesFormulaireSimulateur>,
               );
-              expect(donnees.designeOperateurServicesEssentiels).toStrictEqual([
-                "non",
-              ]);
-              expect(donnees.typeStructure).toStrictEqual(["privee"]);
-              expect(donnees.appartenancePaysUnionEurpopeenne).toStrictEqual([
-                "france",
-              ]);
+              expect(donnees).toSatisfy(
+                P.champs("designeOperateurServicesEssentiels").est(["non"]),
+              );
+              expect(donnees).toSatisfy(
+                P.champs("typeStructure").est(["privee"]),
+              );
+              expect(donnees).toSatisfy(
+                P.champs("appartenancePaysUnionEurpopeenne").est(["france"]),
+              );
               expect(
                 estPetiteEntreprise(
                   donnees.trancheNombreEmployes,
