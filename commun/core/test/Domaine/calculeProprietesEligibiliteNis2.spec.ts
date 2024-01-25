@@ -135,7 +135,16 @@ describe(calculeEligibilite, () => {
             V.NonEligible(arbForm.nonDesigneOSE.privee.grand.secteursAutres);
           });
           it("Si l'activité est 'autre'", () => {
-            V.NonEligible(arbForm.nonDesigneOSE.privee.grand.activitesAutres);
+            V.NonEligible(
+              arbForm.nonDesigneOSE.privee.grand.activitesAutres
+                .avecLocalisation,
+            );
+          });
+          it("Si l'activité est 'autre'", () => {
+            V.NonEligible(
+              arbForm.nonDesigneOSE.privee.grand.activitesAutres
+                .sansLocalisation,
+            );
           });
         });
       });

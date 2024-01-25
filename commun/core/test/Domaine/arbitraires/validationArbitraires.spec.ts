@@ -1,6 +1,7 @@
 import { describe, it } from "vitest";
 import { fc } from "@fast-check/vitest";
 import { DonneesFormulaireSimulateur } from "../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
+import { contientSecteurNecessitantLocalisation } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { non } from "../../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
 import {
   contientPetiteEntreprise,
@@ -11,8 +12,8 @@ import { expect } from "vitest";
 
 const getSatisfait =
   (donnees: DonneesFormulaireSimulateur) =>
-  (f: (d: DonneesFormulaireSimulateur) => boolean) =>
-    expect(donnees).toSatisfy(f);
+  (f: (d: DonneesFormulaireSimulateur) => boolean, m?: string) =>
+    expect(donnees).toSatisfy(f, m);
 
 describe("validation des arbitraires", () => {
   describe("Entite non OSE pour NIS 1", () => {
@@ -106,6 +107,55 @@ describe("validation des arbitraires", () => {
           ),
           { verbose: 2 },
         );
+      });
+      describe("arbForm.nonDesigneOSE.privee.grand.activitesAutres", () => {
+        it("sansLocalisation", () => {
+          fc.assert(
+            fc.property(
+              arbForm.nonDesigneOSE.privee.grand.activitesAutres
+                .sansLocalisation,
+              (donnees: DonneesFormulaireSimulateur) => {
+                const satisfait = getSatisfait(donnees);
+                satisfait(P.uniquement.activiteAutre);
+                satisfait(non(contientPetiteEntreprise));
+                satisfait(non(contientSecteurNecessitantLocalisation));
+                satisfait(
+                  P.champs("designeOperateurServicesEssentiels").est(["non"]),
+                );
+                satisfait(P.champs("typeStructure").est(["privee"]));
+                satisfait(
+                  P.champs("appartenancePaysUnionEurpopeenne").est(["france"]),
+                );
+              },
+            ),
+            { verbose: 2 },
+          );
+        });
+        it("avecLocalisation", () => {
+          fc.assert(
+            fc.property(
+              arbForm.nonDesigneOSE.privee.grand.activitesAutres
+                .avecLocalisation,
+              (donnees: DonneesFormulaireSimulateur) => {
+                const satisfait = getSatisfait(donnees);
+                satisfait(P.uniquement.activiteAutre);
+                satisfait(non(contientPetiteEntreprise));
+                satisfait(contientSecteurNecessitantLocalisation);
+                satisfait(
+                  P.champs("designeOperateurServicesEssentiels").est(["non"]),
+                );
+                satisfait(P.champs("typeStructure").est(["privee"]));
+                satisfait(
+                  P.champs("appartenancePaysUnionEurpopeenne").est(["france"]),
+                );
+                satisfait(
+                  non(P.champs("fournitServicesUnionEuropeenne").est([])),
+                );
+              },
+            ),
+            { verbose: 2 },
+          );
+        });
       });
     });
   });

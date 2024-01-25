@@ -1,3 +1,10 @@
+import { ValeursOuiNon } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
+import { contientSecteurNecessitantLocalisation } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { non } from "../../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
+import {
+  etend,
+  fabriqueArbSingleton,
+} from "../../utilitaires/manipulationArbitraires";
 import { arbActivitesAutres } from "./arbitrairesSimulateur.activites";
 import {
   arbAutrePaysUe,
@@ -25,7 +32,18 @@ export const arbForm = {
       grand: {
         secteursListes: arbNonOSEPrivesMoyenneGrande,
         secteursAutres: arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles,
-        activitesAutres: arbNonOSEPrivesMoyenneGrandeAutresActivites,
+        activitesAutres: {
+          sansLocalisation: arbNonOSEPrivesMoyenneGrandeAutresActivites.filter(
+            non(contientSecteurNecessitantLocalisation),
+          ),
+          avecLocalisation: etend(
+            arbNonOSEPrivesMoyenneGrandeAutresActivites.filter(
+              contientSecteurNecessitantLocalisation,
+            ),
+          ).avec({
+            fournitServicesUnionEuropeenne: fabriqueArbSingleton(ValeursOuiNon),
+          }),
+        },
       },
       exceptions: {
         etablissementPrincipalFrance: {

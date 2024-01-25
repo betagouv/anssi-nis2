@@ -1,7 +1,9 @@
 import { fc } from "@fast-check/vitest";
 import { ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement } from "../../../src/Domain/Simulateur/Eligibilite.constantes";
-import { exerceUniquementActivitesDansListe } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
-import { estSecteurParmi } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
+import {
+  contientSecteurNecessitantLocalisation,
+  exerceUniquementActivitesDansListe,
+} from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import {
   ajouteArbitraireActivites,
   ajouteAuMoinsUneActiviteAutre,
@@ -12,19 +14,19 @@ import {
   fabriqueArbTrancheSingleton,
 } from "../../utilitaires/manipulationArbitraires";
 import {
-  arbEnrAutresSecteursSousSecteurs,
-  arbSecteursEtSousSecteursListes,
-  arbSecteursSousSecteursListes,
-} from "./arbitrairesSimulateur.valeursSectorielles";
-import {
   arbAppartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
   arbFournitServiceUnionEuropeenne,
   arbLocalisationRepresentant,
   arbTypeStructure,
 } from "./arbitraireChampFormulaire";
-import { arbNonOSEPrivesPetitFournisseurInfraNum } from "./arbitrairesSimulateur.infrastructuresNumeriques";
 import { ArbitraireFormulaire } from "./arbitraireFormulaire.definitions";
+import { arbNonOSEPrivesPetitFournisseurInfraNum } from "./arbitrairesSimulateur.infrastructuresNumeriques";
+import {
+  arbEnrAutresSecteursSousSecteurs,
+  arbSecteursEtSousSecteursListes,
+  arbSecteursSousSecteursListes,
+} from "./arbitrairesSimulateur.valeursSectorielles";
 
 export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance =
   etend(arbNonOSEPrivesPetitFournisseurInfraNum)
@@ -42,15 +44,8 @@ export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFranc
     .chain(ajouteChampsFacultatifs);
 
 export const arbNonOSEPrivesMoyenneGrande = etend(
-  arbSecteursEtSousSecteursListes.filter((d) =>
-    d.secteurActivite.every(
-      (s) =>
-        !estSecteurParmi(s)([
-          "gestionServicesTic",
-          "fournisseursNumeriques",
-          "infrastructureNumerique",
-        ]),
-    ),
+  arbSecteursEtSousSecteursListes.filter(
+    contientSecteurNecessitantLocalisation,
   ),
 )
   .avec({

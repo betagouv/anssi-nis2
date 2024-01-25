@@ -48,7 +48,13 @@ describe("Validation des données formulaire", () => {
     },
     {
       nom: "nonDesigneOSE.privee.grand.activitesAutres",
-      arbitraireEligible: arbForm.nonDesigneOSE.privee.grand.activitesAutres,
+      arbitraireEligible:
+        arbForm.nonDesigneOSE.privee.grand.activitesAutres.avecLocalisation,
+    },
+    {
+      nom: "nonDesigneOSE.privee.grand.activitesAutres",
+      arbitraireEligible:
+        arbForm.nonDesigneOSE.privee.grand.activitesAutres.sansLocalisation,
     },
     {
       nom: "nonDesigneOSE.privee.activitesAutres",
@@ -85,25 +91,19 @@ describe("Validation des données formulaire", () => {
   };
 
   describe("Données privées : verifieDonneesCommunesPrivee", () => {
-    it.each(donneesTestsArbPrivee)(
-      "Doit accepter des données éligibles: $nom",
-      ({ arbitraireEligible }) => {
-        verifieQue(verifieDonneesCommunesPrivee)
-          .estToujoursVrai()
-          .quelqueSoit(arbitraireEligible);
-      },
-    );
+    it.each(donneesTestsArbPrivee)(" $nom", ({ arbitraireEligible }) => {
+      verifieQue(verifieDonneesCommunesPrivee)
+        .estToujoursVrai()
+        .quelqueSoit(arbitraireEligible);
+    });
   });
 
   describe("Données privées : verifieCompletudeDonneesFormulairePrivee", () => {
-    it.each(donneesTestsArbPrivee)(
-      "Doit accepter des données éligibles: $nom",
-      ({ arbitraireEligible }) => {
-        verifieQue(verifieCompletudeDonneesFormulairePrivee)
-          .estToujoursVrai()
-          .quelqueSoit(arbitraireEligible);
-      },
-    );
+    it.each(donneesTestsArbPrivee)("$nom", ({ arbitraireEligible }) => {
+      verifieQue(verifieCompletudeDonneesFormulairePrivee)
+        .estToujoursVrai()
+        .quelqueSoit(arbitraireEligible);
+    });
   });
 
   describe("verifieCompletudeDonneesFormulairePublique", () => {
@@ -156,25 +156,19 @@ describe("Validation des données formulaire", () => {
 Counterexample: [{"typeEntitePublique":["administrationCentrale"],"fournitServicesUnionEuropeenne":[],"localisationRepresentant":[],"secteurActivite":["infrastructureNumerique"],"sousSecteurActivite":[],"designeOperateurServicesEssentiels":["non"],"typeStructure":["publique"],"trancheChiffreAffaire":["moyen"],"appartenancePaysUnionEurpopeenne":["france"],"trancheNombreEmployes":["grand"],"activites":["registresNomsDomainesPremierNiveau"]}]
    */
   describe("donneesFormulaireSontCompletes", () => {
-    it.each(donneesTestsArbitraires)(
-      "Accepte données éligibles: $nom",
-      ({ arbitraireEligible }) => {
-        verifieQue(donneesFormulaireSontCompletes)
-          .estToujoursVrai()
-          .quelqueSoit(arbitraireEligible);
-      },
-    );
+    it.each(donneesTestsArbitraires)("$nom", ({ arbitraireEligible }) => {
+      verifieQue(donneesFormulaireSontCompletes)
+        .estToujoursVrai()
+        .quelqueSoit(arbitraireEligible);
+    });
   });
 
   describe("verifieDonneesSectorielles", () => {
-    it.each(donneesTestsArbitraires)(
-      "Doit accepter des données éligibles: $nom",
-      ({ arbitraireEligible }) => {
-        verifieQue(verifieDonneesSectorielles)
-          .estToujoursVrai()
-          .quelqueSoit(arbitraireEligible);
-      },
-    );
+    it.each(donneesTestsArbitraires)("$nom", ({ arbitraireEligible }) => {
+      verifieQue(verifieDonneesSectorielles)
+        .estToujoursVrai()
+        .quelqueSoit(arbitraireEligible);
+    });
   });
 
   describe("Cas étrange de validation", () => {
