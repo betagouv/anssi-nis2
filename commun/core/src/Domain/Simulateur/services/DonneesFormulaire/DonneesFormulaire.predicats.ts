@@ -1,6 +1,5 @@
 import { isMatching, P } from "ts-pattern";
 import { estTableauNonVide } from "../../../Commun/Commun.predicats";
-import { VVVPipe } from "../../../utilitaires/debug";
 import { Activite } from "../../Activite.definitions";
 import {
   DonneesFormulaireSimulateur,
@@ -92,19 +91,12 @@ const estInfranumDnsOuRegistre = isMatching({
     ["registresNomsDomainesPremierNiveau"],
   ),
 });
-const estServiceTicOuFournisseurNum = VVVPipe("estServiceTicOuFournisseurNum")(
-  isMatching({
-    secteurActivite: P.union(
-      ["gestionServicesTic"],
-      ["fournisseursNumeriques"],
-    ),
-  }),
-);
-export const contientSecteurALocaliser = VVVPipe("contientSecteurALocaliser")(
-  ou(
-    estInfranumDnsOuRegistre,
-    et(non(contientPetiteEntreprise), estServiceTicOuFournisseurNum),
-  ),
+const estServiceTicOuFournisseurNum = isMatching({
+  secteurActivite: P.union(["gestionServicesTic"], ["fournisseursNumeriques"]),
+});
+export const contientSecteurALocaliser = ou(
+  estInfranumDnsOuRegistre,
+  et(non(contientPetiteEntreprise), estServiceTicOuFournisseurNum),
 );
 
 const neFournitPasDeServiceDansUE = isMatching({
@@ -117,15 +109,11 @@ const fournitServiceUEBienRemplit = isMatching({
   localisationRepresentant: P.not([]),
 });
 
-export const contientSecteursLocalisesValides = VVVPipe(
-  "contientSecteursLocalisesValides",
-)(
-  oux(
-    non(contientSecteurALocaliser),
-    et(
-      contientSecteurALocaliser,
-      ou(neFournitPasDeServiceDansUE, fournitServiceUEBienRemplit),
-    ),
+export const contientSecteursLocalisesValides = oux(
+  non(contientSecteurALocaliser),
+  et(
+    contientSecteurALocaliser,
+    ou(neFournitPasDeServiceDansUE, fournitServiceUEBienRemplit),
   ),
 );
 
@@ -151,7 +139,10 @@ export const verifieDonneesSectorielles = et(
     contientUniquementSousSecteurAutre,
     contientSectorielleComplete,
   ),
-  contientSecteursLocalisesValides,
+  ou(
+    predicatDonneesFormulaire.uniquement.activiteAutre,
+    contientSecteursLocalisesValides,
+  ),
 );
 
 export const verifieCompletudeDonneesFormulairePrivee = et(
@@ -170,9 +161,6 @@ export const donneesFormulaireSontCompletes = et(
   ),
 );
 
-export const donneesFormulaireSontIncompletes = non(
-  donneesFormulaireSontCompletes,
-);
 export const contientSecteurNecessitantLocalisation = (
   d: DonneesSectorielles,
 ) =>
@@ -180,4 +168,10 @@ export const contientSecteurNecessitantLocalisation = (
     predicatDonneesFormulaire.champs("secteurActivite").contient(s)(
       d as DonneesFormulaireSimulateur,
     ),
+  );
+export const contientUniquementSecteurNecessitantLocalisation = (
+  d: DonneesSectorielles,
+) =>
+  d.secteurActivite.every((s) =>
+    secteursNecessitantLocalisationRepresentant.includes(s),
   );

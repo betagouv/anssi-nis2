@@ -43,7 +43,7 @@ describe("Validation des données formulaire", () => {
       arbitraireEligible: arbForm.designeOSE.moyenGrand.sansBesoinLocalisation,
     },
     {
-      nom: "designeOSE.moyenGrand.avecLocalisation",
+      nom: "designeOSE.moyenGrand.avecLocalisationRepresentant",
       arbitraireEligible:
         arbForm.designeOSE.moyenGrand.avecLocalisationRepresentant,
     },
@@ -56,7 +56,7 @@ describe("Validation des données formulaire", () => {
     {
       nom: "nonDesigneOSE.privee.grand.secteursListes.avecFournitServiceUE",
       arbitraireEligible:
-        arbForm.nonDesigneOSE.privee.grand.secteursListes.avecFournitServiceUE,
+        arbForm.nonDesigneOSE.privee.grand.secteursListes.neFournitPasServiceUe,
     },
     {
       nom: "nonDesigneOSE.privee.grand.secteursListes.avecLocalisationRepresentant",
@@ -69,16 +69,8 @@ describe("Validation des données formulaire", () => {
       arbitraireEligible: arbForm.nonDesigneOSE.privee.grand.secteursAutres,
     },
     {
-      nom: "nonDesigneOSE.privee.grand.activitesAutres.avecLocalisationRepresentant",
-      arbitraireEligible:
-        arbForm.nonDesigneOSE.privee.grand.activitesAutres
-          .avecLocalisationRepresentant,
-    },
-    {
-      nom: "nonDesigneOSE.privee.grand.activitesAutres.sansBesoinLocalisation",
-      arbitraireEligible:
-        arbForm.nonDesigneOSE.privee.grand.activitesAutres
-          .sansBesoinLocalisation,
+      nom: "nonDesigneOSE.privee.grand.activitesAutres",
+      arbitraireEligible: arbForm.nonDesigneOSE.privee.grand.activitesAutres,
     },
     {
       nom: "nonDesigneOSE.privee.activitesAutres",
@@ -93,8 +85,22 @@ describe("Validation des données formulaire", () => {
   ];
   const donneesTestsArbPublique = [
     {
-      nom: "nonDesigneOSE.publique",
-      arbitraireEligible: arbForm.nonDesigneOSE.publique,
+      nom: "nonDesigneOSE.publique.sansBesoinLocalisation",
+      arbitraireEligible: arbForm.nonDesigneOSE.publique.sansBesoinLocalisation,
+    },
+    {
+      nom: "nonDesigneOSE.publique.avecLocalisationRepresentant",
+      arbitraireEligible:
+        arbForm.nonDesigneOSE.publique.avecLocalisationRepresentant,
+    },
+    {
+      nom: "nonDesigneOSE.publique.avecLocalisationRepresentantFrance",
+      arbitraireEligible:
+        arbForm.nonDesigneOSE.publique.avecLocalisationRepresentantFrance,
+    },
+    {
+      nom: "nonDesigneOSE.publique.neFournitPasServiceUe",
+      arbitraireEligible: arbForm.nonDesigneOSE.publique.neFournitPasServiceUe,
     },
   ];
 
@@ -137,14 +143,11 @@ describe("Validation des données formulaire", () => {
   });
 
   describe("verifieCompletudeDonneesFormulairePublique", () => {
-    it.each(donneesTestsArbPublique)(
-      "Doit accepter des données éligibles: $nom",
-      ({ arbitraireEligible }) => {
-        verifieQue(verifieCompletudeDonneesFormulairePublique)
-          .estToujoursVrai()
-          .quelqueSoit(arbitraireEligible);
-      },
-    );
+    it.each(donneesTestsArbPublique)("$nom", ({ arbitraireEligible }) => {
+      verifieQue(verifieCompletudeDonneesFormulairePublique)
+        .estToujoursVrai()
+        .quelqueSoit(arbitraireEligible);
+    });
   });
 
   describe("verifieDonneesCommunesPublique", () => {
@@ -277,7 +280,7 @@ Counterexample: [{"typeEntitePublique":["administrationCentrale"],"fournitServic
           ...formulairePetitInfraNumSansLocalisation,
           secteurActivite: ["gestionServicesTic"],
           activites: ["fournisseurServicesSecuriteGeres"],
-        }).estToujoursFaux,
+        }).estToujoursVrai,
       );
       it(
         "verifieDonneesSectorielles",

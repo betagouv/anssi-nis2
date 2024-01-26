@@ -48,6 +48,7 @@ export type DonneesExtensiblesAvecActivite<
 > = DonneesPartielles & Pick<DonneesFormulaireSimulateur, "activites">;
 export type ArbitraireEnrichi = ArbitraireDonneesFormulaireSimulateurNomme & {
   sansBesoinLocalisation: ArbitraireDonneesFormulaireSimulateurNomme;
-  avecFournitServiceUE: ArbitraireDonneesFormulaireSimulateurNomme;
+  neFournitPasServiceUe: ArbitraireDonneesFormulaireSimulateurNomme;
   avecLocalisationRepresentant: ArbitraireDonneesFormulaireSimulateurNomme;
+  avecLocalisationRepresentantFrance: ArbitraireDonneesFormulaireSimulateurNomme;
 };

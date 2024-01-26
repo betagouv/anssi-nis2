@@ -28,9 +28,7 @@ export const arbForm = {
           arbNonOSEPrivesMoyenneGrande,
         ),
         secteursAutres: arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles,
-        activitesAutres: fabriquePartitionLocalisationServices(
-          arbNonOSEPrivesMoyenneGrandeAutresActivites,
-        ),
+        activitesAutres: arbNonOSEPrivesMoyenneGrandeAutresActivites,
       },
       exceptions: {
         etablissementPrincipalFrance: {
@@ -42,7 +40,7 @@ export const arbForm = {
         },
       },
     },
-    publique: arbNonOSEPublique,
+    publique: fabriquePartitionLocalisationServices(arbNonOSEPublique),
     horsUE: arbHorsUe,
     autrePaysUe: arbAutrePaysUe,
   },

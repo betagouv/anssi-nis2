@@ -1,14 +1,26 @@
 import { describe, it } from "vitest";
 import { Eligibilite } from "../../src/Domain/Simulateur/Eligibilite.constantes";
+import { SecteurActivite } from "../../src/Domain/Simulateur/SecteurActivite.definitions";
 import { calculeEligibilite } from "../../src/Domain/Simulateur/services/Eligibilite/Eligibilite.operations";
 import { verifieQue } from "../utilitaires/assure";
 import { VerifieEligibilite as V } from "../utilitaires/Eligibilite.Verification";
-import { AvecParams, etend } from "../utilitaires/manipulationArbitraires";
 import {
+  ajouteArbitraireActivites,
+  ajouteChampsFacultatifs,
+  AvecParams,
+  etend,
+  fabriqueArbContraintSurtrancheChiffreAffaire,
+  fabriqueArbTrancheSingleton,
+} from "../utilitaires/manipulationArbitraires";
+import {
+  arbAppartenancePaysUnionEuropeenne,
+  arbDesigneOperateurServicesEssentiels,
   arbFournitServiceUnionEuropeenne,
   arbLocalisationRepresentant,
+  arbTypeStructure,
 } from "./arbitraires/arbitraireChampFormulaire";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
+import { fc } from "@fast-check/vitest";
 
 describe(calculeEligibilite, () => {
   describe("Entité OSE pour NIS1", () => {
@@ -125,26 +137,51 @@ describe(calculeEligibilite, () => {
       });
 
       describe("Moyenne ou grande entité localisée en France ou en UE", () => {
-        it("Est éligible si le secteur d'activité et l'activité sont listés", () => {
-          V.EligibleMoyenneGrandeEntreprise(
-            arbForm.nonDesigneOSE.privee.grand.secteursListes,
-          );
+        describe("est éligible si", () => {
+          it("secteur d'activité et activité listés sans besoin de localisation", () => {
+            V.EligibleMoyenneGrandeEntreprise(
+              arbForm.nonDesigneOSE.privee.grand.secteursListes
+                .sansBesoinLocalisation,
+            );
+          });
+          it("secteur d'activité et activité listés sans besoin de localisation", () => {
+            V.EligibleMoyenneGrandeEntreprise(
+              arbForm.nonDesigneOSE.privee.grand.secteursListes
+                .avecLocalisationRepresentantFrance,
+            );
+          });
         });
         describe("N'est pas éligible", () => {
+          it("secteur d'activité necessitant localisation représentant, fournissant hors UE", () => {
+            V.NonEligible(
+              etend(
+                fc.record({
+                  secteurActivite: fc.subarray<SecteurActivite>([
+                    "fournisseursNumeriques",
+                    "gestionServicesTic",
+                  ]),
+                  sousSecteurActivite: fc.constant([]),
+                }),
+              )
+                .avec({
+                  designeOperateurServicesEssentiels:
+                    arbDesigneOperateurServicesEssentiels.non,
+                  typeStructure: arbTypeStructure.privee,
+                  appartenancePaysUnionEurpopeenne:
+                    arbAppartenancePaysUnionEuropeenne.france,
+                  trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
+                  fournitServicesUnionEuropeenne: fc.constant(["non"]),
+                })
+                .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
+                .chain(ajouteArbitraireActivites)
+                .chain(ajouteChampsFacultatifs),
+            );
+          });
           it("Si le secteur est 'autre'", () => {
             V.NonEligible(arbForm.nonDesigneOSE.privee.grand.secteursAutres);
           });
           it("Si l'activité est 'autre'", () => {
-            V.NonEligible(
-              arbForm.nonDesigneOSE.privee.grand.activitesAutres
-                .avecLocalisationRepresentant,
-            );
-          });
-          it("Si l'activité est 'autre'", () => {
-            V.NonEligible(
-              arbForm.nonDesigneOSE.privee.grand.activitesAutres
-                .sansBesoinLocalisation,
-            );
+            V.NonEligible(arbForm.nonDesigneOSE.privee.grand.activitesAutres);
           });
         });
       });

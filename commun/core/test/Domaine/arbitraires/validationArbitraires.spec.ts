@@ -5,6 +5,7 @@ import { non } from "../../../src/Domain/Simulateur/services/ChampSimulateur/cha
 import {
   contientPetiteEntreprise,
   contientSecteurNecessitantLocalisation,
+  predicatDonneesFormulaire,
   predicatDonneesFormulaire as P,
 } from "../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { arbForm } from "./arbitrairesSimulateur";
@@ -108,15 +109,15 @@ describe("validation des arbitraires", () => {
           { verbose: 2 },
         );
       });
-      describe("arbForm.nonDesigneOSE.privee.grand.activitesAutres", () => {
+      describe("arbForm.nonDesigneOSE.privee.grand.secteursListes", () => {
         it("sansBesoinLocalisation", () => {
           fc.assert(
             fc.property(
-              arbForm.nonDesigneOSE.privee.grand.activitesAutres
+              arbForm.nonDesigneOSE.privee.grand.secteursListes
                 .sansBesoinLocalisation,
               (donnees: DonneesFormulaireSimulateur) => {
                 const satisfait = getSatisfait(donnees);
-                satisfait(P.uniquement.activiteAutre);
+                satisfait(P.auMoins.une.activiteListee);
                 satisfait(non(contientPetiteEntreprise));
                 satisfait(non(contientSecteurNecessitantLocalisation));
                 satisfait(
@@ -134,11 +135,11 @@ describe("validation des arbitraires", () => {
         it("avecLocalisation", () => {
           fc.assert(
             fc.property(
-              arbForm.nonDesigneOSE.privee.grand.activitesAutres
+              arbForm.nonDesigneOSE.privee.grand.secteursListes
                 .avecLocalisationRepresentant,
               (donnees: DonneesFormulaireSimulateur) => {
                 const satisfait = getSatisfait(donnees);
-                satisfait(P.uniquement.activiteAutre);
+                satisfait(P.auMoins.une.activiteListee);
                 satisfait(non(contientPetiteEntreprise));
                 satisfait(contientSecteurNecessitantLocalisation);
                 satisfait(
@@ -156,6 +157,27 @@ describe("validation des arbitraires", () => {
             { verbose: 2 },
           );
         });
+      });
+
+      describe("arbForm.nonDesigneOSE.privee.activitesAutres", () => {
+        it("activitesAutres", () =>
+          fc.assert(
+            fc.property(
+              arbForm.nonDesigneOSE.privee.activitesAutres,
+              (donnees: DonneesFormulaireSimulateur) => {
+                const satisfait = getSatisfait(donnees);
+                satisfait(
+                  P.champs("designeOperateurServicesEssentiels").est(["non"]),
+                );
+                satisfait(P.champs("typeStructure").est(["privee"]));
+                satisfait(
+                  P.champs("appartenancePaysUnionEurpopeenne").est(["france"]),
+                );
+                satisfait(predicatDonneesFormulaire.uniquement.activiteAutre);
+              },
+            ),
+            { verbose: 2 },
+          ));
       });
     });
   });

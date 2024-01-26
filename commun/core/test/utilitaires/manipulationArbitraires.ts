@@ -1,6 +1,7 @@
 import { fc } from "@fast-check/vitest";
 import { Activite } from "../../src/Domain/Simulateur/Activite.definitions";
 import {
+  AppartenancePaysUnionEuropeenne,
   FournitServicesUnionEuropeenne,
   UnionPetitMoyenGrand,
   ValeurChampSimulateur,
@@ -20,7 +21,10 @@ import {
   estActiviteListee,
 } from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { non } from "../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
-import { contientSecteurNecessitantLocalisation } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
+import {
+  contientSecteurNecessitantLocalisation,
+  contientUniquementSecteurNecessitantLocalisation,
+} from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { filtreSecteursSansSousSecteurs } from "../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.operations";
 import {
   EnrSecteurSousSecteur,
@@ -336,7 +340,7 @@ export const fabriquePartitionLocalisationServices = (
       sansBesoinLocalisation: nommeArbitraire("sansBesoinLocalisation")(
         arbitraire.filter(non(contientSecteurNecessitantLocalisation)),
       ),
-      avecFournitServiceUE: nommeArbitraire("avecFournitServiceUE")(
+      neFournitPasServiceUe: nommeArbitraire("avecFournitServiceUE")(
         etend(arbitraire.filter(contientSecteurNecessitantLocalisation)).avec({
           fournitServicesUnionEuropeenne: fc.constant<
             FournitServicesUnionEuropeenne[]
@@ -351,6 +355,18 @@ export const fabriquePartitionLocalisationServices = (
           localisationRepresentant: fabriqueArbSingleton(
             ValeursAppartenancePaysUnionEuropeenne,
           ),
+        }),
+      ),
+      avecLocalisationRepresentantFrance: nommeArbitraire(
+        "avecLocalisationRepresentant",
+      )(
+        etend(
+          arbitraire.filter(contientUniquementSecteurNecessitantLocalisation),
+        ).avec({
+          fournitServicesUnionEuropeenne: fc.constant(["oui"]),
+          localisationRepresentant: fc.constant<
+            AppartenancePaysUnionEuropeenne[]
+          >(["france"]),
         }),
       ),
     },
