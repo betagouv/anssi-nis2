@@ -1,10 +1,6 @@
+import { fabriquePartitionLocalisationServices } from "../../utilitaires/manipulationArbitraires";
 import { arbActivitesAutres } from "./arbitrairesSimulateur.activites";
-import {
-  arbAutrePaysUe,
-  arbHorsUe,
-  donneeAbsente,
-} from "./arbitrairesSimulateur.toutesValeurs";
-import { arbNonOSEPublique } from "./arbitrairesSimulateur.nonOSEPublique";
+import { arbFournisseursInfrastructureNumerique } from "./arbitrairesSimulateur.infrastructuresNumeriques";
 import {
   arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance,
   arbNonOSEPrivesMoyenGrandFournisseurNumerique,
@@ -13,8 +9,13 @@ import {
   arbNonOSEPrivesMoyenneGrandeAutresActivites,
   arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles,
 } from "./arbitrairesSimulateur.nonOSEPriveesMoyennesGrandes";
-import { arbFournisseursInfrastructureNumerique } from "./arbitrairesSimulateur.infrastructuresNumeriques";
+import { arbNonOSEPublique } from "./arbitrairesSimulateur.nonOSEPublique";
 import { arbDesigneOSE } from "./arbitrairesSimulateur.OSE";
+import {
+  arbAutrePaysUe,
+  arbHorsUe,
+  donneeAbsente,
+} from "./arbitrairesSimulateur.toutesValeurs";
 
 export const arbForm = {
   designeOSE: arbDesigneOSE,
@@ -23,7 +24,9 @@ export const arbForm = {
       activitesAutres: arbActivitesAutres,
       petit: arbFournisseursInfrastructureNumerique,
       grand: {
-        secteursListes: arbNonOSEPrivesMoyenneGrande,
+        secteursListes: fabriquePartitionLocalisationServices(
+          arbNonOSEPrivesMoyenneGrande,
+        ),
         secteursAutres: arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles,
         activitesAutres: arbNonOSEPrivesMoyenneGrandeAutresActivites,
       },
@@ -37,7 +40,7 @@ export const arbForm = {
         },
       },
     },
-    publique: arbNonOSEPublique,
+    publique: fabriquePartitionLocalisationServices(arbNonOSEPublique),
     horsUE: arbHorsUe,
     autrePaysUe: arbAutrePaysUe,
   },

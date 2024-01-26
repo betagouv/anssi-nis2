@@ -1,10 +1,12 @@
-import { P, isMatching } from "ts-pattern";
+import { isMatching, P } from "ts-pattern";
 import { estTableauNonVide } from "../../../Commun/Commun.predicats";
 import { Activite } from "../../Activite.definitions";
 import {
-  DonneesSectorielles,
   DonneesFormulaireSimulateur,
+  DonneesSectorielles,
+  NomsChampsSimulateur,
 } from "../../DonneesFormulaire.definitions";
+import { secteursNecessitantLocalisationRepresentant } from "../../SecteurActivite.constantes";
 import {
   auMoinsUneActiviteListee,
   estActiviteAutre,
@@ -22,6 +24,10 @@ import {
   uniquementDesSecteursAutres,
 } from "../SecteurActivite/SecteurActivite.predicats";
 import { uniquementDesSousSecteursAutres } from "../SousSecteurActivite/SousSecteurActivite.predicats";
+import { estPetiteEntreprise } from "../TailleEntreprise/TailleEntite.predicats";
+
+export const contientPetiteEntreprise = (d: DonneesFormulaireSimulateur) =>
+  estPetiteEntreprise(d.trancheNombreEmployes, d.trancheChiffreAffaire);
 
 const verifAuMoinsUn = {
   activiteListee: <
@@ -45,7 +51,20 @@ export const predicatDonneesFormulaire = {
       donnees: T,
     ) => donnees.activites.every(estActiviteAutre),
   },
+  champs: <C extends NomsChampsSimulateur>(champ: C) => ({
+    contient:
+      <T extends DonneesFormulaireSimulateur[C][number]>(valeur: T) =>
+      (donnees: DonneesFormulaireSimulateur) =>
+        donnees[champ].includes(valeur as never),
+    verifie:
+      (f: <T extends DonneesFormulaireSimulateur[C]>(valeurs: T) => boolean) =>
+      (d: DonneesFormulaireSimulateur) =>
+        f(d[champ]),
+    est: <T extends DonneesFormulaireSimulateur[C]>(valeurs: T) =>
+      isMatching({ [champ]: valeurs }),
+  }),
 };
+
 export const verifieCompletudeDonneesCommunes = et(
   exactementUn("designeOperateurServicesEssentiels"),
   exactementUn("appartenancePaysUnionEurpopeenne"),
@@ -65,13 +84,20 @@ export const verifieDonneesCommunesPublique = isMatching({
   typeEntitePublique: [P._],
 });
 
-const contientSecteurALocaliser = isMatching({
+const estInfranumDnsOuRegistre = isMatching({
   secteurActivite: ["infrastructureNumerique"],
   activites: P.union(
     ["fournisseurServicesDNS"],
     ["registresNomsDomainesPremierNiveau"],
   ),
 });
+const estServiceTicOuFournisseurNum = isMatching({
+  secteurActivite: P.union(["gestionServicesTic"], ["fournisseursNumeriques"]),
+});
+export const contientSecteurALocaliser = ou(
+  estInfranumDnsOuRegistre,
+  et(non(contientPetiteEntreprise), estServiceTicOuFournisseurNum),
+);
 
 const neFournitPasDeServiceDansUE = isMatching({
   fournitServicesUnionEuropeenne: ["non"],
@@ -106,13 +132,17 @@ const contientSectorielleComplete = isMatching({
   sousSecteurActivite: P.array(),
   activites: P.when(estTableauNonVide<Activite>),
 });
+
 export const verifieDonneesSectorielles = et(
   ou(
     contientUniquementSecteurAutre,
     contientUniquementSousSecteurAutre,
     contientSectorielleComplete,
   ),
-  contientSecteursLocalisesValides,
+  ou(
+    predicatDonneesFormulaire.uniquement.activiteAutre,
+    contientSecteursLocalisesValides,
+  ),
 );
 
 export const verifieCompletudeDonneesFormulairePrivee = et(
@@ -131,6 +161,17 @@ export const donneesFormulaireSontCompletes = et(
   ),
 );
 
-export const donneesFormulaireSontIncompletes = non(
-  donneesFormulaireSontCompletes,
-);
+export const contientSecteurNecessitantLocalisation = (
+  d: DonneesSectorielles,
+) =>
+  secteursNecessitantLocalisationRepresentant.some((s) =>
+    predicatDonneesFormulaire.champs("secteurActivite").contient(s)(
+      d as DonneesFormulaireSimulateur,
+    ),
+  );
+export const contientUniquementSecteurNecessitantLocalisation = (
+  d: DonneesSectorielles,
+) =>
+  d.secteurActivite.every((s) =>
+    secteursNecessitantLocalisationRepresentant.includes(s),
+  );

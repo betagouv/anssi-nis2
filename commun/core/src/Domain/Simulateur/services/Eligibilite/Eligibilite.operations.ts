@@ -57,6 +57,20 @@ const calculeEligibilitePetiteStructurePrivee: OperationCalculeEligibilite = (
       R.NonEligible,
     )
     .otherwise(R.Incertain);
+
+const calculeEligibiliteRepresentantFrance: OperationCalculeEligibilite = (
+  donnees,
+) =>
+  match(donnees)
+    .with(
+      {
+        fournitServicesUnionEuropeenne: ["oui"],
+        localisationRepresentant: ["france"],
+      },
+      R.EligibleMoyenneGrandeEntreprise,
+    )
+    .otherwise(R.NonEligible);
+
 const calculeEligibiliteMoyenneOuGrandeStructurePrivee: OperationCalculeEligibilite =
   (donnees) =>
     match(donnees)
@@ -67,7 +81,7 @@ const calculeEligibiliteMoyenneOuGrandeStructurePrivee: OperationCalculeEligibil
             auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
           ),
         },
-        R.Incertain,
+        calculeEligibiliteRepresentantFrance,
       )
       .with(
         {
@@ -76,7 +90,7 @@ const calculeEligibiliteMoyenneOuGrandeStructurePrivee: OperationCalculeEligibil
           ),
           activites: P.when(auMoinsUneActiviteListee),
         },
-        R.Incertain,
+        calculeEligibiliteRepresentantFrance,
       )
       .with(
         {

@@ -1,6 +1,7 @@
+import { fc } from "@fast-check/vitest";
 import {
-  DonneesSectorielles,
   DonneesFormulaireSimulateur,
+  DonneesSectorielles,
 } from "../../src/Domain/Simulateur/DonneesFormulaire.definitions";
 
 export type DonneesFormulaireExtensibles =
@@ -36,6 +37,18 @@ export type DonneesSansActivite = Omit<
   "activites"
 >;
 
+export type ArbitraireDonneesFormulaireSimulateur =
+  fc.Arbitrary<DonneesFormulaireSimulateur>;
+
+export type ArbitraireDonneesFormulaireSimulateurNomme =
+  ArbitraireDonneesFormulaireSimulateur & { nom: string };
+
 export type DonneesExtensiblesAvecActivite<
   DonneesPartielles extends DonneesSectorielles,
 > = DonneesPartielles & Pick<DonneesFormulaireSimulateur, "activites">;
+export type ArbitraireEnrichi = ArbitraireDonneesFormulaireSimulateurNomme & {
+  sansBesoinLocalisation: ArbitraireDonneesFormulaireSimulateurNomme;
+  neFournitPasServiceUe: ArbitraireDonneesFormulaireSimulateurNomme;
+  avecLocalisationRepresentant: ArbitraireDonneesFormulaireSimulateurNomme;
+  avecLocalisationRepresentantFrance: ArbitraireDonneesFormulaireSimulateurNomme;
+};

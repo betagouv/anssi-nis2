@@ -1,13 +1,18 @@
 import { fc } from "@fast-check/vitest";
 import { Activite } from "../../src/Domain/Simulateur/Activite.definitions";
 import {
+  AppartenancePaysUnionEuropeenne,
+  FournitServicesUnionEuropeenne,
   UnionPetitMoyenGrand,
   ValeurChampSimulateur,
 } from "../../src/Domain/Simulateur/ChampsSimulateur.definitions";
-import { ValeursPetitMoyenGrand } from "../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
 import {
-  DonneesSectorielles,
+  ValeursAppartenancePaysUnionEuropeenne,
+  ValeursPetitMoyenGrand,
+} from "../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
+import {
   DonneesFormulaireSimulateur,
+  DonneesSectorielles,
 } from "../../src/Domain/Simulateur/DonneesFormulaire.definitions";
 import { SecteurActivite } from "../../src/Domain/Simulateur/SecteurActivite.definitions";
 import { fabriqueListeActivitesDesSecteurs } from "../../src/Domain/Simulateur/services/Activite/Activite.operations";
@@ -15,6 +20,11 @@ import {
   estActiviteAutre,
   estActiviteListee,
 } from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { non } from "../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
+import {
+  contientSecteurNecessitantLocalisation,
+  contientUniquementSecteurNecessitantLocalisation,
+} from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { filtreSecteursSansSousSecteurs } from "../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.operations";
 import {
   EnrSecteurSousSecteur,
@@ -26,10 +36,13 @@ import {
 } from "../Domaine/arbitraires/arbitraireOptions";
 
 import {
-  DonneesFormulaireExtensibles,
+  ArbitraireDonneesFormulaireSimulateur,
+  ArbitraireDonneesFormulaireSimulateurNomme,
+  ArbitraireEnrichi,
   DonneesAjout,
   DonneesBrutesSansActivite,
   DonneesExtensiblesAvecActivite,
+  DonneesFormulaireExtensibles,
 } from "./manipulationArbitraires.declarations";
 
 const constantArbitraire = <TypeChamp extends ValeurChampSimulateur>(
@@ -73,7 +86,7 @@ const fabriqueEtendAvec: <
       } as unknown as { [K in keyof TypeRetour]: fc.Arbitrary<TypeRetour[K]> }),
     ) as fc.Arbitrary<TypeRetour>;
 
-type AvecParams<TypeAjout extends DonneesAjout = DonneesAjout> = {
+export type AvecParams<TypeAjout extends DonneesAjout = DonneesAjout> = {
   [k in keyof TypeAjout]: fc.Arbitrary<TypeAjout[k]>;
 };
 export const etend = <DonneesPartielles extends DonneesFormulaireExtensibles>(
@@ -114,15 +127,14 @@ const extraitOptionsAjoutArbitrairesActivite = (
   options?.minLength || 0,
 ];
 
-function etendDonneesActivite<DonneesPartielles>(
+const etendDonneesActivite = <DonneesPartielles>(
   base: DonneesPartielles &
     Partial<Pick<DonneesFormulaireSimulateur, "activites">>,
   listeActivitesDesSecteurs: Activite[],
-) {
-  return base.activites
+) =>
+  base.activites
     ? [...listeActivitesDesSecteurs, ...base.activites]
     : listeActivitesDesSecteurs;
-}
 
 export const ajouteArbitraireActivites = <
   DonneesPartielles extends DonneesSectorielles,
@@ -309,3 +321,54 @@ export const ajouteChampsFacultatifs = <
     localisationRepresentant: fc.constant([]),
     ...propageBase(base),
   });
+
+const nommeArbitraire =
+  (nom: string) =>
+  (
+    arbitraire: ArbitraireDonneesFormulaireSimulateur,
+  ): ArbitraireDonneesFormulaireSimulateurNomme =>
+    Object.assign(arbitraire, { nom });
+
+export const fabriquePartitionLocalisationServices = (
+  arbitraire:
+    | ArbitraireDonneesFormulaireSimulateur
+    | ArbitraireDonneesFormulaireSimulateurNomme,
+): ArbitraireEnrichi =>
+  Object.assign(
+    arbitraire,
+    {
+      sansBesoinLocalisation: nommeArbitraire("sansBesoinLocalisation")(
+        arbitraire.filter(non(contientSecteurNecessitantLocalisation)),
+      ),
+      neFournitPasServiceUe: nommeArbitraire("avecFournitServiceUE")(
+        etend(arbitraire.filter(contientSecteurNecessitantLocalisation)).avec({
+          fournitServicesUnionEuropeenne: fc.constant<
+            FournitServicesUnionEuropeenne[]
+          >(["non"]),
+        }),
+      ),
+      avecLocalisationRepresentant: nommeArbitraire(
+        "avecLocalisationRepresentant",
+      )(
+        etend(arbitraire.filter(contientSecteurNecessitantLocalisation)).avec({
+          fournitServicesUnionEuropeenne: fc.constant(["oui"]),
+          localisationRepresentant: fabriqueArbSingleton(
+            ValeursAppartenancePaysUnionEuropeenne,
+          ),
+        }),
+      ),
+      avecLocalisationRepresentantFrance: nommeArbitraire(
+        "avecLocalisationRepresentant",
+      )(
+        etend(
+          arbitraire.filter(contientUniquementSecteurNecessitantLocalisation),
+        ).avec({
+          fournitServicesUnionEuropeenne: fc.constant(["oui"]),
+          localisationRepresentant: fc.constant<
+            AppartenancePaysUnionEuropeenne[]
+          >(["france"]),
+        }),
+      ),
+    },
+    { nom: "multiple" },
+  );
