@@ -30,14 +30,16 @@ describe("predicatDonneesFormulaire", () => {
     });
   });
   describe("Champ vérifie", () => {
-    const donnees = fabriqueDonneesFormulaire({
-      activites: ["entiteCentralesStockage"],
+    it("Vérifie au moins une activité listée", () => {
+      const donnees = fabriqueDonneesFormulaire({
+        activites: ["entiteCentralesStockage"],
+      });
+      expect(donnees).toSatisfy(
+        predicatDonneesFormulaire
+          .champs("activites")
+          .verifie(auMoinsUneActiviteListee),
+      );
     });
-    expect(donnees).toSatisfy(
-      predicatDonneesFormulaire
-        .champs("activites")
-        .verifie(auMoinsUneActiviteListee),
-    );
   });
 
   describe(contientPetiteEntreprise, () => {
