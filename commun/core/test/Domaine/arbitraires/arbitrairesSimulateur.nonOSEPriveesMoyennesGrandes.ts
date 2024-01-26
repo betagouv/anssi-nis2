@@ -1,9 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement } from "../../../src/Domain/Simulateur/Eligibilite.constantes";
-import {
-  contientSecteurNecessitantLocalisation,
-  exerceUniquementActivitesDansListe,
-} from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { exerceUniquementActivitesDansListe } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import {
   ajouteArbitraireActivites,
   ajouteAuMoinsUneActiviteAutre,
@@ -44,9 +41,7 @@ export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFranc
     .chain(ajouteChampsFacultatifs);
 
 export const arbNonOSEPrivesMoyenneGrande = etend(
-  arbSecteursEtSousSecteursListes.filter(
-    contientSecteurNecessitantLocalisation,
-  ),
+  arbSecteursEtSousSecteursListes,
 )
   .avec({
     designeOperateurServicesEssentiels:

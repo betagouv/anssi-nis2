@@ -137,13 +137,13 @@ describe(calculeEligibilite, () => {
           it("Si l'activité est 'autre'", () => {
             V.NonEligible(
               arbForm.nonDesigneOSE.privee.grand.activitesAutres
-                .avecLocalisation,
+                .avecLocalisationRepresentant,
             );
           });
           it("Si l'activité est 'autre'", () => {
             V.NonEligible(
               arbForm.nonDesigneOSE.privee.grand.activitesAutres
-                .sansLocalisation,
+                .sansBesoinLocalisation,
             );
           });
         });

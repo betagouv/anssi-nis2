@@ -1,11 +1,13 @@
-import { P, isMatching } from "ts-pattern";
+import { isMatching, P } from "ts-pattern";
 import { estTableauNonVide } from "../../../Commun/Commun.predicats";
+import { VVVPipe } from "../../../utilitaires/debug";
 import { Activite } from "../../Activite.definitions";
 import {
-  DonneesSectorielles,
   DonneesFormulaireSimulateur,
+  DonneesSectorielles,
   NomsChampsSimulateur,
 } from "../../DonneesFormulaire.definitions";
+import { secteursNecessitantLocalisationRepresentant } from "../../SecteurActivite.constantes";
 import {
   auMoinsUneActiviteListee,
   estActiviteAutre,
@@ -24,6 +26,9 @@ import {
 } from "../SecteurActivite/SecteurActivite.predicats";
 import { uniquementDesSousSecteursAutres } from "../SousSecteurActivite/SousSecteurActivite.predicats";
 import { estPetiteEntreprise } from "../TailleEntreprise/TailleEntite.predicats";
+
+export const contientPetiteEntreprise = (d: DonneesFormulaireSimulateur) =>
+  estPetiteEntreprise(d.trancheNombreEmployes, d.trancheChiffreAffaire);
 
 const verifAuMoinsUn = {
   activiteListee: <
@@ -80,20 +85,26 @@ export const verifieDonneesCommunesPublique = isMatching({
   typeEntitePublique: [P._],
 });
 
-const contientSecteurALocaliser = ou(
-  isMatching({
-    secteurActivite: ["infrastructureNumerique"],
-    activites: P.union(
-      ["fournisseurServicesDNS"],
-      ["registresNomsDomainesPremierNiveau"],
-    ),
-  }),
+const estInfranumDnsOuRegistre = isMatching({
+  secteurActivite: ["infrastructureNumerique"],
+  activites: P.union(
+    ["fournisseurServicesDNS"],
+    ["registresNomsDomainesPremierNiveau"],
+  ),
+});
+const estServiceTicOuFournisseurNum = VVVPipe("estServiceTicOuFournisseurNum")(
   isMatching({
     secteurActivite: P.union(
       ["gestionServicesTic"],
       ["fournisseursNumeriques"],
     ),
   }),
+);
+export const contientSecteurALocaliser = VVVPipe("contientSecteurALocaliser")(
+  ou(
+    estInfranumDnsOuRegistre,
+    et(non(contientPetiteEntreprise), estServiceTicOuFournisseurNum),
+  ),
 );
 
 const neFournitPasDeServiceDansUE = isMatching({
@@ -106,11 +117,15 @@ const fournitServiceUEBienRemplit = isMatching({
   localisationRepresentant: P.not([]),
 });
 
-export const contientSecteursLocalisesValides = oux(
-  non(contientSecteurALocaliser),
-  et(
-    contientSecteurALocaliser,
-    ou(neFournitPasDeServiceDansUE, fournitServiceUEBienRemplit),
+export const contientSecteursLocalisesValides = VVVPipe(
+  "contientSecteursLocalisesValides",
+)(
+  oux(
+    non(contientSecteurALocaliser),
+    et(
+      contientSecteurALocaliser,
+      ou(neFournitPasDeServiceDansUE, fournitServiceUEBienRemplit),
+    ),
   ),
 );
 
@@ -130,8 +145,6 @@ const contientSectorielleComplete = isMatching({
   activites: P.when(estTableauNonVide<Activite>),
 });
 
-export const contientPetiteEntreprise = (d: DonneesFormulaireSimulateur) =>
-  estPetiteEntreprise(d.trancheNombreEmployes, d.trancheChiffreAffaire);
 export const verifieDonneesSectorielles = et(
   ou(
     contientUniquementSecteurAutre,
@@ -160,3 +173,11 @@ export const donneesFormulaireSontCompletes = et(
 export const donneesFormulaireSontIncompletes = non(
   donneesFormulaireSontCompletes,
 );
+export const contientSecteurNecessitantLocalisation = (
+  d: DonneesSectorielles,
+) =>
+  secteursNecessitantLocalisationRepresentant.some((s) =>
+    predicatDonneesFormulaire.champs("secteurActivite").contient(s)(
+      d as DonneesFormulaireSimulateur,
+    ),
+  );

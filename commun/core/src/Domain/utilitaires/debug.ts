@@ -35,9 +35,9 @@ export const seulementAGauche = (
       ),
   );
 export const VVVPipe = (...debugMessage: unknown[]) => {
-  VVV(...debugMessage);
+  VVV(debugMessage);
   return <T>(arg: T): T => {
-    VVV(`\t-->${arg}`);
+    VVV(`\t-->`, arg);
     return arg;
   };
 };

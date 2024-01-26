@@ -8,6 +8,7 @@ import {
   UnionPetitMoyenGrand,
   ValeurChampSimulateur,
 } from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
+import { ValeursAppartenancePaysUnionEuropeenne } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
 import { fabriqueArbSingleton } from "../../utilitaires/manipulationArbitraires";
 
 export const arbDesigneOperateurServicesEssentiels: ArbitraireChampFormulaire<DesignationOperateurServicesEssentiels> =
@@ -39,27 +40,21 @@ export const arbTranche: ArbitraireChampFormulaire<UnionPetitMoyenGrand> = {
 };
 export const arbAppartenancePaysUnionEuropeenne: ArbitraireChampFormulaire<
   AppartenancePaysUnionEuropeenne,
-  "franceOuAutre"
+  "franceOuAutre" | "tout" | "horsFrance"
 > = {
   france: fc.constant(["france"]),
   horsue: fc.constant(["horsue"]),
   autre: fc.constant(["autre"]),
   franceOuAutre: fabriqueArbSingleton(["france", "autre"]),
+  horsFrance: fabriqueArbSingleton(["horsue", "autre"]),
+  tout: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
 };
+export const arbLocalisationRepresentant = arbAppartenancePaysUnionEuropeenne;
 export const arbFournitServiceUnionEuropeenne: ArbitraireChampFormulaire<FournitServicesUnionEuropeenne> =
   {
     non: fc.constant<FournitServicesUnionEuropeenne[]>(["non"]),
     oui: fc.constant<FournitServicesUnionEuropeenne[]>(["oui"]),
   };
-export const arbLocalisationRepresentant: ArbitraireChampFormulaire<
-  AppartenancePaysUnionEuropeenne,
-  "horsFrance"
-> = {
-  france: fc.constant(["france"]),
-  horsue: fc.constant(["horsue"]),
-  autre: fc.constant(["autre"]),
-  horsFrance: fabriqueArbSingleton(["horsue", "autre"]),
-};
 export type ArbitraireChampFormulaire<
   T extends ValeurChampSimulateur,
   TypesAdditionnelles extends string = T,

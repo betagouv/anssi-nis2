@@ -31,30 +31,54 @@ describe("Invalide en cas de données absentes", () => {
 describe("Validation des données formulaire", () => {
   const donneesTestsArbPrivee = [
     {
-      nom: "designeOSE.petit",
-      arbitraireEligible: arbForm.designeOSE.petit,
+      nom: "designeOSE.petit.sansBesoinLocalisation",
+      arbitraireEligible: arbForm.designeOSE.petit.sansBesoinLocalisation,
     },
     {
-      nom: "designeOSE.moyenGrand",
-      arbitraireEligible: arbForm.designeOSE.moyenGrand,
+      nom: "designeOSE.petit.avecLocalisation",
+      arbitraireEligible: arbForm.designeOSE.petit.avecLocalisationRepresentant,
     },
     {
-      nom: "nonDesigneOSE.privee.grand.secteursListes",
-      arbitraireEligible: arbForm.nonDesigneOSE.privee.grand.secteursListes,
+      nom: "designeOSE.moyenGrand.sansBesoinLocalisation",
+      arbitraireEligible: arbForm.designeOSE.moyenGrand.sansBesoinLocalisation,
+    },
+    {
+      nom: "designeOSE.moyenGrand.avecLocalisation",
+      arbitraireEligible:
+        arbForm.designeOSE.moyenGrand.avecLocalisationRepresentant,
+    },
+    {
+      nom: "nonDesigneOSE.privee.grand.secteursListes.sansBesoinLocalisation",
+      arbitraireEligible:
+        arbForm.nonDesigneOSE.privee.grand.secteursListes
+          .sansBesoinLocalisation,
+    },
+    {
+      nom: "nonDesigneOSE.privee.grand.secteursListes.avecFournitServiceUE",
+      arbitraireEligible:
+        arbForm.nonDesigneOSE.privee.grand.secteursListes.avecFournitServiceUE,
+    },
+    {
+      nom: "nonDesigneOSE.privee.grand.secteursListes.avecLocalisationRepresentant",
+      arbitraireEligible:
+        arbForm.nonDesigneOSE.privee.grand.secteursListes
+          .avecLocalisationRepresentant,
     },
     {
       nom: "nonDesigneOSE.privee.grand.secteursAutres",
       arbitraireEligible: arbForm.nonDesigneOSE.privee.grand.secteursAutres,
     },
     {
-      nom: "nonDesigneOSE.privee.grand.activitesAutres",
+      nom: "nonDesigneOSE.privee.grand.activitesAutres.avecLocalisationRepresentant",
       arbitraireEligible:
-        arbForm.nonDesigneOSE.privee.grand.activitesAutres.avecLocalisation,
+        arbForm.nonDesigneOSE.privee.grand.activitesAutres
+          .avecLocalisationRepresentant,
     },
     {
-      nom: "nonDesigneOSE.privee.grand.activitesAutres",
+      nom: "nonDesigneOSE.privee.grand.activitesAutres.sansBesoinLocalisation",
       arbitraireEligible:
-        arbForm.nonDesigneOSE.privee.grand.activitesAutres.sansLocalisation,
+        arbForm.nonDesigneOSE.privee.grand.activitesAutres
+          .sansBesoinLocalisation,
     },
     {
       nom: "nonDesigneOSE.privee.activitesAutres",
@@ -79,8 +103,7 @@ describe("Validation des données formulaire", () => {
     ...donneesTestsArbPrivee,
   ];
 
-  const formulairePetitInfraNumSansLocalisation: DonneesFormulaireSimulateur = {
-    ...donneesFormulaireSimulateurVide,
+  const formulairePetitInfraNumSansLocalisation = fabriqueDonneesFormulaire({
     designeOperateurServicesEssentiels: ["non"],
     appartenancePaysUnionEurpopeenne: ["france"],
     typeStructure: ["privee"],
@@ -88,7 +111,7 @@ describe("Validation des données formulaire", () => {
     trancheNombreEmployes: ["petit"],
     trancheChiffreAffaire: ["petit"],
     activites: ["fournisseurServicesDNS"],
-  };
+  });
 
   describe("Données privées : verifieDonneesCommunesPrivee", () => {
     it.each(donneesTestsArbPrivee)(" $nom", ({ arbitraireEligible }) => {
@@ -101,6 +124,13 @@ describe("Validation des données formulaire", () => {
   describe("Données privées : verifieCompletudeDonneesFormulairePrivee", () => {
     it.each(donneesTestsArbPrivee)("$nom", ({ arbitraireEligible }) => {
       verifieQue(verifieCompletudeDonneesFormulairePrivee)
+        .estToujoursVrai()
+        .quelqueSoit(arbitraireEligible);
+    });
+  });
+  describe("Données privées : contientSecteursLocalisesValides", () => {
+    it.each(donneesTestsArbPrivee)("$nom", ({ arbitraireEligible }) => {
+      verifieQue(contientSecteursLocalisesValides)
         .estToujoursVrai()
         .quelqueSoit(arbitraireEligible);
     });

@@ -1,10 +1,10 @@
 import { describe, it } from "vitest";
 import { fc } from "@fast-check/vitest";
 import { DonneesFormulaireSimulateur } from "../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
-import { contientSecteurNecessitantLocalisation } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { non } from "../../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
 import {
   contientPetiteEntreprise,
+  contientSecteurNecessitantLocalisation,
   predicatDonneesFormulaire as P,
 } from "../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { arbForm } from "./arbitrairesSimulateur";
@@ -109,11 +109,11 @@ describe("validation des arbitraires", () => {
         );
       });
       describe("arbForm.nonDesigneOSE.privee.grand.activitesAutres", () => {
-        it("sansLocalisation", () => {
+        it("sansBesoinLocalisation", () => {
           fc.assert(
             fc.property(
               arbForm.nonDesigneOSE.privee.grand.activitesAutres
-                .sansLocalisation,
+                .sansBesoinLocalisation,
               (donnees: DonneesFormulaireSimulateur) => {
                 const satisfait = getSatisfait(donnees);
                 satisfait(P.uniquement.activiteAutre);
@@ -135,7 +135,7 @@ describe("validation des arbitraires", () => {
           fc.assert(
             fc.property(
               arbForm.nonDesigneOSE.privee.grand.activitesAutres
-                .avecLocalisation,
+                .avecLocalisationRepresentant,
               (donnees: DonneesFormulaireSimulateur) => {
                 const satisfait = getSatisfait(donnees);
                 satisfait(P.uniquement.activiteAutre);

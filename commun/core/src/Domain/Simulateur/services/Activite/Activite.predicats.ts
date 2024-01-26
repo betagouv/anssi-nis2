@@ -8,7 +8,6 @@ import {
   ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
 } from "../../Eligibilite.constantes";
 import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions";
-import { estSecteurParmi } from "../SecteurActivite/SecteurActivite.predicats";
 import { activitesParSecteurEtSousSecteur } from "./Activite.operations";
 
 const prefixeAutreActivite = "autreActivite";
@@ -72,14 +71,3 @@ export const exerceAucuneActivitesDansListe =
     d: T,
   ) =>
     d.activites.every((a) => !liste.includes(a));
-export const contientSecteurNecessitantLocalisation = (
-  d: DonneesSectorielles,
-) =>
-  d.secteurActivite.every(
-    (s) =>
-      !estSecteurParmi(s)([
-        "gestionServicesTic",
-        "fournisseursNumeriques",
-        "infrastructureNumerique",
-      ]),
-  );

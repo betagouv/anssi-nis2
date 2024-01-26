@@ -6,6 +6,7 @@ import {
   fabriqueArbContraintSurtrancheChiffreAffaire,
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
+  fabriquePartitionLocalisationServices,
 } from "../../utilitaires/manipulationArbitraires";
 import {
   arbDesigneOperateurServicesEssentiels,
@@ -46,6 +47,6 @@ export const arbOSEMoyenGrand = etend(arbitraireSecteursSousSecteurs)
   .chain(ajouteChampsFacultatifs) as ArbitraireFormulaire;
 
 export const arbDesigneOSE = {
-  petit: arbOSEPetit,
-  moyenGrand: arbOSEMoyenGrand,
+  petit: fabriquePartitionLocalisationServices(arbOSEPetit),
+  moyenGrand: fabriquePartitionLocalisationServices(arbOSEMoyenGrand),
 };
