@@ -29,7 +29,7 @@ describe("Invalide en cas de données absentes", () => {
 });
 
 describe("Validation des données formulaire", () => {
-  const donneesTestsArbPrivee = [
+  const donneesTestArbPriveeSansAutre = [
     {
       nom: "designeOSE.petit.sansBesoinLocalisation",
       arbitraireEligible: arbForm.designeOSE.petit.sansBesoinLocalisation,
@@ -65,6 +65,14 @@ describe("Validation des données formulaire", () => {
           .avecLocalisationRepresentant,
     },
     {
+      nom: "nonDesigneOSE.privee.petit.fournisseursInfraNum.petitInfraNum.activitesConcernes",
+      arbitraireEligible:
+        arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum.petitInfraNum
+          .activitesConcernes,
+    },
+  ];
+  const donneesTestArbAutres = [
+    {
       nom: "nonDesigneOSE.privee.grand.secteursAutres",
       arbitraireEligible: arbForm.nonDesigneOSE.privee.grand.secteursAutres,
     },
@@ -76,13 +84,12 @@ describe("Validation des données formulaire", () => {
       nom: "nonDesigneOSE.privee.activitesAutres",
       arbitraireEligible: arbForm.nonDesigneOSE.privee.activitesAutres,
     },
-    {
-      nom: "nonDesigneOSE.privee.petit.fournisseursInfraNum.petitInfraNum.activitesConcernes",
-      arbitraireEligible:
-        arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum.petitInfraNum
-          .activitesConcernes,
-    },
   ];
+  const donneesTestsArbPrivee = [
+    ...donneesTestArbPriveeSansAutre,
+    ...donneesTestArbAutres,
+  ];
+
   const donneesTestsArbPublique = [
     {
       nom: "nonDesigneOSE.publique.sansBesoinLocalisation",
@@ -135,7 +142,7 @@ describe("Validation des données formulaire", () => {
     });
   });
   describe("Données privées : contientSecteursLocalisesValides", () => {
-    it.each(donneesTestsArbPrivee)("$nom", ({ arbitraireEligible }) => {
+    it.each(donneesTestArbPriveeSansAutre)("$nom", ({ arbitraireEligible }) => {
       verifieQue(contientSecteursLocalisesValides)
         .estToujoursVrai()
         .quelqueSoit(arbitraireEligible);
