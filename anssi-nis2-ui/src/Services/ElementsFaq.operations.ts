@@ -12,16 +12,12 @@ const fabriqueItemSectionFeuille = ({
   titre,
   titreCourt,
 }: InformationsSection): SideMenuProps.Item => ({
-  expandedByDefault: true,
-  isActive: true,
   linkProps: { href: construitAncre(`${titre}`) },
   text: titreCourt,
 });
 const fabriqueItemSectionBranche = ({
   titreCourt,
 }: InformationsSection): SideMenuProps.Item => ({
-  expandedByDefault: true,
-  isActive: true,
   items: [],
   text: titreCourt,
 });

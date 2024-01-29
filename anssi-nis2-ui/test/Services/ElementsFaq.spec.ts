@@ -22,25 +22,21 @@ const markdownSectionAvec2SousNiveauxNumerotee = (numeroSection: number) => [
   t2(`${numeroSection}.2 Titre long de section`),
   loremIpsum,
 ];
+
 const itemAvecSousSections = (numeroSection: number) => ({
-  expandedByDefault: true,
-  isActive: true,
   items: [
     {
-      expandedByDefault: true,
-      isActive: true,
       linkProps: { href: `#${numeroSection}1-titre-long-de-section` },
       text: `${numeroSection}.1 Titre court`,
     },
     {
-      expandedByDefault: true,
-      isActive: true,
       linkProps: { href: `#${numeroSection}2-titre-long-de-section` },
       text: `${numeroSection}.2 Titre court`,
     },
   ],
   text: `${numeroSection}. Titre court`,
 });
+
 describe("Elements Faq", () => {
   describe("transformeFrontMatterVersSideMenuPropItems", () => {
     it("Renvoie un élément déployé et sélectionné pour un titre frontmatter.", () => {
@@ -54,8 +50,6 @@ describe("Elements Faq", () => {
       const elements = transformeFrontMatterVersSideMenuPropItems(frontMatter);
       const elementsAttendus: SideMenuProps.Item[] = [
         {
-          expandedByDefault: true,
-          isActive: true,
           linkProps: { href: "#5-titre-long-de-section" },
           text: "5. Titre court",
         },
@@ -76,14 +70,10 @@ describe("Elements Faq", () => {
       const elements = transformeFrontMatterVersSideMenuPropItems(frontMatter);
       const elementsAttendus: SideMenuProps.Item[] = [
         {
-          expandedByDefault: true,
-          isActive: true,
           linkProps: { href: "#5-titre-long-de-section" },
           text: "5. Titre court",
         },
         {
-          expandedByDefault: true,
-          isActive: true,
           linkProps: { href: "#6-titre-long-de-section" },
           text: "6. Titre court",
         },
@@ -104,12 +94,8 @@ describe("Elements Faq", () => {
       const elements = transformeFrontMatterVersSideMenuPropItems(frontMatter);
       const elementsAttendus: SideMenuProps.Item[] = [
         {
-          expandedByDefault: true,
-          isActive: true,
           items: [
             {
-              expandedByDefault: true,
-              isActive: true,
               linkProps: { href: "#51-titre-long-de-section" },
               text: "5.1 Titre court",
             },
@@ -150,17 +136,17 @@ describe("Elements Faq", () => {
   });
 
   describe("Transformation des titres", () => {
-    it("Transforme un titre simple en ancre", () => {
+    it("titre simple", () => {
       const titre = "5. Titre court";
       const ancre = construitAncre(titre);
       expect(ancre).toEqual("#5-titre-court");
     });
-    it("Transforme les caractères accentués", () => {
+    it("caractères accentués", () => {
       const titre = "àâä?/xxx"; // éèêë îï";
       const ancre = construitAncre(titre);
       expect(ancre).toEqual("#àâäxxx");
     });
-    it("titre buggé", () => {
+    it("titre avec de la ponctuation", () => {
       const titre =
         "4. Quel est l’objectif derrière la régulation des TPE / PME ?";
       const ancreAttendue =
