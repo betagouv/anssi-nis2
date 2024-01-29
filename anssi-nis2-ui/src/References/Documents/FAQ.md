@@ -34,7 +34,7 @@ titreCourt: Introduction
 # Introduction
 
 ---
-titreCourt: En quoi consistait exactement cette directive connue sous le nom de NIS 1 ?
+titreCourt: 1. En quoi consistait la directive NIS 1 ?
 ---
 
 ## 1. En 2016, le Parlement et le Conseil de l’UE ont adopté une première série de mesures concernant la cybersécurité du marché européen. En quoi consistait exactement cette directive connue sous le nom de NIS 1&nbsp;?
@@ -50,7 +50,7 @@ les mesures de sécurité nécessaires pour réduire fortement l’exposition de
 risques cybers.
 
 ---
-titreCourt: 2. Qu’est-ce qui va changer avec la directive NIS 2 ?
+titreCourt: 2. Qu’est-ce qui va changer NIS 2 ?
 ---
 
 ## 2. Qu’est-ce qui va changer avec l’adoption de la directive NIS&nbsp;2&nbsp;?
@@ -81,6 +81,10 @@ mesures de protection de base face à la cybercriminalité sont donc des enjeux 
 
 # Périmètre des entités concernées
 
+---
+titreCourt: 5. Comment savoir si je suis concerné ?
+---
+
 ## 5. Comment savoir si je suis concerné par NIS&nbsp;2&nbsp;?
 
 À ce jour, la directive NIS&nbsp;2 comprend des annexes 1 et 2 dans lesquelles il est indiqué les secteurs,
@@ -92,7 +96,12 @@ retrouvez pas, à première vue, l’une des activités de votre entité dans ce
 périmètre permettront d’obtenir des éléments complémentaires. En effet, certaines définitions présentes dans les
 annexes nécessitent de clarifier la portée de la directive. Ces consultations se feront avec les ministères de
 tutelle, mais aussi avec les fédérations professionnelles des secteurs d’activité. Nous pensons par exemple au secteur
-de l’alimentation pour lequel la définition de la « distribution en gros » reste encore à clarifier selon nous.
+de l’alimentation pour lequel la définition de la «&nbsp;distribution en gros&nbsp;» reste encore à clarifier selon
+nous.
+
+---
+titreCourt: Quelle mise en œuvre et pilotage en Outre-mer ?
+---
 
 ## 6. Quelle mise en œuvre et pilotage en Outre-mer&nbsp;?
 
@@ -101,6 +110,10 @@ cyberattaques contre les entités dans les Outre-mer peuvent rapidement avoir de
 directive NIS&nbsp;2 offre à l’ANSSI la possibilité de travailler sur le périmètre des collectivités territoriales, mais
 aussi sur celui des Outre-mer. Nous allons donc naturellement étudier l’applicabilité de la directive en Outre-mer
 dans les prochaines semaines en lien avec les autorités locales.
+
+---
+titreCourt: 7. Serais-je concerné par NIS 2 en tant que collectivité territoriale ?
+---
 
 ## 7. Je suis une collectivité territoriale, serais-je concerné par NIS&nbsp;2&nbsp;?
 
@@ -115,6 +128,10 @@ selon nous de ne pas saisir l’opportunité d’inclure les collectivités terr
 même
 titre que les entités privées et les administrations publiques.
 
+---
+titreCourt: 8. Suis-je assujetti à la transposition française si sur deux États membres ?
+---
+
 ## 8. Si mon entreprise est sur deux Etats membres, est-ce que je suis assujetti à la transposition en droit français de NIS&nbsp;2&nbsp;?
 
 À ce stade, si votre entreprise est sur deux Etats membres de l’Union Européenne, que vous réalisez une
@@ -122,6 +139,11 @@ activité incluse dans les types d’entité des annexes 1 ou 2 et que vous disp
 soumis à la directive NIS&nbsp;2. En revanche, si vous souhaitez connaitre la juridiction, c’est encore un peu tôt pour
 obtenir une réponse, car ce point fera l’objet de clarifications dans le cadre des consultations menées dans les
 prochains mois.
+
+
+---
+titreCourt: 9. Quelles actions pour faciliter la mise en relation avec l’ANSSI ?
+---
 
 ## 9. Les entités n’étant plus désignées par arrêté et devant se faire connaitre auprès d’elle, l’ANSSI envisage-t-elle des actions pour faciliter la mise en relation&nbsp;?
 
@@ -131,6 +153,10 @@ périmètre à la marge et à gérer les cas très spécifiques.
 Pour communiquer sur l’existence de la directive et attirer l’attention des entités sur leurs obligations, en
 parallèle des actions de communication propres à l’ANSSI, nous nous appuierons sur des relais sectoriels et/ou
 professionnels, que nous rencontrerons notamment dans le cadre des consultations sur S2 2023.
+
+---
+titreCourt: 10. Quelle gestion des exceptions ?
+---
 
 ## 10. Le texte prévoit un certain nombre d’exceptions ou de cas particuliers au périmètre de base. Dans quels cas, l’ANSSI sera-t-elle amenée à actionner les mécanismes d’ajustement du périmètre&nbsp;?
 
@@ -151,6 +177,10 @@ lien avec la défense et la sécurité nationale. Plus précisément, cela conce
 sécurité nationale, de la sécurité publique, de la défense ou de l’application de la loi.
 Les modalités de gestion de ces particuliers seront définies au cours des travaux de transposition.
 
+---
+titreCourt: 11. Qui sera concerné ?
+---
+
 ## 11. Concrètement, qui sera concerné par le nouveau périmètre d’application de NIS&nbsp;2&nbsp;?
 
 À l’échelle nationale, NIS&nbsp;2 s’appliquera à des milliers d’entités appartenant à plus de dix-huit secteurs qui
@@ -158,6 +188,10 @@ seront désormais régulés. Environ 600 types d’entités différentes seront 
 toutes tailles et des entreprises allant des PME aux groupes du CAC40. Les principaux critères d’intégration ont été
 définis au niveau européen. Il s’agit principalement du nombre d’employés, du chiffre d'affaires et de la nature de
 l’activité réalisée par l’entité.
+
+---
+titreCourt: 12. Qu’en est-il des acteurs tiers ?
+---
 
 ## 12. Qu’en est-il des acteurs de la chaine d’approvisionnement, des administrations et des collectivités territoriales&nbsp;?
 
