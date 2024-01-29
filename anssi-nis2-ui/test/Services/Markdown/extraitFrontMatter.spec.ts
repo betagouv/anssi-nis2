@@ -1,20 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
-  imbriqueSectionsParNiveau,
-  imbriqueSectionsParNiveauSure,
-} from "../../../src/Services/ElementsFaq.operations";
-import {
   composeMarkdown,
   fmChamps,
   t1,
   t2,
   titre,
 } from "../../../src/Services/Markdown/Markdown.constructeurs";
-import {
-  ExtractionSection,
-  InformationsSection,
-  NiveauTitre,
-} from "../../../src/Services/Markdown/Markdown.declarations";
+import { NiveauTitre } from "../../../src/Services/Markdown/Markdown.declarations";
 import { extraitFrontMatter } from "../../../src/Services/Markdown/TransformeMarkdown.operations";
 import { loremIpsum } from "./constantes";
 import { extraitFaq, extraitFaqFrontMatter } from "./extraitFaq";
@@ -183,116 +175,6 @@ describe(extraitFrontMatter, () => {
     it("front matter du document extrait Faq", () => {
       expect(extraitFrontMatter(extraitFaq)).toStrictEqual(
         extraitFaqFrontMatter,
-      );
-    });
-  });
-});
-
-describe(imbriqueSectionsParNiveauSure, () => {
-  it("Imbrique un niveau 1 dans un niveau 2", () => {
-    const listeSectionsPlate: readonly InformationsSection[] = [
-      {
-        titre: "Titre de section A",
-        titreCourt: "Titre court A",
-        niveau: 1,
-      },
-      {
-        titre: "Titre de section B",
-        titreCourt: "Titre court B",
-        niveau: 2,
-      },
-    ];
-    const listeSectionImbriquees = [
-      {
-        titre: "Titre de section A",
-        titreCourt: "Titre court A",
-        niveau: 1,
-        sections: [
-          {
-            titre: "Titre de section B",
-            titreCourt: "Titre court B",
-            niveau: 2,
-          },
-        ],
-      },
-    ];
-    expect(imbriqueSectionsParNiveauSure(listeSectionsPlate)).toStrictEqual(
-      listeSectionImbriquees,
-    );
-  });
-  it("Ajoute un titre court depuis le titre s'il est inexistant", () => {
-    const listeSectionsPlate: readonly ExtractionSection[] = [
-      {
-        titre: "Titre de section A",
-        niveau: 1,
-      },
-      {
-        titre: "Titre de section B",
-        niveau: 2,
-      },
-    ];
-    const listeSectionImbriquees = [
-      {
-        titre: "Titre de section A",
-        titreCourt: "Titre de section A",
-        niveau: 1,
-        sections: [
-          {
-            titre: "Titre de section B",
-            titreCourt: "Titre de section B",
-            niveau: 2,
-          },
-        ],
-      },
-    ];
-    expect(imbriqueSectionsParNiveau(listeSectionsPlate)).toStrictEqual(
-      listeSectionImbriquees,
-    );
-  });
-  it("Imbrique les section de la Faq", () => {
-    const listeSectionImbriquees = [
-      {
-        titre: "Introduction",
-        niveau: 1,
-        titreCourt: "Introduction",
-        sections: [
-          {
-            titre:
-              "1. En 2016, le Parlement et le Conseil de l’UE ont adopté une première série de mesures concernant la cybersécurité du marché européen. En quoi consistait exactement cette directive connue sous le nom de NIS 1 ?",
-            niveau: 2,
-            titreCourt: "En quoi consistait la directive NIS 1&nbsp;?",
-          },
-        ],
-      },
-    ];
-    expect(
-      imbriqueSectionsParNiveauSure(extraitFaqFrontMatter.sections),
-    ).toStrictEqual(listeSectionImbriquees);
-    it("N'imbrique pas des titres de même niveau", () => {
-      const listeSectionImbriquees = [
-        {
-          titre: "Titre de section A",
-          titreCourt: "Titre de section A",
-          niveau: 1,
-        },
-        {
-          titre: "Titre de section B",
-          titreCourt: "Titre de section B",
-          niveau: 1,
-        },
-      ];
-      const liste = [
-        {
-          titre: "Titre de section A",
-          niveau: 1,
-        },
-        {
-          titre: "Titre de section B",
-          niveau: 1,
-        },
-      ];
-      expect(imbriqueSectionsParNiveau(liste)).toStrictEqual(
-        listeSectionImbriquees,
       );
     });
   });

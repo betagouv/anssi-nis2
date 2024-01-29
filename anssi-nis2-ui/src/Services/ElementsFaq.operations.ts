@@ -1,6 +1,6 @@
 import { SideMenuProps } from "@codegouvfr/react-dsfr/SideMenu";
 import { flow } from "fp-ts/lib/function";
-import { reduce } from "fp-ts/lib/ReadonlyArray";
+import { VVVPipe } from "../../../commun/core/src/Domain/utilitaires/debug.ts";
 import { prop } from "../../../commun/utils/services/objects.operations.ts";
 import { construitAncre } from "../../../commun/utils/services/string.operations.ts";
 import {
@@ -24,23 +24,22 @@ const fabriqueItemSectionBranche = ({
 }: SectionsImbriquees): SideMenuProps.Item => ({
   expandedByDefault: true,
   isActive: true,
-  items: flow(
-    imbriqueSectionsParNiveauSure,
-    reduce([], construitItemSection),
-  )(sections),
+  items: sections,
   text: titreCourt,
 });
 
 const fabriqueSectionCourante = (section: Partial<SectionsImbriquees>) =>
-  section["sections"]
+  section["sections"]?.length
     ? fabriqueItemSectionBranche(section as SectionsImbriquees)
     : fabriqueItemSectionFeuille(section as InformationsSection);
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const construitItemSection = (
   sections: SideMenuProps.Item[],
   section: InformationsSection | SectionsImbriquees,
 ) => [...sections, fabriqueSectionCourante(section)];
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const incrementeNiveauTitre = (niveau: NiveauTitre): NiveauTitre =>
   niveau < 8 ? ((niveau + 1) as NiveauTitre) : niveau;
 
@@ -57,33 +56,6 @@ const sousListePourNiveau = (
   return [sousListe, listeSections.slice(i)];
 };
 
-const fabriqueSection = (
-  section: InformationsSection,
-  sousListe: (SectionsImbriquees | InformationsSection)[],
-  niveauSection: NiveauTitre,
-) =>
-  sousListe.length > 0
-    ? {
-        ...section,
-        sections: imbriqueSectionsParNiveauSure(
-          sousListe,
-          incrementeNiveauTitre(niveauSection),
-        ),
-      }
-    : section;
-
-export const imbriqueSectionsParNiveauSure = (
-  listeSections: readonly InformationsSection[],
-  niveauSection: NiveauTitre = 1,
-): (SectionsImbriquees | InformationsSection)[] => {
-  if (listeSections.length === 0) return [];
-  const [sousListe, suite] = sousListePourNiveau(1, listeSections.slice(1));
-  return [
-    fabriqueSection(listeSections[0], sousListe, niveauSection),
-    ...imbriqueSectionsParNiveauSure(suite, niveauSection),
-  ];
-};
-
 const estInformationSection = (
   section: ExtractionSection | InformationsSection,
 ): section is InformationsSection =>
@@ -94,21 +66,49 @@ const transformeExtractionEnInformationSection = (
 ): InformationsSection =>
   estInformationSection(section)
     ? section
-    : ({
+    : {
         ...section,
         titreCourt: section.titre,
-      } as InformationsSection);
-export const imbriqueSectionsParNiveau = (
-  listeSections: readonly (ExtractionSection | InformationsSection)[],
-  niveauSection: NiveauTitre = 1,
-): (SectionsImbriquees | InformationsSection)[] =>
-  imbriqueSectionsParNiveauSure(
-    listeSections.map(transformeExtractionEnInformationSection),
-    niveauSection,
-  );
+      };
 
+export const imbriqueInformationsSectionsParNiveau = (
+  listeSections: readonly InformationsSection[],
+  niveauSection: NiveauTitre = 1,
+): SideMenuProps.Item[] => {
+  if (listeSections.length === 0) return [];
+  const [sousListe, suite] = sousListePourNiveau(
+    niveauSection,
+    listeSections.slice(1),
+  );
+  return [
+    {
+      ...fabriqueItemSectionBranche(listeSections[0] as SectionsImbriquees),
+      items: sousListe.map(
+        flow(VVVPipe("Avant"), fabriqueItemSectionFeuille, VVVPipe("Après")),
+      ),
+    },
+    ...imbriqueInformationsSectionsParNiveau(suite, niveauSection),
+  ];
+};
+
+export const imbriqueSectionsParNiveau =
+  (niveauSection: NiveauTitre = 1) =>
+  (
+    listeSections: readonly (ExtractionSection | InformationsSection)[],
+  ): SideMenuProps.Item[] => {
+    return imbriqueInformationsSectionsParNiveau(
+      VVVPipe<readonly InformationsSection[]>("imbriqueSectionsParNiveau")(
+        listeSections.map(transformeExtractionEnInformationSection),
+      ),
+      niveauSection,
+    );
+  };
+
+/**
+ * Transforme l'extraction des FrontMatters de Markdown par titre de sections
+ * en items pour un menu
+ */
 export const transformeFrontMatterVersSideMenuPropItems = flow(
   prop("sections"),
-  imbriqueSectionsParNiveau,
-  reduce([], construitItemSection),
+  imbriqueSectionsParNiveau(1),
 );
