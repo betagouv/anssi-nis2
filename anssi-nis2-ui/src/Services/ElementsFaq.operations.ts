@@ -1,38 +1,26 @@
 import { SideMenuProps } from "@codegouvfr/react-dsfr/SideMenu";
 import { flow } from "fp-ts/lib/function";
 import { prop } from "../../../commun/utils/services/objects.operations.ts";
-import { construitAncre } from "../../../commun/utils/services/string.operations.ts";
+import {
+  fabriqueItemSectionBranche,
+  fabriqueItemSectionFeuille,
+} from "./ElementsFaq.fabriques.ts";
 import {
   ExtractionSection,
   InformationsSection,
   NiveauTitre,
 } from "./Markdown/Markdown.declarations.ts";
 
-const fabriqueItemSectionFeuille = ({
-  titre,
-  titreCourt,
-}: InformationsSection): SideMenuProps.Item => ({
-  linkProps: { href: construitAncre(`${titre}`) },
-  text: titreCourt,
-});
-const fabriqueItemSectionBranche = ({
-  titreCourt,
-}: InformationsSection): SideMenuProps.Item => ({
-  items: [],
-  text: titreCourt,
-});
-
-const sousListePourNiveau = (
+const extraitSousTitresPourNiveau = (
   niveau: NiveauTitre,
   listeSections: InformationsSection[],
-) => {
-  let i = 0;
-  const sousListe = [];
-  while (i < listeSections.length && listeSections[i].niveau > niveau) {
-    sousListe.push(listeSections[i]);
-    i++;
-  }
-  return [sousListe, listeSections.slice(i)];
+): InformationsSection[] => {
+  if (listeSections.length === 0) return [];
+  if (listeSections[0].niveau <= niveau) return [];
+  return [
+    listeSections[0],
+    ...extraitSousTitresPourNiveau(niveau, listeSections.slice(1)),
+  ];
 };
 
 const estInformationSection = (
@@ -55,20 +43,19 @@ export const imbriqueInformationsSectionsParNiveau = (
   niveauSection: NiveauTitre = 1,
 ): SideMenuProps.Item[] => {
   if (listeSections.length === 0) return [];
-  const [sousListe, suite] = sousListePourNiveau(
+  const sousListe = extraitSousTitresPourNiveau(
     niveauSection,
     listeSections.slice(1),
   );
-  if (sousListe.length === 0)
-    return [
-      fabriqueItemSectionFeuille(listeSections[0]),
-      ...imbriqueInformationsSectionsParNiveau(suite, niveauSection),
-    ];
+  const suite = listeSections.slice(sousListe.length + 1);
+
   return [
-    {
-      ...fabriqueItemSectionBranche(listeSections[0]),
-      items: sousListe.map(fabriqueItemSectionFeuille),
-    },
+    sousListe.length === 0
+      ? fabriqueItemSectionFeuille(listeSections[0])
+      : fabriqueItemSectionBranche(
+          listeSections[0],
+          sousListe.map(fabriqueItemSectionFeuille),
+        ),
     ...imbriqueInformationsSectionsParNiveau(suite, niveauSection),
   ];
 };
