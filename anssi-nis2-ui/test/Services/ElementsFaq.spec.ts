@@ -1,23 +1,15 @@
 import { SideMenuProps } from "@codegouvfr/react-dsfr/SideMenu";
 import { describe, expect, it } from "vitest";
 import { construitAncre } from "../../../commun/utils/services/string.operations";
-import {
-  imbriqueSectionsParNiveau,
-  transformeFrontMatterVersSideMenuPropItems,
-} from "../../src/Services/ElementsFaq.operations";
+import { transformeFrontMatterVersSideMenuPropItems } from "../../src/Services/ElementsFaq.operations";
 import {
   composeMarkdown,
   fmChamps,
   t1,
   t2,
 } from "../../src/Services/Markdown/Markdown.constructeurs";
-import {
-  ExtractionSection,
-  InformationsSection,
-} from "../../src/Services/Markdown/Markdown.declarations";
 import { extraitFrontMatter } from "../../src/Services/Markdown/TransformeMarkdown.operations";
 import { loremIpsum } from "./Markdown/constantes";
-import { extraitFaqFrontMatter } from "./Markdown/extraitFaq";
 
 const markdownSectionAvec2SousNiveauxNumerotee = (numeroSection: number) => [
   fmChamps([["titreCourt", `${numeroSection}. Titre court`]]),
@@ -70,7 +62,7 @@ describe("Elements Faq", () => {
       ];
       expect(elements).toStrictEqual(elementsAttendus);
     });
-    it("Renvoie un élément déployé et sélectionné pour 2 titre frontmatter.", () => {
+    it("Renvoie 2 éléments déployés et sélectionné pour 2 titre frontmatter.", () => {
       const markdown = composeMarkdown(
         loremIpsum,
         fmChamps([["titreCourt", "5. Titre court"]]),
@@ -98,7 +90,7 @@ describe("Elements Faq", () => {
       ];
       expect(elements).toStrictEqual(elementsAttendus);
     });
-    it("Renvoie un élément déployé et sélectionné pour 2 titre frontmatter.", () => {
+    it("Renvoie un élément déployé et sélectionné pour 1 titre imbriqué dans un autre", () => {
       const markdown = composeMarkdown(
         loremIpsum,
         fmChamps([["titreCourt", "5. Titre court"]]),
@@ -138,132 +130,22 @@ describe("Elements Faq", () => {
       const elements = transformeFrontMatterVersSideMenuPropItems(frontMatter);
       expect(elements).toStrictEqual(elementsAttendus);
     });
-    // it("3 sections principales avec 2 sous sections chacune", () => {
-    //   const frontMatter = extraitFrontMatter(
-    //     composeMarkdown(
-    //       loremIpsum,
-    //       ...markdownSectionAvec2SousNiveauxNumerotee(5),
-    //       ...markdownSectionAvec2SousNiveauxNumerotee(6),
-    //       ...markdownSectionAvec2SousNiveauxNumerotee(7),
-    //     ),
-    //   );
-    //   const elements = transformeFrontMatterVersSideMenuPropItems(frontMatter);
-    //   const elementsAttendus: SideMenuProps.Item[] = [
-    //     itemAvecSousSections(5),
-    //     itemAvecSousSections(6),
-    //     itemAvecSousSections(7),
-    //   ];
-    //   expect(elements).toStrictEqual(elementsAttendus);
-    // });
-  });
-
-  describe("imbriqueSectionsParNiveau", () => {
-    it("Imbrique un niveau 1 dans un niveau 2", () => {
-      const listeSectionsPlate: readonly InformationsSection[] = [
-        {
-          titre: "Titre de section A",
-          titreCourt: "Titre court A",
-          niveau: 1,
-        },
-        {
-          titre: "Titre de section B",
-          titreCourt: "Titre court B",
-          niveau: 2,
-        },
-      ];
-      const listeSectionImbriquees = [
-        {
-          titre: "Titre de section A",
-          titreCourt: "Titre court A",
-          niveau: 1,
-          sections: [
-            {
-              titre: "Titre de section B",
-              titreCourt: "Titre court B",
-              niveau: 2,
-            },
-          ],
-        },
-      ];
-      expect(imbriqueSectionsParNiveau(1)(listeSectionsPlate)).toStrictEqual(
-        listeSectionImbriquees,
+    it("3 sections principales avec 2 sous sections chacune", () => {
+      const frontMatter = extraitFrontMatter(
+        composeMarkdown(
+          loremIpsum,
+          ...markdownSectionAvec2SousNiveauxNumerotee(5),
+          ...markdownSectionAvec2SousNiveauxNumerotee(6),
+          ...markdownSectionAvec2SousNiveauxNumerotee(7),
+        ),
       );
-    });
-    it("Ajoute un titre court depuis le titre s'il est inexistant", () => {
-      const listeSectionsPlate: readonly ExtractionSection[] = [
-        {
-          titre: "Titre de section A",
-          niveau: 1,
-        },
-        {
-          titre: "Titre de section B",
-          niveau: 2,
-        },
+      const elements = transformeFrontMatterVersSideMenuPropItems(frontMatter);
+      const elementsAttendus: SideMenuProps.Item[] = [
+        itemAvecSousSections(5),
+        itemAvecSousSections(6),
+        itemAvecSousSections(7),
       ];
-      const listeSectionImbriquees = [
-        {
-          titre: "Titre de section A",
-          titreCourt: "Titre de section A",
-          niveau: 1,
-          sections: [
-            {
-              titre: "Titre de section B",
-              titreCourt: "Titre de section B",
-              niveau: 2,
-            },
-          ],
-        },
-      ];
-      expect(imbriqueSectionsParNiveau(1)(listeSectionsPlate)).toStrictEqual(
-        listeSectionImbriquees,
-      );
-    });
-    it("Imbrique les section de la Faq", () => {
-      const listeSectionImbriquees = [
-        {
-          titre: "Introduction",
-          niveau: 1,
-          titreCourt: "Introduction",
-          sections: [
-            {
-              titre:
-                "1. En 2016, le Parlement et le Conseil de l’UE ont adopté une première série de mesures concernant la cybersécurité du marché européen. En quoi consistait exactement cette directive connue sous le nom de NIS 1 ?",
-              niveau: 2,
-              titreCourt: "En quoi consistait la directive NIS 1&nbsp;?",
-            },
-          ],
-        },
-      ];
-      expect(
-        imbriqueSectionsParNiveau(1)(extraitFaqFrontMatter.sections),
-      ).toStrictEqual(listeSectionImbriquees);
-      it("N'imbrique pas des titres de même niveau", () => {
-        const listeSectionImbriquees = [
-          {
-            titre: "Titre de section A",
-            titreCourt: "Titre de section A",
-            niveau: 1,
-          },
-          {
-            titre: "Titre de section B",
-            titreCourt: "Titre de section B",
-            niveau: 1,
-          },
-        ];
-        const liste = [
-          {
-            titre: "Titre de section A",
-            niveau: 1,
-          },
-          {
-            titre: "Titre de section B",
-            niveau: 1,
-          },
-        ];
-        expect(imbriqueSectionsParNiveau(1)(liste)).toStrictEqual(
-          listeSectionImbriquees,
-        );
-      });
+      expect(elements).toStrictEqual(elementsAttendus);
     });
   });
 

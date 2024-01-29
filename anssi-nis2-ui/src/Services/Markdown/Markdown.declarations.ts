@@ -14,6 +14,3 @@ export type InformationsSection<T extends object = object> =
 export type StructureMarkdown = {
   sections: ExtractionSection[];
 };
-export type SectionsImbriquees = InformationsSection & {
-  sections: InformationsSection[];
-};
