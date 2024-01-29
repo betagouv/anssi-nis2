@@ -29,13 +29,13 @@ const itemAvecSousSections = (numeroSection: number) => ({
     {
       expandedByDefault: true,
       isActive: true,
-      linkProps: { href: `#${numeroSection}1-titre-court` },
+      linkProps: { href: `#${numeroSection}1-titre-long-de-section` },
       text: `${numeroSection}.1 Titre court`,
     },
     {
       expandedByDefault: true,
       isActive: true,
-      linkProps: { href: `#${numeroSection}2-titre-court` },
+      linkProps: { href: `#${numeroSection}2-titre-long-de-section` },
       text: `${numeroSection}.2 Titre court`,
     },
   ],
@@ -56,7 +56,7 @@ describe("Elements Faq", () => {
         {
           expandedByDefault: true,
           isActive: true,
-          linkProps: { href: "#5-titre-court" },
+          linkProps: { href: "#5-titre-long-de-section" },
           text: "5. Titre court",
         },
       ];
@@ -78,13 +78,13 @@ describe("Elements Faq", () => {
         {
           expandedByDefault: true,
           isActive: true,
-          linkProps: { href: "#5-titre-court" },
+          linkProps: { href: "#5-titre-long-de-section" },
           text: "5. Titre court",
         },
         {
           expandedByDefault: true,
           isActive: true,
-          linkProps: { href: "#6-titre-court" },
+          linkProps: { href: "#6-titre-long-de-section" },
           text: "6. Titre court",
         },
       ];
@@ -110,7 +110,7 @@ describe("Elements Faq", () => {
             {
               expandedByDefault: true,
               isActive: true,
-              linkProps: { href: "#51-titre-court" },
+              linkProps: { href: "#51-titre-long-de-section" },
               text: "5.1 Titre court",
             },
           ],

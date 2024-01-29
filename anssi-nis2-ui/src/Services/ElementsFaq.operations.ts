@@ -9,11 +9,12 @@ import {
 } from "./Markdown/Markdown.declarations.ts";
 
 const fabriqueItemSectionFeuille = ({
+  titre,
   titreCourt,
 }: InformationsSection): SideMenuProps.Item => ({
   expandedByDefault: true,
   isActive: true,
-  linkProps: { href: construitAncre(`${titreCourt}`) },
+  linkProps: { href: construitAncre(`${titre}`) },
   text: titreCourt,
 });
 const fabriqueItemSectionBranche = ({

@@ -28,14 +28,14 @@ FAQ est évolutive, et sera complétée au fil des questions reçues.
 Dernière mise à jour de cette FAQ&nbsp;: 07/07/2023
 
 ---
-
-## titreCourt: Introduction
+titreCourt: Introduction
+---
 
 # Introduction
 
 ---
-
-## titreCourt: En quoi consistait exactement cette directive connue sous le nom de NIS 1 ?
+titreCourt: En quoi consistait exactement cette directive connue sous le nom de NIS 1 ?
+---
 
 ## 1. En 2016, le Parlement et le Conseil de l’UE ont adopté une première série de mesures concernant la cybersécurité du marché européen. En quoi consistait exactement cette directive connue sous le nom de NIS 1&nbsp;?
 
@@ -50,8 +50,8 @@ les mesures de sécurité nécessaires pour réduire fortement l’exposition de
 risques cybers.
 
 ---
-
-## titreCourt: 2. Qu’est-ce qui va changer avec la directive NIS 2 ?
+titreCourt: 2. Qu’est-ce qui va changer avec la directive NIS 2 ?
+---
 
 ## 2. Qu’est-ce qui va changer avec l’adoption de la directive NIS&nbsp;2&nbsp;?
 
