@@ -79,9 +79,16 @@ export const transformeFrontMatterVersSideMenuPropItems = flow(
   imbriqueSectionsParNiveau(1),
 );
 
-export const activeElement = (
-  element: SideMenuProps.Item,
+export const activeFeuille = (
+  element: SideMenuProps.Item.Link,
 ): SideMenuProps.Item => Object.assign({}, element, { isActive: true });
+export const activeBranche = (
+  element: SideMenuProps.Item.SubMenu,
+): SideMenuProps.Item =>
+  Object.assign({}, element, { isActive: true, expandedByDefault: true });
+
+export const activeElement = (e: SideMenuProps.Item) =>
+  estElementFeuille(e) ? activeFeuille(e) : activeBranche(e);
 
 const estElementFeuille = (
   e: SideMenuProps.Item,

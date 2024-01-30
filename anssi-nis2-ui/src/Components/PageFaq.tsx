@@ -1,5 +1,6 @@
 import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
 import { chargeContenuMarkdown } from "../Services/depots/ChargeContenuMarkdown.depot.ts";
+import { activeBrancheAvecAncre } from "../Services/ElementsFaq.operations.ts";
 import { contenuFaqParDefaut } from "../Services/fabriques/ContenuFaq.constantes.ts";
 import { fabriqueContenuFaq } from "../Services/fabriques/ContenuFaq.fabrique.ts";
 import { DefaultComponentExtensible, DefaultProps } from "../Services/Props";
@@ -9,12 +10,20 @@ import { useEffect, useState } from "react";
 import remarkFrontmatter from "remark-frontmatter";
 import rehypeSlug from "rehype-slug";
 import { PluggableList } from "unified";
+import { VVV } from "anssi-nis2-core/src/Domain/utilitaires/debug.ts";
 
 export const PageFaq: DefaultComponentExtensible<DefaultProps> = () => {
   const [contenuFaq, setContenuFaq] = useState(contenuFaqParDefaut);
   useEffect(() => {
     chargeContenuMarkdown("FAQ", fabriqueContenuFaq, contenuFaqParDefaut).then(
-      setContenuFaq,
+      (contenu) => {
+        contenu.chapitres = activeBrancheAvecAncre(window.location.hash)(
+          contenu.chapitres,
+        );
+        VVV(window.location.hash);
+        VVV(contenu.chapitres);
+        return setContenuFaq(contenu);
+      },
     );
   }, []);
 

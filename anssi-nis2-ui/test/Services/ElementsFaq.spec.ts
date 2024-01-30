@@ -5,6 +5,8 @@ import {
   activeElement,
   activeBrancheAvecAncre,
   transformeFrontMatterVersSideMenuPropItems,
+  activeFeuille,
+  activeBranche,
 } from "../../src/Services/ElementsFaq.operations";
 import {
   composeMarkdown,
@@ -197,13 +199,13 @@ describe("Elements Faq", () => {
         },
       ];
       const elementsMenuActivesAttendus: SideMenuProps.Item[] = [
-        activeElement({
+        activeBranche({
           items: [
             {
               linkProps: { href: fabriqueFausseAncre("1.1") },
               text: `1.1 Titre court`,
             },
-            activeElement({
+            activeFeuille({
               linkProps: { href: fabriqueFausseAncre("1.2") },
               text: `1.2 Titre court`,
             }),
