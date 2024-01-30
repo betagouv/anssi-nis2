@@ -9,7 +9,7 @@ describe("LiensAncres", () => {
       expect(ancre).toEqual("#5-titre-court");
     });
     it("caractères accentués", () => {
-      const titre = "àâä?/xxx"; // éèêë îï";
+      const titre = "àâä?/xxx";
       const ancre = construitAncre(titre);
       const ancreAttendue = encodeURI("#àâäxxx");
       expect(ancre).toEqual(ancreAttendue);

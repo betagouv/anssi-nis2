@@ -1,30 +1,26 @@
 import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
 import { chargeContenuMarkdown } from "../Services/depots/ChargeContenuMarkdown.depot.ts";
-import { activeBrancheAvecAncre } from "../Services/ElementsFaq.operations.ts";
+import { activeElementsAvecUrl } from "../Services/ElementsFaq.operations.ts";
 import { contenuFaqParDefaut } from "../Services/fabriques/ContenuFaq.constantes.ts";
 import { fabriqueContenuFaq } from "../Services/fabriques/ContenuFaq.fabrique.ts";
 import { DefaultComponentExtensible, DefaultProps } from "../Services/Props";
 import MiseEnPage from "./MiseEnPage.tsx";
 import Markdown from "react-markdown";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import remarkFrontmatter from "remark-frontmatter";
 import rehypeSlug from "rehype-slug";
 import { PluggableList } from "unified";
-import { VVV } from "anssi-nis2-core/src/Domain/utilitaires/debug.ts";
 
 export const PageFaq: DefaultComponentExtensible<DefaultProps> = () => {
   const [contenuFaq, setContenuFaq] = useState(contenuFaqParDefaut);
+  const location = useLocation();
+
   useEffect(() => {
-    chargeContenuMarkdown("FAQ", fabriqueContenuFaq, contenuFaqParDefaut).then(
-      (contenu) => {
-        const ancre = window.location.hash;
-        contenu.chapitres = activeBrancheAvecAncre(ancre)(contenu.chapitres);
-        VVV(ancre);
-        VVV(contenu.chapitres);
-        return setContenuFaq(contenu);
-      },
-    );
-  }, []);
+    chargeContenuMarkdown("FAQ", fabriqueContenuFaq, contenuFaqParDefaut)
+      .then(activeElementsAvecUrl)
+      .then(setContenuFaq);
+  }, [location]);
 
   const remarkPlugins: PluggableList = [
     [remarkFrontmatter, { marker: "-", type: "yaml", anywhere: true }],

@@ -100,7 +100,7 @@ de l’alimentation pour lequel la définition de la «&nbsp;distribution en gro
 nous.
 
 ---
-titreCourt: Quelle mise en œuvre et pilotage en Outre-mer ?
+titreCourt: 6. Quelle mise en œuvre et pilotage en Outre-mer ?
 ---
 
 ## 6. Quelle mise en œuvre et pilotage en Outre-mer&nbsp;?

@@ -5,6 +5,7 @@ import {
   fabriqueItemSectionBranche,
   fabriqueItemSectionFeuille,
 } from "./ElementsFaq.fabriques.ts";
+import { ContenuFaq } from "./fabriques/ContenuFaq.definitions.ts";
 import {
   ExtractionSection,
   InformationsSection,
@@ -131,3 +132,9 @@ const activeElementAvecAncre = (ancre: string) => (e: SideMenuProps.Item) =>
 export const activeBrancheAvecAncre =
   (ancre: string) => (listeElements: SideMenuProps.Item[]) =>
     listeElements.map(activeElementAvecAncre(ancre));
+
+export const activeElementsAvecUrl = (contenu: ContenuFaq) => {
+  const ancre = window.location.hash;
+  contenu.chapitres = activeBrancheAvecAncre(ancre)(contenu.chapitres);
+  return contenu;
+};
