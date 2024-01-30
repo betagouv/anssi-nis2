@@ -10,7 +10,7 @@ import {
 } from "../../SousSecteurActivite.valeurs";
 
 export const contientAutreSecteurActiviteUniquement = (
-  donneesFormulaire: DonneesFormulaireSimulateur,
+  donneesFormulaire: DonneesFormulaireSimulateur
 ) =>
   donneesFormulaire.secteurActivite.length === 1 &&
   donneesFormulaire.secteurActivite[0] === "autreSecteurActivite";
@@ -21,7 +21,7 @@ export const filtreSecteursAvecSousSecteurs = (secteur: SecteurActivite[]) =>
   secteur.filter(estUnSecteurAvecDesSousSecteurs) as SecteursAvecSousSecteurs[];
 export const estUnSecteurSansDesSousSecteurs = (secteur: string) => {
   return !ValeursSecteursAvecSousSecteurs?.includes(
-    secteur as SecteursAvecSousSecteurs,
+    secteur as SecteursAvecSousSecteurs
   );
 };
 export const estSecteurListe = (secteur: SecteurActivite) =>
@@ -30,23 +30,23 @@ export const estSecteurAutre = (secteur: SecteurActivite) =>
   secteur.startsWith("autre");
 export const contientSousSecteur = (
   secteur: string,
-  sousSecteur: SousSecteurActivite,
+  sousSecteur: SousSecteurActivite
 ) =>
   sousSecteursParSecteur[secteur as SecteursAvecSousSecteurs].includes(
-    sousSecteur,
+    sousSecteur
   );
 export const auMoinsUnSecteurAvecDesSousSecteurs = (
-  secteurs: SecteurActivite[],
+  secteurs: SecteurActivite[]
 ) => secteurs.length > 0 && secteurs.some(estUnSecteurAvecDesSousSecteurs);
 export const auMoinsUnSecteurListe = (
-  secteurs: SecteurActivite[],
+  secteurs: SecteurActivite[]
 ): secteurs is SecteurActivite[] =>
   secteurs.length > 0 && secteurs.some(estSecteurListe);
 export const aucunSecteurListe = (
-  secteurs: SecteurActivite[],
+  secteurs: SecteurActivite[]
 ): secteurs is SecteurActivite[] => !auMoinsUnSecteurListe(secteurs);
 export const uniquementDesSecteursAutres = (
-  secteurs: SecteurActivite[],
+  secteurs: SecteurActivite[]
 ): secteurs is SecteurActivite[] =>
   secteurs.length > 0 && secteurs.every(estSecteurAutre);
 
@@ -55,7 +55,7 @@ export const estUnSecteurSansSousSecteur = (secteur: string) =>
 
 const predicatSecteurDansListe = (
   secteursFiltre: SecteurActivite[],
-  secteurCherche: string,
+  secteurCherche: string
 ) => secteursFiltre.some((secteur) => secteur == secteurCherche);
 
 export const estSecteurParmi =

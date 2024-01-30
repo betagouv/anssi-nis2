@@ -14,7 +14,7 @@ import {
 } from "./arbitraireChampFormulaire";
 
 export const arbActivitesAutres = etend<DonneesSectorielles>(
-  arbSecteursSousSecteursListes,
+  arbSecteursSousSecteursListes
 )
   .avec<
     PiocheDonneesForm<

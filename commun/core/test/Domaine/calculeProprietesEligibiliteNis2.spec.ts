@@ -106,31 +106,31 @@ describe(calculeEligibilite, () => {
           it("Petit Fournisseur d'infranum dans l'UE, représentant en UE", () => {
             V.NonEligible(
               arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                .petitInfraNum.infraNumDNSOuNomDomaine.representantUE,
+                .petitInfraNum.infraNumDNSOuNomDomaine.representantUE
             );
           });
           it("Petit Fournisseur d'infranum ne fournissant pas dans l'UE", () => {
             V.NonEligible(
               arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                .petitInfraNum.infraNumDNSOuNomDomaine.neFournitPasEnUE,
+                .petitInfraNum.infraNumDNSOuNomDomaine.neFournitPasEnUE
             );
           });
           it("Petit Fournisseur d'infranum dans l'UE, représentant Hors UE", () => {
             V.NonEligible(
               arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                .petitInfraNum.infraNumDNSOuNomDomaine.representantHorsUE,
+                .petitInfraNum.infraNumDNSOuNomDomaine.representantHorsUE
             );
           });
           it("le secteur d'activité n'est pas 'Infrastructure Numérique'", () => {
             V.NonEligible(
               arbForm.nonDesigneOSE.privee.petit
-                .listeNonFournisseursInfrastructureNumerique,
+                .listeNonFournisseursInfrastructureNumerique
             );
           });
           it("Le secteur d'activité est 'Infrastructure Numérique' mais les activités ne sont pas concernés", () => {
             V.NonEligible(
               arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                .activitesNonConcernes,
+                .activitesNonConcernes
             );
           });
         });
@@ -228,12 +228,12 @@ describe(calculeEligibilite, () => {
     });
     it("lorsque l'appartenance à l'UE n'est pas remplie", () => {
       V.Incertain(
-        arbForm.nonValide.donneeAbsente.appartenancePaysUnionEurpopeenne,
+        arbForm.nonValide.donneeAbsente.appartenancePaysUnionEurpopeenne
       );
     });
     it("lorsque OSE NIS 1 n'est pas rempli", () => {
       V.Incertain(
-        arbForm.nonValide.donneeAbsente.designeOperateurServicesEssentiels,
+        arbForm.nonValide.donneeAbsente.designeOperateurServicesEssentiels
       );
     });
   });

@@ -21,7 +21,7 @@ import {
 import { arbFormulaireVide } from "./arbitraireFormulaire.constantes";
 
 export const arbToutesValeursPossibles = etend(
-  arbSecteursSousSecteursListes,
+  arbSecteursSousSecteursListes
 ).avec({
   designeOperateurServicesEssentiels: fabriqueArbSingleton([
     "oui",
@@ -36,7 +36,7 @@ export const arbToutesValeursPossibles = etend(
   trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
   trancheNombreEmployes: fabriqueArbTrancheSingleton(),
   appartenancePaysUnionEurpopeenne: fabriqueArbSingleton(
-    ValeursAppartenancePaysUnionEuropeenne,
+    ValeursAppartenancePaysUnionEuropeenne
   ),
 });
 
@@ -75,5 +75,5 @@ export const donneeAbsente = ValeursNomChampsFormulaire.reduce(
     ...resultat,
     [nom]: arbFormulaireVide,
   }),
-  initialValue,
+  initialValue
 );

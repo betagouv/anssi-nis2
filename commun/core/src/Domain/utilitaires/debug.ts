@@ -34,10 +34,10 @@ export const seulementAGauche = (
         compareDonnees(leftValue, rightValue),
       ),
   );
-export const VVVPipe = (...debugMessage: unknown[]) => {
-  VVV(debugMessage);
-  return <T>(arg: T): T => {
-    VVV(`\t-->`, arg);
+export const VVVPipe =
+  <T>(...debugMessage: unknown[]) =>
+  (arg: T): T => {
+    VVV(...debugMessage, ...[`\t--> `, arg]);
+
     return arg;
   };
-};

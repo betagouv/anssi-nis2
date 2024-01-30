@@ -453,8 +453,7 @@ legend.fr-text--medium {
 }
 
 .fr-nis2-aidez-nous {
-  background: var(--yellow-tournesol-975-75, #fef6e3) url(assets/faq.svg)
-    no-repeat;
+  background: var(--yellow-tournesol-975-75, #fef6e3) url(assets/faq.svg) no-repeat;
   background-size: 5rem;
 }
 
@@ -520,21 +519,77 @@ legend.fr-text--medium {
 
 .fr-radio-group input[type="radio"] + label {
   background-image: radial-gradient(
-    #fff 10px,
-    var(--background-action-high-blue-france) 11px,
-    transparent 12px
+          #fff 10px,
+          var(--background-action-high-blue-france) 11px,
+          transparent 12px
   );
 }
 
 .fr-radio-group input[type="radio"]:checked + label {
   background-image: radial-gradient(
-      transparent 10px,
-      var(--background-action-high-blue-france) 11px,
-      transparent 12px
-    ),
-    radial-gradient(transparent 7px, #fff 8px, transparent 9px),
-    radial-gradient(
-      var(--background-action-high-blue-france) 5px,
-      transparent 6px
-    );
+          transparent 10px,
+          var(--background-action-high-blue-france) 11px,
+          transparent 12px
+  ),
+  radial-gradient(transparent 7px, #fff 8px, transparent 9px),
+  radial-gradient(
+          var(--background-action-high-blue-france) 5px,
+          transparent 6px
+  );
+}
+
+.fr-nis2-faq {
+  & h1 {
+    margin-bottom: 2.5rem;
+  }
+
+  & h2 {
+    margin: 2.5rem 0;
+  }
+
+  & h3 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  & p,
+  li {
+    font-size: 1.25rem;
+    line-height: 2rem;
+  }
+
+  & h3 {
+    margin-top: 2.5rem;
+  }
+
+  & p,
+  ul,
+  ol {
+    margin-top: 1.5rem;
+  }
+
+  & ul {
+    padding-inline-start: 1.5rem;
+  }
+
+}
+
+nav.fr-nis2-faq-menu.fr-sidemenu {
+  padding-right: .5rem;
+
+  & li.fr-sidemenu__item {
+    /*padding: 0;*/
+  }
+
+  & .fr-sidemenu__list .fr-sidemenu__list {
+    margin-right: 0;
+  }
+
+  & .fr-sidemenu__link, & .fr-sidemenu__btn {
+    padding: .75rem .5rem;
+  }
+}
+
+.fr-nis2--float-right {
+  float: right;
 }

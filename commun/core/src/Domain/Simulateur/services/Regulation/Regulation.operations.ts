@@ -19,5 +19,5 @@ const calculateurRegulationParStatutEligibilite: Record<
 };
 
 export const transformeEligibiliteEnRegulationEntite = (
-  e: ResultatEligibilite,
+  e: ResultatEligibilite
 ) => calculateurRegulationParStatutEligibilite[e];

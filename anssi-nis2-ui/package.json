@@ -25,6 +25,7 @@
     "@emotion/styled": "^11.11.0",
     "@gouvfr/dsfr": "^1.10.0",
     "@mui/material": "^5.14.7",
+    "@types/mdast": "^4.0.3",
     "axios": "^1.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -32,7 +33,13 @@
     "react-hook-form": "^7.48.2",
     "react-markdown": "^9.0.0",
     "react-router-dom": "^6.15.0",
-    "tss-react": "^4.8.8"
+    "rehype-slug": "^6.0.0",
+    "remark": "^15.0.1",
+    "remark-frontmatter": "^5.0.0",
+    "remark-yaml-config": "^7.0.0",
+    "tss-react": "^4.8.8",
+    "unified": "^11.0.4",
+    "yaml": "^2.3.4"
   },
   "devDependencies": {
     "@storybook/addon-coverage": "^1.0.0",
