@@ -1,7 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement } from "../../../src/Domain/Simulateur/Eligibilite.constantes";
 import { exerceUniquementActivitesDansListe } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
-import { estSecteurParmi } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import {
   ajouteArbitraireActivites,
   ajouteAuMoinsUneActiviteAutre,
@@ -12,21 +11,27 @@ import {
   fabriqueArbTrancheSingleton,
 } from "../../utilitaires/manipulationArbitraires";
 import {
+  arbAppartenancePaysUnionEuropeenne,
+  arbDesigneOperateurServicesEssentiels,
+  arbFournitServiceUnionEuropeenne,
+  arbLocalisationRepresentant,
+  arbTypeStructure,
+} from "./arbitraireChampFormulaire";
+import { ArbitraireFormulaire } from "./arbitraireFormulaire.definitions";
+import { arbNonOSEPrivesPetitFournisseurInfraNum } from "./arbitrairesSimulateur.infrastructuresNumeriques";
+import {
   arbEnrAutresSecteursSousSecteurs,
   arbSecteursEtSousSecteursListes,
   arbSecteursSousSecteursListes,
 } from "./arbitrairesSimulateur.valeursSectorielles";
-import {
-  arbAppartenancePaysUnionEuropeenne,
-  arbDesigneOperateurServicesEssentiels,
-  arbTypeStructure,
-} from "./arbitraireChampFormulaire";
-import { arbNonOSEPrivesPetitFournisseurInfraNum } from "./arbitrairesSimulateur.infrastructuresNumeriques";
-import { ArbitraireFormulaire } from "./arbitraireFormulaire.definitions";
 
 export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance =
   etend(arbNonOSEPrivesPetitFournisseurInfraNum)
-    .avec({ trancheChiffreAffaire: fabriqueArbTrancheSingleton() })
+    .avec({
+      trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
+      fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.oui,
+      localisationRepresentant: arbLocalisationRepresentant.france,
+    })
     .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
     .filter(
       exerceUniquementActivitesDansListe(
@@ -36,16 +41,7 @@ export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFranc
     .chain(ajouteChampsFacultatifs);
 
 export const arbNonOSEPrivesMoyenneGrande = etend(
-  arbSecteursEtSousSecteursListes.filter((d) =>
-    d.secteurActivite.every(
-      (s) =>
-        !estSecteurParmi(s)([
-          "gestionServicesTic",
-          "fournisseursNumeriques",
-          "infrastructureNumerique",
-        ])
-    )
-  )
+  arbSecteursEtSousSecteursListes,
 )
   .avec({
     designeOperateurServicesEssentiels:
@@ -84,7 +80,6 @@ export const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
   .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
   .chain(ajouteAuMoinsUneActiviteAutre)
   .chain(ajouteChampsFacultatifs)
-  // .filter(predicatDonneesFormulaire.uniquement.activiteAutre)
   .filter((d) => d.activites.length > 0);
 
 export const arbNonOSEPrivesMoyenGrandGestionTic = etend(
@@ -99,6 +94,8 @@ export const arbNonOSEPrivesMoyenGrandGestionTic = etend(
     typeStructure: arbTypeStructure.privee,
     trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
     appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.france,
+    fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.oui,
+    localisationRepresentant: arbLocalisationRepresentant.france,
   })
   .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
   .chain(ajouteAuMoinsUneActiviteListee)
@@ -117,6 +114,8 @@ export const arbNonOSEPrivesMoyenGrandFournisseurNumerique = etend(
     typeStructure: arbTypeStructure.privee,
     trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
     appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.france,
+    fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.oui,
+    localisationRepresentant: arbLocalisationRepresentant.france,
   })
   .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
   .chain(ajouteAuMoinsUneActiviteListee)

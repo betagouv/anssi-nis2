@@ -38,5 +38,6 @@ export const VVVPipe =
   <T>(...debugMessage: unknown[]) =>
   (arg: T): T => {
     VVV(...debugMessage, ...[`\t--> `, arg]);
+
     return arg;
   };

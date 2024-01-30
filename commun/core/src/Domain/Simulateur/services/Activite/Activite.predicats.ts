@@ -1,7 +1,7 @@
 import { Activite } from "../../Activite.definitions";
 import {
-  DonneesSectorielles,
   DonneesFormulaireSimulateur,
+  DonneesSectorielles,
 } from "../../DonneesFormulaire.definitions";
 import {
   ValeursActivitesConcernesInfrastructureNumerique,
