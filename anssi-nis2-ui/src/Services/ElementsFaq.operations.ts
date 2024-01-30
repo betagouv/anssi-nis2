@@ -95,20 +95,24 @@ const estElementAvecAncre =
   (ancre: string) =>
   (e: SideMenuProps.Item): e is SideMenuProps.Item.Link =>
     (e as SideMenuProps.Item.Link).linkProps?.href === ancre;
+
+const modifieItems = (
+  e: SideMenuProps.Item.SubMenu,
+  modificateur: (element: SideMenuProps.Item[]) => SideMenuProps.Item[],
+): SideMenuProps.Item.SubMenu => ({
+  ...e,
+  items: modificateur(e.items),
+});
 const propageActivation =
   (ancre: string) =>
   (e: SideMenuProps.Item): SideMenuProps.Item =>
-    estElementBranche(e)
-      ? {
-          ...e,
-          items: activeBrancheAvecAncre(e.items)(ancre),
-        }
-      : e;
+    estElementBranche(e) ? modifieItems(e, activeBrancheAvecAncre(ancre)) : e;
+
+const contientSousElementActif = (e: SideMenuProps.Item.SubMenu) =>
+  e.items.some((e) => e.isActive);
 
 const activeBrancheSiNecessaire = (e: SideMenuProps.Item) =>
-  estElementBranche(e) && e.items.some((e) => e.isActive)
-    ? activeElement(e)
-    : e;
+  estElementBranche(e) && contientSousElementActif(e) ? activeElement(e) : e;
 
 const activeElementAvecAncre = (ancre: string) => (e: SideMenuProps.Item) =>
   estElementFeuille(e)
@@ -118,5 +122,5 @@ const activeElementAvecAncre = (ancre: string) => (e: SideMenuProps.Item) =>
     : activeBrancheSiNecessaire(propageActivation(ancre)(e));
 
 export const activeBrancheAvecAncre =
-  (listeElements: SideMenuProps.Item[]) => (ancre: string) =>
+  (ancre: string) => (listeElements: SideMenuProps.Item[]) =>
     listeElements.map(activeElementAvecAncre(ancre));

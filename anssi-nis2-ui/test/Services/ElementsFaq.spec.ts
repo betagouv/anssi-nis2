@@ -175,7 +175,7 @@ describe("Elements Faq", () => {
         fabriqueFauxElementFeuille(3),
       ];
       const listeElementsActivesObtenus: SideMenuProps.Item[] =
-        activeBrancheAvecAncre(listeElements)(fabriqueFausseAncre(2));
+        activeBrancheAvecAncre(fabriqueFausseAncre(2))(listeElements);
       expect(listeElementsActivesObtenus).toStrictEqual(
         listeElementsActivesAttendus,
       );
@@ -212,7 +212,7 @@ describe("Elements Faq", () => {
         }),
       ];
       const elementsMenuActivesObtenus: SideMenuProps.Item[] =
-        activeBrancheAvecAncre(elementsMenuBruts)(fabriqueFausseAncre("1.2"));
+        activeBrancheAvecAncre(fabriqueFausseAncre("1.2"))(elementsMenuBruts);
       expect(elementsMenuActivesObtenus).toStrictEqual(
         elementsMenuActivesAttendus,
       );
