@@ -1,7 +1,12 @@
 import { DonneesFormulaireSimulateur } from "../Simulateur/DonneesFormulaire.definitions";
 
-export const VVV = (...debugMessage: unknown[]) =>
-  console.log("VVV ", ...debugMessage);
+export const logAvecPrefix =
+  (prefix: string) =>
+  (...debugMessage: unknown[]) =>
+    console.log(prefix, ...debugMessage);
+
+export const VVV = logAvecPrefix("VVV ");
+
 export const VVValue = (...debugMessage: unknown[]) => {
   const messageTransforme: unknown[] = debugMessage.reduce<unknown[]>(
     (acc, message) =>
@@ -34,10 +39,16 @@ export const seulementAGauche = (
         compareDonnees(leftValue, rightValue),
       ),
   );
-export const VVVPipe =
+
+type OptionsJournal = { logArgs: boolean };
+export const logPipeAvecPrefix =
+  (prefix: string, options: OptionsJournal = { logArgs: true }) =>
   <T>(...debugMessage: unknown[]) =>
   (arg: T): T => {
-    VVV(...debugMessage, ...[`\t--> `, arg]);
+    const detailsArgs = options.logArgs ? [`\t--> `, arg] : [];
+    logAvecPrefix(prefix)(...debugMessage, ...detailsArgs);
 
     return arg;
   };
+
+export const VVVPipe = logPipeAvecPrefix("VVV ");

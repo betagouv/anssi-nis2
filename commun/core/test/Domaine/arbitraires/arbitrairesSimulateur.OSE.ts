@@ -7,6 +7,7 @@ import {
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
   fabriquePartitionLocalisationServices,
+  nommeArbitraire,
 } from "../../utilitaires/manipulationArbitraires";
 import {
   arbDesigneOperateurServicesEssentiels,
@@ -24,7 +25,7 @@ export const arbOSEPetit = etend(arbitraireSecteursSousSecteurs)
     trancheChiffreAffaire: arbTranche.petit,
     trancheNombreEmployes: arbTranche.petit,
     appartenancePaysUnionEurpopeenne: fabriqueArbSingleton(
-      ValeursAppartenancePaysUnionEuropeenne
+      ValeursAppartenancePaysUnionEuropeenne,
     ),
   })
   .chain(ajouteArbitraireActivites)
@@ -37,7 +38,7 @@ export const arbOSEMoyenGrand = etend(arbitraireSecteursSousSecteurs)
       arbDesigneOperateurServicesEssentiels.oui,
     typeStructure: arbTypeStructure.privee,
     appartenancePaysUnionEurpopeenne: fabriqueArbSingleton(
-      ValeursAppartenancePaysUnionEuropeenne
+      ValeursAppartenancePaysUnionEuropeenne,
     ),
     trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
   })
@@ -47,6 +48,8 @@ export const arbOSEMoyenGrand = etend(arbitraireSecteursSousSecteurs)
   .chain(ajouteChampsFacultatifs) as ArbitraireFormulaire;
 
 export const arbDesigneOSE = {
-  petit: fabriquePartitionLocalisationServices(arbOSEPetit),
+  petit: fabriquePartitionLocalisationServices(
+    nommeArbitraire("Petites entités désignées OSE pour NIS 1")(arbOSEPetit),
+  ),
   moyenGrand: fabriquePartitionLocalisationServices(arbOSEMoyenGrand),
 };
