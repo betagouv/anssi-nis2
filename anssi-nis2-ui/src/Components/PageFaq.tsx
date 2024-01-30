@@ -34,9 +34,9 @@ export const PageFaq: DefaultComponentExtensible<DefaultProps> = () => {
             burgerMenuButtonText="Dans cette rubrique"
             items={contenuFaq.chapitres}
             title="Sommaire"
-            className="fr-col-3 fr-sidemenu--sticky-full-height"
+            className="fr-col-3 fr-sidemenu--sticky-full-height fr-nis2-faq-menu"
           />
-          <div className="fr-col-offset-1 fr-col-7 fr-pt-4w fr-nis2-faq">
+          <div className="fr-col-offset-1 fr-col-7 fr-py-4w fr-nis2-faq">
             <Markdown
               remarkPlugins={remarkPlugins}
               rehypePlugins={[rehypeSlug]}
