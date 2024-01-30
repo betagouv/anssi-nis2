@@ -39,5 +39,6 @@ export const construitAncre = flow(
   toLowerCase,
   slug,
   replace(/ /g, "-"),
+  encodeURI,
   ajoutePrefixe("#")
 );

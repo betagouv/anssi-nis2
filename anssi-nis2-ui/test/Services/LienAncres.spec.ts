@@ -11,13 +11,15 @@ describe("LiensAncres", () => {
     it("caractères accentués", () => {
       const titre = "àâä?/xxx"; // éèêë îï";
       const ancre = construitAncre(titre);
-      expect(ancre).toEqual("#àâäxxx");
+      const ancreAttendue = encodeURI("#àâäxxx");
+      expect(ancre).toEqual(ancreAttendue);
     });
     it("titre avec de la ponctuation", () => {
       const titre =
         "4. Quel est l’objectif derrière la régulation des TPE / PME ?";
-      const ancreAttendue =
-        "#4-quel-est-lobjectif-derrière-la-régulation-des-tpe--pme-";
+      const ancreAttendue = encodeURI(
+        "#4-quel-est-lobjectif-derrière-la-régulation-des-tpe--pme-",
+      );
       const ancre = construitAncre(titre);
       expect(ancre).toEqual(ancreAttendue);
     });

@@ -17,10 +17,9 @@ export const PageFaq: DefaultComponentExtensible<DefaultProps> = () => {
   useEffect(() => {
     chargeContenuMarkdown("FAQ", fabriqueContenuFaq, contenuFaqParDefaut).then(
       (contenu) => {
-        contenu.chapitres = activeBrancheAvecAncre(window.location.hash)(
-          contenu.chapitres,
-        );
-        VVV(window.location.hash);
+        const ancre = window.location.hash;
+        contenu.chapitres = activeBrancheAvecAncre(ancre)(contenu.chapitres);
+        VVV(ancre);
         VVV(contenu.chapitres);
         return setContenuFaq(contenu);
       },
