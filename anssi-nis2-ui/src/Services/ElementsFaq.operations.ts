@@ -78,3 +78,45 @@ export const transformeFrontMatterVersSideMenuPropItems = flow(
   prop("sections"),
   imbriqueSectionsParNiveau(1),
 );
+
+export const activeElement = (
+  element: SideMenuProps.Item,
+): SideMenuProps.Item => Object.assign({}, element, { isActive: true });
+
+const estElementFeuille = (
+  e: SideMenuProps.Item,
+): e is SideMenuProps.Item.Link => e.linkProps !== undefined;
+
+const estElementBranche = (
+  e: SideMenuProps.Item,
+): e is SideMenuProps.Item.SubMenu => "items" in e && e?.items !== undefined;
+
+const estElementAvecAncre =
+  (ancre: string) =>
+  (e: SideMenuProps.Item): e is SideMenuProps.Item.Link =>
+    (e as SideMenuProps.Item.Link).linkProps?.href === ancre;
+const propageActivation =
+  (ancre: string) =>
+  (e: SideMenuProps.Item): SideMenuProps.Item =>
+    estElementBranche(e)
+      ? {
+          ...e,
+          items: activeBrancheAvecAncre(e.items)(ancre),
+        }
+      : e;
+
+const activeBrancheSiNecessaire = (e: SideMenuProps.Item) =>
+  estElementBranche(e) && e.items.some((e) => e.isActive)
+    ? activeElement(e)
+    : e;
+
+const activeElementAvecAncre = (ancre: string) => (e: SideMenuProps.Item) =>
+  estElementFeuille(e)
+    ? estElementAvecAncre(ancre)(e)
+      ? activeElement(e)
+      : e
+    : activeBrancheSiNecessaire(propageActivation(ancre)(e));
+
+export const activeBrancheAvecAncre =
+  (listeElements: SideMenuProps.Item[]) => (ancre: string) =>
+    listeElements.map(activeElementAvecAncre(ancre));

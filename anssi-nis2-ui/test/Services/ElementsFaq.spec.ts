@@ -1,6 +1,11 @@
 import { SideMenuProps } from "@codegouvfr/react-dsfr/SideMenu";
 import { describe, expect, it } from "vitest";
-import { transformeFrontMatterVersSideMenuPropItems } from "../../src/Services/ElementsFaq.operations";
+import { replactIfString } from "../../../commun/utils/services/string.operations";
+import {
+  activeElement,
+  activeBrancheAvecAncre,
+  transformeFrontMatterVersSideMenuPropItems,
+} from "../../src/Services/ElementsFaq.operations";
 import {
   composeMarkdown,
   fmChamps,
@@ -21,6 +26,16 @@ const markdownSectionAvec2SousNiveauxNumerotee = (numeroSection: number) => [
   t2(`${numeroSection}.2 Titre long de section`),
   loremIpsum,
 ];
+
+const supprimePoints = replactIfString(".", "");
+
+const fabriqueFausseAncre = (numeroSection: string | number) =>
+  `#${supprimePoints(numeroSection)}-titre-long-de-section`;
+
+const fabriqueFauxElementFeuille = (numeroSection: string | number) => ({
+  linkProps: { href: fabriqueFausseAncre(numeroSection) },
+  text: `${numeroSection} Titre court`,
+});
 
 const itemAvecSousSections = (numeroSection: number) => ({
   items: [
@@ -131,6 +146,76 @@ describe("Elements Faq", () => {
         itemAvecSousSections(7),
       ];
       expect(elements).toStrictEqual(elementsAttendus);
+    });
+  });
+
+  describe("activeMenu", () => {
+    it("ajoute isActive à un item", () => {
+      const element: SideMenuProps.Item = {
+        linkProps: { href: "#" },
+        text: "text",
+      };
+      const elementActifAttendu: SideMenuProps.Item = {
+        linkProps: { href: "#" },
+        text: "text",
+        isActive: true,
+      };
+      const elementActifObtenu: SideMenuProps.Item = activeElement(element);
+      expect(elementActifObtenu).toStrictEqual(elementActifAttendu);
+    });
+    it("active un élément dans une liste en fonction de son ancre", () => {
+      const listeElements: SideMenuProps.Item[] = [
+        fabriqueFauxElementFeuille(1),
+        fabriqueFauxElementFeuille(2),
+        fabriqueFauxElementFeuille(3),
+      ];
+      const listeElementsActivesAttendus: SideMenuProps.Item[] = [
+        fabriqueFauxElementFeuille(1),
+        activeElement(fabriqueFauxElementFeuille(2)),
+        fabriqueFauxElementFeuille(3),
+      ];
+      const listeElementsActivesObtenus: SideMenuProps.Item[] =
+        activeBrancheAvecAncre(listeElements)(fabriqueFausseAncre(2));
+      expect(listeElementsActivesObtenus).toStrictEqual(
+        listeElementsActivesAttendus,
+      );
+    });
+    it("active la branche parente et la feuille", () => {
+      const elementsMenuBruts: SideMenuProps.Item[] = [
+        {
+          items: [
+            {
+              linkProps: { href: fabriqueFausseAncre("1.1") },
+              text: `1.1 Titre court`,
+            },
+            {
+              linkProps: { href: fabriqueFausseAncre("1.2") },
+              text: `1.2 Titre court`,
+            },
+          ],
+          text: `1. Titre court`,
+        },
+      ];
+      const elementsMenuActivesAttendus: SideMenuProps.Item[] = [
+        activeElement({
+          items: [
+            {
+              linkProps: { href: fabriqueFausseAncre("1.1") },
+              text: `1.1 Titre court`,
+            },
+            activeElement({
+              linkProps: { href: fabriqueFausseAncre("1.2") },
+              text: `1.2 Titre court`,
+            }),
+          ],
+          text: `1. Titre court`,
+        }),
+      ];
+      const elementsMenuActivesObtenus: SideMenuProps.Item[] =
+        activeBrancheAvecAncre(elementsMenuBruts)(fabriqueFausseAncre("1.2"));
+      expect(elementsMenuActivesObtenus).toStrictEqual(
+        elementsMenuActivesAttendus,
+      );
     });
   });
 });

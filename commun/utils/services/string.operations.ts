@@ -28,6 +28,13 @@ export const ajoutePrefixe = (prefix: string) => (texte: string) =>
   `${prefix}${texte}`;
 
 const slug = replace(regexSlug, "");
+
+export const replactIfString =
+  (searchValue: string | RegExp, replaceValue: string) =>
+  (maybeString: string | number) =>
+    typeof maybeString === "string"
+      ? maybeString.replace(searchValue, replaceValue)
+      : maybeString;
 export const construitAncre = flow(
   toLowerCase,
   slug,
