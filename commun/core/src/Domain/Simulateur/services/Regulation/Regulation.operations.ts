@@ -1,3 +1,4 @@
+import { isMatching } from "ts-pattern";
 import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
 import { ResultatEligibilite } from "../../Eligibilite.definitions";
 import { fabriqueRegule } from "../../fabriques/Regulation.fabrique";
@@ -135,7 +136,7 @@ const calculeRegulationGrande = (donnees: DonneesFormulaireSimulateur) =>
 
 /**
  * Première application du calcul régulation entité utilisant le shift (début de railway)
- * @param donnees
+ * @param d
  */
 export const calculeRegulationEntite: CalculeRegulationOperation = (
   donnees,
