@@ -1,6 +1,7 @@
 import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import {
+  EnrSecteurSousSecteur,
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
 } from "../../SousSecteurActivite.definitions";
@@ -13,19 +14,19 @@ import { estSousSecteurListe } from "./SousSecteurActivite.predicats";
 
 const extraitSousSecteurs = (
   secteur: SecteursAvecSousSecteurs,
-  sousSecteurActivite: SousSecteurActivite[]
+  sousSecteurActivite: SousSecteurActivite[],
 ) =>
   sousSecteurActivite.filter((sousSecteur) =>
-    contientSousSecteur(secteur, sousSecteur)
+    contientSousSecteur(secteur, sousSecteur),
   );
 const extraitSousSecteursOuListeVide = (
   secteur: string,
-  sousSecteurActivite: SousSecteurActivite[]
+  sousSecteurActivite: SousSecteurActivite[],
 ) =>
   estUnSecteurAvecDesSousSecteurs(secteur)
     ? extraitSousSecteurs(
         secteur as SecteursAvecSousSecteurs,
-        sousSecteurActivite
+        sousSecteurActivite,
       )
     : [];
 export const cartographieSousSecteursParSecteur = ({
@@ -41,9 +42,30 @@ export const cartographieSousSecteursParSecteur = ({
           secteur,
           extraitSousSecteursOuListeVide(
             secteur,
-            sousSecteurActivite.filter(estSousSecteurListe)
+            sousSecteurActivite.filter(estSousSecteurListe),
           ),
         ],
       ],
-      []
+      [],
     );
+export const extraitCouplesAvecSecteurUniques = (
+  couplesSecteurSousSecteur: EnrSecteurSousSecteur[],
+) =>
+  Array.from(
+    couplesSecteurSousSecteur.reduce(
+      (listeSecteurs, couple) => listeSecteurs.add(couple.secteur),
+      new Set<SecteurActivite>(),
+    ),
+  );
+export const extraitSousSecteursDesCouples = (
+  couplesSecteurSousSecteur: EnrSecteurSousSecteur[],
+) =>
+  Array.from(
+    couplesSecteurSousSecteur.reduce(
+      (listeSousSecteurs, couple) =>
+        couple.sousSecteur
+          ? listeSousSecteurs.add(couple.sousSecteur)
+          : listeSousSecteurs,
+      new Set<SousSecteurActivite>(),
+    ),
+  ).filter((sousSecteur) => sousSecteur !== undefined);

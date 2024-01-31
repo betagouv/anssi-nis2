@@ -3,10 +3,12 @@ import {
   ajouteAuMoinsUneActiviteArbitraire,
   ajouteChampsFacultatifs,
   etend,
+} from "../../utilitaires/manipulationArbitraires";
+import {
   fabriqueArbContraintSurtrancheChiffreAffaire,
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
-} from "../../utilitaires/manipulationArbitraires";
+} from "../../utilitaires/manipulationArbitraires.fabriques";
 import { arbSecteursEtSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
 import {
   arbAppartenancePaysUnionEuropeenne,

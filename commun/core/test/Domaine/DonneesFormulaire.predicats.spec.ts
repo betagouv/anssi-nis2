@@ -8,7 +8,8 @@ import {
   contientPetiteEntreprise,
   predicatDonneesFormulaire,
 } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
-import { fabriqueArbSingleton } from "../utilitaires/manipulationArbitraires";
+
+import { fabriqueArbSingleton } from "../utilitaires/manipulationArbitraires.fabriques";
 
 describe("predicatDonneesFormulaire", () => {
   describe("Champ contient", () => {

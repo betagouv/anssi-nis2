@@ -6,10 +6,9 @@ import { calculeEligibilite } from "../../src/Domain/Simulateur/services/Eligibi
 import {
   logAvecPrefix,
   logPipeAvecPrefix,
-} from "../../src/Domain/utilitaires/debug";
+} from "../../src/Domain/utilitaires/journal";
 import { verifieQue } from "./assure";
 import { flow } from "fp-ts/lib/function";
-import { fabriqueArbitraireDonneesFormulaire } from "./manipulationArbitraires";
 import {
   ArbitraireDonneesFormulaireSimulateur,
   ArbitraireDonneesFormulaireSimulateurNomme,
@@ -31,7 +30,7 @@ const nomArbitraire = (
 const sample = (
   arbitraire: ArbitraireDonneesFormulaireSimulateur,
 ): ArbitraireDonneesFormulaireSimulateur => {
-  fc.sample(fabriqueArbitraireDonneesFormulaire(arbitraire), 5).map(documente);
+  fc.sample(arbitraire, 5).map(documente);
   return arbitraire;
 };
 

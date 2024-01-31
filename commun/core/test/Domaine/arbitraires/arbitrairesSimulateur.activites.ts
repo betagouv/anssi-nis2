@@ -4,9 +4,9 @@ import {
   ajouteAuMoinsUneActiviteAutre,
   ajouteChampsFacultatifs,
   etend,
-  fabriqueArbTrancheSingleton,
 } from "../../utilitaires/manipulationArbitraires";
 import { PiocheDonneesForm } from "../../utilitaires/manipulationArbitraires.declarations";
+import { fabriqueArbTrancheSingleton } from "../../utilitaires/manipulationArbitraires.fabriques";
 import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
 import {
   arbAppartenancePaysUnionEuropeenne,
@@ -14,7 +14,7 @@ import {
 } from "./arbitraireChampFormulaire";
 
 export const arbActivitesAutres = etend<DonneesSectorielles>(
-  arbSecteursSousSecteursListes
+  arbSecteursSousSecteursListes,
 )
   .avec<
     PiocheDonneesForm<

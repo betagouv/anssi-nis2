@@ -9,7 +9,8 @@ import {
   ValeurChampSimulateur,
 } from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
 import { ValeursAppartenancePaysUnionEuropeenne } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
-import { fabriqueArbSingleton } from "../../utilitaires/manipulationArbitraires";
+
+import { fabriqueArbSingleton } from "../../utilitaires/manipulationArbitraires.fabriques";
 
 export const arbDesigneOperateurServicesEssentiels: ArbitraireChampFormulaire<DesignationOperateurServicesEssentiels> =
   {

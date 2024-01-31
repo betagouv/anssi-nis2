@@ -9,9 +9,11 @@ import {
   ajouteAuMoinsUneActiviteListee,
   ajouteChampsFacultatifs,
   etend,
+} from "../../utilitaires/manipulationArbitraires";
+import {
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
-} from "../../utilitaires/manipulationArbitraires";
+} from "../../utilitaires/manipulationArbitraires.fabriques";
 import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
 import { ArbitraireSurTousLesChamps } from "./arbitraireFormulaire.definitions";
 import {
@@ -21,7 +23,7 @@ import {
 import { arbFormulaireVide } from "./arbitraireFormulaire.constantes";
 
 export const arbToutesValeursPossibles = etend(
-  arbSecteursSousSecteursListes
+  arbSecteursSousSecteursListes,
 ).avec({
   designeOperateurServicesEssentiels: fabriqueArbSingleton([
     "oui",
@@ -36,7 +38,7 @@ export const arbToutesValeursPossibles = etend(
   trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
   trancheNombreEmployes: fabriqueArbTrancheSingleton(),
   appartenancePaysUnionEurpopeenne: fabriqueArbSingleton(
-    ValeursAppartenancePaysUnionEuropeenne
+    ValeursAppartenancePaysUnionEuropeenne,
   ),
 });
 
@@ -75,5 +77,5 @@ export const donneeAbsente = ValeursNomChampsFormulaire.reduce(
     ...resultat,
     [nom]: arbFormulaireVide,
   }),
-  initialValue
+  initialValue,
 );

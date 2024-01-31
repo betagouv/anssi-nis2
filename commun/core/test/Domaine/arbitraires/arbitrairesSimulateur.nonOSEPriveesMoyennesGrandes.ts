@@ -7,9 +7,11 @@ import {
   ajouteAuMoinsUneActiviteListee,
   ajouteChampsFacultatifs,
   etend,
+} from "../../utilitaires/manipulationArbitraires";
+import {
   fabriqueArbContraintSurtrancheChiffreAffaire,
   fabriqueArbTrancheSingleton,
-} from "../../utilitaires/manipulationArbitraires";
+} from "../../utilitaires/manipulationArbitraires.fabriques";
 import {
   arbAppartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
@@ -35,8 +37,8 @@ export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFranc
     .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
     .filter(
       exerceUniquementActivitesDansListe(
-        ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement
-      )
+        ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
+      ),
     )
     .chain(ajouteChampsFacultatifs);
 
@@ -55,7 +57,7 @@ export const arbNonOSEPrivesMoyenneGrande = etend(
   .chain(ajouteChampsFacultatifs);
 
 export const arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles = etend(
-  arbEnrAutresSecteursSousSecteurs
+  arbEnrAutresSecteursSousSecteurs,
 )
   .avec({
     designeOperateurServicesEssentiels:
@@ -68,7 +70,7 @@ export const arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles = etend(
   .chain(ajouteArbitraireActivites) as ArbitraireFormulaire;
 
 export const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
-  arbSecteursSousSecteursListes
+  arbSecteursSousSecteursListes,
 )
   .avec({
     designeOperateurServicesEssentiels:
@@ -86,7 +88,7 @@ export const arbNonOSEPrivesMoyenGrandGestionTic = etend(
   fc.record({
     secteurActivite: fc.constant(["gestionServicesTic"]),
     sousSecteurActivite: fc.constant([]),
-  })
+  }),
 )
   .avec({
     designeOperateurServicesEssentiels:
@@ -106,7 +108,7 @@ export const arbNonOSEPrivesMoyenGrandFournisseurNumerique = etend(
   fc.record({
     secteurActivite: fc.constant(["fournisseursNumeriques"]),
     sousSecteurActivite: fc.constant([]),
-  })
+  }),
 )
   .avec({
     designeOperateurServicesEssentiels:
