@@ -4,32 +4,40 @@ import { Eligibilite } from "../../src/Domain/Simulateur/Eligibilite.constantes"
 import { ResultatEligibilite } from "../../src/Domain/Simulateur/Eligibilite.definitions";
 import { calculeEligibilite } from "../../src/Domain/Simulateur/services/Eligibilite/Eligibilite.operations";
 import {
-  logAvecPrefix,
-  logPipeAvecPrefix,
+  journalise,
+  journalisePipe,
 } from "../../src/Domain/utilitaires/journal";
 import { verifieQue } from "./assure";
 import { flow } from "fp-ts/lib/function";
-import {
-  ArbitraireDonneesFormulaireSimulateur,
-  ArbitraireDonneesFormulaireSimulateurNomme,
-} from "./manipulationArbitraires.declarations";
+import { ArbitraireDonneesFormulaireSimulateurNomme } from "./manipulationArbitraires.declarations";
 
 const prefix = "___DOCUMENT___";
-const documenteP = logPipeAvecPrefix(prefix, {
+const fonctionJournal = () => {};
+// const fonctionJournal = console.log;
+const documenteP = journalisePipe(fonctionJournal)(prefix, {
   logArgs: false,
 });
 
-const documente = logAvecPrefix(prefix);
+const documente = journalise(fonctionJournal)(prefix);
 
-const nomArbitraire = (
-  arbitraire: ArbitraireDonneesFormulaireSimulateurNomme,
-): ArbitraireDonneesFormulaireSimulateurNomme =>
-  documenteP<ArbitraireDonneesFormulaireSimulateurNomme>(`# ${arbitraire.nom}`)(
-    arbitraire,
-  );
-const sample = (
-  arbitraire: ArbitraireDonneesFormulaireSimulateur,
-): ArbitraireDonneesFormulaireSimulateur => {
+const estArbitraireDonneesFormulaireSimulateurNomme = (
+  arbitraire: fc.Arbitrary<DonneesFormulaireSimulateur>,
+): arbitraire is ArbitraireDonneesFormulaireSimulateurNomme =>
+  "nom" in arbitraire;
+
+const getNom = <T extends fc.Arbitrary<DonneesFormulaireSimulateur>>(
+  arbitraire: T,
+) =>
+  estArbitraireDonneesFormulaireSimulateurNomme(arbitraire)
+    ? arbitraire.nom
+    : "";
+
+const nomArbitraire = <T extends fc.Arbitrary<DonneesFormulaireSimulateur>>(
+  arbitraire: T,
+): T => documenteP<T>(`# ${getNom(arbitraire)}`)(arbitraire);
+const sample = <T extends fc.Arbitrary<DonneesFormulaireSimulateur>>(
+  arbitraire: T,
+): T => {
   fc.sample(arbitraire, 5).map(documente);
   return arbitraire;
 };
@@ -43,21 +51,23 @@ const fluxDocumentation = (nom: ResultatEligibilite) =>
   flow(
     nomArbitraire,
     documenteP(`renverra : ${nom}`),
-    documenteP<ArbitraireDonneesFormulaireSimulateur>("\n"),
-    documenteP<ArbitraireDonneesFormulaireSimulateur>("## Exemples de données"),
+    documenteP("\n"),
+    documenteP("## Exemples de données"),
     sample,
     documenteP("\n"),
   );
-export const VerifieEligibilite = Object.values(Eligibilite).reduce(
+type VerifieEligibilite = Record<
+  ResultatEligibilite,
+  (arbitraire: fc.Arbitrary<DonneesFormulaireSimulateur>) => void
+>;
+export const verifieEligibilite = Object.values(Eligibilite).reduce(
   (acc, nom) => ({
     ...acc,
     [nom]: flow(
+      fluxDocumentation(nom),
       verifieQue(calculeEligibilite).renvoieToujours(Eligibilite[nom])
         .quelqueSoit,
     ),
   }),
   {},
-) as Record<
-  ResultatEligibilite,
-  (arbitraire: fc.Arbitrary<DonneesFormulaireSimulateur>) => void
->;
+) as VerifieEligibilite;

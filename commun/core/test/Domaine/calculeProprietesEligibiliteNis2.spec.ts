@@ -3,7 +3,7 @@ import { Eligibilite } from "../../src/Domain/Simulateur/Eligibilite.constantes"
 import { SecteurActivite } from "../../src/Domain/Simulateur/SecteurActivite.definitions";
 import { calculeEligibilite } from "../../src/Domain/Simulateur/services/Eligibilite/Eligibilite.operations";
 import { verifieQue } from "../utilitaires/assure";
-import { VerifieEligibilite as V } from "../utilitaires/Eligibilite.Verification";
+import { verifieEligibilite as V } from "../utilitaires/Eligibilite.Verification";
 import {
   ajouteArbitraireActivites,
   ajouteChampsFacultatifs,

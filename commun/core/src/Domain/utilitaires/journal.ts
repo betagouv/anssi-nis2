@@ -1,15 +1,27 @@
 import { OptionsJournal } from "./optionsJournal.declarations";
 
-export const logAvecPrefix =
+export const journalise =
+  (fonctionJournal: (...data: unknown[]) => void) =>
   (prefix: string) =>
   (...debugMessage: unknown[]) =>
-    console.log(prefix, ...debugMessage);
-export const logPipeAvecPrefix =
-  (prefix: string, options: OptionsJournal = { logArgs: true }) =>
-  <T>(...debugMessage: unknown[]) =>
-  (arg: T): T => {
-    const detailsArgs = options.logArgs ? [`\t--> `, arg] : [];
-    logAvecPrefix(prefix)(...debugMessage, ...detailsArgs);
+    fonctionJournal(prefix, ...debugMessage);
 
-    return arg;
+export const journalisePipe = (
+  fonctionJournal: (...data: unknown[]) => void,
+) => {
+  const journal = journalise(fonctionJournal);
+  return (prefix: string, options: OptionsJournal = { logArgs: true }) => {
+    const journalPrefixe = journal(prefix);
+    return <T>(...debugMessage: unknown[]) =>
+      (arg: T): T => {
+        const detailsArgs = options.logArgs ? [`\t--> `, arg] : [];
+        journalPrefixe(...debugMessage, ...detailsArgs);
+
+        return arg;
+      };
   };
+};
+
+export const logAvecPrefix = journalise(console.log);
+
+export const logPipeAvecPrefix = journalisePipe(console.log);
