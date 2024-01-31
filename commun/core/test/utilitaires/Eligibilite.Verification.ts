@@ -20,6 +20,11 @@ const documenteP = journalisePipe(fonctionJournal)(prefix, {
 
 const documente = journalise(fonctionJournal)(prefix);
 
+type VerifieEligibilite = Record<
+  ResultatEligibilite,
+  (arbitraire: fc.Arbitrary<DonneesFormulaireSimulateur>) => void
+>;
+
 const estArbitraireDonneesFormulaireSimulateurNomme = (
   arbitraire: fc.Arbitrary<DonneesFormulaireSimulateur>,
 ): arbitraire is ArbitraireDonneesFormulaireSimulateurNomme =>
@@ -31,17 +36,16 @@ const getNom = <T extends fc.Arbitrary<DonneesFormulaireSimulateur>>(
   estArbitraireDonneesFormulaireSimulateurNomme(arbitraire)
     ? arbitraire.nom
     : "";
-
 const nomArbitraire = <T extends fc.Arbitrary<DonneesFormulaireSimulateur>>(
   arbitraire: T,
 ): T => documenteP<T>(`# ${getNom(arbitraire)}`)(arbitraire);
+
 const sample = <T extends fc.Arbitrary<DonneesFormulaireSimulateur>>(
   arbitraire: T,
 ): T => {
   fc.sample(arbitraire, 5).map(documente);
   return arbitraire;
 };
-
 /**
  * Permet de générer la documentation des tests
  * @param nom
@@ -56,10 +60,6 @@ const fluxDocumentation = (nom: ResultatEligibilite) =>
     sample,
     documenteP("\n"),
   );
-type VerifieEligibilite = Record<
-  ResultatEligibilite,
-  (arbitraire: fc.Arbitrary<DonneesFormulaireSimulateur>) => void
->;
 export const verifieEligibilite = Object.values(Eligibilite).reduce(
   (acc, nom) => ({
     ...acc,
