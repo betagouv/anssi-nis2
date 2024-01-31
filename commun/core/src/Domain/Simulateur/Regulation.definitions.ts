@@ -15,7 +15,6 @@ export const Regulation: Record<RegulationEntite, RegulationEntite> = {
 export type ResultatRegulationPositif = {
   decision: typeof Regulation.Regule;
   causes: CausesRegulation;
-  donnees: DonneesFormulaireSimulateur;
 };
 
 export type ResultatIncertain = {

@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { Eligibilite } from "../../src/Domain/Simulateur/Eligibilite.constantes";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
-import { fabriqueReguleOSE } from "../../src/Domain/Simulateur/fabriques/Regulation.fabrique";
+import { resultatReguleOSE } from "../../src/Domain/Simulateur/fabriques/Regulation.fabrique";
 import {
   resultatIncertain,
   resultatNonRegule,
@@ -19,7 +19,7 @@ describe(transformeEligibiliteEnRegulationEntite, () => {
     it("devrait retourner resultatIncertain lorsqu'un résultat d'éligibilité est donné", () => {
       const eligibilityResult = Eligibilite.Incertain;
       const result = transformeEligibiliteEnRegulationEntite(eligibilityResult)(
-        donneesFormulaireSimulateurVide
+        donneesFormulaireSimulateurVide,
       );
       expect(result).toEqual(resultatIncertain);
     });
@@ -33,10 +33,10 @@ describe(transformeEligibiliteEnRegulationEntite, () => {
         trancheChiffreAffaire: ["petit"],
         trancheNombreEmployes: ["petit"],
       });
-      const expectedResult = fabriqueReguleOSE(donneesOSEPetiteEntreprise);
+      const expectedResult = resultatReguleOSE;
 
       const result = transformeEligibiliteEnRegulationEntite(eligibilityResult)(
-        donneesOSEPetiteEntreprise
+        donneesOSEPetiteEntreprise,
       );
       expect(result).toEqual(expectedResult);
     });
@@ -47,15 +47,13 @@ describe(transformeEligibiliteEnRegulationEntite, () => {
     ])(
       "devrait retourner reguleOSE lorsqu'un résultat d'éligibilité est %s",
       (eligibilityResult) => {
-        const expectedResult = fabriqueReguleOSE(
-          donneesFormulaireSimulateurOSE
-        );
+        const expectedResult = resultatReguleOSE;
 
         const result = transformeEligibiliteEnRegulationEntite(
-          eligibilityResult
+          eligibilityResult,
         )(donneesFormulaireSimulateurOSE);
         expect(result).toEqual(expectedResult);
-      }
+      },
     );
   });
 
@@ -64,7 +62,7 @@ describe(transformeEligibiliteEnRegulationEntite, () => {
       const expectedResult = resultatNonRegule;
 
       const result = transformeEligibiliteEnRegulationEntite(
-        Eligibilite.NonEligible
+        Eligibilite.NonEligible,
       )(donneesFormulaireSimulateurOSE);
       expect(result).toEqual(expectedResult);
     });

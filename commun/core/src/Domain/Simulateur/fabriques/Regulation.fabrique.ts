@@ -1,17 +1,9 @@
-import { DonneesFormulaireSimulateur } from "../DonneesFormulaire.definitions";
 import { causeReguleOSE } from "../Regulation.constantes";
-import {
-  CausesRegulation,
-  Regulation,
-  ResultatRegulationEntite,
-} from "../Regulation.definitions";
+import { CausesRegulation, Regulation } from "../Regulation.definitions";
 
-export const fabriqueRegule =
-  (causes: CausesRegulation) =>
-  (donnees: DonneesFormulaireSimulateur): ResultatRegulationEntite => ({
-    decision: Regulation.Regule,
-    causes,
-    donnees,
-  });
+export const fabriqueRegule = (causes: CausesRegulation) => ({
+  decision: Regulation.Regule,
+  causes,
+});
 
-export const fabriqueReguleOSE = fabriqueRegule(causeReguleOSE);
+export const resultatReguleOSE = fabriqueRegule(causeReguleOSE);

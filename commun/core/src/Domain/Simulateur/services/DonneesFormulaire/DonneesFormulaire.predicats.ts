@@ -32,9 +32,9 @@ export const contientPetiteEntreprise = (d: DonneesFormulaireSimulateur) =>
 const verifAuMoinsUn = {
   activiteListee: <
     T extends DonneesSectorielles &
-      Pick<DonneesFormulaireSimulateur, "activites">
+      Pick<DonneesFormulaireSimulateur, "activites">,
   >(
-    donnees: T
+    donnees: T,
   ): donnees is T => auMoinsUneActiviteListee(donnees.activites),
 };
 
@@ -46,9 +46,9 @@ export const predicatDonneesFormulaire = {
   uniquement: {
     activiteAutre: <
       T extends DonneesSectorielles &
-        Pick<DonneesFormulaireSimulateur, "activites">
+        Pick<DonneesFormulaireSimulateur, "activites">,
     >(
-      donnees: T
+      donnees: T,
     ) => donnees.activites.every(estActiviteAutre),
   },
   champs: <C extends NomsChampsSimulateur>(champ: C) => ({
@@ -70,11 +70,11 @@ export const verifieCompletudeDonneesCommunes = et(
   exactementUn("appartenancePaysUnionEurpopeenne"),
   exactementUn("trancheNombreEmployes"),
   exactementUn("typeStructure"),
-  auMoinsUn("secteurActivite")
+  auMoinsUn("secteurActivite"),
 );
 
 export const verifieDonneesCommunesPrivee: (
-  donnees: DonneesFormulaireSimulateur
+  donnees: DonneesFormulaireSimulateur,
 ) => boolean = isMatching({
   trancheChiffreAffaire: [P._],
   typeStructure: ["privee"],
@@ -88,7 +88,7 @@ const estInfranumDnsOuRegistre = isMatching({
   secteurActivite: ["infrastructureNumerique"],
   activites: P.union(
     ["fournisseurServicesDNS"],
-    ["registresNomsDomainesPremierNiveau"]
+    ["registresNomsDomainesPremierNiveau"],
   ),
 });
 const estServiceTicOuFournisseurNum = isMatching({
@@ -113,8 +113,8 @@ export const contientSecteursLocalisesValides = oux(
   non(contientSecteurALocaliser),
   et(
     contientSecteurALocaliser,
-    ou(neFournitPasDeServiceDansUE, fournitServiceUEBienRemplit)
-  )
+    ou(neFournitPasDeServiceDansUE, fournitServiceUEBienRemplit),
+  ),
 );
 
 const contientUniquementSecteurAutre = isMatching({
@@ -137,7 +137,7 @@ export const verifieDonneesSectorielles = et(
   ou(
     contientUniquementSecteurAutre,
     contientUniquementSousSecteurAutre,
-    contientSectorielleComplete
+    contientSectorielleComplete,
   ),
   ou(
     predicatDonneesFormulaire.uniquement.activiteAutre,
@@ -147,18 +147,18 @@ export const verifieDonneesSectorielles = et(
 
 export const verifieCompletudeDonneesFormulairePrivee = et(
   verifieDonneesCommunesPrivee,
-  verifieDonneesSectorielles
+  verifieDonneesSectorielles,
 );
 export const verifieCompletudeDonneesFormulairePublique = et(
   verifieDonneesCommunesPublique,
-  verifieDonneesSectorielles
+  verifieDonneesSectorielles,
 );
 export const donneesFormulaireSontCompletes = et(
   verifieCompletudeDonneesCommunes,
   ou(
     verifieCompletudeDonneesFormulairePrivee,
-    verifieCompletudeDonneesFormulairePublique
-  )
+    verifieCompletudeDonneesFormulairePublique,
+  ),
 );
 
 export const contientSecteurNecessitantLocalisation = (
@@ -175,3 +175,6 @@ export const contientUniquementSecteurNecessitantLocalisation = (
   d.secteurActivite.every((s) =>
     secteursNecessitantLocalisationRepresentant.includes(s),
   );
+export const estOperateurServicesEssentiels = isMatching({
+  designeOperateurServicesEssentiels: ["oui"],
+});

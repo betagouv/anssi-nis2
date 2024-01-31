@@ -1,4 +1,3 @@
-import { isMatching } from "ts-pattern";
 import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
 import { ResultatEligibilite } from "../../Eligibilite.definitions";
 import { fabriqueRegule } from "../../fabriques/Regulation.fabrique";
@@ -7,15 +6,21 @@ import {
   resultatIncertain,
   resultatNonRegule,
 } from "../../Regulation.constantes";
-import { ResultatRegulationEntite } from "../../Regulation.definitions";
+import {
+  ResultatRegulationEntite,
+  ResultatRegulationNonRegule,
+} from "../../Regulation.definitions";
+import { estOperateurServicesEssentiels } from "../DonneesFormulaire/DonneesFormulaire.predicats";
 import { CalculeRegulationOperation } from "./Regulation.service.definitions";
+import { predicatDonneesFormulaire as donneesSimu } from "../DonneesFormulaire/DonneesFormulaire.predicats";
+import { isMatching } from "ts-pattern";
 
 const calculateurRegulationParStatutEligibilite: Record<
   ResultatEligibilite,
   (d: DonneesFormulaireSimulateur) => ResultatRegulationEntite
 > = {
-  EligibleMoyenneGrandeEntreprise: fabriqueRegule(causeReguleOSE),
-  EligiblePetiteEntreprise: fabriqueRegule(causeReguleOSE),
+  EligibleMoyenneGrandeEntreprise: () => fabriqueRegule(causeReguleOSE),
+  EligiblePetiteEntreprise: () => fabriqueRegule(causeReguleOSE),
   Incertain: () => resultatIncertain,
   NonEligible: () => resultatNonRegule,
 };
@@ -24,7 +29,13 @@ export const transformeEligibiliteEnRegulationEntite = (
   e: ResultatEligibilite,
 ) => calculateurRegulationParStatutEligibilite[e];
 
-const shift =
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const shift: (
+  f: (d: DonneesFormulaireSimulateur) => boolean,
+) => (
+  r: ResultatRegulationEntite,
+  d: DonneesFormulaireSimulateur,
+) => ResultatRegulationNonRegule | boolean =
   (f: (d: DonneesFormulaireSimulateur) => boolean) =>
   (r: ResultatRegulationEntite, d: DonneesFormulaireSimulateur) =>
     r.decision !== "Incertain" ? r : f(d);
@@ -47,17 +58,22 @@ const creeResultatOp =
       ? [r, d]
       : [f(d) ? siVrai : resultatIncertain, d];
 
-const estOperateurServicesEssentiels = isMatching({
-  designeOperateurServicesEssentiels: ["oui"],
-});
-
 /**
  * Première application du calcul régulation entité utilisant le shift (début de railway)
  * @param d
  */
 export const calculeRegulationEntite: CalculeRegulationOperation = (d) => {
-  if (shift(estOperateurServicesEssentiels)(resultatIncertain, d)) {
-    return fabriqueRegule(causeReguleOSE)(d);
+  if (estOperateurServicesEssentiels(d)) {
+    return fabriqueRegule(causeReguleOSE);
   }
+  if (donneesSimu.uniquement.activiteAutre(d)) {
+    return resultatNonRegule;
+  }
+  if (
+    isMatching({
+      secteurActivite: ["infrastructureNumerique"],
+    })(d)
+  )
+    return fabriqueRegule({ secteurActivite: ["infrastructureNumerique"] });
   return resultatIncertain;
 };
