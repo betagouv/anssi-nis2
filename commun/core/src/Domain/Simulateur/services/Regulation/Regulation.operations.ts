@@ -14,12 +14,16 @@ import {
 import {
   auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
   estActiviteInfraNumConcerneeFranceUniquement,
+  estActiviteListee,
 } from "../Activite/Activite.predicats";
+import { non } from "../ChampSimulateur/champs.predicats";
 import {
   contientInfrastructureNumerique,
   contientOperateurServicesEssentiels,
+  contientPetiteEntreprise,
   predicatDonneesFormulaire as donneesSimu,
 } from "../DonneesFormulaire/DonneesFormulaire.predicats";
+import { estPetiteEntreprise } from "../TailleEntreprise/TailleEntite.predicats";
 import { CalculeRegulationOperation } from "./Regulation.service.definitions";
 import { P, match } from "ts-pattern";
 
@@ -104,6 +108,24 @@ const regulationInfrastructureNumerique = (
     )
     .otherwise(() => resultatNonRegule);
 
+const calculeRegulationPetite = (donnees: DonneesFormulaireSimulateur) =>
+  match(donnees).otherwise(() => resultatNonRegule);
+const calculeRegulationGrande = (donnees: DonneesFormulaireSimulateur) =>
+  match(donnees)
+    .with({}, () =>
+      fabriqueRegule({
+        trancheNombreEmployes: donnees.trancheNombreEmployes,
+        trancheChiffreAffaire: donnees.trancheChiffreAffaire,
+        secteurActivite: donnees.secteurActivite.filter((secteur) =>
+          ["gestionServicesTic", "fournisseursNumeriques"].includes(secteur),
+        ),
+        activites: donnees.activites.filter(estActiviteListee),
+        fournitServicesUnionEuropeenne: ["oui"],
+        localisationRepresentant: ["france"],
+      }),
+    )
+    .otherwise(() => resultatNonRegule);
+
 /**
  * Première application du calcul régulation entité utilisant le shift (début de railway)
  * @param donnees
@@ -117,4 +139,6 @@ export const calculeRegulationEntite: CalculeRegulationOperation = (
     )
     .when(donneesSimu.uniquement.activiteAutre, () => resultatNonRegule)
     .when(contientInfrastructureNumerique, regulationInfrastructureNumerique)
+    .when(contientPetiteEntreprise, calculeRegulationPetite)
+    .when(non(contientPetiteEntreprise), calculeRegulationGrande)
     .otherwise(() => resultatIncertain);

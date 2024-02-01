@@ -8,6 +8,8 @@ import { fabriqueRegule } from "../../src/Domain/Simulateur/fabriques/Regulation
 import { ResultatRegulationEntite } from "../../src/Domain/Simulateur/Regulation.definitions";
 import { calculeRegulationEntite } from "../../src/Domain/Simulateur/services/Regulation/Regulation.operations";
 import {
+  carEstGrandeSecteurFournisseurNumeriqueEtActiviteListee,
+  carEstGrandeSecteurTicEtActiviteListee,
   carEstSecteurInfranumConcerne,
   carEstSecteurInfranumConcerneRepresentantFrance,
 } from "../../src/Domain/Simulateur/services/Regulation/Regulation.predicats";
@@ -54,6 +56,18 @@ describe(calculeRegulationEntite, () => {
                   .etablissementPrincipalFrance.moyenGrandInfraNum,
               ).car(carEstSecteurInfranumConcerneRepresentantFrance);
             });
+            it("Gestion TIC", () => {
+              V.estRegule(
+                arbForm.nonDesigneOSE.privee.exceptions
+                  .etablissementPrincipalFrance.moyenGrandGestionTic,
+              ).car(carEstGrandeSecteurTicEtActiviteListee);
+            });
+            it("Fournisseur Numérique", () => {
+              V.estRegule(
+                arbForm.nonDesigneOSE.privee.exceptions
+                  .etablissementPrincipalFrance.moyenGrandFournisseurNum,
+              ).car(carEstGrandeSecteurFournisseurNumeriqueEtActiviteListee);
+            });
           });
         });
       });
@@ -63,24 +77,6 @@ describe(calculeRegulationEntite, () => {
     describe("Privée", () => {
       it("uniquement activités autres", () => {
         V.estNonRegule(arbForm.nonDesigneOSE.privee.activitesAutres).car({});
-      });
-      describe("moyenne/grande", () => {
-        describe("Infrastructure numérique", () => {
-          it("fournit dans l'UE, représentant hors France", () => {
-            V.estNonRegule(
-              arbForm.nonDesigneOSE.privee.exceptions
-                .etablissementPrincipalFrance.moyenGrandInfraNum
-                .avecLocalisationRepresentantHorsFrance,
-            ).car({});
-          });
-          it("ne fournit pas dans l'UE", () => {
-            V.estNonRegule(
-              arbForm.nonDesigneOSE.privee.exceptions
-                .etablissementPrincipalFrance.moyenGrandInfraNum
-                .neFournitPasServiceUe,
-            ).car({});
-          });
-        });
       });
       describe("petite", () => {
         describe("Infrastructure numérique", () => {
@@ -96,6 +92,52 @@ describe(calculeRegulationEntite, () => {
               arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
                 .petitInfraNum.activitesConcernes.uniquement
                 .avecLocalisationRepresentantHorsFrance,
+            ).car({});
+          });
+        });
+        describe("Fournisseur DNS et nom de domaine", () => {
+          it("representant en UE", () =>
+            V.estNonRegule(
+              arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+                .petitInfraNum.infraNumDNSOuNomDomaine.representantUE,
+            ).car({}));
+          it("ne fournit pas en UE", () =>
+            V.estNonRegule(
+              arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+                .petitInfraNum.infraNumDNSOuNomDomaine.neFournitPasEnUE,
+            ).car({}));
+          it("representant hors UE", () =>
+            V.estNonRegule(
+              arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+                .petitInfraNum.infraNumDNSOuNomDomaine.representantHorsUE,
+            ).car({}));
+        });
+        it("autre activité", () =>
+          V.estNonRegule(
+            arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+              .activitesNonConcernes,
+          ).car({}));
+        it("secteurs listé hors Infrastructure numérique", () => {
+          V.estNonRegule(
+            arbForm.nonDesigneOSE.privee.petit
+              .listeNonFournisseursInfrastructureNumerique,
+          ).car({});
+        });
+      });
+      describe("moyenne/grande", () => {
+        describe("Infrastructure numérique", () => {
+          it("fournit dans l'UE, représentant hors France", () => {
+            V.estNonRegule(
+              arbForm.nonDesigneOSE.privee.exceptions
+                .etablissementPrincipalFrance.moyenGrandInfraNum
+                .avecLocalisationRepresentantHorsFrance,
+            ).car({});
+          });
+          it("ne fournit pas dans l'UE", () => {
+            V.estNonRegule(
+              arbForm.nonDesigneOSE.privee.exceptions
+                .etablissementPrincipalFrance.moyenGrandInfraNum
+                .neFournitPasServiceUe,
             ).car({});
           });
         });

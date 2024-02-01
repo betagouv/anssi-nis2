@@ -4,9 +4,13 @@ import { PredicatResultatRegulationEntite } from "../../Regulation.definitions";
 import {
   auMoinsUneActiviteInfraNumConcernee,
   auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
+  estActiviteListee,
 } from "../Activite/Activite.predicats";
-import { et } from "../ChampSimulateur/champs.predicats";
-import { predicatDonneesFormulaire } from "../DonneesFormulaire/DonneesFormulaire.predicats";
+import { et, non } from "../ChampSimulateur/champs.predicats";
+import {
+  contientPetiteEntreprise,
+  predicatDonneesFormulaire,
+} from "../DonneesFormulaire/DonneesFormulaire.predicats";
 
 export const carEstSecteurInfranumConcerne = flow(
   prop("causes"),
@@ -28,5 +32,42 @@ export const carEstSecteurInfranumConcerneRepresentantFrance = flow(
     predicatDonneesFormulaire
       .champs("activites")
       .verifie(auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement),
+  ),
+) as PredicatResultatRegulationEntite;
+
+export const carEstGrandeSecteurTicEtActiviteListee = flow(
+  prop("causes"),
+  et(
+    predicatDonneesFormulaire
+      .champs("secteurActivite")
+      .contient("gestionServicesTic"),
+    predicatDonneesFormulaire
+      .champs("activites")
+      .verifie((a) => a.every(estActiviteListee)),
+    predicatDonneesFormulaire
+      .champs("fournitServicesUnionEuropeenne")
+      .est(["oui"]),
+    predicatDonneesFormulaire
+      .champs("localisationRepresentant")
+      .est(["france"]),
+    non(contientPetiteEntreprise),
+  ),
+) as PredicatResultatRegulationEntite;
+export const carEstGrandeSecteurFournisseurNumeriqueEtActiviteListee = flow(
+  prop("causes"),
+  et(
+    predicatDonneesFormulaire
+      .champs("secteurActivite")
+      .contient("fournisseursNumeriques"),
+    predicatDonneesFormulaire
+      .champs("activites")
+      .verifie((a) => a.every(estActiviteListee)),
+    predicatDonneesFormulaire
+      .champs("fournitServicesUnionEuropeenne")
+      .est(["oui"]),
+    predicatDonneesFormulaire
+      .champs("localisationRepresentant")
+      .est(["france"]),
+    non(contientPetiteEntreprise),
   ),
 ) as PredicatResultatRegulationEntite;
