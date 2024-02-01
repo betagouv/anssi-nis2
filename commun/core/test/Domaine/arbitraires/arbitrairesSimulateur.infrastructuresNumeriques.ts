@@ -105,10 +105,19 @@ export const arbFournisseursInfrastructureNumerique = {
   fournisseursInfraNum: {
     petitInfraNum: {
       /** Petite entité privéé exerçant une Activités dans la liste {@link ValeursActivitesConcernesInfrastructureNumerique} */
-      activitesConcernes: arbNonOSEPrivesPetitFournisseurInfraNum.filter(
-        exerceActiviteDansListe(
-          ValeursActivitesConcernesInfrastructureNumerique,
+      activitesConcernes: Object.assign(
+        arbNonOSEPrivesPetitFournisseurInfraNum.filter(
+          exerceActiviteDansListe(
+            ValeursActivitesConcernesInfrastructureNumerique,
+          ),
         ),
+        {
+          uniquement: arbNonOSEPrivesPetitFournisseurInfraNum.filter(
+            exerceUniquementActivitesDansListe(
+              ValeursActivitesConcernesInfrastructureNumerique,
+            ),
+          ),
+        },
       ),
       infraNumDNSOuNomDomaine,
     },

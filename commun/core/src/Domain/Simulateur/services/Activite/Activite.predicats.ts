@@ -24,11 +24,15 @@ export const auMoinsUneActiviteListee = (activites: Activite[]) =>
   activites && activites.length > 0 && activites.some(estActiviteListee);
 
 export const auMoinsUneActiviteCommuneAvec =
-  (listeActivites1: Activite[]) => (listeActivites2: Activite[]) =>
-    listeActivites1.some((activite) => listeActivites2.includes(activite));
+  (activitesCherchees: Activite[]) => (listeTesteeActivites: Activite[]) =>
+    activitesCherchees.some((activite) =>
+      listeTesteeActivites.includes(activite),
+    );
 export const aucuneActiviteCommuneAvec =
-  (listeActivites1: Activite[]) => (listeActivites2: Activite[]) =>
-    listeActivites1.every((activite) => !listeActivites2.includes(activite));
+  (activitesCherchees: Activite[]) => (listeTesteeActivites: Activite[]) =>
+    activitesCherchees.every(
+      (activite) => !listeTesteeActivites.includes(activite),
+    );
 export const auMoinsUneActiviteAutre = (activites: Activite[]) =>
   activites && activites.length && activites.some(estActiviteAutre);
 export const aucuneActiviteListee = (activites: Activite[]) =>
@@ -47,6 +51,12 @@ export const aucuneActiviteInfraNumConcernee = aucuneActiviteCommuneAvec(
 
 export const estActiviteInfraNumConcernee = (activite: Activite) =>
   ValeursActivitesConcernesInfrastructureNumerique.includes(activite);
+export const estActiviteInfraNumConcerneeFranceUniquement = (
+  activite: Activite,
+) =>
+  ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement.includes(
+    activite,
+  );
 export const exerceActiviteDansListe =
   (liste: Activite[]) =>
   <

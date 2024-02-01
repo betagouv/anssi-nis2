@@ -1,3 +1,4 @@
+import { flow } from "fp-ts/lib/function";
 import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
 import { ResultatEligibilite } from "../../Eligibilite.definitions";
 import { fabriqueRegule } from "../../fabriques/Regulation.fabrique";
@@ -10,13 +11,17 @@ import {
   ResultatRegulationEntite,
   ResultatRegulationNonRegule,
 } from "../../Regulation.definitions";
-import { estActiviteInfraNumConcernee } from "../Activite/Activite.predicats";
+import {
+  auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
+  estActiviteInfraNumConcerneeFranceUniquement,
+} from "../Activite/Activite.predicats";
 import {
   contientInfrastructureNumerique,
   contientOperateurServicesEssentiels,
   predicatDonneesFormulaire as donneesSimu,
 } from "../DonneesFormulaire/DonneesFormulaire.predicats";
 import { CalculeRegulationOperation } from "./Regulation.service.definitions";
+import { match } from "ts-pattern";
 
 const calculateurRegulationParStatutEligibilite: Record<
   ResultatEligibilite,
@@ -61,24 +66,45 @@ const creeResultatOp =
       ? [r, d]
       : [f(d) ? siVrai : resultatIncertain, d];
 
+export const fluxValidation = flow((donnees: DonneesFormulaireSimulateur) => [
+  donnees,
+  resultatIncertain,
+]);
+
+const regulationInfrastructureNumerique = (
+  donnees: DonneesFormulaireSimulateur,
+) =>
+  match(donnees)
+    .when(
+      donneesSimu
+        .champs("activites")
+        .verifie(auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement),
+      () =>
+        fabriqueRegule({
+          secteurActivite: ["infrastructureNumerique"],
+          activites: donnees.activites.filter(
+            estActiviteInfraNumConcerneeFranceUniquement,
+          ),
+        }),
+    )
+    .otherwise(() =>
+      fabriqueRegule({
+        secteurActivite: ["infrastructureNumerique"],
+        activites: ["prestataireServiceConfiance"],
+      }),
+    );
+
 /**
  * Première application du calcul régulation entité utilisant le shift (début de railway)
  * @param donnees
  */
 export const calculeRegulationEntite: CalculeRegulationOperation = (
   donnees,
-): ResultatRegulationEntite => {
-  if (contientOperateurServicesEssentiels(donnees)) {
-    return fabriqueRegule(causeReguleOSE);
-  }
-  if (donneesSimu.uniquement.activiteAutre(donnees)) {
-    return resultatNonRegule;
-  }
-  if (contientInfrastructureNumerique(donnees)) {
-    return fabriqueRegule({
-      secteurActivite: ["infrastructureNumerique"],
-      activites: donnees.activites.filter(estActiviteInfraNumConcernee),
-    });
-  }
-  return resultatIncertain;
-};
+): ResultatRegulationEntite =>
+  match(donnees)
+    .when(contientOperateurServicesEssentiels, () =>
+      fabriqueRegule(causeReguleOSE),
+    )
+    .when(donneesSimu.uniquement.activiteAutre, () => resultatNonRegule)
+    .when(contientInfrastructureNumerique, regulationInfrastructureNumerique)
+    .otherwise(() => resultatIncertain);
