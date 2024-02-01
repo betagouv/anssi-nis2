@@ -10,10 +10,13 @@ import {
   ResultatRegulationEntite,
   ResultatRegulationNonRegule,
 } from "../../Regulation.definitions";
-import { estOperateurServicesEssentiels } from "../DonneesFormulaire/DonneesFormulaire.predicats";
+import { estActiviteInfraNumConcernee } from "../Activite/Activite.predicats";
+import {
+  contientInfrastructureNumerique,
+  contientOperateurServicesEssentiels,
+  predicatDonneesFormulaire as donneesSimu,
+} from "../DonneesFormulaire/DonneesFormulaire.predicats";
 import { CalculeRegulationOperation } from "./Regulation.service.definitions";
-import { predicatDonneesFormulaire as donneesSimu } from "../DonneesFormulaire/DonneesFormulaire.predicats";
-import { isMatching } from "ts-pattern";
 
 const calculateurRegulationParStatutEligibilite: Record<
   ResultatEligibilite,
@@ -60,20 +63,22 @@ const creeResultatOp =
 
 /**
  * Première application du calcul régulation entité utilisant le shift (début de railway)
- * @param d
+ * @param donnees
  */
-export const calculeRegulationEntite: CalculeRegulationOperation = (d) => {
-  if (estOperateurServicesEssentiels(d)) {
+export const calculeRegulationEntite: CalculeRegulationOperation = (
+  donnees,
+): ResultatRegulationEntite => {
+  if (contientOperateurServicesEssentiels(donnees)) {
     return fabriqueRegule(causeReguleOSE);
   }
-  if (donneesSimu.uniquement.activiteAutre(d)) {
+  if (donneesSimu.uniquement.activiteAutre(donnees)) {
     return resultatNonRegule;
   }
-  if (
-    isMatching({
+  if (contientInfrastructureNumerique(donnees)) {
+    return fabriqueRegule({
       secteurActivite: ["infrastructureNumerique"],
-    })(d)
-  )
-    return fabriqueRegule({ secteurActivite: ["infrastructureNumerique"] });
+      activites: donnees.activites.filter(estActiviteInfraNumConcernee),
+    });
+  }
   return resultatIncertain;
 };

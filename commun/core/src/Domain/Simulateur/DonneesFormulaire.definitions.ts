@@ -34,3 +34,7 @@ export type DonneesSectorielles = Pick<
   DonneesFormulaireSimulateur,
   "secteurActivite" | "sousSecteurActivite"
 >;
+
+export type PredicatDonneesFormulaireSimulateur = (
+  d: DonneesFormulaireSimulateur,
+) => boolean;

@@ -5,6 +5,7 @@ import {
   DonneesFormulaireSimulateur,
   DonneesSectorielles,
   NomsChampsSimulateur,
+  PredicatDonneesFormulaireSimulateur,
 } from "../../DonneesFormulaire.definitions";
 import { secteursNecessitantLocalisationRepresentant } from "../../SecteurActivite.constantes";
 import {
@@ -38,18 +39,25 @@ const verifAuMoinsUn = {
   ): donnees is T => auMoinsUneActiviteListee(donnees.activites),
 };
 
+const fabriqueSatisfaitUniquement =
+  <TypeNom extends NomsChampsSimulateur>(
+    champ: TypeNom,
+    predicat: (
+      activite: DonneesFormulaireSimulateur[TypeNom][number],
+    ) => boolean,
+  ) =>
+  <T extends DonneesSectorielles & Pick<DonneesFormulaireSimulateur, TypeNom>>(
+    donnees: T,
+  ) =>
+    donnees[champ].every(predicat);
+
 export const predicatDonneesFormulaire = {
   auMoins: {
     un: verifAuMoinsUn,
     une: verifAuMoinsUn,
   },
   uniquement: {
-    activiteAutre: <
-      T extends DonneesSectorielles &
-        Pick<DonneesFormulaireSimulateur, "activites">,
-    >(
-      donnees: T,
-    ) => donnees.activites.every(estActiviteAutre),
+    activiteAutre: fabriqueSatisfaitUniquement("activites", estActiviteAutre),
   },
   champs: <C extends NomsChampsSimulateur>(champ: C) => ({
     contient:
@@ -175,6 +183,12 @@ export const contientUniquementSecteurNecessitantLocalisation = (
   d.secteurActivite.every((s) =>
     secteursNecessitantLocalisationRepresentant.includes(s),
   );
-export const estOperateurServicesEssentiels = isMatching({
-  designeOperateurServicesEssentiels: ["oui"],
-});
+export const contientOperateurServicesEssentiels: PredicatDonneesFormulaireSimulateur =
+  isMatching({
+    designeOperateurServicesEssentiels: ["oui"],
+  });
+
+export const contientInfrastructureNumerique: PredicatDonneesFormulaireSimulateur =
+  isMatching({
+    secteurActivite: ["infrastructureNumerique"],
+  });

@@ -29,3 +29,6 @@ export type ResultatRegulationEntite =
   | ResultatRegulationPositif
   | ResultatRegulationNonRegule
   | ResultatIncertain;
+export type PredicatResultatRegulationEntite = (
+  d: ResultatRegulationEntite,
+) => boolean;
