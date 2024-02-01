@@ -93,3 +93,28 @@ export const carEstGrandeDansSecteurListeSansBesoinLocalisation = flow(
     non(contientPetiteEntreprise),
   ),
 ) as PredicatResultatRegulationEntite;
+
+export const carEstGrandeDansSecteurListeAvecBesoinLocalisation = flow(
+  prop("causes"),
+  et(
+    predicatDonneesFormulaire
+      .champs("secteurActivite")
+      .verifie(auMoinsUnSecteurListe),
+    ou(
+      predicatDonneesFormulaire.champs("sousSecteurActivite").est([]),
+      predicatDonneesFormulaire
+        .champs("sousSecteurActivite")
+        .verifie(auMoinsUnSousSecteurListe),
+    ),
+    predicatDonneesFormulaire
+      .champs("activites")
+      .verifie(auMoinsUneActiviteListee),
+    predicatDonneesFormulaire
+      .champs("fournitServicesUnionEuropeenne")
+      .est(["oui"]),
+    predicatDonneesFormulaire
+      .champs("localisationRepresentant")
+      .est(["france"]),
+    non(contientPetiteEntreprise),
+  ),
+) as PredicatResultatRegulationEntite;

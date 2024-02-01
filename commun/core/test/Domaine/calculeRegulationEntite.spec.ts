@@ -8,6 +8,7 @@ import { fabriqueRegule } from "../../src/Domain/Simulateur/fabriques/Regulation
 import { ResultatRegulationEntite } from "../../src/Domain/Simulateur/Regulation.definitions";
 import { calculeRegulationEntite } from "../../src/Domain/Simulateur/services/Regulation/Regulation.operations";
 import {
+  carEstGrandeDansSecteurListeAvecBesoinLocalisation,
   carEstGrandeDansSecteurListeSansBesoinLocalisation,
   carEstGrandeSecteurFournisseurNumeriqueEtActiviteListee,
   carEstGrandeSecteurTicEtActiviteListee,
@@ -75,6 +76,11 @@ describe(calculeRegulationEntite, () => {
                   arbForm.nonDesigneOSE.privee.grand.secteursListes
                     .sansBesoinLocalisation,
                 ).car(carEstGrandeDansSecteurListeSansBesoinLocalisation));
+              it("avec besoin de localisation", () =>
+                V.estRegule(
+                  arbForm.nonDesigneOSE.privee.grand.secteursListes
+                    .avecLocalisationRepresentantFrance,
+                ).car(carEstGrandeDansSecteurListeAvecBesoinLocalisation));
             });
           });
         });
@@ -183,6 +189,9 @@ describe(calculeRegulationEntite, () => {
         fabriqueRegule({
           secteurActivite: ["infrastructureNumerique"],
           activites: ["registresNomsDomainesPremierNiveau"],
+          fournitServicesUnionEuropeenne: ["oui"],
+          localisationRepresentant: ["france"],
+          sousSecteurActivite: [],
         }),
       );
     });
