@@ -136,7 +136,7 @@ const calculeRegulationGrande = (donnees: DonneesFormulaireSimulateur) =>
 
 /**
  * Première application du calcul régulation entité utilisant le shift (début de railway)
- * @param d
+ * @param donnees
  */
 export const calculeRegulationEntite: CalculeRegulationOperation = (
   donnees,
