@@ -63,6 +63,8 @@ export const predicatDonneesFormulaire = {
     contient:
       <T extends DonneesFormulaireSimulateur[C][number]>(valeur: T) =>
       (donnees: DonneesFormulaireSimulateur) =>
+        donnees !== undefined &&
+        champ in donnees &&
         donnees[champ].includes(valeur as never),
     verifie:
       (f: <T extends DonneesFormulaireSimulateur[C]>(valeurs: T) => boolean) =>

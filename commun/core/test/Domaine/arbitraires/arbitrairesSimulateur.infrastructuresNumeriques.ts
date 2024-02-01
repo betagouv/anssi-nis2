@@ -12,6 +12,7 @@ import {
   ajouteAuMoinsUneActiviteListee,
   ajouteChampsFacultatifs,
   etend,
+  partitionneLocalisationServices,
 } from "../../utilitaires/manipulationArbitraires";
 import { fabriqueArbEnrSecteurSousSecteurs } from "../../utilitaires/manipulationArbitraires.fabriques";
 import {
@@ -112,9 +113,11 @@ export const arbFournisseursInfrastructureNumerique = {
           ),
         ),
         {
-          uniquement: arbNonOSEPrivesPetitFournisseurInfraNum.filter(
-            exerceUniquementActivitesDansListe(
-              ValeursActivitesConcernesInfrastructureNumerique,
+          uniquement: partitionneLocalisationServices(
+            arbNonOSEPrivesPetitFournisseurInfraNum.filter(
+              exerceUniquementActivitesDansListe(
+                ValeursActivitesConcernesInfrastructureNumerique,
+              ),
             ),
           ),
         },

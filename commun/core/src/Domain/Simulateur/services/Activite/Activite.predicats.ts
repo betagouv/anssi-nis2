@@ -33,8 +33,7 @@ export const aucuneActiviteCommuneAvec =
     activitesCherchees.every(
       (activite) => !listeTesteeActivites.includes(activite),
     );
-export const auMoinsUneActiviteAutre = (activites: Activite[]) =>
-  activites && activites.length && activites.some(estActiviteAutre);
+
 export const aucuneActiviteListee = (activites: Activite[]) =>
   activites.every(estActiviteAutre);
 export const auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement =
@@ -49,8 +48,6 @@ export const aucuneActiviteInfraNumConcernee = aucuneActiviteCommuneAvec(
   ValeursActivitesConcernesInfrastructureNumerique,
 );
 
-export const estActiviteInfraNumConcernee = (activite: Activite) =>
-  ValeursActivitesConcernesInfrastructureNumerique.includes(activite);
 export const estActiviteInfraNumConcerneeFranceUniquement = (
   activite: Activite,
 ) =>

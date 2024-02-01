@@ -236,6 +236,18 @@ export const partitionneLocalisationServices = (
           ),
         }),
       ),
+      avecLocalisationRepresentantHorsFrance: nommeArbitraire(
+        "avecLocalisationRepresentantHorsFrance",
+      )(
+        etend(arbitraire.filter(contientSecteurNecessitantLocalisation)).avec({
+          fournitServicesUnionEuropeenne: fc.constant(["oui"]),
+          localisationRepresentant:
+            fabriqueArbSingleton<AppartenancePaysUnionEuropeenne>([
+              "autre",
+              "horsue",
+            ]),
+        }),
+      ),
       avecLocalisationRepresentantFrance: nommeArbitraire(
         "avecLocalisationRepresentant",
       )(

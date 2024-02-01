@@ -21,7 +21,7 @@ import {
   predicatDonneesFormulaire as donneesSimu,
 } from "../DonneesFormulaire/DonneesFormulaire.predicats";
 import { CalculeRegulationOperation } from "./Regulation.service.definitions";
-import { match } from "ts-pattern";
+import { P, match } from "ts-pattern";
 
 const calculateurRegulationParStatutEligibilite: Record<
   ResultatEligibilite,
@@ -75,10 +75,14 @@ const regulationInfrastructureNumerique = (
   donnees: DonneesFormulaireSimulateur,
 ) =>
   match(donnees)
-    .when(
-      donneesSimu
-        .champs("activites")
-        .verifie(auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement),
+    .with(
+      {
+        activites: P.when(
+          auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
+        ),
+        fournitServicesUnionEuropeenne: ["oui"],
+        localisationRepresentant: ["france"],
+      },
       () =>
         fabriqueRegule({
           secteurActivite: ["infrastructureNumerique"],
@@ -87,12 +91,18 @@ const regulationInfrastructureNumerique = (
           ),
         }),
     )
-    .otherwise(() =>
-      fabriqueRegule({
-        secteurActivite: ["infrastructureNumerique"],
-        activites: ["prestataireServiceConfiance"],
-      }),
-    );
+    .with(
+      {
+        fournitServicesUnionEuropeenne: ["oui"],
+        localisationRepresentant: ["france"],
+      },
+      () =>
+        fabriqueRegule({
+          secteurActivite: ["infrastructureNumerique"],
+          activites: ["prestataireServiceConfiance"],
+        }),
+    )
+    .otherwise(() => resultatNonRegule);
 
 /**
  * Première application du calcul régulation entité utilisant le shift (début de railway)

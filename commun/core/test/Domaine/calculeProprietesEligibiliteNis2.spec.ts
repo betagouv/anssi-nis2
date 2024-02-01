@@ -9,7 +9,6 @@ import {
   ajouteChampsFacultatifs,
   etend,
 } from "../utilitaires/manipulationArbitraires";
-import { AvecParams } from "../utilitaires/manipulationArbitraires.declarations";
 import {
   fabriqueArbContraintSurtrancheChiffreAffaire,
   fabriqueArbTrancheSingleton,
@@ -17,8 +16,6 @@ import {
 import {
   arbAppartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
-  arbFournitServiceUnionEuropeenne,
-  arbLocalisationRepresentant,
   arbTypeStructure,
 } from "./arbitraires/arbitraireChampFormulaire";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
@@ -62,30 +59,18 @@ describe(calculeEligibilite, () => {
             });
           });
           describe("N'est pas éligible si", () => {
-            const fournitServiceUeRepresentantHorsFrance: AvecParams = {
-              localisationRepresentant: arbLocalisationRepresentant.horsFrance,
-              fournitServicesUnionEuropeenne:
-                arbFournitServiceUnionEuropeenne.oui,
-            };
-            const neFournitPasServiceUe: AvecParams = {
-              localisationRepresentant: arbLocalisationRepresentant.horsFrance,
-              fournitServicesUnionEuropeenne:
-                arbFournitServiceUnionEuropeenne.oui,
-            };
             it("Moyen/Grand Fournisseur d'infranum dans l'UE, représentant hors France", () => {
               V.NonEligible(
-                etend(
-                  arbForm.nonDesigneOSE.privee.exceptions
-                    .etablissementPrincipalFrance.moyenGrandInfraNum,
-                ).avec(fournitServiceUeRepresentantHorsFrance),
+                arbForm.nonDesigneOSE.privee.exceptions
+                  .etablissementPrincipalFrance.moyenGrandInfraNum
+                  .avecLocalisationRepresentantHorsFrance,
               );
             });
             it("Moyen/Grand Fournisseur d'infranum fournit hors l'UE", () => {
               V.NonEligible(
-                etend(
-                  arbForm.nonDesigneOSE.privee.exceptions
-                    .etablissementPrincipalFrance.moyenGrandInfraNum,
-                ).avec(neFournitPasServiceUe),
+                arbForm.nonDesigneOSE.privee.exceptions
+                  .etablissementPrincipalFrance.moyenGrandInfraNum
+                  .neFournitPasServiceUe,
               );
             });
           });

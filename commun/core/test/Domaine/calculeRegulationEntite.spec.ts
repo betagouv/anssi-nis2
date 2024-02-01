@@ -36,13 +36,22 @@ describe(calculeRegulationEntite, () => {
             it(`Activites toujours concernées (${ValeursActivitesConcernesInfrastructureNumerique})`, () => {
               V.estRegule(
                 arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                  .petitInfraNum.activitesConcernes.uniquement,
+                  .petitInfraNum.activitesConcernes.uniquement
+                  .avecLocalisationRepresentantFrance,
               ).car(carEstSecteurInfranumConcerne);
             });
             it(`Activité demandant un représentant en UE (${ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement})`, () => {
               V.estRegule(
                 arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
                   .petitInfraNum.infraNumDNSOuNomDomaine.representantFrance,
+              ).car(carEstSecteurInfranumConcerneRepresentantFrance);
+            });
+          });
+          describe("Moyenne et grande", () => {
+            it("fournit service dans l'UE avec représentant en France", () => {
+              V.estRegule(
+                arbForm.nonDesigneOSE.privee.exceptions
+                  .etablissementPrincipalFrance.moyenGrandInfraNum,
               ).car(carEstSecteurInfranumConcerneRepresentantFrance);
             });
           });
@@ -53,7 +62,43 @@ describe(calculeRegulationEntite, () => {
   describe("NonRegulé", () => {
     describe("Privée", () => {
       it("uniquement activités autres", () => {
-        V.estNonRegule(arbForm.nonDesigneOSE.privee.activitesAutres)?.car({});
+        V.estNonRegule(arbForm.nonDesigneOSE.privee.activitesAutres).car({});
+      });
+      describe("moyenne/grande", () => {
+        describe("Infrastructure numérique", () => {
+          it("fournit dans l'UE, représentant hors France", () => {
+            V.estNonRegule(
+              arbForm.nonDesigneOSE.privee.exceptions
+                .etablissementPrincipalFrance.moyenGrandInfraNum
+                .avecLocalisationRepresentantHorsFrance,
+            ).car({});
+          });
+          it("ne fournit pas dans l'UE", () => {
+            V.estNonRegule(
+              arbForm.nonDesigneOSE.privee.exceptions
+                .etablissementPrincipalFrance.moyenGrandInfraNum
+                .neFournitPasServiceUe,
+            ).car({});
+          });
+        });
+      });
+      describe("petite", () => {
+        describe("Infrastructure numérique", () => {
+          it(`Ne fournit pas en UE (${ValeursActivitesConcernesInfrastructureNumerique})`, () => {
+            V.estNonRegule(
+              arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+                .petitInfraNum.activitesConcernes.uniquement
+                .neFournitPasServiceUe,
+            ).car({});
+          });
+          it(`Fournit en UE, représentant hors France (${ValeursActivitesConcernesInfrastructureNumerique})`, () => {
+            V.estNonRegule(
+              arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
+                .petitInfraNum.activitesConcernes.uniquement
+                .avecLocalisationRepresentantHorsFrance,
+            ).car({});
+          });
+        });
       });
     });
   });
@@ -69,8 +114,8 @@ describe(calculeRegulationEntite, () => {
     it("Valide un secteur infranum", () => {
       const fauxCas = fabriqueDonneesFormulaire({
         typeEntitePublique: [],
-        fournitServicesUnionEuropeenne: [],
-        localisationRepresentant: [],
+        fournitServicesUnionEuropeenne: ["oui"],
+        localisationRepresentant: ["france"],
         secteurActivite: ["infrastructureNumerique"],
         sousSecteurActivite: [],
         designeOperateurServicesEssentiels: ["non"],

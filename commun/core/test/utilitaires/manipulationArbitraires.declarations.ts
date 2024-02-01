@@ -50,6 +50,7 @@ export type ArbitraireEnrichi = ArbitraireDonneesFormulaireSimulateurNomme & {
   sansBesoinLocalisation: ArbitraireDonneesFormulaireSimulateurNomme;
   neFournitPasServiceUe: ArbitraireDonneesFormulaireSimulateurNomme;
   avecLocalisationRepresentant: ArbitraireDonneesFormulaireSimulateurNomme;
+  avecLocalisationRepresentantHorsFrance: ArbitraireDonneesFormulaireSimulateurNomme;
   avecLocalisationRepresentantFrance: ArbitraireDonneesFormulaireSimulateurNomme;
 };
 export type AvecParams<TypeAjout extends DonneesAjout = DonneesAjout> = {
