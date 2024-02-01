@@ -4,13 +4,16 @@ import { PredicatResultatRegulationEntite } from "../../Regulation.definitions";
 import {
   auMoinsUneActiviteInfraNumConcernee,
   auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
+  auMoinsUneActiviteListee,
   estActiviteListee,
 } from "../Activite/Activite.predicats";
-import { et, non } from "../ChampSimulateur/champs.predicats";
+import { et, non, ou } from "../ChampSimulateur/champs.predicats";
 import {
   contientPetiteEntreprise,
   predicatDonneesFormulaire,
 } from "../DonneesFormulaire/DonneesFormulaire.predicats";
+import { auMoinsUnSecteurListe } from "../SecteurActivite/SecteurActivite.predicats";
+import { auMoinsUnSousSecteurListe } from "../SousSecteurActivite/SousSecteurActivite.predicats";
 
 export const carEstSecteurInfranumConcerne = flow(
   prop("causes"),
@@ -61,13 +64,32 @@ export const carEstGrandeSecteurFournisseurNumeriqueEtActiviteListee = flow(
       .contient("fournisseursNumeriques"),
     predicatDonneesFormulaire
       .champs("activites")
-      .verifie((a) => a.every(estActiviteListee)),
+      .verifie(auMoinsUneActiviteListee),
     predicatDonneesFormulaire
       .champs("fournitServicesUnionEuropeenne")
       .est(["oui"]),
     predicatDonneesFormulaire
       .champs("localisationRepresentant")
       .est(["france"]),
+    non(contientPetiteEntreprise),
+  ),
+) as PredicatResultatRegulationEntite;
+
+export const carEstGrandeDansSecteurListeSansBesoinLocalisation = flow(
+  prop("causes"),
+  et(
+    predicatDonneesFormulaire
+      .champs("secteurActivite")
+      .verifie(auMoinsUnSecteurListe),
+    ou(
+      predicatDonneesFormulaire.champs("sousSecteurActivite").est([]),
+      predicatDonneesFormulaire
+        .champs("sousSecteurActivite")
+        .verifie(auMoinsUnSousSecteurListe),
+    ),
+    predicatDonneesFormulaire
+      .champs("activites")
+      .verifie(auMoinsUneActiviteListee),
     non(contientPetiteEntreprise),
   ),
 ) as PredicatResultatRegulationEntite;

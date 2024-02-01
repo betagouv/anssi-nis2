@@ -8,6 +8,7 @@ import { fabriqueRegule } from "../../src/Domain/Simulateur/fabriques/Regulation
 import { ResultatRegulationEntite } from "../../src/Domain/Simulateur/Regulation.definitions";
 import { calculeRegulationEntite } from "../../src/Domain/Simulateur/services/Regulation/Regulation.operations";
 import {
+  carEstGrandeDansSecteurListeSansBesoinLocalisation,
   carEstGrandeSecteurFournisseurNumeriqueEtActiviteListee,
   carEstGrandeSecteurTicEtActiviteListee,
   carEstSecteurInfranumConcerne,
@@ -67,6 +68,13 @@ describe(calculeRegulationEntite, () => {
                 arbForm.nonDesigneOSE.privee.exceptions
                   .etablissementPrincipalFrance.moyenGrandFournisseurNum,
               ).car(carEstGrandeSecteurFournisseurNumeriqueEtActiviteListee);
+            });
+            describe("Autres secteurs d'activité", () => {
+              it("sans besoin de localisation", () =>
+                V.estRegule(
+                  arbForm.nonDesigneOSE.privee.grand.secteursListes
+                    .sansBesoinLocalisation,
+                ).car(carEstGrandeDansSecteurListeSansBesoinLocalisation));
             });
           });
         });

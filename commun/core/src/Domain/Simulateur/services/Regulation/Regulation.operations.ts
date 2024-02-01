@@ -13,6 +13,7 @@ import {
 } from "../../Regulation.definitions";
 import {
   auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
+  auMoinsUneActiviteListee,
   estActiviteInfraNumConcerneeFranceUniquement,
   estActiviteListee,
 } from "../Activite/Activite.predicats";
@@ -23,7 +24,11 @@ import {
   contientPetiteEntreprise,
   predicatDonneesFormulaire as donneesSimu,
 } from "../DonneesFormulaire/DonneesFormulaire.predicats";
-import { estPetiteEntreprise } from "../TailleEntreprise/TailleEntite.predicats";
+import {
+  auMoinsUnSecteurListe,
+  estSecteurListe,
+} from "../SecteurActivite/SecteurActivite.predicats";
+import { estSousSecteurListe } from "../SousSecteurActivite/SousSecteurActivite.predicats";
 import { CalculeRegulationOperation } from "./Regulation.service.definitions";
 import { P, match } from "ts-pattern";
 
@@ -112,17 +117,39 @@ const calculeRegulationPetite = (donnees: DonneesFormulaireSimulateur) =>
   match(donnees).otherwise(() => resultatNonRegule);
 const calculeRegulationGrande = (donnees: DonneesFormulaireSimulateur) =>
   match(donnees)
-    .with({}, () =>
-      fabriqueRegule({
-        trancheNombreEmployes: donnees.trancheNombreEmployes,
-        trancheChiffreAffaire: donnees.trancheChiffreAffaire,
-        secteurActivite: donnees.secteurActivite.filter((secteur) =>
-          ["gestionServicesTic", "fournisseursNumeriques"].includes(secteur),
+    .with(
+      {
+        secteurActivite: P.when((liste) =>
+          liste.some((secteur) =>
+            ["gestionServicesTic", "fournisseursNumeriques"].includes(secteur),
+          ),
         ),
-        activites: donnees.activites.filter(estActiviteListee),
-        fournitServicesUnionEuropeenne: ["oui"],
-        localisationRepresentant: ["france"],
-      }),
+      },
+      () =>
+        fabriqueRegule({
+          trancheNombreEmployes: donnees.trancheNombreEmployes,
+          trancheChiffreAffaire: donnees.trancheChiffreAffaire,
+          secteurActivite: donnees.secteurActivite.filter((secteur) =>
+            ["gestionServicesTic", "fournisseursNumeriques"].includes(secteur),
+          ),
+          activites: donnees.activites.filter(estActiviteListee),
+          fournitServicesUnionEuropeenne: ["oui"],
+          localisationRepresentant: ["france"],
+        }),
+    )
+    .with(
+      {
+        secteurActivite: P.when(auMoinsUnSecteurListe),
+      },
+      () =>
+        fabriqueRegule({
+          trancheNombreEmployes: donnees.trancheNombreEmployes,
+          trancheChiffreAffaire: donnees.trancheChiffreAffaire,
+          secteurActivite: donnees.secteurActivite.filter(estSecteurListe),
+          sousSecteurActivite:
+            donnees.sousSecteurActivite.filter(estSousSecteurListe),
+          activites: donnees.activites.filter(estActiviteListee),
+        }),
     )
     .otherwise(() => resultatNonRegule);
 
