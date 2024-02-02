@@ -138,6 +138,7 @@ describe(calculeEligibilite, () => {
             );
           });
         });
+        // STOP Extraction
         describe("N'est pas éligible", () => {
           it("secteur d'activité necessitant localisation représentant, fournissant hors UE", () => {
             V.NonEligible(
