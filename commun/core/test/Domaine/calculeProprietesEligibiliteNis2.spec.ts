@@ -23,124 +23,107 @@ import { fc } from "@fast-check/vitest";
 
 describe(calculeEligibilite, () => {
   describe("Entité OSE pour NIS1", () => {
-    it("de petite taille est toujours éligible", () => {
-      V.EligiblePetiteEntreprise(arbForm.designeOSE.petit);
-    });
-    it("de moyenne ou grande taille est toujours éligible", () => {
-      V.EligibleMoyenneGrandeEntreprise(arbForm.designeOSE.moyenGrand);
-    });
+    it("de petite taille est toujours éligible", () =>
+      V.EligiblePetiteEntreprise(arbForm.designeOSE.petit));
+    it("de moyenne ou grande taille est toujours éligible", () =>
+      V.EligibleMoyenneGrandeEntreprise(arbForm.designeOSE.moyenGrand));
   });
 
   describe("Entite non OSE pour NIS 1", () => {
     describe("Privée", () => {
-      it("n'est pas eligible si activites cochees sont uniquement autres", () => {
-        V.NonEligible(arbForm.nonDesigneOSE.privee.activitesAutres);
-      });
+      it("n'est pas eligible si activites cochees sont uniquement autres", () =>
+        V.NonEligible(arbForm.nonDesigneOSE.privee.activitesAutres));
       describe("Infrastructure Numérique", () => {
         describe("Petite entité localisée en France ou en UE", () => {
           describe("Est éligible si", () => {
-            it("Est éligible si le secteur d'activité est 'Infrastructure Numérique'", () => {
+            it("Est éligible si le secteur d'activité est 'Infrastructure Numérique'", () =>
               V.EligiblePetiteEntreprise(
                 arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
                   .petitInfraNum.activitesConcernes,
-              );
-            });
-            it("Petit Fournisseur d'infranum dans l'UE, représentant en France", () => {
+              ));
+            it("Petit Fournisseur d'infranum dans l'UE, représentant en France", () =>
               V.EligiblePetiteEntreprise(
                 arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
                   .petitInfraNum.infraNumDNSOuNomDomaine.representantFrance,
-              );
-            });
-            it("Moyen/Grand Fournisseur d'infranum dans l'UE, représentant en France", () => {
+              ));
+            it("Moyen/Grand Fournisseur d'infranum dans l'UE, représentant en France", () =>
               V.EligibleMoyenneGrandeEntreprise(
                 arbForm.nonDesigneOSE.privee.exceptions
                   .etablissementPrincipalFrance.moyenGrandInfraNum,
-              );
-            });
+              ));
           });
           describe("N'est pas éligible si", () => {
-            it("Moyen/Grand Fournisseur d'infranum dans l'UE, représentant hors France", () => {
+            it("Moyen/Grand Fournisseur d'infranum dans l'UE, représentant hors France", () =>
               V.NonEligible(
                 arbForm.nonDesigneOSE.privee.exceptions
                   .etablissementPrincipalFrance.moyenGrandInfraNum
                   .avecLocalisationRepresentantHorsFrance,
-              );
-            });
-            it("Moyen/Grand Fournisseur d'infranum fournit hors l'UE", () => {
+              ));
+            it("Moyen/Grand Fournisseur d'infranum fournit hors l'UE", () =>
               V.NonEligible(
                 arbForm.nonDesigneOSE.privee.exceptions
                   .etablissementPrincipalFrance.moyenGrandInfraNum
                   .neFournitPasServiceUe,
-              );
-            });
+              ));
           });
         });
         describe("Exceptions 'Etablissement principal en France'", () => {
-          it("Moyen grand Gestion TIC", () => {
+          it("Moyen grand Gestion TIC", () =>
             V.EligibleMoyenneGrandeEntreprise(
               arbForm.nonDesigneOSE.privee.exceptions
                 .etablissementPrincipalFrance.moyenGrandGestionTic,
-            );
-          });
-          it("Moyen grand Fournisseur Numérique", () => {
+            ));
+          it("Moyen grand Fournisseur Numérique", () =>
             V.EligibleMoyenneGrandeEntreprise(
               arbForm.nonDesigneOSE.privee.exceptions
                 .etablissementPrincipalFrance.moyenGrandFournisseurNum,
-            );
-          });
+            ));
         });
         describe("N'est pas éligible si", () => {
-          it("Petit Fournisseur d'infranum dans l'UE, représentant en UE", () => {
+          it("Petit Fournisseur d'infranum dans l'UE, représentant en UE", () =>
             V.NonEligible(
               arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
                 .petitInfraNum.infraNumDNSOuNomDomaine.representantUE,
-            );
-          });
-          it("Petit Fournisseur d'infranum ne fournissant pas dans l'UE", () => {
+            ));
+          it("Petit Fournisseur d'infranum ne fournissant pas dans l'UE", () =>
             V.NonEligible(
               arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
                 .petitInfraNum.infraNumDNSOuNomDomaine.neFournitPasEnUE,
-            );
-          });
-          it("Petit Fournisseur d'infranum dans l'UE, représentant Hors UE", () => {
+            ));
+          it("Petit Fournisseur d'infranum dans l'UE, représentant Hors UE", () =>
             V.NonEligible(
               arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
                 .petitInfraNum.infraNumDNSOuNomDomaine.representantHorsUE,
-            );
-          });
-          it("le secteur d'activité n'est pas 'Infrastructure Numérique'", () => {
+            ));
+          it("le secteur d'activité n'est pas 'Infrastructure Numérique'", () =>
             V.NonEligible(
               arbForm.nonDesigneOSE.privee.petit
                 .listeNonFournisseursInfrastructureNumerique,
-            );
-          });
-          it("Le secteur d'activité est 'Infrastructure Numérique' mais les activités ne sont pas concernés", () => {
+            ));
+          it("Le secteur d'activité est 'Infrastructure Numérique' mais les activités ne sont pas concernés", () =>
             V.NonEligible(
               arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
                 .activitesNonConcernes,
-            );
-          });
+            ));
         });
       });
 
       describe("Moyenne ou grande entité localisée en France ou en UE", () => {
         describe("est éligible si", () => {
-          it("secteur d'activité et activité listés sans besoin de localisation", () => {
+          it("secteur d'activité et activité listés sans besoin de localisation", () =>
             V.EligibleMoyenneGrandeEntreprise(
               arbForm.nonDesigneOSE.privee.grand.secteursListes
                 .sansBesoinLocalisation,
-            );
-          });
-          it("secteur d'activité et activité listés sans besoin de localisation", () => {
+            ));
+          it("secteur d'activité et activité listés sans besoin de localisation", () =>
             V.EligibleMoyenneGrandeEntreprise(
               arbForm.nonDesigneOSE.privee.grand.secteursListes
                 .avecLocalisationRepresentantFrance,
-            );
-          });
+            ));
         });
         // STOP Extraction
         describe("N'est pas éligible", () => {
-          it("secteur d'activité necessitant localisation représentant, fournissant hors UE", () => {
+          it("secteur d'activité necessitant localisation représentant, fournissant hors UE", () =>
             V.NonEligible(
               etend(
                 fc.record({
@@ -163,14 +146,11 @@ describe(calculeEligibilite, () => {
                 .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
                 .chain(ajouteArbitraireActivites)
                 .chain(ajouteChampsFacultatifs),
-            );
-          });
-          it("Si le secteur est 'autre'", () => {
-            V.NonEligible(arbForm.nonDesigneOSE.privee.grand.secteursAutres);
-          });
-          it("Si l'activité est 'autre'", () => {
-            V.NonEligible(arbForm.nonDesigneOSE.privee.grand.activitesAutres);
-          });
+            ));
+          it("Si le secteur est 'autre'", () =>
+            V.NonEligible(arbForm.nonDesigneOSE.privee.grand.secteursAutres));
+          it("Si l'activité est 'autre'", () =>
+            V.NonEligible(arbForm.nonDesigneOSE.privee.grand.activitesAutres));
         });
       });
     });
@@ -178,16 +158,12 @@ describe(calculeEligibilite, () => {
 
   describe("Publique", () => {
     describe("est incertain pour un résultat non configuré", () => {
-      it("Entité publique", () => {
-        V.Incertain(arbForm.nonDesigneOSE.publique);
-      });
-      it("Hors Union Européenne", () => {
-        V.Incertain(arbForm.nonDesigneOSE.horsUE);
-      });
-      it("Hors Union Européenne", () => {
-        V.Incertain(arbForm.nonDesigneOSE.autrePaysUe);
-      });
-      it("Hors Union Européenne, grande entreprise", () => {
+      it("Entité publique", () => V.Incertain(arbForm.nonDesigneOSE.publique));
+      it("Hors Union Européenne", () =>
+        V.Incertain(arbForm.nonDesigneOSE.horsUE));
+      it("Hors Union Européenne", () =>
+        V.Incertain(arbForm.nonDesigneOSE.autrePaysUe));
+      it("Hors Union Européenne, grande entreprise", () =>
         verifieQue(calculeEligibilite)
           .pour({
             designeOperateurServicesEssentiels: ["non"],
@@ -202,27 +178,22 @@ describe(calculeEligibilite, () => {
             fournitServicesUnionEuropeenne: [],
             localisationRepresentant: [],
           })
-          .renvoieToujours(Eligibilite.Incertain);
-      });
+          .renvoieToujours(Eligibilite.Incertain));
     });
   });
 
   describe(Eligibilite.Incertain, () => {
-    it("lorsque le type structure n'est pas remplie", () => {
-      V.Incertain(arbForm.nonValide.donneeAbsente.typeStructure);
-    });
-    it("lorsque le type structure n'est pas remplie", () => {
-      V.Incertain(arbForm.nonValide.donneeAbsente.typeStructure);
-    });
-    it("lorsque l'appartenance à l'UE n'est pas remplie", () => {
+    it("lorsque le type structure n'est pas remplie", () =>
+      V.Incertain(arbForm.nonValide.donneeAbsente.typeStructure));
+    it("lorsque le type structure n'est pas remplie", () =>
+      V.Incertain(arbForm.nonValide.donneeAbsente.typeStructure));
+    it("lorsque l'appartenance à l'UE n'est pas remplie", () =>
       V.Incertain(
         arbForm.nonValide.donneeAbsente.appartenancePaysUnionEurpopeenne,
-      );
-    });
-    it("lorsque OSE NIS 1 n'est pas rempli", () => {
+      ));
+    it("lorsque OSE NIS 1 n'est pas rempli", () =>
       V.Incertain(
         arbForm.nonValide.donneeAbsente.designeOperateurServicesEssentiels,
-      );
-    });
+      ));
   });
 });
