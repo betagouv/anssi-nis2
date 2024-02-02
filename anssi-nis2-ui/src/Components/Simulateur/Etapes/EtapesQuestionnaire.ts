@@ -40,11 +40,11 @@ const sousEtapeSousSecteur =
 const sousEtapeLocalisationActiviteSpecifique =
   fabriquesInformationsEtapes.sousEtapeConditionnelle(
     ou(
-      P.champs("activites").satisfait(
+      P.activites.satisfait(
         auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
       ),
-      P.champs("secteurActivite").contient("fournisseursNumeriques"),
-      P.champs("secteurActivite").contient("gestionServicesTic"),
+      P.secteurActivite.contient("fournisseursNumeriques"),
+      P.secteurActivite.contient("gestionServicesTic"),
     ),
     fabriquesInformationsEtapes.form(
       "Localisation de votre activité",

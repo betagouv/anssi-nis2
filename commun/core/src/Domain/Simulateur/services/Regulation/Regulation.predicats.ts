@@ -45,23 +45,23 @@ export const carEstGrandeSecteurFournisseurNumeriqueEtActiviteListee = car(
 );
 
 export const carEstGrandeDansSecteurListeSansBesoinLocalisation = car(
-  verifie.champs("secteurActivite").satisfait(auMoinsUnSecteurListe),
+  verifie.secteurActivite.satisfait(auMoinsUnSecteurListe),
   ou(
-    verifie.champs("sousSecteurActivite").est([]),
-    verifie.champs("sousSecteurActivite").satisfait(auMoinsUnSousSecteurListe),
+    verifie.sousSecteurActivite.est([]),
+    verifie.sousSecteurActivite.satisfait(auMoinsUnSousSecteurListe),
   ),
-  verifie.champs("activites").satisfait(auMoinsUneActiviteListee),
+  verifie.activites.satisfait(auMoinsUneActiviteListee),
   non(contientPetiteEntreprise),
 );
 
 export const carEstGrandeDansSecteurListeAvecBesoinLocalisation = car(
-  verifie.champs("secteurActivite").satisfait(auMoinsUnSecteurListe),
+  verifie.secteurActivite.satisfait(auMoinsUnSecteurListe),
   ou(
-    verifie.champs("sousSecteurActivite").est([]),
-    verifie.champs("sousSecteurActivite").satisfait(auMoinsUnSousSecteurListe),
+    verifie.sousSecteurActivite.est([]),
+    verifie.sousSecteurActivite.satisfait(auMoinsUnSousSecteurListe),
   ),
-  verifie.champs("activites").satisfait(auMoinsUneActiviteListee),
-  verifie.champs("fournitServicesUnionEuropeenne").est(["oui"]),
-  verifie.champs("localisationRepresentant").est(["france"]),
+  verifie.activites.satisfait(auMoinsUneActiviteListee),
+  verifie.fournitServicesUnionEuropeenne.est(["oui"]),
+  verifie.localisationRepresentant.est(["france"]),
   non(contientPetiteEntreprise),
 );

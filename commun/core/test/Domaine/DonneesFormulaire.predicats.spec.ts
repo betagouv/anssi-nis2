@@ -19,14 +19,14 @@ describe("predicatDonneesFormulaire", () => {
         secteurActivite: ["infrastructureNumerique"],
       };
       expect(donnees).toSatisfy(
-        predicatDonneesFormulaire
-          .champs("secteurActivite")
-          .contient("infrastructureNumerique"),
+        predicatDonneesFormulaire.secteurActivite.contient(
+          "infrastructureNumerique",
+        ),
       );
       expect(donnees).not.toSatisfy(
-        predicatDonneesFormulaire
-          .champs("secteurActivite")
-          .contient("fournisseursNumeriques"),
+        predicatDonneesFormulaire.secteurActivite.contient(
+          "fournisseursNumeriques",
+        ),
       );
     });
   });
@@ -36,9 +36,7 @@ describe("predicatDonneesFormulaire", () => {
         activites: ["entiteCentralesStockage"],
       });
       expect(donnees).toSatisfy(
-        predicatDonneesFormulaire
-          .champs("activites")
-          .satisfait(auMoinsUneActiviteListee),
+        predicatDonneesFormulaire.activites.satisfait(auMoinsUneActiviteListee),
       );
     });
   });

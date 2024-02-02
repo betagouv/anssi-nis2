@@ -2,8 +2,10 @@ import { isMatching, P } from "ts-pattern";
 import { estTableauNonVide } from "../../../Commun/Commun.predicats";
 import { Activite } from "../../Activite.definitions";
 import {
+  ChampsAvecPredicats,
   DonneesFormulaireSimulateur,
   DonneesSectorielles,
+  FabriquePredicatChamp,
   NomsChampsSimulateur,
   PredicatDonneesFormulaireSimulateur,
 } from "../../DonneesFormulaire.definitions";
@@ -52,20 +54,6 @@ const fabriqueSatisfaitUniquement =
   ) =>
     donnees[champ].every(predicat);
 
-type PredicatsSurChamp<C extends NomsChampsSimulateur> = {
-  contient: <T extends DonneesFormulaireSimulateur[C][number]>(
-    valeur: T,
-  ) => (donnees: DonneesFormulaireSimulateur) => boolean;
-  est: <T extends DonneesFormulaireSimulateur[C]>(
-    valeurs: T,
-  ) => (d: DonneesFormulaireSimulateur) => boolean;
-  satisfait: (
-    f: <T extends DonneesFormulaireSimulateur[C]>(valeurs: T) => boolean,
-  ) => (d: DonneesFormulaireSimulateur) => boolean;
-};
-type FabriquePredicatChamp = <C extends NomsChampsSimulateur>(
-  champ: C,
-) => PredicatsSurChamp<C>;
 const fabriquePredicatChamp: FabriquePredicatChamp = <
   C extends NomsChampsSimulateur,
 >(
@@ -85,10 +73,6 @@ const fabriquePredicatChamp: FabriquePredicatChamp = <
     isMatching({ [champ]: valeurs }),
 });
 
-type ChampsAvecPredicats = {
-  [K in NomsChampsSimulateur]: PredicatsSurChamp<K>;
-};
-
 export const predicatDonneesFormulaire = {
   auMoins: {
     un: verifAuMoinsUn,
@@ -97,7 +81,6 @@ export const predicatDonneesFormulaire = {
   uniquement: {
     activiteAutre: fabriqueSatisfaitUniquement("activites", estActiviteAutre),
   },
-  champs: fabriquePredicatChamp,
   ...ValeursNomChampsFormulaire.reduce(
     (acc, nom) => ({ ...acc, [nom]: fabriquePredicatChamp(nom) }),
     {} as ChampsAvecPredicats,
@@ -204,7 +187,7 @@ export const contientSecteurNecessitantLocalisation = (
   d: DonneesSectorielles,
 ) =>
   secteursNecessitantLocalisationRepresentant.some((s) =>
-    predicatDonneesFormulaire.champs("secteurActivite").contient(s)(
+    predicatDonneesFormulaire.secteurActivite.contient(s)(
       d as DonneesFormulaireSimulateur,
     ),
   );

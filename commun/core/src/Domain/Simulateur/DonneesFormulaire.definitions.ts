@@ -1,5 +1,4 @@
-import { SecteurActivite } from "./SecteurActivite.definitions";
-import { SousSecteurActivite } from "./SousSecteurActivite.definitions";
+import { Activite } from "./Activite.definitions";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
@@ -10,8 +9,9 @@ import {
   TypeStructure,
   ValeurChampSimulateur,
 } from "./ChampsSimulateur.definitions";
-import { Activite } from "./Activite.definitions";
 import { ValeursNomChampsFormulaire } from "./DonneesFormulaire.valeurs";
+import { SecteurActivite } from "./SecteurActivite.definitions";
+import { SousSecteurActivite } from "./SousSecteurActivite.definitions";
 
 export type NomsChampsSimulateur = (typeof ValeursNomChampsFormulaire)[number];
 
@@ -38,3 +38,20 @@ export type DonneesSectorielles = Pick<
 export type PredicatDonneesFormulaireSimulateur = (
   d: DonneesFormulaireSimulateur,
 ) => boolean;
+type PredicatsSurChamp<C extends NomsChampsSimulateur> = {
+  contient: <T extends DonneesFormulaireSimulateur[C][number]>(
+    valeur: T,
+  ) => (donnees: DonneesFormulaireSimulateur) => boolean;
+  est: <T extends DonneesFormulaireSimulateur[C]>(
+    valeurs: T,
+  ) => (d: DonneesFormulaireSimulateur) => boolean;
+  satisfait: (
+    f: <T extends DonneesFormulaireSimulateur[C]>(valeurs: T) => boolean,
+  ) => (d: DonneesFormulaireSimulateur) => boolean;
+};
+export type FabriquePredicatChamp = <C extends NomsChampsSimulateur>(
+  champ: C,
+) => PredicatsSurChamp<C>;
+export type ChampsAvecPredicats = {
+  [K in NomsChampsSimulateur]: PredicatsSurChamp<K>;
+};
