@@ -7,6 +7,7 @@ import {
   NomsChampsSimulateur,
   PredicatDonneesFormulaireSimulateur,
 } from "../../DonneesFormulaire.definitions";
+import { ValeursNomChampsFormulaire } from "../../DonneesFormulaire.valeurs";
 import { secteursNecessitantLocalisationRepresentant } from "../../SecteurActivite.constantes";
 import {
   auMoinsUneActiviteListee,
@@ -51,6 +52,43 @@ const fabriqueSatisfaitUniquement =
   ) =>
     donnees[champ].every(predicat);
 
+type PredicatsSurChamp<C extends NomsChampsSimulateur> = {
+  contient: <T extends DonneesFormulaireSimulateur[C][number]>(
+    valeur: T,
+  ) => (donnees: DonneesFormulaireSimulateur) => boolean;
+  est: <T extends DonneesFormulaireSimulateur[C]>(
+    valeurs: T,
+  ) => (d: DonneesFormulaireSimulateur) => boolean;
+  satisfait: (
+    f: <T extends DonneesFormulaireSimulateur[C]>(valeurs: T) => boolean,
+  ) => (d: DonneesFormulaireSimulateur) => boolean;
+};
+type FabriquePredicatChamp = <C extends NomsChampsSimulateur>(
+  champ: C,
+) => PredicatsSurChamp<C>;
+const fabriquePredicatChamp: FabriquePredicatChamp = <
+  C extends NomsChampsSimulateur,
+>(
+  champ: C,
+) => ({
+  contient:
+    <T extends DonneesFormulaireSimulateur[C][number]>(valeur: T) =>
+    (donnees: DonneesFormulaireSimulateur) =>
+      donnees !== undefined &&
+      champ in donnees &&
+      donnees[champ].includes(valeur as never),
+  satisfait:
+    (f: <T extends DonneesFormulaireSimulateur[C]>(valeurs: T) => boolean) =>
+    (d: DonneesFormulaireSimulateur) =>
+      f(d[champ]),
+  est: <T extends DonneesFormulaireSimulateur[C]>(valeurs: T) =>
+    isMatching({ [champ]: valeurs }),
+});
+
+type ChampsAvecPredicats = {
+  [K in NomsChampsSimulateur]: PredicatsSurChamp<K>;
+};
+
 export const predicatDonneesFormulaire = {
   auMoins: {
     un: verifAuMoinsUn,
@@ -59,20 +97,11 @@ export const predicatDonneesFormulaire = {
   uniquement: {
     activiteAutre: fabriqueSatisfaitUniquement("activites", estActiviteAutre),
   },
-  champs: <C extends NomsChampsSimulateur>(champ: C) => ({
-    contient:
-      <T extends DonneesFormulaireSimulateur[C][number]>(valeur: T) =>
-      (donnees: DonneesFormulaireSimulateur) =>
-        donnees !== undefined &&
-        champ in donnees &&
-        donnees[champ].includes(valeur as never),
-    verifie:
-      (f: <T extends DonneesFormulaireSimulateur[C]>(valeurs: T) => boolean) =>
-      (d: DonneesFormulaireSimulateur) =>
-        f(d[champ]),
-    est: <T extends DonneesFormulaireSimulateur[C]>(valeurs: T) =>
-      isMatching({ [champ]: valeurs }),
-  }),
+  champs: fabriquePredicatChamp,
+  ...ValeursNomChampsFormulaire.reduce(
+    (acc, nom) => ({ ...acc, [nom]: fabriquePredicatChamp(nom) }),
+    {} as ChampsAvecPredicats,
+  ),
 };
 
 export const verifieCompletudeDonneesCommunes = et(

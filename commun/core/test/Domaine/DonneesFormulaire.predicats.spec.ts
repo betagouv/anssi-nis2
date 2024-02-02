@@ -38,7 +38,7 @@ describe("predicatDonneesFormulaire", () => {
       expect(donnees).toSatisfy(
         predicatDonneesFormulaire
           .champs("activites")
-          .verifie(auMoinsUneActiviteListee),
+          .satisfait(auMoinsUneActiviteListee),
       );
     });
   });

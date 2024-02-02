@@ -40,7 +40,7 @@ const sousEtapeSousSecteur =
 const sousEtapeLocalisationActiviteSpecifique =
   fabriquesInformationsEtapes.sousEtapeConditionnelle(
     ou(
-      P.champs("activites").verifie(
+      P.champs("activites").satisfait(
         auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
       ),
       P.champs("secteurActivite").contient("fournisseursNumeriques"),
