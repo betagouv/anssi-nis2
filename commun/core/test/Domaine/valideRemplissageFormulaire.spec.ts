@@ -259,26 +259,26 @@ Counterexample: [{"typeEntitePublique":["administrationCentrale"],"fournitServic
       it(
         "verifieCompletudeDonneesCommunes",
         verifieQue(verifieCompletudeDonneesCommunes).pour(donnees)
-          .estToujoursVrai,
+          .estToujoursVrai
       );
       it(
         "verifieCompletudeDonneesFormulairePublique",
         verifieQue(verifieCompletudeDonneesFormulairePublique).pour(donnees)
-          .estToujoursFaux,
+          .estToujoursFaux
       );
     });
     describe("Petite Infrastructure numérique non localisée", () => {
       it(
         "contientSecteursLocalisesValides",
         verifieQue(contientSecteursLocalisesValides).pour(
-          formulairePetitInfraNumSansLocalisation,
-        ).estToujoursFaux,
+          formulairePetitInfraNumSansLocalisation
+        ).estToujoursFaux
       );
       it(
         "verifieDonneesSectorielles",
         verifieQue(verifieDonneesSectorielles).pour(
-          formulairePetitInfraNumSansLocalisation,
-        ).estToujoursFaux,
+          formulairePetitInfraNumSansLocalisation
+        ).estToujoursFaux
       );
       it(
         "contientSecteursLocalisesValides",
@@ -286,13 +286,13 @@ Counterexample: [{"typeEntitePublique":["administrationCentrale"],"fournitServic
           ...formulairePetitInfraNumSansLocalisation,
           secteurActivite: ["gestionServicesTic"],
           activites: ["fournisseurServicesSecuriteGeres"],
-        }).estToujoursVrai,
+        }).estToujoursVrai
       );
       it(
         "verifieDonneesSectorielles",
         verifieQue(verifieDonneesSectorielles).pour(
-          formulairePetitInfraNumSansLocalisation,
-        ).estToujoursFaux,
+          formulairePetitInfraNumSansLocalisation
+        ).estToujoursFaux
       );
     });
     describe("Petite Infrastructure numérique sans représentant", () => {
@@ -303,7 +303,7 @@ Counterexample: [{"typeEntitePublique":["administrationCentrale"],"fournitServic
       it(
         "verifieCompletudeDonneesFormulairePrivee",
         verifieQue(verifieCompletudeDonneesFormulairePrivee).pour(donnees)
-          .estToujoursFaux,
+          .estToujoursFaux
       );
     });
     describe("Petite Infrastructure numérique ne fournit pas en UE", () => {
@@ -314,7 +314,7 @@ Counterexample: [{"typeEntitePublique":["administrationCentrale"],"fournitServic
       it(
         "verifieCompletudeDonneesFormulairePrivee",
         verifieQue(verifieCompletudeDonneesFormulairePrivee).pour(donnees)
-          .estToujoursVrai,
+          .estToujoursVrai
       );
     });
   });

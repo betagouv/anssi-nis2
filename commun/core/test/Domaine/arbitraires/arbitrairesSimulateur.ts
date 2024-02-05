@@ -1,4 +1,4 @@
-import { partitionneLocalisationServices } from "../../utilitaires/manipulationArbitraires";
+import { fabriquePartitionLocalisationServices } from "../../utilitaires/manipulationArbitraires";
 import { arbActivitesAutres } from "./arbitrairesSimulateur.activites";
 import { arbFournisseursInfrastructureNumerique } from "./arbitrairesSimulateur.infrastructuresNumeriques";
 import {
@@ -24,7 +24,7 @@ export const arbForm = {
       activitesAutres: arbActivitesAutres,
       petit: arbFournisseursInfrastructureNumerique,
       grand: {
-        secteursListes: partitionneLocalisationServices(
+        secteursListes: fabriquePartitionLocalisationServices(
           arbNonOSEPrivesMoyenneGrande,
         ),
         secteursAutres: arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles,
@@ -34,16 +34,13 @@ export const arbForm = {
         etablissementPrincipalFrance: {
           moyenGrandInfraNum:
             arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance,
-          moyenGrandGestionTic: partitionneLocalisationServices(
-            arbNonOSEPrivesMoyenGrandGestionTic,
-          ),
-          moyenGrandFournisseurNum: partitionneLocalisationServices(
+          moyenGrandGestionTic: arbNonOSEPrivesMoyenGrandGestionTic,
+          moyenGrandFournisseurNum:
             arbNonOSEPrivesMoyenGrandFournisseurNumerique,
-          ),
         },
       },
     },
-    publique: partitionneLocalisationServices(arbNonOSEPublique),
+    publique: fabriquePartitionLocalisationServices(arbNonOSEPublique),
     horsUE: arbHorsUe,
     autrePaysUe: arbAutrePaysUe,
   },

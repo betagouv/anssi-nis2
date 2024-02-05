@@ -46,7 +46,7 @@ export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFranc
   );
 
 export const arbNonOSEPrivesMoyenneGrande = etend(
-  arbSecteursEtSousSecteursListes,
+  arbSecteursEtSousSecteursListes
 )
   .avec({
     designeOperateurServicesEssentiels:
