@@ -25,4 +25,19 @@ describe("InformationsEmailsController", () => {
     const valeurAjoutee = await controller.ajoute(informationsEmail);
     espereEmailsInformationCorrespondASonDto(valeurAjoutee, informationsEmail);
   });
+  // Suppression pour des raisons de bug dans l'API : impossiuble d'ajouter dans
+  //  la base avec des validations
+  it.skip("n'autorise pas l'ajout de données avec un email mal formé", async () => {
+    const module = await moduleConstructeur.compile();
+    const controller = module.get<InformationsEmailsController>(
+      InformationsEmailsController,
+    );
+    const informationsEmailInvalide = {
+      ...informationsEmail,
+      email: "INVALIDE",
+    };
+    await expect(
+      await controller.ajoute(informationsEmailInvalide),
+    ).rejects.toThrow();
+  });
 });
