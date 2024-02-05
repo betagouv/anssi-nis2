@@ -6,9 +6,9 @@ const config: Config = {
   rootDir: ".",
   testEnvironment: "node",
   testRegex: ".e2e-spec.ts$",
+  transformIgnorePatterns: ["^.+\\.js$"],
   moduleNameMapper: {
-    "^~core/(.*)$":
-      path.resolve(__dirname + "/../../anssi-nis2-ui/src/Domaine/") + "/$1",
+    "^~core/(.*)$": path.resolve(__dirname + "/../../commun/core") + "/$1",
   },
   transform: {
     "^.+\\.(t|j)s$": "ts-jest",
