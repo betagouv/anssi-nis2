@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty } from "class-validator";
+import { IsEmail, IsNotEmpty, ValidateIf } from "class-validator";
 
 export class CreeInformationsEmailDto {
   constructor({
@@ -16,10 +16,11 @@ export class CreeInformationsEmailDto {
   @IsEmail()
   email: string;
 
+  @ValidateIf((o) => o === undefined)
   @IsNotEmpty()
   nomOrganisation?: string;
 
   accepteInfolettreNis2: boolean = false;
 
-  accepteInfolettreServicesDedies: boolean = false;
+  accepteInfolettreServicesDedies?: boolean = false;
 }
