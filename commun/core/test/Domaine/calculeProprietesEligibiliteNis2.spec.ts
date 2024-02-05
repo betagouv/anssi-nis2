@@ -43,19 +43,19 @@ describe(calculeEligibilite, () => {
             it("Est éligible si le secteur d'activité est 'Infrastructure Numérique'", () => {
               V.EligiblePetiteEntreprise(
                 arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                  .petitInfraNum.activitesConcernes,
+                  .petitInfraNum.activitesConcernes
               );
             });
             it("Petit Fournisseur d'infranum dans l'UE, représentant en France", () => {
               V.EligiblePetiteEntreprise(
                 arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum
-                  .petitInfraNum.infraNumDNSOuNomDomaine.representantFrance,
+                  .petitInfraNum.infraNumDNSOuNomDomaine.representantFrance
               );
             });
             it("Moyen/Grand Fournisseur d'infranum dans l'UE, représentant en France", () => {
               V.EligibleMoyenneGrandeEntreprise(
                 arbForm.nonDesigneOSE.privee.exceptions
-                  .etablissementPrincipalFrance.moyenGrandInfraNum,
+                  .etablissementPrincipalFrance.moyenGrandInfraNum
               );
             });
           });
@@ -74,16 +74,16 @@ describe(calculeEligibilite, () => {
               V.NonEligible(
                 etend(
                   arbForm.nonDesigneOSE.privee.exceptions
-                    .etablissementPrincipalFrance.moyenGrandInfraNum,
-                ).avec(fournitServiceUeRepresentantHorsFrance),
+                    .etablissementPrincipalFrance.moyenGrandInfraNum
+                ).avec(fournitServiceUeRepresentantHorsFrance)
               );
             });
             it("Moyen/Grand Fournisseur d'infranum fournit hors l'UE", () => {
               V.NonEligible(
                 etend(
                   arbForm.nonDesigneOSE.privee.exceptions
-                    .etablissementPrincipalFrance.moyenGrandInfraNum,
-                ).avec(neFournitPasServiceUe),
+                    .etablissementPrincipalFrance.moyenGrandInfraNum
+                ).avec(neFournitPasServiceUe)
               );
             });
           });
@@ -92,13 +92,13 @@ describe(calculeEligibilite, () => {
           it("Moyen grand Gestion TIC", () => {
             V.EligibleMoyenneGrandeEntreprise(
               arbForm.nonDesigneOSE.privee.exceptions
-                .etablissementPrincipalFrance.moyenGrandGestionTic,
+                .etablissementPrincipalFrance.moyenGrandGestionTic
             );
           });
           it("Moyen grand Fournisseur Numérique", () => {
             V.EligibleMoyenneGrandeEntreprise(
               arbForm.nonDesigneOSE.privee.exceptions
-                .etablissementPrincipalFrance.moyenGrandFournisseurNum,
+                .etablissementPrincipalFrance.moyenGrandFournisseurNum
             );
           });
         });
@@ -141,13 +141,13 @@ describe(calculeEligibilite, () => {
           it("secteur d'activité et activité listés sans besoin de localisation", () => {
             V.EligibleMoyenneGrandeEntreprise(
               arbForm.nonDesigneOSE.privee.grand.secteursListes
-                .sansBesoinLocalisation,
+                .sansBesoinLocalisation
             );
           });
           it("secteur d'activité et activité listés sans besoin de localisation", () => {
             V.EligibleMoyenneGrandeEntreprise(
               arbForm.nonDesigneOSE.privee.grand.secteursListes
-                .avecLocalisationRepresentantFrance,
+                .avecLocalisationRepresentantFrance
             );
           });
         });
@@ -161,7 +161,7 @@ describe(calculeEligibilite, () => {
                     "gestionServicesTic",
                   ]),
                   sousSecteurActivite: fc.constant([]),
-                }),
+                })
               )
                 .avec({
                   designeOperateurServicesEssentiels:
@@ -174,7 +174,7 @@ describe(calculeEligibilite, () => {
                 })
                 .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
                 .chain(ajouteArbitraireActivites)
-                .chain(ajouteChampsFacultatifs),
+                .chain(ajouteChampsFacultatifs)
             );
           });
           it("Si le secteur est 'autre'", () => {

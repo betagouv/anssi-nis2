@@ -28,14 +28,14 @@ FAQ est évolutive, et sera complétée au fil des questions reçues.
 Dernière mise à jour de cette FAQ&nbsp;: 07/07/2023
 
 ---
-titreCourt: Introduction
----
+
+## titreCourt: Introduction
 
 # Introduction
 
 ---
-titreCourt: 1. En quoi consistait la directive NIS 1 ?
----
+
+## titreCourt: 1. En quoi consistait la directive NIS 1 ?
 
 ## 1. En 2016, le Parlement et le Conseil de l’UE ont adopté une première série de mesures concernant la cybersécurité du marché européen. En quoi consistait exactement cette directive connue sous le nom de NIS 1&nbsp;?
 
@@ -50,8 +50,8 @@ les mesures de sécurité nécessaires pour réduire fortement l’exposition de
 risques cybers.
 
 ---
-titreCourt: 2. Qu’est-ce qui va changer NIS 2 ?
----
+
+## titreCourt: 2. Qu’est-ce qui va changer NIS 2 ?
 
 ## 2. Qu’est-ce qui va changer avec l’adoption de la directive NIS&nbsp;2&nbsp;?
 
@@ -82,8 +82,8 @@ mesures de protection de base face à la cybercriminalité sont donc des enjeux 
 # Périmètre des entités concernées
 
 ---
-titreCourt: 5. Comment savoir si je suis concerné ?
----
+
+## titreCourt: 5. Comment savoir si je suis concerné ?
 
 ## 5. Comment savoir si je suis concerné par NIS&nbsp;2&nbsp;?
 
@@ -100,8 +100,8 @@ de l’alimentation pour lequel la définition de la «&nbsp;distribution en gro
 nous.
 
 ---
-titreCourt: 6. Quelle mise en œuvre et pilotage en Outre-mer ?
----
+
+## titreCourt: 6. Quelle mise en œuvre et pilotage en Outre-mer ?
 
 ## 6. Quelle mise en œuvre et pilotage en Outre-mer&nbsp;?
 
@@ -112,8 +112,8 @@ aussi sur celui des Outre-mer. Nous allons donc naturellement étudier l’appli
 dans les prochaines semaines en lien avec les autorités locales.
 
 ---
-titreCourt: 7. Serais-je concerné par NIS 2 en tant que collectivité territoriale ?
----
+
+## titreCourt: 7. Serais-je concerné par NIS 2 en tant que collectivité territoriale ?
 
 ## 7. Je suis une collectivité territoriale, serais-je concerné par NIS&nbsp;2&nbsp;?
 
@@ -129,8 +129,8 @@ même
 titre que les entités privées et les administrations publiques.
 
 ---
-titreCourt: 8. Suis-je assujetti à la transposition française si sur deux États membres ?
----
+
+## titreCourt: 8. Suis-je assujetti à la transposition française si sur deux États membres ?
 
 ## 8. Si mon entreprise est sur deux Etats membres, est-ce que je suis assujetti à la transposition en droit français de NIS&nbsp;2&nbsp;?
 
@@ -140,10 +140,9 @@ soumis à la directive NIS&nbsp;2. En revanche, si vous souhaitez connaitre la j
 obtenir une réponse, car ce point fera l’objet de clarifications dans le cadre des consultations menées dans les
 prochains mois.
 
+---
 
----
-titreCourt: 9. Quelles actions pour faciliter la mise en relation avec l’ANSSI ?
----
+## titreCourt: 9. Quelles actions pour faciliter la mise en relation avec l’ANSSI ?
 
 ## 9. Les entités n’étant plus désignées par arrêté et devant se faire connaitre auprès d’elle, l’ANSSI envisage-t-elle des actions pour faciliter la mise en relation&nbsp;?
 
@@ -155,8 +154,8 @@ parallèle des actions de communication propres à l’ANSSI, nous nous appuiero
 professionnels, que nous rencontrerons notamment dans le cadre des consultations sur S2 2023.
 
 ---
-titreCourt: 10. Quelle gestion des exceptions ?
----
+
+## titreCourt: 10. Quelle gestion des exceptions ?
 
 ## 10. Le texte prévoit un certain nombre d’exceptions ou de cas particuliers au périmètre de base. Dans quels cas, l’ANSSI sera-t-elle amenée à actionner les mécanismes d’ajustement du périmètre&nbsp;?
 
@@ -178,8 +177,8 @@ sécurité nationale, de la sécurité publique, de la défense ou de l’applic
 Les modalités de gestion de ces particuliers seront définies au cours des travaux de transposition.
 
 ---
-titreCourt: 11. Qui sera concerné ?
----
+
+## titreCourt: 11. Qui sera concerné ?
 
 ## 11. Concrètement, qui sera concerné par le nouveau périmètre d’application de NIS&nbsp;2&nbsp;?
 
@@ -190,8 +189,8 @@ définis au niveau européen. Il s’agit principalement du nombre d’employés
 l’activité réalisée par l’entité.
 
 ---
-titreCourt: 12. Qu’en est-il des acteurs tiers ?
----
+
+## titreCourt: 12. Qu’en est-il des acteurs tiers ?
 
 ## 12. Qu’en est-il des acteurs de la chaine d’approvisionnement, des administrations et des collectivités territoriales&nbsp;?
 

@@ -25,7 +25,7 @@ export const arbForm = {
       petit: arbFournisseursInfrastructureNumerique,
       grand: {
         secteursListes: fabriquePartitionLocalisationServices(
-          arbNonOSEPrivesMoyenneGrande,
+          arbNonOSEPrivesMoyenneGrande
         ),
         secteursAutres: arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles,
         activitesAutres: arbNonOSEPrivesMoyenneGrandeAutresActivites,
