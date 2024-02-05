@@ -34,9 +34,12 @@ export const arbForm = {
         etablissementPrincipalFrance: {
           moyenGrandInfraNum:
             arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance,
-          moyenGrandGestionTic: arbNonOSEPrivesMoyenGrandGestionTic,
-          moyenGrandFournisseurNum:
+          moyenGrandGestionTic: partitionneLocalisationServices(
+            arbNonOSEPrivesMoyenGrandGestionTic,
+          ),
+          moyenGrandFournisseurNum: partitionneLocalisationServices(
             arbNonOSEPrivesMoyenGrandFournisseurNumerique,
+          ),
         },
       },
     },

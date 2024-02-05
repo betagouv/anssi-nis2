@@ -115,7 +115,6 @@ describe(calculeEligibilite, () => {
       });
     });
   });
-  // STOP Extraction
 
   describe("Publique", () => {
     describe("est incertain pour un résultat non configuré", () => {

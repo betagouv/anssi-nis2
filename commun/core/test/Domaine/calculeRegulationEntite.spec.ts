@@ -1,4 +1,5 @@
 import { expect, describe, it } from "vitest";
+import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire.definitions";
 import {
   ValeursActivitesConcernesInfrastructureNumerique,
   ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
@@ -6,7 +7,11 @@ import {
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
 import { fabriqueRegule } from "../../src/Domain/Simulateur/fabriques/Regulation.fabrique";
 import { ResultatRegulationEntite } from "../../src/Domain/Simulateur/Regulation.definitions";
-import { calculeRegulationEntite } from "../../src/Domain/Simulateur/services/Regulation/Regulation.operations";
+import { calculeEligibilite } from "../../src/Domain/Simulateur/services/Eligibilite/Eligibilite.operations";
+import {
+  calculeRegulationEntite,
+  transformeEligibiliteEnRegulationEntite,
+} from "../../src/Domain/Simulateur/services/Regulation/Regulation.operations";
 import {
   carEstGrandeDansSecteurListeAvecBesoinLocalisation,
   carEstGrandeDansSecteurListeSansBesoinLocalisation,
@@ -17,6 +22,7 @@ import {
 } from "../../src/Domain/Simulateur/services/Regulation/Regulation.predicats";
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
 import { V } from "./verificationAvecRaison";
+import { fc } from "@fast-check/vitest";
 
 describe(calculeRegulationEntite, () => {
   describe("Régulé", () => {
@@ -138,13 +144,21 @@ describe(calculeRegulationEntite, () => {
               arbForm.nonDesigneOSE.privee.exceptions
                 .etablissementPrincipalFrance.moyenGrandInfraNum
                 .avecLocalisationRepresentantHorsFrance,
-            ).car({}));
+            ));
           it("ne fournit pas dans l'UE", () =>
             V.estNonRegule(
               arbForm.nonDesigneOSE.privee.exceptions
                 .etablissementPrincipalFrance.moyenGrandInfraNum
                 .neFournitPasServiceUe,
-            ).car({}));
+            ));
+        });
+        describe("Localisable", () => {
+          it("localisations en UE", () =>
+            V.estNonRegule(
+              arbForm.nonDesigneOSE.privee.exceptions
+                .etablissementPrincipalFrance.moyenGrandGestionTic
+                .avecLocalisationRepresentantHorsFrance,
+            ));
         });
       });
     });
@@ -208,5 +222,103 @@ describe(calculeRegulationEntite, () => {
         expect(estCause).toBeTruthy();
       });
     });
+  });
+
+  describe("transformation Eligibilité vers Régulation", () => {
+    it.each([
+      arbForm.nonDesigneOSE.privee.grand.secteursListes
+        .avecLocalisationRepresentantFrance,
+      arbForm.nonDesigneOSE.privee.grand.secteursListes
+        .avecLocalisationRepresentantHorsFrance,
+      arbForm.nonDesigneOSE.privee.grand.secteursListes.neFournitPasServiceUe,
+      arbForm.nonDesigneOSE.privee.grand.secteursListes
+        .avecLocalisationRepresentant,
+    ])("toujours égales $nom", (arbitraireDonneesSimulateur) => {
+      fc.assert(
+        fc.property<[DonneesFormulaireSimulateur]>(
+          arbitraireDonneesSimulateur,
+          (donnees) => {
+            const transformeEligibilite =
+              transformeEligibiliteEnRegulationEntite(
+                calculeEligibilite(donnees),
+              );
+            const regulation = calculeRegulationEntite(donnees);
+            expect(transformeEligibilite(donnees).decision).toStrictEqual(
+              regulation.decision,
+            );
+          },
+        ),
+        { verbose: 2 },
+      );
+    });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const contreExemples = [
+      {
+        typeEntitePublique: [],
+        fournitServicesUnionEuropeenne: ["oui"],
+        localisationRepresentant: ["horsue"],
+        secteurActivite: ["gestionServicesTic"],
+        sousSecteurActivite: [],
+        designeOperateurServicesEssentiels: ["non"],
+        typeStructure: ["privee"],
+        trancheChiffreAffaire: ["moyen"],
+        appartenancePaysUnionEurpopeenne: ["france"],
+        trancheNombreEmployes: ["moyen"],
+        activites: ["fournisseurServicesSecuriteGeres"],
+      },
+      // NonRegule (eligi) VS Regule
+      {
+        typeEntitePublique: [],
+        fournitServicesUnionEuropeenne: ["oui"],
+        localisationRepresentant: ["horsue"],
+        secteurActivite: ["fournisseursNumeriques"],
+        sousSecteurActivite: [],
+        designeOperateurServicesEssentiels: ["non"],
+        typeStructure: ["privee"],
+        trancheChiffreAffaire: ["grand"],
+        appartenancePaysUnionEurpopeenne: ["france"],
+        trancheNombreEmployes: ["petit"],
+        activites: ["fournisseursMoteursRechercheEnLigne"],
+      },
+      {
+        typeEntitePublique: [],
+        fournitServicesUnionEuropeenne: ["non"],
+        localisationRepresentant: [],
+        secteurActivite: ["fournisseursNumeriques"],
+        sousSecteurActivite: [],
+        designeOperateurServicesEssentiels: ["non"],
+        typeStructure: ["privee"],
+        trancheChiffreAffaire: ["grand"],
+        appartenancePaysUnionEurpopeenne: ["france"],
+        trancheNombreEmployes: ["petit"],
+        activites: ["fournisseursPlateformesServicesReseauxSociaux"],
+      },
+      {
+        typeEntitePublique: [],
+        fournitServicesUnionEuropeenne: ["oui"],
+        localisationRepresentant: ["autre"],
+        secteurActivite: ["fournisseursNumeriques"],
+        sousSecteurActivite: [],
+        designeOperateurServicesEssentiels: ["non"],
+        typeStructure: ["privee"],
+        trancheChiffreAffaire: ["petit"],
+        appartenancePaysUnionEurpopeenne: ["france"],
+        trancheNombreEmployes: ["grand"],
+        activites: ["fournisseursMoteursRechercheEnLigne"],
+      },
+      {
+        typeEntitePublique: [],
+        fournitServicesUnionEuropeenne: ["non"],
+        localisationRepresentant: [],
+        secteurActivite: ["fournisseursNumeriques"],
+        sousSecteurActivite: [],
+        designeOperateurServicesEssentiels: ["non"],
+        typeStructure: ["privee"],
+        trancheChiffreAffaire: ["petit"],
+        appartenancePaysUnionEurpopeenne: ["france"],
+        trancheNombreEmployes: ["grand"],
+        activites: ["fournisseursPlateformesServicesReseauxSociaux"],
+      },
+    ];
   });
 });

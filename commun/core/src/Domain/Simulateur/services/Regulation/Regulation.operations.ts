@@ -100,6 +100,8 @@ const calculeRegulationGrande = (donnees: DonneesFormulaireSimulateur) =>
             ["gestionServicesTic", "fournisseursNumeriques"].includes(secteur),
           ),
         ),
+        fournitServicesUnionEuropeenne: ["oui"],
+        localisationRepresentant: ["france"],
       },
       () =>
         fabriqueRegule({
