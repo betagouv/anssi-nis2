@@ -146,8 +146,6 @@ describe(calculeEligibilite, () => {
   describe(Eligibilite.Incertain, () => {
     it("lorsque le type structure n'est pas remplie", () =>
       V.Incertain(arbForm.nonValide.donneeAbsente.typeStructure));
-    it("lorsque le type structure n'est pas remplie", () =>
-      V.Incertain(arbForm.nonValide.donneeAbsente.typeStructure));
     it("lorsque l'appartenance à l'UE n'est pas remplie", () =>
       V.Incertain(
         arbForm.nonValide.donneeAbsente.appartenancePaysUnionEurpopeenne,

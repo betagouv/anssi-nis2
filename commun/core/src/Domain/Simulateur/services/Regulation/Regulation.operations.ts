@@ -18,6 +18,7 @@ import {
   contientOperateurServicesEssentiels,
   contientPetiteEntreprise,
   predicatDonneesFormulaire as donneesSimu,
+  verifieCompletudeDonneesCommunes,
 } from "../DonneesFormulaire/DonneesFormulaire.predicats";
 import {
   auMoinsUnSecteurListe,
@@ -27,14 +28,18 @@ import { estSousSecteurListe } from "../SousSecteurActivite/SousSecteurActivite.
 import { CalculeRegulationOperation } from "./Regulation.service.definitions";
 import { P, match } from "ts-pattern";
 
+const toujoursIncertain = () => resultatIncertain;
+const toujoursNonRegule = () => resultatNonRegule;
+const toujoursReguleOSE = () => fabriqueRegule(causeReguleOSE);
+
 const calculateurRegulationParStatutEligibilite: Record<
   ResultatEligibilite,
   (d: DonneesFormulaireSimulateur) => ResultatRegulationEntite
 > = {
-  EligibleMoyenneGrandeEntreprise: () => fabriqueRegule(causeReguleOSE),
-  EligiblePetiteEntreprise: () => fabriqueRegule(causeReguleOSE),
-  Incertain: () => resultatIncertain,
-  NonEligible: () => resultatNonRegule,
+  EligibleMoyenneGrandeEntreprise: toujoursReguleOSE,
+  EligiblePetiteEntreprise: toujoursReguleOSE,
+  Incertain: toujoursIncertain,
+  NonEligible: toujoursNonRegule,
 };
 
 export const transformeEligibiliteEnRegulationEntite = (
@@ -82,10 +87,10 @@ const regulationInfrastructureNumerique = (
           localisationRepresentant: ["france"],
         }),
     )
-    .otherwise(() => resultatNonRegule);
+    .otherwise(toujoursNonRegule);
 
 const calculeRegulationPetite = (donnees: DonneesFormulaireSimulateur) =>
-  match(donnees).otherwise(() => resultatNonRegule);
+  match(donnees).otherwise(toujoursNonRegule);
 const calculeRegulationGrande = (donnees: DonneesFormulaireSimulateur) =>
   match(donnees)
     .with(
@@ -124,7 +129,7 @@ const calculeRegulationGrande = (donnees: DonneesFormulaireSimulateur) =>
           activites: donnees.activites.filter(estActiviteListee),
         }),
     )
-    .otherwise(() => resultatNonRegule);
+    .otherwise(toujoursNonRegule);
 
 /**
  * Première application du calcul régulation entité utilisant le shift (début de railway)
@@ -134,11 +139,11 @@ export const calculeRegulationEntite: CalculeRegulationOperation = (
   donnees,
 ): ResultatRegulationEntite =>
   match(donnees)
-    .when(contientOperateurServicesEssentiels, () =>
-      fabriqueRegule(causeReguleOSE),
-    )
-    .when(donneesSimu.uniquement.activiteAutre, () => resultatNonRegule)
+    .with({ typeStructure: ["publique"] }, toujoursIncertain)
+    .when(non(verifieCompletudeDonneesCommunes), toujoursIncertain)
+    .when(contientOperateurServicesEssentiels, toujoursReguleOSE)
+    .when(donneesSimu.uniquement.activiteAutre, toujoursNonRegule)
     .when(contientInfrastructureNumerique, regulationInfrastructureNumerique)
     .when(contientPetiteEntreprise, calculeRegulationPetite)
     .when(non(contientPetiteEntreprise), calculeRegulationGrande)
-    .otherwise(() => resultatIncertain);
+    .otherwise(toujoursIncertain);

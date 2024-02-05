@@ -151,6 +151,16 @@ describe(calculeRegulationEntite, () => {
   });
   describe("Incertain", () => {
     it("Entité publique", () => V.estIncertain(arbForm.nonDesigneOSE.publique));
+    it("type structure non remplie", () =>
+      V.estIncertain(arbForm.nonValide.donneeAbsente.typeStructure));
+    it("appartenance UE remplie", () =>
+      V.estIncertain(
+        arbForm.nonValide.donneeAbsente.appartenancePaysUnionEurpopeenne,
+      ));
+    it("désigné OSE non remplie", () =>
+      V.estIncertain(
+        arbForm.nonValide.donneeAbsente.designeOperateurServicesEssentiels,
+      ));
   });
 
   describe("Cas à la marge", () => {

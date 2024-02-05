@@ -72,16 +72,5 @@ const estRegule = fabriqueVerif(Regulation.Regule, (d) => ({ causes: d }));
 export const V: Record<`est${RegulationEntite}`, VerificationAvecRaison> = {
   estRegule,
   estNonRegule: fabriqueVerif(Regulation.NonRegule, () => ({})),
-  estIncertain: (arbitraire: fc.Arbitrary<DonneesFormulaireSimulateur>) => {
-    return {
-      car: () => {
-        verifieQue(calculeRegulationEntite)
-          .renvoieToujours({
-            decision: "Incertain",
-          })
-          .quelqueSoit(arbitraire);
-        return V.estIncertain;
-      },
-    };
-  },
+  estIncertain: fabriqueVerif(Regulation.Incertain, () => ({})),
 };
