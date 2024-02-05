@@ -1,25 +1,10 @@
 import { describe, it } from "vitest";
 import { Eligibilite } from "../../src/Domain/Simulateur/Eligibilite.constantes";
-import { SecteurActivite } from "../../src/Domain/Simulateur/SecteurActivite.definitions";
 import { calculeEligibilite } from "../../src/Domain/Simulateur/services/Eligibilite/Eligibilite.operations";
 import { verifieQue } from "../utilitaires/assure";
 import { verifieEligibilite as V } from "../utilitaires/Eligibilite.Verification";
-import {
-  ajouteArbitraireActivites,
-  ajouteChampsFacultatifs,
-  etend,
-} from "../utilitaires/manipulationArbitraires";
-import {
-  fabriqueArbContraintSurtrancheChiffreAffaire,
-  fabriqueArbTrancheSingleton,
-} from "../utilitaires/manipulationArbitraires.fabriques";
-import {
-  arbAppartenancePaysUnionEuropeenne,
-  arbDesigneOperateurServicesEssentiels,
-  arbTypeStructure,
-} from "./arbitraires/arbitraireChampFormulaire";
+
 import { arbForm } from "./arbitraires/arbitrairesSimulateur";
-import { fc } from "@fast-check/vitest";
 
 describe(calculeEligibilite, () => {
   describe("Entité OSE pour NIS1", () => {
@@ -121,32 +106,7 @@ describe(calculeEligibilite, () => {
                 .avecLocalisationRepresentantFrance,
             ));
         });
-        // STOP Extraction
         describe("N'est pas éligible", () => {
-          it("secteur d'activité necessitant localisation représentant, fournissant hors UE", () =>
-            V.NonEligible(
-              etend(
-                fc.record({
-                  secteurActivite: fc.subarray<SecteurActivite>([
-                    "fournisseursNumeriques",
-                    "gestionServicesTic",
-                  ]),
-                  sousSecteurActivite: fc.constant([]),
-                }),
-              )
-                .avec({
-                  designeOperateurServicesEssentiels:
-                    arbDesigneOperateurServicesEssentiels.non,
-                  typeStructure: arbTypeStructure.privee,
-                  appartenancePaysUnionEurpopeenne:
-                    arbAppartenancePaysUnionEuropeenne.france,
-                  trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
-                  fournitServicesUnionEuropeenne: fc.constant(["non"]),
-                })
-                .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
-                .chain(ajouteArbitraireActivites)
-                .chain(ajouteChampsFacultatifs),
-            ));
           it("Si le secteur est 'autre'", () =>
             V.NonEligible(arbForm.nonDesigneOSE.privee.grand.secteursAutres));
           it("Si l'activité est 'autre'", () =>
@@ -155,6 +115,7 @@ describe(calculeEligibilite, () => {
       });
     });
   });
+  // STOP Extraction
 
   describe("Publique", () => {
     describe("est incertain pour un résultat non configuré", () => {

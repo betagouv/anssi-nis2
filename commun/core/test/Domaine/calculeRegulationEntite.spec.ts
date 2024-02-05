@@ -128,6 +128,10 @@ describe(calculeRegulationEntite, () => {
           ).car({}));
       });
       describe("moyenne/grande", () => {
+        it("uniquement secteurs autres", () =>
+          V.estNonRegule(arbForm.nonDesigneOSE.privee.grand.secteursAutres));
+        it("uniquement activités autres", () =>
+          V.estNonRegule(arbForm.nonDesigneOSE.privee.grand.activitesAutres));
         describe("Infrastructure numérique", () => {
           it("fournit dans l'UE, représentant hors France", () =>
             V.estNonRegule(
