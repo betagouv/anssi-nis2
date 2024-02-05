@@ -33,3 +33,8 @@ export type ResultatRegulationEntite =
 export type PredicatResultatRegulationEntite = (
   d: ResultatRegulationEntite,
 ) => boolean;
+export type FabriqueCause =
+  | ((d: Partial<DonneesFormulaireSimulateur>) => {
+      causes: CausesRegulation;
+    })
+  | (() => NonNullable<unknown>);

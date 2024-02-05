@@ -1,7 +1,7 @@
 import { fc } from "@fast-check/vitest";
 import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire.definitions";
 import {
-  CausesRegulation,
+  FabriqueCause,
   Regulation,
   RegulationEntite,
   ResultatRegulationEntite,
@@ -18,48 +18,60 @@ type VerificationAvecRaison = (
       | ((d: ResultatRegulationEntite) => boolean),
   ) => VerificationAvecRaison;
 };
+
+const fabriqueCarSatisfait = (
+  validation: (d: ResultatRegulationEntite) => boolean,
+  arbitraire: fc.Arbitrary<DonneesFormulaireSimulateur>,
+) =>
+  verifieQue(calculeRegulationEntite)
+    .satisfait(validation)
+    .quelqueSoit(arbitraire);
+
+const fabriqueValidationQuelqueSoit = (
+  pourRegulation: RegulationEntite,
+  fabriqueCause: FabriqueCause,
+  validation: Partial<DonneesFormulaireSimulateur>,
+  arbitraire: fc.Arbitrary<DonneesFormulaireSimulateur>,
+) => {
+  verifieQue(calculeRegulationEntite)
+    .renvoieToujours({
+      decision: pourRegulation,
+      ...fabriqueCause(validation as Partial<DonneesFormulaireSimulateur>),
+    })
+    .quelqueSoit(arbitraire);
+};
+
 const fabriqueVerif =
   (
     pourRegulation: RegulationEntite,
-    fabriqueCause: (d: Partial<DonneesFormulaireSimulateur>) => {
-      causes: CausesRegulation;
-    },
+    fabriqueCause: FabriqueCause,
   ): VerificationAvecRaison =>
-  (arbitraire: fc.Arbitrary<DonneesFormulaireSimulateur>) => ({
-    car: (validation) => {
-      if (typeof validation === "function") {
-        verifieQue(calculeRegulationEntite)
-          .satisfait(validation)
-          .quelqueSoit(arbitraire);
-      } else {
-        verifieQue(calculeRegulationEntite)
-          .renvoieToujours({
-            decision: Regulation.Regule,
-            ...fabriqueCause(
-              validation as Partial<DonneesFormulaireSimulateur>,
-            ),
-          })
-          .quelqueSoit(arbitraire);
-      }
-      return V[`est${pourRegulation}`];
-    },
-  });
+  (arbitraire: fc.Arbitrary<DonneesFormulaireSimulateur>) => {
+    if (pourRegulation !== Regulation.Regule)
+      verifieQue(calculeRegulationEntite)
+        .satisfait((r) => r.decision === pourRegulation)
+        .quelqueSoit(arbitraire);
+    return {
+      car: (validation) => {
+        if (typeof validation === "function") {
+          fabriqueCarSatisfait(validation, arbitraire);
+        } else {
+          fabriqueValidationQuelqueSoit(
+            pourRegulation,
+            fabriqueCause,
+            validation,
+            arbitraire,
+          );
+        }
+        return V[`est${pourRegulation}`];
+      },
+    };
+  };
 
 const estRegule = fabriqueVerif(Regulation.Regule, (d) => ({ causes: d }));
 export const V: Record<`est${RegulationEntite}`, VerificationAvecRaison> = {
   estRegule,
-  estNonRegule: (arbitraire: fc.Arbitrary<DonneesFormulaireSimulateur>) => {
-    return {
-      car: () => {
-        verifieQue(calculeRegulationEntite)
-          .renvoieToujours({
-            decision: "NonRegule",
-          })
-          .quelqueSoit(arbitraire);
-        return V.estNonRegule;
-      },
-    };
-  },
+  estNonRegule: fabriqueVerif(Regulation.NonRegule, () => ({})),
   estIncertain: (arbitraire: fc.Arbitrary<DonneesFormulaireSimulateur>) => {
     return {
       car: () => {
