@@ -20,12 +20,12 @@ describe("predicatDonneesFormulaire", () => {
       expect(donnees).toSatisfy(
         predicatDonneesFormulaire
           .champs("secteurActivite")
-          .contient("infrastructureNumerique"),
+          .contient("infrastructureNumerique")
       );
       expect(donnees).not.toSatisfy(
         predicatDonneesFormulaire
           .champs("secteurActivite")
-          .contient("fournisseursNumeriques"),
+          .contient("fournisseursNumeriques")
       );
     });
   });
@@ -37,7 +37,7 @@ describe("predicatDonneesFormulaire", () => {
       expect(donnees).toSatisfy(
         predicatDonneesFormulaire
           .champs("activites")
-          .verifie(auMoinsUneActiviteListee),
+          .verifie(auMoinsUneActiviteListee)
       );
     });
   });
@@ -49,8 +49,8 @@ describe("predicatDonneesFormulaire", () => {
           fabriqueDonneesFormulaire({
             trancheNombreEmployes: ["petit"],
             trancheChiffreAffaire: ["petit"],
-          }),
-        ),
+          })
+        )
       ).toBeTruthy();
     });
 
@@ -58,22 +58,22 @@ describe("predicatDonneesFormulaire", () => {
     const petitMoyenGrand: UnionPetitMoyenGrand[] = ["petit", "moyen", "grand"];
     const verifieDonneesNeContientPasPetiteEntreprise = (
       trancheA: UnionPetitMoyenGrand[],
-      trancheB: UnionPetitMoyenGrand[],
+      trancheB: UnionPetitMoyenGrand[]
     ) =>
       !contientPetiteEntreprise(
         fabriqueDonneesFormulaire({
           trancheNombreEmployes: trancheA,
           trancheChiffreAffaire: trancheB,
-        }),
+        })
       );
     it("est faux pour toute tranche employes moyen et grand", () => {
       fc.assert(
         fc.property(
           fabriqueArbSingleton(moyenGrand),
           fabriqueArbSingleton(petitMoyenGrand),
-          verifieDonneesNeContientPasPetiteEntreprise,
+          verifieDonneesNeContientPasPetiteEntreprise
         ),
-        { verbose: true },
+        { verbose: true }
       );
     });
     it("est faux pour toute tranche CA moyen et grand", () => {
@@ -81,9 +81,9 @@ describe("predicatDonneesFormulaire", () => {
         fc.property(
           fabriqueArbSingleton(petitMoyenGrand),
           fabriqueArbSingleton(moyenGrand),
-          verifieDonneesNeContientPasPetiteEntreprise,
+          verifieDonneesNeContientPasPetiteEntreprise
         ),
-        { verbose: true },
+        { verbose: true }
       );
     });
   });

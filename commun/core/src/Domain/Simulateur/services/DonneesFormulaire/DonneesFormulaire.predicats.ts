@@ -96,7 +96,7 @@ const estServiceTicOuFournisseurNum = isMatching({
 });
 export const contientSecteurALocaliser = ou(
   estInfranumDnsOuRegistre,
-  et(non(contientPetiteEntreprise), estServiceTicOuFournisseurNum),
+  et(non(contientPetiteEntreprise), estServiceTicOuFournisseurNum)
 );
 
 const neFournitPasDeServiceDansUE = isMatching({
@@ -141,8 +141,8 @@ export const verifieDonneesSectorielles = et(
   ),
   ou(
     predicatDonneesFormulaire.uniquement.activiteAutre,
-    contientSecteursLocalisesValides,
-  ),
+    contientSecteursLocalisesValides
+  )
 );
 
 export const verifieCompletudeDonneesFormulairePrivee = et(
@@ -162,16 +162,16 @@ export const donneesFormulaireSontCompletes = et(
 );
 
 export const contientSecteurNecessitantLocalisation = (
-  d: DonneesSectorielles,
+  d: DonneesSectorielles
 ) =>
   secteursNecessitantLocalisationRepresentant.some((s) =>
     predicatDonneesFormulaire.champs("secteurActivite").contient(s)(
-      d as DonneesFormulaireSimulateur,
-    ),
+      d as DonneesFormulaireSimulateur
+    )
   );
 export const contientUniquementSecteurNecessitantLocalisation = (
-  d: DonneesSectorielles,
+  d: DonneesSectorielles
 ) =>
   d.secteurActivite.every((s) =>
-    secteursNecessitantLocalisationRepresentant.includes(s),
+    secteursNecessitantLocalisationRepresentant.includes(s)
   );
