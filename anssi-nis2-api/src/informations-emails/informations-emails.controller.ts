@@ -11,7 +11,7 @@ export class InformationsEmailsController {
   ) {}
 
   @Post()
-  ajoute(@Body() creeInformationsEmailDto: CreeInformationsEmailDto) {
+  async ajoute(@Body() creeInformationsEmailDto: CreeInformationsEmailDto) {
     this.logger.log(creeInformationsEmailDto);
     return this.informationsEmailsService.ajoute(creeInformationsEmailDto);
   }
