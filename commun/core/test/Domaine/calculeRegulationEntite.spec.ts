@@ -150,11 +150,7 @@ describe(calculeRegulationEntite, () => {
     });
   });
   describe("Incertain", () => {
-    // it("manque données designeOperateurServicesEssentiels", () => {
-    //   V.estIncertain(
-    //     arbForm.nonValide.donneeAbsente.designeOperateurServicesEssentiels,
-    //   );
-    // });
+    it("Entité publique", () => V.estIncertain(arbForm.nonDesigneOSE.publique));
   });
 
   describe("Cas à la marge", () => {
