@@ -27,7 +27,6 @@ export class JournalService {
       donnees: JSON.stringify(reponses),
       type: "resultatTestConcerneNis2",
     });
-    // const resultat: SegmentsConcernesNis2[] = [];
     const segments: CreeConcerneNis2Dto[] = [];
     const valeursSectorielles = extraitSectorisationDonneesSimulateur(donnees);
     for (const sectorisation of valeursSectorielles) {

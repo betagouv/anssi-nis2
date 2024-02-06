@@ -53,6 +53,10 @@
     ]
   },
   "dependencies": {
+    "@ntegral/nestjs-sentry": "^4.0.1",
+    "@sentry/node": "^7.99.0",
+    "@sentry/react": "^7.99.0",
+    "@sentry/types": "^7.99.0",
     "fp-ts": "^2.16.2"
   }
 }
