@@ -53,6 +53,7 @@
     ]
   },
   "dependencies": {
+    "@sentry/react": "^7.99.0",
     "fp-ts": "^2.16.2"
   }
 }
