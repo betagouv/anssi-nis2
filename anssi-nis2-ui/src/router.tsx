@@ -18,7 +18,7 @@ import * as Sentry from "@sentry/react";
 import React from "react";
 
 Sentry.init({
-  dsn: import.meta.env.VITE_SENTRY_DNS,
+  dsn: import.meta.env.VITE_SENTRY_DSN,
   environment: import.meta.env.VITE_SENTRY_ENVIRONNEMENT,
   integrations: [
     new Sentry.BrowserTracing({
