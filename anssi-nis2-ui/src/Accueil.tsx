@@ -18,14 +18,6 @@ const Accueil: DefaultComponent = () => {
   return (
     <>
       <MiseEnPage page="Accueil">
-        <button
-          type="button"
-          onClick={() => {
-            throw new Error("Sentry Test Error");
-          }}
-        >
-          Break the world
-        </button>
         <BandeauAccueil />
         <BandeauConcerne />
         <BandeauNis2EU />
