@@ -13,7 +13,7 @@ import {
 import { InformationsEmailsModule } from "./informations-emails/informations-emails.module";
 import { ServeurStatiqueConfigurableModule } from "./intergiciels/serveur-statique-configurable/serveur-statique-configurable.module";
 import { JournalModule } from "./journal/journal.module";
-import { optionsSentryModule } from "./optionsSentryModule";
+import { optionsSentryModule, sentryIntercepteur } from "./optionsSentryModule";
 import { SimulateurReponseModule } from "./simulateur-reponse/simulateur-reponse.module";
 
 const optionsConnectionBaseDeDonnees = fabriqueAsynchroneOptionsTypeOrm();
@@ -34,6 +34,7 @@ const optionsConnectionBaseDeDonnees = fabriqueAsynchroneOptionsTypeOrm();
     InformationsEmailsModule,
     SentryModule.forRootAsync(optionsSentryModule),
   ],
+  providers: [sentryIntercepteur],
 })
 export class AppModule {
   private readonly logger = new Logger(AppModule.name);
