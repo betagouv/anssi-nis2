@@ -1,18 +1,20 @@
 import { Logger, Module } from "@nestjs/common";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { ServeurStatiqueConfigurableModule } from "./intergiciels/serveur-statique-configurable/serveur-statique-configurable.module";
-import { DataSource } from "typeorm";
-import { SimulateurReponseModule } from "./simulateur-reponse/simulateur-reponse.module";
 import { ConfigModule } from "@nestjs/config";
+import { ThrottlerModule } from "@nestjs/throttler";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { SentryModule } from "@ntegral/nestjs-sentry";
+import { DataSource } from "typeorm";
+import { optionsThrottlerModuleAsync } from "./configurationThrottler";
 import { fabriqueAsynchroneOptionsServeurStatique } from "./Fabriques/fabriqueAsynchroneOptionsServeurStatique";
 import {
   fabriqueAsynchroneOptionsTypeOrm,
   fabriqueAsynchroneOptionsTypeOrmJournal,
 } from "./Fabriques/fabriqueAsynchroneOptionsTypeOrm";
-import { ThrottlerModule } from "@nestjs/throttler";
-import { optionsThrottlerModuleAsync } from "./configurationThrottler";
 import { InformationsEmailsModule } from "./informations-emails/informations-emails.module";
+import { ServeurStatiqueConfigurableModule } from "./intergiciels/serveur-statique-configurable/serveur-statique-configurable.module";
 import { JournalModule } from "./journal/journal.module";
+import { optionsSentryModule } from "./optionsSentryModule";
+import { SimulateurReponseModule } from "./simulateur-reponse/simulateur-reponse.module";
 
 const optionsConnectionBaseDeDonnees = fabriqueAsynchroneOptionsTypeOrm();
 
@@ -30,6 +32,7 @@ const optionsConnectionBaseDeDonnees = fabriqueAsynchroneOptionsTypeOrm();
       isGlobal: true,
     }),
     InformationsEmailsModule,
+    SentryModule.forRootAsync(optionsSentryModule),
   ],
 })
 export class AppModule {
