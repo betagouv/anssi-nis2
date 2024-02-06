@@ -18,7 +18,8 @@ import * as Sentry from "@sentry/react";
 import React from "react";
 
 Sentry.init({
-  dsn: "https://dfbf0b77f776428bb2d74a560ecd48053d9088fbf9004f63824b7a8077ebbb6f@sentry.incubateur.net/0",
+  dsn: import.meta.env.VITE_SENTRY_DNS,
+  environment: import.meta.env.VITE_SENTRY_ENVIRONNEMENT,
   integrations: [
     new Sentry.BrowserTracing({
       routingInstrumentation: Sentry.reactRouterV6Instrumentation(
