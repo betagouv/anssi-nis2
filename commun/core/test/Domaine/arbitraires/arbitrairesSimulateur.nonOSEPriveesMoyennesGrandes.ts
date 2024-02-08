@@ -1,6 +1,13 @@
 import { fc } from "@fast-check/vitest";
 import { ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement } from "../../../src/Domain/Simulateur/Eligibilite.constantes";
 import { exerceUniquementActivitesDansListe } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { non } from "../../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
+import {
+  contientPetiteEntreprise,
+  contientSecteurALocaliser,
+  contientSecteurNecessitantLocalisation,
+  contientUniquementSecteurNecessitantLocalisation,
+} from "../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import {
   ajouteArbitraireActivites,
   ajouteAuMoinsUneActiviteAutre,
@@ -45,9 +52,7 @@ export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFranc
       .chain(ajouteChampsFacultatifs),
   );
 
-export const arbNonOSEPrivesMoyenneGrande = etend(
-  arbSecteursEtSousSecteursListes
-)
+const arbNonOSEPrivesMoyenneGrande = etend(arbSecteursEtSousSecteursListes)
   .avec({
     designeOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
@@ -58,6 +63,14 @@ export const arbNonOSEPrivesMoyenneGrande = etend(
   .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
   .chain(ajouteAuMoinsUneActiviteListee)
   .chain(ajouteChampsFacultatifs);
+export const arbNonOSEPrivesMoyenneGrandeSansBesoinLocalisation =
+  arbNonOSEPrivesMoyenneGrande.filter(
+    non(contientSecteurNecessitantLocalisation),
+  );
+export const arbNonOSEPrivesMoyenneGrandeAvecBesoinLocalisation =
+  arbNonOSEPrivesMoyenneGrande.filter(
+    contientUniquementSecteurNecessitantLocalisation,
+  );
 
 export const arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles = etend(
   arbEnrAutresSecteursSousSecteurs,

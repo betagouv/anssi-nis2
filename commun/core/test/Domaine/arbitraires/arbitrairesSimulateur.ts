@@ -1,13 +1,14 @@
-import { fabriquePartitionLocalisationServices } from "../../utilitaires/manipulationArbitraires";
+import { partitionneLocalisationServices } from "../../utilitaires/manipulationArbitraires";
 import { arbActivitesAutres } from "./arbitrairesSimulateur.activites";
 import { arbFournisseursInfrastructureNumerique } from "./arbitrairesSimulateur.infrastructuresNumeriques";
 import {
   arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance,
   arbNonOSEPrivesMoyenGrandFournisseurNumerique,
   arbNonOSEPrivesMoyenGrandGestionTic,
-  arbNonOSEPrivesMoyenneGrande,
   arbNonOSEPrivesMoyenneGrandeAutresActivites,
   arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles,
+  arbNonOSEPrivesMoyenneGrandeAvecBesoinLocalisation,
+  arbNonOSEPrivesMoyenneGrandeSansBesoinLocalisation,
 } from "./arbitrairesSimulateur.nonOSEPriveesMoyennesGrandes";
 import { arbNonOSEPublique } from "./arbitrairesSimulateur.nonOSEPublique";
 import { arbDesigneOSE } from "./arbitrairesSimulateur.OSE";
@@ -24,9 +25,13 @@ export const arbForm = {
       activitesAutres: arbActivitesAutres,
       petit: arbFournisseursInfrastructureNumerique,
       grand: {
-        secteursListes: fabriquePartitionLocalisationServices(
-          arbNonOSEPrivesMoyenneGrande,
-        ),
+        secteursListes: {
+          sansBesoinLocalisation:
+            arbNonOSEPrivesMoyenneGrandeSansBesoinLocalisation,
+          avecBesoinLocalisation: partitionneLocalisationServices(
+            arbNonOSEPrivesMoyenneGrandeAvecBesoinLocalisation,
+          ),
+        },
         secteursAutres: arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles,
         activitesAutres: arbNonOSEPrivesMoyenneGrandeAutresActivites,
       },
@@ -40,7 +45,7 @@ export const arbForm = {
         },
       },
     },
-    publique: fabriquePartitionLocalisationServices(arbNonOSEPublique),
+    publique: partitionneLocalisationServices(arbNonOSEPublique),
     horsUE: arbHorsUe,
     autrePaysUe: arbAutrePaysUe,
   },

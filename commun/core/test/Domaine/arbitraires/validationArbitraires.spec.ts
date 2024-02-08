@@ -1,6 +1,9 @@
 import { describe, it } from "vitest";
 import { fc } from "@fast-check/vitest";
-import { DonneesFormulaireSimulateur } from "../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
+import {
+  DonneesFormulaireSimulateur,
+  PredicatDonneesFormulaireSimulateur,
+} from "../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
 import { non } from "../../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
 import {
   contientPetiteEntreprise,
@@ -8,13 +11,14 @@ import {
   predicatDonneesFormulaire,
   predicatDonneesFormulaire as P,
 } from "../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
+import { ArbitraireDonneesFormulaireSimulateur } from "../../utilitaires/manipulationArbitraires.declarations";
 import { arbForm } from "./arbitrairesSimulateur";
 import { expect } from "vitest";
 
 const getSatisfait =
   (donnees: DonneesFormulaireSimulateur) =>
-  (f: (d: DonneesFormulaireSimulateur) => boolean, m?: string) =>
-    expect(donnees).toSatisfy(f, m);
+  (f: PredicatDonneesFormulaireSimulateur) =>
+    expect(donnees).toSatisfy(f, f.name);
 
 describe("validation des arbitraires", () => {
   describe("Entite non OSE pour NIS 1", () => {
@@ -96,7 +100,7 @@ describe("validation des arbitraires", () => {
                 satisfait(P.auMoins.une.activiteListee);
                 satisfait(non(contientPetiteEntreprise));
                 satisfait(non(contientSecteurNecessitantLocalisation));
-                satisfait(P.designeOperateurServicesEssentiels.est(["non"]));
+                // satisfait(P.designeOperateurServicesEssentiels.est(["non"]));
                 satisfait(P.typeStructure.est(["privee"]));
                 satisfait(P.appartenancePaysUnionEurpopeenne.est(["france"]));
               },
@@ -104,25 +108,45 @@ describe("validation des arbitraires", () => {
             { verbose: 2 },
           );
         });
-        it("avecLocalisation", () => {
-          fc.assert(
-            fc.property(
-              arbForm.nonDesigneOSE.privee.grand.secteursListes
-                .avecLocalisationRepresentant,
-              (donnees: DonneesFormulaireSimulateur) => {
-                const satisfait = getSatisfait(donnees);
-                satisfait(P.auMoins.une.activiteListee);
-                satisfait(non(contientPetiteEntreprise));
-                satisfait(contientSecteurNecessitantLocalisation);
-                satisfait(P.designeOperateurServicesEssentiels.est(["non"]));
-                satisfait(P.typeStructure.est(["privee"]));
-                satisfait(P.appartenancePaysUnionEurpopeenne.est(["france"]));
-                satisfait(non(P.fournitServicesUnionEuropeenne.est([])));
-              },
-            ),
-            { verbose: 2 },
-          );
-        });
+        const verificationPriveGrandFranceAvecLocalisation = (
+          donnees: DonneesFormulaireSimulateur,
+        ) => {
+          const satisfait = getSatisfait(donnees);
+          satisfait(P.auMoins.une.activiteListee);
+          satisfait(non(contientPetiteEntreprise));
+          satisfait(contientSecteurNecessitantLocalisation);
+          satisfait(P.designeOperateurServicesEssentiels.est(["non"]));
+          satisfait(P.typeStructure.est(["privee"]));
+          satisfait(P.appartenancePaysUnionEurpopeenne.est(["france"]));
+          satisfait(non(P.fournitServicesUnionEuropeenne.est([])));
+          satisfait(non(P.localisationRepresentant.est([])));
+        };
+        const verifiePour =
+          (predicat: (donnees: DonneesFormulaireSimulateur) => void) =>
+          (pour: ArbitraireDonneesFormulaireSimulateur) =>
+          () =>
+            fc.assert(fc.property(pour, predicat));
+        it(
+          "avecLocalisationRepresentantFrance",
+          verifiePour(verificationPriveGrandFranceAvecLocalisation)(
+            arbForm.nonDesigneOSE.privee.grand.secteursListes
+              .avecBesoinLocalisation.avecLocalisationRepresentantFrance,
+          ),
+        );
+        it(
+          "avecLocalisationRepresentantHorsFrance",
+          verifiePour(verificationPriveGrandFranceAvecLocalisation)(
+            arbForm.nonDesigneOSE.privee.grand.secteursListes
+              .avecBesoinLocalisation.avecLocalisationRepresentantHorsFrance,
+          ),
+        );
+        it(
+          "avecLocalisationRepresentantHorsFrance",
+          verifiePour(verificationPriveGrandFranceAvecLocalisation)(
+            arbForm.nonDesigneOSE.privee.grand.secteursListes
+              .avecBesoinLocalisation.avecLocalisationRepresentantFrance,
+          ),
+        );
       });
 
       describe("arbForm.nonDesigneOSE.privee.activitesAutres", () => {

@@ -78,7 +78,7 @@ describe(calculeRegulationEntite, () => {
               it("avec besoin de localisation", () =>
                 V.estRegule(
                   arbForm.nonDesigneOSE.privee.grand.secteursListes
-                    .avecLocalisationRepresentantFrance,
+                    .avecBesoinLocalisation.avecLocalisationRepresentantFrance,
                 ).car(carEstGrandeDansSecteurListeAvecBesoinLocalisation));
             });
           });
@@ -155,9 +155,8 @@ describe(calculeRegulationEntite, () => {
         describe("Localisable", () => {
           it("localisations en UE", () =>
             V.estNonRegule(
-              arbForm.nonDesigneOSE.privee.exceptions
-                .etablissementPrincipalFrance.moyenGrandGestionTic
-                .avecLocalisationRepresentantHorsFrance,
+              arbForm.nonDesigneOSE.privee.grand.secteursListes
+                .avecBesoinLocalisation.avecLocalisationRepresentantHorsFrance,
             ));
         });
       });
@@ -226,14 +225,15 @@ describe(calculeRegulationEntite, () => {
 
   describe("transformation Eligibilité vers Régulation", () => {
     it.each([
-      arbForm.nonDesigneOSE.privee.grand.secteursListes
+      arbForm.nonDesigneOSE.privee.grand.secteursListes.avecBesoinLocalisation
         .avecLocalisationRepresentantFrance,
-      arbForm.nonDesigneOSE.privee.grand.secteursListes
+      arbForm.nonDesigneOSE.privee.grand.secteursListes.avecBesoinLocalisation
         .avecLocalisationRepresentantHorsFrance,
-      arbForm.nonDesigneOSE.privee.grand.secteursListes.neFournitPasServiceUe,
-      arbForm.nonDesigneOSE.privee.grand.secteursListes
+      arbForm.nonDesigneOSE.privee.grand.secteursListes.avecBesoinLocalisation
+        .neFournitPasServiceUe,
+      arbForm.nonDesigneOSE.privee.grand.secteursListes.avecBesoinLocalisation
         .avecLocalisationRepresentant,
-    ])("toujours égales $nom", (arbitraireDonneesSimulateur) => {
+    ])("Eligibilité = Regulation $nom", (arbitraireDonneesSimulateur) => {
       fc.assert(
         fc.property<[DonneesFormulaireSimulateur]>(
           arbitraireDonneesSimulateur,

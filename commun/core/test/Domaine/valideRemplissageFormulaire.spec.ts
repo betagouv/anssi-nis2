@@ -18,7 +18,7 @@ import { arbForm } from "./arbitraires/arbitrairesSimulateur";
 
 describe("Invalide en cas de données absentes", () => {
   const donneesAbsentes = Object.entries(
-    arbForm.nonValide.donneeAbsente
+    arbForm.nonValide.donneeAbsente,
   ).filter(([nom]) => !ChampsFormulaireFacultatifs.includes(nom));
 
   it.each(donneesAbsentes)("%s", (nom, donneeAbsente) => {
@@ -56,12 +56,13 @@ describe("Validation des données formulaire", () => {
     {
       nom: "nonDesigneOSE.privee.grand.secteursListes.avecFournitServiceUE",
       arbitraireEligible:
-        arbForm.nonDesigneOSE.privee.grand.secteursListes.neFournitPasServiceUe,
+        arbForm.nonDesigneOSE.privee.grand.secteursListes.avecBesoinLocalisation
+          .neFournitPasServiceUe,
     },
     {
       nom: "nonDesigneOSE.privee.grand.secteursListes.avecLocalisationRepresentant",
       arbitraireEligible:
-        arbForm.nonDesigneOSE.privee.grand.secteursListes
+        arbForm.nonDesigneOSE.privee.grand.secteursListes.avecBesoinLocalisation
           .avecLocalisationRepresentant,
     },
     {
@@ -164,7 +165,7 @@ describe("Validation des données formulaire", () => {
         verifieQue(verifieDonneesCommunesPublique)
           .estToujoursVrai()
           .quelqueSoit(arbitraireEligible);
-      }
+      },
     );
   });
 
@@ -175,7 +176,7 @@ describe("Validation des données formulaire", () => {
         verifieQue(verifieCompletudeDonneesCommunes)
           .estToujoursVrai()
           .quelqueSoit(arbitraireEligible);
-      }
+      },
     );
   });
 
@@ -186,7 +187,7 @@ describe("Validation des données formulaire", () => {
         verifieQue(verifieCompletudeDonneesCommunes)
           .estToujoursVrai()
           .quelqueSoit(arbitraireEligible);
-      }
+      },
     );
   });
 
@@ -225,25 +226,26 @@ Counterexample: [{"typeEntitePublique":["administrationCentrale"],"fournitServic
       it(
         "vérifie données communes complètes",
         verifieQue(verifieCompletudeDonneesCommunes).pour(donnees)
-          .estToujoursVrai
+          .estToujoursVrai,
       );
       it(
         "ne vérifie pas données sectorielles",
-        verifieQue(verifieDonneesSectorielles).pour(donnees).estToujoursFaux
+        verifieQue(verifieDonneesSectorielles).pour(donnees).estToujoursFaux,
       );
       it(
         "ne vérifie pas données form privé complètes",
         verifieQue(verifieCompletudeDonneesFormulairePrivee).pour(donnees)
-          .estToujoursFaux
+          .estToujoursFaux,
       );
       it(
         "ne vérifie pas données form publiques sont complètes",
         verifieQue(verifieCompletudeDonneesFormulairePublique).pour(donnees)
-          .estToujoursFaux
+          .estToujoursFaux,
       );
       it(
         "ne vérifie pas données form complètes",
-        verifieQue(donneesFormulaireSontCompletes).pour(donnees).estToujoursFaux
+        verifieQue(donneesFormulaireSontCompletes).pour(donnees)
+          .estToujoursFaux,
       );
     });
 
@@ -259,26 +261,26 @@ Counterexample: [{"typeEntitePublique":["administrationCentrale"],"fournitServic
       it(
         "verifieCompletudeDonneesCommunes",
         verifieQue(verifieCompletudeDonneesCommunes).pour(donnees)
-          .estToujoursVrai
+          .estToujoursVrai,
       );
       it(
         "verifieCompletudeDonneesFormulairePublique",
         verifieQue(verifieCompletudeDonneesFormulairePublique).pour(donnees)
-          .estToujoursFaux
+          .estToujoursFaux,
       );
     });
     describe("Petite Infrastructure numérique non localisée", () => {
       it(
         "contientSecteursLocalisesValides",
         verifieQue(contientSecteursLocalisesValides).pour(
-          formulairePetitInfraNumSansLocalisation
-        ).estToujoursFaux
+          formulairePetitInfraNumSansLocalisation,
+        ).estToujoursFaux,
       );
       it(
         "verifieDonneesSectorielles",
         verifieQue(verifieDonneesSectorielles).pour(
-          formulairePetitInfraNumSansLocalisation
-        ).estToujoursFaux
+          formulairePetitInfraNumSansLocalisation,
+        ).estToujoursFaux,
       );
       it(
         "contientSecteursLocalisesValides",
@@ -286,13 +288,13 @@ Counterexample: [{"typeEntitePublique":["administrationCentrale"],"fournitServic
           ...formulairePetitInfraNumSansLocalisation,
           secteurActivite: ["gestionServicesTic"],
           activites: ["fournisseurServicesSecuriteGeres"],
-        }).estToujoursVrai
+        }).estToujoursVrai,
       );
       it(
         "verifieDonneesSectorielles",
         verifieQue(verifieDonneesSectorielles).pour(
-          formulairePetitInfraNumSansLocalisation
-        ).estToujoursFaux
+          formulairePetitInfraNumSansLocalisation,
+        ).estToujoursFaux,
       );
     });
     describe("Petite Infrastructure numérique sans représentant", () => {
@@ -303,7 +305,7 @@ Counterexample: [{"typeEntitePublique":["administrationCentrale"],"fournitServic
       it(
         "verifieCompletudeDonneesFormulairePrivee",
         verifieQue(verifieCompletudeDonneesFormulairePrivee).pour(donnees)
-          .estToujoursFaux
+          .estToujoursFaux,
       );
     });
     describe("Petite Infrastructure numérique ne fournit pas en UE", () => {
@@ -314,7 +316,7 @@ Counterexample: [{"typeEntitePublique":["administrationCentrale"],"fournitServic
       it(
         "verifieCompletudeDonneesFormulairePrivee",
         verifieQue(verifieCompletudeDonneesFormulairePrivee).pour(donnees)
-          .estToujoursVrai
+          .estToujoursVrai,
       );
     });
   });

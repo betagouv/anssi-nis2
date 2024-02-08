@@ -28,7 +28,7 @@ export const verifieQue = <DonneesPartielles, TypeResultat>(
         arbitraire,
         acte,
         predicat,
-        "Predicat faux pour %donnees\n\trésultat obtenu ne satisfait pas le prédicat %resultat",
+        "Predicat non satisfait sur le résultat %resultat",
       ),
   }),
   estToujoursVrai: () => ({

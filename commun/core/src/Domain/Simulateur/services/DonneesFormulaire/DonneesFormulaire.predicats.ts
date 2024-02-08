@@ -113,12 +113,16 @@ const estInfranumDnsOuRegistre = isMatching({
     ["registresNomsDomainesPremierNiveau"],
   ),
 });
-const estServiceTicOuFournisseurNum = isMatching({
-  secteurActivite: P.union(["gestionServicesTic"], ["fournisseursNumeriques"]),
-});
+export const contientServiceTicOuFournisseurNum: PredicatDonneesFormulaireSimulateur =
+  isMatching({
+    secteurActivite: P.union(
+      ["gestionServicesTic"],
+      ["fournisseursNumeriques"],
+    ),
+  });
 export const contientSecteurALocaliser = ou(
   estInfranumDnsOuRegistre,
-  et(non(contientPetiteEntreprise), estServiceTicOuFournisseurNum),
+  et(non(contientPetiteEntreprise), contientServiceTicOuFournisseurNum),
 );
 
 const neFournitPasDeServiceDansUE = isMatching({

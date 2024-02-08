@@ -38,6 +38,7 @@ export type DonneesSectorielles = Pick<
 export type PredicatDonneesFormulaireSimulateur = (
   d: DonneesFormulaireSimulateur,
 ) => boolean;
+
 type PredicatsSurChamp<C extends NomsChampsSimulateur> = {
   contient: <T extends DonneesFormulaireSimulateur[C][number]>(
     valeur: T,

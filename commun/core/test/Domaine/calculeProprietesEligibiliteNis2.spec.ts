@@ -103,7 +103,7 @@ describe(calculeEligibilite, () => {
           it("secteur d'activité et activité listés sans besoin de localisation", () =>
             V.EligibleMoyenneGrandeEntreprise(
               arbForm.nonDesigneOSE.privee.grand.secteursListes
-                .avecLocalisationRepresentantFrance,
+                .avecBesoinLocalisation.avecLocalisationRepresentantFrance,
             ));
         });
         describe("N'est pas éligible", () => {

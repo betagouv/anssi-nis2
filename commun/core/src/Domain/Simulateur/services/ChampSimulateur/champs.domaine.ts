@@ -1,7 +1,10 @@
 import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
 
-export type PredicatChamp = (donnees: DonneesFormulaireSimulateur) => boolean;
+export type PredicatDonneesFormulaire<
+  T extends DonneesFormulaireSimulateur = DonneesFormulaireSimulateur,
+> = (donnees: T) => boolean;
+
 export type ValidationReponses = {
   message: string;
-  validateur: PredicatChamp;
+  validateur: PredicatDonneesFormulaire;
 };

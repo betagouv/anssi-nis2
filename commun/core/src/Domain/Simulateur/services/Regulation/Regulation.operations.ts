@@ -1,4 +1,4 @@
-import { isMatching } from "ts-pattern";
+import { VVV } from "../../../utilitaires/debug";
 import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
 import { ResultatEligibilite } from "../../Eligibilite.definitions";
 import { fabriqueRegule } from "../../fabriques/Regulation.fabrique";
@@ -18,6 +18,8 @@ import {
   contientInfrastructureNumerique,
   contientOperateurServicesEssentiels,
   contientPetiteEntreprise,
+  contientSecteurNecessitantLocalisation,
+  contientServiceTicOuFournisseurNum,
   predicatDonneesFormulaire as donneesSimu,
   verifieCompletudeDonneesCommunes,
 } from "../DonneesFormulaire/DonneesFormulaire.predicats";
@@ -92,15 +94,13 @@ const regulationInfrastructureNumerique = (
 
 const calculeRegulationPetite = (donnees: DonneesFormulaireSimulateur) =>
   match(donnees).otherwise(toujoursNonRegule);
-const calculeRegulationGrande = (donnees: DonneesFormulaireSimulateur) =>
+
+const calculeRegulationGrandeServicesTicEtFournisseurNum = (
+  donnees: DonneesFormulaireSimulateur,
+) =>
   match(donnees)
     .with(
       {
-        secteurActivite: P.when((liste) =>
-          liste.some((secteur) =>
-            ["gestionServicesTic", "fournisseursNumeriques"].includes(secteur),
-          ),
-        ),
         fournitServicesUnionEuropeenne: ["oui"],
         localisationRepresentant: ["france"],
       },
@@ -118,19 +118,28 @@ const calculeRegulationGrande = (donnees: DonneesFormulaireSimulateur) =>
           localisationRepresentant: ["france"],
         }),
     )
+    .otherwise(toujoursNonRegule);
+const calculeRegulationGrande = (donnees: DonneesFormulaireSimulateur) =>
+  match(donnees)
+    .when(
+      contientSecteurNecessitantLocalisation,
+      calculeRegulationGrandeServicesTicEtFournisseurNum,
+    )
     .with(
       {
         secteurActivite: P.when(auMoinsUnSecteurListe),
       },
-      () =>
-        fabriqueRegule({
+      () => {
+        VVV("Oups");
+        return fabriqueRegule({
           trancheNombreEmployes: donnees.trancheNombreEmployes,
           trancheChiffreAffaire: donnees.trancheChiffreAffaire,
           secteurActivite: donnees.secteurActivite.filter(estSecteurListe),
           sousSecteurActivite:
             donnees.sousSecteurActivite.filter(estSousSecteurListe),
           activites: donnees.activites.filter(estActiviteListee),
-        }),
+        });
+      },
     )
     .otherwise(toujoursNonRegule);
 

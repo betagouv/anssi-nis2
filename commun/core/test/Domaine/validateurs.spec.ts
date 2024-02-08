@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire.definitions";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
-import { PredicatChamp } from "../../src/Domain/Simulateur/services/ChampSimulateur/champs.domaine";
+import { PredicatDonneesFormulaire } from "../../src/Domain/Simulateur/services/ChampSimulateur/champs.domaine";
 import {
   auMoinsUn,
   auMoinsUneActiviteParValeurSectorielleListee,
@@ -47,7 +47,7 @@ describe("validateurs", () => {
       });
       const validateur = et(
         auMoinsUn("trancheNombreEmployes"),
-        auMoinsUn("trancheChiffreAffaire")
+        auMoinsUn("trancheChiffreAffaire"),
       );
       const result = validateur(donneesFormulaireSimulateur);
       expect(result).toBeTruthy();
@@ -60,7 +60,7 @@ describe("validateurs", () => {
       });
       const validateur = et(
         auMoinsUn("trancheNombreEmployes"),
-        auMoinsUn("trancheChiffreAffaire")
+        auMoinsUn("trancheChiffreAffaire"),
       );
       const result = validateur(donneesFormulaireSimulateur);
       expect(result).toBeFalsy();
@@ -73,7 +73,7 @@ describe("validateurs", () => {
         sousSecteurActivite: ["electricite"],
       });
       const result = auMoinsUnSousSecteurParSecteur(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeTruthy();
     });
@@ -84,7 +84,7 @@ describe("validateurs", () => {
         sousSecteurActivite: ["electricite"],
       });
       const result = auMoinsUnSousSecteurParSecteur(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeFalsy();
     });
@@ -95,7 +95,7 @@ describe("validateurs", () => {
         sousSecteurActivite: ["electricite", "hydrogene"],
       });
       const result = auMoinsUnSousSecteurParSecteur(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeFalsy();
     });
@@ -106,7 +106,7 @@ describe("validateurs", () => {
         sousSecteurActivite: ["autreSousSecteurFabrication"],
       });
       const result = auMoinsUnSousSecteurParSecteur(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeTruthy();
     });
@@ -118,7 +118,7 @@ describe("validateurs", () => {
         activites: ["autreActiviteEspace"],
       });
       const result = auMoinsUneActiviteParValeurSectorielleListee(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeTruthy();
     });
@@ -129,7 +129,7 @@ describe("validateurs", () => {
         activites: ["autreActiviteEspace", "prestataireSoinsSante"],
       });
       const result = auMoinsUneActiviteParValeurSectorielleListee(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeTruthy();
     });
@@ -140,7 +140,7 @@ describe("validateurs", () => {
         activites: ["laboratoireReferenceUE", "prestataireSoinsSante"],
       });
       const result = auMoinsUneActiviteParValeurSectorielleListee(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeFalsy();
     });
@@ -152,7 +152,7 @@ describe("validateurs", () => {
         activites: ["acteurDuMarche"],
       });
       const result = auMoinsUneActiviteParValeurSectorielleListee(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeFalsy();
     });
@@ -163,7 +163,7 @@ describe("validateurs", () => {
         activites: ["prestataireSoinsSante", "laboratoireReferenceUE"],
       });
       const result = auMoinsUneActiviteParValeurSectorielleListee(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeTruthy();
     });
@@ -174,7 +174,7 @@ describe("validateurs", () => {
         activites: ["autreActiviteEspace"],
       });
       const result = auMoinsUneActiviteParValeurSectorielleListee(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeTruthy();
     });
@@ -186,14 +186,16 @@ describe("validateurs", () => {
         activites: ["entrepriseElectriciteRemplissantFonctionFourniture"],
       });
       const result = auMoinsUneActiviteParValeurSectorielleListee(
-        donneesFormulaireSimulateur
+        donneesFormulaireSimulateur,
       );
       expect(result).toBeTruthy();
     });
   });
   describe(lorsque, () => {
     it("valide lorsque la valeur et le predicat sont vrais", () => {
-      const predicat: PredicatChamp = vi.fn().mockImplementation(() => true);
+      const predicat: PredicatDonneesFormulaire = vi
+        .fn()
+        .mockImplementation(() => true);
       const donnees = fabriqueDonneesFormulaire({
         typeStructure: ["publique"],
       });
@@ -203,7 +205,9 @@ describe("validateurs", () => {
       expect(result).toBeTruthy();
     });
     it("ne valide pas lorsque la valeur est vraie mais pas le predicat", () => {
-      const predicat: PredicatChamp = vi.fn().mockImplementation(() => false);
+      const predicat: PredicatDonneesFormulaire = vi
+        .fn()
+        .mockImplementation(() => false);
       const donnees = fabriqueDonneesFormulaire({
         typeStructure: ["publique"],
       });
@@ -213,7 +217,9 @@ describe("validateurs", () => {
       expect(result).toBeFalsy();
     });
     it("valide lorsque la valeur et le predicat sont faux", () => {
-      const predicat: PredicatChamp = vi.fn().mockImplementation(() => false);
+      const predicat: PredicatDonneesFormulaire = vi
+        .fn()
+        .mockImplementation(() => false);
       const donnees = fabriqueDonneesFormulaire({
         typeStructure: ["publique"],
       });
@@ -223,7 +229,9 @@ describe("validateurs", () => {
       expect(result).toBeTruthy();
     });
     it("valide lorsque la valeur est vide mais pas le predicat vrai", () => {
-      const predicat: PredicatChamp = vi.fn().mockImplementation(() => true);
+      const predicat: PredicatDonneesFormulaire = vi
+        .fn()
+        .mockImplementation(() => true);
       const donnees = fabriqueDonneesFormulaire({});
       const predicatLorsque = lorsque("typeStructure", "publique", predicat);
       const result = predicatLorsque(donnees);
