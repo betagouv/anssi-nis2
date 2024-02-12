@@ -41,8 +41,8 @@ export const scenarioDerniereEtapeEstResultat: StoryObj<
       activites: [
         "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
       ],
-      designeOperateurServicesEssentiels: ["oui"],
-      appartenancePaysUnionEurpopeenne: ["france"],
+      designationOperateurServicesEssentiels: ["oui"],
+      appartenancePaysUnionEuropeenne: ["france"],
       secteurActivite: ["espace"],
       sousSecteurActivite: [],
       trancheChiffreAffaire: ["petit"],

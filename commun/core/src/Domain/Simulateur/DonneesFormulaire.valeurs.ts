@@ -1,5 +1,5 @@
 export const ValeursNomChampsFormulaire = [
-  "designeOperateurServicesEssentiels",
+  "designationOperateurServicesEssentiels",
   "appartenancePaysUnionEurpopeenne",
   "typeStructure",
   "typeEntitePublique",

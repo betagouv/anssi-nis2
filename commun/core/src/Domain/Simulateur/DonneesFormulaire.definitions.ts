@@ -18,8 +18,8 @@ export type NomsChampsSimulateur = (typeof ValeursNomChampsFormulaire)[number];
 export interface DonneesFormulaireSimulateur
   extends Record<NomsChampsSimulateur, ValeurChampSimulateur[]> {
   activites: Activite[];
-  designeOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[];
-  appartenancePaysUnionEurpopeenne: AppartenancePaysUnionEuropeenne[];
+  designationOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[];
+  appartenancePaysUnionEuropeenne: AppartenancePaysUnionEuropeenne[];
   secteurActivite: SecteurActivite[];
   sousSecteurActivite: SousSecteurActivite[];
   trancheChiffreAffaire: TrancheChiffreAffaire[];

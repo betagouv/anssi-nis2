@@ -29,11 +29,11 @@ describe(calculeRegulationEntite, () => {
     describe("Entité OSE pour NIS1", () => {
       it("petite entité", () =>
         V.estRegule(arbForm.designeOSE.petit).car({
-          designeOperateurServicesEssentiels: ["oui"],
+          designationOperateurServicesEssentiels: ["oui"],
         }));
       it("moyenne/grande entité", () =>
         V.estRegule(arbForm.designeOSE.moyenGrand).car({
-          designeOperateurServicesEssentiels: ["oui"],
+          designationOperateurServicesEssentiels: ["oui"],
         }));
     });
 
@@ -184,11 +184,11 @@ describe(calculeRegulationEntite, () => {
         localisationRepresentant: ["france"],
         secteurActivite: ["infrastructureNumerique"],
         sousSecteurActivite: [],
-        designeOperateurServicesEssentiels: ["non"],
+        designationOperateurServicesEssentiels: ["non"],
         typeStructure: ["privee"],
         trancheChiffreAffaire: ["petit"],
         trancheNombreEmployes: ["petit"],
-        appartenancePaysUnionEurpopeenne: ["france"],
+        appartenancePaysUnionEuropeenne: ["france"],
         activites: [
           "prestataireServiceConfiance",
           "registresNomsDomainesPremierNiveau",

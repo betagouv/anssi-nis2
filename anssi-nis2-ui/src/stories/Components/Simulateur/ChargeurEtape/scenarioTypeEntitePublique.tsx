@@ -41,8 +41,8 @@ export const scenarioTypeEntitePublique: StoryObj<
   await expect(mockSendFormData).toHaveBeenCalledWith(
     fabriqueDonneesFormulaire({
       activites: [],
-      designeOperateurServicesEssentiels: ["oui"],
-      appartenancePaysUnionEurpopeenne: ["france"],
+      designationOperateurServicesEssentiels: ["oui"],
+      appartenancePaysUnionEuropeenne: ["france"],
       secteurActivite: ["energie"],
       sousSecteurActivite: ["autreSousSecteurEnergie"],
       trancheChiffreAffaire: [],

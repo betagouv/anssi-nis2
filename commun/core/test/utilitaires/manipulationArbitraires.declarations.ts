@@ -62,8 +62,8 @@ export type DonneesFormulairesAvanttrancheChiffreAffaire =
   | (DonneesSectorielles &
       Pick<
         DonneesFormulaireSimulateur,
-        | "designeOperateurServicesEssentiels"
+        | "designationOperateurServicesEssentiels"
         | "typeStructure"
         | "trancheChiffreAffaire"
-        | "appartenancePaysUnionEurpopeenne"
+        | "appartenancePaysUnionEuropeenne"
       >);

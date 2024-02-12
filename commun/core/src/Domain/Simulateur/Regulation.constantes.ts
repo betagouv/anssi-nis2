@@ -5,7 +5,7 @@ import {
 } from "./Regulation.definitions";
 
 export const causeReguleOSE: CausesRegulation = {
-  designeOperateurServicesEssentiels: ["oui"],
+  designationOperateurServicesEssentiels: ["oui"],
 };
 
 export const resultatIncertain: ResultatRegulationEntite = {

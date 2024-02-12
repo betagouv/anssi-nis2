@@ -126,8 +126,8 @@ describe(calculeEligibilite, () => {
       it("Hors Union Européenne, grande entreprise", () =>
         verifieQue(calculeEligibilite)
           .pour({
-            designeOperateurServicesEssentiels: ["non"],
-            appartenancePaysUnionEurpopeenne: ["horsue"],
+            designationOperateurServicesEssentiels: ["non"],
+            appartenancePaysUnionEuropeenne: ["horsue"],
             typeStructure: ["privee"],
             typeEntitePublique: [],
             trancheChiffreAffaire: ["grand"],

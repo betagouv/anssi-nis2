@@ -51,7 +51,7 @@ describe(genereTransformateurValeursVersOptions, () => {
   it("génère un champ d'option avec les bons états checked", () => {
     const attendu = optionsPaysUE([true, false, false]);
     const defaultDataForm = fabriqueDonneesFormulaire({
-      appartenancePaysUnionEurpopeenne: ["france"],
+      appartenancePaysUnionEuropeenne: ["france"],
     });
     const optionsPaysUEObtenu = transformePaysUnionEuropeennePourSelect(
       libellesPaysUnionEuropeenneLocalisation,

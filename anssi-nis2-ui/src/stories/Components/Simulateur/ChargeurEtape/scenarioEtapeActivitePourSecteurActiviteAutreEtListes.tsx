@@ -46,8 +46,8 @@ export const scenarioEtapeActivitePourSecteurActiviteAutreEtListes: StoryObj<
   await expect(mockSendFormData).toHaveBeenCalledWith(
     fabriqueDonneesFormulaire({
       activites: ["fournisseursDistributeursEauxConsommation"],
-      designeOperateurServicesEssentiels: ["oui"],
-      appartenancePaysUnionEurpopeenne: ["france"],
+      designationOperateurServicesEssentiels: ["oui"],
+      appartenancePaysUnionEuropeenne: ["france"],
       secteurActivite: ["eauPotable", "autreSecteurActivite"],
       sousSecteurActivite: [],
       trancheChiffreAffaire: ["petit"],

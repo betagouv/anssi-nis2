@@ -93,7 +93,7 @@ export const LocalisationStandard: Story = {
 export const CocheFrance: Story = {
   args: {
     donneesFormulaire: fabriqueDonneesFormulaire({
-      appartenancePaysUnionEurpopeenne: ["france"],
+      appartenancePaysUnionEuropeenne: ["france"],
     }),
   },
   play: async ({ canvasElement, step }) => {
@@ -115,7 +115,7 @@ export const CocheFrance: Story = {
 export const CocheHorsUE: Story = {
   args: {
     donneesFormulaire: fabriqueDonneesFormulaire({
-      appartenancePaysUnionEurpopeenne: ["horsue"],
+      appartenancePaysUnionEuropeenne: ["horsue"],
     }),
   },
   play: async ({ canvasElement, step }) => {

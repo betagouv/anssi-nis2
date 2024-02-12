@@ -53,8 +53,8 @@ export const scenarioSousEtapeServicesEnFrance: StoryObj<
   await expect(mockSendFormData).toHaveBeenCalledWith(
     fabriqueDonneesFormulaire({
       activites: [activite],
-      designeOperateurServicesEssentiels: ["non"],
-      appartenancePaysUnionEurpopeenne: ["france"],
+      designationOperateurServicesEssentiels: ["non"],
+      appartenancePaysUnionEuropeenne: ["france"],
       secteurActivite: [secteur],
       trancheChiffreAffaire: [trancheCA],
       trancheNombreEmployes: [trancheNbEmp],

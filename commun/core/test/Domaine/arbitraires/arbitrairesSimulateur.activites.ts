@@ -18,11 +18,11 @@ export const arbActivitesAutres = etend<DonneesSectorielles>(
 )
   .avec<
     PiocheDonneesForm<
-      | "designeOperateurServicesEssentiels"
+      | "designationOperateurServicesEssentiels"
       | "typeStructure"
       | "trancheChiffreAffaire"
       | "trancheNombreEmployes"
-      | "appartenancePaysUnionEurpopeenne"
+      | "appartenancePaysUnionEuropeenne"
     >
   >({
     designeOperateurServicesEssentiels:

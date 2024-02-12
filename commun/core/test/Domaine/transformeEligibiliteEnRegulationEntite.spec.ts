@@ -12,7 +12,7 @@ import { transformeEligibiliteEnRegulationEntite } from "../../src/Domain/Simula
 
 describe(transformeEligibiliteEnRegulationEntite, () => {
   const donneesFormulaireSimulateurOSE = fabriqueDonneesFormulaire({
-    designeOperateurServicesEssentiels: ["oui"],
+    designationOperateurServicesEssentiels: ["oui"],
   });
 
   describe(Regulation.Incertain, () => {

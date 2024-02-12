@@ -38,8 +38,8 @@ export const scenarioIgnoreEtapeActivitePourSecteurActiviteAutre: StoryObj<
   await expect(mockSendFormData).toHaveBeenCalledWith(
     fabriqueDonneesFormulaire({
       activites: [],
-      designeOperateurServicesEssentiels: ["oui"],
-      appartenancePaysUnionEurpopeenne: ["france"],
+      designationOperateurServicesEssentiels: ["oui"],
+      appartenancePaysUnionEuropeenne: ["france"],
       secteurActivite: ["autreSecteurActivite"],
       sousSecteurActivite: [],
       trancheChiffreAffaire: ["petit"],

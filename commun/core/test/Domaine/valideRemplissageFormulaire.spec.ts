@@ -118,8 +118,8 @@ describe("Validation des données formulaire", () => {
   ];
 
   const formulairePetitInfraNumSansLocalisation = fabriqueDonneesFormulaire({
-    designeOperateurServicesEssentiels: ["non"],
-    appartenancePaysUnionEurpopeenne: ["france"],
+    designationOperateurServicesEssentiels: ["non"],
+    appartenancePaysUnionEuropeenne: ["france"],
     typeStructure: ["privee"],
     secteurActivite: ["infrastructureNumerique"],
     trancheNombreEmployes: ["petit"],
@@ -216,8 +216,8 @@ Counterexample: [{"typeEntitePublique":["administrationCentrale"],"fournitServic
     describe("activité nulle", () => {
       const donnees: DonneesFormulaireSimulateur = {
         ...donneesFormulaireSimulateurVide,
-        designeOperateurServicesEssentiels: ["oui"],
-        appartenancePaysUnionEurpopeenne: ["france"],
+        designationOperateurServicesEssentiels: ["oui"],
+        appartenancePaysUnionEuropeenne: ["france"],
         secteurActivite: ["espace"],
         trancheChiffreAffaire: ["petit"],
         trancheNombreEmployes: ["petit"],
@@ -251,8 +251,8 @@ Counterexample: [{"typeEntitePublique":["administrationCentrale"],"fournitServic
 
     describe("publique", () => {
       const donnees = fabriqueDonneesFormulaire({
-        designeOperateurServicesEssentiels: ["oui"],
-        appartenancePaysUnionEurpopeenne: ["france"],
+        designationOperateurServicesEssentiels: ["oui"],
+        appartenancePaysUnionEuropeenne: ["france"],
         secteurActivite: ["energie"],
         trancheNombreEmployes: ["petit"],
         typeStructure: ["publique"],

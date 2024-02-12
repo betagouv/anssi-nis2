@@ -15,24 +15,24 @@ import { contientAutreSecteurActiviteUniquement } from "../../src/Domain/Simulat
 describe("validateurs", () => {
   describe("valideAuMoinsUn", () => {
     it("doit être vrai pour un élément rempli", () => {
-      const nomChamp = "designeOperateurServicesEssentiels";
+      const nomChamp = "designationOperateurServicesEssentiels";
       const donneesFormulaireSimulateur = fabriqueDonneesFormulaire({
-        designeOperateurServicesEssentiels: ["oui"],
+        designationOperateurServicesEssentiels: ["oui"],
       });
       const result = auMoinsUn(nomChamp)(donneesFormulaireSimulateur);
       expect(result).toBeTruthy();
     });
 
     it("doit être faux pour un formulaire vide", () => {
-      const nomChamp = "designeOperateurServicesEssentiels";
+      const nomChamp = "designationOperateurServicesEssentiels";
       const result = auMoinsUn(nomChamp)(donneesFormulaireSimulateurVide);
       expect(result).toBeFalsy();
     });
 
     it("doit être vrai pour plusieurs valeurs", () => {
-      const nomChamp = "designeOperateurServicesEssentiels";
+      const nomChamp = "designationOperateurServicesEssentiels";
       const donneesFormulaireSimulateur = fabriqueDonneesFormulaire({
-        designeOperateurServicesEssentiels: ["oui", "non"],
+        designationOperateurServicesEssentiels: ["oui", "non"],
       });
       const result = auMoinsUn(nomChamp)(donneesFormulaireSimulateur);
       expect(result).toBeTruthy();

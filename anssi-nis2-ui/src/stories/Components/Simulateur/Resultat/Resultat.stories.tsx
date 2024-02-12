@@ -15,8 +15,8 @@ import { attendTexteCharge } from "../../../utilitaires/interaction.facilitateur
 import { verifieTitresSectionsPresentes } from "./Resultat.aide.ts";
 
 const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
-  designeOperateurServicesEssentiels: ["non"],
-  appartenancePaysUnionEurpopeenne: ["france"],
+  designationOperateurServicesEssentiels: ["non"],
+  appartenancePaysUnionEuropeenne: ["france"],
   typeStructure: ["privee"],
   trancheChiffreAffaire: ["petit"],
   trancheNombreEmployes: ["petit"],

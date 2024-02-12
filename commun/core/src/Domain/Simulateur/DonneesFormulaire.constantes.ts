@@ -1,8 +1,8 @@
 import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.definitions";
 
 export const donneesFormulaireSimulateurVide: DonneesFormulaireSimulateur = {
-  designeOperateurServicesEssentiels: [],
-  appartenancePaysUnionEurpopeenne: [],
+  designationOperateurServicesEssentiels: [],
+  appartenancePaysUnionEuropeenne: [],
   secteurActivite: [],
   sousSecteurActivite: [],
   trancheChiffreAffaire: [],
