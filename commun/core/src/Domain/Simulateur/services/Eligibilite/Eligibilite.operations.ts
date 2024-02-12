@@ -86,7 +86,6 @@ const calculeEligibiliteGrandeServicesTicEtFournisseurNum = (
       },
       calculeEligibiliteRepresentantFrance,
     )
-
     .with(
       {
         secteurActivite: P.array(

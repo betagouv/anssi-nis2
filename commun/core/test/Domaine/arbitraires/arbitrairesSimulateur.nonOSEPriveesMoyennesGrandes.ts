@@ -3,8 +3,6 @@ import { ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement } from
 import { exerceUniquementActivitesDansListe } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { non } from "../../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
 import {
-  contientPetiteEntreprise,
-  contientSecteurALocaliser,
   contientSecteurNecessitantLocalisation,
   contientUniquementSecteurNecessitantLocalisation,
 } from "../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";

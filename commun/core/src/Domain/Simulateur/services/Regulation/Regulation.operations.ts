@@ -19,7 +19,6 @@ import {
   contientOperateurServicesEssentiels,
   contientPetiteEntreprise,
   contientSecteurNecessitantLocalisation,
-  contientServiceTicOuFournisseurNum,
   predicatDonneesFormulaire as donneesSimu,
   verifieCompletudeDonneesCommunes,
 } from "../DonneesFormulaire/DonneesFormulaire.predicats";
