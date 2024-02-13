@@ -133,11 +133,11 @@ describe("fabrique ReponseEtat", () => {
             trancheNombreEmployes: "moyen",
           },
           SecteurActiviteComplet: {
-            secteurs: [
+            secteurs: new Set([
               {
                 secteurActivite: "autreSecteurActivite",
               },
-            ],
+            ]),
           },
         };
         const resultatObtenu =
@@ -168,12 +168,12 @@ describe("fabrique ReponseEtat", () => {
             trancheNombreEmployes: "moyen",
           },
           SecteurActiviteComplet: {
-            secteurs: [
+            secteurs: new Set([
               {
                 secteurActivite: "eauPotable",
                 activites: ["fournisseursDistributeursEauxConsommation"],
               },
-            ],
+            ]),
           },
         };
         const resultatObtenu =

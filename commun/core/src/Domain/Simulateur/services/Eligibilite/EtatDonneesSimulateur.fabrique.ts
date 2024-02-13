@@ -156,11 +156,9 @@ export const ReponseEtat = {
 
   construitListeSecteurs: (donnees: DonneesFormulaireSimulateur) =>
     donnees.secteurActivite.reduce(
-      (liste, secteur) => [
-        ...liste,
-        ...ReponseEtat.construitSecteur(donnees, secteur),
-      ],
-      [] as InformationSecteurPossible[],
+      (liste, secteur) =>
+        new Set([...liste, ...ReponseEtat.construitSecteur(donnees, secteur)]),
+      new Set<InformationSecteurPossible>([]),
     ),
   construitEtatInformationsSecteurs: (
     donnees: DonneesFormulaireSimulateur,

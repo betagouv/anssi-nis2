@@ -50,23 +50,6 @@ export type DefinitionStructurePublique = TypeStructurePublique &
 export type DefinitionStructure =
   | DefinitionStructurePrivee
   | DefinitionStructurePublique;
-export const ValeursSecteursActivitesSimples = [
-  "administrationPublique",
-  "banqueSecteurBancaire",
-  "eauPotable",
-  "eauxUsees",
-  "espace",
-  "fabricationProductionDistributionProduitsChimiques",
-  "fournisseursNumeriques",
-  "gestionDechets",
-  "gestionServicesTic",
-  "infrastructureMarchesFinanciers",
-  "infrastructureNumerique",
-  "productionTransformationDistributionDenreesAlimentaires",
-  "recherche",
-  "sante",
-  "servicesPostauxExpedition",
-] as const;
 
 type InformationSecteurEnergie =
   | {
@@ -117,14 +100,14 @@ export type InformationSecteurPossible =
   | {
       secteurActivite: Omit<
         SecteurActivite,
-        "energie" | "fabrication" | "transports"
+        "energie" | "fabrication" | "transports" | "autreSecteurActivite"
       >;
       activites: Omit<
         Activite,
         ActivitesEnergie | ActivitesTransports | ActivitesFabrication
       >[];
     };
-export type InformationsSecteur = { secteurs: InformationSecteurPossible[] };
+export type InformationsSecteur = { secteurs: Set<InformationSecteurPossible> };
 
 export type InformationsLocalisationRepresentant =
   | {
