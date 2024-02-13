@@ -6,20 +6,10 @@ import {
   TypeEntitePublique,
 } from "../../ChampsSimulateur.definitions";
 import {
-  DonneesFormulaireSimulateur,
-  NomsChampsSimulateur,
-} from "../../DonneesFormulaire.definitions";
-import {
   SousSecteurEnergie,
   SousSecteurFabrication,
   SousSecteurTransport,
 } from "../../SousSecteurActivite.definitions";
-import {
-  cons,
-  EtatReponseEnCoursProps,
-  fin,
-} from "./EtatRegulation.definition";
-import { match, P } from "ts-pattern";
 
 export type ReponseDesigneOSE = {
   designationOperateurServicesEssentiels: DesignationOperateurServicesEssentiels;
@@ -42,7 +32,7 @@ type TailleSecteurPrive = {
   trancheNombreEmployes: TrancheNombreEmployes;
 };
 type TailleSecteurPublic = {
-  trancheChiffreAffaire: TrancheChiffreAffaire;
+  trancheNombreEmployes: TrancheNombreEmployes;
 };
 
 export type DefinitionStructurePrivee = TypeStructurePrivee &
@@ -93,11 +83,21 @@ type InformationsSecteur =
       secteurActivite: (typeof ValeursSecteursActivitesSimples)[number];
     };
 
+export type InformationsLocalisationRepresentant =
+  | {
+      fournitServicesUnionEuropeenne: "non";
+    }
+  | {
+      fournitServicesUnionEuropeenne: "oui";
+      localisationRepresentant: AppartenancePaysUnionEuropeenne;
+    };
+
 export type DonneesCompletesEvaluees =
   | "DesignationOperateurServicesEssentiels"
   | "AppartenancePaysUnionEuropeenne"
   | "Structure"
-  | "SecteurActiviteComplet";
+  | "SecteurActiviteComplet"
+  | "LocalisationRepresentant";
 
 export type DonneesEvaluees = DonneesCompletesEvaluees | "Fin";
 
@@ -110,63 +110,51 @@ export type TypeDonnees<EtapeEvaluation extends DonneesCompletesEvaluees> =
         ? DefinitionStructure
         : EtapeEvaluation extends "SecteurActiviteComplet"
           ? InformationsSecteur
-          : never;
+          : EtapeEvaluation extends "LocalisationRepresentant"
+            ? InformationsLocalisationRepresentant
+            : never;
 
-export type DonneesReponseUnitaire =
-  | ReponseDesigneOSE
-  | ReponseLocalisation
-  | DefinitionStructure
-  | InformationsSecteur;
+export type Tag<E extends string> = { _tag: `${E}` };
 
-const auMoinsUnElement = <T extends string>(a: T[]) => a.length === 1;
+export type ReponseEtat<
+  Encapsule extends UnionReponseEtat,
+  E extends DonneesCompletesEvaluees,
+> = Tag<E> &
+  Omit<Encapsule, "_tag"> & {
+    [K in E]: TypeDonnees<K>;
+  };
 
-export const nomChampDepuisDonneesCompletes = (
-  donneeEvaluee: DonneesCompletesEvaluees,
-) => donneeEvaluee[0].toLowerCase() + donneeEvaluee.slice(1);
+export type ReponseEtatVide = Tag<"ReponseEtatVide">;
 
-const champDansFormulaire = (
-  donnees: DonneesFormulaireSimulateur,
-  nomChamp: string,
-) => donnees[nomChamp as NomsChampsSimulateur][0];
+export type ReponseEtatDesignationOperateurServicesEssentiels = ReponseEtat<
+  ReponseEtatVide,
+  "DesignationOperateurServicesEssentiels"
+>;
 
-const champVersPropsEtat = (donneeEvaluee: DonneesCompletesEvaluees) => {
-  const nomChamp = nomChampDepuisDonneesCompletes(donneeEvaluee);
-  return (donnees: DonneesFormulaireSimulateur) =>
-    ({
-      donnees: {
-        [nomChamp]: champDansFormulaire(donnees, nomChamp),
-      },
-      etat: donneeEvaluee,
-    }) as EtatReponseEnCoursProps<typeof donneeEvaluee>;
-};
+export type ReponseEtatAppartenancePaysUnionEuropeenne = ReponseEtat<
+  ReponseEtatDesignationOperateurServicesEssentiels,
+  "AppartenancePaysUnionEuropeenne"
+>;
 
-export const depuisDonneesFormulaireSimulateur = (
-  donnees: DonneesFormulaireSimulateur,
-) =>
-  match(donnees)
-    .with(
-      {
-        designationOperateurServicesEssentiels: P.when(auMoinsUnElement),
-        appartenancePaysUnionEuropeenne: [],
-      },
-      () =>
-        cons(
-          champVersPropsEtat("DesignationOperateurServicesEssentiels")(donnees),
-          fin(),
-        ),
-    )
-    .with(
-      {
-        designationOperateurServicesEssentiels: P.when(auMoinsUnElement),
-        appartenancePaysUnionEuropeenne: P.when(auMoinsUnElement),
-      },
-      () =>
-        cons(
-          champVersPropsEtat("DesignationOperateurServicesEssentiels")(donnees),
-          cons(
-            champVersPropsEtat("AppartenancePaysUnionEuropeenne")(donnees),
-            fin(),
-          ),
-        ),
-    )
-    .otherwise(() => fin());
+export type ReponseEtatStructure = ReponseEtat<
+  ReponseEtatAppartenancePaysUnionEuropeenne,
+  "Structure"
+>;
+
+export type ReponseEtatSecteurActiviteComplet = ReponseEtat<
+  ReponseEtatStructure,
+  "SecteurActiviteComplet"
+>;
+
+export type ReponseEtatLocalisationRepresentant = ReponseEtat<
+  ReponseEtatSecteurActiviteComplet,
+  "LocalisationRepresentant"
+>;
+
+export type UnionReponseEtat =
+  | ReponseEtatVide
+  | ReponseEtatDesignationOperateurServicesEssentiels
+  | ReponseEtatAppartenancePaysUnionEuropeenne
+  | ReponseEtatStructure
+  | ReponseEtatSecteurActiviteComplet
+  | ReponseEtatLocalisationRepresentant;

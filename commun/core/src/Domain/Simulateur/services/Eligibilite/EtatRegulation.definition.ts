@@ -47,7 +47,7 @@ export type EtatReponseEnCoursProps<E extends DonneesCompletesEvaluees> = {
 };
 export type Cons = <E extends DonneesCompletesEvaluees>(
   props: EtatReponseEnCoursProps<E>,
-  suivant: EtatReponseEnCours<DonneesCompletesEvaluees> | EtatReponseFin,
+  suivant?: EtatReponseEnCours<DonneesCompletesEvaluees> | EtatReponseFin,
 ) => EtatReponseEnCours<E>;
 export const fin = () => ({ etat: "Fin" as const });
 export const cons: Cons = <E extends DonneesCompletesEvaluees>(
@@ -58,7 +58,9 @@ export const cons: Cons = <E extends DonneesCompletesEvaluees>(
     donnees: TypeDonnees<E>;
     etat: E;
   },
-  suivant: EtatReponseEnCours<DonneesCompletesEvaluees> | EtatReponseFin,
+  suivant:
+    | EtatReponseEnCours<DonneesCompletesEvaluees>
+    | EtatReponseFin = fin(),
 ) =>
   ({
     etat,
