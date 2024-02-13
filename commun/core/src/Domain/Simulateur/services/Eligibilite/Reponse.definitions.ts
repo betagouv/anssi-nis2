@@ -55,7 +55,7 @@ type InformationSecteurEnergie =
   | {
       secteurActivite: "energie";
       sousSecteurActivite: Omit<SousSecteurEnergie, "autreSousSecteurEnergie">;
-      activites: ActivitesEnergie[];
+      activites: Set<ActivitesEnergie>;
     }
   | {
       secteurActivite: "energie";
@@ -69,7 +69,7 @@ type InformationSecteurFabrication =
         SousSecteurFabrication,
         "autreSousSecteurFabrication"
       >;
-      activites: ActivitesFabrication[];
+      activites: Set<ActivitesFabrication>;
     }
   | {
       secteurActivite: "fabrication";
@@ -83,7 +83,7 @@ type InformationSecteurTransport =
         SousSecteurTransport,
         "autreSousSecteurTransport"
       >;
-      activites: ActivitesFabrication[];
+      activites: Set<ActivitesFabrication>;
     }
   | {
       secteurActivite: "transports";
@@ -102,10 +102,12 @@ export type InformationSecteurPossible =
         SecteurActivite,
         "energie" | "fabrication" | "transports" | "autreSecteurActivite"
       >;
-      activites: Omit<
-        Activite,
-        ActivitesEnergie | ActivitesTransports | ActivitesFabrication
-      >[];
+      activites: Set<
+        Omit<
+          Activite,
+          ActivitesEnergie | ActivitesTransports | ActivitesFabrication
+        >
+      >;
     };
 export type InformationsSecteur = { secteurs: Set<InformationSecteurPossible> };
 

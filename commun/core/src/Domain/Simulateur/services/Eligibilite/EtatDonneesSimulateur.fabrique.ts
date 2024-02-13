@@ -1,6 +1,11 @@
 import { match, P } from "ts-pattern";
 import { GuardP } from "ts-pattern/dist/types/Pattern";
 import {
+  ens,
+  ensembleNeutre,
+  union,
+} from "../../../../../../utils/services/sets.operations";
+import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../DonneesFormulaire.definitions";
@@ -74,6 +79,7 @@ const champsSpecifiquesStructurePrivee = champsAvecUneValeur(
   "trancheChiffreAffaire",
   "trancheNombreEmployes",
 );
+
 export const ReponseEtat = {
   construitReponseEtatVide: () => reponseEtatVide,
   construitEtatsDesignationOse: (
@@ -128,36 +134,35 @@ export const ReponseEtat = {
       ? ReponseEtat.construitEtatStructurePublique(donnees)
       : ReponseEtat.construitEtatStructurePrivee(donnees),
 
-  construitSecteurAutre: () => (): InformationSecteurPossible[] => [
-    {
+  construitSecteurAutre: () => (): Set<InformationSecteurPossible> =>
+    ens({
       secteurActivite: "autreSecteurActivite",
-    },
-  ],
+    }),
+
   construitSecteurSimple:
     (donnees: DonneesFormulaireSimulateur) =>
-    (secteur: SecteurActivite): InformationSecteurPossible[] => [
-      {
+    (secteur: SecteurActivite): Set<InformationSecteurPossible> =>
+      ens({
         secteurActivite: secteur,
-        activites: donnees.activites,
-      },
-    ],
+        activites: ens(...donnees.activites),
+      }),
 
   construitSecteur: (
     donnees: DonneesFormulaireSimulateur,
     secteurActivite: SecteurActivite,
-  ): InformationSecteurPossible[] =>
+  ): Set<InformationSecteurPossible> =>
     match(secteurActivite)
       .when(estSecteurAutre, ReponseEtat.construitSecteurAutre())
       .when(
         estUnSecteurSansDesSousSecteurs,
         ReponseEtat.construitSecteurSimple(donnees),
       )
-      .otherwise(() => []),
+      .otherwise(() => ensembleNeutre as Set<InformationSecteurPossible>),
 
   construitListeSecteurs: (donnees: DonneesFormulaireSimulateur) =>
     donnees.secteurActivite.reduce(
       (liste, secteur) =>
-        new Set([...liste, ...ReponseEtat.construitSecteur(donnees, secteur)]),
+        union(liste, ReponseEtat.construitSecteur(donnees, secteur)),
       new Set<InformationSecteurPossible>([]),
     ),
   construitEtatInformationsSecteurs: (

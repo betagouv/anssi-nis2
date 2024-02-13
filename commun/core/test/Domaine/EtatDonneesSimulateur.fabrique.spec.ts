@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { ens } from "../../../utils/services/sets.operations";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
 import { ReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
 import { UnionReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
@@ -133,11 +134,9 @@ describe("fabrique ReponseEtat", () => {
             trancheNombreEmployes: "moyen",
           },
           SecteurActiviteComplet: {
-            secteurs: new Set([
-              {
-                secteurActivite: "autreSecteurActivite",
-              },
-            ]),
+            secteurs: ens({
+              secteurActivite: "autreSecteurActivite",
+            }),
           },
         };
         const resultatObtenu =
@@ -168,12 +167,10 @@ describe("fabrique ReponseEtat", () => {
             trancheNombreEmployes: "moyen",
           },
           SecteurActiviteComplet: {
-            secteurs: new Set([
-              {
-                secteurActivite: "eauPotable",
-                activites: ["fournisseursDistributeursEauxConsommation"],
-              },
-            ]),
+            secteurs: ens({
+              secteurActivite: "eauPotable",
+              activites: ens("fournisseursDistributeursEauxConsommation"),
+            }),
           },
         };
         const resultatObtenu =
