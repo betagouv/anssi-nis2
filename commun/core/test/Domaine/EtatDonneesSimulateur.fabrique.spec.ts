@@ -213,6 +213,49 @@ describe("fabrique ReponseEtat", () => {
           ReponseEtat.depuisDonneesFormulaireSimulateur(donnees);
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
+      it("Enchaine les données jusqu'à plusieurs secteurs et leurs activités", () => {
+        const donnees = fabriqueDonneesFormulaire({
+          designationOperateurServicesEssentiels: ["oui"],
+          typeStructure: ["publique"],
+          typeEntitePublique: ["administrationCentrale"],
+          trancheNombreEmployes: ["moyen"],
+          appartenancePaysUnionEuropeenne: ["france"],
+          secteurActivite: ["eauPotable", "sante"],
+          activites: [
+            "fournisseursDistributeursEauxConsommation",
+            "rechercheDeveloppementMedicament",
+          ],
+        });
+        const resultatAttendu: UnionReponseEtat = {
+          _tag: "SecteurActiviteComplet",
+          DesignationOperateurServicesEssentiels: {
+            designationOperateurServicesEssentiels: "oui",
+          },
+          appartenancePaysUnionEuropeenne: {
+            appartenancePaysUnionEuropeenne: "france",
+          },
+          Structure: {
+            typeStructure: "publique",
+            typeEntitePublique: "administrationCentrale",
+            trancheNombreEmployes: "moyen",
+          },
+          SecteurActiviteComplet: {
+            secteurs: ens(
+              {
+                secteurActivite: "eauPotable",
+                activites: ens("fournisseursDistributeursEauxConsommation"),
+              },
+              {
+                secteurActivite: "sante",
+                activites: ens("rechercheDeveloppementMedicament"),
+              },
+            ),
+          },
+        };
+        const resultatObtenu =
+          ReponseEtat.depuisDonneesFormulaireSimulateur(donnees);
+        expect(resultatObtenu).toStrictEqual(resultatAttendu);
+      });
     });
   });
 });

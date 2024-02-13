@@ -10,6 +10,7 @@ import {
   NomsChampsSimulateur,
 } from "../../DonneesFormulaire.definitions";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
+import { activiteEstDansSecteur } from "../Activite/Activite.predicats";
 import {
   estSecteurAutre,
   estUnSecteurAvecDesSousSecteurs,
@@ -145,7 +146,9 @@ export const ReponseEtat = {
     (secteur: SecteurActivite): Set<InformationSecteurPossible> =>
       ens({
         secteurActivite: secteur,
-        activites: ens(...donnees.activites),
+        activites: ens(
+          ...donnees.activites.filter(activiteEstDansSecteur(secteur)),
+        ),
       }),
   construitSecteurSousSecteur:
     (donnees: DonneesFormulaireSimulateur) =>

@@ -7,14 +7,18 @@ import {
   ValeursActivitesConcernesInfrastructureNumerique,
   ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
 } from "../../Eligibilite.constantes";
+import { SecteurActivite } from "../../SecteurActivite.definitions";
 import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions";
 import { activitesParSecteurEtSousSecteur } from "./Activite.operations";
 
 const prefixeAutreActivite = "autreActivite";
 
 export const activiteEstDansSecteur =
-  (secteurActivite: ValeurCleSectorielle) => (activite: Activite) =>
-    activitesParSecteurEtSousSecteur[secteurActivite].includes(activite);
+  (secteurActivite: ValeurCleSectorielle | SecteurActivite) =>
+  (activite: Activite) =>
+    activitesParSecteurEtSousSecteur[
+      secteurActivite as ValeurCleSectorielle
+    ].includes(activite);
 
 export const estActiviteAutre = (activite: Activite) =>
   activite.startsWith(prefixeAutreActivite);
