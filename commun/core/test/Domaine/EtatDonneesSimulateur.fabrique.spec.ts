@@ -177,6 +177,42 @@ describe("fabrique ReponseEtat", () => {
           ReponseEtat.depuisDonneesFormulaireSimulateur(donnees);
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
+      it("Enchaine les données jusqu'au secteur/sous-secteur et son activité", () => {
+        const donnees = fabriqueDonneesFormulaire({
+          designationOperateurServicesEssentiels: ["oui"],
+          typeStructure: ["privee"],
+          trancheNombreEmployes: ["moyen"],
+          trancheChiffreAffaire: ["grand"],
+          appartenancePaysUnionEuropeenne: ["france"],
+          secteurActivite: ["transports"],
+          sousSecteurActivite: ["transportsFerroviaires"],
+          activites: ["entrepriseFerroviaire"],
+        });
+        const resultatAttendu: UnionReponseEtat = {
+          _tag: "SecteurActiviteComplet",
+          DesignationOperateurServicesEssentiels: {
+            designationOperateurServicesEssentiels: "oui",
+          },
+          appartenancePaysUnionEuropeenne: {
+            appartenancePaysUnionEuropeenne: "france",
+          },
+          Structure: {
+            typeStructure: "privee",
+            trancheNombreEmployes: "moyen",
+            trancheChiffreAffaire: "grand",
+          },
+          SecteurActiviteComplet: {
+            secteurs: ens({
+              secteurActivite: "transports",
+              sousSecteurActivite: "transportsFerroviaires",
+              activites: ens("entrepriseFerroviaire"),
+            }),
+          },
+        };
+        const resultatObtenu =
+          ReponseEtat.depuisDonneesFormulaireSimulateur(donnees);
+        expect(resultatObtenu).toStrictEqual(resultatAttendu);
+      });
     });
   });
 });

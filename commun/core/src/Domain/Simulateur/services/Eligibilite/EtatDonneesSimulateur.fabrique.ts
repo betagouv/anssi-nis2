@@ -12,6 +12,7 @@ import {
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import {
   estSecteurAutre,
+  estUnSecteurAvecDesSousSecteurs,
   estUnSecteurSansDesSousSecteurs,
 } from "../SecteurActivite/SecteurActivite.predicats";
 import {
@@ -146,6 +147,14 @@ export const ReponseEtat = {
         secteurActivite: secteur,
         activites: ens(...donnees.activites),
       }),
+  construitSecteurSousSecteur:
+    (donnees: DonneesFormulaireSimulateur) =>
+    (secteur: SecteurActivite): Set<InformationSecteurPossible> =>
+      ens({
+        secteurActivite: secteur,
+        sousSecteurActivite: donnees.sousSecteurActivite[0],
+        activites: ens(...donnees.activites),
+      }),
 
   construitSecteur: (
     donnees: DonneesFormulaireSimulateur,
@@ -156,6 +165,10 @@ export const ReponseEtat = {
       .when(
         estUnSecteurSansDesSousSecteurs,
         ReponseEtat.construitSecteurSimple(donnees),
+      )
+      .when(
+        estUnSecteurAvecDesSousSecteurs,
+        ReponseEtat.construitSecteurSousSecteur(donnees),
       )
       .otherwise(() => ensembleNeutre as Set<InformationSecteurPossible>),
 
@@ -187,6 +200,11 @@ export const ReponseEtat = {
             champsSpecifiquesStructurePrivee,
           ),
           P.union(
+            champsNonVides(
+              "secteurActivite",
+              "sousSecteurActivite",
+              "activites",
+            ),
             champsNonVides("secteurActivite", "activites"),
             champsNonVides("secteurActivite"),
           ),
