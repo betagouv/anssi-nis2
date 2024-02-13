@@ -1,5 +1,5 @@
 import {
-  AppartenancePaysUnionEuropeenne,
+  appartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
   FournitServicesUnionEuropeenne,
   TrancheChiffreAffaire,
@@ -29,7 +29,7 @@ export const libellesDesigneOSE: Record<
 };
 
 export const libellesPaysUnionEuropeenneLocalisation: Record<
-  AppartenancePaysUnionEuropeenne,
+  appartenancePaysUnionEuropeenne,
   string
 > = {
   france: "France",
@@ -66,7 +66,7 @@ export const libellesTranchesCA: Record<TrancheChiffreAffaire, string> = {
 export const libellesSimulateur: DictionnaireLibellesSimulateur = {
   activites: libellesActivites,
   designeOperateurServicesEssentiels: libellesDesigneOSE,
-  appartenancePaysUnionEurpopeenne: libellesPaysUnionEuropeenneLocalisation,
+  appartenancePaysUnionEuropeenne: libellesPaysUnionEuropeenneLocalisation,
   secteurActivite: libellesSecteursActivite,
   sousSecteurActivite: libellesSousSecteursActivite,
   trancheChiffreAffaire: libellesTranchesCA,

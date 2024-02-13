@@ -11,7 +11,7 @@ import {
 } from "../../utilitaires/manipulationArbitraires.fabriques";
 import { arbSecteursEtSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
 import {
-  arbAppartenancePaysUnionEuropeenne,
+  arbappartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
   arbTypeStructure,
 } from "./arbitraireChampFormulaire";
@@ -19,12 +19,12 @@ import { ValeursTypeEntitePublique } from "../../../src/Domain/Simulateur/Champs
 
 export const arbNonOSEPublique = etend(arbSecteursEtSousSecteursListes)
   .avec({
-    designeOperateurServicesEssentiels:
+    designationOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.publique,
     typeEntitePublique: fabriqueArbSingleton(ValeursTypeEntitePublique),
     trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
-    appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.france,
+    appartenancePaysUnionEuropeenne: arbappartenancePaysUnionEuropeenne.france,
   })
   .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
   .chain(ajouteAuMoinsUneActiviteArbitraire)

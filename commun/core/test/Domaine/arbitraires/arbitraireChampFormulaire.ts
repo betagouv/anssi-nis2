@@ -1,6 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import {
-  AppartenancePaysUnionEuropeenne,
+  appartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
   FournitServicesUnionEuropeenne,
   TypeEntitePublique,
@@ -8,7 +8,7 @@ import {
   UnionPetitMoyenGrand,
   ValeurChampSimulateur,
 } from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
-import { ValeursAppartenancePaysUnionEuropeenne } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
+import { ValeursappartenancePaysUnionEuropeenne } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
 
 import { fabriqueArbSingleton } from "../../utilitaires/manipulationArbitraires.fabriques";
 
@@ -39,8 +39,8 @@ export const arbTranche: ArbitraireChampFormulaire<UnionPetitMoyenGrand> = {
   moyen: fc.constant<UnionPetitMoyenGrand[]>(["moyen"]),
   grand: fc.constant<UnionPetitMoyenGrand[]>(["grand"]),
 };
-export const arbAppartenancePaysUnionEuropeenne: ArbitraireChampFormulaire<
-  AppartenancePaysUnionEuropeenne,
+export const arbappartenancePaysUnionEuropeenne: ArbitraireChampFormulaire<
+  appartenancePaysUnionEuropeenne,
   "franceOuAutre" | "tout" | "horsFrance"
 > = {
   france: fc.constant(["france"]),
@@ -48,9 +48,9 @@ export const arbAppartenancePaysUnionEuropeenne: ArbitraireChampFormulaire<
   autre: fc.constant(["autre"]),
   franceOuAutre: fabriqueArbSingleton(["france", "autre"]),
   horsFrance: fabriqueArbSingleton(["horsue", "autre"]),
-  tout: fabriqueArbSingleton(ValeursAppartenancePaysUnionEuropeenne),
+  tout: fabriqueArbSingleton(ValeursappartenancePaysUnionEuropeenne),
 };
-export const arbLocalisationRepresentant = arbAppartenancePaysUnionEuropeenne;
+export const arbLocalisationRepresentant = arbappartenancePaysUnionEuropeenne;
 export const arbFournitServiceUnionEuropeenne: ArbitraireChampFormulaire<FournitServicesUnionEuropeenne> =
   {
     non: fc.constant<FournitServicesUnionEuropeenne[]>(["non"]),
@@ -58,5 +58,5 @@ export const arbFournitServiceUnionEuropeenne: ArbitraireChampFormulaire<Fournit
   };
 export type ArbitraireChampFormulaire<
   T extends ValeurChampSimulateur,
-  TypesAdditionnelles extends string = T
+  TypesAdditionnelles extends string = T,
 > = Record<T | TypesAdditionnelles, fc.Arbitrary<T[]>>;

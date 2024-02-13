@@ -19,7 +19,7 @@ import {
   fabriqueArbTrancheSingleton,
 } from "../../utilitaires/manipulationArbitraires.fabriques";
 import {
-  arbAppartenancePaysUnionEuropeenne,
+  arbappartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
   arbFournitServiceUnionEuropeenne,
   arbLocalisationRepresentant,
@@ -52,11 +52,11 @@ export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFranc
 
 const arbNonOSEPrivesMoyenneGrande = etend(arbSecteursEtSousSecteursListes)
   .avec({
-    designeOperateurServicesEssentiels:
+    designationOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.privee,
     trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
-    appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.france,
+    appartenancePaysUnionEuropeenne: arbappartenancePaysUnionEuropeenne.france,
   })
   .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
   .chain(ajouteAuMoinsUneActiviteListee)
@@ -74,11 +74,11 @@ export const arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles = etend(
   arbEnrAutresSecteursSousSecteurs,
 )
   .avec({
-    designeOperateurServicesEssentiels:
+    designationOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.privee,
     trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
-    appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.france,
+    appartenancePaysUnionEuropeenne: arbappartenancePaysUnionEuropeenne.france,
   })
   .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
   .chain(ajouteArbitraireActivites) as ArbitraireFormulaire;
@@ -87,11 +87,11 @@ export const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
   arbSecteursSousSecteursListes,
 )
   .avec({
-    designeOperateurServicesEssentiels:
+    designationOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.privee,
     trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
-    appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.france,
+    appartenancePaysUnionEuropeenne: arbappartenancePaysUnionEuropeenne.france,
   })
   .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
   .chain(ajouteAuMoinsUneActiviteAutre)
@@ -105,11 +105,11 @@ export const arbNonOSEPrivesMoyenGrandGestionTic = etend(
   }),
 )
   .avec({
-    designeOperateurServicesEssentiels:
+    designationOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.privee,
     trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
-    appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.france,
+    appartenancePaysUnionEuropeenne: arbappartenancePaysUnionEuropeenne.france,
     fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.oui,
     localisationRepresentant: arbLocalisationRepresentant.france,
   })
@@ -125,11 +125,11 @@ export const arbNonOSEPrivesMoyenGrandFournisseurNumerique = etend(
   }),
 )
   .avec({
-    designeOperateurServicesEssentiels:
+    designationOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.privee,
     trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
-    appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.france,
+    appartenancePaysUnionEuropeenne: arbappartenancePaysUnionEuropeenne.france,
     fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.oui,
     localisationRepresentant: arbLocalisationRepresentant.france,
   })

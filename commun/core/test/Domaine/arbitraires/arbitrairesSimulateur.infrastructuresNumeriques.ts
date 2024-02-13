@@ -20,7 +20,7 @@ import {
   filtreSecteurListeSecteursSousSecteurs,
 } from "../exemples/ListesEnrSecteursSousSecteur";
 import {
-  arbAppartenancePaysUnionEuropeenne,
+  arbappartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
   arbFournitServiceUnionEuropeenne,
   arbLocalisationRepresentant,
@@ -43,13 +43,13 @@ const arbSecteurSousSecteurNonInfraNum = fabriqueArbEnrSecteurSousSecteurs(
 export const arbNonOSEPrivesPetitFournisseurInfraNum =
   etend<DonneesSectorielles>(arbSecteurSousSecteurInfraNum)
     .avec({
-      designeOperateurServicesEssentiels:
+      designationOperateurServicesEssentiels:
         arbDesigneOperateurServicesEssentiels.non,
       typeStructure: arbTypeStructure.privee,
       trancheChiffreAffaire: arbTranche.petit,
       trancheNombreEmployes: arbTranche.petit,
-      appartenancePaysUnionEurpopeenne:
-        arbAppartenancePaysUnionEuropeenne.france,
+      appartenancePaysUnionEuropeenne:
+        arbappartenancePaysUnionEuropeenne.france,
     })
     .chain(ajouteAuMoinsUneActiviteListee)
     .chain(ajouteChampsFacultatifs);
@@ -67,12 +67,12 @@ const arbNonOSEPrivesPetitHorsFournisseurInfraNum = etend<DonneesSectorielles>(
   arbSecteurSousSecteurNonInfraNum,
 )
   .avec({
-    designeOperateurServicesEssentiels:
+    designationOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: arbTypeStructure.privee,
     trancheChiffreAffaire: arbTranche.petit,
     trancheNombreEmployes: arbTranche.petit,
-    appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.france,
+    appartenancePaysUnionEuropeenne: arbappartenancePaysUnionEuropeenne.france,
   })
   .chain(ajouteAuMoinsUneActiviteListee)
   .chain(ajouteChampsFacultatifs);

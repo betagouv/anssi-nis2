@@ -1,6 +1,6 @@
 import { TypeStructure } from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
 import {
-  ValeursAppartenancePaysUnionEuropeenne,
+  ValeursappartenancePaysUnionEuropeenne,
   ValeursTypeEntitePublique,
 } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
 import { ValeursNomChampsFormulaire } from "../../../src/Domain/Simulateur/DonneesFormulaire.valeurs";
@@ -17,7 +17,7 @@ import {
 import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
 import { ArbitraireSurTousLesChamps } from "./arbitraireFormulaire.definitions";
 import {
-  arbAppartenancePaysUnionEuropeenne,
+  arbappartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
 } from "./arbitraireChampFormulaire";
 import { arbFormulaireVide } from "./arbitraireFormulaire.constantes";
@@ -25,7 +25,7 @@ import { arbFormulaireVide } from "./arbitraireFormulaire.constantes";
 export const arbToutesValeursPossibles = etend(
   arbSecteursSousSecteursListes,
 ).avec({
-  designeOperateurServicesEssentiels: fabriqueArbSingleton([
+  designationOperateurServicesEssentiels: fabriqueArbSingleton([
     "oui",
     "non",
     "nsp",
@@ -37,32 +37,32 @@ export const arbToutesValeursPossibles = etend(
   typeEntitePublique: fabriqueArbSingleton(ValeursTypeEntitePublique),
   trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
   trancheNombreEmployes: fabriqueArbTrancheSingleton(),
-  appartenancePaysUnionEurpopeenne: fabriqueArbSingleton(
-    ValeursAppartenancePaysUnionEuropeenne,
+  appartenancePaysUnionEuropeenne: fabriqueArbSingleton(
+    ValeursappartenancePaysUnionEuropeenne,
   ),
 });
 
 export const arbHorsUe = etend(arbToutesValeursPossibles)
   .avec({
-    designeOperateurServicesEssentiels:
+    designationOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
-    appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.horsue,
+    appartenancePaysUnionEuropeenne: arbappartenancePaysUnionEuropeenne.horsue,
   })
   .chain(ajouteAuMoinsUneActiviteListee)
   .chain(ajouteChampsFacultatifs);
 export const arbAutrePaysUe = etend(arbToutesValeursPossibles)
   .avec({
-    designeOperateurServicesEssentiels:
+    designationOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
-    appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.autre,
+    appartenancePaysUnionEuropeenne: arbappartenancePaysUnionEuropeenne.autre,
   })
   .chain(ajouteAuMoinsUneActiviteListee)
   .chain(ajouteChampsFacultatifs);
 
 const initialValue: ArbitraireSurTousLesChamps = {
   activites: arbFormulaireVide,
-  designeOperateurServicesEssentiels: arbFormulaireVide,
-  appartenancePaysUnionEurpopeenne: arbFormulaireVide,
+  designationOperateurServicesEssentiels: arbFormulaireVide,
+  appartenancePaysUnionEuropeenne: arbFormulaireVide,
   secteurActivite: arbFormulaireVide,
   sousSecteurActivite: arbFormulaireVide,
   trancheChiffreAffaire: arbFormulaireVide,

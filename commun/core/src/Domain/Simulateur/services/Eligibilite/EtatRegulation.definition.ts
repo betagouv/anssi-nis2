@@ -112,7 +112,7 @@ type OperationTraitementReponse<
 ) => AiguillageDonneesReponses<Vers>;
 
 export type OperationQualifieLocalisation = OperationTraitementReponse<
-  "AppartenancePaysUnionEuropeenne",
+  "appartenancePaysUnionEuropeenne",
   "Structure"
 >;
 export type OperationQualifieDefinitionStructure = OperationTraitementReponse<
@@ -141,7 +141,7 @@ export const qualifieDesignationOse = (
     .otherwise(() =>
       left(
         fabriqueDonneesEvaluation(
-          "AppartenancePaysUnionEuropeenne",
+          "appartenancePaysUnionEuropeenne",
           reponseLocalisation, // TODO : donnees suivantes
         ),
       ),
@@ -149,7 +149,7 @@ export const qualifieDesignationOse = (
 
 export const aguillageQualifieDesignationOse: OperationTraitementReponse<
   "DesignationOperateurServicesEssentiels",
-  "AppartenancePaysUnionEuropeenne"
+  "appartenancePaysUnionEuropeenne"
 > = (donneesReponses) => {
   return match(donneesReponses)
     .when(isLeft, qualifieDesignationOse)

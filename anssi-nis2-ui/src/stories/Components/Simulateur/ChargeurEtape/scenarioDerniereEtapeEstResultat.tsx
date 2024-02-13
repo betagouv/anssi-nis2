@@ -20,7 +20,7 @@ export const scenarioDerniereEtapeEstResultat: StoryObj<
   await cliqueSurDebuterLeTest(canvas);
 
   await passeEtape([["designeOperateurServicesEssentiels", "oui"]]);
-  await passeEtape([["appartenancePaysUnionEurpopeenne", "france"]]);
+  await passeEtape([["appartenancePaysUnionEuropeenne", "france"]]);
   await passeEtape([["typeStructure", "privee"]]);
 
   await passeEtape([

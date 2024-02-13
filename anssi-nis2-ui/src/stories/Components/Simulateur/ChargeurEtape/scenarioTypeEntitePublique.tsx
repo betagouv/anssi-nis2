@@ -25,7 +25,7 @@ export const scenarioTypeEntitePublique: StoryObj<
 
   await cliqueSurDebuterLeTest(canvas);
   await passeEtape([["designeOperateurServicesEssentiels", "oui"]]);
-  await passeEtape([["appartenancePaysUnionEurpopeenne", "france"]]);
+  await passeEtape([["appartenancePaysUnionEuropeenne", "france"]]);
   await passeEtape([
     ["typeStructure", typeStructure],
     ["typeEntitePublique", "administrationCentrale"],

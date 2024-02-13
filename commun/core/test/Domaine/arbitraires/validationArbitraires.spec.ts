@@ -35,9 +35,9 @@ describe("validation des arbitraires", () => {
               );
               satisfait(non(contientPetiteEntreprise));
               satisfait(P.secteurActivite.contient("infrastructureNumerique"));
-              satisfait(P.designeOperateurServicesEssentiels.est(["non"]));
+              satisfait(P.designationOperateurServicesEssentiels.est(["non"]));
               satisfait(P.typeStructure.est(["privee"]));
-              satisfait(P.appartenancePaysUnionEurpopeenne.est(["france"]));
+              satisfait(P.appartenancePaysUnionEuropeenne.est(["france"]));
               satisfait(P.fournitServicesUnionEuropeenne.est(["oui"]));
               satisfait(P.localisationRepresentant.est(["france"]));
             },
@@ -57,9 +57,9 @@ describe("validation des arbitraires", () => {
               );
               satisfait(non(contientPetiteEntreprise));
               satisfait(P.secteurActivite.contient("gestionServicesTic"));
-              satisfait(P.designeOperateurServicesEssentiels.est(["non"]));
+              satisfait(P.designationOperateurServicesEssentiels.est(["non"]));
               satisfait(P.typeStructure.est(["privee"]));
-              satisfait(P.appartenancePaysUnionEurpopeenne.est(["france"]));
+              satisfait(P.appartenancePaysUnionEuropeenne.est(["france"]));
               satisfait(P.fournitServicesUnionEuropeenne.est(["oui"]));
               satisfait(P.localisationRepresentant.est(["france"]));
             },
@@ -79,9 +79,9 @@ describe("validation des arbitraires", () => {
               );
               satisfait(non(contientPetiteEntreprise));
               satisfait(P.secteurActivite.contient("fournisseursNumeriques"));
-              satisfait(P.designeOperateurServicesEssentiels.est(["non"]));
+              satisfait(P.designationOperateurServicesEssentiels.est(["non"]));
               satisfait(P.typeStructure.est(["privee"]));
-              satisfait(P.appartenancePaysUnionEurpopeenne.est(["france"]));
+              satisfait(P.appartenancePaysUnionEuropeenne.est(["france"]));
               satisfait(P.fournitServicesUnionEuropeenne.est(["oui"]));
               satisfait(P.localisationRepresentant.est(["france"]));
             },
@@ -100,9 +100,9 @@ describe("validation des arbitraires", () => {
                 satisfait(P.auMoins.une.activiteListee);
                 satisfait(non(contientPetiteEntreprise));
                 satisfait(non(contientSecteurNecessitantLocalisation));
-                // satisfait(P.designeOperateurServicesEssentiels.est(["non"]));
+                // satisfait(P.designationOperateurServicesEssentiels.est(["non"]));
                 satisfait(P.typeStructure.est(["privee"]));
-                satisfait(P.appartenancePaysUnionEurpopeenne.est(["france"]));
+                satisfait(P.appartenancePaysUnionEuropeenne.est(["france"]));
               },
             ),
             { verbose: 2 },
@@ -115,9 +115,9 @@ describe("validation des arbitraires", () => {
           satisfait(P.auMoins.une.activiteListee);
           satisfait(non(contientPetiteEntreprise));
           satisfait(contientSecteurNecessitantLocalisation);
-          satisfait(P.designeOperateurServicesEssentiels.est(["non"]));
+          satisfait(P.designationOperateurServicesEssentiels.est(["non"]));
           satisfait(P.typeStructure.est(["privee"]));
-          satisfait(P.appartenancePaysUnionEurpopeenne.est(["france"]));
+          satisfait(P.appartenancePaysUnionEuropeenne.est(["france"]));
           satisfait(non(P.fournitServicesUnionEuropeenne.est([])));
           satisfait(non(P.localisationRepresentant.est([])));
         };
@@ -156,9 +156,11 @@ describe("validation des arbitraires", () => {
               arbForm.nonDesigneOSE.privee.activitesAutres,
               (donnees: DonneesFormulaireSimulateur) => {
                 const satisfait = getSatisfait(donnees);
-                satisfait(P.designeOperateurServicesEssentiels.est(["non"]));
+                satisfait(
+                  P.designationOperateurServicesEssentiels.est(["non"]),
+                );
                 satisfait(P.typeStructure.est(["privee"]));
-                satisfait(P.appartenancePaysUnionEurpopeenne.est(["france"]));
+                satisfait(P.appartenancePaysUnionEuropeenne.est(["france"]));
                 satisfait(predicatDonneesFormulaire.uniquement.activiteAutre);
               },
             ),

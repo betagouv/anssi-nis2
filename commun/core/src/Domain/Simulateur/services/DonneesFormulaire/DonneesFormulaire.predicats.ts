@@ -88,8 +88,8 @@ export const predicatDonneesFormulaire = {
 };
 
 export const verifieCompletudeDonneesCommunes = et(
-  exactementUn("designeOperateurServicesEssentiels"),
-  exactementUn("appartenancePaysUnionEurpopeenne"),
+  exactementUn("designationOperateurServicesEssentiels"),
+  exactementUn("appartenancePaysUnionEuropeenne"),
   exactementUn("trancheNombreEmployes"),
   exactementUn("typeStructure"),
   auMoinsUn("secteurActivite"),
@@ -203,7 +203,7 @@ export const contientUniquementSecteurNecessitantLocalisation = (
   );
 export const contientOperateurServicesEssentiels: PredicatDonneesFormulaireSimulateur =
   isMatching({
-    designeOperateurServicesEssentiels: ["oui"],
+    designationOperateurServicesEssentiels: ["oui"],
   });
 
 export const contientInfrastructureNumerique: PredicatDonneesFormulaireSimulateur =

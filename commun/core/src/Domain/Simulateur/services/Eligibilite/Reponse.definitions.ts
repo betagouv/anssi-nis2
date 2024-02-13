@@ -1,10 +1,17 @@
 import {
-  AppartenancePaysUnionEuropeenne,
+  Activite,
+  ActivitesEnergie,
+  ActivitesFabrication,
+  ActivitesTransports,
+} from "../../Activite.definitions";
+import {
+  appartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeEntitePublique,
 } from "../../ChampsSimulateur.definitions";
+import { SecteurActivite } from "../../SecteurActivite.definitions";
 import {
   SousSecteurEnergie,
   SousSecteurFabrication,
@@ -16,7 +23,7 @@ export type ReponseDesigneOSE = {
 };
 
 export type ReponseLocalisation = {
-  appartenancePaysUnionEuropeenne: AppartenancePaysUnionEuropeenne;
+  appartenancePaysUnionEuropeenne: appartenancePaysUnionEuropeenne;
 };
 
 type TypeStructurePrivee = {
@@ -59,29 +66,65 @@ export const ValeursSecteursActivitesSimples = [
   "recherche",
   "sante",
   "servicesPostauxExpedition",
-  "autreSecteurActivite",
 ] as const;
-export const ValeursSecteursActivitesAvecSousSecteur = [
-  "energie",
-  "fabrication",
-  "transports",
-] as const;
-type InformationsSecteur =
+
+type InformationSecteurEnergie =
   | {
       secteurActivite: "energie";
-      sousSecteurActivite: SousSecteurEnergie;
+      sousSecteurActivite: Omit<SousSecteurEnergie, "autreSousSecteurEnergie">;
+      activites: ActivitesEnergie[];
+    }
+  | {
+      secteurActivite: "energie";
+      sousSecteurActivite: "autreSousSecteurEnergie";
+    };
+
+type InformationSecteurFabrication =
+  | {
+      secteurActivite: "fabrication";
+      sousSecteurActivite: Omit<
+        SousSecteurFabrication,
+        "autreSousSecteurFabrication"
+      >;
+      activites: ActivitesFabrication[];
     }
   | {
       secteurActivite: "fabrication";
-      sousSecteurActivite: SousSecteurFabrication;
+      sousSecteurActivite: "autreSousSecteurFabrication";
+    };
+
+type InformationSecteurTransport =
+  | {
+      secteurActivite: "transports";
+      sousSecteurActivite: Omit<
+        SousSecteurTransport,
+        "autreSousSecteurTransport"
+      >;
+      activites: ActivitesFabrication[];
     }
   | {
       secteurActivite: "transports";
-      sousSecteurActivite: SousSecteurTransport;
+      sousSecteurActivite: "autreSousSecteurTransports";
+    };
+
+export type InformationSecteurPossible =
+  | InformationSecteurEnergie
+  | InformationSecteurFabrication
+  | InformationSecteurTransport
+  | {
+      secteurActivite: "autreSecteurActivite";
     }
   | {
-      secteurActivite: (typeof ValeursSecteursActivitesSimples)[number];
+      secteurActivite: Omit<
+        SecteurActivite,
+        "energie" | "fabrication" | "transports"
+      >;
+      activites: Omit<
+        Activite,
+        ActivitesEnergie | ActivitesTransports | ActivitesFabrication
+      >[];
     };
+export type InformationsSecteur = { secteurs: InformationSecteurPossible[] };
 
 export type InformationsLocalisationRepresentant =
   | {
@@ -89,12 +132,12 @@ export type InformationsLocalisationRepresentant =
     }
   | {
       fournitServicesUnionEuropeenne: "oui";
-      localisationRepresentant: AppartenancePaysUnionEuropeenne;
+      localisationRepresentant: appartenancePaysUnionEuropeenne;
     };
 
 export type DonneesCompletesEvaluees =
   | "DesignationOperateurServicesEssentiels"
-  | "AppartenancePaysUnionEuropeenne"
+  | "appartenancePaysUnionEuropeenne"
   | "Structure"
   | "SecteurActiviteComplet"
   | "LocalisationRepresentant";
@@ -104,7 +147,7 @@ export type DonneesEvaluees = DonneesCompletesEvaluees | "Fin";
 export type TypeDonnees<EtapeEvaluation extends DonneesCompletesEvaluees> =
   EtapeEvaluation extends "DesignationOperateurServicesEssentiels"
     ? ReponseDesigneOSE
-    : EtapeEvaluation extends "AppartenancePaysUnionEuropeenne"
+    : EtapeEvaluation extends "appartenancePaysUnionEuropeenne"
       ? ReponseLocalisation
       : EtapeEvaluation extends "Structure"
         ? DefinitionStructure
@@ -131,13 +174,13 @@ export type ReponseEtatDesignationOperateurServicesEssentiels = ReponseEtat<
   "DesignationOperateurServicesEssentiels"
 >;
 
-export type ReponseEtatAppartenancePaysUnionEuropeenne = ReponseEtat<
+export type ReponseEtatappartenancePaysUnionEuropeenne = ReponseEtat<
   ReponseEtatDesignationOperateurServicesEssentiels,
-  "AppartenancePaysUnionEuropeenne"
+  "appartenancePaysUnionEuropeenne"
 >;
 
 export type ReponseEtatStructure = ReponseEtat<
-  ReponseEtatAppartenancePaysUnionEuropeenne,
+  ReponseEtatappartenancePaysUnionEuropeenne,
   "Structure"
 >;
 
@@ -154,7 +197,7 @@ export type ReponseEtatLocalisationRepresentant = ReponseEtat<
 export type UnionReponseEtat =
   | ReponseEtatVide
   | ReponseEtatDesignationOperateurServicesEssentiels
-  | ReponseEtatAppartenancePaysUnionEuropeenne
+  | ReponseEtatappartenancePaysUnionEuropeenne
   | ReponseEtatStructure
   | ReponseEtatSecteurActiviteComplet
   | ReponseEtatLocalisationRepresentant;

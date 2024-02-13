@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { AppartenancePaysUnionEuropeenne } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import { appartenancePaysUnionEuropeenne } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { fabriqueDonneesFormulaire } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
 import { EtapeLocalisation } from "../../../Components/Simulateur/Etapes";
 import { userEvent, within } from "@storybook/testing-library";
@@ -10,26 +10,24 @@ import {
 } from "../../utilitaires/parametresFormulaire.ts";
 import { libellesPaysUnionEuropeenneLocalisation } from "../../../References/Libelles.ts";
 
-class ParametresDonneesappartenancePaysUnionEurpopeenne extends ParametresDonneesSpecifiqueField<AppartenancePaysUnionEuropeenne> {
+class ParametresDonneesappartenancePaysUnionEuropeenne extends ParametresDonneesSpecifiqueField<appartenancePaysUnionEuropeenne> {
   protected construitDonnees<ValeursClePaysUnionEuropeenne>(
     listeEtatsMembres: ValeursClePaysUnionEuropeenne[],
   ) {
     return this.construitDonneesPourField(
-      "appartenancePaysUnionEurpopeenne",
+      "appartenancePaysUnionEuropeenne",
       listeEtatsMembres,
     );
   }
 }
 
-class CollectionParametresDonneesappartenancePaysUnionEurpopeenne extends CollectionParametresDonnees<ParametresDonneesappartenancePaysUnionEurpopeenne> {}
+class CollectionParametresDonneesappartenancePaysUnionEuropeenne extends CollectionParametresDonnees<ParametresDonneesappartenancePaysUnionEuropeenne> {}
 
-const donneesFormulaireOptions: CollectionParametresDonneesappartenancePaysUnionEurpopeenne =
-  new CollectionParametresDonneesappartenancePaysUnionEurpopeenne(
-    new ParametresDonneesappartenancePaysUnionEurpopeenne("France", ["france"]),
-    new ParametresDonneesappartenancePaysUnionEurpopeenne("Autre", ["autre"]),
-    new ParametresDonneesappartenancePaysUnionEurpopeenne("Hors UE", [
-      "horsue",
-    ]),
+const donneesFormulaireOptions: CollectionParametresDonneesappartenancePaysUnionEuropeenne =
+  new CollectionParametresDonneesappartenancePaysUnionEuropeenne(
+    new ParametresDonneesappartenancePaysUnionEuropeenne("France", ["france"]),
+    new ParametresDonneesappartenancePaysUnionEuropeenne("Autre", ["autre"]),
+    new ParametresDonneesappartenancePaysUnionEuropeenne("Hors UE", ["horsue"]),
   );
 
 const meta: Meta<typeof EtapeLocalisation> = {
@@ -47,7 +45,7 @@ type Story = StoryObj<typeof EtapeLocalisation>;
 const creeActionPropagationFormulaireSimu = (newValue: string) => {
   const actionTypique = {
     type: "checkSingle",
-    name: "appartenancePaysUnionEurpopeenne",
+    name: "appartenancePaysUnionEuropeenne",
   };
   return {
     ...actionTypique,

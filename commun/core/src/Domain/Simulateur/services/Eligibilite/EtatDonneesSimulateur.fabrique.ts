@@ -1,15 +1,28 @@
-import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
+import { match, P } from "ts-pattern";
+import { GuardP } from "ts-pattern/dist/types/Pattern";
+import { DesignationOperateurServicesEssentiels } from "../../ChampsSimulateur.definitions";
+import { DonneesFormulaireSimulateur, NomsChampsSimulateur } from "../../DonneesFormulaire.definitions";
 import {
-  ReponseEtatAppartenancePaysUnionEuropeenne,
+  ReponseEtatappartenancePaysUnionEuropeenne,
   ReponseEtatDesignationOperateurServicesEssentiels,
+  ReponseEtatSecteurActiviteComplet,
   ReponseEtatStructure,
+  ReponseEtatVide,
   UnionReponseEtat,
 } from "./Reponse.definitions";
-import { match, P } from "ts-pattern";
 
 const exactementUnElement = <T extends string>(a: T[]) => a.length === 1;
+const reponseEtatVide: ReponseEtatVide = { _tag: "ReponseEtatVide" };
+
+const getPattern = (...champs: NomsChampsSimulateur[]) =>
+  champs.reduce((patt, champ) => ({...patt, [champ]: P.when(exactementUnElement) as GuardP<
+      DonneesFormulaireSimulateur[typeof champ],
+      never
+    >}), {})
+
 
 export const ReponseEtat = {
+  construitReponseEtatVide: () => reponseEtatVide,
   construitEtatsDesignationOse: (
     donnees: DonneesFormulaireSimulateur,
   ): ReponseEtatDesignationOperateurServicesEssentiels => ({
@@ -20,12 +33,12 @@ export const ReponseEtat = {
     },
   }),
 
-  construitEtatAppartenancePaysUnionEuropeenne: (
+  construitEtatappartenancePaysUnionEuropeenne: (
     donnees: DonneesFormulaireSimulateur,
-  ): ReponseEtatAppartenancePaysUnionEuropeenne => ({
+  ): ReponseEtatappartenancePaysUnionEuropeenne => ({
     ...ReponseEtat.construitEtatsDesignationOse(donnees),
-    _tag: "AppartenancePaysUnionEuropeenne",
-    AppartenancePaysUnionEuropeenne: {
+    _tag: "appartenancePaysUnionEuropeenne",
+    appartenancePaysUnionEuropeenne: {
       appartenancePaysUnionEuropeenne:
         donnees.appartenancePaysUnionEuropeenne[0],
     },
@@ -34,7 +47,7 @@ export const ReponseEtat = {
   construitEtatStructurePrivee: (
     donnees: DonneesFormulaireSimulateur,
   ): ReponseEtatStructure => ({
-    ...ReponseEtat.construitEtatAppartenancePaysUnionEuropeenne(donnees),
+    ...ReponseEtat.construitEtatappartenancePaysUnionEuropeenne(donnees),
     _tag: "Structure",
     Structure: {
       typeStructure: "privee",
@@ -46,7 +59,7 @@ export const ReponseEtat = {
   construitEtatStructurePublique: (
     donnees: DonneesFormulaireSimulateur,
   ): ReponseEtatStructure => ({
-    ...ReponseEtat.construitEtatAppartenancePaysUnionEuropeenne(donnees),
+    ...ReponseEtat.construitEtatappartenancePaysUnionEuropeenne(donnees),
     _tag: "Structure",
     Structure: {
       typeStructure: "publique",
@@ -55,36 +68,68 @@ export const ReponseEtat = {
     },
   }),
 
+  construitEtatStructure: (
+    donnees: DonneesFormulaireSimulateur,
+  ): ReponseEtatStructure =>
+    donnees.typeStructure[0] === "publique"
+      ? ReponseEtat.construitEtatStructurePublique(donnees)
+      : ReponseEtat.construitEtatStructurePrivee(donnees),
+
+  construitEtatInformationsSecteurs: (
+    donnees: DonneesFormulaireSimulateur,
+  ): ReponseEtatSecteurActiviteComplet => ({
+    ...ReponseEtat.construitEtatStructure(donnees),
+    _tag: "SecteurActiviteComplet",
+    SecteurActiviteComplet: {
+      secteurs: [
+        {
+          secteurActivite: "autreSecteurActivite",
+        },
+      ],
+    },
+  }),
+
+  const a = ({
+    designationOperateurServicesEssentiels: P.when(exactementUnElement) as GuardP<
+      DonneesFormulaireSimulateur["designationOperateurServicesEssentiels"],
+      never
+    >,
+    appartenancePaysUnionEuropeenne: P.when(exactementUnElement),
+    typeStructure: P.when(exactementUnElement),
+    typeEntitePublique: P.when(exactementUnElement),
+    trancheNombreEmployes: P.when(exactementUnElement),
+    secteurActivite: P.when(exactementUnElement),
+  });
   depuisDonneesFormulaireSimulateur: (
     donnees: DonneesFormulaireSimulateur,
   ): UnionReponseEtat =>
     match(donnees)
+      .with(getPattern("designationOperateurServicesEssentiels", "appartenancePaysUnionEuropeenne", "typeStructure"), ReponseEtat.construitEtatInformationsSecteurs)
       .with(
-        {
-          designationOperateurServicesEssentiels: P.when(exactementUnElement),
-          appartenancePaysUnionEuropeenne: P.when(exactementUnElement),
-          typeStructure: ["publique"],
-          typeEntitePublique: P.when(exactementUnElement),
-          trancheNombreEmployes: P.when(exactementUnElement),
-        },
-        ReponseEtat.construitEtatStructurePublique,
+        P.union(
+          {
+            designationOperateurServicesEssentiels: P.when(exactementUnElement),
+            appartenancePaysUnionEuropeenne: P.when(exactementUnElement),
+            typeStructure: P.when(exactementUnElement),
+            typeEntitePublique: P.when(exactementUnElement),
+            trancheNombreEmployes: P.when(exactementUnElement),
+          },
+          {
+            designationOperateurServicesEssentiels: P.when(exactementUnElement),
+            appartenancePaysUnionEuropeenne: P.when(exactementUnElement),
+            typeStructure: P.when(exactementUnElement),
+            trancheChiffreAffaire: P.when(exactementUnElement),
+            trancheNombreEmployes: P.when(exactementUnElement),
+          },
+        ),
+        ReponseEtat.construitEtatStructure,
       )
       .with(
         {
           designationOperateurServicesEssentiels: P.when(exactementUnElement),
           appartenancePaysUnionEuropeenne: P.when(exactementUnElement),
-          typeStructure: ["privee"],
-          trancheChiffreAffaire: P.when(exactementUnElement),
-          trancheNombreEmployes: P.when(exactementUnElement),
         },
-        ReponseEtat.construitEtatStructurePrivee,
-      )
-      .with(
-        {
-          designationOperateurServicesEssentiels: P.when(exactementUnElement),
-          appartenancePaysUnionEuropeenne: P.when(exactementUnElement),
-        },
-        ReponseEtat.construitEtatAppartenancePaysUnionEuropeenne,
+        ReponseEtat.construitEtatappartenancePaysUnionEuropeenne,
       )
       .with(
         {
@@ -92,5 +137,5 @@ export const ReponseEtat = {
         },
         ReponseEtat.construitEtatsDesignationOse,
       )
-      .otherwise(() => ({ _tag: "ReponseEtatVide" })),
+      .otherwise(ReponseEtat.construitReponseEtatVide),
 };

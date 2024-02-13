@@ -147,7 +147,7 @@ describe(calculeEligibilite, () => {
       V.Incertain(arbForm.nonValide.donneeAbsente.typeStructure));
     it("lorsque l'appartenance à l'UE n'est pas remplie", () =>
       V.Incertain(
-        arbForm.nonValide.donneeAbsente.appartenancePaysUnionEurpopeenne,
+        arbForm.nonValide.donneeAbsente.appartenancePaysUnionEuropeenne,
       ));
     it("lorsque OSE NIS 1 n'est pas rempli", () =>
       V.Incertain(

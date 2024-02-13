@@ -1,6 +1,6 @@
 import { Activite } from "./Activite.definitions";
 import {
-  AppartenancePaysUnionEuropeenne,
+  appartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
   FournitServicesUnionEuropeenne,
   TrancheChiffreAffaire,
@@ -19,7 +19,7 @@ export interface DonneesFormulaireSimulateur
   extends Record<NomsChampsSimulateur, ValeurChampSimulateur[]> {
   activites: Activite[];
   designationOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[];
-  appartenancePaysUnionEuropeenne: AppartenancePaysUnionEuropeenne[];
+  appartenancePaysUnionEuropeenne: appartenancePaysUnionEuropeenne[];
   secteurActivite: SecteurActivite[];
   sousSecteurActivite: SousSecteurActivite[];
   trancheChiffreAffaire: TrancheChiffreAffaire[];
@@ -27,7 +27,7 @@ export interface DonneesFormulaireSimulateur
   typeStructure: TypeStructure[];
   typeEntitePublique: TypeEntitePublique[];
   fournitServicesUnionEuropeenne: FournitServicesUnionEuropeenne[];
-  localisationRepresentant: AppartenancePaysUnionEuropeenne[];
+  localisationRepresentant: appartenancePaysUnionEuropeenne[];
 }
 
 export type DonneesSectorielles = Pick<

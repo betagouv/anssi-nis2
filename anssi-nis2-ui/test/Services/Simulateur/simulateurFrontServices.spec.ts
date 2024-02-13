@@ -14,7 +14,7 @@ describe(genereTransformateurValeursVersOptions, () => {
       nativeInputProps: {
         checked: optionsChecked[0],
         onChange: onChange,
-        name: "appartenancePaysUnionEurpopeenne",
+        name: "appartenancePaysUnionEuropeenne",
         value: "france",
       },
     },
@@ -23,7 +23,7 @@ describe(genereTransformateurValeursVersOptions, () => {
       nativeInputProps: {
         checked: optionsChecked[1],
         onChange: onChange,
-        name: "appartenancePaysUnionEurpopeenne",
+        name: "appartenancePaysUnionEuropeenne",
         value: "autre",
       },
     },
@@ -32,7 +32,7 @@ describe(genereTransformateurValeursVersOptions, () => {
       nativeInputProps: {
         checked: optionsChecked[2],
         onChange: onChange,
-        name: "appartenancePaysUnionEurpopeenne",
+        name: "appartenancePaysUnionEuropeenne",
         value: "horsue",
       },
     },

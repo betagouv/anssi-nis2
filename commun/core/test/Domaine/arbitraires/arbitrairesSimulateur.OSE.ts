@@ -1,4 +1,4 @@
-import { ValeursAppartenancePaysUnionEuropeenne } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
+import { ValeursappartenancePaysUnionEuropeenne } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
 import {
   ajouteArbitraireActivites,
   ajouteChampsFacultatifs,
@@ -21,13 +21,13 @@ import { arbitraireSecteursSousSecteurs } from "./arbitrairesSimulateur.valeursS
 
 export const arbOSEPetit = etend(arbitraireSecteursSousSecteurs)
   .avec({
-    designeOperateurServicesEssentiels:
+    designationOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.oui,
     typeStructure: arbTypeStructure.privee,
     trancheChiffreAffaire: arbTranche.petit,
     trancheNombreEmployes: arbTranche.petit,
-    appartenancePaysUnionEurpopeenne: fabriqueArbSingleton(
-      ValeursAppartenancePaysUnionEuropeenne,
+    appartenancePaysUnionEuropeenne: fabriqueArbSingleton(
+      ValeursappartenancePaysUnionEuropeenne,
     ),
   })
   .chain(ajouteArbitraireActivites)
@@ -36,11 +36,11 @@ export const arbOSEPetit = etend(arbitraireSecteursSousSecteurs)
 
 export const arbOSEMoyenGrand = etend(arbitraireSecteursSousSecteurs)
   .avec({
-    designeOperateurServicesEssentiels:
+    designationOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.oui,
     typeStructure: arbTypeStructure.privee,
-    appartenancePaysUnionEurpopeenne: fabriqueArbSingleton(
-      ValeursAppartenancePaysUnionEuropeenne,
+    appartenancePaysUnionEuropeenne: fabriqueArbSingleton(
+      ValeursappartenancePaysUnionEuropeenne,
     ),
     trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
   })

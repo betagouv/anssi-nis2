@@ -9,7 +9,7 @@ import { PiocheDonneesForm } from "../../utilitaires/manipulationArbitraires.dec
 import { fabriqueArbTrancheSingleton } from "../../utilitaires/manipulationArbitraires.fabriques";
 import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
 import {
-  arbAppartenancePaysUnionEuropeenne,
+  arbappartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
 } from "./arbitraireChampFormulaire";
 
@@ -25,12 +25,12 @@ export const arbActivitesAutres = etend<DonneesSectorielles>(
       | "appartenancePaysUnionEuropeenne"
     >
   >({
-    designeOperateurServicesEssentiels:
+    designationOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
     typeStructure: fc.constant(["privee"]),
     trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
     trancheNombreEmployes: fabriqueArbTrancheSingleton(),
-    appartenancePaysUnionEurpopeenne: arbAppartenancePaysUnionEuropeenne.france,
+    appartenancePaysUnionEuropeenne: arbappartenancePaysUnionEuropeenne.france,
   })
   .chain(ajouteAuMoinsUneActiviteAutre)
   .chain(ajouteChampsFacultatifs)

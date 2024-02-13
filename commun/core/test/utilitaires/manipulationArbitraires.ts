@@ -1,13 +1,13 @@
 import { fc } from "@fast-check/vitest";
 import { Activite } from "../../src/Domain/Simulateur/Activite.definitions";
 import {
-  AppartenancePaysUnionEuropeenne,
+  appartenancePaysUnionEuropeenne,
   FournitServicesUnionEuropeenne,
   UnionPetitMoyenGrand,
   ValeurChampSimulateur,
 } from "../../src/Domain/Simulateur/ChampsSimulateur.definitions";
 import {
-  ValeursAppartenancePaysUnionEuropeenne,
+  ValeursappartenancePaysUnionEuropeenne,
   ValeursPetitMoyenGrand,
 } from "../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
 import {
@@ -232,7 +232,7 @@ export const partitionneLocalisationServices = (
         etend(arbitraire.filter(contientSecteurNecessitantLocalisation)).avec({
           fournitServicesUnionEuropeenne: fc.constant(["oui"]),
           localisationRepresentant: fabriqueArbSingleton(
-            ValeursAppartenancePaysUnionEuropeenne,
+            ValeursappartenancePaysUnionEuropeenne,
           ),
         }),
       ),
@@ -242,7 +242,7 @@ export const partitionneLocalisationServices = (
         etend(arbitraire.filter(contientSecteurNecessitantLocalisation)).avec({
           fournitServicesUnionEuropeenne: fc.constant(["oui"]),
           localisationRepresentant:
-            fabriqueArbSingleton<AppartenancePaysUnionEuropeenne>([
+            fabriqueArbSingleton<appartenancePaysUnionEuropeenne>([
               "autre",
               "horsue",
             ]),
@@ -256,7 +256,7 @@ export const partitionneLocalisationServices = (
         ).avec({
           fournitServicesUnionEuropeenne: fc.constant(["oui"]),
           localisationRepresentant: fc.constant<
-            AppartenancePaysUnionEuropeenne[]
+            appartenancePaysUnionEuropeenne[]
           >(["france"]),
         }),
       ),

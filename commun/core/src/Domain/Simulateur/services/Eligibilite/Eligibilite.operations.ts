@@ -129,8 +129,8 @@ const calculeEligibiliteStructurePrivee: OperationCalculeEligibilite = (
       },
       R.NonEligible,
     )
-    .with({ appartenancePaysUnionEurpopeenne: ["horsue"] }, R.Incertain)
-    .with({ appartenancePaysUnionEurpopeenne: ["autre"] }, R.Incertain)
+    .with({ appartenancePaysUnionEuropeenne: ["horsue"] }, R.Incertain)
+    .with({ appartenancePaysUnionEuropeenne: ["autre"] }, R.Incertain)
     .with(
       {
         trancheChiffreAffaire: ["petit"],
