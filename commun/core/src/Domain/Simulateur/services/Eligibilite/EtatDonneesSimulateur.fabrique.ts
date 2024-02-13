@@ -1,8 +1,16 @@
 import { match, P } from "ts-pattern";
 import { GuardP } from "ts-pattern/dist/types/Pattern";
-import { DesignationOperateurServicesEssentiels } from "../../ChampsSimulateur.definitions";
-import { DonneesFormulaireSimulateur, NomsChampsSimulateur } from "../../DonneesFormulaire.definitions";
 import {
+  DonneesFormulaireSimulateur,
+  NomsChampsSimulateur,
+} from "../../DonneesFormulaire.definitions";
+import { SecteurActivite } from "../../SecteurActivite.definitions";
+import {
+  estSecteurAutre,
+  estUnSecteurSansDesSousSecteurs,
+} from "../SecteurActivite/SecteurActivite.predicats";
+import {
+  InformationSecteurPossible,
   ReponseEtatappartenancePaysUnionEuropeenne,
   ReponseEtatDesignationOperateurServicesEssentiels,
   ReponseEtatSecteurActiviteComplet,
@@ -12,15 +20,60 @@ import {
 } from "./Reponse.definitions";
 
 const exactementUnElement = <T extends string>(a: T[]) => a.length === 1;
+const auMoinsUnElement = <T extends string>(a: T[]) => a.length >= 1;
+
 const reponseEtatVide: ReponseEtatVide = { _tag: "ReponseEtatVide" };
 
-const getPattern = (...champs: NomsChampsSimulateur[]) =>
-  champs.reduce((patt, champ) => ({...patt, [champ]: P.when(exactementUnElement) as GuardP<
-      DonneesFormulaireSimulateur[typeof champ],
-      never
-    >}), {})
+const champsAvecUneValeur = (...champs: NomsChampsSimulateur[]) =>
+  champs.reduce(
+    (patt, champ) => ({
+      ...patt,
+      [champ]: P.when(exactementUnElement) as GuardP<
+        DonneesFormulaireSimulateur[typeof champ],
+        never
+      >,
+    }),
+    {},
+  );
 
+const champsNonVides = (...champs: NomsChampsSimulateur[]) =>
+  champs.reduce(
+    (patt, champ) => ({
+      ...patt,
+      [champ]: P.when(auMoinsUnElement) as GuardP<
+        DonneesFormulaireSimulateur[typeof champ],
+        never
+      >,
+    }),
+    {},
+  );
 
+/*
+union<DonneesFormulaireSimulateur, readonly [{
+    readonly designationOperateurServicesEssentiels: GuardP<("oui" | "non" | "nsp")[], never>;
+    readonly appartenancePaysUnionEuropeenne: GuardP<...>;
+    readonly typeStructure: GuardP<...>;
+    readonly typeEntitePublique: GuardP<...>;
+    readonly trancheNombreEmployes: GuardP<...>;
+}, {
+    ...;
+}]
+ */
+const champsMinimauxStructure = champsAvecUneValeur(
+  "designationOperateurServicesEssentiels",
+  "appartenancePaysUnionEuropeenne",
+  "typeStructure",
+);
+const champsSpecifiquesStructurePublique = champsAvecUneValeur(
+  "typeStructure",
+  "typeEntitePublique",
+  "trancheNombreEmployes",
+);
+const champsSpecifiquesStructurePrivee = champsAvecUneValeur(
+  "typeStructure",
+  "trancheChiffreAffaire",
+  "trancheNombreEmployes",
+);
 export const ReponseEtat = {
   construitReponseEtatVide: () => reponseEtatVide,
   construitEtatsDesignationOse: (
@@ -75,66 +128,87 @@ export const ReponseEtat = {
       ? ReponseEtat.construitEtatStructurePublique(donnees)
       : ReponseEtat.construitEtatStructurePrivee(donnees),
 
+  construitSecteurAutre: () => (): InformationSecteurPossible[] => [
+    {
+      secteurActivite: "autreSecteurActivite",
+    },
+  ],
+  construitSecteurSimple:
+    (donnees: DonneesFormulaireSimulateur) =>
+    (secteur: SecteurActivite): InformationSecteurPossible[] => [
+      {
+        secteurActivite: secteur,
+        activites: donnees.activites,
+      },
+    ],
+
+  construitSecteur: (
+    donnees: DonneesFormulaireSimulateur,
+    secteurActivite: SecteurActivite,
+  ): InformationSecteurPossible[] =>
+    match(secteurActivite)
+      .when(estSecteurAutre, ReponseEtat.construitSecteurAutre())
+      .when(
+        estUnSecteurSansDesSousSecteurs,
+        ReponseEtat.construitSecteurSimple(donnees),
+      )
+      .otherwise(() => []),
+
+  construitListeSecteurs: (donnees: DonneesFormulaireSimulateur) =>
+    donnees.secteurActivite.reduce(
+      (liste, secteur) => [
+        ...liste,
+        ...ReponseEtat.construitSecteur(donnees, secteur),
+      ],
+      [] as InformationSecteurPossible[],
+    ),
   construitEtatInformationsSecteurs: (
     donnees: DonneesFormulaireSimulateur,
   ): ReponseEtatSecteurActiviteComplet => ({
     ...ReponseEtat.construitEtatStructure(donnees),
     _tag: "SecteurActiviteComplet",
     SecteurActiviteComplet: {
-      secteurs: [
-        {
-          secteurActivite: "autreSecteurActivite",
-        },
-      ],
+      secteurs: ReponseEtat.construitListeSecteurs(donnees),
     },
   }),
 
-  const a = ({
-    designationOperateurServicesEssentiels: P.when(exactementUnElement) as GuardP<
-      DonneesFormulaireSimulateur["designationOperateurServicesEssentiels"],
-      never
-    >,
-    appartenancePaysUnionEuropeenne: P.when(exactementUnElement),
-    typeStructure: P.when(exactementUnElement),
-    typeEntitePublique: P.when(exactementUnElement),
-    trancheNombreEmployes: P.when(exactementUnElement),
-    secteurActivite: P.when(exactementUnElement),
-  });
   depuisDonneesFormulaireSimulateur: (
     donnees: DonneesFormulaireSimulateur,
   ): UnionReponseEtat =>
     match(donnees)
-      .with(getPattern("designationOperateurServicesEssentiels", "appartenancePaysUnionEuropeenne", "typeStructure"), ReponseEtat.construitEtatInformationsSecteurs)
       .with(
-        P.union(
-          {
-            designationOperateurServicesEssentiels: P.when(exactementUnElement),
-            appartenancePaysUnionEuropeenne: P.when(exactementUnElement),
-            typeStructure: P.when(exactementUnElement),
-            typeEntitePublique: P.when(exactementUnElement),
-            trancheNombreEmployes: P.when(exactementUnElement),
-          },
-          {
-            designationOperateurServicesEssentiels: P.when(exactementUnElement),
-            appartenancePaysUnionEuropeenne: P.when(exactementUnElement),
-            typeStructure: P.when(exactementUnElement),
-            trancheChiffreAffaire: P.when(exactementUnElement),
-            trancheNombreEmployes: P.when(exactementUnElement),
-          },
+        P.intersection(
+          champsMinimauxStructure,
+          P.union(
+            champsSpecifiquesStructurePublique,
+            champsSpecifiquesStructurePrivee,
+          ),
+          P.union(
+            champsNonVides("secteurActivite", "activites"),
+            champsNonVides("secteurActivite"),
+          ),
+        ),
+        ReponseEtat.construitEtatInformationsSecteurs,
+      )
+      .with(
+        P.intersection(
+          champsMinimauxStructure,
+          P.union(
+            champsSpecifiquesStructurePublique,
+            champsSpecifiquesStructurePrivee,
+          ),
         ),
         ReponseEtat.construitEtatStructure,
       )
       .with(
-        {
-          designationOperateurServicesEssentiels: P.when(exactementUnElement),
-          appartenancePaysUnionEuropeenne: P.when(exactementUnElement),
-        },
+        champsAvecUneValeur(
+          "designationOperateurServicesEssentiels",
+          "appartenancePaysUnionEuropeenne",
+        ),
         ReponseEtat.construitEtatappartenancePaysUnionEuropeenne,
       )
       .with(
-        {
-          designationOperateurServicesEssentiels: P.when(exactementUnElement),
-        },
+        champsAvecUneValeur("designationOperateurServicesEssentiels"),
         ReponseEtat.construitEtatsDesignationOse,
       )
       .otherwise(ReponseEtat.construitReponseEtatVide),
