@@ -172,7 +172,7 @@ describe(calculeRegulationEntite, () => {
       ));
     it("désigné OSE non remplie", () =>
       V.estIncertain(
-        arbForm.nonValide.donneeAbsente.designeOperateurServicesEssentiels,
+        arbForm.nonValide.donneeAbsente.designationOperateurServicesEssentiels,
       ));
   });
 

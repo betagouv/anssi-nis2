@@ -4,7 +4,7 @@ import { P } from "ts-pattern";
 import { ValidationReponses } from "./services/ChampSimulateur/champs.domaine";
 
 const typeEtapes = [
-  "designeOperateurServicesEssentiels",
+  "designationOperateurServicesEssentiels",
   "appartenanceUnionEuropeenne",
   "typeStructure",
   "tailleEntitePublique",
@@ -43,7 +43,7 @@ export type EtapeResultat = EtapeExistante;
 export type OptionsInformationEtapeForm = {
   readonly sousEtapeConditionnelle?: SousEtapeConditionnelle;
   readonly ignoreSi: (
-    donneesFormulaire: DonneesFormulaireSimulateur
+    donneesFormulaire: DonneesFormulaireSimulateur,
   ) => boolean;
 };
 
@@ -54,7 +54,7 @@ export type SousEtapeConditionnelle = {
 
 export type CapacitesEtapeFormulaire = {
   readonly fabriqueValidationReponses: (
-    donnees: DonneesFormulaireSimulateur
+    donnees: DonneesFormulaireSimulateur,
   ) => ValidationReponses;
 };
 export type InformationEtapeForm = EtapeExistante &
@@ -68,7 +68,7 @@ export type VariantesEtape<TypeEtape extends InformationEtapeForm> = {
 };
 
 export type InformationsEtapesVariantes<
-  TypeEtape extends InformationEtapeForm
+  TypeEtape extends InformationEtapeForm,
 > = EtapeExistante &
   CapacitesEtapeFormulaire & {
     readonly variantes: TypeEtape[];

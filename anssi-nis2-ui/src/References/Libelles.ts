@@ -65,7 +65,7 @@ export const libellesTranchesCA: Record<TrancheChiffreAffaire, string> = {
 
 export const libellesSimulateur: DictionnaireLibellesSimulateur = {
   activites: libellesActivites,
-  designeOperateurServicesEssentiels: libellesDesigneOSE,
+  designationOperateurServicesEssentiels: libellesDesigneOSE,
   appartenancePaysUnionEuropeenne: libellesPaysUnionEuropeenneLocalisation,
   secteurActivite: libellesSecteursActivite,
   sousSecteurActivite: libellesSousSecteursActivite,

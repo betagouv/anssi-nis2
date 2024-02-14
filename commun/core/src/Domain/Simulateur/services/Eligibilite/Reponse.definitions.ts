@@ -14,12 +14,13 @@ import {
 import {
   SecteursAvecSousSecteurs,
   SecteursSansSousSecteur,
+  SousSecteurAutrePour,
   SousSecteurEnergie,
   SousSecteurFabrication,
   SousSecteurTransport,
 } from "../../SousSecteurActivite.definitions";
 
-export type ReponseDesigneOSE = {
+export type ReponseDesigneOperateurServicesEssentiels = {
   designationOperateurServicesEssentiels: DesignationOperateurServicesEssentiels;
 };
 
@@ -52,21 +53,18 @@ export type DefinitionStructure =
   | DefinitionStructurePrivee
   | DefinitionStructurePublique;
 
-export type SousSecteurAutrePour<S extends SecteursAvecSousSecteurs> =
-  `autreSousSecteur${Capitalize<S>}`;
-
 export type InformationSousSecteurAutre<S extends SecteursAvecSousSecteurs> = {
   secteurActivite: S;
   sousSecteurActivite: SousSecteurAutrePour<S>;
 };
 
-type InformationSecteurEnergie = {
+export type InformationSecteurEnergie = {
   secteurActivite: "energie";
   sousSecteurActivite: Omit<SousSecteurEnergie, "autreSousSecteurEnergie">;
   activites: Set<ActivitesEnergie>;
 };
 
-type InformationSecteurFabrication = {
+export type InformationSecteurFabrication = {
   secteurActivite: "fabrication";
   sousSecteurActivite: Omit<
     SousSecteurFabrication,
@@ -75,13 +73,13 @@ type InformationSecteurFabrication = {
   activites: Set<ActivitesFabrication>;
 };
 
-type InformationSecteurTransport = {
+export type InformationSecteurTransport = {
   secteurActivite: "transports";
   sousSecteurActivite: Omit<SousSecteurTransport, "autreSousSecteurTransports">;
   activites: Set<ActivitesTransports>;
 };
 
-type InformationSecteurSimple = {
+export type InformationSecteurSimple = {
   secteurActivite: Omit<SecteursSansSousSecteur, "autreSecteurActivite">;
   activites: Set<
     Omit<
@@ -101,6 +99,7 @@ export type InformationSecteurPossible =
   | InformationSecteurSimple
   | InformationSecteurAutre
   | InformationSousSecteurAutre<SecteursAvecSousSecteurs>;
+
 export type InformationsSecteur = { secteurs: Set<InformationSecteurPossible> };
 
 export type InformationsLocalisationRepresentant =
@@ -123,7 +122,7 @@ export type DonneesEvaluees = DonneesCompletesEvaluees | "Fin";
 
 export type TypeDonnees<EtapeEvaluation extends DonneesCompletesEvaluees> =
   EtapeEvaluation extends "DesignationOperateurServicesEssentiels"
-    ? ReponseDesigneOSE
+    ? ReponseDesigneOperateurServicesEssentiels
     : EtapeEvaluation extends "AppartenancePaysUnionEuropeenne"
       ? ReponseLocalisation
       : EtapeEvaluation extends "Structure"

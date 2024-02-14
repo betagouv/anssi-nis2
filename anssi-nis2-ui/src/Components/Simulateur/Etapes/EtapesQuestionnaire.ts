@@ -76,8 +76,8 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
     fabriquesInformationsEtapes.prealable("Pour bien débuter"),
     fabriquesInformationsEtapes.form(
       "Désignation éventuelle",
-      fabriqueValidationUneReponses("designeOperateurServicesEssentiels"),
-      "designeOperateurServicesEssentiels",
+      fabriqueValidationUneReponses("designationOperateurServicesEssentiels"),
+      "designationOperateurServicesEssentiels",
     ),
     fabriquesInformationsEtapes.form(
       "Localisation de l'activité",

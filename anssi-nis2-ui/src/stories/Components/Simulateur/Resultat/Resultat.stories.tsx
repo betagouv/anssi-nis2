@@ -42,7 +42,7 @@ export const ResultatEligibleOSE: Story = {
   args: {
     donneesFormulaire: {
       ...archetypeDonneesFormulaire,
-      designeOperateurServicesEssentiels: ["oui"],
+      designationOperateurServicesEssentiels: ["oui"],
       trancheNombreEmployes: ["petit"],
       trancheChiffreAffaire: ["petit"],
     },
@@ -129,7 +129,7 @@ export const ResultatNonEligible: Story = {
   args: {
     donneesFormulaire: {
       ...archetypeDonneesFormulaire,
-      designeOperateurServicesEssentiels: ["non"],
+      designationOperateurServicesEssentiels: ["non"],
       typeStructure: ["privee"],
       secteurActivite: ["autreSecteurActivite"],
       activites: [],

@@ -24,7 +24,7 @@ export const scenarioEtapeSousActiviteConditionnelle: StoryObj<
 
   step("Va jusqu'à l'étape Secteurs d'activité", async () => {
     await cliqueSurDebuterLeTest(canvas);
-    await passeEtape([["designeOperateurServicesEssentiels", "oui"]]);
+    await passeEtape([["designationOperateurServicesEssentiels", "oui"]]);
     await passeEtape([["appartenancePaysUnionEuropeenne", "france"]]);
     await passeEtape([["typeStructure", "privee"]]);
     await passeEtape([

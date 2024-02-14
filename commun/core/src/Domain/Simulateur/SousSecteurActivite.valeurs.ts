@@ -23,7 +23,7 @@ export const ValeursSousSecteurTransport = [
   "transportsFerroviaires",
   "transportsParEau",
   "transportsRoutiers",
-  "autreSousSecteurTransportss",
+  "autreSousSecteurTransports",
 ] as const;
 export const ValeursSousSecteurFabrication = [
   "fabricationDispositifsMedicaux",

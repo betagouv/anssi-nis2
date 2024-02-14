@@ -23,7 +23,7 @@ import {
   SousSecteurAutre,
 } from "../SousSecteurActivite.definitions";
 
-export const FabriqueSectorisation = {
+export const FabriqueInformationsSecteur = {
   secteurAutre: () => (): Set<InformationSecteurPossible> =>
     ens({
       secteurActivite: "autreSecteurActivite",
@@ -69,19 +69,25 @@ export const FabriqueSectorisation = {
       union(
         ensembleSecteurs,
         estSousSecteurAutre(sousSecteur)
-          ? FabriqueSectorisation.secteurCompositeAutre(secteur, sousSecteur)
-          : FabriqueSectorisation.secteurComposite(donnees)(
+          ? FabriqueInformationsSecteur.secteurCompositeAutre(
+              secteur,
+              sousSecteur,
+            )
+          : FabriqueInformationsSecteur.secteurComposite(donnees)(
               secteur,
               sousSecteur,
             ),
       ),
+
   ensembleSecteursComposites:
     (donnees: DonneesFormulaireSimulateur) =>
     (secteur: SecteursAvecSousSecteurs): Set<InformationSecteurPossible> =>
       donnees.sousSecteurActivite
         .filter(estDansSecteur(secteur))
         .reduce(
-          FabriqueSectorisation.accumuleSecteursComposites(donnees)(secteur),
+          FabriqueInformationsSecteur.accumuleSecteursComposites(donnees)(
+            secteur,
+          ),
           ensembleNeutreDe<InformationSecteurPossible>(),
         ),
 
@@ -90,14 +96,14 @@ export const FabriqueSectorisation = {
     secteurActivite: SecteurActivite,
   ): Set<InformationSecteurPossible> =>
     match(secteurActivite)
-      .when(estSecteurAutre, FabriqueSectorisation.secteurAutre())
+      .when(estSecteurAutre, FabriqueInformationsSecteur.secteurAutre())
       .when(
         estUnSecteurSansDesSousSecteurs,
-        FabriqueSectorisation.secteurSimple(donnees),
+        FabriqueInformationsSecteur.secteurSimple(donnees),
       )
       .when(
         estUnSecteurAvecDesSousSecteurs,
-        FabriqueSectorisation.ensembleSecteursComposites(donnees),
+        FabriqueInformationsSecteur.ensembleSecteursComposites(donnees),
       )
       .otherwise(ensembleNeutreDe<InformationSecteurPossible>),
 
@@ -108,7 +114,7 @@ export const FabriqueSectorisation = {
       (liste, secteur) =>
         union(
           liste,
-          FabriqueSectorisation.secteurDepuisDonneesSimulateur(
+          FabriqueInformationsSecteur.secteurDepuisDonneesSimulateur(
             donnees,
             secteur,
           ),

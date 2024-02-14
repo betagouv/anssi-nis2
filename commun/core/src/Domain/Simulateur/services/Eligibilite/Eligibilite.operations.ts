@@ -153,7 +153,7 @@ const calculeEligibiliteStructurePrivee: OperationCalculeEligibilite = (
 export const calculeEligibilite: OperationCalculeEligibilite = (donnees) =>
   match(donnees)
     .with(
-      { designeOperateurServicesEssentiels: ["oui"] },
+      { designationOperateurServicesEssentiels: ["oui"] },
       calculeEligibiliteOperateurServiceEssentielNis1,
     )
     .with({ typeStructure: ["privee"] }, calculeEligibiliteStructurePrivee)

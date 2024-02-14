@@ -21,7 +21,7 @@ describe("Invalide en cas de données absentes", () => {
     arbForm.nonValide.donneeAbsente,
   ).filter(([nom]) => !ChampsFormulaireFacultatifs.includes(nom));
 
-  it.each(donneesAbsentes)("%s", (nom, donneeAbsente) => {
+  it.each(donneesAbsentes)("%s", (_, donneeAbsente) => {
     verifieQue(donneesFormulaireSontCompletes)
       .estToujoursFaux()
       .quelqueSoit(donneeAbsente);
@@ -190,12 +190,7 @@ describe("Validation des données formulaire", () => {
       },
     );
   });
-
-  /*
-  Error: Property failed after 54 tests
-{ seed: -1306139177, path: "53", endOnFailure: true }
-Counterexample: [{"typeEntitePublique":["administrationCentrale"],"fournitServicesUnionEuropeenne":[],"localisationRepresentant":[],"secteurActivite":["infrastructureNumerique"],"sousSecteurActivite":[],"designeOperateurServicesEssentiels":["non"],"typeStructure":["publique"],"trancheChiffreAffaire":["moyen"],"appartenancePaysUnionEuropeenne":["france"],"trancheNombreEmployes":["grand"],"activites":["registresNomsDomainesPremierNiveau"]}]
-   */
+  
   describe("donneesFormulaireSontCompletes", () => {
     it.each(donneesTestsArbitraires)("$nom", ({ arbitraireEligible }) => {
       verifieQue(donneesFormulaireSontCompletes)

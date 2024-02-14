@@ -4,7 +4,7 @@ import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../DonneesFormulaire.definitions";
-import { FabriqueSectorisation } from "../../fabriques/Sectorisation.fabrique";
+import { FabriqueInformationsSecteur } from "../../fabriques/InformationsSecteur.fabrique";
 import {
   ReponseEtatappartenancePaysUnionEuropeenne,
   ReponseEtatDesignationOperateurServicesEssentiels,
@@ -131,7 +131,9 @@ export const FabriqueEtatDonneesSimulateur = {
     _tag: "SecteurActiviteComplet",
     SecteurActiviteComplet: {
       secteurs:
-        FabriqueSectorisation.listeSecteursDepuisDonneesSimulateur(donnees),
+        FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur(
+          donnees,
+        ),
     },
   }),
 

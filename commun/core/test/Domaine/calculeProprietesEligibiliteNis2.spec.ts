@@ -151,7 +151,7 @@ describe(calculeEligibilite, () => {
       ));
     it("lorsque OSE NIS 1 n'est pas rempli", () =>
       V.Incertain(
-        arbForm.nonValide.donneeAbsente.designeOperateurServicesEssentiels,
+        arbForm.nonValide.donneeAbsente.designationOperateurServicesEssentiels,
       ));
   });
 });

@@ -30,7 +30,7 @@ export const gestionnairesDeChamp: Record<
   NomsChampsSimulateur,
   GestionValeursFormulaire
 > = {
-  designeOperateurServicesEssentiels: gestionValeursSimples,
+  designationOperateurServicesEssentiels: gestionValeursSimples,
   appartenancePaysUnionEuropeenne: gestionValeursSimples,
   secteurActivite: genereGestionValeursMultiples("secteurActivite"),
   sousSecteurActivite: genereGestionValeursMultiples("sousSecteurActivite"),

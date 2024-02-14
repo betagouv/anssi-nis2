@@ -28,7 +28,7 @@ export const scenarioSousEtapeServicesEnFrance: StoryObj<
   const activite: Activite = "fournisseurServicesGeres";
   step("Va jusqu'à l'étape Secteurs d'activité", async () => {
     await cliqueSurDebuterLeTest(canvas);
-    await passeEtape([["designeOperateurServicesEssentiels", "non"]]);
+    await passeEtape([["designationOperateurServicesEssentiels", "non"]]);
     await passeEtape([["appartenancePaysUnionEuropeenne", "france"]]);
     await passeEtape([["typeStructure", "privee"]]);
     await passeEtape([

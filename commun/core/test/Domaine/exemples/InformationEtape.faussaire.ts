@@ -8,7 +8,7 @@ export const fausseValidationReponse: ValidationReponses = {
   validateur: vi.fn(),
 };
 export const FauxSimulateurEtapeComposant: TypeEtape =
-  "designeOperateurServicesEssentiels";
+  "designationOperateurServicesEssentiels";
 export const faussaireInformationEtapeForm = ({
   titre,
   sousTitre,
@@ -24,8 +24,8 @@ export const faussaireInformationEtapeForm = ({
             fabriquesInformationsEtapes.form(
               sousTitre,
               fausseValidationReponse,
-              FauxSimulateurEtapeComposant
-            )
+              FauxSimulateurEtapeComposant,
+            ),
           ),
       }
     : {};
@@ -33,6 +33,6 @@ export const faussaireInformationEtapeForm = ({
     titre,
     fausseValidationReponse,
     FauxSimulateurEtapeComposant,
-    options
+    options,
   );
 };

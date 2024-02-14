@@ -24,7 +24,7 @@ type RepresentationEtape = {
   composant: SimulateurEtapeNodeComponent;
 };
 export const cartoComposants: Record<TypeEtape, RepresentationEtape> = {
-  designeOperateurServicesEssentiels: {
+  designationOperateurServicesEssentiels: {
     composant: EtapeOSE,
     conteneur: SimulateurEtapeForm,
   },

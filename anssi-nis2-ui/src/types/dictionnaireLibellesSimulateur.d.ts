@@ -13,7 +13,7 @@ import { SousSecteurActivite } from "../Domaine/Simulateur/SousSecteurActivite.d
 
 export type DictionnaireLibellesSimulateur = {
   activites: Record<ValeursActivites, string>;
-  designeOperateurServicesEssentiels: Record<
+  designationOperateurServicesEssentiels: Record<
     DesignationOperateurServicesEssentiels,
     string
   >;

@@ -32,7 +32,7 @@ export const arbOSEPetit = etend(arbitraireSecteursSousSecteurs)
   })
   .chain(ajouteArbitraireActivites)
   .filter((d) => d.activites.length > 0)
-  .chain(ajouteChampsFacultatifs) as ArbitraireFormulaire;
+  .chain(ajouteChampsFacultatifs);
 
 export const arbOSEMoyenGrand = etend(arbitraireSecteursSousSecteurs)
   .avec({

@@ -9,5 +9,5 @@ const recupereLibelleReponseOSE = (
 export const transformeReponsesDesigneOSEPourSelect: TransformeRecordToSelect<DesignationOperateurServicesEssentiels> =
   genereTransformateurValeursVersOptions(
     recupereLibelleReponseOSE,
-    "designeOperateurServicesEssentiels",
+    "designationOperateurServicesEssentiels",
   );

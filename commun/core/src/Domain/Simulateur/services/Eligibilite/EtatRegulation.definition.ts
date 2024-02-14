@@ -1,12 +1,4 @@
-import {
-  Either,
-  isLeft,
-  isRight,
-  Left,
-  left,
-  Right,
-  right,
-} from "fp-ts/lib/Either";
+import { Left, left, Right, right } from "fp-ts/lib/Either";
 import { match } from "ts-pattern";
 import { Regulation, RegulationEntite } from "../../Regulation.definitions";
 import {
@@ -41,33 +33,6 @@ export type EtatReponses<
   S extends DonneesEvaluees = DonneesEvaluees,
 > = EtatReponseEnCours<E, S> | EtatReponseFin;
 
-export type EtatReponseEnCoursProps<E extends DonneesCompletesEvaluees> = {
-  donnees: TypeDonnees<E>;
-  etat: E;
-};
-export type Cons = <E extends DonneesCompletesEvaluees>(
-  props: EtatReponseEnCoursProps<E>,
-  suivant?: EtatReponseEnCours<DonneesCompletesEvaluees> | EtatReponseFin,
-) => EtatReponseEnCours<E>;
-export const fin = () => ({ etat: "Fin" as const });
-export const cons: Cons = <E extends DonneesCompletesEvaluees>(
-  {
-    donnees,
-    etat,
-  }: {
-    donnees: TypeDonnees<E>;
-    etat: E;
-  },
-  suivant:
-    | EtatReponseEnCours<DonneesCompletesEvaluees>
-    | EtatReponseFin = fin(),
-) =>
-  ({
-    etat,
-    donnees: donnees,
-    suivant,
-  }) as EtatReponseEnCours<E>;
-
 type DonneesEvaluation<E extends DonneesCompletesEvaluees> = {
   _tag: "DonneesEvaluation";
   resultat: E;
@@ -82,11 +47,6 @@ export const fabriqueDonneesEvaluation = <E extends DonneesCompletesEvaluees>(
   resultat,
   donnees,
 });
-
-export type AiguillageDonneesReponses<Depuis extends DonneesEvaluees> =
-  Depuis extends DonneesCompletesEvaluees
-    ? Either<DonneesEvaluation<Depuis>, ResultatDefinitif>
-    : Either<EtatReponseFin, ResultatDefinitif>;
 
 export type QualificationDonneesReponses<
   Depuis extends DonneesCompletesEvaluees,
@@ -103,26 +63,6 @@ export const fabriqueAiguillageDonneesEvaluation = <
   left(
     fabriqueDonneesEvaluation(resultat, donnees),
   ) as QualificationDonneesReponses<E>;
-
-type OperationTraitementReponse<
-  Depuis extends DonneesCompletesEvaluees,
-  Vers extends DonneesEvaluees,
-> = (
-  donneesReponses: AiguillageDonneesReponses<Depuis>,
-) => AiguillageDonneesReponses<Vers>;
-
-export type OperationQualifieLocalisation = OperationTraitementReponse<
-  "appartenancePaysUnionEuropeenne",
-  "Structure"
->;
-export type OperationQualifieDefinitionStructure = OperationTraitementReponse<
-  "Structure",
-  "SecteurActiviteComplet"
->;
-export type OperationQualifieInformationsSecteur = OperationTraitementReponse<
-  "SecteurActiviteComplet",
-  "Fin"
->;
 
 export const definitivementRegule = () =>
   right({
@@ -141,18 +81,8 @@ export const qualifieDesignationOse = (
     .otherwise(() =>
       left(
         fabriqueDonneesEvaluation(
-          "appartenancePaysUnionEuropeenne",
+          "AppartenancePaysUnionEuropeenne",
           reponseLocalisation, // TODO : donnees suivantes
         ),
       ),
     );
-
-export const aguillageQualifieDesignationOse: OperationTraitementReponse<
-  "DesignationOperateurServicesEssentiels",
-  "appartenancePaysUnionEuropeenne"
-> = (donneesReponses) => {
-  return match(donneesReponses)
-    .when(isLeft, qualifieDesignationOse)
-    .when(isRight, definitivementRegule)
-    .exhaustive();
-};

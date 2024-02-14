@@ -24,7 +24,7 @@ export const scenarioTypeEntitePublique: StoryObj<
   const passeEtape = cocheAuMoinsUnEtPasseEtape(canvas);
 
   await cliqueSurDebuterLeTest(canvas);
-  await passeEtape([["designeOperateurServicesEssentiels", "oui"]]);
+  await passeEtape([["designationOperateurServicesEssentiels", "oui"]]);
   await passeEtape([["appartenancePaysUnionEuropeenne", "france"]]);
   await passeEtape([
     ["typeStructure", typeStructure],

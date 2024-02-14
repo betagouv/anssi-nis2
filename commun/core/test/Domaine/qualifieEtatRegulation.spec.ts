@@ -20,7 +20,7 @@ describe("qualifieEtatRegulation", () => {
     });
     it("qualifieDesignationOse = oui renvoie des données à qualifier pour appartenance UE", () => {
       const resultatAttendu = fabriqueAiguillageDonneesEvaluation(
-        "appartenancePaysUnionEuropeenne",
+        "AppartenancePaysUnionEuropeenne",
         { appartenancePaysUnionEuropeenne: "france" },
       );
       const donneesInitiales = fabriqueAiguillageDonneesEvaluation(

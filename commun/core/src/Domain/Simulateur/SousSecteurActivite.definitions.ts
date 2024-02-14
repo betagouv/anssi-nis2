@@ -36,3 +36,5 @@ export type EnrSecteurSousSecteur = {
   secteur: SecteurActivite;
   sousSecteur?: SousSecteurActivite;
 };
+export type SousSecteurAutrePour<S extends SecteursAvecSousSecteurs> =
+  `autreSousSecteur${Capitalize<S>}`;
