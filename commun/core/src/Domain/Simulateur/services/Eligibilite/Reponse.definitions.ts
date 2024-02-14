@@ -11,8 +11,9 @@ import {
   TrancheNombreEmployes,
   TypeEntitePublique,
 } from "../../ChampsSimulateur.definitions";
-import { SecteurActivite } from "../../SecteurActivite.definitions";
 import {
+  SecteursAvecSousSecteurs,
+  SecteursSansSousSecteur,
   SousSecteurEnergie,
   SousSecteurFabrication,
   SousSecteurTransport,
@@ -51,64 +52,55 @@ export type DefinitionStructure =
   | DefinitionStructurePrivee
   | DefinitionStructurePublique;
 
-type InformationSecteurEnergie =
-  | {
-      secteurActivite: "energie";
-      sousSecteurActivite: Omit<SousSecteurEnergie, "autreSousSecteurEnergie">;
-      activites: Set<ActivitesEnergie>;
-    }
-  | {
-      secteurActivite: "energie";
-      sousSecteurActivite: "autreSousSecteurEnergie";
-    };
+export type SousSecteurAutrePour<S extends SecteursAvecSousSecteurs> =
+  `autreSousSecteur${Capitalize<S>}`;
 
-type InformationSecteurFabrication =
-  | {
-      secteurActivite: "fabrication";
-      sousSecteurActivite: Omit<
-        SousSecteurFabrication,
-        "autreSousSecteurFabrication"
-      >;
-      activites: Set<ActivitesFabrication>;
-    }
-  | {
-      secteurActivite: "fabrication";
-      sousSecteurActivite: "autreSousSecteurFabrication";
-    };
+export type InformationSousSecteurAutre<S extends SecteursAvecSousSecteurs> = {
+  secteurActivite: S;
+  sousSecteurActivite: SousSecteurAutrePour<S>;
+};
 
-type InformationSecteurTransport =
-  | {
-      secteurActivite: "transports";
-      sousSecteurActivite: Omit<
-        SousSecteurTransport,
-        "autreSousSecteurTransport"
-      >;
-      activites: Set<ActivitesFabrication>;
-    }
-  | {
-      secteurActivite: "transports";
-      sousSecteurActivite: "autreSousSecteurTransports";
-    };
+type InformationSecteurEnergie = {
+  secteurActivite: "energie";
+  sousSecteurActivite: Omit<SousSecteurEnergie, "autreSousSecteurEnergie">;
+  activites: Set<ActivitesEnergie>;
+};
+
+type InformationSecteurFabrication = {
+  secteurActivite: "fabrication";
+  sousSecteurActivite: Omit<
+    SousSecteurFabrication,
+    "autreSousSecteurFabrication"
+  >;
+  activites: Set<ActivitesFabrication>;
+};
+
+type InformationSecteurTransport = {
+  secteurActivite: "transports";
+  sousSecteurActivite: Omit<SousSecteurTransport, "autreSousSecteurTransports">;
+  activites: Set<ActivitesTransports>;
+};
+
+type InformationSecteurSimple = {
+  secteurActivite: Omit<SecteursSansSousSecteur, "autreSecteurActivite">;
+  activites: Set<
+    Omit<
+      Activite,
+      ActivitesEnergie | ActivitesTransports | ActivitesFabrication
+    >
+  >;
+};
+type InformationSecteurAutre = {
+  secteurActivite: "autreSecteurActivite";
+};
 
 export type InformationSecteurPossible =
   | InformationSecteurEnergie
   | InformationSecteurFabrication
   | InformationSecteurTransport
-  | {
-      secteurActivite: "autreSecteurActivite";
-    }
-  | {
-      secteurActivite: Omit<
-        SecteurActivite,
-        "energie" | "fabrication" | "transports" | "autreSecteurActivite"
-      >;
-      activites: Set<
-        Omit<
-          Activite,
-          ActivitesEnergie | ActivitesTransports | ActivitesFabrication
-        >
-      >;
-    };
+  | InformationSecteurSimple
+  | InformationSecteurAutre
+  | InformationSousSecteurAutre<SecteursAvecSousSecteurs>;
 export type InformationsSecteur = { secteurs: Set<InformationSecteurPossible> };
 
 export type InformationsLocalisationRepresentant =

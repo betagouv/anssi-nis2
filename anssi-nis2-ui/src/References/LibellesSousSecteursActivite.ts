@@ -39,7 +39,7 @@ export const libellesSousSecteurTransports: DetailsSousSecteurUnique<SousSecteur
     transportsFerroviaires: "Ferroviaires",
     transportsParEau: "Par eau",
     transportsRoutiers: "Routiers",
-    autreSousSecteurTransport: "Autre sous-secteur",
+    autreSousSecteurTransports: "Autre sous-secteur",
   };
 
 export const libellesSousSecteursActivite: Record<SousSecteurActivite, string> =

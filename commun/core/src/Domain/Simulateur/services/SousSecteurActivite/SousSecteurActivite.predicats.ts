@@ -3,14 +3,16 @@ import { SecteurActivite } from "../../SecteurActivite.definitions";
 import {
   SecteursAvecSousSecteurs,
   SousSecteurActivite,
+  SousSecteurAutre,
 } from "../../SousSecteurActivite.definitions";
 import { groupementsSecteursParSousSecteurs } from "../../SousSecteurActivite.valeurs";
 import { estUnSecteurAvecDesSousSecteurs } from "../SecteurActivite/SecteurActivite.predicats";
 
 export const estSousSecteurListe = (sousSecteur?: SousSecteurActivite) =>
   !sousSecteur?.startsWith("autre");
-export const estSousSecteurAutre = (sousSecteur?: SousSecteurActivite) =>
-  sousSecteur?.startsWith("autre");
+export const estSousSecteurAutre = (
+  sousSecteur?: SousSecteurActivite,
+): sousSecteur is SousSecteurAutre => !!sousSecteur?.startsWith("autre");
 
 export const auMoinsUnSousSecteurListe = (sousSecteur: SousSecteurActivite[]) =>
   !!sousSecteur &&

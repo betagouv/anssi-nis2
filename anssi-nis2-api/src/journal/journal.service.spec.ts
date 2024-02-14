@@ -116,7 +116,7 @@ describe("JournalService", () => {
       sousSecteurActivite: [
         "hydrogene",
         "electricite",
-        "autreSousSecteurTransport",
+        "autreSousSecteurTransports",
       ],
       typeStructure: ["privee"],
       trancheNombreEmployes: ["grand"],

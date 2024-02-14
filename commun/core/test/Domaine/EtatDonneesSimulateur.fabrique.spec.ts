@@ -337,9 +337,9 @@ describe("fabrique ReponseEtat", () => {
       it("Enchaine les données jusqu'à plusieurs secteurs composites et leurs activités", () => {
         const donnees = fabriqueDonneesFormulaire({
           designationOperateurServicesEssentiels: ["oui"],
-          typeStructure: ["publique"],
-          typeEntitePublique: ["administrationCentrale"],
+          typeStructure: ["privee"],
           trancheNombreEmployes: ["moyen"],
+          trancheChiffreAffaire: ["grand"],
           appartenancePaysUnionEuropeenne: ["france"],
           secteurActivite: ["eauPotable", "sante", "fabrication", "transports"],
           sousSecteurActivite: [
@@ -367,9 +367,9 @@ describe("fabrique ReponseEtat", () => {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
-            typeStructure: "publique",
-            typeEntitePublique: "administrationCentrale",
+            typeStructure: "privee",
             trancheNombreEmployes: "moyen",
+            trancheChiffreAffaire: "grand",
           },
           SecteurActiviteComplet: {
             secteurs: ens(
@@ -405,6 +405,57 @@ describe("fabrique ReponseEtat", () => {
                 secteurActivite: "transports",
                 sousSecteurActivite: "transportsFerroviaires",
                 activites: ens("entrepriseFerroviaire"),
+              },
+            ),
+          },
+        };
+        const resultatObtenu =
+          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
+        expect(resultatObtenu).toStrictEqual(resultatAttendu);
+      });
+      it("Enchaine les données jusqu'à un secteur composite autre", () => {
+        const donnees = fabriqueDonneesFormulaire({
+          designationOperateurServicesEssentiels: ["oui"],
+          typeStructure: ["privee"],
+          trancheNombreEmployes: ["moyen"],
+          trancheChiffreAffaire: ["grand"],
+          appartenancePaysUnionEuropeenne: ["france"],
+          secteurActivite: ["energie", "fabrication", "transports"],
+          sousSecteurActivite: [
+            "autreSousSecteurEnergie",
+            "autreSousSecteurFabrication",
+            "autreSousSecteurTransports",
+          ],
+          activites: [],
+        });
+        const resultatAttendu: UnionReponseEtat = {
+          _tag: "SecteurActiviteComplet",
+          DesignationOperateurServicesEssentiels: {
+            designationOperateurServicesEssentiels: "oui",
+          },
+          AppartenancePaysUnionEuropeenne: {
+            appartenancePaysUnionEuropeenne: "france",
+          },
+          Structure: {
+            typeStructure: "privee",
+            trancheNombreEmployes: "moyen",
+            trancheChiffreAffaire: "grand",
+          },
+          SecteurActiviteComplet: {
+            secteurs: ens(
+              {
+                secteurActivite: "energie",
+                sousSecteurActivite: "autreSousSecteurEnergie",
+              },
+              {
+                secteurActivite: "fabrication",
+                sousSecteurActivite: "autreSousSecteurFabrication",
+              },
+              {
+                secteurActivite: "transports",
+                sousSecteurActivite: "autreSousSecteurTransports",
               },
             ),
           },

@@ -13,10 +13,18 @@ import {
   estUnSecteurAvecDesSousSecteurs,
   estUnSecteurSansDesSousSecteurs,
 } from "../services/SecteurActivite/SecteurActivite.predicats";
-import { estDansSecteur } from "../services/SousSecteurActivite/SousSecteurActivite.predicats";
+import {
+  estDansSecteur,
+  estSousSecteurAutre,
+} from "../services/SousSecteurActivite/SousSecteurActivite.predicats";
+import {
+  SecteursAvecSousSecteurs,
+  SousSecteurActivite,
+  SousSecteurAutre,
+} from "../SousSecteurActivite.definitions";
 
 export const FabriqueSectorisation = {
-  construitSecteurAutre: () => (): Set<InformationSecteurPossible> =>
+  secteurAutre: () => (): Set<InformationSecteurPossible> =>
     ens({
       secteurActivite: "autreSecteurActivite",
     }),
@@ -30,39 +38,66 @@ export const FabriqueSectorisation = {
           ...donnees.activites.filter(activiteEstDansSecteur(secteur)),
         ),
       }),
+
   secteurComposite:
     (donnees: DonneesFormulaireSimulateur) =>
-    (secteur: SecteurActivite): Set<InformationSecteurPossible> =>
-      donnees.sousSecteurActivite.filter(estDansSecteur(secteur)).reduce(
-        (ensembleSecteurs, sousSecteur) =>
-          union(
-            ensembleSecteurs,
-            ens({
-              secteurActivite: secteur,
-              sousSecteurActivite: sousSecteur,
-              activites: ens(
-                ...donnees.activites.filter(
-                  activiteEstDansSecteur(sousSecteur),
-                ),
-              ),
-            }),
-          ),
-        ensembleNeutreDe<InformationSecteurPossible>(),
+    (secteur: SecteurActivite, sousSecteur: SousSecteurActivite) =>
+      ens({
+        secteurActivite: secteur,
+        sousSecteurActivite: sousSecteur,
+        activites: ens(
+          ...donnees.activites.filter(activiteEstDansSecteur(sousSecteur)),
+        ),
+      }),
+
+  secteurCompositeAutre: (
+    secteur: SecteursAvecSousSecteurs,
+    sousSecteur: SousSecteurAutre,
+  ): Set<InformationSecteurPossible> =>
+    ens({
+      secteurActivite: secteur,
+      sousSecteurActivite: sousSecteur,
+    }),
+
+  accumuleSecteursComposites:
+    (donnees: DonneesFormulaireSimulateur) =>
+    (secteur: SecteursAvecSousSecteurs) =>
+    (
+      ensembleSecteurs: Set<InformationSecteurPossible>,
+      sousSecteur: SousSecteurActivite,
+    ): Set<InformationSecteurPossible> =>
+      union(
+        ensembleSecteurs,
+        estSousSecteurAutre(sousSecteur)
+          ? FabriqueSectorisation.secteurCompositeAutre(secteur, sousSecteur)
+          : FabriqueSectorisation.secteurComposite(donnees)(
+              secteur,
+              sousSecteur,
+            ),
       ),
+  ensembleSecteursComposites:
+    (donnees: DonneesFormulaireSimulateur) =>
+    (secteur: SecteursAvecSousSecteurs): Set<InformationSecteurPossible> =>
+      donnees.sousSecteurActivite
+        .filter(estDansSecteur(secteur))
+        .reduce(
+          FabriqueSectorisation.accumuleSecteursComposites(donnees)(secteur),
+          ensembleNeutreDe<InformationSecteurPossible>(),
+        ),
 
   secteurDepuisDonneesSimulateur: (
     donnees: DonneesFormulaireSimulateur,
     secteurActivite: SecteurActivite,
   ): Set<InformationSecteurPossible> =>
     match(secteurActivite)
-      .when(estSecteurAutre, FabriqueSectorisation.construitSecteurAutre())
+      .when(estSecteurAutre, FabriqueSectorisation.secteurAutre())
       .when(
         estUnSecteurSansDesSousSecteurs,
         FabriqueSectorisation.secteurSimple(donnees),
       )
       .when(
         estUnSecteurAvecDesSousSecteurs,
-        FabriqueSectorisation.secteurComposite(donnees),
+        FabriqueSectorisation.ensembleSecteursComposites(donnees),
       )
       .otherwise(ensembleNeutreDe<InformationSecteurPossible>),
 

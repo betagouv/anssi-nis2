@@ -21,10 +21,16 @@ export type SecteursSansSousSecteur = Exclude<
   SecteurActivite,
   SecteursAvecSousSecteurs
 >;
+export type SousSecteurAutre = Extract<
+  SousSecteurActivite,
+  | "autreSousSecteurEnergie"
+  | "autreSousSecteurFabrication"
+  | "autreSousSecteurTransports"
+>;
 export type LibellesSousSecteurs = Partial<Record<SousSecteurActivite, string>>;
 export type DescriptionSecteur = readonly SousSecteurActivite[];
 export type DetailsSousSecteurUnique<
-  T extends SousSecteurEnergie | SousSecteurFabrication | SousSecteurTransport
+  T extends SousSecteurEnergie | SousSecteurFabrication | SousSecteurTransport,
 > = Record<T, string>;
 export type EnrSecteurSousSecteur = {
   secteur: SecteurActivite;
