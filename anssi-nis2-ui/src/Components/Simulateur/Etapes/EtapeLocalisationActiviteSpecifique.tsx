@@ -1,5 +1,5 @@
 import {
-  appartenancePaysUnionEuropeenne,
+  AppartenancePaysUnionEuropeenne,
   FournitServicesUnionEuropeenne,
 } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import {
@@ -36,7 +36,7 @@ const EtapeLocalisationActiviteSpecifiqueCalculee = ({
     propageActionSimulateur({
       type: "checkSingle",
       name: "localisationRepresentant",
-      newValue: event.target.value as appartenancePaysUnionEuropeenne,
+      newValue: event.target.value as AppartenancePaysUnionEuropeenne,
     });
   const optionsFournitServicesUnionEuropeenne =
     transformeFournitServicesUnionEuropeennePourSelect(

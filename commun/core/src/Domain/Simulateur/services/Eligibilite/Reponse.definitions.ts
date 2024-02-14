@@ -5,7 +5,7 @@ import {
   ActivitesTransports,
 } from "../../Activite.definitions";
 import {
-  appartenancePaysUnionEuropeenne,
+  AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
@@ -23,7 +23,7 @@ export type ReponseDesigneOSE = {
 };
 
 export type ReponseLocalisation = {
-  appartenancePaysUnionEuropeenne: appartenancePaysUnionEuropeenne;
+  appartenancePaysUnionEuropeenne: AppartenancePaysUnionEuropeenne;
 };
 
 type TypeStructurePrivee = {
@@ -117,12 +117,12 @@ export type InformationsLocalisationRepresentant =
     }
   | {
       fournitServicesUnionEuropeenne: "oui";
-      localisationRepresentant: appartenancePaysUnionEuropeenne;
+      localisationRepresentant: AppartenancePaysUnionEuropeenne;
     };
 
 export type DonneesCompletesEvaluees =
   | "DesignationOperateurServicesEssentiels"
-  | "appartenancePaysUnionEuropeenne"
+  | "AppartenancePaysUnionEuropeenne"
   | "Structure"
   | "SecteurActiviteComplet"
   | "LocalisationRepresentant";
@@ -132,7 +132,7 @@ export type DonneesEvaluees = DonneesCompletesEvaluees | "Fin";
 export type TypeDonnees<EtapeEvaluation extends DonneesCompletesEvaluees> =
   EtapeEvaluation extends "DesignationOperateurServicesEssentiels"
     ? ReponseDesigneOSE
-    : EtapeEvaluation extends "appartenancePaysUnionEuropeenne"
+    : EtapeEvaluation extends "AppartenancePaysUnionEuropeenne"
       ? ReponseLocalisation
       : EtapeEvaluation extends "Structure"
         ? DefinitionStructure
@@ -161,7 +161,7 @@ export type ReponseEtatDesignationOperateurServicesEssentiels = ReponseEtat<
 
 export type ReponseEtatappartenancePaysUnionEuropeenne = ReponseEtat<
   ReponseEtatDesignationOperateurServicesEssentiels,
-  "appartenancePaysUnionEuropeenne"
+  "AppartenancePaysUnionEuropeenne"
 >;
 
 export type ReponseEtatStructure = ReponseEtat<

@@ -88,8 +88,8 @@ export const FabriqueEtatDonneesSimulateur = {
     ...FabriqueEtatDonneesSimulateur.designationOperateurServicesEssentiels(
       donnees,
     ),
-    _tag: "appartenancePaysUnionEuropeenne",
-    appartenancePaysUnionEuropeenne: {
+    _tag: "AppartenancePaysUnionEuropeenne",
+    AppartenancePaysUnionEuropeenne: {
       appartenancePaysUnionEuropeenne:
         donnees.appartenancePaysUnionEuropeenne[0],
     },

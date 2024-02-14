@@ -15,7 +15,7 @@ type UnionDe<T extends Readonly<Array<string>>> = T[number];
 export type DesignationOperateurServicesEssentiels = UnionDe<
   typeof ValeursDesignationOperateurServicesEssentiels
 >;
-export type appartenancePaysUnionEuropeenne = UnionDe<
+export type AppartenancePaysUnionEuropeenne = UnionDe<
   typeof ValeursappartenancePaysUnionEuropeenne
 >;
 export type TypeStructure = UnionDe<typeof ValeursTypeStructure>;
@@ -26,7 +26,7 @@ export type TrancheChiffreAffaire = UnionPetitMoyenGrand;
 export type FournitServicesUnionEuropeenne = UnionDe<typeof ValeursOuiNon>;
 export type ValeurChampSimulateur =
   | DesignationOperateurServicesEssentiels
-  | appartenancePaysUnionEuropeenne
+  | AppartenancePaysUnionEuropeenne
   | TypeStructure
   | TypeEntitePublique
   | TrancheChiffreAffaire

@@ -47,11 +47,11 @@ describe("fabrique ReponseEtat", () => {
           appartenancePaysUnionEuropeenne: ["france"],
         });
         const resultatAttendu: UnionReponseEtat = {
-          _tag: "appartenancePaysUnionEuropeenne",
+          _tag: "AppartenancePaysUnionEuropeenne",
           DesignationOperateurServicesEssentiels: {
             designationOperateurServicesEssentiels: "oui",
           },
-          appartenancePaysUnionEuropeenne: {
+          AppartenancePaysUnionEuropeenne: {
             appartenancePaysUnionEuropeenne: "france",
           },
         };
@@ -76,7 +76,7 @@ describe("fabrique ReponseEtat", () => {
           DesignationOperateurServicesEssentiels: {
             designationOperateurServicesEssentiels: "oui",
           },
-          appartenancePaysUnionEuropeenne: {
+          AppartenancePaysUnionEuropeenne: {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
@@ -104,7 +104,7 @@ describe("fabrique ReponseEtat", () => {
           DesignationOperateurServicesEssentiels: {
             designationOperateurServicesEssentiels: "oui",
           },
-          appartenancePaysUnionEuropeenne: {
+          AppartenancePaysUnionEuropeenne: {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
@@ -135,7 +135,7 @@ describe("fabrique ReponseEtat", () => {
           DesignationOperateurServicesEssentiels: {
             designationOperateurServicesEssentiels: "oui",
           },
-          appartenancePaysUnionEuropeenne: {
+          AppartenancePaysUnionEuropeenne: {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
@@ -170,7 +170,7 @@ describe("fabrique ReponseEtat", () => {
           DesignationOperateurServicesEssentiels: {
             designationOperateurServicesEssentiels: "oui",
           },
-          appartenancePaysUnionEuropeenne: {
+          AppartenancePaysUnionEuropeenne: {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
@@ -207,7 +207,7 @@ describe("fabrique ReponseEtat", () => {
           DesignationOperateurServicesEssentiels: {
             designationOperateurServicesEssentiels: "oui",
           },
-          appartenancePaysUnionEuropeenne: {
+          AppartenancePaysUnionEuropeenne: {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
@@ -247,7 +247,7 @@ describe("fabrique ReponseEtat", () => {
           DesignationOperateurServicesEssentiels: {
             designationOperateurServicesEssentiels: "oui",
           },
-          appartenancePaysUnionEuropeenne: {
+          AppartenancePaysUnionEuropeenne: {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
@@ -296,7 +296,7 @@ describe("fabrique ReponseEtat", () => {
           DesignationOperateurServicesEssentiels: {
             designationOperateurServicesEssentiels: "oui",
           },
-          appartenancePaysUnionEuropeenne: {
+          AppartenancePaysUnionEuropeenne: {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
@@ -363,7 +363,7 @@ describe("fabrique ReponseEtat", () => {
           DesignationOperateurServicesEssentiels: {
             designationOperateurServicesEssentiels: "oui",
           },
-          appartenancePaysUnionEuropeenne: {
+          AppartenancePaysUnionEuropeenne: {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {

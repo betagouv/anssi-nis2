@@ -1,5 +1,5 @@
 import {
-  appartenancePaysUnionEuropeenne,
+  AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
   FournitServicesUnionEuropeenne,
   TrancheChiffreAffaire,
@@ -29,7 +29,7 @@ export const libellesDesigneOSE: Record<
 };
 
 export const libellesPaysUnionEuropeenneLocalisation: Record<
-  appartenancePaysUnionEuropeenne,
+  AppartenancePaysUnionEuropeenne,
   string
 > = {
   france: "France",

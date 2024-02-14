@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import {
-  appartenancePaysUnionEuropeenne,
+  AppartenancePaysUnionEuropeenne,
   FournitServicesUnionEuropeenne,
 } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { donneesFormulaireSimulateurVide } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.constantes.ts";
@@ -36,7 +36,7 @@ const creeActionPropagationFormulaireFournitServicesUnionEuropeenne = (
 };
 
 const creeActionPropagationFormulaireLocalisationRepresentant = (
-  newValue: appartenancePaysUnionEuropeenne,
+  newValue: AppartenancePaysUnionEuropeenne,
 ) => {
   const actionTypique = {
     type: "checkSingle",
@@ -99,7 +99,7 @@ export const LocalisationDuRepresentant: Story = {
     step("Localisation représentant", async () => {
       const optionsATester: {
         libelle: string;
-        newValue: appartenancePaysUnionEuropeenne;
+        newValue: AppartenancePaysUnionEuropeenne;
       }[] = [
         {
           libelle: libellesPaysUnionEuropeenneLocalisation["france"],

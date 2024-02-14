@@ -1,6 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import {
-  appartenancePaysUnionEuropeenne,
+  AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
   FournitServicesUnionEuropeenne,
   TypeEntitePublique,
@@ -40,7 +40,7 @@ export const arbTranche: ArbitraireChampFormulaire<UnionPetitMoyenGrand> = {
   grand: fc.constant<UnionPetitMoyenGrand[]>(["grand"]),
 };
 export const arbappartenancePaysUnionEuropeenne: ArbitraireChampFormulaire<
-  appartenancePaysUnionEuropeenne,
+  AppartenancePaysUnionEuropeenne,
   "franceOuAutre" | "tout" | "horsFrance"
 > = {
   france: fc.constant(["france"]),

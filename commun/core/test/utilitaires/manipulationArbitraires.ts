@@ -1,7 +1,7 @@
 import { fc } from "@fast-check/vitest";
 import { Activite } from "../../src/Domain/Simulateur/Activite.definitions";
 import {
-  appartenancePaysUnionEuropeenne,
+  AppartenancePaysUnionEuropeenne,
   FournitServicesUnionEuropeenne,
   UnionPetitMoyenGrand,
   ValeurChampSimulateur,
@@ -193,7 +193,7 @@ export const ajouteChampsFacultatifs = <
   >,
 >(
   base: T,
-) =>
+): fc.Arbitrary<DonneesFormulaireSimulateur> =>
   fc.record({
     typeEntitePublique: fc.constant([]),
     fournitServicesUnionEuropeenne: fc.constant([]),
@@ -242,7 +242,7 @@ export const partitionneLocalisationServices = (
         etend(arbitraire.filter(contientSecteurNecessitantLocalisation)).avec({
           fournitServicesUnionEuropeenne: fc.constant(["oui"]),
           localisationRepresentant:
-            fabriqueArbSingleton<appartenancePaysUnionEuropeenne>([
+            fabriqueArbSingleton<AppartenancePaysUnionEuropeenne>([
               "autre",
               "horsue",
             ]),
@@ -256,7 +256,7 @@ export const partitionneLocalisationServices = (
         ).avec({
           fournitServicesUnionEuropeenne: fc.constant(["oui"]),
           localisationRepresentant: fc.constant<
-            appartenancePaysUnionEuropeenne[]
+            AppartenancePaysUnionEuropeenne[]
           >(["france"]),
         }),
       ),
