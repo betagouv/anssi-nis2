@@ -1,23 +1,11 @@
 import { match, P } from "ts-pattern";
 import { GuardP } from "ts-pattern/dist/types/Pattern";
 import {
-  ens,
-  ensembleNeutre,
-  union,
-} from "../../../../../../utils/services/sets.operations";
-import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../DonneesFormulaire.definitions";
-import { SecteurActivite } from "../../SecteurActivite.definitions";
-import { activiteEstDansSecteur } from "../Activite/Activite.predicats";
+import { FabriqueSectorisation } from "../../fabriques/Sectorisation.fabrique";
 import {
-  estSecteurAutre,
-  estUnSecteurAvecDesSousSecteurs,
-  estUnSecteurSansDesSousSecteurs,
-} from "../SecteurActivite/SecteurActivite.predicats";
-import {
-  InformationSecteurPossible,
   ReponseEtatappartenancePaysUnionEuropeenne,
   ReponseEtatDesignationOperateurServicesEssentiels,
   ReponseEtatSecteurActiviteComplet,
@@ -28,8 +16,6 @@ import {
 
 const exactementUnElement = <T extends string>(a: T[]) => a.length === 1;
 const auMoinsUnElement = <T extends string>(a: T[]) => a.length >= 1;
-
-const reponseEtatVide: ReponseEtatVide = { _tag: "ReponseEtatVide" };
 
 const champsAvecUneValeur = (...champs: NomsChampsSimulateur[]) =>
   champs.reduce(
@@ -82,9 +68,11 @@ const champsSpecifiquesStructurePrivee = champsAvecUneValeur(
   "trancheNombreEmployes",
 );
 
-export const ReponseEtat = {
-  construitReponseEtatVide: () => reponseEtatVide,
-  construitEtatsDesignationOse: (
+export const FabriqueEtatDonneesSimulateur = {
+  vide: (): ReponseEtatVide => ({
+    _tag: "ReponseEtatVide",
+  }),
+  designationOperateurServicesEssentiels: (
     donnees: DonneesFormulaireSimulateur,
   ): ReponseEtatDesignationOperateurServicesEssentiels => ({
     _tag: "DesignationOperateurServicesEssentiels",
@@ -94,10 +82,12 @@ export const ReponseEtat = {
     },
   }),
 
-  construitEtatappartenancePaysUnionEuropeenne: (
+  appartenancePaysUnionEuropeenne: (
     donnees: DonneesFormulaireSimulateur,
   ): ReponseEtatappartenancePaysUnionEuropeenne => ({
-    ...ReponseEtat.construitEtatsDesignationOse(donnees),
+    ...FabriqueEtatDonneesSimulateur.designationOperateurServicesEssentiels(
+      donnees,
+    ),
     _tag: "appartenancePaysUnionEuropeenne",
     appartenancePaysUnionEuropeenne: {
       appartenancePaysUnionEuropeenne:
@@ -105,10 +95,10 @@ export const ReponseEtat = {
     },
   }),
 
-  construitEtatStructurePrivee: (
+  structurePrivee: (
     donnees: DonneesFormulaireSimulateur,
   ): ReponseEtatStructure => ({
-    ...ReponseEtat.construitEtatappartenancePaysUnionEuropeenne(donnees),
+    ...FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenne(donnees),
     _tag: "Structure",
     Structure: {
       typeStructure: "privee",
@@ -117,10 +107,10 @@ export const ReponseEtat = {
     },
   }),
 
-  construitEtatStructurePublique: (
+  structurePublique: (
     donnees: DonneesFormulaireSimulateur,
   ): ReponseEtatStructure => ({
-    ...ReponseEtat.construitEtatappartenancePaysUnionEuropeenne(donnees),
+    ...FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenne(donnees),
     _tag: "Structure",
     Structure: {
       typeStructure: "publique",
@@ -129,65 +119,19 @@ export const ReponseEtat = {
     },
   }),
 
-  construitEtatStructure: (
-    donnees: DonneesFormulaireSimulateur,
-  ): ReponseEtatStructure =>
+  structure: (donnees: DonneesFormulaireSimulateur): ReponseEtatStructure =>
     donnees.typeStructure[0] === "publique"
-      ? ReponseEtat.construitEtatStructurePublique(donnees)
-      : ReponseEtat.construitEtatStructurePrivee(donnees),
+      ? FabriqueEtatDonneesSimulateur.structurePublique(donnees)
+      : FabriqueEtatDonneesSimulateur.structurePrivee(donnees),
 
-  construitSecteurAutre: () => (): Set<InformationSecteurPossible> =>
-    ens({
-      secteurActivite: "autreSecteurActivite",
-    }),
-
-  construitSecteurSimple:
-    (donnees: DonneesFormulaireSimulateur) =>
-    (secteur: SecteurActivite): Set<InformationSecteurPossible> =>
-      ens({
-        secteurActivite: secteur,
-        activites: ens(
-          ...donnees.activites.filter(activiteEstDansSecteur(secteur)),
-        ),
-      }),
-  construitSecteurSousSecteur:
-    (donnees: DonneesFormulaireSimulateur) =>
-    (secteur: SecteurActivite): Set<InformationSecteurPossible> =>
-      ens({
-        secteurActivite: secteur,
-        sousSecteurActivite: donnees.sousSecteurActivite[0],
-        activites: ens(...donnees.activites),
-      }),
-
-  construitSecteur: (
-    donnees: DonneesFormulaireSimulateur,
-    secteurActivite: SecteurActivite,
-  ): Set<InformationSecteurPossible> =>
-    match(secteurActivite)
-      .when(estSecteurAutre, ReponseEtat.construitSecteurAutre())
-      .when(
-        estUnSecteurSansDesSousSecteurs,
-        ReponseEtat.construitSecteurSimple(donnees),
-      )
-      .when(
-        estUnSecteurAvecDesSousSecteurs,
-        ReponseEtat.construitSecteurSousSecteur(donnees),
-      )
-      .otherwise(() => ensembleNeutre as Set<InformationSecteurPossible>),
-
-  construitListeSecteurs: (donnees: DonneesFormulaireSimulateur) =>
-    donnees.secteurActivite.reduce(
-      (liste, secteur) =>
-        union(liste, ReponseEtat.construitSecteur(donnees, secteur)),
-      new Set<InformationSecteurPossible>([]),
-    ),
-  construitEtatInformationsSecteurs: (
+  informationsSecteurs: (
     donnees: DonneesFormulaireSimulateur,
   ): ReponseEtatSecteurActiviteComplet => ({
-    ...ReponseEtat.construitEtatStructure(donnees),
+    ...FabriqueEtatDonneesSimulateur.structure(donnees),
     _tag: "SecteurActiviteComplet",
     SecteurActiviteComplet: {
-      secteurs: ReponseEtat.construitListeSecteurs(donnees),
+      secteurs:
+        FabriqueSectorisation.listeSecteursDepuisDonneesSimulateur(donnees),
     },
   }),
 
@@ -212,7 +156,7 @@ export const ReponseEtat = {
             champsNonVides("secteurActivite"),
           ),
         ),
-        ReponseEtat.construitEtatInformationsSecteurs,
+        FabriqueEtatDonneesSimulateur.informationsSecteurs,
       )
       .with(
         P.intersection(
@@ -222,18 +166,18 @@ export const ReponseEtat = {
             champsSpecifiquesStructurePrivee,
           ),
         ),
-        ReponseEtat.construitEtatStructure,
+        FabriqueEtatDonneesSimulateur.structure,
       )
       .with(
         champsAvecUneValeur(
           "designationOperateurServicesEssentiels",
           "appartenancePaysUnionEuropeenne",
         ),
-        ReponseEtat.construitEtatappartenancePaysUnionEuropeenne,
+        FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenne,
       )
       .with(
         champsAvecUneValeur("designationOperateurServicesEssentiels"),
-        ReponseEtat.construitEtatsDesignationOse,
+        FabriqueEtatDonneesSimulateur.designationOperateurServicesEssentiels,
       )
-      .otherwise(ReponseEtat.construitReponseEtatVide),
+      .otherwise(FabriqueEtatDonneesSimulateur.vide),
 };
