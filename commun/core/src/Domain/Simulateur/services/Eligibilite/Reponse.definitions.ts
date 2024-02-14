@@ -1,8 +1,13 @@
+import { ExtraitAutre } from "../../../../../../utils/types/Extrait";
 import { Tag } from "../../../../../../utils/types/Tag";
 import {
   ActiviteSecteursSimples,
   ActivitesEnergie,
   ActivitesFabrication,
+  ActivitesFournisseursNumeriques,
+  ActivitesGestionServicesTic,
+  ActivitesInfrastructureNumeriqueLocalisables,
+  ActivitesInfrastructureNumeriqueNonLocalisables,
   ActivitesTransports,
 } from "../../Activite.definitions";
 import {
@@ -13,8 +18,10 @@ import {
   TypeEntitePublique,
 } from "../../ChampsSimulateur.definitions";
 import {
+  SecteurActivite,
+  SecteursAvecBesoinLocalisationRepresentant,
   SecteursAvecSousSecteurs,
-  SecteursSansSousSecteur,
+  SecteursSansBesoinLocalisationRepresentant,
   SousSecteurAutrePour,
 } from "../../SecteurActivite.definitions";
 import {
@@ -39,19 +46,55 @@ type TypeStructurePublique = {
   typeEntitePublique: TypeEntitePublique;
 };
 
-type TailleSecteurPrive = {
-  trancheChiffreAffaire: TrancheChiffreAffaire;
-  trancheNombreEmployes: TrancheNombreEmployes;
-};
-type TailleSecteurPublic = {
-  trancheNombreEmployes: TrancheNombreEmployes;
-};
+type TailleSecteurPriveGrand = (
+  | {
+      trancheChiffreAffaire: Omit<TrancheChiffreAffaire, "petit">;
+      trancheNombreEmployes: TrancheNombreEmployes;
+    }
+  | {
+      trancheChiffreAffaire: TrancheChiffreAffaire;
+      trancheNombreEmployes: Omit<TrancheNombreEmployes, "petit">;
+    }
+) &
+  Tag<"Grand", "CategorieTaille">;
+
+type TailleSecteurPrivePetit = {
+  trancheChiffreAffaire: Extract<TrancheChiffreAffaire, "petit">;
+  trancheNombreEmployes: Extract<TrancheNombreEmployes, "petit">;
+} & Tag<"Petit", "CategorieTaille">;
+
+type TailleSecteurPrive = TailleSecteurPrivePetit | TailleSecteurPriveGrand;
+
+type TailleSecteurPublicPetit = {
+  trancheNombreEmployes: Extract<TrancheChiffreAffaire, "petit">;
+} & Tag<"Grand", "CategorieTaille">;
+type TailleSecteurPublicGrand = {
+  trancheNombreEmployes: Omit<TrancheNombreEmployes, "petit">;
+} & Tag<"Petit", "CategorieTaille">;
+
+type TailleSecteurPublic = TailleSecteurPublicPetit | TailleSecteurPublicGrand;
+
+export type DefinitionStructurePriveePetit = TypeStructurePrivee &
+  TailleSecteurPrivePetit;
+export type DefinitionStructurePriveeGrand = TypeStructurePrivee &
+  TailleSecteurPriveGrand;
 
 export type DefinitionStructurePrivee = TypeStructurePrivee &
   TailleSecteurPrive;
+
+export type DefinitionStructurePubliquePetit = TypeStructurePublique &
+  TailleSecteurPublicPetit;
+export type DefinitionStructurePubliqueGrand = TypeStructurePublique &
+  TailleSecteurPublicGrand;
 export type DefinitionStructurePublique = TypeStructurePublique &
   TailleSecteurPublic;
 
+export type DefinitionStructurePetit =
+  | DefinitionStructurePriveePetit
+  | DefinitionStructurePubliquePetit;
+export type DefinitionStructureGrand =
+  | DefinitionStructurePriveeGrand
+  | DefinitionStructurePubliqueGrand;
 export type DefinitionStructure =
   | DefinitionStructurePrivee
   | DefinitionStructurePublique;
@@ -83,23 +126,98 @@ export type InformationSecteurTransport = {
 };
 
 export type InformationSecteurSimple = {
-  secteurActivite: Omit<SecteursSansSousSecteur, "autreSecteurActivite">;
+  secteurActivite: Omit<
+    SecteursSansBesoinLocalisationRepresentant,
+    "autreSecteurActivite"
+  >;
   activites: Set<ActiviteSecteursSimples>;
 };
 
-export type InformationSecteurAutre = {
-  secteurActivite: "autreSecteurActivite";
+type EtablissementPrincipalNeFournitPasFrance = {
+  fournitServicesUnionEuropeenne: "non";
+};
+type EtablissementPrincipalLocalisation = {
+  fournitServicesUnionEuropeenne: "oui";
+  localisationRepresentant: AppartenancePaysUnionEuropeenne;
 };
 
-export type InformationSecteurPossible =
+export type InformationSecteurLocalisableGrand =
+  | {
+      secteurActivite: SecteursAvecBesoinLocalisationRepresentant;
+      activites: Set<
+        | ActivitesInfrastructureNumeriqueNonLocalisables
+        | ActivitesFournisseursNumeriques
+        | ActivitesGestionServicesTic
+      >;
+    }
+  | ({
+      secteurActivite: SecteursAvecBesoinLocalisationRepresentant;
+      activites: Set<
+        | ActivitesInfrastructureNumeriqueLocalisables
+        | ActivitesFournisseursNumeriques
+        | ActivitesGestionServicesTic
+      >;
+    } & EtablissementPrincipalNeFournitPasFrance)
+  | ({
+      secteurActivite: SecteursAvecBesoinLocalisationRepresentant;
+      activites: Set<
+        | ActivitesInfrastructureNumeriqueLocalisables
+        | ActivitesFournisseursNumeriques
+        | ActivitesGestionServicesTic
+      >;
+    } & EtablissementPrincipalLocalisation);
+
+export type InformationSecteurLocalisablePetiteEntreprise =
+  | {
+      secteurActivite: SecteursAvecBesoinLocalisationRepresentant;
+      activites: Set<ActivitesInfrastructureNumeriqueNonLocalisables>;
+    }
+  | ({
+      secteurActivite: SecteursAvecBesoinLocalisationRepresentant;
+      activites: Set<ActivitesInfrastructureNumeriqueLocalisables>;
+    } & EtablissementPrincipalNeFournitPasFrance)
+  | ({
+      secteurActivite: SecteursAvecBesoinLocalisationRepresentant;
+      activites: Set<ActivitesInfrastructureNumeriqueLocalisables>;
+    } & EtablissementPrincipalLocalisation);
+
+export type InformationSecteurAutre = {
+  secteurActivite: ExtraitAutre<SecteurActivite>;
+};
+
+export type InformationSecteurPossiblePetit =
   | InformationSecteurEnergie
   | InformationSecteurFabrication
   | InformationSecteurTransport
   | InformationSecteurSimple
+  | InformationSecteurLocalisablePetiteEntreprise
   | InformationSecteurAutre
   | InformationSousSecteurAutre<SecteursAvecSousSecteurs>;
 
-export type InformationsSecteur = { secteurs: Set<InformationSecteurPossible> };
+export type InformationSecteurPossibleGrand =
+  | InformationSecteurEnergie
+  | InformationSecteurFabrication
+  | InformationSecteurTransport
+  | InformationSecteurSimple
+  | InformationSecteurLocalisableGrand
+  | InformationSecteurAutre
+  | InformationSousSecteurAutre<SecteursAvecSousSecteurs>;
+
+export type InformationSecteurPossible =
+  | InformationSecteurPossiblePetit
+  | InformationSecteurPossibleGrand;
+
+export type InformationsSecteurPetit = {
+  secteurs: Set<InformationSecteurPossiblePetit>;
+};
+export type InformationsSecteurGrand = {
+  secteurs: Set<InformationSecteurPossibleGrand>;
+};
+export type InformationsSecteur = {
+  secteurs: Set<
+    InformationSecteurPossiblePetit | InformationSecteurPossibleGrand
+  >;
+};
 
 export type InformationsLocalisationRepresentant =
   | {
@@ -119,58 +237,60 @@ export type DonneesCompletesEvaluees =
 
 export type DonneesEvaluees = DonneesCompletesEvaluees | "Fin";
 
-export type TypeDonnees<EtapeEvaluation extends DonneesCompletesEvaluees> =
-  EtapeEvaluation extends "DesignationOperateurServicesEssentiels"
-    ? ReponseDesigneOperateurServicesEssentiels
-    : EtapeEvaluation extends "AppartenancePaysUnionEuropeenne"
-      ? ReponseLocalisation
-      : EtapeEvaluation extends "Structure"
-        ? DefinitionStructure
-        : EtapeEvaluation extends "InformationsSecteur"
-          ? InformationsSecteur
-          : EtapeEvaluation extends "LocalisationRepresentant"
-            ? InformationsLocalisationRepresentant
-            : never;
+type ReferencesTypeDonnees = {
+  DesignationOperateurServicesEssentiels: ReponseDesigneOperateurServicesEssentiels;
+  AppartenancePaysUnionEuropeenne: ReponseLocalisation;
+  Structure: DefinitionStructure;
+  InformationsSecteur: InformationsSecteur;
+  LocalisationRepresentant: InformationsLocalisationRepresentant;
+};
 
-export type ReponseEtat<
-  Encapsule extends UnionReponseEtat,
-  E extends DonneesCompletesEvaluees,
-> = Tag<E> &
-  Omit<Encapsule, "_tag"> & {
-    [K in E]: TypeDonnees<K>;
-  };
+export type TypeDonnees<
+  EtapeEvaluation extends DonneesCompletesEvaluees &
+    keyof ReferencesTypeDonnees,
+> = ReferencesTypeDonnees[EtapeEvaluation];
 
 export type ReponseEtatVide = Tag<"ReponseEtatVide">;
 
-export type ReponseEtatDesignationOperateurServicesEssentiels = ReponseEtat<
-  ReponseEtatVide,
-  "DesignationOperateurServicesEssentiels"
->;
+export type ReponseEtatDesignationOperateurServicesEssentiels =
+  Tag<"DesignationOperateurServicesEssentiels"> & {
+    DesignationOperateurServicesEssentiels: ReponseDesigneOperateurServicesEssentiels;
+  };
 
-export type ReponseEtatappartenancePaysUnionEuropeenne = ReponseEtat<
-  ReponseEtatDesignationOperateurServicesEssentiels,
-  "AppartenancePaysUnionEuropeenne"
->;
+export type ReponseEtatappartenancePaysUnionEuropeenne =
+  Tag<"AppartenancePaysUnionEuropeenne"> &
+    Omit<ReponseEtatDesignationOperateurServicesEssentiels, "_tag"> & {
+      AppartenancePaysUnionEuropeenne: ReponseLocalisation;
+    };
 
-export type ReponseEtatStructure = ReponseEtat<
-  ReponseEtatappartenancePaysUnionEuropeenne,
-  "Structure"
->;
+export type ReponseEtatStructure = Tag<"Structure"> &
+  Omit<ReponseEtatappartenancePaysUnionEuropeenne, "_tag"> & {
+    Structure: DefinitionStructure;
+  };
 
-export type ReponseEtatInformationsSecteur = ReponseEtat<
-  ReponseEtatStructure,
-  "InformationsSecteur"
->;
+export type ReponseEtatInformationsSecteur = Tag<"InformationsSecteur"> &
+  Omit<ReponseEtatappartenancePaysUnionEuropeenne, "_tag"> &
+  (
+    | {
+        Structure: DefinitionStructurePetit;
+        InformationsSecteur: InformationsSecteurPetit;
+      }
+    | {
+        Structure: DefinitionStructureGrand;
+        InformationsSecteur: InformationsSecteurGrand;
+      }
+  );
 
-export type ReponseEtatLocalisationRepresentant = ReponseEtat<
-  ReponseEtatInformationsSecteur,
-  "LocalisationRepresentant"
->;
+// export type ReponseEtatLocalisationRepresentant =
+//   Tag<"LocalisationRepresentant"> &
+//     Omit<ReponseEtatInformationsSecteur, "_tag"> & {
+//       [K in "LocalisationRepresentant"]: TypeDonnees<K>;
+//     };
 
 export type UnionReponseEtat =
   | ReponseEtatVide
   | ReponseEtatDesignationOperateurServicesEssentiels
   | ReponseEtatappartenancePaysUnionEuropeenne
   | ReponseEtatStructure
-  | ReponseEtatInformationsSecteur
-  | ReponseEtatLocalisationRepresentant;
+  | ReponseEtatInformationsSecteur;
+// | ReponseEtatLocalisationRepresentant;

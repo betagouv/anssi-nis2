@@ -1,1 +1,3 @@
-export type Tag<E extends string> = { _tag: `${E}` };
+export type Tag<E extends string, TagName extends string = "_tag"> = {
+  [k in TagName]: `${E}`;
+};

@@ -1,3 +1,4 @@
+import { ExtraitAutre } from "../../../../utils/types/Extrait";
 import {
   ValeursActivitesAdministrationPublique,
   ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
@@ -18,6 +19,9 @@ import {
   ValeursActivitesHydrogene,
   ValeursActivitesInfrastructureMarcheFinancier,
   ValeursActivitesInfrastructureNumerique,
+  ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite,
+  ValeursActivitesInfrastructureNumeriqueLocalisables,
+  ValeursActivitesInfrastructureNumeriqueNonLocalisables,
   ValeursActivitesPetrole,
   ValeursActivitesProductionTransformationDistributionDenreesAlimentaires,
   ValeursActivitesRecherche,
@@ -122,6 +126,8 @@ export type Activite =
   | ActivitesFournisseursNumeriques
   | ActivitesRecherche;
 
+export type ActiviteAutre = ExtraitAutre<Activite>;
+
 export type ActiviteSecteursSimples = Omit<
   Activite,
   ActivitesEnergie | ActivitesTransports | ActivitesFabrication
@@ -131,3 +137,11 @@ export type DescriptionActivite = {
   titre: string;
   description: string;
 };
+
+export type ActivitesInfrastructureNumeriqueEligiblesPetitEntite =
+  (typeof ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite)[number];
+export type ActivitesInfrastructureNumeriqueLocalisables =
+  (typeof ValeursActivitesInfrastructureNumeriqueLocalisables)[number];
+
+export type ActivitesInfrastructureNumeriqueNonLocalisables =
+  (typeof ValeursActivitesInfrastructureNumeriqueNonLocalisables)[number];
