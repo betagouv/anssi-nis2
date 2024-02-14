@@ -13,6 +13,7 @@ import {
   estUnSecteurAvecDesSousSecteurs,
   estUnSecteurSansDesSousSecteurs,
 } from "../services/SecteurActivite/SecteurActivite.predicats";
+import { estDansSecteur } from "../services/SousSecteurActivite/SousSecteurActivite.predicats";
 
 export const FabriqueSectorisation = {
   construitSecteurAutre: () => (): Set<InformationSecteurPossible> =>
@@ -32,15 +33,22 @@ export const FabriqueSectorisation = {
   secteurComposite:
     (donnees: DonneesFormulaireSimulateur) =>
     (secteur: SecteurActivite): Set<InformationSecteurPossible> =>
-      ens({
-        secteurActivite: secteur,
-        sousSecteurActivite: donnees.sousSecteurActivite[0],
-        activites: ens(
-          ...donnees.activites.filter(
-            activiteEstDansSecteur(donnees.sousSecteurActivite[0]),
+      donnees.sousSecteurActivite.filter(estDansSecteur(secteur)).reduce(
+        (ensembleSecteurs, sousSecteur) =>
+          union(
+            ensembleSecteurs,
+            ens({
+              secteurActivite: secteur,
+              sousSecteurActivite: sousSecteur,
+              activites: ens(
+                ...donnees.activites.filter(
+                  activiteEstDansSecteur(sousSecteur),
+                ),
+              ),
+            }),
           ),
-        ),
-      }),
+        ensembleNeutreDe<InformationSecteurPossible>(),
+      ),
 
   secteurDepuisDonneesSimulateur: (
     donnees: DonneesFormulaireSimulateur,

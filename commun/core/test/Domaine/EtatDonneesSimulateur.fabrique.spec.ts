@@ -274,7 +274,7 @@ describe("fabrique ReponseEtat", () => {
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
-      it("Enchaine les données jusqu'à plusieurs secteurs composites et leurs activités", () => {
+      it("Enchaine les données jusqu'à plusieurs secteurs simples, un composite et leurs activités", () => {
         const donnees = fabriqueDonneesFormulaire({
           designationOperateurServicesEssentiels: ["oui"],
           typeStructure: ["publique"],
@@ -324,6 +324,87 @@ describe("fabrique ReponseEtat", () => {
                   "fabriquantPilesAccumulateursElectriques",
                   "fabriquantAppareilEclairage",
                 ),
+              },
+            ),
+          },
+        };
+        const resultatObtenu =
+          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
+        expect(resultatObtenu).toStrictEqual(resultatAttendu);
+      });
+      it("Enchaine les données jusqu'à plusieurs secteurs composites et leurs activités", () => {
+        const donnees = fabriqueDonneesFormulaire({
+          designationOperateurServicesEssentiels: ["oui"],
+          typeStructure: ["publique"],
+          typeEntitePublique: ["administrationCentrale"],
+          trancheNombreEmployes: ["moyen"],
+          appartenancePaysUnionEuropeenne: ["france"],
+          secteurActivite: ["eauPotable", "sante", "fabrication", "transports"],
+          sousSecteurActivite: [
+            "fabricationEquipementsElectroniques",
+            "fabricationFabricationProduitsInformatiquesElectroniquesOptiques",
+            "transportsFerroviaires",
+          ],
+          activites: [
+            "fournisseursDistributeursEauxConsommation",
+            "rechercheDeveloppementMedicament",
+            "laboratoireReferenceUE",
+            "fabriquantPilesAccumulateursElectriques",
+            "fabriquantAppareilEclairage",
+            "fabriquantEquipementCommunication",
+            "fabriquantProduitsElectroniquesGrandPublic",
+            "entrepriseFerroviaire",
+          ],
+        });
+        const resultatAttendu: UnionReponseEtat = {
+          _tag: "SecteurActiviteComplet",
+          DesignationOperateurServicesEssentiels: {
+            designationOperateurServicesEssentiels: "oui",
+          },
+          appartenancePaysUnionEuropeenne: {
+            appartenancePaysUnionEuropeenne: "france",
+          },
+          Structure: {
+            typeStructure: "publique",
+            typeEntitePublique: "administrationCentrale",
+            trancheNombreEmployes: "moyen",
+          },
+          SecteurActiviteComplet: {
+            secteurs: ens(
+              {
+                secteurActivite: "eauPotable",
+                activites: ens("fournisseursDistributeursEauxConsommation"),
+              },
+              {
+                secteurActivite: "sante",
+                activites: ens(
+                  "rechercheDeveloppementMedicament",
+                  "laboratoireReferenceUE",
+                ),
+              },
+              {
+                secteurActivite: "fabrication",
+                sousSecteurActivite: "fabricationEquipementsElectroniques",
+                activites: ens(
+                  "fabriquantPilesAccumulateursElectriques",
+                  "fabriquantAppareilEclairage",
+                ),
+              },
+              {
+                secteurActivite: "fabrication",
+                sousSecteurActivite:
+                  "fabricationFabricationProduitsInformatiquesElectroniquesOptiques",
+                activites: ens(
+                  "fabriquantEquipementCommunication",
+                  "fabriquantProduitsElectroniquesGrandPublic",
+                ),
+              },
+              {
+                secteurActivite: "transports",
+                sousSecteurActivite: "transportsFerroviaires",
+                activites: ens("entrepriseFerroviaire"),
               },
             ),
           },
