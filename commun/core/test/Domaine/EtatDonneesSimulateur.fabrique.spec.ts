@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { ens } from "../../../utils/services/sets.operations";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
-import { ReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
+import { FabriqueEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
 import { UnionReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 
 describe("fabrique ReponseEtat", () => {
@@ -18,7 +18,9 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          ReponseEtat.depuisDonneesFormulaireSimulateur(donnees);
+          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
       it("Construit un designe OSE, variante", () => {
@@ -32,11 +34,13 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          ReponseEtat.depuisDonneesFormulaireSimulateur(donnees);
+          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
     });
-    describe("appartenancePaysUnionEuropeenne", () => {
+    describe("AppartenancePaysUnionEuropeenne", () => {
       it("Enchaine les données OSE puis UE a partir de donnees simples", () => {
         const donnees = fabriqueDonneesFormulaire({
           designationOperateurServicesEssentiels: ["oui"],
@@ -52,7 +56,9 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          ReponseEtat.depuisDonneesFormulaireSimulateur(donnees);
+          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
     });
@@ -80,7 +86,9 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          ReponseEtat.depuisDonneesFormulaireSimulateur(donnees);
+          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
       it("Enchaine les données jusqu'à la structure publique complète", () => {
@@ -106,7 +114,9 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          ReponseEtat.depuisDonneesFormulaireSimulateur(donnees);
+          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
     });
@@ -140,7 +150,9 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          ReponseEtat.depuisDonneesFormulaireSimulateur(donnees);
+          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
       it("Enchaine les données jusqu'au secteur simple et son activité", () => {
@@ -174,7 +186,9 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          ReponseEtat.depuisDonneesFormulaireSimulateur(donnees);
+          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
       it("Enchaine les données jusqu'au secteur/sous-secteur et son activité", () => {
@@ -210,7 +224,9 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          ReponseEtat.depuisDonneesFormulaireSimulateur(donnees);
+          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
       it("Enchaine les données jusqu'à plusieurs secteurs et leurs activités", () => {
@@ -253,7 +269,69 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          ReponseEtat.depuisDonneesFormulaireSimulateur(donnees);
+          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
+        expect(resultatObtenu).toStrictEqual(resultatAttendu);
+      });
+      it("Enchaine les données jusqu'à plusieurs secteurs composites et leurs activités", () => {
+        const donnees = fabriqueDonneesFormulaire({
+          designationOperateurServicesEssentiels: ["oui"],
+          typeStructure: ["publique"],
+          typeEntitePublique: ["administrationCentrale"],
+          trancheNombreEmployes: ["moyen"],
+          appartenancePaysUnionEuropeenne: ["france"],
+          secteurActivite: ["eauPotable", "sante", "fabrication"],
+          sousSecteurActivite: ["fabricationEquipementsElectroniques"],
+          activites: [
+            "fournisseursDistributeursEauxConsommation",
+            "rechercheDeveloppementMedicament",
+            "laboratoireReferenceUE",
+            "fabriquantPilesAccumulateursElectriques",
+            "fabriquantAppareilEclairage",
+          ],
+        });
+        const resultatAttendu: UnionReponseEtat = {
+          _tag: "SecteurActiviteComplet",
+          DesignationOperateurServicesEssentiels: {
+            designationOperateurServicesEssentiels: "oui",
+          },
+          appartenancePaysUnionEuropeenne: {
+            appartenancePaysUnionEuropeenne: "france",
+          },
+          Structure: {
+            typeStructure: "publique",
+            typeEntitePublique: "administrationCentrale",
+            trancheNombreEmployes: "moyen",
+          },
+          SecteurActiviteComplet: {
+            secteurs: ens(
+              {
+                secteurActivite: "eauPotable",
+                activites: ens("fournisseursDistributeursEauxConsommation"),
+              },
+              {
+                secteurActivite: "sante",
+                activites: ens(
+                  "rechercheDeveloppementMedicament",
+                  "laboratoireReferenceUE",
+                ),
+              },
+              {
+                secteurActivite: "fabrication",
+                sousSecteurActivite: "fabricationEquipementsElectroniques",
+                activites: ens(
+                  "fabriquantPilesAccumulateursElectriques",
+                  "fabriquantAppareilEclairage",
+                ),
+              },
+            ),
+          },
+        };
+        const resultatObtenu =
+          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
     });

@@ -35,7 +35,11 @@ export const FabriqueSectorisation = {
       ens({
         secteurActivite: secteur,
         sousSecteurActivite: donnees.sousSecteurActivite[0],
-        activites: ens(...donnees.activites),
+        activites: ens(
+          ...donnees.activites.filter(
+            activiteEstDansSecteur(donnees.sousSecteurActivite[0]),
+          ),
+        ),
       }),
 
   secteurDepuisDonneesSimulateur: (
