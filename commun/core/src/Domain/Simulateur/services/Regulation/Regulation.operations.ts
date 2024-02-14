@@ -1,4 +1,3 @@
-import { VVV } from "../../../utilitaires/debug";
 import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
 import { ResultatEligibilite } from "../../Eligibilite.definitions";
 import { fabriqueRegule } from "../../fabriques/Regulation.fabrique";
@@ -128,17 +127,15 @@ const calculeRegulationGrande = (donnees: DonneesFormulaireSimulateur) =>
       {
         secteurActivite: P.when(auMoinsUnSecteurListe),
       },
-      () => {
-        VVV("Oups");
-        return fabriqueRegule({
+      () =>
+        fabriqueRegule({
           trancheNombreEmployes: donnees.trancheNombreEmployes,
           trancheChiffreAffaire: donnees.trancheChiffreAffaire,
           secteurActivite: donnees.secteurActivite.filter(estSecteurListe),
           sousSecteurActivite:
             donnees.sousSecteurActivite.filter(estSousSecteurListe),
           activites: donnees.activites.filter(estActiviteListee),
-        });
-      },
+        }),
     )
     .otherwise(toujoursNonRegule);
 

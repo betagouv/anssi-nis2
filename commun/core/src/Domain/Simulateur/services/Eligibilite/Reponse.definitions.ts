@@ -1,5 +1,6 @@
+import { Tag } from "../../../../../../utils/types/Tag";
 import {
-  Activite,
+  ActiviteSecteursSimples,
   ActivitesEnergie,
   ActivitesFabrication,
   ActivitesTransports,
@@ -81,14 +82,10 @@ export type InformationSecteurTransport = {
 
 export type InformationSecteurSimple = {
   secteurActivite: Omit<SecteursSansSousSecteur, "autreSecteurActivite">;
-  activites: Set<
-    Omit<
-      Activite,
-      ActivitesEnergie | ActivitesTransports | ActivitesFabrication
-    >
-  >;
+  activites: Set<ActiviteSecteursSimples>;
 };
-type InformationSecteurAutre = {
+
+export type InformationSecteurAutre = {
   secteurActivite: "autreSecteurActivite";
 };
 
@@ -115,7 +112,7 @@ export type DonneesCompletesEvaluees =
   | "DesignationOperateurServicesEssentiels"
   | "AppartenancePaysUnionEuropeenne"
   | "Structure"
-  | "SecteurActiviteComplet"
+  | "InformationsSecteur"
   | "LocalisationRepresentant";
 
 export type DonneesEvaluees = DonneesCompletesEvaluees | "Fin";
@@ -132,8 +129,6 @@ export type TypeDonnees<EtapeEvaluation extends DonneesCompletesEvaluees> =
           : EtapeEvaluation extends "LocalisationRepresentant"
             ? InformationsLocalisationRepresentant
             : never;
-
-export type Tag<E extends string> = { _tag: `${E}` };
 
 export type ReponseEtat<
   Encapsule extends UnionReponseEtat,
@@ -162,7 +157,7 @@ export type ReponseEtatStructure = ReponseEtat<
 
 export type ReponseEtatSecteurActiviteComplet = ReponseEtat<
   ReponseEtatStructure,
-  "SecteurActiviteComplet"
+  "InformationsSecteur"
 >;
 
 export type ReponseEtatLocalisationRepresentant = ReponseEtat<

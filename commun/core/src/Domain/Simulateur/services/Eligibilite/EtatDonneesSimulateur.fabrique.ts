@@ -41,17 +41,6 @@ const champsNonVides = (...champs: NomsChampsSimulateur[]) =>
     {},
   );
 
-/*
-union<DonneesFormulaireSimulateur, readonly [{
-    readonly designationOperateurServicesEssentiels: GuardP<("oui" | "non" | "nsp")[], never>;
-    readonly appartenancePaysUnionEuropeenne: GuardP<...>;
-    readonly typeStructure: GuardP<...>;
-    readonly typeEntitePublique: GuardP<...>;
-    readonly trancheNombreEmployes: GuardP<...>;
-}, {
-    ...;
-}]
- */
 const champsMinimauxStructure = champsAvecUneValeur(
   "designationOperateurServicesEssentiels",
   "appartenancePaysUnionEuropeenne",

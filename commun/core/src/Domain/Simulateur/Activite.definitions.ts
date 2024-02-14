@@ -121,6 +121,12 @@ export type Activite =
   | ActivitesFabrication
   | ActivitesFournisseursNumeriques
   | ActivitesRecherche;
+
+export type ActiviteSecteursSimples = Omit<
+  Activite,
+  ActivitesEnergie | ActivitesTransports | ActivitesFabrication
+>;
+
 export type DescriptionActivite = {
   titre: string;
   description: string;

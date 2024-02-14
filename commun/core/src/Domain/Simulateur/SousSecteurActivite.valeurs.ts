@@ -5,11 +5,6 @@ import {
   SousSecteurActivite,
 } from "./SousSecteurActivite.definitions";
 
-export const ValeursSecteursAvecSousSecteurs = [
-  "energie",
-  "transports",
-  "fabrication",
-] as const;
 export const ValeursSousSecteurEnergie = [
   "electricite",
   "gaz",
@@ -58,3 +53,8 @@ export const groupementsSecteursParSousSecteurs: Record<
   transports: ValeursSousSecteurTransport,
   fabrication: ValeursSousSecteurFabrication,
 };
+export const ValeursSecteursAvecSousSecteurs = [
+  "energie",
+  "transports",
+  "fabrication",
+] as const;
