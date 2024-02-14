@@ -1,8 +1,10 @@
 import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
-import { SecteurActivite } from "../../SecteurActivite.definitions";
+import {
+  SecteurActivite,
+  SecteursAvecSousSecteurs,
+} from "../../SecteurActivite.definitions";
 import {
   EnrSecteurSousSecteur,
-  SecteursAvecSousSecteurs,
   SousSecteurActivite,
 } from "../../SousSecteurActivite.definitions";
 import {

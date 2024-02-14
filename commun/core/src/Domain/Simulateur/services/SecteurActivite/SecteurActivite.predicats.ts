@@ -1,13 +1,11 @@
 import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
-import { SecteurActivite } from "../../SecteurActivite.definitions";
 import {
+  SecteurActivite,
   SecteursAvecSousSecteurs,
-  SousSecteurActivite,
-} from "../../SousSecteurActivite.definitions";
-import {
-  sousSecteursParSecteur,
-  ValeursSecteursAvecSousSecteurs,
-} from "../../SousSecteurActivite.valeurs";
+} from "../../SecteurActivite.definitions";
+import { ValeursSecteursAvecSousSecteurs } from "../../SecteurActivite.valeurs";
+import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
+import { sousSecteursParSecteur } from "../../SousSecteurActivite.valeurs";
 
 export const contientAutreSecteurActiviteUniquement = (
   donneesFormulaire: DonneesFormulaireSimulateur,

@@ -1,13 +1,10 @@
 import { SecteurActivite } from "./SecteurActivite.definitions";
 import {
-  ValeursSecteursAvecSousSecteurs,
   ValeursSousSecteurEnergie,
   ValeursSousSecteurFabrication,
   ValeursSousSecteurTransport,
 } from "./SousSecteurActivite.valeurs";
 
-export type SecteursAvecSousSecteurs =
-  (typeof ValeursSecteursAvecSousSecteurs)[number];
 export type SousSecteurEnergie = (typeof ValeursSousSecteurEnergie)[number];
 export type SousSecteurTransport = (typeof ValeursSousSecteurTransport)[number];
 export type SousSecteurFabrication =
@@ -17,10 +14,6 @@ export type SousSecteurActivite =
   | SousSecteurTransport
   | SousSecteurFabrication;
 
-export type SecteursSansSousSecteur = Exclude<
-  SecteurActivite,
-  SecteursAvecSousSecteurs
->;
 export type SousSecteurAutre = Extract<
   SousSecteurActivite,
   | "autreSousSecteurEnergie"
@@ -36,5 +29,3 @@ export type EnrSecteurSousSecteur = {
   secteur: SecteurActivite;
   sousSecteur?: SousSecteurActivite;
 };
-export type SousSecteurAutrePour<S extends SecteursAvecSousSecteurs> =
-  `autreSousSecteur${Capitalize<S>}`;

@@ -16,6 +16,8 @@ import {
   SecteursAvecSousSecteurs,
   SecteursSansSousSecteur,
   SousSecteurAutrePour,
+} from "../../SecteurActivite.definitions";
+import {
   SousSecteurEnergie,
   SousSecteurFabrication,
   SousSecteurTransport,
@@ -124,7 +126,7 @@ export type TypeDonnees<EtapeEvaluation extends DonneesCompletesEvaluees> =
       ? ReponseLocalisation
       : EtapeEvaluation extends "Structure"
         ? DefinitionStructure
-        : EtapeEvaluation extends "SecteurActiviteComplet"
+        : EtapeEvaluation extends "InformationsSecteur"
           ? InformationsSecteur
           : EtapeEvaluation extends "LocalisationRepresentant"
             ? InformationsLocalisationRepresentant
@@ -155,13 +157,13 @@ export type ReponseEtatStructure = ReponseEtat<
   "Structure"
 >;
 
-export type ReponseEtatSecteurActiviteComplet = ReponseEtat<
+export type ReponseEtatInformationsSecteur = ReponseEtat<
   ReponseEtatStructure,
   "InformationsSecteur"
 >;
 
 export type ReponseEtatLocalisationRepresentant = ReponseEtat<
-  ReponseEtatSecteurActiviteComplet,
+  ReponseEtatInformationsSecteur,
   "LocalisationRepresentant"
 >;
 
@@ -170,5 +172,5 @@ export type UnionReponseEtat =
   | ReponseEtatDesignationOperateurServicesEssentiels
   | ReponseEtatappartenancePaysUnionEuropeenne
   | ReponseEtatStructure
-  | ReponseEtatSecteurActiviteComplet
+  | ReponseEtatInformationsSecteur
   | ReponseEtatLocalisationRepresentant;

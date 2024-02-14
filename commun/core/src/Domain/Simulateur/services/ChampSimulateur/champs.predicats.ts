@@ -4,7 +4,7 @@ import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../DonneesFormulaire.definitions";
-import { SecteursAvecSousSecteurs } from "../../SousSecteurActivite.definitions";
+import { SecteursAvecSousSecteurs } from "../../SecteurActivite.definitions";
 import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions";
 import { activiteEstDansSecteur } from "../Activite/Activite.predicats";
 import { filtreSecteursSansSousSecteurs } from "../SecteurActivite/SecteurActivite.operations";

@@ -4,12 +4,12 @@ import {
 } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
 import {
   LibellesSousSecteurs,
-  SecteursAvecSousSecteurs,
   SousSecteurActivite,
 } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import React, { Reducer } from "react";
 import { ValeurChampSimulateur } from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { fabriqueDonneesFormulaire } from "../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
+import { SecteursAvecSousSecteurs } from "../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { fabriqueSecteurContientLeSousSecteur } from "../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.operations.ts";
 
 import { entreesLibellesSousSecteurs } from "../../References/LibellesSousSecteursActivite.ts";

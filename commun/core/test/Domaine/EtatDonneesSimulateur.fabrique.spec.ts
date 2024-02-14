@@ -131,7 +131,7 @@ describe("fabrique ReponseEtat", () => {
           secteurActivite: ["autreSecteurActivite"],
         });
         const resultatAttendu: UnionReponseEtat = {
-          _tag: "SecteurActiviteComplet",
+          _tag: "InformationsSecteur",
           DesignationOperateurServicesEssentiels: {
             designationOperateurServicesEssentiels: "oui",
           },
@@ -143,7 +143,7 @@ describe("fabrique ReponseEtat", () => {
             typeEntitePublique: "administrationCentrale",
             trancheNombreEmployes: "moyen",
           },
-          SecteurActiviteComplet: {
+          InformationsSecteur: {
             secteurs: ens({
               secteurActivite: "autreSecteurActivite",
             }),
@@ -166,7 +166,7 @@ describe("fabrique ReponseEtat", () => {
           activites: ["fournisseursDistributeursEauxConsommation"],
         });
         const resultatAttendu: UnionReponseEtat = {
-          _tag: "SecteurActiviteComplet",
+          _tag: "InformationsSecteur",
           DesignationOperateurServicesEssentiels: {
             designationOperateurServicesEssentiels: "oui",
           },
@@ -178,7 +178,7 @@ describe("fabrique ReponseEtat", () => {
             typeEntitePublique: "administrationCentrale",
             trancheNombreEmployes: "moyen",
           },
-          SecteurActiviteComplet: {
+          InformationsSecteur: {
             secteurs: ens({
               secteurActivite: "eauPotable",
               activites: ens("fournisseursDistributeursEauxConsommation"),
@@ -203,7 +203,7 @@ describe("fabrique ReponseEtat", () => {
           activites: ["entrepriseFerroviaire"],
         });
         const resultatAttendu: UnionReponseEtat = {
-          _tag: "SecteurActiviteComplet",
+          _tag: "InformationsSecteur",
           DesignationOperateurServicesEssentiels: {
             designationOperateurServicesEssentiels: "oui",
           },
@@ -215,7 +215,7 @@ describe("fabrique ReponseEtat", () => {
             trancheNombreEmployes: "moyen",
             trancheChiffreAffaire: "grand",
           },
-          SecteurActiviteComplet: {
+          InformationsSecteur: {
             secteurs: ens({
               secteurActivite: "transports",
               sousSecteurActivite: "transportsFerroviaires",
@@ -243,7 +243,7 @@ describe("fabrique ReponseEtat", () => {
           ],
         });
         const resultatAttendu: UnionReponseEtat = {
-          _tag: "SecteurActiviteComplet",
+          _tag: "InformationsSecteur",
           DesignationOperateurServicesEssentiels: {
             designationOperateurServicesEssentiels: "oui",
           },
@@ -255,7 +255,7 @@ describe("fabrique ReponseEtat", () => {
             typeEntitePublique: "administrationCentrale",
             trancheNombreEmployes: "moyen",
           },
-          SecteurActiviteComplet: {
+          InformationsSecteur: {
             secteurs: ens(
               {
                 secteurActivite: "eauPotable",
@@ -292,7 +292,7 @@ describe("fabrique ReponseEtat", () => {
           ],
         });
         const resultatAttendu: UnionReponseEtat = {
-          _tag: "SecteurActiviteComplet",
+          _tag: "InformationsSecteur",
           DesignationOperateurServicesEssentiels: {
             designationOperateurServicesEssentiels: "oui",
           },
@@ -304,7 +304,7 @@ describe("fabrique ReponseEtat", () => {
             typeEntitePublique: "administrationCentrale",
             trancheNombreEmployes: "moyen",
           },
-          SecteurActiviteComplet: {
+          InformationsSecteur: {
             secteurs: ens(
               {
                 secteurActivite: "eauPotable",
@@ -359,7 +359,7 @@ describe("fabrique ReponseEtat", () => {
           ],
         });
         const resultatAttendu: UnionReponseEtat = {
-          _tag: "SecteurActiviteComplet",
+          _tag: "InformationsSecteur",
           DesignationOperateurServicesEssentiels: {
             designationOperateurServicesEssentiels: "oui",
           },
@@ -371,7 +371,7 @@ describe("fabrique ReponseEtat", () => {
             trancheNombreEmployes: "moyen",
             trancheChiffreAffaire: "grand",
           },
-          SecteurActiviteComplet: {
+          InformationsSecteur: {
             secteurs: ens(
               {
                 secteurActivite: "eauPotable",
@@ -431,7 +431,7 @@ describe("fabrique ReponseEtat", () => {
           activites: [],
         });
         const resultatAttendu: UnionReponseEtat = {
-          _tag: "SecteurActiviteComplet",
+          _tag: "InformationsSecteur",
           DesignationOperateurServicesEssentiels: {
             designationOperateurServicesEssentiels: "oui",
           },
@@ -443,7 +443,7 @@ describe("fabrique ReponseEtat", () => {
             trancheNombreEmployes: "moyen",
             trancheChiffreAffaire: "grand",
           },
-          SecteurActiviteComplet: {
+          InformationsSecteur: {
             secteurs: ens(
               {
                 secteurActivite: "energie",

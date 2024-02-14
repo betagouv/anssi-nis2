@@ -5,7 +5,10 @@ import {
   union,
 } from "../../../../../utils/services/sets.operations";
 import { DonneesFormulaireSimulateur } from "../DonneesFormulaire.definitions";
-import { SecteurActivite } from "../SecteurActivite.definitions";
+import {
+  SecteurActivite,
+  SecteursAvecSousSecteurs,
+} from "../SecteurActivite.definitions";
 import { activiteEstDansSecteur } from "../services/Activite/Activite.predicats";
 import { InformationSecteurPossible } from "../services/Eligibilite/Reponse.definitions";
 import {
@@ -18,7 +21,6 @@ import {
   estSousSecteurAutre,
 } from "../services/SousSecteurActivite/SousSecteurActivite.predicats";
 import {
-  SecteursAvecSousSecteurs,
   SousSecteurActivite,
   SousSecteurAutre,
 } from "../SousSecteurActivite.definitions";

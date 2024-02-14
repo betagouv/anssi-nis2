@@ -32,11 +32,11 @@ import {
   ValeursActivitesTransportsRoutiers,
 } from "../../Activite.valeurs";
 import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
-import { SecteurActivite } from "../../SecteurActivite.definitions";
 import {
+  SecteurActivite,
   SecteursSansSousSecteur,
-  SousSecteurActivite,
-} from "../../SousSecteurActivite.definitions";
+} from "../../SecteurActivite.definitions";
+import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
 import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions";
 import { estUnSecteurAvecDesSousSecteurs } from "../SecteurActivite/SecteurActivite.predicats";
 import { cartographieSousSecteursParSecteur } from "../SousSecteurActivite/SousSecteurActivite.operations";

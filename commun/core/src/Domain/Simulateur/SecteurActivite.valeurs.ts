@@ -1,6 +1,3 @@
-import { SecteurActivite } from "./SecteurActivite.definitions";
-import { estUnSecteurSansDesSousSecteurs } from "./services/SecteurActivite/SecteurActivite.predicats";
-
 export const ValeursSecteursActivites = [
   "administrationPublique",
   "banqueSecteurBancaire",
@@ -22,5 +19,8 @@ export const ValeursSecteursActivites = [
   "transports",
   "autreSecteurActivite",
 ] as const;
-export const ValeursSecteursSansSousSecteur: SecteurActivite[] =
-  ValeursSecteursActivites.filter(estUnSecteurSansDesSousSecteurs);
+export const ValeursSecteursAvecSousSecteurs = [
+  "energie",
+  "transports",
+  "fabrication",
+] as const;

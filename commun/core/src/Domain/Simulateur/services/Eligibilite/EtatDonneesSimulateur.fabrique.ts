@@ -8,7 +8,7 @@ import { FabriqueInformationsSecteur } from "../../fabriques/InformationsSecteur
 import {
   ReponseEtatappartenancePaysUnionEuropeenne,
   ReponseEtatDesignationOperateurServicesEssentiels,
-  ReponseEtatSecteurActiviteComplet,
+  ReponseEtatInformationsSecteur,
   ReponseEtatStructure,
   ReponseEtatVide,
   UnionReponseEtat,
@@ -115,10 +115,10 @@ export const FabriqueEtatDonneesSimulateur = {
 
   informationsSecteurs: (
     donnees: DonneesFormulaireSimulateur,
-  ): ReponseEtatSecteurActiviteComplet => ({
+  ): ReponseEtatInformationsSecteur => ({
     ...FabriqueEtatDonneesSimulateur.structure(donnees),
-    _tag: "SecteurActiviteComplet",
-    SecteurActiviteComplet: {
+    _tag: "InformationsSecteur",
+    InformationsSecteur: {
       secteurs:
         FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur(
           donnees,

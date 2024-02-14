@@ -7,14 +7,16 @@ import {
   estSecteurParmi,
 } from "../../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurListe } from "../../../../../commun/core/src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
-import { SecteurActivite } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
-import { ValeursSecteursSansSousSecteur } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
+import { ValeursSecteursSansSousSecteur } from "../../../src/Domain/Simulateur/SecteurActivite.constantes";
+import {
+  SecteurActivite,
+  SecteursAvecSousSecteurs,
+} from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
+import { ValeursSecteursAvecSousSecteurs } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
 import {
   EnrSecteurSousSecteur,
-  SecteursAvecSousSecteurs,
   SousSecteurActivite,
 } from "../../../src/Domain/Simulateur/SousSecteurActivite.definitions";
-import { ValeursSecteursAvecSousSecteurs } from "../../../src/Domain/Simulateur/SousSecteurActivite.valeurs";
 
 export const listeEnrSecteursSansSousSecteur: EnrSecteurSousSecteur[] =
   ValeursSecteursSansSousSecteur.map((secteur) => ({

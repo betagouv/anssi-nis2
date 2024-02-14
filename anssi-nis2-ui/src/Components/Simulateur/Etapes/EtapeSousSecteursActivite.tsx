@@ -1,7 +1,5 @@
-import {
-  SecteursAvecSousSecteurs,
-  SousSecteurActivite,
-} from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
+import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
+import { SecteursAvecSousSecteurs } from "../../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { FormSimulateur } from "./index.ts";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { SousSecteurCheckbox } from "../Inputs/SousSecteurCheckbox.tsx";
