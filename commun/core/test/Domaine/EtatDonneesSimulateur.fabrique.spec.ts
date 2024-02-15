@@ -80,6 +80,7 @@ describe("fabrique ReponseEtat", () => {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
+            CategorieTaille: "Grand",
             typeStructure: "privee",
             trancheChiffreAffaire: "moyen",
             trancheNombreEmployes: "petit",
@@ -108,6 +109,7 @@ describe("fabrique ReponseEtat", () => {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
+            CategorieTaille: "Grand",
             typeStructure: "publique",
             typeEntitePublique: "administrationCentrale",
             trancheNombreEmployes: "moyen",
@@ -139,11 +141,13 @@ describe("fabrique ReponseEtat", () => {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
+            CategorieTaille: "Grand",
             typeStructure: "publique",
             typeEntitePublique: "administrationCentrale",
             trancheNombreEmployes: "moyen",
           },
           InformationsSecteur: {
+            CategorieTaille: "Grand",
             secteurs: ens({
               secteurActivite: "autreSecteurActivite",
             }),
@@ -174,11 +178,13 @@ describe("fabrique ReponseEtat", () => {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
+            CategorieTaille: "Grand",
             typeStructure: "publique",
             typeEntitePublique: "administrationCentrale",
             trancheNombreEmployes: "moyen",
           },
           InformationsSecteur: {
+            CategorieTaille: "Grand",
             secteurs: ens({
               secteurActivite: "eauPotable",
               activites: ens("fournisseursDistributeursEauxConsommation"),
@@ -211,11 +217,13 @@ describe("fabrique ReponseEtat", () => {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
+            CategorieTaille: "Grand",
             typeStructure: "privee",
             trancheNombreEmployes: "moyen",
             trancheChiffreAffaire: "grand",
           },
           InformationsSecteur: {
+            CategorieTaille: "Grand",
             secteurs: ens({
               secteurActivite: "transports",
               sousSecteurActivite: "transportsFerroviaires",
@@ -251,11 +259,13 @@ describe("fabrique ReponseEtat", () => {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
+            CategorieTaille: "Grand",
             typeStructure: "publique",
             typeEntitePublique: "administrationCentrale",
             trancheNombreEmployes: "moyen",
           },
           InformationsSecteur: {
+            CategorieTaille: "Grand",
             secteurs: ens(
               {
                 secteurActivite: "eauPotable",
@@ -300,11 +310,13 @@ describe("fabrique ReponseEtat", () => {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
+            CategorieTaille: "Grand",
             typeStructure: "publique",
             typeEntitePublique: "administrationCentrale",
             trancheNombreEmployes: "moyen",
           },
           InformationsSecteur: {
+            CategorieTaille: "Grand",
             secteurs: ens(
               {
                 secteurActivite: "eauPotable",
@@ -367,11 +379,13 @@ describe("fabrique ReponseEtat", () => {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
+            CategorieTaille: "Grand",
             typeStructure: "privee",
             trancheNombreEmployes: "moyen",
             trancheChiffreAffaire: "grand",
           },
           InformationsSecteur: {
+            CategorieTaille: "Grand",
             secteurs: ens(
               {
                 secteurActivite: "eauPotable",
@@ -439,11 +453,13 @@ describe("fabrique ReponseEtat", () => {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
+            CategorieTaille: "Grand",
             typeStructure: "privee",
             trancheNombreEmployes: "moyen",
             trancheChiffreAffaire: "grand",
           },
           InformationsSecteur: {
+            CategorieTaille: "Grand",
             secteurs: ens(
               {
                 secteurActivite: "energie",
@@ -458,6 +474,44 @@ describe("fabrique ReponseEtat", () => {
                 sousSecteurActivite: "autreSousSecteurTransports",
               },
             ),
+          },
+        };
+        const resultatObtenu =
+          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
+        expect(resultatObtenu).toStrictEqual(resultatAttendu);
+      });
+      it("Enchaine les données jusqu'à un secteur petite structure privée", () => {
+        const donnees = fabriqueDonneesFormulaire({
+          designationOperateurServicesEssentiels: ["oui"],
+          typeStructure: ["privee"],
+          trancheNombreEmployes: ["petit"],
+          trancheChiffreAffaire: ["petit"],
+          appartenancePaysUnionEuropeenne: ["france"],
+          secteurActivite: ["eauxUsees"],
+          activites: ["collectantEvacuantTraitantEaux"],
+        });
+        const resultatAttendu: UnionReponseEtat = {
+          _tag: "InformationsSecteur",
+          DesignationOperateurServicesEssentiels: {
+            designationOperateurServicesEssentiels: "oui",
+          },
+          AppartenancePaysUnionEuropeenne: {
+            appartenancePaysUnionEuropeenne: "france",
+          },
+          Structure: {
+            CategorieTaille: "Petit",
+            typeStructure: "privee",
+            trancheNombreEmployes: "petit",
+            trancheChiffreAffaire: "petit",
+          },
+          InformationsSecteur: {
+            CategorieTaille: "Petit",
+            secteurs: ens({
+              secteurActivite: "eauxUsees",
+              activites: ens("collectantEvacuantTraitantEaux"),
+            }),
           },
         };
         const resultatObtenu =

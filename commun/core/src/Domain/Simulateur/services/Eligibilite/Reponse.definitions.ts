@@ -46,6 +46,8 @@ type TypeStructurePublique = {
   typeEntitePublique: TypeEntitePublique;
 };
 
+type CategorieTaille = "CategorieTaille";
+
 type TailleSecteurPriveGrand = (
   | {
       trancheChiffreAffaire: Omit<TrancheChiffreAffaire, "petit">;
@@ -56,21 +58,21 @@ type TailleSecteurPriveGrand = (
       trancheNombreEmployes: Omit<TrancheNombreEmployes, "petit">;
     }
 ) &
-  Tag<"Grand", "CategorieTaille">;
+  Tag<"Grand", CategorieTaille>;
 
 type TailleSecteurPrivePetit = {
   trancheChiffreAffaire: Extract<TrancheChiffreAffaire, "petit">;
   trancheNombreEmployes: Extract<TrancheNombreEmployes, "petit">;
-} & Tag<"Petit", "CategorieTaille">;
+} & Tag<"Petit", CategorieTaille>;
 
 type TailleSecteurPrive = TailleSecteurPrivePetit | TailleSecteurPriveGrand;
 
 type TailleSecteurPublicPetit = {
   trancheNombreEmployes: Extract<TrancheChiffreAffaire, "petit">;
-} & Tag<"Grand", "CategorieTaille">;
+} & Tag<"Petit", CategorieTaille>;
 type TailleSecteurPublicGrand = {
   trancheNombreEmployes: Omit<TrancheNombreEmployes, "petit">;
-} & Tag<"Petit", "CategorieTaille">;
+} & Tag<"Grand", CategorieTaille>;
 
 type TailleSecteurPublic = TailleSecteurPublicPetit | TailleSecteurPublicGrand;
 
@@ -207,12 +209,14 @@ export type InformationSecteurPossible =
   | InformationSecteurPossiblePetit
   | InformationSecteurPossibleGrand;
 
-export type InformationsSecteurPetit = {
+export type InformationsSecteurPetit = Tag<"Petit", CategorieTaille> & {
   secteurs: Set<InformationSecteurPossiblePetit>;
 };
-export type InformationsSecteurGrand = {
+
+export type InformationsSecteurGrand = Tag<"Grand", CategorieTaille> & {
   secteurs: Set<InformationSecteurPossibleGrand>;
 };
+
 export type InformationsSecteur = {
   secteurs: Set<
     InformationSecteurPossiblePetit | InformationSecteurPossibleGrand
@@ -257,19 +261,19 @@ export type ReponseEtatDesignationOperateurServicesEssentiels =
     DesignationOperateurServicesEssentiels: ReponseDesigneOperateurServicesEssentiels;
   };
 
-export type ReponseEtatappartenancePaysUnionEuropeenne =
+export type ReponseEtatAppartenancePaysUnionEuropeenne =
   Tag<"AppartenancePaysUnionEuropeenne"> &
     Omit<ReponseEtatDesignationOperateurServicesEssentiels, "_tag"> & {
       AppartenancePaysUnionEuropeenne: ReponseLocalisation;
     };
 
 export type ReponseEtatStructure = Tag<"Structure"> &
-  Omit<ReponseEtatappartenancePaysUnionEuropeenne, "_tag"> & {
+  Omit<ReponseEtatAppartenancePaysUnionEuropeenne, "_tag"> & {
     Structure: DefinitionStructure;
   };
 
 export type ReponseEtatInformationsSecteur = Tag<"InformationsSecteur"> &
-  Omit<ReponseEtatappartenancePaysUnionEuropeenne, "_tag"> &
+  Omit<ReponseEtatAppartenancePaysUnionEuropeenne, "_tag"> &
   (
     | {
         Structure: DefinitionStructurePetit;
@@ -290,7 +294,7 @@ export type ReponseEtatInformationsSecteur = Tag<"InformationsSecteur"> &
 export type UnionReponseEtat =
   | ReponseEtatVide
   | ReponseEtatDesignationOperateurServicesEssentiels
-  | ReponseEtatappartenancePaysUnionEuropeenne
+  | ReponseEtatAppartenancePaysUnionEuropeenne
   | ReponseEtatStructure
   | ReponseEtatInformationsSecteur;
 // | ReponseEtatLocalisationRepresentant;

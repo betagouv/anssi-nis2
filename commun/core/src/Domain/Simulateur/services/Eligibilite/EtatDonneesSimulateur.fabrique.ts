@@ -5,8 +5,10 @@ import {
   NomsChampsSimulateur,
 } from "../../DonneesFormulaire.definitions";
 import { FabriqueInformationsSecteur } from "../../fabriques/InformationsSecteur.fabrique";
+import { FabriqueInformationsStructure } from "../../fabriques/InformationsStructure.fabrique";
+import { contientPetiteEntreprise } from "../DonneesFormulaire/DonneesFormulaire.predicats";
 import {
-  ReponseEtatappartenancePaysUnionEuropeenne,
+  ReponseEtatAppartenancePaysUnionEuropeenne,
   ReponseEtatDesignationOperateurServicesEssentiels,
   ReponseEtatInformationsSecteur,
   ReponseEtatStructure,
@@ -73,7 +75,7 @@ export const FabriqueEtatDonneesSimulateur = {
 
   appartenancePaysUnionEuropeenne: (
     donnees: DonneesFormulaireSimulateur,
-  ): ReponseEtatappartenancePaysUnionEuropeenne => ({
+  ): ReponseEtatAppartenancePaysUnionEuropeenne => ({
     ...FabriqueEtatDonneesSimulateur.designationOperateurServicesEssentiels(
       donnees,
     ),
@@ -84,47 +86,38 @@ export const FabriqueEtatDonneesSimulateur = {
     },
   }),
 
-  structurePrivee: (
-    donnees: DonneesFormulaireSimulateur,
-  ): ReponseEtatStructure => ({
+  structure: (donnees: DonneesFormulaireSimulateur): ReponseEtatStructure => ({
     ...FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenne(donnees),
     _tag: "Structure",
-    Structure: {
-      typeStructure: "privee",
-      trancheChiffreAffaire: donnees.trancheChiffreAffaire[0],
-      trancheNombreEmployes: donnees.trancheNombreEmployes[0],
-    },
+    Structure: FabriqueInformationsStructure.structure(donnees),
   }),
 
-  structurePublique: (
+  informationsSecteursPetit: (
     donnees: DonneesFormulaireSimulateur,
-  ): ReponseEtatStructure => ({
+  ): ReponseEtatInformationsSecteur => ({
     ...FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenne(donnees),
-    _tag: "Structure",
-    Structure: {
-      typeStructure: "publique",
-      typeEntitePublique: donnees.typeEntitePublique[0],
-      trancheNombreEmployes: donnees.trancheNombreEmployes[0],
-    },
+    _tag: "InformationsSecteur",
+    Structure: FabriqueInformationsStructure.structurePetite(donnees),
+    InformationsSecteur:
+      FabriqueInformationsSecteur.informationsSecteursPetit(donnees),
   }),
 
-  structure: (donnees: DonneesFormulaireSimulateur): ReponseEtatStructure =>
-    donnees.typeStructure[0] === "publique"
-      ? FabriqueEtatDonneesSimulateur.structurePublique(donnees)
-      : FabriqueEtatDonneesSimulateur.structurePrivee(donnees),
+  informationsSecteursGrand: (
+    donnees: DonneesFormulaireSimulateur,
+  ): ReponseEtatInformationsSecteur => ({
+    ...FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenne(donnees),
+    _tag: "InformationsSecteur",
+    Structure: FabriqueInformationsStructure.structureGrande(donnees),
+    InformationsSecteur:
+      FabriqueInformationsSecteur.informationsSecteursGrand(donnees),
+  }),
 
   informationsSecteurs: (
     donnees: DonneesFormulaireSimulateur,
-  ): ReponseEtatInformationsSecteur => ({
-    ...FabriqueEtatDonneesSimulateur.structure(donnees),
-    _tag: "InformationsSecteur",
-    InformationsSecteur: {
-      secteurs:
-        FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur(
-          donnees,
-        ),
-    },
-  }),
+  ): ReponseEtatInformationsSecteur =>
+    contientPetiteEntreprise(donnees)
+      ? FabriqueEtatDonneesSimulateur.informationsSecteursPetit(donnees)
+      : FabriqueEtatDonneesSimulateur.informationsSecteursGrand(donnees),
 
   depuisDonneesFormulaireSimulateur: (
     donnees: DonneesFormulaireSimulateur,
