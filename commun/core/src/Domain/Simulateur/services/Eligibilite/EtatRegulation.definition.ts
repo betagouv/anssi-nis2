@@ -1,103 +1,15 @@
-import { Left, left, Right, right } from "fp-ts/lib/Either";
 import { match } from "ts-pattern";
 import { Tag } from "../../../../../../utils/types/Tag";
 import { resultatReguleOSE } from "../../fabriques/Regulation.fabrique";
 import { resultatIncertain } from "../../Regulation.constantes";
-import {
-  Regulation,
-  RegulationEntite,
-  ResultatRegulationEntite,
-} from "../../Regulation.definitions";
+import { ResultatRegulationEntite } from "../../Regulation.definitions";
 import {
   DonneesCompletesEvaluees,
-  DonneesEvaluees,
-  ReponseEtatDesignationOperateurServicesEssentiels,
-  ReponseLocalisation,
-  TypeDonnees,
-  UnionReponseEtat,
+  UnionReponseEtatNonVide,
 } from "./Reponse.definitions";
 
-export type ResultatDefinitif = {
-  _tag: "ResultatDefinitif";
-  resultat: RegulationEntite;
-};
-
-const reponseLocalisation: ReponseLocalisation = {
-  appartenancePaysUnionEuropeenne: "france",
-};
-
-type EtatReponseEnCours<
-  E extends DonneesCompletesEvaluees,
-  S extends DonneesEvaluees = DonneesEvaluees,
-> = {
-  etat: E;
-  donnees: TypeDonnees<E>;
-  suivant: EtatReponses<E, S>;
-};
-type EtatReponseFin = {
-  etat: "Fin";
-};
-export type EtatReponses<
-  E extends DonneesCompletesEvaluees,
-  S extends DonneesEvaluees = DonneesEvaluees,
-> = EtatReponseEnCours<E, S> | EtatReponseFin;
-
-type DonneesEvaluation<E extends DonneesCompletesEvaluees> = {
-  _tag: "DonneesEvaluation";
-  resultat: E;
-  donnees: TypeDonnees<E>;
-};
-
-export const fabriqueDonneesEvaluation = <E extends DonneesCompletesEvaluees>(
-  resultat: E,
-  donnees: TypeDonnees<E>,
-): DonneesEvaluation<E> => ({
-  _tag: "DonneesEvaluation",
-  resultat,
-  donnees,
-});
-
-export type QualificationDonneesReponses<
-  Depuis extends DonneesCompletesEvaluees,
-> = Left<DonneesEvaluation<Depuis>>;
-
-export type QualificationResultatDefinitif = Right<ResultatDefinitif>;
-
-export const fabriqueAiguillageDonneesEvaluation = <
-  E extends DonneesCompletesEvaluees,
->(
-  resultat: E,
-  donnees: TypeDonnees<E>,
-): QualificationDonneesReponses<E> =>
-  left(
-    fabriqueDonneesEvaluation(resultat, donnees),
-  ) as QualificationDonneesReponses<E>;
-
-export const definitivementRegule = () =>
-  right({
-    _tag: "ResultatDefinitif",
-    resultat: Regulation.Regule,
-  }) as QualificationResultatDefinitif;
-
-export const qualifieDesignationOse = (
-  donneesReponses: QualificationDonneesReponses<"DesignationOperateurServicesEssentiels">,
-) =>
-  match(donneesReponses.left.donnees)
-    .with(
-      { designationOperateurServicesEssentiels: "oui" },
-      definitivementRegule,
-    )
-    .otherwise(() =>
-      left(
-        fabriqueDonneesEvaluation(
-          "AppartenancePaysUnionEuropeenne",
-          reponseLocalisation, // TODO : donnees suivantes
-        ),
-      ),
-    );
-
 export type EtatEvaluation = {
-  etapeEvaluee: DonneesCompletesEvaluees;
+  etapeEvaluee: DonneesCompletesEvaluees | "NonEvalue";
 };
 
 export type ResultatEvaluationRegulationDefinitif = Tag<
@@ -107,20 +19,20 @@ export type ResultatEvaluationRegulationDefinitif = Tag<
   EtatEvaluation &
   ResultatRegulationEntite;
 
+type ResultatEvaluationRegulationAvecReponses = EtatEvaluation &
+  UnionReponseEtatNonVide;
 export type ResultatEvaluationRegulationEnSuspens = Tag<
   "EnSuspens",
   "ResultatEvaluationRegulation"
 > &
-  EtatEvaluation &
   ResultatRegulationEntite &
-  UnionReponseEtat;
+  ResultatEvaluationRegulationAvecReponses;
 
 export type ResultatEvaluationRegulationInconnu = Tag<
   "Inconnu",
   "ResultatEvaluationRegulation"
 > &
-  EtatEvaluation &
-  UnionReponseEtat;
+  ResultatEvaluationRegulationAvecReponses;
 
 export type ResultatEvaluationRegulation =
   | ResultatEvaluationRegulationDefinitif
@@ -130,12 +42,12 @@ export type ResultatEvaluationRegulation =
 const fabriqueResultatEvaluationEnSuspens = (
   etapeEvaluee: DonneesCompletesEvaluees,
   resulat: ResultatRegulationEntite,
-  reponse: UnionReponseEtat,
+  reponse: UnionReponseEtatNonVide,
 ): ResultatEvaluationRegulationEnSuspens => ({
-  ResultatEvaluationRegulation: "EnSuspens",
-  etapeEvaluee,
   ...resulat,
   ...reponse,
+  ResultatEvaluationRegulation: "EnSuspens",
+  etapeEvaluee,
 });
 
 const fabriqueResultatEvaluationDefinitif = (
@@ -154,7 +66,7 @@ const fabriqueResultatEvaluationReguleOse =
       resultatReguleOSE,
     );
 const fabriqueResultatEnSuspensOse =
-  (reponse: ReponseEtatDesignationOperateurServicesEssentiels) =>
+  (reponse: ResultatEvaluationRegulationAvecReponses) =>
   (): ResultatEvaluationRegulationEnSuspens =>
     fabriqueResultatEvaluationEnSuspens(
       "DesignationOperateurServicesEssentiels",
@@ -162,14 +74,83 @@ const fabriqueResultatEnSuspensOse =
       reponse,
     );
 
+const propageDonneesEvaluees =
+  (etape: DonneesCompletesEvaluees) =>
+  (reponse: ResultatEvaluationRegulation) => ({
+    ...reponse,
+    etapeEvaluee: etape,
+  });
+
+export type OperationEvalueEtape = (
+  reponse: ResultatEvaluationRegulation,
+) => ResultatEvaluationRegulation;
+
 export const evalueRegulationEtatReponseOse = (
-  reponse: ReponseEtatDesignationOperateurServicesEssentiels,
+  reponse: ResultatEvaluationRegulation,
 ): ResultatEvaluationRegulation =>
-  match(reponse.DesignationOperateurServicesEssentiels)
+  match(reponse)
     .with(
       {
-        designationOperateurServicesEssentiels: "oui",
+        ResultatEvaluationRegulation: "Definitif",
+      },
+      propageDonneesEvaluees("DesignationOperateurServicesEssentiels"),
+    )
+    .with(
+      {
+        DesignationOperateurServicesEssentiels: {
+          designationOperateurServicesEssentiels: "oui",
+        },
       },
       fabriqueResultatEvaluationReguleOse,
     )
-    .otherwise(fabriqueResultatEnSuspensOse(reponse));
+    .with(
+      {
+        DesignationOperateurServicesEssentiels: {
+          designationOperateurServicesEssentiels: "non",
+        },
+      },
+      fabriqueResultatEnSuspensOse(
+        reponse as ResultatEvaluationRegulationAvecReponses,
+      ),
+    )
+    .otherwise(
+      fabriqueResultatEnSuspensOse(
+        reponse as ResultatEvaluationRegulationAvecReponses,
+      ),
+    );
+export const evalueRegulationEtatReponseLocalisation = (
+  reponse: ResultatEvaluationRegulation,
+): ResultatEvaluationRegulation =>
+  match(reponse)
+    .with(
+      {
+        ResultatEvaluationRegulation: "Definitif",
+      },
+      propageDonneesEvaluees("AppartenancePaysUnionEuropeenne"),
+    )
+    .otherwise(
+      (): ResultatEvaluationRegulationEnSuspens =>
+        fabriqueResultatEvaluationEnSuspens(
+          "AppartenancePaysUnionEuropeenne",
+          resultatIncertain,
+          reponse as ResultatEvaluationRegulationEnSuspens,
+        ),
+    );
+export const evalueRegulationEtatReponseStructure = (
+  reponse: ResultatEvaluationRegulation,
+): ResultatEvaluationRegulation =>
+  match(reponse)
+    .with(
+      {
+        ResultatEvaluationRegulation: "Definitif",
+      },
+      propageDonneesEvaluees("Structure"),
+    )
+    .otherwise(
+      (): ResultatEvaluationRegulationEnSuspens =>
+        fabriqueResultatEvaluationEnSuspens(
+          "AppartenancePaysUnionEuropeenne",
+          resultatIncertain,
+          reponse as ResultatEvaluationRegulationEnSuspens,
+        ),
+    );

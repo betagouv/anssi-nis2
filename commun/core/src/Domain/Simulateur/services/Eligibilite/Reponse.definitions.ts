@@ -223,15 +223,6 @@ export type InformationsSecteur = {
   >;
 };
 
-export type InformationsLocalisationRepresentant =
-  | {
-      fournitServicesUnionEuropeenne: "non";
-    }
-  | {
-      fournitServicesUnionEuropeenne: "oui";
-      localisationRepresentant: AppartenancePaysUnionEuropeenne;
-    };
-
 export type DonneesCompletesEvaluees =
   | "DesignationOperateurServicesEssentiels"
   | "AppartenancePaysUnionEuropeenne"
@@ -239,20 +230,7 @@ export type DonneesCompletesEvaluees =
   | "InformationsSecteur"
   | "LocalisationRepresentant";
 
-export type DonneesEvaluees = DonneesCompletesEvaluees | "Fin";
-
-type ReferencesTypeDonnees = {
-  DesignationOperateurServicesEssentiels: ReponseDesigneOperateurServicesEssentiels;
-  AppartenancePaysUnionEuropeenne: ReponseLocalisation;
-  Structure: DefinitionStructure;
-  InformationsSecteur: InformationsSecteur;
-  LocalisationRepresentant: InformationsLocalisationRepresentant;
-};
-
-export type TypeDonnees<
-  EtapeEvaluation extends DonneesCompletesEvaluees &
-    keyof ReferencesTypeDonnees,
-> = ReferencesTypeDonnees[EtapeEvaluation];
+export type EtapesEvaluation = "NonEvalue" | DonneesCompletesEvaluees;
 
 export type ReponseEtatVide = Tag<"ReponseEtatVide">;
 
@@ -285,16 +263,9 @@ export type ReponseEtatInformationsSecteur = Tag<"InformationsSecteur"> &
       }
   );
 
-// export type ReponseEtatLocalisationRepresentant =
-//   Tag<"LocalisationRepresentant"> &
-//     Omit<ReponseEtatInformationsSecteur, "_tag"> & {
-//       [K in "LocalisationRepresentant"]: TypeDonnees<K>;
-//     };
-
-export type UnionReponseEtat =
-  | ReponseEtatVide
+export type UnionReponseEtatNonVide =
   | ReponseEtatDesignationOperateurServicesEssentiels
   | ReponseEtatAppartenancePaysUnionEuropeenne
   | ReponseEtatStructure
   | ReponseEtatInformationsSecteur;
-// | ReponseEtatLocalisationRepresentant;
+export type UnionReponseEtat = ReponseEtatVide | UnionReponseEtatNonVide;

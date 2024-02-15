@@ -1,47 +1,106 @@
 import { describe, expect, it } from "vitest";
-import { resultatReguleOSE } from "../../src/Domain/Simulateur/fabriques/Regulation.fabrique";
-import { resultatIncertain } from "../../src/Domain/Simulateur/Regulation.constantes";
+import { fc } from "@fast-check/vitest";
+import { ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement } from "../../src/Domain/Simulateur/Eligibilite.constantes";
 import {
-  definitivementRegule,
+  fabriqueRegule,
+  resultatReguleOSE,
+} from "../../src/Domain/Simulateur/fabriques/Regulation.fabrique";
+import { resultatIncertain } from "../../src/Domain/Simulateur/Regulation.constantes";
+import { ResultatRegulationEntite } from "../../src/Domain/Simulateur/Regulation.definitions";
+import {
+  evalueRegulationEtatReponseLocalisation,
   evalueRegulationEtatReponseOse,
-  fabriqueAiguillageDonneesEvaluation,
-  qualifieDesignationOse,
+  evalueRegulationEtatReponseStructure,
+  OperationEvalueEtape,
   ResultatEvaluationRegulation,
+  ResultatEvaluationRegulationDefinitif,
+  ResultatEvaluationRegulationEnSuspens,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definition";
-import { UnionReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
+import { EtapesEvaluation } from "../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 
-describe("qualifieEtatRegulation", () => {
-  describe("qualifieDesignationOse", () => {
-    it("qualifieDesignationOse = oui renvoie définitivement régulé", () => {
-      const resultatAttendu = definitivementRegule();
-      const donneesInitiales = fabriqueAiguillageDonneesEvaluation(
-        "DesignationOperateurServicesEssentiels",
-        {
-          designationOperateurServicesEssentiels: "oui",
-        },
+// TODO: Causes sur nouveau modèle
+const fabriqueResultatEvaluationRegulationDefinitif = (
+  resultatRegulation: ResultatRegulationEntite,
+  etapeEvaluee: EtapesEvaluation,
+): ResultatEvaluationRegulationDefinitif => ({
+  ResultatEvaluationRegulation: "Definitif",
+  etapeEvaluee,
+  ...resultatRegulation,
+});
+
+describe("Regulation Etat Reponse", () => {
+  const generateurResultatRegulation = fc.constantFrom(
+    resultatIncertain,
+    resultatReguleOSE,
+    fabriqueRegule({
+      secteurActivite: ["infrastructureNumerique"],
+      activites: [
+        ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement[0],
+      ],
+      fournitServicesUnionEuropeenne: ["oui"],
+      localisationRepresentant: ["france"],
+    }),
+  );
+  const generateurEtapesEvalueesConsecutives = fc.constantFrom<
+    [EtapesEvaluation, EtapesEvaluation, OperationEvalueEtape]
+  >(
+    [
+      "NonEvalue",
+      "DesignationOperateurServicesEssentiels",
+      evalueRegulationEtatReponseOse,
+    ],
+    [
+      "DesignationOperateurServicesEssentiels",
+      "AppartenancePaysUnionEuropeenne",
+      evalueRegulationEtatReponseLocalisation,
+    ],
+    [
+      "AppartenancePaysUnionEuropeenne",
+      "Structure",
+      evalueRegulationEtatReponseStructure,
+    ],
+  );
+  describe("Invariants", () => {
+    it("Definitif ==> Definitif", () => {
+      fc.assert(
+        fc.property<
+          [
+            ResultatRegulationEntite,
+            [EtapesEvaluation, EtapesEvaluation, OperationEvalueEtape],
+          ]
+        >(
+          generateurResultatRegulation,
+          generateurEtapesEvalueesConsecutives,
+          (resultatRegulation, [etapeSource, etapeCible, evaluation]) => {
+            const reponse = fabriqueResultatEvaluationRegulationDefinitif(
+              resultatRegulation,
+              etapeSource,
+            );
+            const resultat = evaluation(reponse);
+
+            expect(resultat.ResultatEvaluationRegulation).toBe("Definitif");
+            expect(resultat.etapeEvaluee).toBe(etapeCible);
+            expect(
+              (resultat as ResultatEvaluationRegulationDefinitif).decision,
+            ).toBe(resultatRegulation.decision);
+
+            expect("cause" in resultat).toBe("cause" in resultatRegulation);
+            if ("cause" in resultatRegulation && "cause" in resultat) {
+              expect(resultat.cause).toStrictEqual(resultatRegulation.cause);
+            }
+          },
+        ),
       );
-      const resultatObtenu = qualifieDesignationOse(donneesInitiales);
-      expect(resultatObtenu).toStrictEqual(resultatAttendu);
-    });
-    it("qualifieDesignationOse = oui renvoie des données à qualifier pour appartenance UE", () => {
-      const resultatAttendu = fabriqueAiguillageDonneesEvaluation(
-        "AppartenancePaysUnionEuropeenne",
-        { appartenancePaysUnionEuropeenne: "france" },
-      );
-      const donneesInitiales = fabriqueAiguillageDonneesEvaluation(
-        "DesignationOperateurServicesEssentiels",
-        {
-          designationOperateurServicesEssentiels: "non",
-        },
-      );
-      const resultatObtenu = qualifieDesignationOse(donneesInitiales);
-      expect(resultatObtenu).toStrictEqual(resultatAttendu);
     });
   });
-  describe("Regulation Etat Reponse", () => {
-    it("OSE = oui", () => {
-      const reponse: UnionReponseEtat = {
+
+  describe("DesignationOperateurServicesEssentiels", () => {
+    // TODO : Invariant - non Définitif OSE = oui ==> toujours Définitif / Regulé
+    it("OSE = oui, définitivement régulé", () => {
+      const reponse: ResultatEvaluationRegulation = {
         _tag: "DesignationOperateurServicesEssentiels",
+        ResultatEvaluationRegulation: "Inconnu",
+        etapeEvaluee: "NonEvalue",
         DesignationOperateurServicesEssentiels: {
           designationOperateurServicesEssentiels: "oui",
         },
@@ -54,21 +113,61 @@ describe("qualifieEtatRegulation", () => {
       const resultatObtenu = evalueRegulationEtatReponseOse(reponse);
       expect(resultatObtenu).toStrictEqual(resultatAttendu);
     });
-    it("OSE = non", () => {
-      const reponse: UnionReponseEtat = {
+    // TODO : Invariant - non Définitif OSE = non ==> toujours Incertain
+    it("OSE = non, en suspens Incertain", () => {
+      const reponse: ResultatEvaluationRegulation = {
         _tag: "DesignationOperateurServicesEssentiels",
+        ResultatEvaluationRegulation: "Inconnu",
+        etapeEvaluee: "NonEvalue",
         DesignationOperateurServicesEssentiels: {
           designationOperateurServicesEssentiels: "non",
         },
       };
-      const resultatAttendu: ResultatEvaluationRegulation = {
+      const resultatAttendu: ResultatEvaluationRegulationEnSuspens = {
+        _tag: "DesignationOperateurServicesEssentiels",
         ResultatEvaluationRegulation: "EnSuspens",
         etapeEvaluee: "DesignationOperateurServicesEssentiels",
         ...resultatIncertain,
-        ...reponse,
+        DesignationOperateurServicesEssentiels: {
+          designationOperateurServicesEssentiels: "non",
+        },
       };
       const resultatObtenu = evalueRegulationEtatReponseOse(reponse);
       expect(resultatObtenu).toStrictEqual(resultatAttendu);
     });
   });
+  describe("AppartenancePaysUnionEuropeenne", () => {
+    // TODO : Invariant - non Définitif app UE = FR ==> toujours Incertain
+    it(" = france ==> EnSuspens / Incertain", () => {
+      const reponse: ResultatEvaluationRegulationEnSuspens = {
+        _tag: "AppartenancePaysUnionEuropeenne",
+        ResultatEvaluationRegulation: "EnSuspens",
+        etapeEvaluee: "AppartenancePaysUnionEuropeenne",
+        ...resultatIncertain,
+        DesignationOperateurServicesEssentiels: {
+          designationOperateurServicesEssentiels: "non",
+        },
+        AppartenancePaysUnionEuropeenne: {
+          appartenancePaysUnionEuropeenne: "france",
+        },
+      };
+
+      const resultatAttendu: ResultatEvaluationRegulationEnSuspens = {
+        _tag: "AppartenancePaysUnionEuropeenne",
+        ResultatEvaluationRegulation: "EnSuspens",
+        etapeEvaluee: "AppartenancePaysUnionEuropeenne",
+        ...resultatIncertain,
+        DesignationOperateurServicesEssentiels: {
+          designationOperateurServicesEssentiels: "non",
+        },
+        AppartenancePaysUnionEuropeenne: {
+          appartenancePaysUnionEuropeenne: "france",
+        },
+      };
+
+      const resultatObtenu = evalueRegulationEtatReponseLocalisation(reponse);
+      expect(resultatObtenu).toStrictEqual(resultatAttendu);
+    });
+  });
+  describe("Structure", () => {});
 });
