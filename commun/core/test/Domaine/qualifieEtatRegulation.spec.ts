@@ -47,7 +47,7 @@ describe("qualifieEtatRegulation", () => {
         },
       };
       const resultatAttendu: ResultatEvaluationRegulation = {
-        _tag: "ResultatEvaluationRegulationDefinitif",
+        ResultatEvaluationRegulation: "Definitif",
         etapeEvaluee: "DesignationOperateurServicesEssentiels",
         ...resultatReguleOSE,
       };
@@ -62,9 +62,10 @@ describe("qualifieEtatRegulation", () => {
         },
       };
       const resultatAttendu: ResultatEvaluationRegulation = {
-        _tag: "ResultatEvaluationRegulationEnSuspens",
+        ResultatEvaluationRegulation: "EnSuspens",
         etapeEvaluee: "DesignationOperateurServicesEssentiels",
         ...resultatIncertain,
+        ...reponse,
       };
       const resultatObtenu = evalueRegulationEtatReponseOse(reponse);
       expect(resultatObtenu).toStrictEqual(resultatAttendu);

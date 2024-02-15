@@ -14,6 +14,7 @@ import {
   ReponseEtatDesignationOperateurServicesEssentiels,
   ReponseLocalisation,
   TypeDonnees,
+  UnionReponseEtat,
 } from "./Reponse.definitions";
 
 export type ResultatDefinitif = {
@@ -99,18 +100,27 @@ export type EtatEvaluation = {
   etapeEvaluee: DonneesCompletesEvaluees;
 };
 
-export type ResultatEvaluationRegulationDefinitif =
-  Tag<"ResultatEvaluationRegulationDefinitif"> &
-    EtatEvaluation &
-    ResultatRegulationEntite;
+export type ResultatEvaluationRegulationDefinitif = Tag<
+  "Definitif",
+  "ResultatEvaluationRegulation"
+> &
+  EtatEvaluation &
+  ResultatRegulationEntite;
 
-export type ResultatEvaluationRegulationEnSuspens =
-  Tag<"ResultatEvaluationRegulationEnSuspens"> &
-    EtatEvaluation &
-    ResultatRegulationEntite;
+export type ResultatEvaluationRegulationEnSuspens = Tag<
+  "EnSuspens",
+  "ResultatEvaluationRegulation"
+> &
+  EtatEvaluation &
+  ResultatRegulationEntite &
+  UnionReponseEtat;
 
-export type ResultatEvaluationRegulationInconnu =
-  Tag<"ResultatEvaluationRegulationInconnu"> & EtatEvaluation;
+export type ResultatEvaluationRegulationInconnu = Tag<
+  "Inconnu",
+  "ResultatEvaluationRegulation"
+> &
+  EtatEvaluation &
+  UnionReponseEtat;
 
 export type ResultatEvaluationRegulation =
   | ResultatEvaluationRegulationDefinitif
@@ -120,31 +130,38 @@ export type ResultatEvaluationRegulation =
 const fabriqueResultatEvaluationEnSuspens = (
   etapeEvaluee: DonneesCompletesEvaluees,
   resulat: ResultatRegulationEntite,
-) => ({
-  _tag: "ResultatEvaluationRegulationEnSuspens",
+  reponse: UnionReponseEtat,
+): ResultatEvaluationRegulationEnSuspens => ({
+  ResultatEvaluationRegulation: "EnSuspens",
   etapeEvaluee,
   ...resulat,
+  ...reponse,
 });
 
 const fabriqueResultatEvaluationDefinitif = (
   etapeEvaluee: DonneesCompletesEvaluees,
   resulat: ResultatRegulationEntite,
-) => ({
-  _tag: "ResultatEvaluationRegulationDefinitif",
+): ResultatEvaluationRegulationDefinitif => ({
+  ResultatEvaluationRegulation: "Definitif",
   etapeEvaluee,
   ...resulat,
 });
 
-const fabriqueResultatEvaluationReguleOse = () =>
-  fabriqueResultatEvaluationDefinitif(
-    "DesignationOperateurServicesEssentiels",
-    resultatReguleOSE,
-  );
-const fabriqueResultatEnSuspensOse = () =>
-  fabriqueResultatEvaluationEnSuspens(
-    "DesignationOperateurServicesEssentiels",
-    resultatIncertain,
-  );
+const fabriqueResultatEvaluationReguleOse =
+  (): ResultatEvaluationRegulationDefinitif =>
+    fabriqueResultatEvaluationDefinitif(
+      "DesignationOperateurServicesEssentiels",
+      resultatReguleOSE,
+    );
+const fabriqueResultatEnSuspensOse =
+  (reponse: ReponseEtatDesignationOperateurServicesEssentiels) =>
+  (): ResultatEvaluationRegulationEnSuspens =>
+    fabriqueResultatEvaluationEnSuspens(
+      "DesignationOperateurServicesEssentiels",
+      resultatIncertain,
+      reponse,
+    );
+
 export const evalueRegulationEtatReponseOse = (
   reponse: ReponseEtatDesignationOperateurServicesEssentiels,
 ): ResultatEvaluationRegulation =>
@@ -155,4 +172,4 @@ export const evalueRegulationEtatReponseOse = (
       },
       fabriqueResultatEvaluationReguleOse,
     )
-    .otherwise(fabriqueResultatEnSuspensOse);
+    .otherwise(fabriqueResultatEnSuspensOse(reponse));
