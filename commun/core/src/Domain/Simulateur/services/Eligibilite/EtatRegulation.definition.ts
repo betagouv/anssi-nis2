@@ -1,9 +1,17 @@
 import { Left, left, Right, right } from "fp-ts/lib/Either";
 import { match } from "ts-pattern";
-import { Regulation, RegulationEntite } from "../../Regulation.definitions";
+import { Tag } from "../../../../../../utils/types/Tag";
+import { resultatReguleOSE } from "../../fabriques/Regulation.fabrique";
+import { resultatIncertain } from "../../Regulation.constantes";
+import {
+  Regulation,
+  RegulationEntite,
+  ResultatRegulationEntite,
+} from "../../Regulation.definitions";
 import {
   DonneesCompletesEvaluees,
   DonneesEvaluees,
+  ReponseEtatDesignationOperateurServicesEssentiels,
   ReponseLocalisation,
   TypeDonnees,
 } from "./Reponse.definitions";
@@ -86,3 +94,65 @@ export const qualifieDesignationOse = (
         ),
       ),
     );
+
+export type EtatEvaluation = {
+  etapeEvaluee: DonneesCompletesEvaluees;
+};
+
+export type ResultatEvaluationRegulationDefinitif =
+  Tag<"ResultatEvaluationRegulationDefinitif"> &
+    EtatEvaluation &
+    ResultatRegulationEntite;
+
+export type ResultatEvaluationRegulationEnSuspens =
+  Tag<"ResultatEvaluationRegulationEnSuspens"> &
+    EtatEvaluation &
+    ResultatRegulationEntite;
+
+export type ResultatEvaluationRegulationInconnu =
+  Tag<"ResultatEvaluationRegulationInconnu"> & EtatEvaluation;
+
+export type ResultatEvaluationRegulation =
+  | ResultatEvaluationRegulationDefinitif
+  | ResultatEvaluationRegulationEnSuspens
+  | ResultatEvaluationRegulationInconnu;
+
+const fabriqueResultatEvaluationEnSuspens = (
+  etapeEvaluee: DonneesCompletesEvaluees,
+  resulat: ResultatRegulationEntite,
+) => ({
+  _tag: "ResultatEvaluationRegulationEnSuspens",
+  etapeEvaluee,
+  ...resulat,
+});
+
+const fabriqueResultatEvaluationDefinitif = (
+  etapeEvaluee: DonneesCompletesEvaluees,
+  resulat: ResultatRegulationEntite,
+) => ({
+  _tag: "ResultatEvaluationRegulationDefinitif",
+  etapeEvaluee,
+  ...resulat,
+});
+
+const fabriqueResultatEvaluationReguleOse = () =>
+  fabriqueResultatEvaluationDefinitif(
+    "DesignationOperateurServicesEssentiels",
+    resultatReguleOSE,
+  );
+const fabriqueResultatEnSuspensOse = () =>
+  fabriqueResultatEvaluationEnSuspens(
+    "DesignationOperateurServicesEssentiels",
+    resultatIncertain,
+  );
+export const evalueRegulationEtatReponseOse = (
+  reponse: ReponseEtatDesignationOperateurServicesEssentiels,
+): ResultatEvaluationRegulation =>
+  match(reponse.DesignationOperateurServicesEssentiels)
+    .with(
+      {
+        designationOperateurServicesEssentiels: "oui",
+      },
+      fabriqueResultatEvaluationReguleOse,
+    )
+    .otherwise(fabriqueResultatEnSuspensOse);
