@@ -133,7 +133,7 @@ export const FabriqueInformationsSecteur = {
   informationsSecteursPetit: (
     donnees: DonneesFormulaireSimulateur,
   ): InformationsSecteurPetit => ({
-    CategorieTaille: "Petit",
+    _categorieTaille: "Petit",
     secteurs:
       FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur(donnees),
   }),
@@ -141,11 +141,11 @@ export const FabriqueInformationsSecteur = {
   informationsSecteursGrand: (
     donnees: DonneesFormulaireSimulateur,
   ): InformationsSecteurGrand => ({
-    CategorieTaille: "Grand",
+    _categorieTaille: "Grand",
     secteurs:
       FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur(donnees),
   }),
-  
+
   informationsSecteurs: (
     donnees: DonneesFormulaireSimulateur,
   ): InformationsSecteur =>

@@ -12,7 +12,7 @@ import {
 
 export const FabriqueInformationsStructure = {
   structurePriveePetite: (): DefinitionStructurePriveePetit => ({
-    CategorieTaille: "Petit",
+    _categorieTaille: "Petit",
     typeStructure: "privee",
     trancheChiffreAffaire: "petit",
     trancheNombreEmployes: "petit",
@@ -21,7 +21,7 @@ export const FabriqueInformationsStructure = {
   structurePriveeGrande: (
     donnees: DonneesFormulaireSimulateur,
   ): DefinitionStructurePriveeGrand => ({
-    CategorieTaille: "Grand",
+    _categorieTaille: "Grand",
     typeStructure: "privee",
     trancheChiffreAffaire: donnees.trancheChiffreAffaire[0],
     trancheNombreEmployes: donnees.trancheNombreEmployes[0],
@@ -30,7 +30,7 @@ export const FabriqueInformationsStructure = {
   structurePubliquePetite: (
     donnees: DonneesFormulaireSimulateur,
   ): DefinitionStructurePubliquePetit => ({
-    CategorieTaille: "Petit",
+    _categorieTaille: "Petit",
     typeStructure: "publique",
     typeEntitePublique: donnees.typeEntitePublique[0],
     trancheNombreEmployes: "petit",
@@ -38,7 +38,7 @@ export const FabriqueInformationsStructure = {
   structurePubliqueGrande: (
     donnees: DonneesFormulaireSimulateur,
   ): DefinitionStructurePubliqueGrand => ({
-    CategorieTaille: "Grand",
+    _categorieTaille: "Grand",
     typeStructure: "publique",
     typeEntitePublique: donnees.typeEntitePublique[0],
     trancheNombreEmployes: donnees.trancheNombreEmployes[0],

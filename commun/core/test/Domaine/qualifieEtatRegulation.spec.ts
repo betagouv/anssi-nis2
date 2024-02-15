@@ -8,14 +8,16 @@ import {
 import { resultatIncertain } from "../../src/Domain/Simulateur/Regulation.constantes";
 import { ResultatRegulationEntite } from "../../src/Domain/Simulateur/Regulation.definitions";
 import {
-  evalueRegulationEtatReponseLocalisation,
-  evalueRegulationEtatReponseOse,
-  evalueRegulationEtatReponseStructure,
   OperationEvalueEtape,
   ResultatEvaluationRegulation,
   ResultatEvaluationRegulationDefinitif,
   ResultatEvaluationRegulationEnSuspens,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definition";
+import {
+  evalueRegulationEtatReponseLocalisation,
+  evalueRegulationEtatReponseOse,
+  evalueRegulationEtatReponseStructure,
+} from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
 import { EtapesEvaluation } from "../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 
 // TODO: Causes sur nouveau modèle
@@ -23,7 +25,7 @@ const fabriqueResultatEvaluationRegulationDefinitif = (
   resultatRegulation: ResultatRegulationEntite,
   etapeEvaluee: EtapesEvaluation,
 ): ResultatEvaluationRegulationDefinitif => ({
-  ResultatEvaluationRegulation: "Definitif",
+  _resultatEvaluationRegulation: "Definitif",
   etapeEvaluee,
   ...resultatRegulation,
 });
@@ -78,7 +80,7 @@ describe("Regulation Etat Reponse", () => {
             );
             const resultat = evaluation(reponse);
 
-            expect(resultat.ResultatEvaluationRegulation).toBe("Definitif");
+            expect(resultat._resultatEvaluationRegulation).toBe("Definitif");
             expect(resultat.etapeEvaluee).toBe(etapeCible);
             expect(
               (resultat as ResultatEvaluationRegulationDefinitif).decision,
@@ -99,14 +101,14 @@ describe("Regulation Etat Reponse", () => {
     it("OSE = oui, définitivement régulé", () => {
       const reponse: ResultatEvaluationRegulation = {
         _tag: "DesignationOperateurServicesEssentiels",
-        ResultatEvaluationRegulation: "Inconnu",
+        _resultatEvaluationRegulation: "Inconnu",
         etapeEvaluee: "NonEvalue",
         DesignationOperateurServicesEssentiels: {
           designationOperateurServicesEssentiels: "oui",
         },
       };
       const resultatAttendu: ResultatEvaluationRegulation = {
-        ResultatEvaluationRegulation: "Definitif",
+        _resultatEvaluationRegulation: "Definitif",
         etapeEvaluee: "DesignationOperateurServicesEssentiels",
         ...resultatReguleOSE,
       };
@@ -117,7 +119,7 @@ describe("Regulation Etat Reponse", () => {
     it("OSE = non, en suspens Incertain", () => {
       const reponse: ResultatEvaluationRegulation = {
         _tag: "DesignationOperateurServicesEssentiels",
-        ResultatEvaluationRegulation: "Inconnu",
+        _resultatEvaluationRegulation: "Inconnu",
         etapeEvaluee: "NonEvalue",
         DesignationOperateurServicesEssentiels: {
           designationOperateurServicesEssentiels: "non",
@@ -125,7 +127,7 @@ describe("Regulation Etat Reponse", () => {
       };
       const resultatAttendu: ResultatEvaluationRegulationEnSuspens = {
         _tag: "DesignationOperateurServicesEssentiels",
-        ResultatEvaluationRegulation: "EnSuspens",
+        _resultatEvaluationRegulation: "EnSuspens",
         etapeEvaluee: "DesignationOperateurServicesEssentiels",
         ...resultatIncertain,
         DesignationOperateurServicesEssentiels: {
@@ -141,7 +143,7 @@ describe("Regulation Etat Reponse", () => {
     it(" = france ==> EnSuspens / Incertain", () => {
       const reponse: ResultatEvaluationRegulationEnSuspens = {
         _tag: "AppartenancePaysUnionEuropeenne",
-        ResultatEvaluationRegulation: "EnSuspens",
+        _resultatEvaluationRegulation: "EnSuspens",
         etapeEvaluee: "AppartenancePaysUnionEuropeenne",
         ...resultatIncertain,
         DesignationOperateurServicesEssentiels: {
@@ -154,7 +156,7 @@ describe("Regulation Etat Reponse", () => {
 
       const resultatAttendu: ResultatEvaluationRegulationEnSuspens = {
         _tag: "AppartenancePaysUnionEuropeenne",
-        ResultatEvaluationRegulation: "EnSuspens",
+        _resultatEvaluationRegulation: "EnSuspens",
         etapeEvaluee: "AppartenancePaysUnionEuropeenne",
         ...resultatIncertain,
         DesignationOperateurServicesEssentiels: {
