@@ -1,5 +1,9 @@
-import { match } from "ts-pattern";
-import { resultatIncertain } from "../../Regulation.constantes";
+import { P, match } from "ts-pattern";
+import { ens } from "../../../../../../utils/services/sets.operations";
+import {
+  resultatIncertain,
+  resultatNonRegule,
+} from "../../Regulation.constantes";
 import {
   ResultatEvaluationRegulation,
   ResultatEvaluationRegulationAvecReponses,
@@ -7,10 +11,16 @@ import {
 } from "./EtatRegulation.definition";
 import {
   fabriqueResultatEnSuspensOse,
+  fabriqueResultatEvaluationDefinitif,
   fabriqueResultatEvaluationEnSuspens,
   fabriqueResultatEvaluationReguleOse,
 } from "./EtatRegulation.fabriques";
-import { DonneesCompletesEvaluees } from "./Reponse.definitions";
+import {
+  DonneesCompletesEvaluees,
+  InformationSecteurPossibleGrand,
+  InformationSecteurPossiblePetit,
+  ReponseEtatInformationsSecteur,
+} from "./Reponse.definitions";
 
 const propageDonneesEvaluees =
   (etape: DonneesCompletesEvaluees) =>
@@ -61,6 +71,18 @@ export const evalueRegulationEtatReponseLocalisation = (
       },
       propageDonneesEvaluees("AppartenancePaysUnionEuropeenne"),
     )
+    .with(
+      {
+        AppartenancePaysUnionEuropeenne: {
+          appartenancePaysUnionEuropeenne: P.not("france"),
+        },
+      },
+      () =>
+        fabriqueResultatEvaluationDefinitif(
+          "AppartenancePaysUnionEuropeenne",
+          resultatIncertain,
+        ),
+    )
     .otherwise(
       (): ResultatEvaluationRegulationEnSuspens =>
         fabriqueResultatEvaluationEnSuspens(
@@ -82,7 +104,56 @@ export const evalueRegulationEtatReponseStructure = (
     .otherwise(
       (): ResultatEvaluationRegulationEnSuspens =>
         fabriqueResultatEvaluationEnSuspens(
-          "AppartenancePaysUnionEuropeenne",
+          "Structure",
+          resultatIncertain,
+          reponse as ResultatEvaluationRegulationEnSuspens,
+        ),
+    );
+
+const eqSet = <T>(xs: Set<T>, ys: Set<T>) =>
+  xs.size === ys.size && [...xs].every((x) => ys.has(x));
+export const ensembleAutreSecteur: Set<
+  InformationSecteurPossiblePetit | InformationSecteurPossibleGrand
+> = ens({
+  secteurActivite: "autreSecteurActivite",
+});
+export const estEnsembleAutresSecteurs = (
+  e: Set<InformationSecteurPossiblePetit | InformationSecteurPossibleGrand>,
+) => eqSet(e, ensembleAutreSecteur);
+
+export const estReponseEtatInformationsSecteur = (
+  resultat: ResultatEvaluationRegulation | ReponseEtatInformationsSecteur,
+): resultat is ReponseEtatInformationsSecteur =>
+  "_tag" in resultat && resultat._tag === "InformationsSecteur";
+
+export const contientEnsembleAutresSecteurs = (
+  info: ResultatEvaluationRegulation,
+) =>
+  estReponseEtatInformationsSecteur(info) &&
+  [...info.InformationsSecteur.secteurs].every(
+    (sec) => sec.secteurActivite === "autreSecteurActivite",
+  );
+
+export const evalueRegulationEtatReponseInformationsSecteur = (
+  reponse: ResultatEvaluationRegulation,
+): ResultatEvaluationRegulation =>
+  match(reponse)
+    .with(
+      {
+        _resultatEvaluationRegulation: "Definitif",
+      },
+      propageDonneesEvaluees("InformationsSecteur"),
+    )
+    .when(contientEnsembleAutresSecteurs, () =>
+      fabriqueResultatEvaluationDefinitif(
+        "InformationsSecteur",
+        resultatNonRegule,
+      ),
+    )
+    .otherwise(
+      (): ResultatEvaluationRegulationEnSuspens =>
+        fabriqueResultatEvaluationEnSuspens(
+          "InformationsSecteur",
           resultatIncertain,
           reponse as ResultatEvaluationRegulationEnSuspens,
         ),

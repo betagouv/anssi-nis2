@@ -65,8 +65,6 @@ type TailleSecteurPrivePetit = {
   trancheNombreEmployes: Extract<TrancheNombreEmployes, "petit">;
 } & CategoriseTaille<"Petit">;
 
-type TailleSecteurPrive = TailleSecteurPrivePetit | TailleSecteurPriveGrand;
-
 type TailleSecteurPublicPetit = {
   trancheNombreEmployes: Extract<TrancheChiffreAffaire, "petit">;
 } & CategoriseTaille<"Petit">;
@@ -74,22 +72,15 @@ type TailleSecteurPublicGrand = {
   trancheNombreEmployes: Omit<TrancheNombreEmployes, "petit">;
 } & CategoriseTaille<"Grand">;
 
-type TailleSecteurPublic = TailleSecteurPublicPetit | TailleSecteurPublicGrand;
-
 export type DefinitionStructurePriveePetit = TypeStructurePrivee &
   TailleSecteurPrivePetit;
 export type DefinitionStructurePriveeGrand = TypeStructurePrivee &
   TailleSecteurPriveGrand;
 
-export type DefinitionStructurePrivee = TypeStructurePrivee &
-  TailleSecteurPrive;
-
 export type DefinitionStructurePubliquePetit = TypeStructurePublique &
   TailleSecteurPublicPetit;
 export type DefinitionStructurePubliqueGrand = TypeStructurePublique &
   TailleSecteurPublicGrand;
-export type DefinitionStructurePublique = TypeStructurePublique &
-  TailleSecteurPublic;
 
 export type DefinitionStructurePetit =
   | DefinitionStructurePriveePetit
@@ -98,8 +89,8 @@ export type DefinitionStructureGrand =
   | DefinitionStructurePriveeGrand
   | DefinitionStructurePubliqueGrand;
 export type DefinitionStructure =
-  | DefinitionStructurePrivee
-  | DefinitionStructurePublique;
+  | DefinitionStructurePetit
+  | DefinitionStructureGrand;
 
 export type InformationSousSecteurAutre<S extends SecteursAvecSousSecteurs> = {
   secteurActivite: S;
