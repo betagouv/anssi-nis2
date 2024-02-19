@@ -268,4 +268,5 @@ export type UnionReponseEtatNonVide =
   | ReponseEtatAppartenancePaysUnionEuropeenne
   | ReponseEtatStructure
   | ReponseEtatInformationsSecteur;
+
 export type UnionReponseEtat = ReponseEtatVide | UnionReponseEtatNonVide;

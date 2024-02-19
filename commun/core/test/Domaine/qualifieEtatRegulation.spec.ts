@@ -1,10 +1,6 @@
-import { describe, expect, it } from "vitest";
 import { fc } from "@fast-check/vitest";
-import { ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement } from "../../src/Domain/Simulateur/Eligibilite.constantes";
-import {
-  fabriqueRegule,
-  resultatReguleOSE,
-} from "../../src/Domain/Simulateur/fabriques/Regulation.fabrique";
+import { describe, expect, it } from "vitest";
+import { resultatReguleOSE } from "../../src/Domain/Simulateur/fabriques/Regulation.fabrique";
 import { resultatIncertain } from "../../src/Domain/Simulateur/Regulation.constantes";
 import { ResultatRegulationEntite } from "../../src/Domain/Simulateur/Regulation.definitions";
 import {
@@ -19,30 +15,10 @@ import {
   evalueRegulationEtatReponseStructure,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
 import { EtapesEvaluation } from "../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
-
-// TODO: Causes sur nouveau modèle
-const fabriqueResultatEvaluationRegulationDefinitif = (
-  resultatRegulation: ResultatRegulationEntite,
-  etapeEvaluee: EtapesEvaluation,
-): ResultatEvaluationRegulationDefinitif => ({
-  _resultatEvaluationRegulation: "Definitif",
-  etapeEvaluee,
-  ...resultatRegulation,
-});
+import { fabriqueResultatEvaluationRegulationDefinitif } from "../../src/Domain/Simulateur/services/Eligibilite/ResultatEvaluationRegulation.fabriques";
+import { arbitrairesResultatRegulation } from "./arbitraires/ResultatRegulation.arbitraires";
 
 describe("Regulation Etat Reponse", () => {
-  const generateurResultatRegulation = fc.constantFrom(
-    resultatIncertain,
-    resultatReguleOSE,
-    fabriqueRegule({
-      secteurActivite: ["infrastructureNumerique"],
-      activites: [
-        ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement[0],
-      ],
-      fournitServicesUnionEuropeenne: ["oui"],
-      localisationRepresentant: ["france"],
-    }),
-  );
   const generateurEtapesEvalueesConsecutives = fc.constantFrom<
     [EtapesEvaluation, EtapesEvaluation, OperationEvalueEtape]
   >(
@@ -71,7 +47,7 @@ describe("Regulation Etat Reponse", () => {
             [EtapesEvaluation, EtapesEvaluation, OperationEvalueEtape],
           ]
         >(
-          generateurResultatRegulation,
+          arbitrairesResultatRegulation,
           generateurEtapesEvalueesConsecutives,
           (resultatRegulation, [etapeSource, etapeCible, evaluation]) => {
             const reponse = fabriqueResultatEvaluationRegulationDefinitif(

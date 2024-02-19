@@ -267,3 +267,13 @@ export const partitionneLocalisationServices = (
         "multiple",
     },
   );
+export const arrayOfOne = <T>(
+  originalArray: T[],
+  constraints?: fc.SubarrayConstraints,
+): fc.Arbitrary<T[]> =>
+  fc.subarray(
+    originalArray,
+    constraints !== undefined
+      ? { ...constraints, minLength: 1, maxLength: 1 }
+      : { minLength: 1, maxLength: 1 },
+  );
