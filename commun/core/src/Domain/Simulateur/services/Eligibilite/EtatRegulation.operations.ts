@@ -1,4 +1,5 @@
 import { P, match } from "ts-pattern";
+import { fabriqueRegule } from "../../fabriques/Regulation.fabrique";
 import {
   resultatIncertain,
   resultatNonRegule,
@@ -20,6 +21,7 @@ import {
 import {
   DonneesCompletesEvaluees,
   InformationsSecteursComposite,
+  propReponseEtat,
   ReponseEtatInformationsSecteur,
 } from "./Reponse.definitions";
 
@@ -122,7 +124,6 @@ export const contientEnsembleAutresSecteurs = (
           ?.sousSecteurActivite as SousSecteurActivite,
       ),
   );
-
 export const evalueRegulationEtatReponseInformationsSecteur = (
   reponse: ResultatEvaluationRegulation,
 ): ResultatEvaluationRegulation =>
@@ -138,6 +139,21 @@ export const evalueRegulationEtatReponseInformationsSecteur = (
         "InformationsSecteur",
         resultatNonRegule,
       ),
+    )
+    .with(
+      {
+        _tag: "InformationsSecteur",
+        decision: "Incertain",
+        _resultatEvaluationRegulation: "EnSuspens",
+      },
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitif(
+          "InformationsSecteur",
+          fabriqueRegule({
+            ...propReponseEtat(reponse)("Structure"),
+            ...propReponseEtat(reponse)("InformationsSecteur"),
+          }),
+        ),
     )
     .otherwise(
       (): ResultatEvaluationRegulationEnSuspens =>

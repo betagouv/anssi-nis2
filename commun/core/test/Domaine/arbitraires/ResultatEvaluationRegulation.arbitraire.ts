@@ -1,11 +1,4 @@
 import { fc } from "@fast-check/vitest";
-import { ens } from "../../../../utils/services/sets.operations";
-import {
-  AppartenancePaysUnionEuropeenne,
-  DesignationOperateurServicesEssentiels,
-  TypeEntitePublique,
-} from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
-import { ValeursTypeEntitePublique } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
 import { resultatIncertain } from "../../../src/Domain/Simulateur/Regulation.constantes";
 import { FabriqueEtatDonneesSimulateur } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
 import { ResultatEvaluationRegulation } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definition";
@@ -18,66 +11,19 @@ import {
   DefinitionStructurePetit,
   InformationsSecteurPetit,
   ReponseDesigneOperateurServicesEssentiels,
-  ReponseEtatInformationsSecteur,
   ReponseLocalisation,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
-
-const arbDesignationOperateurServicesEssentielsToujoursOui = fc.constant({
-  designationOperateurServicesEssentiels: "oui" as const,
-});
-const arbDesignationOperateurServicesEssentielsJamaisOui = fc.record({
-  designationOperateurServicesEssentiels:
-    fc.constantFrom<DesignationOperateurServicesEssentiels>("non", "nsp"),
-});
-
-const arbAppartenanceUnionEuropeenneToujoursFrance = fc.record({
-  appartenancePaysUnionEuropeenne:
-    fc.constant<AppartenancePaysUnionEuropeenne>("france"),
-});
-const arbAppartenanceUnionEuropeenneJamaisFrance = fc.record({
-  appartenancePaysUnionEuropeenne:
-    fc.constantFrom<AppartenancePaysUnionEuropeenne>("horsue", "autre"),
-});
-
-const arbStructurePetitPrive = fc.constant<DefinitionStructurePetit>({
-  _categorieTaille: "Petit" as const,
-  typeStructure: "privee",
-  trancheChiffreAffaire: "petit",
-  trancheNombreEmployes: "petit",
-});
-
-const arbStructurePetitPublic = fc
-  .constantFrom<TypeEntitePublique>(...ValeursTypeEntitePublique)
-  .map<DefinitionStructurePetit>((typeEntitePublique) => ({
-    _categorieTaille: "Petit" as const,
-    typeStructure: "publique",
-    trancheNombreEmployes: "petit",
-    typeEntitePublique: typeEntitePublique,
-  }));
-
-const arbStructurePetit = fc.oneof(
-  arbStructurePetitPrive,
-  arbStructurePetitPublic,
-);
+import {
+  arbAppartenanceUnionEuropeenneJamaisFrance,
+  arbAppartenanceUnionEuropeenneToujoursFrance,
+  arbDesignationOperateurServicesEssentielsJamaisOui,
+  arbDesignationOperateurServicesEssentielsToujoursOui,
+  arbInformationsSecteurPetit,
+  arbInformationsSecteurPetitAutre,
+  arbStructurePetit,
+} from "./ResultatEvaluationRegulation.bases.arbitraire";
 
 // const arbStructure = fc.oneof(arbStructurePetit);
-
-const arbInformationsSecteurPetitAutre =
-  fc.constantFrom<InformationsSecteurPetit>(
-    {
-      _categorieTaille: "Petit" as const,
-      secteurs: ens({
-        secteurActivite: "autreSecteurActivite",
-      }),
-    },
-    {
-      _categorieTaille: "Petit" as const,
-      secteurs: ens({
-        secteurActivite: "fabrication",
-        sousSecteurActivite: "autreSousSecteurFabrication",
-      }),
-    },
-  );
 
 const fabriqueResultatEvaluationInconnuOse = (
   designationOperateurServicesEssentiels: ReponseDesigneOperateurServicesEssentiels,
@@ -177,7 +123,7 @@ export const arbResultatEvaluationRegulationEnSuspensApresLocalisation = fc
   )
   .map(fabriqueResultatEvaluationEnSuspensStructure);
 
-export const arbResultatEvaluationRegulationEnSuspensApresStructure = fc
+export const arbResultatEvaluationRegulationEnSuspensApresStructureAutre = fc
   .tuple(
     arbDesignationOperateurServicesEssentielsJamaisOui,
     arbAppartenanceUnionEuropeenneToujoursFrance,
@@ -186,31 +132,11 @@ export const arbResultatEvaluationRegulationEnSuspensApresStructure = fc
   )
   .map(fabriqueResultatEvaluationDefinitifSecteurPetit);
 
-const reponseIncertainEtapeSecteur: ResultatEvaluationRegulation &
-  ReponseEtatInformationsSecteur = {
-  _tag: "InformationsSecteur",
-  _resultatEvaluationRegulation: "EnSuspens",
-  etapeEvaluee: "Structure",
-  ...resultatIncertain,
-  DesignationOperateurServicesEssentiels: {
-    designationOperateurServicesEssentiels: "non",
-  },
-  AppartenancePaysUnionEuropeenne: {
-    appartenancePaysUnionEuropeenne: "france",
-  },
-  Structure: {
-    _categorieTaille: "Petit",
-    typeStructure: "privee",
-    trancheChiffreAffaire: "petit",
-    trancheNombreEmployes: "petit",
-  },
-  InformationsSecteur: {
-    _categorieTaille: "Petit",
-    secteurs: ens({
-      secteurActivite: "autreSecteurActivite",
-    }),
-  },
-};
-
-export const arbResultatEvaluationRegulationEnSuspensApresStructurePriveePetite =
-  fc.constant(reponseIncertainEtapeSecteur);
+export const arbResultatEvaluationRegulationEnSuspensApresStructure = fc
+  .tuple(
+    arbDesignationOperateurServicesEssentielsJamaisOui,
+    arbAppartenanceUnionEuropeenneToujoursFrance,
+    arbStructurePetit,
+    arbInformationsSecteurPetit,
+  )
+  .map(fabriqueResultatEvaluationDefinitifSecteurPetit);

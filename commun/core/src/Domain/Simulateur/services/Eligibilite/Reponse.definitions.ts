@@ -233,21 +233,42 @@ export type EtapesEvaluation = "NonEvalue" | DonneesCompletesEvaluees;
 
 export type ReponseEtatVide = Tag<"ReponseEtatVide">;
 
-export type ReponseEtatDesignationOperateurServicesEssentiels =
-  Tag<"DesignationOperateurServicesEssentiels"> & {
-    DesignationOperateurServicesEssentiels: ReponseDesigneOperateurServicesEssentiels;
-  };
-
-export type ReponseEtatAppartenancePaysUnionEuropeenne =
-  Tag<"AppartenancePaysUnionEuropeenne"> &
-    RemoveTag<ReponseEtatDesignationOperateurServicesEssentiels> & {
-      AppartenancePaysUnionEuropeenne: ReponseLocalisation;
+type CapsuleDesignationOperateurServicesEssentiels = {
+  DesignationOperateurServicesEssentiels: ReponseDesigneOperateurServicesEssentiels;
+};
+type CapsuleAppartenancePaysUnionEuropeenne = {
+  AppartenancePaysUnionEuropeenne: ReponseLocalisation;
+};
+type CapsuleStructure = {
+  Structure: DefinitionStructure;
+};
+type CapsuleInformationsSecteur =
+  | {
+      Structure: DefinitionStructurePetit;
+      InformationsSecteur: InformationsSecteurPetit;
+    }
+  | {
+      Structure: DefinitionStructureGrand;
+      InformationsSecteur: InformationsSecteurGrand;
     };
 
+export type CapsuleInformations =
+  | CapsuleDesignationOperateurServicesEssentiels
+  | CapsuleAppartenancePaysUnionEuropeenne
+  | CapsuleStructure
+  | CapsuleInformationsSecteur;
+
+export type ReponseEtatDesignationOperateurServicesEssentiels =
+  Tag<"DesignationOperateurServicesEssentiels"> &
+    CapsuleDesignationOperateurServicesEssentiels;
+export type ReponseEtatAppartenancePaysUnionEuropeenne =
+  Tag<"AppartenancePaysUnionEuropeenne"> &
+    RemoveTag<ReponseEtatDesignationOperateurServicesEssentiels> &
+    CapsuleAppartenancePaysUnionEuropeenne;
+
 export type ReponseEtatStructure = Tag<"Structure"> &
-  RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> & {
-    Structure: DefinitionStructure;
-  };
+  RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> &
+  CapsuleStructure;
 
 export type ReponseEtatStructurePetit = Tag<"Structure"> &
   RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> & {
@@ -259,19 +280,9 @@ export type ReponseEtatInformationsSecteurPetit = Tag<"InformationsSecteur"> &
     Structure: DefinitionStructurePetit;
     InformationsSecteur: InformationsSecteurPetit;
   };
-
 export type ReponseEtatInformationsSecteur = Tag<"InformationsSecteur"> &
   RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> &
-  (
-    | {
-        Structure: DefinitionStructurePetit;
-        InformationsSecteur: InformationsSecteurPetit;
-      }
-    | {
-        Structure: DefinitionStructureGrand;
-        InformationsSecteur: InformationsSecteurGrand;
-      }
-  );
+  CapsuleInformationsSecteur;
 
 export type UnionReponseEtatNonVide =
   | ReponseEtatDesignationOperateurServicesEssentiels

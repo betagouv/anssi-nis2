@@ -1,11 +1,17 @@
 import { fc } from "@fast-check/vitest";
 import { describe, expect, it } from "vitest";
-import { resultatReguleOSE } from "../../src/Domain/Simulateur/fabriques/Regulation.fabrique";
+import {
+  fabriqueRegule,
+  resultatReguleOSE,
+} from "../../src/Domain/Simulateur/fabriques/Regulation.fabrique";
 import {
   resultatIncertain,
   resultatNonRegule,
 } from "../../src/Domain/Simulateur/Regulation.constantes";
-import { ResultatRegulationEntite } from "../../src/Domain/Simulateur/Regulation.definitions";
+import {
+  CausesRegulation,
+  ResultatRegulationEntite,
+} from "../../src/Domain/Simulateur/Regulation.definitions";
 import {
   OperationEvalueEtape,
   ResultatEvaluationRegulation,
@@ -30,7 +36,7 @@ import {
   arbResultatEvaluationRegulationEnSuspensApresLocalisationFrance,
   arbResultatEvaluationRegulationEnSuspensApresLocalisationHorsFrance,
   arbResultatEvaluationRegulationEnSuspensApresStructure,
-  arbResultatEvaluationRegulationEnSuspensApresStructurePriveePetite,
+  arbResultatEvaluationRegulationEnSuspensApresStructureAutre,
   arbResultatEvaluationRegulationNonOse,
 } from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
 import { arbitrairesResultatRegulation } from "./arbitraires/ResultatRegulation.arbitraires";
@@ -206,7 +212,7 @@ describe("Regulation Etat Reponse", () => {
     it(
       "en suspens / secteur autre ==> toujours définitivement non régulé",
       assertionArbitraire(
-        arbResultatEvaluationRegulationEnSuspensApresStructure,
+        arbResultatEvaluationRegulationEnSuspensApresStructureAutre,
         (reponse) => {
           const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
             _resultatEvaluationRegulation: "Definitif",
@@ -220,15 +226,19 @@ describe("Regulation Etat Reponse", () => {
         },
       ),
     );
-    it.skip(
+    it(
       "en suspens / sous-secteur autre ==> toujours définitivement non régulé",
       assertionArbitraire(
-        arbResultatEvaluationRegulationEnSuspensApresStructurePriveePetite,
+        arbResultatEvaluationRegulationEnSuspensApresStructure,
         (reponse) => {
+          const causes: CausesRegulation = {
+            ...propReponseEtat(reponse)("Structure"),
+            ...propReponseEtat(reponse)("InformationsSecteur"),
+          };
           const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
             _resultatEvaluationRegulation: "Definitif",
             etapeEvaluee: "InformationsSecteur",
-            ...resultatNonRegule,
+            ...fabriqueRegule(causes),
           };
 
           const resultatObtenu =
