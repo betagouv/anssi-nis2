@@ -29,6 +29,7 @@ import {
   SousSecteurFabrication,
   SousSecteurTransport,
 } from "../../SousSecteurActivite.definitions";
+import { ResultatEvaluationRegulation } from "./EtatRegulation.definition";
 
 export type ReponseDesigneOperateurServicesEssentiels = {
   designationOperateurServicesEssentiels: DesignationOperateurServicesEssentiels;
@@ -174,9 +175,13 @@ export type InformationSecteurLocalisablePetiteEntreprise =
       activites: Set<ActivitesInfrastructureNumeriqueLocalisables>;
     } & EtablissementPrincipalLocalisation);
 
-export type InformationSecteurAutre = {
+export type InformationSecteurSimpleAutre = {
   secteurActivite: ExtraitAutre<SecteurActivite>;
 };
+
+export type InformationsSecteurPossiblesAutre =
+  | InformationSecteurSimpleAutre
+  | InformationSousSecteurAutre<SecteursAvecSousSecteurs>;
 
 export type InformationSecteurPossiblePetit =
   | InformationSecteurEnergie
@@ -184,8 +189,7 @@ export type InformationSecteurPossiblePetit =
   | InformationSecteurTransport
   | InformationSecteurSimple
   | InformationSecteurLocalisablePetiteEntreprise
-  | InformationSecteurAutre
-  | InformationSousSecteurAutre<SecteursAvecSousSecteurs>;
+  | InformationsSecteurPossiblesAutre;
 
 export type InformationSecteurPossibleGrand =
   | InformationSecteurEnergie
@@ -193,8 +197,13 @@ export type InformationSecteurPossibleGrand =
   | InformationSecteurTransport
   | InformationSecteurSimple
   | InformationSecteurLocalisableGrand
-  | InformationSecteurAutre
-  | InformationSousSecteurAutre<SecteursAvecSousSecteurs>;
+  | InformationsSecteurPossiblesAutre;
+
+export type InformationsSecteursComposite =
+  | InformationSousSecteurAutre<SecteursAvecSousSecteurs>
+  | InformationSecteurEnergie
+  | InformationSecteurFabrication
+  | InformationSecteurTransport;
 
 export type InformationSecteurPossible =
   | InformationSecteurPossiblePetit
@@ -218,8 +227,7 @@ export type DonneesCompletesEvaluees =
   | "DesignationOperateurServicesEssentiels"
   | "AppartenancePaysUnionEuropeenne"
   | "Structure"
-  | "InformationsSecteur"
-  | "LocalisationRepresentant";
+  | "InformationsSecteur";
 
 export type EtapesEvaluation = "NonEvalue" | DonneesCompletesEvaluees;
 
@@ -239,6 +247,17 @@ export type ReponseEtatAppartenancePaysUnionEuropeenne =
 export type ReponseEtatStructure = Tag<"Structure"> &
   RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> & {
     Structure: DefinitionStructure;
+  };
+
+export type ReponseEtatStructurePetit = Tag<"Structure"> &
+  RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> & {
+    Structure: DefinitionStructurePetit;
+  };
+
+export type ReponseEtatInformationsSecteurPetit = Tag<"InformationsSecteur"> &
+  RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> & {
+    Structure: DefinitionStructurePetit;
+    InformationsSecteur: InformationsSecteurPetit;
   };
 
 export type ReponseEtatInformationsSecteur = Tag<"InformationsSecteur"> &
@@ -261,3 +280,11 @@ export type UnionReponseEtatNonVide =
   | ReponseEtatInformationsSecteur;
 
 export type UnionReponseEtat = ReponseEtatVide | UnionReponseEtatNonVide;
+export const propReponseEtat =
+  (reponse: ResultatEvaluationRegulation) =>
+  <T extends DonneesCompletesEvaluees>(
+    propName: T,
+  ): Pick<ReponseEtatInformationsSecteur, T> =>
+    ({
+      [propName]: (reponse as ReponseEtatInformationsSecteur)[propName],
+    }) as Pick<ReponseEtatInformationsSecteur, T>;

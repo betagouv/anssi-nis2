@@ -3,6 +3,10 @@ import {
   resultatIncertain,
   resultatNonRegule,
 } from "../../Regulation.constantes";
+import { SecteurActivite } from "../../SecteurActivite.definitions";
+import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
+import { estSecteurAutre } from "../SecteurActivite/SecteurActivite.predicats";
+import { estSousSecteurAutre } from "../SousSecteurActivite/SousSecteurActivite.predicats";
 import {
   ResultatEvaluationRegulation,
   ResultatEvaluationRegulationEnSuspens,
@@ -15,6 +19,7 @@ import {
 } from "./EtatRegulation.fabriques";
 import {
   DonneesCompletesEvaluees,
+  InformationsSecteursComposite,
   ReponseEtatInformationsSecteur,
 } from "./Reponse.definitions";
 
@@ -110,7 +115,12 @@ export const contientEnsembleAutresSecteurs = (
 ) =>
   estReponseEtatInformationsSecteur(info) &&
   [...info.InformationsSecteur.secteurs].every(
-    (sec) => sec.secteurActivite === "autreSecteurActivite",
+    (sec) =>
+      estSecteurAutre(sec.secteurActivite as SecteurActivite) ||
+      estSousSecteurAutre(
+        (sec as InformationsSecteursComposite)
+          ?.sousSecteurActivite as SousSecteurActivite,
+      ),
   );
 
 export const evalueRegulationEtatReponseInformationsSecteur = (

@@ -12,11 +12,16 @@ import { FabriqueInformationsSecteur } from "../../fabriques/InformationsSecteur
 import { FabriqueInformationsStructure } from "../../fabriques/InformationsStructure.fabrique";
 import { contientPetiteEntreprise } from "../DonneesFormulaire/DonneesFormulaire.predicats";
 import {
+  DefinitionStructure,
+  DefinitionStructurePetit,
+  InformationsSecteurPetit,
   ReponseDesigneOperateurServicesEssentiels,
   ReponseEtatAppartenancePaysUnionEuropeenne,
   ReponseEtatDesignationOperateurServicesEssentiels,
   ReponseEtatInformationsSecteur,
+  ReponseEtatInformationsSecteurPetit,
   ReponseEtatStructure,
+  ReponseEtatStructurePetit,
   ReponseEtatVide,
   ReponseLocalisation,
   UnionReponseEtat,
@@ -95,6 +100,47 @@ export const FabriqueEtatDonneesSimulateur = {
       ),
       appartenancePaysUnionEuropeenne.appartenancePaysUnionEuropeenne,
     ),
+
+  structureChaine: (
+    designationOperateurServicesEssentiel: ReponseDesigneOperateurServicesEssentiels,
+    appartenancePaysUnionEuropeenne: ReponseLocalisation,
+    structure: DefinitionStructure,
+  ): ReponseEtatStructure => ({
+    ...FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenneChaine(
+      designationOperateurServicesEssentiel,
+      appartenancePaysUnionEuropeenne,
+    ),
+    _tag: "Structure",
+    Structure: structure,
+  }),
+
+  structurePetitChaine: (
+    designationOperateurServicesEssentiel: ReponseDesigneOperateurServicesEssentiels,
+    appartenancePaysUnionEuropeenne: ReponseLocalisation,
+    structure: DefinitionStructurePetit,
+  ): ReponseEtatStructurePetit => ({
+    ...FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenneChaine(
+      designationOperateurServicesEssentiel,
+      appartenancePaysUnionEuropeenne,
+    ),
+    _tag: "Structure",
+    Structure: structure,
+  }),
+
+  informationsSecteurPetitChaine: (
+    designationOperateurServicesEssentiel: ReponseDesigneOperateurServicesEssentiels,
+    appartenancePaysUnionEuropeenne: ReponseLocalisation,
+    structure: DefinitionStructurePetit,
+    informationsSecteur: InformationsSecteurPetit,
+  ): ReponseEtatInformationsSecteurPetit => ({
+    ...FabriqueEtatDonneesSimulateur.structurePetitChaine(
+      designationOperateurServicesEssentiel,
+      appartenancePaysUnionEuropeenne,
+      structure,
+    ),
+    _tag: "InformationsSecteur",
+    InformationsSecteur: informationsSecteur,
+  }),
 };
 
 export const ConvertisseurDonneesBrutesVersEtatDonneesSimulateur = {
