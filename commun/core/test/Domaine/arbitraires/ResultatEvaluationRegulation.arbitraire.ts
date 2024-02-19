@@ -1,69 +1,90 @@
 import { fc } from "@fast-check/vitest";
 import { ens } from "../../../../utils/services/sets.operations";
+import {
+  AppartenancePaysUnionEuropeenne,
+  DesignationOperateurServicesEssentiels,
+} from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
 import { resultatIncertain } from "../../../src/Domain/Simulateur/Regulation.constantes";
+import { FabriqueEtatDonneesSimulateur } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
 import { ResultatEvaluationRegulation } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definition";
 import {
+  fabriqueResultatEvaluationEnSuspens,
+  fabriqueResultatEvaluationInconnu,
+} from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.fabriques";
+import {
+  ReponseDesigneOperateurServicesEssentiels,
   ReponseEtatInformationsSecteur,
   ReponseEtatStructure,
+  ReponseLocalisation,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 
-export const arbResultatEvaluationRegulationDesigneeOse = fc.constant({
-  _tag: "DesignationOperateurServicesEssentiels",
-  _resultatEvaluationRegulation: "Inconnu",
-  etapeEvaluee: "NonEvalue",
-  DesignationOperateurServicesEssentiels: {
-    designationOperateurServicesEssentiels: "oui",
-  },
-}) as fc.Arbitrary<ResultatEvaluationRegulation>;
-export const arbResultatEvaluationRegulationNonOse = fc.constant({
-  _tag: "DesignationOperateurServicesEssentiels",
-  _resultatEvaluationRegulation: "Inconnu",
-  etapeEvaluee: "NonEvalue",
-  DesignationOperateurServicesEssentiels: {
-    designationOperateurServicesEssentiels: "non",
-  },
-}) as fc.Arbitrary<ResultatEvaluationRegulation>;
+const arbDesignationOperateurServicesEssentielsToujoursOui = fc.constant({
+  designationOperateurServicesEssentiels: "oui" as const,
+});
+const arbDesignationOperateurServicesEssentielsJamaisOui = fc.record({
+  designationOperateurServicesEssentiels:
+    fc.constantFrom<DesignationOperateurServicesEssentiels>("non", "nsp"),
+});
 
-export const arbResultatEvaluationRegulationEnSuspensApresOse = fc.constant({
-  _tag: "AppartenancePaysUnionEuropeenne",
-  _resultatEvaluationRegulation: "EnSuspens",
-  etapeEvaluee: "AppartenancePaysUnionEuropeenne",
-  ...resultatIncertain,
-  DesignationOperateurServicesEssentiels: {
-    designationOperateurServicesEssentiels: "non",
-  },
-  AppartenancePaysUnionEuropeenne: {
-    appartenancePaysUnionEuropeenne: "france",
-  },
-}) as fc.Arbitrary<ResultatEvaluationRegulation>;
+const arbAppartenanceUnionEuropeenneToujoursFrance = fc.record({
+  appartenancePaysUnionEuropeenne:
+    fc.constant<AppartenancePaysUnionEuropeenne>("france"),
+});
 
-export const arbResultatEvaluationRegulationEnSuspensApresOseHorsFrance =
-  fc.constantFrom(
-    {
-      _tag: "AppartenancePaysUnionEuropeenne",
-      _resultatEvaluationRegulation: "EnSuspens",
-      etapeEvaluee: "AppartenancePaysUnionEuropeenne",
-      ...resultatIncertain,
-      DesignationOperateurServicesEssentiels: {
-        designationOperateurServicesEssentiels: "non",
-      },
-      AppartenancePaysUnionEuropeenne: {
-        appartenancePaysUnionEuropeenne: "autre",
-      },
-    },
-    {
-      _tag: "AppartenancePaysUnionEuropeenne",
-      _resultatEvaluationRegulation: "EnSuspens",
-      etapeEvaluee: "AppartenancePaysUnionEuropeenne",
-      ...resultatIncertain,
-      DesignationOperateurServicesEssentiels: {
-        designationOperateurServicesEssentiels: "non",
-      },
-      AppartenancePaysUnionEuropeenne: {
-        appartenancePaysUnionEuropeenne: "horsue",
-      },
-    },
+const arbAppartenanceUnionEuropeenneJamaisFrance = fc.record({
+  appartenancePaysUnionEuropeenne:
+    fc.constantFrom<AppartenancePaysUnionEuropeenne>("horsue", "autre"),
+});
+
+const fabriqueResultatEvaluationInconnuOse = (
+  designationOperateurServicesEssentiels: ReponseDesigneOperateurServicesEssentiels,
+) =>
+  fabriqueResultatEvaluationInconnu({
+    _tag: "DesignationOperateurServicesEssentiels",
+    DesignationOperateurServicesEssentiels:
+      designationOperateurServicesEssentiels,
+  });
+
+const fabriqueResultatEvaluationEnSuspensAppUE = ([
+  designationOperateurServicesEssentiel,
+  appartenancePaysUnionEuropeenne,
+]: [ReponseDesigneOperateurServicesEssentiels, ReponseLocalisation]) =>
+  fabriqueResultatEvaluationEnSuspens(
+    "AppartenancePaysUnionEuropeenne",
+    resultatIncertain,
+    FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenneChaine(
+      designationOperateurServicesEssentiel,
+      appartenancePaysUnionEuropeenne,
+    ),
+  );
+
+export const arbResultatEvaluationRegulationDesigneeOse =
+  arbDesignationOperateurServicesEssentielsToujoursOui.map(
+    fabriqueResultatEvaluationInconnuOse,
   ) as fc.Arbitrary<ResultatEvaluationRegulation>;
+
+export const arbResultatEvaluationRegulationNonOse =
+  arbDesignationOperateurServicesEssentielsJamaisOui.map(
+    fabriqueResultatEvaluationInconnuOse,
+  ) as fc.Arbitrary<ResultatEvaluationRegulation>;
+export const arbResultatEvaluationRegulationEnSuspensApresLocalisationFrance =
+  fc
+    .tuple(
+      arbDesignationOperateurServicesEssentielsJamaisOui,
+      arbAppartenanceUnionEuropeenneToujoursFrance,
+    )
+    .map(
+      fabriqueResultatEvaluationEnSuspensAppUE,
+    ) as fc.Arbitrary<ResultatEvaluationRegulation>;
+export const arbResultatEvaluationRegulationEnSuspensApresLocalisationHorsFrance =
+  fc
+    .tuple(
+      arbDesignationOperateurServicesEssentielsJamaisOui,
+      arbAppartenanceUnionEuropeenneJamaisFrance,
+    )
+    .map(
+      fabriqueResultatEvaluationEnSuspensAppUE,
+    ) as fc.Arbitrary<ResultatEvaluationRegulation>;
 
 const reponseIncertainEtapeStructure: ResultatEvaluationRegulation &
   ReponseEtatStructure = {
@@ -113,5 +134,6 @@ const reponseIncertainEtapeSecteur: ResultatEvaluationRegulation &
     }),
   },
 };
+
 export const arbResultatEvaluationRegulationEnSuspensApresStructurePriveePetite =
   fc.constant(reponseIncertainEtapeSecteur);

@@ -1,6 +1,10 @@
 import { match, P } from "ts-pattern";
 import { GuardP } from "ts-pattern/dist/types/Pattern";
 import {
+  AppartenancePaysUnionEuropeenne,
+  DesignationOperateurServicesEssentiels,
+} from "../../ChampsSimulateur.definitions";
+import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../DonneesFormulaire.definitions";
@@ -8,11 +12,13 @@ import { FabriqueInformationsSecteur } from "../../fabriques/InformationsSecteur
 import { FabriqueInformationsStructure } from "../../fabriques/InformationsStructure.fabrique";
 import { contientPetiteEntreprise } from "../DonneesFormulaire/DonneesFormulaire.predicats";
 import {
+  ReponseDesigneOperateurServicesEssentiels,
   ReponseEtatAppartenancePaysUnionEuropeenne,
   ReponseEtatDesignationOperateurServicesEssentiels,
   ReponseEtatInformationsSecteur,
   ReponseEtatStructure,
   ReponseEtatVide,
+  ReponseLocalisation,
   UnionReponseEtat,
 } from "./Reponse.definitions";
 
@@ -60,6 +66,38 @@ const champsSpecifiquesStructurePrivee = champsAvecUneValeur(
 );
 
 export const FabriqueEtatDonneesSimulateur = {
+  designationOperateurServicesEssentiels: (
+    designationOperateurServicesEssentiels: DesignationOperateurServicesEssentiels,
+  ): ReponseEtatDesignationOperateurServicesEssentiels => ({
+    _tag: "DesignationOperateurServicesEssentiels",
+    DesignationOperateurServicesEssentiels: {
+      designationOperateurServicesEssentiels,
+    },
+  }),
+  appartenancePaysUnionEuropeenne: (
+    designationOperateurServicesEssentiels: ReponseEtatDesignationOperateurServicesEssentiels,
+    appartenancePaysUnionEuropeenne: AppartenancePaysUnionEuropeenne,
+  ): ReponseEtatAppartenancePaysUnionEuropeenne => ({
+    ...designationOperateurServicesEssentiels,
+    _tag: "AppartenancePaysUnionEuropeenne",
+    AppartenancePaysUnionEuropeenne: {
+      appartenancePaysUnionEuropeenne,
+    },
+  }),
+
+  appartenancePaysUnionEuropeenneChaine: (
+    designationOperateurServicesEssentiel: ReponseDesigneOperateurServicesEssentiels,
+    appartenancePaysUnionEuropeenne: ReponseLocalisation,
+  ) =>
+    FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenne(
+      FabriqueEtatDonneesSimulateur.designationOperateurServicesEssentiels(
+        designationOperateurServicesEssentiel.designationOperateurServicesEssentiels,
+      ),
+      appartenancePaysUnionEuropeenne.appartenancePaysUnionEuropeenne,
+    ),
+};
+
+export const ConvertisseurDonneesBrutesVersEtatDonneesSimulateur = {
   vide: (): ReponseEtatVide => ({
     _tag: "ReponseEtatVide",
   }),
@@ -76,7 +114,7 @@ export const FabriqueEtatDonneesSimulateur = {
   appartenancePaysUnionEuropeenne: (
     donnees: DonneesFormulaireSimulateur,
   ): ReponseEtatAppartenancePaysUnionEuropeenne => ({
-    ...FabriqueEtatDonneesSimulateur.designationOperateurServicesEssentiels(
+    ...ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.designationOperateurServicesEssentiels(
       donnees,
     ),
     _tag: "AppartenancePaysUnionEuropeenne",
@@ -87,7 +125,9 @@ export const FabriqueEtatDonneesSimulateur = {
   }),
 
   structure: (donnees: DonneesFormulaireSimulateur): ReponseEtatStructure => ({
-    ...FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenne(donnees),
+    ...ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.appartenancePaysUnionEuropeenne(
+      donnees,
+    ),
     _tag: "Structure",
     Structure: FabriqueInformationsStructure.structure(donnees),
   }),
@@ -95,7 +135,9 @@ export const FabriqueEtatDonneesSimulateur = {
   informationsSecteursPetit: (
     donnees: DonneesFormulaireSimulateur,
   ): ReponseEtatInformationsSecteur => ({
-    ...FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenne(donnees),
+    ...ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.appartenancePaysUnionEuropeenne(
+      donnees,
+    ),
     _tag: "InformationsSecteur",
     Structure: FabriqueInformationsStructure.structurePetite(donnees),
     InformationsSecteur:
@@ -105,7 +147,9 @@ export const FabriqueEtatDonneesSimulateur = {
   informationsSecteursGrand: (
     donnees: DonneesFormulaireSimulateur,
   ): ReponseEtatInformationsSecteur => ({
-    ...FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenne(donnees),
+    ...ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.appartenancePaysUnionEuropeenne(
+      donnees,
+    ),
     _tag: "InformationsSecteur",
     Structure: FabriqueInformationsStructure.structureGrande(donnees),
     InformationsSecteur:
@@ -116,8 +160,12 @@ export const FabriqueEtatDonneesSimulateur = {
     donnees: DonneesFormulaireSimulateur,
   ): ReponseEtatInformationsSecteur =>
     contientPetiteEntreprise(donnees)
-      ? FabriqueEtatDonneesSimulateur.informationsSecteursPetit(donnees)
-      : FabriqueEtatDonneesSimulateur.informationsSecteursGrand(donnees),
+      ? ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.informationsSecteursPetit(
+          donnees,
+        )
+      : ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.informationsSecteursGrand(
+          donnees,
+        ),
 
   depuisDonneesFormulaireSimulateur: (
     donnees: DonneesFormulaireSimulateur,
@@ -140,7 +188,7 @@ export const FabriqueEtatDonneesSimulateur = {
             champsNonVides("secteurActivite"),
           ),
         ),
-        FabriqueEtatDonneesSimulateur.informationsSecteurs,
+        ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.informationsSecteurs,
       )
       .with(
         P.intersection(
@@ -150,18 +198,18 @@ export const FabriqueEtatDonneesSimulateur = {
             champsSpecifiquesStructurePrivee,
           ),
         ),
-        FabriqueEtatDonneesSimulateur.structure,
+        ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.structure,
       )
       .with(
         champsAvecUneValeur(
           "designationOperateurServicesEssentiels",
           "appartenancePaysUnionEuropeenne",
         ),
-        FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenne,
+        ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.appartenancePaysUnionEuropeenne,
       )
       .with(
         champsAvecUneValeur("designationOperateurServicesEssentiels"),
-        FabriqueEtatDonneesSimulateur.designationOperateurServicesEssentiels,
+        ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.designationOperateurServicesEssentiels,
       )
-      .otherwise(FabriqueEtatDonneesSimulateur.vide),
+      .otherwise(ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.vide),
 };

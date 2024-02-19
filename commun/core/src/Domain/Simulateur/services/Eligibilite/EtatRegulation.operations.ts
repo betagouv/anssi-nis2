@@ -1,12 +1,10 @@
 import { P, match } from "ts-pattern";
-import { ens } from "../../../../../../utils/services/sets.operations";
 import {
   resultatIncertain,
   resultatNonRegule,
 } from "../../Regulation.constantes";
 import {
   ResultatEvaluationRegulation,
-  ResultatEvaluationRegulationAvecReponses,
   ResultatEvaluationRegulationEnSuspens,
 } from "./EtatRegulation.definition";
 import {
@@ -17,8 +15,6 @@ import {
 } from "./EtatRegulation.fabriques";
 import {
   DonneesCompletesEvaluees,
-  InformationSecteurPossibleGrand,
-  InformationSecteurPossiblePetit,
   ReponseEtatInformationsSecteur,
 } from "./Reponse.definitions";
 
@@ -49,18 +45,12 @@ export const evalueRegulationEtatReponseOse = (
     .with(
       {
         DesignationOperateurServicesEssentiels: {
-          designationOperateurServicesEssentiels: "non",
+          designationOperateurServicesEssentiels: P.union("non", "nsp"),
         },
       },
-      fabriqueResultatEnSuspensOse(
-        reponse as ResultatEvaluationRegulationAvecReponses,
-      ),
+      fabriqueResultatEnSuspensOse(reponse),
     )
-    .otherwise(
-      fabriqueResultatEnSuspensOse(
-        reponse as ResultatEvaluationRegulationAvecReponses,
-      ),
-    );
+    .otherwise(fabriqueResultatEnSuspensOse(reponse));
 export const evalueRegulationEtatReponseLocalisation = (
   reponse: ResultatEvaluationRegulation,
 ): ResultatEvaluationRegulation =>
@@ -109,17 +99,6 @@ export const evalueRegulationEtatReponseStructure = (
           reponse as ResultatEvaluationRegulationEnSuspens,
         ),
     );
-
-const eqSet = <T>(xs: Set<T>, ys: Set<T>) =>
-  xs.size === ys.size && [...xs].every((x) => ys.has(x));
-export const ensembleAutreSecteur: Set<
-  InformationSecteurPossiblePetit | InformationSecteurPossibleGrand
-> = ens({
-  secteurActivite: "autreSecteurActivite",
-});
-export const estEnsembleAutresSecteurs = (
-  e: Set<InformationSecteurPossiblePetit | InformationSecteurPossibleGrand>,
-) => eqSet(e, ensembleAutreSecteur);
 
 export const estReponseEtatInformationsSecteur = (
   resultat: ResultatEvaluationRegulation | ReponseEtatInformationsSecteur,

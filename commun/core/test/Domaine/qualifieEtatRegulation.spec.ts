@@ -13,19 +13,21 @@ import {
   ResultatEvaluationRegulationEnSuspens,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definition";
 import {
-  ensembleAutreSecteur,
-  estEnsembleAutresSecteurs,
   evalueRegulationEtatReponseInformationsSecteur,
   evalueRegulationEtatReponseLocalisation,
   evalueRegulationEtatReponseOse,
   evalueRegulationEtatReponseStructure,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
-import { EtapesEvaluation } from "../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
+import {
+  EtapesEvaluation,
+  ReponseEtatAppartenancePaysUnionEuropeenne,
+  ReponseEtatDesignationOperateurServicesEssentiels,
+} from "../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 import { fabriqueResultatEvaluationRegulationDefinitif } from "../../src/Domain/Simulateur/services/Eligibilite/ResultatEvaluationRegulation.fabriques";
 import {
   arbResultatEvaluationRegulationDesigneeOse,
-  arbResultatEvaluationRegulationEnSuspensApresOse,
-  arbResultatEvaluationRegulationEnSuspensApresOseHorsFrance,
+  arbResultatEvaluationRegulationEnSuspensApresLocalisationFrance,
+  arbResultatEvaluationRegulationEnSuspensApresLocalisationHorsFrance,
   arbResultatEvaluationRegulationEnSuspensApresOseStructure,
   arbResultatEvaluationRegulationEnSuspensApresStructurePriveePetite,
   arbResultatEvaluationRegulationNonOse,
@@ -126,9 +128,9 @@ describe("Regulation Etat Reponse", () => {
           _resultatEvaluationRegulation: "EnSuspens",
           etapeEvaluee: "DesignationOperateurServicesEssentiels",
           ...resultatIncertain,
-          DesignationOperateurServicesEssentiels: {
-            designationOperateurServicesEssentiels: "non",
-          },
+          DesignationOperateurServicesEssentiels: (
+            reponse as ReponseEtatDesignationOperateurServicesEssentiels
+          ).DesignationOperateurServicesEssentiels,
         };
         const resultatObtenu = evalueRegulationEtatReponseOse(reponse);
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
@@ -139,16 +141,16 @@ describe("Regulation Etat Reponse", () => {
     it(
       "AppUE = france ==> toujours EnSuspens / Incertain",
       assertionArbitraire(
-        arbResultatEvaluationRegulationEnSuspensApresOse,
+        arbResultatEvaluationRegulationEnSuspensApresLocalisationFrance,
         (reponse) => {
           const resultatAttendu: ResultatEvaluationRegulationEnSuspens = {
             _tag: "AppartenancePaysUnionEuropeenne",
             _resultatEvaluationRegulation: "EnSuspens",
             etapeEvaluee: "AppartenancePaysUnionEuropeenne",
             ...resultatIncertain,
-            DesignationOperateurServicesEssentiels: {
-              designationOperateurServicesEssentiels: "non",
-            },
+            DesignationOperateurServicesEssentiels: (
+              reponse as ReponseEtatAppartenancePaysUnionEuropeenne
+            ).DesignationOperateurServicesEssentiels,
             AppartenancePaysUnionEuropeenne: {
               appartenancePaysUnionEuropeenne: "france",
             },
@@ -163,7 +165,7 @@ describe("Regulation Etat Reponse", () => {
     it(
       "AppUE != france ==> toujours Définitif / Incertain",
       assertionArbitraire(
-        arbResultatEvaluationRegulationEnSuspensApresOseHorsFrance,
+        arbResultatEvaluationRegulationEnSuspensApresLocalisationHorsFrance,
         (reponse) => {
           const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
             _resultatEvaluationRegulation: "Definitif",
@@ -228,9 +230,22 @@ describe("Regulation Etat Reponse", () => {
         },
       ),
     );
-  });
-
-  it("should compare sets", () => {
-    expect(estEnsembleAutresSecteurs(ensembleAutreSecteur)).toBeTruthy();
+    // it(
+    //   "en suspens / sous-secteur autre ==> toujours définitivement non régulé",
+    //   assertionArbitraire(
+    //     arbResultatEvaluationRegulationEnSuspensApresStructurePriveePetite,
+    //     (reponse) => {
+    //       const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
+    //         _resultatEvaluationRegulation: "Definitif",
+    //         etapeEvaluee: "InformationsSecteur",
+    //         ...resultatNonRegule,
+    //       };
+    //
+    //       const resultatObtenu =
+    //         evalueRegulationEtatReponseInformationsSecteur(reponse);
+    //       expect(resultatObtenu).toStrictEqual(resultatAttendu);
+    //     },
+    //   ),
+    // );
   });
 });

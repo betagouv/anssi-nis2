@@ -2,15 +2,26 @@ import { resultatReguleOSE } from "../../fabriques/Regulation.fabrique";
 import { resultatIncertain } from "../../Regulation.constantes";
 import { ResultatRegulationEntite } from "../../Regulation.definitions";
 import {
+  ResultatEvaluationRegulation,
   ResultatEvaluationRegulationAvecReponses,
   ResultatEvaluationRegulationDefinitif,
   ResultatEvaluationRegulationEnSuspens,
+  ResultatEvaluationRegulationInconnu,
 } from "./EtatRegulation.definition";
 import {
   DonneesCompletesEvaluees,
+  EtapesEvaluation,
   UnionReponseEtatNonVide,
 } from "./Reponse.definitions";
 
+export const fabriqueResultatEvaluationInconnu = (
+  reponse: UnionReponseEtatNonVide,
+  etapeEvaluee: EtapesEvaluation = "NonEvalue",
+): ResultatEvaluationRegulationInconnu => ({
+  ...reponse,
+  _resultatEvaluationRegulation: "Inconnu",
+  etapeEvaluee,
+});
 export const fabriqueResultatEvaluationEnSuspens = (
   etapeEvaluee: DonneesCompletesEvaluees,
   resulat: ResultatRegulationEntite,
@@ -36,10 +47,10 @@ export const fabriqueResultatEvaluationReguleOse =
       resultatReguleOSE,
     );
 export const fabriqueResultatEnSuspensOse =
-  (reponse: ResultatEvaluationRegulationAvecReponses) =>
+  (reponse: ResultatEvaluationRegulation) =>
   (): ResultatEvaluationRegulationEnSuspens =>
     fabriqueResultatEvaluationEnSuspens(
       "DesignationOperateurServicesEssentiels",
       resultatIncertain,
-      reponse,
+      reponse as ResultatEvaluationRegulationAvecReponses,
     );

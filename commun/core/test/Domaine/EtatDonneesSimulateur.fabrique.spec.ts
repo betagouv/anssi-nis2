@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { ens } from "../../../utils/services/sets.operations";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
-import { FabriqueEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
+import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
 import { UnionReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 
 describe("fabrique ReponseEtat", () => {
@@ -18,7 +18,7 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
             donnees,
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
@@ -34,7 +34,7 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
             donnees,
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
@@ -56,7 +56,7 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
             donnees,
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
@@ -87,7 +87,7 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
             donnees,
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
@@ -116,7 +116,7 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
             donnees,
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
@@ -154,7 +154,7 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
             donnees,
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
@@ -192,7 +192,7 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
             donnees,
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
@@ -232,7 +232,7 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
             donnees,
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
@@ -279,7 +279,7 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
             donnees,
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
@@ -341,7 +341,7 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
             donnees,
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
@@ -424,7 +424,7 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
             donnees,
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
@@ -477,7 +477,7 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
             donnees,
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
@@ -515,7 +515,7 @@ describe("fabrique ReponseEtat", () => {
           },
         };
         const resultatObtenu =
-          FabriqueEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
             donnees,
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
