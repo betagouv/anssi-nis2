@@ -10,12 +10,10 @@ import {
   SecteursAvecSousSecteurs,
 } from "../SecteurActivite.definitions";
 import { activiteEstDansSecteur } from "../services/Activite/Activite.predicats";
-import { contientPetiteEntreprise } from "../services/DonneesFormulaire/DonneesFormulaire.predicats";
 import {
   InformationSecteurPossible,
-  InformationsSecteur,
-  InformationsSecteurGrand,
-  InformationsSecteurPetit,
+  ReponseInformationsSecteurGrand,
+  ReponseInformationsSecteurPetit,
 } from "../services/Eligibilite/Reponse.definitions";
 import {
   estSecteurAutre,
@@ -132,7 +130,7 @@ export const FabriqueInformationsSecteur = {
 
   informationsSecteursPetit: (
     donnees: DonneesFormulaireSimulateur,
-  ): InformationsSecteurPetit => ({
+  ): ReponseInformationsSecteurPetit => ({
     _categorieTaille: "Petit",
     secteurs:
       FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur(donnees),
@@ -140,16 +138,9 @@ export const FabriqueInformationsSecteur = {
 
   informationsSecteursGrand: (
     donnees: DonneesFormulaireSimulateur,
-  ): InformationsSecteurGrand => ({
+  ): ReponseInformationsSecteurGrand => ({
     _categorieTaille: "Grand",
     secteurs:
       FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur(donnees),
   }),
-
-  informationsSecteurs: (
-    donnees: DonneesFormulaireSimulateur,
-  ): InformationsSecteur =>
-    contientPetiteEntreprise(donnees)
-      ? FabriqueInformationsSecteur.informationsSecteursPetit(donnees)
-      : FabriqueInformationsSecteur.informationsSecteursGrand(donnees),
 };

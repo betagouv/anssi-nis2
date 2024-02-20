@@ -1,12 +1,12 @@
 import { Tag } from "../../../../../../utils/types/Tag";
 import { ResultatRegulationEntite } from "../../Regulation.definitions";
 import {
-  DonneesCompletesEvaluees,
+  EtapesEvaluationActives,
   UnionReponseEtatNonVide,
 } from "./Reponse.definitions";
 
 export type EtatEvaluation = {
-  etapeEvaluee: DonneesCompletesEvaluees | "NonEvalue";
+  etapeEvaluee: EtapesEvaluationActives | "NonEvalue";
 };
 
 export type ResultatEvaluationRegulationDefinitif = Tag<

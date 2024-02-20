@@ -26,9 +26,9 @@ import {
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
 import {
   EtapesEvaluation,
-  propReponseEtat,
   ReponseEtatDesignationOperateurServicesEssentiels,
 } from "../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
+import { propReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/Reponse.operations";
 import { fabriqueResultatEvaluationRegulationDefinitif } from "../../src/Domain/Simulateur/services/Eligibilite/ResultatEvaluationRegulation.fabriques";
 import { assertionArbitraire } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import {
@@ -38,6 +38,7 @@ import {
   arbResultatEvaluationRegulationEnSuspensApresLocalisationHorsFrance,
   arbResultatEvaluationRegulationEnSuspensApresStructure,
   arbResultatEvaluationRegulationEnSuspensApresStructureAutre,
+  arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable,
   arbResultatEvaluationRegulationNonOse,
 } from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
 import { arbitrairesResultatRegulation } from "./arbitraires/ResultatRegulation.arbitraires";
@@ -242,7 +243,7 @@ describe("Regulation Etat Reponse", () => {
       it(
         "en suspens / secteurs localisables et bien localisés ==> toujours définitivement régulé",
         assertionArbitraire(
-          arbResultatEvaluationRegulationEnSuspensApresStructure,
+          arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable,
           (reponse) => {
             const causes: CausesRegulation = {
               ...propReponseEtat(reponse)("Structure"),

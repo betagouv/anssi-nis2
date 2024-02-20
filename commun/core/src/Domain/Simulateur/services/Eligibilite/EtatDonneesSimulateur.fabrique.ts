@@ -12,10 +12,10 @@ import { FabriqueInformationsSecteur } from "../../fabriques/InformationsSecteur
 import { FabriqueInformationsStructure } from "../../fabriques/InformationsStructure.fabrique";
 import { contientPetiteEntreprise } from "../DonneesFormulaire/DonneesFormulaire.predicats";
 import {
-  DefinitionStructure,
-  DefinitionStructurePetit,
-  InformationsSecteurPetit,
-  ReponseDesigneOperateurServicesEssentiels,
+  ReponseStructure,
+  ReponseStructurePetit,
+  ReponseInformationsSecteurPetit,
+  ReponseDesignationOperateurServicesEssentiels,
   ReponseEtatAppartenancePaysUnionEuropeenne,
   ReponseEtatDesignationOperateurServicesEssentiels,
   ReponseEtatInformationsSecteur,
@@ -23,7 +23,7 @@ import {
   ReponseEtatStructure,
   ReponseEtatStructurePetit,
   ReponseEtatVide,
-  ReponseLocalisation,
+  ReponseAppartenancePaysUnionEuropeenne,
   UnionReponseEtat,
 } from "./Reponse.definitions";
 
@@ -91,8 +91,8 @@ export const FabriqueEtatDonneesSimulateur = {
   }),
 
   appartenancePaysUnionEuropeenneChaine: (
-    designationOperateurServicesEssentiel: ReponseDesigneOperateurServicesEssentiels,
-    appartenancePaysUnionEuropeenne: ReponseLocalisation,
+    designationOperateurServicesEssentiel: ReponseDesignationOperateurServicesEssentiels,
+    appartenancePaysUnionEuropeenne: ReponseAppartenancePaysUnionEuropeenne,
   ) =>
     FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenne(
       FabriqueEtatDonneesSimulateur.designationOperateurServicesEssentiels(
@@ -102,9 +102,9 @@ export const FabriqueEtatDonneesSimulateur = {
     ),
 
   structureChaine: (
-    designationOperateurServicesEssentiel: ReponseDesigneOperateurServicesEssentiels,
-    appartenancePaysUnionEuropeenne: ReponseLocalisation,
-    structure: DefinitionStructure,
+    designationOperateurServicesEssentiel: ReponseDesignationOperateurServicesEssentiels,
+    appartenancePaysUnionEuropeenne: ReponseAppartenancePaysUnionEuropeenne,
+    structure: ReponseStructure,
   ): ReponseEtatStructure => ({
     ...FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenneChaine(
       designationOperateurServicesEssentiel,
@@ -115,9 +115,9 @@ export const FabriqueEtatDonneesSimulateur = {
   }),
 
   structurePetitChaine: (
-    designationOperateurServicesEssentiel: ReponseDesigneOperateurServicesEssentiels,
-    appartenancePaysUnionEuropeenne: ReponseLocalisation,
-    structure: DefinitionStructurePetit,
+    designationOperateurServicesEssentiel: ReponseDesignationOperateurServicesEssentiels,
+    appartenancePaysUnionEuropeenne: ReponseAppartenancePaysUnionEuropeenne,
+    structure: ReponseStructurePetit,
   ): ReponseEtatStructurePetit => ({
     ...FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenneChaine(
       designationOperateurServicesEssentiel,
@@ -128,10 +128,10 @@ export const FabriqueEtatDonneesSimulateur = {
   }),
 
   informationsSecteurPetitChaine: (
-    designationOperateurServicesEssentiel: ReponseDesigneOperateurServicesEssentiels,
-    appartenancePaysUnionEuropeenne: ReponseLocalisation,
-    structure: DefinitionStructurePetit,
-    informationsSecteur: InformationsSecteurPetit,
+    designationOperateurServicesEssentiel: ReponseDesignationOperateurServicesEssentiels,
+    appartenancePaysUnionEuropeenne: ReponseAppartenancePaysUnionEuropeenne,
+    structure: ReponseStructurePetit,
+    informationsSecteur: ReponseInformationsSecteurPetit,
   ): ReponseEtatInformationsSecteurPetit => ({
     ...FabriqueEtatDonneesSimulateur.structurePetitChaine(
       designationOperateurServicesEssentiel,

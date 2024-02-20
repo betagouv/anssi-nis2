@@ -19,14 +19,14 @@ import {
   fabriqueResultatEvaluationReguleOse,
 } from "./EtatRegulation.fabriques";
 import {
-  DonneesCompletesEvaluees,
+  EtapesEvaluationActives,
   InformationsSecteursComposite,
-  propReponseEtat,
   ReponseEtatInformationsSecteur,
 } from "./Reponse.definitions";
+import { propReponseEtat } from "./Reponse.operations";
 
 const propageDonneesEvaluees =
-  (etape: DonneesCompletesEvaluees) =>
+  (etape: EtapesEvaluationActives) =>
   (reponse: ResultatEvaluationRegulation) => ({
     ...reponse,
     etapeEvaluee: etape,

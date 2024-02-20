@@ -2,9 +2,12 @@ import { describe, expect, it } from "vitest";
 import { Activite } from "../../../src/Domain/Simulateur/Activite.definitions";
 import { secteursNecessitantLocalisationRepresentant } from "../../../src/Domain/Simulateur/SecteurActivite.constantes";
 import { estActiviteAutre } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { ReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
+import { estReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.predicats";
 import { estSecteurListe } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 import { assertion } from "../../utilitaires/ResultatEvaluationRegulation.assertions";
+import { arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable } from "./ResultatEvaluationRegulation.arbitraire";
 import {
   arbAppartenanceUnionEuropeenneJamaisFrance,
   arbAppartenanceUnionEuropeenneToujoursFrance,
@@ -120,6 +123,24 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
           expect(secteur).not.includes(undefined);
         }));
       it("n'est pas vide", () => assertion.nonVide(arbSecteursSimples));
+    });
+  });
+
+  describe("Arbitraires cibles", () => {
+    describe("arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable", () => {
+      it("contient toujours une localisation fr", () => {
+        assertion.propriete(
+          arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable,
+          (resultat) => {
+            expect(resultat).toSatisfy(estReponseEtatInformationsSecteur);
+
+            const resultatType = resultat as ReponseEtatInformationsSecteur;
+            expect(Object.keys(resultatType.InformationsSecteur)).toContain(
+              "fournitServicesUnionEuropeenne",
+            );
+          },
+        );
+      });
     });
   });
 });

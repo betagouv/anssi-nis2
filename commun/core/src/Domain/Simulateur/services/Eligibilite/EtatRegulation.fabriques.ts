@@ -9,7 +9,7 @@ import {
   ResultatEvaluationRegulationInconnu,
 } from "./EtatRegulation.definition";
 import {
-  DonneesCompletesEvaluees,
+  EtapesEvaluationActives,
   EtapesEvaluation,
   UnionReponseEtatNonVide,
 } from "./Reponse.definitions";
@@ -23,7 +23,7 @@ export const fabriqueResultatEvaluationInconnu = (
   etapeEvaluee,
 });
 export const fabriqueResultatEvaluationEnSuspens = (
-  etapeEvaluee: DonneesCompletesEvaluees,
+  etapeEvaluee: EtapesEvaluationActives,
   resulat: ResultatRegulationEntite,
   reponse: UnionReponseEtatNonVide,
 ): ResultatEvaluationRegulationEnSuspens => ({
@@ -33,7 +33,7 @@ export const fabriqueResultatEvaluationEnSuspens = (
   etapeEvaluee,
 });
 export const fabriqueResultatEvaluationDefinitif = (
-  etapeEvaluee: DonneesCompletesEvaluees,
+  etapeEvaluee: EtapesEvaluationActives,
   resulat: ResultatRegulationEntite,
 ): ResultatEvaluationRegulationDefinitif => ({
   _resultatEvaluationRegulation: "Definitif",

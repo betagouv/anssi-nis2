@@ -7,12 +7,12 @@ import {
 import { activitesParSecteurEtSousSecteur } from "../../../src/Domain/Simulateur/services/Activite/Activite.operations";
 import { estActiviteListee } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import {
-  eqInformationsSecteur,
   InformationSecteurPossible,
   InformationSecteurSimple,
-  InformationsSecteurPetit,
+  ReponseInformationsSecteurPetit,
   InformationsSecteursCompositeListe,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
+import { eqInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.predicats";
 import {
   SousSecteurActivite,
   SousSecteurDe,
@@ -44,13 +44,16 @@ const fabriqueArbEnsembleActivitesPourSecteur = <T extends SecteurActivite>(
       },
     )
     .chain((a) => fc.constant(ens(...a)));
-export const fabriqueArbitraireEnsembleActivitesPourSecteur = (
-  secteur: SecteurActivite,
-): fc.Arbitrary<InformationSecteurSimple> =>
+export const fabriqueArbitraireEnsembleActivitesPourSecteur = <
+  T extends SecteurActivite,
+  U extends InformationSecteurSimple,
+>(
+  secteur: T,
+): fc.Arbitrary<U> =>
   fc.record({
     secteurActivite: fc.constant(secteur),
     activites: fabriqueArbEnsembleActivitesPourSecteur(secteur),
-  });
+  }) as fc.Arbitrary<U>;
 export const fabriqueArbitraireEnsembleActivitesPourSecteurComposite = <
   T extends SecteursAvecSousSecteurs,
   U extends SousSecteurDe<T>,
@@ -65,7 +68,7 @@ export const fabriqueArbitraireEnsembleActivitesPourSecteurComposite = <
   }) as fc.Arbitrary<InformationsSecteursCompositeListe>;
 export const fabriqueArbitraireCapsuleSecteur = (
   arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
-): fc.Arbitrary<InformationsSecteurPetit> =>
+): fc.Arbitrary<ReponseInformationsSecteurPetit> =>
   arb.chain((info) =>
     fc.record({
       _categorieTaille: fc.constant("Petit"),

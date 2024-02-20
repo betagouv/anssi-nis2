@@ -1,5 +1,6 @@
 import {
   SecteurActivite,
+  SecteursAvecBesoinLocalisationRepresentant,
   SecteursAvecSousSecteurs,
 } from "./SecteurActivite.definitions";
 import {
@@ -13,7 +14,7 @@ import {
 } from "./services/SecteurActivite/SecteurActivite.predicats";
 import { SousSecteurActivite } from "./SousSecteurActivite.definitions";
 
-export const secteursNecessitantLocalisationRepresentant: readonly SecteurActivite[] =
+export const secteursNecessitantLocalisationRepresentant: readonly SecteursAvecBesoinLocalisationRepresentant[] =
   [
     "gestionServicesTic",
     "fournisseursNumeriques",

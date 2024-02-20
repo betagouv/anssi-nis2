@@ -7,17 +7,18 @@ import {
   fabriqueResultatEvaluationInconnu,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.fabriques";
 import {
-  DefinitionStructure,
-  DefinitionStructurePetit,
-  InformationsSecteurPetit,
-  ReponseDesigneOperateurServicesEssentiels,
-  ReponseLocalisation,
+  ReponseStructure,
+  ReponseStructurePetit,
+  ReponseInformationsSecteurPetit,
+  ReponseDesignationOperateurServicesEssentiels,
+  ReponseAppartenancePaysUnionEuropeenne,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 import {
   arbAppartenanceUnionEuropeenneJamaisFrance,
   arbAppartenanceUnionEuropeenneToujoursFrance,
   arbDesignationOperateurServicesEssentielsJamaisOui,
   arbDesignationOperateurServicesEssentielsToujoursOui,
+  arbInformationsSecteurLocalisablesPetit,
   arbInformationsSecteurPetit,
   arbInformationsSecteurPetitAutre,
   arbStructurePetit,
@@ -26,7 +27,7 @@ import {
 // const arbStructure = fc.oneof(arbStructurePetit);
 
 const fabriqueResultatEvaluationInconnuOse = (
-  designationOperateurServicesEssentiels: ReponseDesigneOperateurServicesEssentiels,
+  designationOperateurServicesEssentiels: ReponseDesignationOperateurServicesEssentiels,
 ) =>
   fabriqueResultatEvaluationInconnu({
     _tag: "DesignationOperateurServicesEssentiels",
@@ -37,7 +38,10 @@ const fabriqueResultatEvaluationInconnuOse = (
 const fabriqueResultatEvaluationEnSuspensAppUE = ([
   designationOperateurServicesEssentiel,
   appartenancePaysUnionEuropeenne,
-]: [ReponseDesigneOperateurServicesEssentiels, ReponseLocalisation]) =>
+]: [
+  ReponseDesignationOperateurServicesEssentiels,
+  ReponseAppartenancePaysUnionEuropeenne,
+]) =>
   fabriqueResultatEvaluationEnSuspens(
     "AppartenancePaysUnionEuropeenne",
     resultatIncertain,
@@ -51,9 +55,9 @@ const fabriqueResultatEvaluationEnSuspensStructure = ([
   appartenancePaysUnionEuropeenne,
   structure,
 ]: [
-  ReponseDesigneOperateurServicesEssentiels,
-  ReponseLocalisation,
-  DefinitionStructure,
+  ReponseDesignationOperateurServicesEssentiels,
+  ReponseAppartenancePaysUnionEuropeenne,
+  ReponseStructure,
 ]) =>
   fabriqueResultatEvaluationEnSuspens(
     "AppartenancePaysUnionEuropeenne",
@@ -65,16 +69,16 @@ const fabriqueResultatEvaluationEnSuspensStructure = ([
     ),
   );
 
-const fabriqueResultatEvaluationDefinitifSecteurPetit = ([
+const fabriqueResultatEvaluationEnSuspensSecteurPetit = ([
   designationOperateurServicesEssentiel,
   appartenancePaysUnionEuropeenne,
   structure,
   informationsSecteur,
 ]: [
-  ReponseDesigneOperateurServicesEssentiels,
-  ReponseLocalisation,
-  DefinitionStructurePetit,
-  InformationsSecteurPetit,
+  ReponseDesignationOperateurServicesEssentiels,
+  ReponseAppartenancePaysUnionEuropeenne,
+  ReponseStructurePetit,
+  ReponseInformationsSecteurPetit,
 ]) =>
   fabriqueResultatEvaluationEnSuspens(
     "Structure",
@@ -130,7 +134,7 @@ export const arbResultatEvaluationRegulationEnSuspensApresStructureAutre = fc
     arbStructurePetit,
     arbInformationsSecteurPetitAutre,
   )
-  .map(fabriqueResultatEvaluationDefinitifSecteurPetit);
+  .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);
 
 export const arbResultatEvaluationRegulationEnSuspensApresStructure = fc
   .tuple(
@@ -139,4 +143,13 @@ export const arbResultatEvaluationRegulationEnSuspensApresStructure = fc
     arbStructurePetit,
     arbInformationsSecteurPetit,
   )
-  .map(fabriqueResultatEvaluationDefinitifSecteurPetit);
+  .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);
+export const arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable =
+  fc
+    .tuple(
+      arbDesignationOperateurServicesEssentielsJamaisOui,
+      arbAppartenanceUnionEuropeenneToujoursFrance,
+      arbStructurePetit,
+      arbInformationsSecteurLocalisablesPetit,
+    )
+    .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);
