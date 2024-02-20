@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { Activite } from "../../../src/Domain/Simulateur/Activite.definitions";
+import { secteursNecessitantLocalisationRepresentant } from "../../../src/Domain/Simulateur/SecteurActivite.constantes";
 import { estActiviteAutre } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { estSecteurListe } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
@@ -16,6 +17,7 @@ import {
   arbInformationsSecteurSimple,
   arbInformationsSecteurSimplesPetit,
   arbSecteurAvecSousSecteurListes,
+  arbSecteurLocalisables,
   arbSecteurSansSousSecteur,
   arbSecteursSimples,
   arbStructurePetitPrive,
@@ -58,7 +60,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
         ));
     });
   });
-  
+
   describe("bases", () => {
     describe("arbSecteurSansSousSecteur", () => {
       it("n'est pas vide", () => assertion.nonVide(arbSecteurSansSousSecteur));
@@ -66,6 +68,17 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
         assertion.neContientPas("autreSecteurActivite")(
           arbSecteurSansSousSecteur,
         ));
+      it("exclusif avec les secteurs localisables", () =>
+        assertion.tousExclusifs(
+          arbSecteurSansSousSecteur,
+          arbSecteurLocalisables,
+        ));
+    });
+    describe("arbSecteurLocalisables", () => {
+      it("est un secteur localisable", () =>
+        assertion.propriete(arbSecteurLocalisables, (secteur) => {
+          expect(secteursNecessitantLocalisationRepresentant).includes(secteur);
+        }));
     });
     describe("arbSecteurAvecSousSecteur", () => {
       it("n'est pas vide", () =>

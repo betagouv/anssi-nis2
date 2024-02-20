@@ -239,6 +239,27 @@ describe("Regulation Etat Reponse", () => {
           },
         ),
       );
+      it(
+        "en suspens / secteurs localisables et bien localisés ==> toujours définitivement régulé",
+        assertionArbitraire(
+          arbResultatEvaluationRegulationEnSuspensApresStructure,
+          (reponse) => {
+            const causes: CausesRegulation = {
+              ...propReponseEtat(reponse)("Structure"),
+              ...propReponseEtat(reponse)("InformationsSecteur"),
+            };
+            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
+              _resultatEvaluationRegulation: "Definitif",
+              etapeEvaluee: "InformationsSecteur",
+              ...fabriqueRegule(causes),
+            };
+
+            const resultatObtenu =
+              evalueRegulationEtatReponseInformationsSecteur(reponse);
+            expect(resultatObtenu).toStrictEqual(resultatAttendu);
+          },
+        ),
+      );
     });
   });
 });

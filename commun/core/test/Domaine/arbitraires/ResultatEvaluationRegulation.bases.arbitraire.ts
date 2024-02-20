@@ -8,6 +8,7 @@ import {
 import { ValeursTypeEntitePublique } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
 import {
   listeTuplesSecteursSousSecteurs,
+  secteursNecessitantLocalisationRepresentant,
   ValeursSecteursSansSousSecteur,
 } from "../../../src/Domain/Simulateur/SecteurActivite.constantes";
 import { SecteursAvecSousSecteurs } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
@@ -97,7 +98,12 @@ export const arbInformationsSecteurPetitAutre =
   );
 
 export const arbSecteurSansSousSecteur = fc.constantFrom(
-  ...ValeursSecteursSansSousSecteur.filter(estSecteurListe),
+  ...ValeursSecteursSansSousSecteur.filter(estSecteurListe).filter(
+    (secteur) => !secteursNecessitantLocalisationRepresentant.includes(secteur),
+  ),
+);
+export const arbSecteurLocalisables = fc.constantFrom(
+  ...secteursNecessitantLocalisationRepresentant,
 );
 export const arbSecteurAvecSousSecteurListes = fc.constantFrom<
   [SecteursAvecSousSecteurs, SousSecteurActivite]
