@@ -20,7 +20,7 @@ export const activiteEstDansSecteur =
       secteurActivite as ValeurCleSectorielle
     ].includes(activite);
 
-export const estActiviteAutre = (activite: Activite) =>
+export const estActiviteAutre = <T extends Activite>(activite: T) =>
   activite.startsWith(prefixeAutreActivite);
 export const estActiviteListee = (activite: Activite) =>
   !activite.startsWith(prefixeAutreActivite);

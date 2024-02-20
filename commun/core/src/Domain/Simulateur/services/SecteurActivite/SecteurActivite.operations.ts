@@ -22,6 +22,10 @@ export const fabriqueTupleSecteurSousSecteurs: (
   secteur,
   sousSecteursParSecteur[secteur],
 ];
+export const fabriqueTuplesSecteurSousSecteur: (
+  secteur: SecteursAvecSousSecteurs,
+) => [SecteursAvecSousSecteurs, SousSecteurActivite][] = (secteur) =>
+  sousSecteursParSecteur[secteur].map((sousSecteur) => [secteur, sousSecteur]);
 export const fabriqueListePartielleSecteursAvecSousSecteurs = (
   listeSousSecteurs: readonly SousSecteurActivite[],
   secteur: SecteursAvecSousSecteurs,

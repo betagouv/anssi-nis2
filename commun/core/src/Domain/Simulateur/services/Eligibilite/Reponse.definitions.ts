@@ -199,6 +199,11 @@ export type InformationSecteurPossibleGrand =
   | InformationSecteurLocalisableGrand
   | InformationsSecteurPossiblesAutre;
 
+export type InformationsSecteursCompositeListe =
+  | InformationSecteurEnergie
+  | InformationSecteurFabrication
+  | InformationSecteurTransport;
+
 export type InformationsSecteursComposite =
   | InformationSousSecteurAutre<SecteursAvecSousSecteurs>
   | InformationSecteurEnergie
@@ -299,3 +304,8 @@ export const propReponseEtat =
     ({
       [propName]: (reponse as ReponseEtatInformationsSecteur)[propName],
     }) as Pick<ReponseEtatInformationsSecteur, T>;
+
+export const eqInformationsSecteur = (
+  a: InformationSecteurPossible,
+  b: InformationSecteurPossible,
+) => a.secteurActivite === b.secteurActivite;

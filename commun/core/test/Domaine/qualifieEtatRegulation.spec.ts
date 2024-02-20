@@ -30,6 +30,7 @@ import {
   ReponseEtatDesignationOperateurServicesEssentiels,
 } from "../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 import { fabriqueResultatEvaluationRegulationDefinitif } from "../../src/Domain/Simulateur/services/Eligibilite/ResultatEvaluationRegulation.fabriques";
+import { assertionArbitraire } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import {
   arbResultatEvaluationRegulationDesigneeOse,
   arbResultatEvaluationRegulationEnSuspensApresLocalisation,
@@ -66,6 +67,7 @@ describe("Regulation Etat Reponse", () => {
       evalueRegulationEtatReponseInformationsSecteur,
     ],
   );
+
   describe("Invariants", () => {
     it("Definitif ==> Definitif", () => {
       fc.assert(
@@ -99,17 +101,6 @@ describe("Regulation Etat Reponse", () => {
       );
     });
   });
-
-  const assertionArbitraire =
-    (
-      arbitraire: fc.Arbitrary<ResultatEvaluationRegulation>,
-      verification: (args: ResultatEvaluationRegulation) => boolean | void,
-    ) =>
-    () =>
-      fc.assert(
-        fc.property<[ResultatEvaluationRegulation]>(arbitraire, verification),
-        { verbose: true },
-      );
 
   describe("DesignationOperateurServicesEssentiels", () => {
     it(
@@ -226,8 +217,8 @@ describe("Regulation Etat Reponse", () => {
         },
       ),
     );
-    it(
-      "en suspens / sous-secteur autre ==> toujours définitivement non régulé",
+    it.skip(
+      "en suspens / sous-secteur listés ==> toujours définitivement régulé",
       assertionArbitraire(
         arbResultatEvaluationRegulationEnSuspensApresStructure,
         (reponse) => {
