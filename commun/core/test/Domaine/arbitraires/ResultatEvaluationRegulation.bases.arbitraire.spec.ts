@@ -10,9 +10,11 @@ import {
   arbDesignationOperateurServicesEssentielsJamaisOui,
   arbDesignationOperateurServicesEssentielsToujoursOui,
   arbInformationsSecteurComposite,
+  arbInformationsSecteurCompositesPetit,
   arbInformationsSecteurPetit,
   arbInformationsSecteurPetitAutre,
   arbInformationsSecteurSimple,
+  arbInformationsSecteurSimplesPetit,
   arbSecteurAvecSousSecteurListes,
   arbSecteurSansSousSecteur,
   arbSecteursSimples,
@@ -49,8 +51,14 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
           arbInformationsSecteurPetitAutre,
           arbInformationsSecteurPetit,
         ));
+      it("arbInformationsSecteurPetitAutre et arbInformationsSecteurPetit sont exclusifs", () =>
+        assertion.tousExclusifs(
+          arbInformationsSecteurCompositesPetit,
+          arbInformationsSecteurSimplesPetit,
+        ));
     });
   });
+  
   describe("bases", () => {
     describe("arbSecteurSansSousSecteur", () => {
       it("n'est pas vide", () => assertion.nonVide(arbSecteurSansSousSecteur));

@@ -200,43 +200,45 @@ describe("Regulation Etat Reponse", () => {
   });
 
   describe("Secteur", () => {
-    it(
-      "en suspens / secteur autre ==> toujours définitivement non régulé",
-      assertionArbitraire(
-        arbResultatEvaluationRegulationEnSuspensApresStructureAutre,
-        (reponse) => {
-          const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
-            _resultatEvaluationRegulation: "Definitif",
-            etapeEvaluee: "InformationsSecteur",
-            ...resultatNonRegule,
-          };
+    describe("Petit", () => {
+      it(
+        "en suspens / secteur autre ==> toujours définitivement non régulé",
+        assertionArbitraire(
+          arbResultatEvaluationRegulationEnSuspensApresStructureAutre,
+          (reponse) => {
+            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
+              _resultatEvaluationRegulation: "Definitif",
+              etapeEvaluee: "InformationsSecteur",
+              ...resultatNonRegule,
+            };
 
-          const resultatObtenu =
-            evalueRegulationEtatReponseInformationsSecteur(reponse);
-          expect(resultatObtenu).toStrictEqual(resultatAttendu);
-        },
-      ),
-    );
-    it.skip(
-      "en suspens / sous-secteur listés ==> toujours définitivement régulé",
-      assertionArbitraire(
-        arbResultatEvaluationRegulationEnSuspensApresStructure,
-        (reponse) => {
-          const causes: CausesRegulation = {
-            ...propReponseEtat(reponse)("Structure"),
-            ...propReponseEtat(reponse)("InformationsSecteur"),
-          };
-          const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
-            _resultatEvaluationRegulation: "Definitif",
-            etapeEvaluee: "InformationsSecteur",
-            ...fabriqueRegule(causes),
-          };
+            const resultatObtenu =
+              evalueRegulationEtatReponseInformationsSecteur(reponse);
+            expect(resultatObtenu).toStrictEqual(resultatAttendu);
+          },
+        ),
+      );
+      it(
+        "en suspens / sous-secteur listés ==> toujours définitivement régulé",
+        assertionArbitraire(
+          arbResultatEvaluationRegulationEnSuspensApresStructure,
+          (reponse) => {
+            const causes: CausesRegulation = {
+              ...propReponseEtat(reponse)("Structure"),
+              ...propReponseEtat(reponse)("InformationsSecteur"),
+            };
+            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
+              _resultatEvaluationRegulation: "Definitif",
+              etapeEvaluee: "InformationsSecteur",
+              ...fabriqueRegule(causes),
+            };
 
-          const resultatObtenu =
-            evalueRegulationEtatReponseInformationsSecteur(reponse);
-          expect(resultatObtenu).toStrictEqual(resultatAttendu);
-        },
-      ),
-    );
+            const resultatObtenu =
+              evalueRegulationEtatReponseInformationsSecteur(reponse);
+            expect(resultatObtenu).toStrictEqual(resultatAttendu);
+          },
+        ),
+      );
+    });
   });
 });
