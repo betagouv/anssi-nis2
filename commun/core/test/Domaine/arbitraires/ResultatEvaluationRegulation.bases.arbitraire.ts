@@ -27,8 +27,10 @@ import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/Sou
 import { SousSecteurActivite } from "../../../src/Domain/Simulateur/SousSecteurActivite.definitions";
 import {
   fabriqueArbitraireCapsuleSecteur,
+  fabriqueArbitraireCapsuleSecteurLocalisable,
   fabriqueArbitraireEnsembleActivitesPourSecteur,
   fabriqueArbitraireEnsembleActivitesPourSecteurComposite,
+  fabriqueArbitraireEnsembleActivitesPourSecteurLocalisable,
   fabriqueArbitrairesEnsembleInformationsSecteurs,
 } from "./ResultatEvaluationRegulation.arbitraire.fabrique";
 
@@ -125,10 +127,9 @@ export const arbInformationsSecteurSimple = arbSecteurSansSousSecteur.chain(
   fabriqueArbitraireEnsembleActivitesPourSecteur,
 );
 export const arbInformationsSecteurLocalisables = arbSecteurLocalisables.chain(
-  fabriqueArbitraireEnsembleActivitesPourSecteur<
-    SecteursAvecBesoinLocalisationRepresentant,
-    InformationSecteurLocalisablePetiteEntreprise
-  >,
+  fabriqueArbitraireEnsembleActivitesPourSecteurLocalisable(
+    fc.constant("france"),
+  ),
 );
 export const arbInformationsSecteurComposite =
   arbSecteurAvecSousSecteurListes.chain(
@@ -150,8 +151,12 @@ export const arbSecteursComposites: fc.Arbitrary<
 
 export const arbInformationsSecteurSimplesPetit: fc.Arbitrary<ReponseInformationsSecteurPetit> =
   fabriqueArbitraireCapsuleSecteur(arbSecteursSimples);
-export const arbInformationsSecteurLocalisablesPetit: fc.Arbitrary<ReponseInformationsSecteurPetit> =
-  fabriqueArbitraireCapsuleSecteur(arbSecteursLocalisables);
+export const arbInformationsSecteurLocalisesFrancePetit: fc.Arbitrary<ReponseInformationsSecteurPetit> =
+  fabriqueArbitraireCapsuleSecteurLocalisable(
+    arbSecteursLocalisables,
+    fc.constant("oui"),
+    fc.constant("france"),
+  );
 export const arbInformationsSecteurCompositesPetit: fc.Arbitrary<ReponseInformationsSecteurPetit> =
   fabriqueArbitraireCapsuleSecteur(arbSecteursComposites);
 

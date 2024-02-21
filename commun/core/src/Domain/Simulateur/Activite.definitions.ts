@@ -145,3 +145,10 @@ export type ActivitesInfrastructureNumeriqueLocalisables =
 
 export type ActivitesInfrastructureNumeriqueNonLocalisables =
   (typeof ValeursActivitesInfrastructureNumeriqueNonLocalisables)[number];
+
+export type ActivitesLocalisablesPetit =
+  ActivitesInfrastructureNumeriqueLocalisables;
+export type ActivitesLocalisablesGrand =
+  | ActivitesInfrastructureNumeriqueNonLocalisables
+  | ActivitesFournisseursNumeriques
+  | ActivitesGestionServicesTic;

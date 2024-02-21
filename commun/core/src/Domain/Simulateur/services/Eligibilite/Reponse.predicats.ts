@@ -1,4 +1,6 @@
 import {
+  EtablissementPrincipalFournitUE,
+  InformationSecteurLocalisablePetiteEntreprise,
   InformationSecteurPossible,
   ReponseEtatInformationsSecteur,
   UnionReponseEtatNonVide,
@@ -11,3 +13,10 @@ export const eqInformationsSecteur = (
 export const estReponseEtatInformationsSecteur = (
   rep: UnionReponseEtatNonVide | ReponseEtatInformationsSecteur,
 ): rep is ReponseEtatInformationsSecteur => rep._tag === "InformationsSecteur";
+
+export const estEtablissementPrincipalFournitUE = (
+  reponse:
+    | InformationSecteurLocalisablePetiteEntreprise
+    | EtablissementPrincipalFournitUE,
+): reponse is EtablissementPrincipalFournitUE =>
+  reponse.fournitServicesUnionEuropeenne === "oui";

@@ -18,7 +18,7 @@ import {
   arbAppartenanceUnionEuropeenneToujoursFrance,
   arbDesignationOperateurServicesEssentielsJamaisOui,
   arbDesignationOperateurServicesEssentielsToujoursOui,
-  arbInformationsSecteurLocalisablesPetit,
+  arbInformationsSecteurLocalisesFrancePetit,
   arbInformationsSecteurPetit,
   arbInformationsSecteurPetitAutre,
   arbStructurePetit,
@@ -150,6 +150,6 @@ export const arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable =
       arbDesignationOperateurServicesEssentielsJamaisOui,
       arbAppartenanceUnionEuropeenneToujoursFrance,
       arbStructurePetit,
-      arbInformationsSecteurLocalisablesPetit,
+      arbInformationsSecteurLocalisesFrancePetit,
     )
     .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);

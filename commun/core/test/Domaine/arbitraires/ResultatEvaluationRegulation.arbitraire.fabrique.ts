@@ -1,16 +1,27 @@
 import { fc } from "@fast-check/vitest";
 import { ens } from "../../../../utils/services/sets.operations";
 import {
+  Activite,
+  ActivitesLocalisablesPetit,
+} from "../../../src/Domain/Simulateur/Activite.definitions";
+import {
+  AppartenancePaysUnionEuropeenne,
+  FournitServicesUnionEuropeenne,
+} from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
+import { ValeursOuiNon } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
+import {
   SecteurActivite,
+  SecteursAvecBesoinLocalisationRepresentant,
   SecteursAvecSousSecteurs,
 } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
 import { activitesParSecteurEtSousSecteur } from "../../../src/Domain/Simulateur/services/Activite/Activite.operations";
 import { estActiviteListee } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import {
+  InformationSecteurLocalisablePetiteEntreprise,
   InformationSecteurPossible,
   InformationSecteurSimple,
-  ReponseInformationsSecteurPetit,
   InformationsSecteursCompositeListe,
+  ReponseInformationsSecteurPetit,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 import { eqInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.predicats";
 import {
@@ -32,10 +43,35 @@ const getActivitesPour = <T extends SecteurActivite>(
     getValeurCleSectorielle(secteur, sousSecteur)
   ],
 ];
-const fabriqueArbEnsembleActivitesPourSecteur = <T extends SecteurActivite>(
+
+const determineArbFournitServicesUnionEuropeenne = (
+  arbFournitServicesUnionEuropeenne?: fc.Arbitrary<FournitServicesUnionEuropeenne>,
+  arbLocalisationRepresentant?: fc.Arbitrary<AppartenancePaysUnionEuropeenne>,
+): {
+  fournitServicesUnionEuropeenne: fc.Arbitrary<FournitServicesUnionEuropeenne>;
+} => ({
+  fournitServicesUnionEuropeenne:
+    arbFournitServicesUnionEuropeenne && arbLocalisationRepresentant
+      ? fc.constantFrom(...ValeursOuiNon)
+      : fc.constant("non"),
+});
+
+const determineArbLocalisationRepresentant = (
+  arbLocalisationRepresentant?: fc.Arbitrary<AppartenancePaysUnionEuropeenne>,
+): {
+  localisationRepresentant?: fc.Arbitrary<AppartenancePaysUnionEuropeenne>;
+} =>
+  arbLocalisationRepresentant
+    ? {}
+    : { localisationRepresentant: arbLocalisationRepresentant };
+
+const fabriqueArbEnsembleActivitesPourSecteur = <
+  T extends SecteurActivite,
+  U extends Activite,
+>(
   secteur: T,
   sousSecteur?: SousSecteurActivite,
-) =>
+): fc.Arbitrary<Set<U>> =>
   fc
     .subarray(
       getActivitesPour(secteur, sousSecteur).filter(estActiviteListee),
@@ -43,7 +79,7 @@ const fabriqueArbEnsembleActivitesPourSecteur = <T extends SecteurActivite>(
         minLength: 1,
       },
     )
-    .chain((a) => fc.constant(ens(...a)));
+    .chain((a) => fc.constant(ens(...a))) as fc.Arbitrary<Set<U>>;
 export const fabriqueArbitraireEnsembleActivitesPourSecteur = <
   T extends SecteurActivite,
   U extends InformationSecteurSimple,
@@ -54,6 +90,21 @@ export const fabriqueArbitraireEnsembleActivitesPourSecteur = <
     secteurActivite: fc.constant(secteur),
     activites: fabriqueArbEnsembleActivitesPourSecteur(secteur),
   }) as fc.Arbitrary<U>;
+
+export const fabriqueArbitraireEnsembleActivitesPourSecteurLocalisable =
+  <T extends SecteursAvecBesoinLocalisationRepresentant>(
+    arbLocalisationRepresentant: fc.Arbitrary<AppartenancePaysUnionEuropeenne>,
+  ) =>
+  (secteur: T): fc.Arbitrary<InformationSecteurLocalisablePetiteEntreprise> =>
+    fc.record<InformationSecteurLocalisablePetiteEntreprise>({
+      secteurActivite: fc.constant(secteur),
+      activites: fabriqueArbEnsembleActivitesPourSecteur<
+        T,
+        ActivitesLocalisablesPetit
+      >(secteur),
+      fournitServicesUnionEuropeenne: fc.constant("oui"),
+      localisationRepresentant: arbLocalisationRepresentant,
+    }) as fc.Arbitrary<InformationSecteurLocalisablePetiteEntreprise>;
 export const fabriqueArbitraireEnsembleActivitesPourSecteurComposite = <
   T extends SecteursAvecSousSecteurs,
   U extends SousSecteurDe<T>,
@@ -66,6 +117,7 @@ export const fabriqueArbitraireEnsembleActivitesPourSecteurComposite = <
     sousSecteurActivite: fc.constant(sousSecteur),
     activites: fabriqueArbEnsembleActivitesPourSecteur(secteur, sousSecteur),
   }) as fc.Arbitrary<InformationsSecteursCompositeListe>;
+
 export const fabriqueArbitraireCapsuleSecteur = (
   arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
 ): fc.Arbitrary<ReponseInformationsSecteurPetit> =>
@@ -75,6 +127,24 @@ export const fabriqueArbitraireCapsuleSecteur = (
       secteurs: fc.constant(info),
     }),
   );
+
+export const fabriqueArbitraireCapsuleSecteurLocalisable = (
+  arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
+  arbFournitServicesUnionEuropeenne?: fc.Arbitrary<FournitServicesUnionEuropeenne>,
+  arbLocalisationRepresentant?: fc.Arbitrary<AppartenancePaysUnionEuropeenne>,
+): fc.Arbitrary<ReponseInformationsSecteurPetit> =>
+  arb.chain((info) =>
+    fc.record({
+      _categorieTaille: fc.constant("Petit"),
+      secteurs: fc.constant(info),
+      ...determineArbFournitServicesUnionEuropeenne(
+        arbFournitServicesUnionEuropeenne,
+        arbLocalisationRepresentant,
+      ),
+      ...determineArbLocalisationRepresentant(arbLocalisationRepresentant),
+    }),
+  );
+
 export const fabriqueArbitrairesEnsembleInformationsSecteurs = <
   T extends InformationSecteurPossible,
 >(

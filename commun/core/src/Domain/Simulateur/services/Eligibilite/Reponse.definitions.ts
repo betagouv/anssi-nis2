@@ -124,13 +124,22 @@ export type InformationSecteurSimple = {
   activites: Set<ActiviteSecteursSimples>;
 };
 
-type EtablissementPrincipalNeFournitPasFrance = {
+export type EtablissementPrincipalNeFournitPasUE = {
   fournitServicesUnionEuropeenne: "non";
 };
-type EtablissementPrincipalLocalisation = {
+export type EtablissementPrincipalFournitUE = {
   fournitServicesUnionEuropeenne: "oui";
   localisationRepresentant: AppartenancePaysUnionEuropeenne;
 };
+
+export type EtablissementPrincipalLocalisation =
+  | EtablissementPrincipalNeFournitPasUE
+  | EtablissementPrincipalFournitUE;
+
+export type InformationSecteurLocalisablePetiteEntreprise = {
+  secteurActivite: SecteursAvecBesoinLocalisationRepresentant;
+  activites: Set<ActivitesInfrastructureNumeriqueLocalisables>;
+} & EtablissementPrincipalLocalisation;
 
 export type InformationSecteurLocalisableGrand =
   | {
@@ -148,28 +157,6 @@ export type InformationSecteurLocalisableGrand =
         | ActivitesFournisseursNumeriques
         | ActivitesGestionServicesTic
       >;
-    } & EtablissementPrincipalNeFournitPasFrance)
-  | ({
-      secteurActivite: SecteursAvecBesoinLocalisationRepresentant;
-      activites: Set<
-        | ActivitesInfrastructureNumeriqueLocalisables
-        | ActivitesFournisseursNumeriques
-        | ActivitesGestionServicesTic
-      >;
-    } & EtablissementPrincipalLocalisation);
-
-export type InformationSecteurLocalisablePetiteEntreprise =
-  | {
-      secteurActivite: SecteursAvecBesoinLocalisationRepresentant;
-      activites: Set<ActivitesInfrastructureNumeriqueNonLocalisables>;
-    }
-  | ({
-      secteurActivite: SecteursAvecBesoinLocalisationRepresentant;
-      activites: Set<ActivitesInfrastructureNumeriqueLocalisables>;
-    } & EtablissementPrincipalNeFournitPasFrance)
-  | ({
-      secteurActivite: SecteursAvecBesoinLocalisationRepresentant;
-      activites: Set<ActivitesInfrastructureNumeriqueLocalisables>;
     } & EtablissementPrincipalLocalisation);
 
 export type InformationSecteurSimpleAutre = {
@@ -207,18 +194,27 @@ export type InformationSecteurPossible =
   | InformationSecteurPossiblePetit
   | InformationSecteurPossibleGrand;
 
-type InformationsSecteurPetitAlternatives =
-  | (Tag<"Necessaire", "Localisation"> & {
+// type InformationsSecteurPetitAlternatives =
+//   | (Tag<"Necessaire", "Localisation"> & {
+//       secteurs: Set<InformationSecteurPossiblePetit>;
+//     })
+//   | (Tag<"NonNecessaire", "Localisation"> & {
+//       secteurs: Set<
+//         | InformationsSecteurPossibleNonLocalisees
+//         | InformationsSecteurPossiblesAutre
+//       >;
+//     });
+
+export type InformationsSecteurPetitAlternatives =
+  | {
       secteurs: Set<InformationSecteurPossiblePetit>;
-      fournitServicesUnionEuropeenne: "oui" | "non";
-      localisationRepresentant: AppartenancePaysUnionEuropeenne;
-    })
-  | (Tag<"NonNecessaire", "Localisation"> & {
+    }
+  | {
       secteurs: Set<
         | InformationsSecteurPossibleNonLocalisees
         | InformationsSecteurPossiblesAutre
       >;
-    });
+    };
 
 export type ReponseInformationsSecteurPetit = CategoriseTaille<"Petit"> &
   InformationsSecteurPetitAlternatives;

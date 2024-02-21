@@ -2,8 +2,14 @@ import { describe, expect, it } from "vitest";
 import { Activite } from "../../../src/Domain/Simulateur/Activite.definitions";
 import { secteursNecessitantLocalisationRepresentant } from "../../../src/Domain/Simulateur/SecteurActivite.constantes";
 import { estActiviteAutre } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
-import { ReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
-import { estReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.predicats";
+import {
+  EtablissementPrincipalFournitUE,
+  ReponseEtatInformationsSecteur,
+} from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
+import {
+  estEtablissementPrincipalFournitUE,
+  estReponseEtatInformationsSecteur,
+} from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.predicats";
 import { estSecteurListe } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 import { assertion } from "../../utilitaires/ResultatEvaluationRegulation.assertions";
@@ -15,6 +21,7 @@ import {
   arbDesignationOperateurServicesEssentielsToujoursOui,
   arbInformationsSecteurComposite,
   arbInformationsSecteurCompositesPetit,
+  arbInformationsSecteurLocalisables,
   arbInformationsSecteurPetit,
   arbInformationsSecteurPetitAutre,
   arbInformationsSecteurSimple,
@@ -106,6 +113,26 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
           );
         }));
     });
+    describe("arbInformationsSecteurLocalisables", () => {
+      it("ne produit pas de structure vide", () =>
+        assertion.nonVide(arbInformationsSecteurLocalisables));
+      it("contient des données de localisation représentant en France", () =>
+        assertion.propriete(
+          arbInformationsSecteurLocalisables,
+          (informationsSecteur) => {
+            expect(informationsSecteur.fournitServicesUnionEuropeenne).toBe(
+              "oui",
+            );
+            expect(informationsSecteur).toSatisfy(
+              estEtablissementPrincipalFournitUE,
+            );
+            expect(
+              (informationsSecteur as EtablissementPrincipalFournitUE)
+                .localisationRepresentant,
+            ).toBe("france");
+          },
+        ));
+    });
     describe("arbInformationsSecteurComposite", () => {
       it("ne produit pas de structure vide", () =>
         assertion.nonVide(arbInformationsSecteurComposite));
@@ -135,9 +162,12 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
             expect(resultat).toSatisfy(estReponseEtatInformationsSecteur);
 
             const resultatType = resultat as ReponseEtatInformationsSecteur;
-            expect(Object.keys(resultatType.InformationsSecteur)).toContain(
-              "fournitServicesUnionEuropeenne",
-            );
+            const secteurs = [...resultatType.InformationsSecteur.secteurs];
+            expect(
+              secteurs.some(
+                (secteur) => "fournitServicesUnionEuropeenne" in secteur,
+              ),
+            ).toBeTruthy();
           },
         );
       });
