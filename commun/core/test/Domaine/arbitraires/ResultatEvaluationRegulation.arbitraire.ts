@@ -19,6 +19,7 @@ import {
   arbDesignationOperateurServicesEssentielsJamaisOui,
   arbDesignationOperateurServicesEssentielsToujoursOui,
   arbInformationsSecteurLocalisesFrancePetit,
+  arbInformationsSecteurLocalisesHorsFrancePetit,
   arbInformationsSecteurPetit,
   arbInformationsSecteurPetitAutre,
   arbStructurePetit,
@@ -151,5 +152,14 @@ export const arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable =
       arbAppartenanceUnionEuropeenneToujoursFrance,
       arbStructurePetit,
       arbInformationsSecteurLocalisesFrancePetit,
+    )
+    .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);
+export const arbResultatEvaluationRegulationEnSuspensApresStructureRepresentantLocaliseHorsFrance =
+  fc
+    .tuple(
+      arbDesignationOperateurServicesEssentielsJamaisOui,
+      arbAppartenanceUnionEuropeenneToujoursFrance,
+      arbStructurePetit,
+      arbInformationsSecteurLocalisesHorsFrancePetit,
     )
     .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);

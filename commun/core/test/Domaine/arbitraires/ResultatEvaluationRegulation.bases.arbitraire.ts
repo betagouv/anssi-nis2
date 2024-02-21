@@ -9,6 +9,7 @@ import { ValeursTypeEntitePublique } from "../../../src/Domain/Simulateur/Champs
 import {
   listeTuplesSecteursSousSecteurs,
   secteursNecessitantLocalisationRepresentant,
+  ValeursSecteursNecessitantLocalisationRepresentantPetiteEntite,
   ValeursSecteursSansSousSecteur,
 } from "../../../src/Domain/Simulateur/SecteurActivite.constantes";
 import {
@@ -28,9 +29,11 @@ import { SousSecteurActivite } from "../../../src/Domain/Simulateur/SousSecteurA
 import {
   fabriqueArbitraireCapsuleSecteur,
   fabriqueArbitraireCapsuleSecteurLocalisable,
+  fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFrance,
   fabriqueArbitraireEnsembleActivitesPourSecteur,
   fabriqueArbitraireEnsembleActivitesPourSecteurComposite,
-  fabriqueArbitraireEnsembleActivitesPourSecteurLocalisable,
+  fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe,
+  fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableHorsUe,
   fabriqueArbitrairesEnsembleInformationsSecteurs,
 } from "./ResultatEvaluationRegulation.arbitraire.fabrique";
 
@@ -111,9 +114,13 @@ export const arbSecteurSansSousSecteur = fc.constantFrom(
       ),
   ),
 );
-export const arbSecteurLocalisables =
+export const arbSecteurLocalisablesGrandeEntreprise =
   fc.constantFrom<SecteursAvecBesoinLocalisationRepresentant>(
     ...secteursNecessitantLocalisationRepresentant,
+  );
+export const arbSecteurLocalisablesPetiteEntite =
+  fc.constantFrom<SecteursAvecBesoinLocalisationRepresentant>(
+    ...ValeursSecteursNecessitantLocalisationRepresentantPetiteEntite,
   );
 export const arbSecteurAvecSousSecteurListes = fc.constantFrom<
   [SecteursAvecSousSecteurs, SousSecteurActivite]
@@ -126,23 +133,44 @@ export const arbSecteurAvecSousSecteurListes = fc.constantFrom<
 export const arbInformationsSecteurSimple = arbSecteurSansSousSecteur.chain(
   fabriqueArbitraireEnsembleActivitesPourSecteur,
 );
-export const arbInformationsSecteurLocalisables = arbSecteurLocalisables.chain(
-  fabriqueArbitraireEnsembleActivitesPourSecteurLocalisable(
-    fc.constant("france"),
-  ),
-);
+export const arbInformationsSecteurLocaliseesFrancePetite =
+  arbSecteurLocalisablesPetiteEntite.chain(
+    fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe(
+      fc.constant("france"),
+    ),
+  );
+export const arbInformationsSecteurLocaliseesHorsFrancePetite =
+  arbSecteurLocalisablesPetiteEntite.chain(
+    fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe(
+      fc.constantFrom("autre", "horsue"),
+    ),
+  );
+export const arbInformationsSecteurLocaliseesHorsUEPetite =
+  arbSecteurLocalisablesPetiteEntite.chain(
+    fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableHorsUe,
+  );
 export const arbInformationsSecteurComposite =
   arbSecteurAvecSousSecteurListes.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurComposite,
   );
 export const arbSecteursSimples: fc.Arbitrary<Set<InformationSecteurSimple>> =
   fabriqueArbitrairesEnsembleInformationsSecteurs(arbInformationsSecteurSimple);
-export const arbSecteursLocalisables: fc.Arbitrary<
+export const arbEnsembleSecteursLocalisablesFrance: fc.Arbitrary<
   Set<InformationSecteurLocalisablePetiteEntreprise>
 > =
   fabriqueArbitrairesEnsembleInformationsSecteurs<InformationSecteurLocalisablePetiteEntreprise>(
-    arbInformationsSecteurLocalisables,
+    arbInformationsSecteurLocaliseesFrancePetite,
   );
+export const arbEnsembleSecteursLocalisablesNonFrance: fc.Arbitrary<
+  Set<InformationSecteurLocalisablePetiteEntreprise>
+> = fc.oneof(
+  fabriqueArbitrairesEnsembleInformationsSecteurs<InformationSecteurLocalisablePetiteEntreprise>(
+    arbInformationsSecteurLocaliseesHorsUEPetite,
+  ),
+  fabriqueArbitrairesEnsembleInformationsSecteurs<InformationSecteurLocalisablePetiteEntreprise>(
+    arbInformationsSecteurLocaliseesHorsFrancePetite,
+  ),
+);
 export const arbSecteursComposites: fc.Arbitrary<
   Set<InformationsSecteursCompositeListe>
 > = fabriqueArbitrairesEnsembleInformationsSecteurs(
@@ -153,9 +181,14 @@ export const arbInformationsSecteurSimplesPetit: fc.Arbitrary<ReponseInformation
   fabriqueArbitraireCapsuleSecteur(arbSecteursSimples);
 export const arbInformationsSecteurLocalisesFrancePetit: fc.Arbitrary<ReponseInformationsSecteurPetit> =
   fabriqueArbitraireCapsuleSecteurLocalisable(
-    arbSecteursLocalisables,
+    arbEnsembleSecteursLocalisablesFrance,
     fc.constant("oui"),
     fc.constant("france"),
+  );
+
+export const arbInformationsSecteurLocalisesHorsFrancePetit: fc.Arbitrary<ReponseInformationsSecteurPetit> =
+  fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFrance(
+    arbEnsembleSecteursLocalisablesNonFrance,
   );
 export const arbInformationsSecteurCompositesPetit: fc.Arbitrary<ReponseInformationsSecteurPetit> =
   fabriqueArbitraireCapsuleSecteur(arbSecteursComposites);

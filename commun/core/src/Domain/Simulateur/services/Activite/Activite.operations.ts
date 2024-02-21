@@ -162,15 +162,16 @@ export const collecteTitresPourActivite: (
       ),
     [],
   );
-export const fabriqueListeActivitesDesSecteurs = (
-  secteurActivite: ValeurCleSectorielle[],
-  filtreActivite: (activite: Activite) => boolean,
-): Activite[] =>
-  Array.from(
-    secteurActivite.reduce((ensembleActivites, secteur) => {
-      activitesParSecteurEtSousSecteur[secteur]
-        ?.filter(filtreActivite)
-        .map((activite: Activite) => ensembleActivites.add(activite));
-      return ensembleActivites;
-    }, new Set<Activite>()),
-  );
+const getValeurCleSectorielle = <T>(
+  secteur: T,
+  sousSecteur?: string,
+): ValeurCleSectorielle =>
+  (sousSecteur ? sousSecteur : secteur) as ValeurCleSectorielle;
+export const getActivitesPour = <T extends SecteurActivite>(
+  secteur: T,
+  sousSecteur?: SousSecteurActivite,
+) => [
+  ...activitesParSecteurEtSousSecteur[
+    getValeurCleSectorielle(secteur, sousSecteur)
+  ],
+];

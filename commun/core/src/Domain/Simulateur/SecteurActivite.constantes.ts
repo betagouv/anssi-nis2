@@ -20,6 +20,9 @@ export const secteursNecessitantLocalisationRepresentant: readonly SecteursAvecB
     "fournisseursNumeriques",
     "infrastructureNumerique",
   ] as const;
+
+export const ValeursSecteursNecessitantLocalisationRepresentantPetiteEntite: readonly SecteursAvecBesoinLocalisationRepresentant[] =
+  ["infrastructureNumerique"] as const;
 export const ValeursSecteursSansSousSecteur: SecteurActivite[] =
   ValeursSecteursActivites.filter(estUnSecteurSansDesSousSecteurs);
 export const listeTuplesSecteursSousSecteurs =

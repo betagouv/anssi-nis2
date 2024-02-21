@@ -9,6 +9,7 @@ import {
 import {
   estEtablissementPrincipalFournitUE,
   estReponseEtatInformationsSecteur,
+  estSecteurBienLocaliseHorsFrancePetit,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.predicats";
 import { estSecteurListe } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
@@ -21,13 +22,17 @@ import {
   arbDesignationOperateurServicesEssentielsToujoursOui,
   arbInformationsSecteurComposite,
   arbInformationsSecteurCompositesPetit,
-  arbInformationsSecteurLocalisables,
+  arbInformationsSecteurLocaliseesFrancePetite,
+  arbInformationsSecteurLocaliseesHorsFrancePetite,
+  arbInformationsSecteurLocaliseesHorsUEPetite,
+  arbInformationsSecteurLocalisesFrancePetit,
+  arbInformationsSecteurLocalisesHorsFrancePetit,
   arbInformationsSecteurPetit,
   arbInformationsSecteurPetitAutre,
   arbInformationsSecteurSimple,
   arbInformationsSecteurSimplesPetit,
   arbSecteurAvecSousSecteurListes,
-  arbSecteurLocalisables,
+  arbSecteurLocalisablesGrandeEntreprise,
   arbSecteurSansSousSecteur,
   arbSecteursSimples,
   arbStructurePetitPrive,
@@ -68,6 +73,25 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
           arbInformationsSecteurCompositesPetit,
           arbInformationsSecteurSimplesPetit,
         ));
+      describe("arbInformationsSecteur*", () => {
+        it("arbInformationsSecteurLocalisesFrancePetit et arbInformationsSecteurLocalisesHorsFrancePetit sont exclusifs", () =>
+          assertion.tousExclusifs(
+            arbInformationsSecteurLocalisesFrancePetit,
+            arbInformationsSecteurLocalisesHorsFrancePetit,
+          ));
+        it("arbInformationsSecteurLocalisesHorsFrancePetit n'a jamais localisation France", () => {
+          assertion.propriete(
+            arbInformationsSecteurLocalisesHorsFrancePetit,
+            (capsule) => {
+              [...capsule.secteurs].map((secteur) =>
+                expect(secteur).toSatisfy(
+                  estSecteurBienLocaliseHorsFrancePetit,
+                ),
+              );
+            },
+          );
+        });
+      });
     });
   });
 
@@ -81,14 +105,19 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
       it("exclusif avec les secteurs localisables", () =>
         assertion.tousExclusifs(
           arbSecteurSansSousSecteur,
-          arbSecteurLocalisables,
+          arbSecteurLocalisablesGrandeEntreprise,
         ));
     });
     describe("arbSecteurLocalisables", () => {
       it("est un secteur localisable", () =>
-        assertion.propriete(arbSecteurLocalisables, (secteur) => {
-          expect(secteursNecessitantLocalisationRepresentant).includes(secteur);
-        }));
+        assertion.propriete(
+          arbSecteurLocalisablesGrandeEntreprise,
+          (secteur) => {
+            expect(secteursNecessitantLocalisationRepresentant).includes(
+              secteur,
+            );
+          },
+        ));
     });
     describe("arbSecteurAvecSousSecteur", () => {
       it("n'est pas vide", () =>
@@ -113,12 +142,12 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
           );
         }));
     });
-    describe("arbInformationsSecteurLocalisables", () => {
+    describe("arbInformationsSecteurLocaliseesFrance", () => {
       it("ne produit pas de structure vide", () =>
-        assertion.nonVide(arbInformationsSecteurLocalisables));
+        assertion.nonVide(arbInformationsSecteurLocaliseesFrancePetite));
       it("contient des données de localisation représentant en France", () =>
         assertion.propriete(
-          arbInformationsSecteurLocalisables,
+          arbInformationsSecteurLocaliseesFrancePetite,
           (informationsSecteur) => {
             expect(informationsSecteur.fournitServicesUnionEuropeenne).toBe(
               "oui",
@@ -130,6 +159,39 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
               (informationsSecteur as EtablissementPrincipalFournitUE)
                 .localisationRepresentant,
             ).toBe("france");
+          },
+        ));
+    });
+    describe("arbInformationsSecteurLocaliseesHorsUE", () => {
+      it("ne produit pas de structure vide", () =>
+        assertion.nonVide(arbInformationsSecteurLocaliseesHorsUEPetite));
+      it("contient des données de localisation représentant hors UE", () =>
+        assertion.propriete(
+          arbInformationsSecteurLocaliseesHorsUEPetite,
+          (informationsSecteur) => {
+            expect(informationsSecteur.fournitServicesUnionEuropeenne).toBe(
+              "non",
+            );
+          },
+        ));
+    });
+    describe("arbInformationsSecteurLocaliseesHorsFrance", () => {
+      it("ne produit pas de structure vide", () =>
+        assertion.nonVide(arbInformationsSecteurLocaliseesHorsFrancePetite));
+      it("contient des données de localisation représentant hors France", () =>
+        assertion.propriete(
+          arbInformationsSecteurLocaliseesHorsFrancePetite,
+          (informationsSecteur) => {
+            expect(informationsSecteur.fournitServicesUnionEuropeenne).toBe(
+              "oui",
+            );
+            expect(informationsSecteur).toSatisfy(
+              estEtablissementPrincipalFournitUE,
+            );
+            expect(
+              (informationsSecteur as EtablissementPrincipalFournitUE)
+                .localisationRepresentant,
+            ).not.toBe("france");
           },
         ));
     });

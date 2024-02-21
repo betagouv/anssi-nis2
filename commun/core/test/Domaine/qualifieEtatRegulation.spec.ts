@@ -39,6 +39,7 @@ import {
   arbResultatEvaluationRegulationEnSuspensApresStructure,
   arbResultatEvaluationRegulationEnSuspensApresStructureAutre,
   arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable,
+  arbResultatEvaluationRegulationEnSuspensApresStructureRepresentantLocaliseHorsFrance,
   arbResultatEvaluationRegulationNonOse,
 } from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
 import { arbitrairesResultatRegulation } from "./arbitraires/ResultatRegulation.arbitraires";
@@ -253,6 +254,23 @@ describe("Regulation Etat Reponse", () => {
               _resultatEvaluationRegulation: "Definitif",
               etapeEvaluee: "InformationsSecteur",
               ...fabriqueRegule(causes),
+            };
+
+            const resultatObtenu =
+              evalueRegulationEtatReponseInformationsSecteur(reponse);
+            expect(resultatObtenu).toStrictEqual(resultatAttendu);
+          },
+        ),
+      );
+      it(
+        "en suspens / secteurs localisables et localisé hors France ==> toujours définitivement non-régulé",
+        assertionArbitraire(
+          arbResultatEvaluationRegulationEnSuspensApresStructureRepresentantLocaliseHorsFrance,
+          (reponse) => {
+            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
+              _resultatEvaluationRegulation: "Definitif",
+              etapeEvaluee: "InformationsSecteur",
+              ...resultatNonRegule,
             };
 
             const resultatObtenu =

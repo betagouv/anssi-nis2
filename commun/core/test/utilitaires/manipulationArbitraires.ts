@@ -14,7 +14,7 @@ import {
   DonneesFormulaireSimulateur,
   DonneesSectorielles,
 } from "../../src/Domain/Simulateur/DonneesFormulaire.definitions";
-import { fabriqueListeActivitesDesSecteurs } from "../../src/Domain/Simulateur/services/Activite/Activite.operations";
+import { fabriqueListeActivitesDesSecteurs } from "../../src/Domain/Simulateur/services/Activite/Activite.fabriques";
 import {
   estActiviteAutre,
   estActiviteListee,
