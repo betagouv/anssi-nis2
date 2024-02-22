@@ -242,7 +242,7 @@ describe("Regulation Etat Reponse", () => {
         ),
       );
       it(
-        "en suspens / secteurs localisables et bien localisés ==> toujours définitivement régulé",
+        "en suspens / secteurs localisables et bien localisés ==> toujours définitivement régulé EE",
         assertionArbitraire(
           arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable,
           (reponse) => {
@@ -253,7 +253,7 @@ describe("Regulation Etat Reponse", () => {
             const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
               _resultatEvaluationRegulation: "Definitif",
               etapeEvaluee: "InformationsSecteur",
-              ...fabriqueRegule(causes),
+              ...fabriqueRegule(causes, "EntiteEssentielle"),
             };
 
             const resultatObtenu =

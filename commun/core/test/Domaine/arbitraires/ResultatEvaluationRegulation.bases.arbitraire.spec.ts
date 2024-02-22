@@ -223,7 +223,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
     describe("arbEnsembleSecteursSimples", () => {
       it("ne contient pas vide", () =>
         assertion.propriete(arbEnsembleSecteursSimples, (secteur) => {
-          expect(secteur).not.includes(undefined);
+          expect(secteur).not.toContain(undefined);
         }));
       it("n'est pas vide", () => assertion.nonVide(arbEnsembleSecteursSimples));
     });

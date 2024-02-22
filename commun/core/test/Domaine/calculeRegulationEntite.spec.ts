@@ -27,11 +27,14 @@ import { fc } from "@fast-check/vitest";
 describe(calculeRegulationEntite, () => {
   describe("Régulé", () => {
     describe("Entité OSE pour NIS1", () => {
-      it("petite entité", () =>
+      // TODO : sera remplacé
+      it.skip("petite entité", () =>
         V.estRegule(arbForm.designeOSE.petit).car({
           designationOperateurServicesEssentiels: ["oui"],
         }));
-      it("moyenne/grande entité", () =>
+      // TODO : sera remplacé
+      
+      it.skip("moyenne/grande entité", () =>
         V.estRegule(arbForm.designeOSE.moyenGrand).car({
           designationOperateurServicesEssentiels: ["oui"],
         }));

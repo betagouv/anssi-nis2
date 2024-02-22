@@ -133,10 +133,13 @@ export const evalueRegulationEtatReponseInformationsSecteur = (
       (reponse) =>
         fabriqueResultatEvaluationDefinitif(
           "InformationsSecteur",
-          fabriqueRegule({
-            ...propReponseEtat(reponse)("Structure"),
-            ...propReponseEtat(reponse)("InformationsSecteur"),
-          }),
+          fabriqueRegule(
+            {
+              ...propReponseEtat(reponse)("Structure"),
+              ...propReponseEtat(reponse)("InformationsSecteur"),
+            },
+            "EntiteEssentielle",
+          ),
         ),
     )
     .with(
