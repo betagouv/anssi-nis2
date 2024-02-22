@@ -1,3 +1,4 @@
+import { tous } from "../../../../../../utils/services/sets.operations";
 import {
   estSecteurNecessitantLocalisationRepresentantPetiteEntite,
   ValeursSecteursNecessitantLocalisationRepresentantPetiteEntite,
@@ -75,28 +76,28 @@ export const contientEnsembleAutresSecteurs = (
   info: ResultatEvaluationRegulation,
 ) =>
   estReponseEtatInformationsSecteur(info) &&
-  [...info.InformationsSecteur.secteurs].every(
-    (sec) =>
+  tous(
+    (sec: InformationSecteurPossiblePetit) =>
       estSecteurAutre(sec.secteurActivite as SecteurActivite) ||
       estSousSecteurAutre(
         (sec as InformationsSecteursComposite)
           ?.sousSecteurActivite as SousSecteurActivite,
       ),
-  );
+  )(info.InformationsSecteur.secteurs);
 export const contientEnsembleSecteursRepresentantsLocalisesFrancePetit = (
   info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
 ) =>
   estReponseInformationsSecteurPetit(info) &&
-  [...info.secteurs].every(estSecteurBienLocalisePetit);
+  tous(estSecteurBienLocalisePetit)(info.secteurs);
 export const contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit = (
   info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
 ) =>
   estReponseInformationsSecteurPetit(info) &&
-  [...info.secteurs].every(estSecteurBienLocaliseHorsFrancePetit);
+  tous(estSecteurBienLocaliseHorsFrancePetit)(info.secteurs);
 export const contientEnsembleSecteursNonEligiblesPetit = (
   info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
 ) =>
   estReponseInformationsSecteurPetit(info) &&
-  [...info.secteurs].every(
-    estInformationSecteurNecessitantLocalisationRepresentantPetiteEntite,
+  tous(estInformationSecteurNecessitantLocalisationRepresentantPetiteEntite)(
+    info.secteurs,
   );

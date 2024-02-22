@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { tous } from "../../../../utils/services/sets.operations";
 import { Activite } from "../../../src/Domain/Simulateur/Activite.definitions";
 import { secteursNecessitantLocalisationRepresentant } from "../../../src/Domain/Simulateur/SecteurActivite.constantes";
 import { estActiviteAutre } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
@@ -151,7 +152,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
       it("ne contient pas uniquement activités autre", () =>
         assertion.propriete(arbInformationsSecteurSimple, (info) => {
           expect(info.activites).not.toSatisfy((activites: Set<Activite>) =>
-            [...activites].every(estActiviteAutre),
+            tous(estActiviteAutre)(activites),
           );
         }));
     });
@@ -213,8 +214,8 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
         assertion.nonVide(arbInformationsSecteurComposite));
       it("ne contient pas uniquement activités autre", () =>
         assertion.propriete(arbInformationsSecteurComposite, (info) => {
-          expect(info.activites).not.toSatisfy((activites: Set<Activite>) =>
-            [...activites].every(estActiviteAutre),
+          expect(info.activites).not.toSatisfy(
+            tous<Activite>(estActiviteAutre),
           );
         }));
     });
