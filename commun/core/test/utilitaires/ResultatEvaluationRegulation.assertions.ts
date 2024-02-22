@@ -1,5 +1,5 @@
 import { fc } from "@fast-check/vitest";
-import { ResultatEvaluationRegulation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definition";
+import { ResultatEvaluationRegulation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import { expect } from "vitest";
 
 export const assertionArbitraire =

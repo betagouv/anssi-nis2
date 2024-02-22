@@ -8,32 +8,32 @@ import { SecteurActivite } from "../../SecteurActivite.definitions";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
 import { estSecteurAutre } from "../SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurAutre } from "../SousSecteurActivite/SousSecteurActivite.predicats";
+import { EtatEvaluationActives } from "./EtatEvaluation.definitions";
 import {
   ResultatEvaluationRegulation,
   ResultatEvaluationRegulationEnSuspens,
-} from "./EtatRegulation.definition";
+} from "./EtatRegulation.definitions";
 import {
   fabriqueResultatEnSuspensOse,
   fabriqueResultatEvaluationDefinitif,
   fabriqueResultatEvaluationEnSuspens,
   fabriqueResultatEvaluationReguleOse,
 } from "./EtatRegulation.fabriques";
+import { estReponseEtatInformationsSecteur } from "./EtatRegulation.predicats";
 import {
-  EtapesEvaluationActives,
   InformationsSecteursComposite,
   ReponseInformationsSecteurGrand,
   ReponseInformationsSecteurPetit,
 } from "./Reponse.definitions";
 import { propReponseEtat } from "./Reponse.operations";
 import {
-  estReponseEtatInformationsSecteur,
   estReponseInformationsSecteurPetit,
   estSecteurBienLocaliseHorsFrancePetit,
   estSecteurBienLocalisePetit,
 } from "./Reponse.predicats";
 
 const propageDonneesEvaluees =
-  (etape: EtapesEvaluationActives) =>
+  (etape: EtatEvaluationActives) =>
   (reponse: ResultatEvaluationRegulation) => ({
     ...reponse,
     etapeEvaluee: etape,

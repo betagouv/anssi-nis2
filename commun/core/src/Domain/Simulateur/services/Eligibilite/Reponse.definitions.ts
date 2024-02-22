@@ -1,5 +1,5 @@
 import { ExtraitAutre } from "../../../../../../utils/types/Extrait";
-import { RemoveTag, Tag } from "../../../../../../utils/types/Tag";
+import { Tag } from "../../../../../../utils/types/Tag";
 import {
   ActiviteSecteursSimples,
   ActivitesEnergie,
@@ -38,17 +38,21 @@ export type ReponseAppartenancePaysUnionEuropeenne = {
   appartenancePaysUnionEuropeenne: AppartenancePaysUnionEuropeenne;
 };
 
-type TypeStructurePrivee = {
+export type TypeStructurePrivee = {
   typeStructure: "privee";
 };
-type TypeStructurePublique = {
+
+export type TypeStructurePublique = {
   typeStructure: "publique";
   typeEntitePublique: TypeEntitePublique;
 };
 
-type CategoriseTaille<S extends "Grand" | "Petit"> = Tag<S, "CategorieTaille">;
+export type CategoriseTaille<S extends "Grand" | "Petit"> = Tag<
+  S,
+  "CategorieTaille"
+>;
 
-type TailleSecteurPriveGrand = (
+export type TailleSecteurPriveGrand = (
   | {
       trancheChiffreAffaire: Omit<TrancheChiffreAffaire, "petit">;
       trancheNombreEmployes: TrancheNombreEmployes;
@@ -60,15 +64,15 @@ type TailleSecteurPriveGrand = (
 ) &
   CategoriseTaille<"Grand">;
 
-type TailleSecteurPrivePetit = {
+export type TailleSecteurPrivePetit = {
   trancheChiffreAffaire: Extract<TrancheChiffreAffaire, "petit">;
   trancheNombreEmployes: Extract<TrancheNombreEmployes, "petit">;
 } & CategoriseTaille<"Petit">;
 
-type TailleSecteurPublicPetit = {
+export type TailleSecteurPublicPetit = {
   trancheNombreEmployes: Extract<TrancheChiffreAffaire, "petit">;
 } & CategoriseTaille<"Petit">;
-type TailleSecteurPublicGrand = {
+export type TailleSecteurPublicGrand = {
   trancheNombreEmployes: Omit<TrancheNombreEmployes, "petit">;
 } & CategoriseTaille<"Grand">;
 
@@ -222,72 +226,3 @@ export type ReponseInformationsSecteurPetit = CategoriseTaille<"Petit"> &
 export type ReponseInformationsSecteurGrand = CategoriseTaille<"Grand"> & {
   secteurs: Set<InformationSecteurPossibleGrand>;
 };
-
-export type EtapesEvaluationActives =
-  | "DesignationOperateurServicesEssentiels"
-  | "AppartenancePaysUnionEuropeenne"
-  | "Structure"
-  | "InformationsSecteur";
-
-export type EtapesEvaluation = "NonEvalue" | EtapesEvaluationActives;
-
-export type ReponseEtatVide = Tag<"ReponseEtatVide">;
-
-type CapsuleDesignationOperateurServicesEssentiels = {
-  DesignationOperateurServicesEssentiels: ReponseDesignationOperateurServicesEssentiels;
-};
-type CapsuleAppartenancePaysUnionEuropeenne = {
-  AppartenancePaysUnionEuropeenne: ReponseAppartenancePaysUnionEuropeenne;
-};
-type CapsuleStructure = {
-  Structure: ReponseStructure;
-};
-type CapsuleInformationsSecteur =
-  | {
-      Structure: ReponseStructurePetit;
-      InformationsSecteur: ReponseInformationsSecteurPetit;
-    }
-  | {
-      Structure: ReponseStructureGrand;
-      InformationsSecteur: ReponseInformationsSecteurGrand;
-    };
-
-export type CapsuleInformations =
-  | CapsuleDesignationOperateurServicesEssentiels
-  | CapsuleAppartenancePaysUnionEuropeenne
-  | CapsuleStructure
-  | CapsuleInformationsSecteur;
-
-export type ReponseEtatDesignationOperateurServicesEssentiels =
-  Tag<"DesignationOperateurServicesEssentiels"> &
-    CapsuleDesignationOperateurServicesEssentiels;
-export type ReponseEtatAppartenancePaysUnionEuropeenne =
-  Tag<"AppartenancePaysUnionEuropeenne"> &
-    RemoveTag<ReponseEtatDesignationOperateurServicesEssentiels> &
-    CapsuleAppartenancePaysUnionEuropeenne;
-
-export type ReponseEtatStructure = Tag<"Structure"> &
-  RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> &
-  CapsuleStructure;
-
-export type ReponseEtatStructurePetit = Tag<"Structure"> &
-  RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> & {
-    Structure: ReponseStructurePetit;
-  };
-
-export type ReponseEtatInformationsSecteurPetit = Tag<"InformationsSecteur"> &
-  RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> & {
-    Structure: ReponseStructurePetit;
-    InformationsSecteur: ReponseInformationsSecteurPetit;
-  };
-export type ReponseEtatInformationsSecteur = Tag<"InformationsSecteur"> &
-  RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> &
-  CapsuleInformationsSecteur;
-
-export type UnionReponseEtatNonVide =
-  | ReponseEtatDesignationOperateurServicesEssentiels
-  | ReponseEtatAppartenancePaysUnionEuropeenne
-  | ReponseEtatStructure
-  | ReponseEtatInformationsSecteur;
-
-export type UnionReponseEtat = ReponseEtatVide | UnionReponseEtatNonVide;

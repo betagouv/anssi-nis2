@@ -2,15 +2,13 @@ import { describe, expect, it } from "vitest";
 import { Activite } from "../../../src/Domain/Simulateur/Activite.definitions";
 import { secteursNecessitantLocalisationRepresentant } from "../../../src/Domain/Simulateur/SecteurActivite.constantes";
 import { estActiviteAutre } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
-import {
-  EtablissementPrincipalFournitUE,
-  ReponseEtatInformationsSecteur,
-} from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
+import { estReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.predicats";
+import { EtablissementPrincipalFournitUE } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 import {
   estEtablissementPrincipalFournitUE,
-  estReponseEtatInformationsSecteur,
   estSecteurBienLocaliseHorsFrancePetit,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.predicats";
+import { ReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.definitions";
 import { estSecteurListe } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 import { assertion } from "../../utilitaires/ResultatEvaluationRegulation.assertions";

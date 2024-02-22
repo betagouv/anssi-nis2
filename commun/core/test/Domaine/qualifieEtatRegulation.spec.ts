@@ -12,23 +12,21 @@ import {
   CausesRegulation,
   ResultatRegulationEntite,
 } from "../../src/Domain/Simulateur/Regulation.definitions";
+import { EtatEvaluation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatEvaluation.definitions";
 import {
   OperationEvalueEtape,
   ResultatEvaluationRegulation,
   ResultatEvaluationRegulationDefinitif,
   ResultatEvaluationRegulationEnSuspens,
-} from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definition";
+} from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import {
   evalueRegulationEtatReponseInformationsSecteur,
   evalueRegulationEtatReponseLocalisation,
   evalueRegulationEtatReponseOse,
   evalueRegulationEtatReponseStructure,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
-import {
-  EtapesEvaluation,
-  ReponseEtatDesignationOperateurServicesEssentiels,
-} from "../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 import { propReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/Reponse.operations";
+import { ReponseEtatDesignationOperateurServicesEssentiels } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.definitions";
 import { fabriqueResultatEvaluationRegulationDefinitif } from "../../src/Domain/Simulateur/services/Eligibilite/ResultatEvaluationRegulation.fabriques";
 import { assertionArbitraire } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import {
@@ -46,7 +44,7 @@ import { arbitrairesResultatRegulation } from "./arbitraires/ResultatRegulation.
 
 describe("Regulation Etat Reponse", () => {
   const generateurEtapesEvalueesConsecutives = fc.constantFrom<
-    [EtapesEvaluation, EtapesEvaluation, OperationEvalueEtape]
+    [EtatEvaluation, EtatEvaluation, OperationEvalueEtape]
   >(
     [
       "NonEvalue",
@@ -76,7 +74,7 @@ describe("Regulation Etat Reponse", () => {
         fc.property<
           [
             ResultatRegulationEntite,
-            [EtapesEvaluation, EtapesEvaluation, OperationEvalueEtape],
+            [EtatEvaluation, EtatEvaluation, OperationEvalueEtape],
           ]
         >(
           arbitrairesResultatRegulation,

@@ -1,7 +1,7 @@
 import { fc } from "@fast-check/vitest";
 import { resultatIncertain } from "../../../src/Domain/Simulateur/Regulation.constantes";
 import { FabriqueEtatDonneesSimulateur } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
-import { ResultatEvaluationRegulation } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definition";
+import { ResultatEvaluationRegulation } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import {
   fabriqueResultatEvaluationEnSuspens,
   fabriqueResultatEvaluationInconnu,

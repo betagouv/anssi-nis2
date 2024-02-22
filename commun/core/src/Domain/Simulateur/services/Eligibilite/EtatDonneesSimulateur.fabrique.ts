@@ -16,6 +16,9 @@ import {
   ReponseStructurePetit,
   ReponseInformationsSecteurPetit,
   ReponseDesignationOperateurServicesEssentiels,
+  ReponseAppartenancePaysUnionEuropeenne,
+} from "./Reponse.definitions";
+import {
   ReponseEtatAppartenancePaysUnionEuropeenne,
   ReponseEtatDesignationOperateurServicesEssentiels,
   ReponseEtatInformationsSecteur,
@@ -23,9 +26,8 @@ import {
   ReponseEtatStructure,
   ReponseEtatStructurePetit,
   ReponseEtatVide,
-  ReponseAppartenancePaysUnionEuropeenne,
   UnionReponseEtat,
-} from "./Reponse.definitions";
+} from "./ReponseEtat.definitions";
 
 const exactementUnElement = <T extends string>(a: T[]) => a.length === 1;
 const auMoinsUnElement = <T extends string>(a: T[]) => a.length >= 1;

@@ -1,6 +1,5 @@
 import { ValeursSecteursNecessitantLocalisationRepresentantPetiteEntite } from "../../SecteurActivite.constantes";
 import { SecteursAvecBesoinLocalisationRepresentant } from "../../SecteurActivite.definitions";
-import { ResultatEvaluationRegulation } from "./EtatRegulation.definition";
 import {
   EtablissementPrincipalFournitUE,
   InformationSecteurLocalisablePetiteEntreprise,
@@ -8,29 +7,24 @@ import {
   InformationSecteurPossiblePetit,
   InformationsSecteurPossibleNonLocalisees,
   InformationsSecteurPossiblesAutre,
-  ReponseEtatInformationsSecteur,
   ReponseInformationsSecteurGrand,
   ReponseInformationsSecteurPetit,
 } from "./Reponse.definitions";
+
+export const estReponseInformationsSecteurPetit = (
+  info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
+): info is ReponseInformationsSecteurPetit => info._categorieTaille === "Petit";
 
 export const eqInformationsSecteur = (
   a: InformationSecteurPossible,
   b: InformationSecteurPossible,
 ) => a.secteurActivite === b.secteurActivite;
-
 export const estEtablissementPrincipalFournitUE = (
   reponse:
     | InformationSecteurLocalisablePetiteEntreprise
     | EtablissementPrincipalFournitUE,
 ): reponse is EtablissementPrincipalFournitUE =>
   reponse.fournitServicesUnionEuropeenne === "oui";
-export const estReponseEtatInformationsSecteur = (
-  resultat: ResultatEvaluationRegulation | ReponseEtatInformationsSecteur,
-): resultat is ReponseEtatInformationsSecteur =>
-  "_tag" in resultat && resultat._tag === "InformationsSecteur";
-export const estReponseInformationsSecteurPetit = (
-  info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
-): info is ReponseInformationsSecteurPetit => info._categorieTaille === "Petit";
 export const estInformationSecteurLocalisablePetiteEntreprise = (
   sec:
     | InformationSecteurPossiblePetit

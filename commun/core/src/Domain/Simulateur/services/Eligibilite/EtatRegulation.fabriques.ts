@@ -2,28 +2,28 @@ import { resultatReguleOSE } from "../../fabriques/Regulation.fabrique";
 import { resultatIncertain } from "../../Regulation.constantes";
 import { ResultatRegulationEntite } from "../../Regulation.definitions";
 import {
+  EtatEvaluation,
+  EtatEvaluationActives,
+} from "./EtatEvaluation.definitions";
+import {
   ResultatEvaluationRegulation,
   ResultatEvaluationRegulationAvecReponses,
   ResultatEvaluationRegulationDefinitif,
   ResultatEvaluationRegulationEnSuspens,
   ResultatEvaluationRegulationInconnu,
-} from "./EtatRegulation.definition";
-import {
-  EtapesEvaluationActives,
-  EtapesEvaluation,
-  UnionReponseEtatNonVide,
-} from "./Reponse.definitions";
+} from "./EtatRegulation.definitions";
+import { UnionReponseEtatNonVide } from "./ReponseEtat.definitions";
 
 export const fabriqueResultatEvaluationInconnu = (
   reponse: UnionReponseEtatNonVide,
-  etapeEvaluee: EtapesEvaluation = "NonEvalue",
+  etapeEvaluee: EtatEvaluation = "NonEvalue",
 ): ResultatEvaluationRegulationInconnu => ({
   ...reponse,
   _resultatEvaluationRegulation: "Inconnu",
   etapeEvaluee,
 });
 export const fabriqueResultatEvaluationEnSuspens = (
-  etapeEvaluee: EtapesEvaluationActives,
+  etapeEvaluee: EtatEvaluationActives,
   resulat: ResultatRegulationEntite,
   reponse: UnionReponseEtatNonVide,
 ): ResultatEvaluationRegulationEnSuspens => ({
@@ -33,7 +33,7 @@ export const fabriqueResultatEvaluationEnSuspens = (
   etapeEvaluee,
 });
 export const fabriqueResultatEvaluationDefinitif = (
-  etapeEvaluee: EtapesEvaluationActives,
+  etapeEvaluee: EtatEvaluationActives,
   resulat: ResultatRegulationEntite,
 ): ResultatEvaluationRegulationDefinitif => ({
   _resultatEvaluationRegulation: "Definitif",

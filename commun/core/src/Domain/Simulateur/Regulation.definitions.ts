@@ -1,13 +1,13 @@
 import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.definitions";
 
 import { ValeursRegulationEntite } from "./RegulationEntite.valeurs";
-import { CapsuleInformations } from "./services/Eligibilite/Reponse.definitions";
+import { CapsuleReponse } from "./services/Eligibilite/CapsuleReponse";
 
 export type RegulationEntite = (typeof ValeursRegulationEntite)[number];
 
 export type CausesRegulation =
   | Partial<DonneesFormulaireSimulateur>
-  | CapsuleInformations;
+  | CapsuleReponse;
 
 export const Regulation: Record<RegulationEntite, RegulationEntite> = {
   Regule: "Regule",

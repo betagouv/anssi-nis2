@@ -2,7 +2,8 @@ import { describe, expect, it } from "vitest";
 import { ens } from "../../../utils/services/sets.operations";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
 import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
-import { UnionReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
+
+import { UnionReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.definitions";
 
 describe("fabrique ReponseEtat", () => {
   describe("depuisDonneesFormulaireSimulateur", () => {

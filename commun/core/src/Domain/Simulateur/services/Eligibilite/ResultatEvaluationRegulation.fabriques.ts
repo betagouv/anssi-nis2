@@ -1,11 +1,11 @@
 // TODO: Causes sur nouveau modèle
 import { ResultatRegulationEntite } from "../../Regulation.definitions";
-import { ResultatEvaluationRegulationDefinitif } from "./EtatRegulation.definition";
-import { EtapesEvaluation } from "./Reponse.definitions";
+import { EtatEvaluation } from "./EtatEvaluation.definitions";
+import { ResultatEvaluationRegulationDefinitif } from "./EtatRegulation.definitions";
 
 export const fabriqueResultatEvaluationRegulationDefinitif = (
   resultatRegulation: ResultatRegulationEntite,
-  etapeEvaluee: EtapesEvaluation,
+  etapeEvaluee: EtatEvaluation,
 ): ResultatEvaluationRegulationDefinitif => ({
   _resultatEvaluationRegulation: "Definitif",
   etapeEvaluee,

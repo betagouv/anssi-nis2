@@ -1,12 +1,10 @@
-import { ResultatEvaluationRegulation } from "./EtatRegulation.definition";
-import {
-  EtapesEvaluationActives,
-  ReponseEtatInformationsSecteur,
-} from "./Reponse.definitions";
+import { EtatEvaluationActives } from "./EtatEvaluation.definitions";
+import { ResultatEvaluationRegulation } from "./EtatRegulation.definitions";
+import { ReponseEtatInformationsSecteur } from "./ReponseEtat.definitions";
 
 export const propReponseEtat =
   (reponse: ResultatEvaluationRegulation) =>
-  <T extends EtapesEvaluationActives>(
+  <T extends EtatEvaluationActives>(
     propName: T,
   ): Pick<ReponseEtatInformationsSecteur, T> =>
     ({
