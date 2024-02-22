@@ -15,8 +15,7 @@ import {
   CategorieTaille,
   ReponseAppartenancePaysUnionEuropeenne,
   ReponseDesignationOperateurServicesEssentiels,
-  ReponseInformationsSecteurGrand,
-  ReponseInformationsSecteurPetit,
+  ReponseInformationsSecteur,
   ReponseStructure,
   ReponseStructurePrivee,
   ReponseStructurePublique,
@@ -156,7 +155,7 @@ export const FabriqueEtatDonneesSimulateur = {
     structure:
       | ReponseStructurePrivee<"Petit">
       | ReponseStructurePublique<"Petit">,
-    informationsSecteur: ReponseInformationsSecteurPetit,
+    informationsSecteur: ReponseInformationsSecteur<"Petit">,
   ): ReponseEtatInformationsSecteurPetit => ({
     ...FabriqueEtatDonneesSimulateur.structurePetitChaine(
       designationOperateurServicesEssentiel,
@@ -172,7 +171,7 @@ export const FabriqueEtatDonneesSimulateur = {
     structure:
       | ReponseStructurePrivee<"Grand">
       | ReponseStructurePublique<"Grand">,
-    informationsSecteur: ReponseInformationsSecteurGrand,
+    informationsSecteur: ReponseInformationsSecteur<"Grand">,
   ): ReponseEtatInformationsSecteurGrand => ({
     ...FabriqueEtatDonneesSimulateur.structureGrandChaine(
       designationOperateurServicesEssentiel,

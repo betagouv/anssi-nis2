@@ -19,16 +19,21 @@ import {
   InformationsSecteurPossibleNonLocalisees,
   InformationsSecteurPossiblesAutre,
   InformationsSecteursComposite,
-  ReponseInformationsSecteurGrand,
-  ReponseInformationsSecteurPetit,
+  ReponseInformationsSecteur,
 } from "./Reponse.definitions";
 
 export const estReponseInformationsSecteurPetit = (
-  info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
-): info is ReponseInformationsSecteurPetit => info._categorieTaille === "Petit";
+  info:
+    | ReponseInformationsSecteur<"Petit">
+    | ReponseInformationsSecteur<"Grand">,
+): info is ReponseInformationsSecteur<"Petit"> =>
+  info._categorieTaille === "Petit";
 export const estReponseInformationsSecteurGrand = (
-  info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
-): info is ReponseInformationsSecteurGrand => info._categorieTaille === "Grand";
+  info:
+    | ReponseInformationsSecteur<"Petit">
+    | ReponseInformationsSecteur<"Grand">,
+): info is ReponseInformationsSecteur<"Grand"> =>
+  info._categorieTaille === "Grand";
 
 export const eqInformationsSecteur = (
   a: InformationSecteurPossible,
@@ -88,7 +93,9 @@ export const contientEnsembleAutresSecteurs = (
       ),
   )(info.InformationsSecteur.secteurs);
 export const contientEnsembleSecteursRepresentantsLocalisesFrancePetit = (
-  info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
+  info:
+    | ReponseInformationsSecteur<"Petit">
+    | ReponseInformationsSecteur<"Grand">,
 ) =>
   estReponseInformationsSecteurPetit(info) &&
   tous(estSecteurBienLocalisePetit)(info.secteurs);
@@ -98,7 +105,9 @@ const estInformationsSecteurEligible = flow(
   estSecteurListe,
 );
 export const contientEnsembleSecteursListesSansRepresantGrand = (
-  info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
+  info:
+    | ReponseInformationsSecteur<"Petit">
+    | ReponseInformationsSecteur<"Grand">,
 ) =>
   estReponseInformationsSecteurGrand(info) &&
   tous(estInformationsSecteurEligible)(
@@ -106,12 +115,16 @@ export const contientEnsembleSecteursListesSansRepresantGrand = (
   );
 
 export const contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit = (
-  info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
+  info:
+    | ReponseInformationsSecteur<"Petit">
+    | ReponseInformationsSecteur<"Grand">,
 ) =>
   estReponseInformationsSecteurPetit(info) &&
   tous(estSecteurBienLocaliseHorsFrancePetit)(info.secteurs);
 export const contientEnsembleSecteursNonEligiblesPetit = (
-  info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
+  info:
+    | ReponseInformationsSecteur<"Petit">
+    | ReponseInformationsSecteur<"Grand">,
 ) =>
   estReponseInformationsSecteurPetit(info) &&
   tous(estInformationSecteurNecessitantLocalisationRepresentantPetiteEntite)(

@@ -12,8 +12,7 @@ import {
 import { activiteEstDansSecteur } from "../services/Activite/Activite.predicats";
 import {
   InformationSecteurPossible,
-  ReponseInformationsSecteurGrand,
-  ReponseInformationsSecteurPetit,
+  ReponseInformationsSecteur,
 } from "../services/Eligibilite/Reponse.definitions";
 import {
   estSecteurAutre,
@@ -130,7 +129,7 @@ export const FabriqueInformationsSecteur = {
 
   informationsSecteursPetit: (
     donnees: DonneesFormulaireSimulateur,
-  ): ReponseInformationsSecteurPetit => ({
+  ): ReponseInformationsSecteur<"Petit"> => ({
     _categorieTaille: "Petit",
     secteurs:
       FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur(donnees),
@@ -138,7 +137,7 @@ export const FabriqueInformationsSecteur = {
 
   informationsSecteursGrand: (
     donnees: DonneesFormulaireSimulateur,
-  ): ReponseInformationsSecteurGrand => ({
+  ): ReponseInformationsSecteur<"Grand"> => ({
     _categorieTaille: "Grand",
     secteurs:
       FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur(donnees),

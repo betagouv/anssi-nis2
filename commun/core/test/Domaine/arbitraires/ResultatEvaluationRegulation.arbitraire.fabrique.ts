@@ -17,6 +17,7 @@ import {
 } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
 import { getActivitesPour } from "../../../src/Domain/Simulateur/services/Activite/Activite.operations";
 import { estActiviteListee } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { fabriqueContenuCapsuleInformationSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/CapsuleReponse.fabriques";
 import { FabriqueEtatDonneesSimulateur } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
 import {
   fabriqueResultatEvaluationEnSuspens,
@@ -30,8 +31,7 @@ import {
   InformationsSecteursCompositeListe,
   ReponseAppartenancePaysUnionEuropeenne,
   ReponseDesignationOperateurServicesEssentiels,
-  ReponseInformationsSecteurGrand,
-  ReponseInformationsSecteurPetit,
+  ReponseInformationsSecteur,
   ReponseStructure,
   ReponseStructurePrivee,
   ReponseStructurePublique,
@@ -114,7 +114,7 @@ export const fabriqueArbitraireEnsembleActivitesPourSecteurComposite = <
   }) as fc.Arbitrary<InformationsSecteursCompositeListe>;
 export const fabriqueArbitraireCapsuleSecteurPetit = (
   arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
-): fc.Arbitrary<ReponseInformationsSecteurPetit> =>
+): fc.Arbitrary<ReponseInformationsSecteur<"Petit">> =>
   arb.chain((info) =>
     fc.record({
       _categorieTaille: fc.constant("Petit"),
@@ -123,7 +123,7 @@ export const fabriqueArbitraireCapsuleSecteurPetit = (
   );
 export const fabriqueArbitraireCapsuleSecteurGrand = (
   arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
-): fc.Arbitrary<ReponseInformationsSecteurGrand> =>
+): fc.Arbitrary<ReponseInformationsSecteur<"Grand">> =>
   arb.chain((info) =>
     fc.record({
       _categorieTaille: fc.constant("Grand"),
@@ -167,7 +167,7 @@ export const fabriqueArbitraireCapsuleSecteurLocalisable = (
   arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
   arbFournitServicesUnionEuropeenne?: fc.Arbitrary<FournitServicesUnionEuropeenne>,
   arbLocalisationRepresentant?: fc.Arbitrary<AppartenancePaysUnionEuropeenne>,
-): fc.Arbitrary<ReponseInformationsSecteurPetit> =>
+): fc.Arbitrary<ReponseInformationsSecteur<"Petit">> =>
   arb.chain((info) =>
     fc.record({
       _categorieTaille: fc.constant("Petit"),
@@ -181,7 +181,7 @@ export const fabriqueArbitraireCapsuleSecteurLocalisable = (
   );
 export const fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFrance = (
   arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
-): fc.Arbitrary<ReponseInformationsSecteurPetit> =>
+): fc.Arbitrary<ReponseInformationsSecteur<"Petit">> =>
   arb.chain((info) =>
     fc.record({
       _categorieTaille: fc.constant("Petit"),
@@ -250,7 +250,7 @@ export const fabriqueResultatEvaluationEnSuspensSecteurPetit = ([
   ReponseDesignationOperateurServicesEssentiels,
   ReponseAppartenancePaysUnionEuropeenne,
   ReponseStructurePrivee<"Petit"> | ReponseStructurePublique<"Petit">,
-  ReponseInformationsSecteurPetit,
+  ReponseInformationsSecteur<"Petit">,
 ]) =>
   fabriqueResultatEvaluationEnSuspens(
     "Structure",
@@ -271,7 +271,7 @@ export const fabriqueResultatEvaluationEnSuspensSecteurGrand = ([
   ReponseDesignationOperateurServicesEssentiels,
   ReponseAppartenancePaysUnionEuropeenne,
   ReponseStructurePrivee<"Grand"> | ReponseStructurePublique<"Grand">,
-  ReponseInformationsSecteurGrand,
+  ReponseInformationsSecteur<"Grand">,
 ]) =>
   fabriqueResultatEvaluationEnSuspens(
     "Structure",
@@ -281,5 +281,33 @@ export const fabriqueResultatEvaluationEnSuspensSecteurGrand = ([
       appartenancePaysUnionEuropeenne,
       structure,
       informationsSecteur,
+    ),
+  );
+export const fabriqueArbInformationsSecteurAutre = <T extends CategorieTaille>(
+  taille: T,
+) =>
+  fc.constantFrom<ReponseInformationsSecteur<T>>(
+    fabriqueContenuCapsuleInformationSecteur(taille)(
+      ens({
+        secteurActivite: "autreSecteurActivite",
+      }),
+    ),
+    fabriqueContenuCapsuleInformationSecteur(taille)(
+      ens({
+        secteurActivite: "energie",
+        sousSecteurActivite: "autreSousSecteurEnergie",
+      }),
+    ),
+    fabriqueContenuCapsuleInformationSecteur(taille)(
+      ens({
+        secteurActivite: "fabrication",
+        sousSecteurActivite: "autreSousSecteurFabrication",
+      }),
+    ),
+    fabriqueContenuCapsuleInformationSecteur(taille)(
+      ens({
+        secteurActivite: "transports",
+        sousSecteurActivite: "autreSousSecteurTransports",
+      }),
     ),
   );

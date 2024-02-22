@@ -4,10 +4,9 @@ import {
   CapsuleDesignationOperateurServicesEssentiels,
   CapsuleInformationsSecteur,
   CapsuleStructure,
-} from "./CapsuleReponse";
+} from "./CapsuleReponse.definitions";
 import {
-  ReponseInformationsSecteurGrand,
-  ReponseInformationsSecteurPetit,
+  ReponseInformationsSecteur,
   ReponseStructurePrivee,
   ReponseStructurePublique,
 } from "./Reponse.definitions";
@@ -40,14 +39,14 @@ export type ReponseEtatInformationsSecteurPetit = Tag<"InformationsSecteur"> &
     Structure:
       | ReponseStructurePrivee<"Petit">
       | ReponseStructurePublique<"Petit">;
-    InformationsSecteur: ReponseInformationsSecteurPetit;
+    InformationsSecteur: ReponseInformationsSecteur<"Petit">;
   };
 export type ReponseEtatInformationsSecteurGrand = Tag<"InformationsSecteur"> &
   RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> & {
     Structure:
       | ReponseStructurePrivee<"Grand">
       | ReponseStructurePublique<"Grand">;
-    InformationsSecteur: ReponseInformationsSecteurGrand;
+    InformationsSecteur: ReponseInformationsSecteur<"Grand">;
   };
 export type ReponseEtatInformationsSecteur = Tag<"InformationsSecteur"> &
   RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> &

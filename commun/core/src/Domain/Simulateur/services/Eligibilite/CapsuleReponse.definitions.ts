@@ -2,8 +2,7 @@ import {
   CategorieTaille,
   ReponseAppartenancePaysUnionEuropeenne,
   ReponseDesignationOperateurServicesEssentiels,
-  ReponseInformationsSecteurGrand,
-  ReponseInformationsSecteurPetit,
+  ReponseInformationsSecteur,
   ReponseStructure,
   ReponseStructurePrivee,
   ReponseStructurePublique,
@@ -23,15 +22,15 @@ export type CapsuleInformationsSecteur =
       Structure:
         | ReponseStructurePrivee<"Petit">
         | ReponseStructurePublique<"Petit">;
-      InformationsSecteur: ReponseInformationsSecteurPetit;
+      InformationsSecteur: ReponseInformationsSecteur<"Petit">;
     }
   | {
       Structure:
         | ReponseStructurePrivee<"Grand">
         | ReponseStructurePublique<"Grand">;
-      InformationsSecteur: ReponseInformationsSecteurGrand;
+      InformationsSecteur: ReponseInformationsSecteur<"Grand">;
     };
-export type CapsuleReponse =
+export type CapsuleReponseDefinitions =
   | CapsuleDesignationOperateurServicesEssentiels
   | CapsuleAppartenancePaysUnionEuropeenne
   | CapsuleStructure

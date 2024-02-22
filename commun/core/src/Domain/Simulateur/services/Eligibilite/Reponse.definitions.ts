@@ -197,13 +197,14 @@ export type InformationSecteurPossible =
   | InformationSecteurPossiblePetit
   | InformationSecteurPossibleGrand;
 
-export type InformationsSecteurPetitAlternatives = {
-  secteurs: Set<InformationSecteurPossiblePetit>;
-};
+export type InformationsSecteurPetitAlternatives<T extends CategorieTaille> =
+  T extends "Petit"
+    ? {
+        secteurs: Set<InformationSecteurPossiblePetit>;
+      }
+    : {
+        secteurs: Set<InformationSecteurPossibleGrand>;
+      };
 
-export type ReponseInformationsSecteurPetit = CategoriseTaille<"Petit"> &
-  InformationsSecteurPetitAlternatives;
-
-export type ReponseInformationsSecteurGrand = CategoriseTaille<"Grand"> & {
-  secteurs: Set<InformationSecteurPossibleGrand>;
-};
+export type ReponseInformationsSecteur<T extends CategorieTaille> =
+  CategoriseTaille<T> & InformationsSecteurPetitAlternatives<T>;

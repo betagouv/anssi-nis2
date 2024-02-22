@@ -36,7 +36,6 @@ import {
   arbInformationsSecteurPetit,
   arbInformationsSecteurPetitAutre,
   arbInformationsSecteurSimple,
-  arbInformationsSecteurSimplesGrandEligibles,
   arbInformationsSecteurSimplesPetitNonEligibles,
   arbSecteurAvecSousSecteurListes,
   arbSecteurLocalisablesGrandeEntreprise,
@@ -82,17 +81,6 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
           assertion.exclusifs(
             arbInformationsSecteurComposites,
             arbInformationsSecteurSimplesPetitNonEligibles,
-            // arbInformationsSecteurSimplesPetitEligibles,
-          ));
-        it("arbInformationsSecteurCompositesPetit et arbInformationsSecteurSimplesPetitEligibles sont exclusifs", () =>
-          assertion.exclusifs(
-            arbInformationsSecteurComposites,
-            arbInformationsSecteurSimplesGrandEligibles,
-          ));
-        it("arbInformationsSecteurSimplesPetitNonEligibles et arbInformationsSecteurSimplesPetitEligibles sont exclusifs", () =>
-          assertion.exclusifs(
-            arbInformationsSecteurSimplesPetitNonEligibles,
-            arbInformationsSecteurSimplesGrandEligibles,
           ));
         it("arbInformationsSecteurLocalisesFrancePetit et arbInformationsSecteurLocalisesHorsFrancePetit sont exclusifs", () =>
           assertion.exclusifs(
