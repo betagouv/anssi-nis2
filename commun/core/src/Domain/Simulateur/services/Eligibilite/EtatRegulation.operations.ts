@@ -176,13 +176,10 @@ export const evalueRegulationEtatReponseInformationsSecteur = (
         decision: "Incertain",
         _resultatEvaluationRegulation: "EnSuspens",
       },
-      (reponse) =>
+      () =>
         fabriqueResultatEvaluationDefinitif(
           "InformationsSecteur",
-          fabriqueRegule({
-            ...propReponseEtat(reponse)("Structure"),
-            ...propReponseEtat(reponse)("InformationsSecteur"),
-          }),
+          resultatNonRegule,
         ),
     )
     .otherwise(

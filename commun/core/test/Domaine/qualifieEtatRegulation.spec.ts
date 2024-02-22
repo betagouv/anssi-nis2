@@ -242,7 +242,7 @@ describe("Regulation Etat Reponse", () => {
         ),
       );
       it(
-        "en suspens / secteurs localisables et bien localisés ==> toujours définitivement régulé EE",
+        "en suspens / secteurs+activités localisables et bien localisés ==> toujours définitivement régulé EE",
         assertionArbitraire(
           arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable,
           (reponse) => {

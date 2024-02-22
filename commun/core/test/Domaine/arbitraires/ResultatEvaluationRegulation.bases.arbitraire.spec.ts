@@ -1,10 +1,16 @@
 import { describe, expect, it } from "vitest";
 import { tous } from "../../../../utils/services/sets.operations";
 import { Activite } from "../../../src/Domain/Simulateur/Activite.definitions";
-import { secteursNecessitantLocalisationRepresentant } from "../../../src/Domain/Simulateur/SecteurActivite.constantes";
-import { estActiviteAutre } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { ValeursSecteursNecessitantLocalisationRepresentant } from "../../../src/Domain/Simulateur/SecteurActivite.constantes";
+import {
+  estActiviteAutre,
+  estActiviteInfrastructureNumeriqueEligiblesPetitEntite,
+} from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { estReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.predicats";
-import { EtablissementPrincipalFournitUE } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
+import {
+  EtablissementPrincipalFournitUE,
+  InformationSecteurLocalisablePetiteEntreprise,
+} from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 import {
   estEtablissementPrincipalFournitUE,
   estInformationSecteurLocalisablePetiteEntreprise,
@@ -127,7 +133,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
         assertion.propriete(
           arbSecteurLocalisablesGrandeEntreprise,
           (secteur) => {
-            expect(secteursNecessitantLocalisationRepresentant).includes(
+            expect(ValeursSecteursNecessitantLocalisationRepresentant).includes(
               secteur,
             );
           },
@@ -156,7 +162,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
           );
         }));
     });
-    describe("arbInformationsSecteurLocaliseesFrance", () => {
+    describe("arbInformationsSecteurLocaliseesFrancePetite", () => {
       it("ne produit pas de structure vide", () =>
         assertion.nonVide(arbInformationsSecteurLocaliseesFrancePetite));
       it("contient des données de localisation représentant en France", () =>
@@ -173,6 +179,17 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
               (informationsSecteur as EtablissementPrincipalFournitUE)
                 .localisationRepresentant,
             ).toBe("france");
+          },
+        ));
+      it("contient uniquement des activités nécessitant localisation représentant en France", () =>
+        assertion.propriete(
+          arbInformationsSecteurLocaliseesFrancePetite,
+          (informationsSecteur) => {
+            expect(
+              tous(estActiviteInfrastructureNumeriqueEligiblesPetitEntite)(
+                informationsSecteur.activites,
+              ),
+            ).toBeTruthy();
           },
         ));
     });
@@ -268,6 +285,26 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
             expect(
               secteurs.some(
                 (secteur) => "fournitServicesUnionEuropeenne" in secteur,
+              ),
+            ).toBeTruthy();
+          },
+        );
+      });
+      it("contient uniquement des activités localisables PE", () => {
+        assertion.propriete(
+          arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable,
+          (resultat) => {
+            expect(resultat).toSatisfy(estReponseEtatInformationsSecteur);
+
+            const resultatType = resultat as ReponseEtatInformationsSecteur;
+            expect(
+              tous<InformationSecteurLocalisablePetiteEntreprise>((secteur) =>
+                tous(estActiviteInfrastructureNumeriqueEligiblesPetitEntite)(
+                  secteur.activites,
+                ),
+              )(
+                resultatType.InformationsSecteur
+                  .secteurs as Set<InformationSecteurLocalisablePetiteEntreprise>,
               ),
             ).toBeTruthy();
           },

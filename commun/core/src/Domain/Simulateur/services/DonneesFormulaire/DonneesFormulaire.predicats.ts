@@ -10,7 +10,7 @@ import {
   PredicatDonneesFormulaireSimulateur,
 } from "../../DonneesFormulaire.definitions";
 import { ValeursNomChampsFormulaire } from "../../DonneesFormulaire.valeurs";
-import { secteursNecessitantLocalisationRepresentant } from "../../SecteurActivite.constantes";
+import { ValeursSecteursNecessitantLocalisationRepresentant } from "../../SecteurActivite.constantes";
 import { SecteursAvecBesoinLocalisationRepresentant } from "../../SecteurActivite.definitions";
 import {
   auMoinsUneActiviteListee,
@@ -191,7 +191,7 @@ export const donneesFormulaireSontCompletes = et(
 export const contientSecteurNecessitantLocalisation = (
   d: DonneesSectorielles,
 ) =>
-  secteursNecessitantLocalisationRepresentant.some((s) =>
+  ValeursSecteursNecessitantLocalisationRepresentant.some((s) =>
     predicatDonneesFormulaire.secteurActivite.contient(s)(
       d as DonneesFormulaireSimulateur,
     ),
@@ -200,7 +200,7 @@ export const contientUniquementSecteurNecessitantLocalisation = (
   d: DonneesSectorielles,
 ) =>
   d.secteurActivite.every((s) =>
-    secteursNecessitantLocalisationRepresentant.includes(
+    ValeursSecteursNecessitantLocalisationRepresentant.includes(
       s as SecteursAvecBesoinLocalisationRepresentant,
     ),
   );

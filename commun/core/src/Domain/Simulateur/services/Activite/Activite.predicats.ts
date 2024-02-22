@@ -1,4 +1,8 @@
-import { Activite } from "../../Activite.definitions";
+import {
+  Activite,
+  ActivitesInfrastructureNumeriqueEligiblesPetitEntite,
+} from "../../Activite.definitions";
+import { ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite } from "../../Activite.valeurs";
 import {
   DonneesFormulaireSimulateur,
   DonneesSectorielles,
@@ -85,3 +89,9 @@ export const exerceAucuneActivitesDansListe =
     d: T,
   ) =>
     d.activites.every((a) => !liste.includes(a));
+export const estActiviteInfrastructureNumeriqueEligiblesPetitEntite = (
+  a: Activite,
+) =>
+  ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite.includes(
+    a as ActivitesInfrastructureNumeriqueEligiblesPetitEntite,
+  );

@@ -2,9 +2,6 @@ import { fc } from "@fast-check/vitest";
 import { ens } from "../../../../utils/services/sets.operations";
 import {
   Activite,
-  ActivitesFournisseursNumeriques,
-  ActivitesGestionServicesTic,
-  ActivitesInfrastructureNumerique,
   ActivitesLocalisablesPetit,
 } from "../../../src/Domain/Simulateur/Activite.definitions";
 import {
@@ -12,6 +9,7 @@ import {
   FournitServicesUnionEuropeenne,
 } from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
 import { ValeursOuiNon } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
+import { resultatIncertain } from "../../../src/Domain/Simulateur/Regulation.constantes";
 import {
   SecteurActivite,
   SecteursAvecBesoinLocalisationRepresentant,
@@ -19,12 +17,21 @@ import {
 } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
 import { getActivitesPour } from "../../../src/Domain/Simulateur/services/Activite/Activite.operations";
 import { estActiviteListee } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { FabriqueEtatDonneesSimulateur } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
+import {
+  fabriqueResultatEvaluationEnSuspens,
+  fabriqueResultatEvaluationInconnu,
+} from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.fabriques";
 import {
   InformationSecteurLocalisablePetiteEntreprise,
   InformationSecteurPossible,
   InformationSecteurSimple,
   InformationsSecteursCompositeListe,
+  ReponseAppartenancePaysUnionEuropeenne,
+  ReponseDesignationOperateurServicesEssentiels,
   ReponseInformationsSecteurPetit,
+  ReponseStructure,
+  ReponseStructurePetit,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 import { eqInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.predicats";
 import {
@@ -68,6 +75,17 @@ export const fabriqueArbEnsembleActivitesPourSecteur = <
       },
     )
     .chain((a) => fc.constant(ens(...a))) as fc.Arbitrary<Set<U>>;
+export const fabriqueArbEnsembleActivitesPourSecteurAvecFiltre =
+  (filtre: (activite: Activite) => boolean) =>
+  <T extends SecteurActivite, U extends Activite>(
+    secteur: T,
+    sousSecteur?: SousSecteurActivite,
+  ): fc.Arbitrary<Set<U>> =>
+    fc
+      .subarray(getActivitesPour(secteur, sousSecteur).filter(filtre), {
+        minLength: 1,
+      })
+      .chain((a) => fc.constant(ens(...a))) as fc.Arbitrary<Set<U>>;
 export const fabriqueArbitraireEnsembleActivitesPourSecteur = <
   T extends SecteurActivite,
   U extends InformationSecteurSimple,
@@ -170,3 +188,65 @@ export const fabriqueArbitrairesEnsembleInformationsSecteurs = <
       comparator: eqInformationsSecteur,
     })
     .chain((a) => fc.constant(ens(...a)));
+export const fabriqueResultatEvaluationInconnuOse = (
+  designationOperateurServicesEssentiels: ReponseDesignationOperateurServicesEssentiels,
+) =>
+  fabriqueResultatEvaluationInconnu({
+    _tag: "DesignationOperateurServicesEssentiels",
+    DesignationOperateurServicesEssentiels:
+      designationOperateurServicesEssentiels,
+  });
+export const fabriqueResultatEvaluationEnSuspensAppUE = ([
+  designationOperateurServicesEssentiel,
+  appartenancePaysUnionEuropeenne,
+]: [
+  ReponseDesignationOperateurServicesEssentiels,
+  ReponseAppartenancePaysUnionEuropeenne,
+]) =>
+  fabriqueResultatEvaluationEnSuspens(
+    "AppartenancePaysUnionEuropeenne",
+    resultatIncertain,
+    FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenneChaine(
+      designationOperateurServicesEssentiel,
+      appartenancePaysUnionEuropeenne,
+    ),
+  );
+export const fabriqueResultatEvaluationEnSuspensStructure = ([
+  designationOperateurServicesEssentiel,
+  appartenancePaysUnionEuropeenne,
+  structure,
+]: [
+  ReponseDesignationOperateurServicesEssentiels,
+  ReponseAppartenancePaysUnionEuropeenne,
+  ReponseStructure,
+]) =>
+  fabriqueResultatEvaluationEnSuspens(
+    "AppartenancePaysUnionEuropeenne",
+    resultatIncertain,
+    FabriqueEtatDonneesSimulateur.structureChaine(
+      designationOperateurServicesEssentiel,
+      appartenancePaysUnionEuropeenne,
+      structure,
+    ),
+  );
+export const fabriqueResultatEvaluationEnSuspensSecteurPetit = ([
+  designationOperateurServicesEssentiel,
+  appartenancePaysUnionEuropeenne,
+  structure,
+  informationsSecteur,
+]: [
+  ReponseDesignationOperateurServicesEssentiels,
+  ReponseAppartenancePaysUnionEuropeenne,
+  ReponseStructurePetit,
+  ReponseInformationsSecteurPetit,
+]) =>
+  fabriqueResultatEvaluationEnSuspens(
+    "Structure",
+    resultatIncertain,
+    FabriqueEtatDonneesSimulateur.informationsSecteurPetitChaine(
+      designationOperateurServicesEssentiel,
+      appartenancePaysUnionEuropeenne,
+      structure,
+      informationsSecteur,
+    ),
+  );

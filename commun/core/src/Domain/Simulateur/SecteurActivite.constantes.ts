@@ -1,6 +1,5 @@
 import {
   SecteurActivite,
-  SecteursAvecBesoinLocalisationRepresentant,
   SecteursAvecSousSecteurs,
 } from "./SecteurActivite.definitions";
 import {
@@ -14,15 +13,15 @@ import {
 } from "./services/SecteurActivite/SecteurActivite.predicats";
 import { SousSecteurActivite } from "./SousSecteurActivite.definitions";
 
-export const secteursNecessitantLocalisationRepresentant: readonly SecteursAvecBesoinLocalisationRepresentant[] =
-  [
-    "gestionServicesTic",
-    "fournisseursNumeriques",
-    "infrastructureNumerique",
-  ] as const;
+export const ValeursSecteursNecessitantLocalisationRepresentant = [
+  "gestionServicesTic",
+  "fournisseursNumeriques",
+  "infrastructureNumerique",
+] as const;
 
-export const ValeursSecteursNecessitantLocalisationRepresentantPetiteEntite: readonly SecteursAvecBesoinLocalisationRepresentant[] =
-  ["infrastructureNumerique"] as const;
+export const ValeursSecteursNecessitantLocalisationRepresentantPetiteEntite = [
+  "infrastructureNumerique",
+] as const;
 export const ValeursSecteursSansSousSecteur: SecteurActivite[] =
   ValeursSecteursActivites.filter(estUnSecteurSansDesSousSecteurs);
 export const listeTuplesSecteursSousSecteurs =
@@ -33,11 +32,17 @@ export const listeTuplesSecteursSousSecteurs =
     ],
     [],
   );
-export const estSecteurNecessitantLocalisationRepresentantPetiteEntite = <
+export const estSecteurNeNecessitantPasLocalisationRepresentantPetiteEntite = <
   T extends SecteurActivite,
 >(
   secteur: T,
 ) =>
   !ValeursSecteursNecessitantLocalisationRepresentantPetiteEntite.includes(
-    secteur as SecteursAvecBesoinLocalisationRepresentant,
+    secteur as (typeof ValeursSecteursNecessitantLocalisationRepresentantPetiteEntite)[number],
+  );
+export const estSecteurNecessitantLocalisationRepresentantPetiteEntite = (
+  secteur: SecteurActivite,
+) =>
+  ValeursSecteursNecessitantLocalisationRepresentantPetiteEntite.includes(
+    secteur as (typeof ValeursSecteursNecessitantLocalisationRepresentantPetiteEntite)[number],
   );

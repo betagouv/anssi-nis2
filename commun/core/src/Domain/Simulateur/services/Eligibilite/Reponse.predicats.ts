@@ -1,12 +1,6 @@
 import { tous } from "../../../../../../utils/services/sets.operations";
-import {
-  estSecteurNecessitantLocalisationRepresentantPetiteEntite,
-  ValeursSecteursNecessitantLocalisationRepresentantPetiteEntite,
-} from "../../SecteurActivite.constantes";
-import {
-  SecteurActivite,
-  SecteursAvecBesoinLocalisationRepresentant,
-} from "../../SecteurActivite.definitions";
+import { estSecteurNecessitantLocalisationRepresentantPetiteEntite } from "../../SecteurActivite.constantes";
+import { SecteurActivite } from "../../SecteurActivite.definitions";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
 import { estSecteurAutre } from "../SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurAutre } from "../SousSecteurActivite/SousSecteurActivite.predicats";
@@ -44,14 +38,15 @@ export const estInformationSecteurNecessitantLocalisationRepresentantPetiteEntit
     estSecteurNecessitantLocalisationRepresentantPetiteEntite(
       informationsSecteur.secteurActivite as SecteurActivite,
     );
+
 export const estInformationSecteurLocalisablePetiteEntreprise = (
   sec:
     | InformationSecteurPossiblePetit
     | InformationsSecteurPossiblesAutre
     | InformationsSecteurPossibleNonLocalisees,
 ): sec is InformationSecteurLocalisablePetiteEntreprise =>
-  ValeursSecteursNecessitantLocalisationRepresentantPetiteEntite.includes(
-    sec.secteurActivite as SecteursAvecBesoinLocalisationRepresentant,
+  estSecteurNecessitantLocalisationRepresentantPetiteEntite(
+    sec.secteurActivite as SecteurActivite,
   );
 export const estSecteurBienLocalisePetit = (
   sec:
