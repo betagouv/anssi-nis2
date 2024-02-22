@@ -21,6 +21,7 @@ import {
   SecteurActivite,
   SecteursAvecBesoinLocalisationRepresentant,
   SecteursAvecSousSecteurs,
+  SecteursDefinitsSansBesoinLocalisationRepresentant,
   SecteursSansBesoinLocalisationRepresentant,
   SousSecteurAutrePour,
 } from "../../SecteurActivite.definitions";
@@ -121,10 +122,7 @@ export type InformationSecteurTransport = {
 };
 
 export type InformationSecteurSimple = {
-  secteurActivite: Omit<
-    SecteursSansBesoinLocalisationRepresentant,
-    "autreSecteurActivite"
-  >;
+  secteurActivite: SecteursDefinitsSansBesoinLocalisationRepresentant;
   activites: Set<ActiviteSecteursSimples>;
 };
 

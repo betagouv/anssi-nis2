@@ -163,3 +163,13 @@ export const arbResultatEvaluationRegulationEnSuspensApresStructureRepresentantL
       arbInformationsSecteurLocalisesHorsFrancePetit,
     )
     .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);
+
+export const arbResultatEvaluationRegulationEnSuspensApresStructurePetitNonEligible =
+  fc
+    .tuple(
+      arbDesignationOperateurServicesEssentielsJamaisOui,
+      arbAppartenanceUnionEuropeenneToujoursFrance,
+      arbStructurePetit,
+      arbInformationsSecteurPetit,
+    )
+    .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);

@@ -21,6 +21,10 @@ export type SecteursSansBesoinLocalisationRepresentant = Omit<
   SecteursSansSousSecteur,
   "infrastructureNumerique" | "gestionServicesTic" | "fournisseursNumeriques"
 >;
+export type SecteursDefinitsSansBesoinLocalisationRepresentant = Omit<
+  SecteursSansBesoinLocalisationRepresentant,
+  "autreSecteurActivite"
+>;
 
 export type SousSecteurAutrePour<S extends SecteursAvecSousSecteurs> =
   `autreSousSecteur${Capitalize<S>}`;

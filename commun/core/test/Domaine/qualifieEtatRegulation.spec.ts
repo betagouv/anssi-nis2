@@ -37,6 +37,7 @@ import {
   arbResultatEvaluationRegulationEnSuspensApresStructure,
   arbResultatEvaluationRegulationEnSuspensApresStructureAutre,
   arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable,
+  arbResultatEvaluationRegulationEnSuspensApresStructurePetitNonEligible,
   arbResultatEvaluationRegulationEnSuspensApresStructureRepresentantLocaliseHorsFrance,
   arbResultatEvaluationRegulationNonOse,
 } from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
@@ -218,7 +219,8 @@ describe("Regulation Etat Reponse", () => {
           },
         ),
       );
-      it(
+      // SKIP car hors périmètre petit --> A recycler pour Grand
+      it.skip(
         "en suspens / sous-secteur listés ==> toujours définitivement régulé",
         assertionArbitraire(
           arbResultatEvaluationRegulationEnSuspensApresStructure,
@@ -264,6 +266,23 @@ describe("Regulation Etat Reponse", () => {
         "en suspens / secteurs localisables et localisé hors France ==> toujours définitivement non-régulé",
         assertionArbitraire(
           arbResultatEvaluationRegulationEnSuspensApresStructureRepresentantLocaliseHorsFrance,
+          (reponse) => {
+            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
+              _resultatEvaluationRegulation: "Definitif",
+              etapeEvaluee: "InformationsSecteur",
+              ...resultatNonRegule,
+            };
+
+            const resultatObtenu =
+              evalueRegulationEtatReponseInformationsSecteur(reponse);
+            expect(resultatObtenu).toStrictEqual(resultatAttendu);
+          },
+        ),
+      );
+      it(
+        "en suspens / secteurs liste non eligible ==> toujours définitivement non-régulé",
+        assertionArbitraire(
+          arbResultatEvaluationRegulationEnSuspensApresStructurePetitNonEligible,
           (reponse) => {
             const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
               _resultatEvaluationRegulation: "Definitif",

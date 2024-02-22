@@ -4,10 +4,6 @@ import {
   resultatIncertain,
   resultatNonRegule,
 } from "../../Regulation.constantes";
-import { SecteurActivite } from "../../SecteurActivite.definitions";
-import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
-import { estSecteurAutre } from "../SecteurActivite/SecteurActivite.predicats";
-import { estSousSecteurAutre } from "../SousSecteurActivite/SousSecteurActivite.predicats";
 import { EtatEvaluationActives } from "./EtatEvaluation.definitions";
 import {
   ResultatEvaluationRegulation,
@@ -19,17 +15,12 @@ import {
   fabriqueResultatEvaluationEnSuspens,
   fabriqueResultatEvaluationReguleOse,
 } from "./EtatRegulation.fabriques";
-import { estReponseEtatInformationsSecteur } from "./EtatRegulation.predicats";
-import {
-  InformationsSecteursComposite,
-  ReponseInformationsSecteurGrand,
-  ReponseInformationsSecteurPetit,
-} from "./Reponse.definitions";
 import { propReponseEtat } from "./Reponse.operations";
 import {
-  estReponseInformationsSecteurPetit,
-  estSecteurBienLocaliseHorsFrancePetit,
-  estSecteurBienLocalisePetit,
+  contientEnsembleAutresSecteurs,
+  contientEnsembleSecteursNonEligiblesPetit,
+  contientEnsembleSecteursRepresentantsLocalisesFrancePetit,
+  contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit,
 } from "./Reponse.predicats";
 
 const propageDonneesEvaluees =
@@ -114,32 +105,6 @@ export const evalueRegulationEtatReponseStructure = (
         ),
     );
 
-export const contientEnsembleAutresSecteurs = (
-  info: ResultatEvaluationRegulation,
-) =>
-  estReponseEtatInformationsSecteur(info) &&
-  [...info.InformationsSecteur.secteurs].every(
-    (sec) =>
-      estSecteurAutre(sec.secteurActivite as SecteurActivite) ||
-      estSousSecteurAutre(
-        (sec as InformationsSecteursComposite)
-          ?.sousSecteurActivite as SousSecteurActivite,
-      ),
-  );
-
-// const tous = <T>(ensemble: Set<T>) => [...ensemble].every;
-
-export const contientEnsembleSecteursRepresentantsLocalisesFrancePetit = (
-  info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
-) =>
-  estReponseInformationsSecteurPetit(info) &&
-  [...info.secteurs].every(estSecteurBienLocalisePetit);
-export const contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit = (
-  info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
-) =>
-  estReponseInformationsSecteurPetit(info) &&
-  [...info.secteurs].every(estSecteurBienLocaliseHorsFrancePetit);
-
 export const evalueRegulationEtatReponseInformationsSecteur = (
   reponse: ResultatEvaluationRegulation,
 ): ResultatEvaluationRegulation =>
@@ -182,6 +147,19 @@ export const evalueRegulationEtatReponseInformationsSecteur = (
         InformationsSecteur: P.when(
           contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit,
         ),
+      },
+      () =>
+        fabriqueResultatEvaluationDefinitif(
+          "InformationsSecteur",
+          resultatNonRegule,
+        ),
+    )
+    .with(
+      {
+        _tag: "InformationsSecteur",
+        decision: "Incertain",
+        _resultatEvaluationRegulation: "EnSuspens",
+        InformationsSecteur: P.when(contientEnsembleSecteursNonEligiblesPetit),
       },
       () =>
         fabriqueResultatEvaluationDefinitif(

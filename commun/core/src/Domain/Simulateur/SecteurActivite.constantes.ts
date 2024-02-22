@@ -33,3 +33,11 @@ export const listeTuplesSecteursSousSecteurs =
     ],
     [],
   );
+export const estSecteurNecessitantLocalisationRepresentantPetiteEntite = <
+  T extends SecteurActivite,
+>(
+  secteur: T,
+) =>
+  !ValeursSecteursNecessitantLocalisationRepresentantPetiteEntite.includes(
+    secteur as SecteursAvecBesoinLocalisationRepresentant,
+  );

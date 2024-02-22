@@ -6,6 +6,7 @@ import { estReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateu
 import { EtablissementPrincipalFournitUE } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 import {
   estEtablissementPrincipalFournitUE,
+  estInformationSecteurLocalisablePetiteEntreprise,
   estSecteurBienLocaliseHorsFrancePetit,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.predicats";
 import { ReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.definitions";
@@ -28,13 +29,16 @@ import {
   arbInformationsSecteurPetit,
   arbInformationsSecteurPetitAutre,
   arbInformationsSecteurSimple,
-  arbInformationsSecteurSimplesPetit,
+  arbInformationsSecteurSimplesPetitEligibles,
+  arbInformationsSecteurSimplesPetitNonEligibles,
   arbSecteurAvecSousSecteurListes,
   arbSecteurLocalisablesGrandeEntreprise,
   arbSecteurSansSousSecteur,
-  arbSecteursSimples,
+  arbEnsembleSecteursSimples,
   arbStructurePetitPrive,
   arbStructurePetitPublic,
+  arbEnsembleSecteursSimplesEligiblesPetit,
+  arbSecteurNonEligiblesPetiteEntite,
 } from "./ResultatEvaluationRegulation.bases.arbitraire";
 
 describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
@@ -61,19 +65,30 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
         ));
     });
     describe("InformationsSecteurPetit", () => {
-      it("arbInformationsSecteurPetitAutre et arbInformationsSecteurPetit sont exclusifs", () =>
-        assertion.tousExclusifs(
-          arbInformationsSecteurPetitAutre,
-          arbInformationsSecteurPetit,
-        ));
-      it("arbInformationsSecteurPetitAutre et arbInformationsSecteurPetit sont exclusifs", () =>
-        assertion.tousExclusifs(
-          arbInformationsSecteurCompositesPetit,
-          arbInformationsSecteurSimplesPetit,
-        ));
       describe("arbInformationsSecteur*", () => {
+        it("arbInformationsSecteurPetitAutre et arbInformationsSecteurPetit sont exclusifs", () =>
+          assertion.exclusifs(
+            arbInformationsSecteurPetitAutre,
+            arbInformationsSecteurPetit,
+          ));
+        it("arbInformationsSecteurCompositesPetit et arbInformationsSecteurSimplesPetitNonEligibles sont exclusifs", () =>
+          assertion.exclusifs(
+            arbInformationsSecteurCompositesPetit,
+            arbInformationsSecteurSimplesPetitNonEligibles,
+            // arbInformationsSecteurSimplesPetitEligibles,
+          ));
+        it("arbInformationsSecteurCompositesPetit et arbInformationsSecteurSimplesPetitEligibles sont exclusifs", () =>
+          assertion.exclusifs(
+            arbInformationsSecteurCompositesPetit,
+            arbInformationsSecteurSimplesPetitEligibles,
+          ));
+        it("arbInformationsSecteurSimplesPetitNonEligibles et arbInformationsSecteurSimplesPetitEligibles sont exclusifs", () =>
+          assertion.exclusifs(
+            arbInformationsSecteurSimplesPetitNonEligibles,
+            arbInformationsSecteurSimplesPetitEligibles,
+          ));
         it("arbInformationsSecteurLocalisesFrancePetit et arbInformationsSecteurLocalisesHorsFrancePetit sont exclusifs", () =>
-          assertion.tousExclusifs(
+          assertion.exclusifs(
             arbInformationsSecteurLocalisesFrancePetit,
             arbInformationsSecteurLocalisesHorsFrancePetit,
           ));
@@ -204,12 +219,38 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
         }));
     });
 
-    describe("arbSecteursSimples", () => {
+    describe("arbEnsembleSecteursSimples", () => {
       it("ne contient pas vide", () =>
-        assertion.propriete(arbSecteursSimples, (secteur) => {
+        assertion.propriete(arbEnsembleSecteursSimples, (secteur) => {
           expect(secteur).not.includes(undefined);
         }));
-      it("n'est pas vide", () => assertion.nonVide(arbSecteursSimples));
+      it("n'est pas vide", () => assertion.nonVide(arbEnsembleSecteursSimples));
+    });
+    describe("arbEnsembleSecteursSimplesEligiblesPetit", () => {
+      it("estInformationSecteurLocalisablePetiteEntreprise", () =>
+        assertion.propriete(
+          arbEnsembleSecteursSimplesEligiblesPetit,
+          (ensembleSecteurs) => {
+            [...ensembleSecteurs].map((secteur) =>
+              expect(secteur).toSatisfy(
+                estInformationSecteurLocalisablePetiteEntreprise,
+              ),
+            );
+          },
+        ));
+    });
+    describe("arbSecteurNonEligiblesPetiteEntite", () => {
+      it("estInformationSecteurLocalisablePetiteEntreprise", () =>
+        assertion.propriete(
+          arbSecteurNonEligiblesPetiteEntite,
+          (ensembleSecteurs) => {
+            [...ensembleSecteurs].map((secteur) =>
+              expect(secteur).not.toSatisfy(
+                estInformationSecteurLocalisablePetiteEntreprise,
+              ),
+            );
+          },
+        ));
     });
   });
 

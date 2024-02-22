@@ -2,6 +2,9 @@ import { fc } from "@fast-check/vitest";
 import { ens } from "../../../../utils/services/sets.operations";
 import {
   Activite,
+  ActivitesFournisseursNumeriques,
+  ActivitesGestionServicesTic,
+  ActivitesInfrastructureNumerique,
   ActivitesLocalisablesPetit,
 } from "../../../src/Domain/Simulateur/Activite.definitions";
 import {
@@ -50,7 +53,7 @@ const determineArbLocalisationRepresentant = (
     ? {}
     : { localisationRepresentant: arbLocalisationRepresentant };
 
-const fabriqueArbEnsembleActivitesPourSecteur = <
+export const fabriqueArbEnsembleActivitesPourSecteur = <
   T extends SecteurActivite,
   U extends Activite,
 >(
@@ -99,16 +102,20 @@ export const fabriqueArbitraireCapsuleSecteur = (
   );
 
 export const fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe =
-  <T extends SecteursAvecBesoinLocalisationRepresentant>(
+  <
+    T extends SecteursAvecBesoinLocalisationRepresentant,
+    U extends "registresNomsDomainesPremierNiveau" | "fournisseurServicesDNS",
+  >(
     arbLocalisationRepresentant: fc.Arbitrary<AppartenancePaysUnionEuropeenne>,
+    fabriqueActivite: (
+      secteur: T,
+      sousSecteur?: SousSecteurActivite,
+    ) => fc.Arbitrary<Set<U>>,
   ) =>
   (secteur: T): fc.Arbitrary<InformationSecteurLocalisablePetiteEntreprise> =>
     fc.record<InformationSecteurLocalisablePetiteEntreprise>({
       secteurActivite: fc.constant(secteur),
-      activites: fabriqueArbEnsembleActivitesPourSecteur<
-        T,
-        ActivitesLocalisablesPetit
-      >(secteur),
+      activites: fabriqueActivite(secteur),
       fournitServicesUnionEuropeenne: fc.constant("oui"),
       localisationRepresentant: arbLocalisationRepresentant,
     }) as fc.Arbitrary<InformationSecteurLocalisablePetiteEntreprise>;

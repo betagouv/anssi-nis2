@@ -1,5 +1,16 @@
-import { ValeursSecteursNecessitantLocalisationRepresentantPetiteEntite } from "../../SecteurActivite.constantes";
-import { SecteursAvecBesoinLocalisationRepresentant } from "../../SecteurActivite.definitions";
+import {
+  estSecteurNecessitantLocalisationRepresentantPetiteEntite,
+  ValeursSecteursNecessitantLocalisationRepresentantPetiteEntite,
+} from "../../SecteurActivite.constantes";
+import {
+  SecteurActivite,
+  SecteursAvecBesoinLocalisationRepresentant,
+} from "../../SecteurActivite.definitions";
+import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
+import { estSecteurAutre } from "../SecteurActivite/SecteurActivite.predicats";
+import { estSousSecteurAutre } from "../SousSecteurActivite/SousSecteurActivite.predicats";
+import { ResultatEvaluationRegulation } from "./EtatRegulation.definitions";
+import { estReponseEtatInformationsSecteur } from "./EtatRegulation.predicats";
 import {
   EtablissementPrincipalFournitUE,
   InformationSecteurLocalisablePetiteEntreprise,
@@ -7,6 +18,7 @@ import {
   InformationSecteurPossiblePetit,
   InformationsSecteurPossibleNonLocalisees,
   InformationsSecteurPossiblesAutre,
+  InformationsSecteursComposite,
   ReponseInformationsSecteurGrand,
   ReponseInformationsSecteurPetit,
 } from "./Reponse.definitions";
@@ -25,6 +37,12 @@ export const estEtablissementPrincipalFournitUE = (
     | EtablissementPrincipalFournitUE,
 ): reponse is EtablissementPrincipalFournitUE =>
   reponse.fournitServicesUnionEuropeenne === "oui";
+
+export const estInformationSecteurNecessitantLocalisationRepresentantPetiteEntite =
+  (informationsSecteur: InformationSecteurPossible) =>
+    estSecteurNecessitantLocalisationRepresentantPetiteEntite(
+      informationsSecteur.secteurActivite as SecteurActivite,
+    );
 export const estInformationSecteurLocalisablePetiteEntreprise = (
   sec:
     | InformationSecteurPossiblePetit
@@ -53,3 +71,32 @@ export const estSecteurBienLocaliseHorsFrancePetit = (
   (sec.fournitServicesUnionEuropeenne === "non" ||
     (sec.fournitServicesUnionEuropeenne === "oui" &&
       sec.localisationRepresentant !== "france"));
+export const contientEnsembleAutresSecteurs = (
+  info: ResultatEvaluationRegulation,
+) =>
+  estReponseEtatInformationsSecteur(info) &&
+  [...info.InformationsSecteur.secteurs].every(
+    (sec) =>
+      estSecteurAutre(sec.secteurActivite as SecteurActivite) ||
+      estSousSecteurAutre(
+        (sec as InformationsSecteursComposite)
+          ?.sousSecteurActivite as SousSecteurActivite,
+      ),
+  );
+export const contientEnsembleSecteursRepresentantsLocalisesFrancePetit = (
+  info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
+) =>
+  estReponseInformationsSecteurPetit(info) &&
+  [...info.secteurs].every(estSecteurBienLocalisePetit);
+export const contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit = (
+  info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
+) =>
+  estReponseInformationsSecteurPetit(info) &&
+  [...info.secteurs].every(estSecteurBienLocaliseHorsFrancePetit);
+export const contientEnsembleSecteursNonEligiblesPetit = (
+  info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
+) =>
+  estReponseInformationsSecteurPetit(info) &&
+  [...info.secteurs].every(
+    estInformationSecteurNecessitantLocalisationRepresentantPetiteEntite,
+  );
