@@ -34,7 +34,8 @@ import {
   arbResultatEvaluationRegulationEnSuspensApresLocalisation,
   arbResultatEvaluationRegulationEnSuspensApresLocalisationFrance,
   arbResultatEvaluationRegulationEnSuspensApresLocalisationHorsFrance,
-  arbResultatEvaluationRegulationEnSuspensApresStructureAutre,
+  arbResultatEvaluationRegulationEnSuspensApresStructureAutreGrand,
+  arbResultatEvaluationRegulationEnSuspensApresStructureAutrePetits,
   arbResultatEvaluationRegulationEnSuspensApresStructureGrandNonLocalisable,
   arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable,
   arbResultatEvaluationRegulationEnSuspensApresStructurePetitNonEligible,
@@ -205,7 +206,7 @@ describe("Regulation Etat Reponse", () => {
       it(
         "en suspens / secteur autre ==> toujours définitivement non régulé",
         assertionArbitraire(
-          arbResultatEvaluationRegulationEnSuspensApresStructureAutre,
+          arbResultatEvaluationRegulationEnSuspensApresStructureAutrePetits,
           (reponse) => {
             const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
               _resultatEvaluationRegulation: "Definitif",
@@ -290,6 +291,23 @@ describe("Regulation Etat Reponse", () => {
               _resultatEvaluationRegulation: "Definitif",
               etapeEvaluee: "InformationsSecteur",
               ...fabriqueRegule(causes),
+            };
+
+            const resultatObtenu =
+              evalueRegulationEtatReponseInformationsSecteur(reponse);
+            expect(resultatObtenu).toStrictEqual(resultatAttendu);
+          },
+        ),
+      );
+      it(
+        "en suspens / secteur autre Grand ==> toujours définitivement non régulé",
+        assertionArbitraire(
+          arbResultatEvaluationRegulationEnSuspensApresStructureAutreGrand,
+          (reponse) => {
+            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
+              _resultatEvaluationRegulation: "Definitif",
+              etapeEvaluee: "InformationsSecteur",
+              ...resultatNonRegule,
             };
 
             const resultatObtenu =

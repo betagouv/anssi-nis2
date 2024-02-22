@@ -16,9 +16,10 @@ import {
   arbInformationsSecteurLocalisesFrancePetit,
   arbInformationsSecteurLocalisesHorsFrancePetit,
   arbInformationsSecteurPetit,
-  arbInformationsSecteurPetitAutre,
+  arbInformationsSecteurAutrePetit,
   arbStructureGrand,
   arbStructurePetit,
+  arbInformationsSecteurAutreGrand,
 } from "./ResultatEvaluationRegulation.bases.arbitraire";
 
 export const arbResultatEvaluationRegulationDesigneeOse =
@@ -58,24 +59,25 @@ export const arbResultatEvaluationRegulationEnSuspensApresLocalisation = fc
   )
   .map(fabriqueResultatEvaluationEnSuspensStructure);
 
-export const arbResultatEvaluationRegulationEnSuspensApresStructureAutre = fc
-  .tuple(
-    arbDesignationOperateurServicesEssentielsJamaisOui,
-    arbAppartenanceUnionEuropeenneToujoursFrance,
-    arbStructurePetit,
-    arbInformationsSecteurPetitAutre,
-  )
-  .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);
-
-export const arbResultatEvaluationRegulationEnSuspensApresStructureGrandNonLocalisable =
+export const arbResultatEvaluationRegulationEnSuspensApresStructureAutrePetits =
+  fc
+    .tuple(
+      arbDesignationOperateurServicesEssentielsJamaisOui,
+      arbAppartenanceUnionEuropeenneToujoursFrance,
+      arbStructurePetit,
+      arbInformationsSecteurAutrePetit,
+    )
+    .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);
+export const arbResultatEvaluationRegulationEnSuspensApresStructureAutreGrand =
   fc
     .tuple(
       arbDesignationOperateurServicesEssentielsJamaisOui,
       arbAppartenanceUnionEuropeenneToujoursFrance,
       arbStructureGrand,
-      arbInformationsSecteurGrand,
+      arbInformationsSecteurAutreGrand,
     )
     .map(fabriqueResultatEvaluationEnSuspensSecteurGrand);
+
 export const arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable =
   fc
     .tuple(
@@ -85,6 +87,15 @@ export const arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable =
       arbInformationsSecteurLocalisesFrancePetit,
     )
     .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);
+export const arbResultatEvaluationRegulationEnSuspensApresStructureGrandNonLocalisable =
+  fc
+    .tuple(
+      arbDesignationOperateurServicesEssentielsJamaisOui,
+      arbAppartenanceUnionEuropeenneToujoursFrance,
+      arbStructureGrand,
+      arbInformationsSecteurGrand,
+    )
+    .map(fabriqueResultatEvaluationEnSuspensSecteurGrand);
 export const arbResultatEvaluationRegulationEnSuspensApresStructureRepresentantLocaliseHorsFrance =
   fc
     .tuple(

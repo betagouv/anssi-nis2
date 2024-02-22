@@ -112,8 +112,10 @@ export const arbStructureGrand = fc.oneof(
   // arbStructurePetitPublic,
 );
 
-export const arbInformationsSecteurPetitAutre =
+export const arbInformationsSecteurAutrePetit =
   fabriqueArbInformationsSecteurAutre("Petit");
+export const arbInformationsSecteurAutreGrand =
+  fabriqueArbInformationsSecteurAutre("Grand");
 
 export const arbSecteurListesSansSousSecteurNiLocaGrand = fc.constantFrom(
   ...ValeursSecteursSansSousSecteur.filter(estSecteurListe).filter(
