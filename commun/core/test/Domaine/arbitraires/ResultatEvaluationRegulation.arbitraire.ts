@@ -2,6 +2,7 @@ import { fc } from "@fast-check/vitest";
 import { ResultatEvaluationRegulation } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import {
   fabriqueResultatEvaluationEnSuspensAppUE,
+  fabriqueResultatEvaluationEnSuspensSecteurGrand,
   fabriqueResultatEvaluationEnSuspensSecteurPetit,
   fabriqueResultatEvaluationEnSuspensStructure,
   fabriqueResultatEvaluationInconnuOse,
@@ -11,10 +12,12 @@ import {
   arbAppartenanceUnionEuropeenneToujoursFrance,
   arbDesignationOperateurServicesEssentielsJamaisOui,
   arbDesignationOperateurServicesEssentielsToujoursOui,
+  arbInformationsSecteurGrand,
   arbInformationsSecteurLocalisesFrancePetit,
   arbInformationsSecteurLocalisesHorsFrancePetit,
   arbInformationsSecteurPetit,
   arbInformationsSecteurPetitAutre,
+  arbStructureGrand,
   arbStructurePetit,
 } from "./ResultatEvaluationRegulation.bases.arbitraire";
 
@@ -64,15 +67,15 @@ export const arbResultatEvaluationRegulationEnSuspensApresStructureAutre = fc
   )
   .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);
 
-// export const arbResultatEvaluationRegulationEnSuspensApresStructureGrandNonLocalisable =
-//   fc
-//     .tuple(
-//       arbDesignationOperateurServicesEssentielsJamaisOui,
-//       arbAppartenanceUnionEuropeenneToujoursFrance,
-//       arbStructureGrand,
-//       arbInformationsSecteurGrand,
-//     )
-//     .map(fabriqueResultatEvaluationEnSuspensSecteurGrand);
+export const arbResultatEvaluationRegulationEnSuspensApresStructureGrandNonLocalisable =
+  fc
+    .tuple(
+      arbDesignationOperateurServicesEssentielsJamaisOui,
+      arbAppartenanceUnionEuropeenneToujoursFrance,
+      arbStructureGrand,
+      arbInformationsSecteurGrand,
+    )
+    .map(fabriqueResultatEvaluationEnSuspensSecteurGrand);
 export const arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable =
   fc
     .tuple(

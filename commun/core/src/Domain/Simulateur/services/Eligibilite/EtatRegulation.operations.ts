@@ -18,6 +18,7 @@ import {
 import { propReponseEtat } from "./Reponse.operations";
 import {
   contientEnsembleAutresSecteurs,
+  contientEnsembleSecteursListesSansRepresantGrand,
   contientEnsembleSecteursNonEligiblesPetit,
   contientEnsembleSecteursRepresentantsLocalisesFrancePetit,
   contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit,
@@ -105,6 +106,87 @@ export const evalueRegulationEtatReponseStructure = (
         ),
     );
 
+export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
+  reponse: ResultatEvaluationRegulationEnSuspens,
+): ResultatEvaluationRegulation =>
+  match(reponse)
+    .with(
+      {
+        InformationsSecteur: P.when(
+          contientEnsembleSecteursRepresentantsLocalisesFrancePetit,
+        ),
+      },
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitif(
+          "InformationsSecteur",
+          fabriqueRegule(
+            {
+              ...propReponseEtat(reponse)("Structure"),
+              ...propReponseEtat(reponse)("InformationsSecteur"),
+            },
+            "EntiteEssentielle",
+          ),
+        ),
+    )
+    .with(
+      {
+        InformationsSecteur: P.when(
+          contientEnsembleSecteursListesSansRepresantGrand,
+        ),
+      },
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitif(
+          "InformationsSecteur",
+          fabriqueRegule(
+            {
+              ...propReponseEtat(reponse)("Structure"),
+              ...propReponseEtat(reponse)("InformationsSecteur"),
+            },
+            "EntiteImportante",
+          ),
+        ),
+    )
+    .with(
+      {
+        InformationsSecteur: P.when(
+          contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit,
+        ),
+      },
+      () =>
+        fabriqueResultatEvaluationDefinitif(
+          "InformationsSecteur",
+          resultatNonRegule,
+        ),
+    )
+    .with(
+      {
+        InformationsSecteur: P.when(contientEnsembleSecteursNonEligiblesPetit),
+      },
+      () =>
+        fabriqueResultatEvaluationDefinitif(
+          "InformationsSecteur",
+          resultatNonRegule,
+        ),
+    )
+    .with(
+      {
+        _resultatEvaluationRegulation: "EnSuspens",
+      },
+      () =>
+        fabriqueResultatEvaluationDefinitif(
+          "InformationsSecteur",
+          resultatNonRegule,
+        ),
+    )
+    .otherwise(
+      (): ResultatEvaluationRegulationEnSuspens =>
+        fabriqueResultatEvaluationEnSuspens(
+          "InformationsSecteur",
+          resultatIncertain,
+          reponse as ResultatEvaluationRegulationEnSuspens,
+        ),
+    );
+
 export const evalueRegulationEtatReponseInformationsSecteur = (
   reponse: ResultatEvaluationRegulation,
 ): ResultatEvaluationRegulation =>
@@ -126,62 +208,10 @@ export const evalueRegulationEtatReponseInformationsSecteur = (
         _tag: "InformationsSecteur",
         decision: "Incertain",
         _resultatEvaluationRegulation: "EnSuspens",
-        InformationsSecteur: P.when(
-          contientEnsembleSecteursRepresentantsLocalisesFrancePetit,
-        ),
       },
-      (reponse) =>
-        fabriqueResultatEvaluationDefinitif(
-          "InformationsSecteur",
-          fabriqueRegule(
-            {
-              ...propReponseEtat(reponse)("Structure"),
-              ...propReponseEtat(reponse)("InformationsSecteur"),
-            },
-            "EntiteEssentielle",
-          ),
-        ),
+      evalueRegulationEtatReponseInformationsSecteurEnSuspens,
     )
-    .with(
-      {
-        _tag: "InformationsSecteur",
-        decision: "Incertain",
-        _resultatEvaluationRegulation: "EnSuspens",
-        InformationsSecteur: P.when(
-          contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit,
-        ),
-      },
-      () =>
-        fabriqueResultatEvaluationDefinitif(
-          "InformationsSecteur",
-          resultatNonRegule,
-        ),
-    )
-    .with(
-      {
-        _tag: "InformationsSecteur",
-        decision: "Incertain",
-        _resultatEvaluationRegulation: "EnSuspens",
-        InformationsSecteur: P.when(contientEnsembleSecteursNonEligiblesPetit),
-      },
-      () =>
-        fabriqueResultatEvaluationDefinitif(
-          "InformationsSecteur",
-          resultatNonRegule,
-        ),
-    )
-    .with(
-      {
-        _tag: "InformationsSecteur",
-        decision: "Incertain",
-        _resultatEvaluationRegulation: "EnSuspens",
-      },
-      () =>
-        fabriqueResultatEvaluationDefinitif(
-          "InformationsSecteur",
-          resultatNonRegule,
-        ),
-    )
+
     .otherwise(
       (): ResultatEvaluationRegulationEnSuspens =>
         fabriqueResultatEvaluationEnSuspens(

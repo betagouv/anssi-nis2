@@ -1,8 +1,13 @@
+import { flow } from "fp-ts/lib/function";
+import { prop } from "../../../../../../utils/services/objects.operations";
 import { tous } from "../../../../../../utils/services/sets.operations";
 import { estSecteurNecessitantLocalisationRepresentantPetiteEntite } from "../../SecteurActivite.constantes";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
-import { estSecteurAutre } from "../SecteurActivite/SecteurActivite.predicats";
+import {
+  estSecteurAutre,
+  estSecteurListe,
+} from "../SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurAutre } from "../SousSecteurActivite/SousSecteurActivite.predicats";
 import { ResultatEvaluationRegulation } from "./EtatRegulation.definitions";
 import { estReponseEtatInformationsSecteur } from "./EtatRegulation.predicats";
@@ -21,6 +26,9 @@ import {
 export const estReponseInformationsSecteurPetit = (
   info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
 ): info is ReponseInformationsSecteurPetit => info._categorieTaille === "Petit";
+export const estReponseInformationsSecteurGrand = (
+  info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
+): info is ReponseInformationsSecteurGrand => info._categorieTaille === "Grand";
 
 export const eqInformationsSecteur = (
   a: InformationSecteurPossible,
@@ -84,6 +92,19 @@ export const contientEnsembleSecteursRepresentantsLocalisesFrancePetit = (
 ) =>
   estReponseInformationsSecteurPetit(info) &&
   tous(estSecteurBienLocalisePetit)(info.secteurs);
+
+const estInformationsSecteurEligible = flow(
+  prop("secteurActivite"),
+  estSecteurListe,
+);
+export const contientEnsembleSecteursListesSansRepresantGrand = (
+  info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
+) =>
+  estReponseInformationsSecteurGrand(info) &&
+  tous(estInformationsSecteurEligible)(
+    info.secteurs as Set<{ secteurActivite: SecteurActivite }>,
+  );
+
 export const contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit = (
   info: ReponseInformationsSecteurPetit | ReponseInformationsSecteurGrand,
 ) =>

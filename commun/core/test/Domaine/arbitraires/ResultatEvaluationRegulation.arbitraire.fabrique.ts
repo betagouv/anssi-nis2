@@ -112,7 +112,7 @@ export const fabriqueArbitraireEnsembleActivitesPourSecteurComposite = <
     sousSecteurActivite: fc.constant(sousSecteur),
     activites: fabriqueArbEnsembleActivitesPourSecteur(secteur, sousSecteur),
   }) as fc.Arbitrary<InformationsSecteursCompositeListe>;
-export const fabriqueArbitraireCapsuleSecteur = (
+export const fabriqueArbitraireCapsuleSecteurPetit = (
   arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
 ): fc.Arbitrary<ReponseInformationsSecteurPetit> =>
   arb.chain((info) =>

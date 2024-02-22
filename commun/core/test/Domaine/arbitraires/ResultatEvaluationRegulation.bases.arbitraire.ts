@@ -37,7 +37,7 @@ import { SousSecteurActivite } from "../../../src/Domain/Simulateur/SousSecteurA
 import {
   fabriqueArbEnsembleActivitesPourSecteur,
   fabriqueArbEnsembleActivitesPourSecteurAvecFiltre,
-  fabriqueArbitraireCapsuleSecteur,
+  fabriqueArbitraireCapsuleSecteurPetit,
   fabriqueArbitraireCapsuleSecteurGrand,
   fabriqueArbitraireCapsuleSecteurLocalisable,
   fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFrance,
@@ -238,9 +238,9 @@ export const arbSecteursComposites: fc.Arbitrary<
 );
 
 export const arbInformationsSecteurSimplesPetitNonEligibles: fc.Arbitrary<ReponseInformationsSecteurPetit> =
-  fabriqueArbitraireCapsuleSecteur(arbEnsembleSecteursSimples);
-export const arbInformationsSecteurSimplesGrandEligibles: fc.Arbitrary<ReponseInformationsSecteurPetit> =
-  fabriqueArbitraireCapsuleSecteur(arbEnsembleSecteursSimples);
+  fabriqueArbitraireCapsuleSecteurPetit(arbEnsembleSecteursSimples);
+export const arbInformationsSecteurSimplesGrandEligibles: fc.Arbitrary<ReponseInformationsSecteurGrand> =
+  fabriqueArbitraireCapsuleSecteurGrand(arbEnsembleSecteursSimples);
 export const arbInformationsSecteurLocalisesFrancePetit: fc.Arbitrary<ReponseInformationsSecteurPetit> =
   fabriqueArbitraireCapsuleSecteurLocalisable(
     arbEnsembleSecteursLocalisablesPetitFrance,
@@ -253,7 +253,7 @@ export const arbInformationsSecteurLocalisesHorsFrancePetit: fc.Arbitrary<Repons
     arbEnsembleSecteursLocalisablesNonFrance,
   );
 export const arbInformationsSecteurComposites: fc.Arbitrary<ReponseInformationsSecteurPetit> =
-  fabriqueArbitraireCapsuleSecteur(arbSecteursComposites);
+  fabriqueArbitraireCapsuleSecteurPetit(arbSecteursComposites);
 export const arbInformationsSecteurCompositesGrand: fc.Arbitrary<ReponseInformationsSecteurGrand> =
   fabriqueArbitraireCapsuleSecteurGrand(arbSecteursComposites);
 
