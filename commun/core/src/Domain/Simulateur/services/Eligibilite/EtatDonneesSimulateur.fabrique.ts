@@ -12,18 +12,23 @@ import { FabriqueInformationsSecteur } from "../../fabriques/InformationsSecteur
 import { FabriqueInformationsStructure } from "../../fabriques/InformationsStructure.fabrique";
 import { contientPetiteEntreprise } from "../DonneesFormulaire/DonneesFormulaire.predicats";
 import {
-  ReponseStructure,
-  ReponseStructurePetit,
-  ReponseInformationsSecteurPetit,
-  ReponseDesignationOperateurServicesEssentiels,
+  CategorieTaille,
   ReponseAppartenancePaysUnionEuropeenne,
+  ReponseDesignationOperateurServicesEssentiels,
+  ReponseInformationsSecteurGrand,
+  ReponseInformationsSecteurPetit,
+  ReponseStructure,
+  ReponseStructurePrivee,
+  ReponseStructurePublique,
 } from "./Reponse.definitions";
 import {
   ReponseEtatAppartenancePaysUnionEuropeenne,
   ReponseEtatDesignationOperateurServicesEssentiels,
   ReponseEtatInformationsSecteur,
+  ReponseEtatInformationsSecteurGrand,
   ReponseEtatInformationsSecteurPetit,
   ReponseEtatStructure,
+  ReponseEtatStructureGrand,
   ReponseEtatStructurePetit,
   ReponseEtatVide,
   UnionReponseEtat,
@@ -106,7 +111,7 @@ export const FabriqueEtatDonneesSimulateur = {
   structureChaine: (
     designationOperateurServicesEssentiel: ReponseDesignationOperateurServicesEssentiels,
     appartenancePaysUnionEuropeenne: ReponseAppartenancePaysUnionEuropeenne,
-    structure: ReponseStructure,
+    structure: ReponseStructure<CategorieTaille>,
   ): ReponseEtatStructure => ({
     ...FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenneChaine(
       designationOperateurServicesEssentiel,
@@ -119,8 +124,24 @@ export const FabriqueEtatDonneesSimulateur = {
   structurePetitChaine: (
     designationOperateurServicesEssentiel: ReponseDesignationOperateurServicesEssentiels,
     appartenancePaysUnionEuropeenne: ReponseAppartenancePaysUnionEuropeenne,
-    structure: ReponseStructurePetit,
+    structure:
+      | ReponseStructurePrivee<"Petit">
+      | ReponseStructurePublique<"Petit">,
   ): ReponseEtatStructurePetit => ({
+    ...FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenneChaine(
+      designationOperateurServicesEssentiel,
+      appartenancePaysUnionEuropeenne,
+    ),
+    _tag: "Structure",
+    Structure: structure,
+  }),
+  structureGrandChaine: (
+    designationOperateurServicesEssentiel: ReponseDesignationOperateurServicesEssentiels,
+    appartenancePaysUnionEuropeenne: ReponseAppartenancePaysUnionEuropeenne,
+    structure:
+      | ReponseStructurePrivee<"Grand">
+      | ReponseStructurePublique<"Grand">,
+  ): ReponseEtatStructureGrand => ({
     ...FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenneChaine(
       designationOperateurServicesEssentiel,
       appartenancePaysUnionEuropeenne,
@@ -132,10 +153,28 @@ export const FabriqueEtatDonneesSimulateur = {
   informationsSecteurPetitChaine: (
     designationOperateurServicesEssentiel: ReponseDesignationOperateurServicesEssentiels,
     appartenancePaysUnionEuropeenne: ReponseAppartenancePaysUnionEuropeenne,
-    structure: ReponseStructurePetit,
+    structure:
+      | ReponseStructurePrivee<"Petit">
+      | ReponseStructurePublique<"Petit">,
     informationsSecteur: ReponseInformationsSecteurPetit,
   ): ReponseEtatInformationsSecteurPetit => ({
     ...FabriqueEtatDonneesSimulateur.structurePetitChaine(
+      designationOperateurServicesEssentiel,
+      appartenancePaysUnionEuropeenne,
+      structure,
+    ),
+    _tag: "InformationsSecteur",
+    InformationsSecteur: informationsSecteur,
+  }),
+  informationsSecteurGrandChaine: (
+    designationOperateurServicesEssentiel: ReponseDesignationOperateurServicesEssentiels,
+    appartenancePaysUnionEuropeenne: ReponseAppartenancePaysUnionEuropeenne,
+    structure:
+      | ReponseStructurePrivee<"Grand">
+      | ReponseStructurePublique<"Grand">,
+    informationsSecteur: ReponseInformationsSecteurGrand,
+  ): ReponseEtatInformationsSecteurGrand => ({
+    ...FabriqueEtatDonneesSimulateur.structureGrandChaine(
       designationOperateurServicesEssentiel,
       appartenancePaysUnionEuropeenne,
       structure,

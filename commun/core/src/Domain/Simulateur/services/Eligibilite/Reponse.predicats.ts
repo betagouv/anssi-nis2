@@ -8,7 +8,7 @@ import { ResultatEvaluationRegulation } from "./EtatRegulation.definitions";
 import { estReponseEtatInformationsSecteur } from "./EtatRegulation.predicats";
 import {
   EtablissementPrincipalFournitUE,
-  InformationSecteurLocalisablePetiteEntreprise,
+  InformationSecteurLocalisablePetiteEntite,
   InformationSecteurPossible,
   InformationSecteurPossiblePetit,
   InformationsSecteurPossibleNonLocalisees,
@@ -28,7 +28,7 @@ export const eqInformationsSecteur = (
 ) => a.secteurActivite === b.secteurActivite;
 export const estEtablissementPrincipalFournitUE = (
   reponse:
-    | InformationSecteurLocalisablePetiteEntreprise
+    | InformationSecteurLocalisablePetiteEntite
     | EtablissementPrincipalFournitUE,
 ): reponse is EtablissementPrincipalFournitUE =>
   reponse.fournitServicesUnionEuropeenne === "oui";
@@ -44,7 +44,7 @@ export const estInformationSecteurLocalisablePetiteEntreprise = (
     | InformationSecteurPossiblePetit
     | InformationsSecteurPossiblesAutre
     | InformationsSecteurPossibleNonLocalisees,
-): sec is InformationSecteurLocalisablePetiteEntreprise =>
+): sec is InformationSecteurLocalisablePetiteEntite =>
   estSecteurNecessitantLocalisationRepresentantPetiteEntite(
     sec.secteurActivite as SecteurActivite,
   );

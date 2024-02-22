@@ -1,11 +1,12 @@
 import {
+  CategorieTaille,
   ReponseAppartenancePaysUnionEuropeenne,
   ReponseDesignationOperateurServicesEssentiels,
   ReponseInformationsSecteurGrand,
   ReponseInformationsSecteurPetit,
   ReponseStructure,
-  ReponseStructureGrand,
-  ReponseStructurePetit,
+  ReponseStructurePrivee,
+  ReponseStructurePublique,
 } from "./Reponse.definitions";
 
 export type CapsuleDesignationOperateurServicesEssentiels = {
@@ -15,15 +16,19 @@ export type CapsuleAppartenancePaysUnionEuropeenne = {
   AppartenancePaysUnionEuropeenne: ReponseAppartenancePaysUnionEuropeenne;
 };
 export type CapsuleStructure = {
-  Structure: ReponseStructure;
+  Structure: ReponseStructure<CategorieTaille>;
 };
 export type CapsuleInformationsSecteur =
   | {
-      Structure: ReponseStructurePetit;
+      Structure:
+        | ReponseStructurePrivee<"Petit">
+        | ReponseStructurePublique<"Petit">;
       InformationsSecteur: ReponseInformationsSecteurPetit;
     }
   | {
-      Structure: ReponseStructureGrand;
+      Structure:
+        | ReponseStructurePrivee<"Grand">
+        | ReponseStructurePublique<"Grand">;
       InformationsSecteur: ReponseInformationsSecteurGrand;
     };
 export type CapsuleReponse =

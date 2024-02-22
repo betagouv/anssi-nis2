@@ -34,7 +34,6 @@ import {
   arbResultatEvaluationRegulationEnSuspensApresLocalisation,
   arbResultatEvaluationRegulationEnSuspensApresLocalisationFrance,
   arbResultatEvaluationRegulationEnSuspensApresLocalisationHorsFrance,
-  arbResultatEvaluationRegulationEnSuspensApresStructure,
   arbResultatEvaluationRegulationEnSuspensApresStructureAutre,
   arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable,
   arbResultatEvaluationRegulationEnSuspensApresStructurePetitNonEligible,
@@ -219,28 +218,7 @@ describe("Regulation Etat Reponse", () => {
           },
         ),
       );
-      // SKIP car hors périmètre petit --> A recycler pour Grand
-      it.skip(
-        "en suspens / sous-secteur listés ==> toujours définitivement régulé",
-        assertionArbitraire(
-          arbResultatEvaluationRegulationEnSuspensApresStructure,
-          (reponse) => {
-            const causes: CausesRegulation = {
-              ...propReponseEtat(reponse)("Structure"),
-              ...propReponseEtat(reponse)("InformationsSecteur"),
-            };
-            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
-              _resultatEvaluationRegulation: "Definitif",
-              etapeEvaluee: "InformationsSecteur",
-              ...fabriqueRegule(causes),
-            };
 
-            const resultatObtenu =
-              evalueRegulationEtatReponseInformationsSecteur(reponse);
-            expect(resultatObtenu).toStrictEqual(resultatAttendu);
-          },
-        ),
-      );
       it(
         "en suspens / secteurs+activités localisables et bien localisés ==> toujours définitivement régulé EE",
         assertionArbitraire(
@@ -297,5 +275,28 @@ describe("Regulation Etat Reponse", () => {
         ),
       );
     });
+    // describe("Grandes", () => {
+    //   it(
+    //     "en suspens / sous-secteur listés ==> toujours définitivement régulé",
+    //     assertionArbitraire(
+    //       arbResultatEvaluationRegulationEnSuspensApresStructureGrandNonLocalisable,
+    //       (reponse) => {
+    //         const causes: CausesRegulation = {
+    //           ...propReponseEtat(reponse)("Structure"),
+    //           ...propReponseEtat(reponse)("InformationsSecteur"),
+    //         };
+    //         const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
+    //           _resultatEvaluationRegulation: "Definitif",
+    //           etapeEvaluee: "InformationsSecteur",
+    //           ...fabriqueRegule(causes),
+    //         };
+    //
+    //         const resultatObtenu =
+    //           evalueRegulationEtatReponseInformationsSecteur(reponse);
+    //         expect(resultatObtenu).toStrictEqual(resultatAttendu);
+    //       },
+    //     ),
+    //   );
+    // });
   });
 });

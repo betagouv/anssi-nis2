@@ -23,15 +23,18 @@ import {
   fabriqueResultatEvaluationInconnu,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.fabriques";
 import {
-  InformationSecteurLocalisablePetiteEntreprise,
+  CategorieTaille,
+  InformationSecteurLocalisablePetiteEntite,
   InformationSecteurPossible,
   InformationSecteurSimple,
   InformationsSecteursCompositeListe,
   ReponseAppartenancePaysUnionEuropeenne,
   ReponseDesignationOperateurServicesEssentiels,
+  ReponseInformationsSecteurGrand,
   ReponseInformationsSecteurPetit,
   ReponseStructure,
-  ReponseStructurePetit,
+  ReponseStructurePrivee,
+  ReponseStructurePublique,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 import { eqInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.predicats";
 import {
@@ -118,6 +121,15 @@ export const fabriqueArbitraireCapsuleSecteur = (
       secteurs: fc.constant(info),
     }),
   );
+export const fabriqueArbitraireCapsuleSecteurGrand = (
+  arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
+): fc.Arbitrary<ReponseInformationsSecteurGrand> =>
+  arb.chain((info) =>
+    fc.record({
+      _categorieTaille: fc.constant("Grand"),
+      secteurs: fc.constant(info),
+    }),
+  );
 
 export const fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe =
   <
@@ -130,26 +142,26 @@ export const fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe =
       sousSecteur?: SousSecteurActivite,
     ) => fc.Arbitrary<Set<U>>,
   ) =>
-  (secteur: T): fc.Arbitrary<InformationSecteurLocalisablePetiteEntreprise> =>
-    fc.record<InformationSecteurLocalisablePetiteEntreprise>({
+  (secteur: T): fc.Arbitrary<InformationSecteurLocalisablePetiteEntite> =>
+    fc.record<InformationSecteurLocalisablePetiteEntite>({
       secteurActivite: fc.constant(secteur),
       activites: fabriqueActivite(secteur),
       fournitServicesUnionEuropeenne: fc.constant("oui"),
       localisationRepresentant: arbLocalisationRepresentant,
-    }) as fc.Arbitrary<InformationSecteurLocalisablePetiteEntreprise>;
+    }) as fc.Arbitrary<InformationSecteurLocalisablePetiteEntite>;
 export const fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableHorsUe = <
   T extends SecteursAvecBesoinLocalisationRepresentant,
 >(
   secteur: T,
-): fc.Arbitrary<InformationSecteurLocalisablePetiteEntreprise> =>
-  fc.record<InformationSecteurLocalisablePetiteEntreprise>({
+): fc.Arbitrary<InformationSecteurLocalisablePetiteEntite> =>
+  fc.record<InformationSecteurLocalisablePetiteEntite>({
     secteurActivite: fc.constant(secteur),
     activites: fabriqueArbEnsembleActivitesPourSecteur<
       T,
       ActivitesLocalisablesPetit
     >(secteur),
     fournitServicesUnionEuropeenne: fc.constant("non"),
-  }) as fc.Arbitrary<InformationSecteurLocalisablePetiteEntreprise>;
+  }) as fc.Arbitrary<InformationSecteurLocalisablePetiteEntite>;
 
 export const fabriqueArbitraireCapsuleSecteurLocalisable = (
   arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
@@ -218,7 +230,7 @@ export const fabriqueResultatEvaluationEnSuspensStructure = ([
 ]: [
   ReponseDesignationOperateurServicesEssentiels,
   ReponseAppartenancePaysUnionEuropeenne,
-  ReponseStructure,
+  ReponseStructure<CategorieTaille>,
 ]) =>
   fabriqueResultatEvaluationEnSuspens(
     "AppartenancePaysUnionEuropeenne",
@@ -237,13 +249,34 @@ export const fabriqueResultatEvaluationEnSuspensSecteurPetit = ([
 ]: [
   ReponseDesignationOperateurServicesEssentiels,
   ReponseAppartenancePaysUnionEuropeenne,
-  ReponseStructurePetit,
+  ReponseStructurePrivee<"Petit"> | ReponseStructurePublique<"Petit">,
   ReponseInformationsSecteurPetit,
 ]) =>
   fabriqueResultatEvaluationEnSuspens(
     "Structure",
     resultatIncertain,
     FabriqueEtatDonneesSimulateur.informationsSecteurPetitChaine(
+      designationOperateurServicesEssentiel,
+      appartenancePaysUnionEuropeenne,
+      structure,
+      informationsSecteur,
+    ),
+  );
+export const fabriqueResultatEvaluationEnSuspensSecteurGrand = ([
+  designationOperateurServicesEssentiel,
+  appartenancePaysUnionEuropeenne,
+  structure,
+  informationsSecteur,
+]: [
+  ReponseDesignationOperateurServicesEssentiels,
+  ReponseAppartenancePaysUnionEuropeenne,
+  ReponseStructurePrivee<"Grand"> | ReponseStructurePublique<"Grand">,
+  ReponseInformationsSecteurGrand,
+]) =>
+  fabriqueResultatEvaluationEnSuspens(
+    "Structure",
+    resultatIncertain,
+    FabriqueEtatDonneesSimulateur.informationsSecteurGrandChaine(
       designationOperateurServicesEssentiel,
       appartenancePaysUnionEuropeenne,
       structure,

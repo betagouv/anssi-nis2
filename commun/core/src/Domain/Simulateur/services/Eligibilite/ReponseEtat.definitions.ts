@@ -6,8 +6,10 @@ import {
   CapsuleStructure,
 } from "./CapsuleReponse";
 import {
+  ReponseInformationsSecteurGrand,
   ReponseInformationsSecteurPetit,
-  ReponseStructurePetit,
+  ReponseStructurePrivee,
+  ReponseStructurePublique,
 } from "./Reponse.definitions";
 
 export type ReponseEtatVide = Tag<"ReponseEtatVide">;
@@ -23,12 +25,29 @@ export type ReponseEtatStructure = Tag<"Structure"> &
   CapsuleStructure;
 export type ReponseEtatStructurePetit = Tag<"Structure"> &
   RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> & {
-    Structure: ReponseStructurePetit;
+    Structure:
+      | ReponseStructurePrivee<"Petit">
+      | ReponseStructurePublique<"Petit">;
+  };
+export type ReponseEtatStructureGrand = Tag<"Structure"> &
+  RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> & {
+    Structure:
+      | ReponseStructurePrivee<"Grand">
+      | ReponseStructurePublique<"Grand">;
   };
 export type ReponseEtatInformationsSecteurPetit = Tag<"InformationsSecteur"> &
   RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> & {
-    Structure: ReponseStructurePetit;
+    Structure:
+      | ReponseStructurePrivee<"Petit">
+      | ReponseStructurePublique<"Petit">;
     InformationsSecteur: ReponseInformationsSecteurPetit;
+  };
+export type ReponseEtatInformationsSecteurGrand = Tag<"InformationsSecteur"> &
+  RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> & {
+    Structure:
+      | ReponseStructurePrivee<"Grand">
+      | ReponseStructurePublique<"Grand">;
+    InformationsSecteur: ReponseInformationsSecteurGrand;
   };
 export type ReponseEtatInformationsSecteur = Tag<"InformationsSecteur"> &
   RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> &

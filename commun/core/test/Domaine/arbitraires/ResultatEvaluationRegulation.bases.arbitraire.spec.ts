@@ -9,7 +9,7 @@ import {
 import { estReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.predicats";
 import {
   EtablissementPrincipalFournitUE,
-  InformationSecteurLocalisablePetiteEntreprise,
+  InformationSecteurLocalisablePetiteEntite,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 import {
   estEtablissementPrincipalFournitUE,
@@ -27,7 +27,7 @@ import {
   arbDesignationOperateurServicesEssentielsJamaisOui,
   arbDesignationOperateurServicesEssentielsToujoursOui,
   arbInformationsSecteurComposite,
-  arbInformationsSecteurCompositesPetit,
+  arbInformationsSecteurComposites,
   arbInformationsSecteurLocaliseesFrancePetite,
   arbInformationsSecteurLocaliseesHorsFrancePetite,
   arbInformationsSecteurLocaliseesHorsUEPetite,
@@ -36,11 +36,11 @@ import {
   arbInformationsSecteurPetit,
   arbInformationsSecteurPetitAutre,
   arbInformationsSecteurSimple,
-  arbInformationsSecteurSimplesPetitEligibles,
+  arbInformationsSecteurSimplesGrandEligibles,
   arbInformationsSecteurSimplesPetitNonEligibles,
   arbSecteurAvecSousSecteurListes,
   arbSecteurLocalisablesGrandeEntreprise,
-  arbSecteurSansSousSecteur,
+  arbSecteurListesSansSousSecteurNiLocaGrand,
   arbEnsembleSecteursSimples,
   arbStructurePetitPrive,
   arbStructurePetitPublic,
@@ -80,19 +80,19 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
           ));
         it("arbInformationsSecteurCompositesPetit et arbInformationsSecteurSimplesPetitNonEligibles sont exclusifs", () =>
           assertion.exclusifs(
-            arbInformationsSecteurCompositesPetit,
+            arbInformationsSecteurComposites,
             arbInformationsSecteurSimplesPetitNonEligibles,
             // arbInformationsSecteurSimplesPetitEligibles,
           ));
         it("arbInformationsSecteurCompositesPetit et arbInformationsSecteurSimplesPetitEligibles sont exclusifs", () =>
           assertion.exclusifs(
-            arbInformationsSecteurCompositesPetit,
-            arbInformationsSecteurSimplesPetitEligibles,
+            arbInformationsSecteurComposites,
+            arbInformationsSecteurSimplesGrandEligibles,
           ));
         it("arbInformationsSecteurSimplesPetitNonEligibles et arbInformationsSecteurSimplesPetitEligibles sont exclusifs", () =>
           assertion.exclusifs(
             arbInformationsSecteurSimplesPetitNonEligibles,
-            arbInformationsSecteurSimplesPetitEligibles,
+            arbInformationsSecteurSimplesGrandEligibles,
           ));
         it("arbInformationsSecteurLocalisesFrancePetit et arbInformationsSecteurLocalisesHorsFrancePetit sont exclusifs", () =>
           assertion.exclusifs(
@@ -117,14 +117,15 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
 
   describe("bases", () => {
     describe("arbSecteurSansSousSecteur", () => {
-      it("n'est pas vide", () => assertion.nonVide(arbSecteurSansSousSecteur));
+      it("n'est pas vide", () =>
+        assertion.nonVide(arbSecteurListesSansSousSecteurNiLocaGrand));
       it("ne contient pas 'autre'", () =>
         assertion.neContientPas("autreSecteurActivite")(
-          arbSecteurSansSousSecteur,
+          arbSecteurListesSansSousSecteurNiLocaGrand,
         ));
       it("exclusif avec les secteurs localisables", () =>
         assertion.tousExclusifs(
-          arbSecteurSansSousSecteur,
+          arbSecteurListesSansSousSecteurNiLocaGrand,
           arbSecteurLocalisablesGrandeEntreprise,
         ));
     });
@@ -298,13 +299,13 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
 
             const resultatType = resultat as ReponseEtatInformationsSecteur;
             expect(
-              tous<InformationSecteurLocalisablePetiteEntreprise>((secteur) =>
+              tous<InformationSecteurLocalisablePetiteEntite>((secteur) =>
                 tous(estActiviteInfrastructureNumeriqueEligiblesPetitEntite)(
                   secteur.activites,
                 ),
               )(
                 resultatType.InformationsSecteur
-                  .secteurs as Set<InformationSecteurLocalisablePetiteEntreprise>,
+                  .secteurs as Set<InformationSecteurLocalisablePetiteEntite>,
               ),
             ).toBeTruthy();
           },

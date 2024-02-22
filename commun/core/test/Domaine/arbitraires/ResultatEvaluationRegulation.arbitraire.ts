@@ -64,14 +64,15 @@ export const arbResultatEvaluationRegulationEnSuspensApresStructureAutre = fc
   )
   .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);
 
-export const arbResultatEvaluationRegulationEnSuspensApresStructure = fc
-  .tuple(
-    arbDesignationOperateurServicesEssentielsJamaisOui,
-    arbAppartenanceUnionEuropeenneToujoursFrance,
-    arbStructurePetit,
-    arbInformationsSecteurPetit,
-  )
-  .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);
+// export const arbResultatEvaluationRegulationEnSuspensApresStructureGrandNonLocalisable =
+//   fc
+//     .tuple(
+//       arbDesignationOperateurServicesEssentielsJamaisOui,
+//       arbAppartenanceUnionEuropeenneToujoursFrance,
+//       arbStructureGrand,
+//       arbInformationsSecteurGrand,
+//     )
+//     .map(fabriqueResultatEvaluationEnSuspensSecteurGrand);
 export const arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable =
   fc
     .tuple(

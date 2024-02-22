@@ -22,7 +22,6 @@ import {
   SecteursAvecBesoinLocalisationRepresentant,
   SecteursAvecSousSecteurs,
   SecteursDefinitsSansBesoinLocalisationRepresentant,
-  SecteursSansBesoinLocalisationRepresentant,
   SousSecteurAutrePour,
 } from "../../SecteurActivite.definitions";
 import {
@@ -48,12 +47,18 @@ export type TypeStructurePublique = {
   typeEntitePublique: TypeEntitePublique;
 };
 
-export type CategoriseTaille<S extends "Grand" | "Petit"> = Tag<
+export type CategorieTaille = "Petit" | "Grand";
+
+export type CategoriseTaille<S extends CategorieTaille> = Tag<
   S,
   "CategorieTaille"
 >;
 
-export type TailleSecteurPriveGrand = (
+export type TrancheTaillePrivePetit = {
+  trancheChiffreAffaire: Extract<TrancheChiffreAffaire, "petit">;
+  trancheNombreEmployes: Extract<TrancheNombreEmployes, "petit">;
+};
+export type TrancheTaillePriveGrand =
   | {
       trancheChiffreAffaire: Omit<TrancheChiffreAffaire, "petit">;
       trancheNombreEmployes: TrancheNombreEmployes;
@@ -61,39 +66,35 @@ export type TailleSecteurPriveGrand = (
   | {
       trancheChiffreAffaire: TrancheChiffreAffaire;
       trancheNombreEmployes: Omit<TrancheNombreEmployes, "petit">;
-    }
-) &
-  CategoriseTaille<"Grand">;
+    };
+export type TranchesTaillePrive<T extends CategorieTaille> = T extends "Petit"
+  ? TrancheTaillePrivePetit
+  : TrancheTaillePriveGrand;
 
-export type TailleSecteurPrivePetit = {
-  trancheChiffreAffaire: Extract<TrancheChiffreAffaire, "petit">;
-  trancheNombreEmployes: Extract<TrancheNombreEmployes, "petit">;
-} & CategoriseTaille<"Petit">;
+export type TailleSecteurPrive<T extends CategorieTaille> =
+  TranchesTaillePrive<T> & CategoriseTaille<T>;
 
-export type TailleSecteurPublicPetit = {
+type TrancheTaillePublicPetit = {
   trancheNombreEmployes: Extract<TrancheChiffreAffaire, "petit">;
-} & CategoriseTaille<"Petit">;
-export type TailleSecteurPublicGrand = {
+};
+type TrancheTaillePublicGrand = {
   trancheNombreEmployes: Omit<TrancheNombreEmployes, "petit">;
-} & CategoriseTaille<"Grand">;
+};
+export type TranchesTaillePublic<T extends CategorieTaille> = T extends "Petit"
+  ? TrancheTaillePublicPetit
+  : TrancheTaillePublicGrand;
 
-export type ReponseStructurePriveePetit = TypeStructurePrivee &
-  TailleSecteurPrivePetit;
-export type ReponseStructurePriveeGrand = TypeStructurePrivee &
-  TailleSecteurPriveGrand;
+export type TailleSecteurPublic<T extends CategorieTaille> =
+  TranchesTaillePublic<T> & CategoriseTaille<T>;
+export type ReponseStructurePrivee<T extends CategorieTaille> =
+  TypeStructurePrivee & TailleSecteurPrive<T>;
 
-export type ReponseStructurePubliquePetit = TypeStructurePublique &
-  TailleSecteurPublicPetit;
-export type ReponseStructurePubliqueGrand = TypeStructurePublique &
-  TailleSecteurPublicGrand;
+export type ReponseStructurePublique<T extends CategorieTaille> =
+  TypeStructurePublique & TailleSecteurPublic<T>;
 
-export type ReponseStructurePetit =
-  | ReponseStructurePriveePetit
-  | ReponseStructurePubliquePetit;
-export type ReponseStructureGrand =
-  | ReponseStructurePriveeGrand
-  | ReponseStructurePubliqueGrand;
-export type ReponseStructure = ReponseStructurePetit | ReponseStructureGrand;
+export type ReponseStructure<T extends CategorieTaille> =
+  | ReponseStructurePrivee<T>
+  | ReponseStructurePublique<T>;
 
 export type InformationSousSecteurAutre<S extends SecteursAvecSousSecteurs> = {
   secteurActivite: S;
@@ -138,12 +139,12 @@ export type EtablissementPrincipalLocalisation =
   | EtablissementPrincipalNeFournitPasUE
   | EtablissementPrincipalFournitUE;
 
-export type InformationSecteurLocalisablePetiteEntreprise = {
+export type InformationSecteurLocalisablePetiteEntite = {
   secteurActivite: SecteursAvecBesoinLocalisationRepresentant;
   activites: Set<ActivitesInfrastructureNumeriqueLocalisables>;
 } & EtablissementPrincipalLocalisation;
 
-export type InformationSecteurLocalisableGrand =
+export type InformationSecteurLocalisableGrandeEntite =
   | {
       secteurActivite: SecteursAvecBesoinLocalisationRepresentant;
       activites: Set<
@@ -175,12 +176,12 @@ export type InformationsSecteurPossibleNonLocalisees =
 
 export type InformationSecteurPossiblePetit =
   | InformationsSecteurPossibleNonLocalisees
-  | InformationSecteurLocalisablePetiteEntreprise
+  | InformationSecteurLocalisablePetiteEntite
   | InformationsSecteurPossiblesAutre;
 
 export type InformationSecteurPossibleGrand =
   | InformationsSecteurPossibleNonLocalisees
-  | InformationSecteurLocalisableGrand
+  | InformationSecteurLocalisableGrandeEntite
   | InformationsSecteurPossiblesAutre;
 
 export type InformationsSecteursCompositeListe =
@@ -196,27 +197,9 @@ export type InformationSecteurPossible =
   | InformationSecteurPossiblePetit
   | InformationSecteurPossibleGrand;
 
-// type InformationsSecteurPetitAlternatives =
-//   | (Tag<"Necessaire", "Localisation"> & {
-//       secteurs: Set<InformationSecteurPossiblePetit>;
-//     })
-//   | (Tag<"NonNecessaire", "Localisation"> & {
-//       secteurs: Set<
-//         | InformationsSecteurPossibleNonLocalisees
-//         | InformationsSecteurPossiblesAutre
-//       >;
-//     });
-
-export type InformationsSecteurPetitAlternatives =
-  | {
-      secteurs: Set<InformationSecteurPossiblePetit>;
-    }
-  | {
-      secteurs: Set<
-        | InformationsSecteurPossibleNonLocalisees
-        | InformationsSecteurPossiblesAutre
-      >;
-    };
+export type InformationsSecteurPetitAlternatives = {
+  secteurs: Set<InformationSecteurPossiblePetit>;
+};
 
 export type ReponseInformationsSecteurPetit = CategoriseTaille<"Petit"> &
   InformationsSecteurPetitAlternatives;
