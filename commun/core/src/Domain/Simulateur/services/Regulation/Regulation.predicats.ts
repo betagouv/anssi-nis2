@@ -1,7 +1,11 @@
 import { flow } from "fp-ts/lib/function";
 import { prop } from "../../../../../../utils/services/objects.operations";
 import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
-import { PredicatResultatRegulationEntite } from "../../Regulation.definitions";
+import {
+  PredicatResultatRegulationEntite,
+  ResultatRegulationEntite,
+  ResultatRegulationPositif,
+} from "../../Regulation.definitions";
 import {
   auMoinsUneActiviteInfraNumConcernee,
   auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
@@ -12,6 +16,7 @@ import {
   contientPetiteEntreprise,
   predicatDonneesFormulaire as verifie,
 } from "../DonneesFormulaire/DonneesFormulaire.predicats";
+import { ResultatEvaluationRegulationDefinitif } from "../Eligibilite/EtatRegulation.definitions";
 import { auMoinsUnSecteurListe } from "../SecteurActivite/SecteurActivite.predicats";
 import { auMoinsUnSousSecteurListe } from "../SousSecteurActivite/SousSecteurActivite.predicats";
 
@@ -65,3 +70,9 @@ export const carEstGrandeDansSecteurListeAvecBesoinLocalisation = car(
   verifie.localisationRepresentant.est(["france"]),
   non(contientPetiteEntreprise),
 );
+
+export const estResultatRegulationPositif = <
+  T extends ResultatRegulationEntite | ResultatEvaluationRegulationDefinitif,
+>(
+  res: ResultatRegulationPositif | T,
+): res is ResultatRegulationPositif => res.decision === "Regule";

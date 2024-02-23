@@ -1,6 +1,7 @@
 import { fc } from "@fast-check/vitest";
 import { describe, expect, it } from "vitest";
 import {
+  certains,
   ens,
   ensembleNeutre,
   fromArray,
@@ -55,8 +56,40 @@ describe("Operations sur ensembles (Set)", () => {
       fc.assert(
         fc.property<[Set<number>]>(
           fc.uniqueArray(fc.integer({ max: 0 })).map(fromArray),
-          (arr) => {
-            expect(tousPositifs(new Set(arr))).toBeFalsy();
+          (ensemble) => {
+            expect(tousPositifs(ensemble)).toBeFalsy();
+          },
+        ),
+      ));
+  });
+  describe(certains, () => {
+    const estPositif = (n: number) => n >= 0;
+    const certainsPositifs = certains<number>(estPositif);
+    it("vérifie certainsPositifs quand tous les éléments sont négatifs sauf un", () =>
+      fc.assert(
+        fc.property<[Set<number>]>(
+          fc
+            .tuple(
+              fc.uniqueArray(fc.integer({ max: 0 })),
+              fc.integer({ min: 0 }),
+            )
+            .chain(([tableauNegatif, entierPositif]) =>
+              fc.shuffledSubarray([...tableauNegatif, entierPositif], {
+                minLength: tableauNegatif.length + 1,
+              }),
+            )
+            .map(fromArray),
+          (ensemble) => {
+            expect(certainsPositifs(ensemble)).toBeTruthy();
+          },
+        ),
+      ));
+    it("ne vérifie pas tousPositifs quand tous les éléments sont négatifs", () =>
+      fc.assert(
+        fc.property<[Set<number>]>(
+          fc.uniqueArray(fc.integer({ max: -1 })).map(fromArray),
+          (ensemble) => {
+            expect(certainsPositifs(ensemble)).toBeFalsy();
           },
         ),
       ));

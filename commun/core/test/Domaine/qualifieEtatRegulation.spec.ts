@@ -28,6 +28,7 @@ import {
 import { propReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/Reponse.operations";
 import { ReponseEtatDesignationOperateurServicesEssentiels } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.definitions";
 import { fabriqueResultatEvaluationRegulationDefinitif } from "../../src/Domain/Simulateur/services/Eligibilite/ResultatEvaluationRegulation.fabriques";
+import { estResultatRegulationPositif } from "../../src/Domain/Simulateur/services/Regulation/Regulation.predicats";
 import { assertionArbitraire } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import {
   arbResultatEvaluationRegulationDesigneeOse,
@@ -37,6 +38,7 @@ import {
   arbResultatEvaluationRegulationEnSuspensApresStructureAutreGrand,
   arbResultatEvaluationRegulationEnSuspensApresStructureAutrePetits,
   arbResultatEvaluationRegulationEnSuspensApresStructureGrandNonLocalisable,
+  arbResultatEvaluationRegulationEnSuspensApresStructureGrandNonLocalisableActivitesAutres,
   arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable,
   arbResultatEvaluationRegulationEnSuspensApresStructurePetitNonEligible,
   arbResultatEvaluationRegulationEnSuspensApresStructureRepresentantLocaliseHorsFrance,
@@ -86,17 +88,20 @@ describe("Regulation Etat Reponse", () => {
               resultatRegulation,
               etapeSource,
             );
-            const resultat = evaluation(reponse);
+            const resultat = evaluation(
+              reponse,
+            ) as ResultatEvaluationRegulationDefinitif;
 
             expect(resultat._resultatEvaluationRegulation).toBe("Definitif");
             expect(resultat.etapeEvaluee).toBe(etapeCible);
-            expect(
-              (resultat as ResultatEvaluationRegulationDefinitif).decision,
-            ).toBe(resultatRegulation.decision);
+            expect(resultat.decision).toBe(resultatRegulation.decision);
 
             expect("cause" in resultat).toBe("cause" in resultatRegulation);
-            if ("cause" in resultatRegulation && "cause" in resultat) {
-              expect(resultat.cause).toStrictEqual(resultatRegulation.cause);
+            if (
+              estResultatRegulationPositif(resultatRegulation) &&
+              estResultatRegulationPositif(resultat)
+            ) {
+              expect(resultat.causes).toStrictEqual(resultatRegulation.causes);
             }
           },
         ),
@@ -296,6 +301,93 @@ describe("Regulation Etat Reponse", () => {
             const resultatObtenu =
               evalueRegulationEtatReponseInformationsSecteur(reponse);
             expect(resultatObtenu).toStrictEqual(resultatAttendu);
+          },
+        ),
+      );
+      it(
+        "en suspens / secteurs/sous-secteur listés, uniquement activités autres ==> toujours définitivement non-régulé",
+        assertionArbitraire(
+          arbResultatEvaluationRegulationEnSuspensApresStructureGrandNonLocalisableActivitesAutres,
+          (reponse) => {
+            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
+              _resultatEvaluationRegulation: "Definitif",
+              etapeEvaluee: "InformationsSecteur",
+              ...resultatNonRegule,
+            };
+
+            const resultatObtenu =
+              evalueRegulationEtatReponseInformationsSecteur(reponse);
+            expect(resultatObtenu).toStrictEqual(resultatAttendu);
+            const contreEx = [
+              {
+                decision: "Incertain",
+                _tag: "InformationsSecteur",
+                DesignationOperateurServicesEssentiels: {
+                  designationOperateurServicesEssentiels: "non",
+                },
+                AppartenancePaysUnionEuropeenne: {
+                  appartenancePaysUnionEuropeenne: "france",
+                },
+                Structure: {
+                  _categorieTaille: "Grand",
+                  typeStructure: "privee",
+                  trancheChiffreAffaire: "petit",
+                  trancheNombreEmployes: "moyen",
+                },
+                InformationsSecteur: {
+                  _categorieTaille: "Grand",
+                  secteurs: new Set([
+                    {
+                      secteurActivite: "energie",
+                      sousSecteurActivite: "electricite",
+                      activites: new Set(["autreActiviteElectricite"]),
+                    },
+                  ]),
+                },
+                _resultatEvaluationRegulation: "EnSuspens",
+                etapeEvaluee: "Structure",
+              },
+              {
+                decision: "Incertain",
+                _tag: "InformationsSecteur",
+                DesignationOperateurServicesEssentiels: {
+                  designationOperateurServicesEssentiels: "nsp",
+                },
+                AppartenancePaysUnionEuropeenne: {
+                  appartenancePaysUnionEuropeenne: "france",
+                },
+                Structure: {
+                  _categorieTaille: "Grand",
+                  typeStructure: "privee",
+                  trancheChiffreAffaire: "moyen",
+                  trancheNombreEmployes: "grand",
+                },
+                InformationsSecteur: {
+                  _categorieTaille: "Grand",
+                  secteurs: new Set([
+                    {
+                      secteurActivite: "fabrication",
+                      sousSecteurActivite: "constructionVehiculesAutomobiles",
+                      activites: new Set([
+                        "autreActiviteConstructionVehiculesAutomobilesRemorquesSemi",
+                      ]),
+                    },
+                    {
+                      secteurActivite: "energie",
+                      sousSecteurActivite: "hydrogene",
+                      activites: new Set(["autreActiviteHydrogene"]),
+                    },
+                    {
+                      secteurActivite: "transports",
+                      sousSecteurActivite: "transportsAeriens",
+                      activites: new Set(["autreActiviteTransportsAeriens"]),
+                    },
+                  ]),
+                },
+                _resultatEvaluationRegulation: "EnSuspens",
+                etapeEvaluee: "Structure",
+              },
+            ];
           },
         ),
       );

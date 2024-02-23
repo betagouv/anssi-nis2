@@ -104,15 +104,16 @@ const estInformationsSecteurEligible = flow(
   prop("secteurActivite"),
   estSecteurListe,
 );
-export const contientEnsembleSecteursListesSansRepresantGrand = (
-  info:
-    | ReponseInformationsSecteur<"Petit">
-    | ReponseInformationsSecteur<"Grand">,
-) =>
-  estReponseInformationsSecteurGrand(info) &&
-  tous(estInformationsSecteurEligible)(
-    info.secteurs as Set<{ secteurActivite: SecteurActivite }>,
-  );
+export const contientEnsembleSecteursEtActiviteListeesListesSansRepresantGrand =
+  (
+    info:
+      | ReponseInformationsSecteur<"Petit">
+      | ReponseInformationsSecteur<"Grand">,
+  ) =>
+    estReponseInformationsSecteurGrand(info) &&
+    tous(estInformationsSecteurEligible)(
+      info.secteurs as Set<{ secteurActivite: SecteurActivite }>,
+    );
 
 export const contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit = (
   info:

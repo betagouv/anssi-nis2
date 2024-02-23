@@ -21,7 +21,11 @@ import {
   ValeursSecteursNecessitantLocalisationRepresentant,
   ValeursSecteurAvecBesoinLocalisationRepresentantPetiteEntite,
 } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
-import { estActiviteInfrastructureNumeriqueEligiblesPetitEntite } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import {
+  estActiviteAutre,
+  estActiviteInfrastructureNumeriqueEligiblesPetitEntite,
+  estActiviteListee,
+} from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import {
   InformationSecteurLocalisablePetiteEntite,
   InformationSecteurSimple,
@@ -176,7 +180,11 @@ export const arbInformationsSecteurLocaliseesHorsUEPetite =
   );
 export const arbInformationsSecteurComposite =
   arbSecteurAvecSousSecteurListes.chain(
-    fabriqueArbitraireEnsembleActivitesPourSecteurComposite,
+    fabriqueArbitraireEnsembleActivitesPourSecteurComposite(estActiviteListee),
+  );
+export const arbInformationsSecteurCompositeActivitesAutres =
+  arbSecteurAvecSousSecteurListes.chain(
+    fabriqueArbitraireEnsembleActivitesPourSecteurComposite(estActiviteAutre),
   );
 export const arbEnsembleSecteursSimples: fc.Arbitrary<
   Set<InformationSecteurSimple>
@@ -210,6 +218,11 @@ export const arbSecteursComposites: fc.Arbitrary<
   Set<InformationsSecteursCompositeListe>
 > = fabriqueArbitrairesEnsembleInformationsSecteurs(
   arbInformationsSecteurComposite,
+);
+export const arbSecteursCompositesActivitesAutres: fc.Arbitrary<
+  Set<InformationsSecteursCompositeListe>
+> = fabriqueArbitrairesEnsembleInformationsSecteurs(
+  arbInformationsSecteurCompositeActivitesAutres,
 );
 
 export const arbInformationsSecteurSimplesPetitNonEligibles: fc.Arbitrary<
@@ -245,4 +258,8 @@ export const arbInformationsSecteurPetit = fc.oneof(
 export const arbInformationsSecteurGrand = fc.oneof(
   arbInformationsSecteurCompositesGrand,
   arbInformationsSecteurSimplesGrandEligibles,
+);
+export const arbInformationsSecteurGrandActivitesAutres = fc.oneof(
+  fabriqueArbitraireCapsuleSecteurGrand(arbSecteursCompositesActivitesAutres),
+  // arbInformationsSecteurSimplesGrandEligibles,
 );

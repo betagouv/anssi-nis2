@@ -18,7 +18,7 @@ import {
 import { propReponseEtat } from "./Reponse.operations";
 import {
   contientEnsembleAutresSecteurs,
-  contientEnsembleSecteursListesSansRepresantGrand,
+  contientEnsembleSecteursEtActiviteListeesListesSansRepresantGrand,
   contientEnsembleSecteursNonEligiblesPetit,
   contientEnsembleSecteursRepresentantsLocalisesFrancePetit,
   contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit,
@@ -131,7 +131,7 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
     .with(
       {
         InformationsSecteur: P.when(
-          contientEnsembleSecteursListesSansRepresantGrand,
+          contientEnsembleSecteursEtActiviteListeesListesSansRepresantGrand,
         ),
       },
       (reponse) =>

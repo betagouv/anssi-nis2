@@ -20,6 +20,7 @@ import {
   arbStructureGrand,
   arbStructurePetit,
   arbInformationsSecteurAutreGrand,
+  arbInformationsSecteurGrandActivitesAutres,
 } from "./ResultatEvaluationRegulation.bases.arbitraire";
 
 export const arbResultatEvaluationRegulationDesigneeOse =
@@ -94,6 +95,15 @@ export const arbResultatEvaluationRegulationEnSuspensApresStructureGrandNonLocal
       arbAppartenanceUnionEuropeenneToujoursFrance,
       arbStructureGrand,
       arbInformationsSecteurGrand,
+    )
+    .map(fabriqueResultatEvaluationEnSuspensSecteurGrand);
+export const arbResultatEvaluationRegulationEnSuspensApresStructureGrandNonLocalisableActivitesAutres =
+  fc
+    .tuple(
+      arbDesignationOperateurServicesEssentielsJamaisOui,
+      arbAppartenanceUnionEuropeenneToujoursFrance,
+      arbStructureGrand,
+      arbInformationsSecteurGrandActivitesAutres,
     )
     .map(fabriqueResultatEvaluationEnSuspensSecteurGrand);
 export const arbResultatEvaluationRegulationEnSuspensApresStructureRepresentantLocaliseHorsFrance =

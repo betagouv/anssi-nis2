@@ -10,3 +10,7 @@ export const tous =
   <T>(predicat: (element: T) => boolean) =>
   (set: Set<T>) =>
     set.size > 0 && [...set].every(predicat);
+export const certains =
+  <T>(predicat: (element: T) => boolean) =>
+  (set: Set<T>) =>
+    [...set].some(predicat);
