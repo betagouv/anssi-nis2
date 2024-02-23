@@ -1,10 +1,14 @@
 import { match, P } from "ts-pattern";
-import { VVV } from "../../../utilitaires/debug";
+import { tous } from "../../../../../../utils/services/sets.operations";
+import { VVV, VVVPipe } from "../../../utilitaires/debug";
+import { Activite } from "../../Activite.definitions";
 import { fabriqueRegule } from "../../fabriques/Regulation.fabrique";
 import {
   resultatIncertain,
   resultatNonRegule,
 } from "../../Regulation.constantes";
+import { TypeEntite } from "../../Regulation.definitions";
+import { estActiviteInfrastructureNumeriqueEligiblesGrandeEntite } from "../Activite/Activite.predicats";
 import { EtatEvaluationActives } from "./EtatEvaluation.definitions";
 import {
   ResultatEvaluationRegulation,
@@ -16,6 +20,10 @@ import {
   fabriqueResultatEvaluationEnSuspens,
   fabriqueResultatEvaluationReguleOse,
 } from "./EtatRegulation.fabriques";
+import {
+  InformationSecteurLocalisableGrandeEntite,
+  InformationSecteurPossible,
+} from "./Reponse.definitions";
 import { propReponseEtat } from "./Reponse.operations";
 import {
   contientEnsembleAutresSecteurs,
@@ -25,6 +33,9 @@ import {
   contientEnsembleSecteursRepresentantsLocalisesFranceGrand,
   contientEnsembleSecteursRepresentantsLocalisesFrancePetit,
   contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit,
+  estInformationSecteurAvecActivitesEssentiellesGrand,
+  estSecteurBienLocaliseGrand,
+  estSecteurBienLocalisePetit,
 } from "./Reponse.predicats";
 
 const propageDonneesEvaluees =
@@ -109,6 +120,21 @@ export const evalueRegulationEtatReponseStructure = (
         ),
     );
 
+const fabriqueResultatEvaluationDefinitifCarSecteur = (
+  reponse: ResultatEvaluationRegulationEnSuspens,
+  typeEntite: TypeEntite,
+) =>
+  fabriqueResultatEvaluationDefinitif(
+    "InformationsSecteur",
+    fabriqueRegule(
+      {
+        ...propReponseEtat(reponse)("Structure"),
+        ...propReponseEtat(reponse)("InformationsSecteur"),
+      },
+      typeEntite,
+    ),
+  );
+
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
   reponse: ResultatEvaluationRegulationEnSuspens,
 ): ResultatEvaluationRegulation =>
@@ -118,21 +144,15 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
         Structure: {
           _categorieTaille: "Petit",
         },
-        InformationsSecteur: P.when(
-          contientEnsembleSecteursRepresentantsLocalisesFrancePetit,
-        ),
+        InformationsSecteur: {
+          secteurs: P.when(tous(estSecteurBienLocalisePetit)),
+        },
       },
       (reponse) => {
-        VVV("Cas 1");
-        return fabriqueResultatEvaluationDefinitif(
-          "InformationsSecteur",
-          fabriqueRegule(
-            {
-              ...propReponseEtat(reponse)("Structure"),
-              ...propReponseEtat(reponse)("InformationsSecteur"),
-            },
-            "EntiteEssentielle",
-          ),
+        VVVPipe("Cas 1");
+        return fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          "EntiteEssentielle",
         );
       },
     )
@@ -141,23 +161,26 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
         Structure: {
           _categorieTaille: "Grand",
         },
-        InformationsSecteur: P.intersection(
-          P.when(contientEnsembleSecteursRepresentantsLocalisesFranceGrand),
-          P.when(contientEnsembleSecteursNonEligiblesGrand),
-        ),
+        InformationsSecteur: {
+          secteurs: P.intersection(
+            P.when(tous(estSecteurBienLocaliseGrand)),
+            P.when(tous(estInformationSecteurAvecActivitesEssentiellesGrand)),
+            P.when(
+              tous((s) =>
+                tous(estActiviteInfrastructureNumeriqueEligiblesGrandeEntite)(
+                  (s as InformationSecteurLocalisableGrandeEntite).activites,
+                ),
+              ),
+            ),
+          ),
+        },
       },
       (reponse) => {
         VVV("Cas 2");
 
-        return fabriqueResultatEvaluationDefinitif(
-          "InformationsSecteur",
-          fabriqueRegule(
-            {
-              ...propReponseEtat(reponse)("Structure"),
-              ...propReponseEtat(reponse)("InformationsSecteur"),
-            },
-            "EntiteEssentielle",
-          ),
+        return fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          "EntiteEssentielle",
         );
       },
     )
@@ -166,22 +189,16 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
         Structure: {
           _categorieTaille: "Grand",
         },
-        InformationsSecteur: P.when(
-          contientEnsembleSecteursRepresentantsLocalisesFranceGrand,
-        ),
+        InformationsSecteur: {
+          secteurs: P.when(tous(estSecteurBienLocaliseGrand)),
+        },
       },
       (reponse) => {
         VVV("Cas 3");
 
-        return fabriqueResultatEvaluationDefinitif(
-          "InformationsSecteur",
-          fabriqueRegule(
-            {
-              ...propReponseEtat(reponse)("Structure"),
-              ...propReponseEtat(reponse)("InformationsSecteur"),
-            },
-            "EntiteImportante",
-          ),
+        return fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          "EntiteImportante",
         );
       },
     )
@@ -197,15 +214,9 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
       },
       (reponse) => {
         VVV("Cas 4");
-        return fabriqueResultatEvaluationDefinitif(
-          "InformationsSecteur",
-          fabriqueRegule(
-            {
-              ...propReponseEtat(reponse)("Structure"),
-              ...propReponseEtat(reponse)("InformationsSecteur"),
-            },
-            "EntiteImportante",
-          ),
+        return fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          "EntiteImportante",
         );
       },
     )

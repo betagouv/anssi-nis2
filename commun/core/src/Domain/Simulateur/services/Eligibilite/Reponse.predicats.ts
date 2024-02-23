@@ -64,13 +64,8 @@ export const estInformationSecteurAvecActivitesEssentielles = (
 export const estInformationSecteurAvecActivitesEssentiellesGrand = (
   informationsSecteur: InformationSecteurPossible,
 ) =>
-  VVVPipe(
-    "estInformationSecteurAvecActivitesEssentiellesGrand",
-    informationsSecteur,
-  )(
-    estSecteurAvecActivitesEssentielles(
-      informationsSecteur.secteurActivite as SecteurActivite,
-    ),
+  estSecteurAvecActivitesEssentielles(
+    informationsSecteur.secteurActivite as SecteurActivite,
   );
 
 export const estInformationSecteurLocalisablePetiteEntreprise = (

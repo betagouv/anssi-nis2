@@ -203,7 +203,6 @@ export const fabriqueArbitraireCapsuleSecteurLocalisableGrand = (
         arbFournitServicesUnionEuropeenne,
         arbLocalisationRepresentant,
       ),
-      ...determineArbLocalisationRepresentant(arbLocalisationRepresentant),
     }),
   );
 export const fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFrance = (

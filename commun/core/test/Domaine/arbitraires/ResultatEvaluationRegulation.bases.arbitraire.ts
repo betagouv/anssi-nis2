@@ -182,7 +182,7 @@ export const arbInformationsSecteurLocaliseesFranceGrande =
   arbSecteurImportantsLocalisablesGrandeEntite.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand(
       fc.constant("france"),
-      fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(toujoursVrai)<
+      fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(estActiviteListee)<
         SecteurAvecBesoinLocalisationRepresentant,
         ActivitesLocalisablesGrand
       >,
@@ -202,14 +202,15 @@ export const arbInformationsSecteurLocaliseesFranceGrandeEI = fc.oneof(
       fc.constant("france"),
       fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
         (activite: Activite) =>
-          !estActiviteInfrastructureNumeriqueEligiblesGrandeEntite(activite),
+          !estActiviteInfrastructureNumeriqueEligiblesGrandeEntite(activite) &&
+          estActiviteListee(activite),
       )<SecteurAvecBesoinLocalisationRepresentant, ActivitesLocalisablesGrand>,
     ),
   ),
   arbSecteurImportantsLocalisablesGrandeEntite.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand(
       fc.constant("france"),
-      fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(toujoursVrai)<
+      fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(estActiviteListee)<
         SecteurAvecBesoinLocalisationRepresentant,
         ActivitesLocalisablesGrand
       >,
@@ -271,6 +272,13 @@ export const arbEnsembleSecteursSimplesEligiblesPetit: fc.Arbitrary<
 > = fabriqueArbitrairesEnsembleInformationsSecteurs(
   arbSecteurInfrascructureNumerique.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteur(estActiviteListee),
+  ),
+);
+export const arbEnsembleSecteursSimplesEligiblesPetitActivitesAutres: fc.Arbitrary<
+  Set<InformationSecteurSimple>
+> = fabriqueArbitrairesEnsembleInformationsSecteurs(
+  arbSecteurInfrascructureNumerique.chain(
+    fabriqueArbitraireEnsembleActivitesPourSecteur(estActiviteAutre),
   ),
 );
 export const arbEnsembleSecteursLocalisablesPetitFrance: fc.Arbitrary<
@@ -351,5 +359,8 @@ export const arbInformationsSecteurGrandActivitesAutres = fc.oneof(
   ),
   fabriqueArbitraireCapsuleSecteurGrand(
     arbEnsembleSecteursSimplesActivitesAutres,
+  ),
+  fabriqueArbitraireCapsuleSecteurGrand(
+    arbEnsembleSecteursSimplesEligiblesPetitActivitesAutres,
   ),
 );
