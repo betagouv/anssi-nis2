@@ -19,7 +19,7 @@ import {
 } from "../../ChampsSimulateur.definitions";
 import {
   SecteurActivite,
-  SecteursAvecBesoinLocalisationRepresentant,
+  SecteurAvecBesoinLocalisationRepresentant,
   SecteursAvecSousSecteurs,
   SecteursDefinitsSansBesoinLocalisationRepresentant,
   SousSecteurAutrePour,
@@ -140,13 +140,13 @@ export type EtablissementPrincipalLocalisation =
   | EtablissementPrincipalFournitUE;
 
 export type InformationSecteurLocalisablePetiteEntite = {
-  secteurActivite: SecteursAvecBesoinLocalisationRepresentant;
+  secteurActivite: SecteurAvecBesoinLocalisationRepresentant;
   activites: Set<ActivitesInfrastructureNumeriqueLocalisables>;
 } & EtablissementPrincipalLocalisation;
 
 export type InformationSecteurLocalisableGrandeEntite =
   | {
-      secteurActivite: SecteursAvecBesoinLocalisationRepresentant;
+      secteurActivite: SecteurAvecBesoinLocalisationRepresentant;
       activites: Set<
         | ActivitesInfrastructureNumeriqueNonLocalisables
         | ActivitesFournisseursNumeriques
@@ -154,7 +154,7 @@ export type InformationSecteurLocalisableGrandeEntite =
       >;
     }
   | ({
-      secteurActivite: SecteursAvecBesoinLocalisationRepresentant;
+      secteurActivite: SecteurAvecBesoinLocalisationRepresentant;
       activites: Set<
         | ActivitesInfrastructureNumeriqueLocalisables
         | ActivitesFournisseursNumeriques

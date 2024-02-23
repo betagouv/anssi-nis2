@@ -10,16 +10,17 @@ import {
   ValeursTypeEntitePublique,
 } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
 import {
-  estSecteurNeNecessitantPasLocalisationRepresentantPetiteEntite,
   listeTuplesSecteursSousSecteurs,
-  ValeursSecteursNecessitantLocalisationRepresentant,
-  ValeursSecteursNecessitantLocalisationRepresentantPetiteEntite,
   ValeursSecteursSansSousSecteur,
 } from "../../../src/Domain/Simulateur/SecteurActivite.constantes";
 import {
-  SecteursAvecBesoinLocalisationRepresentant,
+  SecteurAvecBesoinLocalisationRepresentant,
   SecteursAvecSousSecteurs,
 } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
+import {
+  ValeursSecteursNecessitantLocalisationRepresentant,
+  ValeursSecteurAvecBesoinLocalisationRepresentantPetiteEntite,
+} from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
 import { estActiviteInfrastructureNumeriqueEligiblesPetitEntite } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import {
   InformationSecteurLocalisablePetiteEntite,
@@ -29,7 +30,11 @@ import {
   ReponseStructurePrivee,
   ReponseStructurePublique,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
-import { estSecteurListe } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
+import {
+  estSecteurListe,
+  estSecteurNeNecessitantPasLocalisationRepresentant,
+  estSecteurNeNecessitantPasLocalisationRepresentantPetiteEntite,
+} from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 import { SousSecteurActivite } from "../../../src/Domain/Simulateur/SousSecteurActivite.definitions";
 import {
@@ -119,18 +124,15 @@ export const arbInformationsSecteurAutreGrand =
 
 export const arbSecteurListesSansSousSecteurNiLocaGrand = fc.constantFrom(
   ...ValeursSecteursSansSousSecteur.filter(estSecteurListe).filter(
-    (secteur) =>
-      !ValeursSecteursNecessitantLocalisationRepresentant.includes(
-        secteur as SecteursAvecBesoinLocalisationRepresentant,
-      ),
+    estSecteurNeNecessitantPasLocalisationRepresentant,
   ),
 );
 export const arbSecteurLocalisablesGrandeEntreprise =
-  fc.constantFrom<SecteursAvecBesoinLocalisationRepresentant>(
+  fc.constantFrom<SecteurAvecBesoinLocalisationRepresentant>(
     ...ValeursSecteursNecessitantLocalisationRepresentant,
   );
 export const arbSecteurLocalisablesPetiteEntite = fc.constantFrom(
-  ...ValeursSecteursNecessitantLocalisationRepresentantPetiteEntite,
+  ...ValeursSecteurAvecBesoinLocalisationRepresentantPetiteEntite,
 );
 export const arbSecteurNonEligiblesPetiteEntite = fc.constantFrom(
   ...ValeursSecteursSansSousSecteur.filter(estSecteurListe).filter(
@@ -155,7 +157,7 @@ export const arbInformationsSecteurLocaliseesFrancePetite =
       fc.constant("france"),
       fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
         estActiviteInfrastructureNumeriqueEligiblesPetitEntite,
-      )<SecteursAvecBesoinLocalisationRepresentant, ActivitesLocalisablesPetit>,
+      )<SecteurAvecBesoinLocalisationRepresentant, ActivitesLocalisablesPetit>,
     ),
   );
 export const arbInformationsSecteurLocaliseesHorsFrancePetite =
@@ -163,7 +165,7 @@ export const arbInformationsSecteurLocaliseesHorsFrancePetite =
     fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe(
       fc.constantFrom("autre", "horsue"),
       fabriqueArbEnsembleActivitesPourSecteur<
-        SecteursAvecBesoinLocalisationRepresentant,
+        SecteurAvecBesoinLocalisationRepresentant,
         ActivitesLocalisablesPetit
       >,
     ),

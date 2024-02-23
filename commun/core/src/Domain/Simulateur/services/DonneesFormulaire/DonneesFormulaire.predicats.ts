@@ -10,8 +10,8 @@ import {
   PredicatDonneesFormulaireSimulateur,
 } from "../../DonneesFormulaire.definitions";
 import { ValeursNomChampsFormulaire } from "../../DonneesFormulaire.valeurs";
-import { ValeursSecteursNecessitantLocalisationRepresentant } from "../../SecteurActivite.constantes";
-import { SecteursAvecBesoinLocalisationRepresentant } from "../../SecteurActivite.definitions";
+import { SecteurAvecBesoinLocalisationRepresentant } from "../../SecteurActivite.definitions";
+import { ValeursSecteursNecessitantLocalisationRepresentant } from "../../SecteurActivite.valeurs";
 import {
   auMoinsUneActiviteListee,
   estActiviteAutre,
@@ -201,7 +201,7 @@ export const contientUniquementSecteurNecessitantLocalisation = (
 ) =>
   d.secteurActivite.every((s) =>
     ValeursSecteursNecessitantLocalisationRepresentant.includes(
-      s as SecteursAvecBesoinLocalisationRepresentant,
+      s as SecteurAvecBesoinLocalisationRepresentant,
     ),
   );
 export const contientOperateurServicesEssentiels: PredicatDonneesFormulaireSimulateur =

@@ -1,9 +1,15 @@
 import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
 import {
   SecteurActivite,
+  SecteurAvecBesoinLocalisationRepresentant,
+  SecteurAvecBesoinLocalisationRepresentantPetiteEntite,
   SecteursAvecSousSecteurs,
 } from "../../SecteurActivite.definitions";
-import { ValeursSecteursAvecSousSecteurs } from "../../SecteurActivite.valeurs";
+import {
+  ValeursSecteursAvecSousSecteurs,
+  ValeursSecteursNecessitantLocalisationRepresentant,
+  ValeursSecteurAvecBesoinLocalisationRepresentantPetiteEntite,
+} from "../../SecteurActivite.valeurs";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
 import { sousSecteursParSecteur } from "../../SousSecteurActivite.valeurs";
 
@@ -33,16 +39,11 @@ export const contientSousSecteur = (
   sousSecteursParSecteur[secteur as SecteursAvecSousSecteurs].includes(
     sousSecteur,
   );
-export const auMoinsUnSecteurAvecDesSousSecteurs = (
-  secteurs: SecteurActivite[],
-) => secteurs.length > 0 && secteurs.some(estUnSecteurAvecDesSousSecteurs);
 export const auMoinsUnSecteurListe = (
   secteurs: SecteurActivite[],
 ): secteurs is SecteurActivite[] =>
   secteurs.length > 0 && secteurs.some(estSecteurListe);
-export const aucunSecteurListe = (
-  secteurs: SecteurActivite[],
-): secteurs is SecteurActivite[] => !auMoinsUnSecteurListe(secteurs);
+
 export const uniquementDesSecteursAutres = (
   secteurs: SecteurActivite[],
 ): secteurs is SecteurActivite[] =>
@@ -59,3 +60,24 @@ const predicatSecteurDansListe = (
 export const estSecteurParmi =
   (secteurCherche: SecteurActivite) => (secteursFiltre: SecteurActivite[]) =>
     predicatSecteurDansListe(secteursFiltre, secteurCherche);
+
+export const estSecteurNeNecessitantPasLocalisationRepresentant = (
+  secteur: SecteurAvecBesoinLocalisationRepresentant | SecteurActivite,
+): secteur is SecteurAvecBesoinLocalisationRepresentant =>
+  !ValeursSecteursNecessitantLocalisationRepresentant.includes(
+    secteur as SecteurAvecBesoinLocalisationRepresentant,
+  );
+export const estSecteurNeNecessitantPasLocalisationRepresentantPetiteEntite = <
+  T extends SecteurActivite,
+>(
+  secteur: T | SecteurAvecBesoinLocalisationRepresentantPetiteEntite,
+): secteur is SecteurAvecBesoinLocalisationRepresentantPetiteEntite =>
+  !ValeursSecteurAvecBesoinLocalisationRepresentantPetiteEntite.includes(
+    secteur as (typeof ValeursSecteurAvecBesoinLocalisationRepresentantPetiteEntite)[number],
+  );
+export const estSecteurNecessitantLocalisationRepresentantPetiteEntite = (
+  secteur: SecteurActivite,
+) =>
+  ValeursSecteurAvecBesoinLocalisationRepresentantPetiteEntite.includes(
+    secteur as (typeof ValeursSecteurAvecBesoinLocalisationRepresentantPetiteEntite)[number],
+  );

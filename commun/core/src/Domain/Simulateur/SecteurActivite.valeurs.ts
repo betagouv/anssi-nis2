@@ -24,3 +24,11 @@ export const ValeursSecteursAvecSousSecteurs = [
   "transports",
   "fabrication",
 ] as const;
+export const ValeursSecteursNecessitantLocalisationRepresentant = [
+  "gestionServicesTic",
+  "fournisseursNumeriques",
+  "infrastructureNumerique",
+] as const;
+export const ValeursSecteurAvecBesoinLocalisationRepresentantPetiteEntite = [
+  "infrastructureNumerique",
+] as const;

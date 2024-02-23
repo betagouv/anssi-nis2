@@ -12,7 +12,7 @@ import { ValeursOuiNon } from "../../../src/Domain/Simulateur/ChampsSimulateur.v
 import { resultatIncertain } from "../../../src/Domain/Simulateur/Regulation.constantes";
 import {
   SecteurActivite,
-  SecteursAvecBesoinLocalisationRepresentant,
+  SecteurAvecBesoinLocalisationRepresentant,
   SecteursAvecSousSecteurs,
 } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
 import { getActivitesPour } from "../../../src/Domain/Simulateur/services/Activite/Activite.operations";
@@ -133,7 +133,7 @@ export const fabriqueArbitraireCapsuleSecteurGrand = (
 
 export const fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe =
   <
-    T extends SecteursAvecBesoinLocalisationRepresentant,
+    T extends SecteurAvecBesoinLocalisationRepresentant,
     U extends "registresNomsDomainesPremierNiveau" | "fournisseurServicesDNS",
   >(
     arbLocalisationRepresentant: fc.Arbitrary<AppartenancePaysUnionEuropeenne>,
@@ -150,7 +150,7 @@ export const fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe =
       localisationRepresentant: arbLocalisationRepresentant,
     }) as fc.Arbitrary<InformationSecteurLocalisablePetiteEntite>;
 export const fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableHorsUe = <
-  T extends SecteursAvecBesoinLocalisationRepresentant,
+  T extends SecteurAvecBesoinLocalisationRepresentant,
 >(
   secteur: T,
 ): fc.Arbitrary<InformationSecteurLocalisablePetiteEntite> =>

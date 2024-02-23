@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { tous } from "../../../../utils/services/sets.operations";
 import { Activite } from "../../../src/Domain/Simulateur/Activite.definitions";
-import { ValeursSecteursNecessitantLocalisationRepresentant } from "../../../src/Domain/Simulateur/SecteurActivite.constantes";
+
+import { ValeursSecteursNecessitantLocalisationRepresentant } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
 import {
   estActiviteAutre,
   estActiviteInfrastructureNumeriqueEligiblesPetitEntite,

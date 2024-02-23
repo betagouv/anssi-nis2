@@ -1,12 +1,12 @@
 import { flow } from "fp-ts/lib/function";
 import { prop } from "../../../../../../utils/services/objects.operations";
 import { tous } from "../../../../../../utils/services/sets.operations";
-import { estSecteurNecessitantLocalisationRepresentantPetiteEntite } from "../../SecteurActivite.constantes";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
 import {
   estSecteurAutre,
   estSecteurListe,
+  estSecteurNecessitantLocalisationRepresentantPetiteEntite,
 } from "../SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurAutre } from "../SousSecteurActivite/SousSecteurActivite.predicats";
 import { ResultatEvaluationRegulation } from "./EtatRegulation.definitions";
