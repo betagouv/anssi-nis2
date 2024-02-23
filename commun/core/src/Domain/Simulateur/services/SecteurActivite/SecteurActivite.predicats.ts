@@ -4,6 +4,7 @@ import {
   SecteurAvecBesoinLocalisationRepresentant,
   SecteurAvecBesoinLocalisationRepresentantPetiteEntite,
   SecteursAvecSousSecteurs,
+  SecteursSansBesoinLocalisationRepresentant,
 } from "../../SecteurActivite.definitions";
 import {
   ValeursSecteursAvecSousSecteurs,
@@ -62,8 +63,8 @@ export const estSecteurParmi =
     predicatSecteurDansListe(secteursFiltre, secteurCherche);
 
 export const estSecteurNeNecessitantPasLocalisationRepresentant = (
-  secteur: SecteurAvecBesoinLocalisationRepresentant | SecteurActivite,
-): secteur is SecteurAvecBesoinLocalisationRepresentant =>
+  secteur: SecteursSansBesoinLocalisationRepresentant | SecteurActivite,
+): secteur is SecteursSansBesoinLocalisationRepresentant =>
   !ValeursSecteursNecessitantLocalisationRepresentant.includes(
     secteur as SecteurAvecBesoinLocalisationRepresentant,
   );

@@ -1,6 +1,5 @@
 import { fc } from "@fast-check/vitest";
 import { ens } from "../../../../utils/services/sets.operations";
-import { toujoursVrai } from "../../../src/Domain/Commun/Commun.predicats";
 import {
   Activite,
   ActivitesLocalisablesPetit,
@@ -64,45 +63,22 @@ const determineArbLocalisationRepresentant = (
     ? {}
     : { localisationRepresentant: arbLocalisationRepresentant };
 
-export const fabriqueArbEnsembleActivitesPourSecteur = <
-  T extends SecteurActivite,
-  U extends Activite,
->(
-  secteur: T,
-  sousSecteur?: SousSecteurActivite,
-): fc.Arbitrary<Set<U>> =>
-  fc
-    .subarray(
-      getActivitesPour(secteur, sousSecteur).filter(estActiviteListee),
-      {
-        minLength: 1,
-      },
-    )
-    .chain((a) => fc.constant(ens(...a))) as fc.Arbitrary<Set<U>>;
 export const fabriqueArbEnsembleActivitesPourSecteurAvecFiltre =
   (filtre: (activite: Activite) => boolean) =>
   <T extends SecteurActivite, U extends Activite>(
     secteur: T,
     sousSecteur?: SousSecteurActivite,
-  ): fc.Arbitrary<Set<U>> =>
-    fc
+  ): fc.Arbitrary<Set<U>> => {
+    return fc
       .subarray(getActivitesPour(secteur, sousSecteur).filter(filtre), {
         minLength: 1,
       })
       .chain((a) => fc.constant(ens(...a))) as fc.Arbitrary<Set<U>>;
-export const fabriqueArbitraireEnsembleActivitesPourSecteur = <
-  T extends SecteurActivite,
-  U extends InformationSecteurSimple,
->(
-  secteur: T,
-): fc.Arbitrary<U> =>
-  fc.record({
-    secteurActivite: fc.constant(secteur),
-    activites: fabriqueArbEnsembleActivitesPourSecteur(secteur),
-  }) as fc.Arbitrary<U>;
-
+  };
+export const fabriqueArbEnsembleActivitesPourSecteur =
+  fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(estActiviteListee);
 export const fabriqueArbitraireEnsembleActivitesPourSecteurComposite =
-  (filtre: (a: Activite) => boolean = toujoursVrai) =>
+  (filtre: (a: Activite) => boolean) =>
   <T extends SecteursAvecSousSecteurs, U extends SousSecteurDe<T>>([
     secteur,
     sousSecteur,
@@ -115,6 +91,17 @@ export const fabriqueArbitraireEnsembleActivitesPourSecteurComposite =
         sousSecteur,
       ),
     }) as fc.Arbitrary<InformationsSecteursCompositeListe>;
+
+export const fabriqueArbitraireEnsembleActivitesPourSecteur =
+  (filtre: (a: Activite) => boolean) =>
+  <T extends SecteurActivite, U extends InformationSecteurSimple>(
+    secteur: T,
+  ): fc.Arbitrary<U> =>
+    fc.record({
+      secteurActivite: fc.constant(secteur),
+      activites:
+        fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(filtre)(secteur),
+    }) as fc.Arbitrary<U>;
 export const fabriqueArbitraireCapsuleSecteurPetit = (
   arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
 ): fc.Arbitrary<ReponseInformationsSecteur<"Petit">> =>

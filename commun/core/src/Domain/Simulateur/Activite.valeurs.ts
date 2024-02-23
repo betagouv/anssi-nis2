@@ -211,7 +211,10 @@ export const ValeursActivitesFournisseursNumeriques = [
   "fournisseursPlateformesServicesReseauxSociaux",
   "autreActiviteFournisseursNumeriques",
 ] as const;
-export const ValeursActivitesRecherche = ["organismeRecherche"] as const;
+export const ValeursActivitesRecherche = [
+  "organismeRecherche",
+  "autreActiviteRecherche",
+] as const;
 export const ValeursActivites =
   // Annexe 1
   [
