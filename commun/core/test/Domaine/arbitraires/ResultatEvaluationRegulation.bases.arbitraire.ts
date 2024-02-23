@@ -1,5 +1,4 @@
 import { fc } from "@fast-check/vitest";
-import { toujoursVrai } from "../../../src/Domain/Commun/Commun.predicats";
 import {
   Activite,
   ActivitesLocalisablesGrand,

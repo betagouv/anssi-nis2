@@ -1,7 +1,8 @@
 import { match, P } from "ts-pattern";
-import { tous } from "../../../../../../utils/services/sets.operations";
-import { VVV, VVVPipe } from "../../../utilitaires/debug";
-import { Activite } from "../../Activite.definitions";
+import {
+  certains,
+  tous,
+} from "../../../../../../utils/services/sets.operations";
 import { fabriqueRegule } from "../../fabriques/Regulation.fabrique";
 import {
   resultatIncertain,
@@ -20,20 +21,15 @@ import {
   fabriqueResultatEvaluationEnSuspens,
   fabriqueResultatEvaluationReguleOse,
 } from "./EtatRegulation.fabriques";
-import {
-  InformationSecteurLocalisableGrandeEntite,
-  InformationSecteurPossible,
-} from "./Reponse.definitions";
+import { InformationSecteurLocalisableGrandeEntite } from "./Reponse.definitions";
 import { propReponseEtat } from "./Reponse.operations";
 import {
+  auMoinsUneActiviteListee,
   contientEnsembleAutresSecteurs,
-  contientEnsembleSecteursEtActiviteListeesListesSansRepresantGrand,
-  contientEnsembleSecteursNonEligiblesGrand,
   contientEnsembleSecteursNonEligiblesPetit,
-  contientEnsembleSecteursRepresentantsLocalisesFranceGrand,
-  contientEnsembleSecteursRepresentantsLocalisesFrancePetit,
   contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit,
   estInformationSecteurAvecActivitesEssentiellesGrand,
+  estInformationsSecteurEligible,
   estSecteurBienLocaliseGrand,
   estSecteurBienLocalisePetit,
 } from "./Reponse.predicats";
@@ -148,13 +144,11 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
           secteurs: P.when(tous(estSecteurBienLocalisePetit)),
         },
       },
-      (reponse) => {
-        VVVPipe("Cas 1");
-        return fabriqueResultatEvaluationDefinitifCarSecteur(
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
           "EntiteEssentielle",
-        );
-      },
+        ),
     )
     .with(
       {
@@ -175,14 +169,11 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
           ),
         },
       },
-      (reponse) => {
-        VVV("Cas 2");
-
-        return fabriqueResultatEvaluationDefinitifCarSecteur(
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
           "EntiteEssentielle",
-        );
-      },
+        ),
     )
     .with(
       {
@@ -193,14 +184,11 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
           secteurs: P.when(tous(estSecteurBienLocaliseGrand)),
         },
       },
-      (reponse) => {
-        VVV("Cas 3");
-
-        return fabriqueResultatEvaluationDefinitifCarSecteur(
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
           "EntiteImportante",
-        );
-      },
+        ),
     )
 
     .with(
@@ -208,17 +196,18 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
         Structure: {
           _categorieTaille: "Grand",
         },
-        InformationsSecteur: P.when(
-          contientEnsembleSecteursEtActiviteListeesListesSansRepresantGrand,
-        ),
+        InformationsSecteur: {
+          secteurs: P.intersection(
+            P.when(tous(estInformationsSecteurEligible)),
+            P.when(certains(auMoinsUneActiviteListee)),
+          ),
+        },
       },
-      (reponse) => {
-        VVV("Cas 4");
-        return fabriqueResultatEvaluationDefinitifCarSecteur(
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
           "EntiteImportante",
-        );
-      },
+        ),
     )
     .with(
       {

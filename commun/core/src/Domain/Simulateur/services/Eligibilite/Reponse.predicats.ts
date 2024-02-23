@@ -4,7 +4,6 @@ import {
   certains,
   tous,
 } from "../../../../../../utils/services/sets.operations";
-import { VVVPipe } from "../../../utilitaires/debug";
 import { Activite } from "../../Activite.definitions";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
@@ -37,13 +36,6 @@ export const estReponseInformationsSecteurPetit = (
     | ReponseInformationsSecteur<"Grand">,
 ): info is ReponseInformationsSecteur<"Petit"> =>
   info._categorieTaille === "Petit";
-export const estReponseInformationsSecteurGrand = (
-  info:
-    | ReponseInformationsSecteur<"Petit">
-    | ReponseInformationsSecteur<"Grand">,
-): info is ReponseInformationsSecteur<"Grand"> =>
-  info._categorieTaille === "Grand";
-
 export const eqInformationsSecteur = (
   a: InformationSecteurPossible,
   b: InformationSecteurPossible,
@@ -125,50 +117,25 @@ export const contientEnsembleAutresSecteurs = (
           ?.sousSecteurActivite as SousSecteurActivite,
       ),
   )(info.InformationsSecteur.secteurs);
-export const contientEnsembleSecteursRepresentantsLocalisesFrancePetit = (
-  info:
-    | ReponseInformationsSecteur<"Petit">
-    | ReponseInformationsSecteur<"Grand">,
-) =>
-  estReponseInformationsSecteurPetit(info) &&
-  tous(estSecteurBienLocalisePetit)(info.secteurs);
-export const contientEnsembleSecteursRepresentantsLocalisesFranceGrand = (
-  info:
-    | ReponseInformationsSecteur<"Petit">
-    | ReponseInformationsSecteur<"Grand">,
-) =>
-  estReponseInformationsSecteurGrand(info) &&
-  tous(estSecteurBienLocaliseGrand)(info.secteurs);
-export const contientEnsembleSecteursRepresentantsLocalisesFranceGrandEE = (
-  info:
-    | ReponseInformationsSecteur<"Petit">
-    | ReponseInformationsSecteur<"Grand">,
-) =>
-  estReponseInformationsSecteurGrand(info) &&
-  tous(estSecteurBienLocaliseGrand)(info.secteurs);
-
-const estInformationsSecteurEligible = flow(
+export type predicatInformationSecteurPossible = (
+  i: InformationSecteurPossible,
+) => boolean;
+export const estInformationsSecteurEligible = flow<
+  [{ secteurActivite: SecteurActivite }],
+  SecteurActivite,
+  boolean
+>(
   prop("secteurActivite"),
   estSecteurListe,
-);
-const auMoinsUneActiviteListee = flow(
+) as predicatInformationSecteurPossible;
+export const auMoinsUneActiviteListee = flow<
+  [{ activites: Set<Activite> }],
+  Set<Activite>,
+  boolean
+>(
   prop<Set<Activite>, "activites">("activites"),
   certains(estActiviteListee),
-);
-export const contientEnsembleSecteursEtActiviteListeesListesSansRepresantGrand =
-  (
-    info:
-      | ReponseInformationsSecteur<"Petit">
-      | ReponseInformationsSecteur<"Grand">,
-  ) =>
-    estReponseInformationsSecteurGrand(info) &&
-    tous(estInformationsSecteurEligible)(
-      info.secteurs as Set<{ secteurActivite: SecteurActivite }>,
-    ) &&
-    certains(auMoinsUneActiviteListee)(
-      info.secteurs as Set<{ activites: Set<Activite> }>,
-    );
-
+) as predicatInformationSecteurPossible;
 export const contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit = (
   info:
     | ReponseInformationsSecteur<"Petit">
@@ -183,10 +150,3 @@ export const contientEnsembleSecteursNonEligiblesPetit = (
 ) =>
   estReponseInformationsSecteurPetit(info) &&
   tous(estInformationSecteurAvecActivitesEssentielles)(info.secteurs);
-export const contientEnsembleSecteursNonEligiblesGrand = (
-  info:
-    | ReponseInformationsSecteur<"Petit">
-    | ReponseInformationsSecteur<"Grand">,
-) =>
-  estReponseInformationsSecteurGrand(info) &&
-  tous(estInformationSecteurAvecActivitesEssentiellesGrand)(info.secteurs);
