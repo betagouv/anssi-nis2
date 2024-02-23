@@ -27,6 +27,7 @@ import {
 } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
 import {
   estActiviteAutre,
+  estActiviteInfrastructureNumeriqueEligiblesGrandeEntite,
   estActiviteInfrastructureNumeriqueEligiblesPetitEntite,
   estActiviteListee,
 } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
@@ -52,6 +53,7 @@ import {
   fabriqueArbInformationsSecteurAutre,
   fabriqueArbitraireCapsuleSecteurGrand,
   fabriqueArbitraireCapsuleSecteurLocalisable,
+  fabriqueArbitraireCapsuleSecteurLocalisableGrand,
   fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFrance,
   fabriqueArbitraireCapsuleSecteurPetit,
   fabriqueArbitraireEnsembleActivitesPourSecteur,
@@ -176,6 +178,25 @@ export const arbInformationsSecteurLocaliseesFranceGrande =
       >,
     ),
   );
+export const arbInformationsSecteurLocaliseesFranceGrandeEI =
+  arbSecteurLocalisablesPetiteEntite.chain(
+    fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand(
+      fc.constant("france"),
+      fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(toujoursVrai)<
+        SecteurAvecBesoinLocalisationRepresentant,
+        ActivitesLocalisablesGrand
+      >,
+    ),
+  );
+export const arbInformationsSecteurLocaliseesFranceGrandeEE =
+  arbSecteurLocalisablesPetiteEntite.chain(
+    fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand(
+      fc.constant("france"),
+      fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
+        estActiviteInfrastructureNumeriqueEligiblesGrandeEntite,
+      )<SecteurAvecBesoinLocalisationRepresentant, ActivitesLocalisablesGrand>,
+    ),
+  );
 export const arbInformationsSecteurLocaliseesHorsFrancePetite =
   arbSecteurLocalisablesPetiteEntite.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe(
@@ -254,9 +275,25 @@ export const arbInformationsSecteurLocalisesFrancePetit: fc.Arbitrary<
   fc.constant("france"),
 );
 export const arbInformationsSecteurLocalisesFranceGrand =
-  fabriqueArbitraireCapsuleSecteurLocalisable(
+  fabriqueArbitraireCapsuleSecteurLocalisableGrand(
     fabriqueArbitrairesEnsembleInformationsSecteurs<InformationSecteurLocalisableGrandeEntite>(
       arbInformationsSecteurLocaliseesFranceGrande,
+    ),
+    fc.constant("oui"),
+    fc.constant("france"),
+  );
+export const arbInformationsSecteurLocalisesFranceGrandEE =
+  fabriqueArbitraireCapsuleSecteurLocalisableGrand(
+    fabriqueArbitrairesEnsembleInformationsSecteurs<InformationSecteurLocalisableGrandeEntite>(
+      arbInformationsSecteurLocaliseesFranceGrandeEE,
+    ),
+    fc.constant("oui"),
+    fc.constant("france"),
+  );
+export const arbInformationsSecteurLocalisesFranceGrandEI =
+  fabriqueArbitraireCapsuleSecteurLocalisableGrand(
+    fabriqueArbitrairesEnsembleInformationsSecteurs<InformationSecteurLocalisableGrandeEntite>(
+      arbInformationsSecteurLocaliseesFranceGrandeEI,
     ),
     fc.constant("oui"),
     fc.constant("france"),

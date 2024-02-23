@@ -20,6 +20,7 @@ import {
   contientEnsembleAutresSecteurs,
   contientEnsembleSecteursEtActiviteListeesListesSansRepresantGrand,
   contientEnsembleSecteursNonEligiblesPetit,
+  contientEnsembleSecteursRepresentantsLocalisesFranceGrand,
   contientEnsembleSecteursRepresentantsLocalisesFrancePetit,
   contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit,
 } from "./Reponse.predicats";
@@ -112,6 +113,9 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
   match(reponse)
     .with(
       {
+        Structure: {
+          _categorieTaille: "Petit",
+        },
         InformationsSecteur: P.when(
           contientEnsembleSecteursRepresentantsLocalisesFrancePetit,
         ),
@@ -130,8 +134,11 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
     )
     .with(
       {
+        Structure: {
+          _categorieTaille: "Grand",
+        },
         InformationsSecteur: P.when(
-          contientEnsembleSecteursRepresentantsLocalisesFrancePetit,
+          contientEnsembleSecteursRepresentantsLocalisesFranceGrand,
         ),
       },
       (reponse) =>

@@ -1,137 +1,70 @@
 import { fc } from "@fast-check/vitest";
 import { ResultatEvaluationRegulation } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import {
-  fabriqueResultatEvaluationEnSuspensAppUE,
+  CategorieTaille,
+  ReponseAppartenancePaysUnionEuropeenne,
+  ReponseDesignationOperateurServicesEssentiels,
+  ReponseInformationsSecteur,
+  ReponseStructure,
+} from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
+import {
   fabriqueResultatEvaluationEnSuspensSecteurGrand,
   fabriqueResultatEvaluationEnSuspensSecteurPetit,
-  fabriqueResultatEvaluationEnSuspensStructure,
-  fabriqueResultatEvaluationInconnuOse,
 } from "./ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
   arbAppartenanceUnionEuropeenneJamaisFrance,
   arbAppartenanceUnionEuropeenneToujoursFrance,
   arbDesignationOperateurServicesEssentielsJamaisOui,
-  arbDesignationOperateurServicesEssentielsToujoursOui,
-  arbInformationsSecteurGrand,
-  arbInformationsSecteurLocalisesFrancePetit,
-  arbInformationsSecteurLocalisesHorsFrancePetit,
-  arbInformationsSecteurPetit,
-  arbInformationsSecteurAutrePetit,
   arbStructureGrand,
   arbStructurePetit,
-  arbInformationsSecteurAutreGrand,
-  arbInformationsSecteurGrandActivitesAutres,
-  arbInformationsSecteurLocalisesFranceGrand,
 } from "./ResultatEvaluationRegulation.bases.arbitraire";
 
-export const arbResultatEvaluationRegulationDesigneeOse =
-  arbDesignationOperateurServicesEssentielsToujoursOui.map(
-    fabriqueResultatEvaluationInconnuOse,
-  ) as fc.Arbitrary<ResultatEvaluationRegulation>;
-
-export const arbResultatEvaluationRegulationNonOse =
-  arbDesignationOperateurServicesEssentielsJamaisOui.map(
-    fabriqueResultatEvaluationInconnuOse,
-  ) as fc.Arbitrary<ResultatEvaluationRegulation>;
-
-export const arbResultatEvaluationRegulationEnSuspensApresLocalisationFrance =
-  fc
-    .tuple(
-      arbDesignationOperateurServicesEssentielsJamaisOui,
-      arbAppartenanceUnionEuropeenneToujoursFrance,
-    )
-    .map(
-      fabriqueResultatEvaluationEnSuspensAppUE,
-    ) as fc.Arbitrary<ResultatEvaluationRegulation>;
-export const arbResultatEvaluationRegulationEnSuspensApresLocalisationHorsFrance =
-  fc
-    .tuple(
-      arbDesignationOperateurServicesEssentielsJamaisOui,
-      arbAppartenanceUnionEuropeenneJamaisFrance,
-    )
-    .map(
-      fabriqueResultatEvaluationEnSuspensAppUE,
-    ) as fc.Arbitrary<ResultatEvaluationRegulation>;
-
-export const arbResultatEvaluationRegulationEnSuspensApresLocalisation = fc
-  .tuple(
+export type TupleArbitrairesDesignationOSE_AppartenanceUE = [
+  fc.Arbitrary<ReponseDesignationOperateurServicesEssentiels>,
+  fc.Arbitrary<ReponseAppartenancePaysUnionEuropeenne>,
+];
+export const tupleArbitrairesJamaisOseJamaisFrance: TupleArbitrairesDesignationOSE_AppartenanceUE =
+  [
+    arbDesignationOperateurServicesEssentielsJamaisOui,
+    arbAppartenanceUnionEuropeenneJamaisFrance,
+  ];
+export const tupleArbitrairesJamaisOseToujoursFrance: TupleArbitrairesDesignationOSE_AppartenanceUE =
+  [
     arbDesignationOperateurServicesEssentielsJamaisOui,
     arbAppartenanceUnionEuropeenneToujoursFrance,
-    arbStructurePetit,
-  )
-  .map(fabriqueResultatEvaluationEnSuspensStructure);
+  ];
 
-export const arbResultatEvaluationRegulationEnSuspensApresStructureAutrePetits =
-  fc
-    .tuple(
-      arbDesignationOperateurServicesEssentielsJamaisOui,
-      arbAppartenanceUnionEuropeenneToujoursFrance,
-      arbStructurePetit,
-      arbInformationsSecteurAutrePetit,
-    )
-    .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);
-export const arbResultatEvaluationRegulationEnSuspensApresStructureAutreGrand =
-  fc
-    .tuple(
-      arbDesignationOperateurServicesEssentielsJamaisOui,
-      arbAppartenanceUnionEuropeenneToujoursFrance,
-      arbStructureGrand,
-      arbInformationsSecteurAutreGrand,
-    )
-    .map(fabriqueResultatEvaluationEnSuspensSecteurGrand);
+type FabriqueArbReponseSimulateurParams<T extends CategorieTaille> = [
+  ReponseDesignationOperateurServicesEssentiels,
+  ReponseAppartenancePaysUnionEuropeenne,
+  ReponseStructure<T>,
+  ReponseInformationsSecteur<T>,
+];
+export const mapTupleArbitrairesToujoursFrance =
+  <T extends CategorieTaille>(
+    fabrique: (
+      arr: FabriqueArbReponseSimulateurParams<T>,
+    ) => ResultatEvaluationRegulation,
+  ) =>
+  (arbStructure: fc.Arbitrary<ReponseStructure<T>>) =>
+  (arbInformationsSecteur: fc.Arbitrary<ReponseInformationsSecteur<T>>) =>
+    fc
+      .tuple<FabriqueArbReponseSimulateurParams<T>>(
+        ...tupleArbitrairesJamaisOseToujoursFrance,
+        arbStructure,
+        arbInformationsSecteur,
+      )
+      .map(fabrique);
 
-export const arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable =
-  fc
-    .tuple(
-      arbDesignationOperateurServicesEssentielsJamaisOui,
-      arbAppartenanceUnionEuropeenneToujoursFrance,
-      arbStructurePetit,
-      arbInformationsSecteurLocalisesFrancePetit,
-    )
-    .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);
-export const arbResultatEvaluationRegulationEnSuspensApresStructureLocalisableGrand =
-  fc
-    .tuple(
-      arbDesignationOperateurServicesEssentielsJamaisOui,
-      arbAppartenanceUnionEuropeenneToujoursFrance,
-      arbStructurePetit,
-      arbInformationsSecteurLocalisesFranceGrand,
-    )
-    .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);
-export const arbResultatEvaluationRegulationEnSuspensApresStructureGrandNonLocalisable =
-  fc
-    .tuple(
-      arbDesignationOperateurServicesEssentielsJamaisOui,
-      arbAppartenanceUnionEuropeenneToujoursFrance,
-      arbStructureGrand,
-      arbInformationsSecteurGrand,
-    )
-    .map(fabriqueResultatEvaluationEnSuspensSecteurGrand);
-export const arbResultatEvaluationRegulationEnSuspensApresStructureGrandNonLocalisableActivitesAutres =
-  fc
-    .tuple(
-      arbDesignationOperateurServicesEssentielsJamaisOui,
-      arbAppartenanceUnionEuropeenneToujoursFrance,
-      arbStructureGrand,
-      arbInformationsSecteurGrandActivitesAutres,
-    )
-    .map(fabriqueResultatEvaluationEnSuspensSecteurGrand);
-export const arbResultatEvaluationRegulationEnSuspensApresStructureRepresentantLocaliseHorsFrance =
-  fc
-    .tuple(
-      arbDesignationOperateurServicesEssentielsJamaisOui,
-      arbAppartenanceUnionEuropeenneToujoursFrance,
-      arbStructurePetit,
-      arbInformationsSecteurLocalisesHorsFrancePetit,
-    )
-    .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);
-
-export const arbResultatEvaluationRegulationEnSuspensApresStructurePetitNonEligible =
-  fc
-    .tuple(
-      arbDesignationOperateurServicesEssentielsJamaisOui,
-      arbAppartenanceUnionEuropeenneToujoursFrance,
-      arbStructurePetit,
-      arbInformationsSecteurPetit,
-    )
-    .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);
+export const fabriqueArbJamaisOse_ToujoursFrance_Petit =
+  mapTupleArbitrairesToujoursFrance(
+    fabriqueResultatEvaluationEnSuspensSecteurPetit,
+  );
+export const fabriqueArbJamaisOse_ToujoursFrance_StructurePetit =
+  fabriqueArbJamaisOse_ToujoursFrance_Petit(arbStructurePetit);
+export const fabriqueArbJamaisOse_ToujoursFrance_Grand =
+  mapTupleArbitrairesToujoursFrance(
+    fabriqueResultatEvaluationEnSuspensSecteurGrand,
+  );
+export const fabriqueArbJamaisOse_ToujoursFrance_StructureGrand =
+  fabriqueArbJamaisOse_ToujoursFrance_Grand(arbStructureGrand);

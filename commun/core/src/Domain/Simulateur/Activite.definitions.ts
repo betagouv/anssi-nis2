@@ -1,4 +1,3 @@
-import { ExtraitAutre } from "../../../../utils/types/Extrait";
 import {
   ValeursActivitesAdministrationPublique,
   ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
@@ -20,7 +19,7 @@ import {
   ValeursActivitesInfrastructureMarcheFinancier,
   ValeursActivitesInfrastructureNumerique,
   ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite,
-  ValeursActivitesInfrastructureNumeriqueLocalisables,
+  ValeursActivitesInfrastructureNumeriqueAvecBesoinLocalisation,
   ValeursActivitesInfrastructureNumeriqueNonLocalisables,
   ValeursActivitesPetrole,
   ValeursActivitesProductionTransformationDistributionDenreesAlimentaires,
@@ -126,8 +125,6 @@ export type Activite =
   | ActivitesFournisseursNumeriques
   | ActivitesRecherche;
 
-export type ActiviteAutre = ExtraitAutre<Activite>;
-
 export type ActiviteSecteursSimples = Omit<
   Activite,
   ActivitesEnergie | ActivitesTransports | ActivitesFabrication
@@ -140,15 +137,14 @@ export type DescriptionActivite = {
 
 export type ActivitesInfrastructureNumeriqueEligiblesPetitEntite =
   (typeof ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite)[number];
-export type ActivitesInfrastructureNumeriqueLocalisables =
-  (typeof ValeursActivitesInfrastructureNumeriqueLocalisables)[number];
+export type ActiviteInfrastructureNumeriqueAvecBesoinLocalisation =
+  (typeof ValeursActivitesInfrastructureNumeriqueAvecBesoinLocalisation)[number];
 
 export type ActivitesInfrastructureNumeriqueNonLocalisables =
   (typeof ValeursActivitesInfrastructureNumeriqueNonLocalisables)[number];
 
 export type ActivitesLocalisablesPetit =
-  ActivitesInfrastructureNumeriqueLocalisables;
+  ActiviteInfrastructureNumeriqueAvecBesoinLocalisation;
 export type ActivitesLocalisablesGrand =
-  | ActivitesInfrastructureNumeriqueNonLocalisables
   | ActivitesFournisseursNumeriques
   | ActivitesGestionServicesTic;

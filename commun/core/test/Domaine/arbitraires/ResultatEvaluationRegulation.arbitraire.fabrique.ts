@@ -190,6 +190,22 @@ export const fabriqueArbitraireCapsuleSecteurLocalisable = (
       ...determineArbLocalisationRepresentant(arbLocalisationRepresentant),
     }),
   );
+export const fabriqueArbitraireCapsuleSecteurLocalisableGrand = (
+  arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
+  arbFournitServicesUnionEuropeenne?: fc.Arbitrary<FournitServicesUnionEuropeenne>,
+  arbLocalisationRepresentant?: fc.Arbitrary<AppartenancePaysUnionEuropeenne>,
+): fc.Arbitrary<ReponseInformationsSecteur<"Grand">> =>
+  arb.chain((info) =>
+    fc.record({
+      _categorieTaille: fc.constant("Grand"),
+      secteurs: fc.constant(info),
+      ...determineArbFournitServicesUnionEuropeenne(
+        arbFournitServicesUnionEuropeenne,
+        arbLocalisationRepresentant,
+      ),
+      ...determineArbLocalisationRepresentant(arbLocalisationRepresentant),
+    }),
+  );
 export const fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFrance = (
   arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
 ): fc.Arbitrary<ReponseInformationsSecteur<"Petit">> =>

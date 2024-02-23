@@ -2,6 +2,21 @@ import { fc } from "@fast-check/vitest";
 import { ResultatEvaluationRegulation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import { expect } from "vitest";
 
+export const afficheDifferences = (
+  resultatAttendu: ResultatEvaluationRegulation,
+  resultatObtenu: ResultatEvaluationRegulation,
+) =>
+  `
+  Resultat Attendu: 
+  
+  ${JSON.stringify(resultatAttendu, null, 2)}
+  
+  
+  Resultat Obtenu: 
+  
+  ${JSON.stringify(resultatObtenu, null, 2)}
+  `;
+
 export const assertionArbitraire =
   (
     arbitraire: fc.Arbitrary<ResultatEvaluationRegulation>,

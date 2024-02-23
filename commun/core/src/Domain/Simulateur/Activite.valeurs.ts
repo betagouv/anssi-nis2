@@ -104,7 +104,7 @@ export const ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite = [
   "fournisseurServiceCommunicationElectroniquesPublics",
   "prestataireServiceConfiance",
 ] as const;
-export const ValeursActivitesInfrastructureNumeriqueLocalisables = [
+export const ValeursActivitesInfrastructureNumeriqueAvecBesoinLocalisation = [
   "registresNomsDomainesPremierNiveau",
   "fournisseurServicesDNS",
 ] as const;
@@ -112,7 +112,7 @@ export const ValeursActivitesInfrastructureNumeriqueLocalisables = [
 export const ValeursActivitesInfrastructureNumerique = [
   ...ValeursActivitesInfrastructureNumeriqueNonLocalisables,
   ...ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite,
-  ...ValeursActivitesInfrastructureNumeriqueLocalisables,
+  ...ValeursActivitesInfrastructureNumeriqueAvecBesoinLocalisation,
 ] as const;
 
 export const ValeursActivitesGestionServicesTic = [
