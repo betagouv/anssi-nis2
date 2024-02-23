@@ -4,6 +4,7 @@ import {
   certains,
   tous,
 } from "../../../../../../utils/services/sets.operations";
+import { VVVPipe } from "../../../utilitaires/debug";
 import { Activite } from "../../Activite.definitions";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
@@ -12,7 +13,7 @@ import {
   estSecteurAutre,
   estSecteurAvecBesoinLocalisationRepresentantGrandeEntite,
   estSecteurListe,
-  estSecteurNecessitantLocalisationRepresentantPetiteEntite,
+  estSecteurAvecActivitesEssentielles,
 } from "../SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurAutre } from "../SousSecteurActivite/SousSecteurActivite.predicats";
 import { ResultatEvaluationRegulation } from "./EtatRegulation.definitions";
@@ -54,11 +55,23 @@ export const estEtablissementPrincipalFournitUE = (
 ): reponse is EtablissementPrincipalFournitUE =>
   reponse.fournitServicesUnionEuropeenne === "oui";
 
-export const estInformationSecteurNecessitantLocalisationRepresentantPetiteEntite =
-  (informationsSecteur: InformationSecteurPossible) =>
-    estSecteurNecessitantLocalisationRepresentantPetiteEntite(
+export const estInformationSecteurAvecActivitesEssentielles = (
+  informationsSecteur: InformationSecteurPossible,
+) =>
+  estSecteurAvecActivitesEssentielles(
+    informationsSecteur.secteurActivite as SecteurActivite,
+  );
+export const estInformationSecteurAvecActivitesEssentiellesGrand = (
+  informationsSecteur: InformationSecteurPossible,
+) =>
+  VVVPipe(
+    "estInformationSecteurAvecActivitesEssentiellesGrand",
+    informationsSecteur,
+  )(
+    estSecteurAvecActivitesEssentielles(
       informationsSecteur.secteurActivite as SecteurActivite,
-    );
+    ),
+  );
 
 export const estInformationSecteurLocalisablePetiteEntreprise = (
   sec:
@@ -66,9 +79,7 @@ export const estInformationSecteurLocalisablePetiteEntreprise = (
     | InformationsSecteurPossiblesAutre
     | InformationsSecteurPossibleNonLocalisees,
 ): sec is InformationSecteurLocalisablePetiteEntite =>
-  estSecteurNecessitantLocalisationRepresentantPetiteEntite(
-    sec.secteurActivite as SecteurActivite,
-  );
+  estSecteurAvecActivitesEssentielles(sec.secteurActivite as SecteurActivite);
 export const estInformationSecteurLocalisableGrandeEntite = (
   sec:
     | InformationSecteurPossibleGrand
@@ -77,7 +88,8 @@ export const estInformationSecteurLocalisableGrandeEntite = (
 ): sec is InformationSecteurLocalisableGrandeEntite =>
   estSecteurAvecBesoinLocalisationRepresentantGrandeEntite(
     sec.secteurActivite as SecteurActivite,
-  );
+  ) ||
+  estSecteurAvecActivitesEssentielles(sec.secteurActivite as SecteurActivite);
 export const estSecteurBienLocalisePetit = (
   sec:
     | InformationSecteurPossiblePetit
@@ -132,6 +144,13 @@ export const contientEnsembleSecteursRepresentantsLocalisesFranceGrand = (
 ) =>
   estReponseInformationsSecteurGrand(info) &&
   tous(estSecteurBienLocaliseGrand)(info.secteurs);
+export const contientEnsembleSecteursRepresentantsLocalisesFranceGrandEE = (
+  info:
+    | ReponseInformationsSecteur<"Petit">
+    | ReponseInformationsSecteur<"Grand">,
+) =>
+  estReponseInformationsSecteurGrand(info) &&
+  tous(estSecteurBienLocaliseGrand)(info.secteurs);
 
 const estInformationsSecteurEligible = flow(
   prop("secteurActivite"),
@@ -168,6 +187,11 @@ export const contientEnsembleSecteursNonEligiblesPetit = (
     | ReponseInformationsSecteur<"Grand">,
 ) =>
   estReponseInformationsSecteurPetit(info) &&
-  tous(estInformationSecteurNecessitantLocalisationRepresentantPetiteEntite)(
-    info.secteurs,
-  );
+  tous(estInformationSecteurAvecActivitesEssentielles)(info.secteurs);
+export const contientEnsembleSecteursNonEligiblesGrand = (
+  info:
+    | ReponseInformationsSecteur<"Petit">
+    | ReponseInformationsSecteur<"Grand">,
+) =>
+  estReponseInformationsSecteurGrand(info) &&
+  tous(estInformationSecteurAvecActivitesEssentiellesGrand)(info.secteurs);

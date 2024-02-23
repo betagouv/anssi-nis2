@@ -3,6 +3,7 @@ import {
   ValeursSecteursActivites,
   ValeursSecteursAvecSousSecteurs,
   ValeursSecteursAvecBesoinLocalisationRepresentant,
+  ValeursSecteursImportantsAvecBesoinLocalisation,
 } from "./SecteurActivite.valeurs";
 
 export type SecteurActivite = (typeof ValeursSecteursActivites)[number];
@@ -22,11 +23,14 @@ export type SecteursSansBesoinLocalisationRepresentant = Omit<
   SecteurAvecBesoinLocalisationRepresentant
 >;
 
-export type SecteurAvecBesoinLocalisationRepresentantPetiteEntite =
+export type SecteurImportantsAvecBesoinLocalisation =
+  (typeof ValeursSecteursImportantsAvecBesoinLocalisation)[number];
+
+export type SecteurAvecActivitesEssentielles =
   (typeof ValeursSecteurAvecActivitesEssentielles)[number];
 export type SecteursSansBesoinLocalisationRepresentantPetit = Omit<
   SecteursSansSousSecteur,
-  SecteurAvecBesoinLocalisationRepresentantPetiteEntite
+  SecteurAvecActivitesEssentielles
 >;
 
 export type SecteursDefinitsSansBesoinLocalisationRepresentant = Omit<

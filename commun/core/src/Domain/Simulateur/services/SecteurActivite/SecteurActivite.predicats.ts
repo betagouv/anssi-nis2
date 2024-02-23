@@ -2,7 +2,7 @@ import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions
 import {
   SecteurActivite,
   SecteurAvecBesoinLocalisationRepresentant,
-  SecteurAvecBesoinLocalisationRepresentantPetiteEntite,
+  SecteurAvecActivitesEssentielles,
   SecteursAvecSousSecteurs,
   SecteursSansBesoinLocalisationRepresentant,
 } from "../../SecteurActivite.definitions";
@@ -72,8 +72,8 @@ export const estSecteurNeNecessitantPasLocalisationRepresentant = (
 export const estSecteurNeNecessitantPasLocalisationRepresentantPetiteEntite = <
   T extends SecteurActivite,
 >(
-  secteur: T | SecteurAvecBesoinLocalisationRepresentantPetiteEntite,
-): secteur is SecteurAvecBesoinLocalisationRepresentantPetiteEntite =>
+  secteur: T | SecteurAvecActivitesEssentielles,
+) =>
   !ValeursSecteurAvecActivitesEssentielles.includes(
     secteur as (typeof ValeursSecteurAvecActivitesEssentielles)[number],
   );
@@ -83,9 +83,9 @@ export const estSecteurAvecBesoinLocalisationRepresentantGrandeEntite = (
   ValeursSecteursImportantsAvecBesoinLocalisation.includes(
     secteur as (typeof ValeursSecteursImportantsAvecBesoinLocalisation)[number],
   );
-export const estSecteurNecessitantLocalisationRepresentantPetiteEntite = (
-  secteur: SecteurActivite,
-) =>
+export const estSecteurAvecActivitesEssentielles = (
+  secteur: SecteurActivite | SecteurAvecActivitesEssentielles,
+): secteur is SecteurAvecActivitesEssentielles =>
   ValeursSecteurAvecActivitesEssentielles.includes(
     secteur as (typeof ValeursSecteurAvecActivitesEssentielles)[number],
   );

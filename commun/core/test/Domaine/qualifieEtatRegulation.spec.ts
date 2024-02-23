@@ -11,6 +11,7 @@ import {
 import {
   CausesRegulation,
   ResultatRegulationEntite,
+  TypeEntite,
 } from "../../src/Domain/Simulateur/Regulation.definitions";
 import { EtatEvaluation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatEvaluation.definitions";
 import {
@@ -26,7 +27,6 @@ import {
   evalueRegulationEtatReponseStructure,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
 import { propReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/Reponse.operations";
-import { ReponseEtatDesignationOperateurServicesEssentiels } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.definitions";
 import { fabriqueResultatEvaluationRegulationDefinitif } from "../../src/Domain/Simulateur/services/Eligibilite/ResultatEvaluationRegulation.fabriques";
 import { estResultatRegulationPositif } from "../../src/Domain/Simulateur/services/Regulation/Regulation.predicats";
 import {
@@ -53,6 +53,7 @@ import {
   arbInformationsSecteurGrandActivitesAutres,
   arbInformationsSecteurLocalisesFranceGrand,
   arbInformationsSecteurLocalisesFranceGrandEE,
+  arbInformationsSecteurLocalisesFranceGrandEI,
   arbInformationsSecteurLocalisesFrancePetit,
   arbInformationsSecteurLocalisesHorsFrancePetit,
   arbInformationsSecteurPetit,
@@ -60,33 +61,72 @@ import {
 } from "./arbitraires/ResultatEvaluationRegulation.bases.arbitraire";
 import { arbitrairesResultatRegulation } from "./arbitraires/ResultatRegulation.arbitraires";
 
-describe("Regulation Etat Reponse", () => {
-  const generateurEtapesEvalueesConsecutives = fc.constantFrom<
-    [EtatEvaluation, EtatEvaluation, OperationEvalueEtape]
-  >(
-    [
-      "NonEvalue",
-      "DesignationOperateurServicesEssentiels",
-      evalueRegulationEtatReponseOse,
-    ],
-    [
-      "DesignationOperateurServicesEssentiels",
-      "AppartenancePaysUnionEuropeenne",
-      evalueRegulationEtatReponseLocalisation,
-    ],
-    [
-      "AppartenancePaysUnionEuropeenne",
-      "Structure",
-      evalueRegulationEtatReponseStructure,
-    ],
-    [
-      "Structure",
-      "InformationsSecteur",
-      evalueRegulationEtatReponseInformationsSecteur,
-    ],
-  );
+const verificationReponseNonRegule = (
+  reponse: ResultatEvaluationRegulation,
+) => {
+  const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
+    _resultatEvaluationRegulation: "Definitif",
+    etapeEvaluee: "InformationsSecteur",
+    ...resultatNonRegule,
+  };
 
+  const resultatObtenu =
+    evalueRegulationEtatReponseInformationsSecteur(reponse);
+  expect(resultatObtenu).toStrictEqual(resultatAttendu);
+};
+const fabriqueVerificationReponseDefinitivementRegule =
+  (typeEntite: TypeEntite) => (reponse: ResultatEvaluationRegulation) => {
+    const causes: CausesRegulation = {
+      ...propReponseEtat(reponse)("Structure"),
+      ...propReponseEtat(reponse)("InformationsSecteur"),
+    };
+    const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
+      _resultatEvaluationRegulation: "Definitif",
+      etapeEvaluee: "InformationsSecteur",
+      ...fabriqueRegule(causes, typeEntite),
+    };
+
+    const resultatObtenu =
+      evalueRegulationEtatReponseInformationsSecteur(reponse);
+    expect(
+      resultatObtenu,
+      afficheDifferences(resultatAttendu, resultatObtenu),
+    ).toStrictEqual(resultatAttendu);
+  };
+
+const verificationReponseDefinitivementReguleEI =
+  fabriqueVerificationReponseDefinitivementRegule("EntiteImportante");
+
+const verificationReponseDefinitivementReguleEE =
+  fabriqueVerificationReponseDefinitivementRegule("EntiteEssentielle");
+
+describe("Regulation Etat Reponse", () => {
   describe("Invariants", () => {
+    const generateurEtapesEvalueesConsecutives = fc.constantFrom<
+      [EtatEvaluation, EtatEvaluation, OperationEvalueEtape]
+    >(
+      [
+        "NonEvalue",
+        "DesignationOperateurServicesEssentiels",
+        evalueRegulationEtatReponseOse,
+      ],
+      [
+        "DesignationOperateurServicesEssentiels",
+        "AppartenancePaysUnionEuropeenne",
+        evalueRegulationEtatReponseLocalisation,
+      ],
+      [
+        "AppartenancePaysUnionEuropeenne",
+        "Structure",
+        evalueRegulationEtatReponseStructure,
+      ],
+      [
+        "Structure",
+        "InformationsSecteur",
+        evalueRegulationEtatReponseInformationsSecteur,
+      ],
+    );
+
     it("Definitif ==> Definitif", () => {
       fc.assert(
         fc.property<
@@ -122,119 +162,122 @@ describe("Regulation Etat Reponse", () => {
       );
     });
   });
-
-  describe("DesignationOperateurServicesEssentiels", () => {
-    it(
-      "Une entité désignée OSE est toujours définitivement régulée",
-      assertionArbitraire(
-        arbDesignationOperateurServicesEssentielsToujoursOui.map(
-          fabriqueResultatEvaluationInconnuOse,
+  describe("Réponses partielles", () => {
+    describe("DesignationOperateurServicesEssentiels", () => {
+      it(
+        "Une entité désignée OSE est toujours définitivement régulée",
+        assertionArbitraire(
+          arbDesignationOperateurServicesEssentielsToujoursOui.map(
+            fabriqueResultatEvaluationInconnuOse,
+          ),
+          (reponse) => {
+            const resultatAttendu: ResultatEvaluationRegulation = {
+              _resultatEvaluationRegulation: "Definitif",
+              etapeEvaluee: "DesignationOperateurServicesEssentiels",
+              ...resultatReguleOSE,
+            };
+            const resultatObtenu = evalueRegulationEtatReponseOse(reponse);
+            expect(resultatObtenu).toStrictEqual(resultatAttendu);
+          },
         ),
-        (reponse) => {
-          const resultatAttendu: ResultatEvaluationRegulation = {
-            _resultatEvaluationRegulation: "Definitif",
-            etapeEvaluee: "DesignationOperateurServicesEssentiels",
-            ...resultatReguleOSE,
-          };
-          const resultatObtenu = evalueRegulationEtatReponseOse(reponse);
-          expect(resultatObtenu).toStrictEqual(resultatAttendu);
-        },
-      ),
-    );
-    it(
-      "Une entité non désignée OSE donne toujours incertain en suspens",
-      assertionArbitraire(
-        arbDesignationOperateurServicesEssentielsJamaisOui.map(
-          fabriqueResultatEvaluationInconnuOse,
+      );
+      it(
+        "Une entité non désignée OSE donne toujours incertain en suspens",
+        assertionArbitraire(
+          arbDesignationOperateurServicesEssentielsJamaisOui.map(
+            fabriqueResultatEvaluationInconnuOse,
+          ),
+          (reponse) => {
+            const copieProp = propReponseEtat(reponse);
+            const resultatAttendu: ResultatEvaluationRegulationEnSuspens = {
+              _tag: "DesignationOperateurServicesEssentiels",
+              _resultatEvaluationRegulation: "EnSuspens",
+              etapeEvaluee: "DesignationOperateurServicesEssentiels",
+              ...resultatIncertain,
+              ...copieProp("DesignationOperateurServicesEssentiels"),
+            };
+            const resultatObtenu = evalueRegulationEtatReponseOse(reponse);
+            expect(resultatObtenu).toStrictEqual(resultatAttendu);
+          },
         ),
-        (reponse) => {
-          const resultatAttendu: ResultatEvaluationRegulationEnSuspens = {
-            _tag: "DesignationOperateurServicesEssentiels",
-            _resultatEvaluationRegulation: "EnSuspens",
-            etapeEvaluee: "DesignationOperateurServicesEssentiels",
-            ...resultatIncertain,
-            DesignationOperateurServicesEssentiels: (
-              reponse as ReponseEtatDesignationOperateurServicesEssentiels
-            ).DesignationOperateurServicesEssentiels,
-          };
-          const resultatObtenu = evalueRegulationEtatReponseOse(reponse);
-          expect(resultatObtenu).toStrictEqual(resultatAttendu);
-        },
-      ),
-    );
+      );
+    });
+    describe("AppartenancePaysUnionEuropeenne", () => {
+      it(
+        "AppUE = france ==> toujours EnSuspens / Incertain",
+        assertionArbitraire(
+          fc
+            .tuple(...tupleArbitrairesJamaisOseToujoursFrance)
+            .map(fabriqueResultatEvaluationEnSuspensAppUE),
+          (reponse) => {
+            const copieProp = propReponseEtat(reponse);
+            const resultatAttendu: ResultatEvaluationRegulationEnSuspens = {
+              _tag: "AppartenancePaysUnionEuropeenne",
+              _resultatEvaluationRegulation: "EnSuspens",
+              etapeEvaluee: "AppartenancePaysUnionEuropeenne",
+              ...resultatIncertain,
+              ...copieProp("DesignationOperateurServicesEssentiels"),
+              ...copieProp("AppartenancePaysUnionEuropeenne"),
+            };
+
+            const resultatObtenu =
+              evalueRegulationEtatReponseLocalisation(reponse);
+            expect(resultatObtenu).toStrictEqual(resultatAttendu);
+          },
+        ),
+      );
+      it(
+        "AppUE != france ==> toujours Définitif / Incertain",
+        assertionArbitraire(
+          fc
+            .tuple(...tupleArbitrairesJamaisOseJamaisFrance)
+            .map(
+              fabriqueResultatEvaluationEnSuspensAppUE,
+            ) as fc.Arbitrary<ResultatEvaluationRegulation>,
+          (reponse) => {
+            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
+              _resultatEvaluationRegulation: "Definitif",
+              etapeEvaluee: "AppartenancePaysUnionEuropeenne",
+              ...resultatIncertain,
+            };
+
+            const resultatObtenu =
+              evalueRegulationEtatReponseLocalisation(reponse);
+            expect(resultatObtenu).toStrictEqual(resultatAttendu);
+          },
+        ),
+      );
+    });
+    describe("Structure", () => {
+      it(
+        "Structure Incertain ==> toujours EnSuspens / Incertain",
+        assertionArbitraire(
+          fc
+            .tuple(
+              ...tupleArbitrairesJamaisOseToujoursFrance,
+              arbStructurePetit,
+            )
+            .map(fabriqueResultatEvaluationEnSuspensStructure),
+          (reponse) => {
+            const copieProp = propReponseEtat(reponse);
+            const resultatAttendu: ResultatEvaluationRegulationEnSuspens = {
+              _tag: "Structure",
+              _resultatEvaluationRegulation: "EnSuspens",
+              etapeEvaluee: "Structure",
+              ...resultatIncertain,
+              ...copieProp("DesignationOperateurServicesEssentiels"),
+              ...copieProp("AppartenancePaysUnionEuropeenne"),
+              ...copieProp("Structure"),
+            };
+
+            const resultatObtenu =
+              evalueRegulationEtatReponseStructure(reponse);
+            expect(resultatObtenu).toStrictEqual(resultatAttendu);
+          },
+        ),
+      );
+    });
   });
-  describe("AppartenancePaysUnionEuropeenne", () => {
-    it(
-      "AppUE = france ==> toujours EnSuspens / Incertain",
-      assertionArbitraire(
-        fc
-          .tuple(...tupleArbitrairesJamaisOseToujoursFrance)
-          .map(fabriqueResultatEvaluationEnSuspensAppUE),
-        (reponse) => {
-          const copieProp = propReponseEtat(reponse);
-          const resultatAttendu: ResultatEvaluationRegulationEnSuspens = {
-            _tag: "AppartenancePaysUnionEuropeenne",
-            _resultatEvaluationRegulation: "EnSuspens",
-            etapeEvaluee: "AppartenancePaysUnionEuropeenne",
-            ...resultatIncertain,
-            ...copieProp("DesignationOperateurServicesEssentiels"),
-            ...copieProp("AppartenancePaysUnionEuropeenne"),
-          };
-
-          const resultatObtenu =
-            evalueRegulationEtatReponseLocalisation(reponse);
-          expect(resultatObtenu).toStrictEqual(resultatAttendu);
-        },
-      ),
-    );
-    it(
-      "AppUE != france ==> toujours Définitif / Incertain",
-      assertionArbitraire(
-        fc
-          .tuple(...tupleArbitrairesJamaisOseJamaisFrance)
-          .map(
-            fabriqueResultatEvaluationEnSuspensAppUE,
-          ) as fc.Arbitrary<ResultatEvaluationRegulation>,
-        (reponse) => {
-          const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
-            _resultatEvaluationRegulation: "Definitif",
-            etapeEvaluee: "AppartenancePaysUnionEuropeenne",
-            ...resultatIncertain,
-          };
-
-          const resultatObtenu =
-            evalueRegulationEtatReponseLocalisation(reponse);
-          expect(resultatObtenu).toStrictEqual(resultatAttendu);
-        },
-      ),
-    );
-  });
-  describe("Structure", () => {
-    it(
-      "Structure Incertain ==> toujours EnSuspens / Incertain",
-      assertionArbitraire(
-        fc
-          .tuple(...tupleArbitrairesJamaisOseToujoursFrance, arbStructurePetit)
-          .map(fabriqueResultatEvaluationEnSuspensStructure),
-        (reponse) => {
-          const copieProp = propReponseEtat(reponse);
-          const resultatAttendu: ResultatEvaluationRegulationEnSuspens = {
-            _tag: "Structure",
-            _resultatEvaluationRegulation: "EnSuspens",
-            etapeEvaluee: "Structure",
-            ...resultatIncertain,
-            ...copieProp("DesignationOperateurServicesEssentiels"),
-            ...copieProp("AppartenancePaysUnionEuropeenne"),
-            ...copieProp("Structure"),
-          };
-
-          const resultatObtenu = evalueRegulationEtatReponseStructure(reponse);
-          expect(resultatObtenu).toStrictEqual(resultatAttendu);
-        },
-      ),
-    );
-  });
-
   describe("Secteur", () => {
     describe("Petit", () => {
       it(
@@ -243,17 +286,7 @@ describe("Regulation Etat Reponse", () => {
           fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
             arbInformationsSecteurAutrePetit,
           ),
-          (reponse) => {
-            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
-              _resultatEvaluationRegulation: "Definitif",
-              etapeEvaluee: "InformationsSecteur",
-              ...resultatNonRegule,
-            };
-
-            const resultatObtenu =
-              evalueRegulationEtatReponseInformationsSecteur(reponse);
-            expect(resultatObtenu).toStrictEqual(resultatAttendu);
-          },
+          verificationReponseNonRegule,
         ),
       );
 
@@ -263,21 +296,7 @@ describe("Regulation Etat Reponse", () => {
           fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
             arbInformationsSecteurLocalisesFrancePetit,
           ),
-          (reponse) => {
-            const causes: CausesRegulation = {
-              ...propReponseEtat(reponse)("Structure"),
-              ...propReponseEtat(reponse)("InformationsSecteur"),
-            };
-            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
-              _resultatEvaluationRegulation: "Definitif",
-              etapeEvaluee: "InformationsSecteur",
-              ...fabriqueRegule(causes, "EntiteEssentielle"),
-            };
-
-            const resultatObtenu =
-              evalueRegulationEtatReponseInformationsSecteur(reponse);
-            expect(resultatObtenu).toStrictEqual(resultatAttendu);
-          },
+          verificationReponseDefinitivementReguleEE,
         ),
       );
       it(
@@ -286,17 +305,7 @@ describe("Regulation Etat Reponse", () => {
           fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
             arbInformationsSecteurLocalisesHorsFrancePetit,
           ),
-          (reponse) => {
-            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
-              _resultatEvaluationRegulation: "Definitif",
-              etapeEvaluee: "InformationsSecteur",
-              ...resultatNonRegule,
-            };
-
-            const resultatObtenu =
-              evalueRegulationEtatReponseInformationsSecteur(reponse);
-            expect(resultatObtenu).toStrictEqual(resultatAttendu);
-          },
+          verificationReponseNonRegule,
         ),
       );
       it(
@@ -305,17 +314,7 @@ describe("Regulation Etat Reponse", () => {
           fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
             arbInformationsSecteurPetit,
           ),
-          (reponse) => {
-            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
-              _resultatEvaluationRegulation: "Definitif",
-              etapeEvaluee: "InformationsSecteur",
-              ...resultatNonRegule,
-            };
-
-            const resultatObtenu =
-              evalueRegulationEtatReponseInformationsSecteur(reponse);
-            expect(resultatObtenu).toStrictEqual(resultatAttendu);
-          },
+          verificationReponseNonRegule,
         ),
       );
     });
@@ -326,21 +325,7 @@ describe("Regulation Etat Reponse", () => {
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
             arbInformationsSecteurGrand,
           ),
-          (reponse) => {
-            const causes: CausesRegulation = {
-              ...propReponseEtat(reponse)("Structure"),
-              ...propReponseEtat(reponse)("InformationsSecteur"),
-            };
-            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
-              _resultatEvaluationRegulation: "Definitif",
-              etapeEvaluee: "InformationsSecteur",
-              ...fabriqueRegule(causes),
-            };
-
-            const resultatObtenu =
-              evalueRegulationEtatReponseInformationsSecteur(reponse);
-            expect(resultatObtenu).toStrictEqual(resultatAttendu);
-          },
+          verificationReponseDefinitivementReguleEI,
         ),
       );
       it(
@@ -349,24 +334,16 @@ describe("Regulation Etat Reponse", () => {
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
             arbInformationsSecteurLocalisesFranceGrand,
           ),
-          (reponse) => {
-            const causes: CausesRegulation = {
-              ...propReponseEtat(reponse)("Structure"),
-              ...propReponseEtat(reponse)("InformationsSecteur"),
-            };
-            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
-              _resultatEvaluationRegulation: "Definitif",
-              etapeEvaluee: "InformationsSecteur",
-              ...fabriqueRegule(causes, "EntiteImportante"),
-            };
-
-            const resultatObtenu =
-              evalueRegulationEtatReponseInformationsSecteur(reponse);
-            expect(
-              resultatObtenu,
-              afficheDifferences(resultatAttendu, resultatObtenu),
-            ).toStrictEqual(resultatAttendu);
-          },
+          verificationReponseDefinitivementReguleEI,
+        ),
+      );
+      it(
+        "en suspens / secteurs+activités EI localisables et bien localisés ==> toujours définitivement régulé EE",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
+            arbInformationsSecteurLocalisesFranceGrandEI,
+          ),
+          verificationReponseDefinitivementReguleEI,
         ),
       );
       it(
@@ -375,24 +352,7 @@ describe("Regulation Etat Reponse", () => {
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
             arbInformationsSecteurLocalisesFranceGrandEE,
           ),
-          (reponse) => {
-            const causes: CausesRegulation = {
-              ...propReponseEtat(reponse)("Structure"),
-              ...propReponseEtat(reponse)("InformationsSecteur"),
-            };
-            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
-              _resultatEvaluationRegulation: "Definitif",
-              etapeEvaluee: "InformationsSecteur",
-              ...fabriqueRegule(causes, "EntiteImportante"),
-            };
-
-            const resultatObtenu =
-              evalueRegulationEtatReponseInformationsSecteur(reponse);
-            expect(
-              resultatObtenu,
-              afficheDifferences(resultatAttendu, resultatObtenu),
-            ).toStrictEqual(resultatAttendu);
-          },
+          verificationReponseDefinitivementReguleEE,
         ),
       );
       it(
@@ -401,17 +361,7 @@ describe("Regulation Etat Reponse", () => {
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
             arbInformationsSecteurGrandActivitesAutres,
           ),
-          (reponse) => {
-            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
-              _resultatEvaluationRegulation: "Definitif",
-              etapeEvaluee: "InformationsSecteur",
-              ...resultatNonRegule,
-            };
-
-            const resultatObtenu =
-              evalueRegulationEtatReponseInformationsSecteur(reponse);
-            expect(resultatObtenu).toStrictEqual(resultatAttendu);
-          },
+          verificationReponseNonRegule,
         ),
       );
       it(
@@ -420,17 +370,7 @@ describe("Regulation Etat Reponse", () => {
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
             arbInformationsSecteurAutreGrand,
           ),
-          (reponse) => {
-            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
-              _resultatEvaluationRegulation: "Definitif",
-              etapeEvaluee: "InformationsSecteur",
-              ...resultatNonRegule,
-            };
-
-            const resultatObtenu =
-              evalueRegulationEtatReponseInformationsSecteur(reponse);
-            expect(resultatObtenu).toStrictEqual(resultatAttendu);
-          },
+          verificationReponseNonRegule,
         ),
       );
     });

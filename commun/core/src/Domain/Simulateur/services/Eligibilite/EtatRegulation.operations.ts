@@ -1,4 +1,5 @@
 import { match, P } from "ts-pattern";
+import { VVV } from "../../../utilitaires/debug";
 import { fabriqueRegule } from "../../fabriques/Regulation.fabrique";
 import {
   resultatIncertain,
@@ -19,6 +20,7 @@ import { propReponseEtat } from "./Reponse.operations";
 import {
   contientEnsembleAutresSecteurs,
   contientEnsembleSecteursEtActiviteListeesListesSansRepresantGrand,
+  contientEnsembleSecteursNonEligiblesGrand,
   contientEnsembleSecteursNonEligiblesPetit,
   contientEnsembleSecteursRepresentantsLocalisesFranceGrand,
   contientEnsembleSecteursRepresentantsLocalisesFrancePetit,
@@ -120,8 +122,9 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
           contientEnsembleSecteursRepresentantsLocalisesFrancePetit,
         ),
       },
-      (reponse) =>
-        fabriqueResultatEvaluationDefinitif(
+      (reponse) => {
+        VVV("Cas 1");
+        return fabriqueResultatEvaluationDefinitif(
           "InformationsSecteur",
           fabriqueRegule(
             {
@@ -130,7 +133,33 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
             },
             "EntiteEssentielle",
           ),
+        );
+      },
+    )
+    .with(
+      {
+        Structure: {
+          _categorieTaille: "Grand",
+        },
+        InformationsSecteur: P.intersection(
+          P.when(contientEnsembleSecteursRepresentantsLocalisesFranceGrand),
+          P.when(contientEnsembleSecteursNonEligiblesGrand),
         ),
+      },
+      (reponse) => {
+        VVV("Cas 2");
+
+        return fabriqueResultatEvaluationDefinitif(
+          "InformationsSecteur",
+          fabriqueRegule(
+            {
+              ...propReponseEtat(reponse)("Structure"),
+              ...propReponseEtat(reponse)("InformationsSecteur"),
+            },
+            "EntiteEssentielle",
+          ),
+        );
+      },
     )
     .with(
       {
@@ -141,8 +170,10 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
           contientEnsembleSecteursRepresentantsLocalisesFranceGrand,
         ),
       },
-      (reponse) =>
-        fabriqueResultatEvaluationDefinitif(
+      (reponse) => {
+        VVV("Cas 3");
+
+        return fabriqueResultatEvaluationDefinitif(
           "InformationsSecteur",
           fabriqueRegule(
             {
@@ -151,16 +182,22 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
             },
             "EntiteImportante",
           ),
-        ),
+        );
+      },
     )
+
     .with(
       {
+        Structure: {
+          _categorieTaille: "Grand",
+        },
         InformationsSecteur: P.when(
           contientEnsembleSecteursEtActiviteListeesListesSansRepresantGrand,
         ),
       },
-      (reponse) =>
-        fabriqueResultatEvaluationDefinitif(
+      (reponse) => {
+        VVV("Cas 4");
+        return fabriqueResultatEvaluationDefinitif(
           "InformationsSecteur",
           fabriqueRegule(
             {
@@ -169,10 +206,14 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
             },
             "EntiteImportante",
           ),
-        ),
+        );
+      },
     )
     .with(
       {
+        Structure: {
+          _categorieTaille: "Petit",
+        },
         InformationsSecteur: P.when(
           contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit,
         ),
