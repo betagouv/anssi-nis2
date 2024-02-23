@@ -1,8 +1,13 @@
 import { flow } from "fp-ts/lib/function";
 import { prop } from "../../../../../../utils/services/objects.operations";
-import { tous } from "../../../../../../utils/services/sets.operations";
+import {
+  certains,
+  tous,
+} from "../../../../../../utils/services/sets.operations";
+import { Activite } from "../../Activite.definitions";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
+import { estActiviteListee } from "../Activite/Activite.predicats";
 import {
   estSecteurAutre,
   estSecteurListe,
@@ -104,6 +109,10 @@ const estInformationsSecteurEligible = flow(
   prop("secteurActivite"),
   estSecteurListe,
 );
+const auMoinsUneActiviteListee = flow(
+  prop<Set<Activite>, "activites">("activites"),
+  certains(estActiviteListee),
+);
 export const contientEnsembleSecteursEtActiviteListeesListesSansRepresantGrand =
   (
     info:
@@ -113,6 +122,9 @@ export const contientEnsembleSecteursEtActiviteListeesListesSansRepresantGrand =
     estReponseInformationsSecteurGrand(info) &&
     tous(estInformationsSecteurEligible)(
       info.secteurs as Set<{ secteurActivite: SecteurActivite }>,
+    ) &&
+    certains(auMoinsUneActiviteListee)(
+      info.secteurs as Set<{ activites: Set<Activite> }>,
     );
 
 export const contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit = (
