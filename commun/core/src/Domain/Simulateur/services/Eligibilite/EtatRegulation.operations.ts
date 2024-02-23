@@ -131,6 +131,24 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
     .with(
       {
         InformationsSecteur: P.when(
+          contientEnsembleSecteursRepresentantsLocalisesFrancePetit,
+        ),
+      },
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitif(
+          "InformationsSecteur",
+          fabriqueRegule(
+            {
+              ...propReponseEtat(reponse)("Structure"),
+              ...propReponseEtat(reponse)("InformationsSecteur"),
+            },
+            "EntiteImportante",
+          ),
+        ),
+    )
+    .with(
+      {
+        InformationsSecteur: P.when(
           contientEnsembleSecteursEtActiviteListeesListesSansRepresantGrand,
         ),
       },

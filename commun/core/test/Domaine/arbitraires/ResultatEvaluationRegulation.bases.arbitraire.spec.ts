@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { tous } from "../../../../utils/services/sets.operations";
 import { Activite } from "../../../src/Domain/Simulateur/Activite.definitions";
 
-import { ValeursSecteursNecessitantLocalisationRepresentant } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
+import { ValeursSecteursImportantsAvecBesoinLocalisation } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
 import {
   estActiviteAutre,
   estActiviteInfrastructureNumeriqueEligiblesPetitEntite,
@@ -23,7 +23,10 @@ import { estSecteurListe } from "../../../src/Domain/Simulateur/services/Secteur
 import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 import { assertion } from "../../utilitaires/ResultatEvaluationRegulation.assertions";
 import { arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable } from "./ResultatEvaluationRegulation.arbitraire";
-import { fabriqueArbitraireEnsembleActivitesPourSecteur } from "./ResultatEvaluationRegulation.arbitraire.fabrique";
+import {
+  fabriqueArbitraireCapsuleSecteurPetit,
+  fabriqueArbitraireEnsembleActivitesPourSecteur,
+} from "./ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
   arbAppartenanceUnionEuropeenneJamaisFrance,
   arbAppartenanceUnionEuropeenneToujoursFrance,
@@ -33,18 +36,17 @@ import {
   arbEnsembleSecteursSimplesEligiblesPetit,
   arbInformationsSecteurAutrePetit,
   arbInformationsSecteurComposite,
-  arbInformationsSecteurComposites,
   arbInformationsSecteurLocaliseesFrancePetite,
   arbInformationsSecteurLocaliseesHorsFrancePetite,
   arbInformationsSecteurLocaliseesHorsUEPetite,
   arbInformationsSecteurLocalisesFrancePetit,
   arbInformationsSecteurLocalisesHorsFrancePetit,
   arbInformationsSecteurPetit,
-  arbInformationsSecteurSimplesPetitNonEligibles,
   arbSecteurAvecSousSecteurListes,
   arbSecteurListesSansSousSecteurNiLocaGrand,
-  arbSecteurLocalisablesGrandeEntreprise,
+  arbSecteurImportantsLocalisablesGrandeEntite,
   arbSecteurNonEligiblesPetiteEntite,
+  arbEnsembleSecteursComposites,
   arbStructurePetitPrive,
   arbStructurePetitPublic,
 } from "./ResultatEvaluationRegulation.bases.arbitraire";
@@ -81,8 +83,10 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
           ));
         it("arbInformationsSecteurCompositesPetit et arbInformationsSecteurSimplesPetitNonEligibles sont exclusifs", () =>
           assertion.exclusifs(
-            arbInformationsSecteurComposites,
-            arbInformationsSecteurSimplesPetitNonEligibles,
+            fabriqueArbitraireCapsuleSecteurPetit(
+              arbEnsembleSecteursComposites,
+            ),
+            fabriqueArbitraireCapsuleSecteurPetit(arbEnsembleSecteursSimples),
           ));
         it("arbInformationsSecteurLocalisesFrancePetit et arbInformationsSecteurLocalisesHorsFrancePetit sont exclusifs", () =>
           assertion.exclusifs(
@@ -116,15 +120,15 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
       it("exclusif avec les secteurs localisables", () =>
         assertion.tousExclusifs(
           arbSecteurListesSansSousSecteurNiLocaGrand,
-          arbSecteurLocalisablesGrandeEntreprise,
+          arbSecteurImportantsLocalisablesGrandeEntite,
         ));
     });
     describe("arbSecteurLocalisables", () => {
       it("est un secteur localisable", () =>
         assertion.propriete(
-          arbSecteurLocalisablesGrandeEntreprise,
+          arbSecteurImportantsLocalisablesGrandeEntite,
           (secteur) => {
-            expect(ValeursSecteursNecessitantLocalisationRepresentant).includes(
+            expect(ValeursSecteursImportantsAvecBesoinLocalisation).includes(
               secteur,
             );
           },

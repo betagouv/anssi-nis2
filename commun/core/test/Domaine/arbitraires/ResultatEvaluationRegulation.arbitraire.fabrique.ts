@@ -2,6 +2,7 @@ import { fc } from "@fast-check/vitest";
 import { ens } from "../../../../utils/services/sets.operations";
 import {
   Activite,
+  ActivitesLocalisablesGrand,
   ActivitesLocalisablesPetit,
 } from "../../../src/Domain/Simulateur/Activite.definitions";
 import {
@@ -25,6 +26,7 @@ import {
 } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.fabriques";
 import {
   CategorieTaille,
+  InformationSecteurLocalisableGrandeEntite,
   InformationSecteurLocalisablePetiteEntite,
   InformationSecteurPossible,
   InformationSecteurSimple,
@@ -139,6 +141,25 @@ export const fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe =
       fournitServicesUnionEuropeenne: fc.constant("oui"),
       localisationRepresentant: arbLocalisationRepresentant,
     }) as fc.Arbitrary<InformationSecteurLocalisablePetiteEntite>;
+export const fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand =
+
+    <
+      T extends SecteurAvecBesoinLocalisationRepresentant,
+      U extends ActivitesLocalisablesGrand,
+    >(
+      arbLocalisationRepresentant: fc.Arbitrary<AppartenancePaysUnionEuropeenne>,
+      fabriqueActivite: (
+        secteur: T,
+        sousSecteur?: SousSecteurActivite,
+      ) => fc.Arbitrary<Set<U>>,
+    ) =>
+    (secteur: T): fc.Arbitrary<InformationSecteurLocalisableGrandeEntite> =>
+      fc.record<InformationSecteurLocalisableGrandeEntite>({
+        secteurActivite: fc.constant(secteur),
+        activites: fabriqueActivite(secteur),
+        fournitServicesUnionEuropeenne: fc.constant("oui"),
+        localisationRepresentant: arbLocalisationRepresentant,
+      }) as fc.Arbitrary<InformationSecteurLocalisableGrandeEntite>;
 export const fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableHorsUe = <
   T extends SecteurAvecBesoinLocalisationRepresentant,
 >(

@@ -21,6 +21,7 @@ import {
   arbStructurePetit,
   arbInformationsSecteurAutreGrand,
   arbInformationsSecteurGrandActivitesAutres,
+  arbInformationsSecteurLocalisesFranceGrand,
 } from "./ResultatEvaluationRegulation.bases.arbitraire";
 
 export const arbResultatEvaluationRegulationDesigneeOse =
@@ -86,6 +87,15 @@ export const arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable =
       arbAppartenanceUnionEuropeenneToujoursFrance,
       arbStructurePetit,
       arbInformationsSecteurLocalisesFrancePetit,
+    )
+    .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);
+export const arbResultatEvaluationRegulationEnSuspensApresStructureLocalisableGrand =
+  fc
+    .tuple(
+      arbDesignationOperateurServicesEssentielsJamaisOui,
+      arbAppartenanceUnionEuropeenneToujoursFrance,
+      arbStructurePetit,
+      arbInformationsSecteurLocalisesFranceGrand,
     )
     .map(fabriqueResultatEvaluationEnSuspensSecteurPetit);
 export const arbResultatEvaluationRegulationEnSuspensApresStructureGrandNonLocalisable =

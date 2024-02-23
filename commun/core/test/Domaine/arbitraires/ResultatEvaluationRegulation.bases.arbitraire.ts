@@ -1,5 +1,9 @@
 import { fc } from "@fast-check/vitest";
-import { ActivitesLocalisablesPetit } from "../../../src/Domain/Simulateur/Activite.definitions";
+import { toujoursVrai } from "../../../src/Domain/Commun/Commun.predicats";
+import {
+  ActivitesLocalisablesGrand,
+  ActivitesLocalisablesPetit,
+} from "../../../src/Domain/Simulateur/Activite.definitions";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
@@ -18,8 +22,8 @@ import {
   SecteursAvecSousSecteurs,
 } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
 import {
-  ValeursSecteurAvecBesoinLocalisationRepresentantPetiteEntite,
-  ValeursSecteursNecessitantLocalisationRepresentant,
+  ValeursSecteurAvecActivitesEssentielles,
+  ValeursSecteursImportantsAvecBesoinLocalisation,
 } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
 import {
   estActiviteAutre,
@@ -27,6 +31,7 @@ import {
   estActiviteListee,
 } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import {
+  InformationSecteurLocalisableGrandeEntite,
   InformationSecteurLocalisablePetiteEntite,
   InformationSecteurSimple,
   InformationsSecteursCompositeListe,
@@ -52,6 +57,7 @@ import {
   fabriqueArbitraireEnsembleActivitesPourSecteur,
   fabriqueArbitraireEnsembleActivitesPourSecteurComposite,
   fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe,
+  fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand,
   fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableHorsUe,
   fabriqueArbitrairesEnsembleInformationsSecteurs,
 } from "./ResultatEvaluationRegulation.arbitraire.fabrique";
@@ -131,13 +137,13 @@ export const arbSecteurListesSansSousSecteurNiLocaGrand = fc.constantFrom(
     estSecteurNeNecessitantPasLocalisationRepresentant,
   ),
 );
-export const arbSecteurLocalisablesGrandeEntreprise =
-  fc.constantFrom<SecteurAvecBesoinLocalisationRepresentant>(
-    ...ValeursSecteursNecessitantLocalisationRepresentant,
-  );
 export const arbSecteurLocalisablesPetiteEntite = fc.constantFrom(
-  ...ValeursSecteurAvecBesoinLocalisationRepresentantPetiteEntite,
+  ...ValeursSecteurAvecActivitesEssentielles,
 );
+export const arbSecteurImportantsLocalisablesGrandeEntite =
+  fc.constantFrom<SecteurAvecBesoinLocalisationRepresentant>(
+    ...ValeursSecteursImportantsAvecBesoinLocalisation,
+  );
 export const arbSecteurNonEligiblesPetiteEntite = fc.constantFrom(
   ...ValeursSecteursSansSousSecteur.filter(estSecteurListe).filter(
     estSecteurNeNecessitantPasLocalisationRepresentantPetiteEntite,
@@ -158,6 +164,16 @@ export const arbInformationsSecteurLocaliseesFrancePetite =
       fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
         estActiviteInfrastructureNumeriqueEligiblesPetitEntite,
       )<SecteurAvecBesoinLocalisationRepresentant, ActivitesLocalisablesPetit>,
+    ),
+  );
+export const arbInformationsSecteurLocaliseesFranceGrande =
+  arbSecteurImportantsLocalisablesGrandeEntite.chain(
+    fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand(
+      fc.constant("france"),
+      fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(toujoursVrai)<
+        SecteurAvecBesoinLocalisationRepresentant,
+        ActivitesLocalisablesGrand
+      >,
     ),
   );
 export const arbInformationsSecteurLocaliseesHorsFrancePetite =
@@ -219,20 +235,17 @@ export const arbEnsembleSecteursLocalisablesNonFrance: fc.Arbitrary<
     arbInformationsSecteurLocaliseesHorsFrancePetite,
   ),
 );
-export const arbSecteursComposites: fc.Arbitrary<
+export const arbEnsembleSecteursComposites: fc.Arbitrary<
   Set<InformationsSecteursCompositeListe>
 > = fabriqueArbitrairesEnsembleInformationsSecteurs(
   arbInformationsSecteurComposite,
 );
-export const arbSecteursCompositesActivitesAutres: fc.Arbitrary<
+export const arbEnsembleSecteursCompositesActivitesAutres: fc.Arbitrary<
   Set<InformationsSecteursCompositeListe>
 > = fabriqueArbitrairesEnsembleInformationsSecteurs(
   arbInformationsSecteurCompositeActivitesAutres,
 );
 
-export const arbInformationsSecteurSimplesPetitNonEligibles: fc.Arbitrary<
-  ReponseInformationsSecteur<"Petit">
-> = fabriqueArbitraireCapsuleSecteurPetit(arbEnsembleSecteursSimples);
 export const arbInformationsSecteurLocalisesFrancePetit: fc.Arbitrary<
   ReponseInformationsSecteur<"Petit">
 > = fabriqueArbitraireCapsuleSecteurLocalisable(
@@ -240,29 +253,32 @@ export const arbInformationsSecteurLocalisesFrancePetit: fc.Arbitrary<
   fc.constant("oui"),
   fc.constant("france"),
 );
+export const arbInformationsSecteurLocalisesFranceGrand =
+  fabriqueArbitraireCapsuleSecteurLocalisable(
+    fabriqueArbitrairesEnsembleInformationsSecteurs<InformationSecteurLocalisableGrandeEntite>(
+      arbInformationsSecteurLocaliseesFranceGrande,
+    ),
+    fc.constant("oui"),
+    fc.constant("france"),
+  );
 
 export const arbInformationsSecteurLocalisesHorsFrancePetit: fc.Arbitrary<
   ReponseInformationsSecteur<"Petit">
 > = fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFrance(
   arbEnsembleSecteursLocalisablesNonFrance,
 );
-export const arbInformationsSecteurComposites: fc.Arbitrary<
-  ReponseInformationsSecteur<"Petit">
-> = fabriqueArbitraireCapsuleSecteurPetit(arbSecteursComposites);
-export const arbInformationsSecteurCompositesGrand: fc.Arbitrary<
-  ReponseInformationsSecteur<"Grand">
-> = fabriqueArbitraireCapsuleSecteurGrand(arbSecteursComposites);
-
 export const arbInformationsSecteurPetit = fc.oneof(
-  arbInformationsSecteurComposites,
-  arbInformationsSecteurSimplesPetitNonEligibles,
+  fabriqueArbitraireCapsuleSecteurPetit(arbEnsembleSecteursComposites),
+  fabriqueArbitraireCapsuleSecteurPetit(arbEnsembleSecteursSimples),
 );
 export const arbInformationsSecteurGrand = fc.oneof(
-  arbInformationsSecteurCompositesGrand,
+  fabriqueArbitraireCapsuleSecteurGrand(arbEnsembleSecteursComposites),
   fabriqueArbitraireCapsuleSecteurGrand(arbEnsembleSecteursSimples),
 );
 export const arbInformationsSecteurGrandActivitesAutres = fc.oneof(
-  fabriqueArbitraireCapsuleSecteurGrand(arbSecteursCompositesActivitesAutres),
+  fabriqueArbitraireCapsuleSecteurGrand(
+    arbEnsembleSecteursCompositesActivitesAutres,
+  ),
   fabriqueArbitraireCapsuleSecteurGrand(
     arbEnsembleSecteursSimplesActivitesAutres,
   ),

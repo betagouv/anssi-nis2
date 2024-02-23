@@ -8,8 +8,9 @@ import {
 } from "../../SecteurActivite.definitions";
 import {
   ValeursSecteursAvecSousSecteurs,
-  ValeursSecteursNecessitantLocalisationRepresentant,
-  ValeursSecteurAvecBesoinLocalisationRepresentantPetiteEntite,
+  ValeursSecteursAvecBesoinLocalisationRepresentant,
+  ValeursSecteurAvecActivitesEssentielles,
+  ValeursSecteursImportantsAvecBesoinLocalisation,
 } from "../../SecteurActivite.valeurs";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
 import { sousSecteursParSecteur } from "../../SousSecteurActivite.valeurs";
@@ -65,7 +66,7 @@ export const estSecteurParmi =
 export const estSecteurNeNecessitantPasLocalisationRepresentant = (
   secteur: SecteursSansBesoinLocalisationRepresentant | SecteurActivite,
 ): secteur is SecteursSansBesoinLocalisationRepresentant =>
-  !ValeursSecteursNecessitantLocalisationRepresentant.includes(
+  !ValeursSecteursAvecBesoinLocalisationRepresentant.includes(
     secteur as SecteurAvecBesoinLocalisationRepresentant,
   );
 export const estSecteurNeNecessitantPasLocalisationRepresentantPetiteEntite = <
@@ -73,12 +74,18 @@ export const estSecteurNeNecessitantPasLocalisationRepresentantPetiteEntite = <
 >(
   secteur: T | SecteurAvecBesoinLocalisationRepresentantPetiteEntite,
 ): secteur is SecteurAvecBesoinLocalisationRepresentantPetiteEntite =>
-  !ValeursSecteurAvecBesoinLocalisationRepresentantPetiteEntite.includes(
-    secteur as (typeof ValeursSecteurAvecBesoinLocalisationRepresentantPetiteEntite)[number],
+  !ValeursSecteurAvecActivitesEssentielles.includes(
+    secteur as (typeof ValeursSecteurAvecActivitesEssentielles)[number],
+  );
+export const estSecteurAvecBesoinLocalisationRepresentantGrandeEntite = (
+  secteur: SecteurActivite,
+) =>
+  ValeursSecteursImportantsAvecBesoinLocalisation.includes(
+    secteur as (typeof ValeursSecteursImportantsAvecBesoinLocalisation)[number],
   );
 export const estSecteurNecessitantLocalisationRepresentantPetiteEntite = (
   secteur: SecteurActivite,
 ) =>
-  ValeursSecteurAvecBesoinLocalisationRepresentantPetiteEntite.includes(
-    secteur as (typeof ValeursSecteurAvecBesoinLocalisationRepresentantPetiteEntite)[number],
+  ValeursSecteurAvecActivitesEssentielles.includes(
+    secteur as (typeof ValeursSecteurAvecActivitesEssentielles)[number],
   );

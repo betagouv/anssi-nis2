@@ -10,6 +10,7 @@ import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
 import { estActiviteListee } from "../Activite/Activite.predicats";
 import {
   estSecteurAutre,
+  estSecteurAvecBesoinLocalisationRepresentantGrandeEntite,
   estSecteurListe,
   estSecteurNecessitantLocalisationRepresentantPetiteEntite,
 } from "../SecteurActivite/SecteurActivite.predicats";
@@ -18,8 +19,10 @@ import { ResultatEvaluationRegulation } from "./EtatRegulation.definitions";
 import { estReponseEtatInformationsSecteur } from "./EtatRegulation.predicats";
 import {
   EtablissementPrincipalFournitUE,
+  InformationSecteurLocalisableGrandeEntite,
   InformationSecteurLocalisablePetiteEntite,
   InformationSecteurPossible,
+  InformationSecteurPossibleGrand,
   InformationSecteurPossiblePetit,
   InformationsSecteurPossibleNonLocalisees,
   InformationsSecteurPossiblesAutre,
@@ -66,6 +69,15 @@ export const estInformationSecteurLocalisablePetiteEntreprise = (
   estSecteurNecessitantLocalisationRepresentantPetiteEntite(
     sec.secteurActivite as SecteurActivite,
   );
+export const estInformationSecteurLocalisableGrandeEntite = (
+  sec:
+    | InformationSecteurPossibleGrand
+    | InformationsSecteurPossiblesAutre
+    | InformationsSecteurPossibleNonLocalisees,
+): sec is InformationSecteurLocalisableGrandeEntite =>
+  estSecteurAvecBesoinLocalisationRepresentantGrandeEntite(
+    sec.secteurActivite as SecteurActivite,
+  );
 export const estSecteurBienLocalisePetit = (
   sec:
     | InformationSecteurPossiblePetit
@@ -73,6 +85,15 @@ export const estSecteurBienLocalisePetit = (
     | InformationsSecteurPossibleNonLocalisees,
 ) =>
   estInformationSecteurLocalisablePetiteEntreprise(sec) &&
+  sec.fournitServicesUnionEuropeenne === "oui" &&
+  sec.localisationRepresentant === "france";
+export const estSecteurBienLocaliseGrand = (
+  sec:
+    | InformationSecteurPossibleGrand
+    | InformationsSecteurPossiblesAutre
+    | InformationsSecteurPossibleNonLocalisees,
+) =>
+  estInformationSecteurLocalisableGrandeEntite(sec) &&
   sec.fournitServicesUnionEuropeenne === "oui" &&
   sec.localisationRepresentant === "france";
 export const estSecteurBienLocaliseHorsFrancePetit = (
@@ -104,6 +125,13 @@ export const contientEnsembleSecteursRepresentantsLocalisesFrancePetit = (
 ) =>
   estReponseInformationsSecteurPetit(info) &&
   tous(estSecteurBienLocalisePetit)(info.secteurs);
+export const contientEnsembleSecteursRepresentantsLocalisesFranceGrand = (
+  info:
+    | ReponseInformationsSecteur<"Petit">
+    | ReponseInformationsSecteur<"Grand">,
+) =>
+  estReponseInformationsSecteurGrand(info) &&
+  tous(estSecteurBienLocaliseGrand)(info.secteurs);
 
 const estInformationsSecteurEligible = flow(
   prop("secteurActivite"),

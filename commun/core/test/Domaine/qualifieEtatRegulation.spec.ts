@@ -40,6 +40,7 @@ import {
   arbResultatEvaluationRegulationEnSuspensApresStructureGrandNonLocalisable,
   arbResultatEvaluationRegulationEnSuspensApresStructureGrandNonLocalisableActivitesAutres,
   arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable,
+  arbResultatEvaluationRegulationEnSuspensApresStructureLocalisableGrand,
   arbResultatEvaluationRegulationEnSuspensApresStructurePetitNonEligible,
   arbResultatEvaluationRegulationEnSuspensApresStructureRepresentantLocaliseHorsFrance,
   arbResultatEvaluationRegulationNonOse,
@@ -301,6 +302,60 @@ describe("Regulation Etat Reponse", () => {
             const resultatObtenu =
               evalueRegulationEtatReponseInformationsSecteur(reponse);
             expect(resultatObtenu).toStrictEqual(resultatAttendu);
+          },
+        ),
+      );
+      it.skip(
+        "en suspens / secteurs+activités localisables et bien localisés ==> toujours définitivement régulé EE",
+        assertionArbitraire(
+          arbResultatEvaluationRegulationEnSuspensApresStructureLocalisableGrand,
+          (reponse) => {
+            const causes: CausesRegulation = {
+              ...propReponseEtat(reponse)("Structure"),
+              ...propReponseEtat(reponse)("InformationsSecteur"),
+            };
+            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
+              _resultatEvaluationRegulation: "Definitif",
+              etapeEvaluee: "InformationsSecteur",
+              ...fabriqueRegule(causes, "EntiteImportante"),
+            };
+
+            const resultatObtenu =
+              evalueRegulationEtatReponseInformationsSecteur(reponse);
+            expect(resultatObtenu).toStrictEqual(resultatAttendu);
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const Counterexample = [
+              {
+                decision: "Incertain",
+                _tag: "InformationsSecteur",
+                DesignationOperateurServicesEssentiels: {
+                  designationOperateurServicesEssentiels: "non",
+                },
+                AppartenancePaysUnionEuropeenne: {
+                  appartenancePaysUnionEuropeenne: "france",
+                },
+                Structure: {
+                  _categorieTaille: "Petit",
+                  typeStructure: "publique",
+                  trancheNombreEmployes: "petit",
+                  typeEntitePublique: "administrationCentrale",
+                },
+                InformationsSecteur: {
+                  _categorieTaille: "Petit",
+                  secteurs: new Set([
+                    {
+                      secteurActivite: "gestionServicesTic",
+                      activites: new Set(["autreActiviteGestionServicesTic"]),
+                      fournitServicesUnionEuropeenne: "oui",
+                      localisationRepresentant: "france",
+                    },
+                  ]),
+                  fournitServicesUnionEuropeenne: "oui",
+                },
+                _resultatEvaluationRegulation: "EnSuspens",
+                etapeEvaluee: "Structure",
+              },
+            ];
           },
         ),
       );

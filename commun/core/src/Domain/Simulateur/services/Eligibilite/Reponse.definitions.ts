@@ -7,7 +7,6 @@ import {
   ActivitesFournisseursNumeriques,
   ActivitesGestionServicesTic,
   ActivitesInfrastructureNumeriqueLocalisables,
-  ActivitesInfrastructureNumeriqueNonLocalisables,
   ActivitesTransports,
 } from "../../Activite.definitions";
 import {
@@ -144,23 +143,14 @@ export type InformationSecteurLocalisablePetiteEntite = {
   activites: Set<ActivitesInfrastructureNumeriqueLocalisables>;
 } & EtablissementPrincipalLocalisation;
 
-export type InformationSecteurLocalisableGrandeEntite =
-  | {
-      secteurActivite: SecteurAvecBesoinLocalisationRepresentant;
-      activites: Set<
-        | ActivitesInfrastructureNumeriqueNonLocalisables
-        | ActivitesFournisseursNumeriques
-        | ActivitesGestionServicesTic
-      >;
-    }
-  | ({
-      secteurActivite: SecteurAvecBesoinLocalisationRepresentant;
-      activites: Set<
-        | ActivitesInfrastructureNumeriqueLocalisables
-        | ActivitesFournisseursNumeriques
-        | ActivitesGestionServicesTic
-      >;
-    } & EtablissementPrincipalLocalisation);
+export type InformationSecteurLocalisableGrandeEntite = {
+  secteurActivite: SecteurAvecBesoinLocalisationRepresentant;
+  activites: Set<
+    | ActivitesInfrastructureNumeriqueLocalisables
+    | ActivitesFournisseursNumeriques
+    | ActivitesGestionServicesTic
+  >;
+} & EtablissementPrincipalLocalisation;
 
 export type InformationSecteurSimpleAutre = {
   secteurActivite: ExtraitAutre<SecteurActivite>;
