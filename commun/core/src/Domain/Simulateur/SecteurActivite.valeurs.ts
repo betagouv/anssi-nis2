@@ -19,6 +19,7 @@ export const ValeursSecteursActivites = [
   "banqueSecteurBancaire",
   "eauPotable",
   "eauxUsees",
+  "espace",
   ...ValeursSecteursAvecSousSecteurs,
   "fabricationProductionDistributionProduitsChimiques",
   ...ValeursSecteursAvecBesoinLocalisationRepresentant,

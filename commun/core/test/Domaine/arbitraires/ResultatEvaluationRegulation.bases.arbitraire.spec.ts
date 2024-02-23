@@ -23,10 +23,7 @@ import { ReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/s
 import { estSecteurListe } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 import { assertion } from "../../utilitaires/ResultatEvaluationRegulation.assertions";
-import {
-  arbResultatEvaluationRegulationEnSuspensApresStructureLocalisable,
-  fabriqueArbJamaisOse_ToujoursFrance_StructurePetit,
-} from "./ResultatEvaluationRegulation.arbitraire";
+import { fabriqueArbJamaisOse_ToujoursFrance_StructurePetit } from "./ResultatEvaluationRegulation.arbitraire";
 import {
   fabriqueArbitraireCapsuleSecteurPetit,
   fabriqueArbitraireEnsembleActivitesPourSecteur,
