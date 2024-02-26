@@ -55,7 +55,7 @@ describe("Operations sur ensembles (Set)", () => {
     it("ne vérifie pas tousPositifs quand tous les éléments sont négatifs", () =>
       fc.assert(
         fc.property<[Set<number>]>(
-          fc.uniqueArray(fc.integer({ max: 0 })).map(fromArray),
+          fc.uniqueArray(fc.integer({ max: -1 })).map(fromArray),
           (ensemble) => {
             expect(tousPositifs(ensemble)).toBeFalsy();
           },
