@@ -29,7 +29,6 @@ import {
   arbEnsembleSecteursSimplesEligiblesPetit,
 } from "./EnsembleInformationsSecteur.arbitraires";
 import {
-  arbInformationsSecteurAutrePetit,
   arbInformationsSecteurComposite,
   arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
   arbInformationsSecteurLocaliseesFrancePetite,
@@ -47,25 +46,17 @@ import {
 } from "./ReponseInformationsSecteur.arbitraires";
 import { fabriqueArbJamaisOse_ToujoursFrance_StructurePetit } from "./ResultatEvaluationRegulation.arbitraire";
 import {
+  fabriqueArbInformationsSecteurAutre,
   fabriqueArbitraireCapsuleSecteurPetit,
   fabriqueArbitraireEnsembleActivitesPourSecteur,
 } from "./ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
   arbAppartenanceUnionEuropeenneJamaisFrance,
   arbAppartenanceUnionEuropeenneToujoursFrance,
-  arbDesignationOperateurServicesEssentielsJamaisOui,
-  arbDesignationOperateurServicesEssentielsToujoursOui,
 } from "./ResultatEvaluationRegulation.bases.arbitraire";
 
 describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
   describe("Capsules", () => {
-    describe("designationOperateurServicesEssentiels", () => {
-      it("toujours oui et jamais oui sont exclusifs", () =>
-        assertion.tousExclusifs(
-          arbDesignationOperateurServicesEssentielsToujoursOui,
-          arbDesignationOperateurServicesEssentielsJamaisOui,
-        ));
-    });
     describe("appartenancePaysUnionEuropeenne", () => {
       it("toujours france et jamais france sont exclusifs", () =>
         assertion.tousExclusifs(
@@ -77,7 +68,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
       describe("arbInformationsSecteur*", () => {
         it("arbInformationsSecteurPetitAutre et arbInformationsSecteurPetit sont exclusifs", () =>
           assertion.exclusifs(
-            arbInformationsSecteurAutrePetit,
+            fabriqueArbInformationsSecteurAutre("Petit"),
             arbReponseInformationsSecteurPetit,
           ));
         it("arbInformationsSecteurCompositesPetit et arbInformationsSecteurSimplesPetitNonEligibles sont exclusifs", () =>

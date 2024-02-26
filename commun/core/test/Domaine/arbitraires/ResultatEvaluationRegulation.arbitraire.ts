@@ -15,7 +15,7 @@ import {
 import {
   arbAppartenanceUnionEuropeenneJamaisFrance,
   arbAppartenanceUnionEuropeenneToujoursFrance,
-  arbDesignationOperateurServicesEssentielsJamaisOui,
+  arbDesignationOperateurServicesEssentielsToujoursNon,
   arbStructureGrand,
   arbStructurePetit,
 } from "./ResultatEvaluationRegulation.bases.arbitraire";
@@ -26,12 +26,12 @@ export type TupleArbitrairesDesignationOSE_AppartenanceUE = [
 ];
 export const tupleArbitrairesJamaisOseJamaisFrance: TupleArbitrairesDesignationOSE_AppartenanceUE =
   [
-    arbDesignationOperateurServicesEssentielsJamaisOui,
+    arbDesignationOperateurServicesEssentielsToujoursNon,
     arbAppartenanceUnionEuropeenneJamaisFrance,
   ];
 export const tupleArbitrairesJamaisOseToujoursFrance: TupleArbitrairesDesignationOSE_AppartenanceUE =
   [
-    arbDesignationOperateurServicesEssentielsJamaisOui,
+    arbDesignationOperateurServicesEssentielsToujoursNon,
     arbAppartenanceUnionEuropeenneToujoursFrance,
   ];
 

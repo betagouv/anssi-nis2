@@ -34,10 +34,6 @@ import {
   assertionArbitraire,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import {
-  arbInformationsSecteurAutreGrand,
-  arbInformationsSecteurAutrePetit,
-} from "./arbitraires/InformationsSecteur.arbitraires";
-import {
   arbReponseInformationsSecteurFranceGrandEILocalisationHorsFrance,
   arbReponseInformationsSecteurGrand,
   arbReponseInformationsSecteurGrandActivitesAutres,
@@ -55,12 +51,14 @@ import {
   tupleArbitrairesJamaisOseToujoursFrance,
 } from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
 import {
+  fabriqueArbInformationsSecteurAutre,
   fabriqueResultatEvaluationEnSuspensAppUE,
   fabriqueResultatEvaluationEnSuspensStructure,
   fabriqueResultatEvaluationInconnuOse,
 } from "./arbitraires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
-  arbDesignationOperateurServicesEssentielsJamaisOui,
+  arbDesignationOperateurServicesEssentielsToujoursNeSaitPas,
+  arbDesignationOperateurServicesEssentielsToujoursNon,
   arbDesignationOperateurServicesEssentielsToujoursOui,
   arbStructurePetit,
 } from "./arbitraires/ResultatEvaluationRegulation.bases.arbitraire";
@@ -192,7 +190,7 @@ describe("Regulation Etat Reponse", () => {
       it(
         "Une entité non désignée OSE donne toujours incertain en suspens",
         assertionArbitraire(
-          arbDesignationOperateurServicesEssentielsJamaisOui.map(
+          arbDesignationOperateurServicesEssentielsToujoursNon.map(
             fabriqueResultatEvaluationInconnuOse,
           ),
           (reponse) => {
@@ -203,6 +201,23 @@ describe("Regulation Etat Reponse", () => {
               etapeEvaluee: "DesignationOperateurServicesEssentiels",
               ...resultatIncertain,
               ...copieProp("DesignationOperateurServicesEssentiels"),
+            };
+            const resultatObtenu = evalueRegulationEtatReponseOse(reponse);
+            expect(resultatObtenu).toStrictEqual(resultatAttendu);
+          },
+        ),
+      );
+      it(
+        "Une entité non désignée OSE donne toujours incertain en suspens",
+        assertionArbitraire(
+          arbDesignationOperateurServicesEssentielsToujoursNeSaitPas.map(
+            fabriqueResultatEvaluationInconnuOse,
+          ),
+          (reponse) => {
+            const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
+              _resultatEvaluationRegulation: "Definitif",
+              etapeEvaluee: "DesignationOperateurServicesEssentiels",
+              ...resultatIncertain,
             };
             const resultatObtenu = evalueRegulationEtatReponseOse(reponse);
             expect(resultatObtenu).toStrictEqual(resultatAttendu);
@@ -292,7 +307,7 @@ describe("Regulation Etat Reponse", () => {
         "en suspens / secteur autre ==> toujours définitivement non régulé",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-            arbInformationsSecteurAutrePetit,
+            fabriqueArbInformationsSecteurAutre("Petit"),
           ),
           verificationReponseNonRegule,
         ),
@@ -385,11 +400,12 @@ describe("Regulation Etat Reponse", () => {
         "en suspens / secteur autre Grand ==> toujours définitivement non régulé",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            arbInformationsSecteurAutreGrand,
+            fabriqueArbInformationsSecteurAutre("Grand"),
           ),
           verificationReponseNonRegule,
         ),
       );
     });
+    describe("Cas incertains", () => {});
   });
 });

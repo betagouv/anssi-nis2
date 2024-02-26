@@ -70,10 +70,22 @@ export const evalueRegulationEtatReponseOse = (
     .with(
       {
         DesignationOperateurServicesEssentiels: {
-          designationOperateurServicesEssentiels: P.union("non", "nsp"),
+          designationOperateurServicesEssentiels: "non",
         },
       },
       fabriqueResultatEnSuspensOse(reponse),
+    )
+    .with(
+      {
+        DesignationOperateurServicesEssentiels: {
+          designationOperateurServicesEssentiels: "nsp",
+        },
+      },
+      () =>
+        fabriqueResultatEvaluationDefinitif(
+          "DesignationOperateurServicesEssentiels",
+          resultatIncertain,
+        ),
     )
     .otherwise(fabriqueResultatEnSuspensOse(reponse));
 export const evalueRegulationEtatReponseLocalisation = (

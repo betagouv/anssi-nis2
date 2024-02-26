@@ -33,7 +33,6 @@ import {
 import {
   fabriqueArbEnsembleActivitesPourSecteur,
   fabriqueArbEnsembleActivitesPourSecteurAvecFiltre,
-  fabriqueArbInformationsSecteurAutre,
   fabriqueArbitraireEnsembleActivitesPourSecteurComposite,
   fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe,
   fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand,
@@ -41,10 +40,6 @@ import {
 } from "./ResultatEvaluationRegulation.arbitraire.fabrique";
 import { arbLocalisationRepresentant_JamaisFrance } from "./ResultatEvaluationRegulation.bases.arbitraire";
 
-export const arbInformationsSecteurAutrePetit =
-  fabriqueArbInformationsSecteurAutre("Petit");
-export const arbInformationsSecteurAutreGrand =
-  fabriqueArbInformationsSecteurAutre("Grand");
 export const arbSecteurListesSansSousSecteurNiLocaGrand = fc.constantFrom(
   ...ValeursSecteursSansSousSecteur.filter(estSecteurListe).filter(
     estSecteurNeNecessitantPasLocalisationRepresentant,

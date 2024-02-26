@@ -1,7 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import {
   AppartenancePaysUnionEuropeenne,
-  DesignationOperateurServicesEssentiels,
   TypeEntitePublique,
 } from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
 import {
@@ -18,10 +17,15 @@ export const arbDesignationOperateurServicesEssentielsToujoursOui = fc.constant(
     designationOperateurServicesEssentiels: "oui" as const,
   },
 );
-export const arbDesignationOperateurServicesEssentielsJamaisOui = fc.record({
-  designationOperateurServicesEssentiels:
-    fc.constantFrom<DesignationOperateurServicesEssentiels>("non", "nsp"),
-});
+export const arbDesignationOperateurServicesEssentielsToujoursNon = fc.constant(
+  {
+    designationOperateurServicesEssentiels: "non" as const,
+  },
+);
+export const arbDesignationOperateurServicesEssentielsToujoursNeSaitPas =
+  fc.constant({
+    designationOperateurServicesEssentiels: "nsp" as const,
+  });
 
 export const arbAppartenanceUnionEuropeenneToujoursFrance = fc.record({
   appartenancePaysUnionEuropeenne:
