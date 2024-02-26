@@ -51,13 +51,12 @@ export const estInformationSecteurAvecActivitesEssentielles = (
   estSecteurAvecActivitesEssentielles(
     informationsSecteur.secteurActivite as SecteurActivite,
   );
-export const estInformationSecteurAvecActivitesEssentiellesGrand = (
+export const estInformationSecteurAvecBesoinLocalisation = (
   informationsSecteur: InformationSecteurPossible<CategorieTaille>,
 ) =>
-  estSecteurAvecActivitesEssentielles(
+  estSecteurAvecBesoinLocalisationRepresentantGrandeEntite(
     informationsSecteur.secteurActivite as SecteurActivite,
   );
-
 export const estInformationSecteurLocalisablePetiteEntreprise = (
   sec:
     | InformationSecteurPossible<"Petit">
@@ -118,13 +117,16 @@ export const contientEnsembleAutresSecteurs = (
 export type predicatInformationSecteurPossible = (
   i: InformationSecteurPossible<CategorieTaille>,
 ) => boolean;
-export const estInformationsSecteurEligible = flow<
+export const estInformationsSecteurEligibleSansBesoinLocalisation = flow<
   [{ secteurActivite: SecteurActivite }],
   SecteurActivite,
   boolean
 >(
   prop("secteurActivite"),
-  estSecteurListe,
+  (s) =>
+    estSecteurListe(s) &&
+    !estSecteurAvecBesoinLocalisationRepresentantGrandeEntite(s) &&
+    !estSecteurAvecActivitesEssentielles(s),
 ) as predicatInformationSecteurPossible;
 export const auMoinsUneActiviteListee = flow<
   [{ activites: Set<Activite> }],

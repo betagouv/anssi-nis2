@@ -9,7 +9,10 @@ import {
   resultatNonRegule,
 } from "../../Regulation.constantes";
 import { TypeEntite } from "../../Regulation.definitions";
-import { estActiviteInfrastructureNumeriqueAvecBesoinLocalisation } from "../Activite/Activite.predicats";
+import {
+  estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+  estActiviteListee,
+} from "../Activite/Activite.predicats";
 import { EtatEvaluationActives } from "./EtatEvaluation.definitions";
 import {
   ResultatEvaluationRegulation,
@@ -28,8 +31,9 @@ import {
   contientEnsembleAutresSecteurs,
   contientEnsembleSecteursNonEligiblesPetit,
   contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit,
-  estInformationSecteurAvecActivitesEssentiellesGrand,
-  estInformationsSecteurEligible,
+  estInformationSecteurAvecActivitesEssentielles,
+  estInformationSecteurAvecBesoinLocalisation,
+  estInformationsSecteurEligibleSansBesoinLocalisation,
   estSecteurBienLocaliseGrand,
   estSecteurBienLocalisePetit,
 } from "./Reponse.predicats";
@@ -131,15 +135,12 @@ const fabriqueResultatEvaluationDefinitifCarSecteur = (
     ),
   );
 
-export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
+export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
   reponse: ResultatEvaluationRegulationEnSuspens,
 ): ResultatEvaluationRegulation =>
   match(reponse)
     .with(
       {
-        Structure: {
-          _categorieTaille: "Petit",
-        },
         InformationsSecteur: {
           secteurs: P.when(tous(estSecteurBienLocalisePetit)),
         },
@@ -152,68 +153,6 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
     )
     .with(
       {
-        Structure: {
-          _categorieTaille: "Grand",
-        },
-        InformationsSecteur: {
-          secteurs: P.intersection(
-            P.when(tous(estSecteurBienLocaliseGrand)),
-            P.when(tous(estInformationSecteurAvecActivitesEssentiellesGrand)),
-            P.when(
-              tous((s) =>
-                tous(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation)(
-                  (s as InformationSecteurLocalisable<"Grand">).activites,
-                ),
-              ),
-            ),
-          ),
-        },
-      },
-      (reponse) =>
-        fabriqueResultatEvaluationDefinitifCarSecteur(
-          reponse,
-          "EntiteEssentielle",
-        ),
-    )
-    .with(
-      {
-        Structure: {
-          _categorieTaille: "Grand",
-        },
-        InformationsSecteur: {
-          secteurs: P.when(tous(estSecteurBienLocaliseGrand)),
-        },
-      },
-      (reponse) =>
-        fabriqueResultatEvaluationDefinitifCarSecteur(
-          reponse,
-          "EntiteImportante",
-        ),
-    )
-
-    .with(
-      {
-        Structure: {
-          _categorieTaille: "Grand",
-        },
-        InformationsSecteur: {
-          secteurs: P.intersection(
-            P.when(tous(estInformationsSecteurEligible)),
-            P.when(certains(auMoinsUneActiviteListee)),
-          ),
-        },
-      },
-      (reponse) =>
-        fabriqueResultatEvaluationDefinitifCarSecteur(
-          reponse,
-          "EntiteImportante",
-        ),
-    )
-    .with(
-      {
-        Structure: {
-          _categorieTaille: "Petit",
-        },
         InformationsSecteur: P.when(
           contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit,
         ),
@@ -233,6 +172,141 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
           "InformationsSecteur",
           resultatNonRegule,
         ),
+    )
+    .with(
+      {
+        _resultatEvaluationRegulation: "EnSuspens",
+      },
+      () =>
+        fabriqueResultatEvaluationDefinitif(
+          "InformationsSecteur",
+          resultatNonRegule,
+        ),
+    )
+    .otherwise(
+      (): ResultatEvaluationRegulationEnSuspens =>
+        fabriqueResultatEvaluationEnSuspens(
+          "InformationsSecteur",
+          resultatIncertain,
+          reponse as ResultatEvaluationRegulationEnSuspens,
+        ),
+    );
+export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
+  reponse: ResultatEvaluationRegulationEnSuspens,
+): ResultatEvaluationRegulation =>
+  match(reponse)
+    .with(
+      {
+        InformationsSecteur: {
+          secteurs: P.intersection(
+            P.when(tous(estSecteurBienLocaliseGrand)),
+            P.when(tous(estInformationSecteurAvecActivitesEssentielles)),
+            P.when(
+              tous((s) =>
+                tous(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation)(
+                  (s as InformationSecteurLocalisable<"Grand">).activites,
+                ),
+              ),
+            ),
+          ),
+        },
+      },
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          "EntiteEssentielle",
+        ),
+    )
+    .with(
+      {
+        InformationsSecteur: {
+          secteurs: P.intersection(
+            P.when(tous(estSecteurBienLocaliseGrand)),
+            P.when(tous(estInformationSecteurAvecActivitesEssentielles)),
+            P.when(
+              tous((s) =>
+                tous(estActiviteListee)(
+                  (s as InformationSecteurLocalisable<"Grand">).activites,
+                ),
+              ),
+            ),
+          ),
+        },
+      },
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          "EntiteImportante",
+        ),
+    )
+    .with(
+      {
+        InformationsSecteur: {
+          secteurs: P.intersection(
+            P.when(tous(estSecteurBienLocaliseGrand)),
+            P.when(tous(estInformationSecteurAvecBesoinLocalisation)),
+          ),
+        },
+      },
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          "EntiteImportante",
+        ),
+    )
+    .with(
+      {
+        InformationsSecteur: {
+          secteurs: P.intersection(
+            P.when(tous(estInformationsSecteurEligibleSansBesoinLocalisation)),
+            // P.when(tous(estSecteurBienLocaliseGrand)),
+            P.when(certains(auMoinsUneActiviteListee)),
+          ),
+        },
+      },
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          "EntiteImportante",
+        ),
+    )
+    .with(
+      {
+        _resultatEvaluationRegulation: "EnSuspens",
+      },
+      () =>
+        fabriqueResultatEvaluationDefinitif(
+          "InformationsSecteur",
+          resultatNonRegule,
+        ),
+    )
+    .otherwise(
+      (): ResultatEvaluationRegulationEnSuspens =>
+        fabriqueResultatEvaluationEnSuspens(
+          "InformationsSecteur",
+          resultatIncertain,
+          reponse as ResultatEvaluationRegulationEnSuspens,
+        ),
+    );
+export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
+  reponse: ResultatEvaluationRegulationEnSuspens,
+): ResultatEvaluationRegulation =>
+  match(reponse)
+    .with(
+      {
+        Structure: {
+          _categorieTaille: "Petit",
+        },
+      },
+      evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit,
+    )
+    .with(
+      {
+        Structure: {
+          _categorieTaille: "Grand",
+        },
+      },
+      evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand,
     )
     .with(
       {

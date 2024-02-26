@@ -23,6 +23,28 @@ import { ReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/s
 import { estSecteurListe } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 import { assertion } from "../../utilitaires/ResultatEvaluationRegulation.assertions";
+import {
+  arbEnsembleSecteursComposites,
+  arbEnsembleSecteursSimples,
+  arbEnsembleSecteursSimplesEligiblesPetit,
+} from "./EnsembleInformationsSecteur.arbitraires";
+import {
+  arbInformationsSecteurAutrePetit,
+  arbInformationsSecteurComposite,
+  arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
+  arbInformationsSecteurLocaliseesFrancePetite,
+  arbInformationsSecteurLocaliseesHorsFrancePetite,
+  arbInformationsSecteurLocaliseesHorsUEPetite,
+  arbSecteurAvecSousSecteurListes,
+  arbSecteurImportantsLocalisablesGrandeEntite,
+  arbSecteurListesSansSousSecteurNiLocaGrand,
+  arbSecteurNonEligiblesPetiteEntite,
+} from "./InformationsSecteur.arbitraires";
+import {
+  arbReponseInformationsSecteurLocalisesFrancePetit,
+  arbReponseInformationsSecteurLocalisesHorsFrancePetit,
+  arbReponseInformationsSecteurPetit,
+} from "./ReponseInformationsSecteur.arbitraires";
 import { fabriqueArbJamaisOse_ToujoursFrance_StructurePetit } from "./ResultatEvaluationRegulation.arbitraire";
 import {
   fabriqueArbitraireCapsuleSecteurPetit,
@@ -33,22 +55,6 @@ import {
   arbAppartenanceUnionEuropeenneToujoursFrance,
   arbDesignationOperateurServicesEssentielsJamaisOui,
   arbDesignationOperateurServicesEssentielsToujoursOui,
-  arbEnsembleSecteursComposites,
-  arbEnsembleSecteursSimples,
-  arbEnsembleSecteursSimplesEligiblesPetit,
-  arbInformationsSecteurAutrePetit,
-  arbInformationsSecteurComposite,
-  arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
-  arbInformationsSecteurLocaliseesFrancePetite,
-  arbInformationsSecteurLocaliseesHorsFrancePetite,
-  arbInformationsSecteurLocaliseesHorsUEPetite,
-  arbInformationsSecteurLocalisesFrancePetit,
-  arbInformationsSecteurLocalisesHorsFrancePetit,
-  arbInformationsSecteurPetit,
-  arbSecteurAvecSousSecteurListes,
-  arbSecteurImportantsLocalisablesGrandeEntite,
-  arbSecteurListesSansSousSecteurNiLocaGrand,
-  arbSecteurNonEligiblesPetiteEntite,
   arbStructurePetitPrive,
   arbStructurePetitPublic,
 } from "./ResultatEvaluationRegulation.bases.arbitraire";
@@ -81,7 +87,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
         it("arbInformationsSecteurPetitAutre et arbInformationsSecteurPetit sont exclusifs", () =>
           assertion.exclusifs(
             arbInformationsSecteurAutrePetit,
-            arbInformationsSecteurPetit,
+            arbReponseInformationsSecteurPetit,
           ));
         it("arbInformationsSecteurCompositesPetit et arbInformationsSecteurSimplesPetitNonEligibles sont exclusifs", () =>
           assertion.exclusifs(
@@ -92,12 +98,12 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
           ));
         it("arbInformationsSecteurLocalisesFrancePetit et arbInformationsSecteurLocalisesHorsFrancePetit sont exclusifs", () =>
           assertion.exclusifs(
-            arbInformationsSecteurLocalisesFrancePetit,
-            arbInformationsSecteurLocalisesHorsFrancePetit,
+            arbReponseInformationsSecteurLocalisesFrancePetit,
+            arbReponseInformationsSecteurLocalisesHorsFrancePetit,
           ));
         it("arbInformationsSecteurLocalisesHorsFrancePetit n'a jamais localisation France", () => {
           assertion.propriete(
-            arbInformationsSecteurLocalisesHorsFrancePetit,
+            arbReponseInformationsSecteurLocalisesHorsFrancePetit,
             (capsule) => {
               [...capsule.secteurs].map((secteur) =>
                 expect(secteur).toSatisfy(
@@ -316,7 +322,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
       it("contient toujours une localisation fr", () => {
         assertion.propriete(
           fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-            arbInformationsSecteurLocalisesFrancePetit,
+            arbReponseInformationsSecteurLocalisesFrancePetit,
           ),
           (resultat) => {
             expect(resultat).toSatisfy(estReponseEtatInformationsSecteur);
@@ -334,7 +340,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
       it("contient uniquement des activités localisables PE", () => {
         assertion.propriete(
           fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-            arbInformationsSecteurLocalisesFrancePetit,
+            arbReponseInformationsSecteurLocalisesFrancePetit,
           ),
           (resultat) => {
             expect(resultat).toSatisfy(estReponseEtatInformationsSecteur);

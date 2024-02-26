@@ -34,6 +34,21 @@ import {
   assertionArbitraire,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import {
+  arbInformationsSecteurAutreGrand,
+  arbInformationsSecteurAutrePetit,
+} from "./arbitraires/InformationsSecteur.arbitraires";
+import {
+  arbReponseInformationsSecteurFranceGrandEILocalisationHorsFrance,
+  arbReponseInformationsSecteurGrand,
+  arbReponseInformationsSecteurGrandActivitesAutres,
+  arbReponseInformationsSecteurLocalisesFranceGrandEI,
+  arbReponseInformationsSecteurLocalisesFranceGrandInfranumEE,
+  arbReponseInformationsSecteurLocalisesFranceGrandInfranumEI,
+  arbReponseInformationsSecteurLocalisesFrancePetit,
+  arbReponseInformationsSecteurLocalisesHorsFrancePetit,
+  arbReponseInformationsSecteurPetit,
+} from "./arbitraires/ReponseInformationsSecteur.arbitraires";
+import {
   fabriqueArbJamaisOse_ToujoursFrance_StructureGrand,
   fabriqueArbJamaisOse_ToujoursFrance_StructurePetit,
   tupleArbitrairesJamaisOseJamaisFrance,
@@ -47,17 +62,7 @@ import {
 import {
   arbDesignationOperateurServicesEssentielsJamaisOui,
   arbDesignationOperateurServicesEssentielsToujoursOui,
-  arbInformationsSecteurAutreGrand,
-  arbInformationsSecteurAutrePetit,
-  arbInformationsSecteurGrand,
-  arbInformationsSecteurGrandActivitesAutres,
-  arbInformationsSecteurLocalisesFranceGrandInfranumEE,
-  arbInformationsSecteurLocalisesFranceGrandEI,
-  arbInformationsSecteurLocalisesFrancePetit,
-  arbInformationsSecteurLocalisesHorsFrancePetit,
-  arbInformationsSecteurPetit,
   arbStructurePetit,
-  arbInformationsSecteurLocalisesFranceGrandInfranumEI,
 } from "./arbitraires/ResultatEvaluationRegulation.bases.arbitraire";
 import { arbitrairesResultatRegulation } from "./arbitraires/ResultatRegulation.arbitraires";
 
@@ -72,7 +77,10 @@ const verificationReponseNonRegule = (
 
   const resultatObtenu =
     evalueRegulationEtatReponseInformationsSecteur(reponse);
-  expect(resultatObtenu).toStrictEqual(resultatAttendu);
+  expect(
+    resultatObtenu,
+    afficheDifferences(resultatAttendu, resultatObtenu),
+  ).toStrictEqual(resultatAttendu);
 };
 const fabriqueVerificationReponseDefinitivementRegule =
   (typeEntite: TypeEntite) => (reponse: ResultatEvaluationRegulation) => {
@@ -294,7 +302,7 @@ describe("Regulation Etat Reponse", () => {
         "en suspens / secteurs+activités localisables et bien localisés ==> toujours définitivement régulé EE",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-            arbInformationsSecteurLocalisesFrancePetit,
+            arbReponseInformationsSecteurLocalisesFrancePetit,
           ),
           verificationReponseDefinitivementReguleEE,
         ),
@@ -303,7 +311,7 @@ describe("Regulation Etat Reponse", () => {
         "en suspens / secteurs localisables et localisé hors France ==> toujours définitivement non-régulé",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-            arbInformationsSecteurLocalisesHorsFrancePetit,
+            arbReponseInformationsSecteurLocalisesHorsFrancePetit,
           ),
           verificationReponseNonRegule,
         ),
@@ -312,7 +320,7 @@ describe("Regulation Etat Reponse", () => {
         "en suspens / secteurs liste non eligible ==> toujours définitivement non-régulé",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-            arbInformationsSecteurPetit,
+            arbReponseInformationsSecteurPetit,
           ),
           verificationReponseNonRegule,
         ),
@@ -323,7 +331,7 @@ describe("Regulation Etat Reponse", () => {
         "en suspens / sous-secteur listés ==> toujours définitivement régulé",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            arbInformationsSecteurGrand,
+            arbReponseInformationsSecteurGrand,
           ),
           verificationReponseDefinitivementReguleEI,
         ),
@@ -332,16 +340,16 @@ describe("Regulation Etat Reponse", () => {
         "en suspens / secteurs+activités EI localisables et bien localisés ==> toujours définitivement régulé EI",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            arbInformationsSecteurLocalisesFranceGrandEI,
+            arbReponseInformationsSecteurLocalisesFranceGrandEI,
           ),
           verificationReponseDefinitivementReguleEI,
         ),
       );
       it(
-        "en suspens / secteurs Infrastructure Numérique + activités EI sans localisation ==> toujours définitivement régulé EI",
+        "en suspens / secteurs Infrastructure Numérique + activités EI sans besoin localisation ==> toujours définitivement régulé EI",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            arbInformationsSecteurLocalisesFranceGrandInfranumEI,
+            arbReponseInformationsSecteurLocalisesFranceGrandInfranumEI,
           ),
           verificationReponseDefinitivementReguleEI,
         ),
@@ -350,16 +358,25 @@ describe("Regulation Etat Reponse", () => {
         "en suspens / secteurs+activités EE localisables et bien localisés ==> toujours définitivement régulé EE",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            arbInformationsSecteurLocalisesFranceGrandInfranumEE,
+            arbReponseInformationsSecteurLocalisesFranceGrandInfranumEE,
           ),
           verificationReponseDefinitivementReguleEE,
+        ),
+      );
+      it(
+        "en suspens / secteurs+activités EI localisables et bien localisés ==> toujours définitivement non-régulé",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
+            arbReponseInformationsSecteurFranceGrandEILocalisationHorsFrance,
+          ),
+          verificationReponseNonRegule,
         ),
       );
       it(
         "en suspens / secteurs/sous-secteur listés, uniquement activités autres ==> toujours définitivement non-régulé",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            arbInformationsSecteurGrandActivitesAutres,
+            arbReponseInformationsSecteurGrandActivitesAutres,
           ),
           verificationReponseNonRegule,
         ),
