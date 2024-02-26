@@ -46,6 +46,8 @@ export const arbTrancheMoyenGrand = fc.constantFrom(
 const arbCategorieTaille_Grand = fc.constant("Grand" as const);
 
 const arbTypeStructure_Privee = fc.constant("privee" as const);
+const arbTypeStructure_Publique = fc.constant("publique" as const);
+
 const arbTypeEntitePublique = fc.constantFrom<TypeEntitePublique>(
   ...ValeursTypeEntitePublique,
 );
@@ -94,16 +96,39 @@ const arbStructurePrivee_TrancheEmployesJamaisPetit = fc.record<
   trancheChiffreAffaire: arbTrancheMoyenGrand,
   trancheNombreEmployes: arbTranchePetitMoyenGrand,
 });
+arbTypeEntitePublique.map<ReponseStructure<"publique", "Petit">>(
+  (typeEntitePublique) => ({
+    _categorieTaille: "Petit" as const,
+    typeStructure: "publique",
+    trancheNombreEmployes: "petit",
+    typeEntitePublique: typeEntitePublique,
+  }),
+);
+export const arbStructurePublique_JamaisPetit = arbTypeEntitePublique.chain(
+  (typeEntitePublique) =>
+    fc.record<ReponseStructure<"publique", "Grand">>({
+      _categorieTaille: arbCategorieTaille_Grand,
+      typeStructure: arbTypeStructure_Publique,
+      trancheNombreEmployes: arbTrancheMoyenGrand,
+      typeEntitePublique: fc.constant(typeEntitePublique),
+    }),
+);
+// const arbStructurePrivee_TrancheEmployesJamaisPetit = fc.record<
+//   ReponseStructurePrivee<"Grand">
+// >({
+//   _categorieTaille: fc.constant("Grand"),
+//   typeStructure: arbTypeStructure_Privee,
+//   trancheChiffreAffaire: arbTrancheMoyenGrand,
+//   trancheNombreEmployes: arbTranchePetitMoyenGrand,
+// });
 
 export const arbStructureGrandPrive = fc.oneof(
   arbStructurePrivee_TrancheCAJamaisPetit,
   arbStructurePrivee_TrancheEmployesJamaisPetit,
 );
-export const arbStructurePetit = fc.oneof(
-  arbStructurePetitPrive,
+
+export const arbStructurePublique = fc.oneof(
   arbStructurePetitPublic,
+  arbStructurePublique_JamaisPetit,
 );
-export const arbStructureGrand = fc.oneof(
-  arbStructureGrandPrive,
-  // arbStructurePetitPublic,
-);
+export const arbStructureGrand = arbStructureGrandPrive;

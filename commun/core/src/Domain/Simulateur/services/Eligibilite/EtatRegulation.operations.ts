@@ -127,6 +127,13 @@ export const evalueRegulationEtatReponseStructure = (
       },
       propageDonneesEvaluees("Structure"),
     )
+    .with(
+      {
+        _resultatEvaluationRegulation: "EnSuspens",
+        Structure: { typeStructure: "publique" },
+      },
+      () => fabriqueResultatEvaluationDefinitif("Structure", resultatIncertain),
+    )
     .otherwise(() =>
       fabriqueResultatEvaluationEnSuspens(
         "Structure",
