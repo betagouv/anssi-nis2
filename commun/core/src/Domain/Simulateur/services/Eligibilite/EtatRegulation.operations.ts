@@ -1,4 +1,5 @@
 import { match, P } from "ts-pattern";
+import { et } from "../../../../../../utils/services/predicats.operations";
 import {
   certains,
   tous,
@@ -24,17 +25,20 @@ import {
   fabriqueResultatEvaluationEnSuspens,
   fabriqueResultatEvaluationReguleOse,
 } from "./EtatRegulation.fabriques";
-import { InformationSecteurLocalisable } from "./Reponse.definitions";
+import {
+  CategorieTaille,
+  InformationSecteurLocalisable,
+  InformationSecteurPossible,
+} from "./Reponse.definitions";
 import { propReponseEtat } from "./Reponse.operations";
 import {
   auMoinsUneActiviteListee,
   contientEnsembleAutresSecteurs,
-  contientEnsembleSecteursNonEligiblesPetit,
-  contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit,
   estInformationSecteurAvecActivitesEssentielles,
   estInformationSecteurAvecBesoinLocalisation,
   estInformationsSecteurEligibleSansBesoinLocalisation,
   estSecteurBienLocaliseGrand,
+  estSecteurBienLocaliseHorsFrancePetit,
   estSecteurBienLocalisePetit,
 } from "./Reponse.predicats";
 
@@ -153,9 +157,9 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
     )
     .with(
       {
-        InformationsSecteur: P.when(
-          contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit,
-        ),
+        InformationsSecteur: {
+          secteurs: P.when(tous(estSecteurBienLocaliseHorsFrancePetit)),
+        },
       },
       () =>
         fabriqueResultatEvaluationDefinitif(
@@ -165,7 +169,11 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
     )
     .with(
       {
-        InformationsSecteur: P.when(contientEnsembleSecteursNonEligiblesPetit),
+        InformationsSecteur: {
+          secteurs: P.when(
+            tous(estInformationSecteurAvecActivitesEssentielles),
+          ),
+        },
       },
       () =>
         fabriqueResultatEvaluationDefinitif(
@@ -191,6 +199,18 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
           reponse as ResultatEvaluationRegulationEnSuspens,
         ),
     );
+const contientDesActivitesEssentielles = <T extends CategorieTaille>(
+  s: InformationSecteurPossible<T>,
+) =>
+  certains(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation)(
+    (s as InformationSecteurLocalisable<T>).activites,
+  );
+const contientActivitesListees = <T extends CategorieTaille>(
+  s: InformationSecteurPossible<T>,
+) =>
+  certains(estActiviteListee)(
+    (s as InformationSecteurLocalisable<T>).activites,
+  );
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
   reponse: ResultatEvaluationRegulationEnSuspens,
 ): ResultatEvaluationRegulation =>
@@ -198,14 +218,12 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
     .with(
       {
         InformationsSecteur: {
-          secteurs: P.intersection(
-            P.when(tous(estSecteurBienLocaliseGrand)),
-            P.when(tous(estInformationSecteurAvecActivitesEssentielles)),
-            P.when(
-              tous((s) =>
-                tous(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation)(
-                  (s as InformationSecteurLocalisable<"Grand">).activites,
-                ),
+          secteurs: P.when(
+            certains(
+              et(
+                estInformationSecteurAvecActivitesEssentielles,
+                contientDesActivitesEssentielles,
+                estSecteurBienLocaliseGrand,
               ),
             ),
           ),
@@ -220,14 +238,12 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
     .with(
       {
         InformationsSecteur: {
-          secteurs: P.intersection(
-            P.when(tous(estSecteurBienLocaliseGrand)),
-            P.when(tous(estInformationSecteurAvecActivitesEssentielles)),
-            P.when(
-              tous((s) =>
-                tous(estActiviteListee)(
-                  (s as InformationSecteurLocalisable<"Grand">).activites,
-                ),
+          secteurs: P.when(
+            certains(
+              et(
+                estInformationSecteurAvecActivitesEssentielles,
+                contientActivitesListees,
+                estSecteurBienLocaliseGrand,
               ),
             ),
           ),
@@ -242,9 +258,13 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
     .with(
       {
         InformationsSecteur: {
-          secteurs: P.intersection(
-            P.when(tous(estSecteurBienLocaliseGrand)),
-            P.when(tous(estInformationSecteurAvecBesoinLocalisation)),
+          secteurs: P.when(
+            certains(
+              et(
+                estInformationSecteurAvecBesoinLocalisation,
+                estSecteurBienLocaliseGrand,
+              ),
+            ),
           ),
         },
       },
@@ -257,10 +277,13 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
     .with(
       {
         InformationsSecteur: {
-          secteurs: P.intersection(
-            P.when(tous(estInformationsSecteurEligibleSansBesoinLocalisation)),
-            // P.when(tous(estSecteurBienLocaliseGrand)),
-            P.when(certains(auMoinsUneActiviteListee)),
+          secteurs: P.when(
+            certains(
+              et(
+                estInformationsSecteurEligibleSansBesoinLocalisation,
+                auMoinsUneActiviteListee,
+              ),
+            ),
           ),
         },
       },

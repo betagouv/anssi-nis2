@@ -25,15 +25,8 @@ import {
   InformationsSecteurPossibleNonLocalisees,
   InformationsSecteurPossiblesAutre,
   InformationsSecteursComposite,
-  ReponseInformationsSecteur,
 } from "./Reponse.definitions";
 
-export const estReponseInformationsSecteurPetit = (
-  info:
-    | ReponseInformationsSecteur<"Petit">
-    | ReponseInformationsSecteur<"Grand">,
-): info is ReponseInformationsSecteur<"Petit"> =>
-  info._categorieTaille === "Petit";
 export const eqInformationsSecteur = (
   a: InformationSecteurPossible<CategorieTaille>,
   b: InformationSecteurPossible<CategorieTaille>,
@@ -136,17 +129,3 @@ export const auMoinsUneActiviteListee = flow<
   prop<Set<Activite>, "activites">("activites"),
   certains(estActiviteListee),
 ) as predicatInformationSecteurPossible;
-export const contientEnsembleSecteursRepresentantsLocalisesHorsFrancePetit = (
-  info:
-    | ReponseInformationsSecteur<"Petit">
-    | ReponseInformationsSecteur<"Grand">,
-) =>
-  estReponseInformationsSecteurPetit(info) &&
-  tous(estSecteurBienLocaliseHorsFrancePetit)(info.secteurs);
-export const contientEnsembleSecteursNonEligiblesPetit = (
-  info:
-    | ReponseInformationsSecteur<"Petit">
-    | ReponseInformationsSecteur<"Grand">,
-) =>
-  estReponseInformationsSecteurPetit(info) &&
-  tous(estInformationSecteurAvecActivitesEssentielles)(info.secteurs);
