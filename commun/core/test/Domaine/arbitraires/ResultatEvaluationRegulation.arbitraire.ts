@@ -1,4 +1,5 @@
 import { fc } from "@fast-check/vitest";
+import { TypeStructure } from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
 import { ResultatEvaluationRegulation } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import {
   CategorieTaille,
@@ -37,19 +38,19 @@ export const tupleArbitrairesJamaisOseToujoursFrance: TupleArbitrairesDesignatio
 type FabriqueArbReponseSimulateurParams<T extends CategorieTaille> = [
   ReponseDesignationOperateurServicesEssentiels,
   ReponseAppartenancePaysUnionEuropeenne,
-  ReponseStructure<T>,
+  ReponseStructure<TypeStructure, T>,
   ReponseInformationsSecteur<T>,
 ];
 export const mapTupleArbitrairesToujoursFrance =
-  <T extends CategorieTaille>(
+  <Structure extends TypeStructure, Taille extends CategorieTaille>(
     fabrique: (
-      arr: FabriqueArbReponseSimulateurParams<T>,
+      arr: FabriqueArbReponseSimulateurParams<Taille>,
     ) => ResultatEvaluationRegulation,
   ) =>
-  (arbStructure: fc.Arbitrary<ReponseStructure<T>>) =>
-  (arbInformationsSecteur: fc.Arbitrary<ReponseInformationsSecteur<T>>) =>
+  (arbStructure: fc.Arbitrary<ReponseStructure<Structure, Taille>>) =>
+  (arbInformationsSecteur: fc.Arbitrary<ReponseInformationsSecteur<Taille>>) =>
     fc
-      .tuple<FabriqueArbReponseSimulateurParams<T>>(
+      .tuple<FabriqueArbReponseSimulateurParams<Taille>>(
         ...tupleArbitrairesJamaisOseToujoursFrance,
         arbStructure,
         arbInformationsSecteur,

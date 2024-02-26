@@ -3,6 +3,7 @@ import { GuardP } from "ts-pattern/dist/types/Pattern";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
+  TypeStructure,
 } from "../../ChampsSimulateur.definitions";
 import {
   DonneesFormulaireSimulateur,
@@ -107,10 +108,10 @@ export const FabriqueEtatDonneesSimulateur = {
       appartenancePaysUnionEuropeenne.appartenancePaysUnionEuropeenne,
     ),
 
-  structureChaine: (
+  structureChaine: <Structure extends TypeStructure>(
     designationOperateurServicesEssentiel: ReponseDesignationOperateurServicesEssentiels,
     appartenancePaysUnionEuropeenne: ReponseAppartenancePaysUnionEuropeenne,
-    structure: ReponseStructure<CategorieTaille>,
+    structure: ReponseStructure<Structure, CategorieTaille>,
   ): ReponseEtatStructure => ({
     ...FabriqueEtatDonneesSimulateur.appartenancePaysUnionEuropeenneChaine(
       designationOperateurServicesEssentiel,

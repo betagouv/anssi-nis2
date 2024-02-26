@@ -15,6 +15,7 @@ import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeEntitePublique,
+  TypeStructure,
 } from "../../ChampsSimulateur.definitions";
 import {
   SecteurActivite,
@@ -37,14 +38,15 @@ export type ReponseAppartenancePaysUnionEuropeenne = {
   appartenancePaysUnionEuropeenne: AppartenancePaysUnionEuropeenne;
 };
 
-export type TypeStructurePrivee = {
-  typeStructure: "privee";
-};
-
-export type TypeStructurePublique = {
-  typeStructure: "publique";
-  typeEntitePublique: TypeEntitePublique;
-};
+export type InformationsTypeStructure<T extends TypeStructure> =
+  T extends "privee"
+    ? {
+        typeStructure: "privee";
+      }
+    : {
+        typeStructure: "publique";
+        typeEntitePublique: TypeEntitePublique;
+      };
 
 export type CategorieTaille = "Petit" | "Grand";
 
@@ -83,17 +85,26 @@ export type TranchesTaillePublic<T extends CategorieTaille> = T extends "Petit"
   ? TrancheTaillePublicPetit
   : TrancheTaillePublicGrand;
 
+export type TailleSecteur<
+  S extends TypeStructure,
+  T extends CategorieTaille,
+> = S extends "privee" ? TailleSecteurPrive<T> : TailleSecteurPublic<T>;
+
+export type ReponseStructurePrivee<T extends CategorieTaille> =
+  InformationsTypeStructure<"privee"> & TailleSecteur<"privee", T>;
+
 export type TailleSecteurPublic<T extends CategorieTaille> =
   TranchesTaillePublic<T> & CategoriseTaille<T>;
-export type ReponseStructurePrivee<T extends CategorieTaille> =
-  TypeStructurePrivee & TailleSecteurPrive<T>;
 
 export type ReponseStructurePublique<T extends CategorieTaille> =
-  TypeStructurePublique & TailleSecteurPublic<T>;
+  InformationsTypeStructure<"publique"> & TailleSecteur<"publique", T>;
 
-export type ReponseStructure<T extends CategorieTaille> =
-  | ReponseStructurePrivee<T>
-  | ReponseStructurePublique<T>;
+export type ReponseStructure<
+  S extends TypeStructure,
+  T extends CategorieTaille,
+> = S extends "privee"
+  ? ReponseStructurePrivee<T>
+  : ReponseStructurePublique<T>;
 
 export type InformationSousSecteurAutre<S extends SecteursAvecSousSecteurs> = {
   secteurActivite: S;

@@ -9,8 +9,8 @@ import {
   ValeursTypeEntitePublique,
 } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
 import {
+  ReponseStructure,
   ReponseStructurePrivee,
-  ReponseStructurePublique,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 
 export const arbDesignationOperateurServicesEssentielsToujoursOui = fc.constant(
@@ -58,7 +58,7 @@ export const arbFournitServiceUnionEuropeenne_ToujoursNon = fc.constant(
 );
 
 export const arbStructurePetitPrive = fc.constant<
-  ReponseStructurePrivee<"Petit"> | ReponseStructurePublique<"Petit">
+  ReponseStructure<"privee", "Petit">
 >({
   _categorieTaille: "Petit" as const,
   typeStructure: "privee",
@@ -66,7 +66,7 @@ export const arbStructurePetitPrive = fc.constant<
   trancheNombreEmployes: "petit",
 });
 export const arbStructurePetitPublic = arbTypeEntitePublique.map<
-  ReponseStructurePrivee<"Petit"> | ReponseStructurePublique<"Petit">
+  ReponseStructure<"publique", "Petit">
 >((typeEntitePublique) => ({
   _categorieTaille: "Petit" as const,
   typeStructure: "publique",

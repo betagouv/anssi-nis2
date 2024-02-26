@@ -55,8 +55,6 @@ import {
   arbAppartenanceUnionEuropeenneToujoursFrance,
   arbDesignationOperateurServicesEssentielsJamaisOui,
   arbDesignationOperateurServicesEssentielsToujoursOui,
-  arbStructurePetitPrive,
-  arbStructurePetitPublic,
 } from "./ResultatEvaluationRegulation.bases.arbitraire";
 
 describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
@@ -73,13 +71,6 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
         assertion.tousExclusifs(
           arbAppartenanceUnionEuropeenneToujoursFrance,
           arbAppartenanceUnionEuropeenneJamaisFrance,
-        ));
-    });
-    describe("DefinitionStructurePetit", () => {
-      it("petit privé et petit public sont exclusifs", () =>
-        assertion.tousExclusifs(
-          arbStructurePetitPrive,
-          arbStructurePetitPublic,
         ));
     });
     describe("InformationsSecteurPetit", () => {

@@ -8,6 +8,7 @@ import {
 import {
   AppartenancePaysUnionEuropeenne,
   FournitServicesUnionEuropeenne,
+  TypeStructure,
 } from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
 import { resultatIncertain } from "../../../src/Domain/Simulateur/Regulation.constantes";
 import {
@@ -272,7 +273,7 @@ export const fabriqueResultatEvaluationEnSuspensStructure = ([
 ]: [
   ReponseDesignationOperateurServicesEssentiels,
   ReponseAppartenancePaysUnionEuropeenne,
-  ReponseStructure<CategorieTaille>,
+  ReponseStructure<TypeStructure, CategorieTaille>,
 ]) =>
   fabriqueResultatEvaluationEnSuspens(
     "AppartenancePaysUnionEuropeenne",

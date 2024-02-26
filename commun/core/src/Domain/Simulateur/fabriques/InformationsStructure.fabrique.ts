@@ -1,3 +1,4 @@
+import { TypeStructure } from "../ChampsSimulateur.definitions";
 import { DonneesFormulaireSimulateur } from "../DonneesFormulaire.definitions";
 import { contientPetiteEntreprise } from "../services/DonneesFormulaire/DonneesFormulaire.predicats";
 import {
@@ -43,7 +44,7 @@ export const FabriqueInformationsStructure = {
 
   structurePetite: (
     donnees: DonneesFormulaireSimulateur,
-  ): ReponseStructurePrivee<"Petit"> | ReponseStructurePublique<"Petit"> =>
+  ): ReponseStructure<TypeStructure, "Petit"> =>
     donnees.typeStructure[0] === "publique"
       ? FabriqueInformationsStructure.structurePubliquePetite(donnees)
       : FabriqueInformationsStructure.structurePriveePetite(),
@@ -57,7 +58,7 @@ export const FabriqueInformationsStructure = {
 
   structure: (
     donnees: DonneesFormulaireSimulateur,
-  ): ReponseStructure<CategorieTaille> =>
+  ): ReponseStructure<TypeStructure, CategorieTaille> =>
     contientPetiteEntreprise(donnees)
       ? FabriqueInformationsStructure.structurePetite(donnees)
       : FabriqueInformationsStructure.structureGrande(donnees),

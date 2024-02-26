@@ -1,3 +1,4 @@
+import { TypeStructure } from "../../ChampsSimulateur.definitions";
 import {
   CategorieTaille,
   ReponseAppartenancePaysUnionEuropeenne,
@@ -15,7 +16,7 @@ export type CapsuleAppartenancePaysUnionEuropeenne = {
   AppartenancePaysUnionEuropeenne: ReponseAppartenancePaysUnionEuropeenne;
 };
 export type CapsuleStructure = {
-  Structure: ReponseStructure<CategorieTaille>;
+  Structure: ReponseStructure<TypeStructure, CategorieTaille>;
 };
 export type CapsuleInformationsSecteur =
   | {
