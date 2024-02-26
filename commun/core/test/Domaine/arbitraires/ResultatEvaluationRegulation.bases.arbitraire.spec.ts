@@ -16,8 +16,8 @@ import {
 } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 import {
   estEtablissementPrincipalFournitUE,
-  estInformationSecteurLocalisablePetiteEntreprise,
-  estSecteurBienLocaliseHorsFrancePetit,
+  estInformationSecteurAvecActivitesEssentielles,
+  estSecteurBienLocaliseHorsFrance,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.predicats";
 import { ReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.definitions";
 import { estSecteurListe } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
@@ -107,7 +107,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
             (capsule) => {
               [...capsule.secteurs].map((secteur) =>
                 expect(secteur).toSatisfy(
-                  estSecteurBienLocaliseHorsFrancePetit,
+                  estSecteurBienLocaliseHorsFrance<"Petit">,
                 ),
               );
             },
@@ -296,7 +296,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
           (ensembleSecteurs) => {
             [...ensembleSecteurs].map((secteur) =>
               expect(secteur).toSatisfy(
-                estInformationSecteurLocalisablePetiteEntreprise,
+                estInformationSecteurAvecActivitesEssentielles<"Petit">,
               ),
             );
           },
@@ -309,7 +309,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
           (ensembleSecteurs) => {
             [...ensembleSecteurs].map((secteur) =>
               expect(secteur).not.toSatisfy(
-                estInformationSecteurLocalisablePetiteEntreprise,
+                estInformationSecteurAvecActivitesEssentielles<"Petit">,
               ),
             );
           },

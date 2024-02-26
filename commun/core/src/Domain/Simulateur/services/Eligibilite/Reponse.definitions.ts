@@ -1,12 +1,12 @@
 import { ExtraitAutre } from "../../../../../../utils/types/Extrait";
 import { Tag } from "../../../../../../utils/types/Tag";
 import {
+  ActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
   ActiviteSecteursSimples,
   ActivitesEnergie,
   ActivitesFabrication,
   ActivitesFournisseursNumeriques,
   ActivitesGestionServicesTic,
-  ActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
   ActivitesTransports,
 } from "../../Activite.definitions";
 import {
@@ -184,3 +184,6 @@ export type InformationsSecteurPetitAlternatives<T extends CategorieTaille> = {
 
 export type ReponseInformationsSecteur<T extends CategorieTaille> =
   CategoriseTaille<T> & InformationsSecteurPetitAlternatives<T>;
+export type predicatInformationSecteurPossible = (
+  i: InformationSecteurPossible<CategorieTaille>,
+) => boolean;

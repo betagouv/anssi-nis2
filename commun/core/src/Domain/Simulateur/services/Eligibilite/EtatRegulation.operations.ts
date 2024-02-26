@@ -1,5 +1,5 @@
 import { match, P } from "ts-pattern";
-import { et } from "../../../../../../utils/services/predicats.operations";
+import { et, ou } from "../../../../../../utils/services/predicats.operations";
 import {
   certains,
   tous,
@@ -33,13 +33,14 @@ import {
 import { propReponseEtat } from "./Reponse.operations";
 import {
   auMoinsUneActiviteListee,
-  contientEnsembleAutresSecteurs,
-  estInformationSecteurAvecActivitesEssentielles,
   estInformationSecteurAvecBesoinLocalisation,
+  estInformationSecteurAvecActivitesEssentielles,
   estInformationsSecteurEligibleSansBesoinLocalisation,
   estSecteurBienLocaliseGrand,
-  estSecteurBienLocaliseHorsFrancePetit,
+  estSecteurBienLocaliseHorsFrance,
   estSecteurBienLocalisePetit,
+  estInformationSecteurSecteurAutre,
+  estInformationSecteurSousSecteurAutre,
 } from "./Reponse.predicats";
 
 const propageDonneesEvaluees =
@@ -97,13 +98,12 @@ export const evalueRegulationEtatReponseLocalisation = (
           resultatIncertain,
         ),
     )
-    .otherwise(
-      (): ResultatEvaluationRegulationEnSuspens =>
-        fabriqueResultatEvaluationEnSuspens(
-          "AppartenancePaysUnionEuropeenne",
-          resultatIncertain,
-          reponse as ResultatEvaluationRegulationEnSuspens,
-        ),
+    .otherwise(() =>
+      fabriqueResultatEvaluationEnSuspens(
+        "AppartenancePaysUnionEuropeenne",
+        resultatIncertain,
+        reponse as ResultatEvaluationRegulationEnSuspens,
+      ),
     );
 export const evalueRegulationEtatReponseStructure = (
   reponse: ResultatEvaluationRegulation,
@@ -115,13 +115,12 @@ export const evalueRegulationEtatReponseStructure = (
       },
       propageDonneesEvaluees("Structure"),
     )
-    .otherwise(
-      (): ResultatEvaluationRegulationEnSuspens =>
-        fabriqueResultatEvaluationEnSuspens(
-          "Structure",
-          resultatIncertain,
-          reponse as ResultatEvaluationRegulationEnSuspens,
-        ),
+    .otherwise(() =>
+      fabriqueResultatEvaluationEnSuspens(
+        "Structure",
+        resultatIncertain,
+        reponse as ResultatEvaluationRegulationEnSuspens,
+      ),
     );
 
 const fabriqueResultatEvaluationDefinitifCarSecteur = (
@@ -158,7 +157,7 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
     .with(
       {
         InformationsSecteur: {
-          secteurs: P.when(tous(estSecteurBienLocaliseHorsFrancePetit)),
+          secteurs: P.when(tous(estSecteurBienLocaliseHorsFrance)),
         },
       },
       () =>
@@ -191,13 +190,12 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
           resultatNonRegule,
         ),
     )
-    .otherwise(
-      (): ResultatEvaluationRegulationEnSuspens =>
-        fabriqueResultatEvaluationEnSuspens(
-          "InformationsSecteur",
-          resultatIncertain,
-          reponse as ResultatEvaluationRegulationEnSuspens,
-        ),
+    .otherwise(() =>
+      fabriqueResultatEvaluationEnSuspens(
+        "InformationsSecteur",
+        resultatIncertain,
+        reponse,
+      ),
     );
 const contientDesActivitesEssentielles = <T extends CategorieTaille>(
   s: InformationSecteurPossible<T>,
@@ -303,13 +301,12 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
           resultatNonRegule,
         ),
     )
-    .otherwise(
-      (): ResultatEvaluationRegulationEnSuspens =>
-        fabriqueResultatEvaluationEnSuspens(
-          "InformationsSecteur",
-          resultatIncertain,
-          reponse as ResultatEvaluationRegulationEnSuspens,
-        ),
+    .otherwise(() =>
+      fabriqueResultatEvaluationEnSuspens(
+        "InformationsSecteur",
+        resultatIncertain,
+        reponse,
+      ),
     );
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
   reponse: ResultatEvaluationRegulationEnSuspens,
@@ -341,13 +338,12 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
           resultatNonRegule,
         ),
     )
-    .otherwise(
-      (): ResultatEvaluationRegulationEnSuspens =>
-        fabriqueResultatEvaluationEnSuspens(
-          "InformationsSecteur",
-          resultatIncertain,
-          reponse as ResultatEvaluationRegulationEnSuspens,
-        ),
+    .otherwise(() =>
+      fabriqueResultatEvaluationEnSuspens(
+        "InformationsSecteur",
+        resultatIncertain,
+        reponse,
+      ),
     );
 
 export const evalueRegulationEtatReponseInformationsSecteur = (
@@ -360,11 +356,24 @@ export const evalueRegulationEtatReponseInformationsSecteur = (
       },
       propageDonneesEvaluees("InformationsSecteur"),
     )
-    .when(contientEnsembleAutresSecteurs, () =>
-      fabriqueResultatEvaluationDefinitif(
-        "InformationsSecteur",
-        resultatNonRegule,
-      ),
+    .with(
+      {
+        InformationsSecteur: {
+          secteurs: P.when(
+            tous(
+              ou(
+                estInformationSecteurSecteurAutre,
+                estInformationSecteurSousSecteurAutre,
+              ),
+            ),
+          ),
+        },
+      },
+      () =>
+        fabriqueResultatEvaluationDefinitif(
+          "InformationsSecteur",
+          resultatNonRegule,
+        ),
     )
     .with(
       {
@@ -374,12 +383,10 @@ export const evalueRegulationEtatReponseInformationsSecteur = (
       },
       evalueRegulationEtatReponseInformationsSecteurEnSuspens,
     )
-
-    .otherwise(
-      (): ResultatEvaluationRegulationEnSuspens =>
-        fabriqueResultatEvaluationEnSuspens(
-          "InformationsSecteur",
-          resultatIncertain,
-          reponse as ResultatEvaluationRegulationEnSuspens,
-        ),
+    .otherwise(() =>
+      fabriqueResultatEvaluationEnSuspens(
+        "InformationsSecteur",
+        resultatIncertain,
+        reponse as ResultatEvaluationRegulationEnSuspens,
+      ),
     );
