@@ -18,12 +18,10 @@ import { estSousSecteurAutre } from "../SousSecteurActivite/SousSecteurActivite.
 import { ResultatEvaluationRegulation } from "./EtatRegulation.definitions";
 import { estReponseEtatInformationsSecteur } from "./EtatRegulation.predicats";
 import {
+  CategorieTaille,
   EtablissementPrincipalFournitUE,
-  InformationSecteurLocalisableGrandeEntite,
-  InformationSecteurLocalisablePetiteEntite,
+  InformationSecteurLocalisable,
   InformationSecteurPossible,
-  InformationSecteurPossibleGrand,
-  InformationSecteurPossiblePetit,
   InformationsSecteurPossibleNonLocalisees,
   InformationsSecteurPossiblesAutre,
   InformationsSecteursComposite,
@@ -37,24 +35,24 @@ export const estReponseInformationsSecteurPetit = (
 ): info is ReponseInformationsSecteur<"Petit"> =>
   info._categorieTaille === "Petit";
 export const eqInformationsSecteur = (
-  a: InformationSecteurPossible,
-  b: InformationSecteurPossible,
+  a: InformationSecteurPossible<CategorieTaille>,
+  b: InformationSecteurPossible<CategorieTaille>,
 ) => a.secteurActivite === b.secteurActivite;
 export const estEtablissementPrincipalFournitUE = (
   reponse:
-    | InformationSecteurLocalisablePetiteEntite
+    | InformationSecteurLocalisable<"Petit">
     | EtablissementPrincipalFournitUE,
 ): reponse is EtablissementPrincipalFournitUE =>
   reponse.fournitServicesUnionEuropeenne === "oui";
 
 export const estInformationSecteurAvecActivitesEssentielles = (
-  informationsSecteur: InformationSecteurPossible,
+  informationsSecteur: InformationSecteurPossible<CategorieTaille>,
 ) =>
   estSecteurAvecActivitesEssentielles(
     informationsSecteur.secteurActivite as SecteurActivite,
   );
 export const estInformationSecteurAvecActivitesEssentiellesGrand = (
-  informationsSecteur: InformationSecteurPossible,
+  informationsSecteur: InformationSecteurPossible<CategorieTaille>,
 ) =>
   estSecteurAvecActivitesEssentielles(
     informationsSecteur.secteurActivite as SecteurActivite,
@@ -62,24 +60,24 @@ export const estInformationSecteurAvecActivitesEssentiellesGrand = (
 
 export const estInformationSecteurLocalisablePetiteEntreprise = (
   sec:
-    | InformationSecteurPossiblePetit
+    | InformationSecteurPossible<"Petit">
     | InformationsSecteurPossiblesAutre
     | InformationsSecteurPossibleNonLocalisees,
-): sec is InformationSecteurLocalisablePetiteEntite =>
+): sec is InformationSecteurLocalisable<"Petit"> =>
   estSecteurAvecActivitesEssentielles(sec.secteurActivite as SecteurActivite);
 export const estInformationSecteurLocalisableGrandeEntite = (
   sec:
-    | InformationSecteurPossibleGrand
+    | InformationSecteurPossible<"Grand">
     | InformationsSecteurPossiblesAutre
     | InformationsSecteurPossibleNonLocalisees,
-): sec is InformationSecteurLocalisableGrandeEntite =>
+): sec is InformationSecteurLocalisable<"Grand"> =>
   estSecteurAvecBesoinLocalisationRepresentantGrandeEntite(
     sec.secteurActivite as SecteurActivite,
   ) ||
   estSecteurAvecActivitesEssentielles(sec.secteurActivite as SecteurActivite);
 export const estSecteurBienLocalisePetit = (
   sec:
-    | InformationSecteurPossiblePetit
+    | InformationSecteurPossible<"Petit">
     | InformationsSecteurPossiblesAutre
     | InformationsSecteurPossibleNonLocalisees,
 ) =>
@@ -88,7 +86,7 @@ export const estSecteurBienLocalisePetit = (
   sec.localisationRepresentant === "france";
 export const estSecteurBienLocaliseGrand = (
   sec:
-    | InformationSecteurPossibleGrand
+    | InformationSecteurPossible<"Grand">
     | InformationsSecteurPossiblesAutre
     | InformationsSecteurPossibleNonLocalisees,
 ) =>
@@ -97,7 +95,7 @@ export const estSecteurBienLocaliseGrand = (
   sec.localisationRepresentant === "france";
 export const estSecteurBienLocaliseHorsFrancePetit = (
   sec:
-    | InformationSecteurPossiblePetit
+    | InformationSecteurPossible<"Petit">
     | InformationsSecteurPossiblesAutre
     | InformationsSecteurPossibleNonLocalisees,
 ) =>
@@ -110,7 +108,7 @@ export const contientEnsembleAutresSecteurs = (
 ) =>
   estReponseEtatInformationsSecteur(info) &&
   tous(
-    (sec: InformationSecteurPossiblePetit) =>
+    (sec: InformationSecteurPossible<"Petit">) =>
       estSecteurAutre(sec.secteurActivite as SecteurActivite) ||
       estSousSecteurAutre(
         (sec as InformationsSecteursComposite)
@@ -118,7 +116,7 @@ export const contientEnsembleAutresSecteurs = (
       ),
   )(info.InformationsSecteur.secteurs);
 export type predicatInformationSecteurPossible = (
-  i: InformationSecteurPossible,
+  i: InformationSecteurPossible<CategorieTaille>,
 ) => boolean;
 export const estInformationsSecteurEligible = flow<
   [{ secteurActivite: SecteurActivite }],

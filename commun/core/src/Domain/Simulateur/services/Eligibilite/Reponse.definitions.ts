@@ -126,6 +126,11 @@ export type InformationSecteurSimple = {
   activites: Set<ActiviteSecteursSimples>;
 };
 
+export type InformationsSecteursCompositeListe =
+  | InformationSecteurEnergie
+  | InformationSecteurFabrication
+  | InformationSecteurTransport;
+
 export type EtablissementPrincipalNeFournitPasUE = {
   fournitServicesUnionEuropeenne: "non";
 };
@@ -138,18 +143,18 @@ export type EtablissementPrincipalLocalisation =
   | EtablissementPrincipalNeFournitPasUE
   | EtablissementPrincipalFournitUE;
 
-export type InformationSecteurLocalisablePetiteEntite = {
-  secteurActivite: SecteurAvecBesoinLocalisationRepresentant;
-  activites: Set<ActiviteInfrastructureNumeriqueAvecBesoinLocalisation>;
-} & EtablissementPrincipalLocalisation;
+type ActivitesAvecBesoinLocalisationRepresentant<
+  Taille extends CategorieTaille,
+> = Taille extends "Petit"
+  ? ActiviteInfrastructureNumeriqueAvecBesoinLocalisation
+  :
+      | ActiviteInfrastructureNumeriqueAvecBesoinLocalisation
+      | ActivitesFournisseursNumeriques
+      | ActivitesGestionServicesTic;
 
-export type InformationSecteurLocalisableGrandeEntite = {
+export type InformationSecteurLocalisable<Taille extends CategorieTaille> = {
   secteurActivite: SecteurAvecBesoinLocalisationRepresentant;
-  activites: Set<
-    | ActiviteInfrastructureNumeriqueAvecBesoinLocalisation
-    | ActivitesFournisseursNumeriques
-    | ActivitesGestionServicesTic
-  >;
+  activites: Set<ActivitesAvecBesoinLocalisationRepresentant<Taille>>;
 } & EtablissementPrincipalLocalisation;
 
 export type InformationSecteurSimpleAutre = {
@@ -164,37 +169,18 @@ export type InformationsSecteurPossibleNonLocalisees =
   | InformationsSecteursCompositeListe
   | InformationSecteurSimple;
 
-export type InformationSecteurPossiblePetit =
+export type InformationSecteurPossible<Taille extends CategorieTaille> =
   | InformationsSecteurPossibleNonLocalisees
-  | InformationSecteurLocalisablePetiteEntite
+  | InformationSecteurLocalisable<Taille>
   | InformationsSecteurPossiblesAutre;
-
-export type InformationSecteurPossibleGrand =
-  | InformationsSecteurPossibleNonLocalisees
-  | InformationSecteurLocalisableGrandeEntite
-  | InformationsSecteurPossiblesAutre;
-
-export type InformationsSecteursCompositeListe =
-  | InformationSecteurEnergie
-  | InformationSecteurFabrication
-  | InformationSecteurTransport;
 
 export type InformationsSecteursComposite =
   | InformationSousSecteurAutre<SecteursAvecSousSecteurs>
   | InformationsSecteursCompositeListe;
 
-export type InformationSecteurPossible =
-  | InformationSecteurPossiblePetit
-  | InformationSecteurPossibleGrand;
-
-export type InformationsSecteurPetitAlternatives<T extends CategorieTaille> =
-  T extends "Petit"
-    ? {
-        secteurs: Set<InformationSecteurPossiblePetit>;
-      }
-    : {
-        secteurs: Set<InformationSecteurPossibleGrand>;
-      };
+export type InformationsSecteurPetitAlternatives<T extends CategorieTaille> = {
+  secteurs: Set<InformationSecteurPossible<T>>;
+};
 
 export type ReponseInformationsSecteur<T extends CategorieTaille> =
   CategoriseTaille<T> & InformationsSecteurPetitAlternatives<T>;

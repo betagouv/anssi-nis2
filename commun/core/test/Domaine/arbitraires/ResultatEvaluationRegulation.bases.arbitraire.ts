@@ -28,13 +28,13 @@ import {
 } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
 import {
   estActiviteAutre,
-  estActiviteInfrastructureNumeriqueEligiblesGrandeEntite,
+  estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
   estActiviteInfrastructureNumeriqueEligiblesPetitEntite,
+  estActiviteInfrastructureNumeriqueSansBesoinLocalisation,
   estActiviteListee,
 } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import {
-  InformationSecteurLocalisableGrandeEntite,
-  InformationSecteurLocalisablePetiteEntite,
+  InformationSecteurLocalisable,
   InformationSecteurSimple,
   InformationsSecteursCompositeListe,
   ReponseInformationsSecteur,
@@ -54,7 +54,7 @@ import {
   fabriqueArbInformationsSecteurAutre,
   fabriqueArbitraireCapsuleSecteurGrand,
   fabriqueArbitraireCapsuleSecteurLocalisable,
-  fabriqueArbitraireCapsuleSecteurLocalisableGrand,
+  fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France,
   fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFrance,
   fabriqueArbitraireCapsuleSecteurPetit,
   fabriqueArbitraireEnsembleActivitesPourSecteur,
@@ -64,6 +64,7 @@ import {
   fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableHorsUe,
   fabriqueArbitrairesEnsembleInformationsSecteurs,
 } from "./ResultatEvaluationRegulation.arbitraire.fabrique";
+import { flow } from "fp-ts/lib/function";
 
 export const arbDesignationOperateurServicesEssentielsToujoursOui = fc.constant(
   {
@@ -201,7 +202,7 @@ export const arbInformationsSecteurLocaliseesFranceGrandeEI = fc.oneof(
       fc.constant("france"),
       fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
         (activite: Activite) =>
-          !estActiviteInfrastructureNumeriqueEligiblesGrandeEntite(activite) &&
+          !estActiviteInfrastructureNumeriqueAvecBesoinLocalisation(activite) &&
           estActiviteListee(activite),
       )<SecteurAvecBesoinLocalisationRepresentant, ActivitesLocalisablesGrand>,
     ),
@@ -221,12 +222,35 @@ export const arbInformationsSecteurLocaliseesFranceGrandeEI = fc.oneof(
  *    telles que
  * secteur dans "infrastructureNumerique" et activite registre ou fournisseur DNS
  */
-export const arbInformationsSecteurLocaliseesFranceGrandeEE =
+export const arbInformationsSecteurLocaliseesFranceGrandeInfranumEE =
   arbSecteurInfrascructureNumerique.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand(
       fc.constant("france"),
       fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
-        estActiviteInfrastructureNumeriqueEligiblesGrandeEntite,
+        estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+      )<SecteurAvecBesoinLocalisationRepresentant, ActivitesLocalisablesGrand>,
+    ),
+  );
+/**
+ * InformationSecteurLocalisableGrandeEntite
+ *    telles que
+ * secteur dans "infrastructureNumerique"
+ *      et
+ * activite dans :
+ *  - "fournisseurPointEchangeInternet",
+ *  - "fournisseurServicesInformatiqueNuage",
+ *  - "fournisseurServiceCentresDonnees",
+ *  - "fournisseurReseauxDiffusionContenu",
+ *  - "prestataireServiceConfiance",
+ */
+export const arbInformationsSecteurLocaliseesFranceGrandeInfranumEI =
+  arbSecteurInfrascructureNumerique.chain(
+    fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand(
+      fc.constant("france"),
+      fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
+        (activite) =>
+          estActiviteInfrastructureNumeriqueSansBesoinLocalisation(activite) &&
+          estActiviteListee(activite),
       )<SecteurAvecBesoinLocalisationRepresentant, ActivitesLocalisablesGrand>,
     ),
   );
@@ -281,20 +305,19 @@ export const arbEnsembleSecteursSimplesEligiblesPetitActivitesAutres: fc.Arbitra
   ),
 );
 export const arbEnsembleSecteursLocalisablesPetitFrance: fc.Arbitrary<
-  Set<InformationSecteurLocalisablePetiteEntite>
-> =
-  fabriqueArbitrairesEnsembleInformationsSecteurs<InformationSecteurLocalisablePetiteEntite>(
-    arbInformationsSecteurLocaliseesFrancePetite,
-  );
+  Set<InformationSecteurLocalisable<"Petit">>
+> = fabriqueArbitrairesEnsembleInformationsSecteurs<
+  InformationSecteurLocalisable<"Petit">
+>(arbInformationsSecteurLocaliseesFrancePetite);
 export const arbEnsembleSecteursLocalisablesNonFrance: fc.Arbitrary<
-  Set<InformationSecteurLocalisablePetiteEntite>
+  Set<InformationSecteurLocalisable<"Petit">>
 > = fc.oneof(
-  fabriqueArbitrairesEnsembleInformationsSecteurs<InformationSecteurLocalisablePetiteEntite>(
-    arbInformationsSecteurLocaliseesHorsUEPetite,
-  ),
-  fabriqueArbitrairesEnsembleInformationsSecteurs<InformationSecteurLocalisablePetiteEntite>(
-    arbInformationsSecteurLocaliseesHorsFrancePetite,
-  ),
+  fabriqueArbitrairesEnsembleInformationsSecteurs<
+    InformationSecteurLocalisable<"Petit">
+  >(arbInformationsSecteurLocaliseesHorsUEPetite),
+  fabriqueArbitrairesEnsembleInformationsSecteurs<
+    InformationSecteurLocalisable<"Petit">
+  >(arbInformationsSecteurLocaliseesHorsFrancePetite),
 );
 export const arbEnsembleSecteursComposites: fc.Arbitrary<
   Set<InformationsSecteursCompositeListe>
@@ -314,29 +337,24 @@ export const arbInformationsSecteurLocalisesFrancePetit: fc.Arbitrary<
   fc.constant("oui"),
   fc.constant("france"),
 );
-export const arbInformationsSecteurLocalisesFranceGrand =
-  fabriqueArbitraireCapsuleSecteurLocalisableGrand(
-    fabriqueArbitrairesEnsembleInformationsSecteurs<InformationSecteurLocalisableGrandeEntite>(
-      arbInformationsSecteurLocaliseesFranceGrande,
-    ),
-    fc.constant("oui"),
-    fc.constant("france"),
-  );
-export const arbInformationsSecteurLocalisesFranceGrandEE =
-  fabriqueArbitraireCapsuleSecteurLocalisableGrand(
+
+export const arbInformationsSecteurLocalisesFranceGrandInfranumEE = flow(
+  fabriqueArbitrairesEnsembleInformationsSecteurs<
+    InformationSecteurLocalisable<"Grand">
+  >,
+  fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France,
+)(arbInformationsSecteurLocaliseesFranceGrandeInfranumEE);
+export const arbInformationsSecteurLocalisesFranceGrandInfranumEI =
+  fabriqueArbitraireCapsuleSecteurGrand(
     fabriqueArbitrairesEnsembleInformationsSecteurs(
-      arbInformationsSecteurLocaliseesFranceGrandeEE,
+      arbInformationsSecteurLocaliseesFranceGrandeInfranumEI,
     ),
-    fc.constant("oui"),
-    fc.constant("france"),
   );
 export const arbInformationsSecteurLocalisesFranceGrandEI =
-  fabriqueArbitraireCapsuleSecteurLocalisableGrand(
-    fabriqueArbitrairesEnsembleInformationsSecteurs<InformationSecteurLocalisableGrandeEntite>(
+  fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France(
+    fabriqueArbitrairesEnsembleInformationsSecteurs(
       arbInformationsSecteurLocaliseesFranceGrandeEI,
     ),
-    fc.constant("oui"),
-    fc.constant("france"),
   );
 
 export const arbInformationsSecteurLocalisesHorsFrancePetit: fc.Arbitrary<

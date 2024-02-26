@@ -1,7 +1,6 @@
 import {
   CategorieTaille,
-  InformationSecteurPossibleGrand,
-  InformationSecteurPossiblePetit,
+  InformationSecteurPossible,
   ReponseInformationsSecteur,
 } from "./Reponse.definitions";
 import { fabriqueCategorieTaille } from "./Reponse.fabriques";
@@ -9,9 +8,7 @@ import { fabriqueCategorieTaille } from "./Reponse.fabriques";
 export const fabriqueContenuCapsuleInformationSecteur =
   <T extends CategorieTaille>(taille: T) =>
   (
-    ensembleSecteurs:
-      | Set<InformationSecteurPossiblePetit>
-      | Set<InformationSecteurPossibleGrand>,
+    ensembleSecteurs: Set<InformationSecteurPossible<CategorieTaille>>,
   ): ReponseInformationsSecteur<T> => ({
     ...fabriqueCategorieTaille(taille),
     secteurs: ensembleSecteurs,

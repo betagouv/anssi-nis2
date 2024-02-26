@@ -5,14 +5,14 @@ import { Activite } from "../../../src/Domain/Simulateur/Activite.definitions";
 import { ValeursSecteursImportantsAvecBesoinLocalisation } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
 import {
   estActiviteAutre,
-  estActiviteInfrastructureNumeriqueEligiblesGrandeEntite,
+  estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
   estActiviteInfrastructureNumeriqueEligiblesPetitEntite,
   estActiviteListee,
 } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { estReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.predicats";
 import {
   EtablissementPrincipalFournitUE,
-  InformationSecteurLocalisablePetiteEntite,
+  InformationSecteurLocalisable,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 import {
   estEtablissementPrincipalFournitUE,
@@ -38,7 +38,7 @@ import {
   arbEnsembleSecteursSimplesEligiblesPetit,
   arbInformationsSecteurAutrePetit,
   arbInformationsSecteurComposite,
-  arbInformationsSecteurLocaliseesFranceGrandeEE,
+  arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
   arbInformationsSecteurLocaliseesFrancePetite,
   arbInformationsSecteurLocaliseesHorsFrancePetite,
   arbInformationsSecteurLocaliseesHorsUEPetite,
@@ -201,10 +201,12 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
     });
     describe("arbInformationsSecteurLocaliseesFranceGrandeEE", () => {
       it("ne produit pas de structure vide", () =>
-        assertion.nonVide(arbInformationsSecteurLocaliseesFranceGrandeEE));
+        assertion.nonVide(
+          arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
+        ));
       it("contient des données de localisation représentant en France", () =>
         assertion.propriete(
-          arbInformationsSecteurLocaliseesFranceGrandeEE,
+          arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
           (informationsSecteur) => {
             expect(informationsSecteur.fournitServicesUnionEuropeenne).toBe(
               "oui",
@@ -220,10 +222,10 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
         ));
       it("contient uniquement des activités nécessitant localisation représentant en France", () =>
         assertion.propriete(
-          arbInformationsSecteurLocaliseesFranceGrandeEE,
+          arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
           (informationsSecteur) => {
             expect(
-              tous(estActiviteInfrastructureNumeriqueEligiblesGrandeEntite)(
+              tous(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation)(
                 informationsSecteur.activites,
               ),
             ).toBeTruthy();
@@ -339,13 +341,14 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
 
             const resultatType = resultat as ReponseEtatInformationsSecteur;
             expect(
-              tous<InformationSecteurLocalisablePetiteEntite>((secteur) =>
+              tous<InformationSecteurLocalisable<"Petit">>((secteur) =>
                 tous(estActiviteInfrastructureNumeriqueEligiblesPetitEntite)(
                   secteur.activites,
                 ),
               )(
-                resultatType.InformationsSecteur
-                  .secteurs as Set<InformationSecteurLocalisablePetiteEntite>,
+                resultatType.InformationsSecteur.secteurs as Set<
+                  InformationSecteurLocalisable<"Petit">
+                >,
               ),
             ).toBeTruthy();
           },

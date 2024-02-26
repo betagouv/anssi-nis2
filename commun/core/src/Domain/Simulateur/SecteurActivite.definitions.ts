@@ -28,10 +28,6 @@ export type SecteurImportantsAvecBesoinLocalisation =
 
 export type SecteurAvecActivitesEssentielles =
   (typeof ValeursSecteurAvecActivitesEssentielles)[number];
-export type SecteursSansBesoinLocalisationRepresentantPetit = Omit<
-  SecteursSansSousSecteur,
-  SecteurAvecActivitesEssentielles
->;
 
 export type SecteursDefinitsSansBesoinLocalisationRepresentant = Omit<
   SecteursSansBesoinLocalisationRepresentant,

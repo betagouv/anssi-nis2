@@ -20,7 +20,7 @@ import {
   ValeursActivitesInfrastructureNumerique,
   ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite,
   ValeursActivitesInfrastructureNumeriqueAvecBesoinLocalisation,
-  ValeursActivitesInfrastructureNumeriqueNonLocalisables,
+  ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation,
   ValeursActivitesPetrole,
   ValeursActivitesProductionTransformationDistributionDenreesAlimentaires,
   ValeursActivitesRecherche,
@@ -140,8 +140,8 @@ export type ActivitesInfrastructureNumeriqueEligiblesPetitEntite =
 export type ActiviteInfrastructureNumeriqueAvecBesoinLocalisation =
   (typeof ValeursActivitesInfrastructureNumeriqueAvecBesoinLocalisation)[number];
 
-export type ActivitesInfrastructureNumeriqueNonLocalisables =
-  (typeof ValeursActivitesInfrastructureNumeriqueNonLocalisables)[number];
+export type ActiviteInfrastructureNumeriqueSansBesoinLocalisation =
+  (typeof ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation)[number];
 
 export type ActivitesLocalisablesPetit =
   ActiviteInfrastructureNumeriqueAvecBesoinLocalisation;

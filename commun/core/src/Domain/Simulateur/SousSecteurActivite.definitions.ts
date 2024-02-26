@@ -32,12 +32,6 @@ export type SousSecteurAutre = Extract<
   | "autreSousSecteurFabrication"
   | "autreSousSecteurTransports"
 >;
-export type SousSecteurListe = Omit<
-  SousSecteurActivite,
-  | "autreSousSecteurEnergie"
-  | "autreSousSecteurFabrication"
-  | "autreSousSecteurTransports"
->;
 export type LibellesSousSecteurs = Partial<Record<SousSecteurActivite, string>>;
 export type DescriptionSecteur = readonly SousSecteurActivite[];
 export type DetailsSousSecteurUnique<

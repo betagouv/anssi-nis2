@@ -91,7 +91,7 @@ export const ValeursActivitesEauUsees = [
   "autreActiviteEauPotable",
 ] as const;
 
-export const ValeursActivitesInfrastructureNumeriqueNonLocalisables = [
+export const ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation = [
   "fournisseurPointEchangeInternet",
   "fournisseurServicesInformatiqueNuage",
   "fournisseurServiceCentresDonnees",
@@ -110,7 +110,7 @@ export const ValeursActivitesInfrastructureNumeriqueAvecBesoinLocalisation = [
 ] as const;
 
 export const ValeursActivitesInfrastructureNumerique = [
-  ...ValeursActivitesInfrastructureNumeriqueNonLocalisables,
+  ...ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation,
   ...ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite,
   ...ValeursActivitesInfrastructureNumeriqueAvecBesoinLocalisation,
 ] as const;

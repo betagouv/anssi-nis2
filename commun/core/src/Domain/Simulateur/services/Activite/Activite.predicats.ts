@@ -2,10 +2,12 @@ import {
   Activite,
   ActivitesInfrastructureNumeriqueEligiblesPetitEntite,
   ActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+  ActiviteInfrastructureNumeriqueSansBesoinLocalisation,
 } from "../../Activite.definitions";
 import {
   ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite,
   ValeursActivitesInfrastructureNumeriqueAvecBesoinLocalisation,
+  ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation,
 } from "../../Activite.valeurs";
 import {
   DonneesFormulaireSimulateur,
@@ -99,9 +101,15 @@ export const estActiviteInfrastructureNumeriqueEligiblesPetitEntite = (
   ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite.includes(
     a as ActivitesInfrastructureNumeriqueEligiblesPetitEntite,
   );
-export const estActiviteInfrastructureNumeriqueEligiblesGrandeEntite = (
+export const estActiviteInfrastructureNumeriqueAvecBesoinLocalisation = (
   a: Activite | ActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
 ): a is ActiviteInfrastructureNumeriqueAvecBesoinLocalisation =>
   ValeursActivitesInfrastructureNumeriqueAvecBesoinLocalisation.includes(
     a as ActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+  );
+export const estActiviteInfrastructureNumeriqueSansBesoinLocalisation = (
+  a: Activite | ActiviteInfrastructureNumeriqueSansBesoinLocalisation,
+): a is ActiviteInfrastructureNumeriqueSansBesoinLocalisation =>
+  ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation.includes(
+    a as ActiviteInfrastructureNumeriqueSansBesoinLocalisation,
   );

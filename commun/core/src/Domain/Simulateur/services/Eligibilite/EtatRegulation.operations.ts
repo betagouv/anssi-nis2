@@ -9,7 +9,7 @@ import {
   resultatNonRegule,
 } from "../../Regulation.constantes";
 import { TypeEntite } from "../../Regulation.definitions";
-import { estActiviteInfrastructureNumeriqueEligiblesGrandeEntite } from "../Activite/Activite.predicats";
+import { estActiviteInfrastructureNumeriqueAvecBesoinLocalisation } from "../Activite/Activite.predicats";
 import { EtatEvaluationActives } from "./EtatEvaluation.definitions";
 import {
   ResultatEvaluationRegulation,
@@ -21,7 +21,7 @@ import {
   fabriqueResultatEvaluationEnSuspens,
   fabriqueResultatEvaluationReguleOse,
 } from "./EtatRegulation.fabriques";
-import { InformationSecteurLocalisableGrandeEntite } from "./Reponse.definitions";
+import { InformationSecteurLocalisable } from "./Reponse.definitions";
 import { propReponseEtat } from "./Reponse.operations";
 import {
   auMoinsUneActiviteListee,
@@ -161,8 +161,8 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
             P.when(tous(estInformationSecteurAvecActivitesEssentiellesGrand)),
             P.when(
               tous((s) =>
-                tous(estActiviteInfrastructureNumeriqueEligiblesGrandeEntite)(
-                  (s as InformationSecteurLocalisableGrandeEntite).activites,
+                tous(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation)(
+                  (s as InformationSecteurLocalisable<"Grand">).activites,
                 ),
               ),
             ),

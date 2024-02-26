@@ -51,13 +51,13 @@ import {
   arbInformationsSecteurAutrePetit,
   arbInformationsSecteurGrand,
   arbInformationsSecteurGrandActivitesAutres,
-  arbInformationsSecteurLocalisesFranceGrand,
-  arbInformationsSecteurLocalisesFranceGrandEE,
+  arbInformationsSecteurLocalisesFranceGrandInfranumEE,
   arbInformationsSecteurLocalisesFranceGrandEI,
   arbInformationsSecteurLocalisesFrancePetit,
   arbInformationsSecteurLocalisesHorsFrancePetit,
   arbInformationsSecteurPetit,
   arbStructurePetit,
+  arbInformationsSecteurLocalisesFranceGrandInfranumEI,
 } from "./arbitraires/ResultatEvaluationRegulation.bases.arbitraire";
 import { arbitrairesResultatRegulation } from "./arbitraires/ResultatRegulation.arbitraires";
 
@@ -329,16 +329,7 @@ describe("Regulation Etat Reponse", () => {
         ),
       );
       it(
-        "en suspens / secteurs+activités EI localisables et bien localisés ==> toujours définitivement régulé EE",
-        assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            arbInformationsSecteurLocalisesFranceGrand,
-          ),
-          verificationReponseDefinitivementReguleEI,
-        ),
-      );
-      it(
-        "en suspens / secteurs+activités EI localisables et bien localisés ==> toujours définitivement régulé EE",
+        "en suspens / secteurs+activités EI localisables et bien localisés ==> toujours définitivement régulé EI",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
             arbInformationsSecteurLocalisesFranceGrandEI,
@@ -347,10 +338,19 @@ describe("Regulation Etat Reponse", () => {
         ),
       );
       it(
+        "en suspens / secteurs Infrastructure Numérique + activités EI sans localisation ==> toujours définitivement régulé EI",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
+            arbInformationsSecteurLocalisesFranceGrandInfranumEI,
+          ),
+          verificationReponseDefinitivementReguleEI,
+        ),
+      );
+      it(
         "en suspens / secteurs+activités EE localisables et bien localisés ==> toujours définitivement régulé EE",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            arbInformationsSecteurLocalisesFranceGrandEE,
+            arbInformationsSecteurLocalisesFranceGrandInfranumEE,
           ),
           verificationReponseDefinitivementReguleEE,
         ),
