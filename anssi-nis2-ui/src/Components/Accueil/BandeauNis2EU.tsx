@@ -7,9 +7,13 @@ const BandeauNis2EU: DefaultComponent = () => (
       <div className="fr-container">
         <div className="fr-grid-row--center fr-pt-10w fr-pb-7w">
           <h2 className="fr-h1">
-            NIS&nbsp;2, la nouvelle directive <br />
-            européenne cyber
+            Directive NIS&nbsp;2
           </h2>
+          <h6>
+            pour une cybersécurité renforcée en France
+            <br />
+            et au sein de l’Union Européene
+          </h6>
         </div>
         <div className="fr-grid-row fr-pb-4w">
           <div className="fr-col-5 fr-pt-4w  fr-col-offset-1">
@@ -25,12 +29,12 @@ const BandeauNis2EU: DefaultComponent = () => (
               publics de santé (10&nbsp;%).
             </p>
             <p>
-              Plusieurs milliers d’entreprises et d’administrations publiques
-              françaises seront donc soumises aux exigences de la nouvelle
-              directive européenne sur la sécurité des réseaux et des systèmes
-              d’information ou «&nbsp;directive NIS 2&nbsp;» afin de renforcer
-              leur cybersécurité et harmoniser les pratiques à l’échelle
-              européenne.
+              Selon certains critères, les entreprises du secteur privé,
+              les administrations publiques et les collectivités territoriales 
+              devront désormais appliquer les exigences de la directive qui 
+              visent à renforcer leur cybersécurité et instaurer une harmonisation 
+              des pratiques de sécurité à travers les États membres de l’Union 
+              Européenne.
             </p>
           </div>
           <LogoUnionEuropeenneNIS2 />
