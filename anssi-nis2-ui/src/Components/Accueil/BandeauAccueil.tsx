@@ -12,9 +12,11 @@ const BandeauAccueil: DefaultComponent = () => (
               <div className="fr-pt-32v">
                 <h1 className="fr-pt-3w">MonEspaceNIS2</h1>
                 <p>
-                  Accompagner les organisations dans la compréhension
+                  Sensibiliser les organisations aux enjeux
                   <br />
-                  et la mise en conformité à NIS&nbsp;2
+                  de la directive NIS&nbsp;2 et les accompagner
+                  <br />
+                  dans leur mise en conformité
                 </p>
               </div>
             </div>
