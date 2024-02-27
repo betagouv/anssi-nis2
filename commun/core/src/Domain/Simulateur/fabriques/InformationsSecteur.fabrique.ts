@@ -17,6 +17,7 @@ import {
 } from "../services/Eligibilite/Reponse.definitions";
 import {
   estSecteurAutre,
+  estSecteurAvecActivitesEssentielles,
   estUnSecteurAvecDesSousSecteurs,
   estUnSecteurSansDesSousSecteurs,
 } from "../services/SecteurActivite/SecteurActivite.predicats";
@@ -45,6 +46,24 @@ export const FabriqueInformationsSecteur = {
         activites: ens(
           ...donnees.activites.filter(activiteEstDansSecteur(secteur)),
         ),
+      }),
+  secteurSimpleAvecLocalisation:
+    (donnees: DonneesFormulaireSimulateur) =>
+    (
+      secteur: SecteurActivite,
+    ): Set<InformationSecteurPossible<CategorieTaille>> =>
+      ens({
+        secteurActivite: secteur,
+        activites: ens(
+          ...donnees.activites.filter(activiteEstDansSecteur(secteur)),
+        ),
+        fournitServicesUnionEuropeenne:
+          donnees.fournitServicesUnionEuropeenne[0],
+        ...(donnees.fournitServicesUnionEuropeenne[0] === "oui"
+          ? {
+              localisationRepresentant: donnees.localisationRepresentant[0],
+            }
+          : {}),
       }),
 
   secteurComposite:
@@ -107,6 +126,10 @@ export const FabriqueInformationsSecteur = {
   ): Set<InformationSecteurPossible<CategorieTaille>> =>
     match(secteurActivite)
       .when(estSecteurAutre, FabriqueInformationsSecteur.secteurAutre())
+      .when(
+        estSecteurAvecActivitesEssentielles,
+        FabriqueInformationsSecteur.secteurSimpleAvecLocalisation(donnees),
+      )
       .when(
         estUnSecteurSansDesSousSecteurs,
         FabriqueInformationsSecteur.secteurSimple(donnees),

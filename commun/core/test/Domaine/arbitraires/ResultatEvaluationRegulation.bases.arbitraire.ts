@@ -113,14 +113,6 @@ export const arbStructurePublique_JamaisPetit = arbTypeEntitePublique.chain(
       typeEntitePublique: fc.constant(typeEntitePublique),
     }),
 );
-// const arbStructurePrivee_TrancheEmployesJamaisPetit = fc.record<
-//   ReponseStructurePrivee<"Grand">
-// >({
-//   _categorieTaille: fc.constant("Grand"),
-//   typeStructure: arbTypeStructure_Privee,
-//   trancheChiffreAffaire: arbTrancheMoyenGrand,
-//   trancheNombreEmployes: arbTranchePetitMoyenGrand,
-// });
 
 export const arbStructureGrandPrive = fc.oneof(
   arbStructurePrivee_TrancheCAJamaisPetit,
