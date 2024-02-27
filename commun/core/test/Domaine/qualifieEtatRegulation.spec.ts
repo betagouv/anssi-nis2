@@ -34,7 +34,9 @@ import {
   afficheDifferences,
   assertionArbitraire,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
+import { arbEnsembleSecteursLocalisablesPetitFrance } from "./arbitraires/EnsembleInformationsSecteur.arbitraires";
 import {
+  arbReponseInformationsSecteur_AvecActivitesEssentiels_SansBesoinLocalisation,
   arbReponseInformationsSecteurFranceGrandEILocalisationHorsFrance,
   arbReponseInformationsSecteurGrand,
   arbReponseInformationsSecteurGrandActivitesAutres,
@@ -327,6 +329,11 @@ describe("Regulation Etat Reponse", () => {
   });
   describe("Secteur", () => {
     describe("Petit", () => {
+      it("should stat", () => {
+        fc.statistics(arbEnsembleSecteursLocalisablesPetitFrance, (ensemble) =>
+          [...ensemble].map((s) => [...s.activites].join(", ")).join(";; "),
+        );
+      });
       it(
         "en suspens / secteur autre ==> toujours définitivement non régulé",
         assertionArbitraire(
@@ -342,6 +349,16 @@ describe("Regulation Etat Reponse", () => {
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
             arbReponseInformationsSecteurLocalisesFrancePetit,
+          ),
+          verificationReponseDefinitivementReguleEE,
+        ),
+      );
+      it(
+        "en suspens / secteurs+activités essentielle sans besoin localisation ==> toujours définitivement régulé EE",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
+            // TODO
+            arbReponseInformationsSecteur_AvecActivitesEssentiels_SansBesoinLocalisation,
           ),
           verificationReponseDefinitivementReguleEE,
         ),

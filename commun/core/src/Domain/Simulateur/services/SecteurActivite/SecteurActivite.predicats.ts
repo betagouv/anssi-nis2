@@ -63,6 +63,13 @@ export const estSecteurParmi =
   (secteurCherche: SecteurActivite) => (secteursFiltre: SecteurActivite[]) =>
     predicatSecteurDansListe(secteursFiltre, secteurCherche);
 
+/**
+ * Vérifie si secteur n'est pas dans:
+ *   "infrastructureNumerique",
+ *   "gestionServicesTic",
+ *   "fournisseursNumeriques",
+ * @param secteur
+ */
 export const estSecteurNeNecessitantPasLocalisationRepresentant = (
   secteur: SecteursSansBesoinLocalisationRepresentant | SecteurActivite,
 ): secteur is SecteursSansBesoinLocalisationRepresentant =>
@@ -83,6 +90,10 @@ export const estSecteurAvecBesoinLocalisationRepresentantGrandeEntite = (
   ValeursSecteursImportantsAvecBesoinLocalisation.includes(
     secteur as (typeof ValeursSecteursImportantsAvecBesoinLocalisation)[number],
   );
+/**
+ *   "infrastructureNumerique",
+ * @param secteur
+ */
 export const estSecteurAvecActivitesEssentielles = (
   secteur: SecteurActivite | SecteurAvecActivitesEssentielles,
 ): secteur is SecteurAvecActivitesEssentielles =>

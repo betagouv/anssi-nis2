@@ -12,6 +12,7 @@ import {
 import { TypeEntite } from "../../Regulation.definitions";
 import {
   estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+  estActiviteInfrastructureNumeriqueEligiblesPetitEntite,
   estActiviteListee,
 } from "../Activite/Activite.predicats";
 import { EtatEvaluationActives } from "./EtatEvaluation.definitions";
@@ -166,6 +167,26 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
       {
         InformationsSecteur: {
           secteurs: P.when(tous(estSecteurBienLocalisePetit)),
+        },
+      },
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          "EntiteEssentielle",
+        ),
+    )
+    .with(
+      {
+        InformationsSecteur: {
+          secteurs: P.when(
+            certains(
+              et(estInformationSecteurAvecActivitesEssentielles, (s) =>
+                certains(
+                  estActiviteInfrastructureNumeriqueEligiblesPetitEntite,
+                )(s.activites),
+              ),
+            ),
+          ),
         },
       },
       (reponse) =>

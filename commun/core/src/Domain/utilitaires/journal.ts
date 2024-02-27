@@ -6,21 +6,16 @@ export const journalise =
   (...debugMessage: unknown[]) =>
     fonctionJournal(prefix, ...debugMessage);
 
-export const journalisePipe = (
-  fonctionJournal: (...data: unknown[]) => void,
-) => {
-  const journal = journalise(fonctionJournal);
-  return (prefix: string, options: OptionsJournal = { logArgs: true }) => {
-    const journalPrefixe = journal(prefix);
-    return <T>(...debugMessage: unknown[]) =>
-      (arg: T): T => {
-        const detailsArgs = options.logArgs ? [`\t--> `, arg] : [];
-        journalPrefixe(...debugMessage, ...detailsArgs);
+export const journalisePipe =
+  (fonctionJournal: (...data: unknown[]) => void) =>
+  (prefix: string, options: OptionsJournal = { logArgs: true }) =>
+  <T>(...debugMessage: unknown[]) =>
+  (arg: T): T => {
+    const detailsArgs = options.logArgs ? [`\t--> `, arg] : [];
+    journalise(fonctionJournal)(prefix)(...debugMessage, ...detailsArgs);
 
-        return arg;
-      };
+    return arg;
   };
-};
 
 export const logAvecPrefix = journalise(console.log);
 

@@ -101,7 +101,7 @@ describe(calculeEligibilite, () => {
                 .sansBesoinLocalisation,
             ));
           // Passe pour refacto données ISI
-          it.skip("secteur d'activité et activité listés sans besoin de localisation", () =>
+          it.skip("secteur d'activité et activité listés sans besoin de localisation - skip", () =>
             V.EligibleMoyenneGrandeEntreprise(
               arbForm.nonDesigneOSE.privee.grand.secteursListes
                 .avecBesoinLocalisation.avecLocalisationRepresentantFrance,

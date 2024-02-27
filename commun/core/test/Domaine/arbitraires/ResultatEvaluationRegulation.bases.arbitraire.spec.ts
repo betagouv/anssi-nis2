@@ -25,15 +25,16 @@ import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/Sou
 import { assertion } from "../../utilitaires/ResultatEvaluationRegulation.assertions";
 import {
   arbEnsembleSecteursComposites,
+  arbEnsembleSecteursLocalisablesNonFrance,
   arbEnsembleSecteursSimples,
   arbEnsembleSecteursSimplesEligiblesPetit,
 } from "./EnsembleInformationsSecteur.arbitraires";
 import {
   arbInformationsSecteurComposite,
   arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
-  arbInformationsSecteurLocaliseesFrancePetite,
+  arbInformationsSecteur_AvecActivitesEssentielles_Petite,
   arbInformationsSecteurLocaliseesHorsFrancePetite,
-  arbInformationsSecteurLocaliseesHorsUEPetite,
+  arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE,
   arbSecteurAvecSousSecteurListes,
   arbSecteurImportantsLocalisablesGrandeEntite,
   arbSecteurListesSansSousSecteurNiLocaGrand,
@@ -90,6 +91,32 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
               [...capsule.secteurs].map((secteur) =>
                 expect(secteur).toSatisfy(
                   estSecteurBienLocaliseHorsFrance<"Petit">,
+                ),
+              );
+            },
+          );
+        });
+        it("arbInformationsSecteurLocalisesHorsFrancePetit a toujours uniquement secteur infranum", () => {
+          assertion.propriete(
+            arbReponseInformationsSecteurLocalisesHorsFrancePetit,
+            (capsule) => {
+              [...capsule.secteurs].map((secteur) =>
+                expect(secteur.secteurActivite).toEqual(
+                  "infrastructureNumerique",
+                ),
+              );
+            },
+          );
+        });
+        it("arbInformationsSecteurLocalisesHorsFrancePetit a toujours uniquement des activites localisables", () => {
+          assertion.propriete(
+            arbReponseInformationsSecteurLocalisesHorsFrancePetit,
+            (capsule) => {
+              [...capsule.secteurs].map((secteur) =>
+                expect(secteur.activites).toSatisfy(
+                  tous(
+                    estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+                  ),
                 ),
               );
             },
@@ -156,12 +183,36 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
           },
         ));
     });
-    describe("arbInformationsSecteurLocaliseesFrancePetite", () => {
+    describe("arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE", () => {
+      it("contient uniquement des activites localisées", () =>
+        assertion.propriete(
+          arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE,
+          (secteur) => {
+            expect(secteur.activites).toSatisfy(
+              tous(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation),
+            );
+          },
+        ));
+    });
+    describe("arbInformationsSecteurLocaliseesHorsFrancePetite", () => {
+      it("contient uniquement des activites localisées", () =>
+        assertion.propriete(
+          arbInformationsSecteurLocaliseesHorsFrancePetite,
+          (secteur) => {
+            expect(secteur.activites).toSatisfy(
+              tous(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation),
+            );
+          },
+        ));
+    });
+    describe("arbInformationsSecteur_AvecActivitesEssentielles_Petite", () => {
       it("ne produit pas de structure vide", () =>
-        assertion.nonVide(arbInformationsSecteurLocaliseesFrancePetite));
+        assertion.nonVide(
+          arbInformationsSecteur_AvecActivitesEssentielles_Petite,
+        ));
       it("contient des données de localisation représentant en France", () =>
         assertion.propriete(
-          arbInformationsSecteurLocaliseesFrancePetite,
+          arbInformationsSecteur_AvecActivitesEssentielles_Petite,
           (informationsSecteur) => {
             expect(informationsSecteur.fournitServicesUnionEuropeenne).toBe(
               "oui",
@@ -177,7 +228,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
         ));
       it("contient uniquement des activités nécessitant localisation représentant en France", () =>
         assertion.propriete(
-          arbInformationsSecteurLocaliseesFrancePetite,
+          arbInformationsSecteur_AvecActivitesEssentielles_Petite,
           (informationsSecteur) => {
             expect(
               tous(estActiviteInfrastructureNumeriqueEligiblesPetitEntite)(
@@ -222,10 +273,12 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
     });
     describe("arbInformationsSecteurLocaliseesHorsUE", () => {
       it("ne produit pas de structure vide", () =>
-        assertion.nonVide(arbInformationsSecteurLocaliseesHorsUEPetite));
+        assertion.nonVide(
+          arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE,
+        ));
       it("contient des données de localisation représentant hors UE", () =>
         assertion.propriete(
-          arbInformationsSecteurLocaliseesHorsUEPetite,
+          arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE,
           (informationsSecteur) => {
             expect(informationsSecteur.fournitServicesUnionEuropeenne).toBe(
               "non",
@@ -263,26 +316,43 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
           );
         }));
     });
-
-    describe("arbEnsembleSecteursSimples", () => {
-      it("ne contient pas vide", () =>
-        assertion.propriete(arbEnsembleSecteursSimples, (secteur) => {
-          expect(secteur).not.toContain(undefined);
-        }));
-      it("n'est pas vide", () => assertion.nonVide(arbEnsembleSecteursSimples));
-    });
-    describe("arbEnsembleSecteursSimplesEligiblesPetit", () => {
-      it("estInformationSecteurLocalisablePetiteEntreprise", () =>
-        assertion.propriete(
-          arbEnsembleSecteursSimplesEligiblesPetit,
-          (ensembleSecteurs) => {
-            [...ensembleSecteurs].map((secteur) =>
-              expect(secteur).toSatisfy(
-                estInformationSecteurAvecActivitesEssentielles<"Petit">,
-              ),
-            );
-          },
-        ));
+    describe("arbEnsembleSecteurs", () => {
+      describe("arbEnsembleSecteursSimples", () => {
+        it("ne contient pas vide", () =>
+          assertion.propriete(arbEnsembleSecteursSimples, (secteur) => {
+            expect(secteur).not.toContain(undefined);
+          }));
+        it("n'est pas vide", () =>
+          assertion.nonVide(arbEnsembleSecteursSimples));
+      });
+      describe("arbEnsembleSecteursSimplesEligiblesPetit", () => {
+        it("estInformationSecteurLocalisablePetiteEntreprise", () =>
+          assertion.propriete(
+            arbEnsembleSecteursSimplesEligiblesPetit,
+            (ensembleSecteurs) => {
+              [...ensembleSecteurs].map((secteur) =>
+                expect(secteur).toSatisfy(
+                  estInformationSecteurAvecActivitesEssentielles<"Petit">,
+                ),
+              );
+            },
+          ));
+      });
+      describe("arbEnsembleSecteursLocalisablesNonFrance", () => {
+        it("ne contient que des activités essentielles localisables", () =>
+          assertion.propriete(
+            arbEnsembleSecteursLocalisablesNonFrance,
+            (ensembleSecteurs) => {
+              [...ensembleSecteurs].map((secteur) =>
+                expect(secteur.activites).toSatisfy(
+                  tous(
+                    estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+                  ),
+                ),
+              );
+            },
+          ));
+      });
     });
     describe("arbSecteurNonEligiblesPetiteEntite", () => {
       it("estInformationSecteurLocalisablePetiteEntreprise", () =>
@@ -328,12 +398,15 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
             expect(resultat).toSatisfy(estReponseEtatInformationsSecteur);
 
             const resultatType = resultat as ReponseEtatInformationsSecteur;
+            const toutesActivitesEssentiellesAvecBesoinLocalisation = tous<
+              InformationSecteurLocalisable<"Petit">
+            >((secteur) =>
+              tous(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation)(
+                secteur.activites,
+              ),
+            );
             expect(
-              tous<InformationSecteurLocalisable<"Petit">>((secteur) =>
-                tous(estActiviteInfrastructureNumeriqueEligiblesPetitEntite)(
-                  secteur.activites,
-                ),
-              )(
+              toutesActivitesEssentiellesAvecBesoinLocalisation(
                 resultatType.InformationsSecteur.secteurs as Set<
                   InformationSecteurLocalisable<"Petit">
                 >,

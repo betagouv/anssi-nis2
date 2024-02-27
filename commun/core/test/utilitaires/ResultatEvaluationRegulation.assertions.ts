@@ -1,4 +1,5 @@
 import { fc } from "@fast-check/vitest";
+import { prop } from "../../../utils/services/objects.operations";
 import { ResultatEvaluationRegulation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import { expect } from "vitest";
 

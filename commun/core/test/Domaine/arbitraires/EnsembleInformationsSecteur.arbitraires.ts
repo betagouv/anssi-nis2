@@ -11,13 +11,13 @@ import {
 import {
   arbInformationsSecteurComposite,
   arbInformationsSecteurCompositeActivitesAutres,
-  arbInformationsSecteurLocaliseesFrancePetite,
   arbInformationsSecteurLocaliseesHorsFranceGrand,
   arbInformationsSecteurLocaliseesHorsFrancePetite,
   arbInformationsSecteurLocaliseesHorsUEGrand,
-  arbInformationsSecteurLocaliseesHorsUEPetite,
+  arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE,
   arbSecteurInfrascructureNumerique,
   arbSecteurListesSansSousSecteurNiLocaGrand,
+  arbInformationsSecteur_AvecActivitesEssentielles_LocaliseesFrance_Petite,
 } from "./InformationsSecteur.arbitraires";
 import {
   fabriqueArbitraireEnsembleActivitesPourSecteur,
@@ -56,13 +56,16 @@ export const arbEnsembleSecteursLocalisablesPetitFrance: fc.Arbitrary<
   Set<InformationSecteurLocalisable<"Petit">>
 > = fabriqueArbitrairesEnsembleInformationsSecteurs<
   InformationSecteurLocalisable<"Petit">
->(arbInformationsSecteurLocaliseesFrancePetite);
+>(arbInformationsSecteur_AvecActivitesEssentielles_LocaliseesFrance_Petite);
+
 export const arbEnsembleSecteursLocalisablesNonFrance: fc.Arbitrary<
   Set<InformationSecteurLocalisable<"Petit">>
 > = fc.oneof(
   fabriqueArbitrairesEnsembleInformationsSecteurs<
     InformationSecteurLocalisable<"Petit">
-  >(arbInformationsSecteurLocaliseesHorsUEPetite),
+  >(
+    arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE,
+  ),
   fabriqueArbitrairesEnsembleInformationsSecteurs<
     InformationSecteurLocalisable<"Petit">
   >(arbInformationsSecteurLocaliseesHorsFrancePetite),

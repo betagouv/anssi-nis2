@@ -68,12 +68,40 @@ export const arbSecteurAvecSousSecteurListes = fc.constantFrom<
 export const arbLocalisationRepresentant_ToujoursFrance = fc.constant(
   "france" as const,
 );
-export const arbInformationsSecteurLocaliseesFrancePetite =
+/**
+ * InformationSecteurLocalisableGrandeEntite
+ *    telles que
+ * secteur dans "infrastructureNumerique"
+ *      et
+ * activite dans :
+ *  - "fournisseurReseauxCommunicationElectroniquesPublics",
+ *  - "fournisseurServiceCommunicationElectroniquesPublics",
+ *  - "prestataireServiceConfiance",
+ */
+export const arbInformationsSecteur_AvecActivitesEssentielles_Petite =
   arbSecteurInfrascructureNumerique.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe(
       arbLocalisationRepresentant_ToujoursFrance,
       fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
         estActiviteInfrastructureNumeriqueEligiblesPetitEntite,
+      )<SecteurAvecBesoinLocalisationRepresentant, ActivitesLocalisablesPetit>,
+    ),
+  );
+/**
+ * InformationSecteurLocalisableGrandeEntite
+ *    telles que
+ * secteur dans "infrastructureNumerique"
+ *      et
+ * activite dans :
+ *  - "registresNomsDomainesPremierNiveau",
+ *  - "fournisseurServicesDNS",
+ */
+export const arbInformationsSecteur_AvecActivitesEssentielles_LocaliseesFrance_Petite =
+  arbSecteurInfrascructureNumerique.chain(
+    fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe(
+      arbLocalisationRepresentant_ToujoursFrance,
+      fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
+        estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
       )<SecteurAvecBesoinLocalisationRepresentant, ActivitesLocalisablesPetit>,
     ),
   );
@@ -130,14 +158,14 @@ export const arbInformationsSecteurLocaliseesFranceGrandeInfranumEE =
       )<SecteurAvecBesoinLocalisationRepresentant, ActivitesLocalisablesGrand>,
     ),
   );
+
 export const arbInformationsSecteurLocaliseesHorsFrancePetite =
   arbSecteurInfrascructureNumerique.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe(
       arbLocalisationRepresentant_JamaisFrance,
-      fabriqueArbEnsembleActivitesPourSecteur<
-        SecteurAvecBesoinLocalisationRepresentant,
-        ActivitesLocalisablesPetit
-      >,
+      fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
+        estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+      )<SecteurAvecBesoinLocalisationRepresentant, ActivitesLocalisablesPetit>,
     ),
   );
 export const arbInformationsSecteurLocaliseesHorsFranceGrand =
@@ -150,7 +178,7 @@ export const arbInformationsSecteurLocaliseesHorsFranceGrand =
       >,
     ),
   );
-export const arbInformationsSecteurLocaliseesHorsUEPetite =
+export const arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE =
   arbSecteurInfrascructureNumerique.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableHorsUe,
   );

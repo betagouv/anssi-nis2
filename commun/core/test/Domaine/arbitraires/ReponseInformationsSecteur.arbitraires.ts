@@ -1,7 +1,5 @@
 import { fc } from "@fast-check/vitest";
-import { ActivitesLocalisablesGrand } from "../../../src/Domain/Simulateur/Activite.definitions";
-import { SecteurAvecBesoinLocalisationRepresentant } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
-import { estActiviteInfrastructureNumeriqueAvecBesoinLocalisation } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite } from "../../../src/Domain/Simulateur/Activite.valeurs";
 import { ReponseInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
 import {
   arbEnsembleSecteursComposites,
@@ -17,25 +15,39 @@ import {
   arbInformationsSecteurLocaliseesFranceGrandeEI,
   arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
   arbInformationsSecteurLocaliseesFranceGrandeInfranumEI,
-  arbLocalisationRepresentant_ToujoursFrance,
   arbSecteurInfrascructureNumerique,
 } from "./InformationsSecteur.arbitraires";
 import {
-  fabriqueArbEnsembleActivitesPourSecteurAvecFiltre,
   fabriqueArbitraireCapsuleSecteurGrand,
   fabriqueArbitraireCapsuleSecteurLocalisableGrand_AvecEnsembleDe,
   fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe,
   fabriqueArbitraireCapsuleSecteurLocalisablePetit_Oui_France,
   fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFrance,
   fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFranceGrand,
+  fabriqueArbitraireCapsuleSecteurNonLoca,
   fabriqueArbitraireCapsuleSecteurPetit,
-  fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand,
+  fabriqueArbitraireEnsembleActivitesPourSecteur,
+  fabriqueArbitrairesEnsembleInformationsSecteurs,
 } from "./ResultatEvaluationRegulation.arbitraire.fabrique";
 
 export const arbReponseInformationsSecteurLocalisesFrancePetit: fc.Arbitrary<
   ReponseInformationsSecteur<"Petit">
 > = fabriqueArbitraireCapsuleSecteurLocalisablePetit_Oui_France(
   arbEnsembleSecteursLocalisablesPetitFrance,
+);
+
+const chainer_Ensemble_ActivitesInfraNum_Secteur =
+  fabriqueArbitraireEnsembleActivitesPourSecteur((a) =>
+    ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite.includes(a),
+  );
+export const arbReponseInformationsSecteur_AvecActivitesEssentiels_SansBesoinLocalisation: fc.Arbitrary<
+  ReponseInformationsSecteur<"Petit">
+> = fabriqueArbitraireCapsuleSecteurNonLoca(
+  fabriqueArbitrairesEnsembleInformationsSecteurs(
+    arbSecteurInfrascructureNumerique.chain(
+      chainer_Ensemble_ActivitesInfraNum_Secteur,
+    ),
+  ),
 );
 export const arbReponseInformationsSecteurLocalisesFranceGrandInfranumEE =
   fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe(
@@ -50,14 +62,6 @@ export const arbReponseInformationsSecteurLocalisesFranceGrandEI =
     arbInformationsSecteurLocaliseesFranceGrandeEI,
   );
 
-arbSecteurInfrascructureNumerique.chain(
-  fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand(
-    arbLocalisationRepresentant_ToujoursFrance,
-    fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
-      estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
-    )<SecteurAvecBesoinLocalisationRepresentant, ActivitesLocalisablesGrand>,
-  ),
-);
 export const arbReponseInformationsSecteurFranceGrandEILocalisationHorsFrance =
   fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFranceGrand(
     arbEnsembleSecteursLocalisablesNonFranceGrande,

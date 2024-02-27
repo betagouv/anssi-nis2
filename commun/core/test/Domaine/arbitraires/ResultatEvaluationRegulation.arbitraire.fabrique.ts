@@ -1,4 +1,5 @@
 import { fc } from "@fast-check/vitest";
+import { flow } from "fp-ts/lib/function";
 import { ens } from "../../../../utils/services/sets.operations";
 import {
   Activite,
@@ -17,7 +18,10 @@ import {
   SecteursAvecSousSecteurs,
 } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
 import { getActivitesPour } from "../../../src/Domain/Simulateur/services/Activite/Activite.operations";
-import { estActiviteListee } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import {
+  estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+  estActiviteListee,
+} from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { fabriqueContenuCapsuleInformationSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/CapsuleReponse.fabriques";
 import { FabriqueEtatDonneesSimulateur } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
 import {
@@ -42,7 +46,6 @@ import {
   SousSecteurActivite,
   SousSecteurDe,
 } from "../../../src/Domain/Simulateur/SousSecteurActivite.definitions";
-import { flow } from "fp-ts/lib/function";
 import {
   arbFournitServiceUnionEuropeenne_ToujoursNon,
   arbFournitServiceUnionEuropeenne_ToujoursOui,
@@ -168,10 +171,9 @@ export const fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableHorsUe = <
 ): fc.Arbitrary<InformationSecteurLocalisable<"Petit">> =>
   fc.record<InformationSecteurLocalisable<"Petit">>({
     secteurActivite: fc.constant(secteur),
-    activites: fabriqueArbEnsembleActivitesPourSecteur<
-      T,
-      ActivitesLocalisablesPetit
-    >(secteur),
+    activites: fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
+      estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+    )<T, ActivitesLocalisablesPetit>(secteur),
     fournitServicesUnionEuropeenne:
       arbFournitServiceUnionEuropeenne_ToujoursNon,
   }) as fc.Arbitrary<InformationSecteurLocalisable<"Petit">>;
@@ -195,6 +197,15 @@ export const fabriqueArbitraireCapsuleSecteurLocalisable =
         ...determineArbLocalisationRepresentant(arbLocalisationRepresentant),
       }),
     );
+export const fabriqueArbitraireCapsuleSecteurNonLoca = (
+  arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
+): fc.Arbitrary<ReponseInformationsSecteur<"Petit">> =>
+  arb.chain((info) =>
+    fc.record({
+      _categorieTaille: fc.constant("Petit"),
+      secteurs: fc.constant(info),
+    }),
+  );
 export const fabriqueArbitraireCapsuleSecteurLocalisableGrand =
   (
     arbFournitServicesUnionEuropeenne: fc.Arbitrary<FournitServicesUnionEuropeenne>,

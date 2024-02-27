@@ -9,7 +9,7 @@ import {
   ResultatEvaluationRegulation,
   ResultatEvaluationRegulationDefinitif,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
-import { evalueRegulationEtatReponseInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
+import { evalueEtatRegulation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
 import { transformeEligibiliteEnRegulationEntite } from "../../src/Domain/Simulateur/services/Regulation/Regulation.operations";
 import {
   journalise,
@@ -79,10 +79,9 @@ const verifieResultatRegulationQualifie = (
         ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
           donnees,
         ) as ResultatEvaluationRegulation;
-      const resultatRegulationQualifiee =
-        evalueRegulationEtatReponseInformationsSecteur(
-          resultatEvaluationRegulation,
-        );
+      const resultatRegulationQualifiee = evalueEtatRegulation(
+        resultatEvaluationRegulation,
+      );
       expect(resultatRegulationQualifiee._resultatEvaluationRegulation).toEqual(
         "Definitif",
       );

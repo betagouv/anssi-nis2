@@ -40,6 +40,11 @@ export const estInformationSecteurAvecBesoinLocalisation = (
   estSecteurAvecBesoinLocalisationRepresentantGrandeEntite(
     informationsSecteur.secteurActivite as SecteurActivite,
   );
+
+/**
+ *   "infrastructureNumerique",
+ * @param sec
+ */
 export const estInformationSecteurAvecActivitesEssentielles = <
   T extends CategorieTaille,
 >(
