@@ -42,6 +42,7 @@ import {
   estInformationSecteurSecteurAutre,
   estInformationSecteurSousSecteurAutre,
 } from "./Reponse.predicats";
+import { flow } from "fp-ts/lib/function";
 
 const propageDonneesEvaluees =
   (etape: EtatEvaluationActives) =>
@@ -408,3 +409,10 @@ export const evalueRegulationEtatReponseInformationsSecteur = (
         resultatIncertain,
       ),
     );
+
+export const evalueEtatRegulation = flow(
+  evalueRegulationEtatReponseOse,
+  evalueRegulationEtatReponseLocalisation,
+  evalueRegulationEtatReponseStructure,
+  evalueRegulationEtatReponseInformationsSecteur,
+);

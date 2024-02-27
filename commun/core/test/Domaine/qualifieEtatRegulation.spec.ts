@@ -21,6 +21,7 @@ import {
   ResultatEvaluationRegulationEnSuspens,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import {
+  evalueEtatRegulation,
   evalueRegulationEtatReponseInformationsSecteur,
   evalueRegulationEtatReponseLocalisation,
   evalueRegulationEtatReponseOse,
@@ -430,5 +431,66 @@ describe("Regulation Etat Reponse", () => {
       );
     });
     describe("Cas incertains", () => {});
+  });
+  describe("chaine de décision", () => {
+    it(
+      "Une entité désignée OSE est toujours qualifiée définitivement régulée",
+      assertionArbitraire(
+        arbDesignationOperateurServicesEssentielsToujoursOui.map(
+          fabriqueResultatEvaluationInconnuOse,
+        ),
+        (reponse) => {
+          const resultatAttendu: ResultatEvaluationRegulation = {
+            _resultatEvaluationRegulation: "Definitif",
+            etapeEvaluee: "InformationsSecteur",
+            ...resultatReguleOSE,
+          };
+          const resultatObtenu = evalueEtatRegulation(reponse);
+          expect(resultatObtenu).toStrictEqual(resultatAttendu);
+        },
+      ),
+    );
+    it(
+      "Structure Privée ==> toujours EnSuspens / Incertain",
+      assertionArbitraire(
+        fc
+          .tuple(
+            ...tupleArbitrairesJamaisOseToujoursFrance,
+            arbStructurePetitPrive,
+          )
+          .map(fabriqueResultatEvaluationEnSuspensStructure),
+        (reponse) => {
+          const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
+            _resultatEvaluationRegulation: "Definitif",
+            etapeEvaluee: "InformationsSecteur",
+            ...resultatIncertain,
+          };
+
+          const resultatObtenu = evalueEtatRegulation(reponse);
+          expect(resultatObtenu).toStrictEqual(resultatAttendu);
+        },
+      ),
+    );
+    it(
+      "en suspens / secteurs localisables et localisé hors France ==> toujours définitivement non-régulé",
+      assertionArbitraire(
+        fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
+          arbReponseInformationsSecteurLocalisesHorsFrancePetit,
+        ),
+        (reponse: ResultatEvaluationRegulation) => {
+          const resultatAttendu: ResultatEvaluationRegulationDefinitif = {
+            _resultatEvaluationRegulation: "Definitif",
+            etapeEvaluee: "InformationsSecteur",
+            ...resultatNonRegule,
+          };
+
+          const resultatObtenu = evalueEtatRegulation(reponse);
+          expect(
+            resultatObtenu,
+            afficheDifferences(resultatAttendu, resultatObtenu),
+          ).toStrictEqual(resultatAttendu);
+        },
+      ),
+    );
   });
 });

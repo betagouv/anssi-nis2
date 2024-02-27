@@ -5,8 +5,12 @@ import { Eligibilite } from "../../src/Domain/Simulateur/Eligibilite.constantes"
 import { ResultatEligibilite } from "../../src/Domain/Simulateur/Eligibilite.definitions";
 import { calculeEligibilite } from "../../src/Domain/Simulateur/services/Eligibilite/Eligibilite.operations";
 import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
-import { ResultatEvaluationRegulation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
+import {
+  ResultatEvaluationRegulation,
+  ResultatEvaluationRegulationDefinitif,
+} from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import { evalueRegulationEtatReponseInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
+import { transformeEligibiliteEnRegulationEntite } from "../../src/Domain/Simulateur/services/Regulation/Regulation.operations";
 import {
   journalise,
   journalisePipe,
@@ -66,6 +70,7 @@ const fluxDocumentation = (nom: ResultatEligibilite) =>
   );
 
 const verifieResultatRegulationQualifie = (
+  resultatEligibilite: ResultatEligibilite,
   arb: fc.Arbitrary<DonneesFormulaireSimulateur>,
 ) => {
   fc.assert(
@@ -81,6 +86,14 @@ const verifieResultatRegulationQualifie = (
       expect(resultatRegulationQualifiee._resultatEvaluationRegulation).toEqual(
         "Definitif",
       );
+      const resultatRegulationDefinitif =
+        resultatRegulationQualifiee as ResultatEvaluationRegulationDefinitif;
+      const decisionAttendue = transformeEligibiliteEnRegulationEntite(
+        Eligibilite[resultatEligibilite],
+      )(donnees);
+      expect(resultatRegulationDefinitif.decision).toEqual(
+        decisionAttendue.decision,
+      );
     }),
     { verbose: true },
   );
@@ -90,7 +103,7 @@ export const verifieEligibilite = Object.values(Eligibilite).reduce(
   (acc, nom) => ({
     ...acc,
     [nom]: (arb: fc.Arbitrary<DonneesFormulaireSimulateur>) => {
-      verifieResultatRegulationQualifie(arb);
+      verifieResultatRegulationQualifie(nom, arb);
 
       return flow(
         fluxDocumentation(nom),
