@@ -357,7 +357,6 @@ describe("Regulation Etat Reponse", () => {
         "en suspens / secteurs+activités essentielle sans besoin localisation ==> toujours définitivement régulé EE",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-            // TODO
             arbReponseInformationsSecteur_AvecActivitesEssentiels_SansBesoinLocalisation,
           ),
           verificationReponseDefinitivementReguleEE,
