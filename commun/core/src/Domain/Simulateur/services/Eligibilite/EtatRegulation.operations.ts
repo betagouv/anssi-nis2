@@ -403,9 +403,8 @@ export const evalueRegulationEtatReponseInformationsSecteur = (
       evalueRegulationEtatReponseInformationsSecteurEnSuspens,
     )
     .otherwise(() =>
-      fabriqueResultatEvaluationEnSuspens(
+      fabriqueResultatEvaluationDefinitif(
         "InformationsSecteur",
         resultatIncertain,
-        reponse as ResultatEvaluationRegulationEnSuspens,
       ),
     );
