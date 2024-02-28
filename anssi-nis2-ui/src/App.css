@@ -76,9 +76,15 @@
   padding-top: 100px;
   z-index: initial;
 
-  & h2 {
+  & h2, h3 {
     text-align: center;
     color: #272771;
+    margin-bottom: 1rem;
+  }
+
+  & h3 {
+    font-size: 1.75rem;
+    font-weight: 500;
   }
 
   .fr-nis2-logo-ue {

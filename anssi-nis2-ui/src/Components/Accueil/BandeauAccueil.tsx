@@ -1,6 +1,5 @@
 import { DefaultComponent } from "../../Services/Props";
 import { RowContainer } from "../General/RowContainer.tsx";
-// import imageSrcMarches from "../../assets/marches.svg";
 
 const BandeauAccueil: DefaultComponent = () => (
   <div className="fr-bandeau-marianne fr-nis2-accueil-principal">
