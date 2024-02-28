@@ -15,11 +15,11 @@ import {
   resultatNonRegule,
 } from "../../Regulation.constantes";
 import { TypeEntite } from "../../Regulation.definitions";
-import { EtatEvaluationActives } from "./EtatEvaluation.definitions";
 import {
-  EtatEvaluation,
-  EtatEvaluationDefinitif,
+  EtatRegulation,
+  EtatRegulationDefinitif,
   EtatEvaluationEnSuspens,
+  EtapeEvaluationActive,
 } from "./EtatRegulation.definitions";
 import {
   fabriqueResultatEnSuspensOse,
@@ -44,13 +44,13 @@ import {
 } from "./Reponse.predicats";
 
 const propageDonneesEvaluees =
-  (etape: EtatEvaluationActives) => (reponse: EtatEvaluation) => ({
+  (etape: EtapeEvaluationActive) => (reponse: EtatRegulation) => ({
     ...reponse,
     etapeEvaluee: etape,
   });
 export const evalueRegulationEtatReponseOse = (
-  reponse: EtatEvaluation,
-): EtatEvaluation =>
+  reponse: EtatRegulation,
+): EtatRegulation =>
   match(reponse)
     .with(
       {
@@ -88,8 +88,8 @@ export const evalueRegulationEtatReponseOse = (
     )
     .otherwise(fabriqueResultatEnSuspensOse(reponse));
 export const evalueRegulationEtatReponseLocalisation = (
-  reponse: EtatEvaluation,
-): EtatEvaluation =>
+  reponse: EtatRegulation,
+): EtatRegulation =>
   match(reponse)
     .with(
       {
@@ -117,8 +117,8 @@ export const evalueRegulationEtatReponseLocalisation = (
       ),
     );
 export const evalueRegulationEtatReponseStructure = (
-  reponse: EtatEvaluation,
-): EtatEvaluation =>
+  reponse: EtatRegulation,
+): EtatRegulation =>
   match(reponse)
     .with(
       {
@@ -158,7 +158,7 @@ const fabriqueResultatEvaluationDefinitifCarSecteur = (
 
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
   reponse: EtatEvaluationEnSuspens,
-): EtatEvaluation =>
+): EtatRegulation =>
   match(reponse)
     .with(
       {
@@ -236,7 +236,7 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
     );
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
   reponse: EtatEvaluationEnSuspens,
-): EtatEvaluation =>
+): EtatRegulation =>
   match(reponse)
     .with(
       {
@@ -336,7 +336,7 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
     );
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
   reponse: EtatEvaluationEnSuspens,
-): EtatEvaluation =>
+): EtatRegulation =>
   match(reponse)
     .with(
       {
@@ -373,8 +373,8 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
     );
 
 export const evalueRegulationEtatReponseInformationsSecteur = (
-  reponse: EtatEvaluation,
-): EtatEvaluation =>
+  reponse: EtatRegulation,
+): EtatRegulation =>
   match(reponse)
     .with(
       {
@@ -417,10 +417,10 @@ export const evalueRegulationEtatReponseInformationsSecteur = (
     );
 
 export const evalueEtatRegulation: (
-  reponse: EtatEvaluation,
-) => EtatEvaluationDefinitif = flow(
+  reponse: EtatRegulation,
+) => EtatRegulationDefinitif = flow(
   evalueRegulationEtatReponseOse,
   evalueRegulationEtatReponseLocalisation,
   evalueRegulationEtatReponseStructure,
   evalueRegulationEtatReponseInformationsSecteur,
-) as (reponse: EtatEvaluation) => EtatEvaluationDefinitif;
+) as (reponse: EtatRegulation) => EtatRegulationDefinitif;

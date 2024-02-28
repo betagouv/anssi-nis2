@@ -31,7 +31,7 @@ import {
 import {
   CategorieTaille,
   InformationSecteurLocalisable,
-  InformationSecteurPossible,
+  InformationsSecteurPossible,
   InformationSecteurSimple,
   InformationsSecteursCompositeListe,
   ReponseAppartenancePaysUnionEuropeenne,
@@ -244,7 +244,7 @@ export const fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFranceGrand = (
   );
 
 export const fabriqueArbitrairesEnsembleInformationsSecteurs = <
-  T extends InformationSecteurPossible<CategorieTaille>,
+  T extends InformationsSecteurPossible<CategorieTaille>,
 >(
   arb: fc.Arbitrary<T>,
 ) =>

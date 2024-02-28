@@ -51,6 +51,7 @@ export type ReponseEtatInformationsSecteurGrand = Tag<"InformationsSecteur"> &
 export type ReponseEtatInformationsSecteur = Tag<"InformationsSecteur"> &
   RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> &
   CapsuleInformationsSecteur;
+
 export type UnionReponseEtatNonVide =
   | ReponseEtatDesignationOperateurServicesEssentiels
   | ReponseEtatAppartenancePaysUnionEuropeenne

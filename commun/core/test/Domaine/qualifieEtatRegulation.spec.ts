@@ -17,12 +17,12 @@ import {
   TypeEntite,
 } from "../../src/Domain/Simulateur/Regulation.definitions";
 import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
-import { EtatEvaluation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatEvaluation.definitions";
 import {
   OperationEvalueEtat,
-  EtatEvaluation,
-  EtatEvaluationDefinitif,
+  EtatRegulationDefinitif,
   EtatEvaluationEnSuspens,
+  EtatRegulation,
+  EtapeEvaluation,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import {
   evalueEtatRegulation,
@@ -72,8 +72,8 @@ import {
 } from "./arbitraires/ResultatEvaluationRegulation.bases.arbitraire";
 import { arbitrairesResultatRegulation } from "./arbitraires/ResultatRegulation.arbitraires";
 
-const verificationReponseNonRegule = (reponse: EtatEvaluation) => {
-  const resultatAttendu: EtatEvaluationDefinitif = {
+const verificationReponseNonRegule = (reponse: EtatRegulation) => {
+  const resultatAttendu: EtatRegulationDefinitif = {
     _resultatEvaluationRegulation: "Definitif",
     etapeEvaluee: "InformationsSecteur",
     ...resultatNonRegule,
@@ -87,12 +87,12 @@ const verificationReponseNonRegule = (reponse: EtatEvaluation) => {
   ).toStrictEqual(resultatAttendu);
 };
 const fabriqueVerificationReponseDefinitivementRegule =
-  (typeEntite: TypeEntite) => (reponse: EtatEvaluation) => {
+  (typeEntite: TypeEntite) => (reponse: EtatRegulation) => {
     const causes: CausesRegulation = {
       ...propReponseEtat(reponse)("Structure"),
       ...propReponseEtat(reponse)("InformationsSecteur"),
     };
-    const resultatAttendu: EtatEvaluationDefinitif = {
+    const resultatAttendu: EtatRegulationDefinitif = {
       _resultatEvaluationRegulation: "Definitif",
       etapeEvaluee: "InformationsSecteur",
       ...fabriqueRegule(causes, typeEntite),
@@ -120,7 +120,7 @@ type DonneesTest = {
 describe("Regulation Etat Reponse", () => {
   describe("Invariants", () => {
     const generateurEtapesEvalueesConsecutives = fc.constantFrom<
-      [EtatEvaluation, EtatEvaluation, OperationEvalueEtat]
+      [EtapeEvaluation, EtapeEvaluation, OperationEvalueEtat]
     >(
       [
         "NonEvalue",
@@ -149,7 +149,7 @@ describe("Regulation Etat Reponse", () => {
         fc.property<
           [
             ResultatRegulationEntite,
-            [EtatEvaluation, EtatEvaluation, OperationEvalueEtat],
+            [EtapeEvaluation, EtapeEvaluation, OperationEvalueEtat],
           ]
         >(
           arbitrairesResultatRegulation,
@@ -159,7 +159,7 @@ describe("Regulation Etat Reponse", () => {
               resultatRegulation,
               etapeSource,
             );
-            const resultat = evaluation(reponse) as EtatEvaluationDefinitif;
+            const resultat = evaluation(reponse) as EtatRegulationDefinitif;
 
             expect(resultat._resultatEvaluationRegulation).toBe("Definitif");
             expect(resultat.etapeEvaluee).toBe(etapeCible);
@@ -186,7 +186,7 @@ describe("Regulation Etat Reponse", () => {
             fabriqueResultatEvaluationInconnuOse,
           ),
           (reponse) => {
-            const resultatAttendu: EtatEvaluation = {
+            const resultatAttendu: EtatRegulation = {
               _resultatEvaluationRegulation: "Definitif",
               etapeEvaluee: "DesignationOperateurServicesEssentiels",
               ...resultatReguleOSE,
@@ -223,7 +223,7 @@ describe("Regulation Etat Reponse", () => {
             fabriqueResultatEvaluationInconnuOse,
           ),
           (reponse) => {
-            const resultatAttendu: EtatEvaluationDefinitif = {
+            const resultatAttendu: EtatRegulationDefinitif = {
               _resultatEvaluationRegulation: "Definitif",
               etapeEvaluee: "DesignationOperateurServicesEssentiels",
               ...resultatIncertain,
@@ -265,9 +265,9 @@ describe("Regulation Etat Reponse", () => {
             .tuple(...tupleArbitrairesJamaisOseJamaisFrance)
             .map(
               fabriqueResultatEvaluationEnSuspensAppUE,
-            ) as fc.Arbitrary<EtatEvaluation>,
+            ) as fc.Arbitrary<EtatRegulation>,
           (reponse) => {
-            const resultatAttendu: EtatEvaluationDefinitif = {
+            const resultatAttendu: EtatRegulationDefinitif = {
               _resultatEvaluationRegulation: "Definitif",
               etapeEvaluee: "AppartenancePaysUnionEuropeenne",
               ...resultatIncertain,
@@ -318,7 +318,7 @@ describe("Regulation Etat Reponse", () => {
             )
             .map(fabriqueResultatEvaluationEnSuspensStructure),
           (reponse) => {
-            const resultatAttendu: EtatEvaluationDefinitif = {
+            const resultatAttendu: EtatRegulationDefinitif = {
               _resultatEvaluationRegulation: "Definitif",
               etapeEvaluee: "Structure",
               ...resultatIncertain,
@@ -461,7 +461,7 @@ describe("Regulation Etat Reponse", () => {
           fabriqueResultatEvaluationInconnuOse,
         ),
         (reponse) => {
-          const resultatAttendu: EtatEvaluation = {
+          const resultatAttendu: EtatRegulation = {
             _resultatEvaluationRegulation: "Definitif",
             etapeEvaluee: "InformationsSecteur",
             ...resultatReguleOSE,
@@ -481,7 +481,7 @@ describe("Regulation Etat Reponse", () => {
           )
           .map(fabriqueResultatEvaluationEnSuspensStructure),
         (reponse) => {
-          const resultatAttendu: EtatEvaluationDefinitif = {
+          const resultatAttendu: EtatRegulationDefinitif = {
             _resultatEvaluationRegulation: "Definitif",
             etapeEvaluee: "InformationsSecteur",
             ...resultatIncertain,
@@ -498,8 +498,8 @@ describe("Regulation Etat Reponse", () => {
         fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
           arbReponseInformationsSecteurLocalisesHorsFrancePetit,
         ),
-        (reponse: EtatEvaluation) => {
-          const resultatAttendu: EtatEvaluationDefinitif = {
+        (reponse: EtatRegulation) => {
+          const resultatAttendu: EtatRegulationDefinitif = {
             _resultatEvaluationRegulation: "Definitif",
             etapeEvaluee: "InformationsSecteur",
             ...resultatNonRegule,
@@ -555,7 +555,7 @@ describe("Regulation Etat Reponse", () => {
         const resultatEvaluationRegulation =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
             donneesFormulaire,
-          ) as EtatEvaluation;
+          ) as EtatRegulation;
         const resultatRegulationQualifiee = evalueEtatRegulation(
           resultatEvaluationRegulation,
         );

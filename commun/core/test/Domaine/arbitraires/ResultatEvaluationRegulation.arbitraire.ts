@@ -1,6 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { TypeStructure } from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
-import { EtatEvaluation } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
+import { EtatRegulation } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import {
   CategorieTaille,
   ReponseAppartenancePaysUnionEuropeenne,
@@ -45,7 +45,7 @@ export const mapTupleArbitrairesToujoursFrance =
   <Structure extends TypeStructure, Taille extends CategorieTaille>(
     fabrique: (
       arr: FabriqueArbReponseSimulateurParams<Taille>,
-    ) => EtatEvaluation,
+    ) => EtatRegulation,
   ) =>
   (arbStructure: fc.Arbitrary<ReponseStructure<Structure, Taille>>) =>
   (arbInformationsSecteur: fc.Arbitrary<ReponseInformationsSecteur<Taille>>) =>

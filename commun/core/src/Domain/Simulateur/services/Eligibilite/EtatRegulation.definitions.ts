@@ -1,37 +1,43 @@
 import { Tag } from "../../../../../../utils/types/Tag";
 import { ResultatRegulationEntite } from "../../Regulation.definitions";
-import { EtatEvaluationActives } from "./EtatEvaluation.definitions";
 import { UnionReponseEtatNonVide } from "./ReponseEtat.definitions";
 
-export type EtatEvaluationBase = {
-  etapeEvaluee: EtatEvaluationActives | "NonEvalue";
+export type EtapeEvaluationActive =
+  | "DesignationOperateurServicesEssentiels"
+  | "AppartenancePaysUnionEuropeenne"
+  | "Structure"
+  | "InformationsSecteur";
+export type EtapeEvaluation = "NonEvalue" | EtapeEvaluationActive;
+export type EtatRegulationBase = {
+  etapeEvaluee: EtapeEvaluationActive | "NonEvalue";
 };
 
-export type EtatEvaluationDefinitif = Tag<
+export type EtatRegulationDefinitif = Tag<
   "Definitif",
   "ResultatEvaluationRegulation"
 > &
-  EtatEvaluationBase &
+  EtatRegulationBase &
   ResultatRegulationEntite;
 
-export type EtatEvaluationAvecReponses = EtatEvaluationBase &
+export type EtatRegulationAvecReponses = EtatRegulationBase &
   UnionReponseEtatNonVide;
+
 export type EtatEvaluationEnSuspens = Tag<
   "EnSuspens",
   "ResultatEvaluationRegulation"
 > &
   ResultatRegulationEntite &
-  EtatEvaluationAvecReponses;
+  EtatRegulationAvecReponses;
 
-export type EtatEvaluationInconnu = Tag<
+export type EtatRegulationInconnu = Tag<
   "Inconnu",
   "ResultatEvaluationRegulation"
 > &
-  EtatEvaluationAvecReponses;
+  EtatRegulationAvecReponses;
 
-export type EtatEvaluation =
-  | EtatEvaluationDefinitif
+export type EtatRegulation =
+  | EtatRegulationDefinitif
   | EtatEvaluationEnSuspens
-  | EtatEvaluationInconnu;
+  | EtatRegulationInconnu;
 
-export type OperationEvalueEtat = (reponse: EtatEvaluation) => EtatEvaluation;
+export type OperationEvalueEtat = (reponse: EtatRegulation) => EtatRegulation;

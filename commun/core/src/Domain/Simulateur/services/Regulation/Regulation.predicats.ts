@@ -16,7 +16,7 @@ import {
   contientPetiteEntreprise,
   predicatDonneesFormulaire as verifie,
 } from "../DonneesFormulaire/DonneesFormulaire.predicats";
-import { EtatEvaluationDefinitif } from "../Eligibilite/EtatRegulation.definitions";
+import { EtatRegulationDefinitif } from "../Eligibilite/EtatRegulation.definitions";
 import { auMoinsUnSecteurListe } from "../SecteurActivite/SecteurActivite.predicats";
 import { auMoinsUnSousSecteurListe } from "../SousSecteurActivite/SousSecteurActivite.predicats";
 
@@ -72,7 +72,7 @@ export const carEstGrandeDansSecteurListeAvecBesoinLocalisation = car(
 );
 
 export const estResultatRegulationPositif = <
-  T extends ResultatRegulationEntite | EtatEvaluationDefinitif,
+  T extends ResultatRegulationEntite | EtatRegulationDefinitif,
 >(
   res: ResultatRegulationPositif | T,
 ): res is ResultatRegulationPositif => res.decision === "Regule";

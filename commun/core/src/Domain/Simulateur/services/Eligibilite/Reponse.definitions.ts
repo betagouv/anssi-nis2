@@ -180,7 +180,7 @@ export type InformationsSecteurPossibleNonLocalisees =
   | InformationsSecteursCompositeListe
   | InformationSecteurSimple;
 
-export type InformationSecteurPossible<Taille extends CategorieTaille> =
+export type InformationsSecteurPossible<Taille extends CategorieTaille> =
   | InformationsSecteurPossibleNonLocalisees
   | InformationSecteurLocalisable<Taille>
   | InformationsSecteurPossiblesAutre;
@@ -190,11 +190,11 @@ export type InformationsSecteursComposite =
   | InformationsSecteursCompositeListe;
 
 export type InformationsSecteurPetitAlternatives<T extends CategorieTaille> = {
-  secteurs: Set<InformationSecteurPossible<T>>;
+  secteurs: Set<InformationsSecteurPossible<T>>;
 };
 
 export type ReponseInformationsSecteur<T extends CategorieTaille> =
   CategoriseTaille<T> & InformationsSecteurPetitAlternatives<T>;
 export type predicatInformationSecteurPossible = (
-  i: InformationSecteurPossible<CategorieTaille>,
+  i: InformationsSecteurPossible<CategorieTaille>,
 ) => boolean;

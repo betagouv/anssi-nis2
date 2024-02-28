@@ -2,28 +2,26 @@ import { resultatReguleOSE } from "../../fabriques/Regulation.fabrique";
 import { resultatIncertain } from "../../Regulation.constantes";
 import { ResultatRegulationEntite } from "../../Regulation.definitions";
 import {
-  EtatEvaluation,
-  EtatEvaluationActives,
-} from "./EtatEvaluation.definitions";
-import {
-  EtatEvaluation,
-  EtatEvaluationAvecReponses,
-  EtatEvaluationDefinitif,
+  EtatRegulation,
+  EtatRegulationAvecReponses,
+  EtatRegulationDefinitif,
   EtatEvaluationEnSuspens,
-  EtatEvaluationInconnu,
+  EtatRegulationInconnu,
+  EtapeEvaluation,
+  EtapeEvaluationActive,
 } from "./EtatRegulation.definitions";
 import { UnionReponseEtatNonVide } from "./ReponseEtat.definitions";
 
 export const fabriqueResultatEvaluationInconnu = (
   reponse: UnionReponseEtatNonVide,
-  etapeEvaluee: EtatEvaluation = "NonEvalue",
-): EtatEvaluationInconnu => ({
+  etapeEvaluee: EtapeEvaluation = "NonEvalue",
+): EtatRegulationInconnu => ({
   ...reponse,
   _resultatEvaluationRegulation: "Inconnu",
   etapeEvaluee,
 });
 export const fabriqueResultatEvaluationEnSuspens = (
-  etapeEvaluee: EtatEvaluationActives,
+  etapeEvaluee: EtapeEvaluationActive,
   resulat: ResultatRegulationEntite,
   reponse: UnionReponseEtatNonVide,
 ): EtatEvaluationEnSuspens => ({
@@ -33,23 +31,23 @@ export const fabriqueResultatEvaluationEnSuspens = (
   etapeEvaluee,
 });
 export const fabriqueResultatEvaluationDefinitif = (
-  etapeEvaluee: EtatEvaluationActives,
+  etapeEvaluee: EtapeEvaluationActive,
   resulat: ResultatRegulationEntite,
-): EtatEvaluationDefinitif => ({
+): EtatRegulationDefinitif => ({
   _resultatEvaluationRegulation: "Definitif",
   etapeEvaluee,
   ...resulat,
 });
 export const fabriqueResultatEvaluationReguleOse =
-  (): EtatEvaluationDefinitif =>
+  (): EtatRegulationDefinitif =>
     fabriqueResultatEvaluationDefinitif(
       "DesignationOperateurServicesEssentiels",
       resultatReguleOSE,
     );
 export const fabriqueResultatEnSuspensOse =
-  (reponse: EtatEvaluation) => (): EtatEvaluationEnSuspens =>
+  (reponse: EtatRegulation) => (): EtatEvaluationEnSuspens =>
     fabriqueResultatEvaluationEnSuspens(
       "DesignationOperateurServicesEssentiels",
       resultatIncertain,
-      reponse as EtatEvaluationAvecReponses,
+      reponse as EtatRegulationAvecReponses,
     );

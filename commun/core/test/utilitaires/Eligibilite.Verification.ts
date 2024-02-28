@@ -6,8 +6,8 @@ import { ResultatEligibilite } from "../../src/Domain/Simulateur/Eligibilite.def
 import { calculeEligibilite } from "../../src/Domain/Simulateur/services/Eligibilite/Eligibilite.operations";
 import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
 import {
-  EtatEvaluation,
-  EtatEvaluationDefinitif,
+  EtatRegulation,
+  EtatRegulationDefinitif,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import { evalueEtatRegulation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
 import { transformeEligibiliteEnRegulationEntite } from "../../src/Domain/Simulateur/services/Regulation/Regulation.operations";
@@ -78,7 +78,7 @@ const verifieResultatRegulationQualifie = (
       const resultatEvaluationRegulation =
         ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
           donnees,
-        ) as EtatEvaluation;
+        ) as EtatRegulation;
       const resultatRegulationQualifiee = evalueEtatRegulation(
         resultatEvaluationRegulation,
       );
@@ -86,7 +86,7 @@ const verifieResultatRegulationQualifie = (
         "Definitif",
       );
       const resultatRegulationDefinitif =
-        resultatRegulationQualifiee as EtatEvaluationDefinitif;
+        resultatRegulationQualifiee as EtatRegulationDefinitif;
       const decisionAttendue = transformeEligibiliteEnRegulationEntite(
         Eligibilite[resultatEligibilite],
       )(donnees);
