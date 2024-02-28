@@ -451,7 +451,6 @@ describe("Regulation Etat Reponse", () => {
         ),
       );
     });
-    describe("Cas incertains", () => {});
   });
   describe("chaine de décision", () => {
     it(
