@@ -19,17 +19,16 @@ import {
   classDivResultat,
   classPourIconeResultat,
   estIncertainStandard,
-  recupereTitrePourResultat,
+  recupereTitrePourEtatEvaluation,
 } from "./LigneResultat.aide.ts";
 
 export const LigneResultat: DefaultComponentExtensible<
   DefaultProps & LigneResultatProps
-> = ({ regulation, precision }: LigneResultatProps) => {
+> = ({ etatRegulation, regulation, precision }: LigneResultatProps) => {
   const [contenuPrecisions, propageContenuPrecisions] = useReducer(
     changePropriete,
     { ...initialState, ...precisionsResultatVide },
   );
-
   const basculePlus = () =>
     propageContenuPrecisions({
       type: "estAfficheAnnexe",
@@ -65,7 +64,7 @@ export const LigneResultat: DefaultComponentExtensible<
             classIcone={classPourIconeResultat(regulation, precision)}
           />
           <Markdown components={{ p: "h4" }}>
-            {recupereTitrePourResultat(regulation, precision)}
+            {recupereTitrePourEtatEvaluation(etatRegulation)}
           </Markdown>
           {estCasNonGere && <p>{explicationContenuIncertain}</p>}
         </div>

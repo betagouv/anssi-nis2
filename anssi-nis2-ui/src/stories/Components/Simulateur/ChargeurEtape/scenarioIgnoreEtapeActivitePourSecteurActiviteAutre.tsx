@@ -4,7 +4,7 @@ import { ChargeurEtape } from "../../../../Components/Simulateur/ChargeurEtape.t
 import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 
-import { libelleTitreRegule } from "../../../../References/LibellesResultatsEligibilite.ts";
+import { libelleTitreReguleEntiteEssentielle } from "../../../../References/LibellesResultatsEligibilite.ts";
 import { nettoieBrMd } from "../../../../Services/Markdown/TransformeMarkdown.operations.ts";
 import {
   cliqueSurDebuterLeTest,
@@ -32,7 +32,7 @@ export const scenarioIgnoreEtapeActivitePourSecteurActiviteAutre: StoryObj<
   ]);
   await passeEtape([["secteurActivite", "autreSecteurActivite"]]);
 
-  await canvas.findByText(nettoieBrMd(libelleTitreRegule));
+  await canvas.findByText(nettoieBrMd(libelleTitreReguleEntiteEssentielle));
 
   await expect(mockSendFormData).toHaveBeenCalledTimes(1);
   await expect(mockSendFormData).toHaveBeenCalledWith(

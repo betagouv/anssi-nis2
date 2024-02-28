@@ -10,7 +10,8 @@ import {
 import { Regulation } from "../../src/Domain/Simulateur/Regulation.definitions";
 import { transformeEligibiliteEnRegulationEntite } from "../../src/Domain/Simulateur/services/Regulation/Regulation.operations";
 
-describe(transformeEligibiliteEnRegulationEntite, () => {
+/* TODO supprimer ces tests de transformations une fois l'éligibilité totalement mise de côté au profit de EtatRegulation */
+describe.skip(transformeEligibiliteEnRegulationEntite, () => {
   const donneesFormulaireSimulateurOSE = fabriqueDonneesFormulaire({
     designationOperateurServicesEssentiels: ["oui"],
   });

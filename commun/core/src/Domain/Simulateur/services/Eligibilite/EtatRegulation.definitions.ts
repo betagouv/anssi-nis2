@@ -16,8 +16,8 @@ export type EtatRegulationDefinitif = Tag<
   "Definitif",
   "ResultatEvaluationRegulation"
 > &
-  EtatRegulationBase &
-  ResultatRegulationEntite;
+  ResultatRegulationEntite &
+  EtatRegulationBase;
 
 export type EtatRegulationAvecReponses = EtatRegulationBase &
   UnionReponseEtatNonVide;

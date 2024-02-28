@@ -2,7 +2,7 @@ import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
 
-import { libelleTitreRegule } from "../../../../References/LibellesResultatsEligibilite.ts";
+import { libelleTitreReguleEntiteEssentielle } from "../../../../References/LibellesResultatsEligibilite.ts";
 import { nettoieBrMd } from "../../../../Services/Markdown/TransformeMarkdown.operations.ts";
 import {
   cliqueSurDebuterLeTest,
@@ -48,7 +48,7 @@ export const scenarioEtapeSousActiviteConditionnelle: StoryObj<
     ["activites", "gestionnaireReseauDistribution"],
   ]);
 
-  await canvas.findByText(nettoieBrMd(libelleTitreRegule));
+  await canvas.findByText(nettoieBrMd(libelleTitreReguleEntiteEssentielle));
 
   await expect(mockSendFormData).toHaveBeenCalledTimes(1);
   await expect(mockSendFormData).toHaveBeenCalledWith(

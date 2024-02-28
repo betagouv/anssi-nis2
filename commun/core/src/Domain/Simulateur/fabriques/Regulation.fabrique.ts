@@ -15,4 +15,7 @@ export const fabriqueRegule = (
   typeEntite,
 });
 
-export const resultatReguleOSE = fabriqueRegule(causeReguleOSE);
+export const resultatReguleOSE = fabriqueRegule(
+  causeReguleOSE,
+  "EntiteEssentielle",
+);

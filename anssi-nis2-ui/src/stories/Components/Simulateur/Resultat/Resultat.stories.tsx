@@ -52,6 +52,11 @@ export const ResultatEligibleOSE: Story = {
 
     await attendTexteCharge(canvasElement, pointsDAttention);
 
+    expect(
+      await canvas.findByText(
+        "Votre entité sera régulée par NIS 2 en tant qu’Entité Essentielle (EE)",
+      ),
+    );
     await verifieTitresSectionsPresentes(
       canvasElement,
       new Set(["etMaintenant", "enSavoirPlus", "bienDebuter"]),
@@ -81,6 +86,11 @@ export const ResultatEligiblePetiteEntreprise: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await attendTexteCharge(canvasElement, pointsDAttention);
+    expect(
+      await canvas.findByText(
+        "Votre entité sera régulée par NIS 2 en tant qu’Entité Essentielle (EE)",
+      ),
+    );
     await verifieTitresSectionsPresentes(
       canvasElement,
       new Set(["etMaintenant", "enSavoirPlus", "bienDebuter"]),
@@ -107,6 +117,12 @@ export const ResultatEligibleGrandeEntreprise: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await attendTexteCharge(canvasElement, pointsDAttention);
+
+    expect(
+      await canvas.findByText(
+        "Votre entité sera régulée par NIS 2 en tant qu’Entité Importante (EI)",
+      ),
+    );
 
     await verifieTitresSectionsPresentes(
       canvasElement,

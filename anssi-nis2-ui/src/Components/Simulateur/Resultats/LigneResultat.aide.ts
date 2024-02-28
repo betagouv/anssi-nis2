@@ -4,16 +4,19 @@ import {
 } from "../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 import { PrecisionsResultat } from "../../../../../commun/core/src/Domain/Simulateur/Resultat.constantes.ts";
 import { PrecisionResultat } from "../../../../../commun/core/src/Domain/Simulateur/Resultat.declarations.ts";
+import { EtatRegulationDefinitif } from "../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions.ts";
 import {
   libelleTitreIncertainAutrePaysUnionEuropeenne,
   libelleTitreIncertainStandard,
   libelleTitreNonRegule,
-  libelleTitreRegule,
+  libelleTitreReguleEntiteEssentielle,
+  libelleTitreReguleEntiteImportante,
 } from "../../../References/LibellesResultatsEligibilite.ts";
 import {
   ActionPrecisionsResultat,
   EtatPrecisionsResultat,
 } from "./LigneResultat.declarations.ts";
+import { match } from "ts-pattern";
 
 export const changePropriete = (
   state: EtatPrecisionsResultat,
@@ -54,23 +57,30 @@ export const classPourIconeResultat = (
   precision: PrecisionResultat,
 ) => classPourIcone[regulation](precision);
 
-const titrePourResultat: Record<
-  RegulationEntite,
-  (p: PrecisionResultat) => string
-> = {
-  Regule: () => libelleTitreRegule,
-  NonRegule: () => libelleTitreNonRegule,
-  Incertain: (p: PrecisionResultat) =>
-    p === PrecisionsResultat.AutrePaysUnionEuropeenne
-      ? libelleTitreIncertainAutrePaysUnionEuropeenne
-      : libelleTitreIncertainStandard,
-};
-
-export const recupereTitrePourResultat = (
-  regulation: RegulationEntite,
-  precision: PrecisionResultat,
-) => titrePourResultat[regulation](precision);
-
+export const recupereTitrePourEtatEvaluation = (
+  etatRegulation: EtatRegulationDefinitif,
+) =>
+  match(etatRegulation)
+    .with(
+      {
+        decision: "Regule",
+        typeEntite: "EntiteEssentielle",
+      },
+      () => libelleTitreReguleEntiteEssentielle,
+    )
+    .with(
+      { decision: "Regule", typeEntite: "EntiteImportante" },
+      () => libelleTitreReguleEntiteImportante,
+    )
+    .with({ decision: "NonRegule" }, () => libelleTitreNonRegule)
+    .with(
+      {
+        // TODO : insérer une précision resultat pour incertain - PrecisionsResultat.AutrePaysUnionEuropeenne
+        decision: "Incertain",
+      },
+      () => libelleTitreIncertainAutrePaysUnionEuropeenne,
+    )
+    .otherwise(() => libelleTitreIncertainStandard);
 export const estIncertainStandard = (
   regulation: RegulationEntite,
   precision: PrecisionResultat,

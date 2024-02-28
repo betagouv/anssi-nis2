@@ -1,6 +1,7 @@
 import React from "react";
 import { RegulationEntite } from "../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 import { PrecisionResultat } from "../../../commun/core/src/Domain/Simulateur/Resultat.declarations.ts";
+import { EtatRegulationDefinitif } from "../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions.ts";
 
 export type Props = {
   className?: string;
@@ -40,6 +41,7 @@ export type FormulaireRestezInformesProps = RestezInformesProps & {
 };
 
 export type LigneResultatProps = {
+  etatRegulation: EtatRegulationDefinitif;
   regulation: RegulationEntite;
   precision: PrecisionResultat;
 };
