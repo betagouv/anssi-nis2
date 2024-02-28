@@ -1,5 +1,4 @@
 import { match, P } from "ts-pattern";
-import { GuardP } from "ts-pattern/dist/types/Pattern";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
@@ -41,10 +40,7 @@ const champsAvecUneValeur = (...champs: NomsChampsSimulateur[]) =>
   champs.reduce(
     (patt, champ) => ({
       ...patt,
-      [champ]: P.when(exactementUnElement) as GuardP<
-        DonneesFormulaireSimulateur[typeof champ],
-        never
-      >,
+      [champ]: P.when<string[], (a: string[]) => boolean>(exactementUnElement),
     }),
     {},
   );
@@ -53,10 +49,7 @@ const champsNonVides = (...champs: NomsChampsSimulateur[]) =>
   champs.reduce(
     (patt, champ) => ({
       ...patt,
-      [champ]: P.when(auMoinsUnElement) as GuardP<
-        DonneesFormulaireSimulateur[typeof champ],
-        never
-      >,
+      [champ]: P.when<string[], (a: string[]) => boolean>(auMoinsUnElement),
     }),
     {},
   );
