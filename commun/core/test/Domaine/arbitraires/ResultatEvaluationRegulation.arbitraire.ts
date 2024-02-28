@@ -7,7 +7,7 @@ import {
   ReponseDesignationOperateurServicesEssentiels,
   ReponseInformationsSecteur,
   ReponseStructure,
-} from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
+} from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.definitions";
 import {
   fabriqueResultatEvaluationEnSuspensSecteurGrand,
   fabriqueResultatEvaluationEnSuspensSecteurPetit,

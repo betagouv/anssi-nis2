@@ -7,7 +7,7 @@ import {
   ReponseStructure,
   ReponseStructurePrivee,
   ReponseStructurePublique,
-} from "./Reponse.definitions";
+} from "./StructuresReponse.definitions";
 
 export type CapsuleDesignationOperateurServicesEssentiels = {
   DesignationOperateurServicesEssentiels: ReponseDesignationOperateurServicesEssentiels;

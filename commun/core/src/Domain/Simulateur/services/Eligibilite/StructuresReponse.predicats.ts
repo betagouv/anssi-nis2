@@ -19,13 +19,13 @@ import { estSousSecteurAutre } from "../SousSecteurActivite/SousSecteurActivite.
 import {
   CategorieTaille,
   EtablissementPrincipalFournitUE,
-  InformationSecteurLocalisable,
+  InformationsSecteurAvecBesoinLocalisation,
   InformationsSecteurPossible,
-  InformationsSecteurPossibleNonLocalisees,
-  InformationsSecteurPossiblesAutre,
+  InformationsSecteurSansBesoinLocalisation,
+  InformationsSecteurAutre,
   InformationsSecteursComposite,
   predicatInformationSecteurPossible,
-} from "./Reponse.definitions";
+} from "./StructuresReponse.definitions";
 
 export const eqInformationsSecteur = (
   a: InformationsSecteurPossible<CategorieTaille>,
@@ -33,7 +33,7 @@ export const eqInformationsSecteur = (
 ) => a.secteurActivite === b.secteurActivite;
 export const estEtablissementPrincipalFournitUE = (
   reponse:
-    | InformationSecteurLocalisable<"Petit">
+    | InformationsSecteurAvecBesoinLocalisation<"Petit">
     | EtablissementPrincipalFournitUE,
 ): reponse is EtablissementPrincipalFournitUE =>
   reponse.fournitServicesUnionEuropeenne === "oui";
@@ -53,14 +53,14 @@ export const estInformationSecteurAvecActivitesEssentielles = <
   T extends CategorieTaille,
 >(
   sec: InformationsSecteurPossible<T>,
-): sec is InformationSecteurLocalisable<T> =>
+): sec is InformationsSecteurAvecBesoinLocalisation<T> =>
   estSecteurAvecActivitesEssentielles(sec.secteurActivite as SecteurActivite);
 export const estInformationSecteurLocalisableGrandeEntite = (
   sec:
     | InformationsSecteurPossible<"Grand">
-    | InformationsSecteurPossiblesAutre
-    | InformationsSecteurPossibleNonLocalisees,
-): sec is InformationSecteurLocalisable<"Grand"> =>
+    | InformationsSecteurAutre
+    | InformationsSecteurSansBesoinLocalisation,
+): sec is InformationsSecteurAvecBesoinLocalisation<"Grand"> =>
   estSecteurAvecBesoinLocalisationRepresentantGrandeEntite(
     sec.secteurActivite as SecteurActivite,
   ) ||
@@ -68,8 +68,8 @@ export const estInformationSecteurLocalisableGrandeEntite = (
 export const estSecteurBienLocalisePetit = (
   sec:
     | InformationsSecteurPossible<"Petit">
-    | InformationsSecteurPossiblesAutre
-    | InformationsSecteurPossibleNonLocalisees,
+    | InformationsSecteurAutre
+    | InformationsSecteurSansBesoinLocalisation,
 ) =>
   estInformationSecteurAvecActivitesEssentielles<"Petit">(sec) &&
   sec.fournitServicesUnionEuropeenne === "oui" &&
@@ -77,8 +77,8 @@ export const estSecteurBienLocalisePetit = (
 export const estSecteurBienLocaliseGrand = (
   sec:
     | InformationsSecteurPossible<"Grand">
-    | InformationsSecteurPossiblesAutre
-    | InformationsSecteurPossibleNonLocalisees,
+    | InformationsSecteurAutre
+    | InformationsSecteurSansBesoinLocalisation,
 ) =>
   estInformationSecteurLocalisableGrandeEntite(sec) &&
   sec.fournitServicesUnionEuropeenne === "oui" &&
@@ -123,21 +123,21 @@ export const auMoinsUneActiviteListee = flow<
 ) as predicatInformationSecteurPossible;
 export const contientActivitesInfrastructureNumeriqueEligiblesPetitEntite = (
   s:
-    | InformationSecteurLocalisable<"Petit">
+    | InformationsSecteurAvecBesoinLocalisation<"Petit">
     | InformationsSecteurPossible<"Petit">,
 ) =>
   certains(estActiviteInfrastructureNumeriqueEligiblesPetitEntite)(
-    (s as InformationSecteurLocalisable<"Petit">).activites,
+    (s as InformationsSecteurAvecBesoinLocalisation<"Petit">).activites,
   );
 export const contientDesActivitesEssentielles = <T extends CategorieTaille>(
   s: InformationsSecteurPossible<T>,
 ) =>
   certains(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation)(
-    (s as InformationSecteurLocalisable<T>).activites,
+    (s as InformationsSecteurAvecBesoinLocalisation<T>).activites,
   );
 export const contientActivitesListees = <T extends CategorieTaille>(
   s: InformationsSecteurPossible<T>,
 ) =>
   certains(estActiviteListee)(
-    (s as InformationSecteurLocalisable<T>).activites,
+    (s as InformationsSecteurAvecBesoinLocalisation<T>).activites,
   );

@@ -4,10 +4,10 @@ import {
   estActiviteListee,
 } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import {
-  InformationSecteurLocalisable,
+  InformationsSecteurAvecBesoinLocalisation,
   InformationSecteurSimple,
   InformationsSecteursCompositeListe,
-} from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
+} from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.definitions";
 import {
   arbInformationsSecteurComposite,
   arbInformationsSecteurCompositeActivitesAutres,
@@ -53,31 +53,31 @@ export const arbEnsembleSecteursSimplesEligiblesPetitActivitesAutres: fc.Arbitra
   ),
 );
 export const arbEnsembleSecteursLocalisablesPetitFrance: fc.Arbitrary<
-  Set<InformationSecteurLocalisable<"Petit">>
+  Set<InformationsSecteurAvecBesoinLocalisation<"Petit">>
 > = fabriqueArbitrairesEnsembleInformationsSecteurs<
-  InformationSecteurLocalisable<"Petit">
+  InformationsSecteurAvecBesoinLocalisation<"Petit">
 >(arbInformationsSecteur_AvecActivitesEssentielles_LocaliseesFrance_Petite);
 
 export const arbEnsembleSecteursLocalisablesNonFrance: fc.Arbitrary<
-  Set<InformationSecteurLocalisable<"Petit">>
+  Set<InformationsSecteurAvecBesoinLocalisation<"Petit">>
 > = fc.oneof(
   fabriqueArbitrairesEnsembleInformationsSecteurs<
-    InformationSecteurLocalisable<"Petit">
+    InformationsSecteurAvecBesoinLocalisation<"Petit">
   >(
     arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE,
   ),
   fabriqueArbitrairesEnsembleInformationsSecteurs<
-    InformationSecteurLocalisable<"Petit">
+    InformationsSecteurAvecBesoinLocalisation<"Petit">
   >(arbInformationsSecteurLocaliseesHorsFrancePetite),
 );
 export const arbEnsembleSecteursLocalisablesNonFranceGrande: fc.Arbitrary<
-  Set<InformationSecteurLocalisable<"Grand">>
+  Set<InformationsSecteurAvecBesoinLocalisation<"Grand">>
 > = fc.oneof(
   fabriqueArbitrairesEnsembleInformationsSecteurs<
-    InformationSecteurLocalisable<"Grand">
+    InformationsSecteurAvecBesoinLocalisation<"Grand">
   >(arbInformationsSecteurLocaliseesHorsUEGrand),
   fabriqueArbitrairesEnsembleInformationsSecteurs<
-    InformationSecteurLocalisable<"Grand">
+    InformationsSecteurAvecBesoinLocalisation<"Grand">
   >(arbInformationsSecteurLocaliseesHorsFranceGrand),
 );
 export const arbEnsembleSecteursComposites: fc.Arbitrary<

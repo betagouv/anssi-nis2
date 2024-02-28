@@ -9,7 +9,7 @@ import {
   ReponseInformationsSecteur,
   ReponseStructurePrivee,
   ReponseStructurePublique,
-} from "./Reponse.definitions";
+} from "./StructuresReponse.definitions";
 
 export type ReponseEtatVide = Tag<"ReponseEtatVide">;
 export type ReponseEtatDesignationOperateurServicesEssentiels =

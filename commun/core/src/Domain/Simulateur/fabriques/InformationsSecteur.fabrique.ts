@@ -15,7 +15,7 @@ import {
   CategorieTaille,
   InformationsSecteurPossible,
   ReponseInformationsSecteur,
-} from "../services/Eligibilite/Reponse.definitions";
+} from "../services/Eligibilite/StructuresReponse.definitions";
 import {
   estSecteurAutre,
   estSecteurAvecActivitesEssentielles,

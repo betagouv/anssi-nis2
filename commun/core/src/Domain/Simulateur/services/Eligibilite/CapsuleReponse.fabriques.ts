@@ -2,8 +2,8 @@ import {
   CategorieTaille,
   InformationsSecteurPossible,
   ReponseInformationsSecteur,
-} from "./Reponse.definitions";
-import { fabriqueCategorieTaille } from "./Reponse.fabriques";
+} from "./StructuresReponse.definitions";
+import { fabriqueCategorieTaille } from "./StructuresReponse.fabriques";
 
 export const fabriqueContenuCapsuleInformationSecteur =
   <T extends CategorieTaille>(taille: T) =>

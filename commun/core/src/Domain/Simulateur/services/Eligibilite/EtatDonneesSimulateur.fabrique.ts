@@ -20,7 +20,7 @@ import {
   ReponseStructure,
   ReponseStructurePrivee,
   ReponseStructurePublique,
-} from "./Reponse.definitions";
+} from "./StructuresReponse.definitions";
 import {
   ReponseEtatAppartenancePaysUnionEuropeenne,
   ReponseEtatDesignationOperateurServicesEssentiels,

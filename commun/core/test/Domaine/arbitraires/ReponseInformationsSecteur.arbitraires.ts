@@ -1,6 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { estActiviteInfrastructureNumeriqueEligiblesPetitEntite } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
-import { ReponseInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
+import { ReponseInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.definitions";
 import {
   arbEnsembleSecteursComposites,
   arbEnsembleSecteursCompositesActivitesAutres,

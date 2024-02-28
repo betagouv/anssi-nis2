@@ -1,4 +1,7 @@
-import { CategorieTaille, CategoriseTaille } from "./Reponse.definitions";
+import {
+  CategorieTaille,
+  CategoriseTaille,
+} from "./StructuresReponse.definitions";
 
 export const fabriqueCategorieTaille = <T extends CategorieTaille>(
   taille: T,

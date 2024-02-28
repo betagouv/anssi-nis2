@@ -111,13 +111,13 @@ export type InformationSousSecteurAutre<S extends SecteursAvecSousSecteurs> = {
   sousSecteurActivite: SousSecteurAutrePour<S>;
 };
 
-export type InformationSecteurEnergie = {
+export type InformationsSecteurCompositeEnergie = {
   secteurActivite: "energie";
   sousSecteurActivite: Omit<SousSecteurEnergie, "autreSousSecteurEnergie">;
   activites: Set<ActivitesEnergie>;
 };
 
-export type InformationSecteurFabrication = {
+export type InformationsSecteurCompositeFabrication = {
   secteurActivite: "fabrication";
   sousSecteurActivite: Omit<
     SousSecteurFabrication,
@@ -126,7 +126,7 @@ export type InformationSecteurFabrication = {
   activites: Set<ActivitesFabrication>;
 };
 
-export type InformationSecteurTransport = {
+export type InformationsSecteurCompositeTransport = {
   secteurActivite: "transports";
   sousSecteurActivite: Omit<SousSecteurTransport, "autreSousSecteurTransports">;
   activites: Set<ActivitesTransports>;
@@ -138,9 +138,9 @@ export type InformationSecteurSimple = {
 };
 
 export type InformationsSecteursCompositeListe =
-  | InformationSecteurEnergie
-  | InformationSecteurFabrication
-  | InformationSecteurTransport;
+  | InformationsSecteurCompositeEnergie
+  | InformationsSecteurCompositeFabrication
+  | InformationsSecteurCompositeTransport;
 
 export type EtablissementPrincipalNeFournitPasUE = {
   fournitServicesUnionEuropeenne: "non";
@@ -154,7 +154,7 @@ export type EtablissementPrincipalLocalisation =
   | EtablissementPrincipalNeFournitPasUE
   | EtablissementPrincipalFournitUE;
 
-type ActivitesAvecBesoinLocalisationRepresentant<
+export type ActivitesAvecBesoinLocalisationRepresentant<
   Taille extends CategorieTaille,
 > = Taille extends "Petit"
   ? ActiviteInfrastructureNumeriqueAvecBesoinLocalisation
@@ -163,7 +163,9 @@ type ActivitesAvecBesoinLocalisationRepresentant<
       | ActivitesFournisseursNumeriques
       | ActivitesGestionServicesTic;
 
-export type InformationSecteurLocalisable<Taille extends CategorieTaille> = {
+export type InformationsSecteurAvecBesoinLocalisation<
+  Taille extends CategorieTaille,
+> = {
   secteurActivite: SecteurAvecBesoinLocalisationRepresentant;
   activites: Set<ActivitesAvecBesoinLocalisationRepresentant<Taille>>;
 } & EtablissementPrincipalLocalisation;
@@ -172,29 +174,29 @@ export type InformationSecteurSimpleAutre = {
   secteurActivite: ExtraitAutre<SecteurActivite>;
 };
 
-export type InformationsSecteurPossiblesAutre =
+export type InformationsSecteurAutre =
   | InformationSecteurSimpleAutre
   | InformationSousSecteurAutre<SecteursAvecSousSecteurs>;
 
-export type InformationsSecteurPossibleNonLocalisees =
+export type InformationsSecteurSansBesoinLocalisation =
   | InformationsSecteursCompositeListe
   | InformationSecteurSimple;
 
 export type InformationsSecteurPossible<Taille extends CategorieTaille> =
-  | InformationsSecteurPossibleNonLocalisees
-  | InformationSecteurLocalisable<Taille>
-  | InformationsSecteurPossiblesAutre;
+  | InformationsSecteurSansBesoinLocalisation
+  | InformationsSecteurAvecBesoinLocalisation<Taille>
+  | InformationsSecteurAutre;
 
 export type InformationsSecteursComposite =
   | InformationSousSecteurAutre<SecteursAvecSousSecteurs>
   | InformationsSecteursCompositeListe;
 
-export type InformationsSecteurPetitAlternatives<T extends CategorieTaille> = {
+export type InformationsSecteur<T extends CategorieTaille> = {
   secteurs: Set<InformationsSecteurPossible<T>>;
 };
 
 export type ReponseInformationsSecteur<T extends CategorieTaille> =
-  CategoriseTaille<T> & InformationsSecteurPetitAlternatives<T>;
+  CategoriseTaille<T> & InformationsSecteur<T>;
 export type predicatInformationSecteurPossible = (
   i: InformationsSecteurPossible<CategorieTaille>,
 ) => boolean;

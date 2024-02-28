@@ -13,13 +13,13 @@ import {
 import { estReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.predicats";
 import {
   EtablissementPrincipalFournitUE,
-  InformationSecteurLocalisable,
-} from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
+  InformationsSecteurAvecBesoinLocalisation,
+} from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.definitions";
 import {
   estEtablissementPrincipalFournitUE,
   estInformationSecteurAvecActivitesEssentielles,
   estSecteurBienLocaliseHorsFrance,
-} from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.predicats";
+} from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.predicats";
 import { ReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.definitions";
 import { estSecteurListe } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
@@ -116,7 +116,9 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
             (capsule) => {
               [...capsule.secteurs].map((secteur) =>
                 expect(
-                  (secteur as InformationSecteurLocalisable<"Petit">).activites,
+                  (
+                    secteur as InformationsSecteurAvecBesoinLocalisation<"Petit">
+                  ).activites,
                 ).toSatisfy(
                   tous(
                     estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
@@ -424,7 +426,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
 
             const resultatType = resultat as ReponseEtatInformationsSecteur;
             const toutesActivitesEssentiellesAvecBesoinLocalisation = tous<
-              InformationSecteurLocalisable<"Petit">
+              InformationsSecteurAvecBesoinLocalisation<"Petit">
             >((secteur) =>
               tous(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation)(
                 secteur.activites,
@@ -433,7 +435,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
             expect(
               toutesActivitesEssentiellesAvecBesoinLocalisation(
                 resultatType.InformationsSecteur.secteurs as Set<
-                  InformationSecteurLocalisable<"Petit">
+                  InformationsSecteurAvecBesoinLocalisation<"Petit">
                 >,
               ),
             ).toBeTruthy();

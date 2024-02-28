@@ -10,7 +10,7 @@ import {
 import {
   ReponseStructure,
   ReponseStructurePrivee,
-} from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
+} from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.definitions";
 
 export const arbDesignationOperateurServicesEssentielsToujoursOui = fc.constant(
   {

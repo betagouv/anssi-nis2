@@ -27,7 +27,7 @@ import {
   fabriqueResultatEvaluationEnSuspens,
   fabriqueResultatEvaluationReguleOse,
 } from "./EtatRegulation.fabriques";
-import { propReponseEtat } from "./Reponse.operations";
+import { propReponseEtat } from "./StructuresReponse.operations";
 import {
   auMoinsUneActiviteListee,
   contientActivitesInfrastructureNumeriqueEligiblesPetitEntite,
@@ -41,7 +41,7 @@ import {
   estSecteurBienLocaliseGrand,
   estSecteurBienLocaliseHorsFrance,
   estSecteurBienLocalisePetit,
-} from "./Reponse.predicats";
+} from "./StructuresReponse.predicats";
 
 const propageDonneesEvaluees =
   (etape: EtapeEvaluationActive) => (reponse: EtatRegulation) => ({

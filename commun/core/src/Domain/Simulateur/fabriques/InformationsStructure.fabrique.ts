@@ -6,7 +6,7 @@ import {
   ReponseStructure,
   ReponseStructurePrivee,
   ReponseStructurePublique,
-} from "../services/Eligibilite/Reponse.definitions";
+} from "../services/Eligibilite/StructuresReponse.definitions";
 
 export const FabriqueInformationsStructure = {
   structurePriveePetite: (): ReponseStructurePrivee<"Petit"> => ({

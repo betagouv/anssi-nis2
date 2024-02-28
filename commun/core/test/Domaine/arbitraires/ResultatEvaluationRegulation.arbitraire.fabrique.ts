@@ -30,7 +30,7 @@ import {
 } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.fabriques";
 import {
   CategorieTaille,
-  InformationSecteurLocalisable,
+  InformationsSecteurAvecBesoinLocalisation,
   InformationsSecteurPossible,
   InformationSecteurSimple,
   InformationsSecteursCompositeListe,
@@ -40,8 +40,8 @@ import {
   ReponseStructure,
   ReponseStructurePrivee,
   ReponseStructurePublique,
-} from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.definitions";
-import { eqInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/Reponse.predicats";
+} from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.definitions";
+import { eqInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.predicats";
 import {
   SousSecteurActivite,
   SousSecteurDe,
@@ -135,14 +135,16 @@ export const fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe =
       sousSecteur?: SousSecteurActivite,
     ) => fc.Arbitrary<Set<U>>,
   ) =>
-  (secteur: T): fc.Arbitrary<InformationSecteurLocalisable<"Petit">> =>
-    fc.record<InformationSecteurLocalisable<"Petit">>({
+  (
+    secteur: T,
+  ): fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">> =>
+    fc.record<InformationsSecteurAvecBesoinLocalisation<"Petit">>({
       secteurActivite: fc.constant(secteur),
       activites: fabriqueActivite(secteur),
       fournitServicesUnionEuropeenne:
         arbFournitServiceUnionEuropeenne_ToujoursOui,
       localisationRepresentant: arbLocalisationRepresentant,
-    }) as fc.Arbitrary<InformationSecteurLocalisable<"Petit">>;
+    }) as fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">>;
 
 export const fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand =
 
@@ -156,27 +158,29 @@ export const fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand 
         sousSecteur?: SousSecteurActivite,
       ) => fc.Arbitrary<Set<U>>,
     ) =>
-    (secteur: T): fc.Arbitrary<InformationSecteurLocalisable<"Grand">> =>
-      fc.record<InformationSecteurLocalisable<"Grand">>({
+    (
+      secteur: T,
+    ): fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Grand">> =>
+      fc.record<InformationsSecteurAvecBesoinLocalisation<"Grand">>({
         secteurActivite: fc.constant(secteur),
         activites: fabriqueActivite(secteur),
         fournitServicesUnionEuropeenne:
           arbFournitServiceUnionEuropeenne_ToujoursOui,
         localisationRepresentant: arbLocalisationRepresentant,
-      }) as fc.Arbitrary<InformationSecteurLocalisable<"Grand">>;
+      }) as fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Grand">>;
 export const fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableHorsUe = <
   T extends SecteurAvecBesoinLocalisationRepresentant,
 >(
   secteur: T,
-): fc.Arbitrary<InformationSecteurLocalisable<"Petit">> =>
-  fc.record<InformationSecteurLocalisable<"Petit">>({
+): fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">> =>
+  fc.record<InformationsSecteurAvecBesoinLocalisation<"Petit">>({
     secteurActivite: fc.constant(secteur),
     activites: fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
       estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
     )<T, ActivitesLocalisablesPetit>(secteur),
     fournitServicesUnionEuropeenne:
       arbFournitServiceUnionEuropeenne_ToujoursNon,
-  }) as fc.Arbitrary<InformationSecteurLocalisable<"Petit">>;
+  }) as fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">>;
 
 export const fabriqueArbitraireCapsuleSecteurLocalisable =
   (
@@ -378,7 +382,7 @@ export const fabriqueArbitraireCapsuleSecteurLocalisablePetit_Oui_France =
 export const fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe =
   flow(
     fabriqueArbitrairesEnsembleInformationsSecteurs<
-      InformationSecteurLocalisable<"Grand">
+      InformationsSecteurAvecBesoinLocalisation<"Grand">
     >,
     fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France,
   );
@@ -386,7 +390,7 @@ export const fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEns
 export const fabriqueArbitraireCapsuleSecteurLocalisableGrand_AvecEnsembleDe =
   flow(
     fabriqueArbitrairesEnsembleInformationsSecteurs<
-      InformationSecteurLocalisable<"Grand">
+      InformationsSecteurAvecBesoinLocalisation<"Grand">
     >,
     fabriqueArbitraireCapsuleSecteurGrand,
   );

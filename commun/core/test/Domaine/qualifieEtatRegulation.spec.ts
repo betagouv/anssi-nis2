@@ -31,7 +31,7 @@ import {
   evalueRegulationEtatReponseOse,
   evalueRegulationEtatReponseStructure,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
-import { propReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/Reponse.operations";
+import { propReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.operations";
 import { fabriqueResultatEvaluationRegulationDefinitif } from "../../src/Domain/Simulateur/services/Eligibilite/ResultatEvaluationRegulation.fabriques";
 import { estResultatRegulationPositif } from "../../src/Domain/Simulateur/services/Regulation/Regulation.predicats";
 import {
