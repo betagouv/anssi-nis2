@@ -6,18 +6,18 @@ import {
   EtatEvaluationActives,
 } from "./EtatEvaluation.definitions";
 import {
-  ResultatEvaluationRegulation,
-  ResultatEvaluationRegulationAvecReponses,
-  ResultatEvaluationRegulationDefinitif,
-  ResultatEvaluationRegulationEnSuspens,
-  ResultatEvaluationRegulationInconnu,
+  EtatEvaluation,
+  EtatEvaluationAvecReponses,
+  EtatEvaluationDefinitif,
+  EtatEvaluationEnSuspens,
+  EtatEvaluationInconnu,
 } from "./EtatRegulation.definitions";
 import { UnionReponseEtatNonVide } from "./ReponseEtat.definitions";
 
 export const fabriqueResultatEvaluationInconnu = (
   reponse: UnionReponseEtatNonVide,
   etapeEvaluee: EtatEvaluation = "NonEvalue",
-): ResultatEvaluationRegulationInconnu => ({
+): EtatEvaluationInconnu => ({
   ...reponse,
   _resultatEvaluationRegulation: "Inconnu",
   etapeEvaluee,
@@ -26,7 +26,7 @@ export const fabriqueResultatEvaluationEnSuspens = (
   etapeEvaluee: EtatEvaluationActives,
   resulat: ResultatRegulationEntite,
   reponse: UnionReponseEtatNonVide,
-): ResultatEvaluationRegulationEnSuspens => ({
+): EtatEvaluationEnSuspens => ({
   ...resulat,
   ...reponse,
   _resultatEvaluationRegulation: "EnSuspens",
@@ -35,22 +35,21 @@ export const fabriqueResultatEvaluationEnSuspens = (
 export const fabriqueResultatEvaluationDefinitif = (
   etapeEvaluee: EtatEvaluationActives,
   resulat: ResultatRegulationEntite,
-): ResultatEvaluationRegulationDefinitif => ({
+): EtatEvaluationDefinitif => ({
   _resultatEvaluationRegulation: "Definitif",
   etapeEvaluee,
   ...resulat,
 });
 export const fabriqueResultatEvaluationReguleOse =
-  (): ResultatEvaluationRegulationDefinitif =>
+  (): EtatEvaluationDefinitif =>
     fabriqueResultatEvaluationDefinitif(
       "DesignationOperateurServicesEssentiels",
       resultatReguleOSE,
     );
 export const fabriqueResultatEnSuspensOse =
-  (reponse: ResultatEvaluationRegulation) =>
-  (): ResultatEvaluationRegulationEnSuspens =>
+  (reponse: EtatEvaluation) => (): EtatEvaluationEnSuspens =>
     fabriqueResultatEvaluationEnSuspens(
       "DesignationOperateurServicesEssentiels",
       resultatIncertain,
-      reponse as ResultatEvaluationRegulationAvecReponses,
+      reponse as EtatEvaluationAvecReponses,
     );

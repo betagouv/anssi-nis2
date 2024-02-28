@@ -3,37 +3,35 @@ import { ResultatRegulationEntite } from "../../Regulation.definitions";
 import { EtatEvaluationActives } from "./EtatEvaluation.definitions";
 import { UnionReponseEtatNonVide } from "./ReponseEtat.definitions";
 
-export type EtatEvaluation = {
+export type EtatEvaluationBase = {
   etapeEvaluee: EtatEvaluationActives | "NonEvalue";
 };
 
-export type ResultatEvaluationRegulationDefinitif = Tag<
+export type EtatEvaluationDefinitif = Tag<
   "Definitif",
   "ResultatEvaluationRegulation"
 > &
-  EtatEvaluation &
+  EtatEvaluationBase &
   ResultatRegulationEntite;
 
-export type ResultatEvaluationRegulationAvecReponses = EtatEvaluation &
+export type EtatEvaluationAvecReponses = EtatEvaluationBase &
   UnionReponseEtatNonVide;
-export type ResultatEvaluationRegulationEnSuspens = Tag<
+export type EtatEvaluationEnSuspens = Tag<
   "EnSuspens",
   "ResultatEvaluationRegulation"
 > &
   ResultatRegulationEntite &
-  ResultatEvaluationRegulationAvecReponses;
+  EtatEvaluationAvecReponses;
 
-export type ResultatEvaluationRegulationInconnu = Tag<
+export type EtatEvaluationInconnu = Tag<
   "Inconnu",
   "ResultatEvaluationRegulation"
 > &
-  ResultatEvaluationRegulationAvecReponses;
+  EtatEvaluationAvecReponses;
 
-export type ResultatEvaluationRegulation =
-  | ResultatEvaluationRegulationDefinitif
-  | ResultatEvaluationRegulationEnSuspens
-  | ResultatEvaluationRegulationInconnu;
+export type EtatEvaluation =
+  | EtatEvaluationDefinitif
+  | EtatEvaluationEnSuspens
+  | EtatEvaluationInconnu;
 
-export type OperationEvalueEtape = (
-  reponse: ResultatEvaluationRegulation,
-) => ResultatEvaluationRegulation;
+export type OperationEvalueEtat = (reponse: EtatEvaluation) => EtatEvaluation;

@@ -1,11 +1,11 @@
 import { fc } from "@fast-check/vitest";
 import { prop } from "../../../utils/services/objects.operations";
-import { ResultatEvaluationRegulation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
+import { EtatEvaluation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import { expect } from "vitest";
 
 export const afficheDifferences = (
-  resultatAttendu: ResultatEvaluationRegulation,
-  resultatObtenu: ResultatEvaluationRegulation,
+  resultatAttendu: EtatEvaluation,
+  resultatObtenu: EtatEvaluation,
 ) =>
   `
   Resultat Attendu: 
@@ -20,8 +20,8 @@ export const afficheDifferences = (
 
 export const assertionArbitraire =
   (
-    arbitraire: fc.Arbitrary<ResultatEvaluationRegulation>,
-    verification: (args: ResultatEvaluationRegulation) => boolean | void,
+    arbitraire: fc.Arbitrary<EtatEvaluation>,
+    verification: (args: EtatEvaluation) => boolean | void,
   ) =>
   () =>
     fc.assert(fc.property(arbitraire, verification), { verbose: true });
