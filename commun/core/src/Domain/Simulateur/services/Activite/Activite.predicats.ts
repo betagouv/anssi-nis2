@@ -1,12 +1,12 @@
 import {
   Activite,
-  ActivitesInfrastructureNumeriqueEligiblesPetitEntite,
   ActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
   ActiviteInfrastructureNumeriqueSansBesoinLocalisation,
+  ActivitesInfrastructureNumeriqueEligiblesPetitEntite,
 } from "../../Activite.definitions";
 import {
-  ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite,
   ValeursActivitesInfrastructureNumeriqueAvecBesoinLocalisation,
+  ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite,
   ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation,
 } from "../../Activite.valeurs";
 import {

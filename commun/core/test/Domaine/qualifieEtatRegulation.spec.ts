@@ -1,5 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { describe, expect, it } from "vitest";
+import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire.definitions";
 import {
   fabriqueRegule,
   resultatReguleOSE,
@@ -10,9 +11,12 @@ import {
 } from "../../src/Domain/Simulateur/Regulation.constantes";
 import {
   CausesRegulation,
+  Regulation,
+  RegulationEntite,
   ResultatRegulationEntite,
   TypeEntite,
 } from "../../src/Domain/Simulateur/Regulation.definitions";
+import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
 import { EtatEvaluation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatEvaluation.definitions";
 import {
   OperationEvalueEtape,
@@ -507,6 +511,58 @@ describe("Regulation Etat Reponse", () => {
           ).toStrictEqual(resultatAttendu);
         },
       ),
+    );
+    const contreExemples: (DonneesFormulaireSimulateur & {
+      description: string;
+      decisionAttendue: RegulationEntite;
+    })[] = [
+      {
+        description:
+          "Non OSE > Privée > Infra Num > Petite : Est éligible si le secteur d'activité est 'Infrastructure Numérique",
+        decisionAttendue: Regulation.Regule,
+        typeEntitePublique: [],
+        fournitServicesUnionEuropeenne: [],
+        localisationRepresentant: [],
+        secteurActivite: ["infrastructureNumerique"],
+        sousSecteurActivite: [],
+        designationOperateurServicesEssentiels: ["non"],
+        typeStructure: ["privee"],
+        trancheChiffreAffaire: ["petit"],
+        trancheNombreEmployes: ["petit"],
+        appartenancePaysUnionEuropeenne: ["france"],
+        activites: ["fournisseurReseauxCommunicationElectroniquesPublics"],
+      },
+      {
+        description:
+          "Non OSE > Privée > Infra Num > Moyenne/Grande : Moyen grand Gestion TIC",
+        decisionAttendue: Regulation.Regule,
+        typeEntitePublique: [],
+        fournitServicesUnionEuropeenne: ["oui"],
+        localisationRepresentant: ["france"],
+        secteurActivite: ["gestionServicesTic"],
+        sousSecteurActivite: [],
+        designationOperateurServicesEssentiels: ["non"],
+        typeStructure: ["privee"],
+        trancheChiffreAffaire: ["grand"],
+        appartenancePaysUnionEuropeenne: ["france"],
+        trancheNombreEmployes: ["moyen"],
+        activites: ["fournisseurServicesSecuriteGeres"],
+      },
+    ];
+    it.each(contreExemples)(
+      "Attendu: $decisionAttendue - $description",
+      (donneesFormulaire) => {
+        const resultatEvaluationRegulation =
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donneesFormulaire,
+          ) as ResultatEvaluationRegulation;
+        const resultatRegulationQualifiee = evalueEtatRegulation(
+          resultatEvaluationRegulation,
+        );
+        expect(resultatRegulationQualifiee.decision).toEqual(
+          donneesFormulaire.decisionAttendue,
+        );
+      },
     );
   });
 });

@@ -1,3 +1,4 @@
+import { flow } from "fp-ts/lib/function";
 import { match, P } from "ts-pattern";
 import { et, ou } from "../../../../../../utils/services/predicats.operations";
 import {
@@ -10,14 +11,10 @@ import {
   resultatNonRegule,
 } from "../../Regulation.constantes";
 import { TypeEntite } from "../../Regulation.definitions";
-import {
-  estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
-  estActiviteInfrastructureNumeriqueEligiblesPetitEntite,
-  estActiviteListee,
-} from "../Activite/Activite.predicats";
 import { EtatEvaluationActives } from "./EtatEvaluation.definitions";
 import {
   ResultatEvaluationRegulation,
+  ResultatEvaluationRegulationDefinitif,
   ResultatEvaluationRegulationEnSuspens,
 } from "./EtatRegulation.definitions";
 import {
@@ -26,24 +23,21 @@ import {
   fabriqueResultatEvaluationEnSuspens,
   fabriqueResultatEvaluationReguleOse,
 } from "./EtatRegulation.fabriques";
-import {
-  CategorieTaille,
-  InformationSecteurLocalisable,
-  InformationSecteurPossible,
-} from "./Reponse.definitions";
 import { propReponseEtat } from "./Reponse.operations";
 import {
   auMoinsUneActiviteListee,
-  estInformationSecteurAvecBesoinLocalisation,
+  contientActivitesInfrastructureNumeriqueEligiblesPetitEntite,
+  contientActivitesListees,
+  contientDesActivitesEssentielles,
   estInformationSecteurAvecActivitesEssentielles,
+  estInformationSecteurAvecBesoinLocalisation,
+  estInformationSecteurSecteurAutre,
+  estInformationSecteurSousSecteurAutre,
   estInformationsSecteurEligibleSansBesoinLocalisation,
   estSecteurBienLocaliseGrand,
   estSecteurBienLocaliseHorsFrance,
   estSecteurBienLocalisePetit,
-  estInformationSecteurSecteurAutre,
-  estInformationSecteurSousSecteurAutre,
 } from "./Reponse.predicats";
-import { flow } from "fp-ts/lib/function";
 
 const propageDonneesEvaluees =
   (etape: EtatEvaluationActives) =>
@@ -180,10 +174,9 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
         InformationsSecteur: {
           secteurs: P.when(
             certains(
-              et(estInformationSecteurAvecActivitesEssentielles, (s) =>
-                certains(
-                  estActiviteInfrastructureNumeriqueEligiblesPetitEntite,
-                )(s.activites),
+              et(
+                estInformationSecteurAvecActivitesEssentielles,
+                contientActivitesInfrastructureNumeriqueEligiblesPetitEntite,
               ),
             ),
           ),
@@ -238,18 +231,6 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
         reponse,
       ),
     );
-const contientDesActivitesEssentielles = <T extends CategorieTaille>(
-  s: InformationSecteurPossible<T>,
-) =>
-  certains(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation)(
-    (s as InformationSecteurLocalisable<T>).activites,
-  );
-const contientActivitesListees = <T extends CategorieTaille>(
-  s: InformationSecteurPossible<T>,
-) =>
-  certains(estActiviteListee)(
-    (s as InformationSecteurLocalisable<T>).activites,
-  );
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
   reponse: ResultatEvaluationRegulationEnSuspens,
 ): ResultatEvaluationRegulation =>
@@ -431,9 +412,13 @@ export const evalueRegulationEtatReponseInformationsSecteur = (
       ),
     );
 
-export const evalueEtatRegulation = flow(
+export const evalueEtatRegulation: (
+  reponse: ResultatEvaluationRegulation,
+) => ResultatEvaluationRegulationDefinitif = flow(
   evalueRegulationEtatReponseOse,
   evalueRegulationEtatReponseLocalisation,
   evalueRegulationEtatReponseStructure,
   evalueRegulationEtatReponseInformationsSecteur,
-);
+) as (
+  reponse: ResultatEvaluationRegulation,
+) => ResultatEvaluationRegulationDefinitif;

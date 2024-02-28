@@ -113,7 +113,9 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
             arbReponseInformationsSecteurLocalisesHorsFrancePetit,
             (capsule) => {
               [...capsule.secteurs].map((secteur) =>
-                expect(secteur.activites).toSatisfy(
+                expect(
+                  (secteur as InformationSecteurLocalisable<"Petit">).activites,
+                ).toSatisfy(
                   tous(
                     estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
                   ),

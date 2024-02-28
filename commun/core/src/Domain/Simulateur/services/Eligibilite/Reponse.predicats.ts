@@ -4,7 +4,11 @@ import { certains } from "../../../../../../utils/services/sets.operations";
 import { Activite } from "../../Activite.definitions";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
-import { estActiviteListee } from "../Activite/Activite.predicats";
+import {
+  estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+  estActiviteInfrastructureNumeriqueEligiblesPetitEntite,
+  estActiviteListee,
+} from "../Activite/Activite.predicats";
 import {
   estSecteurAutre,
   estSecteurAvecActivitesEssentielles,
@@ -117,3 +121,23 @@ export const auMoinsUneActiviteListee = flow<
   prop<Set<Activite>, "activites">("activites"),
   certains(estActiviteListee),
 ) as predicatInformationSecteurPossible;
+export const contientActivitesInfrastructureNumeriqueEligiblesPetitEntite = (
+  s:
+    | InformationSecteurLocalisable<"Petit">
+    | InformationSecteurPossible<"Petit">,
+) =>
+  certains(estActiviteInfrastructureNumeriqueEligiblesPetitEntite)(
+    (s as InformationSecteurLocalisable<"Petit">).activites,
+  );
+export const contientDesActivitesEssentielles = <T extends CategorieTaille>(
+  s: InformationSecteurPossible<T>,
+) =>
+  certains(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation)(
+    (s as InformationSecteurLocalisable<T>).activites,
+  );
+export const contientActivitesListees = <T extends CategorieTaille>(
+  s: InformationSecteurPossible<T>,
+) =>
+  certains(estActiviteListee)(
+    (s as InformationSecteurLocalisable<T>).activites,
+  );
