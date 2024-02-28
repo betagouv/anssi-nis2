@@ -26,6 +26,7 @@ export const listeDescriptionsActivites: Record<
   autreActiviteInfrastructureNumerique: [],
   autreActivitePetrole: [],
   autreActiviteProductionTransformationDistributionDenreesAlimentaires: [],
+  autreActiviteRecherche: [],
   autreActiviteReseauxChaleurFroid: [],
   autreActiviteSante: [],
   autreActiviteSecteurBancaire: [],

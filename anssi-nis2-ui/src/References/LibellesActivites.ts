@@ -38,6 +38,7 @@ export const libellesActivites: Record<Activite, string> = {
   autreActivitePetrole: "Autre activité",
   autreActiviteProductionTransformationDistributionDenreesAlimentaires:
     "Autre activité",
+  autreActiviteRecherche: "Autre activité",
   autreActiviteReseauxChaleurFroid: "Autre activité",
   autreActiviteSante: "Autre activité",
   autreActiviteSecteurBancaire: "Autre activité",
