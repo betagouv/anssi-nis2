@@ -1,4 +1,5 @@
 import { match } from "ts-pattern";
+import { ou } from "../../../../../utils/services/predicats.operations";
 import {
   ens,
   ensembleNeutreDe,
@@ -18,6 +19,7 @@ import {
 import {
   estSecteurAutre,
   estSecteurAvecActivitesEssentielles,
+  estSecteurAvecBesoinLocalisationRepresentantGrandeEntite,
   estUnSecteurAvecDesSousSecteurs,
   estUnSecteurSansDesSousSecteurs,
 } from "../services/SecteurActivite/SecteurActivite.predicats";
@@ -127,7 +129,10 @@ export const FabriqueInformationsSecteur = {
     match(secteurActivite)
       .when(estSecteurAutre, FabriqueInformationsSecteur.secteurAutre())
       .when(
-        estSecteurAvecActivitesEssentielles,
+        ou(
+          estSecteurAvecActivitesEssentielles,
+          estSecteurAvecBesoinLocalisationRepresentantGrandeEntite,
+        ),
         FabriqueInformationsSecteur.secteurSimpleAvecLocalisation(donnees),
       )
       .when(

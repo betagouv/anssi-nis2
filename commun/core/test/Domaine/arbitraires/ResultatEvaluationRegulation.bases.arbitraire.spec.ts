@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { tous } from "../../../../utils/services/sets.operations";
+import { certains, tous } from "../../../../utils/services/sets.operations";
 import { Activite } from "../../../src/Domain/Simulateur/Activite.definitions";
+import { SecteurImportantsAvecBesoinLocalisation } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
 
 import { ValeursSecteursImportantsAvecBesoinLocalisation } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
 import {
@@ -36,9 +37,10 @@ import {
   arbInformationsSecteurLocaliseesHorsFrancePetite,
   arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE,
   arbSecteurAvecSousSecteurListes,
-  arbSecteurImportantsLocalisablesGrandeEntite,
+  arbSecteurImportantAvecBesoinLocalisation,
   arbSecteurListesSansSousSecteurNiLocaGrand,
   arbSecteurNonEligiblesPetiteEntite,
+  arbInformationsSecteurLocaliseesFranceGrandeEI,
 } from "./InformationsSecteur.arbitraires";
 import {
   arbReponseInformationsSecteurLocalisesFrancePetit,
@@ -124,6 +126,27 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
             },
           );
         });
+        describe("arbInformationsSecteurLocaliseesFranceGrandeEI", () => {
+          it("contient uniquement des secteurs gestionServicesTic ou fournisseursNumeriques", () =>
+            assertion.propriete(
+              arbInformationsSecteurLocaliseesFranceGrandeEI,
+              (infoSec) => {
+                expect(
+                  ValeursSecteursImportantsAvecBesoinLocalisation.includes(
+                    infoSec.secteurActivite as SecteurImportantsAvecBesoinLocalisation,
+                  ),
+                ).toBeTruthy();
+                expect(infoSec.fournitServicesUnionEuropeenne).toEqual("oui");
+                expect(
+                  (infoSec as EtablissementPrincipalFournitUE)
+                    .localisationRepresentant,
+                ).toEqual("france");
+                expect(infoSec.activites).toSatisfy(
+                  certains(estActiviteListee),
+                );
+              },
+            ));
+        });
       });
     });
   });
@@ -139,13 +162,13 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
       it("exclusif avec les secteurs localisables", () =>
         assertion.tousExclusifs(
           arbSecteurListesSansSousSecteurNiLocaGrand,
-          arbSecteurImportantsLocalisablesGrandeEntite,
+          arbSecteurImportantAvecBesoinLocalisation,
         ));
     });
     describe("arbSecteurLocalisables", () => {
       it("est un secteur localisable", () =>
         assertion.propriete(
-          arbSecteurImportantsLocalisablesGrandeEntite,
+          arbSecteurImportantAvecBesoinLocalisation,
           (secteur) => {
             expect(ValeursSecteursImportantsAvecBesoinLocalisation).includes(
               secteur,

@@ -1,10 +1,4 @@
 type Predicat<T> = (donnees: T) => boolean;
-export const appliquePredicat: <T>(
-  donnees: T
-) => (predicat: Predicat<T>) => boolean =
-  <T>(donnees: T) =>
-  (predicat: Predicat<T>) =>
-    predicat(donnees);
 
 export const et: <T>(
   ...predicats: Array<Predicat<T>>
@@ -18,3 +12,10 @@ export const ou: <T>(
   <T>(...predicats: Array<Predicat<T>>) =>
   (donnees: T) =>
     predicats.some((p) => p(donnees));
+
+export const non: <T>(
+  ...predicats: Array<Predicat<T>>
+) => (donnees: T) => boolean =
+  <T>(predicat: Predicat<T>) =>
+  (donnees: T) =>
+    !predicat(donnees);

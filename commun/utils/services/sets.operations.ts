@@ -8,9 +8,9 @@ export const fromArray = <T>(elements: T[]) => ens(...elements);
 
 export const tous =
   <T>(predicat: (element: T) => boolean) =>
-  (set: Set<T>) =>
-    set.size > 0 && [...set].every(predicat);
+  (ensembleTous: Set<T>) =>
+    ensembleTous.size > 0 && [...ensembleTous].every(predicat);
 export const certains =
   <T>(predicat: (element: T) => boolean) =>
-  (set: Set<T>) =>
-    [...set].some(predicat);
+  (ensembleCertains: Set<T>) =>
+    [...ensembleCertains].some(predicat);

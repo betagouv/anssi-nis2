@@ -49,7 +49,7 @@ export const arbSecteurListesSansSousSecteurNiLocaGrand = fc.constantFrom(
 export const arbSecteurInfrascructureNumerique = fc.constantFrom(
   ...ValeursSecteurAvecActivitesEssentielles,
 );
-export const arbSecteurImportantsLocalisablesGrandeEntite =
+export const arbSecteurImportantAvecBesoinLocalisation =
   fc.constantFrom<SecteurImportantsAvecBesoinLocalisation>(
     ...ValeursSecteursImportantsAvecBesoinLocalisation,
   );
@@ -111,7 +111,7 @@ export const arbInformationsSecteur_AvecActivitesEssentielles_LocaliseesFrance_P
  * secteur dans "gestionServicesTic" | "fournisseursNumeriques"
  */
 export const arbInformationsSecteurLocaliseesFranceGrandeEI =
-  arbSecteurImportantsLocalisablesGrandeEntite.chain(
+  arbSecteurImportantAvecBesoinLocalisation.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand(
       arbLocalisationRepresentant_ToujoursFrance,
       fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(estActiviteListee)<

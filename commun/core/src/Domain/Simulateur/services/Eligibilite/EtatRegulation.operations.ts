@@ -1,6 +1,10 @@
 import { flow } from "fp-ts/lib/function";
 import { match, P } from "ts-pattern";
-import { et, ou } from "../../../../../../utils/services/predicats.operations";
+import {
+  et,
+  non,
+  ou,
+} from "../../../../../../utils/services/predicats.operations";
 import {
   certains,
   tous,
@@ -301,6 +305,7 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
             certains(
               et(
                 estInformationsSecteurEligibleSansBesoinLocalisation,
+                non(estInformationSecteurSousSecteurAutre),
                 auMoinsUneActiviteListee,
               ),
             ),

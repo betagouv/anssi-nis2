@@ -44,7 +44,7 @@ import {
   arbReponseInformationsSecteurFranceGrandEILocalisationHorsFrance,
   arbReponseInformationsSecteurGrand,
   arbReponseInformationsSecteurGrandActivitesAutres,
-  arbReponseInformationsSecteurLocalisesFranceGrandEI,
+  arbReponseInformationsSecteur_LocalisesFrance_Grand_EI,
   arbReponseInformationsSecteurLocalisesFranceGrandInfranumEE,
   arbReponseInformationsSecteurLocalisesFranceGrandInfranumEI,
   arbReponseInformationsSecteurLocalisesFrancePetit,
@@ -114,6 +114,11 @@ const verificationReponseDefinitivementReguleEI =
 const verificationReponseDefinitivementReguleEE =
   fabriqueVerificationReponseDefinitivementRegule("EntiteEssentielle");
 
+type DonneesTest = {
+  description: string;
+  decisionAttendue: RegulationEntite;
+  typeEntite: TypeEntite;
+};
 describe("Regulation Etat Reponse", () => {
   describe("Invariants", () => {
     const generateurEtapesEvalueesConsecutives = fc.constantFrom<
@@ -387,7 +392,7 @@ describe("Regulation Etat Reponse", () => {
     });
     describe("Grandes", () => {
       it(
-        "en suspens / sous-secteur listés ==> toujours définitivement régulé",
+        "en suspens / secteur et sous-secteur listés ==> toujours définitivement régulé",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
             arbReponseInformationsSecteurGrand,
@@ -399,7 +404,7 @@ describe("Regulation Etat Reponse", () => {
         "en suspens / secteurs+activités EI localisables et bien localisés ==> toujours définitivement régulé EI",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            arbReponseInformationsSecteurLocalisesFranceGrandEI,
+            arbReponseInformationsSecteur_LocalisesFrance_Grand_EI,
           ),
           verificationReponseDefinitivementReguleEI,
         ),
@@ -512,14 +517,12 @@ describe("Regulation Etat Reponse", () => {
         },
       ),
     );
-    const contreExemples: (DonneesFormulaireSimulateur & {
-      description: string;
-      decisionAttendue: RegulationEntite;
-    })[] = [
+    const contreExemples: (DonneesFormulaireSimulateur & DonneesTest)[] = [
       {
         description:
           "Non OSE > Privée > Infra Num > Petite : Est éligible si le secteur d'activité est 'Infrastructure Numérique",
         decisionAttendue: Regulation.Regule,
+        typeEntite: "EntiteEssentielle",
         typeEntitePublique: [],
         fournitServicesUnionEuropeenne: [],
         localisationRepresentant: [],
@@ -536,6 +539,7 @@ describe("Regulation Etat Reponse", () => {
         description:
           "Non OSE > Privée > Infra Num > Moyenne/Grande : Moyen grand Gestion TIC",
         decisionAttendue: Regulation.Regule,
+        typeEntite: "EntiteImportante",
         typeEntitePublique: [],
         fournitServicesUnionEuropeenne: ["oui"],
         localisationRepresentant: ["france"],

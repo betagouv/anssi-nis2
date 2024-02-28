@@ -1,11 +1,19 @@
 import { describe, expect, it } from "vitest";
-import { et, ou } from "../../../utils/services/predicats.operations";
+import { et, non, ou } from "../../../utils/services/predicats.operations";
 import {
   toujoursFaux,
   toujoursVrai,
 } from "../../src/Domain/Commun/Commun.predicats";
 
 describe("Opérations logiques sur prédicats", () => {
+  describe("non", () => {
+    it("renvoie l'inverse de la fonction vraie", () => {
+      expect(non(toujoursFaux)(1)).toBeTruthy();
+    });
+    it("renvoie l'inverse de la fonction", () => {
+      expect(non(toujoursVrai)("abc")).toBeFalsy();
+    });
+  });
   describe("et", () => {
     it("renvoie faux si tous les prédicats sont faux", () => {
       const validateur = et<number>(toujoursFaux, toujoursFaux, toujoursFaux);

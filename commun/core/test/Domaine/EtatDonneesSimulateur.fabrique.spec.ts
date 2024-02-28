@@ -687,6 +687,50 @@ describe("fabrique ReponseEtat", () => {
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
+      it("grande structure gestion TIC localisée hors france", () => {
+        const donnees = fabriqueDonneesFormulaire({
+          typeEntitePublique: [],
+          fournitServicesUnionEuropeenne: ["oui"],
+          localisationRepresentant: ["france"],
+          secteurActivite: ["gestionServicesTic"],
+          sousSecteurActivite: [],
+          designationOperateurServicesEssentiels: ["non"],
+          typeStructure: ["privee"],
+          trancheChiffreAffaire: ["grand"],
+          appartenancePaysUnionEuropeenne: ["france"],
+          trancheNombreEmployes: ["moyen"],
+          activites: ["fournisseurServicesSecuriteGeres"],
+        });
+        const resultatAttendu: UnionReponseEtat = {
+          _tag: "InformationsSecteur",
+          DesignationOperateurServicesEssentiels: {
+            designationOperateurServicesEssentiels: "non",
+          },
+          AppartenancePaysUnionEuropeenne: {
+            appartenancePaysUnionEuropeenne: "france",
+          },
+          Structure: {
+            _categorieTaille: "Grand",
+            typeStructure: "privee",
+            trancheChiffreAffaire: "grand",
+            trancheNombreEmployes: "moyen",
+          },
+          InformationsSecteur: {
+            _categorieTaille: "Grand",
+            secteurs: ens({
+              secteurActivite: "gestionServicesTic",
+              activites: ens("fournisseurServicesSecuriteGeres"),
+              localisationRepresentant: "france",
+              fournitServicesUnionEuropeenne: "oui",
+            }),
+          },
+        };
+        const resultatObtenu =
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
+        expect(resultatObtenu).toStrictEqual(resultatAttendu);
+      });
     });
   });
 });
