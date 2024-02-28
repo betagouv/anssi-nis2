@@ -9,7 +9,7 @@ const BandeauQuandSePreparer = () => {
       <div className="fr-bandeau-marianne fr-nis2-bandeau fr-py-10w">
         <div className={"fr-container"}>
           <div className="fr-grid-row--center">
-            <h2 className="fr-mb-7w fr-h1">Quand se préparer ?</h2>
+            <h2 className="fr-mb-7w fr-h1">Calendrier</h2>
           </div>
           <div className="fr-grid-row">
             <div className="fr-col-5 calendrier">
@@ -20,16 +20,19 @@ const BandeauQuandSePreparer = () => {
             </div>
             <div className="fr-col">
               <p className="fr-text--lead fr-py-4v fr-mb-2w">
-                La France a jusqu’au{" "}
-                <span className="fr-text--bold">17 octobre 2024</span> pour
-                transposer les obligations de cette directive dans le droit
-                national. Les délais de mise en conformité seront alors précisés
-                et débuteront au plus tard le 18 octobre 2024.
+                La directive NIS 2 a été publiée le&nbsp;27 décembre
+                2022&nbsp;au Journal Officiel de l&apos;Union européenne et
+                prévoit un délai de 21 mois pour que chaque Etat membre
+                transpose en droit national les différentes exigences
+                réglementaires.
               </p>
-              <p className="fr-text--lead fr-text--bold fr-mb-4w">
-                Pour estimer rapidement si votre entité peut être concernée et
-                recevoir des informations concernant la directive, effectuez dès
-                à présent une simulation de l’ANSSI.
+              <p className="fr-text--lead fr-text--bold fr-mb-3v">
+                NIS 2 rentrera en vigueur en France le 18 octobre 2024.
+              </p>
+              <p className="fr-text--lead fr-mb-4w">
+                Pour estimer rapidement si votre entité est assujettie et
+                recevoir des informations relatives à NIS 2, nous vous invitons
+                à effectuer le test.
               </p>
               <Link to={"/simulateur"}>
                 <Button

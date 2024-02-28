@@ -9,10 +9,9 @@ const BandeauConcerne: DefaultComponent = () => (
       <div className="fr-container">
         <div className="fr-grid-row">
           <div className="fr-nis2-flottant fr-col-offset-0 fr-col-12">
-            <h2 className="fr-h1">Suis-je concerné ?</h2>
-            <p className="fr-text--lead">
-              Découvrez en 2 minutes si la directive NIS 2 peut s&apos;appliquer
-              à votre entité.
+            <h2 className="fr-h1">Mon organisation est-elle concernée ?</h2>
+            <p className="fr-text--lead">             
+              Réalisez un test pour déterminer si votre organisation est assujettie à la directive NIS&nbsp;2
             </p>
             <Link to={"/simulateur"}>
               <Button className="fr-btn" onClick={noRefClick}>
