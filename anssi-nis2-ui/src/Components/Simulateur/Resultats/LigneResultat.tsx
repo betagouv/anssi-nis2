@@ -13,36 +13,34 @@ import { precisionsResultatVide } from "../../../Services/Simulateur/Props/Conte
 import { CenteredContainer } from "../../General/CenteredContainer.tsx";
 import { RowContainer } from "../../General/RowContainer.tsx";
 import { IconeResultat } from "./IconeResultat.tsx";
-import { initialState, statusAffichePlus } from "./LigneResultat.constantes.ts";
 import {
   changePropriete,
-  classDivResultat,
-  classPourIconeResultat,
-  estIncertainStandard,
+  estCasNonGere,
+  getClassesCssResultat,
   recupereTitrePourEtatEvaluation,
 } from "./LigneResultat.aide.ts";
+import { initialState, statusAffichePlus } from "./LigneResultat.constantes.ts";
 
 export const LigneResultat: DefaultComponentExtensible<
   DefaultProps & LigneResultatProps
-> = ({ etatRegulation, regulation, precision }: LigneResultatProps) => {
+> = ({ etatRegulation, precision }: LigneResultatProps) => {
   const [contenuPrecisions, propageContenuPrecisions] = useReducer(
     changePropriete,
     { ...initialState, ...precisionsResultatVide },
   );
+  const regulation = etatRegulation.decision;
   const basculePlus = () =>
     propageContenuPrecisions({
       type: "estAfficheAnnexe",
       value: !contenuPrecisions.estAfficheAnnexe,
     });
 
-  const estCasNonGere = estIncertainStandard(regulation, precision);
-
   const statusAfficheAnnexe =
     statusAffichePlus[`${contenuPrecisions.estAfficheAnnexe}`];
-
+  const classesCssResultat = getClassesCssResultat(etatRegulation);
   const classesDivResultat = [
     "fr-px-4w fr-pt-3w fr-pb-4w fr-nis2-resultat",
-    classDivResultat(regulation, precision),
+    classesCssResultat.cadre,
   ].join(" ");
   useEffect(() => {
     chargeContenuPour(regulation)(precision).then((p) => {
@@ -60,15 +58,15 @@ export const LigneResultat: DefaultComponentExtensible<
     <RowContainer>
       <CenteredContainer>
         <div className={classesDivResultat}>
-          <IconeResultat
-            classIcone={classPourIconeResultat(regulation, precision)}
-          />
+          <IconeResultat classIcone={classesCssResultat.icone} />
           <Markdown components={{ p: "h4" }}>
             {recupereTitrePourEtatEvaluation(etatRegulation)}
           </Markdown>
-          {estCasNonGere && <p>{explicationContenuIncertain}</p>}
+          {estCasNonGere(etatRegulation) && (
+            <p>{explicationContenuIncertain}</p>
+          )}
         </div>
-        {!estCasNonGere && (
+        {!estCasNonGere(etatRegulation) && (
           <div className="fr-mt-1v fr-px-4w fr-py-3w fr-nis2-resultat-explications">
             <Markdown components={decaleTitre4Niveaux}>
               {contenuPrecisions.principal}

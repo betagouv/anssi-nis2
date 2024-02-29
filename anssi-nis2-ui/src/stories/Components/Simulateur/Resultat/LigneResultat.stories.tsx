@@ -1,8 +1,15 @@
 // noinspection TypeScriptValidateJSTypes - Incompatibilité des selecteurs testing-library (any) et des string
 
 import { Meta, StoryObj } from "@storybook/react";
-import { Regulation } from "../../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
+import { expect } from "@storybook/jest";
+
+import {
+  CausesRegulation,
+  Regulation,
+} from "../../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 import { PrecisionsResultat } from "../../../../../../commun/core/src/Domain/Simulateur/Resultat.constantes.ts";
+import { EtatRegulationDefinitif } from "../../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions.ts";
+import { ens } from "../../../../../../commun/utils/services/sets.operations.ts";
 import { LigneResultat } from "../../../../Components/Simulateur/Resultats/LigneResultat.tsx";
 import { attendTexteCharge } from "../../../utilitaires/interaction.facilitateurs.ts";
 import {
@@ -11,6 +18,7 @@ import {
   verifieIcone,
   verifieTexteEnAnnexe,
 } from "./LigneResultat.predicats.ts";
+import { within } from "@storybook/testing-library";
 
 const meta: Meta<typeof LigneResultat> = {
   title: "Composants/Simulateur/Ligne Résultat",
@@ -20,10 +28,33 @@ export default meta;
 
 type Story = StoryObj<typeof LigneResultat>;
 
+const etatRegulation_ReguleEI: EtatRegulationDefinitif = {
+  decision: Regulation.Regule,
+  _resultatEvaluationRegulation: "Definitif",
+  typeEntite: "EntiteImportante",
+  etapeEvaluee: "InformationsSecteur",
+  causes: {
+    _categorieTaille: "Grand",
+    secteurs: ens({
+      secteurActivite: "sante",
+      activites: ens("laboratoireReferenceUE"),
+    }),
+  } as CausesRegulation,
+};
+const etatRegulation_NonRegule: EtatRegulationDefinitif = {
+  decision: Regulation.NonRegule,
+  _resultatEvaluationRegulation: "Definitif",
+  etapeEvaluee: "InformationsSecteur",
+};
+const etatRegulation_Incertain: EtatRegulationDefinitif = {
+  decision: Regulation.Incertain,
+  _resultatEvaluationRegulation: "Definitif",
+  etapeEvaluee: "InformationsSecteur",
+};
 export const ReguleStandard: Story = {
   args: {
-    regulation: Regulation.Regule,
     precision: PrecisionsResultat.Standard,
+    etatRegulation: etatRegulation_ReguleEI,
   },
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "REC";
@@ -33,11 +64,28 @@ export const ReguleStandard: Story = {
     verifieIcone(canvasElement, "fr-icon-check-line");
   },
 };
+export const ReguleStandardEI: Story = {
+  args: {
+    precision: PrecisionsResultat.Standard,
+    etatRegulation: etatRegulation_ReguleEI,
+  },
+  play: async ({ canvasElement }) => {
+    const texteEnAnnexe = "REC";
+    await verifieTexteEnAnnexe(canvasElement, texteEnAnnexe);
+    expect(
+      await within(canvasElement).findByText(
+        "Votre entité sera régulée par NIS 2 en tant qu’Entité Importante (EI)",
+      ),
+    );
+    verifieClasseBlocResultat(canvasElement, "fr-nis2-eligible");
+    verifieIcone(canvasElement, "fr-icon-check-line");
+  },
+};
 
 export const ReguleDORA: Story = {
   args: {
-    regulation: Regulation.Regule,
     precision: PrecisionsResultat.DORA,
+    etatRegulation: etatRegulation_ReguleEI,
   },
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "DORA";
@@ -49,8 +97,8 @@ export const ReguleDORA: Story = {
 
 export const ReguleEnregistrementDeNomsDeDomaines: Story = {
   args: {
-    regulation: Regulation.Regule,
     precision: PrecisionsResultat.EnregistrementDeNomsDeDomaine,
+    etatRegulation: etatRegulation_ReguleEI,
   },
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "Enregistrement de noms de domaines";
@@ -62,8 +110,8 @@ export const ReguleEnregistrementDeNomsDeDomaines: Story = {
 
 export const NonReguleStandard: Story = {
   args: {
-    regulation: Regulation.NonRegule,
     precision: PrecisionsResultat.Standard,
+    etatRegulation: etatRegulation_NonRegule,
   },
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "Critères de possible inclusion";
@@ -75,8 +123,8 @@ export const NonReguleStandard: Story = {
 
 export const NonReguleHorsUE: Story = {
   args: {
-    regulation: Regulation.NonRegule,
     precision: PrecisionsResultat.HorsUnionEuropeenne,
+    etatRegulation: etatRegulation_NonRegule,
   },
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "Ce résultat est présenté au vu des éléments saisis.";
@@ -89,8 +137,11 @@ export const NonReguleHorsUE: Story = {
 
 export const IncertainStandard: Story = {
   args: {
-    regulation: Regulation.Incertain,
     precision: PrecisionsResultat.Standard,
+    etatRegulation: {
+      ...etatRegulation_Incertain,
+      causes: { _tag: "ConstructionTestEnCours" },
+    },
   },
   play: async ({ canvasElement }) => {
     verifieAucunBlocDepliable(canvasElement);
@@ -101,8 +152,11 @@ export const IncertainStandard: Story = {
 
 export const IncertainAutrePaysUE: Story = {
   args: {
-    regulation: Regulation.Incertain,
     precision: PrecisionsResultat.AutrePaysUnionEuropeenne,
+    etatRegulation: {
+      ...etatRegulation_Incertain,
+      causes: { _tag: "DefiniDansUnAutreEtatMembre" },
+    },
   },
   play: async ({ canvasElement }) => {
     const texteEnAnnexe =

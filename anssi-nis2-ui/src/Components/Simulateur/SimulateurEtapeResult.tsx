@@ -24,20 +24,19 @@ export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
       donneesFormulaire,
     ) as EtatRegulation;
   const etatRegulation = evalueEtatRegulation(donneesReponse);
-  const regulation = etatRegulation.decision;
-  const precision = calculePrecisionResultat(regulation)(donneesFormulaire);
-  const modeFormulaireEmail = getModeFormulaireEmail(regulation);
+  const precision = calculePrecisionResultat(etatRegulation.decision)(
+    donneesFormulaire,
+  );
+  const modeFormulaireEmail = getModeFormulaireEmail(etatRegulation.decision);
   return (
     <>
-      <LigneResultat
-        etatRegulation={etatRegulation}
-        regulation={regulation}
-        precision={precision}
-      />
+      <LigneResultat etatRegulation={etatRegulation} precision={precision} />
       <LigneResterInformer mode={modeFormulaireEmail} />
-      {estRegule(regulation) && <LigneEtMaintenant />}
-      {estRegule(regulation) && <EnSavoirPlus />}
-      <LigneBienDebuter avecPdf={affichePdf(regulation)(donneesFormulaire)} />
+      {estRegule(etatRegulation.decision) && <LigneEtMaintenant />}
+      {estRegule(etatRegulation.decision) && <EnSavoirPlus />}
+      <LigneBienDebuter
+        avecPdf={affichePdf(etatRegulation.decision)(donneesFormulaire)}
+      />
       <LigneReseauxSociaux />
     </>
   );

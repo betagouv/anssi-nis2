@@ -1,9 +1,8 @@
+import { match } from "ts-pattern";
 import {
   Regulation,
-  RegulationEntite,
+  ResultatRegulationIncertain,
 } from "../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
-import { PrecisionsResultat } from "../../../../../commun/core/src/Domain/Simulateur/Resultat.constantes.ts";
-import { PrecisionResultat } from "../../../../../commun/core/src/Domain/Simulateur/Resultat.declarations.ts";
 import { EtatRegulationDefinitif } from "../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions.ts";
 import {
   libelleTitreIncertainAutrePaysUnionEuropeenne,
@@ -16,46 +15,48 @@ import {
   ActionPrecisionsResultat,
   EtatPrecisionsResultat,
 } from "./LigneResultat.declarations.ts";
-import { match } from "ts-pattern";
 
 export const changePropriete = (
   state: EtatPrecisionsResultat,
   action: ActionPrecisionsResultat,
 ) => ({ ...state, [action.type]: action.value });
 
-const classPourResultat: Record<
-  RegulationEntite,
-  (p: PrecisionResultat) => string
-> = {
-  Regule: () => "fr-nis2-eligible",
-  NonRegule: () => "fr-nis2-non-eligible",
-  Incertain: (p: PrecisionResultat) =>
-    p === PrecisionsResultat.AutrePaysUnionEuropeenne
-      ? "fr-nis2-incertain-UE"
-      : "fr-nis2-incertain",
-};
+export type ClassesCssResultat = { icone: string; cadre: string };
 
-export const classDivResultat = (
-  regulation: RegulationEntite,
-  precision: PrecisionResultat,
-) => classPourResultat[regulation](precision);
-
-const classPourIcone: Record<
-  RegulationEntite,
-  (p: PrecisionResultat) => string
-> = {
-  Regule: () => "fr-icon-check-line",
-  NonRegule: () => "fr-icon-close-line",
-  Incertain: (p: PrecisionResultat) =>
-    p === PrecisionsResultat.AutrePaysUnionEuropeenne
-      ? "fr-icon-question-fill"
-      : "fr-nis2-icon-in-progress",
-};
-
-export const classPourIconeResultat = (
-  regulation: RegulationEntite,
-  precision: PrecisionResultat,
-) => classPourIcone[regulation](precision);
+const fabriqueClassesCSSResultat = (
+  classeIcone: string,
+  classeCadre: string,
+): ClassesCssResultat => ({
+  icone: classeIcone,
+  cadre: classeCadre,
+});
+export const getClassesCssResultat = (
+  etatRegulation: EtatRegulationDefinitif,
+): ClassesCssResultat =>
+  match(etatRegulation)
+    .with({ decision: Regulation.NonRegule }, () =>
+      fabriqueClassesCSSResultat("fr-icon-close-line", "fr-nis2-non-eligible"),
+    )
+    .with(
+      {
+        decision: Regulation.Incertain,
+        causes: { _tag: "DefiniDansUnAutreEtatMembre" },
+      },
+      () =>
+        fabriqueClassesCSSResultat(
+          "fr-icon-question-fill",
+          "fr-nis2-incertain-UE",
+        ),
+    )
+    .with({ decision: Regulation.Regule }, () =>
+      fabriqueClassesCSSResultat("fr-icon-check-line", "fr-nis2-eligible"),
+    )
+    .otherwise(() =>
+      fabriqueClassesCSSResultat(
+        "fr-nis2-icon-in-progress",
+        "fr-nis2-incertain",
+      ),
+    );
 
 export const recupereTitrePourEtatEvaluation = (
   etatRegulation: EtatRegulationDefinitif,
@@ -81,9 +82,7 @@ export const recupereTitrePourEtatEvaluation = (
       () => libelleTitreIncertainAutrePaysUnionEuropeenne,
     )
     .otherwise(() => libelleTitreIncertainStandard);
-export const estIncertainStandard = (
-  regulation: RegulationEntite,
-  precision: PrecisionResultat,
-) =>
-  regulation === Regulation.Incertain &&
-  precision === PrecisionsResultat.Standard;
+export const estCasNonGere = (etatRegulation: EtatRegulationDefinitif) =>
+  etatRegulation.decision === "Incertain" &&
+  (etatRegulation as ResultatRegulationIncertain).causes._tag ===
+    "ConstructionTestEnCours";
