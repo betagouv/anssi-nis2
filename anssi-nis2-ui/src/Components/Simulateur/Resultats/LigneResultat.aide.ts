@@ -1,8 +1,5 @@
 import { match } from "ts-pattern";
-import {
-  Regulation,
-  ResultatRegulationIncertain,
-} from "../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
+import { ResultatRegulationIncertain } from "../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 import { EtatRegulationDefinitif } from "../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions.ts";
 import {
   libelleTitreIncertainAutrePaysUnionEuropeenne,
@@ -34,12 +31,12 @@ export const getClassesCssResultat = (
   etatRegulation: EtatRegulationDefinitif,
 ): ClassesCssResultat =>
   match(etatRegulation)
-    .with({ decision: Regulation.NonRegule }, () =>
+    .with({ decision: "NonRegule" }, () =>
       fabriqueClassesCSSResultat("fr-icon-close-line", "fr-nis2-non-eligible"),
     )
     .with(
       {
-        decision: Regulation.Incertain,
+        decision: "Incertain",
         causes: { _tag: "DefiniDansUnAutreEtatMembre" },
       },
       () =>
@@ -48,7 +45,7 @@ export const getClassesCssResultat = (
           "fr-nis2-incertain-UE",
         ),
     )
-    .with({ decision: Regulation.Regule }, () =>
+    .with({ decision: "Regule" }, () =>
       fabriqueClassesCSSResultat("fr-icon-check-line", "fr-nis2-eligible"),
     )
     .otherwise(() =>
@@ -76,8 +73,8 @@ export const recupereTitrePourEtatEvaluation = (
     .with({ decision: "NonRegule" }, () => libelleTitreNonRegule)
     .with(
       {
-        // TODO : insérer une précision resultat pour incertain - PrecisionsResultat.AutrePaysUnionEuropeenne
         decision: "Incertain",
+        causes: { _tag: "DefiniDansUnAutreEtatMembre" },
       },
       () => libelleTitreIncertainAutrePaysUnionEuropeenne,
     )
