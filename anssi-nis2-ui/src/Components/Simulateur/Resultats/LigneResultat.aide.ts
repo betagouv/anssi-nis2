@@ -1,5 +1,9 @@
 import { P, match } from "ts-pattern";
-import { ResultatRegulationIncertain } from "../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
+import {
+  CausesIncertitude,
+  ConstructionTestEnCours,
+  ResultatRegulationEntite,
+} from "../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 import { CapsuleReponseDefinitions } from "../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/CapsuleReponse.definitions.ts";
 import {
   EtatRegulationDefinitif,
@@ -42,8 +46,6 @@ const fabriqueClassesCSSResultat = (
   cadre: classeCadre,
 });
 
-// typeEntite: "EntiteEssentielle",
-
 export const getClassesCssResultatIncertain = (
   etatRegulation: EtatRegulationDefinitivement<"Incertain">,
 ): ClassesCssResultat =>
@@ -53,6 +55,9 @@ export const getClassesCssResultatIncertain = (
         "fr-icon-question-fill",
         "fr-nis2-incertain-UE",
       ),
+    )
+    .with("ConstructionTestEnCours", () =>
+      fabriqueClassesCSSResultat("fr-icon-close-line", "fr-nis2-non-eligible"),
     )
     .with(P.string, () =>
       fabriqueClassesCSSResultat(
@@ -101,6 +106,16 @@ export const recupereTitrePourEtatEvaluation = (
         causes: { _tag: "DefiniDansUnAutreEtatMembre" },
       },
       () => libelleTitreIncertainAutrePaysUnionEuropeenne,
+    )
+    .with(
+      {
+        decision: "Incertain",
+        causes: {
+          _tag: "ConstructionTestEnCours",
+          typeConstructionEnCours: "HorsUnionEuropeenne",
+        },
+      },
+      () => libelleTitreNonRegule,
     )
     .otherwise(() => libelleTitreIncertainStandard);
 
@@ -175,7 +190,17 @@ export const getInformationsResultatEvaluation = (
   titre: recupereTitrePourEtatEvaluation(etatRegulation),
   classes: getClassesCssResultat(etatRegulation),
 });
+const estConstructionEnCours = (
+  causes: CausesIncertitude,
+): causes is ConstructionTestEnCours =>
+  causes._tag === "ConstructionTestEnCours";
+
+const estResultatRegulationIncertain = (
+  etatRegulation: ResultatRegulationEntite,
+): etatRegulation is ResultatRegulationEntite<"Incertain"> =>
+  etatRegulation.decision === "Incertain";
+
 export const estCasNonGere = (etatRegulation: EtatRegulationDefinitif) =>
-  etatRegulation.decision === "Incertain" &&
-  (etatRegulation as ResultatRegulationIncertain).causes._tag ===
-    "ConstructionTestEnCours";
+  estResultatRegulationIncertain(etatRegulation) &&
+  estConstructionEnCours(etatRegulation.causes) &&
+  etatRegulation.causes.typeConstructionEnCours !== "HorsUnionEuropeenne";

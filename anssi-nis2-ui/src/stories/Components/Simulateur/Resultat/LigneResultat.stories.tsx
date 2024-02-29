@@ -8,7 +8,6 @@ import {
   CausesRegulation,
   Regulation,
 } from "../../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
-import { PrecisionsResultat } from "../../../../../../commun/core/src/Domain/Simulateur/Resultat.constantes.ts";
 import {
   EtatRegulationDefinitif,
   EtatRegulationDefinitivement,
@@ -68,7 +67,6 @@ const etatRegulation_Incertain: EtatRegulationDefinitivement<"Incertain"> = {
 };
 export const ReguleStandard: Story = {
   args: {
-    precision: PrecisionsResultat.Standard,
     etatRegulation: etatRegulation_ReguleEI,
   },
   play: async ({ canvasElement }) => {
@@ -81,7 +79,6 @@ export const ReguleStandard: Story = {
 };
 export const ReguleStandardEI: Story = {
   args: {
-    precision: PrecisionsResultat.Standard,
     etatRegulation: etatRegulation_ReguleEI,
   },
   play: async ({ canvasElement }) => {
@@ -99,7 +96,6 @@ export const ReguleStandardEI: Story = {
 
 export const ReguleDORA: Story = {
   args: {
-    precision: PrecisionsResultat.DORA,
     etatRegulation: {
       decision: Regulation.Regule,
       _resultatEvaluationRegulation: "Definitif",
@@ -149,7 +145,6 @@ const etatRegulation_Regule_RegistreNomDeDomaines: EtatRegulationDefinitivement<
   };
 export const ReguleEnregistrementDeNomsDeDomaines: Story = {
   args: {
-    precision: PrecisionsResultat.EnregistrementDeNomsDeDomaine,
     etatRegulation: etatRegulation_Regule_RegistreNomDeDomaines,
   },
   play: async ({ canvasElement }) => {
@@ -162,7 +157,6 @@ export const ReguleEnregistrementDeNomsDeDomaines: Story = {
 
 export const NonReguleStandard: Story = {
   args: {
-    precision: PrecisionsResultat.Standard,
     etatRegulation: etatRegulation_NonRegule,
   },
   play: async ({ canvasElement }) => {
@@ -175,7 +169,6 @@ export const NonReguleStandard: Story = {
 
 export const NonReguleHorsUE: Story = {
   args: {
-    precision: PrecisionsResultat.HorsUnionEuropeenne,
     etatRegulation: {
       ...etatRegulation_Incertain,
       causes: {
@@ -195,7 +188,6 @@ export const NonReguleHorsUE: Story = {
 
 export const IncertainStandard: Story = {
   args: {
-    precision: PrecisionsResultat.Standard,
     etatRegulation: {
       ...etatRegulation_Incertain,
       causes: { _tag: "EnAttenteTranspositionLoiFrancaise" },
@@ -210,7 +202,6 @@ export const IncertainStandard: Story = {
 
 export const IncertainAutrePaysUE: Story = {
   args: {
-    precision: PrecisionsResultat.AutrePaysUnionEuropeenne,
     etatRegulation: {
       ...etatRegulation_Incertain,
       causes: { _tag: "DefiniDansUnAutreEtatMembre" },
