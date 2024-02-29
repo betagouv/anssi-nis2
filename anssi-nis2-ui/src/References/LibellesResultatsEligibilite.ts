@@ -25,6 +25,11 @@ export const libelleTitreReguleEntiteEssentielle =
   "Votre entité sera régulée par NIS 2  \nen tant qu’Entité Essentielle (EE)";
 export const libelleTitreReguleEntiteImportante =
   "Votre entité sera régulée par NIS 2  \nen tant qu’Entité Importante (EI)";
+
+export const libelleAvertissementRegule =
+  "Ce résultat se base sur les éléments saisis et est **_strictement indicatif_** " +
+  "et **_susceptible d'évoluer_** dans le cadre de l'adoption prochaine des textes " +
+  "législatifs et réglementaires de transposition de la directive NIS 2.";
 export const explicationContenuIncertain =
   "Le test est en cours d’évolution pour prendre en compte l’ensemble des " +
   "typologies d’entités, mais n’est pas encore en mesure de couvrir les " +

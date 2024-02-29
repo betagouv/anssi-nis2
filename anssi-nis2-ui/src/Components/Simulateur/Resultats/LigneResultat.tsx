@@ -1,7 +1,10 @@
 import { useEffect, useReducer } from "react";
 import Markdown from "react-markdown";
 
-import { explicationContenuIncertain } from "../../../References/LibellesResultatsEligibilite.ts";
+import {
+  explicationContenuIncertain,
+  libelleAvertissementRegule,
+} from "../../../References/LibellesResultatsEligibilite.ts";
 import { decaleTitre4Niveaux } from "../../../Services/constantes.ts";
 import { chargeContenuPourEtat } from "../../../Services/fabriques/PrecisionsResultatProps.fabrique.ts";
 import {
@@ -60,6 +63,7 @@ export const LigneResultat: DefaultComponentExtensible<
           <Markdown components={{ p: "h4" }}>
             {informationsResultat.titre}
           </Markdown>
+          <Markdown>{libelleAvertissementRegule}</Markdown>
           {estCasNonGere(etatRegulation) && (
             <p>{explicationContenuIncertain}</p>
           )}

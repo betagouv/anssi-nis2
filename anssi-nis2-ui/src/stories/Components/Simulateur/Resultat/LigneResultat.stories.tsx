@@ -19,6 +19,7 @@ import {
   verifieAucunBlocDepliable,
   verifieClasseBlocResultat,
   verifieIcone,
+  verifieTexteAvertissementPresent,
   verifieTexteEnAnnexe,
 } from "./LigneResultat.predicats.ts";
 
@@ -65,6 +66,30 @@ const etatRegulation_Incertain: EtatRegulationDefinitivement<"Incertain"> = {
     _tag: "EnAttenteTranspositionLoiFrancaise",
   },
 };
+const causes_Regule_RegistreNomDeDomaines: CausesRegulation = {
+  Structure: {
+    _categorieTaille: "Grand",
+    typeStructure: "privee",
+    trancheChiffreAffaire: "petit",
+    trancheNombreEmployes: "moyen",
+  },
+  InformationsSecteur: {
+    _categorieTaille: "Grand",
+    secteurs: ens({
+      secteurActivite: "infrastructureNumerique",
+      activites: ens("registresNomsDomainesPremierNiveau"),
+    }),
+  },
+};
+const etatRegulation_Regule_RegistreNomDeDomaines: EtatRegulationDefinitivement<"Regule"> =
+  {
+    decision: Regulation.Regule,
+    _resultatEvaluationRegulation: "Definitif",
+    typeEntite: "EntiteEssentielle",
+    etapeEvaluee: "InformationsSecteur",
+    causes: causes_Regule_RegistreNomDeDomaines,
+  };
+
 export const ReguleStandard: Story = {
   args: {
     etatRegulation: etatRegulation_ReguleEI,
@@ -72,11 +97,13 @@ export const ReguleStandard: Story = {
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "REC";
     await verifieTexteEnAnnexe(canvasElement, texteEnAnnexe);
+    await verifieTexteAvertissementPresent(canvasElement);
 
     verifieClasseBlocResultat(canvasElement, "fr-nis2-eligible");
     verifieIcone(canvasElement, "fr-icon-check-line");
   },
 };
+
 export const ReguleStandardEI: Story = {
   args: {
     etatRegulation: etatRegulation_ReguleEI,
@@ -84,11 +111,13 @@ export const ReguleStandardEI: Story = {
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "REC";
     await verifieTexteEnAnnexe(canvasElement, texteEnAnnexe);
+    const canvas = within(canvasElement);
     expect(
-      await within(canvasElement).findByText(
+      await canvas.findByText(
         "Votre entité sera régulée par NIS 2 en tant qu’Entité Importante (EI)",
       ),
     );
+    await verifieTexteAvertissementPresent(canvasElement);
     verifieClasseBlocResultat(canvasElement, "fr-nis2-eligible");
     verifieIcone(canvasElement, "fr-icon-check-line");
   },
@@ -114,35 +143,12 @@ export const ReguleDORA: Story = {
   },
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "DORA";
+    await verifieTexteAvertissementPresent(canvasElement);
     await verifieTexteEnAnnexe(canvasElement, texteEnAnnexe);
     verifieClasseBlocResultat(canvasElement, "fr-nis2-eligible");
     verifieIcone(canvasElement, "fr-icon-check-line");
   },
 };
-
-const causes_Regule_RegistreNomDeDomaines: CausesRegulation = {
-  Structure: {
-    _categorieTaille: "Grand",
-    typeStructure: "privee",
-    trancheChiffreAffaire: "petit",
-    trancheNombreEmployes: "moyen",
-  },
-  InformationsSecteur: {
-    _categorieTaille: "Grand",
-    secteurs: ens({
-      secteurActivite: "infrastructureNumerique",
-      activites: ens("registresNomsDomainesPremierNiveau"),
-    }),
-  },
-};
-const etatRegulation_Regule_RegistreNomDeDomaines: EtatRegulationDefinitivement<"Regule"> =
-  {
-    decision: Regulation.Regule,
-    _resultatEvaluationRegulation: "Definitif",
-    typeEntite: "EntiteEssentielle",
-    etapeEvaluee: "InformationsSecteur",
-    causes: causes_Regule_RegistreNomDeDomaines,
-  };
 export const ReguleEnregistrementDeNomsDeDomaines: Story = {
   args: {
     etatRegulation: etatRegulation_Regule_RegistreNomDeDomaines,
@@ -162,6 +168,8 @@ export const NonReguleStandard: Story = {
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "Critères de possible inclusion";
     await verifieTexteEnAnnexe(canvasElement, texteEnAnnexe);
+    await verifieTexteAvertissementPresent(canvasElement);
+
     verifieClasseBlocResultat(canvasElement, "fr-nis2-non-eligible");
     verifieIcone(canvasElement, "fr-icon-close-line");
   },
@@ -180,6 +188,7 @@ export const NonReguleHorsUE: Story = {
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "Ce résultat est présenté au vu des éléments saisis.";
     await attendTexteCharge(canvasElement, texteEnAnnexe);
+    await verifieTexteAvertissementPresent(canvasElement);
     verifieAucunBlocDepliable(canvasElement);
     verifieClasseBlocResultat(canvasElement, "fr-nis2-non-eligible");
     verifieIcone(canvasElement, "fr-icon-close-line");
@@ -194,6 +203,9 @@ export const IncertainStandard: Story = {
     },
   },
   play: async ({ canvasElement }) => {
+    expect(
+      within(canvasElement).queryByText("susceptible d'évoluer"),
+    ).not.toBeInTheDocument();
     verifieAucunBlocDepliable(canvasElement);
     verifieClasseBlocResultat(canvasElement, "fr-nis2-incertain");
     verifieIcone(canvasElement, "fr-nis2-icon-in-progress");
@@ -211,6 +223,7 @@ export const IncertainAutrePaysUE: Story = {
     const texteEnAnnexe =
       "Veuillez-vous rapprocher de votre autorité nationale compétente.";
     await attendTexteCharge(canvasElement, texteEnAnnexe);
+    await verifieTexteAvertissementPresent(canvasElement);
     verifieAucunBlocDepliable(canvasElement);
     verifieClasseBlocResultat(canvasElement, "fr-nis2-incertain-UE");
     verifieIcone(canvasElement, "fr-icon-question-fill");
