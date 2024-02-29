@@ -292,7 +292,10 @@ describe("Regulation Etat Reponse", () => {
             const resultatAttendu: EtatRegulationDefinitif = {
               _resultatEvaluationRegulation: "Definitif",
               etapeEvaluee: "AppartenancePaysUnionEuropeenne",
-              ...fabriqueIncertain({ _tag: "ConstructionTestEnCours" }),
+              ...fabriqueIncertain({
+                _tag: "ConstructionTestEnCours",
+                typeConstructionEnCours: "HorsUnionEuropeenne",
+              }),
             };
 
             const resultatObtenu =

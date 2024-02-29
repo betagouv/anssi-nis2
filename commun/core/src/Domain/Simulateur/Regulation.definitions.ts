@@ -14,7 +14,9 @@ export type InformationsManquantes = Tag<"InformationsManquantes">;
 export type EnAttenteTranspositionLoiFrancaise =
   Tag<"EnAttenteTranspositionLoiFrancaise">;
 export type DefiniDansUnAutreEtatMembre = Tag<"DefiniDansUnAutreEtatMembre">;
-export type ConstructionTestEnCours = Tag<"ConstructionTestEnCours">;
+export type ConstructionTestEnCours = Tag<"ConstructionTestEnCours"> & {
+  typeConstructionEnCours: "EntitePublique" | "HorsUnionEuropeenne";
+};
 export type CasNonDefini = Tag<"CasNonDefini">;
 
 export type CausesIncertitude =
@@ -47,10 +49,13 @@ export type ResultatRegulationNonRegule = {
   decision: typeof Regulation.NonRegule;
 };
 
-export type ResultatRegulationEntite =
-  | ResultatRegulationPositif
-  | ResultatRegulationNonRegule
-  | ResultatRegulationIncertain;
+export type ResultatRegulationEntite<
+  R extends RegulationEntite = RegulationEntite,
+> = R extends "Regule"
+  ? ResultatRegulationPositif
+  : R extends "NonRegule"
+    ? ResultatRegulationNonRegule
+    : ResultatRegulationIncertain;
 
 export type PredicatResultatRegulationEntite = (
   d: ResultatRegulationEntite,

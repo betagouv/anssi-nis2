@@ -30,6 +30,9 @@ export const estUnSecteurSansDesSousSecteurs = (secteur: string) => {
     secteur as SecteursAvecSousSecteurs,
   );
 };
+export const estSecteur =
+  (secteurReference: SecteurActivite) => (secteurCompare: SecteurActivite) =>
+    secteurReference === secteurCompare;
 export const estSecteurListe = (secteur: SecteurActivite) =>
   !secteur.startsWith("autre");
 export const estSecteurAutre = (secteur: SecteurActivite) =>

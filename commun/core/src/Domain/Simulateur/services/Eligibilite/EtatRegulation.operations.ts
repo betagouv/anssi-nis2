@@ -121,7 +121,10 @@ export const evalueRegulationEtatReponseLocalisation = (
       () =>
         fabriqueResultatEvaluationDefinitif(
           "AppartenancePaysUnionEuropeenne",
-          fabriqueIncertain({ _tag: "ConstructionTestEnCours" }),
+          fabriqueIncertain({
+            _tag: "ConstructionTestEnCours",
+            typeConstructionEnCours: "HorsUnionEuropeenne",
+          }),
         ),
     )
     .otherwise(() =>

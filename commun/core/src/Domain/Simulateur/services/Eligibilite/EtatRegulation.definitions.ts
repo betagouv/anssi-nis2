@@ -1,5 +1,8 @@
 import { Tag } from "../../../../../../utils/types/Tag";
-import { ResultatRegulationEntite } from "../../Regulation.definitions";
+import {
+  RegulationEntite,
+  ResultatRegulationEntite,
+} from "../../Regulation.definitions";
 import { UnionReponseEtatNonVide } from "./ReponseEtat.definitions";
 
 export type EtapeEvaluationActive =
@@ -18,6 +21,9 @@ export type EtatRegulationDefinitif = Tag<
 > &
   ResultatRegulationEntite &
   EtatRegulationBase;
+
+export type EtatRegulationDefinitivement<R extends RegulationEntite> =
+  EtatRegulationDefinitif & ResultatRegulationEntite<R>;
 
 export type EtatRegulationAvecReponses = EtatRegulationBase &
   UnionReponseEtatNonVide;

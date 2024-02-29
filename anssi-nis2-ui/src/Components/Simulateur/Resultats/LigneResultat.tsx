@@ -3,7 +3,7 @@ import Markdown from "react-markdown";
 
 import { explicationContenuIncertain } from "../../../References/LibellesResultatsEligibilite.ts";
 import { decaleTitre4Niveaux } from "../../../Services/constantes.ts";
-import { chargeContenuPour } from "../../../Services/fabriques/PrecisionsResultatProps.fabrique.ts";
+import { chargeContenuPourEtat } from "../../../Services/fabriques/PrecisionsResultatProps.fabrique.ts";
 import {
   DefaultComponentExtensible,
   DefaultProps,
@@ -16,19 +16,17 @@ import { IconeResultat } from "./IconeResultat.tsx";
 import {
   changePropriete,
   estCasNonGere,
-  getClassesCssResultat,
-  recupereTitrePourEtatEvaluation,
+  getInformationsResultatEvaluation,
 } from "./LigneResultat.aide.ts";
 import { initialState, statusAffichePlus } from "./LigneResultat.constantes.ts";
 
 export const LigneResultat: DefaultComponentExtensible<
   DefaultProps & LigneResultatProps
-> = ({ etatRegulation, precision }: LigneResultatProps) => {
+> = ({ etatRegulation }: LigneResultatProps) => {
   const [contenuPrecisions, propageContenuPrecisions] = useReducer(
     changePropriete,
     { ...initialState, ...precisionsResultatVide },
   );
-  const regulation = etatRegulation.decision;
   const basculePlus = () =>
     propageContenuPrecisions({
       type: "estAfficheAnnexe",
@@ -37,13 +35,10 @@ export const LigneResultat: DefaultComponentExtensible<
 
   const statusAfficheAnnexe =
     statusAffichePlus[`${contenuPrecisions.estAfficheAnnexe}`];
-  const classesCssResultat = getClassesCssResultat(etatRegulation);
-  const classesDivResultat = [
-    "fr-px-4w fr-pt-3w fr-pb-4w fr-nis2-resultat",
-    classesCssResultat.cadre,
-  ].join(" ");
+  const informationsResultat =
+    getInformationsResultatEvaluation(etatRegulation);
   useEffect(() => {
-    chargeContenuPour(regulation)(precision).then((p) => {
+    chargeContenuPourEtat(etatRegulation).then((p) => {
       propageContenuPrecisions({
         type: "principal",
         value: p.principal,
@@ -53,14 +48,17 @@ export const LigneResultat: DefaultComponentExtensible<
         value: p.annexe,
       });
     });
-  }, [precision, regulation]);
+  }, [etatRegulation]);
+  const classesIcone = `fr-fi-arrow-${statusAfficheAnnexe.directionIcone}-s-line`;
   return (
     <RowContainer>
       <CenteredContainer>
-        <div className={classesDivResultat}>
-          <IconeResultat classIcone={classesCssResultat.icone} />
+        <div
+          className={`fr-px-4w fr-pt-3w fr-pb-4w fr-nis2-resultat ${informationsResultat.classes.cadre}`}
+        >
+          <IconeResultat classIcone={informationsResultat.classes.icone} />
           <Markdown components={{ p: "h4" }}>
-            {recupereTitrePourEtatEvaluation(etatRegulation)}
+            {informationsResultat.titre}
           </Markdown>
           {estCasNonGere(etatRegulation) && (
             <p>{explicationContenuIncertain}</p>
@@ -82,9 +80,7 @@ export const LigneResultat: DefaultComponentExtensible<
                 </Markdown>
                 <button onClick={basculePlus}>
                   {statusAfficheAnnexe.libelleBouton}
-                  <i
-                    className={`fr-fi-arrow-${statusAfficheAnnexe.directionIcone}-s-line`}
-                  />
+                  <i className={classesIcone} />
                 </button>
               </>
             )}

@@ -13,7 +13,7 @@ export const fabriqueRegule = (
   typeEntite: TypeEntite = "EntiteImportante",
 ): ResultatRegulationPositif => ({
   decision: Regulation.Regule,
-  causes,
+  causes: causes,
   typeEntite,
 });
 

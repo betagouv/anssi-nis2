@@ -10,6 +10,7 @@ import {
   estActiviteListee,
 } from "../Activite/Activite.predicats";
 import {
+  estSecteur,
   estSecteurAutre,
   estSecteurAvecActivitesEssentielles,
   estSecteurAvecBesoinLocalisationRepresentantGrandeEntite,
@@ -113,6 +114,21 @@ export const estInformationsSecteurEligibleSansBesoinLocalisation = flow<
     !estSecteurAvecBesoinLocalisationRepresentantGrandeEntite(s) &&
     !estSecteurAvecActivitesEssentielles(s),
 ) as predicatInformationSecteurPossible;
+
+export const estInformationsPourSecteur = (secteur: SecteurActivite) =>
+  flow<[{ secteurActivite: SecteurActivite }], SecteurActivite, boolean>(
+    prop("secteurActivite"),
+    estSecteur(secteur),
+  ) as predicatInformationSecteurPossible;
+
+export const estSecteurBancaire = flow<
+  [{ secteurActivite: SecteurActivite }],
+  SecteurActivite,
+  boolean
+>(
+  prop("secteurActivite"),
+  estSecteur("banqueSecteurBancaire"),
+) as predicatInformationSecteurPossible;
 export const auMoinsUneActiviteListee = flow<
   [{ activites: Set<Activite> }],
   Set<Activite>,
@@ -121,6 +137,11 @@ export const auMoinsUneActiviteListee = flow<
   prop<Set<Activite>, "activites">("activites"),
   certains(estActiviteListee),
 ) as predicatInformationSecteurPossible;
+export const auMoinsUneActiviteEst = (activiteCherchee: Activite) =>
+  flow<[{ activites: Set<Activite> }], Set<Activite>, boolean>(
+    prop<Set<Activite>, "activites">("activites"),
+    certains((a) => a === activiteCherchee),
+  ) as predicatInformationSecteurPossible;
 export const contientActivitesInfrastructureNumeriqueEligiblesPetitEntite = (
   s:
     | InformationsSecteurAvecBesoinLocalisation<"Petit">

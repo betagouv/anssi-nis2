@@ -1,5 +1,4 @@
 import { estRegule } from "../../../../commun/core/src/Domain/Simulateur/Regulation.predicats.ts";
-import { calculePrecisionResultat } from "../../../../commun/core/src/Domain/Simulateur/Resultat.operations.ts";
 import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique.ts";
 import { EtatRegulation } from "../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions.ts";
 import { evalueEtatRegulation } from "../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations.ts";
@@ -24,13 +23,10 @@ export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
       donneesFormulaire,
     ) as EtatRegulation;
   const etatRegulation = evalueEtatRegulation(donneesReponse);
-  const precision = calculePrecisionResultat(etatRegulation.decision)(
-    donneesFormulaire,
-  );
   const modeFormulaireEmail = getModeFormulaireEmail(etatRegulation.decision);
   return (
     <>
-      <LigneResultat etatRegulation={etatRegulation} precision={precision} />
+      <LigneResultat etatRegulation={etatRegulation} />
       <LigneResterInformer mode={modeFormulaireEmail} />
       {estRegule(etatRegulation.decision) && <LigneEtMaintenant />}
       {estRegule(etatRegulation.decision) && <EnSavoirPlus />}

@@ -1,14 +1,18 @@
 // noinspection TypeScriptValidateJSTypes - Incompatibilité des selecteurs testing-library (any) et des string
 
-import { Meta, StoryObj } from "@storybook/react";
 import { expect } from "@storybook/jest";
+import { Meta, StoryObj } from "@storybook/react";
+import { within } from "@storybook/testing-library";
 
 import {
   CausesRegulation,
   Regulation,
 } from "../../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 import { PrecisionsResultat } from "../../../../../../commun/core/src/Domain/Simulateur/Resultat.constantes.ts";
-import { EtatRegulationDefinitif } from "../../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions.ts";
+import {
+  EtatRegulationDefinitif,
+  EtatRegulationDefinitivement,
+} from "../../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions.ts";
 import { ens } from "../../../../../../commun/utils/services/sets.operations.ts";
 import { LigneResultat } from "../../../../Components/Simulateur/Resultats/LigneResultat.tsx";
 import { attendTexteCharge } from "../../../utilitaires/interaction.facilitateurs.ts";
@@ -18,7 +22,6 @@ import {
   verifieIcone,
   verifieTexteEnAnnexe,
 } from "./LigneResultat.predicats.ts";
-import { within } from "@storybook/testing-library";
 
 const meta: Meta<typeof LigneResultat> = {
   title: "Composants/Simulateur/Ligne Résultat",
@@ -34,22 +37,34 @@ const etatRegulation_ReguleEI: EtatRegulationDefinitif = {
   typeEntite: "EntiteImportante",
   etapeEvaluee: "InformationsSecteur",
   causes: {
-    _categorieTaille: "Grand",
-    secteurs: ens({
-      secteurActivite: "sante",
-      activites: ens("laboratoireReferenceUE"),
-    }),
-  } as CausesRegulation,
+    Structure: {
+      _categorieTaille: "Grand",
+      typeStructure: "privee",
+      trancheChiffreAffaire: "petit",
+      trancheNombreEmployes: "moyen",
+    },
+    InformationsSecteur: {
+      _categorieTaille: "Grand",
+      secteurs: ens({
+        secteurActivite: "sante",
+        activites: ens("laboratoireReferenceUE"),
+      }),
+    },
+  },
 };
-const etatRegulation_NonRegule: EtatRegulationDefinitif = {
+const etatRegulation_NonRegule: EtatRegulationDefinitivement<"NonRegule"> = {
   decision: Regulation.NonRegule,
   _resultatEvaluationRegulation: "Definitif",
   etapeEvaluee: "InformationsSecteur",
 };
-const etatRegulation_Incertain: EtatRegulationDefinitif = {
+
+const etatRegulation_Incertain: EtatRegulationDefinitivement<"Incertain"> = {
   decision: Regulation.Incertain,
   _resultatEvaluationRegulation: "Definitif",
   etapeEvaluee: "InformationsSecteur",
+  causes: {
+    _tag: "EnAttenteTranspositionLoiFrancaise",
+  },
 };
 export const ReguleStandard: Story = {
   args: {
@@ -85,7 +100,21 @@ export const ReguleStandardEI: Story = {
 export const ReguleDORA: Story = {
   args: {
     precision: PrecisionsResultat.DORA,
-    etatRegulation: etatRegulation_ReguleEI,
+    etatRegulation: {
+      decision: Regulation.Regule,
+      _resultatEvaluationRegulation: "Definitif",
+      typeEntite: "EntiteImportante",
+      etapeEvaluee: "InformationsSecteur",
+      causes: {
+        InformationsSecteur: {
+          _categorieTaille: "Grand",
+          secteurs: ens({
+            secteurActivite: "banqueSecteurBancaire",
+            activites: ens("etablissementCredit"),
+          }),
+        },
+      } as CausesRegulation,
+    },
   },
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "DORA";
@@ -95,10 +124,33 @@ export const ReguleDORA: Story = {
   },
 };
 
+const causes_Regule_RegistreNomDeDomaines: CausesRegulation = {
+  Structure: {
+    _categorieTaille: "Grand",
+    typeStructure: "privee",
+    trancheChiffreAffaire: "petit",
+    trancheNombreEmployes: "moyen",
+  },
+  InformationsSecteur: {
+    _categorieTaille: "Grand",
+    secteurs: ens({
+      secteurActivite: "infrastructureNumerique",
+      activites: ens("registresNomsDomainesPremierNiveau"),
+    }),
+  },
+};
+const etatRegulation_Regule_RegistreNomDeDomaines: EtatRegulationDefinitivement<"Regule"> =
+  {
+    decision: Regulation.Regule,
+    _resultatEvaluationRegulation: "Definitif",
+    typeEntite: "EntiteEssentielle",
+    etapeEvaluee: "InformationsSecteur",
+    causes: causes_Regule_RegistreNomDeDomaines,
+  };
 export const ReguleEnregistrementDeNomsDeDomaines: Story = {
   args: {
     precision: PrecisionsResultat.EnregistrementDeNomsDeDomaine,
-    etatRegulation: etatRegulation_ReguleEI,
+    etatRegulation: etatRegulation_Regule_RegistreNomDeDomaines,
   },
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "Enregistrement de noms de domaines";
@@ -124,7 +176,13 @@ export const NonReguleStandard: Story = {
 export const NonReguleHorsUE: Story = {
   args: {
     precision: PrecisionsResultat.HorsUnionEuropeenne,
-    etatRegulation: etatRegulation_NonRegule,
+    etatRegulation: {
+      ...etatRegulation_Incertain,
+      causes: {
+        _tag: "ConstructionTestEnCours",
+        typeConstructionEnCours: "HorsUnionEuropeenne",
+      },
+    },
   },
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "Ce résultat est présenté au vu des éléments saisis.";
@@ -140,7 +198,7 @@ export const IncertainStandard: Story = {
     precision: PrecisionsResultat.Standard,
     etatRegulation: {
       ...etatRegulation_Incertain,
-      causes: { _tag: "ConstructionTestEnCours" },
+      causes: { _tag: "EnAttenteTranspositionLoiFrancaise" },
     },
   },
   play: async ({ canvasElement }) => {
