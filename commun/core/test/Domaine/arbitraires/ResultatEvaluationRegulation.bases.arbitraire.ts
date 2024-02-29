@@ -27,13 +27,17 @@ export const arbDesignationOperateurServicesEssentielsToujoursNeSaitPas =
     designationOperateurServicesEssentiels: "nsp" as const,
   });
 
-export const arbAppartenanceUnionEuropeenneToujoursFrance = fc.record({
+export const arbAppartenanceUnionEuropeenne_ToujoursFrance = fc.record({
   appartenancePaysUnionEuropeenne:
     fc.constant<AppartenancePaysUnionEuropeenne>("france"),
 });
-export const arbAppartenanceUnionEuropeenneJamaisFrance = fc.record({
+export const arbAppartenanceUnionEuropeenne_ToujoursAutreUE = fc.record({
   appartenancePaysUnionEuropeenne:
-    fc.constantFrom<AppartenancePaysUnionEuropeenne>("horsue", "autre"),
+    fc.constant<AppartenancePaysUnionEuropeenne>("autre"),
+});
+export const arbAppartenanceUnionEuropeenne_ToujoursHorsUE = fc.record({
+  appartenancePaysUnionEuropeenne:
+    fc.constant<AppartenancePaysUnionEuropeenne>("horsue"),
 });
 
 export const arbTranchePetitMoyenGrand = fc.constantFrom(

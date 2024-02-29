@@ -2,6 +2,7 @@ import { fc } from "@fast-check/vitest";
 import { describe, expect, it } from "vitest";
 import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire.definitions";
 import {
+  fabriqueIncertain,
   fabriqueRegule,
   resultatReguleOSE,
 } from "../../src/Domain/Simulateur/fabriques/Regulation.fabrique";
@@ -38,7 +39,6 @@ import {
   afficheDifferences,
   assertionArbitraire,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
-import { arbEnsembleSecteursLocalisablesPetitFrance } from "./arbitraires/EnsembleInformationsSecteur.arbitraires";
 import {
   arbReponseInformationsSecteur_AvecActivitesEssentiels_SansBesoinLocalisation,
   arbReponseInformationsSecteurFranceGrandEILocalisationHorsFrance,
@@ -54,8 +54,9 @@ import {
 import {
   fabriqueArbJamaisOse_ToujoursFrance_StructureGrand,
   fabriqueArbJamaisOse_ToujoursFrance_StructurePetit,
-  tupleArbitrairesJamaisOseJamaisFrance,
-  tupleArbitrairesJamaisOseToujoursFrance,
+  arbTuple_JamaisOse_ToujoursHorsUE,
+  arbTuple_JamaisOse_ToujoursAutreUE,
+  arbTuple_JamaisOse_ToujoursFrance,
 } from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
 import {
   fabriqueArbInformationsSecteurAutre,
@@ -239,7 +240,7 @@ describe("Regulation Etat Reponse", () => {
         "AppUE = france ==> toujours EnSuspens / Incertain",
         assertionArbitraire(
           fc
-            .tuple(...tupleArbitrairesJamaisOseToujoursFrance)
+            .tuple(...arbTuple_JamaisOse_ToujoursFrance)
             .map(fabriqueResultatEvaluationEnSuspensAppUE),
           (reponse) => {
             const copieProp = propReponseEtat(reponse);
@@ -259,10 +260,10 @@ describe("Regulation Etat Reponse", () => {
         ),
       );
       it(
-        "AppUE != france ==> toujours Définitif / Incertain",
+        "AppUE == autre pays UE ==> toujours Définitif / Incertain avec précision UE",
         assertionArbitraire(
           fc
-            .tuple(...tupleArbitrairesJamaisOseJamaisFrance)
+            .tuple(...arbTuple_JamaisOse_ToujoursAutreUE)
             .map(
               fabriqueResultatEvaluationEnSuspensAppUE,
             ) as fc.Arbitrary<EtatRegulation>,
@@ -270,7 +271,28 @@ describe("Regulation Etat Reponse", () => {
             const resultatAttendu: EtatRegulationDefinitif = {
               _resultatEvaluationRegulation: "Definitif",
               etapeEvaluee: "AppartenancePaysUnionEuropeenne",
-              ...resultatIncertain,
+              ...fabriqueIncertain({ _tag: "DefiniDansUnAutreEtatMembre" }),
+            };
+
+            const resultatObtenu =
+              evalueRegulationEtatReponseLocalisation(reponse);
+            expect(resultatObtenu).toStrictEqual(resultatAttendu);
+          },
+        ),
+      );
+      it(
+        "AppUE == Hors UE ==> toujours Définitif / Non-Régulé",
+        assertionArbitraire(
+          fc
+            .tuple(...arbTuple_JamaisOse_ToujoursHorsUE)
+            .map(
+              fabriqueResultatEvaluationEnSuspensAppUE,
+            ) as fc.Arbitrary<EtatRegulation>,
+          (reponse) => {
+            const resultatAttendu: EtatRegulationDefinitif = {
+              _resultatEvaluationRegulation: "Definitif",
+              etapeEvaluee: "AppartenancePaysUnionEuropeenne",
+              ...fabriqueIncertain({ _tag: "ConstructionTestEnCours" }),
             };
 
             const resultatObtenu =
@@ -286,7 +308,7 @@ describe("Regulation Etat Reponse", () => {
         assertionArbitraire(
           fc
             .tuple(
-              ...tupleArbitrairesJamaisOseToujoursFrance,
+              ...arbTuple_JamaisOse_ToujoursAutreUE,
               arbStructurePetitPrive,
             )
             .map(fabriqueResultatEvaluationEnSuspensStructure),
@@ -312,10 +334,7 @@ describe("Regulation Etat Reponse", () => {
         "En Suspens / Structure Publique ==> toujours Definitif / Incertain",
         assertionArbitraire(
           fc
-            .tuple(
-              ...tupleArbitrairesJamaisOseToujoursFrance,
-              arbStructurePublique,
-            )
+            .tuple(...arbTuple_JamaisOse_ToujoursAutreUE, arbStructurePublique)
             .map(fabriqueResultatEvaluationEnSuspensStructure),
           (reponse) => {
             const resultatAttendu: EtatRegulationDefinitif = {
@@ -334,11 +353,6 @@ describe("Regulation Etat Reponse", () => {
   });
   describe("Secteur", () => {
     describe("Petit", () => {
-      it("should stat", () => {
-        fc.statistics(arbEnsembleSecteursLocalisablesPetitFrance, (ensemble) =>
-          [...ensemble].map((s) => [...s.activites].join(", ")).join(";; "),
-        );
-      });
       it(
         "en suspens / secteur autre ==> toujours définitivement non régulé",
         assertionArbitraire(
@@ -471,19 +485,16 @@ describe("Regulation Etat Reponse", () => {
       ),
     );
     it(
-      "Structure Privée ==> toujours EnSuspens / Incertain",
+      "Structure Privée autre UE ==> toujours EnSuspens / Incertain mais p-e pays membre",
       assertionArbitraire(
         fc
-          .tuple(
-            ...tupleArbitrairesJamaisOseToujoursFrance,
-            arbStructurePetitPrive,
-          )
+          .tuple(...arbTuple_JamaisOse_ToujoursAutreUE, arbStructurePetitPrive)
           .map(fabriqueResultatEvaluationEnSuspensStructure),
         (reponse) => {
           const resultatAttendu: EtatRegulationDefinitif = {
             _resultatEvaluationRegulation: "Definitif",
             etapeEvaluee: "InformationsSecteur",
-            ...resultatIncertain,
+            ...fabriqueIncertain({ _tag: "DefiniDansUnAutreEtatMembre" }),
           };
 
           const resultatObtenu = evalueEtatRegulation(reponse);
@@ -492,7 +503,7 @@ describe("Regulation Etat Reponse", () => {
       ),
     );
     it(
-      "en suspens / secteurs localisables et localisé hors France ==> toujours définitivement non-régulé",
+      "en suspens / secteurs localisables et localisé hors France ==> toujours définitivement incertain car psa implémenté",
       assertionArbitraire(
         fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
           arbReponseInformationsSecteurLocalisesHorsFrancePetit,

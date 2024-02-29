@@ -54,8 +54,8 @@ import {
   fabriqueArbitraireEnsembleActivitesPourSecteur,
 } from "./ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
-  arbAppartenanceUnionEuropeenneJamaisFrance,
-  arbAppartenanceUnionEuropeenneToujoursFrance,
+  arbAppartenanceUnionEuropeenne_ToujoursHorsUE,
+  arbAppartenanceUnionEuropeenne_ToujoursAutreUE,
 } from "./ResultatEvaluationRegulation.bases.arbitraire";
 
 describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
@@ -63,8 +63,8 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
     describe("appartenancePaysUnionEuropeenne", () => {
       it("toujours france et jamais france sont exclusifs", () =>
         assertion.tousExclusifs(
-          arbAppartenanceUnionEuropeenneToujoursFrance,
-          arbAppartenanceUnionEuropeenneJamaisFrance,
+          arbAppartenanceUnionEuropeenne_ToujoursAutreUE,
+          arbAppartenanceUnionEuropeenne_ToujoursHorsUE,
         ));
     });
     describe("InformationsSecteurPetit", () => {

@@ -9,7 +9,10 @@ import {
   certains,
   tous,
 } from "../../../../../../utils/services/sets.operations";
-import { fabriqueRegule } from "../../fabriques/Regulation.fabrique";
+import {
+  fabriqueIncertain,
+  fabriqueRegule,
+} from "../../fabriques/Regulation.fabrique";
 import {
   resultatIncertain,
   resultatNonRegule,
@@ -100,13 +103,25 @@ export const evalueRegulationEtatReponseLocalisation = (
     .with(
       {
         AppartenancePaysUnionEuropeenne: {
-          appartenancePaysUnionEuropeenne: P.not("france"),
+          appartenancePaysUnionEuropeenne: "autre",
         },
       },
       () =>
         fabriqueResultatEvaluationDefinitif(
           "AppartenancePaysUnionEuropeenne",
-          resultatIncertain,
+          fabriqueIncertain({ _tag: "DefiniDansUnAutreEtatMembre" }),
+        ),
+    )
+    .with(
+      {
+        AppartenancePaysUnionEuropeenne: {
+          appartenancePaysUnionEuropeenne: "horsue",
+        },
+      },
+      () =>
+        fabriqueResultatEvaluationDefinitif(
+          "AppartenancePaysUnionEuropeenne",
+          fabriqueIncertain({ _tag: "ConstructionTestEnCours" }),
         ),
     )
     .otherwise(() =>

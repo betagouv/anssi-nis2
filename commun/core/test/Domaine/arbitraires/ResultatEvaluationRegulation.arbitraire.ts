@@ -13,26 +13,32 @@ import {
   fabriqueResultatEvaluationEnSuspensSecteurPetit,
 } from "./ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
-  arbAppartenanceUnionEuropeenneJamaisFrance,
-  arbAppartenanceUnionEuropeenneToujoursFrance,
+  arbAppartenanceUnionEuropeenne_ToujoursHorsUE,
+  arbAppartenanceUnionEuropeenne_ToujoursAutreUE,
   arbDesignationOperateurServicesEssentielsToujoursNon,
   arbStructureGrand,
   arbStructurePetitPrive,
+  arbAppartenanceUnionEuropeenne_ToujoursFrance,
 } from "./ResultatEvaluationRegulation.bases.arbitraire";
 
 export type TupleArbitrairesDesignationOSE_AppartenanceUE = [
   fc.Arbitrary<ReponseDesignationOperateurServicesEssentiels>,
   fc.Arbitrary<ReponseAppartenancePaysUnionEuropeenne>,
 ];
-export const tupleArbitrairesJamaisOseJamaisFrance: TupleArbitrairesDesignationOSE_AppartenanceUE =
+export const arbTuple_JamaisOse_ToujoursHorsUE: TupleArbitrairesDesignationOSE_AppartenanceUE =
   [
     arbDesignationOperateurServicesEssentielsToujoursNon,
-    arbAppartenanceUnionEuropeenneJamaisFrance,
+    arbAppartenanceUnionEuropeenne_ToujoursHorsUE,
   ];
-export const tupleArbitrairesJamaisOseToujoursFrance: TupleArbitrairesDesignationOSE_AppartenanceUE =
+export const arbTuple_JamaisOse_ToujoursFrance: TupleArbitrairesDesignationOSE_AppartenanceUE =
   [
     arbDesignationOperateurServicesEssentielsToujoursNon,
-    arbAppartenanceUnionEuropeenneToujoursFrance,
+    arbAppartenanceUnionEuropeenne_ToujoursFrance,
+  ];
+export const arbTuple_JamaisOse_ToujoursAutreUE: TupleArbitrairesDesignationOSE_AppartenanceUE =
+  [
+    arbDesignationOperateurServicesEssentielsToujoursNon,
+    arbAppartenanceUnionEuropeenne_ToujoursAutreUE,
   ];
 
 type FabriqueArbReponseSimulateurParams<T extends CategorieTaille> = [
@@ -51,7 +57,7 @@ export const mapTupleArbitrairesToujoursFrance =
   (arbInformationsSecteur: fc.Arbitrary<ReponseInformationsSecteur<Taille>>) =>
     fc
       .tuple<FabriqueArbReponseSimulateurParams<Taille>>(
-        ...tupleArbitrairesJamaisOseToujoursFrance,
+        ...arbTuple_JamaisOse_ToujoursFrance,
         arbStructure,
         arbInformationsSecteur,
       )

@@ -1,3 +1,4 @@
+import { Tag } from "../../../../utils/types/Tag";
 import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.definitions";
 
 import { ValeursRegulationEntite } from "./RegulationEntite.valeurs";
@@ -8,6 +9,20 @@ export type RegulationEntite = (typeof ValeursRegulationEntite)[number];
 export type CausesRegulation =
   | Partial<DonneesFormulaireSimulateur>
   | CapsuleReponseDefinitions;
+
+export type InformationsManquantes = Tag<"InformationsManquantes">;
+export type EnAttenteTranspositionLoiFrancaise =
+  Tag<"EnAttenteTranspositionLoiFrancaise">;
+export type DefiniDansUnAutreEtatMembre = Tag<"DefiniDansUnAutreEtatMembre">;
+export type ConstructionTestEnCours = Tag<"ConstructionTestEnCours">;
+export type CasNonDefini = Tag<"CasNonDefini">;
+
+export type CausesIncertitude =
+  | InformationsManquantes
+  | EnAttenteTranspositionLoiFrancaise
+  | CasNonDefini
+  | ConstructionTestEnCours
+  | DefiniDansUnAutreEtatMembre;
 
 export const Regulation: Record<RegulationEntite, RegulationEntite> = {
   Regule: "Regule",
@@ -23,8 +38,9 @@ export type ResultatRegulationPositif = {
   causes: CausesRegulation;
 };
 
-export type ResultatIncertain = {
+export type ResultatRegulationIncertain = {
   decision: typeof Regulation.Incertain;
+  causes: CausesIncertitude;
 };
 
 export type ResultatRegulationNonRegule = {
@@ -34,7 +50,7 @@ export type ResultatRegulationNonRegule = {
 export type ResultatRegulationEntite =
   | ResultatRegulationPositif
   | ResultatRegulationNonRegule
-  | ResultatIncertain;
+  | ResultatRegulationIncertain;
 
 export type PredicatResultatRegulationEntite = (
   d: ResultatRegulationEntite,
