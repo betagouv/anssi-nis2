@@ -1,25 +1,19 @@
-import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
 import {
   SecteurActivite,
-  SecteurAvecBesoinLocalisationRepresentant,
   SecteurAvecActivitesEssentielles,
+  SecteurAvecBesoinLocalisationRepresentant,
   SecteursAvecSousSecteurs,
   SecteursSansBesoinLocalisationRepresentant,
 } from "../../SecteurActivite.definitions";
 import {
-  ValeursSecteursAvecSousSecteurs,
-  ValeursSecteursAvecBesoinLocalisationRepresentant,
   ValeursSecteurAvecActivitesEssentielles,
+  ValeursSecteursAvecBesoinLocalisationRepresentant,
+  ValeursSecteursAvecSousSecteurs,
   ValeursSecteursImportantsAvecBesoinLocalisation,
 } from "../../SecteurActivite.valeurs";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
 import { sousSecteursParSecteur } from "../../SousSecteurActivite.valeurs";
 
-export const contientAutreSecteurActiviteUniquement = (
-  donneesFormulaire: DonneesFormulaireSimulateur,
-) =>
-  donneesFormulaire.secteurActivite.length === 1 &&
-  donneesFormulaire.secteurActivite[0] === "autreSecteurActivite";
 export const estUnSecteurAvecDesSousSecteurs = (secteur: string) =>
   ValeursSecteursAvecSousSecteurs.includes(secteur as SecteursAvecSousSecteurs);
 

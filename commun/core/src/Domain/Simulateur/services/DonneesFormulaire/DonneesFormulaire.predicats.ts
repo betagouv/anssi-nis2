@@ -168,8 +168,8 @@ export const verifieDonneesSectorielles = et(
   ),
   ou(
     predicatDonneesFormulaire.uniquement.activiteAutre,
-    contientSecteursLocalisesValides
-  )
+    contientSecteursLocalisesValides,
+  ),
 );
 
 export const verifieCompletudeDonneesFormulairePrivee = et(
@@ -189,7 +189,7 @@ export const donneesFormulaireSontCompletes = et(
 );
 
 export const contientSecteurNecessitantLocalisation = (
-  d: DonneesSectorielles
+  d: DonneesSectorielles,
 ) =>
   ValeursSecteursAvecBesoinLocalisationRepresentant.some((s) =>
     predicatDonneesFormulaire.secteurActivite.contient(s)(
@@ -197,7 +197,7 @@ export const contientSecteurNecessitantLocalisation = (
     ),
   );
 export const contientUniquementSecteurNecessitantLocalisation = (
-  d: DonneesSectorielles
+  d: DonneesSectorielles,
 ) =>
   d.secteurActivite.every((s) =>
     ValeursSecteursAvecBesoinLocalisationRepresentant.includes(
@@ -213,3 +213,8 @@ export const contientInfrastructureNumerique: PredicatDonneesFormulaireSimulateu
   isMatching({
     secteurActivite: ["infrastructureNumerique"],
   });
+export const contientAutreSecteurActiviteUniquement = (
+  donneesFormulaire: DonneesFormulaireSimulateur,
+) =>
+  donneesFormulaire.secteurActivite.length === 1 &&
+  donneesFormulaire.secteurActivite[0] === "autreSecteurActivite";

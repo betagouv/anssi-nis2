@@ -10,7 +10,7 @@ import {
   et,
   lorsque,
 } from "../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
-import { contientAutreSecteurActiviteUniquement } from "../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
+import { contientAutreSecteurActiviteUniquement } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 
 describe("validateurs", () => {
   describe("valideAuMoinsUn", () => {
