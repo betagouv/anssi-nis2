@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { Eligibilite } from "../../src/Domain/Simulateur/Eligibilite.constantes";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
-import { resultatReguleOSE } from "../../src/Domain/Simulateur/fabriques/Regulation.fabrique";
+import { resultatReguleOSE } from "../../src/Domain/Simulateur/fabriques/ResultatRegulation.fabrique";
 import {
   resultatIncertain,
   resultatNonRegule,

@@ -1,6 +1,6 @@
 import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
 import { ResultatEligibilite } from "../../Eligibilite.definitions";
-import { fabriqueRegule } from "../../fabriques/Regulation.fabrique";
+import { fabriqueRegule } from "../../fabriques/ResultatRegulation.fabrique";
 import {
   causeReguleOSE,
   resultatIncertain,

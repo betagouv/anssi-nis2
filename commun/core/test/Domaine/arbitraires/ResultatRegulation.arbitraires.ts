@@ -3,7 +3,7 @@ import { ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement } from
 import {
   fabriqueRegule,
   resultatReguleOSE,
-} from "../../../src/Domain/Simulateur/fabriques/Regulation.fabrique";
+} from "../../../src/Domain/Simulateur/fabriques/ResultatRegulation.fabrique";
 import { resultatIncertain } from "../../../src/Domain/Simulateur/Regulation.constantes";
 import {
   CausesRegulation,

@@ -12,7 +12,7 @@ import {
 import {
   fabriqueIncertain,
   fabriqueRegule,
-} from "../../fabriques/Regulation.fabrique";
+} from "../../fabriques/ResultatRegulation.fabrique";
 import {
   resultatIncertain,
   resultatNonRegule,

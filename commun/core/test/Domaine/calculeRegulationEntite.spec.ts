@@ -5,7 +5,7 @@ import {
   ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
 } from "../../src/Domain/Simulateur/Eligibilite.constantes";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
-import { fabriqueRegule } from "../../src/Domain/Simulateur/fabriques/Regulation.fabrique";
+import { fabriqueRegule } from "../../src/Domain/Simulateur/fabriques/ResultatRegulation.fabrique";
 import { ResultatRegulationEntite } from "../../src/Domain/Simulateur/Regulation.definitions";
 import { calculeEligibilite } from "../../src/Domain/Simulateur/services/Eligibilite/Eligibilite.operations";
 import {
@@ -33,7 +33,7 @@ describe(calculeRegulationEntite, () => {
           designationOperateurServicesEssentiels: ["oui"],
         }));
       // TODO : sera remplacé
-      
+
       it.skip("moyenne/grande entité", () =>
         V.estRegule(arbForm.designeOSE.moyenGrand).car({
           designationOperateurServicesEssentiels: ["oui"],

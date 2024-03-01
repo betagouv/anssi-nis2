@@ -1,4 +1,4 @@
-import { resultatReguleOSE } from "../../fabriques/Regulation.fabrique";
+import { resultatReguleOSE } from "../../fabriques/ResultatRegulation.fabrique";
 import { resultatIncertain } from "../../Regulation.constantes";
 import { ResultatRegulationEntite } from "../../Regulation.definitions";
 import {

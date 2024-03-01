@@ -1,7 +1,17 @@
 import { fc } from "@fast-check/vitest";
-import { prop } from "../../../utils/services/objects.operations";
-import { EtatRegulation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import { expect } from "vitest";
+import { fabriqueRegule } from "../../src/Domain/Simulateur/fabriques/ResultatRegulation.fabrique";
+import { resultatNonRegule } from "../../src/Domain/Simulateur/Regulation.constantes";
+import {
+  CausesRegulation,
+  TypeEntite,
+} from "../../src/Domain/Simulateur/Regulation.definitions";
+import {
+  EtatRegulation,
+  EtatRegulationDefinitif,
+} from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
+import { evalueRegulationEtatReponseInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
+import { propReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.operations";
 
 export const afficheDifferences = (
   resultatAttendu: EtatRegulation,
@@ -62,3 +72,40 @@ export const assertion = {
         .map((arbB) => assertion.exclusifs(arbA, arbB)),
     ),
 };
+export const verificationReponseNonRegule = (reponse: EtatRegulation) => {
+  const resultatAttendu: EtatRegulationDefinitif = {
+    _resultatEvaluationRegulation: "Definitif",
+    etapeEvaluee: "InformationsSecteur",
+    ...resultatNonRegule,
+  };
+
+  const resultatObtenu =
+    evalueRegulationEtatReponseInformationsSecteur(reponse);
+  expect(
+    resultatObtenu,
+    afficheDifferences(resultatAttendu, resultatObtenu),
+  ).toStrictEqual(resultatAttendu);
+};
+const fabriqueVerificationReponseDefinitivementRegule =
+  (typeEntite: TypeEntite) => (reponse: EtatRegulation) => {
+    const causes: CausesRegulation = {
+      ...propReponseEtat(reponse)("Structure"),
+      ...propReponseEtat(reponse)("InformationsSecteur"),
+    };
+    const resultatAttendu: EtatRegulationDefinitif = {
+      _resultatEvaluationRegulation: "Definitif",
+      etapeEvaluee: "InformationsSecteur",
+      ...fabriqueRegule(causes, typeEntite),
+    };
+
+    const resultatObtenu =
+      evalueRegulationEtatReponseInformationsSecteur(reponse);
+    expect(
+      resultatObtenu,
+      afficheDifferences(resultatAttendu, resultatObtenu),
+    ).toStrictEqual(resultatAttendu);
+  };
+export const verificationReponseDefinitivementReguleEI =
+  fabriqueVerificationReponseDefinitivementRegule("EntiteImportante");
+export const verificationReponseDefinitivementReguleEE =
+  fabriqueVerificationReponseDefinitivementRegule("EntiteEssentielle");
