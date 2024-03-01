@@ -4,10 +4,7 @@ import { expect } from "@storybook/jest";
 import { Meta, StoryObj } from "@storybook/react";
 import { within } from "@storybook/testing-library";
 
-import {
-  CausesRegulation,
-  Regulation,
-} from "../../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
+import { Regulation } from "../../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 import {
   EtatRegulationDefinitif,
   EtatRegulationDefinitivement,
@@ -19,6 +16,7 @@ import {
   verifieAucunBlocDepliable,
   verifieClasseBlocResultat,
   verifieIcone,
+  verifieTexteAvertissementAbsent,
   verifieTexteAvertissementPresent,
   verifieTexteEnAnnexe,
 } from "./LigneResultat.predicats.ts";
@@ -66,29 +64,51 @@ const etatRegulation_Incertain: EtatRegulationDefinitivement<"Incertain"> = {
     _tag: "EnAttenteTranspositionLoiFrancaise",
   },
 };
-const causes_Regule_RegistreNomDeDomaines: CausesRegulation = {
-  Structure: {
-    _categorieTaille: "Grand",
-    typeStructure: "privee",
-    trancheChiffreAffaire: "petit",
-    trancheNombreEmployes: "moyen",
-  },
-  InformationsSecteur: {
-    _categorieTaille: "Grand",
-    secteurs: ens({
-      secteurActivite: "infrastructureNumerique",
-      activites: ens("registresNomsDomainesPremierNiveau"),
-    }),
-  },
-};
+
 const etatRegulation_Regule_RegistreNomDeDomaines: EtatRegulationDefinitivement<"Regule"> =
   {
     decision: Regulation.Regule,
     _resultatEvaluationRegulation: "Definitif",
     typeEntite: "EntiteEssentielle",
     etapeEvaluee: "InformationsSecteur",
-    causes: causes_Regule_RegistreNomDeDomaines,
+    causes: {
+      Structure: {
+        _categorieTaille: "Grand",
+        typeStructure: "privee",
+        trancheChiffreAffaire: "petit",
+        trancheNombreEmployes: "moyen",
+      },
+      InformationsSecteur: {
+        _categorieTaille: "Grand",
+        secteurs: ens({
+          secteurActivite: "infrastructureNumerique",
+          activites: ens("registresNomsDomainesPremierNiveau"),
+        }),
+      },
+    },
   };
+
+const etatRegulation_Regule_DORA: EtatRegulationDefinitivement<"Regule"> = {
+  decision: Regulation.Regule,
+  _resultatEvaluationRegulation: "Definitif",
+  typeEntite: "EntiteImportante",
+  etapeEvaluee: "InformationsSecteur",
+  causes: {
+    Structure: {
+      _categorieTaille: "Grand",
+      typeStructure: "privee",
+      trancheChiffreAffaire: "petit",
+      trancheNombreEmployes: "moyen",
+    },
+    InformationsSecteur: {
+      _categorieTaille: "Grand",
+      secteurs: ens({
+        secteurActivite: "banqueSecteurBancaire",
+        activites: ens("etablissementCredit"),
+      }),
+    },
+  },
+};
 
 export const ReguleStandard: Story = {
   args: {
@@ -122,24 +142,9 @@ export const ReguleStandardEI: Story = {
     verifieIcone(canvasElement, "fr-icon-check-line");
   },
 };
-
 export const ReguleDORA: Story = {
   args: {
-    etatRegulation: {
-      decision: Regulation.Regule,
-      _resultatEvaluationRegulation: "Definitif",
-      typeEntite: "EntiteImportante",
-      etapeEvaluee: "InformationsSecteur",
-      causes: {
-        InformationsSecteur: {
-          _categorieTaille: "Grand",
-          secteurs: ens({
-            secteurActivite: "banqueSecteurBancaire",
-            activites: ens("etablissementCredit"),
-          }),
-        },
-      } as CausesRegulation,
-    },
+    etatRegulation: etatRegulation_Regule_DORA,
   },
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "DORA";
@@ -203,9 +208,7 @@ export const IncertainStandard: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    expect(
-      within(canvasElement).queryByText("susceptible d'évoluer"),
-    ).not.toBeInTheDocument();
+    verifieTexteAvertissementAbsent(canvasElement);
     verifieAucunBlocDepliable(canvasElement);
     verifieClasseBlocResultat(canvasElement, "fr-nis2-incertain");
     verifieIcone(canvasElement, "fr-nis2-icon-in-progress");

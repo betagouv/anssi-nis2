@@ -1,9 +1,8 @@
 import { P, match } from "ts-pattern";
 import {
-  CausesIncertitude,
-  ConstructionTestEnCours,
-  ResultatRegulationEntite,
-} from "../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
+  toujoursFaux,
+  toujoursVrai,
+} from "../../../../../commun/core/src/Domain/Commun/Commun.predicats.ts";
 import { CapsuleReponseDefinitions } from "../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/CapsuleReponse.definitions.ts";
 import {
   EtatRegulationDefinitif,
@@ -16,7 +15,6 @@ import {
   estInformationsPourSecteur,
   estSecteurBancaire,
 } from "../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/StructuresReponse.predicats.ts";
-import { VVV } from "../../../../../commun/core/src/Domain/utilitaires/debug.ts";
 import { et } from "../../../../../commun/utils/services/predicats.operations.ts";
 import { certains } from "../../../../../commun/utils/services/sets.operations.ts";
 import {
@@ -170,12 +168,11 @@ export const getNomFichierPrecision = (
   etatRegulation: EtatRegulationDefinitif,
 ) =>
   match(etatRegulation.decision)
-    .with("Regule", () => {
-      VVV("Regule");
-      return getNomFichierPrecisionRegule(
+    .with("Regule", () =>
+      getNomFichierPrecisionRegule(
         etatRegulation as EtatRegulationDefinivement<"Regule">,
-      );
-    })
+      ),
+    )
     .with("NonRegule", () => "PrecisionsResultat.NonReguleStandard")
     .with("Incertain", () =>
       getNomFichierPrecisionIncertain(
@@ -190,17 +187,36 @@ export const getInformationsResultatEvaluation = (
   titre: recupereTitrePourEtatEvaluation(etatRegulation),
   classes: getClassesCssResultat(etatRegulation),
 });
-const estConstructionEnCours = (
-  causes: CausesIncertitude,
-): causes is ConstructionTestEnCours =>
-  causes._tag === "ConstructionTestEnCours";
-
-const estResultatRegulationIncertain = (
-  etatRegulation: ResultatRegulationEntite,
-): etatRegulation is ResultatRegulationEntite<"Incertain"> =>
-  etatRegulation.decision === "Incertain";
 
 export const estCasNonGere = (etatRegulation: EtatRegulationDefinitif) =>
-  estResultatRegulationIncertain(etatRegulation) &&
-  estConstructionEnCours(etatRegulation.causes) &&
-  etatRegulation.causes.typeConstructionEnCours !== "HorsUnionEuropeenne";
+  match(etatRegulation)
+    .with(
+      {
+        decision: P.not("Incertain"),
+      },
+      toujoursFaux,
+    )
+    .with(
+      {
+        causes: {
+          _tag: "ConstructionTestEnCours",
+          typeConstructionEnCours: "HorsUnionEuropeenne",
+        },
+      },
+      toujoursFaux,
+    )
+    .with(
+      {
+        causes: {
+          _tag: "DefiniDansUnAutreEtatMembre",
+        },
+      },
+      toujoursFaux,
+    )
+    .otherwise(toujoursVrai);
+
+// estResultatRegulationIncertain(etatRegulation) &&
+// !(
+//   estConstructionEnCours(etatRegulation.causes) &&
+//   etatRegulation.causes.typeConstructionEnCours === "HorsUnionEuropeenne"
+// );

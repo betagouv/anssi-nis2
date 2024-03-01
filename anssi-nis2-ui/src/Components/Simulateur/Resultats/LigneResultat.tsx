@@ -38,6 +38,7 @@ export const LigneResultat: DefaultComponentExtensible<
 
   const statusAfficheAnnexe =
     statusAffichePlus[`${contenuPrecisions.estAfficheAnnexe}`];
+  const classesIcone = `fr-fi-arrow-${statusAfficheAnnexe.directionIcone}-s-line`;
   const informationsResultat =
     getInformationsResultatEvaluation(etatRegulation);
   useEffect(() => {
@@ -52,7 +53,6 @@ export const LigneResultat: DefaultComponentExtensible<
       });
     });
   }, [etatRegulation]);
-  const classesIcone = `fr-fi-arrow-${statusAfficheAnnexe.directionIcone}-s-line`;
   return (
     <RowContainer>
       <CenteredContainer>
@@ -63,9 +63,10 @@ export const LigneResultat: DefaultComponentExtensible<
           <Markdown components={{ p: "h4" }}>
             {informationsResultat.titre}
           </Markdown>
-          <Markdown>{libelleAvertissementRegule}</Markdown>
-          {estCasNonGere(etatRegulation) && (
+          {estCasNonGere(etatRegulation) ? (
             <p>{explicationContenuIncertain}</p>
+          ) : (
+            <Markdown>{libelleAvertissementRegule}</Markdown>
           )}
         </div>
         {!estCasNonGere(etatRegulation) && (

@@ -43,3 +43,8 @@ export const verifieTexteAvertissementPresent = async (
   expect(await canvas.findByText("strictement indicatif"));
   expect(await canvas.findByText("susceptible d'évoluer"));
 };
+export const verifieTexteAvertissementAbsent = (canvasElement: HTMLElement) => {
+  expect(
+    within(canvasElement).queryByText("susceptible d'évoluer"),
+  ).not.toBeInTheDocument();
+};
