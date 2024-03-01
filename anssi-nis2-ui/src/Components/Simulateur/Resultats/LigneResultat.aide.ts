@@ -186,6 +186,7 @@ export const getInformationsResultatEvaluation = (
 ) => ({
   titre: recupereTitrePourEtatEvaluation(etatRegulation),
   classes: getClassesCssResultat(etatRegulation),
+  fichierPrecisions: getNomFichierPrecision(etatRegulation),
 });
 
 export const estCasNonGere = (etatRegulation: EtatRegulationDefinitif) =>
@@ -214,9 +215,3 @@ export const estCasNonGere = (etatRegulation: EtatRegulationDefinitif) =>
       toujoursFaux,
     )
     .otherwise(toujoursVrai);
-
-// estResultatRegulationIncertain(etatRegulation) &&
-// !(
-//   estConstructionEnCours(etatRegulation.causes) &&
-//   etatRegulation.causes.typeConstructionEnCours === "HorsUnionEuropeenne"
-// );

@@ -87,7 +87,7 @@ export const estSecteurNeNecessitantPasLocalisationRepresentantPetiteEntite = <
   !ValeursSecteurAvecActivitesEssentielles.includes(
     secteur as (typeof ValeursSecteurAvecActivitesEssentielles)[number],
   );
-export const estSecteurAvecBesoinLocalisationRepresentantGrandeEntite = (
+export const estSecteurImportantsAvecBesoinLocalisation = (
   secteur: SecteurActivite,
 ) =>
   ValeursSecteursImportantsAvecBesoinLocalisation.includes(

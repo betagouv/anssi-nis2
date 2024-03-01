@@ -19,7 +19,7 @@ import {
 import {
   estSecteurAutre,
   estSecteurAvecActivitesEssentielles,
-  estSecteurAvecBesoinLocalisationRepresentantGrandeEntite,
+  estSecteurImportantsAvecBesoinLocalisation,
   estUnSecteurAvecDesSousSecteurs,
   estUnSecteurSansDesSousSecteurs,
 } from "../services/SecteurActivite/SecteurActivite.predicats";
@@ -131,7 +131,7 @@ export const FabriqueInformationsSecteur = {
       .when(
         ou(
           estSecteurAvecActivitesEssentielles,
-          estSecteurAvecBesoinLocalisationRepresentantGrandeEntite,
+          estSecteurImportantsAvecBesoinLocalisation,
         ),
         FabriqueInformationsSecteur.secteurSimpleAvecLocalisation(donnees),
       )

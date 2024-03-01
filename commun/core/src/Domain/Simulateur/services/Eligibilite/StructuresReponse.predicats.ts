@@ -1,5 +1,10 @@
 import { flow } from "fp-ts/lib/function";
 import { prop } from "../../../../../../utils/services/objects.operations";
+import {
+  est,
+  et,
+  non,
+} from "../../../../../../utils/services/predicats.operations";
 import { certains } from "../../../../../../utils/services/sets.operations";
 import { Activite } from "../../Activite.definitions";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
@@ -13,7 +18,7 @@ import {
   estSecteur,
   estSecteurAutre,
   estSecteurAvecActivitesEssentielles,
-  estSecteurAvecBesoinLocalisationRepresentantGrandeEntite,
+  estSecteurImportantsAvecBesoinLocalisation,
   estSecteurListe,
 } from "../SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurAutre } from "../SousSecteurActivite/SousSecteurActivite.predicats";
@@ -39,10 +44,10 @@ export const estEtablissementPrincipalFournitUE = (
 ): reponse is EtablissementPrincipalFournitUE =>
   reponse.fournitServicesUnionEuropeenne === "oui";
 
-export const estInformationSecteurAvecBesoinLocalisation = (
+export const estInformationSecteurImportantAvecBesoinLocalisation = (
   informationsSecteur: InformationsSecteurPossible<CategorieTaille>,
 ) =>
-  estSecteurAvecBesoinLocalisationRepresentantGrandeEntite(
+  estSecteurImportantsAvecBesoinLocalisation(
     informationsSecteur.secteurActivite as SecteurActivite,
   );
 
@@ -56,17 +61,19 @@ export const estInformationSecteurAvecActivitesEssentielles = <
   sec: InformationsSecteurPossible<T>,
 ): sec is InformationsSecteurAvecBesoinLocalisation<T> =>
   estSecteurAvecActivitesEssentielles(sec.secteurActivite as SecteurActivite);
-export const estInformationSecteurLocalisableGrandeEntite = (
+export const estInformationSecteurAvecBesoinLocalisation = <
+  Taille extends CategorieTaille,
+>(
   sec:
-    | InformationsSecteurPossible<"Grand">
+    | InformationsSecteurPossible<Taille>
     | InformationsSecteurAutre
     | InformationsSecteurSansBesoinLocalisation,
-): sec is InformationsSecteurAvecBesoinLocalisation<"Grand"> =>
-  estSecteurAvecBesoinLocalisationRepresentantGrandeEntite(
+): sec is InformationsSecteurAvecBesoinLocalisation<Taille> =>
+  estSecteurImportantsAvecBesoinLocalisation(
     sec.secteurActivite as SecteurActivite,
   ) ||
   estSecteurAvecActivitesEssentielles(sec.secteurActivite as SecteurActivite);
-export const estSecteurBienLocalisePetit = (
+export const estSecteurAvecActivitesEssentiellesBienLocalisees = (
   sec:
     | InformationsSecteurPossible<"Petit">
     | InformationsSecteurAutre
@@ -81,7 +88,7 @@ export const estSecteurBienLocaliseGrand = (
     | InformationsSecteurAutre
     | InformationsSecteurSansBesoinLocalisation,
 ) =>
-  estInformationSecteurLocalisableGrandeEntite(sec) &&
+  estInformationSecteurAvecBesoinLocalisation(sec) &&
   sec.fournitServicesUnionEuropeenne === "oui" &&
   sec.localisationRepresentant === "france";
 export const estSecteurBienLocaliseHorsFrance = <T extends CategorieTaille>(
@@ -109,10 +116,11 @@ export const estInformationsSecteurEligibleSansBesoinLocalisation = flow<
   boolean
 >(
   prop("secteurActivite"),
-  (s) =>
-    estSecteurListe(s) &&
-    !estSecteurAvecBesoinLocalisationRepresentantGrandeEntite(s) &&
-    !estSecteurAvecActivitesEssentielles(s),
+  et(
+    estSecteurListe,
+    non(estSecteurImportantsAvecBesoinLocalisation),
+    non(estSecteurAvecActivitesEssentielles),
+  ),
 ) as predicatInformationSecteurPossible;
 
 export const estInformationsPourSecteur = (secteur: SecteurActivite) =>
@@ -139,8 +147,8 @@ export const auMoinsUneActiviteListee = flow<
 ) as predicatInformationSecteurPossible;
 export const auMoinsUneActiviteEst = (activiteCherchee: Activite) =>
   flow<[{ activites: Set<Activite> }], Set<Activite>, boolean>(
-    prop<Set<Activite>, "activites">("activites"),
-    certains((a) => a === activiteCherchee),
+    prop("activites"),
+    certains(est(activiteCherchee)),
   ) as predicatInformationSecteurPossible;
 export const contientActivitesInfrastructureNumeriqueEligiblesPetitEntite = (
   s:

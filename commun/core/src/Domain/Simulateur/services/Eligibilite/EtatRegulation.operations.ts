@@ -37,13 +37,13 @@ import {
   contientActivitesListees,
   contientDesActivitesEssentielles,
   estInformationSecteurAvecActivitesEssentielles,
-  estInformationSecteurAvecBesoinLocalisation,
+  estInformationSecteurImportantAvecBesoinLocalisation,
   estInformationSecteurSecteurAutre,
   estInformationSecteurSousSecteurAutre,
   estInformationsSecteurEligibleSansBesoinLocalisation,
   estSecteurBienLocaliseGrand,
   estSecteurBienLocaliseHorsFrance,
-  estSecteurBienLocalisePetit,
+  estSecteurAvecActivitesEssentiellesBienLocalisees,
 } from "./StructuresReponse.predicats";
 
 const propageDonneesEvaluees =
@@ -181,7 +181,9 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
     .with(
       {
         InformationsSecteur: {
-          secteurs: P.when(tous(estSecteurBienLocalisePetit)),
+          secteurs: P.when(
+            tous(estSecteurAvecActivitesEssentiellesBienLocalisees),
+          ),
         },
       },
       (reponse) =>
@@ -302,7 +304,7 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
           secteurs: P.when(
             certains(
               et(
-                estInformationSecteurAvecBesoinLocalisation,
+                estInformationSecteurImportantAvecBesoinLocalisation,
                 estSecteurBienLocaliseGrand,
               ),
             ),

@@ -6,6 +6,11 @@ export const et: <T>(
   <T>(...predicats: Array<Predicat<T>>) =>
   (donnees: T) =>
     predicats.every((p) => p(donnees));
+
+export const est: <T>(cherche: T) => (compare: T) => boolean =
+  <T>(cherche: T) =>
+  (compare: T) =>
+    compare === cherche;
 export const ou: <T>(
   ...predicats: Array<Predicat<T>>
 ) => (donnees: T) => boolean =
