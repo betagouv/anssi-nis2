@@ -731,6 +731,58 @@ describe("fabrique ReponseEtat", () => {
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
+      it("grande structure gestion TIC localisée hors france", () => {
+        const donnees = fabriqueDonneesFormulaire({
+          typeEntitePublique: [],
+          fournitServicesUnionEuropeenne: ["oui"],
+          localisationRepresentant: ["france"],
+          secteurActivite: ["gestionServicesTic", "infrastructureNumerique"],
+          sousSecteurActivite: [],
+          designationOperateurServicesEssentiels: ["non"],
+          typeStructure: ["privee"],
+          trancheChiffreAffaire: ["grand"],
+          appartenancePaysUnionEuropeenne: ["france"],
+          trancheNombreEmployes: ["grand"],
+          activites: ["fournisseurServicesInformatiqueNuage"],
+        });
+        const resultatAttendu: UnionReponseEtat = {
+          _tag: "InformationsSecteur",
+          DesignationOperateurServicesEssentiels: {
+            designationOperateurServicesEssentiels: "non",
+          },
+          AppartenancePaysUnionEuropeenne: {
+            appartenancePaysUnionEuropeenne: "france",
+          },
+          Structure: {
+            _categorieTaille: "Grand",
+            typeStructure: "privee",
+            trancheChiffreAffaire: "grand",
+            trancheNombreEmployes: "grand",
+          },
+          InformationsSecteur: {
+            _categorieTaille: "Grand",
+            secteurs: ens(
+              {
+                secteurActivite: "gestionServicesTic",
+                activites: ens(),
+                localisationRepresentant: "france",
+                fournitServicesUnionEuropeenne: "oui",
+              },
+              {
+                secteurActivite: "infrastructureNumerique",
+                activites: ens("fournisseurServicesInformatiqueNuage"),
+                localisationRepresentant: "france",
+                fournitServicesUnionEuropeenne: "oui",
+              },
+            ),
+          },
+        };
+        const resultatObtenu =
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
+        expect(resultatObtenu).toStrictEqual(resultatAttendu);
+      });
     });
   });
 });

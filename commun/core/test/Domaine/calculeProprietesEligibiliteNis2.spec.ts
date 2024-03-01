@@ -36,7 +36,6 @@ describe(calculeEligibilite, () => {
                 arbForm.nonDesigneOSE.privee.exceptions
                   .etablissementPrincipalFrance.moyenGrandInfraNum,
               ));
-
           });
           describe("N'est pas éligible si", () => {
             it("Moyen/Grand Fournisseur d'infranum dans l'UE, représentant hors France", () =>
@@ -51,7 +50,6 @@ describe(calculeEligibilite, () => {
                   .etablissementPrincipalFrance.moyenGrandInfraNum
                   .neFournitPasServiceUe,
               ));
-
           });
         });
         describe("Exceptions 'Etablissement principal en France'", () => {
@@ -65,7 +63,6 @@ describe(calculeEligibilite, () => {
               arbForm.nonDesigneOSE.privee.exceptions
                 .etablissementPrincipalFrance.moyenGrandFournisseurNum,
             ));
-
         });
         describe("N'est pas éligible si", () => {
           it("Petit Fournisseur d'infranum dans l'UE, représentant en UE", () =>
@@ -103,19 +100,22 @@ describe(calculeEligibilite, () => {
               arbForm.nonDesigneOSE.privee.grand.secteursListes
                 .sansBesoinLocalisation,
             ));
-          // Passe pour refacto données ISI
-          it.skip("secteur d'activité et activité listés sans besoin de localisation - skip", () =>
-            V.EligibleMoyenneGrandeEntreprise(
-              arbForm.nonDesigneOSE.privee.grand.secteursListes
-                .avecBesoinLocalisation.avecLocalisationRepresentantFrance,
-            ));
+          it.skip(
+            "(**Raison de l'écarter**: l'ancien algo éligibilité ne fait psa le bon calcul)" +
+              "secteur d'activité et activité listés avec besoin de localisation",
+            () => {
+              V.EligibleMoyenneGrandeEntreprise(
+                arbForm.nonDesigneOSE.privee.grand.secteursListes
+                  .avecBesoinLocalisation.avecLocalisationRepresentantFrance,
+              );
+            },
+          );
         });
         describe("N'est pas éligible", () => {
           it("Si le secteur est 'autre'", () =>
             V.NonEligible(arbForm.nonDesigneOSE.privee.grand.secteursAutres));
           it("Si l'activité est 'autre'", () =>
             V.NonEligible(arbForm.nonDesigneOSE.privee.grand.activitesAutres));
-
         });
       });
     });

@@ -11,7 +11,7 @@ import { Regulation } from "../../src/Domain/Simulateur/Regulation.definitions";
 import { transformeEligibiliteEnRegulationEntite } from "../../src/Domain/Simulateur/services/Regulation/Regulation.operations";
 
 /* TODO supprimer ces tests de transformations une fois l'éligibilité totalement mise de côté au profit de EtatRegulation */
-describe.skip(transformeEligibiliteEnRegulationEntite, () => {
+describe(transformeEligibiliteEnRegulationEntite, () => {
   const donneesFormulaireSimulateurOSE = fabriqueDonneesFormulaire({
     designationOperateurServicesEssentiels: ["oui"],
   });
@@ -34,7 +34,10 @@ describe.skip(transformeEligibiliteEnRegulationEntite, () => {
         trancheChiffreAffaire: ["petit"],
         trancheNombreEmployes: ["petit"],
       });
-      const expectedResult = resultatReguleOSE;
+      const expectedResult = {
+        ...resultatReguleOSE,
+        typeEntite: "EntiteImportante",
+      };
 
       const result = transformeEligibiliteEnRegulationEntite(eligibilityResult)(
         donneesOSEPetiteEntreprise,
@@ -48,7 +51,10 @@ describe.skip(transformeEligibiliteEnRegulationEntite, () => {
     ])(
       "devrait retourner reguleOSE lorsqu'un résultat d'éligibilité est %s",
       (eligibilityResult) => {
-        const expectedResult = resultatReguleOSE;
+        const expectedResult = {
+          ...resultatReguleOSE,
+          typeEntite: "EntiteImportante",
+        };
 
         const result = transformeEligibiliteEnRegulationEntite(
           eligibilityResult,

@@ -132,6 +132,23 @@ describe("chaine de décision", () => {
       trancheNombreEmployes: ["moyen"],
       activites: ["fournisseurServicesSecuriteGeres"],
     },
+    {
+      description:
+        "Moyenne ou grande entité localisée en France ou en UE > secteur d'activité et activité listés avec besoin de localisation",
+      decisionAttendue: "Regule",
+      typeEntite: "EntiteEssentielle",
+      typeEntitePublique: [],
+      fournitServicesUnionEuropeenne: ["oui"],
+      localisationRepresentant: ["france"],
+      secteurActivite: ["gestionServicesTic", "infrastructureNumerique"],
+      sousSecteurActivite: [],
+      designationOperateurServicesEssentiels: ["non"],
+      typeStructure: ["privee"],
+      trancheChiffreAffaire: ["grand"],
+      appartenancePaysUnionEuropeenne: ["france"],
+      trancheNombreEmployes: ["grand"],
+      activites: ["fournisseurServicesInformatiqueNuage"],
+    },
   ];
   it.each(contreExemples)(
     "Attendu: $decisionAttendue - $description",
