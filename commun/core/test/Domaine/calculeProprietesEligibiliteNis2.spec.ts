@@ -36,6 +36,7 @@ describe(calculeEligibilite, () => {
                 arbForm.nonDesigneOSE.privee.exceptions
                   .etablissementPrincipalFrance.moyenGrandInfraNum,
               ));
+
           });
           describe("N'est pas éligible si", () => {
             it("Moyen/Grand Fournisseur d'infranum dans l'UE, représentant hors France", () =>
@@ -50,6 +51,7 @@ describe(calculeEligibilite, () => {
                   .etablissementPrincipalFrance.moyenGrandInfraNum
                   .neFournitPasServiceUe,
               ));
+
           });
         });
         describe("Exceptions 'Etablissement principal en France'", () => {
@@ -63,6 +65,7 @@ describe(calculeEligibilite, () => {
               arbForm.nonDesigneOSE.privee.exceptions
                 .etablissementPrincipalFrance.moyenGrandFournisseurNum,
             ));
+
         });
         describe("N'est pas éligible si", () => {
           it("Petit Fournisseur d'infranum dans l'UE, représentant en UE", () =>
@@ -112,6 +115,7 @@ describe(calculeEligibilite, () => {
             V.NonEligible(arbForm.nonDesigneOSE.privee.grand.secteursAutres));
           it("Si l'activité est 'autre'", () =>
             V.NonEligible(arbForm.nonDesigneOSE.privee.grand.activitesAutres));
+
         });
       });
     });

@@ -46,6 +46,13 @@
       line-height: 2.5rem;
     }
   }
+
+  background-image: url(assets/marches.svg);
+  background-position: top right;
+  background-repeat: no-repeat;
+
+  .fr-nis2-marches {
+  }
 }
 
 .fr-nis2-suis-je-concerne {
@@ -69,9 +76,15 @@
   padding-top: 100px;
   z-index: initial;
 
-  & h2 {
+  & h2, h3 {
     text-align: center;
     color: #272771;
+    margin-bottom: 1rem;
+  }
+
+  & h3 {
+    font-size: 1.75rem;
+    font-weight: 500;
   }
 
   .fr-nis2-logo-ue {

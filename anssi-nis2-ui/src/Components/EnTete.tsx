@@ -21,14 +21,7 @@ const EnTete = () => (
       orientation: "horizontal",
     }}
     serviceTagline=""
-    serviceTitle={
-      <>
-        MonEspaceNIS2
-        <sup className="fr-badge fr-badge--sm fr-badge--green-emeraude fr-ml-1w">
-          Bêta
-        </sup>
-      </>
-    }
+    serviceTitle={<>MonEspaceNIS2</>}
   />
 );
 

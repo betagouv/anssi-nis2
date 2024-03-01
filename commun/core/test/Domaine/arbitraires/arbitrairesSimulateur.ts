@@ -32,6 +32,7 @@ export const arbForm = {
             arbNonOSEPrivesMoyenneGrandeAvecBesoinLocalisation,
           ),
         },
+
         secteursAutres: arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles,
         activitesAutres: arbNonOSEPrivesMoyenneGrandeAutresActivites,
       },

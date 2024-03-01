@@ -9,8 +9,8 @@ const BandeauObligations = () => (
       <div className="fr-mt-7w fr-pt-7w fr-nis2-obligations">
         <div className="fr-col--middle">
           <h3 className="fr-mb-5w">
-            Les entités concernées devront se conformer
-            <br />à certaines obligations auprès de l&apos;ANSSI
+            L&apos;ANSSI accompagne les entités concernées
+            <br />dans leur mise en conformité
           </h3>
         </div>
         <ul className="fr-grid-row fr-mx-25v fr-pb-19v">

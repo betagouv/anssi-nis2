@@ -6,10 +6,10 @@ export const LogoUnionEuropeenneNIS2 = () => {
       </div>
       <p>
         <span className="fr-text--bold">
-          NIS : Network and and Information Security
+          NIS : Network and Information Security
         </span>
         <br />
-        (sécurité des réseau et de l’information)
+        (sécurité des réseaux et des systèmes d’information)
       </p>
     </div>
   );

@@ -256,26 +256,26 @@ describe("Validation des données formulaire", () => {
       it(
         "verifieCompletudeDonneesCommunes",
         verifieQue(verifieCompletudeDonneesCommunes).pour(donnees)
-          .estToujoursVrai,
+          .estToujoursVrai
       );
       it(
         "verifieCompletudeDonneesFormulairePublique",
         verifieQue(verifieCompletudeDonneesFormulairePublique).pour(donnees)
-          .estToujoursFaux,
+          .estToujoursFaux
       );
     });
     describe("Petite Infrastructure numérique non localisée", () => {
       it(
         "contientSecteursLocalisesValides",
         verifieQue(contientSecteursLocalisesValides).pour(
-          formulairePetitInfraNumSansLocalisation,
-        ).estToujoursFaux,
+          formulairePetitInfraNumSansLocalisation
+        ).estToujoursFaux
       );
       it(
         "verifieDonneesSectorielles",
         verifieQue(verifieDonneesSectorielles).pour(
-          formulairePetitInfraNumSansLocalisation,
-        ).estToujoursFaux,
+          formulairePetitInfraNumSansLocalisation
+        ).estToujoursFaux
       );
       it(
         "contientSecteursLocalisesValides",
@@ -283,13 +283,13 @@ describe("Validation des données formulaire", () => {
           ...formulairePetitInfraNumSansLocalisation,
           secteurActivite: ["gestionServicesTic"],
           activites: ["fournisseurServicesSecuriteGeres"],
-        }).estToujoursVrai,
+        }).estToujoursVrai
       );
       it(
         "verifieDonneesSectorielles",
         verifieQue(verifieDonneesSectorielles).pour(
-          formulairePetitInfraNumSansLocalisation,
-        ).estToujoursFaux,
+          formulairePetitInfraNumSansLocalisation
+        ).estToujoursFaux
       );
     });
     describe("Petite Infrastructure numérique sans représentant", () => {
@@ -300,7 +300,7 @@ describe("Validation des données formulaire", () => {
       it(
         "verifieCompletudeDonneesFormulairePrivee",
         verifieQue(verifieCompletudeDonneesFormulairePrivee).pour(donnees)
-          .estToujoursFaux,
+          .estToujoursFaux
       );
     });
     describe("Petite Infrastructure numérique ne fournit pas en UE", () => {
@@ -311,7 +311,7 @@ describe("Validation des données formulaire", () => {
       it(
         "verifieCompletudeDonneesFormulairePrivee",
         verifieQue(verifieCompletudeDonneesFormulairePrivee).pour(donnees)
-          .estToujoursVrai,
+          .estToujoursVrai
       );
     });
   });

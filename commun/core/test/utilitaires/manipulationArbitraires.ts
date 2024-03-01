@@ -95,6 +95,7 @@ const etendDonneesActivite = <DonneesPartielles>(
   base: DonneesPartielles &
     Partial<Pick<DonneesFormulaireSimulateur, "activites">>,
   listeActivitesDesSecteurs: Activite[],
+
 ) =>
   base.activites
     ? [...listeActivitesDesSecteurs, ...base.activites]
@@ -204,37 +205,37 @@ export const ajouteChampsFacultatifs = <
 export const nommeArbitraire =
   (nom: string) =>
   (
-    arbitraire: ArbitraireDonneesFormulaireSimulateur,
+    arbitraire: ArbitraireDonneesFormulaireSimulateur
   ): ArbitraireDonneesFormulaireSimulateurNomme =>
     Object.assign(arbitraire, { nom });
 
 export const partitionneLocalisationServices = (
   arbitraire:
     | ArbitraireDonneesFormulaireSimulateur
-    | ArbitraireDonneesFormulaireSimulateurNomme,
+    | ArbitraireDonneesFormulaireSimulateurNomme
 ): ArbitraireEnrichi =>
   Object.assign(
     arbitraire,
     {
       sansBesoinLocalisation: nommeArbitraire("sansBesoinLocalisation")(
-        arbitraire.filter(non(contientSecteurNecessitantLocalisation)),
+        arbitraire.filter(non(contientSecteurNecessitantLocalisation))
       ),
       neFournitPasServiceUe: nommeArbitraire("avecFournitServiceUE")(
         etend(arbitraire.filter(contientSecteurNecessitantLocalisation)).avec({
           fournitServicesUnionEuropeenne: fc.constant<
             FournitServicesUnionEuropeenne[]
           >(["non"]),
-        }),
+        })
       ),
       avecLocalisationRepresentant: nommeArbitraire(
-        "avecLocalisationRepresentant",
+        "avecLocalisationRepresentant"
       )(
         etend(arbitraire.filter(contientSecteurNecessitantLocalisation)).avec({
           fournitServicesUnionEuropeenne: fc.constant(["oui"]),
           localisationRepresentant: fabriqueArbSingleton(
             ValeursappartenancePaysUnionEuropeenne,
           ),
-        }),
+        })
       ),
       avecLocalisationRepresentantHorsFrance: nommeArbitraire(
         "avecLocalisationRepresentantHorsFrance",
@@ -249,16 +250,16 @@ export const partitionneLocalisationServices = (
         }),
       ),
       avecLocalisationRepresentantFrance: nommeArbitraire(
-        "avecLocalisationRepresentant",
+        "avecLocalisationRepresentant"
       )(
         etend(
-          arbitraire.filter(contientUniquementSecteurNecessitantLocalisation),
+          arbitraire.filter(contientUniquementSecteurNecessitantLocalisation)
         ).avec({
           fournitServicesUnionEuropeenne: fc.constant(["oui"]),
           localisationRepresentant: fc.constant<
             AppartenancePaysUnionEuropeenne[]
           >(["france"]),
-        }),
+        })
       ),
     },
     {

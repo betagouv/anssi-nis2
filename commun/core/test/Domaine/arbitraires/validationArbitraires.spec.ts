@@ -31,7 +31,7 @@ describe("validation des arbitraires", () => {
             (donnees: DonneesFormulaireSimulateur) => {
               const satisfait = getSatisfait(donnees);
               satisfait(
-                P.auMoins.une.activiteListee<DonneesFormulaireSimulateur>,
+                P.auMoins.une.activiteListee<DonneesFormulaireSimulateur>
               );
               satisfait(non(contientPetiteEntreprise));
               satisfait(P.secteurActivite.contient("infrastructureNumerique"));
@@ -41,8 +41,9 @@ describe("validation des arbitraires", () => {
               satisfait(P.fournitServicesUnionEuropeenne.est(["oui"]));
               satisfait(P.localisationRepresentant.est(["france"]));
             },
+
           ),
-          { verbose: 2 },
+          { verbose: 2 }
         );
       });
       it("arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance.moyenGrandGestionTic", () => {
@@ -53,7 +54,7 @@ describe("validation des arbitraires", () => {
             (donnees: DonneesFormulaireSimulateur) => {
               const satisfait = getSatisfait(donnees);
               satisfait(
-                P.auMoins.une.activiteListee<DonneesFormulaireSimulateur>,
+                P.auMoins.une.activiteListee<DonneesFormulaireSimulateur>
               );
               satisfait(non(contientPetiteEntreprise));
               satisfait(P.secteurActivite.contient("gestionServicesTic"));
@@ -63,8 +64,9 @@ describe("validation des arbitraires", () => {
               satisfait(P.fournitServicesUnionEuropeenne.est(["oui"]));
               satisfait(P.localisationRepresentant.est(["france"]));
             },
+
           ),
-          { verbose: 2 },
+          { verbose: 2 }
         );
       });
       it("arbForm.nonDesigneOSE.privee.exceptions.etablissementPrincipalFrance.moyenGrandFournisseurNum", () => {
@@ -75,7 +77,7 @@ describe("validation des arbitraires", () => {
             (donnees: DonneesFormulaireSimulateur) => {
               const satisfait = getSatisfait(donnees);
               satisfait(
-                P.auMoins.une.activiteListee<DonneesFormulaireSimulateur>,
+                P.auMoins.une.activiteListee<DonneesFormulaireSimulateur>
               );
               satisfait(non(contientPetiteEntreprise));
               satisfait(P.secteurActivite.contient("fournisseursNumeriques"));
@@ -85,8 +87,9 @@ describe("validation des arbitraires", () => {
               satisfait(P.fournitServicesUnionEuropeenne.est(["oui"]));
               satisfait(P.localisationRepresentant.est(["france"]));
             },
+
           ),
-          { verbose: 2 },
+          { verbose: 2 }
         );
       });
       describe("arbForm.nonDesigneOSE.privee.grand.secteursListes", () => {
@@ -104,8 +107,9 @@ describe("validation des arbitraires", () => {
                 satisfait(P.typeStructure.est(["privee"]));
                 satisfait(P.appartenancePaysUnionEuropeenne.est(["france"]));
               },
+
             ),
-            { verbose: 2 },
+            { verbose: 2 }
           );
         });
         const verificationPriveGrandFranceAvecLocalisation = (
@@ -158,13 +162,14 @@ describe("validation des arbitraires", () => {
                 const satisfait = getSatisfait(donnees);
                 satisfait(
                   P.designationOperateurServicesEssentiels.est(["non"]),
+
                 );
                 satisfait(P.typeStructure.est(["privee"]));
                 satisfait(P.appartenancePaysUnionEuropeenne.est(["france"]));
                 satisfait(predicatDonneesFormulaire.uniquement.activiteAutre);
-              },
+              }
             ),
-            { verbose: 2 },
+            { verbose: 2 }
           ));
       });
     });

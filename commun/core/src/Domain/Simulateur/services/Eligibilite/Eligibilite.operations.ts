@@ -61,7 +61,7 @@ const calculeEligibilitePetiteStructurePrivee: OperationCalculeEligibilite = (
     .otherwise(R.Incertain);
 
 const calculeEligibiliteRepresentantFrance: OperationCalculeEligibilite = (
-  donnees,
+  donnees
 ) =>
   match(donnees)
     .with(
@@ -69,7 +69,7 @@ const calculeEligibiliteRepresentantFrance: OperationCalculeEligibilite = (
         fournitServicesUnionEuropeenne: ["oui"],
         localisationRepresentant: ["france"],
       },
-      R.EligibleMoyenneGrandeEntreprise,
+      R.EligibleMoyenneGrandeEntreprise
     )
     .otherwise(R.NonEligible);
 
@@ -109,6 +109,7 @@ const calculeEligibiliteMoyenneOuGrandeStructurePrivee: OperationCalculeEligibil
       .when(
         contientSecteurNecessitantLocalisation,
         calculeEligibiliteGrandeServicesTicEtFournisseurNum,
+
       )
       .with(
         {

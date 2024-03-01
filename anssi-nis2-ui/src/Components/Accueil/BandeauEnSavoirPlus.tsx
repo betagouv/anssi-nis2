@@ -15,7 +15,7 @@ const BandeauEnSavoirPlus: DefaultComponent = () => {
             <div className="fr-grid-row--center">
               <div className="fr-col-8 fr-col-offset-2 ">
                 <p className="fr-text--lead fr-mb-5w">
-                  Retrouver ci-dessous les éléments de contexte pour comprendre
+                  Retrouvez ci-dessous les éléments de contexte pour comprendre
                   plus en détail les enjeux et modalités de la directive.
                 </p>
                 <ul className="fr-nis2-tuile-lien fr-grid-row">
