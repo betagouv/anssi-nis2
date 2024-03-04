@@ -37,7 +37,7 @@ import {
   fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe,
   fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand,
   fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableHorsUe,
-} from "./ResultatEvaluationRegulation.arbitraire.fabrique";
+} from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import { arbLocalisationRepresentant_JamaisFrance } from "./ResultatEvaluationRegulation.bases.arbitraire";
 
 export const arbSecteurListesSansSousSecteurNiLocaGrand = fc.constantFrom(

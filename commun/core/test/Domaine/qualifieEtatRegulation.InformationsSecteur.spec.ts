@@ -21,7 +21,7 @@ import {
   fabriqueArbJamaisOse_ToujoursFrance_StructureGrand,
   fabriqueArbJamaisOse_ToujoursFrance_StructurePetit,
 } from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
-import { fabriqueArbInformationsSecteurAutre } from "./arbitraires/ResultatEvaluationRegulation.arbitraire.fabrique";
+import { fabriqueArbInformationsSecteurAutre } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 
 describe("Secteur", () => {
   describe("Petit", () => {

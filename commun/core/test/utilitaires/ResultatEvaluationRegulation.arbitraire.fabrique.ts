@@ -1,33 +1,33 @@
 import { fc } from "@fast-check/vitest";
 import { flow } from "fp-ts/lib/function";
-import { ens } from "../../../../utils/services/sets.operations";
+import { ens } from "../../../utils/services/sets.operations";
 import {
   Activite,
   ActivitesLocalisablesGrand,
   ActivitesLocalisablesPetit,
-} from "../../../src/Domain/Simulateur/Activite.definitions";
+} from "../../src/Domain/Simulateur/Activite.definitions";
 import {
   AppartenancePaysUnionEuropeenne,
   FournitServicesUnionEuropeenne,
   TypeStructure,
-} from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
-import { resultatIncertain } from "../../../src/Domain/Simulateur/Regulation.constantes";
+} from "../../src/Domain/Simulateur/ChampsSimulateur.definitions";
+import { resultatIncertain } from "../../src/Domain/Simulateur/Regulation.constantes";
 import {
   SecteurActivite,
   SecteurAvecBesoinLocalisationRepresentant,
   SecteursAvecSousSecteurs,
-} from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
-import { getActivitesPour } from "../../../src/Domain/Simulateur/services/Activite/Activite.operations";
+} from "../../src/Domain/Simulateur/SecteurActivite.definitions";
+import { getActivitesPour } from "../../src/Domain/Simulateur/services/Activite/Activite.operations";
 import {
   estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
   estActiviteListee,
-} from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
-import { fabriqueContenuCapsuleInformationSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/CapsuleReponse.fabriques";
-import { FabriqueEtatDonneesSimulateur } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
+} from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { fabriqueContenuCapsuleInformationSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/CapsuleReponse.fabriques";
+import { FabriqueEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
 import {
   fabriqueResultatEvaluationEnSuspens,
   fabriqueResultatEvaluationInconnu,
-} from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.fabriques";
+} from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.fabriques";
 import {
   CategorieTaille,
   InformationsSecteurAvecBesoinLocalisation,
@@ -40,16 +40,16 @@ import {
   ReponseStructure,
   ReponseStructurePrivee,
   ReponseStructurePublique,
-} from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.definitions";
-import { eqInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.predicats";
+} from "../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.definitions";
+import { eqInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.predicats";
 import {
   SousSecteurActivite,
   SousSecteurDe,
-} from "../../../src/Domain/Simulateur/SousSecteurActivite.definitions";
+} from "../../src/Domain/Simulateur/SousSecteurActivite.definitions";
 import {
   arbFournitServiceUnionEuropeenne_ToujoursNon,
   arbFournitServiceUnionEuropeenne_ToujoursOui,
-} from "./ResultatEvaluationRegulation.bases.arbitraire";
+} from "../Domaine/arbitraires/ResultatEvaluationRegulation.bases.arbitraire";
 
 const determineArbFournitServicesUnionEuropeenne = (
   arbFournitServicesUnionEuropeenne: fc.Arbitrary<FournitServicesUnionEuropeenne>,

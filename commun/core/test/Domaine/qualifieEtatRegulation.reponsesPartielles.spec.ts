@@ -26,7 +26,7 @@ import {
   fabriqueResultatEvaluationEnSuspensAppUE,
   fabriqueResultatEvaluationEnSuspensStructure,
   fabriqueResultatEvaluationInconnuOse,
-} from "./arbitraires/ResultatEvaluationRegulation.arbitraire.fabrique";
+} from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
   arbDesignationOperateurServicesEssentielsToujoursNeSaitPas,
   arbDesignationOperateurServicesEssentielsToujoursNon,

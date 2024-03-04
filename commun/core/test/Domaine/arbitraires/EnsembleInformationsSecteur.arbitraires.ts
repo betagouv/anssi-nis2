@@ -22,7 +22,7 @@ import {
 import {
   fabriqueArbitraireEnsembleActivitesPourSecteur,
   fabriqueArbitrairesEnsembleInformationsSecteurs,
-} from "./ResultatEvaluationRegulation.arbitraire.fabrique";
+} from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 
 export const arbEnsembleSecteursSimples: fc.Arbitrary<
   Set<InformationSecteurSimple>

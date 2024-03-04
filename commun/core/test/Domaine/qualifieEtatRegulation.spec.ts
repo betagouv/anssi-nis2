@@ -29,7 +29,7 @@ import {
 import {
   fabriqueResultatEvaluationEnSuspensStructure,
   fabriqueResultatEvaluationInconnuOse,
-} from "./arbitraires/ResultatEvaluationRegulation.arbitraire.fabrique";
+} from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
   arbDesignationOperateurServicesEssentielsToujoursOui,
   arbStructurePetitPrive,

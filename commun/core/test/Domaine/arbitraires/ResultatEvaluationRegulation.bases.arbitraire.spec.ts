@@ -52,7 +52,7 @@ import {
   fabriqueArbInformationsSecteurAutre,
   fabriqueArbitraireCapsuleSecteurPetit,
   fabriqueArbitraireEnsembleActivitesPourSecteur,
-} from "./ResultatEvaluationRegulation.arbitraire.fabrique";
+} from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
   arbAppartenanceUnionEuropeenne_ToujoursHorsUE,
   arbAppartenanceUnionEuropeenne_ToujoursAutreUE,
