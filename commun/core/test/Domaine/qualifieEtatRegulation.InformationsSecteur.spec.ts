@@ -8,11 +8,11 @@ import {
 import {
   arbReponseInformationsSecteur_AvecActivitesEssentiels_SansBesoinLocalisation,
   arbReponseInformationsSecteur_LocalisesFrance_Grand_EI,
-  arbReponseInformationsSecteurFranceGrandEILocalisationHorsFrance,
+  arbReponseInformationsSecteur_AvecBesoinLoca_GrandEI_LocalisationHorsFrance,
+  arbReponseInformationsSecteurFranceGrandInfranumEI,
   arbReponseInformationsSecteurGrand,
   arbReponseInformationsSecteurGrandActivitesAutres,
   arbReponseInformationsSecteurLocalisesFranceGrandInfranumEE,
-  arbReponseInformationsSecteurLocalisesFranceGrandInfranumEI,
   arbReponseInformationsSecteurLocalisesFrancePetit,
   arbReponseInformationsSecteurLocalisesHorsFrancePetit,
   arbReponseInformationsSecteurPetit,
@@ -73,6 +73,26 @@ describe("Secteur", () => {
     );
   });
   describe("Grandes", () => {
+    describe("Inrasctructures Numériques", () => {
+      it(
+        "en suspens / secteurs+activités EE localisables (reg dom et fournisseur DNS) et bien localisés ==> toujours définitivement régulé EE",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
+            arbReponseInformationsSecteurLocalisesFranceGrandInfranumEE,
+          ),
+          verificationReponseDefinitivementReguleEE,
+        ),
+      );
+      it(
+        "en suspens / secteurs Infrastructure Numérique + activités EI (ni reg dom ni fournisseur DNS) sans besoin localisation ==> toujours définitivement régulé EI",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
+            arbReponseInformationsSecteurFranceGrandInfranumEI,
+          ),
+          verificationReponseDefinitivementReguleEI,
+        ),
+      );
+    });
     it(
       "en suspens / secteur et sous-secteur listés ==> toujours définitivement régulé",
       assertionArbitraire(
@@ -91,29 +111,12 @@ describe("Secteur", () => {
         verificationReponseDefinitivementReguleEI,
       ),
     );
+
     it(
-      "en suspens / secteurs Infrastructure Numérique + activités EI sans besoin localisation ==> toujours définitivement régulé EI",
+      "en suspens / secteurs+activités EI localisables et localisés hors-france ==> toujours définitivement non-régulé",
       assertionArbitraire(
         fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-          arbReponseInformationsSecteurLocalisesFranceGrandInfranumEI,
-        ),
-        verificationReponseDefinitivementReguleEI,
-      ),
-    );
-    it(
-      "en suspens / secteurs+activités EE localisables et bien localisés ==> toujours définitivement régulé EE",
-      assertionArbitraire(
-        fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-          arbReponseInformationsSecteurLocalisesFranceGrandInfranumEE,
-        ),
-        verificationReponseDefinitivementReguleEE,
-      ),
-    );
-    it(
-      "en suspens / secteurs+activités EI localisables et bien localisés ==> toujours définitivement non-régulé",
-      assertionArbitraire(
-        fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-          arbReponseInformationsSecteurFranceGrandEILocalisationHorsFrance,
+          arbReponseInformationsSecteur_AvecBesoinLoca_GrandEI_LocalisationHorsFrance,
         ),
         verificationReponseNonRegule,
       ),

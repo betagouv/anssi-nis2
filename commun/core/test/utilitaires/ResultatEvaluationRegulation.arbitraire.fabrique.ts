@@ -168,19 +168,30 @@ export const fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand 
           arbFournitServiceUnionEuropeenne_ToujoursOui,
         localisationRepresentant: arbLocalisationRepresentant,
       }) as fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Grand">>;
-export const fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableHorsUe = <
-  T extends SecteurAvecBesoinLocalisationRepresentant,
->(
-  secteur: T,
-): fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">> =>
-  fc.record<InformationsSecteurAvecBesoinLocalisation<"Petit">>({
-    secteurActivite: fc.constant(secteur),
-    activites: fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
-      estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
-    )<T, ActivitesLocalisablesPetit>(secteur),
-    fournitServicesUnionEuropeenne:
-      arbFournitServiceUnionEuropeenne_ToujoursNon,
-  }) as fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">>;
+export const fabriqueArbitraireEnsembleActivitesPourSecteurInfraNumLocalisable_HorsUe =
+  <T extends SecteurAvecBesoinLocalisationRepresentant>(
+    secteur: T,
+  ): fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">> =>
+    fc.record<InformationsSecteurAvecBesoinLocalisation<"Petit">>({
+      secteurActivite: fc.constant(secteur),
+      activites: fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
+        estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+      )<T, ActivitesLocalisablesPetit>(secteur),
+      fournitServicesUnionEuropeenne:
+        arbFournitServiceUnionEuropeenne_ToujoursNon,
+    }) as fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">>;
+export const fabriqueArbitraireEnsembleActivitesPourSecteurEILocalisable_HorsUe =
+  <T extends SecteurAvecBesoinLocalisationRepresentant>(
+    secteur: T,
+  ): fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">> =>
+    fc.record<InformationsSecteurAvecBesoinLocalisation<"Petit">>({
+      secteurActivite: fc.constant(secteur),
+      activites: fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
+        estActiviteListee,
+      )<T, ActivitesLocalisablesPetit>(secteur),
+      fournitServicesUnionEuropeenne:
+        arbFournitServiceUnionEuropeenne_ToujoursNon,
+    }) as fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">>;
 
 export const fabriqueArbitraireCapsuleSecteurLocalisable =
   (

@@ -11,9 +11,9 @@ import {
 import {
   arbInformationsSecteurComposite,
   arbInformationsSecteurCompositeActivitesAutres,
-  arbInformationsSecteurLocaliseesHorsFranceGrand,
+  arbInformationsSecteur_AvecBesoinLoca_GrandEI_LocaliseesHorsFrance,
   arbInformationsSecteurLocaliseesHorsFrancePetite,
-  arbInformationsSecteurLocaliseesHorsUEGrand,
+  arbInformationsSecteur_AvecBesoinLoca_GrandEI_LocaliseesHorsUE,
   arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE,
   arbSecteurInfrascructureNumerique,
   arbSecteurListesSansSousSecteurNiLocaGrand,
@@ -70,15 +70,21 @@ export const arbEnsembleSecteursLocalisablesNonFrance: fc.Arbitrary<
     InformationsSecteurAvecBesoinLocalisation<"Petit">
   >(arbInformationsSecteurLocaliseesHorsFrancePetite),
 );
-export const arbEnsembleSecteursLocalisablesNonFranceGrande: fc.Arbitrary<
+/**
+ * Ensemble de Secteurs
+ * - "Gestion des services TIC
+ * - "Fournisseurs numériques"
+ * Pas de restriction sur les activités
+ */
+export const arbEnsembleSecteurs_AvecBesoinLoca_GrandEI: fc.Arbitrary<
   Set<InformationsSecteurAvecBesoinLocalisation<"Grand">>
 > = fc.oneof(
   fabriqueArbitrairesEnsembleInformationsSecteurs<
     InformationsSecteurAvecBesoinLocalisation<"Grand">
-  >(arbInformationsSecteurLocaliseesHorsUEGrand),
+  >(arbInformationsSecteur_AvecBesoinLoca_GrandEI_LocaliseesHorsUE),
   fabriqueArbitrairesEnsembleInformationsSecteurs<
     InformationsSecteurAvecBesoinLocalisation<"Grand">
-  >(arbInformationsSecteurLocaliseesHorsFranceGrand),
+  >(arbInformationsSecteur_AvecBesoinLoca_GrandEI_LocaliseesHorsFrance),
 );
 export const arbEnsembleSecteursComposites: fc.Arbitrary<
   Set<InformationsSecteursCompositeListe>

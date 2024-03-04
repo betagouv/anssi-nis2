@@ -1,4 +1,13 @@
 import { fc } from "@fast-check/vitest";
+import { et } from "../../../../utils/services/predicats.operations";
+import {
+  ActivitesLocalisablesGrand,
+  ActivitesLocalisablesPetit,
+} from "../../../src/Domain/Simulateur/Activite.definitions";
+import {
+  listeTuplesSecteursSousSecteurs,
+  ValeursSecteursSansSousSecteur,
+} from "../../../src/Domain/Simulateur/SecteurActivite.constantes";
 import {
   SecteurAvecBesoinLocalisationRepresentant,
   SecteurImportantsAvecBesoinLocalisation,
@@ -8,17 +17,6 @@ import {
   ValeursSecteurAvecActivitesEssentielles,
   ValeursSecteursImportantsAvecBesoinLocalisation,
 } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
-import { SousSecteurActivite } from "../../../src/Domain/Simulateur/SousSecteurActivite.definitions";
-import {
-  ActivitesLocalisablesGrand,
-  ActivitesLocalisablesPetit,
-} from "../../../src/Domain/Simulateur/Activite.definitions";
-import {
-  estSecteurListe,
-  estSecteurNeNecessitantPasLocalisationRepresentant,
-  estSecteurNeNecessitantPasLocalisationRepresentantPetiteEntite,
-} from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
-import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 import {
   estActiviteAutre,
   estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
@@ -27,16 +25,22 @@ import {
   estActiviteListee,
 } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import {
-  listeTuplesSecteursSousSecteurs,
-  ValeursSecteursSansSousSecteur,
-} from "../../../src/Domain/Simulateur/SecteurActivite.constantes";
+  estSecteurListe,
+  estSecteurNeNecessitantPasLocalisationRepresentant,
+  estSecteurNeNecessitantPasLocalisationRepresentantPetiteEntite,
+} from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
+import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
+import { SousSecteurActivite } from "../../../src/Domain/Simulateur/SousSecteurActivite.definitions";
 import {
   fabriqueArbEnsembleActivitesPourSecteur,
   fabriqueArbEnsembleActivitesPourSecteurAvecFiltre,
+  fabriqueArbitraireEnsembleActivitesPourSecteur,
   fabriqueArbitraireEnsembleActivitesPourSecteurComposite,
   fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe,
   fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand,
-  fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableHorsUe,
+  fabriqueArbitraireEnsembleActivitesPourSecteurInfraNumLocalisable_HorsUe,
+  fabriqueArbitrairesEnsembleInformationsSecteurs,
+  fabriqueArbitraireEnsembleActivitesPourSecteurEILocalisable_HorsUe,
 } from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import { arbLocalisationRepresentant_JamaisFrance } from "./ResultatEvaluationRegulation.bases.arbitraire";
 
@@ -168,23 +172,20 @@ export const arbInformationsSecteurLocaliseesHorsFrancePetite =
       )<SecteurAvecBesoinLocalisationRepresentant, ActivitesLocalisablesPetit>,
     ),
   );
-export const arbInformationsSecteurLocaliseesHorsFranceGrand =
-  arbSecteurInfrascructureNumerique.chain(
+export const arbInformationsSecteur_AvecBesoinLoca_GrandEI_LocaliseesHorsFrance =
+  arbSecteurImportantAvecBesoinLocalisation.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe(
       arbLocalisationRepresentant_JamaisFrance,
-      fabriqueArbEnsembleActivitesPourSecteur<
-        SecteurAvecBesoinLocalisationRepresentant,
-        ActivitesLocalisablesPetit
-      >,
+      fabriqueArbEnsembleActivitesPourSecteur,
     ),
+  );
+export const arbInformationsSecteur_AvecBesoinLoca_GrandEI_LocaliseesHorsUE =
+  arbSecteurImportantAvecBesoinLocalisation.chain(
+    fabriqueArbitraireEnsembleActivitesPourSecteurEILocalisable_HorsUe,
   );
 export const arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE =
   arbSecteurInfrascructureNumerique.chain(
-    fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableHorsUe,
-  );
-export const arbInformationsSecteurLocaliseesHorsUEGrand =
-  arbSecteurInfrascructureNumerique.chain(
-    fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableHorsUe,
+    fabriqueArbitraireEnsembleActivitesPourSecteurInfraNumLocalisable_HorsUe,
   );
 export const arbInformationsSecteurComposite =
   arbSecteurAvecSousSecteurListes.chain(
@@ -193,4 +194,15 @@ export const arbInformationsSecteurComposite =
 export const arbInformationsSecteurCompositeActivitesAutres =
   arbSecteurAvecSousSecteurListes.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurComposite(estActiviteAutre),
+  );
+export const arbInformationsSecteur_Infranum_ActivitesSansBesoinLoca_GrandeEI =
+  fabriqueArbitrairesEnsembleInformationsSecteurs(
+    arbSecteurInfrascructureNumerique.chain(
+      fabriqueArbitraireEnsembleActivitesPourSecteur(
+        et(
+          estActiviteListee,
+          estActiviteInfrastructureNumeriqueSansBesoinLocalisation,
+        ),
+      ),
+    ),
   );

@@ -97,7 +97,6 @@ export const ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation = [
   "fournisseurServiceCentresDonnees",
   "fournisseurReseauxDiffusionContenu",
   "prestataireServiceConfiance",
-  "autreActiviteInfrastructureNumerique",
 ] as const;
 /** Activités toujours concernées pour une petite entreprise privée */
 export const ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite = [
@@ -113,6 +112,7 @@ export const ValeursActivitesInfrastructureNumerique = [
   ...ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation,
   ...ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite,
   ...ValeursActivitesInfrastructureNumeriqueAvecBesoinLocalisation,
+  "autreActiviteInfrastructureNumerique",
 ] as const;
 
 export const ValeursActivitesGestionServicesTic = [

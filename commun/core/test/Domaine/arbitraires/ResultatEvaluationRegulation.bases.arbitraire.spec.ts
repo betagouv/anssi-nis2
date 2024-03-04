@@ -21,12 +21,16 @@ import {
   estSecteurBienLocaliseHorsFrance,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.predicats";
 import { ReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.definitions";
-import { estSecteurListe } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
+import {
+  estSecteurImportantsAvecBesoinLocalisation,
+  estSecteurListe,
+} from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 import { assertion } from "../../utilitaires/ResultatEvaluationRegulation.assertions";
 import {
   arbEnsembleSecteursComposites,
   arbEnsembleSecteursLocalisablesNonFrance,
+  arbEnsembleSecteurs_AvecBesoinLoca_GrandEI,
   arbEnsembleSecteursSimples,
   arbEnsembleSecteursSimplesEligiblesPetit,
 } from "./EnsembleInformationsSecteur.arbitraires";
@@ -372,7 +376,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
             (ensembleSecteurs) => {
               [...ensembleSecteurs].map((secteur) =>
                 expect(secteur.activites).toSatisfy(
-                  tous(
+                  certains(
                     estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
                   ),
                 ),
@@ -380,6 +384,20 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
             },
           ));
       });
+    });
+    describe("arbEnsembleSecteurs_AvecBesoinLoca_GrandEI", () => {
+      it("estActiviteListee", () =>
+        assertion.propriete(
+          arbEnsembleSecteurs_AvecBesoinLoca_GrandEI,
+          (ensembleSecteurs) => {
+            [...ensembleSecteurs].map((secteur) => {
+              expect(secteur.secteurActivite).toSatisfy(
+                estSecteurImportantsAvecBesoinLocalisation,
+              );
+              expect(secteur.activites).toSatisfy(tous(estActiviteListee));
+            });
+          },
+        ));
     });
     describe("arbSecteurNonEligiblesPetiteEntite", () => {
       it("estInformationSecteurLocalisablePetiteEntreprise", () =>

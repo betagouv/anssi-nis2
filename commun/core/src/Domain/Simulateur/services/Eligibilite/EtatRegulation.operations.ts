@@ -9,6 +9,7 @@ import {
   certains,
   tous,
 } from "../../../../../../utils/services/sets.operations";
+import { ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation } from "../../Activite.valeurs";
 import {
   fabriqueIncertain,
   fabriqueRegule,
@@ -34,8 +35,7 @@ import { propReponseEtat } from "./StructuresReponse.operations";
 import {
   auMoinsUneActiviteListee,
   contientActivitesInfrastructureNumeriqueEligiblesPetitEntite,
-  contientActivitesListees,
-  contientDesActivitesEssentielles,
+  contientDesActivitesInfrastructureNumeriqueEssentielles,
   estInformationSecteurAvecActivitesEssentielles,
   estInformationSecteurImportantAvecBesoinLocalisation,
   estInformationSecteurSecteurAutre,
@@ -44,6 +44,8 @@ import {
   estSecteurBienLocaliseGrand,
   estSecteurBienLocaliseHorsFrance,
   estSecteurAvecActivitesEssentiellesBienLocalisees,
+  estInformationsPourSecteur,
+  auMoinsUneActiviteEstDans,
 } from "./StructuresReponse.predicats";
 
 const propageDonneesEvaluees =
@@ -264,8 +266,8 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
           secteurs: P.when(
             certains(
               et(
-                estInformationSecteurAvecActivitesEssentielles,
-                contientDesActivitesEssentielles,
+                estInformationsPourSecteur("infrastructureNumerique"),
+                contientDesActivitesInfrastructureNumeriqueEssentielles,
                 estSecteurBienLocaliseGrand,
               ),
             ),
@@ -284,9 +286,10 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
           secteurs: P.when(
             certains(
               et(
-                estInformationSecteurAvecActivitesEssentielles,
-                contientActivitesListees,
-                estSecteurBienLocaliseGrand,
+                estInformationsPourSecteur("infrastructureNumerique"),
+                auMoinsUneActiviteEstDans(
+                  ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation,
+                ),
               ),
             ),
           ),

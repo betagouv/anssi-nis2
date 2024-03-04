@@ -2,22 +2,6 @@ import { fc } from "@fast-check/vitest";
 import { estActiviteInfrastructureNumeriqueEligiblesPetitEntite } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { ReponseInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.definitions";
 import {
-  arbEnsembleSecteursComposites,
-  arbEnsembleSecteursCompositesActivitesAutres,
-  arbEnsembleSecteursLocalisablesNonFrance,
-  arbEnsembleSecteursLocalisablesNonFranceGrande,
-  arbEnsembleSecteursLocalisablesPetitFrance,
-  arbEnsembleSecteursSimples,
-  arbEnsembleSecteursSimplesActivitesAutres,
-  arbEnsembleSecteursSimplesEligiblesPetitActivitesAutres,
-} from "./EnsembleInformationsSecteur.arbitraires";
-import {
-  arbInformationsSecteurLocaliseesFranceGrandeEI,
-  arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
-  arbInformationsSecteurLocaliseesFranceGrandeInfranumEI,
-  arbSecteurInfrascructureNumerique,
-} from "./InformationsSecteur.arbitraires";
-import {
   fabriqueArbitraireCapsuleSecteurGrand,
   fabriqueArbitraireCapsuleSecteurLocalisableGrand_AvecEnsembleDe,
   fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe,
@@ -29,6 +13,23 @@ import {
   fabriqueArbitraireEnsembleActivitesPourSecteur,
   fabriqueArbitrairesEnsembleInformationsSecteurs,
 } from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
+import {
+  arbEnsembleSecteursComposites,
+  arbEnsembleSecteursCompositesActivitesAutres,
+  arbEnsembleSecteursLocalisablesNonFrance,
+  arbEnsembleSecteurs_AvecBesoinLoca_GrandEI,
+  arbEnsembleSecteursLocalisablesPetitFrance,
+  arbEnsembleSecteursSimples,
+  arbEnsembleSecteursSimplesActivitesAutres,
+  arbEnsembleSecteursSimplesEligiblesPetitActivitesAutres,
+} from "./EnsembleInformationsSecteur.arbitraires";
+import {
+  arbInformationsSecteur_Infranum_ActivitesSansBesoinLoca_GrandeEI,
+  arbInformationsSecteurLocaliseesFranceGrandeEI,
+  arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
+  arbInformationsSecteurLocaliseesFranceGrandeInfranumEI,
+  arbSecteurInfrascructureNumerique,
+} from "./InformationsSecteur.arbitraires";
 
 export const arbReponseInformationsSecteurLocalisesFrancePetit: fc.Arbitrary<
   ReponseInformationsSecteur<"Petit">
@@ -51,6 +52,12 @@ export const arbReponseInformationsSecteurLocalisesFranceGrandInfranumEE =
   fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe(
     arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
   );
+
+export const arbReponseInformationsSecteurFranceGrandInfranumEI =
+  fabriqueArbitraireCapsuleSecteurGrand(
+    arbInformationsSecteur_Infranum_ActivitesSansBesoinLoca_GrandeEI,
+  );
+
 export const arbReponseInformationsSecteurLocalisesFranceGrandInfranumEI =
   fabriqueArbitraireCapsuleSecteurLocalisableGrand_AvecEnsembleDe(
     arbInformationsSecteurLocaliseesFranceGrandeInfranumEI,
@@ -60,9 +67,15 @@ export const arbReponseInformationsSecteur_LocalisesFrance_Grand_EI =
     arbInformationsSecteurLocaliseesFranceGrandeEI,
   );
 
-export const arbReponseInformationsSecteurFranceGrandEILocalisationHorsFrance =
+/**
+ * Secteurs
+ * - "Gestion des services TIC
+ * - "Fournisseurs numériques"
+ * Pas de restriction sur les activités
+ */
+export const arbReponseInformationsSecteur_AvecBesoinLoca_GrandEI_LocalisationHorsFrance =
   fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFranceGrand(
-    arbEnsembleSecteursLocalisablesNonFranceGrande,
+    arbEnsembleSecteurs_AvecBesoinLoca_GrandEI,
   );
 export const arbReponseInformationsSecteurLocalisesHorsFrancePetit: fc.Arbitrary<
   ReponseInformationsSecteur<"Petit">

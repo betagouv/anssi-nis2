@@ -150,6 +150,13 @@ export const auMoinsUneActiviteEst = (activiteCherchee: Activite) =>
     prop("activites"),
     certains(est(activiteCherchee)),
   ) as predicatInformationSecteurPossible;
+export const auMoinsUneActiviteEstDans = (
+  activitesCherchees: readonly (Activite | string)[],
+) =>
+  flow<[{ activites: Set<Activite> }], Set<Activite>, boolean>(
+    prop("activites"),
+    certains((activite) => activitesCherchees.includes(activite)),
+  ) as predicatInformationSecteurPossible;
 export const contientActivitesInfrastructureNumeriqueEligiblesPetitEntite = (
   s:
     | InformationsSecteurAvecBesoinLocalisation<"Petit">
@@ -158,7 +165,9 @@ export const contientActivitesInfrastructureNumeriqueEligiblesPetitEntite = (
   certains(estActiviteInfrastructureNumeriqueEligiblesPetitEntite)(
     (s as InformationsSecteurAvecBesoinLocalisation<"Petit">).activites,
   );
-export const contientDesActivitesEssentielles = <T extends CategorieTaille>(
+export const contientDesActivitesInfrastructureNumeriqueEssentielles = <
+  T extends CategorieTaille,
+>(
   s: InformationsSecteurPossible<T>,
 ) =>
   certains(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation)(
