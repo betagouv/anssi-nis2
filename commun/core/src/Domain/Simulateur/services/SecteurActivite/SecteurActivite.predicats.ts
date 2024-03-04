@@ -61,7 +61,7 @@ export const estSecteurParmi =
     predicatSecteurDansListe(secteursFiltre, secteurCherche);
 
 /**
- * Vérifie si secteur n'est pas dans:
+ * Vérifie si secteur n'est pas dans :
  *   "infrastructureNumerique",
  *   "gestionServicesTic",
  *   "fournisseursNumeriques",

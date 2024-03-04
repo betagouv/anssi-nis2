@@ -56,12 +56,3 @@ export type ResultatRegulationEntite<
   : R extends "NonRegule"
     ? ResultatRegulationNonRegule
     : ResultatRegulationIncertain;
-
-export type PredicatResultatRegulationEntite = (
-  d: ResultatRegulationEntite,
-) => boolean;
-export type FabriqueCause =
-  | ((d: Partial<DonneesFormulaireSimulateur>) => {
-      causes: CausesRegulation;
-    })
-  | (() => NonNullable<unknown>);
