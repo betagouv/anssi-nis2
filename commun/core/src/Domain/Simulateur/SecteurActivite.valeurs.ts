@@ -14,21 +14,32 @@ export const ValeursSecteursAvecBesoinLocalisationRepresentant = [
   ...ValeursSecteursImportantsAvecBesoinLocalisation,
   ...ValeursSecteurAvecActivitesEssentielles,
 ] as const;
-export const ValeursSecteursActivites = [
+
+export const ValeursSecteursActivitesAnnexe1 = [
   "administrationPublique",
+  "energie",
+  "transports",
   "banqueSecteurBancaire",
+  "infrastructureMarchesFinanciers",
+  "sante",
   "eauPotable",
   "eauxUsees",
+  "infrastructureNumerique",
+  "gestionServicesTic",
   "espace",
-  ...ValeursSecteursAvecSousSecteurs,
-  "fabricationProductionDistributionProduitsChimiques",
-  ...ValeursSecteursAvecBesoinLocalisationRepresentant,
-  "gestionDechets",
-  "infrastructureMarchesFinanciers",
-  "productionTransformationDistributionDenreesAlimentaires",
-  "recherche",
-  "sante",
+] as const;
+export const ValeursSecteursActivitesAnnexe2 = [
   "servicesPostauxExpedition",
-  "transports",
+  "gestionDechets",
+  "fabricationProductionDistributionProduitsChimiques",
+  "productionTransformationDistributionDenreesAlimentaires",
+  "fabrication",
+  "fournisseursNumeriques",
+  "recherche",
+] as const;
+
+export const ValeursSecteursActivites = [
+  ...ValeursSecteursActivitesAnnexe1,
+  ...ValeursSecteursActivitesAnnexe2,
   "autreSecteurActivite",
 ] as const;
