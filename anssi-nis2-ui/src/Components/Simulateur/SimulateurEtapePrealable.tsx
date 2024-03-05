@@ -34,6 +34,16 @@ export const SimulateurEtapePrealable: SimulateurEtapeRenderedComponent = ({
               alt="Illustration localisations en France"
             />
           </div>
+          <div className="fr-col-offset-1 fr-col-10 fr-notice fr-notice--info">
+            <div className="fr-container">
+              <p className="fr-notice__body">
+                Les résultats du test sont strictement indicatifs, dans
+                l&apos;attente de l&apos;adoption définitive des textes
+                législatifs et réglementaires de transposition de la directive
+                NIS 2.
+              </p>
+            </div>
+          </div>
         </RowContainer>
         <RowContainer className="fr-mt-0 fr-mb-7w" align="left">
           <div className="fr-col-offset-5">
