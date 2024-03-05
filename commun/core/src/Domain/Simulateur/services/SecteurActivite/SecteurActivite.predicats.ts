@@ -14,7 +14,9 @@ import {
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
 import { sousSecteursParSecteur } from "../../SousSecteurActivite.valeurs";
 
-export const estUnSecteurAvecDesSousSecteurs = (secteur: string) =>
+export const estUnSecteurAvecDesSousSecteurs = (
+  secteur: string,
+): secteur is SecteursAvecSousSecteurs =>
   ValeursSecteursAvecSousSecteurs.includes(secteur as SecteursAvecSousSecteurs);
 
 export const filtreSecteursAvecSousSecteurs = (secteur: SecteurActivite[]) =>

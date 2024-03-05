@@ -17,6 +17,10 @@ export type SousSecteurActivite =
   | SousSecteurTransport
   | SousSecteurFabrication;
 
+export type PeutEtreSousSecteurActivite =
+  | SousSecteurActivite
+  | "PasDeSousSecteurActivite";
+
 export type SousSecteurDe<S extends SecteursAvecSousSecteurs> =
   S extends "energie"
     ? SousSecteurEnergie

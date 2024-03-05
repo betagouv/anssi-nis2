@@ -6,7 +6,6 @@ import {
 import {
   InformationsSecteurAvecBesoinLocalisation,
   InformationSecteurSimple,
-  InformationsSecteursCompositeListe,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.definitions";
 import {
   arbInformationsSecteurComposite,
@@ -15,12 +14,15 @@ import {
   arbInformationsSecteurLocaliseesHorsFrancePetite,
   arbInformationsSecteur_AvecBesoinLoca_GrandEI_LocaliseesHorsUE,
   arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE,
-  arbSecteurInfrascructureNumerique,
+  arbSecteurActivite_InfrastructureNumerique,
   arbSecteurListesSansSousSecteurNiLocaGrand,
   arbInformationsSecteur_AvecActivitesEssentielles_LocaliseesFrance_Petite,
+  arbSecteursActivite_Annexe1_SansBesoinLocalisation,
+  arbSecteursActivite_Annexe2_SansBesoinLocalisation,
 } from "./InformationsSecteur.arbitraires";
 import {
   fabriqueArbitraireEnsembleActivitesPourSecteur,
+  fabriqueArbitraireEnsembleActivitesPourSecteurAgno,
   fabriqueArbitrairesEnsembleInformationsSecteurs,
 } from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 
@@ -38,17 +40,37 @@ export const arbEnsembleSecteursSimplesActivitesAutres: fc.Arbitrary<
     fabriqueArbitraireEnsembleActivitesPourSecteur(estActiviteAutre),
   ),
 );
+export const arbEnsembleSecteursAnnexe1 =
+  fabriqueArbitrairesEnsembleInformationsSecteurs(
+    arbSecteursActivite_Annexe1_SansBesoinLocalisation.chain(
+      fabriqueArbitraireEnsembleActivitesPourSecteurAgno(estActiviteListee),
+    ),
+  );
+export const arbEnsembleSecteursAnnexe2 =
+  fabriqueArbitrairesEnsembleInformationsSecteurs(
+    arbSecteursActivite_Annexe2_SansBesoinLocalisation.chain(
+      fabriqueArbitraireEnsembleActivitesPourSecteurAgno(estActiviteListee),
+    ),
+  );
+export const arbEnsembleSecteursComposites =
+  fabriqueArbitrairesEnsembleInformationsSecteurs(
+    arbInformationsSecteurComposite,
+  );
+export const arbEnsembleSecteursCompositesActivitesAutres =
+  fabriqueArbitrairesEnsembleInformationsSecteurs(
+    arbInformationsSecteurCompositeActivitesAutres,
+  );
 export const arbEnsembleSecteursSimplesEligiblesPetit: fc.Arbitrary<
   Set<InformationSecteurSimple>
 > = fabriqueArbitrairesEnsembleInformationsSecteurs(
-  arbSecteurInfrascructureNumerique.chain(
+  arbSecteurActivite_InfrastructureNumerique.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteur(estActiviteListee),
   ),
 );
 export const arbEnsembleSecteursSimplesEligiblesPetitActivitesAutres: fc.Arbitrary<
   Set<InformationSecteurSimple>
 > = fabriqueArbitrairesEnsembleInformationsSecteurs(
-  arbSecteurInfrascructureNumerique.chain(
+  arbSecteurActivite_InfrastructureNumerique.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteur(estActiviteAutre),
   ),
 );
@@ -85,14 +107,4 @@ export const arbEnsembleSecteurs_AvecBesoinLoca_GrandEI: fc.Arbitrary<
   fabriqueArbitrairesEnsembleInformationsSecteurs<
     InformationsSecteurAvecBesoinLocalisation<"Grand">
   >(arbInformationsSecteur_AvecBesoinLoca_GrandEI_LocaliseesHorsFrance),
-);
-export const arbEnsembleSecteursComposites: fc.Arbitrary<
-  Set<InformationsSecteursCompositeListe>
-> = fabriqueArbitrairesEnsembleInformationsSecteurs(
-  arbInformationsSecteurComposite,
-);
-export const arbEnsembleSecteursCompositesActivitesAutres: fc.Arbitrary<
-  Set<InformationsSecteursCompositeListe>
-> = fabriqueArbitrairesEnsembleInformationsSecteurs(
-  arbInformationsSecteurCompositeActivitesAutres,
 );

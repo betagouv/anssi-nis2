@@ -9,12 +9,15 @@ import {
   ValeursSecteursSansSousSecteur,
 } from "../../../src/Domain/Simulateur/SecteurActivite.constantes";
 import {
+  SecteurActivite,
   SecteurAvecBesoinLocalisationRepresentant,
   SecteurImportantsAvecBesoinLocalisation,
   SecteursAvecSousSecteurs,
 } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
 import {
   ValeursSecteurAvecActivitesEssentielles,
+  ValeursSecteursActivitesAnnexe1,
+  ValeursSecteursActivitesAnnexe2,
   ValeursSecteursImportantsAvecBesoinLocalisation,
 } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
 import {
@@ -24,13 +27,21 @@ import {
   estActiviteInfrastructureNumeriqueSansBesoinLocalisation,
   estActiviteListee,
 } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { fabriqueTuplesSecteurSousSecteur } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.operations";
 import {
   estSecteurListe,
   estSecteurNeNecessitantPasLocalisationRepresentant,
   estSecteurNeNecessitantPasLocalisationRepresentantPetiteEntite,
+  estUnSecteurAvecDesSousSecteurs,
 } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
-import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
-import { SousSecteurActivite } from "../../../src/Domain/Simulateur/SousSecteurActivite.definitions";
+import {
+  estSousSecteur,
+  estSousSecteurListe,
+} from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
+import {
+  PeutEtreSousSecteurActivite,
+  SousSecteurActivite,
+} from "../../../src/Domain/Simulateur/SousSecteurActivite.definitions";
 import {
   fabriqueArbEnsembleActivitesPourSecteur,
   fabriqueArbEnsembleActivitesPourSecteurAvecFiltre,
@@ -50,7 +61,45 @@ export const arbSecteurListesSansSousSecteurNiLocaGrand = fc.constantFrom(
   ),
 );
 
-export const arbSecteurInfrascructureNumerique = fc.constantFrom(
+const fabriqueTupleSectoriel = (
+  secteur: SecteurActivite,
+): [SecteurActivite, PeutEtreSousSecteurActivite][] =>
+  estUnSecteurAvecDesSousSecteurs(secteur)
+    ? fabriqueTuplesSecteurSousSecteur(secteur)
+    : [[secteur, "PasDeSousSecteurActivite"]];
+
+const accumuleTuplesSecteurs = (
+  acc: [SecteurActivite, PeutEtreSousSecteurActivite][],
+  secteur: SecteurActivite,
+): [SecteurActivite, PeutEtreSousSecteurActivite][] => [
+  ...acc,
+  ...fabriqueTupleSectoriel(secteur),
+];
+
+const filtreValsursSecteursInutiles = (
+  listeSecteurs: readonly SecteurActivite[],
+) =>
+  listeSecteurs
+    .filter(estSecteurNeNecessitantPasLocalisationRepresentant)
+    .reduce(
+      accumuleTuplesSecteurs,
+      [] as [SecteurActivite, PeutEtreSousSecteurActivite][],
+    )
+    .filter(
+      ([, ssSecteur]) =>
+        estSousSecteur(ssSecteur) && estSousSecteurListe(ssSecteur),
+    );
+
+export const arbSecteursActivite_Annexe1_SansBesoinLocalisation =
+  fc.constantFrom(
+    ...filtreValsursSecteursInutiles(ValeursSecteursActivitesAnnexe1),
+  );
+export const arbSecteursActivite_Annexe2_SansBesoinLocalisation =
+  fc.constantFrom(
+    ...filtreValsursSecteursInutiles(ValeursSecteursActivitesAnnexe2),
+  );
+
+export const arbSecteurActivite_InfrastructureNumerique = fc.constantFrom(
   ...ValeursSecteurAvecActivitesEssentielles,
 );
 export const arbSecteurImportantAvecBesoinLocalisation =
@@ -83,7 +132,7 @@ export const arbLocalisationRepresentant_ToujoursFrance = fc.constant(
  *  - "prestataireServiceConfiance",
  */
 export const arbInformationsSecteur_AvecActivitesEssentielles_Petite =
-  arbSecteurInfrascructureNumerique.chain(
+  arbSecteurActivite_InfrastructureNumerique.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe(
       arbLocalisationRepresentant_ToujoursFrance,
       fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
@@ -101,7 +150,7 @@ export const arbInformationsSecteur_AvecActivitesEssentielles_Petite =
  *  - "fournisseurServicesDNS",
  */
 export const arbInformationsSecteur_AvecActivitesEssentielles_LocaliseesFrance_Petite =
-  arbSecteurInfrascructureNumerique.chain(
+  arbSecteurActivite_InfrastructureNumerique.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe(
       arbLocalisationRepresentant_ToujoursFrance,
       fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
@@ -137,7 +186,7 @@ export const arbInformationsSecteurLocaliseesFranceGrandeEI =
  *  - "prestataireServiceConfiance",
  */
 export const arbInformationsSecteurLocaliseesFranceGrandeInfranumEI =
-  arbSecteurInfrascructureNumerique.chain(
+  arbSecteurActivite_InfrastructureNumerique.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand(
       arbLocalisationRepresentant_ToujoursFrance,
       fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
@@ -154,7 +203,7 @@ export const arbInformationsSecteurLocaliseesFranceGrandeInfranumEI =
  * secteur dans "infrastructureNumerique" et activite registre ou fournisseur DNS
  */
 export const arbInformationsSecteurLocaliseesFranceGrandeInfranumEE =
-  arbSecteurInfrascructureNumerique.chain(
+  arbSecteurActivite_InfrastructureNumerique.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand(
       arbLocalisationRepresentant_ToujoursFrance,
       fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
@@ -164,7 +213,7 @@ export const arbInformationsSecteurLocaliseesFranceGrandeInfranumEE =
   );
 
 export const arbInformationsSecteurLocaliseesHorsFrancePetite =
-  arbSecteurInfrascructureNumerique.chain(
+  arbSecteurActivite_InfrastructureNumerique.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe(
       arbLocalisationRepresentant_JamaisFrance,
       fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
@@ -184,7 +233,7 @@ export const arbInformationsSecteur_AvecBesoinLoca_GrandEI_LocaliseesHorsUE =
     fabriqueArbitraireEnsembleActivitesPourSecteurEILocalisable_HorsUe,
   );
 export const arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE =
-  arbSecteurInfrascructureNumerique.chain(
+  arbSecteurActivite_InfrastructureNumerique.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurInfraNumLocalisable_HorsUe,
   );
 export const arbInformationsSecteurComposite =
@@ -197,7 +246,7 @@ export const arbInformationsSecteurCompositeActivitesAutres =
   );
 export const arbInformationsSecteur_Infranum_ActivitesSansBesoinLoca_GrandeEI =
   fabriqueArbitrairesEnsembleInformationsSecteurs(
-    arbSecteurInfrascructureNumerique.chain(
+    arbSecteurActivite_InfrastructureNumerique.chain(
       fabriqueArbitraireEnsembleActivitesPourSecteur(
         et(
           estActiviteListee,

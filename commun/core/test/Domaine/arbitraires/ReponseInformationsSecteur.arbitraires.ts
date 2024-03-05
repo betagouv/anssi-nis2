@@ -28,7 +28,7 @@ import {
   arbInformationsSecteurLocaliseesFranceGrandeEI,
   arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
   arbInformationsSecteurLocaliseesFranceGrandeInfranumEI,
-  arbSecteurInfrascructureNumerique,
+  arbSecteurActivite_InfrastructureNumerique,
 } from "./InformationsSecteur.arbitraires";
 
 export const arbReponseInformationsSecteurLocalisesFrancePetit: fc.Arbitrary<
@@ -41,7 +41,7 @@ export const arbReponseInformationsSecteur_AvecActivitesEssentiels_SansBesoinLoc
   ReponseInformationsSecteur<"Petit">
 > = fabriqueArbitraireCapsuleSecteurNonLoca(
   fabriqueArbitrairesEnsembleInformationsSecteurs(
-    arbSecteurInfrascructureNumerique.chain(
+    arbSecteurActivite_InfrastructureNumerique.chain(
       fabriqueArbitraireEnsembleActivitesPourSecteur(
         estActiviteInfrastructureNumeriqueEligiblesPetitEntite,
       ),

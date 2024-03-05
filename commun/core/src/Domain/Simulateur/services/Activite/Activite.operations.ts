@@ -36,7 +36,10 @@ import {
   SecteurActivite,
   SecteursSansSousSecteur,
 } from "../../SecteurActivite.definitions";
-import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
+import {
+  PeutEtreSousSecteurActivite,
+  SousSecteurActivite,
+} from "../../SousSecteurActivite.definitions";
 import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions";
 import { estUnSecteurAvecDesSousSecteurs } from "../SecteurActivite/SecteurActivite.predicats";
 import { cartographieSousSecteursParSecteur } from "../SousSecteurActivite/SousSecteurActivite.operations";
@@ -164,12 +167,14 @@ export const collecteTitresPourActivite: (
   );
 const getValeurCleSectorielle = <T>(
   secteur: T,
-  sousSecteur?: string,
+  sousSecteur: PeutEtreSousSecteurActivite,
 ): ValeurCleSectorielle =>
-  (sousSecteur ? sousSecteur : secteur) as ValeurCleSectorielle;
+  (sousSecteur !== "PasDeSousSecteurActivite"
+    ? sousSecteur
+    : secteur) as ValeurCleSectorielle;
 export const getActivitesPour = <T extends SecteurActivite>(
   secteur: T,
-  sousSecteur?: SousSecteurActivite,
+  sousSecteur: PeutEtreSousSecteurActivite,
 ) => [
   ...activitesParSecteurEtSousSecteur[
     getValeurCleSectorielle(secteur, sousSecteur)
