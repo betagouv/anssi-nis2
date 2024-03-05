@@ -8,6 +8,7 @@ import {
 import { certains } from "../../../../../../utils/services/sets.operations";
 import { Activite } from "../../Activite.definitions";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
+import { ValeursSecteursActivitesAnnexe1 } from "../../SecteurActivite.valeurs";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
 import {
   estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
@@ -18,6 +19,7 @@ import {
   estSecteur,
   estSecteurAutre,
   estSecteurAvecActivitesEssentielles,
+  estSecteurDansListe,
   estSecteurImportantsAvecBesoinLocalisation,
   estSecteurListe,
 } from "../SecteurActivite/SecteurActivite.predicats";
@@ -123,6 +125,16 @@ export const estInformationsSecteurEligibleSansBesoinLocalisation = flow<
   ),
 ) as predicatInformationSecteurPossible;
 
+export const estSecteurAnnexe1 = flow<
+  [{ secteurActivite: SecteurActivite }],
+  SecteurActivite,
+  boolean
+>(
+  prop("secteurActivite"),
+  estSecteurDansListe(
+    ValeursSecteursActivitesAnnexe1 as unknown as SecteurActivite[],
+  ),
+) as predicatInformationSecteurPossible;
 export const estInformationsPourSecteur = (secteur: SecteurActivite) =>
   flow<[{ secteurActivite: SecteurActivite }], SecteurActivite, boolean>(
     prop("secteurActivite"),

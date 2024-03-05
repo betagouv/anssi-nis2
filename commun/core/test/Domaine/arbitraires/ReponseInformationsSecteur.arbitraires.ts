@@ -3,7 +3,6 @@ import { estActiviteInfrastructureNumeriqueEligiblesPetitEntite } from "../../..
 import { ReponseInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.definitions";
 import {
   fabriqueArbitraireCapsuleSecteurGrand,
-  fabriqueArbitraireCapsuleSecteurLocalisableGrand_AvecEnsembleDe,
   fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe,
   fabriqueArbitraireCapsuleSecteurLocalisablePetit_Oui_France,
   fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFrance,
@@ -27,7 +26,6 @@ import {
   arbInformationsSecteur_Infranum_ActivitesSansBesoinLoca_GrandeEI,
   arbInformationsSecteurLocaliseesFranceGrandeEI,
   arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
-  arbInformationsSecteurLocaliseesFranceGrandeInfranumEI,
   arbSecteurActivite_InfrastructureNumerique,
 } from "./InformationsSecteur.arbitraires";
 
@@ -58,10 +56,6 @@ export const arbReponseInformationsSecteurFranceGrandInfranumEI =
     arbInformationsSecteur_Infranum_ActivitesSansBesoinLoca_GrandeEI,
   );
 
-export const arbReponseInformationsSecteurLocalisesFranceGrandInfranumEI =
-  fabriqueArbitraireCapsuleSecteurLocalisableGrand_AvecEnsembleDe(
-    arbInformationsSecteurLocaliseesFranceGrandeInfranumEI,
-  );
 export const arbReponseInformationsSecteur_LocalisesFrance_Grand_EI =
   fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe(
     arbInformationsSecteurLocaliseesFranceGrandeEI,
@@ -86,10 +80,7 @@ export const arbReponseInformationsSecteurPetit = fc.oneof(
   fabriqueArbitraireCapsuleSecteurPetit(arbEnsembleSecteursComposites),
   fabriqueArbitraireCapsuleSecteurPetit(arbEnsembleSecteursSimples),
 );
-export const arbReponseInformationsSecteurGrand = fc.oneof(
-  fabriqueArbitraireCapsuleSecteurGrand(arbEnsembleSecteursComposites),
-  fabriqueArbitraireCapsuleSecteurGrand(arbEnsembleSecteursSimples),
-);
+
 export const arbReponseInformationsSecteurGrandActivitesAutres = fc.oneof(
   fabriqueArbitraireCapsuleSecteurGrand(
     arbEnsembleSecteursCompositesActivitesAutres,

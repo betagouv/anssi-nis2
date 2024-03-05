@@ -173,29 +173,6 @@ export const arbInformationsSecteurLocaliseesFranceGrandeEI =
       >,
     ),
   );
-/**
- * InformationSecteurLocalisableGrandeEntite
- *    telles que
- * secteur dans "infrastructureNumerique"
- *      et
- * activite dans :
- *  - "fournisseurPointEchangeInternet",
- *  - "fournisseurServicesInformatiqueNuage",
- *  - "fournisseurServiceCentresDonnees",
- *  - "fournisseurReseauxDiffusionContenu",
- *  - "prestataireServiceConfiance",
- */
-export const arbInformationsSecteurLocaliseesFranceGrandeInfranumEI =
-  arbSecteurActivite_InfrastructureNumerique.chain(
-    fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand(
-      arbLocalisationRepresentant_ToujoursFrance,
-      fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
-        (activite) =>
-          estActiviteInfrastructureNumeriqueSansBesoinLocalisation(activite) &&
-          estActiviteListee(activite),
-      )<SecteurAvecBesoinLocalisationRepresentant, ActivitesLocalisablesGrand>,
-    ),
-  );
 
 /**
  * InformationSecteurLocalisableGrandeEntite

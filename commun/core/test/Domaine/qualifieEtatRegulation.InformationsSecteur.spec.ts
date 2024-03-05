@@ -14,7 +14,6 @@ import {
   arbReponseInformationsSecteur_LocalisesFrance_Grand_EI,
   arbReponseInformationsSecteur_AvecBesoinLoca_GrandEI_LocalisationHorsFrance,
   arbReponseInformationsSecteurFranceGrandInfranumEI,
-  arbReponseInformationsSecteurGrand,
   arbReponseInformationsSecteurGrandActivitesAutres,
   arbReponseInformationsSecteurLocalisesFranceGrandInfranumEE,
   arbReponseInformationsSecteurLocalisesFrancePetit,
@@ -122,16 +121,6 @@ describe("Secteur", () => {
       );
     });
     describe("Secteurs listés", () => {
-      it.skip(
-        "SKIP: raison = séparé entre résultats EE et EI - Obsolete" +
-          "en suspens / secteur et sous-secteur listés ==> toujours définitivement régulé",
-        assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            arbReponseInformationsSecteurGrand,
-          ),
-          verificationReponseDefinitivementReguleEI,
-        ),
-      );
       it(
         "en suspens / secteur et sous-secteur en annexe 1 ==> toujours définitivement régulé EE",
         assertionArbitraire(

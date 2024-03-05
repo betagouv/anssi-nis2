@@ -103,19 +103,7 @@ export const fabriqueArbitraireEnsembleActivitesPourSecteurAgno =
     }) as unknown as fc.Arbitrary<R>;
 export const fabriqueArbitraireEnsembleActivitesPourSecteurComposite =
   fabriqueArbitraireEnsembleActivitesPourSecteurAgno;
-// (filtre: (a: Activite) => boolean) =>
-// <T extends SecteursAvecSousSecteurs, U extends SousSecteurDe<T>>([
-//   secteur,
-//   sousSecteur,
-// ]: [T, U]): fc.Arbitrary<InformationsSecteursCompositeListe> =>
-//   fc.record({
-//     secteurActivite: fc.constant(secteur),
-//     sousSecteurActivite: fc.constant(sousSecteur),
-//     activites: fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(filtre)(
-//       secteur,
-//       sousSecteur,
-//     ),
-//   }) as fc.Arbitrary<InformationsSecteursCompositeListe>;
+
 export const fabriqueArbitraireEnsembleActivitesPourSecteur =
   (filtre: (a: Activite) => boolean) =>
   <T extends SecteurActivite, U extends InformationSecteurSimple>(
@@ -125,11 +113,6 @@ export const fabriqueArbitraireEnsembleActivitesPourSecteur =
       secteur,
       "PasDeSousSecteurActivite",
     ]);
-// fc.record({
-//   secteurActivite: fc.constant(secteur),
-//   activites:
-//     fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(filtre)(secteur),
-// }) as fc.Arbitrary<U>;
 export const fabriqueArbitraireCapsuleSecteur =
   <T extends CategorieTaille>(taille: `${T}`) =>
   (
@@ -418,12 +401,4 @@ export const fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEns
       InformationsSecteurAvecBesoinLocalisation<"Grand">
     >,
     fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France,
-  );
-
-export const fabriqueArbitraireCapsuleSecteurLocalisableGrand_AvecEnsembleDe =
-  flow(
-    fabriqueArbitrairesEnsembleInformationsSecteurs<
-      InformationsSecteurAvecBesoinLocalisation<"Grand">
-    >,
-    fabriqueArbitraireCapsuleSecteurGrand,
   );

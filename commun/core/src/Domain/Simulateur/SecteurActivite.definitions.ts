@@ -5,21 +5,12 @@ import {
   ValeursSecteursAvecSousSecteurs,
   ValeursSecteursAvecBesoinLocalisationRepresentant,
   ValeursSecteursImportantsAvecBesoinLocalisation,
-  ValeursSecteursActivitesAnnexe1,
-  ValeursSecteursActivitesAnnexe2,
 } from "./SecteurActivite.valeurs";
 
 export type SecteurActivite = UnionDe<typeof ValeursSecteursActivites>;
 
 export type SecteursAvecSousSecteurs = UnionDe<
   typeof ValeursSecteursAvecSousSecteurs
->;
-
-export type SecteurActiviteAnnexe1 = UnionDe<
-  typeof ValeursSecteursActivitesAnnexe1
->;
-export type SecteurActiviteAnnexe2 = UnionDe<
-  typeof ValeursSecteursActivitesAnnexe2
 >;
 
 export type SecteursSansSousSecteur = Exclude<

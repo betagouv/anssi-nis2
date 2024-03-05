@@ -61,6 +61,9 @@ const predicatSecteurDansListe = (
 export const estSecteurParmi =
   (secteurCherche: SecteurActivite) => (secteursFiltre: SecteurActivite[]) =>
     predicatSecteurDansListe(secteursFiltre, secteurCherche);
+export const estSecteurDansListe =
+  (secteursFiltre: SecteurActivite[]) => (secteurCherche: SecteurActivite) =>
+    predicatSecteurDansListe(secteursFiltre, secteurCherche);
 
 /**
  * Vérifie si secteur n'est pas dans :

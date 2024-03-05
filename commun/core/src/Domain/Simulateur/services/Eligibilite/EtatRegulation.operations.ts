@@ -46,6 +46,7 @@ import {
   estSecteurAvecActivitesEssentiellesBienLocalisees,
   estInformationsPourSecteur,
   auMoinsUneActiviteEstDans,
+  estSecteurAnnexe1,
 } from "./StructuresReponse.predicats";
 
 const propageDonneesEvaluees =
@@ -318,6 +319,27 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
           "EntiteImportante",
+        ),
+    )
+    .with(
+      {
+        InformationsSecteur: {
+          secteurs: P.when(
+            certains(
+              et(
+                estInformationsSecteurEligibleSansBesoinLocalisation,
+                estSecteurAnnexe1,
+                non(estInformationSecteurSousSecteurAutre),
+                auMoinsUneActiviteListee,
+              ),
+            ),
+          ),
+        },
+      },
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          "EntiteEssentielle",
         ),
     )
     .with(
