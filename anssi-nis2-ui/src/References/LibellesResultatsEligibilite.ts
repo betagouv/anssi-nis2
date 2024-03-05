@@ -20,7 +20,7 @@ export const libelleTitreIncertainAutrePaysUnionEuropeenne =
 export const libelleTitreIncertainStandard =
   "Nous ne pouvons vous répondre dans l’immédiat";
 export const libelleTitreNonRegule =
-  "Votre entité ne serait pas régulée  \npar la directive NIS 2";
+  "Votre entité ne sera pas régulée par NIS 2";
 export const libelleTitreReguleEntiteEssentielle =
   "Votre entité sera régulée par NIS 2  \nen tant qu’Entité Essentielle (EE)";
 export const libelleTitreReguleEntiteImportante =

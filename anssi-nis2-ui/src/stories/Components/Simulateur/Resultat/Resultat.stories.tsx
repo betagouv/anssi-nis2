@@ -120,7 +120,7 @@ export const ResultatEligibleGrandeEntreprise: Story = {
 
     expect(
       await canvas.findByText(
-        "Votre entité sera régulée par NIS 2 en tant qu’Entité Importante (EI)",
+        "Votre entité sera régulée par NIS 2 en tant qu’Entité Essentielle (EE)",
       ),
     );
 
@@ -154,6 +154,9 @@ export const ResultatNonEligible: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await attendTexteCharge(canvasElement, pointsDAttention);
+    expect(
+      await canvas.findByText("Votre entité ne sera pas régulée par NIS 2"),
+    );
 
     await verifieTitresSectionsPresentes(
       canvasElement,
