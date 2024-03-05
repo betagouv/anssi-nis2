@@ -1,5 +1,5 @@
-import { SousSecteurActivite } from "./SousSecteurActivite.definitions";
-import { SecteurActivite } from "./SecteurActivite.definitions";
+import { UnionDe } from "../../../../utils/types/UnionDe";
+import { Activite } from "./Activite.definitions";
 import {
   ValeursappartenancePaysUnionEuropeenne,
   ValeursDesignationOperateurServicesEssentiels,
@@ -8,9 +8,8 @@ import {
   ValeursTypeEntitePublique,
   ValeursTypeStructure,
 } from "./ChampsSimulateur.valeurs";
-import { Activite } from "./Activite.definitions";
-
-type UnionDe<T extends Readonly<Array<string>>> = T[number];
+import { SecteurActivite } from "./SecteurActivite.definitions";
+import { SousSecteurActivite } from "./SousSecteurActivite.definitions";
 
 export type DesignationOperateurServicesEssentiels = UnionDe<
   typeof ValeursDesignationOperateurServicesEssentiels
