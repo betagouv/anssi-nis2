@@ -10,7 +10,6 @@ import {
 import {
   arbInformationsSecteurComposite,
   arbInformationsSecteurCompositeActivitesAutres,
-  arbInformationsSecteur_AvecBesoinLoca_GrandEI_LocaliseesHorsFrance,
   arbInformationsSecteurLocaliseesHorsFrancePetite,
   arbInformationsSecteur_AvecBesoinLoca_GrandEI_LocaliseesHorsUE,
   arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE,
