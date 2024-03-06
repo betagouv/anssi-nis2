@@ -93,6 +93,15 @@ export const estSecteurBienLocaliseGrand = (
   estInformationSecteurAvecBesoinLocalisation(sec) &&
   sec.fournitServicesUnionEuropeenne === "oui" &&
   sec.localisationRepresentant === "france";
+export const estSecteurBienLocaliseUE = (
+  sec:
+    | InformationsSecteurPossible<"Grand">
+    | InformationsSecteurAutre
+    | InformationsSecteurSansBesoinLocalisation,
+) =>
+  estInformationSecteurAvecBesoinLocalisation(sec) &&
+  sec.fournitServicesUnionEuropeenne === "oui" &&
+  sec.localisationRepresentant === "autre";
 export const estSecteurBienLocaliseHorsFrance = <T extends CategorieTaille>(
   sec: InformationsSecteurPossible<T>,
 ) =>

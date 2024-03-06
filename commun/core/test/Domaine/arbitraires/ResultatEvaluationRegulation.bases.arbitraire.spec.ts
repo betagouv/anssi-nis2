@@ -36,7 +36,7 @@ import {
 } from "./EnsembleInformationsSecteur.arbitraires";
 import {
   arbInformationsSecteurComposite,
-  arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
+  arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
   arbInformationsSecteur_AvecActivitesEssentielles_Petite,
   arbInformationsSecteurLocaliseesHorsFrancePetite,
   arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE,
@@ -272,11 +272,11 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
     describe("arbInformationsSecteurLocaliseesFranceGrandeEE", () => {
       it("ne produit pas de structure vide", () =>
         assertion.nonVide(
-          arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
+          arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
         ));
       it("contient des données de localisation représentant en France", () =>
         assertion.propriete(
-          arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
+          arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
           (informationsSecteur) => {
             expect(informationsSecteur.fournitServicesUnionEuropeenne).toBe(
               "oui",
@@ -292,7 +292,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
         ));
       it("contient uniquement des activités nécessitant localisation représentant en France", () =>
         assertion.propriete(
-          arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
+          arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
           (informationsSecteur) => {
             expect(
               tous(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation)(

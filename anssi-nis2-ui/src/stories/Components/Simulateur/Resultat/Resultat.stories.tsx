@@ -106,6 +106,47 @@ export const ResultatEligiblePetiteEntreprise: Story = {
     ).not.toBeInTheDocument();
   },
 };
+export const ResultatNonReguleVoirAutrePaysUE: Story = {
+  args: {
+    donneesFormulaire: {
+      ...archetypeDonneesFormulaire,
+      trancheChiffreAffaire: ["moyen"],
+      trancheNombreEmployes: ["moyen"],
+      secteurActivite: ["infrastructureNumerique"],
+      activites: ["registresNomsDomainesPremierNiveau"],
+      fournitServicesUnionEuropeenne: ["oui"],
+      localisationRepresentant: ["autre"],
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await attendTexteCharge(canvasElement, pointsDAttention);
+    expect(
+      await canvas.findByText(
+        "Nous ne pouvons pas déterminer si votre " +
+          "entité serait régulée par la directive NIS 2",
+      ),
+    );
+    expect(
+      await canvas.findByText(
+        "Veuillez-vous rapprocher de votre autorité nationale compétente.",
+      ),
+    );
+    // await verifieTitresSectionsPresentes(
+    //   canvasElement,
+    //   new Set(["etMaintenant", "enSavoirPlus", "bienDebuter"]),
+    // );
+
+    const titrePrecisions = await canvas.findByText(pointsDAttention);
+    expect(titrePrecisions).toBeInTheDocument();
+    expect(titrePrecisions.tagName).toBe("H4");
+
+    await canvas.findByText(texteIntroductionBienDebuterPetiteEntite);
+    await expect(
+      canvas.queryByText(texteIntroductionBienDebuterGrandeEntite),
+    ).not.toBeInTheDocument();
+  },
+};
 export const ResultatEligibleGrandeEntreprise: Story = {
   args: {
     donneesFormulaire: {

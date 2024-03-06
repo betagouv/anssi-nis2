@@ -1,6 +1,7 @@
 import { describe, it } from "vitest";
 import {
   assertionArbitraire,
+  verificationReponseDefinitivementIncertainAutrePaysUE,
   verificationReponseDefinitivementReguleEE,
   verificationReponseDefinitivementReguleEI,
   verificationReponseNonRegule,
@@ -15,10 +16,11 @@ import {
   arbReponseInformationsSecteur_AvecBesoinLoca_GrandEI_LocalisationHorsFrance,
   arbReponseInformationsSecteurFranceGrandInfranumEI,
   arbReponseInformationsSecteurGrandActivitesAutres,
-  arbReponseInformationsSecteurLocalisesFranceGrandInfranumEE,
+  arbReponseInformationsSecteur_LocalisesAutre_Grand_Infranum_EE,
   arbReponseInformationsSecteurLocalisesFrancePetit,
   arbReponseInformationsSecteurLocalisesHorsFrancePetit,
   arbReponseInformationsSecteurPetit,
+  arbReponseInformationsSecteur_LocalisesFrance_Grand_Infranum_EE,
 } from "./arbitraires/ReponseInformationsSecteur.arbitraires";
 import {
   fabriqueArbJamaisOse_ToujoursFrance_StructureGrand,
@@ -84,9 +86,18 @@ describe("Secteur", () => {
         "en suspens / secteurs+activités EE localisables (reg dom et fournisseur DNS) et bien localisés ==> toujours définitivement régulé EE",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            arbReponseInformationsSecteurLocalisesFranceGrandInfranumEE,
+            arbReponseInformationsSecteur_LocalisesFrance_Grand_Infranum_EE,
           ),
           verificationReponseDefinitivementReguleEE,
+        ),
+      );
+      it(
+        "en suspens / secteurs+activités EE localisables (reg dom et fournisseur DNS) et localisées en UE ==> toujours définitivement Incertain / Voir autre pays UE",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
+            arbReponseInformationsSecteur_LocalisesAutre_Grand_Infranum_EE,
+          ),
+          verificationReponseDefinitivementIncertainAutrePaysUE,
         ),
       );
       it(

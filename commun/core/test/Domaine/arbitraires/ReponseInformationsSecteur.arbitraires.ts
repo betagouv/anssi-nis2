@@ -25,8 +25,9 @@ import {
 import {
   arbInformationsSecteur_Infranum_ActivitesSansBesoinLoca_GrandeEI,
   arbInformationsSecteurLocaliseesFranceGrandeEI,
-  arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
+  arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
   arbSecteurActivite_InfrastructureNumerique,
+  arbInformationsSecteur_LocaliseesAutrePaysUE_Grande_Infranum_EE,
 } from "./InformationsSecteur.arbitraires";
 
 export const arbReponseInformationsSecteurLocalisesFrancePetit: fc.Arbitrary<
@@ -46,9 +47,13 @@ export const arbReponseInformationsSecteur_AvecActivitesEssentiels_SansBesoinLoc
     ),
   ),
 );
-export const arbReponseInformationsSecteurLocalisesFranceGrandInfranumEE =
+export const arbReponseInformationsSecteur_LocalisesFrance_Grand_Infranum_EE =
   fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe(
-    arbInformationsSecteurLocaliseesFranceGrandeInfranumEE,
+    arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
+  );
+export const arbReponseInformationsSecteur_LocalisesAutre_Grand_Infranum_EE =
+  fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe(
+    arbInformationsSecteur_LocaliseesAutrePaysUE_Grande_Infranum_EE,
   );
 
 export const arbReponseInformationsSecteurFranceGrandInfranumEI =

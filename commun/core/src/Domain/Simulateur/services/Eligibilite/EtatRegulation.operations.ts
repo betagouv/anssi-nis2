@@ -16,6 +16,7 @@ import {
 } from "../../fabriques/ResultatRegulation.fabrique";
 import {
   resultatIncertain,
+  resultatIncertainAutrePaysUE,
   resultatNonRegule,
 } from "../../Regulation.constantes";
 import { TypeEntite } from "../../Regulation.definitions";
@@ -47,6 +48,7 @@ import {
   estInformationsPourSecteur,
   auMoinsUneActiviteEstDans,
   estSecteurAnnexe1,
+  estSecteurBienLocaliseUE,
 } from "./StructuresReponse.predicats";
 
 const propageDonneesEvaluees =
@@ -279,6 +281,26 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
           "EntiteEssentielle",
+        ),
+    )
+    .with(
+      {
+        InformationsSecteur: {
+          secteurs: P.when(
+            certains(
+              et(
+                estInformationsPourSecteur("infrastructureNumerique"),
+                contientDesActivitesInfrastructureNumeriqueEssentielles,
+                estSecteurBienLocaliseUE,
+              ),
+            ),
+          ),
+        },
+      },
+      () =>
+        fabriqueResultatEvaluationDefinitif(
+          "InformationsSecteur",
+          resultatIncertainAutrePaysUE,
         ),
     )
     .with(

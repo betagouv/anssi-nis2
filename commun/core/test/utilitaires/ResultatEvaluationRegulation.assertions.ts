@@ -1,9 +1,13 @@
 import { fc } from "@fast-check/vitest";
 import { expect } from "vitest";
 import { fabriqueRegule } from "../../src/Domain/Simulateur/fabriques/ResultatRegulation.fabrique";
-import { resultatNonRegule } from "../../src/Domain/Simulateur/Regulation.constantes";
+import {
+  resultatIncertain,
+  resultatNonRegule,
+} from "../../src/Domain/Simulateur/Regulation.constantes";
 import {
   CausesRegulation,
+  DefiniDansUnAutreEtatMembre,
   TypeEntite,
 } from "../../src/Domain/Simulateur/Regulation.definitions";
 import {
@@ -77,6 +81,23 @@ export const verificationReponseNonRegule = (reponse: EtatRegulation) => {
     _resultatEvaluationRegulation: "Definitif",
     etapeEvaluee: "InformationsSecteur",
     ...resultatNonRegule,
+  };
+
+  const resultatObtenu =
+    evalueRegulationEtatReponseInformationsSecteur(reponse);
+  expect(
+    resultatObtenu,
+    afficheDifferences(resultatAttendu, resultatObtenu),
+  ).toStrictEqual(resultatAttendu);
+};
+export const verificationReponseDefinitivementIncertainAutrePaysUE = (
+  reponse: EtatRegulation,
+) => {
+  const resultatAttendu: EtatRegulationDefinitif = {
+    _resultatEvaluationRegulation: "Definitif",
+    etapeEvaluee: "InformationsSecteur",
+    decision: "Incertain",
+    causes: { _tag: "DefiniDansUnAutreEtatMembre" },
   };
 
   const resultatObtenu =

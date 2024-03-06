@@ -47,13 +47,17 @@ import {
   fabriqueArbEnsembleActivitesPourSecteurAvecFiltre,
   fabriqueArbitraireEnsembleActivitesPourSecteur,
   fabriqueArbitraireEnsembleActivitesPourSecteurComposite,
+  fabriqueArbitraireEnsembleActivitesPourSecteurEILocalisable_HorsUe,
+  fabriqueArbitraireEnsembleActivitesPourSecteurInfraNumLocalisable_HorsUe,
   fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUe,
   fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand,
-  fabriqueArbitraireEnsembleActivitesPourSecteurInfraNumLocalisable_HorsUe,
   fabriqueArbitrairesEnsembleInformationsSecteurs,
-  fabriqueArbitraireEnsembleActivitesPourSecteurEILocalisable_HorsUe,
 } from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
-import { arbLocalisationRepresentant_JamaisFrance } from "./ResultatEvaluationRegulation.bases.arbitraire";
+import {
+  arbLocalisationRepresentant_JamaisFrance,
+  arbLocalisationRepresentant_ToujoursAutre,
+  arbLocalisationRepresentant_ToujoursFrance,
+} from "./ResultatEvaluationRegulation.bases.arbitraire";
 
 export const arbSecteurListesSansSousSecteurNiLocaGrand = fc.constantFrom(
   ...ValeursSecteursSansSousSecteur.filter(estSecteurListe).filter(
@@ -118,9 +122,6 @@ export const arbSecteurAvecSousSecteurListes = fc.constantFrom<
     estSousSecteurListe(sousSecteur),
   ),
 );
-export const arbLocalisationRepresentant_ToujoursFrance = fc.constant(
-  "france" as const,
-);
 /**
  * InformationSecteurLocalisableGrandeEntite
  *    telles que
@@ -179,10 +180,24 @@ export const arbInformationsSecteurLocaliseesFranceGrandeEI =
  *    telles que
  * secteur dans "infrastructureNumerique" et activite registre ou fournisseur DNS
  */
-export const arbInformationsSecteurLocaliseesFranceGrandeInfranumEE =
+export const arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE =
   arbSecteurActivite_InfrastructureNumerique.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand(
       arbLocalisationRepresentant_ToujoursFrance,
+      fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
+        estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+      )<SecteurAvecBesoinLocalisationRepresentant, ActivitesLocalisablesGrand>,
+    ),
+  );
+/**
+ * InformationSecteurLocalisableGrandeEntite
+ *    telles que
+ * secteur dans "infrastructureNumerique" et activite registre ou fournisseur DNS
+ */
+export const arbInformationsSecteur_LocaliseesAutrePaysUE_Grande_Infranum_EE =
+  arbSecteurActivite_InfrastructureNumerique.chain(
+    fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand(
+      arbLocalisationRepresentant_ToujoursAutre,
       fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(
         estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
       )<SecteurAvecBesoinLocalisationRepresentant, ActivitesLocalisablesGrand>,
