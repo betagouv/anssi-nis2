@@ -21,7 +21,7 @@ import {
   afficheDifferences,
   assertionArbitraire,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
-import { arbReponseInformationsSecteurLocalisesHorsFrancePetit } from "./arbitraires/ReponseInformationsSecteur.arbitraires";
+import { arbReponseInformationsSecteur_LocalisesHorsUE_Petit } from "./arbitraires/ReponseInformationsSecteur.arbitraires";
 import {
   arbTuple_JamaisOse_ToujoursAutreUE,
   fabriqueArbJamaisOse_ToujoursFrance_StructurePetit,
@@ -80,7 +80,7 @@ describe("chaine de décision", () => {
     "en suspens / secteurs localisables et localisé hors France ==> toujours définitivement incertain car psa implémenté",
     assertionArbitraire(
       fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-        arbReponseInformationsSecteurLocalisesHorsFrancePetit,
+        arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
       ),
       (reponse: EtatRegulation) => {
         const resultatAttendu: EtatRegulationDefinitif = {

@@ -7,6 +7,7 @@ import {
   verificationReponseNonRegule,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import {
+  arbEnsembleSecteurs_Infranum_PE_AutreUE,
   arbEnsembleSecteursAnnexe1,
   arbEnsembleSecteursAnnexe2,
 } from "./arbitraires/EnsembleInformationsSecteur.arbitraires";
@@ -19,7 +20,7 @@ import {
   arbReponseInformationsSecteurGrandActivitesAutres,
   arbReponseInformationsSecteur_LocalisesAutre_Grand_Infranum_EE,
   arbReponseInformationsSecteurLocalisesFrancePetit,
-  arbReponseInformationsSecteurLocalisesHorsFrancePetit,
+  arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
   arbReponseInformationsSecteurPetit,
   arbReponseInformationsSecteur_LocalisesFrance_Grand_Infranum_EE,
 } from "./arbitraires/ReponseInformationsSecteur.arbitraires";
@@ -31,6 +32,7 @@ import {
   fabriqueArbInformationsSecteurAutre,
   fabriqueArbitraireCapsuleSecteurGrand,
   fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe,
+  fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFrance,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 
 describe("Secteur", () => {
@@ -67,9 +69,20 @@ describe("Secteur", () => {
       "en suspens / secteurs localisables et localisé hors France ==> toujours définitivement non-régulé",
       assertionArbitraire(
         fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-          arbReponseInformationsSecteurLocalisesHorsFrancePetit,
+          arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
         ),
         verificationReponseNonRegule,
+      ),
+    );
+    it(
+      "en suspens / secteurs localisables et localisé hors France ==> toujours définitivement non-régulé",
+      assertionArbitraire(
+        fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
+          fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFrance(
+            arbEnsembleSecteurs_Infranum_PE_AutreUE,
+          ),
+        ),
+        verificationReponseDefinitivementIncertainAutrePaysUE,
       ),
     );
     it(

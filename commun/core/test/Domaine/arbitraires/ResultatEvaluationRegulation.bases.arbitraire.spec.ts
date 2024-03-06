@@ -29,7 +29,7 @@ import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/Sou
 import { assertion } from "../../utilitaires/ResultatEvaluationRegulation.assertions";
 import {
   arbEnsembleSecteursComposites,
-  arbEnsembleSecteursLocalisablesNonFrance,
+  arbEnsembleSecteurs_AvecBesoinLoca_NonUE,
   arbEnsembleSecteurs_AvecBesoinLoca_GrandEI,
   arbEnsembleSecteursSimples,
   arbEnsembleSecteursSimplesEligiblesPetit,
@@ -38,8 +38,8 @@ import {
   arbInformationsSecteurComposite,
   arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
   arbInformationsSecteur_AvecActivitesEssentielles_Petite,
-  arbInformationsSecteurLocaliseesHorsFrancePetite,
-  arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE,
+  arbInformationsSecteur_Infranum_LocaliseesHorsUE_PE,
+  arbInformationsSecteur_Infranum_PE_ActivitesAvecBesoinLocalisation_LocaliseesHorsUE,
   arbSecteurAvecSousSecteurListes,
   arbSecteurImportantAvecBesoinLocalisation,
   arbSecteurListesSansSousSecteurNiLocaGrand,
@@ -48,7 +48,7 @@ import {
 } from "./InformationsSecteur.arbitraires";
 import {
   arbReponseInformationsSecteurLocalisesFrancePetit,
-  arbReponseInformationsSecteurLocalisesHorsFrancePetit,
+  arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
   arbReponseInformationsSecteurPetit,
 } from "./ReponseInformationsSecteur.arbitraires";
 import { fabriqueArbJamaisOse_ToujoursFrance_StructurePetit } from "./ResultatEvaluationRegulation.arbitraire";
@@ -88,11 +88,11 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
         it("arbInformationsSecteurLocalisesFrancePetit et arbInformationsSecteurLocalisesHorsFrancePetit sont exclusifs", () =>
           assertion.exclusifs(
             arbReponseInformationsSecteurLocalisesFrancePetit,
-            arbReponseInformationsSecteurLocalisesHorsFrancePetit,
+            arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
           ));
         it("arbInformationsSecteurLocalisesHorsFrancePetit n'a jamais localisation France", () => {
           assertion.propriete(
-            arbReponseInformationsSecteurLocalisesHorsFrancePetit,
+            arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
             (capsule) => {
               [...capsule.secteurs].map((secteur) =>
                 expect(secteur).toSatisfy(
@@ -104,7 +104,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
         });
         it("arbInformationsSecteurLocalisesHorsFrancePetit a toujours uniquement secteur infranum", () => {
           assertion.propriete(
-            arbReponseInformationsSecteurLocalisesHorsFrancePetit,
+            arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
             (capsule) => {
               [...capsule.secteurs].map((secteur) =>
                 expect(secteur.secteurActivite).toEqual(
@@ -116,7 +116,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
         });
         it("arbInformationsSecteurLocalisesHorsFrancePetit a toujours uniquement des activites localisables", () => {
           assertion.propriete(
-            arbReponseInformationsSecteurLocalisesHorsFrancePetit,
+            arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
             (capsule) => {
               [...capsule.secteurs].map((secteur) =>
                 expect(
@@ -217,7 +217,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
     describe("arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE", () => {
       it("contient uniquement des activites localisées", () =>
         assertion.propriete(
-          arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE,
+          arbInformationsSecteur_Infranum_PE_ActivitesAvecBesoinLocalisation_LocaliseesHorsUE,
           (secteur) => {
             expect(secteur.activites).toSatisfy(
               tous(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation),
@@ -228,7 +228,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
     describe("arbInformationsSecteurLocaliseesHorsFrancePetite", () => {
       it("contient uniquement des activites localisées", () =>
         assertion.propriete(
-          arbInformationsSecteurLocaliseesHorsFrancePetite,
+          arbInformationsSecteur_Infranum_LocaliseesHorsUE_PE,
           (secteur) => {
             expect(secteur.activites).toSatisfy(
               tous(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation),
@@ -305,11 +305,11 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
     describe("arbInformationsSecteurLocaliseesHorsUE", () => {
       it("ne produit pas de structure vide", () =>
         assertion.nonVide(
-          arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE,
+          arbInformationsSecteur_Infranum_PE_ActivitesAvecBesoinLocalisation_LocaliseesHorsUE,
         ));
       it("contient des données de localisation représentant hors UE", () =>
         assertion.propriete(
-          arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE,
+          arbInformationsSecteur_Infranum_PE_ActivitesAvecBesoinLocalisation_LocaliseesHorsUE,
           (informationsSecteur) => {
             expect(informationsSecteur.fournitServicesUnionEuropeenne).toBe(
               "non",
@@ -319,10 +319,10 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
     });
     describe("arbInformationsSecteurLocaliseesHorsFrance", () => {
       it("ne produit pas de structure vide", () =>
-        assertion.nonVide(arbInformationsSecteurLocaliseesHorsFrancePetite));
+        assertion.nonVide(arbInformationsSecteur_Infranum_LocaliseesHorsUE_PE));
       it("contient des données de localisation représentant hors France", () =>
         assertion.propriete(
-          arbInformationsSecteurLocaliseesHorsFrancePetite,
+          arbInformationsSecteur_Infranum_LocaliseesHorsUE_PE,
           (informationsSecteur) => {
             expect(informationsSecteur.fournitServicesUnionEuropeenne).toBe(
               "oui",
@@ -372,7 +372,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
       describe("arbEnsembleSecteursLocalisablesNonFrance", () => {
         it("ne contient que des activités essentielles localisables", () =>
           assertion.propriete(
-            arbEnsembleSecteursLocalisablesNonFrance,
+            arbEnsembleSecteurs_AvecBesoinLoca_NonUE,
             (ensembleSecteurs) => {
               [...ensembleSecteurs].map((secteur) =>
                 expect(secteur.activites).toSatisfy(

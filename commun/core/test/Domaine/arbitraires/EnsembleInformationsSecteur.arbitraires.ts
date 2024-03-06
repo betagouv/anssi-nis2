@@ -10,14 +10,15 @@ import {
 import {
   arbInformationsSecteurComposite,
   arbInformationsSecteurCompositeActivitesAutres,
-  arbInformationsSecteurLocaliseesHorsFrancePetite,
+  arbInformationsSecteur_Infranum_LocaliseesHorsUE_PE,
   arbInformationsSecteur_AvecBesoinLoca_GrandEI_LocaliseesHorsUE,
-  arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE,
+  arbInformationsSecteur_Infranum_PE_ActivitesAvecBesoinLocalisation_LocaliseesHorsUE,
   arbSecteurActivite_InfrastructureNumerique,
   arbSecteurListesSansSousSecteurNiLocaGrand,
   arbInformationsSecteur_AvecActivitesEssentielles_LocaliseesFrance_Petite,
   arbSecteursActivite_Annexe1_SansBesoinLocalisation,
   arbSecteursActivite_Annexe2_SansBesoinLocalisation,
+  arbInformationsSecteur_Infranum_LocaliseesAutrePaysUE_PE,
 } from "./InformationsSecteur.arbitraires";
 import {
   fabriqueArbitraireEnsembleActivitesPourSecteur,
@@ -79,18 +80,22 @@ export const arbEnsembleSecteursLocalisablesPetitFrance: fc.Arbitrary<
   InformationsSecteurAvecBesoinLocalisation<"Petit">
 >(arbInformationsSecteur_AvecActivitesEssentielles_LocaliseesFrance_Petite);
 
-export const arbEnsembleSecteursLocalisablesNonFrance: fc.Arbitrary<
+export const arbEnsembleSecteurs_AvecBesoinLoca_NonUE: fc.Arbitrary<
   Set<InformationsSecteurAvecBesoinLocalisation<"Petit">>
 > = fc.oneof(
   fabriqueArbitrairesEnsembleInformationsSecteurs<
     InformationsSecteurAvecBesoinLocalisation<"Petit">
   >(
-    arbInformationsSecteur_AvecActiviteEssentiellesPE_AvecBesoinLocalisation_LocaliseesHorsUE,
+    arbInformationsSecteur_Infranum_PE_ActivitesAvecBesoinLocalisation_LocaliseesHorsUE,
   ),
   fabriqueArbitrairesEnsembleInformationsSecteurs<
     InformationsSecteurAvecBesoinLocalisation<"Petit">
-  >(arbInformationsSecteurLocaliseesHorsFrancePetite),
+  >(arbInformationsSecteur_Infranum_LocaliseesHorsUE_PE),
 );
+export const arbEnsembleSecteurs_Infranum_PE_AutreUE =
+  fabriqueArbitrairesEnsembleInformationsSecteurs<
+    InformationsSecteurAvecBesoinLocalisation<"Petit">
+  >(arbInformationsSecteur_Infranum_LocaliseesAutrePaysUE_PE);
 /**
  * Ensemble de Secteurs
  * - "Gestion des services TIC

@@ -15,7 +15,7 @@ import {
 import {
   arbEnsembleSecteursComposites,
   arbEnsembleSecteursCompositesActivitesAutres,
-  arbEnsembleSecteursLocalisablesNonFrance,
+  arbEnsembleSecteurs_AvecBesoinLoca_NonUE,
   arbEnsembleSecteurs_AvecBesoinLoca_GrandEI,
   arbEnsembleSecteursLocalisablesPetitFrance,
   arbEnsembleSecteursSimples,
@@ -76,10 +76,10 @@ export const arbReponseInformationsSecteur_AvecBesoinLoca_GrandEI_LocalisationHo
   fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFranceGrand(
     arbEnsembleSecteurs_AvecBesoinLoca_GrandEI,
   );
-export const arbReponseInformationsSecteurLocalisesHorsFrancePetit: fc.Arbitrary<
+export const arbReponseInformationsSecteur_LocalisesHorsUE_Petit: fc.Arbitrary<
   ReponseInformationsSecteur<"Petit">
 > = fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFrance(
-  arbEnsembleSecteursLocalisablesNonFrance,
+  arbEnsembleSecteurs_AvecBesoinLoca_NonUE,
 );
 export const arbReponseInformationsSecteurPetit = fc.oneof(
   fabriqueArbitraireCapsuleSecteurPetit(arbEnsembleSecteursComposites),

@@ -65,6 +65,9 @@ export const arbLocalisationRepresentant_ToujoursFrance = fc.constant(
 export const arbLocalisationRepresentant_ToujoursAutre = fc.constant(
   "autre" as const,
 );
+export const arbLocalisationRepresentant_ToujoursHorsUE = fc.constant(
+  "horsue" as const,
+);
 export const arbFournitServiceUnionEuropeenne_ToujoursOui = fc.constant(
   "oui" as const,
 );

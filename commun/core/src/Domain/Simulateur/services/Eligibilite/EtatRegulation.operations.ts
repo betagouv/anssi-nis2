@@ -204,6 +204,25 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
             certains(
               et(
                 estInformationSecteurAvecActivitesEssentielles,
+                estSecteurBienLocaliseUE,
+              ),
+            ),
+          ),
+        },
+      },
+      () =>
+        fabriqueResultatEvaluationDefinitif(
+          "InformationsSecteur",
+          resultatIncertainAutrePaysUE,
+        ),
+    )
+    .with(
+      {
+        InformationsSecteur: {
+          secteurs: P.when(
+            certains(
+              et(
+                estInformationSecteurAvecActivitesEssentielles,
                 contientActivitesInfrastructureNumeriqueEligiblesPetitEntite,
               ),
             ),
