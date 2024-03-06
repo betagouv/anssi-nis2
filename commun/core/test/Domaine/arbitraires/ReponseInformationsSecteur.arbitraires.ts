@@ -24,7 +24,7 @@ import {
 } from "./EnsembleInformationsSecteur.arbitraires";
 import {
   arbInformationsSecteur_Infranum_ActivitesSansBesoinLoca_GrandeEI,
-  arbInformationsSecteurLocaliseesFranceGrandeEI,
+  arbInformationsSecteur_LocaliseesFrance_Grande_EI,
   arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
   arbSecteurActivite_InfrastructureNumerique,
   arbInformationsSecteur_LocaliseesAutrePaysUE_Grande_Infranum_EE,
@@ -63,7 +63,7 @@ export const arbReponseInformationsSecteurFranceGrandInfranumEI =
 
 export const arbReponseInformationsSecteur_LocalisesFrance_Grand_EI =
   fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe(
-    arbInformationsSecteurLocaliseesFranceGrandeEI,
+    arbInformationsSecteur_LocaliseesFrance_Grande_EI,
   );
 
 /**

@@ -10,6 +10,7 @@ import {
   arbEnsembleSecteursAnnexe1,
   arbEnsembleSecteursAnnexe2,
 } from "./arbitraires/EnsembleInformationsSecteur.arbitraires";
+import { arbInformationsSecteur_LocaliseesAutre_Grande_EI } from "./arbitraires/InformationsSecteur.arbitraires";
 import {
   arbReponseInformationsSecteur_AvecActivitesEssentiels_SansBesoinLocalisation,
   arbReponseInformationsSecteur_LocalisesFrance_Grand_EI,
@@ -29,6 +30,7 @@ import {
 import {
   fabriqueArbInformationsSecteurAutre,
   fabriqueArbitraireCapsuleSecteurGrand,
+  fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 
 describe("Secteur", () => {
@@ -118,6 +120,17 @@ describe("Secteur", () => {
             arbReponseInformationsSecteur_LocalisesFrance_Grand_EI,
           ),
           verificationReponseDefinitivementReguleEI,
+        ),
+      );
+      it(
+        "en suspens / secteurs+activités EI localisables et bien localisés ==> toujours définitivement régulé EI",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
+            fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe(
+              arbInformationsSecteur_LocaliseesAutre_Grande_EI,
+            ),
+          ),
+          verificationReponseDefinitivementIncertainAutrePaysUE,
         ),
       );
 

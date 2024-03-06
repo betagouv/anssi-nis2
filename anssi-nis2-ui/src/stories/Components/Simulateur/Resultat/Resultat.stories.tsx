@@ -132,10 +132,6 @@ export const ResultatNonReguleVoirAutrePaysUE: Story = {
         "Veuillez-vous rapprocher de votre autorité nationale compétente.",
       ),
     );
-    // await verifieTitresSectionsPresentes(
-    //   canvasElement,
-    //   new Set(["etMaintenant", "enSavoirPlus", "bienDebuter"]),
-    // );
 
     const titrePrecisions = await canvas.findByText(pointsDAttention);
     expect(titrePrecisions).toBeInTheDocument();

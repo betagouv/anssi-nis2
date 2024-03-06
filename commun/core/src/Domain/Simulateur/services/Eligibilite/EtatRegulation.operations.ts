@@ -349,6 +349,25 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
           secteurs: P.when(
             certains(
               et(
+                estInformationSecteurImportantAvecBesoinLocalisation,
+                estSecteurBienLocaliseUE,
+              ),
+            ),
+          ),
+        },
+      },
+      () =>
+        fabriqueResultatEvaluationDefinitif(
+          "InformationsSecteur",
+          resultatIncertainAutrePaysUE,
+        ),
+    )
+    .with(
+      {
+        InformationsSecteur: {
+          secteurs: P.when(
+            certains(
+              et(
                 estInformationsSecteurEligibleSansBesoinLocalisation,
                 estSecteurAnnexe1,
                 non(estInformationSecteurSousSecteurAutre),

@@ -44,7 +44,7 @@ import {
   arbSecteurImportantAvecBesoinLocalisation,
   arbSecteurListesSansSousSecteurNiLocaGrand,
   arbSecteurNonEligiblesPetiteEntite,
-  arbInformationsSecteurLocaliseesFranceGrandeEI,
+  arbInformationsSecteur_LocaliseesFrance_Grande_EI,
 } from "./InformationsSecteur.arbitraires";
 import {
   arbReponseInformationsSecteurLocalisesFrancePetit,
@@ -135,7 +135,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
         describe("arbInformationsSecteurLocaliseesFranceGrandeEI", () => {
           it("contient uniquement des secteurs gestionServicesTic ou fournisseursNumeriques", () =>
             assertion.propriete(
-              arbInformationsSecteurLocaliseesFranceGrandeEI,
+              arbInformationsSecteur_LocaliseesFrance_Grande_EI,
               (infoSec) => {
                 expect(
                   ValeursSecteursImportantsAvecBesoinLocalisation.includes(

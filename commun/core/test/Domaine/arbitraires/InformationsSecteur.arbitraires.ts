@@ -164,10 +164,25 @@ export const arbInformationsSecteur_AvecActivitesEssentielles_LocaliseesFrance_P
  *    telles que
  * secteur dans "gestionServicesTic" | "fournisseursNumeriques"
  */
-export const arbInformationsSecteurLocaliseesFranceGrandeEI =
+export const arbInformationsSecteur_LocaliseesFrance_Grande_EI =
   arbSecteurImportantAvecBesoinLocalisation.chain(
     fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand(
       arbLocalisationRepresentant_ToujoursFrance,
+      fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(estActiviteListee)<
+        SecteurAvecBesoinLocalisationRepresentant,
+        ActivitesLocalisablesGrand
+      >,
+    ),
+  );
+/**
+ * InformationSecteurLocalisableGrandeEntite
+ *    telles que
+ * secteur dans "gestionServicesTic" | "fournisseursNumeriques"
+ */
+export const arbInformationsSecteur_LocaliseesAutre_Grande_EI =
+  arbSecteurImportantAvecBesoinLocalisation.chain(
+    fabriqueArbitraireEnsembleActivitesPourSecteurLocalisableEnUeGrand(
+      arbLocalisationRepresentant_ToujoursAutre,
       fabriqueArbEnsembleActivitesPourSecteurAvecFiltre(estActiviteListee)<
         SecteurAvecBesoinLocalisationRepresentant,
         ActivitesLocalisablesGrand

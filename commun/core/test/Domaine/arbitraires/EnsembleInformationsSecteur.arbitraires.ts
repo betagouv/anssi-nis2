@@ -100,11 +100,6 @@ export const arbEnsembleSecteursLocalisablesNonFrance: fc.Arbitrary<
  */
 export const arbEnsembleSecteurs_AvecBesoinLoca_GrandEI: fc.Arbitrary<
   Set<InformationsSecteurAvecBesoinLocalisation<"Grand">>
-> = fc.oneof(
-  fabriqueArbitrairesEnsembleInformationsSecteurs<
-    InformationsSecteurAvecBesoinLocalisation<"Grand">
-  >(arbInformationsSecteur_AvecBesoinLoca_GrandEI_LocaliseesHorsUE),
-  fabriqueArbitrairesEnsembleInformationsSecteurs<
-    InformationsSecteurAvecBesoinLocalisation<"Grand">
-  >(arbInformationsSecteur_AvecBesoinLoca_GrandEI_LocaliseesHorsFrance),
-);
+> = fabriqueArbitrairesEnsembleInformationsSecteurs<
+  InformationsSecteurAvecBesoinLocalisation<"Grand">
+>(arbInformationsSecteur_AvecBesoinLoca_GrandEI_LocaliseesHorsUE);
