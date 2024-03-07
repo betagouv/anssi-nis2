@@ -21,7 +21,7 @@ import {
   afficheDifferences,
   assertionArbitraire,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
-import { arbStructurePetitPrive } from "./arbitraires/CapsuleStructure.arbitraire";
+import { arbStructurePetitPrive } from "./arbitraires/ReponseStructure.arbitraires";
 import { arbReponseDesignationOperateurServicesEssentiels_ToujoursOui } from "./arbitraires/ReponseDesignationOperateurServicesEssentiels.arbitraires";
 import { arbReponseInformationsSecteur_LocalisesHorsUE_Petit } from "./arbitraires/ReponseInformationsSecteur.arbitraires";
 import {

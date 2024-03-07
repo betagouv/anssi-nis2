@@ -59,18 +59,29 @@ export type TrancheTaillePrivePetit = {
   trancheChiffreAffaire: Extract<TrancheChiffreAffaire, "petit">;
   trancheNombreEmployes: Extract<TrancheNombreEmployes, "petit">;
 };
+export type TrancheTaillePriveMoyen =
+  | {
+      trancheChiffreAffaire: Extract<TrancheChiffreAffaire, "moyen">;
+      trancheNombreEmployes: Omit<TrancheNombreEmployes, "grand">;
+    }
+  | {
+      trancheChiffreAffaire: Omit<TrancheChiffreAffaire, "grand">;
+      trancheNombreEmployes: Extract<TrancheNombreEmployes, "moyen">;
+    };
 export type TrancheTaillePriveGrand =
   | {
-      trancheChiffreAffaire: Omit<TrancheChiffreAffaire, "petit">;
+      trancheChiffreAffaire: Extract<TrancheChiffreAffaire, "grand">;
       trancheNombreEmployes: TrancheNombreEmployes;
     }
   | {
       trancheChiffreAffaire: TrancheChiffreAffaire;
-      trancheNombreEmployes: Omit<TrancheNombreEmployes, "petit">;
+      trancheNombreEmployes: Extract<TrancheNombreEmployes, "grand">;
     };
 export type TranchesTaillePrive<T extends CategorieTaille> = T extends "Petit"
   ? TrancheTaillePrivePetit
-  : TrancheTaillePriveGrand;
+  : T extends "Moyen"
+    ? TrancheTaillePriveMoyen
+    : TrancheTaillePriveGrand;
 
 export type TailleSecteurPrive<T extends CategorieTaille> =
   TranchesTaillePrive<T> & CategoriseTaille<T>;

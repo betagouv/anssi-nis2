@@ -15,7 +15,7 @@ import {
 import {
   arbStructureGrand,
   arbStructurePetitPrive,
-} from "./CapsuleStructure.arbitraire";
+} from "./ReponseStructure.arbitraires";
 import {
   arbReponseAppartenanceUnionEuropeenne_ToujoursAutreUE,
   arbReponseAppartenanceUnionEuropeenne_ToujoursFrance,

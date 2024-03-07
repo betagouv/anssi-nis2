@@ -20,7 +20,7 @@ import { assertionArbitraire } from "../utilitaires/ResultatEvaluationRegulation
 import {
   arbStructurePetitPrive,
   arbStructurePublique,
-} from "./arbitraires/CapsuleStructure.arbitraire";
+} from "./arbitraires/ReponseStructure.arbitraires";
 import {
   arbReponseDesignationOperateurServicesEssentiels_ToujoursNeSaitPas,
   arbReponseDesignationOperateurServicesEssentiels_ToujoursNon,

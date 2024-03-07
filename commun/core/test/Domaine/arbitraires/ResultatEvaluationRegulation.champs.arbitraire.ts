@@ -2,8 +2,13 @@ import { fc } from "@fast-check/vitest";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
+  TypeEntitePublique,
+  UnionPetitMoyenGrand,
 } from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
-import { ValeursPetitMoyenGrand } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
+import {
+  ValeursPetitMoyenGrand,
+  ValeursTypeEntitePublique,
+} from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
 
 export const arbDesignationOperateurServicesEssentiels_ToujoursOui =
   fc.constant<DesignationOperateurServicesEssentiels>("oui");
@@ -22,10 +27,16 @@ export const arbAppartenancePaysUnionEuropeenne_ToujoursHorsUe =
 export const arbTranchePetitMoyenGrand_ToutesValeurs = fc.constantFrom(
   ...ValeursPetitMoyenGrand,
 );
-export const arbTranchePetitMoyenGrand_MoyenGrand = fc.constantFrom(
-  "moyen" as const,
-  "grand" as const,
-);
+export const arbTranchePetitMoyenGrand_PetitMoyen = fc.constantFrom<
+  "petit" | "moyen"
+>("petit", "moyen");
+export const arbTranchePetitMoyenGrand_MoyenGrand =
+  fc.constantFrom<UnionPetitMoyenGrand>("moyen", "grand");
+
+export const arbTranchePetitMoyenGrand_ToujoursMoyen =
+  fc.constant<"moyen">("moyen");
+export const arbTranchePetitMoyenGrand_ToujoursGrand =
+  fc.constant<"grand">("grand");
 
 export const arbLocalisationRepresentant_JamaisFrance = fc.constantFrom(
   "autre" as const,
@@ -46,6 +57,10 @@ export const arbFournitServiceUnionEuropeenne_ToujoursOui = fc.constant(
 export const arbFournitServiceUnionEuropeenne_ToujoursNon = fc.constant(
   "non" as const,
 );
-export const arbCategorieTaille_Grand = fc.constant("Grand" as const);
+export const arbCategorieTaille_ToujoursMoyen = fc.constant("Moyen" as const);
+export const arbCategorieTaille_ToujoursGrand = fc.constant("Grand" as const);
 export const arbTypeStructure_Privee = fc.constant("privee" as const);
 export const arbTypeStructure_Publique = fc.constant("publique" as const);
+export const arbTypeEntitePublique = fc.constantFrom<TypeEntitePublique>(
+  ...ValeursTypeEntitePublique,
+);
