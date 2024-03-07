@@ -12,14 +12,12 @@ import {
 } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { estReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.predicats";
 import {
-  EtablissementPrincipalFournitUE,
-  InformationsSecteurAvecBesoinLocalisation,
-} from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.definitions";
-import {
   estEtablissementPrincipalFournitUE,
   estInformationSecteurAvecActivitesEssentielles,
   estSecteurBienLocaliseHorsFrance,
-} from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.predicats";
+  EtablissementPrincipalFournitUE,
+  InformationsSecteurAvecBesoinLocalisation,
+} from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
 import { ReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.definitions";
 import {
   estSecteurImportantsAvecBesoinLocalisation,

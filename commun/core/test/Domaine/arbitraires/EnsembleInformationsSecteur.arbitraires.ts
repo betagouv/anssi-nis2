@@ -4,9 +4,9 @@ import {
   estActiviteListee,
 } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import {
-  InformationsSecteurAvecBesoinLocalisation,
   InformationSecteurSimple,
-} from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.definitions";
+  InformationsSecteurAvecBesoinLocalisation,
+} from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
 import {
   arbInformationsSecteurComposite,
   arbInformationsSecteurCompositeActivitesAutres,

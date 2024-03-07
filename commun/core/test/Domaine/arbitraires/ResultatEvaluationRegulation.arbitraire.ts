@@ -1,13 +1,13 @@
 import { fc } from "@fast-check/vitest";
 import { TypeStructure } from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
 import { EtatRegulation } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
+import { ReponseAppartenancePaysUnionEuropeenne } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseAppartenancePaysUnionEuropeenne.definition";
+import { ReponseDesignationOperateurServicesEssentiels } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseDesignationOperateurServicesEssentiels.definitino";
+import { ReponseInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
 import {
   CategorieTaille,
-  ReponseAppartenancePaysUnionEuropeenne,
-  ReponseDesignationOperateurServicesEssentiels,
-  ReponseInformationsSecteur,
   ReponseStructure,
-} from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.definitions";
+} from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseStructure.definitions";
 import {
   fabriqueResultatEvaluationEnSuspensSecteurGrand,
   fabriqueResultatEvaluationEnSuspensSecteurPetit,

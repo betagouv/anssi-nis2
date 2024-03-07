@@ -15,7 +15,7 @@ import {
   EtatRegulationDefinitif,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import { evalueRegulationEtatReponseInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
-import { propReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.operations";
+import { propReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.operations";
 
 export const afficheDifferences = (
   resultatAttendu: EtatRegulation,

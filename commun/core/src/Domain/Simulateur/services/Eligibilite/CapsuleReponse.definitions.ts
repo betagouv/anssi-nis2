@@ -1,13 +1,11 @@
 import { TypeStructure } from "../../ChampsSimulateur.definitions";
+import { ReponseAppartenancePaysUnionEuropeenne } from "./ReponseAppartenancePaysUnionEuropeenne.definition";
+import { ReponseDesignationOperateurServicesEssentiels } from "./ReponseDesignationOperateurServicesEssentiels.definitino";
+import { ReponseInformationsSecteur } from "./ReponseInformationsSecteur.predicats";
 import {
   CategorieTaille,
-  ReponseAppartenancePaysUnionEuropeenne,
-  ReponseDesignationOperateurServicesEssentiels,
-  ReponseInformationsSecteur,
   ReponseStructure,
-  ReponseStructurePrivee,
-  ReponseStructurePublique,
-} from "./StructuresReponse.definitions";
+} from "./ReponseStructure.definitions";
 
 export type CapsuleDesignationOperateurServicesEssentiels = {
   DesignationOperateurServicesEssentiels: ReponseDesignationOperateurServicesEssentiels;
@@ -15,11 +13,14 @@ export type CapsuleDesignationOperateurServicesEssentiels = {
 export type CapsuleAppartenancePaysUnionEuropeenne = {
   AppartenancePaysUnionEuropeenne: ReponseAppartenancePaysUnionEuropeenne;
 };
-export type CapsuleStructure = {
-  Structure: ReponseStructure<TypeStructure, CategorieTaille>;
+export type CapsuleStructure<
+  Type extends TypeStructure = TypeStructure,
+  Taille extends CategorieTaille = CategorieTaille,
+> = {
+  Structure: ReponseStructure<Type, Taille>;
 };
 export type CapsuleInformationsSecteur<T extends CategorieTaille> = {
-  Structure: ReponseStructurePrivee<T> | ReponseStructurePublique<T>;
+  Structure: ReponseStructure<TypeStructure, T>;
   InformationsSecteur: ReponseInformationsSecteur<T>;
 };
 export type CapsuleReponseDefinitions =

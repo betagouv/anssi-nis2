@@ -2,13 +2,13 @@ import { resultatReguleOSE } from "../../fabriques/ResultatRegulation.fabrique";
 import { resultatIncertain } from "../../Regulation.constantes";
 import { ResultatRegulationEntite } from "../../Regulation.definitions";
 import {
+  EtapeEvaluation,
+  EtapeEvaluationActive,
+  EtatEvaluationEnSuspens,
   EtatRegulation,
   EtatRegulationAvecReponses,
   EtatRegulationDefinitif,
-  EtatEvaluationEnSuspens,
   EtatRegulationInconnu,
-  EtapeEvaluation,
-  EtapeEvaluationActive,
 } from "./EtatRegulation.definitions";
 import { UnionReponseEtatNonVide } from "./ReponseEtat.definitions";
 
@@ -51,3 +51,11 @@ export const fabriqueResultatEnSuspensOse =
       resultatIncertain,
       reponse as EtatRegulationAvecReponses,
     );
+export const fabriqueResultatEvaluationRegulationDefinitif = (
+  resultatRegulation: ResultatRegulationEntite,
+  etapeEvaluee: EtapeEvaluation,
+): EtatRegulationDefinitif => ({
+  _resultatEvaluationRegulation: "Definitif",
+  etapeEvaluee,
+  ...resultatRegulation,
+});

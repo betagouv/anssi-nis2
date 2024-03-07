@@ -6,10 +6,32 @@ import {
   non,
 } from "../../../../../../utils/services/predicats.operations";
 import { certains } from "../../../../../../utils/services/sets.operations";
-import { Activite } from "../../Activite.definitions";
-import { SecteurActivite } from "../../SecteurActivite.definitions";
+import { ExtraitAutre } from "../../../../../../utils/types/Extrait";
+import {
+  Activite,
+  ActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+  ActiviteSecteursSimples,
+  ActivitesEnergie,
+  ActivitesFabrication,
+  ActivitesFournisseursNumeriques,
+  ActivitesGestionServicesTic,
+  ActivitesTransports,
+} from "../../Activite.definitions";
+import { AppartenancePaysUnionEuropeenne } from "../../ChampsSimulateur.definitions";
+import {
+  SecteurActivite,
+  SecteurAvecBesoinLocalisationRepresentant,
+  SecteursAvecSousSecteurs,
+  SecteursDefinitsSansBesoinLocalisationRepresentant,
+  SousSecteurAutrePour,
+} from "../../SecteurActivite.definitions";
 import { ValeursSecteursActivitesAnnexe1 } from "../../SecteurActivite.valeurs";
-import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
+import {
+  SousSecteurActivite,
+  SousSecteurEnergie,
+  SousSecteurFabrication,
+  SousSecteurTransport,
+} from "../../SousSecteurActivite.definitions";
 import {
   estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
   estActiviteInfrastructureNumeriqueEligiblesPetitEntite,
@@ -26,15 +48,87 @@ import {
 import { estSousSecteurAutre } from "../SousSecteurActivite/SousSecteurActivite.predicats";
 import {
   CategorieTaille,
-  EtablissementPrincipalFournitUE,
-  InformationsSecteurAvecBesoinLocalisation,
-  InformationsSecteurPossible,
-  InformationsSecteurSansBesoinLocalisation,
-  InformationsSecteurAutre,
-  InformationsSecteursComposite,
-  predicatInformationSecteurPossible,
-} from "./StructuresReponse.definitions";
+  CategoriseTaille,
+} from "./ReponseStructure.definitions";
 
+export type InformationSousSecteurAutre<S extends SecteursAvecSousSecteurs> = {
+  secteurActivite: S;
+  sousSecteurActivite: SousSecteurAutrePour<S>;
+};
+export type InformationsSecteurCompositeEnergie = {
+  secteurActivite: "energie";
+  sousSecteurActivite: Omit<SousSecteurEnergie, "autreSousSecteurEnergie">;
+  activites: Set<ActivitesEnergie>;
+};
+export type InformationsSecteurCompositeFabrication = {
+  secteurActivite: "fabrication";
+  sousSecteurActivite: Omit<
+    SousSecteurFabrication,
+    "autreSousSecteurFabrication"
+  >;
+  activites: Set<ActivitesFabrication>;
+};
+export type InformationsSecteurCompositeTransport = {
+  secteurActivite: "transports";
+  sousSecteurActivite: Omit<SousSecteurTransport, "autreSousSecteurTransports">;
+  activites: Set<ActivitesTransports>;
+};
+export type InformationSecteurSimple = {
+  secteurActivite: SecteursDefinitsSansBesoinLocalisationRepresentant;
+  activites: Set<ActiviteSecteursSimples>;
+};
+export type InformationsSecteursCompositeListe =
+  | InformationsSecteurCompositeEnergie
+  | InformationsSecteurCompositeFabrication
+  | InformationsSecteurCompositeTransport;
+export type EtablissementPrincipalNeFournitPasUE = {
+  fournitServicesUnionEuropeenne: "non";
+};
+export type EtablissementPrincipalFournitUE = {
+  fournitServicesUnionEuropeenne: "oui";
+  localisationRepresentant: AppartenancePaysUnionEuropeenne;
+};
+export type EtablissementPrincipalLocalisation =
+  | EtablissementPrincipalNeFournitPasUE
+  | EtablissementPrincipalFournitUE;
+export type ActivitesAvecBesoinLocalisationRepresentant<
+  Taille extends CategorieTaille,
+> = Taille extends "Petit"
+  ? ActiviteInfrastructureNumeriqueAvecBesoinLocalisation
+  :
+      | ActiviteInfrastructureNumeriqueAvecBesoinLocalisation
+      | ActivitesFournisseursNumeriques
+      | ActivitesGestionServicesTic;
+export type InformationsSecteurAvecBesoinLocalisation<
+  Taille extends CategorieTaille,
+> = {
+  secteurActivite: SecteurAvecBesoinLocalisationRepresentant;
+  activites: Set<ActivitesAvecBesoinLocalisationRepresentant<Taille>>;
+} & EtablissementPrincipalLocalisation;
+export type InformationSecteurSimpleAutre = {
+  secteurActivite: ExtraitAutre<SecteurActivite>;
+};
+export type InformationsSecteurAutre =
+  | InformationSecteurSimpleAutre
+  | InformationSousSecteurAutre<SecteursAvecSousSecteurs>;
+export type InformationsSecteurSansBesoinLocalisation =
+  | InformationsSecteursCompositeListe
+  | InformationSecteurSimple;
+export type InformationsSecteurPossible<Taille extends CategorieTaille> =
+  | InformationsSecteurSansBesoinLocalisation
+  | InformationsSecteurAvecBesoinLocalisation<Taille>
+  | InformationsSecteurAutre;
+export type InformationsSecteursComposite =
+  | InformationSousSecteurAutre<SecteursAvecSousSecteurs>
+  | InformationsSecteursCompositeListe;
+export type InformationsSecteur<T extends CategorieTaille> = {
+  secteurs: Set<InformationsSecteurPossible<T>>;
+};
+export type ReponseInformationsSecteur<T extends CategorieTaille> =
+  CategoriseTaille<T> & InformationsSecteur<T>;
+export type PredicatInformationSecteurPossible = (
+  i: InformationsSecteurPossible<CategorieTaille>,
+) => boolean;
 export const eqInformationsSecteur = (
   a: InformationsSecteurPossible<CategorieTaille>,
   b: InformationsSecteurPossible<CategorieTaille>,
@@ -45,14 +139,12 @@ export const estEtablissementPrincipalFournitUE = (
     | EtablissementPrincipalFournitUE,
 ): reponse is EtablissementPrincipalFournitUE =>
   reponse.fournitServicesUnionEuropeenne === "oui";
-
 export const estInformationSecteurImportantAvecBesoinLocalisation = (
   informationsSecteur: InformationsSecteurPossible<CategorieTaille>,
 ) =>
   estSecteurImportantsAvecBesoinLocalisation(
     informationsSecteur.secteurActivite as SecteurActivite,
   );
-
 /**
  *   "infrastructureNumerique",
  * @param sec
@@ -77,11 +169,11 @@ export const estInformationSecteurAvecBesoinLocalisation = <
   estSecteurAvecActivitesEssentielles(sec.secteurActivite as SecteurActivite);
 export const estSecteurAvecActivitesEssentiellesBienLocalisees = (
   sec:
-    | InformationsSecteurPossible<"Petit">
+    | InformationsSecteurPossible<CategorieTaille>
     | InformationsSecteurAutre
     | InformationsSecteurSansBesoinLocalisation,
 ) =>
-  estInformationSecteurAvecActivitesEssentielles<"Petit">(sec) &&
+  estInformationSecteurAvecActivitesEssentielles<CategorieTaille>(sec) &&
   sec.fournitServicesUnionEuropeenne === "oui" &&
   sec.localisationRepresentant === "france";
 export const estSecteurBienLocaliseGrand = (
@@ -109,7 +201,6 @@ export const estSecteurBienLocaliseHorsFrance = <T extends CategorieTaille>(
   (sec.fournitServicesUnionEuropeenne === "non" ||
     (sec.fournitServicesUnionEuropeenne === "oui" &&
       sec.localisationRepresentant !== "france"));
-
 export const estInformationSecteurSecteurAutre = (
   sec: InformationsSecteurPossible<CategorieTaille>,
 ) => estSecteurAutre(sec.secteurActivite as SecteurActivite);
@@ -132,8 +223,7 @@ export const estInformationsSecteurEligibleSansBesoinLocalisation = flow<
     non(estSecteurImportantsAvecBesoinLocalisation),
     non(estSecteurAvecActivitesEssentielles),
   ),
-) as predicatInformationSecteurPossible;
-
+) as PredicatInformationSecteurPossible;
 export const estSecteurAnnexe1 = flow<
   [{ secteurActivite: SecteurActivite }],
   SecteurActivite,
@@ -143,13 +233,12 @@ export const estSecteurAnnexe1 = flow<
   estSecteurDansListe(
     ValeursSecteursActivitesAnnexe1 as unknown as SecteurActivite[],
   ),
-) as predicatInformationSecteurPossible;
+) as PredicatInformationSecteurPossible;
 export const estInformationsPourSecteur = (secteur: SecteurActivite) =>
   flow<[{ secteurActivite: SecteurActivite }], SecteurActivite, boolean>(
     prop("secteurActivite"),
     estSecteur(secteur),
-  ) as predicatInformationSecteurPossible;
-
+  ) as PredicatInformationSecteurPossible;
 export const estSecteurBancaire = flow<
   [{ secteurActivite: SecteurActivite }],
   SecteurActivite,
@@ -157,7 +246,7 @@ export const estSecteurBancaire = flow<
 >(
   prop("secteurActivite"),
   estSecteur("banqueSecteurBancaire"),
-) as predicatInformationSecteurPossible;
+) as PredicatInformationSecteurPossible;
 export const auMoinsUneActiviteListee = flow<
   [{ activites: Set<Activite> }],
   Set<Activite>,
@@ -165,19 +254,19 @@ export const auMoinsUneActiviteListee = flow<
 >(
   prop<Set<Activite>, "activites">("activites"),
   certains(estActiviteListee),
-) as predicatInformationSecteurPossible;
+) as PredicatInformationSecteurPossible;
 export const auMoinsUneActiviteEst = (activiteCherchee: Activite) =>
   flow<[{ activites: Set<Activite> }], Set<Activite>, boolean>(
     prop("activites"),
     certains(est(activiteCherchee)),
-  ) as predicatInformationSecteurPossible;
+  ) as PredicatInformationSecteurPossible;
 export const auMoinsUneActiviteEstDans = (
   activitesCherchees: readonly (Activite | string)[],
 ) =>
   flow<[{ activites: Set<Activite> }], Set<Activite>, boolean>(
     prop("activites"),
     certains((activite) => activitesCherchees.includes(activite)),
-  ) as predicatInformationSecteurPossible;
+  ) as PredicatInformationSecteurPossible;
 export const contientActivitesInfrastructureNumeriqueEligiblesPetitEntite = (
   s:
     | InformationsSecteurAvecBesoinLocalisation<"Petit">

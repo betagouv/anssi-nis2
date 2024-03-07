@@ -1,5 +1,5 @@
 import { fc } from "@fast-check/vitest";
-import { ReponseAppartenancePaysUnionEuropeenne } from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.definitions";
+import { ReponseAppartenancePaysUnionEuropeenne } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseAppartenancePaysUnionEuropeenne.definition";
 import {
   arbAppartenancePaysUnionEuropeenne_ToujoursAutreUe,
   arbAppartenancePaysUnionEuropeenne_ToujoursFrance,

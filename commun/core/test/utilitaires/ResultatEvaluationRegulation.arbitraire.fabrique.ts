@@ -22,25 +22,25 @@ import {
   estActiviteListee,
 } from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { fabriqueContenuCapsuleInformationSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/CapsuleReponse.fabriques";
-import { FabriqueEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
+import { FabriqueEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.fabriques";
 import {
   fabriqueResultatEvaluationEnSuspens,
   fabriqueResultatEvaluationInconnu,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.fabriques";
+import { ReponseAppartenancePaysUnionEuropeenne } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseAppartenancePaysUnionEuropeenne.definition";
+import { ReponseDesignationOperateurServicesEssentiels } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseDesignationOperateurServicesEssentiels.definitino";
 import {
-  CategorieTaille,
+  eqInformationsSecteur,
+  InformationSecteurSimple,
   InformationsSecteurAvecBesoinLocalisation,
   InformationsSecteurPossible,
-  InformationSecteurSimple,
-  ReponseAppartenancePaysUnionEuropeenne,
-  ReponseDesignationOperateurServicesEssentiels,
-  ReponseInformationsSecteur,
-  ReponseStructure,
-  ReponseStructurePrivee,
-  ReponseStructurePublique,
   InformationsSecteurSansBesoinLocalisation,
-} from "../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.definitions";
-import { eqInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.predicats";
+  ReponseInformationsSecteur,
+} from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
+import {
+  CategorieTaille,
+  ReponseStructure,
+} from "../../src/Domain/Simulateur/services/Eligibilite/ReponseStructure.definitions";
 import { PeutEtreSousSecteurActivite } from "../../src/Domain/Simulateur/SousSecteurActivite.definitions";
 import {
   arbFournitServiceUnionEuropeenne_ToujoursNon,
@@ -309,7 +309,7 @@ export const fabriqueResultatEvaluationEnSuspensStructure = ([
   fabriqueResultatEvaluationEnSuspens(
     "AppartenancePaysUnionEuropeenne",
     resultatIncertain,
-    FabriqueEtatDonneesSimulateur.structureChaine(
+    FabriqueEtatDonneesSimulateur.structureChaineGen(
       designationOperateurServicesEssentiel,
       appartenancePaysUnionEuropeenne,
       structure,
@@ -323,7 +323,7 @@ export const fabriqueResultatEvaluationEnSuspensSecteurPetit = ([
 ]: [
   ReponseDesignationOperateurServicesEssentiels,
   ReponseAppartenancePaysUnionEuropeenne,
-  ReponseStructurePrivee<"Petit"> | ReponseStructurePublique<"Petit">,
+  ReponseStructure<TypeStructure, "Petit">,
   ReponseInformationsSecteur<"Petit">,
 ]) =>
   fabriqueResultatEvaluationEnSuspens(
@@ -344,7 +344,7 @@ export const fabriqueResultatEvaluationEnSuspensSecteurGrand = ([
 ]: [
   ReponseDesignationOperateurServicesEssentiels,
   ReponseAppartenancePaysUnionEuropeenne,
-  ReponseStructurePrivee<"Grand"> | ReponseStructurePublique<"Grand">,
+  ReponseStructure<TypeStructure, "Grand">,
   ReponseInformationsSecteur<"Grand">,
 ]) =>
   fabriqueResultatEvaluationEnSuspens(

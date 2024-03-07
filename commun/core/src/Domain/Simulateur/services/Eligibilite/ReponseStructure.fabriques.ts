@@ -1,7 +1,7 @@
 import {
   CategorieTaille,
   CategoriseTaille,
-} from "./StructuresReponse.definitions";
+} from "./ReponseStructure.definitions";
 
 export const fabriqueCategorieTaille = <T extends CategorieTaille>(
   taille: T,

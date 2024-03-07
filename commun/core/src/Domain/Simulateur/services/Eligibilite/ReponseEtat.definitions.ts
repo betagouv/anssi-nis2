@@ -1,15 +1,16 @@
 import { RemoveTag, Tag } from "../../../../../../utils/types/Tag";
+import { TypeStructure } from "../../ChampsSimulateur.definitions";
 import {
   CapsuleAppartenancePaysUnionEuropeenne,
   CapsuleDesignationOperateurServicesEssentiels,
   CapsuleInformationsSecteur,
   CapsuleStructure,
 } from "./CapsuleReponse.definitions";
+import { ReponseInformationsSecteur } from "./ReponseInformationsSecteur.predicats";
 import {
-  ReponseInformationsSecteur,
-  ReponseStructurePrivee,
-  ReponseStructurePublique,
-} from "./StructuresReponse.definitions";
+  CategorieTaille,
+  ReponseStructure,
+} from "./ReponseStructure.definitions";
 
 export type ReponseEtatVide = Tag<"ReponseEtatVide">;
 export type ReponseEtatDesignationOperateurServicesEssentiels =
@@ -19,38 +20,26 @@ export type ReponseEtatAppartenancePaysUnionEuropeenne =
   Tag<"AppartenancePaysUnionEuropeenne"> &
     RemoveTag<ReponseEtatDesignationOperateurServicesEssentiels> &
     CapsuleAppartenancePaysUnionEuropeenne;
-export type ReponseEtatStructure = Tag<"Structure"> &
+export type ReponseEtatStructure<
+  Type extends TypeStructure = TypeStructure,
+  Taille extends CategorieTaille = CategorieTaille,
+> = Tag<"Structure"> &
   RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> &
-  CapsuleStructure;
-export type ReponseEtatStructurePetit = Tag<"Structure"> &
-  RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> & {
-    Structure:
-      | ReponseStructurePrivee<"Petit">
-      | ReponseStructurePublique<"Petit">;
-  };
-export type ReponseEtatStructureGrand = Tag<"Structure"> &
-  RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> & {
-    Structure:
-      | ReponseStructurePrivee<"Grand">
-      | ReponseStructurePublique<"Grand">;
-  };
+  CapsuleStructure<Type, Taille>;
+
 export type ReponseEtatInformationsSecteurPetit = Tag<"InformationsSecteur"> &
   RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> & {
-    Structure:
-      | ReponseStructurePrivee<"Petit">
-      | ReponseStructurePublique<"Petit">;
+    Structure: ReponseStructure<TypeStructure, "Petit">;
     InformationsSecteur: ReponseInformationsSecteur<"Petit">;
   };
 export type ReponseEtatInformationsSecteurGrand = Tag<"InformationsSecteur"> &
   RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> & {
-    Structure:
-      | ReponseStructurePrivee<"Grand">
-      | ReponseStructurePublique<"Grand">;
+    Structure: ReponseStructure<TypeStructure, "Grand">;
     InformationsSecteur: ReponseInformationsSecteur<"Grand">;
   };
 export type ReponseEtatInformationsSecteur = Tag<"InformationsSecteur"> &
   RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> &
-  CapsuleInformationsSecteur;
+  CapsuleInformationsSecteur<CategorieTaille>;
 
 export type UnionReponseEtatNonVide =
   | ReponseEtatDesignationOperateurServicesEssentiels

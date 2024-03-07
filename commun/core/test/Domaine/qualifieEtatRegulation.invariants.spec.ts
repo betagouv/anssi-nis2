@@ -6,13 +6,13 @@ import {
   EtatRegulationDefinitif,
   OperationEvalueEtat,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
+import { fabriqueResultatEvaluationRegulationDefinitif } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.fabriques";
 import {
   evalueRegulationEtatReponseInformationsSecteur,
   evalueRegulationEtatReponseLocalisation,
   evalueRegulationEtatReponseOse,
   evalueRegulationEtatReponseStructure,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
-import { fabriqueResultatEvaluationRegulationDefinitif } from "../../src/Domain/Simulateur/services/Eligibilite/ResultatEvaluationRegulation.fabriques";
 import { estResultatRegulationPositif } from "../../src/Domain/Simulateur/services/Regulation/Regulation.predicats";
 import { arbitrairesResultatRegulation } from "./arbitraires/ResultatRegulation.arbitraires";
 

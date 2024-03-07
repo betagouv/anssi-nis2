@@ -11,7 +11,7 @@ import {
   RegulationEntite,
   TypeEntite,
 } from "../../src/Domain/Simulateur/Regulation.definitions";
-import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatDonneesSimulateur.fabrique";
+import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.fabriques";
 import {
   EtatRegulation,
   EtatRegulationDefinitif,

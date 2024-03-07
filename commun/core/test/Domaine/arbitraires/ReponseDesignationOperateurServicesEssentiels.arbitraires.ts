@@ -1,5 +1,5 @@
 import { fc } from "@fast-check/vitest";
-import { ReponseDesignationOperateurServicesEssentiels } from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.definitions";
+import { ReponseDesignationOperateurServicesEssentiels } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseDesignationOperateurServicesEssentiels.definitino";
 import {
   arbDesignationOperateurServicesEssentiels_ToujoursNeSaitPas,
   arbDesignationOperateurServicesEssentiels_ToujoursNon,

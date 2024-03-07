@@ -1,8 +1,5 @@
 import { fc } from "@fast-check/vitest";
-import {
-  ReponseStructure,
-  ReponseStructurePrivee,
-} from "../../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.definitions";
+import { ReponseStructure } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseStructure.definitions";
 import {
   arbCategorieTaille_ToujoursGrand,
   arbCategorieTaille_ToujoursMoyen,
@@ -24,7 +21,7 @@ export const arbStructurePetitPrive = fc.constant<
   trancheNombreEmployes: "petit",
 });
 const arbStructurePrivee_TrancheCAMoyen = fc.record<
-  ReponseStructurePrivee<"Moyen">
+  ReponseStructure<"privee", "Moyen">
 >({
   _categorieTaille: arbCategorieTaille_ToujoursMoyen,
   typeStructure: arbTypeStructure_Privee,
@@ -32,7 +29,7 @@ const arbStructurePrivee_TrancheCAMoyen = fc.record<
   trancheNombreEmployes: arbTranchePetitMoyenGrand_PetitMoyen,
 });
 const arbStructurePrivee_TrancheEmployesMoyen = fc.record<
-  ReponseStructurePrivee<"Moyen">
+  ReponseStructure<"privee", "Moyen">
 >({
   _categorieTaille: arbCategorieTaille_ToujoursMoyen,
   typeStructure: arbTypeStructure_Privee,
@@ -44,7 +41,7 @@ export const arbReponseStructure_ToujoursMoyen = fc.oneof(
   arbStructurePrivee_TrancheEmployesMoyen,
 );
 const arbStructurePrivee_TrancheCA_ToujoursGrand = fc.record<
-  ReponseStructurePrivee<"Grand">
+  ReponseStructure<"privee", "Grand">
 >({
   _categorieTaille: arbCategorieTaille_ToujoursGrand,
   typeStructure: arbTypeStructure_Privee,
@@ -52,7 +49,7 @@ const arbStructurePrivee_TrancheCA_ToujoursGrand = fc.record<
   trancheNombreEmployes: arbTranchePetitMoyenGrand_ToujoursGrand,
 });
 const arbStructurePrivee_TrancheEmployes_ToujoursGrand = fc.record<
-  ReponseStructurePrivee<"Grand">
+  ReponseStructure<"privee", "Grand">
 >({
   _categorieTaille: arbCategorieTaille_ToujoursGrand,
   typeStructure: arbTypeStructure_Privee,

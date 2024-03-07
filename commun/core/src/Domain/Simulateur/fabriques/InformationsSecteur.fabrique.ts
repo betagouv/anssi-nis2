@@ -12,10 +12,10 @@ import {
 } from "../SecteurActivite.definitions";
 import { activiteEstDansSecteur } from "../services/Activite/Activite.predicats";
 import {
-  CategorieTaille,
   InformationsSecteurPossible,
   ReponseInformationsSecteur,
-} from "../services/Eligibilite/StructuresReponse.definitions";
+} from "../services/Eligibilite/ReponseInformationsSecteur.predicats";
+import { CategorieTaille } from "../services/Eligibilite/ReponseStructure.definitions";
 import {
   estSecteurAutre,
   estSecteurAvecActivitesEssentielles,

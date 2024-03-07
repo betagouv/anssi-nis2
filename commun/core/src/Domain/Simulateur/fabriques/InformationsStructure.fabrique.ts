@@ -7,12 +7,10 @@ import {
 import {
   CategorieTaille,
   ReponseStructure,
-  ReponseStructurePrivee,
-  ReponseStructurePublique,
-} from "../services/Eligibilite/StructuresReponse.definitions";
+} from "../services/Eligibilite/ReponseStructure.definitions";
 
 export const FabriqueInformationsStructure = {
-  structurePriveePetite: (): ReponseStructurePrivee<"Petit"> => ({
+  structurePriveePetite: (): ReponseStructure<"privee", "Petit"> => ({
     _categorieTaille: "Petit",
     typeStructure: "privee",
     trancheChiffreAffaire: "petit",
@@ -21,35 +19,36 @@ export const FabriqueInformationsStructure = {
 
   structurePriveeMoyenne: (
     donnees: DonneesFormulaireSimulateur,
-  ): ReponseStructurePrivee<"Moyen"> =>
+  ): ReponseStructure<"privee", "Moyen"> =>
     ({
       _categorieTaille: "Moyen",
       typeStructure: "privee",
       trancheChiffreAffaire: donnees.trancheChiffreAffaire[0],
       trancheNombreEmployes: donnees.trancheNombreEmployes[0],
-    }) as ReponseStructurePrivee<"Moyen">,
+    }) as ReponseStructure<"privee", "Moyen">,
 
   structurePriveeGrande: (
     donnees: DonneesFormulaireSimulateur,
-  ): ReponseStructurePrivee<"Grand"> =>
+  ): ReponseStructure<"privee", "Grand"> =>
     ({
       _categorieTaille: "Grand",
       typeStructure: "privee",
       trancheChiffreAffaire: donnees.trancheChiffreAffaire[0],
       trancheNombreEmployes: donnees.trancheNombreEmployes[0],
-    }) as ReponseStructurePrivee<"Grand">,
+    }) as ReponseStructure<"privee", "Grand">,
 
   structurePubliquePetite: (
     donnees: DonneesFormulaireSimulateur,
-  ): ReponseStructurePublique<"Petit"> => ({
+  ): ReponseStructure<"publique", "Petit"> => ({
     _categorieTaille: "Petit",
     typeStructure: "publique",
     typeEntitePublique: donnees.typeEntitePublique[0],
     trancheNombreEmployes: "petit",
   }),
+
   structurePubliqueMoyenne: (
     donnees: DonneesFormulaireSimulateur,
-  ): ReponseStructurePublique<"Moyen"> => ({
+  ): ReponseStructure<"publique", "Moyen"> => ({
     _categorieTaille: "Moyen",
     typeStructure: "publique",
     typeEntitePublique: donnees.typeEntitePublique[0],
@@ -57,7 +56,7 @@ export const FabriqueInformationsStructure = {
   }),
   structurePubliqueGrande: (
     donnees: DonneesFormulaireSimulateur,
-  ): ReponseStructurePublique<"Grand"> => ({
+  ): ReponseStructure<"publique", "Grand"> => ({
     _categorieTaille: "Grand",
     typeStructure: "publique",
     typeEntitePublique: donnees.typeEntitePublique[0],
@@ -73,13 +72,13 @@ export const FabriqueInformationsStructure = {
 
   structureMoyenne: (
     donnees: DonneesFormulaireSimulateur,
-  ): ReponseStructurePrivee<"Moyen"> | ReponseStructurePublique<"Moyen"> =>
+  ): ReponseStructure<TypeStructure, "Moyen"> =>
     donnees.typeStructure[0] === "publique"
       ? FabriqueInformationsStructure.structurePubliqueMoyenne(donnees)
       : FabriqueInformationsStructure.structurePriveeMoyenne(donnees),
   structureGrande: (
     donnees: DonneesFormulaireSimulateur,
-  ): ReponseStructurePrivee<"Grand"> | ReponseStructurePublique<"Grand"> =>
+  ): ReponseStructure<TypeStructure, "Grand"> =>
     donnees.typeStructure[0] === "publique"
       ? FabriqueInformationsStructure.structurePubliqueGrande(donnees)
       : FabriqueInformationsStructure.structurePriveeGrande(donnees),

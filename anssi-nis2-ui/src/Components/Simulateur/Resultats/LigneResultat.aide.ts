@@ -14,7 +14,7 @@ import {
   contientActivitesListees,
   estInformationsPourSecteur,
   estSecteurBancaire,
-} from "../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/StructuresReponse.predicats.ts";
+} from "../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats.ts";
 import { et } from "../../../../../commun/utils/services/predicats.operations.ts";
 import { certains } from "../../../../../commun/utils/services/sets.operations.ts";
 import {

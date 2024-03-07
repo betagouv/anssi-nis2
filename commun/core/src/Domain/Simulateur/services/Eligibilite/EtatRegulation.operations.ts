@@ -32,8 +32,9 @@ import {
   fabriqueResultatEvaluationEnSuspens,
   fabriqueResultatEvaluationReguleOse,
 } from "./EtatRegulation.fabriques";
-import { propReponseEtat } from "./StructuresReponse.operations";
+import { propReponseEtat } from "./ReponseEtat.operations";
 import {
+  auMoinsUneActiviteEstDans,
   auMoinsUneActiviteListee,
   contientActivitesInfrastructureNumeriqueEligiblesPetitEntite,
   contientDesActivitesInfrastructureNumeriqueEssentielles,
@@ -41,15 +42,14 @@ import {
   estInformationSecteurImportantAvecBesoinLocalisation,
   estInformationSecteurSecteurAutre,
   estInformationSecteurSousSecteurAutre,
+  estInformationsPourSecteur,
   estInformationsSecteurEligibleSansBesoinLocalisation,
+  estSecteurAnnexe1,
+  estSecteurAvecActivitesEssentiellesBienLocalisees,
   estSecteurBienLocaliseGrand,
   estSecteurBienLocaliseHorsFrance,
-  estSecteurAvecActivitesEssentiellesBienLocalisees,
-  estInformationsPourSecteur,
-  auMoinsUneActiviteEstDans,
-  estSecteurAnnexe1,
   estSecteurBienLocaliseUE,
-} from "./StructuresReponse.predicats";
+} from "./ReponseInformationsSecteur.predicats";
 
 const propageDonneesEvaluees =
   (etape: EtapeEvaluationActive) => (reponse: EtatRegulation) => ({
