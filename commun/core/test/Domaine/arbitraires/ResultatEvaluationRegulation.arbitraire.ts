@@ -13,13 +13,15 @@ import {
   fabriqueResultatEvaluationEnSuspensSecteurPetit,
 } from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
-  arbAppartenanceUnionEuropeenne_ToujoursHorsUE,
-  arbAppartenanceUnionEuropeenne_ToujoursAutreUE,
-  arbDesignationOperateurServicesEssentielsToujoursNon,
   arbStructureGrand,
   arbStructurePetitPrive,
-  arbAppartenanceUnionEuropeenne_ToujoursFrance,
-} from "./ResultatEvaluationRegulation.bases.arbitraire";
+} from "./CapsuleStructure.arbitraire";
+import {
+  arbReponseAppartenanceUnionEuropeenne_ToujoursAutreUE,
+  arbReponseAppartenanceUnionEuropeenne_ToujoursFrance,
+  arbReponseAppartenanceUnionEuropeenne_ToujoursHorsUE,
+} from "./ReponseAppartenanceUnionEuropeenne.arbitraires";
+import { arbReponseDesignationOperateurServicesEssentiels_ToujoursNon } from "./ReponseDesignationOperateurServicesEssentiels.arbitraires";
 
 export type TupleArbitrairesDesignationOSE_AppartenanceUE = [
   fc.Arbitrary<ReponseDesignationOperateurServicesEssentiels>,
@@ -27,18 +29,18 @@ export type TupleArbitrairesDesignationOSE_AppartenanceUE = [
 ];
 export const arbTuple_JamaisOse_ToujoursHorsUE: TupleArbitrairesDesignationOSE_AppartenanceUE =
   [
-    arbDesignationOperateurServicesEssentielsToujoursNon,
-    arbAppartenanceUnionEuropeenne_ToujoursHorsUE,
+    arbReponseDesignationOperateurServicesEssentiels_ToujoursNon,
+    arbReponseAppartenanceUnionEuropeenne_ToujoursHorsUE,
   ];
 export const arbTuple_JamaisOse_ToujoursFrance: TupleArbitrairesDesignationOSE_AppartenanceUE =
   [
-    arbDesignationOperateurServicesEssentielsToujoursNon,
-    arbAppartenanceUnionEuropeenne_ToujoursFrance,
+    arbReponseDesignationOperateurServicesEssentiels_ToujoursNon,
+    arbReponseAppartenanceUnionEuropeenne_ToujoursFrance,
   ];
 export const arbTuple_JamaisOse_ToujoursAutreUE: TupleArbitrairesDesignationOSE_AppartenanceUE =
   [
-    arbDesignationOperateurServicesEssentielsToujoursNon,
-    arbAppartenanceUnionEuropeenne_ToujoursAutreUE,
+    arbReponseDesignationOperateurServicesEssentiels_ToujoursNon,
+    arbReponseAppartenanceUnionEuropeenne_ToujoursAutreUE,
   ];
 
 type FabriqueArbReponseSimulateurParams<T extends CategorieTaille> = [

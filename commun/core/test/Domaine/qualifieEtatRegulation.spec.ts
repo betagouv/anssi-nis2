@@ -21,6 +21,8 @@ import {
   afficheDifferences,
   assertionArbitraire,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
+import { arbStructurePetitPrive } from "./arbitraires/CapsuleStructure.arbitraire";
+import { arbReponseDesignationOperateurServicesEssentiels_ToujoursOui } from "./arbitraires/ReponseDesignationOperateurServicesEssentiels.arbitraires";
 import { arbReponseInformationsSecteur_LocalisesHorsUE_Petit } from "./arbitraires/ReponseInformationsSecteur.arbitraires";
 import {
   arbTuple_JamaisOse_ToujoursAutreUE,
@@ -30,10 +32,6 @@ import {
   fabriqueResultatEvaluationEnSuspensStructure,
   fabriqueResultatEvaluationInconnuOse,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
-import {
-  arbDesignationOperateurServicesEssentielsToujoursOui,
-  arbStructurePetitPrive,
-} from "./arbitraires/ResultatEvaluationRegulation.bases.arbitraire";
 
 type DonneesTest = {
   description: string;
@@ -44,7 +42,7 @@ describe("chaine de décision", () => {
   it(
     "Une entité désignée OSE est toujours qualifiée définitivement régulée",
     assertionArbitraire(
-      arbDesignationOperateurServicesEssentielsToujoursOui.map(
+      arbReponseDesignationOperateurServicesEssentiels_ToujoursOui.map(
         fabriqueResultatEvaluationInconnuOse,
       ),
       (reponse) => {

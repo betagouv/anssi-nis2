@@ -47,6 +47,10 @@ import {
   arbInformationsSecteur_LocaliseesFrance_Grande_EI,
 } from "./InformationsSecteur.arbitraires";
 import {
+  arbReponseAppartenanceUnionEuropeenne_ToujoursAutreUE,
+  arbReponseAppartenanceUnionEuropeenne_ToujoursHorsUE,
+} from "./ReponseAppartenanceUnionEuropeenne.arbitraires";
+import {
   arbReponseInformationsSecteurLocalisesFrancePetit,
   arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
   arbReponseInformationsSecteurPetit,
@@ -57,18 +61,14 @@ import {
   fabriqueArbitraireCapsuleSecteurPetit,
   fabriqueArbitraireEnsembleActivitesPourSecteur,
 } from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
-import {
-  arbAppartenanceUnionEuropeenne_ToujoursHorsUE,
-  arbAppartenanceUnionEuropeenne_ToujoursAutreUE,
-} from "./ResultatEvaluationRegulation.bases.arbitraire";
 
 describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
   describe("Capsules", () => {
     describe("appartenancePaysUnionEuropeenne", () => {
       it("toujours france et jamais france sont exclusifs", () =>
         assertion.tousExclusifs(
-          arbAppartenanceUnionEuropeenne_ToujoursAutreUE,
-          arbAppartenanceUnionEuropeenne_ToujoursHorsUE,
+          arbReponseAppartenanceUnionEuropeenne_ToujoursAutreUE,
+          arbReponseAppartenanceUnionEuropeenne_ToujoursHorsUE,
         ));
     });
     describe("InformationsSecteurPetit", () => {

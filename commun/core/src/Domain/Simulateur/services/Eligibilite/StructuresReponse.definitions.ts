@@ -48,7 +48,7 @@ export type InformationsTypeStructure<T extends TypeStructure> =
         typeEntitePublique: TypeEntitePublique;
       };
 
-export type CategorieTaille = "Petit" | "Grand";
+export type CategorieTaille = "Petit" | "Moyen" | "Grand";
 
 export type CategoriseTaille<S extends CategorieTaille> = Tag<
   S,

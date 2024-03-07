@@ -18,6 +18,15 @@ import {
 import { propReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/StructuresReponse.operations";
 import { assertionArbitraire } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import {
+  arbStructurePetitPrive,
+  arbStructurePublique,
+} from "./arbitraires/CapsuleStructure.arbitraire";
+import {
+  arbReponseDesignationOperateurServicesEssentiels_ToujoursNeSaitPas,
+  arbReponseDesignationOperateurServicesEssentiels_ToujoursNon,
+  arbReponseDesignationOperateurServicesEssentiels_ToujoursOui,
+} from "./arbitraires/ReponseDesignationOperateurServicesEssentiels.arbitraires";
+import {
   arbTuple_JamaisOse_ToujoursAutreUE,
   arbTuple_JamaisOse_ToujoursFrance,
   arbTuple_JamaisOse_ToujoursHorsUE,
@@ -27,20 +36,13 @@ import {
   fabriqueResultatEvaluationEnSuspensStructure,
   fabriqueResultatEvaluationInconnuOse,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
-import {
-  arbDesignationOperateurServicesEssentielsToujoursNeSaitPas,
-  arbDesignationOperateurServicesEssentielsToujoursNon,
-  arbDesignationOperateurServicesEssentielsToujoursOui,
-  arbStructurePetitPrive,
-  arbStructurePublique,
-} from "./arbitraires/ResultatEvaluationRegulation.bases.arbitraire";
 
 describe("Réponses partielles", () => {
   describe("DesignationOperateurServicesEssentiels", () => {
     it(
       "Une entité désignée OSE est toujours définitivement régulée",
       assertionArbitraire(
-        arbDesignationOperateurServicesEssentielsToujoursOui.map(
+        arbReponseDesignationOperateurServicesEssentiels_ToujoursOui.map(
           fabriqueResultatEvaluationInconnuOse,
         ),
         (reponse) => {
@@ -57,7 +59,7 @@ describe("Réponses partielles", () => {
     it(
       "Une entité non désignée OSE donne toujours incertain en suspens",
       assertionArbitraire(
-        arbDesignationOperateurServicesEssentielsToujoursNon.map(
+        arbReponseDesignationOperateurServicesEssentiels_ToujoursNon.map(
           fabriqueResultatEvaluationInconnuOse,
         ),
         (reponse) => {
@@ -77,7 +79,7 @@ describe("Réponses partielles", () => {
     it(
       "Une entité non désignée OSE donne toujours incertain en suspens",
       assertionArbitraire(
-        arbDesignationOperateurServicesEssentielsToujoursNeSaitPas.map(
+        arbReponseDesignationOperateurServicesEssentiels_ToujoursNeSaitPas.map(
           fabriqueResultatEvaluationInconnuOse,
         ),
         (reponse) => {
