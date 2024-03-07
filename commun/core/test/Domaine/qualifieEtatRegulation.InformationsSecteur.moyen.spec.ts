@@ -1,8 +1,8 @@
 import { describe, it } from "vitest";
 import {
   fabriqueArbInformationsSecteurAutre,
-  fabriqueArbitraireCapsuleSecteurGrand,
   fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe,
+  fabriqueArbitraireCapsuleSecteurMoyen,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
   assertionArbitraire,
@@ -24,7 +24,10 @@ import {
   arbReponseInformationsSecteurFranceGrandInfranumEI,
   arbReponseInformationsSecteurGrandActivitesAutres,
 } from "./arbitraires/ReponseInformationsSecteur.arbitraires";
-import { fabriqueArbJamaisOse_ToujoursFrance_StructureGrand } from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
+import {
+  fabriqueArbJamaisOse_ToujoursFrance_StructureGrand,
+  fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen,
+} from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
 
 describe("Secteur", () => {
   describe("Moyens", () => {
@@ -93,17 +96,17 @@ describe("Secteur", () => {
       it(
         "en suspens / secteur et sous-secteur en annexe 1 ==> toujours définitivement régulé EE",
         assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            fabriqueArbitraireCapsuleSecteurGrand(arbEnsembleSecteursAnnexe1),
+          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+            fabriqueArbitraireCapsuleSecteurMoyen(arbEnsembleSecteursAnnexe1),
           ),
-          verificationReponseDefinitivementReguleEE,
+          verificationReponseDefinitivementReguleEI,
         ),
       );
       it(
         "en suspens / secteur et sous-secteur en annexe 2 ==> toujours définitivement régulé EI",
         assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            fabriqueArbitraireCapsuleSecteurGrand(arbEnsembleSecteursAnnexe2),
+          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+            fabriqueArbitraireCapsuleSecteurMoyen(arbEnsembleSecteursAnnexe2),
           ),
           verificationReponseDefinitivementReguleEI,
         ),

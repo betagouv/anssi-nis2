@@ -37,9 +37,12 @@ export type ReponseEtatInformationsSecteurGrand = Tag<"InformationsSecteur"> &
     Structure: ReponseStructure<TypeStructure, "Grand">;
     InformationsSecteur: ReponseInformationsSecteur<"Grand">;
   };
-export type ReponseEtatInformationsSecteur = Tag<"InformationsSecteur"> &
+
+export type ReponseEtatInformationsSecteur<
+  T extends CategorieTaille = CategorieTaille,
+> = Tag<"InformationsSecteur"> &
   RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> &
-  CapsuleInformationsSecteur<CategorieTaille>;
+  CapsuleInformationsSecteur<T>;
 
 export type UnionReponseEtatNonVide =
   | ReponseEtatDesignationOperateurServicesEssentiels

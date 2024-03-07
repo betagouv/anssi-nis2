@@ -137,6 +137,140 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
     )
     .otherwise(propageResultatIncertainEnSuspens("InformationsSecteur"));
 
+export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
+  reponse: EtatEvaluationEnSuspens,
+): EtatRegulation =>
+  match(reponse)
+    .with(
+      {
+        InformationsSecteur: {
+          secteurs: P.when(
+            certains(
+              et(
+                estInformationsPourSecteur("infrastructureNumerique"),
+                contientDesActivitesInfrastructureNumeriqueEssentielles,
+                estSecteurBienLocaliseGrand,
+              ),
+            ),
+          ),
+        },
+      },
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          "EntiteEssentielle",
+        ),
+    )
+    .with(
+      {
+        InformationsSecteur: {
+          secteurs: P.when(
+            certains(
+              et(
+                estInformationsPourSecteur("infrastructureNumerique"),
+                contientDesActivitesInfrastructureNumeriqueEssentielles,
+                estSecteurBienLocaliseUE,
+              ),
+            ),
+          ),
+        },
+      },
+      () =>
+        fabriqueResultatEvaluationDefinitif(
+          "InformationsSecteur",
+          resultatIncertainAutrePaysUE,
+        ),
+    )
+    .with(
+      {
+        InformationsSecteur: {
+          secteurs: P.when(
+            certains(
+              et(
+                estInformationsPourSecteur("infrastructureNumerique"),
+                auMoinsUneActiviteEstDans(
+                  ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation,
+                ),
+              ),
+            ),
+          ),
+        },
+      },
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          "EntiteImportante",
+        ),
+    )
+    .with(
+      {
+        InformationsSecteur: {
+          secteurs: P.when(
+            certains(
+              et(
+                estInformationSecteurImportantAvecBesoinLocalisation,
+                estSecteurBienLocaliseGrand,
+              ),
+            ),
+          ),
+        },
+      },
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          "EntiteImportante",
+        ),
+    )
+    .with(
+      {
+        InformationsSecteur: {
+          secteurs: P.when(
+            certains(
+              et(
+                estInformationSecteurImportantAvecBesoinLocalisation,
+                estSecteurBienLocaliseUE,
+              ),
+            ),
+          ),
+        },
+      },
+      () =>
+        fabriqueResultatEvaluationDefinitif(
+          "InformationsSecteur",
+          resultatIncertainAutrePaysUE,
+        ),
+    )
+    .with(
+      {
+        InformationsSecteur: {
+          secteurs: P.when(
+            certains(
+              et(
+                estInformationsSecteurEligibleSansBesoinLocalisation,
+                non(estInformationSecteurSousSecteurAutre),
+                auMoinsUneActiviteListee,
+              ),
+            ),
+          ),
+        },
+      },
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          "EntiteImportante",
+        ),
+    )
+    .with(
+      {
+        _resultatEvaluationRegulation: "EnSuspens",
+      },
+      () =>
+        fabriqueResultatEvaluationDefinitif(
+          "InformationsSecteur",
+          resultatNonRegule,
+        ),
+    )
+    .otherwise(propageResultatIncertainEnSuspens("InformationsSecteur"));
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
   reponse: EtatEvaluationEnSuspens,
 ): EtatRegulation =>
@@ -300,12 +434,13 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
     .with("Petit", () =>
       evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit(reponse),
     )
+    .with("Moyen", () =>
+      evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen(reponse),
+    )
     .with("Grand", () =>
       evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand(reponse),
     )
-    .otherwise(() =>
-      propageResultatIncertainEnSuspens("InformationsSecteur")(reponse),
-    );
+    .exhaustive();
 
 export const evalueRegulationEtatReponseInformationsSecteur = (
   reponse: EtatRegulation,

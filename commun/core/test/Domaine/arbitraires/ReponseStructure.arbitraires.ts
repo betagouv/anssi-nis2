@@ -91,4 +91,3 @@ export const arbStructurePublique = fc.oneof(
   arbStructurePublique_ToujoursMoyen,
   arbStructurePublique_ToujoursGrand,
 );
-export const arbStructureGrand = arbReponseStructure_ToujoursGrand;

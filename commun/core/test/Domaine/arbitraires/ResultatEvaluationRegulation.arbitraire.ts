@@ -9,19 +9,20 @@ import {
   ReponseStructure,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseStructure.definitions";
 import {
-  fabriqueResultatEvaluationEnSuspensSecteurGrand,
+  fabriqueResultatEvaluationEnSuspensSecteur,
   fabriqueResultatEvaluationEnSuspensSecteurPetit,
 } from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
-import {
-  arbStructureGrand,
-  arbStructurePetitPrive,
-} from "./ReponseStructure.arbitraires";
 import {
   arbReponseAppartenanceUnionEuropeenne_ToujoursAutreUE,
   arbReponseAppartenanceUnionEuropeenne_ToujoursFrance,
   arbReponseAppartenanceUnionEuropeenne_ToujoursHorsUE,
 } from "./ReponseAppartenanceUnionEuropeenne.arbitraires";
 import { arbReponseDesignationOperateurServicesEssentiels_ToujoursNon } from "./ReponseDesignationOperateurServicesEssentiels.arbitraires";
+import {
+  arbReponseStructure_ToujoursGrand,
+  arbReponseStructure_ToujoursMoyen,
+  arbStructurePetitPrive,
+} from "./ReponseStructure.arbitraires";
 
 export type TupleArbitrairesDesignationOSE_AppartenanceUE = [
   fc.Arbitrary<ReponseDesignationOperateurServicesEssentiels>,
@@ -71,9 +72,9 @@ export const fabriqueArbJamaisOse_ToujoursFrance_Petit =
   );
 export const fabriqueArbJamaisOse_ToujoursFrance_StructurePetit =
   fabriqueArbJamaisOse_ToujoursFrance_Petit(arbStructurePetitPrive);
-export const fabriqueArbJamaisOse_ToujoursFrance_Grand =
-  mapTupleArbitrairesToujoursFrance(
-    fabriqueResultatEvaluationEnSuspensSecteurGrand,
-  );
+export const fabriqueArbJamaisOse_ToujoursFrance =
+  mapTupleArbitrairesToujoursFrance(fabriqueResultatEvaluationEnSuspensSecteur);
+export const fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen =
+  fabriqueArbJamaisOse_ToujoursFrance(arbReponseStructure_ToujoursMoyen);
 export const fabriqueArbJamaisOse_ToujoursFrance_StructureGrand =
-  fabriqueArbJamaisOse_ToujoursFrance_Grand(arbStructureGrand);
+  fabriqueArbJamaisOse_ToujoursFrance(arbReponseStructure_ToujoursGrand);

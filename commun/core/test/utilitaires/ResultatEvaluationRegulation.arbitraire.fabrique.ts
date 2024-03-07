@@ -22,6 +22,7 @@ import {
   estActiviteListee,
 } from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { fabriqueContenuCapsuleInformationSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/CapsuleReponse.fabriques";
+import { UnionReponseEtatNonVide } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.definitions";
 import { FabriqueEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.fabriques";
 import {
   fabriqueResultatEvaluationEnSuspens,
@@ -126,6 +127,8 @@ export const fabriqueArbitraireCapsuleSecteur =
     );
 export const fabriqueArbitraireCapsuleSecteurPetit =
   fabriqueArbitraireCapsuleSecteur("Petit");
+export const fabriqueArbitraireCapsuleSecteurMoyen =
+  fabriqueArbitraireCapsuleSecteur("Moyen");
 export const fabriqueArbitraireCapsuleSecteurGrand =
   fabriqueArbitraireCapsuleSecteur("Grand");
 
@@ -336,7 +339,10 @@ export const fabriqueResultatEvaluationEnSuspensSecteurPetit = ([
       informationsSecteur,
     ),
   );
-export const fabriqueResultatEvaluationEnSuspensSecteurGrand = ([
+export const fabriqueResultatEvaluationEnSuspensSecteur = <
+  S extends TypeStructure,
+  T extends CategorieTaille,
+>([
   designationOperateurServicesEssentiel,
   appartenancePaysUnionEuropeenne,
   structure,
@@ -344,18 +350,18 @@ export const fabriqueResultatEvaluationEnSuspensSecteurGrand = ([
 ]: [
   ReponseDesignationOperateurServicesEssentiels,
   ReponseAppartenancePaysUnionEuropeenne,
-  ReponseStructure<TypeStructure, "Grand">,
-  ReponseInformationsSecteur<"Grand">,
+  ReponseStructure<S, T>,
+  ReponseInformationsSecteur<T>,
 ]) =>
   fabriqueResultatEvaluationEnSuspens(
     "Structure",
     resultatIncertain,
-    FabriqueEtatDonneesSimulateur.informationsSecteurGrandChaine(
+    FabriqueEtatDonneesSimulateur.informationsSecteurChaine<S, T>(
       designationOperateurServicesEssentiel,
       appartenancePaysUnionEuropeenne,
       structure,
       informationsSecteur,
-    ),
+    ) as UnionReponseEtatNonVide,
   );
 export const fabriqueArbInformationsSecteurAutre = <T extends CategorieTaille>(
   taille: T,

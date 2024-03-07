@@ -121,6 +121,23 @@ export const FabriqueEtatDonneesSimulateur = {
     _tag: "InformationsSecteur",
     InformationsSecteur: informationsSecteur,
   }),
+  informationsSecteurChaine: <
+    S extends TypeStructure = TypeStructure,
+    T extends CategorieTaille = CategorieTaille,
+  >(
+    designationOperateurServicesEssentiel: ReponseDesignationOperateurServicesEssentiels,
+    appartenancePaysUnionEuropeenne: ReponseAppartenancePaysUnionEuropeenne,
+    structure: ReponseStructure<S, T>,
+    informationsSecteur: ReponseInformationsSecteur<T>,
+  ): ReponseEtatInformationsSecteur<T> => ({
+    ...FabriqueEtatDonneesSimulateur.structureChaineGen<S, T>(
+      designationOperateurServicesEssentiel,
+      appartenancePaysUnionEuropeenne,
+      structure,
+    ),
+    _tag: "InformationsSecteur",
+    InformationsSecteur: informationsSecteur,
+  }),
 };
 
 export const ConvertisseurDonneesBrutesVersEtatDonneesSimulateur = {
