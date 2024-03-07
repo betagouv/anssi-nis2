@@ -3,7 +3,6 @@ import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
   TypeEntitePublique,
-  UnionPetitMoyenGrand,
 } from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
 import {
   ValeursPetitMoyenGrand,
@@ -30,8 +29,6 @@ export const arbTranchePetitMoyenGrand_ToutesValeurs = fc.constantFrom(
 export const arbTranchePetitMoyenGrand_PetitMoyen = fc.constantFrom<
   "petit" | "moyen"
 >("petit", "moyen");
-export const arbTranchePetitMoyenGrand_MoyenGrand =
-  fc.constantFrom<UnionPetitMoyenGrand>("moyen", "grand");
 
 export const arbTranchePetitMoyenGrand_ToujoursMoyen =
   fc.constant<"moyen">("moyen");

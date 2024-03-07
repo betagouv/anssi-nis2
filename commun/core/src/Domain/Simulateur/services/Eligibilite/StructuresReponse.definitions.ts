@@ -89,12 +89,17 @@ export type TailleSecteurPrive<T extends CategorieTaille> =
 type TrancheTaillePublicPetit = {
   trancheNombreEmployes: Extract<TrancheChiffreAffaire, "petit">;
 };
+type TrancheTaillePublicMoyen = {
+  trancheNombreEmployes: Extract<TrancheChiffreAffaire, "moyen">;
+};
 type TrancheTaillePublicGrand = {
-  trancheNombreEmployes: Omit<TrancheNombreEmployes, "petit">;
+  trancheNombreEmployes: Extract<TrancheChiffreAffaire, "grand">;
 };
 export type TranchesTaillePublic<T extends CategorieTaille> = T extends "Petit"
   ? TrancheTaillePublicPetit
-  : TrancheTaillePublicGrand;
+  : T extends "Moyen"
+    ? TrancheTaillePublicMoyen
+    : TrancheTaillePublicGrand;
 
 export type TailleSecteur<
   S extends TypeStructure,
