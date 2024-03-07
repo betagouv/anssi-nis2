@@ -236,7 +236,7 @@ export const ConvertisseurDonneesBrutesVersEtatDonneesSimulateur = {
     _tag: "InformationsSecteur",
     Structure: FabriqueInformationsStructure.structureMoyenne(donnees),
     InformationsSecteur:
-      FabriqueInformationsSecteur.informationsSecteursGrand(donnees),
+      FabriqueInformationsSecteur.informationsSecteursMoyen(donnees),
   }),
 
   informationsSecteursGrand: (

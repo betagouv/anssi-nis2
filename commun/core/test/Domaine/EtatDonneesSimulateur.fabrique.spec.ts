@@ -148,7 +148,7 @@ describe("fabrique ReponseEtat", () => {
             trancheNombreEmployes: "moyen",
           },
           InformationsSecteur: {
-            _categorieTaille: "Grand",
+            _categorieTaille: "Moyen",
             secteurs: ens({
               secteurActivite: "autreSecteurActivite",
             }),
@@ -185,7 +185,7 @@ describe("fabrique ReponseEtat", () => {
             trancheNombreEmployes: "moyen",
           },
           InformationsSecteur: {
-            _categorieTaille: "Grand",
+            _categorieTaille: "Moyen",
             secteurs: ens({
               secteurActivite: "eauPotable",
               activites: ens("fournisseursDistributeursEauxConsommation"),
@@ -266,7 +266,7 @@ describe("fabrique ReponseEtat", () => {
             trancheNombreEmployes: "moyen",
           },
           InformationsSecteur: {
-            _categorieTaille: "Grand",
+            _categorieTaille: "Moyen",
             secteurs: ens(
               {
                 secteurActivite: "eauPotable",
@@ -317,7 +317,7 @@ describe("fabrique ReponseEtat", () => {
             trancheNombreEmployes: "moyen",
           },
           InformationsSecteur: {
-            _categorieTaille: "Grand",
+            _categorieTaille: "Moyen",
             secteurs: ens(
               {
                 secteurActivite: "eauPotable",
