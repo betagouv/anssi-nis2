@@ -1,7 +1,7 @@
 import { estRegule } from "../../../../commun/core/src/Domain/Simulateur/Regulation.predicats.ts";
+import { evalueEtatRegulation } from "../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EvalueEtatRegulation.ts";
 import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/ReponseEtat.fabriques.ts";
 import { EtatRegulation } from "../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions.ts";
-import { evalueEtatRegulation } from "../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations.ts";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
 import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 import { EnSavoirPlus } from "./Resultats/EnSavoirPlus.tsx";

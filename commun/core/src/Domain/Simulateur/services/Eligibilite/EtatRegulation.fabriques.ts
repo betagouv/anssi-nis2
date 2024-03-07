@@ -1,6 +1,12 @@
-import { resultatReguleOSE } from "../../fabriques/ResultatRegulation.fabrique";
+import {
+  fabriqueRegule,
+  resultatReguleOSE,
+} from "../../fabriques/ResultatRegulation.fabrique";
 import { resultatIncertain } from "../../Regulation.constantes";
-import { ResultatRegulationEntite } from "../../Regulation.definitions";
+import {
+  ResultatRegulationEntite,
+  TypeEntite,
+} from "../../Regulation.definitions";
 import {
   EtapeEvaluation,
   EtapeEvaluationActive,
@@ -11,6 +17,7 @@ import {
   EtatRegulationInconnu,
 } from "./EtatRegulation.definitions";
 import { UnionReponseEtatNonVide } from "./ReponseEtat.definitions";
+import { propReponseEtat } from "./ReponseEtat.operations";
 
 export const fabriqueResultatEvaluationInconnu = (
   reponse: UnionReponseEtatNonVide,
@@ -44,10 +51,12 @@ export const fabriqueResultatEvaluationReguleOse =
       "DesignationOperateurServicesEssentiels",
       resultatReguleOSE,
     );
-export const fabriqueResultatEnSuspensOse =
-  (reponse: EtatRegulation) => (): EtatEvaluationEnSuspens =>
+
+export const propageResultatIncertainEnSuspens =
+  (etapeEvaluee: EtapeEvaluationActive) =>
+  (reponse: EtatRegulation): EtatEvaluationEnSuspens =>
     fabriqueResultatEvaluationEnSuspens(
-      "DesignationOperateurServicesEssentiels",
+      etapeEvaluee,
       resultatIncertain,
       reponse as EtatRegulationAvecReponses,
     );
@@ -59,3 +68,22 @@ export const fabriqueResultatEvaluationRegulationDefinitif = (
   etapeEvaluee,
   ...resultatRegulation,
 });
+export const propageDonneesEvaluees =
+  (etape: EtapeEvaluationActive) => (reponse: EtatRegulation) => ({
+    ...reponse,
+    etapeEvaluee: etape,
+  });
+export const fabriqueResultatEvaluationDefinitifCarSecteur = (
+  reponse: EtatEvaluationEnSuspens,
+  typeEntite: TypeEntite,
+) =>
+  fabriqueResultatEvaluationDefinitif(
+    "InformationsSecteur",
+    fabriqueRegule(
+      {
+        ...propReponseEtat(reponse)("Structure"),
+        ...propReponseEtat(reponse)("InformationsSecteur"),
+      },
+      typeEntite,
+    ),
+  );

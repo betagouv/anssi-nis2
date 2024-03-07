@@ -1,4 +1,3 @@
-import { flow } from "fp-ts/lib/function";
 import { match, P } from "ts-pattern";
 import {
   et,
@@ -11,28 +10,21 @@ import {
 } from "../../../../../../utils/services/sets.operations";
 import { ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation } from "../../Activite.valeurs";
 import {
-  fabriqueIncertain,
-  fabriqueRegule,
-} from "../../fabriques/ResultatRegulation.fabrique";
-import {
-  resultatIncertain,
   resultatIncertainAutrePaysUE,
   resultatNonRegule,
 } from "../../Regulation.constantes";
-import { TypeEntite } from "../../Regulation.definitions";
+import { resultatEstDefinitif } from "./EtatRegulation.constantes";
 import {
-  EtatRegulation,
-  EtatRegulationDefinitif,
   EtatEvaluationEnSuspens,
-  EtapeEvaluationActive,
+  EtatRegulation,
 } from "./EtatRegulation.definitions";
 import {
-  fabriqueResultatEnSuspensOse,
   fabriqueResultatEvaluationDefinitif,
-  fabriqueResultatEvaluationEnSuspens,
-  fabriqueResultatEvaluationReguleOse,
+  fabriqueResultatEvaluationDefinitifCarSecteur,
+  propageDonneesEvaluees,
+  propageResultatIncertainEnSuspens,
 } from "./EtatRegulation.fabriques";
-import { propReponseEtat } from "./ReponseEtat.operations";
+import { ReponseEtatStructure } from "./ReponseEtat.definitions";
 import {
   auMoinsUneActiviteEstDans,
   auMoinsUneActiviteListee,
@@ -50,134 +42,6 @@ import {
   estSecteurBienLocaliseHorsFrance,
   estSecteurBienLocaliseUE,
 } from "./ReponseInformationsSecteur.predicats";
-
-const propageDonneesEvaluees =
-  (etape: EtapeEvaluationActive) => (reponse: EtatRegulation) => ({
-    ...reponse,
-    etapeEvaluee: etape,
-  });
-export const evalueRegulationEtatReponseOse = (
-  reponse: EtatRegulation,
-): EtatRegulation =>
-  match(reponse)
-    .with(
-      {
-        _resultatEvaluationRegulation: "Definitif",
-      },
-      propageDonneesEvaluees("DesignationOperateurServicesEssentiels"),
-    )
-    .with(
-      {
-        DesignationOperateurServicesEssentiels: {
-          designationOperateurServicesEssentiels: "oui",
-        },
-      },
-      fabriqueResultatEvaluationReguleOse,
-    )
-    .with(
-      {
-        DesignationOperateurServicesEssentiels: {
-          designationOperateurServicesEssentiels: "non",
-        },
-      },
-      fabriqueResultatEnSuspensOse(reponse),
-    )
-    .with(
-      {
-        DesignationOperateurServicesEssentiels: {
-          designationOperateurServicesEssentiels: "nsp",
-        },
-      },
-      () =>
-        fabriqueResultatEvaluationDefinitif(
-          "DesignationOperateurServicesEssentiels",
-          resultatIncertain,
-        ),
-    )
-    .otherwise(fabriqueResultatEnSuspensOse(reponse));
-export const evalueRegulationEtatReponseLocalisation = (
-  reponse: EtatRegulation,
-): EtatRegulation =>
-  match(reponse)
-    .with(
-      {
-        _resultatEvaluationRegulation: "Definitif",
-      },
-      propageDonneesEvaluees("AppartenancePaysUnionEuropeenne"),
-    )
-    .with(
-      {
-        AppartenancePaysUnionEuropeenne: {
-          appartenancePaysUnionEuropeenne: "autre",
-        },
-      },
-      () =>
-        fabriqueResultatEvaluationDefinitif(
-          "AppartenancePaysUnionEuropeenne",
-          fabriqueIncertain({ _tag: "DefiniDansUnAutreEtatMembre" }),
-        ),
-    )
-    .with(
-      {
-        AppartenancePaysUnionEuropeenne: {
-          appartenancePaysUnionEuropeenne: "horsue",
-        },
-      },
-      () =>
-        fabriqueResultatEvaluationDefinitif(
-          "AppartenancePaysUnionEuropeenne",
-          fabriqueIncertain({
-            _tag: "ConstructionTestEnCours",
-            typeConstructionEnCours: "HorsUnionEuropeenne",
-          }),
-        ),
-    )
-    .otherwise(() =>
-      fabriqueResultatEvaluationEnSuspens(
-        "AppartenancePaysUnionEuropeenne",
-        resultatIncertain,
-        reponse as EtatEvaluationEnSuspens,
-      ),
-    );
-export const evalueRegulationEtatReponseStructure = (
-  reponse: EtatRegulation,
-): EtatRegulation =>
-  match(reponse)
-    .with(
-      {
-        _resultatEvaluationRegulation: "Definitif",
-      },
-      propageDonneesEvaluees("Structure"),
-    )
-    .with(
-      {
-        _resultatEvaluationRegulation: "EnSuspens",
-        Structure: { typeStructure: "publique" },
-      },
-      () => fabriqueResultatEvaluationDefinitif("Structure", resultatIncertain),
-    )
-    .otherwise(() =>
-      fabriqueResultatEvaluationEnSuspens(
-        "Structure",
-        resultatIncertain,
-        reponse as EtatEvaluationEnSuspens,
-      ),
-    );
-
-const fabriqueResultatEvaluationDefinitifCarSecteur = (
-  reponse: EtatEvaluationEnSuspens,
-  typeEntite: TypeEntite,
-) =>
-  fabriqueResultatEvaluationDefinitif(
-    "InformationsSecteur",
-    fabriqueRegule(
-      {
-        ...propReponseEtat(reponse)("Structure"),
-        ...propReponseEtat(reponse)("InformationsSecteur"),
-      },
-      typeEntite,
-    ),
-  );
 
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
   reponse: EtatEvaluationEnSuspens,
@@ -271,13 +135,8 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
           resultatNonRegule,
         ),
     )
-    .otherwise(() =>
-      fabriqueResultatEvaluationEnSuspens(
-        "InformationsSecteur",
-        resultatIncertain,
-        reponse,
-      ),
-    );
+    .otherwise(propageResultatIncertainEnSuspens("InformationsSecteur"));
+
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
   reponse: EtatEvaluationEnSuspens,
 ): EtatRegulation =>
@@ -432,61 +291,27 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
           resultatNonRegule,
         ),
     )
-    .otherwise(() =>
-      fabriqueResultatEvaluationEnSuspens(
-        "InformationsSecteur",
-        resultatIncertain,
-        reponse,
-      ),
-    );
+    .otherwise(propageResultatIncertainEnSuspens("InformationsSecteur"));
+
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
-  reponse: EtatEvaluationEnSuspens,
+  reponse: EtatEvaluationEnSuspens & ReponseEtatStructure,
 ): EtatRegulation =>
-  match(reponse)
-    .with(
-      {
-        Structure: {
-          _categorieTaille: "Petit",
-        },
-      },
-      evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit,
+  match(reponse.Structure._categorieTaille)
+    .with("Petit", () =>
+      evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit(reponse),
     )
-    .with(
-      {
-        Structure: {
-          _categorieTaille: "Grand",
-        },
-      },
-      evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand,
-    )
-    .with(
-      {
-        _resultatEvaluationRegulation: "EnSuspens",
-      },
-      () =>
-        fabriqueResultatEvaluationDefinitif(
-          "InformationsSecteur",
-          resultatNonRegule,
-        ),
+    .with("Grand", () =>
+      evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand(reponse),
     )
     .otherwise(() =>
-      fabriqueResultatEvaluationEnSuspens(
-        "InformationsSecteur",
-        resultatIncertain,
-        reponse,
-      ),
+      propageResultatIncertainEnSuspens("InformationsSecteur")(reponse),
     );
 
 export const evalueRegulationEtatReponseInformationsSecteur = (
   reponse: EtatRegulation,
 ): EtatRegulation =>
   match(reponse)
-    .with(
-      {
-        _resultatEvaluationRegulation: "Definitif",
-      },
-      propageDonneesEvaluees("InformationsSecteur"),
-    )
+    .with(resultatEstDefinitif, propageDonneesEvaluees("InformationsSecteur"))
     .with(
       {
         InformationsSecteur: {
@@ -508,24 +333,12 @@ export const evalueRegulationEtatReponseInformationsSecteur = (
     )
     .with(
       {
-        _tag: "InformationsSecteur",
         decision: "Incertain",
         _resultatEvaluationRegulation: "EnSuspens",
       },
-      evalueRegulationEtatReponseInformationsSecteurEnSuspens,
+      (reponse) =>
+        evalueRegulationEtatReponseInformationsSecteurEnSuspens(
+          reponse as EtatEvaluationEnSuspens & ReponseEtatStructure,
+        ),
     )
-    .otherwise(() =>
-      fabriqueResultatEvaluationDefinitif(
-        "InformationsSecteur",
-        resultatIncertain,
-      ),
-    );
-
-export const evalueEtatRegulation: (
-  reponse: EtatRegulation,
-) => EtatRegulationDefinitif = flow(
-  evalueRegulationEtatReponseOse,
-  evalueRegulationEtatReponseLocalisation,
-  evalueRegulationEtatReponseStructure,
-  evalueRegulationEtatReponseInformationsSecteur,
-) as (reponse: EtatRegulation) => EtatRegulationDefinitif;
+    .otherwise(propageResultatIncertainEnSuspens("InformationsSecteur"));

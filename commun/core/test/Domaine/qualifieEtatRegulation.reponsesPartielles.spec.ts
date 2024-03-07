@@ -10,11 +10,9 @@ import {
   EtatRegulation,
   EtatRegulationDefinitif,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
-import {
-  evalueRegulationEtatReponseLocalisation,
-  evalueRegulationEtatReponseOse,
-  evalueRegulationEtatReponseStructure,
-} from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
+import { evalueRegulationEtatReponseLocalisation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.localisation.operations";
+import { evalueRegulationEtatReponseStructure } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.localisation.structure";
+import { evalueRegulationEtatReponseOse } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.ose.operations";
 import { propReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.operations";
 import { assertionArbitraire } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import {

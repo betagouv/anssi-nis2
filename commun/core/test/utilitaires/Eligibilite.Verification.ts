@@ -4,12 +4,12 @@ import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/Donnees
 import { Eligibilite } from "../../src/Domain/Simulateur/Eligibilite.constantes";
 import { ResultatEligibilite } from "../../src/Domain/Simulateur/Eligibilite.definitions";
 import { calculeEligibilite } from "../../src/Domain/Simulateur/services/Eligibilite/Eligibilite.operations";
+import { evalueEtatRegulation } from "../../src/Domain/Simulateur/services/Eligibilite/EvalueEtatRegulation";
 import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.fabriques";
 import {
   EtatRegulation,
   EtatRegulationDefinitif,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
-import { evalueEtatRegulation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
 import { transformeEligibiliteEnRegulationEntite } from "../../src/Domain/Simulateur/services/Regulation/Regulation.operations";
 import {
   journalise,

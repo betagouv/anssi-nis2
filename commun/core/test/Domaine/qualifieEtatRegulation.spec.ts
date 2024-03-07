@@ -11,12 +11,12 @@ import {
   RegulationEntite,
   TypeEntite,
 } from "../../src/Domain/Simulateur/Regulation.definitions";
+import { evalueEtatRegulation } from "../../src/Domain/Simulateur/services/Eligibilite/EvalueEtatRegulation";
 import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.fabriques";
 import {
   EtatRegulation,
   EtatRegulationDefinitif,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
-import { evalueEtatRegulation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
 import {
   afficheDifferences,
   assertionArbitraire,

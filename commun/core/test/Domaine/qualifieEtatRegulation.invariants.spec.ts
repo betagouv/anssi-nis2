@@ -7,12 +7,10 @@ import {
   OperationEvalueEtat,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import { fabriqueResultatEvaluationRegulationDefinitif } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.fabriques";
-import {
-  evalueRegulationEtatReponseInformationsSecteur,
-  evalueRegulationEtatReponseLocalisation,
-  evalueRegulationEtatReponseOse,
-  evalueRegulationEtatReponseStructure,
-} from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
+import { evalueRegulationEtatReponseLocalisation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.localisation.operations";
+import { evalueRegulationEtatReponseStructure } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.localisation.structure";
+import { evalueRegulationEtatReponseInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
+import { evalueRegulationEtatReponseOse } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.ose.operations";
 import { estResultatRegulationPositif } from "../../src/Domain/Simulateur/services/Regulation/Regulation.predicats";
 import { arbitrairesResultatRegulation } from "./arbitraires/ResultatRegulation.arbitraires";
 
