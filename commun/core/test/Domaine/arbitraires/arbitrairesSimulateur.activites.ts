@@ -11,7 +11,7 @@ import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSe
 import {
   arbappartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
-} from "./arbitraireChampFormulaire";
+} from "./ValeursChampsSimulateur.arbitraire";
 
 export const arbActivitesAutres = etend<DonneesSectorielles>(
   arbSecteursSousSecteursListes,

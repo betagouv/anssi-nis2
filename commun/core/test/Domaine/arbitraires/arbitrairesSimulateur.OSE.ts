@@ -1,23 +1,23 @@
 import { ValeursappartenancePaysUnionEuropeenne } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
+import { DonneesFormulaireSimulateur } from "../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
 import {
   ajouteArbitraireActivites,
   ajouteChampsFacultatifs,
   etend,
-  partitionneLocalisationServices,
   nommeArbitraire,
+  partitionneLocalisationServices,
 } from "../../utilitaires/manipulationArbitraires";
 import {
   fabriqueArbContraintSurtrancheChiffreAffaire,
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
 } from "../../utilitaires/manipulationArbitraires.fabriques";
+import { arbitraireSecteursSousSecteurs } from "./arbitrairesSimulateur.valeursSectorielles";
 import {
   arbDesigneOperateurServicesEssentiels,
   arbTranche,
   arbTypeStructure,
-} from "./arbitraireChampFormulaire";
-import { ArbitraireFormulaire } from "./arbitraireFormulaire.definitions";
-import { arbitraireSecteursSousSecteurs } from "./arbitrairesSimulateur.valeursSectorielles";
+} from "./ValeursChampsSimulateur.arbitraire";
 
 export const arbOSEPetit = etend(arbitraireSecteursSousSecteurs)
   .avec({
@@ -47,7 +47,7 @@ export const arbOSEMoyenGrand = etend(arbitraireSecteursSousSecteurs)
   .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
   .chain(ajouteArbitraireActivites)
   .filter((d) => d.activites.length > 0)
-  .chain(ajouteChampsFacultatifs) as ArbitraireFormulaire;
+  .chain(ajouteChampsFacultatifs) as fc.Arbitrary<DonneesFormulaireSimulateur>;
 
 export const arbDesigneOSE = {
   petit: partitionneLocalisationServices(

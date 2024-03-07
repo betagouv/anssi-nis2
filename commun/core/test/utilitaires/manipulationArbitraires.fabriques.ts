@@ -6,7 +6,6 @@ import {
   extraitSousSecteursDesCouples,
 } from "../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.operations";
 import { EnrSecteurSousSecteur } from "../../src/Domain/Simulateur/SousSecteurActivite.definitions";
-import { ArbitraireOptions } from "../Domaine/arbitraires/arbitraireOptions";
 import {
   contrainteTranchesSansDoublonSurValeur,
   propageBase,
@@ -68,7 +67,7 @@ const fabriqueArbSecteurSousSecteursTailleMini = (
     );
 export const fabriqueArbEnrSecteurSousSecteurs = (
   listeSecteursSousSecteurs: EnrSecteurSousSecteur[],
-  { minLength }: ArbitraireOptions = { minLength: 0 },
+  { minLength } = { minLength: 0 },
 ): fc.Arbitrary<DonneesSectorielles> => {
   if (listeSecteursSousSecteurs.length === 0) {
     return arbSecteursEtSousSecteursVides;

@@ -1,4 +1,5 @@
 import { fc } from "@fast-check/vitest";
+import { DonneesFormulaireSimulateur } from "../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
 import { ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement } from "../../../src/Domain/Simulateur/Eligibilite.constantes";
 import { exerceUniquementActivitesDansListe } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { non } from "../../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
@@ -18,20 +19,19 @@ import {
   fabriqueArbContraintSurtrancheChiffreAffaire,
   fabriqueArbTrancheSingleton,
 } from "../../utilitaires/manipulationArbitraires.fabriques";
-import {
-  arbappartenancePaysUnionEuropeenne,
-  arbDesigneOperateurServicesEssentiels,
-  arbFournitServiceUnionEuropeenne,
-  arbLocalisationRepresentant,
-  arbTypeStructure,
-} from "./arbitraireChampFormulaire";
-import { ArbitraireFormulaire } from "./arbitraireFormulaire.definitions";
 import { arbNonOSEPrivesPetitFournisseurInfraNum } from "./arbitrairesSimulateur.infrastructuresNumeriques";
 import {
   arbEnrAutresSecteursSousSecteurs,
   arbSecteursEtSousSecteursListes,
   arbSecteursSousSecteursListes,
 } from "./arbitrairesSimulateur.valeursSectorielles";
+import {
+  arbappartenancePaysUnionEuropeenne,
+  arbDesigneOperateurServicesEssentiels,
+  arbFournitServiceUnionEuropeenne,
+  arbLocalisationRepresentant,
+  arbTypeStructure,
+} from "./ValeursChampsSimulateur.arbitraire";
 
 export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance =
   partitionneLocalisationServices(
@@ -51,7 +51,6 @@ export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFranc
   );
 
 const arbNonOSEPrivesMoyenneGrande = etend(arbSecteursEtSousSecteursListes)
-
   .avec({
     designationOperateurServicesEssentiels:
       arbDesigneOperateurServicesEssentiels.non,
@@ -82,7 +81,9 @@ export const arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles = etend(
     appartenancePaysUnionEuropeenne: arbappartenancePaysUnionEuropeenne.france,
   })
   .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
-  .chain(ajouteArbitraireActivites) as ArbitraireFormulaire;
+  .chain(
+    ajouteArbitraireActivites,
+  ) as fc.Arbitrary<DonneesFormulaireSimulateur>;
 
 export const arbNonOSEPrivesMoyenneGrandeAutresActivites = etend(
   arbSecteursSousSecteursListes,

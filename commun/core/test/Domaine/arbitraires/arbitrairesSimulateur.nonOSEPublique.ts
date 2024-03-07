@@ -10,12 +10,12 @@ import {
   fabriqueArbTrancheSingleton,
 } from "../../utilitaires/manipulationArbitraires.fabriques";
 import { arbSecteursEtSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
+import { ValeursTypeEntitePublique } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
 import {
   arbappartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
   arbTypeStructure,
-} from "./arbitraireChampFormulaire";
-import { ValeursTypeEntitePublique } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
+} from "./ValeursChampsSimulateur.arbitraire";
 
 export const arbNonOSEPublique = etend(arbSecteursEtSousSecteursListes)
   .avec({

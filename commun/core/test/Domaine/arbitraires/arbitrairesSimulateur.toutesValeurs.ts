@@ -1,8 +1,13 @@
+import { fc } from "@fast-check/vitest";
 import { TypeStructure } from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
 import {
   ValeursappartenancePaysUnionEuropeenne,
   ValeursTypeEntitePublique,
 } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
+import {
+  DonneesFormulaireSimulateur,
+  NomsChampsSimulateur,
+} from "../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
 import { ValeursNomChampsFormulaire } from "../../../src/Domain/Simulateur/DonneesFormulaire.valeurs";
 
 import {
@@ -14,13 +19,12 @@ import {
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
 } from "../../utilitaires/manipulationArbitraires.fabriques";
+import { arbFormulaireVide } from "./DonneesFormulaireSimulateur.arbitraires";
 import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
-import { ArbitraireSurTousLesChamps } from "./arbitraireFormulaire.definitions";
 import {
   arbappartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
-} from "./arbitraireChampFormulaire";
-import { arbFormulaireVide } from "./arbitraireFormulaire.constantes";
+} from "./ValeursChampsSimulateur.arbitraire";
 
 export const arbToutesValeursPossibles = etend(
   arbSecteursSousSecteursListes,
@@ -59,7 +63,10 @@ export const arbAutrePaysUe = etend(arbToutesValeursPossibles)
   .chain(ajouteAuMoinsUneActiviteListee)
   .chain(ajouteChampsFacultatifs);
 
-const initialValue: ArbitraireSurTousLesChamps = {
+const initialValue: Record<
+  NomsChampsSimulateur,
+  fc.Arbitrary<DonneesFormulaireSimulateur>
+> = {
   activites: arbFormulaireVide,
   designationOperateurServicesEssentiels: arbFormulaireVide,
   appartenancePaysUnionEuropeenne: arbFormulaireVide,

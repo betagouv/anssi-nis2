@@ -26,7 +26,7 @@ import {
   arbLocalisationRepresentant,
   arbTranche,
   arbTypeStructure,
-} from "./arbitraireChampFormulaire";
+} from "./ValeursChampsSimulateur.arbitraire";
 
 const arbSecteurSousSecteurInfraNum = fabriqueArbEnrSecteurSousSecteurs(
   filtreSecteurListeSecteursSousSecteurs("infrastructureNumerique"),

@@ -1,13 +1,13 @@
 import { fc } from "@fast-check/vitest";
 import { describe, expect, it } from "vitest";
-import { CollectionInformationsEtapes } from "../../src/Domain/Simulateur/CollectionInformationsEtapes";
+import { CollectionInformationsEtapes } from "../../src/Domain/Simulateur/CollectionInformationsEtapes.definitions";
 import { InformationsEtapeVide } from "../../src/Domain/Simulateur/EtatEtapes";
 import {
   EtapeExistante,
   InformationEtapeForm,
 } from "../../src/Domain/Simulateur/InformationsEtape";
 import { decoreChaineRendue } from "../utilitaires/manipulationArbitraires";
-import { arbitrairesCollectionEtape } from "./arbitraires/collectionInformationEtape";
+import { arbitrairesCollectionEtape } from "./arbitraires/CollectionInformationsEtapes.arbitraires";
 import { arbitrairesInformationEtape } from "./arbitraires/informationEtape.arbitraires";
 import { arbListeEtapesEtIndice } from "./arbitraires/listeEtapes";
 import {

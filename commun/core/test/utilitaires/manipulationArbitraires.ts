@@ -25,7 +25,6 @@ import {
   contientUniquementSecteurNecessitantLocalisation,
 } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { filtreSecteursSansSousSecteurs } from "../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.operations";
-import { ArbitraireOptionsActivites } from "../Domaine/arbitraires/arbitraireOptions";
 
 import {
   ArbitraireDonneesFormulaireSimulateur,
@@ -84,9 +83,10 @@ const etendAvecActivitesVides = <DonneesPartielles extends DonneesSectorielles>(
     DonneesExtensiblesAvecActivite<DonneesPartielles>
   >;
 
-const extraitOptionsAjoutArbitrairesActivite = (
-  options?: ArbitraireOptionsActivites,
-): [(activite: Activite) => boolean, number] => [
+const extraitOptionsAjoutArbitrairesActivite = (options?: {
+  minLength?: number;
+  filtreActivite?: (activite: Activite) => boolean;
+}): [(activite: Activite) => boolean, number] => [
   options?.filtreActivite || (() => true),
   options?.minLength || 0,
 ];
@@ -95,7 +95,6 @@ const etendDonneesActivite = <DonneesPartielles>(
   base: DonneesPartielles &
     Partial<Pick<DonneesFormulaireSimulateur, "activites">>,
   listeActivitesDesSecteurs: Activite[],
-
 ) =>
   base.activites
     ? [...listeActivitesDesSecteurs, ...base.activites]
@@ -105,7 +104,10 @@ export const ajouteArbitraireActivites = <
   DonneesPartielles extends DonneesSectorielles,
 >(
   base: DonneesPartielles,
-  options?: ArbitraireOptionsActivites,
+  options?: {
+    minLength?: number;
+    filtreActivite?: (activite: Activite) => boolean;
+  },
 ): fc.Arbitrary<
   Pick<DonneesFormulaireSimulateur, "activites"> & DonneesPartielles
 > => {
@@ -205,37 +207,37 @@ export const ajouteChampsFacultatifs = <
 export const nommeArbitraire =
   (nom: string) =>
   (
-    arbitraire: ArbitraireDonneesFormulaireSimulateur
+    arbitraire: ArbitraireDonneesFormulaireSimulateur,
   ): ArbitraireDonneesFormulaireSimulateurNomme =>
     Object.assign(arbitraire, { nom });
 
 export const partitionneLocalisationServices = (
   arbitraire:
     | ArbitraireDonneesFormulaireSimulateur
-    | ArbitraireDonneesFormulaireSimulateurNomme
+    | ArbitraireDonneesFormulaireSimulateurNomme,
 ): ArbitraireEnrichi =>
   Object.assign(
     arbitraire,
     {
       sansBesoinLocalisation: nommeArbitraire("sansBesoinLocalisation")(
-        arbitraire.filter(non(contientSecteurNecessitantLocalisation))
+        arbitraire.filter(non(contientSecteurNecessitantLocalisation)),
       ),
       neFournitPasServiceUe: nommeArbitraire("avecFournitServiceUE")(
         etend(arbitraire.filter(contientSecteurNecessitantLocalisation)).avec({
           fournitServicesUnionEuropeenne: fc.constant<
             FournitServicesUnionEuropeenne[]
           >(["non"]),
-        })
+        }),
       ),
       avecLocalisationRepresentant: nommeArbitraire(
-        "avecLocalisationRepresentant"
+        "avecLocalisationRepresentant",
       )(
         etend(arbitraire.filter(contientSecteurNecessitantLocalisation)).avec({
           fournitServicesUnionEuropeenne: fc.constant(["oui"]),
           localisationRepresentant: fabriqueArbSingleton(
             ValeursappartenancePaysUnionEuropeenne,
           ),
-        })
+        }),
       ),
       avecLocalisationRepresentantHorsFrance: nommeArbitraire(
         "avecLocalisationRepresentantHorsFrance",
@@ -250,16 +252,16 @@ export const partitionneLocalisationServices = (
         }),
       ),
       avecLocalisationRepresentantFrance: nommeArbitraire(
-        "avecLocalisationRepresentant"
+        "avecLocalisationRepresentant",
       )(
         etend(
-          arbitraire.filter(contientUniquementSecteurNecessitantLocalisation)
+          arbitraire.filter(contientUniquementSecteurNecessitantLocalisation),
         ).avec({
           fournitServicesUnionEuropeenne: fc.constant(["oui"]),
           localisationRepresentant: fc.constant<
             AppartenancePaysUnionEuropeenne[]
           >(["france"]),
-        })
+        }),
       ),
     },
     {

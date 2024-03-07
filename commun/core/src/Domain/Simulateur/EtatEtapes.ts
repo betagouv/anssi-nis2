@@ -3,7 +3,7 @@ import {
   toujoursFaux,
   toujoursVrai,
 } from "../Commun/Commun.predicats";
-import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes";
+import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.definitions";
 import {
   CapaciteEtape,
   InformationEtapeForm,
@@ -42,7 +42,7 @@ export type RepresentationEtape = {
 export type CapacitesEtapes = {
   readonly ignoreEtapeSuivante: (
     etat: EtatEtapes,
-    donnees: DonneesFormulaireSimulateur
+    donnees: DonneesFormulaireSimulateur,
   ) => boolean;
 };
 
