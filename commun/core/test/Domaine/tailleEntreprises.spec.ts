@@ -21,7 +21,7 @@ describe("Tailles entreprises", () => {
       (param1, param2) => {
         expect(estPetiteEntreprise([param1], [param2])).toBeFalsy();
         expect(estPetiteEntreprise([param2], [param1])).toBeFalsy();
-      }
+      },
     );
   });
   describe(estMoyenneEntreprise, () => {
@@ -30,7 +30,21 @@ describe("Tailles entreprises", () => {
       (param) => {
         expect(estMoyenneEntreprise(["moyen"], [param])).toBeTruthy();
         expect(estMoyenneEntreprise([param], ["moyen"])).toBeTruthy();
-      }
+      },
+    );
+    it.prop([
+      fc.constantFrom<UnionPetitMoyenGrand>("petit", "moyen"),
+      fc.constant<UnionPetitMoyenGrand>("grand"),
+    ])(
+      "vrai si aucun critère n'est grand et l'un est moyen",
+      (valeurVariante, valeurGrande) => {
+        expect(
+          estMoyenneEntreprise([valeurGrande], [valeurVariante]),
+        ).toBeFalsy();
+        expect(
+          estMoyenneEntreprise([valeurVariante], [valeurGrande]),
+        ).toBeFalsy();
+      },
     );
   });
   describe(estGrandeEntreprise, () => {
@@ -39,7 +53,7 @@ describe("Tailles entreprises", () => {
       (param) => {
         expect(estGrandeEntreprise(["grand"], [param])).toBeTruthy();
         expect(estGrandeEntreprise([param], ["grand"])).toBeTruthy();
-      }
+      },
     );
   });
   it.prop([

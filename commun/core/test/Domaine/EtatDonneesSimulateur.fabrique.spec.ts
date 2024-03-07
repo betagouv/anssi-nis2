@@ -81,7 +81,7 @@ describe("fabrique ReponseEtat", () => {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
-            _categorieTaille: "Grand",
+            _categorieTaille: "Moyen",
             typeStructure: "privee",
             trancheChiffreAffaire: "moyen",
             trancheNombreEmployes: "petit",
@@ -110,7 +110,7 @@ describe("fabrique ReponseEtat", () => {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
-            _categorieTaille: "Grand",
+            _categorieTaille: "Moyen",
             typeStructure: "publique",
             typeEntitePublique: "administrationCentrale",
             trancheNombreEmployes: "moyen",
@@ -142,7 +142,7 @@ describe("fabrique ReponseEtat", () => {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
-            _categorieTaille: "Grand",
+            _categorieTaille: "Moyen",
             typeStructure: "publique",
             typeEntitePublique: "administrationCentrale",
             trancheNombreEmployes: "moyen",
@@ -179,7 +179,7 @@ describe("fabrique ReponseEtat", () => {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
-            _categorieTaille: "Grand",
+            _categorieTaille: "Moyen",
             typeStructure: "publique",
             typeEntitePublique: "administrationCentrale",
             trancheNombreEmployes: "moyen",
@@ -260,7 +260,7 @@ describe("fabrique ReponseEtat", () => {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
-            _categorieTaille: "Grand",
+            _categorieTaille: "Moyen",
             typeStructure: "publique",
             typeEntitePublique: "administrationCentrale",
             trancheNombreEmployes: "moyen",
@@ -311,7 +311,7 @@ describe("fabrique ReponseEtat", () => {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
-            _categorieTaille: "Grand",
+            _categorieTaille: "Moyen",
             typeStructure: "publique",
             typeEntitePublique: "administrationCentrale",
             trancheNombreEmployes: "moyen",

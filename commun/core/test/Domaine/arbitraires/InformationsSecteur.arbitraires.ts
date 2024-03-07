@@ -58,7 +58,7 @@ import {
   arbLocalisationRepresentant_ToujoursAutre,
   arbLocalisationRepresentant_ToujoursFrance,
   arbLocalisationRepresentant_ToujoursHorsUE,
-} from "./ResultatEvaluationRegulation.champs.arbitraire";
+} from "./ValeursChampsSimulateur.arbitraire";
 
 export const arbSecteurListesSansSousSecteurNiLocaGrand = fc.constantFrom(
   ...ValeursSecteursSansSousSecteur.filter(estSecteurListe).filter(

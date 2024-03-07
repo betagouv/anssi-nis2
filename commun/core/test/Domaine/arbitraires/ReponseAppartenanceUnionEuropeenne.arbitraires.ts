@@ -4,7 +4,7 @@ import {
   arbAppartenancePaysUnionEuropeenne_ToujoursAutreUe,
   arbAppartenancePaysUnionEuropeenne_ToujoursFrance,
   arbAppartenancePaysUnionEuropeenne_ToujoursHorsUe,
-} from "./ResultatEvaluationRegulation.champs.arbitraire";
+} from "./ValeursChampsSimulateur.arbitraire";
 
 export const arbReponseAppartenanceUnionEuropeenne_ToujoursFrance =
   fc.record<ReponseAppartenancePaysUnionEuropeenne>({

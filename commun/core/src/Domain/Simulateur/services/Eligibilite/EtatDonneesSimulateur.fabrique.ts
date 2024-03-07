@@ -10,7 +10,10 @@ import {
 } from "../../DonneesFormulaire.definitions";
 import { FabriqueInformationsSecteur } from "../../fabriques/InformationsSecteur.fabrique";
 import { FabriqueInformationsStructure } from "../../fabriques/InformationsStructure.fabrique";
-import { contientPetiteEntreprise } from "../DonneesFormulaire/DonneesFormulaire.predicats";
+import {
+  contientMoyenneEntreprise,
+  contientPetiteEntreprise,
+} from "../DonneesFormulaire/DonneesFormulaire.predicats";
 import {
   CategorieTaille,
   ReponseAppartenancePaysUnionEuropeenne,
@@ -224,6 +227,18 @@ export const ConvertisseurDonneesBrutesVersEtatDonneesSimulateur = {
       FabriqueInformationsSecteur.informationsSecteursPetit(donnees),
   }),
 
+  informationsSecteursMoyen: (
+    donnees: DonneesFormulaireSimulateur,
+  ): ReponseEtatInformationsSecteur => ({
+    ...ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.appartenancePaysUnionEuropeenne(
+      donnees,
+    ),
+    _tag: "InformationsSecteur",
+    Structure: FabriqueInformationsStructure.structureMoyenne(donnees),
+    InformationsSecteur:
+      FabriqueInformationsSecteur.informationsSecteursGrand(donnees),
+  }),
+
   informationsSecteursGrand: (
     donnees: DonneesFormulaireSimulateur,
   ): ReponseEtatInformationsSecteur => ({
@@ -243,9 +258,13 @@ export const ConvertisseurDonneesBrutesVersEtatDonneesSimulateur = {
       ? ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.informationsSecteursPetit(
           donnees,
         )
-      : ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.informationsSecteursGrand(
-          donnees,
-        ),
+      : contientMoyenneEntreprise(donnees)
+        ? ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.informationsSecteursMoyen(
+            donnees,
+          )
+        : ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.informationsSecteursGrand(
+            donnees,
+          ),
 
   depuisDonneesFormulaireSimulateur: (
     donnees: DonneesFormulaireSimulateur,

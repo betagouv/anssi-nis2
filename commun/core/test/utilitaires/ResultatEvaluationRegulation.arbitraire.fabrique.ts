@@ -45,7 +45,7 @@ import { PeutEtreSousSecteurActivite } from "../../src/Domain/Simulateur/SousSec
 import {
   arbFournitServiceUnionEuropeenne_ToujoursNon,
   arbFournitServiceUnionEuropeenne_ToujoursOui,
-} from "../Domaine/arbitraires/ResultatEvaluationRegulation.champs.arbitraire";
+} from "../Domaine/arbitraires/ValeursChampsSimulateur.arbitraire";
 
 const determineArbFournitServicesUnionEuropeenne = (
   arbFournitServicesUnionEuropeenne: fc.Arbitrary<FournitServicesUnionEuropeenne>,

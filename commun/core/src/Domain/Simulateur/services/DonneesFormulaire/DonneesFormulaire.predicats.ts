@@ -29,10 +29,15 @@ import {
   uniquementDesSecteursAutres,
 } from "../SecteurActivite/SecteurActivite.predicats";
 import { uniquementDesSousSecteursAutres } from "../SousSecteurActivite/SousSecteurActivite.predicats";
-import { estPetiteEntreprise } from "../TailleEntreprise/TailleEntite.predicats";
+import {
+  estMoyenneEntreprise,
+  estPetiteEntreprise,
+} from "../TailleEntreprise/TailleEntite.predicats";
 
 export const contientPetiteEntreprise = (d: DonneesFormulaireSimulateur) =>
   estPetiteEntreprise(d.trancheNombreEmployes, d.trancheChiffreAffaire);
+export const contientMoyenneEntreprise = (d: DonneesFormulaireSimulateur) =>
+  estMoyenneEntreprise(d.trancheNombreEmployes, d.trancheChiffreAffaire);
 
 const verifAuMoinsUn = {
   activiteListee: <

@@ -18,21 +18,12 @@ export type CapsuleAppartenancePaysUnionEuropeenne = {
 export type CapsuleStructure = {
   Structure: ReponseStructure<TypeStructure, CategorieTaille>;
 };
-export type CapsuleInformationsSecteur =
-  | {
-      Structure:
-        | ReponseStructurePrivee<"Petit">
-        | ReponseStructurePublique<"Petit">;
-      InformationsSecteur: ReponseInformationsSecteur<"Petit">;
-    }
-  | {
-      Structure:
-        | ReponseStructurePrivee<"Grand">
-        | ReponseStructurePublique<"Grand">;
-      InformationsSecteur: ReponseInformationsSecteur<"Grand">;
-    };
+export type CapsuleInformationsSecteur<T extends CategorieTaille> = {
+  Structure: ReponseStructurePrivee<T> | ReponseStructurePublique<T>;
+  InformationsSecteur: ReponseInformationsSecteur<T>;
+};
 export type CapsuleReponseDefinitions =
   | CapsuleDesignationOperateurServicesEssentiels
   | CapsuleAppartenancePaysUnionEuropeenne
   | CapsuleStructure
-  | CapsuleInformationsSecteur;
+  | CapsuleInformationsSecteur<CategorieTaille>;

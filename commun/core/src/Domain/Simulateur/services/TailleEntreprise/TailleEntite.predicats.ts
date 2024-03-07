@@ -20,9 +20,8 @@ export const estMoyenneEntreprise: PredicatTailleEntite = (
   nombreEmployes,
   chiffreAffaire,
 ) =>
-  (nombreEmployes.includes("moyen") && chiffreAffaire.includes("moyen")) ||
-  (nombreEmployes.includes("moyen") && chiffreAffaire.includes("petit")) ||
-  (nombreEmployes.includes("petit") && chiffreAffaire.includes("moyen"));
+  (nombreEmployes.includes("moyen") || chiffreAffaire.includes("moyen")) &&
+  !(nombreEmployes.includes("grand") || chiffreAffaire.includes("grand"));
 
 export const estGrandeEntreprise: PredicatTailleEntite = (
   nombreEmployes,

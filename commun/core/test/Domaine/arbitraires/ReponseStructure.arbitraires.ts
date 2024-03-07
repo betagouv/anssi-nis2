@@ -13,16 +13,7 @@ import {
   arbTypeEntitePublique,
   arbTypeStructure_Privee,
   arbTypeStructure_Publique,
-} from "./ResultatEvaluationRegulation.champs.arbitraire";
-
-// arbTypeEntitePublique.map<ReponseStructure<"publique", "Petit">>(
-//   (typeEntitePublique) => ({
-//     _categorieTaille: "Petit" as const,
-//     typeStructure: "publique",
-//     trancheNombreEmployes: "petit",
-//     typeEntitePublique: typeEntitePublique,
-//   }),
-// );
+} from "./ValeursChampsSimulateur.arbitraire";
 
 export const arbStructurePetitPrive = fc.constant<
   ReponseStructure<"privee", "Petit">

@@ -4,7 +4,7 @@ import {
   arbDesignationOperateurServicesEssentiels_ToujoursNeSaitPas,
   arbDesignationOperateurServicesEssentiels_ToujoursNon,
   arbDesignationOperateurServicesEssentiels_ToujoursOui,
-} from "./ResultatEvaluationRegulation.champs.arbitraire";
+} from "./ValeursChampsSimulateur.arbitraire";
 
 export const arbReponseDesignationOperateurServicesEssentiels_ToujoursOui =
   fc.record<ReponseDesignationOperateurServicesEssentiels>({
