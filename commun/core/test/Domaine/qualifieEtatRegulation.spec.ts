@@ -26,7 +26,7 @@ import {
   assertionArbitraire,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import { fabriqueArbJamaisOse_ToujoursFrance_StructurePetit } from "../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
-import { arbStructurePetitPrive } from "./arbitraires/ReponseStructure.arbitraires";
+import { arbReponseStructure_ToujoursPrivee_ToujoursPE } from "./arbitraires/ReponseStructure.arbitraires";
 import { arbReponseDesignationOperateurServicesEssentiels_ToujoursOui } from "./arbitraires/ReponseDesignationOperateurServicesEssentiels.arbitraires";
 import { arbReponseInformationsSecteur_LocalisesHorsUE_Petit } from "./arbitraires/ReponseInformationsSecteur.arbitraires";
 import { arbTuple_JamaisOse_ToujoursAutreUE } from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
@@ -58,7 +58,10 @@ describe("chaine de décision", () => {
     "Structure Privée autre UE ==> toujours EnSuspens / Incertain mais p-e pays membre",
     assertionArbitraire(
       fc
-        .tuple(...arbTuple_JamaisOse_ToujoursAutreUE, arbStructurePetitPrive)
+        .tuple(
+          ...arbTuple_JamaisOse_ToujoursAutreUE,
+          arbReponseStructure_ToujoursPrivee_ToujoursPE,
+        )
         .map(fabriqueResultatEvaluationEnSuspensStructure),
       (reponse) => {
         const resultatAttendu: EtatRegulationDefinitif = {

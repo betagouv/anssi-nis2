@@ -1,24 +1,28 @@
 import { fc } from "@fast-check/vitest";
 import {
-  InformationSecteurSimple,
+  InformationsSecteurPossible,
   ReponseInformationsSecteur,
 } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
 import { CategorieTaille } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseStructure.definitions";
+import { Arbitraire as A } from "../utilitaires/Arbitraires.operations";
 
-export const fabriqueArbitraireCapsuleSecteur =
-  <T extends CategorieTaille>(taille: `${T}`) =>
-  (
-    arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
-  ): fc.Arbitrary<ReponseInformationsSecteur<T>> =>
-    arb.chain((info) =>
-      fc.record({
-        _categorieTaille: fc.constant(taille),
-        secteurs: fc.constant(info),
-      }),
-    );
-export const fabriqueArbitraireCapsuleSecteurPetit =
-  fabriqueArbitraireCapsuleSecteur("Petit");
-export const fabriqueArbitraireCapsuleSecteurMoyen =
-  fabriqueArbitraireCapsuleSecteur("Moyen");
-export const fabriqueArbitraireCapsuleSecteurGrand =
-  fabriqueArbitraireCapsuleSecteur("Grand");
+export const fabriqueArb_ReponseInformationsSecteur_PourTaille = <
+  T extends CategorieTaille,
+>(
+  taille: `${T}`,
+) =>
+  A.enchaine<
+    Set<InformationsSecteurPossible<T>>,
+    ReponseInformationsSecteur<T>
+  >((info) =>
+    fc.record({
+      _categorieTaille: fc.constant(taille),
+      secteurs: fc.constant(info),
+    }),
+  );
+export const fabriqueArb_ReponseInformationsSecteur_PE =
+  fabriqueArb_ReponseInformationsSecteur_PourTaille("Petit");
+export const fabriqueArb_ReponseInformationsSecteur_ME =
+  fabriqueArb_ReponseInformationsSecteur_PourTaille("Moyen");
+export const fabriqueArb_ReponseInformationsSecteur_GE =
+  fabriqueArb_ReponseInformationsSecteur_PourTaille("Grand");

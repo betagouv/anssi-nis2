@@ -3,7 +3,7 @@ import { estActiviteInfrastructureNumeriqueEligiblesPetitEntite } from "../../..
 
 import { ReponseInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
 import { fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple } from "../../utilitaires/EnsActivites.arbitraires.fabriques";
-import { fabriqueArbitraireCapsuleSecteurPetit } from "../../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
+import { fabriqueArb_ReponseInformationsSecteur_PE } from "../../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import {
   fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PE,
   fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PE,
@@ -18,11 +18,10 @@ import {
 } from "./EnsembleInformationsSecteur.arbitraires";
 import { arbSecteurActivite_InfrastructureNumerique } from "./InformationsSecteur.arbitraires";
 
-export const arbReponseInformationsSecteurLocalisesFrancePetit: fc.Arbitrary<
-  ReponseInformationsSecteur<"Petit">
-> = fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PE(
-  arbEnsembleSecteursLocalisablesPetitFrance,
-);
+export const arbReponseInformationsSecteurLocalisesFrancePetit =
+  fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PE(
+    arbEnsembleSecteursLocalisablesPetitFrance,
+  );
 
 export const arbReponseInformationsSecteur_AvecActivitesEssentiels_SansBesoinLocalisation: fc.Arbitrary<
   ReponseInformationsSecteur<"Petit">
@@ -37,10 +36,10 @@ export const arbReponseInformationsSecteur_AvecActivitesEssentiels_SansBesoinLoc
 );
 export const arbReponseInformationsSecteur_LocalisesHorsUE_Petit: fc.Arbitrary<
   ReponseInformationsSecteur<"Petit">
-> = fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PE(
+> = fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PE("Petit")(
   arbEnsembleSecteurs_AvecBesoinLoca_NonUE,
 );
 export const arbReponseInformationsSecteurPetit = fc.oneof(
-  fabriqueArbitraireCapsuleSecteurPetit(arbEnsembleSecteursComposites),
-  fabriqueArbitraireCapsuleSecteurPetit(arbEnsembleSecteursSimples),
+  fabriqueArb_ReponseInformationsSecteur_PE(arbEnsembleSecteursComposites),
+  fabriqueArb_ReponseInformationsSecteur_PE(arbEnsembleSecteursSimples),
 );

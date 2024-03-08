@@ -1,8 +1,8 @@
 import { fc } from "@fast-check/vitest";
 import { describe, it } from "vitest";
 import {
-  fabriqueArbitraireCapsuleSecteurGrand,
-  fabriqueArbitraireCapsuleSecteurMoyen,
+  fabriqueArb_ReponseInformationsSecteur_GE,
+  fabriqueArb_ReponseInformationsSecteur_ME,
 } from "../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import {
   fabriqueArb_ReponseInformationsSecteur_LocalisableGE_Oui_France_AvecEnsembleDe,
@@ -65,7 +65,7 @@ describe("Secteur", () => {
         "en suspens / secteurs Infrastructure Numérique + activités EI (ni reg dom ni fournisseur DNS) sans besoin localisation ==> toujours définitivement régulé EI",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            fabriqueArbitraireCapsuleSecteurGrand(
+            fabriqueArb_ReponseInformationsSecteur_GE(
               arbInformationsSecteur_Infranum_ActivitesSansBesoinLoca_GrandeEI,
             ),
           ),
@@ -114,7 +114,9 @@ describe("Secteur", () => {
         "en suspens / secteur et sous-secteur en annexe 1 ==> toujours définitivement régulé EE",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
-            fabriqueArbitraireCapsuleSecteurMoyen(arbEnsembleSecteursAnnexe1),
+            fabriqueArb_ReponseInformationsSecteur_ME(
+              arbEnsembleSecteursAnnexe1,
+            ),
           ),
           verificationReponseDefinitivementReguleEI,
         ),
@@ -123,7 +125,9 @@ describe("Secteur", () => {
         "en suspens / secteur et sous-secteur en annexe 2 ==> toujours définitivement régulé EI",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
-            fabriqueArbitraireCapsuleSecteurMoyen(arbEnsembleSecteursAnnexe2),
+            fabriqueArb_ReponseInformationsSecteur_ME(
+              arbEnsembleSecteursAnnexe2,
+            ),
           ),
           verificationReponseDefinitivementReguleEI,
         ),
@@ -135,13 +139,13 @@ describe("Secteur", () => {
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
             fc.oneof(
-              fabriqueArbitraireCapsuleSecteurGrand(
+              fabriqueArb_ReponseInformationsSecteur_GE(
                 arbEnsembleSecteursCompositesActivitesAutres,
               ),
-              fabriqueArbitraireCapsuleSecteurGrand(
+              fabriqueArb_ReponseInformationsSecteur_GE(
                 arbEnsembleSecteursSimplesActivitesAutres,
               ),
-              fabriqueArbitraireCapsuleSecteurGrand(
+              fabriqueArb_ReponseInformationsSecteur_GE(
                 arbEnsembleSecteursSimplesEligiblesPetitActivitesAutres,
               ),
             ),

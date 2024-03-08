@@ -12,7 +12,7 @@ import {
   arbTypeStructure_Publique,
 } from "./ValeursChampsSimulateur.arbitraire";
 
-export const arbStructurePetitPrive = fc.constant<
+export const arbReponseStructure_ToujoursPrivee_ToujoursPE = fc.constant<
   ReponseStructure<"privee", "Petit">
 >({
   _categorieTaille: "Petit" as const,
@@ -36,7 +36,7 @@ const arbStructurePrivee_TrancheEmployesMoyen = fc.record<
   trancheChiffreAffaire: arbTranchePetitMoyenGrand_PetitMoyen,
   trancheNombreEmployes: arbTranchePetitMoyenGrand_ToujoursMoyen,
 });
-export const arbReponseStructure_ToujoursMoyen = fc.oneof(
+export const arbReponseStructure_ToujoursPrivee_ToujoursME = fc.oneof(
   arbStructurePrivee_TrancheCAMoyen,
   arbStructurePrivee_TrancheEmployesMoyen,
 );
@@ -56,6 +56,10 @@ const arbStructurePrivee_TrancheEmployes_ToujoursGrand = fc.record<
   trancheChiffreAffaire: arbTranchePetitMoyenGrand_ToujoursGrand,
   trancheNombreEmployes: arbTranchePetitMoyenGrand_ToutesValeurs,
 });
+export const arbReponseStructure_ToujoursPrivee_ToujoursGE = fc.oneof(
+  arbStructurePrivee_TrancheCA_ToujoursGrand,
+  arbStructurePrivee_TrancheEmployes_ToujoursGrand,
+);
 export const arbStructurePublique_ToujoursPetit = arbTypeEntitePublique.map<
   ReponseStructure<"publique", "Petit">
 >((typeEntitePublique) => ({
@@ -81,10 +85,6 @@ export const arbStructurePublique_ToujoursGrand = arbTypeEntitePublique.chain(
       trancheNombreEmployes: arbTranchePetitMoyenGrand_ToujoursGrand,
       typeEntitePublique: fc.constant(typeEntitePublique),
     }),
-);
-export const arbReponseStructure_ToujoursGrand = fc.oneof(
-  arbStructurePrivee_TrancheCA_ToujoursGrand,
-  arbStructurePrivee_TrancheEmployes_ToujoursGrand,
 );
 export const arbStructurePublique = fc.oneof(
   arbStructurePublique_ToujoursPetit,

@@ -25,7 +25,7 @@ import {
 } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 import { fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple } from "../../utilitaires/EnsActivites.arbitraires.fabriques";
-import { fabriqueArbitraireCapsuleSecteurPetit } from "../../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
+import { fabriqueArb_ReponseInformationsSecteur_PE } from "../../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import { assertion } from "../../utilitaires/ResultatEvaluationRegulation.assertions";
 import { fabriqueArbJamaisOse_ToujoursFrance_StructurePetit } from "../../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
 import {
@@ -76,10 +76,12 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
           ));
         it("arbInformationsSecteurCompositesPetit et arbInformationsSecteurSimplesPetitNonEligibles sont exclusifs", () =>
           assertion.exclusifs(
-            fabriqueArbitraireCapsuleSecteurPetit(
+            fabriqueArb_ReponseInformationsSecteur_PE(
               arbEnsembleSecteursComposites,
             ),
-            fabriqueArbitraireCapsuleSecteurPetit(arbEnsembleSecteursSimples),
+            fabriqueArb_ReponseInformationsSecteur_PE(
+              arbEnsembleSecteursSimples,
+            ),
           ));
         it("arbInformationsSecteurLocalisesFrancePetit et arbInformationsSecteurLocalisesHorsFrancePetit sont exclusifs", () =>
           assertion.exclusifs(

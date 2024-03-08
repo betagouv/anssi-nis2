@@ -1,4 +1,5 @@
 import { describe, it } from "vitest";
+import { ReponseInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
 import {
   assertionArbitraire,
   verificationReponseDefinitivementIncertainAutrePaysUE,
@@ -17,6 +18,7 @@ import {
   fabriqueArbInformationsSecteurAutre,
   fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PE,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
+import { fc } from "@fast-check/vitest";
 
 describe("Secteur", () => {
   describe("Petit", () => {
@@ -34,7 +36,9 @@ describe("Secteur", () => {
       "en suspens / secteurs+activités localisables et bien localisés ==> toujours définitivement régulé EE",
       assertionArbitraire(
         fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-          arbReponseInformationsSecteurLocalisesFrancePetit,
+          arbReponseInformationsSecteurLocalisesFrancePetit as fc.Arbitrary<
+            ReponseInformationsSecteur<"Petit">
+          >,
         ),
         verificationReponseDefinitivementReguleEE,
       ),
@@ -62,8 +66,8 @@ describe("Secteur", () => {
       assertionArbitraire(
         fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
           fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PE(
-            arbEnsembleSecteurs_Infranum_PE_AutreUE,
-          ),
+            "Petit",
+          )(arbEnsembleSecteurs_Infranum_PE_AutreUE),
         ),
         verificationReponseDefinitivementIncertainAutrePaysUE,
       ),

@@ -21,7 +21,7 @@ import { evalueRegulationEtatReponseOse } from "../../src/Domain/Simulateur/serv
 import { propReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.operations";
 import { assertionArbitraire } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import {
-  arbStructurePetitPrive,
+  arbReponseStructure_ToujoursPrivee_ToujoursPE,
   arbStructurePublique,
 } from "./arbitraires/ReponseStructure.arbitraires";
 import {
@@ -167,7 +167,10 @@ describe("Réponses partielles", () => {
       "Structure Privée ==> toujours EnSuspens / Incertain",
       assertionArbitraire(
         fc
-          .tuple(...arbTuple_JamaisOse_ToujoursAutreUE, arbStructurePetitPrive)
+          .tuple(
+            ...arbTuple_JamaisOse_ToujoursAutreUE,
+            arbReponseStructure_ToujoursPrivee_ToujoursPE,
+          )
           .map(fabriqueResultatEvaluationEnSuspensStructure),
         (reponse) => {
           const copieProp = propReponseEtat(reponse);

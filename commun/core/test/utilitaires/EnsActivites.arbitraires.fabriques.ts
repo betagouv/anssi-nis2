@@ -1,7 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import {
   Activite,
-  ActivitesLocalisablesGrand,
   ActivitesLocalisablesPetit,
 } from "../../src/Domain/Simulateur/Activite.definitions";
 import { AppartenancePaysUnionEuropeenne } from "../../src/Domain/Simulateur/ChampsSimulateur.definitions";
@@ -15,6 +14,7 @@ import {
   estActiviteListee,
 } from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import {
+  ActivitesAvecBesoinLocalisationRepresentant,
   InformationSecteurSimple,
   InformationsSecteurAvecBesoinLocalisation,
   InformationsSecteurSansBesoinLocalisation,
@@ -38,10 +38,6 @@ export const fabriqueArb_EnsActivites_AvecFiltre_PourSecteurPeutEtreComposite =
         minLength: 1,
       })
       .chain(A.ensembleDepuisArray) as fc.Arbitrary<Set<U>>;
-export const fabriqueArb_EnsActivites_Listees_PourSecteur =
-  fabriqueArb_EnsActivites_AvecFiltre_PourSecteurPeutEtreComposite(
-    estActiviteListee,
-  );
 export const fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple =
   (filtre: (a: Activite) => boolean) =>
   <T extends SecteurActivite, U extends InformationSecteurSimple>(
@@ -72,10 +68,36 @@ export const fabriqueArb_EnsActivites_AvecFiltre_PourSecteur =
           filtre,
         )(secteur, sousSecteur),
     }) as unknown as fc.Arbitrary<R>;
+// export const fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe =
+//   <
+//     T extends SecteurAvecBesoinLocalisationRepresentant,
+//     U extends "registresNomsDomainesPremierNiveau" | "fournisseurServicesDNS",
+//   >(
+//     fabriqueActivite: (
+//       secteur: T,
+//       sousSecteur: PeutEtreSousSecteurActivite,
+//     ) => fc.Arbitrary<Set<U>>,
+//   ) =>
+//   (
+//     arbLocalisationRepresentant: fc.Arbitrary<AppartenancePaysUnionEuropeenne>,
+//   ) =>
+//   (
+//     secteur: T,
+//   ): fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">> =>
+//     fc.record<InformationsSecteurAvecBesoinLocalisation<"Petit">>({
+//       secteurActivite: fc.constant(secteur),
+//       activites: fabriqueActivite(secteur, "PasDeSousSecteurActivite"),
+//       fournitServicesUnionEuropeenne:
+//         arbFournitServiceUnionEuropeenne_ToujoursOui,
+//       localisationRepresentant: arbLocalisationRepresentant,
+//     }) as fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">>;
 export const fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe =
   <
-    T extends SecteurAvecBesoinLocalisationRepresentant,
-    U extends "registresNomsDomainesPremierNiveau" | "fournisseurServicesDNS",
+    Taille extends CategorieTaille,
+    T extends
+      SecteurAvecBesoinLocalisationRepresentant = SecteurAvecBesoinLocalisationRepresentant,
+    U extends
+      ActivitesAvecBesoinLocalisationRepresentant<Taille> = ActivitesAvecBesoinLocalisationRepresentant<Taille>,
   >(
     fabriqueActivite: (
       secteur: T,
@@ -87,37 +109,14 @@ export const fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe =
   ) =>
   (
     secteur: T,
-  ): fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">> =>
-    fc.record<InformationsSecteurAvecBesoinLocalisation<"Petit">>({
+  ): fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<Taille>> =>
+    fc.record<InformationsSecteurAvecBesoinLocalisation<Taille>>({
       secteurActivite: fc.constant(secteur),
       activites: fabriqueActivite(secteur, "PasDeSousSecteurActivite"),
       fournitServicesUnionEuropeenne:
         arbFournitServiceUnionEuropeenne_ToujoursOui,
       localisationRepresentant: arbLocalisationRepresentant,
-    }) as fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">>;
-export const fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe_GE =
-  <
-    T extends SecteurAvecBesoinLocalisationRepresentant,
-    U extends ActivitesLocalisablesGrand,
-  >(
-    fabriqueActivite: (
-      secteur: T,
-      sousSecteur: PeutEtreSousSecteurActivite,
-    ) => fc.Arbitrary<Set<U>>,
-  ) =>
-  (
-    arbLocalisationRepresentant: fc.Arbitrary<AppartenancePaysUnionEuropeenne>,
-  ) =>
-  (
-    secteur: T,
-  ): fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Grand">> =>
-    fc.record<InformationsSecteurAvecBesoinLocalisation<"Grand">>({
-      secteurActivite: fc.constant(secteur),
-      activites: fabriqueActivite(secteur, "PasDeSousSecteurActivite"),
-      fournitServicesUnionEuropeenne:
-        arbFournitServiceUnionEuropeenne_ToujoursOui,
-      localisationRepresentant: arbLocalisationRepresentant,
-    }) as fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Grand">>;
+    }) as fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<Taille>>;
 export const fabriqueArb_EnsActivites_PourSecteurInfraNumLocalisable_HorsUe = <
   T extends SecteurAvecBesoinLocalisationRepresentant,
 >(

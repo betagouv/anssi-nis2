@@ -62,14 +62,14 @@ export const arbEnsembleSecteursLocalisablesPetitFrance: fc.Arbitrary<
   Set<InformationsSecteurAvecBesoinLocalisation<"Petit">>
 > = fabriqueArb_EnsInformationsSecteurPossible(
   arbInformationsSecteur_AvecActivitesEssentielles_LocaliseesFrance_Petite,
-);
+) as fc.Arbitrary<Set<InformationsSecteurAvecBesoinLocalisation<"Petit">>>;
 
 const arbEnsInformationsSecteur_Infranum_ActivitesAvecBesoinLoca_HorsUE_PE =
   fabriqueArb_EnsInformationsSecteurPossible(
     arbInformationsSecteur_Infranum_PE_ActivitesAvecBesoinLocalisation_LocaliseesHorsUE,
   );
 const arbEnsInformationsSecteur_Infranum_HorsUE_PE =
-  fabriqueArb_EnsInformationsSecteurPossible(
+  fabriqueArb_EnsInformationsSecteurPossible<"Petit">(
     arbInformationsSecteur_Infranum_LocaliseesHorsUE_PE,
   );
 export const arbEnsembleSecteurs_AvecBesoinLoca_NonUE: fc.Arbitrary<
@@ -77,7 +77,7 @@ export const arbEnsembleSecteurs_AvecBesoinLoca_NonUE: fc.Arbitrary<
 > = fc.oneof(
   arbEnsInformationsSecteur_Infranum_ActivitesAvecBesoinLoca_HorsUE_PE,
   arbEnsInformationsSecteur_Infranum_HorsUE_PE,
-);
+) as fc.Arbitrary<Set<InformationsSecteurAvecBesoinLocalisation<"Petit">>>;
 export const arbEnsembleSecteurs_Infranum_PE_AutreUE =
   fabriqueArb_EnsInformationsSecteurPossible(
     arbInformationsSecteur_Infranum_LocaliseesAutrePaysUE_PE,
