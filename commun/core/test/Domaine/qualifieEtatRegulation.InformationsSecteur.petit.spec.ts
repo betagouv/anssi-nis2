@@ -12,10 +12,10 @@ import {
   arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
   arbReponseInformationsSecteurPetit,
 } from "./arbitraires/ReponseInformationsSecteur.arbitraires";
-import { fabriqueArbJamaisOse_ToujoursFrance_StructurePetit } from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
 import {
   fabriqueArbInformationsSecteurAutre,
   fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFrance,
+  fabriqueArbJamaisOse_ToujoursFrance_StructurePetit,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 
 describe("Secteur", () => {

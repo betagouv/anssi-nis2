@@ -1,23 +1,23 @@
-import { ValeursappartenancePaysUnionEuropeenne } from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
-import { DonneesFormulaireSimulateur } from "../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
+import { ValeursappartenancePaysUnionEuropeenne } from "../../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
+import { DonneesFormulaireSimulateur } from "../../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
 import {
   ajouteArbitraireActivites,
   ajouteChampsFacultatifs,
   etend,
   nommeArbitraire,
   partitionneLocalisationServices,
-} from "../../utilitaires/manipulationArbitraires";
+} from "../../../utilitaires/manipulationArbitraires";
 import {
   fabriqueArbContraintSurtrancheChiffreAffaire,
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
-} from "../../utilitaires/manipulationArbitraires.fabriques";
+} from "../../../utilitaires/manipulationArbitraires.fabriques";
 import { arbitraireSecteursSousSecteurs } from "./arbitrairesSimulateur.valeursSectorielles";
 import {
   arbDesigneOperateurServicesEssentiels,
   arbTranche,
   arbTypeStructure,
-} from "./ValeursChampsSimulateur.arbitraire";
+} from "../ValeursChampsSimulateur.arbitraire";
 
 export const arbOSEPetit = etend(arbitraireSecteursSousSecteurs)
   .avec({

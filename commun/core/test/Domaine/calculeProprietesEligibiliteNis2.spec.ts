@@ -4,7 +4,7 @@ import { calculeEligibilite } from "../../src/Domain/Simulateur/services/Eligibi
 import { verifieQue } from "../utilitaires/assure";
 import { verifieEligibilite as V } from "../utilitaires/Eligibilite.Verification";
 
-import { arbForm } from "./arbitraires/arbitrairesSimulateur";
+import { arbForm } from "./arbitraires/DonneesSimulateur/arbitrairesSimulateur";
 
 describe.skip(
   "*** Raison Skip ***: plus possible d'être cohérent entre l'ancienne et la nouvelle version de l'algo" +

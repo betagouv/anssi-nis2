@@ -21,8 +21,6 @@ import {
   ReponseEtatAppartenancePaysUnionEuropeenne,
   ReponseEtatDesignationOperateurServicesEssentiels,
   ReponseEtatInformationsSecteur,
-  ReponseEtatInformationsSecteurGrand,
-  ReponseEtatInformationsSecteurPetit,
   ReponseEtatStructure,
   ReponseEtatVide,
   UnionReponseEtat,
@@ -91,35 +89,6 @@ export const FabriqueEtatDonneesSimulateur = {
     ),
     _tag: "Structure",
     Structure: structure,
-  }),
-
-  informationsSecteurPetitChaine: (
-    designationOperateurServicesEssentiel: ReponseDesignationOperateurServicesEssentiels,
-    appartenancePaysUnionEuropeenne: ReponseAppartenancePaysUnionEuropeenne,
-    structure: ReponseStructure<TypeStructure, "Petit">,
-    informationsSecteur: ReponseInformationsSecteur<"Petit">,
-  ): ReponseEtatInformationsSecteurPetit => ({
-    ...FabriqueEtatDonneesSimulateur.structureChaineGen<TypeStructure, "Petit">(
-      designationOperateurServicesEssentiel,
-      appartenancePaysUnionEuropeenne,
-      structure,
-    ),
-    _tag: "InformationsSecteur",
-    InformationsSecteur: informationsSecteur,
-  }),
-  informationsSecteurGrandChaine: (
-    designationOperateurServicesEssentiel: ReponseDesignationOperateurServicesEssentiels,
-    appartenancePaysUnionEuropeenne: ReponseAppartenancePaysUnionEuropeenne,
-    structure: ReponseStructure<TypeStructure, "Grand">,
-    informationsSecteur: ReponseInformationsSecteur<"Grand">,
-  ): ReponseEtatInformationsSecteurGrand => ({
-    ...FabriqueEtatDonneesSimulateur.structureChaineGen<TypeStructure, "Grand">(
-      designationOperateurServicesEssentiel,
-      appartenancePaysUnionEuropeenne,
-      structure,
-    ),
-    _tag: "InformationsSecteur",
-    InformationsSecteur: informationsSecteur,
   }),
   informationsSecteurChaine: <
     S extends TypeStructure = TypeStructure,

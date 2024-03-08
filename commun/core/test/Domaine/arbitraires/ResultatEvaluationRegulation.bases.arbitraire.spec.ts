@@ -53,11 +53,11 @@ import {
   arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
   arbReponseInformationsSecteurPetit,
 } from "./ReponseInformationsSecteur.arbitraires";
-import { fabriqueArbJamaisOse_ToujoursFrance_StructurePetit } from "./ResultatEvaluationRegulation.arbitraire";
 import {
   fabriqueArbInformationsSecteurAutre,
   fabriqueArbitraireCapsuleSecteurPetit,
   fabriqueArbitraireEnsembleActivitesPourSecteur,
+  fabriqueArbJamaisOse_ToujoursFrance_StructurePetit,
 } from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 
 describe("ResultatEvaluationRegulation.bases.arbitraire", () => {

@@ -1,4 +1,4 @@
-import { partitionneLocalisationServices } from "../../utilitaires/manipulationArbitraires";
+import { partitionneLocalisationServices } from "../../../utilitaires/manipulationArbitraires";
 import { arbActivitesAutres } from "./arbitrairesSimulateur.activites";
 import { arbFournisseursInfrastructureNumerique } from "./arbitrairesSimulateur.infrastructuresNumeriques";
 import {

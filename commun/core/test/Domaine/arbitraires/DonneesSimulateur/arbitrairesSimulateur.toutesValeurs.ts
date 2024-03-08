@@ -1,30 +1,30 @@
 import { fc } from "@fast-check/vitest";
-import { TypeStructure } from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
+import { TypeStructure } from "../../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
 import {
   ValeursappartenancePaysUnionEuropeenne,
   ValeursTypeEntitePublique,
-} from "../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
+} from "../../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
 import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
-import { ValeursNomChampsFormulaire } from "../../../src/Domain/Simulateur/DonneesFormulaire.valeurs";
+} from "../../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
+import { ValeursNomChampsFormulaire } from "../../../../src/Domain/Simulateur/DonneesFormulaire.valeurs";
 
 import {
   ajouteAuMoinsUneActiviteListee,
   ajouteChampsFacultatifs,
   etend,
-} from "../../utilitaires/manipulationArbitraires";
+} from "../../../utilitaires/manipulationArbitraires";
 import {
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
-} from "../../utilitaires/manipulationArbitraires.fabriques";
+} from "../../../utilitaires/manipulationArbitraires.fabriques";
 import { arbFormulaireVide } from "./DonneesFormulaireSimulateur.arbitraires";
 import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
 import {
   arbappartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
-} from "./ValeursChampsSimulateur.arbitraire";
+} from "../ValeursChampsSimulateur.arbitraire";
 
 export const arbToutesValeursPossibles = etend(
   arbSecteursSousSecteursListes,

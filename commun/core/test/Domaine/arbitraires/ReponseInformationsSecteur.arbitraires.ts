@@ -4,8 +4,8 @@ import { estActiviteInfrastructureNumeriqueEligiblesPetitEntite } from "../../..
 import { ReponseInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
 import {
   fabriqueArbitraireCapsuleSecteurGrand,
-  fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe,
-  fabriqueArbitraireCapsuleSecteurLocalisablePetit_Oui_France,
+  fabriqueArbCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe,
+  fabriqueArbCapsuleSecteurLocalisablePetit_Oui_France,
   fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFrance,
   fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFranceGrand,
   fabriqueArbitraireCapsuleSecteurNonLoca,
@@ -33,7 +33,7 @@ import {
 
 export const arbReponseInformationsSecteurLocalisesFrancePetit: fc.Arbitrary<
   ReponseInformationsSecteur<"Petit">
-> = fabriqueArbitraireCapsuleSecteurLocalisablePetit_Oui_France(
+> = fabriqueArbCapsuleSecteurLocalisablePetit_Oui_France(
   arbEnsembleSecteursLocalisablesPetitFrance,
 );
 
@@ -49,11 +49,11 @@ export const arbReponseInformationsSecteur_AvecActivitesEssentiels_SansBesoinLoc
   ),
 );
 export const arbReponseInformationsSecteur_LocalisesFrance_Grand_Infranum_EE =
-  fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe(
+  fabriqueArbCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe(
     arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
   );
 export const arbReponseInformationsSecteur_LocalisesAutre_Grand_Infranum_EE =
-  fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe(
+  fabriqueArbCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe(
     arbInformationsSecteur_LocaliseesAutrePaysUE_Grande_Infranum_EE,
   );
 
@@ -63,7 +63,7 @@ export const arbReponseInformationsSecteurFranceGrandInfranumEI =
   );
 
 export const arbReponseInformationsSecteur_LocalisesFrance_Grand_EI =
-  fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe(
+  fabriqueArbCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe(
     arbInformationsSecteur_LocaliseesFrance_Grande_EI,
   );
 

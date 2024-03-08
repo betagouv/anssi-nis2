@@ -1,5 +1,5 @@
 import { fc } from "@fast-check/vitest";
-import { fabriqueCollectionInformationsEtapes } from "../../../src/Domain/Simulateur/CollectionInformationsEtapes.fabriques";
+import { fabriqueCollectionInformationsEtapes } from "../../../../src/Domain/Simulateur/CollectionInformationsEtapes.fabriques";
 import { arbitrairesInformationEtape } from "./informationEtape.arbitraires";
 import { arbListeFormEtResult } from "./listeEtapes";
 

@@ -7,9 +7,9 @@ import {
   InformationEtapeForm,
 } from "../../src/Domain/Simulateur/InformationsEtape";
 import { decoreChaineRendue } from "../utilitaires/manipulationArbitraires";
-import { arbitrairesCollectionEtape } from "./arbitraires/CollectionInformationsEtapes.arbitraires";
-import { arbitrairesInformationEtape } from "./arbitraires/informationEtape.arbitraires";
-import { arbListeEtapesEtIndice } from "./arbitraires/listeEtapes";
+import { arbitrairesCollectionEtape } from "./arbitraires/ParcoursSimulateur/CollectionInformationsEtapes.arbitraires";
+import { arbitrairesInformationEtape } from "./arbitraires/ParcoursSimulateur/informationEtape.arbitraires";
+import { arbListeEtapesEtIndice } from "./arbitraires/ParcoursSimulateur/listeEtapes";
 import {
   collectionInformationsEtapesAvecInexistantes,
   exCollectionInformationEtape,

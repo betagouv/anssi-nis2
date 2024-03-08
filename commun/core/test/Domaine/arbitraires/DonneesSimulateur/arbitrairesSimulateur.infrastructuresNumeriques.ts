@@ -1,24 +1,24 @@
-import { DonneesSectorielles } from "../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
+import { DonneesSectorielles } from "../../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
 import {
   ValeursActivitesConcernesInfrastructureNumerique,
   ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
-} from "../../../src/Domain/Simulateur/Eligibilite.constantes";
+} from "../../../../src/Domain/Simulateur/Eligibilite.constantes";
 import {
   exerceActiviteDansListe,
   exerceAucuneActivitesDansListe,
   exerceUniquementActivitesDansListe,
-} from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+} from "../../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import {
   ajouteAuMoinsUneActiviteListee,
   ajouteChampsFacultatifs,
   etend,
   partitionneLocalisationServices,
-} from "../../utilitaires/manipulationArbitraires";
-import { fabriqueArbEnrSecteurSousSecteurs } from "../../utilitaires/manipulationArbitraires.fabriques";
+} from "../../../utilitaires/manipulationArbitraires";
+import { fabriqueArbEnrSecteurSousSecteurs } from "../../../utilitaires/manipulationArbitraires.fabriques";
 import {
   filtreEnrSectorielHorsSecteurs,
   filtreSecteurListeSecteursSousSecteurs,
-} from "../exemples/ListesEnrSecteursSousSecteur";
+} from "../../exemples/ListesEnrSecteursSousSecteur";
 import {
   arbappartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
@@ -26,7 +26,7 @@ import {
   arbLocalisationRepresentant,
   arbTranche,
   arbTypeStructure,
-} from "./ValeursChampsSimulateur.arbitraire";
+} from "../ValeursChampsSimulateur.arbitraire";
 
 const arbSecteurSousSecteurInfraNum = fabriqueArbEnrSecteurSousSecteurs(
   filtreSecteurListeSecteursSousSecteurs("infrastructureNumerique"),

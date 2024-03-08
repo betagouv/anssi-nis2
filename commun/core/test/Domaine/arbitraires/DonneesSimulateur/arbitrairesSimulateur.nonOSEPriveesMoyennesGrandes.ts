@@ -1,12 +1,12 @@
 import { fc } from "@fast-check/vitest";
-import { DonneesFormulaireSimulateur } from "../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
-import { ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement } from "../../../src/Domain/Simulateur/Eligibilite.constantes";
-import { exerceUniquementActivitesDansListe } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
-import { non } from "../../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
+import { DonneesFormulaireSimulateur } from "../../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
+import { ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement } from "../../../../src/Domain/Simulateur/Eligibilite.constantes";
+import { exerceUniquementActivitesDansListe } from "../../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { non } from "../../../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
 import {
   contientSecteurNecessitantLocalisation,
   contientUniquementSecteurNecessitantLocalisation,
-} from "../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
+} from "../../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import {
   ajouteArbitraireActivites,
   ajouteAuMoinsUneActiviteAutre,
@@ -14,11 +14,11 @@ import {
   ajouteChampsFacultatifs,
   etend,
   partitionneLocalisationServices,
-} from "../../utilitaires/manipulationArbitraires";
+} from "../../../utilitaires/manipulationArbitraires";
 import {
   fabriqueArbContraintSurtrancheChiffreAffaire,
   fabriqueArbTrancheSingleton,
-} from "../../utilitaires/manipulationArbitraires.fabriques";
+} from "../../../utilitaires/manipulationArbitraires.fabriques";
 import { arbNonOSEPrivesPetitFournisseurInfraNum } from "./arbitrairesSimulateur.infrastructuresNumeriques";
 import {
   arbEnrAutresSecteursSousSecteurs,
@@ -31,7 +31,7 @@ import {
   arbFournitServiceUnionEuropeenne,
   arbLocalisationRepresentant,
   arbTypeStructure,
-} from "./ValeursChampsSimulateur.arbitraire";
+} from "../ValeursChampsSimulateur.arbitraire";
 
 export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance =
   partitionneLocalisationServices(

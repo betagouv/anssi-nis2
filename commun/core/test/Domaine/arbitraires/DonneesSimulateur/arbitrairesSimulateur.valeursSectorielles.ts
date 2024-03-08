@@ -1,12 +1,12 @@
-import { auMoinsUnSecteurListe } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
-import { auMoinsUnSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
+import { auMoinsUnSecteurListe } from "../../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
+import { auMoinsUnSousSecteurListe } from "../../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
 
-import { fabriqueArbEnrSecteurSousSecteurs } from "../../utilitaires/manipulationArbitraires.fabriques";
+import { fabriqueArbEnrSecteurSousSecteurs } from "../../../utilitaires/manipulationArbitraires.fabriques";
 import {
   listeAutresSecteursSousSecteurs,
   listeEnrSecteursAvecLeursSousSecteurs,
   secteurEtSousSecteursSontListes,
-} from "../exemples/ListesEnrSecteursSousSecteur";
+} from "../../exemples/ListesEnrSecteursSousSecteur";
 
 export const arbitraireSecteursSousSecteurs = fabriqueArbEnrSecteurSousSecteurs(
   listeEnrSecteursAvecLeursSousSecteurs,

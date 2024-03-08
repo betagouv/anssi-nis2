@@ -2,7 +2,8 @@ import { describe, it } from "vitest";
 import {
   fabriqueArbInformationsSecteurAutre,
   fabriqueArbitraireCapsuleSecteurGrand,
-  fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe,
+  fabriqueArbCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe,
+  fabriqueArbJamaisOse_ToujoursFrance_StructureGrand,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
   assertionArbitraire,
@@ -24,7 +25,6 @@ import {
   arbReponseInformationsSecteurFranceGrandInfranumEI,
   arbReponseInformationsSecteurGrandActivitesAutres,
 } from "./arbitraires/ReponseInformationsSecteur.arbitraires";
-import { fabriqueArbJamaisOse_ToujoursFrance_StructureGrand } from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
 
 describe("Secteur", () => {
   describe("Grandes", () => {
@@ -71,7 +71,7 @@ describe("Secteur", () => {
         "en suspens / secteurs+activités EI localisables et bien localisés ==> toujours définitivement régulé EI",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe(
+            fabriqueArbCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe(
               arbInformationsSecteur_LocaliseesAutre_Grande_EI,
             ),
           ),

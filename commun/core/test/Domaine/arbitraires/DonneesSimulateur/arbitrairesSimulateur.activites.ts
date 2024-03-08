@@ -1,17 +1,17 @@
 import { fc } from "@fast-check/vitest";
-import { DonneesSectorielles } from "../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
+import { DonneesSectorielles } from "../../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
 import {
   ajouteAuMoinsUneActiviteAutre,
   ajouteChampsFacultatifs,
   etend,
-} from "../../utilitaires/manipulationArbitraires";
-import { PiocheDonneesForm } from "../../utilitaires/manipulationArbitraires.declarations";
-import { fabriqueArbTrancheSingleton } from "../../utilitaires/manipulationArbitraires.fabriques";
+} from "../../../utilitaires/manipulationArbitraires";
+import { PiocheDonneesForm } from "../../../utilitaires/manipulationArbitraires.declarations";
+import { fabriqueArbTrancheSingleton } from "../../../utilitaires/manipulationArbitraires.fabriques";
 import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";
 import {
   arbappartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
-} from "./ValeursChampsSimulateur.arbitraire";
+} from "../ValeursChampsSimulateur.arbitraire";
 
 export const arbActivitesAutres = etend<DonneesSectorielles>(
   arbSecteursSousSecteursListes,

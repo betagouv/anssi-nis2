@@ -24,11 +24,9 @@ import {
 import { arbStructurePetitPrive } from "./arbitraires/ReponseStructure.arbitraires";
 import { arbReponseDesignationOperateurServicesEssentiels_ToujoursOui } from "./arbitraires/ReponseDesignationOperateurServicesEssentiels.arbitraires";
 import { arbReponseInformationsSecteur_LocalisesHorsUE_Petit } from "./arbitraires/ReponseInformationsSecteur.arbitraires";
+import { arbTuple_JamaisOse_ToujoursAutreUE } from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
 import {
-  arbTuple_JamaisOse_ToujoursAutreUE,
   fabriqueArbJamaisOse_ToujoursFrance_StructurePetit,
-} from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
-import {
   fabriqueResultatEvaluationEnSuspensStructure,
   fabriqueResultatEvaluationInconnuOse,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";

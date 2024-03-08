@@ -18,18 +18,20 @@ import {
 } from "../../src/Domain/Simulateur/SecteurActivite.definitions";
 import { getActivitesPour } from "../../src/Domain/Simulateur/services/Activite/Activite.operations";
 import {
+  estActiviteAutre,
   estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
   estActiviteListee,
 } from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { fabriqueContenuCapsuleInformationSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/CapsuleReponse.fabriques";
-import { UnionReponseEtatNonVide } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.definitions";
-import { FabriqueEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.fabriques";
+import { EtatRegulation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import {
   fabriqueResultatEvaluationEnSuspens,
   fabriqueResultatEvaluationInconnu,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.fabriques";
 import { ReponseAppartenancePaysUnionEuropeenne } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseAppartenancePaysUnionEuropeenne.definition";
 import { ReponseDesignationOperateurServicesEssentiels } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseDesignationOperateurServicesEssentiels.definitino";
+import { UnionReponseEtatNonVide } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.definitions";
+import { FabriqueEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.fabriques";
 import {
   eqInformationsSecteur,
   InformationSecteurSimple,
@@ -44,9 +46,17 @@ import {
 } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseStructure.definitions";
 import { PeutEtreSousSecteurActivite } from "../../src/Domain/Simulateur/SousSecteurActivite.definitions";
 import {
+  arbReponseStructure_ToujoursGrand,
+  arbReponseStructure_ToujoursMoyen,
+  arbStructurePetitPrive,
+} from "../Domaine/arbitraires/ReponseStructure.arbitraires";
+import { arbTuple_JamaisOse_ToujoursFrance } from "../Domaine/arbitraires/ResultatEvaluationRegulation.arbitraire";
+import { FabriqueArbReponseSimulateurParams } from "../Domaine/arbitraires/ResultatEvaluationRegulation.arbitraires.definitions";
+import {
   arbFournitServiceUnionEuropeenne_ToujoursNon,
   arbFournitServiceUnionEuropeenne_ToujoursOui,
 } from "../Domaine/arbitraires/ValeursChampsSimulateur.arbitraire";
+import { Arbitraire as A } from "./Arbitraires.operations";
 
 const determineArbFournitServicesUnionEuropeenne = (
   arbFournitServicesUnionEuropeenne: fc.Arbitrary<FournitServicesUnionEuropeenne>,
@@ -332,7 +342,7 @@ export const fabriqueResultatEvaluationEnSuspensSecteurPetit = ([
   fabriqueResultatEvaluationEnSuspens(
     "Structure",
     resultatIncertain,
-    FabriqueEtatDonneesSimulateur.informationsSecteurPetitChaine(
+    FabriqueEtatDonneesSimulateur.informationsSecteurChaine(
       designationOperateurServicesEssentiel,
       appartenancePaysUnionEuropeenne,
       structure,
@@ -391,20 +401,61 @@ export const fabriqueArbInformationsSecteurAutre = <T extends CategorieTaille>(
       }),
     ),
   );
-export const fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France =
+export const fabriqueArbCapsuleSecteurLocalisableGrand_Oui_France =
   fabriqueArbitraireCapsuleSecteurLocalisableGrand(
     fc.constant("oui"),
     fc.constant("france"),
   );
-export const fabriqueArbitraireCapsuleSecteurLocalisablePetit_Oui_France =
+export const fabriqueArbCapsuleSecteurLocalisablePetit_Oui_France =
   fabriqueArbitraireCapsuleSecteurLocalisable(
     fc.constant("oui"),
     fc.constant("france"),
   );
-export const fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe =
+export const fabriqueArbCapsuleSecteurLocalisableGrand_Oui_France_AvecEnsembleDe =
   flow(
     fabriqueArbitrairesEnsembleInformationsSecteurs<
       InformationsSecteurAvecBesoinLocalisation<"Grand">
     >,
-    fabriqueArbitraireCapsuleSecteurLocalisableGrand_Oui_France,
+    fabriqueArbCapsuleSecteurLocalisableGrand_Oui_France,
   );
+export const mapTupleArbitrairesToujoursFrance =
+  <Structure extends TypeStructure, Taille extends CategorieTaille>(
+    fabrique: (
+      arr: FabriqueArbReponseSimulateurParams<Taille>,
+    ) => EtatRegulation,
+  ) =>
+  (arbStructure: fc.Arbitrary<ReponseStructure<Structure, Taille>>) =>
+  (arbInformationsSecteur: fc.Arbitrary<ReponseInformationsSecteur<Taille>>) =>
+    fc
+      .tuple<FabriqueArbReponseSimulateurParams<Taille>>(
+        ...arbTuple_JamaisOse_ToujoursFrance,
+        arbStructure,
+        arbInformationsSecteur,
+      )
+      .map(fabrique);
+export const fabriqueArbJamaisOse_ToujoursFrance_Petit =
+  mapTupleArbitrairesToujoursFrance(
+    fabriqueResultatEvaluationEnSuspensSecteurPetit,
+  );
+export const fabriqueArbJamaisOse_ToujoursFrance_StructurePetit =
+  fabriqueArbJamaisOse_ToujoursFrance_Petit(arbStructurePetitPrive);
+export const fabriqueArbJamaisOse_ToujoursFrance =
+  mapTupleArbitrairesToujoursFrance(fabriqueResultatEvaluationEnSuspensSecteur);
+export const fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen =
+  fabriqueArbJamaisOse_ToujoursFrance(arbReponseStructure_ToujoursMoyen);
+export const fabriqueArbJamaisOse_ToujoursFrance_StructureGrand =
+  fabriqueArbJamaisOse_ToujoursFrance(arbReponseStructure_ToujoursGrand);
+export const fabriqueArbEnsemble_InformationsSecteur_ActivitesListes = flow(
+  A.enchaine(fabriqueArbitraireEnsembleActivitesPourSecteur(estActiviteListee)),
+  fabriqueArbitrairesEnsembleInformationsSecteurs,
+);
+export const fabriqueArbEnsemble_InformationsSecteur_ActivitesListesAgno = flow(
+  A.enchaine(
+    fabriqueArbitraireEnsembleActivitesPourSecteurAgno(estActiviteListee),
+  ),
+  fabriqueArbitrairesEnsembleInformationsSecteurs,
+);
+export const fabriqueArbEnsemble_InformationsSecteur_ActivitesAutres = flow(
+  A.enchaine(fabriqueArbitraireEnsembleActivitesPourSecteur(estActiviteAutre)),
+  fabriqueArbitrairesEnsembleInformationsSecteurs,
+);
