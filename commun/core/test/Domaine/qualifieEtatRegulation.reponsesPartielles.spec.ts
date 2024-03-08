@@ -10,6 +10,11 @@ import {
   EtatRegulation,
   EtatRegulationDefinitif,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
+import {
+  fabriqueResultatEvaluationEnSuspensAppUE,
+  fabriqueResultatEvaluationEnSuspensStructure,
+  fabriqueResultatEvaluationInconnuOse,
+} from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.fabriques";
 import { evalueRegulationEtatReponseLocalisation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.localisation.operations";
 import { evalueRegulationEtatReponseStructure } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.localisation.structure";
 import { evalueRegulationEtatReponseOse } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.ose.operations";
@@ -29,11 +34,6 @@ import {
   arbTuple_JamaisOse_ToujoursFrance,
   arbTuple_JamaisOse_ToujoursHorsUE,
 } from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
-import {
-  fabriqueResultatEvaluationEnSuspensAppUE,
-  fabriqueResultatEvaluationEnSuspensStructure,
-  fabriqueResultatEvaluationInconnuOse,
-} from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 
 describe("Réponses partielles", () => {
   describe("DesignationOperateurServicesEssentiels", () => {

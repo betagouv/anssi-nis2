@@ -11,6 +11,10 @@ import {
   RegulationEntite,
   TypeEntite,
 } from "../../src/Domain/Simulateur/Regulation.definitions";
+import {
+  fabriqueResultatEvaluationEnSuspensStructure,
+  fabriqueResultatEvaluationInconnuOse,
+} from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.fabriques";
 import { evalueEtatRegulation } from "../../src/Domain/Simulateur/services/Eligibilite/EvalueEtatRegulation";
 import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.fabriques";
 import {
@@ -21,15 +25,11 @@ import {
   afficheDifferences,
   assertionArbitraire,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
+import { fabriqueArbJamaisOse_ToujoursFrance_StructurePetit } from "../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
 import { arbStructurePetitPrive } from "./arbitraires/ReponseStructure.arbitraires";
 import { arbReponseDesignationOperateurServicesEssentiels_ToujoursOui } from "./arbitraires/ReponseDesignationOperateurServicesEssentiels.arbitraires";
 import { arbReponseInformationsSecteur_LocalisesHorsUE_Petit } from "./arbitraires/ReponseInformationsSecteur.arbitraires";
 import { arbTuple_JamaisOse_ToujoursAutreUE } from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
-import {
-  fabriqueArbJamaisOse_ToujoursFrance_StructurePetit,
-  fabriqueResultatEvaluationEnSuspensStructure,
-  fabriqueResultatEvaluationInconnuOse,
-} from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 
 type DonneesTest = {
   description: string;

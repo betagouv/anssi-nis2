@@ -5,6 +5,7 @@ import {
   verificationReponseDefinitivementReguleEE,
   verificationReponseNonRegule,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
+import { fabriqueArbJamaisOse_ToujoursFrance_StructurePetit } from "../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
 import { arbEnsembleSecteurs_Infranum_PE_AutreUE } from "./arbitraires/EnsembleInformationsSecteur.arbitraires";
 import {
   arbReponseInformationsSecteur_AvecActivitesEssentiels_SansBesoinLocalisation,
@@ -14,8 +15,7 @@ import {
 } from "./arbitraires/ReponseInformationsSecteur.arbitraires";
 import {
   fabriqueArbInformationsSecteurAutre,
-  fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFrance,
-  fabriqueArbJamaisOse_ToujoursFrance_StructurePetit,
+  fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PE,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 
 describe("Secteur", () => {
@@ -61,7 +61,7 @@ describe("Secteur", () => {
       "en suspens / secteurs localisables et localisé hors France ==> toujours définitivement non-régulé",
       assertionArbitraire(
         fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-          fabriqueArbitraireCapsuleSecteurLocalisableUeHorsFrance(
+          fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PE(
             arbEnsembleSecteurs_Infranum_PE_AutreUE,
           ),
         ),

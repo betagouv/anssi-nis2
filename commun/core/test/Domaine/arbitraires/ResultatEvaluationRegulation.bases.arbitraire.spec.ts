@@ -24,7 +24,10 @@ import {
   estSecteurListe,
 } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
+import { fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple } from "../../utilitaires/EnsActivites.arbitraires.fabriques";
+import { fabriqueArbitraireCapsuleSecteurPetit } from "../../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import { assertion } from "../../utilitaires/ResultatEvaluationRegulation.assertions";
+import { fabriqueArbJamaisOse_ToujoursFrance_StructurePetit } from "../../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
 import {
   arbEnsembleSecteursComposites,
   arbEnsembleSecteurs_AvecBesoinLoca_NonUE,
@@ -53,12 +56,7 @@ import {
   arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
   arbReponseInformationsSecteurPetit,
 } from "./ReponseInformationsSecteur.arbitraires";
-import {
-  fabriqueArbInformationsSecteurAutre,
-  fabriqueArbitraireCapsuleSecteurPetit,
-  fabriqueArbitraireEnsembleActivitesPourSecteur,
-  fabriqueArbJamaisOse_ToujoursFrance_StructurePetit,
-} from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
+import { fabriqueArbInformationsSecteurAutre } from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 
 describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
   describe("Capsules", () => {
@@ -197,13 +195,17 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
       it("ne produit pas de structure vide", () =>
         assertion.nonVide(
           arbSecteurListesSansSousSecteurNiLocaGrand.chain(
-            fabriqueArbitraireEnsembleActivitesPourSecteur(estActiviteListee),
+            fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple(
+              estActiviteListee,
+            ),
           ),
         ));
       it("ne contient pas uniquement activités autre", () =>
         assertion.propriete(
           arbSecteurListesSansSousSecteurNiLocaGrand.chain(
-            fabriqueArbitraireEnsembleActivitesPourSecteur(estActiviteListee),
+            fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple(
+              estActiviteListee,
+            ),
           ),
           (info) => {
             expect(info.activites).not.toSatisfy((activites: Set<Activite>) =>
