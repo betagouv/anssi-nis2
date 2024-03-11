@@ -107,7 +107,7 @@ export const verificationReponseDefinitivementIncertainAutrePaysUE = (
     afficheDifferences(resultatAttendu, resultatObtenu),
   ).toStrictEqual(resultatAttendu);
 };
-const fabriqueVerificationReponseDefinitivementRegule =
+export const fabriqueVerificationReponseDefinitivementRegule =
   (typeEntite: TypeEntite) => (reponse: EtatRegulation) => {
     const causes: CausesRegulation = {
       ...propReponseEtat(reponse)("Structure"),

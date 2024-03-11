@@ -1,7 +1,7 @@
 import { describe, it } from "vitest";
-import { ReponseInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
 import {
   assertionArbitraire,
+  fabriqueVerificationReponseDefinitivementRegule,
   verificationReponseDefinitivementIncertainAutrePaysUE,
   verificationReponseDefinitivementReguleEE,
   verificationReponseNonRegule,
@@ -18,7 +18,7 @@ import {
   fabriqueArbInformationsSecteurAutre,
   fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
-import { fc } from "@fast-check/vitest";
+import { TypeEntite as TE } from "../../src/Domain/Simulateur/Regulation.definitions";
 
 describe("Secteur", () => {
   describe("Petit", () => {
@@ -33,23 +33,23 @@ describe("Secteur", () => {
     );
 
     it(
-      "en suspens / secteurs+activités localisables et bien localisés ==> toujours définitivement régulé EE",
+      "en suspens / secteurs+activités localisables et bien localisés ==> toujours définitivement régulé END",
       assertionArbitraire(
         fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-          arbReponseInformationsSecteurLocalisesFrancePetit as fc.Arbitrary<
-            ReponseInformationsSecteur<"Petit">
-          >,
+          arbReponseInformationsSecteurLocalisesFrancePetit,
         ),
-        verificationReponseDefinitivementReguleEE,
+        // TODO: Etait EE --> END
+        fabriqueVerificationReponseDefinitivementRegule(TE.EntiteNonDeterminee),
       ),
     );
     it(
-      "en suspens / secteurs+activités essentielle sans besoin localisation ==> toujours définitivement régulé EE",
+      "en suspens / secteurs+activités essentielle sans besoin localisation ==> toujours définitivement régulé END",
       assertionArbitraire(
         fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
           arbReponseInformationsSecteur_AvecActivitesEssentiels_SansBesoinLocalisation,
         ),
-        verificationReponseDefinitivementReguleEE,
+        // TODO: Etait EE --> END
+        fabriqueVerificationReponseDefinitivementRegule(TE.EntiteNonDeterminee),
       ),
     );
     it(

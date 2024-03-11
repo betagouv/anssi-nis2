@@ -42,6 +42,7 @@ import {
   estSecteurBienLocaliseHorsFrance,
   estSecteurBienLocaliseUE,
 } from "./ReponseInformationsSecteur.predicats";
+import { TypeEntite as TE } from "../../Regulation.definitions";
 
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
   reponse: EtatEvaluationEnSuspens,
@@ -58,7 +59,8 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
       (reponse) =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
-          "EntiteEssentielle",
+          // TE.EntiteEssentielle,
+          TE.EntiteNonDeterminee,
         ),
     )
     .with(
@@ -96,7 +98,8 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
       (reponse) =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
-          "EntiteEssentielle",
+          // TE.EntiteEssentielle,
+          TE.EntiteNonDeterminee,
         ),
     )
     .with(
