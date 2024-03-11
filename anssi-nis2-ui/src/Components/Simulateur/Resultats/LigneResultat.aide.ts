@@ -3,6 +3,10 @@ import {
   toujoursFaux,
   toujoursVrai,
 } from "../../../../../commun/core/src/Domain/Commun/Commun.predicats.ts";
+import {
+  Regulation,
+  TypeEntite,
+} from "../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 import { CapsuleReponseDefinitions } from "../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/CapsuleReponse.definitions.ts";
 import {
   EtatRegulationDefinitif,
@@ -23,6 +27,7 @@ import {
   libelleTitreNonRegule,
   libelleTitreReguleEntiteEssentielle,
   libelleTitreReguleEntiteImportante,
+  libelleTitreReguleEntiteNonDeterminee,
 } from "../../../References/LibellesResultatsEligibilite.ts";
 import {
   ActionPrecisionsResultat,
@@ -81,26 +86,31 @@ export const getClassesCssResultat = (
       fabriqueClassesCSSResultat("fr-icon-check-line", "fr-nis2-eligible"),
     )
     .exhaustive();
-
 export const recupereTitrePourEtatEvaluation = (
   etatRegulation: EtatRegulationDefinitif,
 ) =>
   match(etatRegulation)
     .with(
       {
-        decision: "Regule",
-        typeEntite: "EntiteEssentielle",
+        decision: Regulation.Regule,
+        typeEntite: TypeEntite.EntiteEssentielle,
       },
       () => libelleTitreReguleEntiteEssentielle,
     )
     .with(
-      { decision: "Regule", typeEntite: "EntiteImportante" },
+      { decision: Regulation.Regule, typeEntite: TypeEntite.EntiteImportante },
       () => libelleTitreReguleEntiteImportante,
     )
-    .with({ decision: "NonRegule" }, () => libelleTitreNonRegule)
     .with(
       {
-        decision: "Incertain",
+        decision: Regulation.Regule,
+        typeEntite: TypeEntite.EntiteNonDeterminee,
+      },
+      () => libelleTitreReguleEntiteNonDeterminee,
+    )
+    .with(
+      {
+        decision: Regulation.Incertain,
         causes: { _tag: "DefiniDansUnAutreEtatMembre" },
       },
       () => libelleTitreIncertainAutrePaysUnionEuropeenne,
@@ -115,6 +125,7 @@ export const recupereTitrePourEtatEvaluation = (
       },
       () => libelleTitreNonRegule,
     )
+    .with({ decision: Regulation.NonRegule }, () => libelleTitreNonRegule)
     .otherwise(() => libelleTitreIncertainStandard);
 
 const getNomFichierPrecisionRegule = (

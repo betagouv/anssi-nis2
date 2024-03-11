@@ -32,7 +32,16 @@ export const Regulation: Record<RegulationEntite, RegulationEntite> = {
   Incertain: "Incertain",
 };
 
-export type TypeEntite = "EntiteImportante" | "EntiteEssentielle";
+export type TypeEntite =
+  | "EntiteImportante"
+  | "EntiteEssentielle"
+  | "EntiteNonDeterminee";
+
+export const TypeEntite: Record<TypeEntite, TypeEntite> = {
+  EntiteImportante: "EntiteImportante",
+  EntiteEssentielle: "EntiteEssentielle",
+  EntiteNonDeterminee: "EntiteNonDeterminee",
+};
 
 export type ResultatRegulationPositif = {
   decision: typeof Regulation.Regule;
