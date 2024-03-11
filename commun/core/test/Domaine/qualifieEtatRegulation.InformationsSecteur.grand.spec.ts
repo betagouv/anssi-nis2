@@ -1,5 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { describe, it } from "vitest";
+import { TypeEntite as TE } from "../../src/Domain/Simulateur/Regulation.definitions";
 import { fabriqueArb_ReponseInformationsSecteur_GE } from "../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import {
   fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_GE_AvecEnsembleDe,
@@ -8,9 +9,8 @@ import {
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
   assertionArbitraire,
+  fabriqueVerificationReponseDefinitivementRegule,
   verificationReponseDefinitivementIncertainAutrePaysUE,
-  verificationReponseDefinitivementReguleEE,
-  verificationReponseDefinitivementReguleEI,
   verificationReponseNonRegule,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import { fabriqueArbJamaisOse_ToujoursFrance_StructureGrand } from "../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
@@ -41,7 +41,7 @@ describe("Secteur", () => {
               arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
             ),
           ),
-          verificationReponseDefinitivementReguleEE,
+          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
         ),
       );
       it(
@@ -63,7 +63,7 @@ describe("Secteur", () => {
               arbInformationsSecteur_Infranum_ActivitesSansBesoinLoca_GrandeEI,
             ),
           ),
-          verificationReponseDefinitivementReguleEI,
+          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteImportante),
         ),
       );
     });
@@ -76,7 +76,7 @@ describe("Secteur", () => {
               arbInformationsSecteur_LocaliseesFrance_Grande_EI,
             ),
           ),
-          verificationReponseDefinitivementReguleEI,
+          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteImportante),
         ),
       );
       it(
@@ -112,7 +112,7 @@ describe("Secteur", () => {
               arbEnsembleSecteursAnnexe1,
             ),
           ),
-          verificationReponseDefinitivementReguleEE,
+          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
         ),
       );
       it(
@@ -123,7 +123,7 @@ describe("Secteur", () => {
               arbEnsembleSecteursAnnexe2,
             ),
           ),
-          verificationReponseDefinitivementReguleEI,
+          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteImportante),
         ),
       );
     });

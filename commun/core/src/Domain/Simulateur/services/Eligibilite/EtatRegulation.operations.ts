@@ -59,8 +59,7 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
       (reponse) =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
-          // TE.EntiteEssentielle,
-          TE.EntiteNonDeterminee,
+          TE.EntiteEssentielle,
         ),
     )
     .with(
@@ -98,8 +97,7 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
       (reponse) =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
-          // TE.EntiteEssentielle,
-          TE.EntiteNonDeterminee,
+          TE.EntiteEssentielle,
         ),
     )
     .with(
@@ -161,7 +159,7 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
       (reponse) =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
-          "EntiteEssentielle",
+          TE.EntiteEssentielle,
         ),
     )
     .with(
@@ -202,7 +200,7 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
       (reponse) =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
-          "EntiteImportante",
+          TE.EntiteImportante,
         ),
     )
     .with(
@@ -221,7 +219,7 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
       (reponse) =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
-          "EntiteImportante",
+          TE.EntiteImportante,
         ),
     )
     .with(

@@ -1,16 +1,16 @@
 import { fc } from "@fast-check/vitest";
 import { describe, it } from "vitest";
+import { TypeEntite as TE } from "../../src/Domain/Simulateur/Regulation.definitions";
 import { fabriqueArb_ReponseInformationsSecteur_ME } from "../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import {
   fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe,
-  fabriqueArbInformationsSecteurAutre,
   fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille,
+  fabriqueArbInformationsSecteurAutre,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
   assertionArbitraire,
+  fabriqueVerificationReponseDefinitivementRegule,
   verificationReponseDefinitivementIncertainAutrePaysUE,
-  verificationReponseDefinitivementReguleEE,
-  verificationReponseDefinitivementReguleEI,
   verificationReponseNonRegule,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import { fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen } from "../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
@@ -26,8 +26,8 @@ import {
   arbInformationsSecteur_Infranum_ActivitesSansBesoinLoca_GrandeEI,
   arbInformationsSecteur_LocaliseesAutre_Grande_EI,
   arbInformationsSecteur_LocaliseesAutrePaysUE_Grande_Infranum_EE,
-  arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
   arbInformationsSecteur_LocaliseesFrance_Grande_EI,
+  arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
 } from "./arbitraires/InformationsSecteur.arbitraires";
 
 describe("Secteur", () => {
@@ -41,7 +41,7 @@ describe("Secteur", () => {
               arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
             ),
           ),
-          verificationReponseDefinitivementReguleEE,
+          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
         ),
       );
       it(
@@ -63,7 +63,7 @@ describe("Secteur", () => {
               arbInformationsSecteur_Infranum_ActivitesSansBesoinLoca_GrandeEI,
             ),
           ),
-          verificationReponseDefinitivementReguleEI,
+          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteImportante),
         ),
       );
     });
@@ -76,7 +76,7 @@ describe("Secteur", () => {
               arbInformationsSecteur_LocaliseesFrance_Grande_EI,
             ),
           ),
-          verificationReponseDefinitivementReguleEI,
+          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteImportante),
         ),
       );
       it(
@@ -112,7 +112,7 @@ describe("Secteur", () => {
               arbEnsembleSecteursAnnexe1,
             ),
           ),
-          verificationReponseDefinitivementReguleEI,
+          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteImportante),
         ),
       );
       it(
@@ -123,7 +123,7 @@ describe("Secteur", () => {
               arbEnsembleSecteursAnnexe2,
             ),
           ),
-          verificationReponseDefinitivementReguleEI,
+          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteImportante),
         ),
       );
     });

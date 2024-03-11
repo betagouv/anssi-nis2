@@ -3,7 +3,6 @@ import {
   assertionArbitraire,
   fabriqueVerificationReponseDefinitivementRegule,
   verificationReponseDefinitivementIncertainAutrePaysUE,
-  verificationReponseDefinitivementReguleEE,
   verificationReponseNonRegule,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import { fabriqueArbJamaisOse_ToujoursFrance_StructurePetit } from "../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
@@ -38,8 +37,7 @@ describe("Secteur", () => {
         fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
           arbReponseInformationsSecteurLocalisesFrancePetit,
         ),
-        // TODO: Etait EE --> END
-        fabriqueVerificationReponseDefinitivementRegule(TE.EntiteNonDeterminee),
+        fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
       ),
     );
     it(
@@ -48,8 +46,7 @@ describe("Secteur", () => {
         fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
           arbReponseInformationsSecteur_AvecActivitesEssentiels_SansBesoinLocalisation,
         ),
-        // TODO: Etait EE --> END
-        fabriqueVerificationReponseDefinitivementRegule(TE.EntiteNonDeterminee),
+        fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
       ),
     );
     it(
