@@ -4,6 +4,7 @@ import PiedDePage from "./PiedDePage.tsx";
 import "../App.scss";
 import Matomo from "./Matomo.tsx";
 import { Helmet } from "react-helmet";
+import { BOM } from "./BOM/BOM.tsx";
 
 const MiseEnPage: DefaultComponent = ({ children, page }: DefaultProps) => {
   return (
@@ -20,6 +21,7 @@ const MiseEnPage: DefaultComponent = ({ children, page }: DefaultProps) => {
       <main className={page} role="main">
         {children}
       </main>
+      <BOM />
       <PiedDePage />
     </>
   );

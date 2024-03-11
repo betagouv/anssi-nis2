@@ -29,6 +29,30 @@
   font-size: 1.125rem;
 }
 
+.fr-nis2-bom {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  transition: height 0.2s, padding 0.2s;
+
+  &.bom-ferme {
+    width: 100px;
+    height: 30px;
+    padding: 0;
+    background: blue;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  &.bom-ouvert {
+    height: 100px;
+    padding: 20px 40px 20px 20px;
+    background: yellowgreen;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+}
+
 .fr-nis2-accueil-principal {
   height: 720px;
 
@@ -76,7 +100,8 @@
   padding-top: 100px;
   z-index: initial;
 
-  & h2, h3 {
+  & h2,
+  h3 {
     text-align: center;
     color: #272771;
     margin-bottom: 1rem;
@@ -466,7 +491,8 @@ legend.fr-text--medium {
 }
 
 .fr-nis2-aidez-nous {
-  background: var(--yellow-tournesol-975-75, #fef6e3) url(assets/faq.svg) no-repeat;
+  background: var(--yellow-tournesol-975-75, #fef6e3) url(assets/faq.svg)
+    no-repeat;
   background-size: 5rem;
 }
 
@@ -536,23 +562,23 @@ legend.fr-text--medium {
 
 .fr-radio-group input[type="radio"] + label {
   background-image: radial-gradient(
-          #fff 10px,
-          var(--background-action-high-blue-france) 11px,
-          transparent 12px
+    #fff 10px,
+    var(--background-action-high-blue-france) 11px,
+    transparent 12px
   );
 }
 
 .fr-radio-group input[type="radio"]:checked + label {
   background-image: radial-gradient(
-          transparent 10px,
-          var(--background-action-high-blue-france) 11px,
-          transparent 12px
-  ),
-  radial-gradient(transparent 7px, #fff 8px, transparent 9px),
-  radial-gradient(
-          var(--background-action-high-blue-france) 5px,
-          transparent 6px
-  );
+      transparent 10px,
+      var(--background-action-high-blue-france) 11px,
+      transparent 12px
+    ),
+    radial-gradient(transparent 7px, #fff 8px, transparent 9px),
+    radial-gradient(
+      var(--background-action-high-blue-france) 5px,
+      transparent 6px
+    );
 }
 
 .fr-nis2-faq {
