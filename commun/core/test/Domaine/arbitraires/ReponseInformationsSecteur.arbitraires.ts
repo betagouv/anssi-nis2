@@ -5,23 +5,24 @@ import { ReponseInformationsSecteur } from "../../../src/Domain/Simulateur/servi
 import { fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple } from "../../utilitaires/EnsActivites.arbitraires.fabriques";
 import { fabriqueArb_ReponseInformationsSecteur_PE } from "../../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import {
-  fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PE,
+  fabriqueArb_EnsInformationsSecteurPossible,
   fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PE,
   fabriqueArb_ReponseInformationsSecteur_NonLoca_PE,
-  fabriqueArb_EnsInformationsSecteurPossible,
+  fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille,
 } from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
-  arbEnsembleSecteursComposites,
   arbEnsembleSecteurs_AvecBesoinLoca_NonUE,
+  arbEnsembleSecteursComposites,
   arbEnsembleSecteursLocalisablesPetitFrance,
   arbEnsembleSecteursSimples,
 } from "./EnsembleInformationsSecteur.arbitraires";
-import { arbSecteurActivite_InfrastructureNumerique } from "./InformationsSecteur.arbitraires";
+
+import { arbSecteurActivite_InfrastructureNumerique } from "./SecteurActivite.arbitraires";
 
 export const arbReponseInformationsSecteurLocalisesFrancePetit =
-  fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PE(
-    arbEnsembleSecteursLocalisablesPetitFrance,
-  );
+  fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille(
+    "Petit",
+  )(arbEnsembleSecteursLocalisablesPetitFrance);
 
 export const arbReponseInformationsSecteur_AvecActivitesEssentiels_SansBesoinLocalisation: fc.Arbitrary<
   ReponseInformationsSecteur<"Petit">

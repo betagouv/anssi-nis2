@@ -5,6 +5,7 @@ import {
   fabriqueArb_ReponseInformationsSecteur_ME,
 } from "../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import {
+  fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe,
   fabriqueArb_ReponseInformationsSecteur_LocalisableGE_Oui_France_AvecEnsembleDe,
   fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_GE,
   fabriqueArbInformationsSecteurAutre,
@@ -32,8 +33,8 @@ import {
   arbInformationsSecteur_Infranum_ActivitesSansBesoinLoca_GrandeEI,
   arbInformationsSecteur_LocaliseesAutre_Grande_EI,
   arbInformationsSecteur_LocaliseesAutrePaysUE_Grande_Infranum_EE,
-  arbInformationsSecteur_LocaliseesFrance_Grande_EI,
   arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
+  arbInformationsSecteur_LocaliseesFrance_Grande_EI,
 } from "./arbitraires/InformationsSecteur.arbitraires";
 
 describe("Secteur", () => {
@@ -42,8 +43,8 @@ describe("Secteur", () => {
       it(
         "en suspens / secteurs+activités EE localisables (reg dom et fournisseur DNS) et bien localisés ==> toujours définitivement régulé EE",
         assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            fabriqueArb_ReponseInformationsSecteur_LocalisableGE_Oui_France_AvecEnsembleDe(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+            fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe(
               arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
             ),
           ),
@@ -53,8 +54,8 @@ describe("Secteur", () => {
       it(
         "en suspens / secteurs+activités EE localisables (reg dom et fournisseur DNS) et localisées en UE ==> toujours définitivement Incertain / Voir autre pays UE",
         assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            fabriqueArb_ReponseInformationsSecteur_LocalisableGE_Oui_France_AvecEnsembleDe(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+            fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe(
               arbInformationsSecteur_LocaliseesAutrePaysUE_Grande_Infranum_EE,
             ),
           ),

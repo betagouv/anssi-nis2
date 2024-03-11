@@ -1,6 +1,8 @@
 import { fc } from "@fast-check/vitest";
 import {
   Activite,
+  ActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+  ActivitesLocalisablesGrand,
   ActivitesLocalisablesPetit,
 } from "../../src/Domain/Simulateur/Activite.definitions";
 import { AppartenancePaysUnionEuropeenne } from "../../src/Domain/Simulateur/ChampsSimulateur.definitions";
@@ -94,21 +96,21 @@ export const fabriqueArb_EnsActivites_AvecFiltre_PourSecteur =
 export const fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe =
   <
     Taille extends CategorieTaille,
-    T extends
+    S extends
       SecteurAvecBesoinLocalisationRepresentant = SecteurAvecBesoinLocalisationRepresentant,
-    U extends
+    A extends
       ActivitesAvecBesoinLocalisationRepresentant<Taille> = ActivitesAvecBesoinLocalisationRepresentant<Taille>,
   >(
     fabriqueActivite: (
-      secteur: T,
+      secteur: S,
       sousSecteur: PeutEtreSousSecteurActivite,
-    ) => fc.Arbitrary<Set<U>>,
+    ) => fc.Arbitrary<Set<A>>,
   ) =>
   (
     arbLocalisationRepresentant: fc.Arbitrary<AppartenancePaysUnionEuropeenne>,
   ) =>
   (
-    secteur: T,
+    secteur: S,
   ): fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<Taille>> =>
     fc.record<InformationsSecteurAvecBesoinLocalisation<Taille>>({
       secteurActivite: fc.constant(secteur),
@@ -143,3 +145,42 @@ export const fabriqueArb_EnsActivites_PourSecteurEILocalisable_HorsUe = <
     fournitServicesUnionEuropeenne:
       arbFournitServiceUnionEuropeenne_ToujoursNon,
   }) as fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">>;
+export const fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe_PourFiltre = <
+  Taille extends CategorieTaille,
+  S extends SecteurAvecBesoinLocalisationRepresentant,
+  A extends ActivitesAvecBesoinLocalisationRepresentant<Taille>,
+>(
+  predicatActivite: (
+    a: Activite | ActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+  ) => boolean,
+) =>
+  fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe<Taille, S, A>(
+    fabriqueArb_EnsActivites_AvecFiltre_PourSecteurPeutEtreComposite(
+      predicatActivite,
+    ),
+  );
+export const fabriqueArb_EnsActivites_PourSecteurLocalisable_Liste_GE =
+  fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe_PourFiltre<
+    CategorieTaille,
+    SecteurAvecBesoinLocalisationRepresentant,
+    ActivitesLocalisablesGrand
+  >(estActiviteListee);
+export const fabriqueArb_EnsActivites_InfranumAvecBesoinLocalisation =
+  fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe_PourFiltre(
+    estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+  );
+export const fabriqueArb_EnsActivites_Infranum_Localisees =
+  <
+    TypeSecteurActivite extends
+      | "gestionServicesTic"
+      | "fournisseursNumeriques"
+      | "infrastructureNumerique",
+  >(
+    arbSecteurActivite: fc.Arbitrary<TypeSecteurActivite>,
+  ) =>
+  <TypeAppartenancePaysUnionEuropeenne extends AppartenancePaysUnionEuropeenne>(
+    arb: fc.Arbitrary<TypeAppartenancePaysUnionEuropeenne>,
+  ) =>
+    A.enchaine(fabriqueArb_EnsActivites_InfranumAvecBesoinLocalisation(arb))(
+      arbSecteurActivite,
+    );

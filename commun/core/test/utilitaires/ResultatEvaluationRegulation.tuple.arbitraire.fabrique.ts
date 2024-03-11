@@ -34,14 +34,14 @@ export const mapTupleArbitrairesToujoursFrance =
 export const fabriqueArbJamaisOse_ToujoursFrance =
   mapTupleArbitrairesToujoursFrance(fabriqueResultatEvaluationEnSuspensSecteur);
 export const fabriqueArbJamaisOse_ToujoursFrance_StructurePetit =
-  fabriqueArbJamaisOse_ToujoursFrance(
+  fabriqueArbJamaisOse_ToujoursFrance<"privee", "Petit">(
     arbReponseStructure_ToujoursPrivee_ToujoursPE,
   );
 export const fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen =
-  fabriqueArbJamaisOse_ToujoursFrance(
+  fabriqueArbJamaisOse_ToujoursFrance<"privee", "Moyen">(
     arbReponseStructure_ToujoursPrivee_ToujoursME,
   );
 export const fabriqueArbJamaisOse_ToujoursFrance_StructureGrand =
-  fabriqueArbJamaisOse_ToujoursFrance(
+  fabriqueArbJamaisOse_ToujoursFrance<"privee", "Grand">(
     arbReponseStructure_ToujoursPrivee_ToujoursGE,
   );

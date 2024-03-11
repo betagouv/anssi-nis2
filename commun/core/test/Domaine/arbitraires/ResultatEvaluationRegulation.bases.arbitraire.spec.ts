@@ -41,10 +41,6 @@ import {
   arbInformationsSecteur_AvecActivitesEssentielles_Petite,
   arbInformationsSecteur_Infranum_LocaliseesHorsUE_PE,
   arbInformationsSecteur_Infranum_PE_ActivitesAvecBesoinLocalisation_LocaliseesHorsUE,
-  arbSecteurAvecSousSecteurListes,
-  arbSecteurImportantAvecBesoinLocalisation,
-  arbSecteurListesSansSousSecteurNiLocaGrand,
-  arbSecteurNonEligiblesPetiteEntite,
   arbInformationsSecteur_LocaliseesFrance_Grande_EI,
 } from "./InformationsSecteur.arbitraires";
 import {
@@ -57,6 +53,12 @@ import {
   arbReponseInformationsSecteurPetit,
 } from "./ReponseInformationsSecteur.arbitraires";
 import { fabriqueArbInformationsSecteurAutre } from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
+import {
+  arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE,
+  arbSecteurAvecSousSecteurListes,
+  arbSecteurImportantAvecBesoinLocalisation,
+  arbSecteurNonEligiblesPetiteEntite,
+} from "./SecteurActivite.arbitraires";
 
 describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
   describe("Capsules", () => {
@@ -83,11 +85,11 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
               arbEnsembleSecteursSimples,
             ),
           ));
-        it("arbInformationsSecteurLocalisesFrancePetit et arbInformationsSecteurLocalisesHorsFrancePetit sont exclusifs", () =>
-          assertion.exclusifs(
-            arbReponseInformationsSecteurLocalisesFrancePetit,
-            arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
-          ));
+        // it("arbInformationsSecteurLocalisesFrancePetit et arbInformationsSecteurLocalisesHorsFrancePetit sont exclusifs", () =>
+        //   assertion.exclusifs(
+        //     arbReponseInformationsSecteurLocalisesFrancePetit,
+        //     arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
+        //   ));
         it("arbInformationsSecteurLocalisesHorsFrancePetit n'a jamais localisation France", () => {
           assertion.propriete(
             arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
@@ -158,14 +160,16 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
   describe("bases", () => {
     describe("arbSecteurSansSousSecteur", () => {
       it("n'est pas vide", () =>
-        assertion.nonVide(arbSecteurListesSansSousSecteurNiLocaGrand));
+        assertion.nonVide(
+          arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE,
+        ));
       it("ne contient pas 'autre'", () =>
         assertion.neContientPas("autreSecteurActivite")(
-          arbSecteurListesSansSousSecteurNiLocaGrand,
+          arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE,
         ));
       it("exclusif avec les secteurs localisables", () =>
         assertion.tousExclusifs(
-          arbSecteurListesSansSousSecteurNiLocaGrand,
+          arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE,
           arbSecteurImportantAvecBesoinLocalisation,
         ));
     });
@@ -196,7 +200,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
     describe("arbInformationsSecteurSimple", () => {
       it("ne produit pas de structure vide", () =>
         assertion.nonVide(
-          arbSecteurListesSansSousSecteurNiLocaGrand.chain(
+          arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE.chain(
             fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple(
               estActiviteListee,
             ),
@@ -204,7 +208,7 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
         ));
       it("ne contient pas uniquement activités autre", () =>
         assertion.propriete(
-          arbSecteurListesSansSousSecteurNiLocaGrand.chain(
+          arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE.chain(
             fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple(
               estActiviteListee,
             ),

@@ -46,13 +46,16 @@ export const fabriqueArb_ReponseInformationsSecteur_NonLoca_PE = (
     }),
   );
 export const fabriqueArb_ReponseInformationsSecteur_Localisable_PourTaille =
-  <Taille extends CategorieTaille>(taille: Taille) =>
+  <Taille extends CategorieTaille>(taille: `${Taille}`) =>
   (
     arbFournitServicesUnionEuropeenne: fc.Arbitrary<FournitServicesUnionEuropeenne>,
     arbLocalisationRepresentant: fc.Arbitrary<AppartenancePaysUnionEuropeenne>,
   ) =>
-    A.enchaine((info) =>
-      fc.record({
+    A.enchaine<
+      Set<InformationsSecteurPossible<Taille>>,
+      ReponseInformationsSecteur<Taille>
+    >((info) =>
+      fc.record<ReponseInformationsSecteur<Taille>>({
         _categorieTaille: fc.constant(taille),
         secteurs: fc.constant(info),
         ...determineArbFournitServicesUnionEuropeenne(
@@ -63,7 +66,7 @@ export const fabriqueArb_ReponseInformationsSecteur_Localisable_PourTaille =
     );
 export const fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PE =
 
-    <Taille extends CategorieTaille>(taille: Taille) =>
+    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
     (
       arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
     ): fc.Arbitrary<ReponseInformationsSecteur<Taille>> =>
@@ -126,20 +129,25 @@ export const fabriqueArbInformationsSecteurAutre = <T extends CategorieTaille>(
       }),
     ),
   );
-export const fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_GE =
-  fabriqueArb_ReponseInformationsSecteur_Localisable_PourTaille("Grand")(
-    fc.constant("oui"),
-    fc.constant("france"),
-  );
-export const fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PE =
-  fabriqueArb_ReponseInformationsSecteur_Localisable_PourTaille("Petit")(
-    fc.constant("oui"),
-    fc.constant("france"),
-  );
+export const fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille =
+  <Taille extends CategorieTaille>(taille: `${Taille}`) =>
+    fabriqueArb_ReponseInformationsSecteur_Localisable_PourTaille(taille)(
+      fc.constant("oui"),
+      fc.constant("france"),
+    );
 export const fabriqueArb_ReponseInformationsSecteur_LocalisableGE_Oui_France_AvecEnsembleDe =
   flow(
     fabriqueArb_EnsInformationsSecteurPossible,
-    fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_GE,
+    fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille(
+      "Grand",
+    ),
+  );
+export const fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe =
+  flow(
+    fabriqueArb_EnsInformationsSecteurPossible,
+    fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille(
+      "Moyen",
+    ),
   );
 export const fabriqueArb_EnsInformationsSecteur_ActivitesListees = flow(
   A.enchaine(

@@ -18,6 +18,7 @@ import {
   arbTranche,
   arbTypeStructure,
 } from "../ValeursChampsSimulateur.arbitraire";
+import { fc } from "@fast-check/vitest";
 
 export const arbOSEPetit = etend(arbitraireSecteursSousSecteurs)
   .avec({

@@ -17,21 +17,23 @@ import {
   arbInformationsSecteur_Infranum_PE_ActivitesAvecBesoinLocalisation_LocaliseesHorsUE,
   arbInformationsSecteurComposite,
   arbInformationsSecteurCompositeActivitesAutres,
+} from "./InformationsSecteur.arbitraires";
+import {
   arbSecteurActivite_InfrastructureNumerique,
-  arbSecteurListesSansSousSecteurNiLocaGrand,
+  arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE,
   arbSecteursActivite_Annexe1_SansBesoinLocalisation,
   arbSecteursActivite_Annexe2_SansBesoinLocalisation,
-} from "./InformationsSecteur.arbitraires";
+} from "./SecteurActivite.arbitraires";
 
 export const arbEnsembleSecteursSimples: fc.Arbitrary<
   Set<InformationSecteurSimple>
 > = fabriqueArb_EnsInformationsSecteur_ActivitesListees(
-  arbSecteurListesSansSousSecteurNiLocaGrand,
+  arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE,
 );
 export const arbEnsembleSecteursSimplesActivitesAutres: fc.Arbitrary<
   Set<InformationSecteurSimple>
 > = fabriqueArb_EnsInformationsSecteur_ActivitesAutres(
-  arbSecteurListesSansSousSecteurNiLocaGrand,
+  arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE,
 );
 export const arbEnsembleSecteursAnnexe1 =
   fabriqueArb_EnsInformationsSecteur_ActivitesListeesAgno(

@@ -5,14 +5,20 @@ import {
 } from "../../SecteurActivite.definitions";
 import {
   EnrSecteurSousSecteur,
+  PeutEtreSousSecteurActivite,
   SousSecteurActivite,
 } from "../../SousSecteurActivite.definitions";
+import { fabriqueTuplesSecteurSousSecteur } from "../SecteurActivite/SecteurActivite.operations";
 import {
   contientSousSecteur,
   estSecteurListe,
+  estSecteurNeNecessitantPasLocalisationRepresentant,
   estUnSecteurAvecDesSousSecteurs,
 } from "../SecteurActivite/SecteurActivite.predicats";
-import { estSousSecteurListe } from "./SousSecteurActivite.predicats";
+import {
+  estSousSecteur,
+  estSousSecteurListe,
+} from "./SousSecteurActivite.predicats";
 
 const extraitSousSecteurs = (
   secteur: SecteursAvecSousSecteurs,
@@ -71,3 +77,29 @@ export const extraitSousSecteursDesCouples = (
       new Set<SousSecteurActivite>(),
     ),
   ).filter((sousSecteur) => sousSecteur !== undefined);
+const fabriqueTupleSectoriel = (
+  secteur: SecteurActivite,
+): [SecteurActivite, PeutEtreSousSecteurActivite][] =>
+  estUnSecteurAvecDesSousSecteurs(secteur)
+    ? fabriqueTuplesSecteurSousSecteur(secteur)
+    : [[secteur, "PasDeSousSecteurActivite"]];
+const accumuleTuplesSecteurs = (
+  acc: [SecteurActivite, PeutEtreSousSecteurActivite][],
+  secteur: SecteurActivite,
+): [SecteurActivite, PeutEtreSousSecteurActivite][] => [
+  ...acc,
+  ...fabriqueTupleSectoriel(secteur),
+];
+export const filtreValsursSecteursInutiles = (
+  listeSecteurs: readonly SecteurActivite[],
+) =>
+  listeSecteurs
+    .filter(estSecteurNeNecessitantPasLocalisationRepresentant)
+    .reduce(
+      accumuleTuplesSecteurs,
+      [] as [SecteurActivite, PeutEtreSousSecteurActivite][],
+    )
+    .filter(
+      ([, ssSecteur]) =>
+        estSousSecteur(ssSecteur) && estSousSecteurListe(ssSecteur),
+    );
