@@ -16,7 +16,7 @@ import {
 } from "./arbitraires/ReponseInformationsSecteur.arbitraires";
 import {
   fabriqueArbInformationsSecteurAutre,
-  fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PE,
+  fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import { fc } from "@fast-check/vitest";
 
@@ -65,7 +65,7 @@ describe("Secteur", () => {
       "en suspens / secteurs localisables et localisé hors France ==> toujours définitivement non-régulé",
       assertionArbitraire(
         fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-          fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PE(
+          fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille(
             "Petit",
           )(arbEnsembleSecteurs_Infranum_PE_AutreUE),
         ),

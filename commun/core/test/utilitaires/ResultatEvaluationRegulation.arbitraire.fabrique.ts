@@ -2,90 +2,41 @@ import { fc } from "@fast-check/vitest";
 import { flow } from "fp-ts/lib/function";
 import { ens } from "../../../utils/services/sets.operations";
 import {
-  AppartenancePaysUnionEuropeenne,
-  FournitServicesUnionEuropeenne,
-} from "../../src/Domain/Simulateur/ChampsSimulateur.definitions";
-import {
   estActiviteAutre,
   estActiviteListee,
 } from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { fabriqueContenuCapsuleInformationSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.fabriques";
 import {
   eqInformationsSecteur,
-  InformationSecteurSimple,
   InformationsSecteurPossible,
   ReponseInformationsSecteur,
 } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
 import { CategorieTaille } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseStructure.definitions";
-import { arbFournitServiceUnionEuropeenne_ToujoursNon } from "../Domaine/arbitraires/ValeursChampsSimulateur.arbitraire";
 import { Arbitraire as A } from "./Arbitraires.operations";
 import {
   fabriqueArb_EnsActivites_AvecFiltre_PourSecteur,
   fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple,
 } from "./EnsActivites.arbitraires.fabriques";
 
-const determineArbFournitServicesUnionEuropeenne = (
-  arbFournitServicesUnionEuropeenne: fc.Arbitrary<FournitServicesUnionEuropeenne>,
-  arbLocalisationRepresentant: fc.Arbitrary<AppartenancePaysUnionEuropeenne>,
-): {
-  fournitServicesUnionEuropeenne: fc.Arbitrary<FournitServicesUnionEuropeenne>;
-} => ({
-  fournitServicesUnionEuropeenne:
-    arbFournitServicesUnionEuropeenne && arbLocalisationRepresentant
-      ? arbFournitServicesUnionEuropeenne
-      : arbFournitServiceUnionEuropeenne_ToujoursNon,
-});
-
-export const fabriqueArb_ReponseInformationsSecteur_NonLoca_PE = (
-  arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
-): fc.Arbitrary<ReponseInformationsSecteur<"Petit">> =>
-  arb.chain((info) =>
-    fc.record({
-      _categorieTaille: fc.constant("Petit"),
-      secteurs: fc.constant(info),
-    }),
-  );
-export const fabriqueArb_ReponseInformationsSecteur_Localisable_PourTaille =
+export const fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille =
   <Taille extends CategorieTaille>(taille: `${Taille}`) =>
-  (
-    arbFournitServicesUnionEuropeenne: fc.Arbitrary<FournitServicesUnionEuropeenne>,
-    arbLocalisationRepresentant: fc.Arbitrary<AppartenancePaysUnionEuropeenne>,
-  ) =>
     A.enchaine<
       Set<InformationsSecteurPossible<Taille>>,
       ReponseInformationsSecteur<Taille>
     >((info) =>
-      fc.record<ReponseInformationsSecteur<Taille>>({
+      fc.record({
         _categorieTaille: fc.constant(taille),
         secteurs: fc.constant(info),
-        ...determineArbFournitServicesUnionEuropeenne(
-          arbFournitServicesUnionEuropeenne,
-          arbLocalisationRepresentant,
-        ),
       }),
     );
-export const fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PE =
-
-    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
-    (
-      arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
-    ): fc.Arbitrary<ReponseInformationsSecteur<Taille>> =>
-      arb.chain((info) =>
-        fc.record({
-          _categorieTaille: fc.constant(taille),
-          secteurs: fc.constant(info),
-        }),
-      );
+export const fabriqueArb_ReponseInformationsSecteur_NonLoca_PE =
+  fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille(
+    "Petit",
+  );
 export const fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_GE =
-  (
-    arb: fc.Arbitrary<Set<InformationSecteurSimple>>,
-  ): fc.Arbitrary<ReponseInformationsSecteur<"Grand">> =>
-    arb.chain((info) =>
-      fc.record({
-        _categorieTaille: fc.constant("Grand"),
-        secteurs: fc.constant(info),
-      }),
-    );
+  fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille(
+    "Grand",
+  );
 
 export const fabriqueArb_EnsInformationsSecteurPossible = <
   Taille extends CategorieTaille,
@@ -94,12 +45,12 @@ export const fabriqueArb_EnsInformationsSecteurPossible = <
 >(
   arb: fc.Arbitrary<T>,
 ) =>
-  fc
-    .uniqueArray(arb, {
+  A.enchaine<T[], Set<T>>(A.ensembleDepuisArray)(
+    fc.uniqueArray(arb, {
       minLength: 1,
       comparator: eqInformationsSecteur,
-    })
-    .chain(A.ensembleDepuisArray);
+    }),
+  );
 
 export const fabriqueArbInformationsSecteurAutre = <T extends CategorieTaille>(
   taille: T,
@@ -131,9 +82,8 @@ export const fabriqueArbInformationsSecteurAutre = <T extends CategorieTaille>(
   );
 export const fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille =
   <Taille extends CategorieTaille>(taille: `${Taille}`) =>
-    fabriqueArb_ReponseInformationsSecteur_Localisable_PourTaille(taille)(
-      fc.constant("oui"),
-      fc.constant("france"),
+    fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille(
+      taille,
     );
 export const fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe =
   flow(

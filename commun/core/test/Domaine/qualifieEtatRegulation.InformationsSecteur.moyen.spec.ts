@@ -4,7 +4,7 @@ import { fabriqueArb_ReponseInformationsSecteur_ME } from "../utilitaires/Repons
 import {
   fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe,
   fabriqueArbInformationsSecteurAutre,
-  fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PE,
+  fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
   assertionArbitraire,
@@ -95,7 +95,7 @@ describe("Secteur", () => {
         "en suspens / secteurs+activités EI localisables et localisés hors-france ==> toujours définitivement non-régulé",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
-            fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PE(
+            fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille(
               "Moyen",
             )(arbEnsembleSecteurs_AvecBesoinLoca_GrandEI),
           ),

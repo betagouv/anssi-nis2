@@ -6,7 +6,7 @@ import { fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple } from "../../uti
 import { fabriqueArb_ReponseInformationsSecteur_PE } from "../../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import {
   fabriqueArb_EnsInformationsSecteurPossible,
-  fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PE,
+  fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille,
   fabriqueArb_ReponseInformationsSecteur_NonLoca_PE,
   fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille,
 } from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
@@ -37,9 +37,9 @@ export const arbReponseInformationsSecteur_AvecActivitesEssentiels_SansBesoinLoc
 );
 export const arbReponseInformationsSecteur_LocalisesHorsUE_Petit: fc.Arbitrary<
   ReponseInformationsSecteur<"Petit">
-> = fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PE("Petit")(
-  arbEnsembleSecteurs_AvecBesoinLoca_NonUE,
-);
+> = fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille(
+  "Petit",
+)(arbEnsembleSecteurs_AvecBesoinLoca_NonUE);
 export const arbReponseInformationsSecteurPetit = fc.oneof(
   fabriqueArb_ReponseInformationsSecteur_PE(arbEnsembleSecteursComposites),
   fabriqueArb_ReponseInformationsSecteur_PE(arbEnsembleSecteursSimples),

@@ -1,7 +1,7 @@
 import { fc } from "@fast-check/vitest";
 import {
-  InformationSecteurSimple,
   InformationsSecteurAvecBesoinLocalisation,
+  InformationsSecteurPossible,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
 import {
   fabriqueArb_EnsInformationsSecteur_ActivitesAutres,
@@ -26,12 +26,12 @@ import {
 } from "./SecteurActivite.arbitraires";
 
 export const arbEnsembleSecteursSimples: fc.Arbitrary<
-  Set<InformationSecteurSimple>
+  Set<InformationsSecteurPossible<"Grand">>
 > = fabriqueArb_EnsInformationsSecteur_ActivitesListees(
   arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE,
 );
 export const arbEnsembleSecteursSimplesActivitesAutres: fc.Arbitrary<
-  Set<InformationSecteurSimple>
+  Set<InformationsSecteurPossible<"Grand">>
 > = fabriqueArb_EnsInformationsSecteur_ActivitesAutres(
   arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE,
 );
@@ -50,13 +50,13 @@ export const arbEnsembleSecteursCompositesActivitesAutres =
     arbInformationsSecteurCompositeActivitesAutres,
   );
 export const arbEnsembleSecteursSimplesEligiblesPetit: fc.Arbitrary<
-  Set<InformationSecteurSimple>
+  Set<InformationsSecteurPossible<"Petit">>
 > = fabriqueArb_EnsInformationsSecteur_ActivitesListees(
   arbSecteurActivite_InfrastructureNumerique,
 );
 
 export const arbEnsembleSecteursSimplesEligiblesPetitActivitesAutres: fc.Arbitrary<
-  Set<InformationSecteurSimple>
+  Set<InformationsSecteurPossible<"Petit">>
 > = fabriqueArb_EnsInformationsSecteur_ActivitesAutres(
   arbSecteurActivite_InfrastructureNumerique,
 );
@@ -92,6 +92,7 @@ export const arbEnsembleSecteurs_Infranum_PE_AutreUE =
  */
 export const arbEnsembleSecteurs_AvecBesoinLoca_GrandEI: fc.Arbitrary<
   Set<InformationsSecteurAvecBesoinLocalisation<"Grand">>
-> = fabriqueArb_EnsInformationsSecteurPossible(
-  arbInformationsSecteur_AvecBesoinLoca_GrandEI_LocaliseesHorsUE,
-);
+> = fabriqueArb_EnsInformationsSecteurPossible<
+  "Grand",
+  InformationsSecteurAvecBesoinLocalisation<"Grand">
+>(arbInformationsSecteur_AvecBesoinLoca_GrandEI_LocaliseesHorsUE);
