@@ -135,18 +135,18 @@ export const fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_Franc
       fc.constant("oui"),
       fc.constant("france"),
     );
-export const fabriqueArb_ReponseInformationsSecteur_LocalisableGE_Oui_France_AvecEnsembleDe =
-  flow(
-    fabriqueArb_EnsInformationsSecteurPossible,
-    fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille(
-      "Grand",
-    ),
-  );
 export const fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe =
   flow(
     fabriqueArb_EnsInformationsSecteurPossible,
     fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille(
       "Moyen",
+    ),
+  );
+export const fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_GE_AvecEnsembleDe =
+  flow(
+    fabriqueArb_EnsInformationsSecteurPossible,
+    fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille(
+      "Grand",
     ),
   );
 export const fabriqueArb_EnsInformationsSecteur_ActivitesListees = flow(

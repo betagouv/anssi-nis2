@@ -2,7 +2,7 @@ import { fc } from "@fast-check/vitest";
 import { describe, it } from "vitest";
 import { fabriqueArb_ReponseInformationsSecteur_GE } from "../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import {
-  fabriqueArb_ReponseInformationsSecteur_LocalisableGE_Oui_France_AvecEnsembleDe,
+  fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_GE_AvecEnsembleDe,
   fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_GE,
   fabriqueArbInformationsSecteurAutre,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
@@ -37,7 +37,7 @@ describe("Secteur", () => {
         "en suspens / secteurs+activités EE localisables (reg dom et fournisseur DNS) et bien localisés ==> toujours définitivement régulé EE",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            fabriqueArb_ReponseInformationsSecteur_LocalisableGE_Oui_France_AvecEnsembleDe(
+            fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_GE_AvecEnsembleDe(
               arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
             ),
           ),
@@ -48,7 +48,7 @@ describe("Secteur", () => {
         "en suspens / secteurs+activités EE localisables (reg dom et fournisseur DNS) et localisées en UE ==> toujours définitivement Incertain / Voir autre pays UE",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            fabriqueArb_ReponseInformationsSecteur_LocalisableGE_Oui_France_AvecEnsembleDe(
+            fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_GE_AvecEnsembleDe(
               arbInformationsSecteur_LocaliseesAutrePaysUE_Grande_Infranum_EE,
             ),
           ),
@@ -72,7 +72,7 @@ describe("Secteur", () => {
         "en suspens / secteurs+activités EI localisables et bien localisés ==> toujours définitivement régulé EI",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            fabriqueArb_ReponseInformationsSecteur_LocalisableGE_Oui_France_AvecEnsembleDe(
+            fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_GE_AvecEnsembleDe(
               arbInformationsSecteur_LocaliseesFrance_Grande_EI,
             ),
           ),
@@ -83,7 +83,7 @@ describe("Secteur", () => {
         "en suspens / secteurs+activités EI localisables et bien localisés ==> toujours définitivement régulé EI",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            fabriqueArb_ReponseInformationsSecteur_LocalisableGE_Oui_France_AvecEnsembleDe(
+            fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_GE_AvecEnsembleDe(
               arbInformationsSecteur_LocaliseesAutre_Grande_EI,
             ),
           ),

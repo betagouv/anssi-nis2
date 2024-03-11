@@ -1,14 +1,10 @@
 import { fc } from "@fast-check/vitest";
 import { describe, it } from "vitest";
-import {
-  fabriqueArb_ReponseInformationsSecteur_GE,
-  fabriqueArb_ReponseInformationsSecteur_ME,
-} from "../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
+import { fabriqueArb_ReponseInformationsSecteur_ME } from "../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import {
   fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe,
-  fabriqueArb_ReponseInformationsSecteur_LocalisableGE_Oui_France_AvecEnsembleDe,
-  fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_GE,
   fabriqueArbInformationsSecteurAutre,
+  fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PE,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
   assertionArbitraire,
@@ -17,10 +13,7 @@ import {
   verificationReponseDefinitivementReguleEI,
   verificationReponseNonRegule,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
-import {
-  fabriqueArbJamaisOse_ToujoursFrance_StructureGrand,
-  fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen,
-} from "../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
+import { fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen } from "../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
 import {
   arbEnsembleSecteurs_AvecBesoinLoca_GrandEI,
   arbEnsembleSecteursAnnexe1,
@@ -65,8 +58,8 @@ describe("Secteur", () => {
       it(
         "en suspens / secteurs Infrastructure Numérique + activités EI (ni reg dom ni fournisseur DNS) sans besoin localisation ==> toujours définitivement régulé EI",
         assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            fabriqueArb_ReponseInformationsSecteur_GE(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+            fabriqueArb_ReponseInformationsSecteur_ME(
               arbInformationsSecteur_Infranum_ActivitesSansBesoinLoca_GrandeEI,
             ),
           ),
@@ -78,8 +71,8 @@ describe("Secteur", () => {
       it(
         "en suspens / secteurs+activités EI localisables et bien localisés ==> toujours définitivement régulé EI",
         assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            fabriqueArb_ReponseInformationsSecteur_LocalisableGE_Oui_France_AvecEnsembleDe(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+            fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe(
               arbInformationsSecteur_LocaliseesFrance_Grande_EI,
             ),
           ),
@@ -89,8 +82,8 @@ describe("Secteur", () => {
       it(
         "en suspens / secteurs+activités EI localisables et bien localisés ==> toujours définitivement régulé EI",
         assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            fabriqueArb_ReponseInformationsSecteur_LocalisableGE_Oui_France_AvecEnsembleDe(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+            fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe(
               arbInformationsSecteur_LocaliseesAutre_Grande_EI,
             ),
           ),
@@ -101,10 +94,10 @@ describe("Secteur", () => {
       it(
         "en suspens / secteurs+activités EI localisables et localisés hors-france ==> toujours définitivement non-régulé",
         assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_GE(
-              arbEnsembleSecteurs_AvecBesoinLoca_GrandEI,
-            ),
+          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+            fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PE(
+              "Moyen",
+            )(arbEnsembleSecteurs_AvecBesoinLoca_GrandEI),
           ),
           verificationReponseNonRegule,
         ),
@@ -138,15 +131,15 @@ describe("Secteur", () => {
       it(
         "en suspens / secteurs/sous-secteur listés, uniquement activités autres ==> toujours définitivement non-régulé",
         assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
             fc.oneof(
-              fabriqueArb_ReponseInformationsSecteur_GE(
+              fabriqueArb_ReponseInformationsSecteur_ME(
                 arbEnsembleSecteursCompositesActivitesAutres,
               ),
-              fabriqueArb_ReponseInformationsSecteur_GE(
+              fabriqueArb_ReponseInformationsSecteur_ME(
                 arbEnsembleSecteursSimplesActivitesAutres,
               ),
-              fabriqueArb_ReponseInformationsSecteur_GE(
+              fabriqueArb_ReponseInformationsSecteur_ME(
                 arbEnsembleSecteursSimplesEligiblesPetitActivitesAutres,
               ),
             ),
@@ -157,8 +150,8 @@ describe("Secteur", () => {
       it(
         "en suspens / secteur autre Grand ==> toujours définitivement non régulé",
         assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            fabriqueArbInformationsSecteurAutre("Grand"),
+          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+            fabriqueArbInformationsSecteurAutre("Moyen"),
           ),
           verificationReponseNonRegule,
         ),
