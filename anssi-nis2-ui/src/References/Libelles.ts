@@ -75,4 +75,6 @@ export const libellesSimulateur: DictionnaireLibellesSimulateur = {
   typeEntitePublique: libellesTypeEntitePublique,
   fournitServicesUnionEuropeenne: libellesFournitServicesUnionEuropeenne,
   localisationRepresentant: libellesPaysUnionEuropeenneLocalisation,
+  localisationFournitureServicesNumeriques:
+    libellesPaysUnionEuropeenneLocalisation,
 };

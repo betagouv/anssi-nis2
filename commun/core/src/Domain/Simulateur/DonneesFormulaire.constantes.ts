@@ -12,4 +12,5 @@ export const donneesFormulaireSimulateurVide: DonneesFormulaireSimulateur = {
   activites: [],
   fournitServicesUnionEuropeenne: [],
   localisationRepresentant: [],
+  localisationFournitureServicesNumeriques: [],
 };

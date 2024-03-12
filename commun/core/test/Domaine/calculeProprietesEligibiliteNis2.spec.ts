@@ -156,6 +156,7 @@ describe.skip(
               activites: ["collectantEvacuantTraitantEaux"],
               fournitServicesUnionEuropeenne: [],
               localisationRepresentant: [],
+              localisationFournitureServicesNumeriques: [],
             })
             .renvoieToujours(Eligibilite.Incertain));
       });

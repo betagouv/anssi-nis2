@@ -1,4 +1,7 @@
-import { FournitServicesUnionEuropeenne } from "../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import {
+  AppartenancePaysUnionEuropeenne,
+  FournitServicesUnionEuropeenne,
+} from "../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { ValeursActivites } from "../Domaine/Simulateur/Activite.definitions.ts";
 import {
   appartenancePaysUnionEuropeenne,
@@ -32,4 +35,8 @@ export type DictionnaireLibellesSimulateur = {
     string
   >;
   localisationRepresentant: Record<appartenancePaysUnionEuropeenne, string>;
+  localisationFournitureServicesNumeriques: Record<
+    AppartenancePaysUnionEuropeenne,
+    string
+  >;
 };

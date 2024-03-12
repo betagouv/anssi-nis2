@@ -41,6 +41,9 @@ export const gestionnairesDeChamp: Record<
   typeEntitePublique: gestionValeursSimples,
   fournitServicesUnionEuropeenne: gestionValeursSimples,
   localisationRepresentant: gestionValeursSimples,
+  localisationFournitureServicesNumeriques: genereGestionValeursMultiples(
+    "localisationFournitureServicesNumeriques",
+  ),
 };
 
 export const gestionnairesPourChamps = (

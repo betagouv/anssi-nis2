@@ -78,6 +78,7 @@ const initialValue: Record<
   typeStructure: arbFormulaireVide,
   fournitServicesUnionEuropeenne: arbFormulaireVide,
   localisationRepresentant: arbFormulaireVide,
+  localisationFournitureServicesNumeriques: arbFormulaireVide,
 };
 export const donneeAbsente = ValeursNomChampsFormulaire.reduce(
   (resultat, nom) => ({

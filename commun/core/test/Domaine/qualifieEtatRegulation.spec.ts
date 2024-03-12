@@ -113,6 +113,7 @@ describe("chaine de décision", () => {
       trancheNombreEmployes: ["petit"],
       appartenancePaysUnionEuropeenne: ["france"],
       activites: ["fournisseurReseauxCommunicationElectroniquesPublics"],
+      localisationFournitureServicesNumeriques: [],
     },
     {
       description:
@@ -130,6 +131,7 @@ describe("chaine de décision", () => {
       appartenancePaysUnionEuropeenne: ["france"],
       trancheNombreEmployes: ["moyen"],
       activites: ["fournisseurServicesSecuriteGeres"],
+      localisationFournitureServicesNumeriques: [],
     },
     {
       description:
@@ -147,6 +149,7 @@ describe("chaine de décision", () => {
       appartenancePaysUnionEuropeenne: ["france"],
       trancheNombreEmployes: ["grand"],
       activites: ["fournisseurServicesInformatiqueNuage"],
+      localisationFournitureServicesNumeriques: [],
     },
   ];
   it.each(contreExemples)(

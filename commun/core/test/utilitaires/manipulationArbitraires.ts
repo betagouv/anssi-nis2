@@ -193,6 +193,7 @@ export const ajouteChampsFacultatifs = <
     | "typeEntitePublique"
     | "fournitServicesUnionEuropeenne"
     | "localisationRepresentant"
+    | "localisationFournitureServicesNumeriques"
   >,
 >(
   base: T,
@@ -201,6 +202,7 @@ export const ajouteChampsFacultatifs = <
     typeEntitePublique: fc.constant([]),
     fournitServicesUnionEuropeenne: fc.constant([]),
     localisationRepresentant: fc.constant([]),
+    localisationFournitureServicesNumeriques: fc.constant([]),
     ...propageBase(base),
   });
 
