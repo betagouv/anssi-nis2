@@ -10,6 +10,7 @@ export const ValeursNomChampsFormulaire = [
   "activites",
   "fournitServicesUnionEuropeenne",
   "localisationRepresentant",
+  "localisationFournitureServicesNumeriques",
 ] as const;
 
 export const ChampsFormulaireFacultatifs = [
@@ -19,4 +20,5 @@ export const ChampsFormulaireFacultatifs = [
   "trancheChiffreAffaire",
   "fournitServicesUnionEuropeenne",
   "localisationRepresentant",
+  "localisationFournitureServicesNumeriques",
 ];

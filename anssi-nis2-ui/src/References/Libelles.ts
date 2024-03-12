@@ -33,7 +33,7 @@ export const libellesPaysUnionEuropeenneLocalisation: Record<
   string
 > = {
   france: "France",
-  autre: "Autres états membres",
+  autre: "Autres états membres de l'Union Européenne",
   horsue: "Autres états hors Union Européenne",
 };
 

@@ -28,6 +28,7 @@ export interface DonneesFormulaireSimulateur
   typeEntitePublique: TypeEntitePublique[];
   fournitServicesUnionEuropeenne: FournitServicesUnionEuropeenne[];
   localisationRepresentant: AppartenancePaysUnionEuropeenne[];
+  localisationFournitureServicesNumeriques: AppartenancePaysUnionEuropeenne[];
 }
 
 export type DonneesSectorielles = Pick<

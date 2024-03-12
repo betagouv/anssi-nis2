@@ -4,6 +4,11 @@ export const texteQuestionLocalisationActivite =
 
 export const texteQuestionLocalisastionRepresentant =
   "Dans quel pays sera établi votre représentant dans l'Union Européenne\xa0?";
+export const texteQuestionLocalisastionsServices =
+  "Dans quels états membres de l’Union Européenne fournissez-vous des services numériques\xa0?";
+export const texteQuestionLocalisastionsServicesMention =
+  "Fournisseur de réseaux de communications électroniques publics, ou" +
+  " Fournisseur de services de communications électroniques accessibles au public.";
 
 export const texteQuestionOperateurServiceEssentiel =
   "Avez-vous été désigné opérateur de services essentiels (OSE) au titre de NIS\xa01\xa0?";
