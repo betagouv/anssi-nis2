@@ -1,7 +1,7 @@
 import { TypeStructure } from "../../ChampsSimulateur.definitions";
 import { ReponseAppartenancePaysUnionEuropeenne } from "./ReponseAppartenancePaysUnionEuropeenne.definition";
 import { ReponseDesignationOperateurServicesEssentiels } from "./ReponseDesignationOperateurServicesEssentiels.definitino";
-import { ReponseInformationsSecteur } from "./ReponseInformationsSecteur.predicats";
+import { ReponseInformationsSecteur } from "./ReponseInformationsSecteur.definitions";
 import {
   CategorieTaille,
   ReponseStructure,

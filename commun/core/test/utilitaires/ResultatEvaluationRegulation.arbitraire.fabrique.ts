@@ -5,12 +5,12 @@ import {
   estActiviteAutre,
   estActiviteListee,
 } from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
-import { fabriqueContenuCapsuleInformationSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.fabriques";
 import {
-  eqInformationsSecteur,
   InformationsSecteurPossible,
   ReponseInformationsSecteur,
-} from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
+} from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
+import { fabriqueContenuCapsuleInformationSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.fabriques";
+import { eqInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
 import { CategorieTaille } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseStructure.definitions";
 import { Arbitraire as A } from "./Arbitraires.operations";
 import {

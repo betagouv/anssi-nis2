@@ -2,7 +2,7 @@ import { fc } from "@fast-check/vitest";
 import {
   InformationsSecteurAvecBesoinLocalisation,
   InformationsSecteurPossible,
-} from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
+} from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
 import {
   fabriqueArb_EnsInformationsSecteur_ActivitesAutres,
   fabriqueArb_EnsInformationsSecteur_ActivitesListees,

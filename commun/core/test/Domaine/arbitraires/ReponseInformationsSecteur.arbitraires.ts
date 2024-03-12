@@ -1,7 +1,7 @@
 import { fc } from "@fast-check/vitest";
 import { estActiviteInfrastructureNumeriqueEligiblesPetitEntite } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { ReponseInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
 
-import { ReponseInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
 import { fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple } from "../../utilitaires/EnsActivites.arbitraires.fabriques";
 import { fabriqueArb_ReponseInformationsSecteur_PE } from "../../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import {

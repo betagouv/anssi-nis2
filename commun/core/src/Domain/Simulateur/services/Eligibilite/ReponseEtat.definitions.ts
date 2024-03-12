@@ -6,7 +6,7 @@ import {
   CapsuleInformationsSecteur,
   CapsuleStructure,
 } from "./CapsuleReponse.definitions";
-import { ReponseInformationsSecteur } from "./ReponseInformationsSecteur.predicats";
+import { ReponseInformationsSecteur } from "./ReponseInformationsSecteur.definitions";
 import {
   CategorieTaille,
   ReponseStructure,

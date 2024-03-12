@@ -2,7 +2,7 @@ import { fc } from "@fast-check/vitest";
 import { TypeStructure } from "../../src/Domain/Simulateur/ChampsSimulateur.definitions";
 import { EtatRegulation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 import { fabriqueResultatEvaluationEnSuspensSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.fabriques";
-import { ReponseInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
+import { ReponseInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
 import {
   CategorieTaille,
   ReponseStructure,

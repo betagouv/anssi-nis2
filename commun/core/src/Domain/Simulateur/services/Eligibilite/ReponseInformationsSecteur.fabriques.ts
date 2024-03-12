@@ -1,7 +1,7 @@
 import {
   InformationsSecteurPossible,
   ReponseInformationsSecteur,
-} from "./ReponseInformationsSecteur.predicats";
+} from "./ReponseInformationsSecteur.definitions";
 import { CategorieTaille } from "./ReponseStructure.definitions";
 import { fabriqueCategorieTaille } from "./ReponseStructure.fabriques";
 

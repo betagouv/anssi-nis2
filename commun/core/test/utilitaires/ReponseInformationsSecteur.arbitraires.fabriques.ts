@@ -2,7 +2,7 @@ import { fc } from "@fast-check/vitest";
 import {
   InformationsSecteurPossible,
   ReponseInformationsSecteur,
-} from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
+} from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
 import { CategorieTaille } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseStructure.definitions";
 import { Arbitraire as A } from "../utilitaires/Arbitraires.operations";
 

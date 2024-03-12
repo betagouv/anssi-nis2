@@ -1,5 +1,5 @@
 import { et } from "../../../../utils/services/predicats.operations";
-import { ActivitesLocalisablesPetit } from "../../../src/Domain/Simulateur/Activite.definitions";
+import { ActiviteInfrastructureNumeriqueDNSRegistreDomainePermierNiveau } from "../../../src/Domain/Simulateur/Activite.definitions";
 import { SecteurAvecBesoinLocalisationRepresentant } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
 import {
   estActiviteAutre,
@@ -46,7 +46,7 @@ export const arbInformationsSecteur_AvecActivitesEssentielles_Petite =
     fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe_PourFiltre<
       "Petit",
       SecteurAvecBesoinLocalisationRepresentant,
-      ActivitesLocalisablesPetit
+      ActiviteInfrastructureNumeriqueDNSRegistreDomainePermierNiveau
     >(estActiviteInfrastructureNumeriqueEligiblesPetitEntite)(
       arbLocalisationRepresentant_ToujoursFrance,
     ),
@@ -66,7 +66,7 @@ export const arbInformationsSecteur_AvecActivitesEssentielles_LocaliseesFrance_P
     fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe_PourFiltre<
       "Petit",
       SecteurAvecBesoinLocalisationRepresentant,
-      ActivitesLocalisablesPetit
+      ActiviteInfrastructureNumeriqueDNSRegistreDomainePermierNiveau
     >(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation)(
       arbLocalisationRepresentant_ToujoursFrance,
     ),

@@ -14,7 +14,7 @@ import { activiteEstDansSecteur } from "../services/Activite/Activite.predicats"
 import {
   InformationsSecteurPossible,
   ReponseInformationsSecteur,
-} from "../services/Eligibilite/ReponseInformationsSecteur.predicats";
+} from "../services/Eligibilite/ReponseInformationsSecteur.definitions";
 import { CategorieTaille } from "../services/Eligibilite/ReponseStructure.definitions";
 import {
   estSecteurAutre,

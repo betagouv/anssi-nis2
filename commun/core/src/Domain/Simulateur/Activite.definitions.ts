@@ -19,7 +19,7 @@ import {
   ValeursActivitesInfrastructureMarcheFinancier,
   ValeursActivitesInfrastructureNumerique,
   ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite,
-  ValeursActivitesInfrastructureNumeriqueAvecBesoinLocalisation,
+  ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
   ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation,
   ValeursActivitesPetrole,
   ValeursActivitesProductionTransformationDistributionDenreesAlimentaires,
@@ -32,6 +32,9 @@ import {
   ValeursActivitesTransportsFerroviaires,
   ValeursActivitesTransportsParEaux,
   ValeursActivitesTransportsRoutiers,
+  ValeursActivitesInfrastructureNumeriquePointEchangeServicesConfiance,
+  ValeursActivitesInfrastructureNumeriqueFournisseursServices,
+  ValeursActivitesInfrastructureNumeriqueFournisseursCommElecPublics,
 } from "./Activite.valeurs";
 
 export type ActivitesElectricite = (typeof ValeursActivitesElectricite)[number];
@@ -135,16 +138,24 @@ export type DescriptionActivite = {
   description: string;
 };
 
+/** Obsolete */
 export type ActivitesInfrastructureNumeriqueEligiblesPetitEntite =
   (typeof ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite)[number];
-export type ActiviteInfrastructureNumeriqueAvecBesoinLocalisation =
-  (typeof ValeursActivitesInfrastructureNumeriqueAvecBesoinLocalisation)[number];
 
+/** Obsolete */
 export type ActiviteInfrastructureNumeriqueSansBesoinLocalisation =
   (typeof ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation)[number];
 
-export type ActivitesLocalisablesPetit =
-  ActiviteInfrastructureNumeriqueAvecBesoinLocalisation;
+export type ActiviteInfrastructureNumeriqueFournisseursCommElecPublics =
+  (typeof ValeursActivitesInfrastructureNumeriqueFournisseursCommElecPublics)[number];
+export type ActiviteInfrastructureNumeriqueFournisseursServices =
+  (typeof ValeursActivitesInfrastructureNumeriqueFournisseursServices)[number];
+export type ActiviteInfrastructureNumeriquePointEchangeServicesConfiance =
+  (typeof ValeursActivitesInfrastructureNumeriquePointEchangeServicesConfiance)[number];
+export type ActiviteInfrastructureNumeriqueDNSRegistreDomainePermierNiveau =
+  (typeof ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau)[number];
+
+/** Obsolete */
 export type ActivitesLocalisablesGrand =
   | ActivitesFournisseursNumeriques
   | ActivitesGestionServicesTic;

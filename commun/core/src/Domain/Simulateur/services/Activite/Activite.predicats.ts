@@ -1,11 +1,11 @@
 import {
   Activite,
-  ActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+  ActiviteInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
   ActiviteInfrastructureNumeriqueSansBesoinLocalisation,
   ActivitesInfrastructureNumeriqueEligiblesPetitEntite,
 } from "../../Activite.definitions";
 import {
-  ValeursActivitesInfrastructureNumeriqueAvecBesoinLocalisation,
+  ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
   ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite,
   ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation,
 } from "../../Activite.valeurs";
@@ -102,10 +102,10 @@ export const estActiviteInfrastructureNumeriqueEligiblesPetitEntite = (
     a as ActivitesInfrastructureNumeriqueEligiblesPetitEntite,
   );
 export const estActiviteInfrastructureNumeriqueAvecBesoinLocalisation = (
-  a: Activite | ActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
-): a is ActiviteInfrastructureNumeriqueAvecBesoinLocalisation =>
-  ValeursActivitesInfrastructureNumeriqueAvecBesoinLocalisation.includes(
-    a as ActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
+  a: Activite | ActiviteInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
+): a is ActiviteInfrastructureNumeriqueDNSRegistreDomainePermierNiveau =>
+  ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau.includes(
+    a as ActiviteInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
   );
 export const estActiviteInfrastructureNumeriqueSansBesoinLocalisation = (
   a: Activite | ActiviteInfrastructureNumeriqueSansBesoinLocalisation,

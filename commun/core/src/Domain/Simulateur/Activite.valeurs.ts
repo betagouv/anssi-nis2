@@ -91,6 +91,7 @@ export const ValeursActivitesEauUsees = [
   "autreActiviteEauPotable",
 ] as const;
 
+/** Obsolete */
 export const ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation = [
   "fournisseurPointEchangeInternet",
   "fournisseurServicesInformatiqueNuage",
@@ -98,20 +99,33 @@ export const ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation = [
   "fournisseurReseauxDiffusionContenu",
   "prestataireServiceConfiance",
 ] as const;
-/** Activités toujours concernées pour une petite entreprise privée */
+/** Obsolete */
 export const ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite = [
   "fournisseurReseauxCommunicationElectroniquesPublics",
   "fournisseurServiceCommunicationElectroniquesPublics",
   "prestataireServiceConfiance",
 ] as const;
-export const ValeursActivitesInfrastructureNumeriqueAvecBesoinLocalisation = [
-  "registresNomsDomainesPremierNiveau",
-  "fournisseurServicesDNS",
+export const ValeursActivitesInfrastructureNumeriqueFournisseursCommElecPublics =
+  [
+    "fournisseurReseauxCommunicationElectroniquesPublics",
+    "fournisseurServiceCommunicationElectroniquesPublics",
+  ] as const;
+export const ValeursActivitesInfrastructureNumeriqueFournisseursServices = [
+  "fournisseurServicesInformatiqueNuage",
+  "fournisseurServiceCentresDonnees",
+  "fournisseurReseauxDiffusionContenu",
+  "fournisseurServicesEnregristrementNomDomaine",
 ] as const;
+export const ValeursActivitesInfrastructureNumeriquePointEchangeServicesConfiance =
+  ["prestataireServiceConfiance", "fournisseurPointEchangeInternet"];
+export const ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau =
+  ["registresNomsDomainesPremierNiveau", "fournisseurServicesDNS"] as const;
+
 export const ValeursActivitesInfrastructureNumerique = [
-  ...ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation,
-  ...ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite,
-  ...ValeursActivitesInfrastructureNumeriqueAvecBesoinLocalisation,
+  ...ValeursActivitesInfrastructureNumeriqueFournisseursCommElecPublics,
+  ...ValeursActivitesInfrastructureNumeriqueFournisseursServices,
+  ...ValeursActivitesInfrastructureNumeriquePointEchangeServicesConfiance,
+  ...ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
   "autreActiviteInfrastructureNumerique",
 ] as const;
 

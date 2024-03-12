@@ -22,7 +22,7 @@ import { ReponseDesignationOperateurServicesEssentiels } from "./ReponseDesignat
 import { UnionReponseEtatNonVide } from "./ReponseEtat.definitions";
 import { FabriqueEtatDonneesSimulateur } from "./ReponseEtat.fabriques";
 import { propReponseEtat } from "./ReponseEtat.operations";
-import { ReponseInformationsSecteur } from "./ReponseInformationsSecteur.predicats";
+import { ReponseInformationsSecteur } from "./ReponseInformationsSecteur.definitions";
 import {
   CategorieTaille,
   ReponseStructure,
