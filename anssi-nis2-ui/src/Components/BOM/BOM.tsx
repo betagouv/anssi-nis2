@@ -1,5 +1,6 @@
-import { DefaultComponent } from "../../Services/Props";
 import { Fragment, useState } from "react";
+import { DefaultComponent } from "../../Services/Props";
+import chevron from "../../assets/forme-chevron-blanc.svg";
 
 enum EtatBOM {
   Ouvert,
@@ -15,10 +16,14 @@ export const BOM: DefaultComponent = () => {
 
   if (etat === Ferme)
     return (
-      <div
+      <button
         className="fr-nis2-bom bom-ferme"
         onClick={() => changeEtat(Ouvert)}
-      ></div>
+        aria-label="Menu d'assitance"
+      >
+        Aide
+        <img src={chevron} alt="" />
+      </button>
     );
 
   return (

@@ -32,16 +32,40 @@
 .fr-nis2-bom {
   position: fixed;
   right: 10px;
-  bottom: 10px;
+  bottom: 20px;
   transition: height 0.2s, padding 0.2s;
 
   &.bom-ferme {
-    width: 100px;
-    height: 30px;
-    padding: 0;
-    background: blue;
-    cursor: pointer;
-    border-radius: 5px;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 16px 2px 30px;
+    gap: 8px;
+    background-color: #272771 !important;
+
+    &:hover {
+      filter: saturate(110%) contrast(110%);
+      background-color: #2323ff !important;
+    }
+
+    &:before {
+      content: "";
+      background-image: url(assets/vignette-bom.svg);
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      left: -25px;
+    }
+
+    & img {
+      transform: rotate(-90deg);
+    }
   }
 
   &.bom-ouvert {
