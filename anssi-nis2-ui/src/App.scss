@@ -69,11 +69,45 @@
   }
 
   &.bom-ouvert {
-    height: 100px;
-    padding: 20px 40px 20px 20px;
-    background: yellowgreen;
-    cursor: pointer;
-    border-radius: 5px;
+    width: 320px;
+    border-radius: 15px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+
+    & h4 {
+      color: white;
+      height: 100px;
+      background: url(assets/entete-fenetre-bom.svg) no-repeat;
+      background-size: 100%;
+      padding-left: 86px;
+      padding-top: 43px;
+      font-size: 0.9rem;
+      line-height: 1.4rem;
+      margin-bottom: 0;
+      & .plus-grand {
+        font-size: 1.3rem;
+      }
+    }
+
+    & .contenu {
+      padding: 24px 18px;
+      border-left: 1px solid #272771;
+      border-right: 1px solid #272771;
+    }
+
+    & .fermeture-bom {
+      display: flex;
+      width: 100%;
+      padding-right: 10px;
+      padding-bottom: 10px;
+      justify-content: flex-end;
+      border-left: 1px solid #272771;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+      border-bottom: 1px solid #272771;
+      border-right: 1px solid #272771;
+    }
   }
 }
 

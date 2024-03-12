@@ -28,9 +28,22 @@ export const BOM: DefaultComponent = () => {
 
   return (
     <div className="fr-nis2-bom bom-ouvert" onClick={() => changeEtat(Ferme)}>
-      <a href={urlFAQ} target="_blank" rel="noreferrer">
-        Accéder à la FAQ
-      </a>
+      <h4>
+        Bienvenue sur <br /> <span className="plus-grand">MonEspaceNIS2</span>
+      </h4>
+      <div className="contenu">
+        Vous souhaitez :
+        <ul>
+          <li>
+            <a href={urlFAQ} target="_blank" rel="noreferrer">
+              Accéder à la FAQ
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div className="fermeture-bom">
+        <button onClick={() => changeEtat(Ferme)}>Fermer</button>
+      </div>
     </div>
   );
 };
