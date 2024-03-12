@@ -1,5 +1,5 @@
 import { DefaultComponent } from "../../Services/Props";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 enum EtatBOM {
   Ouvert,
@@ -9,6 +9,9 @@ const { Ouvert, Ferme } = EtatBOM;
 
 export const BOM: DefaultComponent = () => {
   const [etat, changeEtat] = useState<EtatBOM>(Ferme);
+
+  const urlFAQ = import.meta.env.VITE_CRISP_URL_FAQ;
+  if (!urlFAQ) return <Fragment />;
 
   if (etat === Ferme)
     return (
@@ -20,7 +23,9 @@ export const BOM: DefaultComponent = () => {
 
   return (
     <div className="fr-nis2-bom bom-ouvert" onClick={() => changeEtat(Ferme)}>
-      Accéder à la FAQ
+      <a href={urlFAQ} target="_blank" rel="noreferrer">
+        Accéder à la FAQ
+      </a>
     </div>
   );
 };
