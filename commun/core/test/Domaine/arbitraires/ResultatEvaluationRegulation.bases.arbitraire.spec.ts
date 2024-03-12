@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { certains, tous } from "../../../../utils/services/sets.operations";
 import { Activite } from "../../../src/Domain/Simulateur/Activite.definitions";
-import { SecteurImportantsAvecBesoinLocalisation } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
+import { SecteurImportantsAvecBesoinLocalisationEtablissementPrincipal } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
 
-import { ValeursSecteursImportantsAvecBesoinLocalisation } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
+import { ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
 import {
   estActiviteAutre,
   estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
@@ -138,8 +138,8 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
               arbInformationsSecteur_LocaliseesFrance_Grande_EI,
               (infoSec) => {
                 expect(
-                  ValeursSecteursImportantsAvecBesoinLocalisation.includes(
-                    infoSec.secteurActivite as SecteurImportantsAvecBesoinLocalisation,
+                  ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal.includes(
+                    infoSec.secteurActivite as SecteurImportantsAvecBesoinLocalisationEtablissementPrincipal,
                   ),
                 ).toBeTruthy();
                 expect(infoSec.fournitServicesUnionEuropeenne).toEqual("oui");
@@ -178,9 +178,9 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
         assertion.propriete(
           arbSecteurImportantAvecBesoinLocalisation,
           (secteur) => {
-            expect(ValeursSecteursImportantsAvecBesoinLocalisation).includes(
-              secteur,
-            );
+            expect(
+              ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal,
+            ).includes(secteur);
           },
         ));
     });

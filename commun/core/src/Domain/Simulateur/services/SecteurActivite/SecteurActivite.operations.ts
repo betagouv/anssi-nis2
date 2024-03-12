@@ -1,7 +1,7 @@
 import {
   SecteurActivite,
-  SecteursAvecSousSecteurs,
-  SecteursSansSousSecteur,
+  SecteurComposite,
+  SecteurSimple,
 } from "../../SecteurActivite.definitions";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
 import { sousSecteursParSecteur } from "../../SousSecteurActivite.valeurs";
@@ -12,23 +12,23 @@ import {
 } from "./SecteurActivite.predicats";
 
 export const fabriqueSecteurContientLeSousSecteur =
-  (secteur: SecteursAvecSousSecteurs) =>
+  (secteur: SecteurComposite) =>
   ([sousSecteur]: [SousSecteurActivite, string]) =>
     estUnSecteurAvecDesSousSecteurs(secteur) &&
     contientSousSecteur(secteur, sousSecteur);
 export const fabriqueTupleSecteurSousSecteurs: (
-  secteur: SecteursAvecSousSecteurs,
+  secteur: SecteurComposite,
 ) => [SecteurActivite, Readonly<SousSecteurActivite[]>] = (secteur) => [
   secteur,
   sousSecteursParSecteur[secteur],
 ];
 export const fabriqueTuplesSecteurSousSecteur: (
-  secteur: SecteursAvecSousSecteurs,
-) => [SecteursAvecSousSecteurs, SousSecteurActivite][] = (secteur) =>
+  secteur: SecteurComposite,
+) => [SecteurComposite, SousSecteurActivite][] = (secteur) =>
   sousSecteursParSecteur[secteur].map((sousSecteur) => [secteur, sousSecteur]);
 export const fabriqueListePartielleSecteursAvecSousSecteurs = (
   listeSousSecteurs: readonly SousSecteurActivite[],
-  secteur: SecteursAvecSousSecteurs,
+  secteur: SecteurComposite,
 ): {
   secteur: SecteurActivite;
   sousSecteur: SousSecteurActivite;
@@ -39,9 +39,9 @@ export const fabriqueListePartielleSecteursAvecSousSecteurs = (
   }));
 export const filtreSecteursSansSousSecteurs: (
   secteursActivite: SecteurActivite[],
-) => SecteursSansSousSecteur[] = (secteursActivite) => {
+) => SecteurSimple[] = (secteursActivite) => {
   if (!secteursActivite || secteursActivite.length === 0) return [];
   return secteursActivite.filter(
     estUnSecteurSansSousSecteur,
-  ) as SecteursSansSousSecteur[];
+  ) as SecteurSimple[];
 };

@@ -8,7 +8,7 @@ import {
 import { DonneesFormulaireSimulateur } from "../DonneesFormulaire.definitions";
 import {
   SecteurActivite,
-  SecteursAvecSousSecteurs,
+  SecteurComposite,
 } from "../SecteurActivite.definitions";
 import { activiteEstDansSecteur } from "../services/Activite/Activite.predicats";
 import {
@@ -80,7 +80,7 @@ export const FabriqueInformationsSecteur = {
       }),
 
   secteurCompositeAutre: (
-    secteur: SecteursAvecSousSecteurs,
+    secteur: SecteurComposite,
     sousSecteur: SousSecteurAutre,
   ): Set<InformationsSecteurPossible<CategorieTaille>> =>
     ens({
@@ -90,7 +90,7 @@ export const FabriqueInformationsSecteur = {
 
   accumuleSecteursComposites:
     (donnees: DonneesFormulaireSimulateur) =>
-    (secteur: SecteursAvecSousSecteurs) =>
+    (secteur: SecteurComposite) =>
     (
       ensembleSecteurs: Set<InformationsSecteurPossible<CategorieTaille>>,
       sousSecteur: SousSecteurActivite,
@@ -111,7 +111,7 @@ export const FabriqueInformationsSecteur = {
   ensembleSecteursComposites:
     (donnees: DonneesFormulaireSimulateur) =>
     (
-      secteur: SecteursAvecSousSecteurs,
+      secteur: SecteurComposite,
     ): Set<InformationsSecteurPossible<CategorieTaille>> =>
       donnees.sousSecteurActivite
         .filter(estDansSecteur(secteur))

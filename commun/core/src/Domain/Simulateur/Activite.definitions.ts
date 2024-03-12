@@ -36,6 +36,7 @@ import {
   ValeursActivitesInfrastructureNumeriqueFournisseursServices,
   ValeursActivitesInfrastructureNumeriqueFournisseursCommElecPublics,
 } from "./Activite.valeurs";
+import { SecteurSimple } from "./SecteurActivite.definitions";
 
 export type ActivitesElectricite = (typeof ValeursActivitesElectricite)[number];
 export type ActivitesReseauxChaleurFroid =
@@ -159,3 +160,24 @@ export type ActiviteInfrastructureNumeriqueDNSRegistreDomainePermierNiveau =
 export type ActivitesLocalisablesGrand =
   | ActivitesFournisseursNumeriques
   | ActivitesGestionServicesTic;
+
+export interface ActivitesPourSecteur extends Record<SecteurSimple, Activite> {
+  gestionServicesTic: ActivitesGestionServicesTic;
+  fournisseursNumeriques: ActivitesFournisseursNumeriques;
+  energie: ActivitesEnergie;
+  transports: ActivitesTransports;
+  secteurBancaire: ActivitesSecteurBancaire;
+  infrastructureMarcheFinancier: ActivitesInfrastructureMarcheFinancier;
+  sante: ActivitesSante;
+  eauPotable: ActivitesEauPotable;
+  eauUsees: ActivitesEauUsees;
+  infrastructureNumerique: ActivitesInfrastructureNumerique;
+  administrationPublique: ActivitesAdministrationPublique;
+  espace: ActivitesEspace;
+  servicesPostauxExpedition: ActivitesServicesPostauxExpedition;
+  gestionDechets: ActivitesGestionDechets;
+  fabricationProductionDistributionProduitsChimiques: ActivitesFabricationProductionDistributionProduitsChimiques;
+  productionTransformationDistributionDenreesAlimentaires: ActivitesProductionTransformationDistributionDenreesAlimentaires;
+  fabrication: ActivitesFabrication;
+  recherche: ActivitesRecherche;
+}

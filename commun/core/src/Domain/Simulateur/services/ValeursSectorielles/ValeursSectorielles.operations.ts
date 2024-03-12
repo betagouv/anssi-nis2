@@ -1,7 +1,7 @@
-import { SecteursSansSousSecteur } from "../../SecteurActivite.definitions";
+import { SecteurSimple } from "../../SecteurActivite.definitions";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
 
 export const fabriqueListeValeursSectorielles = (
-  secteursSansSousSecteurs: SecteursSansSousSecteur[],
+  secteursSansSousSecteurs: SecteurSimple[],
   sousSecteurs: SousSecteurActivite[],
 ) => [...secteursSansSousSecteurs, ...sousSecteurs];

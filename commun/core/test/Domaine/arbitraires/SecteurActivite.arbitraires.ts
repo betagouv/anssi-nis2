@@ -4,14 +4,14 @@ import {
   ValeursSecteursSansSousSecteur,
 } from "../../../src/Domain/Simulateur/SecteurActivite.constantes";
 import {
-  SecteurImportantsAvecBesoinLocalisation,
-  SecteursAvecSousSecteurs,
+  SecteurImportantsAvecBesoinLocalisationEtablissementPrincipal,
+  SecteurComposite,
 } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
 import {
-  ValeursSecteurAvecActivitesEssentielles,
+  ValeurSecteurInfrastructureNumerique,
   ValeursSecteursActivitesAnnexe1,
   ValeursSecteursActivitesAnnexe2,
-  ValeursSecteursImportantsAvecBesoinLocalisation,
+  ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal,
 } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
 import {
   estSecteurListe,
@@ -37,11 +37,11 @@ export const arbSecteursActivite_Annexe2_SansBesoinLocalisation =
     ...filtreValsursSecteursInutiles(ValeursSecteursActivitesAnnexe2),
   );
 export const arbSecteurActivite_InfrastructureNumerique = fc.constantFrom(
-  ...ValeursSecteurAvecActivitesEssentielles,
+  ...ValeurSecteurInfrastructureNumerique,
 );
 export const arbSecteurImportantAvecBesoinLocalisation =
-  fc.constantFrom<SecteurImportantsAvecBesoinLocalisation>(
-    ...ValeursSecteursImportantsAvecBesoinLocalisation,
+  fc.constantFrom<SecteurImportantsAvecBesoinLocalisationEtablissementPrincipal>(
+    ...ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal,
   );
 export const arbSecteurNonEligiblesPetiteEntite = fc.constantFrom(
   ...ValeursSecteursSansSousSecteur.filter(estSecteurListe).filter(
@@ -49,7 +49,7 @@ export const arbSecteurNonEligiblesPetiteEntite = fc.constantFrom(
   ),
 );
 export const arbSecteurAvecSousSecteurListes = fc.constantFrom<
-  [SecteursAvecSousSecteurs, SousSecteurActivite]
+  [SecteurComposite, SousSecteurActivite]
 >(
   ...listeTuplesSecteursSousSecteurs.filter(([, sousSecteur]) =>
     estSousSecteurListe(sousSecteur),

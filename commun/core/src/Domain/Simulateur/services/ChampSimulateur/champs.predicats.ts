@@ -4,7 +4,7 @@ import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../DonneesFormulaire.definitions";
-import { SecteursAvecSousSecteurs } from "../../SecteurActivite.definitions";
+import { SecteurComposite } from "../../SecteurActivite.definitions";
 import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions";
 import { activiteEstDansSecteur } from "../Activite/Activite.predicats";
 import { filtreSecteursSansSousSecteurs } from "../SecteurActivite/SecteurActivite.operations";
@@ -87,12 +87,10 @@ export const exactementUn = (nomChamp: NomsChampsSimulateur) =>
   exactementN(1, nomChamp);
 
 const collecteValidateursParSecteurAvecSousSecteur = (
-  valeursSecteur: SecteursAvecSousSecteurs[],
+  valeursSecteur: SecteurComposite[],
 ) => valeursSecteur.map(sousSecteurAppartientASecteur);
 
-const construitPredicatToutSousSecteur = (
-  valeursSecteur: SecteursAvecSousSecteurs[],
-) =>
+const construitPredicatToutSousSecteur = (valeursSecteur: SecteurComposite[]) =>
   et(
     ...collecteValidateursParSecteurAvecSousSecteur(valeursSecteur),
     auMoinsN(valeursSecteur.length, "sousSecteurActivite"),

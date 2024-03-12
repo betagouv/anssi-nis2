@@ -1,10 +1,10 @@
 import {
   SecteurActivite,
-  SecteursAvecSousSecteurs,
+  SecteurComposite,
 } from "./SecteurActivite.definitions";
 import {
   ValeursSecteursActivites,
-  ValeursSecteursAvecSousSecteurs,
+  ValeursSecteursComposites,
 } from "./SecteurActivite.valeurs";
 import { fabriqueTuplesSecteurSousSecteur } from "./services/SecteurActivite/SecteurActivite.operations";
 import {
@@ -15,11 +15,12 @@ import { SousSecteurActivite } from "./SousSecteurActivite.definitions";
 
 export const ValeursSecteursSansSousSecteur: SecteurActivite[] =
   ValeursSecteursActivites.filter(estUnSecteurSansDesSousSecteurs);
-export const listeTuplesSecteursSousSecteurs =
-  ValeursSecteursAvecSousSecteurs.filter(estSecteurListe).reduce(
-    (acc: [SecteursAvecSousSecteurs, SousSecteurActivite][], secteur) => [
-      ...acc,
-      ...fabriqueTuplesSecteurSousSecteur(secteur),
-    ],
-    [],
-  );
+export const listeTuplesSecteursSousSecteurs = ValeursSecteursComposites.filter(
+  estSecteurListe,
+).reduce(
+  (acc: [SecteurComposite, SousSecteurActivite][], secteur) => [
+    ...acc,
+    ...fabriqueTuplesSecteurSousSecteur(secteur),
+  ],
+  [],
+);

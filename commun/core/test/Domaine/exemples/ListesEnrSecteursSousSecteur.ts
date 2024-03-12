@@ -10,9 +10,9 @@ import { estSousSecteurListe } from "../../../../../commun/core/src/Domain/Simul
 import { ValeursSecteursSansSousSecteur } from "../../../src/Domain/Simulateur/SecteurActivite.constantes";
 import {
   SecteurActivite,
-  SecteursAvecSousSecteurs,
+  SecteurComposite,
 } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
-import { ValeursSecteursAvecSousSecteurs } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
+import { ValeursSecteursComposites } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
 import {
   EnrSecteurSousSecteur,
   SousSecteurActivite,
@@ -23,7 +23,7 @@ export const listeEnrSecteursSansSousSecteur: EnrSecteurSousSecteur[] =
     secteur: secteur,
   }));
 export const listeEnrSecteursEtSousSecteurs: EnrSecteurSousSecteur[] =
-  ValeursSecteursAvecSousSecteurs.map(fabriqueTupleSecteurSousSecteurs).reduce(
+  ValeursSecteursComposites.map(fabriqueTupleSecteurSousSecteurs).reduce(
     (
       listeTuples: {
         secteur: SecteurActivite;
@@ -34,7 +34,7 @@ export const listeEnrSecteursEtSousSecteurs: EnrSecteurSousSecteur[] =
       ...listeTuples,
       ...fabriqueListePartielleSecteursAvecSousSecteurs(
         listeSousSecteurs,
-        secteur as SecteursAvecSousSecteurs,
+        secteur as SecteurComposite,
       ),
     ],
     [],

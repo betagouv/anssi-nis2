@@ -1,6 +1,6 @@
 import {
   SecteurActivite,
-  SecteursAvecSousSecteurs,
+  SecteurComposite,
 } from "./SecteurActivite.definitions";
 import {
   DescriptionSecteur,
@@ -33,7 +33,7 @@ export const ValeursSousSecteurFabrication = [
 ] as const;
 
 export const sousSecteursParSecteur: Record<
-  Extract<SecteurActivite, SecteursAvecSousSecteurs>,
+  Extract<SecteurActivite, SecteurComposite>,
   DescriptionSecteur
 > = {
   energie: ValeursSousSecteurEnergie,
@@ -42,7 +42,7 @@ export const sousSecteursParSecteur: Record<
 };
 
 export const groupementsSecteursParSousSecteurs: Record<
-  SecteursAvecSousSecteurs,
+  SecteurComposite,
   readonly SousSecteurActivite[]
 > = {
   energie: ValeursSousSecteurEnergie,

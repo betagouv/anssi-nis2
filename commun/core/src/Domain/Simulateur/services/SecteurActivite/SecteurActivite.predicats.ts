@@ -1,30 +1,28 @@
 import {
   SecteurActivite,
-  SecteurAvecActivitesEssentielles,
+  SecteurInfrastructureNumerique,
   SecteurAvecBesoinLocalisationRepresentant,
-  SecteursAvecSousSecteurs,
+  SecteurComposite,
   SecteursSansBesoinLocalisationRepresentant,
 } from "../../SecteurActivite.definitions";
 import {
-  ValeursSecteurAvecActivitesEssentielles,
+  ValeurSecteurInfrastructureNumerique,
   ValeursSecteursAvecBesoinLocalisationRepresentant,
-  ValeursSecteursAvecSousSecteurs,
-  ValeursSecteursImportantsAvecBesoinLocalisation,
+  ValeursSecteursComposites,
+  ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal,
 } from "../../SecteurActivite.valeurs";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
 import { sousSecteursParSecteur } from "../../SousSecteurActivite.valeurs";
 
 export const estUnSecteurAvecDesSousSecteurs = (
   secteur: string,
-): secteur is SecteursAvecSousSecteurs =>
-  ValeursSecteursAvecSousSecteurs.includes(secteur as SecteursAvecSousSecteurs);
+): secteur is SecteurComposite =>
+  ValeursSecteursComposites.includes(secteur as SecteurComposite);
 
 export const filtreSecteursAvecSousSecteurs = (secteur: SecteurActivite[]) =>
-  secteur.filter(estUnSecteurAvecDesSousSecteurs) as SecteursAvecSousSecteurs[];
+  secteur.filter(estUnSecteurAvecDesSousSecteurs) as SecteurComposite[];
 export const estUnSecteurSansDesSousSecteurs = (secteur: string) => {
-  return !ValeursSecteursAvecSousSecteurs?.includes(
-    secteur as SecteursAvecSousSecteurs,
-  );
+  return !ValeursSecteursComposites?.includes(secteur as SecteurComposite);
 };
 export const estSecteur =
   (secteurReference: SecteurActivite) => (secteurCompare: SecteurActivite) =>
@@ -36,10 +34,7 @@ export const estSecteurAutre = (secteur: SecteurActivite) =>
 export const contientSousSecteur = (
   secteur: string,
   sousSecteur: SousSecteurActivite,
-) =>
-  sousSecteursParSecteur[secteur as SecteursAvecSousSecteurs].includes(
-    sousSecteur,
-  );
+) => sousSecteursParSecteur[secteur as SecteurComposite].includes(sousSecteur);
 export const auMoinsUnSecteurListe = (
   secteurs: SecteurActivite[],
 ): secteurs is SecteurActivite[] =>
@@ -51,7 +46,7 @@ export const uniquementDesSecteursAutres = (
   secteurs.length > 0 && secteurs.every(estSecteurAutre);
 
 export const estUnSecteurSansSousSecteur = (secteur: string) =>
-  !(ValeursSecteursAvecSousSecteurs as readonly string[]).includes(secteur);
+  !(ValeursSecteursComposites as readonly string[]).includes(secteur);
 
 const predicatSecteurDansListe = (
   secteursFiltre: SecteurActivite[],
@@ -81,24 +76,24 @@ export const estSecteurNeNecessitantPasLocalisationRepresentant = (
 export const estSecteurNeNecessitantPasLocalisationRepresentantPetiteEntite = <
   T extends SecteurActivite,
 >(
-  secteur: T | SecteurAvecActivitesEssentielles,
+  secteur: T | SecteurInfrastructureNumerique,
 ) =>
-  !ValeursSecteurAvecActivitesEssentielles.includes(
-    secteur as (typeof ValeursSecteurAvecActivitesEssentielles)[number],
+  !ValeurSecteurInfrastructureNumerique.includes(
+    secteur as (typeof ValeurSecteurInfrastructureNumerique)[number],
   );
 export const estSecteurImportantsAvecBesoinLocalisation = (
   secteur: SecteurActivite,
 ) =>
-  ValeursSecteursImportantsAvecBesoinLocalisation.includes(
-    secteur as (typeof ValeursSecteursImportantsAvecBesoinLocalisation)[number],
+  ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal.includes(
+    secteur as (typeof ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal)[number],
   );
 /**
  *   "infrastructureNumerique",
  * @param secteur
  */
 export const estSecteurAvecActivitesEssentielles = (
-  secteur: SecteurActivite | SecteurAvecActivitesEssentielles,
-): secteur is SecteurAvecActivitesEssentielles =>
-  ValeursSecteurAvecActivitesEssentielles.includes(
-    secteur as (typeof ValeursSecteurAvecActivitesEssentielles)[number],
+  secteur: SecteurActivite | SecteurInfrastructureNumerique,
+): secteur is SecteurInfrastructureNumerique =>
+  ValeurSecteurInfrastructureNumerique.includes(
+    secteur as (typeof ValeurSecteurInfrastructureNumerique)[number],
   );

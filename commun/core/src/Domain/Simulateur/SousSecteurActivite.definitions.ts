@@ -1,6 +1,6 @@
 import {
   SecteurActivite,
-  SecteursAvecSousSecteurs,
+  SecteurComposite,
 } from "./SecteurActivite.definitions";
 import {
   ValeursSousSecteurEnergie,
@@ -21,14 +21,13 @@ export type PeutEtreSousSecteurActivite =
   | SousSecteurActivite
   | "PasDeSousSecteurActivite";
 
-export type SousSecteurDe<S extends SecteursAvecSousSecteurs> =
-  S extends "energie"
-    ? SousSecteurEnergie
-    : S extends "fabrication"
-      ? SousSecteurFabrication
-      : S extends "transports"
-        ? SousSecteurTransport
-        : never;
+export type SousSecteurDe<S extends SecteurComposite> = S extends "energie"
+  ? SousSecteurEnergie
+  : S extends "fabrication"
+    ? SousSecteurFabrication
+    : S extends "transports"
+      ? SousSecteurTransport
+      : never;
 
 export type SousSecteurAutre = Extract<
   SousSecteurActivite,

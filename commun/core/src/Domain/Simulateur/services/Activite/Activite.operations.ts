@@ -34,7 +34,7 @@ import {
 import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
 import {
   SecteurActivite,
-  SecteursSansSousSecteur,
+  SecteurSimple,
 } from "../../SecteurActivite.definitions";
 import {
   PeutEtreSousSecteurActivite,
@@ -98,7 +98,7 @@ export type AssociationSectorielleActivite = {
 };
 const collecteTitresSecteursSimples = (
   libelleSecteursActivite: string,
-  secteur: SecteursSansSousSecteur,
+  secteur: SecteurSimple,
 ): AssociationSectorielleActivite[] => [
   {
     titreActivite: libelleSecteursActivite,
@@ -134,7 +134,7 @@ const rempliSousSecteurs = (
   return listeSousSecteurs.length === 0
     ? collecteTitresSecteursSimples(
         libelleSecteursActivite,
-        secteur as SecteursSansSousSecteur,
+        secteur as SecteurSimple,
       )
     : collecteTitreSousSecteurs(
         libelleSecteursActivite,

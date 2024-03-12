@@ -9,7 +9,7 @@ import {
 import React, { Reducer } from "react";
 import { ValeurChampSimulateur } from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { fabriqueDonneesFormulaire } from "../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
-import { SecteursAvecSousSecteurs } from "../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
+import { SecteurComposite } from "../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { fabriqueSecteurContientLeSousSecteur } from "../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.operations.ts";
 
 import { entreesLibellesSousSecteurs } from "../../References/LibellesSousSecteursActivite.ts";
@@ -98,11 +98,11 @@ export const reducteurSecteursVersOptions =
   ) =>
   (
     secteursAvecOptionsSousSecteurs: [
-      SecteursAvecSousSecteurs,
+      SecteurComposite,
       OptionsChampSimulateur,
     ][],
-    secteur: SecteursAvecSousSecteurs,
-  ): [SecteursAvecSousSecteurs, OptionsChampSimulateur][] => {
+    secteur: SecteurComposite,
+  ): [SecteurComposite, OptionsChampSimulateur][] => {
     const valeursAssocieesLibelles = entreesLibellesSousSecteurs
       .filter(fabriqueSecteurContientLeSousSecteur(secteur))
       .reduce(reducteurCleValeurVersObjet, {}) as Record<

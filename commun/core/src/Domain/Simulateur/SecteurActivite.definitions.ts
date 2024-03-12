@@ -1,37 +1,32 @@
 import { UnionDe } from "../../../../utils/types/UnionDe";
 import {
-  ValeursSecteurAvecActivitesEssentielles,
+  ValeurSecteurInfrastructureNumerique,
   ValeursSecteursActivites,
-  ValeursSecteursAvecSousSecteurs,
+  ValeursSecteursComposites,
   ValeursSecteursAvecBesoinLocalisationRepresentant,
-  ValeursSecteursImportantsAvecBesoinLocalisation,
+  ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal,
 } from "./SecteurActivite.valeurs";
 
 export type SecteurActivite = UnionDe<typeof ValeursSecteursActivites>;
 
-export type SecteursAvecSousSecteurs = UnionDe<
-  typeof ValeursSecteursAvecSousSecteurs
->;
+export type SecteurComposite = UnionDe<typeof ValeursSecteursComposites>;
 
-export type SecteursSansSousSecteur = Exclude<
-  SecteurActivite,
-  SecteursAvecSousSecteurs
->;
+export type SecteurSimple = Exclude<SecteurActivite, SecteurComposite>;
 
 export type SecteurAvecBesoinLocalisationRepresentant = UnionDe<
   typeof ValeursSecteursAvecBesoinLocalisationRepresentant
 >;
+
 export type SecteursSansBesoinLocalisationRepresentant = Omit<
-  SecteursSansSousSecteur,
+  SecteurSimple,
   SecteurAvecBesoinLocalisationRepresentant
 >;
 
-export type SecteurImportantsAvecBesoinLocalisation = UnionDe<
-  typeof ValeursSecteursImportantsAvecBesoinLocalisation
->;
+export type SecteurImportantsAvecBesoinLocalisationEtablissementPrincipal =
+  UnionDe<typeof ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal>;
 
-export type SecteurAvecActivitesEssentielles = UnionDe<
-  typeof ValeursSecteurAvecActivitesEssentielles
+export type SecteurInfrastructureNumerique = UnionDe<
+  typeof ValeurSecteurInfrastructureNumerique
 >;
 
 export type SecteursDefinitsSansBesoinLocalisationRepresentant = Omit<
@@ -39,5 +34,5 @@ export type SecteursDefinitsSansBesoinLocalisationRepresentant = Omit<
   "autreSecteurActivite"
 >;
 
-export type SousSecteurAutrePour<S extends SecteursAvecSousSecteurs> =
+export type SousSecteurAutrePour<S extends SecteurComposite> =
   `autreSousSecteur${Capitalize<S>}`;

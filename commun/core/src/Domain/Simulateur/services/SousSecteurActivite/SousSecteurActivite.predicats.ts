@@ -1,7 +1,7 @@
 import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
 import {
   SecteurActivite,
-  SecteursAvecSousSecteurs,
+  SecteurComposite,
 } from "../../SecteurActivite.definitions";
 import {
   PeutEtreSousSecteurActivite,
@@ -31,7 +31,7 @@ export const uniquementDesSousSecteursAutres = (
   sousSecteur.length > 0 && sousSecteur?.every(estSousSecteurAutre);
 
 export const sousSecteurAppartientASecteur =
-  (valeurGroupement: SecteursAvecSousSecteurs) =>
+  (valeurGroupement: SecteurComposite) =>
   (donneesFormulaireSimulateur: DonneesFormulaireSimulateur) => {
     const donneesSecteursActivite = donneesFormulaireSimulateur[
       "sousSecteurActivite"
@@ -46,8 +46,8 @@ export const estDansSecteur =
   (secteur: SecteurActivite) => (sousSecteur: SousSecteurActivite) => {
     return (
       estUnSecteurAvecDesSousSecteurs(secteur) &&
-      groupementsSecteursParSousSecteurs[
-        secteur as SecteursAvecSousSecteurs
-      ].includes(sousSecteur)
+      groupementsSecteursParSousSecteurs[secteur as SecteurComposite].includes(
+        sousSecteur,
+      )
     );
   };
