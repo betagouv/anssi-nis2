@@ -1,19 +1,23 @@
 import { fc } from "@fast-check/vitest";
 import { flow } from "fp-ts/lib/function";
 import { ens } from "../../../utils/services/sets.operations";
+import { SecteurActivite } from "../../src/Domain/Simulateur/SecteurActivite.definitions";
 import {
   estActiviteAutre,
   estActiviteListee,
 } from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
-import { InformationsSecteurPossible } from "../../src/Domain/Simulateur/services/Eligibilite/InformationsSecteur.definitions";
+import {
+  InformationsSecteurPossible,
+  InformationsSecteurSimpleListe,
+} from "../../src/Domain/Simulateur/services/Eligibilite/InformationsSecteur.definitions";
 import { ReponseInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
 import { fabriqueContenuCapsuleInformationSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.fabriques";
 import { eqInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
 import { CategorieTaille } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseStructure.definitions";
 import { Arbitraire as A } from "./Arbitraires.operations";
 import {
+  fabriqueArb_EnsActivites_Autres_PourSecteurSimple,
   fabriqueArb_EnsActivites_AvecFiltre_PourSecteur,
-  fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple,
 } from "./EnsActivites.arbitraires.fabriques";
 
 export const fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille =
@@ -98,9 +102,7 @@ export const fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_GE_Av
     ),
   );
 export const fabriqueArb_EnsInformationsSecteur_ActivitesListees = flow(
-  A.enchaine(
-    fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple(estActiviteListee),
-  ),
+  A.enchaine(fabriqueArb_EnsActivites_Autres_PourSecteurSimple),
   fabriqueArb_EnsInformationsSecteurPossible,
 );
 export const fabriqueArb_EnsInformationsSecteur_ActivitesListeesAgno = flow(
@@ -111,7 +113,13 @@ export const fabriqueArb_EnsInformationsSecteur_ActivitesListeesAgno = flow(
 );
 export const fabriqueArb_EnsInformationsSecteur_ActivitesAutres = flow(
   A.enchaine(
-    fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple(estActiviteAutre),
+    <T extends SecteurActivite, U extends InformationsSecteurSimpleListe>(
+      secteur: T,
+    ): fc.Arbitrary<U> =>
+      fabriqueArb_EnsActivites_AvecFiltre_PourSecteur(estActiviteAutre)([
+        secteur,
+        "PasDeSousSecteurActivite",
+      ]),
   ),
   fabriqueArb_EnsInformationsSecteurPossible,
 );

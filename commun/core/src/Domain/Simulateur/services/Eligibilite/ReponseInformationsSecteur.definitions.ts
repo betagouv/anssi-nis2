@@ -15,7 +15,6 @@ import {
 import {
   LocalisationsServices,
   LocalisationEtablissementPrincipal,
-  EtablissementPrincipalLocalisation,
 } from "./LocalisationsActivites.definitions";
 import {
   CategorieTaille,

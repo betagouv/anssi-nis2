@@ -1,7 +1,11 @@
+import { fc } from "@fast-check/vitest";
 import { describe, expect, it } from "vitest";
 import { certains, tous } from "../../../../utils/services/sets.operations";
 import { Activite } from "../../../src/Domain/Simulateur/Activite.definitions";
-import { SecteurImportantsAvecBesoinLocalisationEtablissementPrincipal } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
+import {
+  SecteurActivite,
+  SecteurImportantsAvecBesoinLocalisationEtablissementPrincipal,
+} from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
 
 import { ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
 import {
@@ -14,55 +18,55 @@ import { estReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateu
 import {
   InformationsSecteurAvecBesoinLocalisation,
   InformationsSecteurPossible,
+  InformationsSecteurSimpleListe,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/InformationsSecteur.definitions";
 import { EtablissementPrincipalFournitUE } from "../../../src/Domain/Simulateur/services/Eligibilite/LocalisationsActivites.definitions";
+import { ReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.definitions";
 import {
   estEtablissementPrincipalFournitUE,
   estInformationSecteurAvecActivitesEssentielles,
   estSecteurBienLocaliseHorsFrance,
 } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
-import { ReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.definitions";
 import {
   estSecteurImportantsAvecBesoinLocalisation,
   estSecteurListe,
 } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
-import { fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple } from "../../utilitaires/EnsActivites.arbitraires.fabriques";
+import { fabriqueArb_EnsActivites_AvecFiltre_PourSecteur } from "../../utilitaires/EnsActivites.arbitraires.fabriques";
 import { fabriqueArb_ReponseInformationsSecteur_PE } from "../../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
+import { fabriqueArbInformationsSecteurAutre } from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import { assertion } from "../../utilitaires/ResultatEvaluationRegulation.assertions";
 import { fabriqueArbJamaisOse_ToujoursFrance_StructurePetit } from "../../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
 import {
-  arbEnsembleSecteursComposites,
-  arbEnsembleSecteurs_AvecBesoinLoca_NonUE,
   arbEnsembleSecteurs_AvecBesoinLoca_GrandEI,
+  arbEnsembleSecteurs_AvecBesoinLoca_NonUE,
+  arbEnsembleSecteursComposites,
   arbEnsembleSecteursSimples,
   arbEnsembleSecteursSimplesEligiblesPetit,
 } from "./EnsembleInformationsSecteur.arbitraires";
 import {
-  arbInformationsSecteurComposite,
-  arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
   arbInformationsSecteur_AvecActivitesEssentielles_Petite,
   arbInformationsSecteur_Infranum_LocaliseesHorsUE_PE,
   arbInformationsSecteur_Infranum_PE_ActivitesAvecBesoinLocalisation_LocaliseesHorsUE,
   arbInformationsSecteur_LocaliseesFrance_Grande_EI,
+  arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
+  arbInformationsSecteurComposite,
 } from "./InformationsSecteur.arbitraires";
 import {
   arbReponseAppartenanceUnionEuropeenne_ToujoursAutreUE,
   arbReponseAppartenanceUnionEuropeenne_ToujoursHorsUE,
 } from "./ReponseAppartenanceUnionEuropeenne.arbitraires";
 import {
-  arbReponseInformationsSecteurLocalisesFrancePetit,
   arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
+  arbReponseInformationsSecteurLocalisesFrancePetit,
   arbReponseInformationsSecteurPetit,
 } from "./ReponseInformationsSecteur.arbitraires";
-import { fabriqueArbInformationsSecteurAutre } from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
   arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE,
   arbSecteurAvecSousSecteurListes,
   arbSecteurImportantAvecBesoinLocalisation,
   arbSecteurNonEligiblesPetiteEntite,
 } from "./SecteurActivite.arbitraires";
-import { fc } from "@fast-check/vitest";
 
 describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
   describe("Capsules", () => {
@@ -207,17 +211,29 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
       it("ne produit pas de structure vide", () =>
         assertion.nonVide(
           arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE.chain(
-            fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple(
-              estActiviteListee,
-            ),
+            <
+              T extends SecteurActivite,
+              U extends InformationsSecteurSimpleListe,
+            >(
+              secteur: T,
+            ): fc.Arbitrary<U> =>
+              fabriqueArb_EnsActivites_AvecFiltre_PourSecteur(
+                estActiviteListee,
+              )([secteur, "PasDeSousSecteurActivite"]),
           ),
         ));
       it("ne contient pas uniquement activités autre", () =>
         assertion.propriete(
           arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE.chain(
-            fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple(
-              estActiviteListee,
-            ),
+            <
+              T extends SecteurActivite,
+              U extends InformationsSecteurSimpleListe,
+            >(
+              secteur: T,
+            ): fc.Arbitrary<U> =>
+              fabriqueArb_EnsActivites_AvecFiltre_PourSecteur(
+                estActiviteListee,
+              )([secteur, "PasDeSousSecteurActivite"]),
           ),
           (info) => {
             expect(info.activites).not.toSatisfy((activites: Set<Activite>) =>

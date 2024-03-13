@@ -39,15 +39,6 @@ export const fabriqueArb_EnsActivites_AvecFiltre_PourSecteurPeutEtreComposite =
         minLength: 1,
       })
       .chain(A.ensembleDepuisArray) as fc.Arbitrary<Set<U>>;
-export const fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple =
-  (filtre: (a: Activite) => boolean) =>
-  <T extends SecteurActivite, U extends InformationsSecteurSimpleListe>(
-    secteur: T,
-  ): fc.Arbitrary<U> =>
-    fabriqueArb_EnsActivites_AvecFiltre_PourSecteur(filtre)([
-      secteur,
-      "PasDeSousSecteurActivite",
-    ]);
 export const fabriqueArb_EnsActivites_AvecFiltre_PourSecteur =
   <Taille extends CategorieTaille>(filtre: (a: Activite) => boolean) =>
   <
@@ -69,29 +60,7 @@ export const fabriqueArb_EnsActivites_AvecFiltre_PourSecteur =
           filtre,
         )(secteur, sousSecteur),
     }) as unknown as fc.Arbitrary<R>;
-// export const fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe =
-//   <
-//     T extends SecteurAvecBesoinLocalisationRepresentant,
-//     U extends "registresNomsDomainesPremierNiveau" | "fournisseurServicesDNS",
-//   >(
-//     fabriqueActivite: (
-//       secteur: T,
-//       sousSecteur: PeutEtreSousSecteurActivite,
-//     ) => fc.Arbitrary<Set<U>>,
-//   ) =>
-//   (
-//     arbLocalisationRepresentant: fc.Arbitrary<AppartenancePaysUnionEuropeenne>,
-//   ) =>
-//   (
-//     secteur: T,
-//   ): fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">> =>
-//     fc.record<InformationsSecteurAvecBesoinLocalisation<"Petit">>({
-//       secteurActivite: fc.constant(secteur),
-//       activites: fabriqueActivite(secteur, "PasDeSousSecteurActivite"),
-//       fournitServicesUnionEuropeenne:
-//         arbFournitServiceUnionEuropeenne_ToujoursOui,
-//       localisationRepresentant: arbLocalisationRepresentant,
-//     }) as fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">>;
+
 export const fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe =
   <
     Taille extends CategorieTaille,
@@ -181,3 +150,13 @@ export const fabriqueArb_EnsActivites_Infranum_Localisees =
     A.enchaine(fabriqueArb_EnsActivites_InfranumAvecBesoinLocalisation(arb))(
       arbSecteurActivite,
     );
+export const fabriqueArb_EnsActivites_Autres_PourSecteurSimple = <
+  T extends SecteurActivite,
+  U extends InformationsSecteurSimpleListe,
+>(
+  secteur: T,
+): fc.Arbitrary<U> =>
+  fabriqueArb_EnsActivites_AvecFiltre_PourSecteur(estActiviteListee)([
+    secteur,
+    "PasDeSousSecteurActivite",
+  ]);

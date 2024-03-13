@@ -1,3 +1,4 @@
+import { et } from "../../../../../../utils/services/predicats.operations";
 import {
   Activite,
   ActiviteInfranumLocalEtabLot1,
@@ -114,3 +115,9 @@ export const estActiviteInfrastructureNumeriqueSansBesoinLocalisation = (
   ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation.includes(
     a as ActiviteInfrastructureNumeriqueSansBesoinLocalisation,
   );
+export const estActiviteListeeSansBesoinLocalisation: (
+  donnees: Activite,
+) => boolean = et(
+  estActiviteListee,
+  estActiviteInfrastructureNumeriqueSansBesoinLocalisation,
+);
