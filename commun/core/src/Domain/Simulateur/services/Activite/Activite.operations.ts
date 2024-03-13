@@ -1,12 +1,12 @@
 import { Activite } from "../../Activite.definitions";
 import {
   ValeursActivitesAdministrationPublique,
-  ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
+  ValeursActivitesConstructionVehiculesAutomobiles,
   ValeursActivitesEauPotable,
   ValeursActivitesEauUsees,
   ValeursActivitesElectricite,
   ValeursActivitesEspace,
-  ValeursActivitesFabricationAutreMaterielsTransports,
+  ValeursActivitesFabricationAutresMaterielTransports,
   ValeursActivitesFabricationDispositifsMedicaux,
   ValeursActivitesFabricationEquipementsElectroniques,
   ValeursActivitesFabricationMachinesEquipements,
@@ -28,7 +28,7 @@ import {
   ValeursActivitesServicesPostauxExpedition,
   ValeursActivitesTransportsAeriens,
   ValeursActivitesTransportsFerroviaires,
-  ValeursActivitesTransportsParEaux,
+  ValeursActivitesTransportsParEau,
   ValeursActivitesTransportsRoutiers,
 } from "../../Activite.valeurs";
 import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
@@ -45,7 +45,7 @@ import { estUnSecteurAvecDesSousSecteurs } from "../SecteurActivite/SecteurActiv
 import { cartographieSousSecteursParSecteur } from "../SousSecteurActivite/SousSecteurActivite.operations";
 
 export const activitesParSecteurEtSousSecteur: Record<
-  ValeurCleSectorielle,
+  SecteurSimple | SousSecteurActivite,
   readonly Activite[]
 > = {
   administrationPublique: ValeursActivitesAdministrationPublique,
@@ -55,18 +55,18 @@ export const activitesParSecteurEtSousSecteur: Record<
   autreSousSecteurTransports: [],
   banqueSecteurBancaire: ValeursActivitesSecteurBancaire,
   constructionVehiculesAutomobiles:
-    ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
+    ValeursActivitesConstructionVehiculesAutomobiles,
   eauPotable: ValeursActivitesEauPotable,
   eauxUsees: ValeursActivitesEauUsees,
   electricite: ValeursActivitesElectricite,
   espace: ValeursActivitesEspace,
   fabricationAutresMaterielTransports:
-    ValeursActivitesFabricationAutreMaterielsTransports,
+    ValeursActivitesFabricationAutresMaterielTransports,
   fabricationDispositifsMedicaux:
     ValeursActivitesFabricationDispositifsMedicaux,
   fabricationEquipementsElectroniques:
     ValeursActivitesFabricationEquipementsElectroniques,
-  fabricationFabricationProduitsInformatiquesElectroniquesOptiques:
+  fabricationProduitsInformatiquesElectroniquesOptiques:
     ValeursActivitesFabricationProduitsInformatiquesElectroniquesOptiques,
   fabricationMachinesEquipements:
     ValeursActivitesFabricationMachinesEquipements,
@@ -89,11 +89,11 @@ export const activitesParSecteurEtSousSecteur: Record<
   servicesPostauxExpedition: ValeursActivitesServicesPostauxExpedition,
   transportsAeriens: ValeursActivitesTransportsAeriens,
   transportsFerroviaires: ValeursActivitesTransportsFerroviaires,
-  transportsParEau: ValeursActivitesTransportsParEaux,
+  transportsParEau: ValeursActivitesTransportsParEau,
   transportsRoutiers: ValeursActivitesTransportsRoutiers,
 };
 export type AssociationSectorielleActivite = {
-  secteurOuSousSecteur: ValeurCleSectorielle;
+  secteurOuSousSecteur: SecteurSimple | SousSecteurActivite;
   titreActivite: string;
 };
 const collecteTitresSecteursSimples = (

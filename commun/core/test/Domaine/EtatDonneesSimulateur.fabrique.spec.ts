@@ -357,7 +357,7 @@ describe("fabrique ReponseEtat", () => {
           secteurActivite: ["eauPotable", "sante", "fabrication", "transports"],
           sousSecteurActivite: [
             "fabricationEquipementsElectroniques",
-            "fabricationFabricationProduitsInformatiquesElectroniquesOptiques",
+            "fabricationProduitsInformatiquesElectroniquesOptiques",
             "transportsFerroviaires",
           ],
           activites: [
@@ -410,7 +410,7 @@ describe("fabrique ReponseEtat", () => {
               {
                 secteurActivite: "fabrication",
                 sousSecteurActivite:
-                  "fabricationFabricationProduitsInformatiquesElectroniquesOptiques",
+                  "fabricationProduitsInformatiquesElectroniquesOptiques",
                 activites: ens(
                   "fabriquantEquipementCommunication",
                   "fabriquantProduitsElectroniquesGrandPublic",

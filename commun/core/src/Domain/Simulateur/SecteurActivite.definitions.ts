@@ -2,9 +2,9 @@ import { UnionDe } from "../../../../utils/types/UnionDe";
 import {
   ValeurSecteurInfrastructureNumerique,
   ValeursSecteursActivites,
-  ValeursSecteursComposites,
-  ValeursSecteursAvecBesoinLocalisationRepresentant,
   ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal,
+  ValeursSecteursAvecBesoinLocalisationRepresentant,
+  ValeursSecteursComposites,
 } from "./SecteurActivite.valeurs";
 
 export type SecteurActivite = UnionDe<typeof ValeursSecteursActivites>;
@@ -36,3 +36,6 @@ export type SecteursDefinitsSansBesoinLocalisationRepresentant = Omit<
 
 export type SousSecteurAutrePour<S extends SecteurComposite> =
   `autreSousSecteur${Capitalize<S>}`;
+export type SecteursReqLocalEtap =
+  | "gestionServicesTic"
+  | "fournisseursNumeriques";

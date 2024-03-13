@@ -1,5 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { estActiviteInfrastructureNumeriqueEligiblesPetitEntite } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { InformationsSecteurPossible } from "../../../src/Domain/Simulateur/services/Eligibilite/InformationsSecteur.definitions";
 import { ReponseInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
 
 import { fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple } from "../../utilitaires/EnsActivites.arbitraires.fabriques";
@@ -41,6 +42,10 @@ export const arbReponseInformationsSecteur_LocalisesHorsUE_Petit: fc.Arbitrary<
   "Petit",
 )(arbEnsembleSecteurs_AvecBesoinLoca_NonUE);
 export const arbReponseInformationsSecteurPetit = fc.oneof(
-  fabriqueArb_ReponseInformationsSecteur_PE(arbEnsembleSecteursComposites),
+  fabriqueArb_ReponseInformationsSecteur_PE(
+    arbEnsembleSecteursComposites as fc.Arbitrary<
+      Set<InformationsSecteurPossible<"Petit">>
+    >,
+  ),
   fabriqueArb_ReponseInformationsSecteur_PE(arbEnsembleSecteursSimples),
 );

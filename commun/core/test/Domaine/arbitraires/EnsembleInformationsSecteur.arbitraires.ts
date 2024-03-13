@@ -2,7 +2,7 @@ import { fc } from "@fast-check/vitest";
 import {
   InformationsSecteurAvecBesoinLocalisation,
   InformationsSecteurPossible,
-} from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
+} from "../../../src/Domain/Simulateur/services/Eligibilite/InformationsSecteur.definitions";
 import {
   fabriqueArb_EnsInformationsSecteur_ActivitesAutres,
   fabriqueArb_EnsInformationsSecteur_ActivitesListees,
@@ -25,11 +25,10 @@ import {
   arbSecteursActivite_Annexe2_SansBesoinLocalisation,
 } from "./SecteurActivite.arbitraires";
 
-export const arbEnsembleSecteursSimples: fc.Arbitrary<
-  Set<InformationsSecteurPossible<"Grand">>
-> = fabriqueArb_EnsInformationsSecteur_ActivitesListees(
-  arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE,
-);
+export const arbEnsembleSecteursSimples =
+  fabriqueArb_EnsInformationsSecteur_ActivitesListees(
+    arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE,
+  );
 export const arbEnsembleSecteursSimplesActivitesAutres: fc.Arbitrary<
   Set<InformationsSecteurPossible<"Grand">>
 > = fabriqueArb_EnsInformationsSecteur_ActivitesAutres(
@@ -72,7 +71,9 @@ const arbEnsInformationsSecteur_Infranum_ActivitesAvecBesoinLoca_HorsUE_PE =
   );
 const arbEnsInformationsSecteur_Infranum_HorsUE_PE =
   fabriqueArb_EnsInformationsSecteurPossible<"Petit">(
-    arbInformationsSecteur_Infranum_LocaliseesHorsUE_PE,
+    arbInformationsSecteur_Infranum_LocaliseesHorsUE_PE as fc.Arbitrary<
+      InformationsSecteurPossible<"Petit">
+    >,
   );
 export const arbEnsembleSecteurs_AvecBesoinLoca_NonUE: fc.Arbitrary<
   Set<InformationsSecteurAvecBesoinLocalisation<"Petit">>
@@ -83,7 +84,7 @@ export const arbEnsembleSecteurs_AvecBesoinLoca_NonUE: fc.Arbitrary<
 export const arbEnsembleSecteurs_Infranum_PE_AutreUE =
   fabriqueArb_EnsInformationsSecteurPossible(
     arbInformationsSecteur_Infranum_LocaliseesAutrePaysUE_PE,
-  );
+  ) as fc.Arbitrary<Set<InformationsSecteurPossible<"Petit">>>;
 /**
  * Ensemble de Secteurs
  * - "Gestion des services TIC

@@ -1,7 +1,7 @@
 import { fc } from "@fast-check/vitest";
 import {
   Activite,
-  ActiviteInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
+  ActiviteInfranumLocalEtabLot1,
   ActivitesLocalisablesGrand,
 } from "../../src/Domain/Simulateur/Activite.definitions";
 import { AppartenancePaysUnionEuropeenne } from "../../src/Domain/Simulateur/ChampsSimulateur.definitions";
@@ -18,8 +18,8 @@ import {
   ActivitesAvecBesoinLocalisationRepresentant,
   InformationsSecteurAvecBesoinLocalisation,
   InformationsSecteurSansBesoinLocalisation,
-  InformationsSecteurSimple,
-} from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
+  InformationsSecteurSimpleListe,
+} from "../../src/Domain/Simulateur/services/Eligibilite/InformationsSecteur.definitions";
 import { CategorieTaille } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseStructure.definitions";
 import { PeutEtreSousSecteurActivite } from "../../src/Domain/Simulateur/SousSecteurActivite.definitions";
 import {
@@ -41,7 +41,7 @@ export const fabriqueArb_EnsActivites_AvecFiltre_PourSecteurPeutEtreComposite =
       .chain(A.ensembleDepuisArray) as fc.Arbitrary<Set<U>>;
 export const fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple =
   (filtre: (a: Activite) => boolean) =>
-  <T extends SecteurActivite, U extends InformationsSecteurSimple>(
+  <T extends SecteurActivite, U extends InformationsSecteurSimpleListe>(
     secteur: T,
   ): fc.Arbitrary<U> =>
     fabriqueArb_EnsActivites_AvecFiltre_PourSecteur(filtre)([
@@ -49,12 +49,12 @@ export const fabriqueArb_EnsActivites_AvecFiltre_PourSecteurSimple =
       "PasDeSousSecteurActivite",
     ]);
 export const fabriqueArb_EnsActivites_AvecFiltre_PourSecteur =
-  (filtre: (a: Activite) => boolean) =>
+  <Taille extends CategorieTaille>(filtre: (a: Activite) => boolean) =>
   <
     T extends SecteurActivite,
     R extends
       | InformationsSecteurSansBesoinLocalisation
-      | InformationsSecteurAvecBesoinLocalisation<CategorieTaille>,
+      | InformationsSecteurAvecBesoinLocalisation<Taille>,
     U extends PeutEtreSousSecteurActivite,
   >([secteur, sousSecteur]: [T, U]): fc.Arbitrary<R> =>
     fc.record({
@@ -127,10 +127,7 @@ export const fabriqueArb_EnsActivites_PourSecteurInfraNumLocalisable_HorsUe = <
     secteurActivite: fc.constant(secteur),
     activites: fabriqueArb_EnsActivites_AvecFiltre_PourSecteurPeutEtreComposite(
       estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
-    )<T, ActiviteInfrastructureNumeriqueDNSRegistreDomainePermierNiveau>(
-      secteur,
-      "PasDeSousSecteurActivite",
-    ),
+    )<T, ActiviteInfranumLocalEtabLot1>(secteur, "PasDeSousSecteurActivite"),
     fournitServicesUnionEuropeenne:
       arbFournitServiceUnionEuropeenne_ToujoursNon,
   }) as fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">>;
@@ -143,10 +140,7 @@ export const fabriqueArb_EnsActivites_PourSecteurEILocalisable_HorsUe = <
     secteurActivite: fc.constant(secteur),
     activites: fabriqueArb_EnsActivites_AvecFiltre_PourSecteurPeutEtreComposite(
       estActiviteListee,
-    )<T, ActiviteInfrastructureNumeriqueDNSRegistreDomainePermierNiveau>(
-      secteur,
-      "PasDeSousSecteurActivite",
-    ),
+    )<T, ActiviteInfranumLocalEtabLot1>(secteur, "PasDeSousSecteurActivite"),
     fournitServicesUnionEuropeenne:
       arbFournitServiceUnionEuropeenne_ToujoursNon,
   }) as fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<"Petit">>;
@@ -155,11 +149,7 @@ export const fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe_PourFiltre = <
   S extends SecteurAvecBesoinLocalisationRepresentant,
   A extends ActivitesAvecBesoinLocalisationRepresentant<Taille>,
 >(
-  predicatActivite: (
-    a:
-      | Activite
-      | ActiviteInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
-  ) => boolean,
+  predicatActivite: (a: Activite | ActiviteInfranumLocalEtabLot1) => boolean,
 ) =>
   fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe<Taille, S, A>(
     fabriqueArb_EnsActivites_AvecFiltre_PourSecteurPeutEtreComposite(

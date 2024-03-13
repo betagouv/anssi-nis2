@@ -25,7 +25,7 @@ export const ValeursSousSecteurTransport = [
 export const ValeursSousSecteurFabrication = [
   "fabricationDispositifsMedicaux",
   "fabricationEquipementsElectroniques",
-  "fabricationFabricationProduitsInformatiquesElectroniquesOptiques",
+  "fabricationProduitsInformatiquesElectroniquesOptiques",
   "fabricationMachinesEquipements",
   "constructionVehiculesAutomobiles",
   "fabricationAutresMaterielTransports",

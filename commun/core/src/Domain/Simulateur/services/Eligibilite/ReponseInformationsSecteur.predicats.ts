@@ -24,15 +24,15 @@ import {
   estSecteurListe,
 } from "../SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurAutre } from "../SousSecteurActivite/SousSecteurActivite.predicats";
-import { EtablissementPrincipalFournitUE } from "./LocalisationsActivites.definitions";
 import {
   InformationsSecteurAutre,
   InformationsSecteurAvecBesoinLocalisation,
   InformationsSecteurPossible,
   InformationsSecteurSansBesoinLocalisation,
   InformationsSecteursComposite,
-  PredicatInformationSecteurPossible,
-} from "./ReponseInformationsSecteur.definitions";
+} from "./InformationsSecteur.definitions";
+import { EtablissementPrincipalFournitUE } from "./LocalisationsActivites.definitions";
+import { PredicatInformationSecteurPossible } from "./ReponseInformationsSecteur.definitions";
 import { CategorieTaille } from "./ReponseStructure.definitions";
 
 export const eqInformationsSecteur = (
@@ -173,13 +173,15 @@ export const auMoinsUneActiviteEstDans = (
     prop("activites"),
     certains((activite) => activitesCherchees.includes(activite)),
   ) as PredicatInformationSecteurPossible;
-export const contientActivitesInfrastructureNumeriqueEligiblesPetitEntite = (
+export const contientActivitesInfrastructureNumeriqueEligiblesPetitEntite = <
+  Taille extends CategorieTaille,
+>(
   s:
-    | InformationsSecteurAvecBesoinLocalisation<"Petit">
-    | InformationsSecteurPossible<"Petit">,
+    | InformationsSecteurAvecBesoinLocalisation<Taille>
+    | InformationsSecteurPossible<Taille>,
 ) =>
   certains(estActiviteInfrastructureNumeriqueEligiblesPetitEntite)(
-    (s as InformationsSecteurAvecBesoinLocalisation<"Petit">).activites,
+    (s as InformationsSecteurAvecBesoinLocalisation<Taille>).activites,
   );
 export const contientDesActivitesInfrastructureNumeriqueEssentielles = <
   T extends CategorieTaille,

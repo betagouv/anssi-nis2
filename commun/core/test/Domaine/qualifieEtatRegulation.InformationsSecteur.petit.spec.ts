@@ -1,4 +1,5 @@
 import { describe, it } from "vitest";
+import { InformationsSecteurPossible } from "../../src/Domain/Simulateur/services/Eligibilite/InformationsSecteur.definitions";
 import {
   assertionArbitraire,
   fabriqueVerificationReponseDefinitivementRegule,

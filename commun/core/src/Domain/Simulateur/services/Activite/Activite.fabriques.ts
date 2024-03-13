@@ -1,9 +1,10 @@
 import { Activite } from "../../Activite.definitions";
-import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions";
+import { SecteurSimple } from "../../SecteurActivite.definitions";
+import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
 import { activitesParSecteurEtSousSecteur } from "./Activite.operations";
 
 export const fabriqueListeActivitesDesSecteurs = (
-  secteurActivite: ValeurCleSectorielle[],
+  secteurActivite: (SecteurSimple | SousSecteurActivite)[],
   filtreActivite: (activite: Activite) => boolean,
 ): Activite[] =>
   Array.from(

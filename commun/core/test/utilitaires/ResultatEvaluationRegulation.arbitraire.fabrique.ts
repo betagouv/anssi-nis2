@@ -5,10 +5,8 @@ import {
   estActiviteAutre,
   estActiviteListee,
 } from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
-import {
-  InformationsSecteurPossible,
-  ReponseInformationsSecteur,
-} from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
+import { InformationsSecteurPossible } from "../../src/Domain/Simulateur/services/Eligibilite/InformationsSecteur.definitions";
+import { ReponseInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
 import { fabriqueContenuCapsuleInformationSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.fabriques";
 import { eqInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
 import { CategorieTaille } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseStructure.definitions";

@@ -11,7 +11,10 @@ import {
   estActiviteListee,
 } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { estReponseEtatInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.predicats";
-import { InformationsSecteurAvecBesoinLocalisation } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
+import {
+  InformationsSecteurAvecBesoinLocalisation,
+  InformationsSecteurPossible,
+} from "../../../src/Domain/Simulateur/services/Eligibilite/InformationsSecteur.definitions";
 import { EtablissementPrincipalFournitUE } from "../../../src/Domain/Simulateur/services/Eligibilite/LocalisationsActivites.definitions";
 import {
   estEtablissementPrincipalFournitUE,
@@ -59,6 +62,7 @@ import {
   arbSecteurImportantAvecBesoinLocalisation,
   arbSecteurNonEligiblesPetiteEntite,
 } from "./SecteurActivite.arbitraires";
+import { fc } from "@fast-check/vitest";
 
 describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
   describe("Capsules", () => {
@@ -79,7 +83,9 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
         it("arbInformationsSecteurCompositesPetit et arbInformationsSecteurSimplesPetitNonEligibles sont exclusifs", () =>
           assertion.exclusifs(
             fabriqueArb_ReponseInformationsSecteur_PE(
-              arbEnsembleSecteursComposites,
+              arbEnsembleSecteursComposites as fc.Arbitrary<
+                Set<InformationsSecteurPossible<"Petit">>
+              >,
             ),
             fabriqueArb_ReponseInformationsSecteur_PE(
               arbEnsembleSecteursSimples,

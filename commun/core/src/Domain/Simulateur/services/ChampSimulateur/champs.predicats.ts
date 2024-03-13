@@ -5,6 +5,7 @@ import {
   NomsChampsSimulateur,
 } from "../../DonneesFormulaire.definitions";
 import { SecteurComposite } from "../../SecteurActivite.definitions";
+import { SousSecteurListes } from "../../SousSecteurActivite.definitions";
 import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions";
 import { activiteEstDansSecteur } from "../Activite/Activite.predicats";
 import { filtreSecteursSansSousSecteurs } from "../SecteurActivite/SecteurActivite.operations";
@@ -119,7 +120,7 @@ export const auMoinsUneActiviteParValeurSectorielleListee: PredicatDonneesFormul
       ).filter(estSecteurListe),
       donneesFormulaireSimulateur.sousSecteurActivite.filter(
         estSousSecteurListe,
-      ),
+      ) as SousSecteurListes[],
     ).every(
       fabriqueAuMoinsUneActiviteEstDansSecteur(donneesFormulaireSimulateur),
     );

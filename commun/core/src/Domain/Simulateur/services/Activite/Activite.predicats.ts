@@ -1,8 +1,9 @@
 import {
   Activite,
-  ActiviteInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
+  ActiviteInfranumLocalEtabLot1,
   ActiviteInfrastructureNumeriqueSansBesoinLocalisation,
   ActivitesInfrastructureNumeriqueEligiblesPetitEntite,
+  ActivitesPourSecteur,
 } from "../../Activite.definitions";
 import {
   ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
@@ -17,17 +18,17 @@ import {
   ValeursActivitesConcernesInfrastructureNumerique,
   ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
 } from "../../Eligibilite.constantes";
-import { SecteurActivite } from "../../SecteurActivite.definitions";
-import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions";
+import { SecteurSimple } from "../../SecteurActivite.definitions";
+import { SousSecteurListes } from "../../SousSecteurActivite.definitions";
 import { activitesParSecteurEtSousSecteur } from "./Activite.operations";
 
 const prefixeAutreActivite = "autreActivite";
 
 export const activiteEstDansSecteur =
-  (secteurActivite: ValeurCleSectorielle | SecteurActivite) =>
-  (activite: Activite) =>
+  <S extends SecteurSimple | SousSecteurListes>(secteurActivite: S) =>
+  (activite: Activite): activite is ActivitesPourSecteur[S] =>
     activitesParSecteurEtSousSecteur[
-      secteurActivite as ValeurCleSectorielle
+      secteurActivite as SecteurSimple | SousSecteurListes
     ].includes(activite);
 
 export const estActiviteAutre = <T extends Activite>(activite: T) =>
@@ -102,10 +103,10 @@ export const estActiviteInfrastructureNumeriqueEligiblesPetitEntite = (
     a as ActivitesInfrastructureNumeriqueEligiblesPetitEntite,
   );
 export const estActiviteInfrastructureNumeriqueAvecBesoinLocalisation = (
-  a: Activite | ActiviteInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
-): a is ActiviteInfrastructureNumeriqueDNSRegistreDomainePermierNiveau =>
+  a: Activite | ActiviteInfranumLocalEtabLot1,
+): a is ActiviteInfranumLocalEtabLot1 =>
   ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau.includes(
-    a as ActiviteInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
+    a as ActiviteInfranumLocalEtabLot1,
   );
 export const estActiviteInfrastructureNumeriqueSansBesoinLocalisation = (
   a: Activite | ActiviteInfrastructureNumeriqueSansBesoinLocalisation,
