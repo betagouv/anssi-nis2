@@ -3,7 +3,7 @@ import { describe, it } from "vitest";
 import { TypeEntite as TE } from "../../src/Domain/Simulateur/Regulation.definitions";
 import { fabriqueArb_ReponseInformationsSecteur_ME } from "../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import {
-  fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivite_PourTaille,
+  fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille,
   fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe,
   fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille,
   fabriqueArbInformationsSecteurAutre,
@@ -68,15 +68,29 @@ describe("Secteur", () => {
         ),
       );
 
-      it.skip(
+      it(
         "Prestataire de services de confiance qualifié ==> définitivement régulé EE",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
-            fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivite_PourTaille(
+            fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille(
               "infrastructureNumerique",
             )("prestataireServiceConfianceQualifie")("Moyen"),
           ),
           fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
+        ),
+      );
+      it(
+        "Prestataire de services de confiance non-qualifié ou Fournisseur de points d’échange internet ==> définitivement régulé EI",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+            fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille(
+              "infrastructureNumerique",
+            )(
+              "prestataireServiceConfianceNonQualifie",
+              "fournisseurPointEchangeInternet",
+            )("Moyen"),
+          ),
+          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteImportante),
         ),
       );
     });

@@ -1,5 +1,9 @@
 import { match } from "ts-pattern";
-import { et, non } from "../../../../../../utils/services/predicats.operations";
+import {
+  et,
+  non,
+  ou,
+} from "../../../../../../utils/services/predicats.operations";
 import { certains } from "../../../../../../utils/services/sets.operations";
 import { ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation } from "../../Activite.valeurs";
 import {
@@ -19,6 +23,7 @@ import { ReponseEtatInformationsSecteur } from "./ReponseEtat.definitions";
 import {
   auMoinsUneActiviteEstDans,
   auMoinsUneActiviteListee,
+  certainsSontInfrastructureNumeriqueAvecActivite,
   contientDesActivitesInfrastructureNumeriqueEssentielles,
   estInformationSecteurImportantAvecBesoinLocalisation,
   estInformationSecteurSousSecteurAutre,
@@ -32,6 +37,31 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
   reponse: EtatEvaluationEnSuspens & ReponseEtatInformationsSecteur,
 ): EtatRegulation =>
   match(reponse.InformationsSecteur.secteurs)
+    .when(
+      certainsSontInfrastructureNumeriqueAvecActivite(
+        "prestataireServiceConfianceQualifie",
+      ),
+      () =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          TE.EntiteEssentielle,
+        ),
+    )
+    .when(
+      ou(
+        certainsSontInfrastructureNumeriqueAvecActivite(
+          "prestataireServiceConfianceNonQualifie",
+        ),
+        certainsSontInfrastructureNumeriqueAvecActivite(
+          "fournisseurPointEchangeInternet",
+        ),
+      ),
+      () =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          TE.EntiteImportante,
+        ),
+    )
     .when(
       certains(
         et(

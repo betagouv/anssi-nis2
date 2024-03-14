@@ -124,11 +124,11 @@ export const fabriqueArb_EnsInformationsSecteur_ActivitesAutres = flow(
   ),
   fabriqueArb_EnsInformationsSecteurPossible,
 );
-export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivite_PourTaille =
+export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille =
 
     <Secteur extends SecteurSimple>(secteur: Secteur) =>
     <TypeActivite extends ActivitesPourSecteur[Secteur]>(
-      activite: TypeActivite,
+      ...activites: TypeActivite[]
     ) =>
     <Taille extends CategorieTaille>(taille: `${Taille}`) =>
       fc.record({
@@ -136,7 +136,7 @@ export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivite_PourT
         secteurs: fc.constant(
           ens({
             secteurActivite: secteur,
-            activites: ens(activite),
+            activites: ens(...activites),
           }),
         ),
       });

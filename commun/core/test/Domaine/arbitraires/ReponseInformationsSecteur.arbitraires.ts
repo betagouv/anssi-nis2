@@ -4,7 +4,7 @@ import { ReponseInformationsSecteur } from "../../../src/Domain/Simulateur/servi
 
 import { fabriqueArb_ReponseInformationsSecteur_PE } from "../../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import {
-  fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivite_PourTaille,
+  fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille,
   fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille,
   fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille,
 } from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
@@ -22,12 +22,12 @@ export const arbReponseInformationsSecteurLocalisesFrancePetit =
 
 export const arbReponseInformationsSecteur_Infranum_ActiviteConfianceQualifie: fc.Arbitrary<
   ReponseInformationsSecteur<"Petit">
-> = fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivite_PourTaille(
+> = fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille(
   "infrastructureNumerique",
 )("prestataireServiceConfianceQualifie")("Petit");
 export const arbReponseInformationsSecteur_Infranum_ActiviteConfianceNonQualifie: fc.Arbitrary<
   ReponseInformationsSecteur<"Petit">
-> = fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivite_PourTaille(
+> = fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille(
   "infrastructureNumerique",
 )("prestataireServiceConfianceNonQualifie")("Petit");
 export const arbReponseInformationsSecteur_LocalisesHorsUE_Petit: fc.Arbitrary<
