@@ -56,7 +56,6 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
           TE.EntiteEssentielle,
         ),
     )
-
     .when(
       certains(
         et(

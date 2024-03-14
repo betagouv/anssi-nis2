@@ -1,6 +1,7 @@
 import { fc } from "@fast-check/vitest";
 import { describe, it } from "vitest";
 import { TypeEntite as TE } from "../../src/Domain/Simulateur/Regulation.definitions";
+import { ReponseInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
 import { fabriqueArb_ReponseInformationsSecteur_GE } from "../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import {
   fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille,
@@ -82,6 +83,19 @@ describe("Secteur", () => {
             )("Grand"),
           ),
           fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
+        ),
+      );
+      it(
+        "autre Activite Infrastructure Numerique (non listée) ==> définitivement non régulé",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
+            fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille(
+              "infrastructureNumerique",
+            )("autreActiviteInfrastructureNumerique")(
+              "Grand",
+            ) as unknown as fc.Arbitrary<ReponseInformationsSecteur<"Grand">>,
+          ),
+          verificationReponseNonRegule,
         ),
       );
     });
