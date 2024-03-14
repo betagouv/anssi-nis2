@@ -26,7 +26,10 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
 ): EtatRegulation =>
   match(reponse.Structure._categorieTaille)
     .with("Petit", () =>
-      evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit(reponse),
+      evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit(
+        reponse as EtatEvaluationEnSuspens &
+          ReponseEtatInformationsSecteur<"Petit">,
+      ),
     )
     .with("Moyen", () =>
       evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen(reponse),

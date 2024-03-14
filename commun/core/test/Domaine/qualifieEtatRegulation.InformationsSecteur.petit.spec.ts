@@ -30,7 +30,6 @@ describe("Secteur", () => {
   describe("Petit", () => {
     describe("Décision en suspens", () => {
       describe("Infrastructure Numérique", () => {
-        // Fournisseurs réseaux + Fournisseurs srv comm elec
         describe("Fournisseur de réseaux de communications électroniques publics et Fournisseur de services de communications électroniques accessibles au public", () => {
           it(
             "France, à minima ==> Définitivement EI",
@@ -80,7 +79,6 @@ describe("Secteur", () => {
           );
         });
 
-        // DNS + Domain L1
         describe("Fournisseur de services DNS, à l’exclusion des opérateurs de serveurs racines de noms de domaines ou Registres de noms de domaines de premier niveau", () => {
           it(
             "France premiere question ==> definitivement EE",

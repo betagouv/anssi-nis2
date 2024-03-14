@@ -49,10 +49,10 @@ export const fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_Pou
         }),
     );
 
-export const fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_GE =
-  fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille(
-    "Grand",
-  );
+// export const fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_GE =
+//   fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille(
+//     "Grand",
+//   );
 
 export const fabriqueArb_EnsInformationsSecteurPossible = <
   Taille extends CategorieTaille,
@@ -99,29 +99,29 @@ export const fabriqueArbInformationsSecteurAutre = <T extends CategorieTaille>(
       }),
     ),
   );
-export const fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille =
-  <Taille extends CategorieTaille>(taille: `${Taille}`) =>
-    fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille(
-      taille,
-    );
-export const fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe =
-  flow(
-    fabriqueArb_EnsInformationsSecteurPossible as (
-      arb: fc.Arbitrary<RepInfoSecteur<CategorieTaille>>,
-    ) => fc.Arbitrary<Set<RepInfoSecteur<"Moyen">>>,
-    fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille(
-      "Moyen",
-    ),
-  );
-export const fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_GE_AvecEnsembleDe =
-  flow(
-    fabriqueArb_EnsInformationsSecteurPossible as (
-      arb: fc.Arbitrary<RepInfoSecteur<CategorieTaille>>,
-    ) => fc.Arbitrary<Set<RepInfoSecteur<"Grand">>>,
-    fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille(
-      "Grand",
-    ),
-  );
+// export const fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille =
+//   <Taille extends CategorieTaille>(taille: `${Taille}`) =>
+//     fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille(
+//       taille,
+//     );
+// export const fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe =
+//   flow(
+//     fabriqueArb_EnsInformationsSecteurPossible as (
+//       arb: fc.Arbitrary<RepInfoSecteur<CategorieTaille>>,
+//     ) => fc.Arbitrary<Set<RepInfoSecteur<"Moyen">>>,
+//     fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille(
+//       "Moyen",
+//     ),
+//   );
+// export const fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_GE_AvecEnsembleDe =
+//   flow(
+//     fabriqueArb_EnsInformationsSecteurPossible as (
+//       arb: fc.Arbitrary<RepInfoSecteur<CategorieTaille>>,
+//     ) => fc.Arbitrary<Set<RepInfoSecteur<"Grand">>>,
+//     fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille(
+//       "Grand",
+//     ),
+//   );
 export const fabriqueArb_EnsInformationsSecteur_ActivitesListees = flow(
   A.enchaine(fabriqueArb_EnsActivites_Autres_PourSecteurSimple) as (
     arb: fc.Arbitrary<SecteurActivite>,

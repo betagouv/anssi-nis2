@@ -37,6 +37,7 @@ export const fabriqueArbJamaisOse_ToujoursFrance_StructurePetit =
   fabriqueArbJamaisOse_ToujoursFrance<"privee", "Petit">(
     arbReponseStructure_ToujoursPrivee_ToujoursPE,
   );
+
 export const fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen =
   fabriqueArbJamaisOse_ToujoursFrance<"privee", "Moyen">(
     arbReponseStructure_ToujoursPrivee_ToujoursME,

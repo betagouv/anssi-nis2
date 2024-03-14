@@ -1,10 +1,7 @@
 import { match } from "ts-pattern";
 import { prop } from "../../../../../../utils/services/objects.operations";
 import { et, ou } from "../../../../../../utils/services/predicats.operations";
-import {
-  certains,
-  tous,
-} from "../../../../../../utils/services/sets.operations";
+import { certains } from "../../../../../../utils/services/sets.operations";
 import { AppartenancePaysUnionEuropeenne } from "../../ChampsSimulateur.definitions";
 import { resultatNonRegule } from "../../Regulation.constantes";
 import { TypeEntite as TE } from "../../Regulation.definitions";
@@ -21,7 +18,6 @@ import { RepInfoSecteur } from "./ReponseInformationsSecteur.definitions";
 import {
   certainsSontInfrastructureNumeriqueAvecActivite,
   estEtablissementPrincipalFrance,
-  estInformationSecteurAvecActivitesEssentielles,
 } from "./ReponseInformationsSecteur.predicats";
 import { flow } from "fp-ts/lib/function";
 
@@ -115,50 +111,6 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
           reponse,
           TE.EntiteImportante,
         ),
-    )
-    // .when(tous(estSecteurAvecActivitesEssentiellesBienLocalisees), () =>
-    //   fabriqueResultatEvaluationDefinitifCarSecteur(
-    //     reponse,
-    //     TE.EntiteEssentielle,
-    //   ),
-    // )
-    // .when(
-    //   certains(
-    //     et(
-    //       estInformationSecteurAvecActivitesEssentielles<"Petit">,
-    //       estSecteurBienLocaliseUE,
-    //     ),
-    //   ),
-    //   () =>
-    //     fabriqueResultatEvaluationDefinitif(
-    //       "InformationsSecteur",
-    //       resultatIncertainAutrePaysUE,
-    //     ),
-    // )
-    // .when(
-    //   certains(
-    //     et(
-    //       estInformationSecteurAvecActivitesEssentielles,
-    //       contientActivitesInfrastructureNumeriqueEligiblesPetitEntite,
-    //     ),
-    //   ),
-    //   () =>
-    //     fabriqueResultatEvaluationDefinitifCarSecteur(
-    //       reponse,
-    //       TE.EntiteEssentielle,
-    //     ),
-    // )
-    // .when(tous(estSecteurBienLocaliseHorsFrance), () =>
-    //   fabriqueResultatEvaluationDefinitif(
-    //     "InformationsSecteur",
-    //     resultatNonRegule,
-    //   ),
-    // )
-    .when(tous(estInformationSecteurAvecActivitesEssentielles), () =>
-      fabriqueResultatEvaluationDefinitif(
-        "InformationsSecteur",
-        resultatNonRegule,
-      ),
     )
     .otherwise(() =>
       fabriqueResultatEvaluationDefinitif(
