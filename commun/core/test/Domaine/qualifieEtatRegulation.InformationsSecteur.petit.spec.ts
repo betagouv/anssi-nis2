@@ -1,4 +1,5 @@
 import { describe, it } from "vitest";
+import { ValeursActivitesInfrastructureNumerique } from "../../src/Domain/Simulateur/Activite.valeurs";
 import { ReponseInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
 import {
   assertionArbitraire,
@@ -88,6 +89,32 @@ describe("Secteur", () => {
               fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille(
                 "infrastructureNumerique",
               )("autreActiviteInfrastructureNumerique")(
+                "Petit",
+              ) as unknown as fc.Arbitrary<ReponseInformationsSecteur<"Petit">>,
+            ),
+            verificationReponseNonRegule,
+          ),
+        );
+        const activitesPENonReguleesPE =
+          ValeursActivitesInfrastructureNumerique.filter(
+            (activite) =>
+              ![
+                "fournisseurReseauxCommunicationElectroniquesPublics",
+                "fournisseurServiceCommunicationElectroniquesPublics",
+                "registresNomsDomainesPremierNiveau",
+                "fournisseurServicesDNS",
+                "prestataireServiceConfianceQualifie",
+                "prestataireServiceConfianceNonQualifie",
+                "autreActiviteInfrastructureNumerique",
+              ].includes(activite),
+          );
+        it(
+          "autre Activite listée dans Infrastructure Numerique  ==> définitivement non régulé",
+          assertionArbitraire(
+            fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
+              fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille(
+                "infrastructureNumerique",
+              )(...activitesPENonReguleesPE)(
                 "Petit",
               ) as unknown as fc.Arbitrary<ReponseInformationsSecteur<"Petit">>,
             ),
