@@ -5,7 +5,6 @@ import {
   fabriqueIncertain,
   resultatReguleOSE,
 } from "../../src/Domain/Simulateur/fabriques/ResultatRegulation.fabrique";
-import { resultatNonRegule } from "../../src/Domain/Simulateur/Regulation.constantes";
 import {
   Regulation,
   RegulationEntite,
@@ -21,14 +20,9 @@ import {
   EtatRegulation,
   EtatRegulationDefinitif,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
-import {
-  afficheDifferences,
-  assertionArbitraire,
-} from "../utilitaires/ResultatEvaluationRegulation.assertions";
-import { fabriqueArbJamaisOse_ToujoursFrance_StructurePetit } from "../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
+import { assertionArbitraire } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import { arbReponseStructure_ToujoursPrivee_ToujoursPE } from "./arbitraires/ReponseStructure.arbitraires";
 import { arbReponseDesignationOperateurServicesEssentiels_ToujoursOui } from "./arbitraires/ReponseDesignationOperateurServicesEssentiels.arbitraires";
-import { arbReponseInformationsSecteur_LocalisesHorsUE_Petit } from "./arbitraires/ReponseInformationsSecteur.arbitraires";
 import { arbTuple_JamaisOse_ToujoursAutreUE } from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
 
 type DonneesTest = {
@@ -75,46 +69,47 @@ describe("chaine de décision", () => {
       },
     ),
   );
-  it(
-    "en suspens / secteurs localisables et localisé hors France ==> toujours définitivement incertain car psa implémenté",
-    assertionArbitraire(
-      fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-        arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
-      ),
-      (reponse: EtatRegulation) => {
-        const resultatAttendu: EtatRegulationDefinitif = {
-          _resultatEvaluationRegulation: "Definitif",
-          etapeEvaluee: "InformationsSecteur",
-          ...resultatNonRegule,
-        };
-
-        const resultatObtenu = evalueEtatRegulation(reponse);
-        expect(
-          resultatObtenu,
-          afficheDifferences(resultatAttendu, resultatObtenu),
-        ).toStrictEqual(resultatAttendu);
-      },
-    ),
-  );
+  // it.skip(
+  //   "*** Raison Skip *** n'existe plus dans le nouveau modèle" +
+  //     "en suspens / secteurs localisables et localisé hors France ==> toujours définitivement incertain car psa implémenté",
+  //   assertionArbitraire(
+  //     fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
+  //       arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
+  //     ),
+  //     (reponse: EtatRegulation) => {
+  //       const resultatAttendu: EtatRegulationDefinitif = {
+  //         _resultatEvaluationRegulation: "Definitif",
+  //         etapeEvaluee: "InformationsSecteur",
+  //         ...resultatNonRegule,
+  //       };
+  //
+  //       const resultatObtenu = evalueEtatRegulation(reponse);
+  //       expect(
+  //         resultatObtenu,
+  //         afficheDifferences(resultatAttendu, resultatObtenu),
+  //       ).toStrictEqual(resultatAttendu);
+  //     },
+  //   ),
+  // );
   const contreExemples: (DonneesFormulaireSimulateur & DonneesTest)[] = [
-    {
-      description:
-        "Non OSE > Privée > Infra Num > Petite : Est éligible si le secteur d'activité est 'Infrastructure Numérique",
-      decisionAttendue: Regulation.Regule,
-      typeEntite: "EntiteEssentielle",
-      typeEntitePublique: [],
-      fournitServicesUnionEuropeenne: [],
-      localisationRepresentant: [],
-      secteurActivite: ["infrastructureNumerique"],
-      sousSecteurActivite: [],
-      designationOperateurServicesEssentiels: ["non"],
-      typeStructure: ["privee"],
-      trancheChiffreAffaire: ["petit"],
-      trancheNombreEmployes: ["petit"],
-      appartenancePaysUnionEuropeenne: ["france"],
-      activites: ["fournisseurReseauxCommunicationElectroniquesPublics"],
-      localisationFournitureServicesNumeriques: [],
-    },
+    // {
+    //   description:
+    //     "Non OSE > Privée > Infra Num > Petite : Est éligible si le secteur d'activité est 'Infrastructure Numérique",
+    //   decisionAttendue: Regulation.Regule,
+    //   typeEntite: "EntiteEssentielle",
+    //   typeEntitePublique: [],
+    //   fournitServicesUnionEuropeenne: [],
+    //   localisationRepresentant: [],
+    //   secteurActivite: ["infrastructureNumerique"],
+    //   sousSecteurActivite: [],
+    //   designationOperateurServicesEssentiels: ["non"],
+    //   typeStructure: ["privee"],
+    //   trancheChiffreAffaire: ["petit"],
+    //   trancheNombreEmployes: ["petit"],
+    //   appartenancePaysUnionEuropeenne: ["france"],
+    //   activites: ["fournisseurReseauxCommunicationElectroniquesPublics"],
+    //   localisationFournitureServicesNumeriques: [],
+    // },
     {
       description:
         "Non OSE > Privée > Infra Num > Moyenne/Grande : Moyen grand Gestion TIC",

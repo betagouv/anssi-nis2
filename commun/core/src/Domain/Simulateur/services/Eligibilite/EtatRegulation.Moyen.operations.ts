@@ -24,13 +24,10 @@ import {
   auMoinsUneActiviteEstDans,
   auMoinsUneActiviteListee,
   certainsSontInfrastructureNumeriqueAvecActivite,
-  contientDesActivitesInfrastructureNumeriqueEssentielles,
   estInformationSecteurImportantAvecBesoinLocalisation,
   estInformationSecteurSousSecteurAutre,
   estInformationsPourSecteur,
   estInformationsSecteurEligibleSansBesoinLocalisation,
-  estSecteurBienLocaliseGrand,
-  estSecteurBienLocaliseUE,
 } from "./ReponseInformationsSecteur.predicats";
 
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
@@ -62,34 +59,34 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
           TE.EntiteImportante,
         ),
     )
-    .when(
-      certains(
-        et(
-          estInformationsPourSecteur("infrastructureNumerique"),
-          contientDesActivitesInfrastructureNumeriqueEssentielles,
-          estSecteurBienLocaliseGrand,
-        ),
-      ),
-      () =>
-        fabriqueResultatEvaluationDefinitifCarSecteur(
-          reponse,
-          TE.EntiteEssentielle,
-        ),
-    )
-    .when(
-      certains(
-        et(
-          estInformationsPourSecteur("infrastructureNumerique"),
-          contientDesActivitesInfrastructureNumeriqueEssentielles,
-          estSecteurBienLocaliseUE,
-        ),
-      ),
-      () =>
-        fabriqueResultatEvaluationDefinitif(
-          "InformationsSecteur",
-          resultatIncertainAutrePaysUE,
-        ),
-    )
+    // .when(
+    //   certains(
+    //     et(
+    //       estInformationsPourSecteur("infrastructureNumerique"),
+    //       contientDesActivitesInfrastructureNumeriqueEssentielles,
+    //       // estSecteurBienLocaliseGrand,
+    //     ),
+    //   ),
+    //   () =>
+    //     fabriqueResultatEvaluationDefinitifCarSecteur(
+    //       reponse,
+    //       TE.EntiteEssentielle,
+    //     ),
+    // )
+    // .when(
+    //   certains(
+    //     et(
+    //       estInformationsPourSecteur("infrastructureNumerique"),
+    //       contientDesActivitesInfrastructureNumeriqueEssentielles,
+    //       // estSecteurBienLocaliseUE,
+    //     ),
+    //   ),
+    //   () =>
+    //     fabriqueResultatEvaluationDefinitif(
+    //       "InformationsSecteur",
+    //       resultatIncertainAutrePaysUE,
+    //     ),
+    // )
     .when(
       certains(
         et(
@@ -109,7 +106,7 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
       certains(
         et(
           estInformationSecteurImportantAvecBesoinLocalisation,
-          estSecteurBienLocaliseGrand,
+          // estSecteurBienLocaliseGrand,
         ),
       ),
       () =>
@@ -122,7 +119,7 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
       certains(
         et(
           estInformationSecteurImportantAvecBesoinLocalisation,
-          estSecteurBienLocaliseUE,
+          // estSecteurBienLocaliseUE,
         ),
       ),
       () =>

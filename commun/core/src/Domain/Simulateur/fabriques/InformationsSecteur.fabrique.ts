@@ -1,5 +1,4 @@
 import { match } from "ts-pattern";
-import { ou } from "../../../../../utils/services/predicats.operations";
 import {
   ens,
   ensembleNeutreDe,
@@ -8,24 +7,23 @@ import {
 import { DonneesFormulaireSimulateur } from "../DonneesFormulaire.definitions";
 import {
   SecteurActivite,
-  SecteurAvecBesoinLocalisationRepresentant,
   SecteurComposite,
   SecteurSimple,
 } from "../SecteurActivite.definitions";
 import { activiteEstDansSecteur } from "../services/Activite/Activite.predicats";
 import {
-  InformationsSecteurAvecBesoinLocalisation,
   InformationsSecteurComposite,
   InformationsSecteurCompositeAutre,
-  InformationsSecteurPossible,
   InformationsSecteurSansBesoinLocalisation,
 } from "../services/Eligibilite/InformationsSecteur.definitions";
-import { ReponseInformationsSecteur } from "../services/Eligibilite/ReponseInformationsSecteur.definitions";
+import {
+  InformationsSecteurPossible,
+  RepInfoSecteur,
+  ReponseInformationsSecteur,
+} from "../services/Eligibilite/ReponseInformationsSecteur.definitions";
 import { CategorieTaille } from "../services/Eligibilite/ReponseStructure.definitions";
 import {
   estSecteurAutre,
-  estSecteurAvecActivitesEssentielles,
-  estSecteurImportantsAvecBesoinLocalisation,
   estUnSecteurAvecDesSousSecteurs,
   estUnSecteurSansDesSousSecteurs,
 } from "../services/SecteurActivite/SecteurActivite.predicats";
@@ -42,7 +40,7 @@ import {
 export const FabriqueInformationsSecteur = {
   secteurAutre:
     <Taille extends CategorieTaille>() =>
-    (): Set<InformationsSecteurPossible<Taille>> =>
+    (): Set<RepInfoSecteur<Taille>> =>
       ens({
         secteurActivite: "autreSecteurActivite",
       }),
@@ -57,24 +55,19 @@ export const FabriqueInformationsSecteur = {
         ),
       }) as Set<InformationsSecteurSansBesoinLocalisation>,
 
-  secteurSimpleAvecLocalisation:
-    <Taille extends CategorieTaille>(donnees: DonneesFormulaireSimulateur) =>
-    (
-      secteur: SecteurAvecBesoinLocalisationRepresentant,
-    ): Set<InformationsSecteurAvecBesoinLocalisation<Taille>> =>
-      ens({
-        secteurActivite: secteur,
-        activites: ens(
-          ...donnees.activites.filter(activiteEstDansSecteur(secteur)),
-        ),
-        fournitServicesUnionEuropeenne:
-          donnees.fournitServicesUnionEuropeenne[0],
-        ...(donnees.fournitServicesUnionEuropeenne[0] === "oui"
-          ? {
-              localisationRepresentant: donnees.localisationRepresentant[0],
-            }
-          : {}),
-      }) as Set<InformationsSecteurAvecBesoinLocalisation<Taille>>,
+  // secteurSimpleAvecLocalisation:
+  //   <Taille extends CategorieTaille>(taille:Taille) =>(donnees: DonneesFormulaireSimulateur) =>
+  //
+  //   <Secteur extends  "infrastructureNumerique" | "gestionServicesTic" | "fournisseursNumeriques">(
+  //     secteur: Secteur,
+  //   ): Set<RepInfoSecteurLocalises<Taille>> =>
+  //     ens({
+  //       ...fabriqueCategorieTaille(taille)
+  //       secteurActivite: secteur as Secteur,
+  //       activites: ens(
+  //         ...donnees.activites.filter(activiteEstDansSecteur(secteur)),
+  //       ),
+  //     }),
 
   secteurComposite:
     (donnees: DonneesFormulaireSimulateur) =>
@@ -139,13 +132,13 @@ export const FabriqueInformationsSecteur = {
   ): Set<InformationsSecteurPossible<Taille>> =>
     match(secteurActivite)
       .when(estSecteurAutre, FabriqueInformationsSecteur.secteurAutre())
-      .when(
-        ou(
-          estSecteurAvecActivitesEssentielles,
-          estSecteurImportantsAvecBesoinLocalisation,
-        ),
-        FabriqueInformationsSecteur.secteurSimpleAvecLocalisation(donnees),
-      )
+      // .when(
+      //   ou(
+      //     estSecteurAvecActivitesEssentielles,
+      //     estSecteurImportantsAvecBesoinLocalisation,
+      //   ),
+      //   FabriqueInformationsSecteur.secteurSimpleAvecLocalisation(donnees),
+      // )
       .when(
         estUnSecteurSansDesSousSecteurs,
         FabriqueInformationsSecteur.secteurSimple(donnees),
@@ -188,13 +181,17 @@ export const FabriqueInformationsSecteur = {
   ): ReponseInformationsSecteur<"Moyen"> => ({
     _categorieTaille: "Moyen",
     secteurs:
-      FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur(donnees),
+      FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur<"Moyen">(
+        donnees,
+      ),
   }),
   informationsSecteursGrand: (
     donnees: DonneesFormulaireSimulateur,
   ): ReponseInformationsSecteur<"Grand"> => ({
     _categorieTaille: "Grand",
     secteurs:
-      FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur(donnees),
+      FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur<"Grand">(
+        donnees,
+      ),
   }),
 };

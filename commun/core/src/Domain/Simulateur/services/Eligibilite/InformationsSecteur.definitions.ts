@@ -13,7 +13,6 @@ import {
 } from "../../Activite.definitions";
 import {
   SecteurActivite,
-  SecteurAvecBesoinLocalisationRepresentant,
   SecteurComposite,
   SecteursDefinitsSansBesoinLocalisationRepresentant,
   SecteurSimple,
@@ -25,7 +24,6 @@ import {
   SousSecteurFabrication,
   SousSecteurTransport,
 } from "../../SousSecteurActivite.definitions";
-import { EtablissementPrincipalLocalisation } from "./LocalisationsActivites.definitions";
 import { CategorieTaille } from "./ReponseStructure.definitions";
 
 export type InformationsSecteurSimpleListe = {
@@ -140,12 +138,15 @@ export type InformationsSecteurListe =
   | InformationsSecteursCompositeListe;
 
 // TODO : retirer localisation
-export type InformationsSecteurAvecBesoinLocalisation<
-  Taille extends CategorieTaille,
-> = {
-  secteurActivite: SecteurAvecBesoinLocalisationRepresentant;
-  activites: Set<ActivitesAvecBesoinLocalisationRepresentant<Taille>>;
-} & EtablissementPrincipalLocalisation;
+export type InformationsSecteurAvecBesoinLocalisation =
+  | InformationsSecteurAvecActiviteInfranumLocalServices
+  | InformationsSecteurAvecActiviteInfranumLocalEtabLot1
+  | InformationsSecteurAvecActiviteInfranumLocalEtabLot2
+  | InformationsSecteurLocalEtab;
+//   {
+//   secteurActivite: SecteurAvecBesoinLocalisationRepresentant;
+//   activites: Set<ActivitesAvecBesoinLocalisationRepresentant<Taille>>;
+// } & EtablissementPrincipalLocalisation;
 
 export type InformationSecteurSimpleAutre = {
   secteurActivite: ExtraitAutre<SecteurActivite>;
@@ -153,17 +154,10 @@ export type InformationSecteurSimpleAutre = {
 
 export type InformationsSecteurAutre =
   | InformationSecteurSimpleAutre
-  | InformationsSecteurCompositeAutre<SecteurComposite>;
+  | InformationsSecteurCompositeAutre;
 export type InformationsSecteurSansBesoinLocalisation =
   | InformationsSecteursCompositeListe
   | InformationsSecteurSimpleListe;
-export type InformationsSecteurPossible<Taille extends CategorieTaille> =
-  | InformationsSecteurSansBesoinLocalisation
-  | InformationsSecteurAvecBesoinLocalisation<Taille>
-  | InformationsSecteurAutre;
 export type InformationsSecteursComposite =
-  | InformationsSecteurCompositeAutre<SecteurComposite>
+  | InformationsSecteurCompositeAutre
   | InformationsSecteursCompositeListe;
-export type InformationsSecteur<Taille extends CategorieTaille> = {
-  secteurs: Set<InformationsSecteurPossible<Taille>>;
-};
