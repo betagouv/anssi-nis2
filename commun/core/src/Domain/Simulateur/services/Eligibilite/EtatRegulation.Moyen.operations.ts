@@ -1,4 +1,4 @@
-import { P, match } from "ts-pattern";
+import { match } from "ts-pattern";
 import { et, non } from "../../../../../../utils/services/predicats.operations";
 import { certains } from "../../../../../../utils/services/sets.operations";
 import { ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation } from "../../Activite.valeurs";
@@ -14,8 +14,8 @@ import {
 import {
   fabriqueResultatEvaluationDefinitif,
   fabriqueResultatEvaluationDefinitifCarSecteur,
-  propageResultatIncertainEnSuspens,
 } from "./EtatRegulation.fabriques";
+import { ReponseEtatInformationsSecteur } from "./ReponseEtat.definitions";
 import {
   auMoinsUneActiviteEstDans,
   auMoinsUneActiviteListee,
@@ -29,136 +29,95 @@ import {
 } from "./ReponseInformationsSecteur.predicats";
 
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
-  reponse: EtatEvaluationEnSuspens,
+  reponse: EtatEvaluationEnSuspens & ReponseEtatInformationsSecteur,
 ): EtatRegulation =>
-  match(reponse)
-    .with(
-      {
-        InformationsSecteur: {
-          secteurs: P.when(
-            certains(
-              et(
-                estInformationsPourSecteur("infrastructureNumerique"),
-                contientDesActivitesInfrastructureNumeriqueEssentielles,
-                estSecteurBienLocaliseGrand,
-              ),
-            ),
-          ),
-        },
-      },
-      (reponse) =>
+  match(reponse.InformationsSecteur.secteurs)
+    .when(
+      certains(
+        et(
+          estInformationsPourSecteur("infrastructureNumerique"),
+          contientDesActivitesInfrastructureNumeriqueEssentielles,
+          estSecteurBienLocaliseGrand,
+        ),
+      ),
+      () =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
           TE.EntiteEssentielle,
         ),
     )
-    .with(
-      {
-        InformationsSecteur: {
-          secteurs: P.when(
-            certains(
-              et(
-                estInformationsPourSecteur("infrastructureNumerique"),
-                contientDesActivitesInfrastructureNumeriqueEssentielles,
-                estSecteurBienLocaliseUE,
-              ),
-            ),
-          ),
-        },
-      },
+    .when(
+      certains(
+        et(
+          estInformationsPourSecteur("infrastructureNumerique"),
+          contientDesActivitesInfrastructureNumeriqueEssentielles,
+          estSecteurBienLocaliseUE,
+        ),
+      ),
       () =>
         fabriqueResultatEvaluationDefinitif(
           "InformationsSecteur",
           resultatIncertainAutrePaysUE,
         ),
     )
-    .with(
-      {
-        InformationsSecteur: {
-          secteurs: P.when(
-            certains(
-              et(
-                estInformationsPourSecteur("infrastructureNumerique"),
-                auMoinsUneActiviteEstDans(
-                  ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation,
-                ),
-              ),
-            ),
+    .when(
+      certains(
+        et(
+          estInformationsPourSecteur("infrastructureNumerique"),
+          auMoinsUneActiviteEstDans(
+            ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation,
           ),
-        },
-      },
-      (reponse) =>
+        ),
+      ),
+      () =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
           TE.EntiteImportante,
         ),
     )
-    .with(
-      {
-        InformationsSecteur: {
-          secteurs: P.when(
-            certains(
-              et(
-                estInformationSecteurImportantAvecBesoinLocalisation,
-                estSecteurBienLocaliseGrand,
-              ),
-            ),
-          ),
-        },
-      },
-      (reponse) =>
+    .when(
+      certains(
+        et(
+          estInformationSecteurImportantAvecBesoinLocalisation,
+          estSecteurBienLocaliseGrand,
+        ),
+      ),
+      () =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
           TE.EntiteImportante,
         ),
     )
-    .with(
-      {
-        InformationsSecteur: {
-          secteurs: P.when(
-            certains(
-              et(
-                estInformationSecteurImportantAvecBesoinLocalisation,
-                estSecteurBienLocaliseUE,
-              ),
-            ),
-          ),
-        },
-      },
+    .when(
+      certains(
+        et(
+          estInformationSecteurImportantAvecBesoinLocalisation,
+          estSecteurBienLocaliseUE,
+        ),
+      ),
       () =>
         fabriqueResultatEvaluationDefinitif(
           "InformationsSecteur",
           resultatIncertainAutrePaysUE,
         ),
     )
-    .with(
-      {
-        InformationsSecteur: {
-          secteurs: P.when(
-            certains(
-              et(
-                estInformationsSecteurEligibleSansBesoinLocalisation,
-                non(estInformationSecteurSousSecteurAutre),
-                auMoinsUneActiviteListee,
-              ),
-            ),
-          ),
-        },
-      },
-      (reponse) =>
+    .when(
+      certains(
+        et(
+          estInformationsSecteurEligibleSansBesoinLocalisation,
+          non(estInformationSecteurSousSecteurAutre),
+          auMoinsUneActiviteListee,
+        ),
+      ),
+      () =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
           "EntiteImportante",
         ),
     )
-    .with(
-      {
-        _resultatEvaluationRegulation: "EnSuspens",
-      },
-      () =>
-        fabriqueResultatEvaluationDefinitif(
-          "InformationsSecteur",
-          resultatNonRegule,
-        ),
-    )
-    .otherwise(propageResultatIncertainEnSuspens("InformationsSecteur"));
+    .otherwise(() =>
+      fabriqueResultatEvaluationDefinitif(
+        "InformationsSecteur",
+        resultatNonRegule,
+      ),
+    );
