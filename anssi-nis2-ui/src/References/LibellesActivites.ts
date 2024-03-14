@@ -253,7 +253,7 @@ export const libellesActivites: Record<Activite, string> = {
   prestataireServiceConfianceQualifie:
     "Prestataires de service de confiance qualifié",
   prestataireServiceConfianceNonQualifie:
-    "Prestataires de service de confiance non-qualifié",
+    "Prestataires de service de confiance non qualifié",
   prestataireSoinsSante: "Prestataires de soins de santé",
   prestatairesServicesPostauxExpedition:
     "Prestataires de services postaux, y compris les prestataires de " +
