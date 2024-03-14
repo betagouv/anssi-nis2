@@ -25,7 +25,7 @@ import {
   propageDonneesEvaluees,
   propageResultatIncertainEnSuspens,
 } from "./EtatRegulation.fabriques";
-import { ReponseEtatStructure } from "./ReponseEtat.definitions";
+import { ReponseEtatInformationsSecteur } from "./ReponseEtat.definitions";
 import {
   auMoinsUneActiviteEstDans,
   auMoinsUneActiviteListee,
@@ -59,130 +59,79 @@ const certainsSontInfrastructureNumeriqueAvecActivite = (
     }),
   );
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
-  reponse: EtatEvaluationEnSuspens,
+  reponse: EtatEvaluationEnSuspens & ReponseEtatInformationsSecteur,
 ): EtatRegulation =>
-  match(reponse)
-    .with(
-      {
-        InformationsSecteur: {
-          secteurs: P.when(
-            certainsSontInfrastructureNumeriqueAvecActivite(
-              "prestataireServiceConfianceQualifie",
-            ),
-          ),
-        },
-      },
-      (reponse) =>
+  match(reponse.InformationsSecteur.secteurs)
+    .when(
+      certainsSontInfrastructureNumeriqueAvecActivite(
+        "prestataireServiceConfianceQualifie",
+      ),
+      () =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
           TE.EntiteEssentielle,
         ),
     )
-    .with(
-      {
-        InformationsSecteur: {
-          secteurs: P.when(
-            certainsSontInfrastructureNumeriqueAvecActivite(
-              "prestataireServiceConfianceNonQualifie",
-            ),
-          ),
-        },
-      },
-      (reponse) =>
+    .when(
+      certainsSontInfrastructureNumeriqueAvecActivite(
+        "prestataireServiceConfianceNonQualifie",
+      ),
+      () =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
           TE.EntiteImportante,
         ),
     )
-    .with(
-      {
-        InformationsSecteur: {
-          secteurs: P.when(
-            tous(estSecteurAvecActivitesEssentiellesBienLocalisees),
-          ),
-        },
-      },
-      (reponse) =>
-        fabriqueResultatEvaluationDefinitifCarSecteur(
-          reponse,
-          TE.EntiteEssentielle,
-        ),
+    .when(tous(estSecteurAvecActivitesEssentiellesBienLocalisees), () =>
+      fabriqueResultatEvaluationDefinitifCarSecteur(
+        reponse,
+        TE.EntiteEssentielle,
+      ),
     )
-    .with(
-      {
-        InformationsSecteur: {
-          secteurs: P.when(
-            certains(
-              et(
-                estInformationSecteurAvecActivitesEssentielles,
-                estSecteurBienLocaliseUE,
-              ),
-            ),
-          ),
-        },
-      },
+    .when(
+      certains(
+        et(
+          estInformationSecteurAvecActivitesEssentielles,
+          estSecteurBienLocaliseUE,
+        ),
+      ),
       () =>
         fabriqueResultatEvaluationDefinitif(
           "InformationsSecteur",
           resultatIncertainAutrePaysUE,
         ),
     )
-    .with(
-      {
-        InformationsSecteur: {
-          secteurs: P.when(
-            certains(
-              et(
-                estInformationSecteurAvecActivitesEssentielles,
-                contientActivitesInfrastructureNumeriqueEligiblesPetitEntite,
-              ),
-            ),
-          ),
-        },
-      },
-      (reponse) =>
+    .when(
+      certains(
+        et(
+          estInformationSecteurAvecActivitesEssentielles,
+          contientActivitesInfrastructureNumeriqueEligiblesPetitEntite,
+        ),
+      ),
+      () =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
           TE.EntiteEssentielle,
         ),
     )
-    .with(
-      {
-        InformationsSecteur: {
-          secteurs: P.when(tous(estSecteurBienLocaliseHorsFrance)),
-        },
-      },
-      () =>
-        fabriqueResultatEvaluationDefinitif(
-          "InformationsSecteur",
-          resultatNonRegule,
-        ),
+    .when(tous(estSecteurBienLocaliseHorsFrance), () =>
+      fabriqueResultatEvaluationDefinitif(
+        "InformationsSecteur",
+        resultatNonRegule,
+      ),
     )
-    .with(
-      {
-        InformationsSecteur: {
-          secteurs: P.when(
-            tous(estInformationSecteurAvecActivitesEssentielles),
-          ),
-        },
-      },
-      () =>
-        fabriqueResultatEvaluationDefinitif(
-          "InformationsSecteur",
-          resultatNonRegule,
-        ),
+    .when(tous(estInformationSecteurAvecActivitesEssentielles), () =>
+      fabriqueResultatEvaluationDefinitif(
+        "InformationsSecteur",
+        resultatNonRegule,
+      ),
     )
-    .with(
-      {
-        _resultatEvaluationRegulation: "EnSuspens",
-      },
-      () =>
-        fabriqueResultatEvaluationDefinitif(
-          "InformationsSecteur",
-          resultatNonRegule,
-        ),
-    )
-    .otherwise(propageResultatIncertainEnSuspens("InformationsSecteur"));
+    .otherwise(() =>
+      fabriqueResultatEvaluationDefinitif(
+        "InformationsSecteur",
+        resultatNonRegule,
+      ),
+    );
 
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
   reponse: EtatEvaluationEnSuspens,
@@ -475,7 +424,7 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
     .otherwise(propageResultatIncertainEnSuspens("InformationsSecteur"));
 
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
-  reponse: EtatEvaluationEnSuspens & ReponseEtatStructure,
+  reponse: EtatEvaluationEnSuspens & ReponseEtatInformationsSecteur,
 ): EtatRegulation =>
   match(reponse.Structure._categorieTaille)
     .with("Petit", () =>
@@ -520,7 +469,7 @@ export const evalueRegulationEtatReponseInformationsSecteur = (
       },
       (reponse) =>
         evalueRegulationEtatReponseInformationsSecteurEnSuspens(
-          reponse as EtatEvaluationEnSuspens & ReponseEtatStructure,
+          reponse as EtatEvaluationEnSuspens & ReponseEtatInformationsSecteur,
         ),
     )
     .otherwise(propageResultatIncertainEnSuspens("InformationsSecteur"));
