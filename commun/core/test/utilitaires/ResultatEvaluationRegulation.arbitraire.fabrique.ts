@@ -1,7 +1,11 @@
 import { fc } from "@fast-check/vitest";
 import { flow } from "fp-ts/lib/function";
 import { ens } from "../../../utils/services/sets.operations";
-import { SecteurActivite } from "../../src/Domain/Simulateur/SecteurActivite.definitions";
+import { ActivitesPourSecteur } from "../../src/Domain/Simulateur/Activite.definitions";
+import {
+  SecteurActivite,
+  SecteurSimple,
+} from "../../src/Domain/Simulateur/SecteurActivite.definitions";
 import {
   estActiviteAutre,
   estActiviteListee,
@@ -31,10 +35,7 @@ export const fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_Pou
         secteurs: fc.constant(info),
       }),
     );
-export const fabriqueArb_ReponseInformationsSecteur_NonLoca_PE =
-  fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille(
-    "Petit",
-  );
+
 export const fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_GE =
   fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille(
     "Grand",
@@ -123,3 +124,20 @@ export const fabriqueArb_EnsInformationsSecteur_ActivitesAutres = flow(
   ),
   fabriqueArb_EnsInformationsSecteurPossible,
 );
+export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivite_PourTaille =
+
+    <Secteur extends SecteurSimple>(secteur: Secteur) =>
+    <TypeActivite extends ActivitesPourSecteur[Secteur]>(
+      activite: TypeActivite,
+    ) =>
+    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
+      fc.record({
+        _categorieTaille: fc.constant(taille),
+        secteurs: fc.constant(
+          ens({
+            secteurActivite: secteur,
+            activites: ens(activite),
+          }),
+        ),
+      });
+//: fc.Arbitrary<ReponseInformationsSecteur<Taille>>

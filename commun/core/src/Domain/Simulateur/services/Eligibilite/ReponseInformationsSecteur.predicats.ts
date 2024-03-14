@@ -34,6 +34,7 @@ import {
 import { EtablissementPrincipalFournitUE } from "./LocalisationsActivites.definitions";
 import { PredicatInformationSecteurPossible } from "./ReponseInformationsSecteur.definitions";
 import { CategorieTaille } from "./ReponseStructure.definitions";
+import { P, isMatching } from "ts-pattern";
 
 export const eqInformationsSecteur = (
   a: InformationsSecteurPossible<CategorieTaille>,
@@ -196,4 +197,17 @@ export const contientActivitesListees = <T extends CategorieTaille>(
 ) =>
   certains(estActiviteListee)(
     (s as InformationsSecteurAvecBesoinLocalisation<T>).activites,
+  );
+export const certainsSontInfrastructureNumeriqueAvecActivite = (
+  activiteCherchee: Activite,
+) =>
+  certains(
+    isMatching({
+      secteurActivite: "infrastructureNumerique",
+      activites: P.when(
+        certains<Activite>((a) => a === activiteCherchee) as (
+          a: Set<Activite>,
+        ) => a is Set<Activite>,
+      ),
+    }),
   );

@@ -3,6 +3,7 @@ import { describe, it } from "vitest";
 import { TypeEntite as TE } from "../../src/Domain/Simulateur/Regulation.definitions";
 import { fabriqueArb_ReponseInformationsSecteur_ME } from "../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import {
+  fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivite_PourTaille,
   fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe,
   fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille,
   fabriqueArbInformationsSecteurAutre,
@@ -31,7 +32,7 @@ import {
 } from "./arbitraires/InformationsSecteur.arbitraires";
 
 describe("Secteur", () => {
-  describe("Moyens", () => {
+  describe("Moyens - En suspens", () => {
     describe("Inrasctructures Numériques", () => {
       it(
         "en suspens / secteurs+activités EE localisables (reg dom et fournisseur DNS) et bien localisés ==> toujours définitivement régulé EE",
@@ -64,6 +65,18 @@ describe("Secteur", () => {
             ),
           ),
           fabriqueVerificationReponseDefinitivementRegule(TE.EntiteImportante),
+        ),
+      );
+
+      it.skip(
+        "Prestataire de services de confiance qualifié ==> définitivement régulé EE",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+            fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivite_PourTaille(
+              "infrastructureNumerique",
+            )("prestataireServiceConfianceQualifie")("Moyen"),
+          ),
+          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
         ),
       );
     });

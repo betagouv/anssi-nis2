@@ -57,7 +57,7 @@ describe("Secteur", () => {
           ),
         );
         it(
-          "Prestataire de services de confiance qualifié ==> toujours définitivement régulé EE",
+          "Prestataire de services de confiance qualifié ==> définitivement régulé EE",
           assertionArbitraire(
             fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
               arbReponseInformationsSecteur_Infranum_ActiviteConfianceQualifie,
@@ -68,7 +68,7 @@ describe("Secteur", () => {
           ),
         );
         it(
-          "Prestataire de services de confiance non qualifié ==> toujours définitivement régulé EI",
+          "Prestataire de services de confiance non qualifié ==> définitivement régulé EI",
           assertionArbitraire(
             fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
               arbReponseInformationsSecteur_Infranum_ActiviteConfianceNonQualifie,
