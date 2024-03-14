@@ -5,7 +5,8 @@ import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
-import { ValeurCleSectorielle } from "../../../../commun/core/src/Domain/Simulateur/ValeurCleSectorielle.definitions.ts";
+import { SecteurSimple } from "../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
+import { SousSecteurActivite } from "../../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import {
   AttributsEntreeChoixMultiple,
   OptionChampSimulateur,
@@ -47,7 +48,7 @@ const fabriqueChangeMulti: (
   };
 
 const fabriqueOptions = (
-  secteurOuSousSecteur: ValeurCleSectorielle,
+  secteurOuSousSecteur: SecteurSimple | SousSecteurActivite,
   construitOptionActivite: (activite: Activite) => OptionChampSimulateur,
 ) => {
   const activitesParSecteurEtSousSecteurElement =

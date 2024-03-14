@@ -237,6 +237,8 @@ export const libellesActivites: Record<Activite, string> = {
   fournisseursPlaceMarcheEnLigne: "Fournisseurs de places de marché en ligne",
   fournisseursPlateformesServicesReseauxSociaux:
     "Fournisseurs de plateformes de services de réseaux sociaux",
+  fournisseurServicesEnregristrementNomDomaine:
+    "Fournisseur des services d’enregistrement de noms de domaine",
   gestionnaireInfrastructure: "Gestionnaires des infrastructures",
   gestionnaireInstallationGNL: "Gestionnaires d’installation de GNL",
   gestionnaireInstallationStockage: "Gestionnaires d’installation de stockage",

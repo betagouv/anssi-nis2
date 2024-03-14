@@ -507,6 +507,7 @@ export const listeDescriptionsActivites: Record<
         "entre eux sur plusieurs terminaux, notamment par conversations en ligne, publications, vidéos et recommandations",
     },
   ],
+  fournisseurServicesEnregristrementNomDomaine: [],
   gestionnaireInfrastructure: [
     {
       titre: "Gestionnaire de l’infrastructure",
