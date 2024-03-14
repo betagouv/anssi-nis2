@@ -16,6 +16,7 @@ import RestezInformes from "./Components/RestezInformes.tsx";
 
 import * as Sentry from "@sentry/react";
 import React from "react";
+import Directive from "./Directive.tsx";
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
@@ -81,5 +82,9 @@ export const router = sentryCreateBrowserRouter([
         <RestezInformes />
       </PageEdito>
     ),
+  },
+  {
+    path: "/directive",
+    element: <Directive />,
   },
 ]);
