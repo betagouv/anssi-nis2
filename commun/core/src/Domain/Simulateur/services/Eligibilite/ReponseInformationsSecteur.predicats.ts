@@ -53,6 +53,15 @@ export const estEtablissementPrincipalFournitUE = (
     reponse.paysOperationsCyber === "autre") ||
   ("paysPlusGrandNombreSalaries" in reponse &&
     reponse.paysPlusGrandNombreSalaries === "autre");
+export const estEtablissementPrincipalFrance = <Taille extends CategorieTaille>(
+  reponse: RepInfoSecteur<Taille>,
+): reponse is ReponseInformationsSecteurInfranumActiviteLocalEtabLot1<Taille> =>
+  ("paysDecisionsCyber" in reponse &&
+    reponse.paysDecisionsCyber === "france") ||
+  ("paysOperationsCyber" in reponse &&
+    reponse.paysOperationsCyber === "france") ||
+  ("paysPlusGrandNombreSalaries" in reponse &&
+    reponse.paysPlusGrandNombreSalaries === "france");
 export const estInformationSecteurImportantAvecBesoinLocalisation = (
   informationsSecteur: InformationsSecteurPossible<CategorieTaille>,
 ) =>
@@ -203,13 +212,13 @@ export const contientActivitesListees = <T extends CategorieTaille>(
   s: InformationsSecteurPossible<T>,
 ) => certains(estActiviteListee)((s as RepInfoSecteurListes<T>).activites);
 export const certainsSontInfrastructureNumeriqueAvecActivite = (
-  activiteCherchee: Activite,
+  ...activiteCherchee: Activite[]
 ) =>
   certains(
     isMatching({
       secteurActivite: "infrastructureNumerique",
       activites: P.when(
-        certains<Activite>((a) => a === activiteCherchee) as (
+        certains<Activite>((a) => activiteCherchee.includes(a)) as (
           a: Set<Activite>,
         ) => a is Set<Activite>,
       ),

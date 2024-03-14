@@ -4,8 +4,10 @@ import { ValeursActivitesInfrastructureNumerique } from "../../src/Domain/Simula
 import { TypeEntite as TE } from "../../src/Domain/Simulateur/Regulation.definitions";
 import { ReponseInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
 import {
+  fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab,
   fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille,
   fabriqueArbInformationsSecteurAutre,
+  fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourServiceDansPays,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
   assertionArbitraire,
@@ -13,47 +15,107 @@ import {
   verificationReponseNonRegule,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import { fabriqueArbJamaisOse_ToujoursFrance_StructurePetit } from "../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
+import {
+  arbLocalisationEtablissementPrincipal_AutreUE,
+  arbLocalisationEtablissementPrincipal_France,
+} from "./arbitraires/LocalisationEtablissementPrincipal.arbitraires";
+import {
+  arbLocalisationsServices_ContientFrance,
+  arbLocalisationsServices_ContientAutreUE_SansFrance,
+  arbLocalisationsServices_ContientUniquementHorsUE,
+} from "./arbitraires/LocalisationsServices.arbitraires";
 import { arbReponseInformationsSecteurPetit } from "./arbitraires/ReponseInformationsSecteur.arbitraires";
 
 describe("Secteur", () => {
   describe("Petit", () => {
     describe("Décision en suspens", () => {
       describe("Infrastructure Numérique", () => {
-        // it.skip(
-        //   "*** Raison Skip *** n'existe plus dans le nouveau modèle" +
-        //     "secteurs+activités localisables et bien localisés ==> toujours définitivement régulé END",
-        //   assertionArbitraire(
-        //     fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-        //       arbReponseInformationsSecteurLocalisesFrancePetit,
-        //     ),
-        //     fabriqueVerificationReponseDefinitivementRegule(
-        //       TE.EntiteEssentielle,
-        //     ),
-        //   ),
-        // );
+        // Fournisseurs réseaux + Fournisseurs srv comm elec
+        describe("Fournisseur de réseaux de communications électroniques publics et Fournisseur de services de communications électroniques accessibles au public", () => {
+          it(
+            "France, à minima ==> Définitivement EI",
+            assertionArbitraire(
+              fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
+                fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourServiceDansPays(
+                  "infrastructureNumerique",
+                )(
+                  "fournisseurReseauxCommunicationElectroniquesPublics",
+                  "fournisseurServiceCommunicationElectroniquesPublics",
+                )("Petit")(arbLocalisationsServices_ContientFrance),
+              ),
+              fabriqueVerificationReponseDefinitivementRegule(
+                TE.EntiteImportante,
+              ),
+            ),
+          );
+          it(
+            "Autre(s) EM de l'UE, à minima ==> Définitivement Régulé autre",
+            assertionArbitraire(
+              fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
+                fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourServiceDansPays(
+                  "infrastructureNumerique",
+                )(
+                  "fournisseurReseauxCommunicationElectroniquesPublics",
+                  "fournisseurServiceCommunicationElectroniquesPublics",
+                )("Petit")(arbLocalisationsServices_ContientAutreUE_SansFrance),
+              ),
+              fabriqueVerificationReponseDefinitivementRegule(
+                TE.AutreEtatMembreUE,
+              ),
+            ),
+          );
+          it(
+            "État(s) hors UE ==> Définitivement Non régulé",
+            assertionArbitraire(
+              fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
+                fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourServiceDansPays(
+                  "infrastructureNumerique",
+                )(
+                  "fournisseurReseauxCommunicationElectroniquesPublics",
+                  "fournisseurServiceCommunicationElectroniquesPublics",
+                )("Petit")(arbLocalisationsServices_ContientUniquementHorsUE),
+              ),
+              verificationReponseNonRegule,
+            ),
+          );
+        });
 
-        // it.skip(
-        //   "*** Raison Skip *** n'existe plus dans le nouveau modèle" +
-        //     "secteurs localisables et localisé hors France ==> toujours définitivement non-régulé",
-        //   assertionArbitraire(
-        //     fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-        //       arbReponseInformationsSecteur_LocalisesHorsUE_Petit,
-        //     ),
-        //     verificationReponseNonRegule,
-        //   ),
-        // );
-        // it.skip(
-        //   "*** Raison Skip *** n'existe plus dans le nouveau modèle" +
-        //     "secteurs localisables et localisé hors France ==> toujours définitivement non-régulé",
-        //   assertionArbitraire(
-        //     fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-        //       fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille(
-        //         "Petit",
-        //       )(arbEnsembleSecteurs_Infranum_PE_AutreUE),
-        //     ),
-        //     verificationReponseDefinitivementIncertainAutrePaysUE,
-        //   ),
-        // );
+        // DNS + Domain L1
+        describe("Fournisseur de services DNS, à l’exclusion des opérateurs de serveurs racines de noms de domaines ou Registres de noms de domaines de premier niveau", () => {
+          it(
+            "France premiere question ==> definitivement EE",
+            assertionArbitraire(
+              fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
+                fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
+                  "infrastructureNumerique",
+                )(
+                  "fournisseurServicesDNS",
+                  "registresNomsDomainesPremierNiveau",
+                )("Petit")(arbLocalisationEtablissementPrincipal_France),
+              ),
+              fabriqueVerificationReponseDefinitivementRegule(
+                TE.EntiteEssentielle,
+              ),
+            ),
+          );
+          it(
+            "France premiere question ==> definitivement Autre État Membre UE",
+            assertionArbitraire(
+              fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
+                fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
+                  "infrastructureNumerique",
+                )(
+                  "fournisseurServicesDNS",
+                  "registresNomsDomainesPremierNiveau",
+                )("Petit")(arbLocalisationEtablissementPrincipal_AutreUE),
+              ),
+              fabriqueVerificationReponseDefinitivementRegule(
+                TE.AutreEtatMembreUE,
+              ),
+            ),
+          );
+        });
+
         it(
           "Prestataire de services de confiance qualifié ==> définitivement régulé EE",
           assertionArbitraire(

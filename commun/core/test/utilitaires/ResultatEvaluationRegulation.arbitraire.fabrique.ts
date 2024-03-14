@@ -1,7 +1,11 @@
 import { fc } from "@fast-check/vitest";
 import { flow } from "fp-ts/lib/function";
 import { ens } from "../../../utils/services/sets.operations";
-import { ActivitesPourSecteur } from "../../src/Domain/Simulateur/Activite.definitions";
+import {
+  ActiviteInfranumLocalEtabLot1,
+  ActiviteInfranumLocalServices,
+  ActivitesPourSecteur,
+} from "../../src/Domain/Simulateur/Activite.definitions";
 import {
   SecteurActivite,
   SecteurSimple,
@@ -14,6 +18,10 @@ import {
   InformationsAutresSecteursListes,
   InformationsSecteurComposite,
 } from "../../src/Domain/Simulateur/services/Eligibilite/InformationsSecteur.definitions";
+import {
+  LocalisationEtablissementPrincipal,
+  LocalisationsServices,
+} from "../../src/Domain/Simulateur/services/Eligibilite/LocalisationsActivites.definitions";
 import {
   RepInfoSecteur,
   RepInfoSecteurInfranum,
@@ -63,12 +71,12 @@ export const fabriqueArbInformationsSecteurAutre = <T extends CategorieTaille>(
   taille: T,
 ) =>
   fc.constantFrom<ReponseInformationsSecteur<T>>(
-    // fabriqueContenuCapsuleInformationSecteur(taille)(
-    //   ens({
-    //     ...fabriqueCategorieTaille(taille),
-    //     secteurActivite: "autreSecteurActivite",
-    //   }),
-    // ),
+    fabriqueContenuCapsuleInformationSecteur(taille)(
+      ens({
+        ...fabriqueCategorieTaille(taille),
+        secteurActivite: "autreSecteurActivite",
+      }),
+    ),
     fabriqueContenuCapsuleInformationSecteur(taille)(
       ens({
         ...fabriqueCategorieTaille(taille),
@@ -165,4 +173,46 @@ export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_Pour
           }),
         ),
       });
+export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab =
+
+    <Secteur extends "infrastructureNumerique">(secteur: Secteur) =>
+    <TypeActivite extends ActiviteInfranumLocalEtabLot1>(
+      ...activites: TypeActivite[]
+    ) =>
+    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
+      A.enchaine((loc: LocalisationEtablissementPrincipal) =>
+        fc.record({
+          _categorieTaille: fc.constant(taille),
+          secteurs: fc.constant(
+            ens({
+              _categorieTaille: taille,
+              secteurActivite: secteur,
+              activites: ens(...activites),
+              ...loc,
+            }),
+          ),
+        }),
+      );
+export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourServiceDansPays =
+
+    <Secteur extends "infrastructureNumerique">(secteur: Secteur) =>
+    <TypeActivite extends ActiviteInfranumLocalServices>(
+      ...activites: TypeActivite[]
+    ) =>
+    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
+      A.enchaine((loc: LocalisationsServices) =>
+        fc.record({
+          _categorieTaille: fc.constant(taille),
+          secteurs: fc.constant(
+            ens({
+              _categorieTaille: taille,
+              secteurActivite: secteur,
+              activites: ens(...activites),
+              ...loc,
+            }),
+          ),
+        }),
+      );
+
+
 //: fc.Arbitrary<ReponseInformationsSecteur<Taille>>

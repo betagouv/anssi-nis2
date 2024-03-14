@@ -6,8 +6,6 @@ import {
   ActiviteSecteursSimplesListe,
   ActivitesEnergie,
   ActivitesFabrication,
-  ActivitesFournisseursNumeriques,
-  ActivitesGestionServicesTic,
   ActivitesPourSecteur,
   ActivitesTransports,
 } from "../../Activite.definitions";
@@ -24,7 +22,6 @@ import {
   SousSecteurFabrication,
   SousSecteurTransport,
 } from "../../SousSecteurActivite.definitions";
-import { CategorieTaille } from "./ReponseStructure.definitions";
 
 export type InformationsSecteurSimpleListe = {
   secteurActivite: SecteursDefinitsSansBesoinLocalisationRepresentant;
@@ -64,14 +61,14 @@ export type InformationsSecteursCompositeListe =
 export type InformationsSecteurComposite =
   | InformationsSecteursCompositeListe
   | InformationsSecteurCompositeAutre;
-export type ActivitesAvecBesoinLocalisationRepresentant<
-  Taille extends CategorieTaille,
-> = Taille extends "Petit"
-  ? ActiviteInfranumLocalEtabLot1
-  :
-      | ActiviteInfranumLocalEtabLot1
-      | ActivitesFournisseursNumeriques
-      | ActivitesGestionServicesTic;
+// export type ActivitesAvecBesoinLocalisationRepresentant<
+//   Taille extends CategorieTaille,
+// > = Taille extends "Petit"
+//   ? ActiviteInfranumLocalEtabLot1
+//   :
+//       | ActiviteInfranumLocalEtabLot1
+//       | ActivitesFournisseursNumeriques
+//       | ActivitesGestionServicesTic;
 export type InformationsSecteurLocalEtab<
   S extends SecteursReqLocalEtap = SecteursReqLocalEtap,
 > = {
@@ -125,24 +122,23 @@ export type InformationsAutresSecteursListes<
   activites: Set<ActivitesPourSecteur[S extends SecteurSimple ? S : never]>;
 };
 
-export type InformationsSecteurListe =
-  | InformationsSecteurAvecActiviteInfranumLocalServices
-  | InformationsSecteurAvecActiviteInfranumLocalEtabLot1
-  | InformationsSecteurAvecActiviteInfranumLocalEtabLot2
-  | InfoSecteursMoinsActivites<
-      "infrastructureNumerique",
-      ActiviteInfranumLocalServices | ActiviteInfranumLocalEtabLot1
-    >
-  | InformationsSecteurLocalEtab
-  | InformationsAutresSecteursListes
-  | InformationsSecteursCompositeListe;
-
-// TODO : retirer localisation
-export type InformationsSecteurAvecBesoinLocalisation =
-  | InformationsSecteurAvecActiviteInfranumLocalServices
-  | InformationsSecteurAvecActiviteInfranumLocalEtabLot1
-  | InformationsSecteurAvecActiviteInfranumLocalEtabLot2
-  | InformationsSecteurLocalEtab;
+// export type InformationsSecteurListe =
+//   | InformationsSecteurAvecActiviteInfranumLocalServices
+//   | InformationsSecteurAvecActiviteInfranumLocalEtabLot1
+//   | InformationsSecteurAvecActiviteInfranumLocalEtabLot2
+//   | InfoSecteursMoinsActivites<
+//       "infrastructureNumerique",
+//       ActiviteInfranumLocalServices | ActiviteInfranumLocalEtabLot1
+//     >
+//   | InformationsSecteurLocalEtab
+//   | InformationsAutresSecteursListes
+//   | InformationsSecteursCompositeListe;
+//
+// export type InformationsSecteurAvecBesoinLocalisation =
+//   | InformationsSecteurAvecActiviteInfranumLocalServices
+//   | InformationsSecteurAvecActiviteInfranumLocalEtabLot1
+//   | InformationsSecteurAvecActiviteInfranumLocalEtabLot2
+//   | InformationsSecteurLocalEtab;
 //   {
 //   secteurActivite: SecteurAvecBesoinLocalisationRepresentant;
 //   activites: Set<ActivitesAvecBesoinLocalisationRepresentant<Taille>>;
