@@ -3,6 +3,7 @@ import { describe, it } from "vitest";
 import { TypeEntite as TE } from "../../src/Domain/Simulateur/Regulation.definitions";
 import { fabriqueArb_ReponseInformationsSecteur_GE } from "../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import {
+  fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille,
   fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_GE_AvecEnsembleDe,
   fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_GE,
   fabriqueArbInformationsSecteurAutre,
@@ -55,8 +56,10 @@ describe("Secteur", () => {
           verificationReponseDefinitivementIncertainAutrePaysUE,
         ),
       );
-      it(
-        "en suspens / secteurs Infrastructure Numérique + activités EI (ni reg dom ni fournisseur DNS) sans besoin localisation ==> toujours définitivement régulé EI",
+
+      it.skip(
+        "***Raison Skip*** : Plus en adéquation avec arbre 07/03" +
+          "en suspens / secteurs Infrastructure Numérique + activités EI (ni reg dom ni fournisseur DNS) sans besoin localisation ==> toujours définitivement régulé EI",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
             fabriqueArb_ReponseInformationsSecteur_GE(
@@ -64,6 +67,21 @@ describe("Secteur", () => {
             ),
           ),
           fabriqueVerificationReponseDefinitivementRegule(TE.EntiteImportante),
+        ),
+      );
+      it(
+        "Prestataire de services de confiance (non-)qualifié ou Fournisseur de points d’échange internet ==> définitivement régulé EE",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
+            fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille(
+              "infrastructureNumerique",
+            )(
+              "prestataireServiceConfianceQualifie",
+              "prestataireServiceConfianceNonQualifie",
+              "fournisseurPointEchangeInternet",
+            )("Grand"),
+          ),
+          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
         ),
       );
     });
