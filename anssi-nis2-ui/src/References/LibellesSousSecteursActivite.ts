@@ -27,6 +27,7 @@ export const libellesSousSecteurFabrication: DetailsSousSecteurUnique<SousSecteu
     fabricationEquipementsElectroniques:
       "Fabrication de produits informatiques, électroniques et optiques",
     fabricationProduitsInformatiquesElectroniquesOptiques:
+
       "Fabrication de produits informatiques, électroniques et optiques",
     fabricationMachinesEquipements:
       "Fabrication de machines et équipements n.c.a.",
