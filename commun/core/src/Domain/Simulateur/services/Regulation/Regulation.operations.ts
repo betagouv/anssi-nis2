@@ -83,7 +83,7 @@ const regulationInfrastructureNumerique = (
           secteurActivite: ["infrastructureNumerique"],
           sousSecteurActivite:
             donnees.sousSecteurActivite.filter(estSousSecteurListe),
-          activites: ["prestataireServiceConfiance"],
+          activites: ["prestataireServiceConfianceQualifie"],
           fournitServicesUnionEuropeenne: ["oui"],
           localisationRepresentant: ["france"],
         }),

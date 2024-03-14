@@ -117,7 +117,11 @@ export const ValeursActivitesInfrastructureNumeriqueFournisseursServices = [
   "fournisseurServicesEnregristrementNomDomaine",
 ] as const;
 export const ValeursActivitesInfrastructureNumeriquePointEchangeServicesConfiance =
-  ["prestataireServiceConfiance", "fournisseurPointEchangeInternet"] as const;
+  [
+    "prestataireServiceConfianceQualifie",
+    "prestataireServiceConfianceNonQualifie",
+    "fournisseurPointEchangeInternet",
+  ] as const;
 export const ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau =
   ["registresNomsDomainesPremierNiveau", "fournisseurServicesDNS"] as const;
 

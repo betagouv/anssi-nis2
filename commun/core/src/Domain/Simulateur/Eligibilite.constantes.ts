@@ -16,7 +16,8 @@ export const Eligibilite: Readonly<
 export const ValeursActivitesConcernesInfrastructureNumerique: Activite[] = [
   "fournisseurReseauxCommunicationElectroniquesPublics",
   "fournisseurServiceCommunicationElectroniquesPublics",
-  "prestataireServiceConfiance",
+  "prestataireServiceConfianceQualifie",
+  "prestataireServiceConfianceNonQualifie",
 ];
 /** Activités concernées uniquement si le représenbant est en France */
 export const ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement: Activite[] =
@@ -26,5 +27,5 @@ export const ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement: A
 export const R: { [k in ResultatEligibilite]: () => ResultatEligibilite } =
   ValeursResultatEligibilite.reduce(
     (rec, res) => ({ ...rec, [res]: () => Eligibilite[res] }),
-    {} as { [key in ResultatEligibilite]: () => ResultatEligibilite }
+    {} as { [key in ResultatEligibilite]: () => ResultatEligibilite },
   );

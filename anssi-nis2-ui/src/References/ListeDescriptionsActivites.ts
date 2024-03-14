@@ -568,9 +568,9 @@ export const listeDescriptionsActivites: Record<
     },
   ],
   organismeRecherche: [],
-  prestataireServiceConfiance: [
+  prestataireServiceConfianceQualifie: [
     {
-      titre: "Service de confiance",
+      titre: "Service de confiance qualifié",
       description:
         "Un service électronique normalement fourni contre rémunération qui consiste :" +
         "\\\n\\\n" +
@@ -579,7 +579,24 @@ export const listeDescriptionsActivites: Record<
         "\n\nc) en la conservation de signatures électroniques, de cachets électroniques ou des certificats relatifs à ces services.",
     },
     {
-      titre: "Prestataire de services de confiance",
+      titre: "Prestataire de services de confiance qualifié",
+      description:
+        "Une personne physique ou morale qui fournit un ou plusieurs services de confiance, " +
+        "en tant que prestataire de services de confiance qualifié.",
+    },
+  ],
+  prestataireServiceConfianceNonQualifie: [
+    {
+      titre: "Service de confiance non qualifié",
+      description:
+        "Un service électronique normalement fourni contre rémunération qui consiste :" +
+        "\\\n\\\n" +
+        "\n\\\na) en la création, en la vérification et en la validation de signatures électroniques, de cachets électroniques ou d’horodatages électroniques, de services d’envoi recommandé électronique et de certificats relatifs à ces services; ou" +
+        "\n\nb) en la création, en la vérification et en la validation de certificats pour l’authentification de site internet; ou" +
+        "\n\nc) en la conservation de signatures électroniques, de cachets électroniques ou des certificats relatifs à ces services.",
+    },
+    {
+      titre: "Prestataire de services de confiance qualifié",
       description:
         "Une personne physique ou morale qui fournit un ou plusieurs services de confiance, " +
         "en tant que prestataire de services de confiance qualifié ou non qualifié.",
