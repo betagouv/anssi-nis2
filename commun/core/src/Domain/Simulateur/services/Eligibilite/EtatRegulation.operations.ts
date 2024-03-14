@@ -1,4 +1,4 @@
-import { match, P } from "ts-pattern";
+import { isMatching, match, P } from "ts-pattern";
 import {
   et,
   non,
@@ -8,6 +8,7 @@ import {
   certains,
   tous,
 } from "../../../../../../utils/services/sets.operations";
+import { Activite } from "../../Activite.definitions";
 import { ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation } from "../../Activite.valeurs";
 import {
   resultatIncertainAutrePaysUE,
@@ -44,10 +45,55 @@ import {
 } from "./ReponseInformationsSecteur.predicats";
 import { TypeEntite as TE } from "../../Regulation.definitions";
 
+const certainsSontInfrastructureNumeriqueAvecActivite = (
+  activiteCherchee: Activite,
+) =>
+  certains(
+    isMatching({
+      secteurActivite: "infrastructureNumerique",
+      activites: P.when(
+        certains<Activite>((a) => a === activiteCherchee) as (
+          a: Set<Activite>,
+        ) => a is Set<Activite>,
+      ),
+    }),
+  );
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
   reponse: EtatEvaluationEnSuspens,
 ): EtatRegulation =>
   match(reponse)
+    .with(
+      {
+        InformationsSecteur: {
+          secteurs: P.when(
+            certainsSontInfrastructureNumeriqueAvecActivite(
+              "prestataireServiceConfianceQualifie",
+            ),
+          ),
+        },
+      },
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          TE.EntiteEssentielle,
+        ),
+    )
+    .with(
+      {
+        InformationsSecteur: {
+          secteurs: P.when(
+            certainsSontInfrastructureNumeriqueAvecActivite(
+              "prestataireServiceConfianceNonQualifie",
+            ),
+          ),
+        },
+      },
+      (reponse) =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          TE.EntiteImportante,
+        ),
+    )
     .with(
       {
         InformationsSecteur: {

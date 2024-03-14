@@ -1,5 +1,10 @@
 import { fc } from "@fast-check/vitest";
 import { flow } from "fp-ts/lib/function";
+import { ens } from "../../../../utils/services/sets.operations";
+import {
+  Activite,
+  ActiviteSecteursSimplesListe,
+} from "../../../src/Domain/Simulateur/Activite.definitions";
 import { SecteurActivite } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
 import { estActiviteInfrastructureNumeriqueEligiblesPetitEntite } from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import {
@@ -31,22 +36,32 @@ export const arbReponseInformationsSecteurLocalisesFrancePetit =
     "Petit",
   )(arbEnsembleSecteursLocalisablesPetitFrance);
 
-export const arbReponseInformationsSecteur_AvecActivitesEssentiels_SansBesoinLocalisation: fc.Arbitrary<
+export const arbReponseInformationsSecteur_Infranum_ActiviteConfianceQualifie: fc.Arbitrary<
   ReponseInformationsSecteur<"Petit">
-> = fabriqueArb_ReponseInformationsSecteur_NonLoca_PE(
-  fabriqueArb_EnsInformationsSecteurPossible(
-    A.enchaine(
-      flow(
-        transformeSecteurSimple_SecteurPeutEtreComposite,
-        fabriqueArb_EnsActivites_AvecFiltre_PourSecteur(
-          estActiviteInfrastructureNumeriqueEligiblesPetitEntite,
-        ),
-      ) as (
-        secteur: SecteurActivite,
-      ) => fc.Arbitrary<InformationsSecteurSimpleListe>,
-    )(arbSecteurActivite_InfrastructureNumerique),
+> = fc.record({
+  _categorieTaille: fc.constant("Petit"),
+  secteurs: fc.constant(
+    ens({
+      secteurActivite: "infrastructureNumerique" as SecteurActivite,
+      activites: ens(
+        "prestataireServiceConfianceQualifie" as ActiviteSecteursSimplesListe,
+      ),
+    }),
   ),
-);
+});
+export const arbReponseInformationsSecteur_Infranum_ActiviteConfianceNonQualifie: fc.Arbitrary<
+  ReponseInformationsSecteur<"Petit">
+> = fc.record({
+  _categorieTaille: fc.constant("Petit"),
+  secteurs: fc.constant(
+    ens({
+      secteurActivite: "infrastructureNumerique" as SecteurActivite,
+      activites: ens(
+        "prestataireServiceConfianceNonQualifie" as ActiviteSecteursSimplesListe,
+      ),
+    }),
+  ),
+});
 export const arbReponseInformationsSecteur_LocalisesHorsUE_Petit: fc.Arbitrary<
   ReponseInformationsSecteur<"Petit">
 > = fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille(
