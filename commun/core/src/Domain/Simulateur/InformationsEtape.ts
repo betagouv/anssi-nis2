@@ -13,6 +13,7 @@ const typeEtapes = [
   "sousSecteursActivite",
   "activites",
   "localisationActiviteSpecifique",
+  "localisationFournitureServicesNumeriques",
   "prealable",
   "resultat",
   "inexistante",

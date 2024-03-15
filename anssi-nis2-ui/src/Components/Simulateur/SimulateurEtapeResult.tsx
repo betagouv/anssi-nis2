@@ -26,6 +26,9 @@ export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
   const modeFormulaireEmail = getModeFormulaireEmail(etatRegulation.decision);
   return (
     <>
+      {/*<pre>{JSON.stringify(donneesFormulaire, null, 2)}</pre>*/}
+      {/*<pre>{JSON.stringify(etatRegulation, null, 2)}</pre>*/}
+
       <LigneResultat etatRegulation={etatRegulation} />
       <LigneResterInformer mode={modeFormulaireEmail} />
       {estRegule(etatRegulation.decision) && <LigneEtMaintenant />}

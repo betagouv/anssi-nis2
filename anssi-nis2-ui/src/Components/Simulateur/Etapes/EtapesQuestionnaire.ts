@@ -9,18 +9,17 @@ import {
 import {
   fabriqueValidationUneReponses,
   validationReponsesActivites,
-  validationReponsesLocalisationActiviteSpecifique,
   validationReponsesSecteurs,
   validationReponsesSousActivites,
   validationReponsesTaille,
   validationReponsesTypeStructure,
 } from "../../../../../commun/core/src/Domain/Simulateur/services/ChampSimulateur/ValidationReponses.ts";
 import { estUnSecteurAvecDesSousSecteurs } from "../../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
-import { auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement } from "../../../../../commun/core/src/Domain/Simulateur/services/Activite/Activite.predicats.ts";
 import {
   contientAutreSecteurActiviteUniquement,
   predicatDonneesFormulaire as P,
 } from "../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
+import { et } from "../../../../../commun/utils/services/predicats.operations.ts";
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
@@ -37,19 +36,40 @@ const sousEtapeSousSecteur =
     ),
   );
 
-const sousEtapeLocalisationActiviteSpecifique =
+// const sousEtapeLocalisationActiviteSpecifique =
+//   fabriquesInformationsEtapes.sousEtapeConditionnelle(
+//     ou(
+//       P.activites.satisfait(
+//         auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
+//       ),
+//       P.secteurActivite.contient("fournisseursNumeriques"),
+//       P.secteurActivite.contient("gestionServicesTic"),
+//     ),
+//     fabriquesInformationsEtapes.form(
+//       "Localisation de votre activité",
+//       validationReponsesLocalisationActiviteSpecifique,
+//       "localisationActiviteSpecifique",
+//     ),
+//   );
+
+const sousEtapeEtatFournitService =
   fabriquesInformationsEtapes.sousEtapeConditionnelle(
-    ou(
-      P.activites.satisfait(
-        auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
+    et(
+      P.secteurActivite.contient("infrastructureNumerique"),
+      ou(
+        P.activites.contient("fournisseurServicesDNS"),
+        P.activites.contient("registresNomsDomainesPremierNiveau"),
       ),
-      P.secteurActivite.contient("fournisseursNumeriques"),
-      P.secteurActivite.contient("gestionServicesTic"),
     ),
     fabriquesInformationsEtapes.form(
       "Localisation de votre activité",
-      validationReponsesLocalisationActiviteSpecifique,
-      "localisationActiviteSpecifique",
+      {
+        message: "Sélectionnez au moins une réponse",
+        validateur: P.localisationFournitureServicesNumeriques.satisfait(
+          (l) => l.length > 0,
+        ),
+      },
+      "localisationFournitureServicesNumeriques",
     ),
   );
 
@@ -110,7 +130,7 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
           contientAutreSecteurActiviteUniquement,
           contientSousSecteurAutresUniquement,
         ),
-        sousEtapeConditionnelle: sousEtapeLocalisationActiviteSpecifique,
+        sousEtapeConditionnelle: sousEtapeEtatFournitService,
       },
     ),
     fabriquesInformationsEtapes.resultat("Resultat"),

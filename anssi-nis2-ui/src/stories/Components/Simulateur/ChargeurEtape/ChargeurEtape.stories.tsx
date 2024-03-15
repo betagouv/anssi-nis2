@@ -12,7 +12,7 @@ import { scenarioIgnoreEtapeActivitePourSecteurActiviteAutre } from "./scenarioI
 import { scenarioIgnoreEtapeActivitePourSousSecteurActiviteAutre } from "./scenarioIgnoreEtapeActivitePourSousSecteurActiviteAutre.tsx";
 import { scenarioEtapeActivitePourSecteurActiviteAutreEtListes } from "./scenarioEtapeActivitePourSecteurActiviteAutreEtListes.tsx";
 import { scenarioTypeEntitePublique } from "./scenarioTypeEntitePublique.tsx";
-import { scenarioSousEtapeServicesEnFrance } from "./scenarioSousEtapeServicesEnFrance.tsx";
+import { scenarioVaJusquaEtapeLocalisation } from "./scenarioVaJusquaEtapeLocalisation.tsx";
 
 const meta: Meta<typeof ChargeurEtape> = {
   title: "Composants/Simulateur/ChargeurEtape",
@@ -41,6 +41,9 @@ const fabriqueStoryChargeurEtape = (
 
 export const Simple: StoryObj<typeof ChargeurEtape> = {};
 
+export const VaJusquaEtapeLocalisation = fabriqueStoryChargeurEtape(
+  scenarioVaJusquaEtapeLocalisation,
+);
 export const DerniereEtapeEstResultat = fabriqueStoryChargeurEtape(
   scenarioDerniereEtapeEstResultat,
 );
@@ -48,9 +51,11 @@ export const DerniereEtapeEstResultat = fabriqueStoryChargeurEtape(
 export const EtapeSousActiviteConditionnelle = fabriqueStoryChargeurEtape(
   scenarioEtapeSousActiviteConditionnelle,
 );
-export const SousEtapeServicesEnFrance = fabriqueStoryChargeurEtape(
-  scenarioSousEtapeServicesEnFrance,
-);
+
+// TODO : remplacer par véritable étape dans toutes les tailles
+// export const SousEtapeServicesEnFrance = fabriqueStoryChargeurEtape(
+//   scenarioSousEtapeServicesEnFrance,
+// );
 
 export const EtapeSecteurFabricationSuivant = fabriqueStoryChargeurEtape(
   scenarioEtapeSecteurFabricationSuivant,

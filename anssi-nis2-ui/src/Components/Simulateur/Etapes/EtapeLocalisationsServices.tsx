@@ -15,6 +15,7 @@ const getAppartenancePaysUnionEuropeenneLabel = (
   value: AppartenancePaysUnionEuropeenne,
   secteurActivite: Record<AppartenancePaysUnionEuropeenne, string>,
 ) => secteurActivite[value];
+
 const transformeAppartenancePaysUnionEuropeenneVersOptions: TransformeRecordToSelect<AppartenancePaysUnionEuropeenne> =
   genereTransformateurValeursVersOptions(
     getAppartenancePaysUnionEuropeenneLabel,
@@ -30,7 +31,7 @@ const EtapeLocalisationsServices = ({
       const newValue = event.target.value as AppartenancePaysUnionEuropeenne;
       propageActionSimulateur({
         type: "checkMulti",
-        name: "secteurActivite",
+        name: "localisationFournitureServicesNumeriques",
         newValue: newValue,
       });
     },
