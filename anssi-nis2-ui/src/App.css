@@ -676,9 +676,38 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
   }
 }
 
+.fr-nis2-menu-desktop {
+  display: none;
+}
+
 @media screen and (min-width: 768px) {
   .fr-nis2-menu-burger {
     top: 24px;
     right: 24px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .fr-nis2-menu-burger {
+    display: none;
+  }
+
+  .fr-nis2-menu-desktop {
+    display: flex;
+    width: 1200px;
+    margin: 0 auto;
+
+    a {
+      padding: 16px;
+      background: none;
+      color: #272771;
+      font-size: 14px;
+      font-weight: bold;
+
+      &.active {
+        color: #282828;
+        border-bottom: 4px solid #FDC82E;
+      }
+    }
   }
 }

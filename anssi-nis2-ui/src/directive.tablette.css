@@ -12,7 +12,7 @@
             font-size: 32px;
         }
 
-        .hero {
+        .bloc.hero {
             padding: 72px 56px;
 
             h1 {
@@ -22,7 +22,6 @@
 
             img {
                 width: 170px;
-                top: 40px;
                 right: 56px;
             }
         }
@@ -75,7 +74,7 @@
 
         #secteurs-concernes {
             .conteneur-secteurs-concernes {
-                display: flex;
+                flex-direction: row;
                 gap: 24px;
             }
         }
