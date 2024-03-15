@@ -21,11 +21,13 @@ import {LienRubrique} from "./Components/Directive/LienRubrique.tsx";
 import {ListeSecteursConcernes} from "./Components/Directive/ListeSecteursConcernes.tsx";
 import {CarteInformation} from "./Components/Directive/CarteInformation.tsx";
 import {CarteEnSavoirPlus} from "./Components/Directive/CarteEnSavoirPlus.tsx";
+import {MenuMobile} from "./Components/MenuMobile.tsx";
 
 const Directive: DefaultComponent = () => {
   return (
     <>
       <MiseEnPage page="Directive NIS 2">
+          <MenuMobile />
           <div className="fr-nis2-directive">
               <div className="bloc fond-primaire hero">
                   <h1 className="texte-blanc">M’informer sur la directive NIS 2</h1>
