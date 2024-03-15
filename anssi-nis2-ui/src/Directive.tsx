@@ -2,6 +2,7 @@ import "@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css";
 import "@gouvfr/dsfr/dist/utility/utility.css";
 
 import "./directive.css";
+import "./directive.tablette.css"
 import Hero from "../src/assets/directive-hero.svg";
 import DirecteurANSSI from "../src/assets/Directeur ANSSI.png";
 import CollectivitesTerritoriales from "../src/assets/collectivites-territoriales.svg";

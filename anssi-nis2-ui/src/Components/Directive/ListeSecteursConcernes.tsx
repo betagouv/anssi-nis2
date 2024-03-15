@@ -22,32 +22,36 @@ import Postaux from "../../assets/secteurs-concernes/postaux.svg"
 
 export const ListeSecteursConcernes: DefaultComponent = () => {
     return (
-        <>
-            <h4>Secteurs hautement critiques</h4>
-            <ul className="liste-secteurs-concernes">
-                <ItemSecteurConcerne image={AdministrationsPubliques} titre="Administrations publiques"/>
-                <ItemSecteurConcerne image={EauxPotable} titre="Eaux potable"/>
-                <ItemSecteurConcerne image={EauxUsees} titre="Eaux usées"/>
-                <ItemSecteurConcerne image={Energies} titre="Énergies"/>
-                <ItemSecteurConcerne image={Espace} titre="Espace"/>
-                <ItemSecteurConcerne image={Communication}
-                                     titre="Gestion des services Technologies de l’Information et de la Communication (interentreprises)"/>
-                <ItemSecteurConcerne image={Financier} titre="Infrastructures des marchés financiers"/>
-                <ItemSecteurConcerne image={Numerique} titre="Infrastructures numériques"/>
-                <ItemSecteurConcerne image={Sante} titre="Santé"/>
-                <ItemSecteurConcerne image={Bancaire} titre="Secteur bancaire"/>
-                <ItemSecteurConcerne image={Transports} titre="Transports"/>
-            </ul>
-            <h4>Autres secteurs critiques</h4>
-            <ul className="liste-secteurs-concernes">
-                <ItemSecteurConcerne image={Chimique} titre="Fabrication, production et distribution de produits chimiques"/>
-                <ItemSecteurConcerne image={FournisseursNumerique} titre="Fournisseurs numériques"/>
-                <ItemSecteurConcerne image={Dechets} titre="Gestion des déchets"/>
-                <ItemSecteurConcerne image={Manufacture} titre="Industrie manufacturière"/>
-                <ItemSecteurConcerne image={Alimentaire} titre="Production, transformation et distribution de denrées alimentaires"/>
-                <ItemSecteurConcerne image={Recherche} titre="Recherche"/>
-                <ItemSecteurConcerne image={Postaux} titre="Services postaux et d’expédition"/>
-            </ul>
-        </>
+        <div className="conteneur-secteurs-concernes">
+            <div>
+                <h4>Secteurs hautement critiques</h4>
+                <ul className="liste-secteurs-concernes">
+                    <ItemSecteurConcerne image={AdministrationsPubliques} titre="Administrations publiques"/>
+                    <ItemSecteurConcerne image={EauxPotable} titre="Eaux potable"/>
+                    <ItemSecteurConcerne image={EauxUsees} titre="Eaux usées"/>
+                    <ItemSecteurConcerne image={Energies} titre="Énergies"/>
+                    <ItemSecteurConcerne image={Espace} titre="Espace"/>
+                    <ItemSecteurConcerne image={Communication}
+                                         titre="Gestion des services Technologies de l’Information et de la Communication (interentreprises)"/>
+                    <ItemSecteurConcerne image={Financier} titre="Infrastructures des marchés financiers"/>
+                    <ItemSecteurConcerne image={Numerique} titre="Infrastructures numériques"/>
+                    <ItemSecteurConcerne image={Sante} titre="Santé"/>
+                    <ItemSecteurConcerne image={Bancaire} titre="Secteur bancaire"/>
+                    <ItemSecteurConcerne image={Transports} titre="Transports"/>
+                </ul>
+            </div>
+            <div>
+                <h4>Autres secteurs critiques</h4>
+                <ul className="liste-secteurs-concernes">
+                    <ItemSecteurConcerne image={Chimique} titre="Fabrication, production et distribution de produits chimiques"/>
+                    <ItemSecteurConcerne image={FournisseursNumerique} titre="Fournisseurs numériques"/>
+                    <ItemSecteurConcerne image={Dechets} titre="Gestion des déchets"/>
+                    <ItemSecteurConcerne image={Manufacture} titre="Industrie manufacturière"/>
+                    <ItemSecteurConcerne image={Alimentaire} titre="Production, transformation et distribution de denrées alimentaires"/>
+                    <ItemSecteurConcerne image={Recherche} titre="Recherche"/>
+                    <ItemSecteurConcerne image={Postaux} titre="Services postaux et d’expédition"/>
+                </ul>
+            </div>
+        </div>
     );
 };

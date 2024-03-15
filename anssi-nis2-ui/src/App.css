@@ -675,3 +675,10 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
     }
   }
 }
+
+@media screen and (min-width: 768px) {
+  .fr-nis2-menu-burger {
+    top: 24px;
+    right: 24px;
+  }
+}
