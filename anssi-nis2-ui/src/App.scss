@@ -74,17 +74,20 @@
     background: white;
     display: flex;
     flex-direction: column;
+    z-index: 1;
 
     & h4 {
       color: white;
       height: 100px;
       background: url(assets/entete-fenetre-bom.svg) no-repeat;
+      background-position-y: -1px;
       background-size: 100%;
       padding-left: 86px;
       padding-top: 43px;
       font-size: 0.9rem;
       line-height: 1.4rem;
       margin-bottom: 0;
+
       & .plus-grand {
         font-size: 1.3rem;
       }
@@ -94,6 +97,15 @@
       padding: 24px 18px;
       border-left: 1px solid #272771;
       border-right: 1px solid #272771;
+
+      & ul {
+        list-style-type: none;
+        padding-left: 0;
+
+        & a {
+          color: #272771;
+        }
+      }
     }
 
     & .fermeture-bom {
@@ -107,6 +119,10 @@
       border-bottom-right-radius: 15px;
       border-bottom: 1px solid #272771;
       border-right: 1px solid #272771;
+
+      & button {
+        font-size: 1rem;
+      }
     }
   }
 }
