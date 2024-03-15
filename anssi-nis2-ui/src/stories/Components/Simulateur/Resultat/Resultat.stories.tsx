@@ -106,7 +106,7 @@ export const ResultatEligiblePetiteEntreprise: Story = {
     ).not.toBeInTheDocument();
   },
 };
-export const ResultatNonReguleVoirAutrePaysUE: Story = {
+export const ResultatReguleAutrePaysUE: Story = {
   args: {
     donneesFormulaire: {
       ...archetypeDonneesFormulaire,

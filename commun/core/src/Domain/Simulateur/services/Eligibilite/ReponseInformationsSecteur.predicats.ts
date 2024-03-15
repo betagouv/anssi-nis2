@@ -2,11 +2,13 @@ import { flow } from "fp-ts/lib/function";
 import { prop } from "../../../../../../utils/services/objects.operations";
 import {
   est,
+  estParmis,
   et,
   non,
 } from "../../../../../../utils/services/predicats.operations";
 import { certains } from "../../../../../../utils/services/sets.operations";
 import { Activite } from "../../Activite.definitions";
+import { AppartenancePaysUnionEuropeenne } from "../../ChampsSimulateur.definitions";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import { ValeursSecteursActivitesAnnexe1 } from "../../SecteurActivite.valeurs";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
@@ -29,6 +31,7 @@ import {
   RepInfoSecteurListes,
   RepInfoSecteurLocalEtab,
   ReponseInformationsSecteurInfranumActiviteLocalEtabLot1,
+  ReponseInformationsSecteurInfranumActiviteLocalServices,
 } from "./ReponseInformationsSecteur.definitions";
 import { CategorieTaille } from "./ReponseStructure.definitions";
 import { P, isMatching } from "ts-pattern";
@@ -38,6 +41,24 @@ export const eqInformationsSecteur = (
   b: InformationsSecteurPossible<CategorieTaille>,
 ) => a.secteurActivite === b.secteurActivite;
 
+export const contientLocalisationFournitureServicesNumeriques =
+  (localisation: AppartenancePaysUnionEuropeenne) =>
+  <Taille extends CategorieTaille>(
+    reponse: RepInfoSecteur<Taille>,
+  ): reponse is ReponseInformationsSecteurInfranumActiviteLocalServices<Taille> =>
+    "localisationFournitureServicesNumeriques" in reponse &&
+    reponse.localisationFournitureServicesNumeriques.has(localisation);
+export const estEtablissementPrincipalLocalise =
+  (localisation: AppartenancePaysUnionEuropeenne) =>
+  <Taille extends CategorieTaille>(
+    reponse: RepInfoSecteur<Taille>,
+  ): reponse is ReponseInformationsSecteurInfranumActiviteLocalEtabLot1<Taille> =>
+    ("paysDecisionsCyber" in reponse &&
+      reponse.paysDecisionsCyber === localisation) ||
+    ("paysOperationsCyber" in reponse &&
+      reponse.paysOperationsCyber === localisation) ||
+    ("paysPlusGrandNombreSalaries" in reponse &&
+      reponse.paysPlusGrandNombreSalaries === localisation);
 export const estEtablissementPrincipalFrance = <Taille extends CategorieTaille>(
   reponse: RepInfoSecteur<Taille>,
 ): reponse is ReponseInformationsSecteurInfranumActiviteLocalEtabLot1<Taille> =>
@@ -122,6 +143,13 @@ export const auMoinsUneActiviteEst = (activiteCherchee: Activite) =>
   flow<[{ activites: Set<Activite> }], Set<Activite>, boolean>(
     prop("activites"),
     certains(est(activiteCherchee)),
+  ) as PredicatInformationSecteurPossible;
+export const auMoinsUneActiviteEstParmis = (
+  ...listeActiviteCherchee: Activite[]
+) =>
+  flow<[{ activites: Set<Activite> }], Set<Activite>, boolean>(
+    prop("activites"),
+    certains(estParmis(...listeActiviteCherchee)),
   ) as PredicatInformationSecteurPossible;
 export const auMoinsUneActiviteEstDans = (
   activitesCherchees: readonly (Activite | string)[],

@@ -3,15 +3,19 @@
 import { expect } from "@storybook/jest";
 import { Meta, StoryObj } from "@storybook/react";
 import { within } from "@storybook/testing-library";
-
-import { Regulation } from "../../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
-import {
-  EtatRegulationDefinitif,
-  EtatRegulationDefinitivement,
-} from "../../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions.ts";
-import { ens } from "../../../../../../commun/utils/services/sets.operations.ts";
 import { LigneResultat } from "../../../../Components/Simulateur/Resultats/LigneResultat.tsx";
 import { attendTexteCharge } from "../../../utilitaires/interaction.facilitateurs.ts";
+import {
+  etatRegulation_Incertain,
+  etatRegulation_NonRegule,
+  etatRegulation_Regule_DORA,
+  etatRegulation_Regule_RegistreNomDeDomaines,
+  etatRegulation_ReguleAutreEM,
+  etatRegulation_ReguleAutreEMDontFrance,
+  etatRegulation_ReguleEE,
+  etatRegulation_ReguleEI,
+  etatRegulation_ReguleTypeEntiteNonDefini,
+} from "./EtatRegulation.exemples.ts";
 import {
   verifieAucunBlocDepliable,
   verifieClasseBlocResultat,
@@ -29,111 +33,9 @@ export default meta;
 
 type Story = StoryObj<typeof LigneResultat>;
 
-const etatRegulation_ReguleEI: EtatRegulationDefinitif = {
-  decision: Regulation.Regule,
-  _resultatEvaluationRegulation: "Definitif",
-  typeEntite: "EntiteImportante",
-  etapeEvaluee: "InformationsSecteur",
-  causes: {
-    Structure: {
-      _categorieTaille: "Grand",
-      typeStructure: "privee",
-      trancheChiffreAffaire: "petit",
-      trancheNombreEmployes: "moyen",
-    },
-    InformationsSecteur: {
-      _categorieTaille: "Grand",
-      secteurs: ens({
-        secteurActivite: "sante",
-        activites: ens("laboratoireReferenceUE"),
-      }),
-    },
-  },
-};
-const etatRegulation_NonRegule: EtatRegulationDefinitivement<"NonRegule"> = {
-  decision: Regulation.NonRegule,
-  _resultatEvaluationRegulation: "Definitif",
-  etapeEvaluee: "InformationsSecteur",
-};
-const etatRegulation_Incertain: EtatRegulationDefinitivement<"Incertain"> = {
-  decision: Regulation.Incertain,
-  _resultatEvaluationRegulation: "Definitif",
-  etapeEvaluee: "InformationsSecteur",
-  causes: {
-    _tag: "EnAttenteTranspositionLoiFrancaise",
-  },
-};
-
-const etatRegulation_ReguleTypeEntiteNonDefini: EtatRegulationDefinitif = {
-  decision: Regulation.Regule,
-  _resultatEvaluationRegulation: "Definitif",
-  typeEntite: "EntiteNonDeterminee",
-  etapeEvaluee: "InformationsSecteur",
-  causes: {
-    Structure: {
-      _categorieTaille: "Grand",
-      typeStructure: "privee",
-      trancheChiffreAffaire: "petit",
-      trancheNombreEmployes: "moyen",
-    },
-    InformationsSecteur: {
-      _categorieTaille: "Grand",
-      secteurs: ens({
-        secteurActivite: "infrastructureNumerique",
-        activites: ens("registresNomsDomainesPremierNiveau"),
-      }),
-    },
-  },
-};
-
-const etatRegulation_Regule_RegistreNomDeDomaines: EtatRegulationDefinitivement<"Regule"> =
-  {
-    decision: Regulation.Regule,
-    _resultatEvaluationRegulation: "Definitif",
-    typeEntite: "EntiteEssentielle",
-    etapeEvaluee: "InformationsSecteur",
-    causes: {
-      Structure: {
-        _categorieTaille: "Grand",
-        typeStructure: "privee",
-        trancheChiffreAffaire: "petit",
-        trancheNombreEmployes: "moyen",
-      },
-      InformationsSecteur: {
-        _categorieTaille: "Grand",
-        secteurs: ens({
-          secteurActivite: "infrastructureNumerique",
-          activites: ens("registresNomsDomainesPremierNiveau"),
-        }),
-      },
-    },
-  };
-
-const etatRegulation_Regule_DORA: EtatRegulationDefinitivement<"Regule"> = {
-  decision: Regulation.Regule,
-  _resultatEvaluationRegulation: "Definitif",
-  typeEntite: "EntiteImportante",
-  etapeEvaluee: "InformationsSecteur",
-  causes: {
-    Structure: {
-      _categorieTaille: "Grand",
-      typeStructure: "privee",
-      trancheChiffreAffaire: "petit",
-      trancheNombreEmployes: "moyen",
-    },
-    InformationsSecteur: {
-      _categorieTaille: "Grand",
-      secteurs: ens({
-        secteurActivite: "banqueSecteurBancaire",
-        activites: ens("etablissementCredit"),
-      }),
-    },
-  },
-};
-
-export const ReguleStandard: Story = {
+export const ReguleStandardEE: Story = {
   args: {
-    etatRegulation: etatRegulation_ReguleEI,
+    etatRegulation: etatRegulation_ReguleEE,
   },
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "REC";
@@ -156,6 +58,52 @@ export const ReguleStandardEI: Story = {
     expect(
       await canvas.findByText(
         "Votre entité sera régulée par NIS 2 en tant qu’Entité Importante (EI)",
+      ),
+    );
+    await verifieTexteAvertissementPresent(canvasElement);
+    verifieClasseBlocResultat(canvasElement, "fr-nis2-eligible");
+    verifieIcone(canvasElement, "fr-icon-check-line");
+  },
+};
+
+export const ReguleFranceEtAutreEM: Story = {
+  args: {
+    etatRegulation: etatRegulation_ReguleAutreEMDontFrance,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    expect(
+      await canvas.findByText(
+        "Votre entité sera régulée par NIS 2 en France " +
+          "en tant qu’Entité Essentielle (EE)",
+      ),
+    );
+    expect(
+      await canvas.findByText(
+        "En tant que fournisseur de réseaux de communications " +
+          "électroniques publics ou fournisseur de services de communications " +
+          "électroniques accessibles au public, nous vous invitons à vous " +
+          "rapprocher de l’autorité nationale compétente NIS 2 des autres États " +
+          "membres de l'UE dans lesquels vous fournissez vos services.",
+      ),
+    );
+    await verifieTexteAvertissementPresent(canvasElement);
+    verifieClasseBlocResultat(canvasElement, "fr-nis2-eligible");
+    verifieIcone(canvasElement, "fr-icon-check-line");
+  },
+};
+export const ReguleUniquementAutreEM: Story = {
+  args: {
+    etatRegulation: etatRegulation_ReguleAutreEM,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    expect(await canvas.findByText("Votre entité sera régulée par NIS 2"));
+    expect(
+      await canvas.findByText(
+        "Nous vous invitons à vous rapprocher de l’autorité nationale " +
+          "compétente NIS 2 des autres États membres de l'UE dans lesquels " +
+          "vous fournissez vos services.",
       ),
     );
     await verifieTexteAvertissementPresent(canvasElement);

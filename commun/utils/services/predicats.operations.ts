@@ -8,6 +8,14 @@ export const est: <T>(cherche: T) => (compare: T) => boolean =
   <T>(cherche: T) =>
   (compare: T) =>
     compare === cherche;
+/**
+ * Fabrique un prédicat d'égalité sur une liste de valeurs
+ * @param listeCherche
+ */
+export const estParmis: <T>(...listeCherche: T[]) => (compare: T) => boolean =
+  <T>(...listeCherche: T[]) =>
+  (compare: T) =>
+    listeCherche.includes(compare);
 
 /**
  * Inverse logique d'une fonction

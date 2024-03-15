@@ -7,7 +7,6 @@ import {
   Regulation,
   TypeEntite,
 } from "../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
-import { CapsuleReponseDefinitions } from "../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/CapsuleReponse.definitions.ts";
 import {
   EtatRegulationDefinitif,
   EtatRegulationDefinitivement as EtatRegulationDefinivement,
@@ -15,7 +14,10 @@ import {
 } from "../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions.ts";
 import {
   auMoinsUneActiviteEst,
+  auMoinsUneActiviteEstParmis,
   contientActivitesListees,
+  contientLocalisationFournitureServicesNumeriques,
+  estEtablissementPrincipalLocalise,
   estInformationsPourSecteur,
   estSecteurBancaire,
 } from "../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats.ts";
@@ -86,7 +88,7 @@ export const getClassesCssResultat = (
       fabriqueClassesCSSResultat("fr-icon-check-line", "fr-nis2-eligible"),
     )
     .exhaustive();
-export const recupereTitrePourEtatEvaluation = (
+export const getTitrePourEtatEvaluation = (
   etatRegulation: EtatRegulationDefinitif,
 ) =>
   match(etatRegulation)
@@ -104,7 +106,7 @@ export const recupereTitrePourEtatEvaluation = (
     .with(
       {
         decision: Regulation.Regule,
-        typeEntite: TypeEntite.EntiteNonDeterminee,
+        typeEntite: TypeEntite.AutreEtatMembreUE,
       },
       () => libelleTitreReguleEntiteNonDeterminee,
     )
@@ -131,29 +133,95 @@ export const recupereTitrePourEtatEvaluation = (
 const getNomFichierPrecisionRegule = (
   etatRegulation: EtatRegulationDefinitivement<"Regule">,
 ) =>
-  match(etatRegulation.causes as CapsuleReponseDefinitions)
+  match(etatRegulation)
     .with(
       {
-        InformationsSecteur: {
-          _categorieTaille: "Grand",
-          secteurs: P.when(
-            certains(et(estSecteurBancaire, contientActivitesListees)),
-          ),
+        causes: {
+          InformationsSecteur: {
+            _categorieTaille: "Grand",
+            secteurs: P.when(
+              certains(et(estSecteurBancaire, contientActivitesListees)),
+            ),
+          },
         },
       },
       () => "PrecisionsResultat.ReguleDORA",
     )
     .with(
       {
-        InformationsSecteur: {
-          secteurs: P.when(
-            certains(
-              et(
-                estInformationsPourSecteur("infrastructureNumerique"),
-                auMoinsUneActiviteEst("registresNomsDomainesPremierNiveau"),
+        typeEntite: "AutreEtatMembreUE",
+        causes: {
+          InformationsSecteur: {
+            secteurs: P.when(
+              certains(estInformationsPourSecteur("infrastructureNumerique")),
+            ),
+          },
+        },
+      },
+      () => "PrecisionsResultat.ReguleTelcoAutreEM",
+    )
+    .with(
+      {
+        causes: {
+          InformationsSecteur: {
+            secteurs: P.when(
+              certains(
+                et(
+                  estInformationsPourSecteur("infrastructureNumerique"),
+                  auMoinsUneActiviteEstParmis(
+                    "fournisseurServicesDNS",
+                    "registresNomsDomainesPremierNiveau",
+                    "fournisseurServicesInformatiqueNuage",
+                    "fournisseurServiceCentresDonnees",
+                    "fournisseurReseauxDiffusionContenu",
+                  ),
+                  estEtablissementPrincipalLocalise("france"),
+                  estEtablissementPrincipalLocalise("autre"),
+                ),
               ),
             ),
-          ),
+          },
+        },
+      },
+      () => "PrecisionsResultat.ReguleTelcoFranceEtAutreEM",
+    )
+    .with(
+      {
+        causes: {
+          InformationsSecteur: {
+            secteurs: P.when(
+              certains(
+                et(
+                  estInformationsPourSecteur("infrastructureNumerique"),
+                  auMoinsUneActiviteEstParmis(
+                    "fournisseurReseauxCommunicationElectroniquesPublics",
+                    "fournisseurServiceCommunicationElectroniquesPublics",
+                  ),
+                  contientLocalisationFournitureServicesNumeriques("france"),
+                  contientLocalisationFournitureServicesNumeriques("autre"),
+                ),
+              ),
+            ),
+          },
+        },
+      },
+      () => "PrecisionsResultat.ReguleTelcoFranceEtAutreEM",
+    )
+    .with(
+      {
+        causes: {
+          InformationsSecteur: {
+            secteurs: P.when(
+              certains(
+                et(
+                  estInformationsPourSecteur("infrastructureNumerique"),
+                  auMoinsUneActiviteEst(
+                    "fournisseurServicesEnregristrementNomDomaine",
+                  ),
+                ),
+              ),
+            ),
+          },
         },
       },
       () => "PrecisionsResultat.ReguleEnregistrementDeNomsDeDomaine",
@@ -195,7 +263,7 @@ export const getNomFichierPrecision = (
 export const getInformationsResultatEvaluation = (
   etatRegulation: EtatRegulationDefinitif,
 ) => ({
-  titre: recupereTitrePourEtatEvaluation(etatRegulation),
+  titre: getTitrePourEtatEvaluation(etatRegulation),
   classes: getClassesCssResultat(etatRegulation),
   fichierPrecisions: getNomFichierPrecision(etatRegulation),
 });
