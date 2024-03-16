@@ -22,6 +22,7 @@ import {
   SousSecteurFabrication,
   SousSecteurTransport,
 } from "../../SousSecteurActivite.definitions";
+import { CategorieTaille } from "./ReponseStructure.definitions";
 
 export type InformationsSecteurSimpleListe = {
   secteurActivite: SecteursDefinitsSansBesoinLocalisationRepresentant;
@@ -108,6 +109,25 @@ export type InformationsSecteurAvecActiviteInfranumLocalEtabLot2 =
     "infrastructureNumerique",
     ActiviteInfranumLocalEtabLot2
   >;
+
+export type InformationsSecteurInfranumAutresActivitesListees_P =
+  InfoSecteursMoinsActivites<
+    "infrastructureNumerique",
+    ActiviteInfranumLocalServices | ActiviteInfranumLocalEtabLot1
+  >;
+export type InformationsSecteurInfranumAutresActivitesListees_MG =
+  InfoSecteursMoinsActivites<
+    "infrastructureNumerique",
+    | ActiviteInfranumLocalServices
+    | ActiviteInfranumLocalEtabLot1
+    | ActiviteInfranumLocalEtabLot2
+  >;
+
+export type InformationsSecteurInfranumAutresActivitesListees<
+  Taille extends CategorieTaille,
+> = Taille extends "Petit"
+  ? InformationsSecteurInfranumAutresActivitesListees_P
+  : InformationsSecteurInfranumAutresActivitesListees_MG;
 
 export type InformationsAutresSecteursListes<
   S extends Exclude<

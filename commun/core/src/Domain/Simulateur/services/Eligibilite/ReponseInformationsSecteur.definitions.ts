@@ -1,18 +1,14 @@
 import {
-  ActiviteInfranumLocalEtabLot1,
-  ActiviteInfranumLocalEtabLot2,
-  ActiviteInfranumLocalServices,
-} from "../../Activite.definitions";
-import {
   InformationsAutresSecteursListes,
   InformationSecteurSimpleAutre,
   InformationsSecteurAvecActiviteInfranumLocalEtabLot1,
   InformationsSecteurAvecActiviteInfranumLocalEtabLot2,
   InformationsSecteurAvecActiviteInfranumLocalServices,
   InformationsSecteurComposite,
+  InformationsSecteurInfranumAutresActivitesListees_MG,
+  InformationsSecteurInfranumAutresActivitesListees_P,
   InformationsSecteurLocalEtab,
   InformationsSecteursCompositeListe,
-  InfoSecteursMoinsActivites,
 } from "./InformationsSecteur.definitions";
 import {
   LocalisationEtablissementPrincipal,
@@ -51,10 +47,7 @@ export type ReponseInformationsSecteurInfranumActiviteLocalEtabLot2<
  */
 export type ReponseInformationsSecteurInfranumAutresActivitesListees_P =
   CategoriseTaille<"Petit"> &
-    InfoSecteursMoinsActivites<
-      "infrastructureNumerique",
-      ActiviteInfranumLocalServices | ActiviteInfranumLocalEtabLot1
-    >;
+    InformationsSecteurInfranumAutresActivitesListees_P;
 
 /**
  * Réponse informations serveur dans le cas des activités Infrastructure
@@ -63,12 +56,7 @@ export type ReponseInformationsSecteurInfranumAutresActivitesListees_P =
  */
 export type ReponseInformationsSecteurInfranumAutresActivitesListees_MG =
   CategoriseTaille<"Moyen" | "Grand"> &
-    InfoSecteursMoinsActivites<
-      "infrastructureNumerique",
-      | ActiviteInfranumLocalServices
-      | ActiviteInfranumLocalEtabLot1
-      | ActiviteInfranumLocalEtabLot2
-    >;
+    InformationsSecteurInfranumAutresActivitesListees_MG;
 
 /**
  * Réponse Informations Secteur dans le cas des activités Infrastructure
