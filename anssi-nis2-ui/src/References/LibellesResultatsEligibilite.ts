@@ -23,6 +23,8 @@ export const libelleTitreNonRegule =
   "Votre entité ne sera pas régulée par NIS 2";
 export const libelleTitreReguleEntiteEssentielle =
   "Votre entité sera régulée par NIS 2  \nen tant qu’Entité Essentielle (EE)";
+export const libelleTitreReguleEntiteEssentielleTelcoPlusieursPaysDontFrance =
+  "Votre entité sera régulée par NIS 2 en France  \nen tant qu’Entité Essentielle (EE)";
 export const libelleTitreReguleEntiteNonDeterminee =
   "Votre entité sera régulée par NIS 2";
 export const libelleTitreReguleEntiteImportante =

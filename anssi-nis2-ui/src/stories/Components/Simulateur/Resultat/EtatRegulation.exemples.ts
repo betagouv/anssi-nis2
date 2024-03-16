@@ -1,8 +1,5 @@
 import { Regulation } from "../../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
-import {
-  EtatRegulationDefinitif,
-  EtatRegulationDefinitivement,
-} from "../../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions.ts";
+import { EtatRegulationDefinitivement } from "../../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions.ts";
 import { ens } from "../../../../../../commun/utils/services/sets.operations.ts";
 
 export const etatRegulation_ReguleEE: EtatRegulationDefinitivement<"Regule"> = {
@@ -65,9 +62,8 @@ export const etatRegulation_ReguleAutreEMDontFrance: EtatRegulationDefinitivemen
         secteurs: ens({
           _categorieTaille: "Grand",
           secteurActivite: "infrastructureNumerique",
-          activites: ens("fournisseurServicesInformatiqueNuage"),
-          paysDecisionsCyber: "horsue",
-          paysOperationsCyber: "france",
+          activites: ens("fournisseurReseauxCommunicationElectroniquesPublics"),
+          localisationFournitureServicesNumeriques: ens("autre", "france"),
         }),
       },
     },
@@ -111,30 +107,6 @@ export const etatRegulation_Incertain: EtatRegulationDefinitivement<"Incertain">
       _tag: "EnAttenteTranspositionLoiFrancaise",
     },
   };
-export const etatRegulation_ReguleTypeEntiteNonDefini: EtatRegulationDefinitif =
-  {
-    decision: Regulation.Regule,
-    _resultatEvaluationRegulation: "Definitif",
-    typeEntite: "EntiteNonDeterminee",
-    etapeEvaluee: "InformationsSecteur",
-    causes: {
-      Structure: {
-        _categorieTaille: "Grand",
-        typeStructure: "privee",
-        trancheChiffreAffaire: "petit",
-        trancheNombreEmployes: "moyen",
-      },
-      InformationsSecteur: {
-        _categorieTaille: "Grand",
-        secteurs: ens({
-          secteurActivite: "infrastructureNumerique",
-          activites: ens("registresNomsDomainesPremierNiveau"),
-          _categorieTaille: "Grand",
-          paysDecisionsCyber: "france",
-        }),
-      },
-    },
-  };
 export const etatRegulation_Regule_RegistreNomDeDomaines: EtatRegulationDefinitivement<"Regule"> =
   {
     decision: Regulation.Regule,
@@ -152,7 +124,7 @@ export const etatRegulation_Regule_RegistreNomDeDomaines: EtatRegulationDefiniti
         _categorieTaille: "Grand",
         secteurs: ens({
           secteurActivite: "infrastructureNumerique",
-          activites: ens("registresNomsDomainesPremierNiveau"),
+          activites: ens("fournisseurServicesEnregristrementNomDomaine"),
           _categorieTaille: "Grand",
           paysDecisionsCyber: "france",
         }),

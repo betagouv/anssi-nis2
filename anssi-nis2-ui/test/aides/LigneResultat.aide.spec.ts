@@ -10,6 +10,7 @@ import {
 } from "../../src/Components/Simulateur/Resultats/LigneResultat.aide";
 import {
   libelleTitreReguleEntiteEssentielle,
+  libelleTitreReguleEntiteEssentielleTelcoPlusieursPaysDontFrance,
   libelleTitreReguleEntiteImportante,
 } from "../../src/References/LibellesResultatsEligibilite";
 
@@ -129,7 +130,7 @@ describe("LigneResultat.aide", () => {
           _resultatEvaluationRegulation: "Definitif",
           etapeEvaluee: "InformationsSecteur",
           decision: "Regule",
-          typeEntite: "EntiteImportante",
+          typeEntite: "EntiteEssentielle",
           causes: {
             Structure: {
               _categorieTaille: "Grand",
@@ -154,7 +155,8 @@ describe("LigneResultat.aide", () => {
           },
         };
         const informationsResultatEvaluationAttendues = {
-          titre: libelleTitreReguleEntiteImportante,
+          titre:
+            libelleTitreReguleEntiteEssentielleTelcoPlusieursPaysDontFrance,
           classes: fabriqueClassesCSSResultat(
             "fr-icon-check-line",
             "fr-nis2-eligible",

@@ -14,7 +14,6 @@ import {
   etatRegulation_ReguleAutreEMDontFrance,
   etatRegulation_ReguleEE,
   etatRegulation_ReguleEI,
-  etatRegulation_ReguleTypeEntiteNonDefini,
 } from "./EtatRegulation.exemples.ts";
 import {
   verifieAucunBlocDepliable,
@@ -130,19 +129,6 @@ export const ReguleEnregistrementDeNomsDeDomaines: Story = {
   play: async ({ canvasElement }) => {
     const texteEnAnnexe = "Enregistrement de noms de domaines";
     await verifieTexteEnAnnexe(canvasElement, texteEnAnnexe);
-    verifieClasseBlocResultat(canvasElement, "fr-nis2-eligible");
-    verifieIcone(canvasElement, "fr-icon-check-line");
-  },
-};
-export const ReguleAvecTypeEntiteNonDefini: Story = {
-  args: {
-    etatRegulation: etatRegulation_ReguleTypeEntiteNonDefini,
-  },
-  play: async ({ canvasElement }) => {
-    const texteEnAnnexe = "Enregistrement de noms de domaines";
-    await verifieTexteEnAnnexe(canvasElement, texteEnAnnexe);
-    const canvas = within(canvasElement);
-    expect(await canvas.findByText("Votre entité sera régulée par NIS 2"));
     verifieClasseBlocResultat(canvasElement, "fr-nis2-eligible");
     verifieIcone(canvasElement, "fr-icon-check-line");
   },

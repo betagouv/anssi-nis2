@@ -31,6 +31,7 @@ import {
   libelleTitreIncertainStandard,
   libelleTitreNonRegule,
   libelleTitreReguleEntiteEssentielle,
+  libelleTitreReguleEntiteEssentielleTelcoPlusieursPaysDontFrance,
   libelleTitreReguleEntiteImportante,
   libelleTitreReguleEntiteNonDeterminee,
 } from "../../../References/LibellesResultatsEligibilite.ts";
@@ -38,6 +39,18 @@ import {
   ActionPrecisionsResultat,
   EtatPrecisionsResultat,
 } from "./LigneResultat.declarations.ts";
+
+const certainsSontTelcoFournisseursReseauxPlusieursPaysDontFrance = certains(
+  et(
+    estInformationsPourSecteur("infrastructureNumerique"),
+    auMoinsUneActiviteEstParmis(
+      "fournisseurReseauxCommunicationElectroniquesPublics",
+      "fournisseurServiceCommunicationElectroniquesPublics",
+    ),
+    contientLocalisationFournitureServicesNumeriques("france"),
+    contientLocalisationFournitureServicesNumeriques("autre"),
+  ),
+);
 
 export const changePropriete = (
   state: EtatPrecisionsResultat,
@@ -96,6 +109,20 @@ export const getTitrePourEtatEvaluation = (
   etatRegulation: EtatRegulationDefinitif,
 ) =>
   match(etatRegulation)
+    .with(
+      {
+        decision: Regulation.Regule,
+        typeEntite: TypeEntite.EntiteEssentielle,
+        causes: {
+          InformationsSecteur: {
+            secteurs: P.when(
+              certainsSontTelcoFournisseursReseauxPlusieursPaysDontFrance,
+            ),
+          },
+        },
+      },
+      () => libelleTitreReguleEntiteEssentielleTelcoPlusieursPaysDontFrance,
+    )
     .with(
       {
         decision: Regulation.Regule,
@@ -169,17 +196,7 @@ const getNomFichierPrecisionRegule = (
         causes: {
           InformationsSecteur: {
             secteurs: P.when(
-              certains(
-                et(
-                  estInformationsPourSecteur("infrastructureNumerique"),
-                  auMoinsUneActiviteEstParmis(
-                    "fournisseurReseauxCommunicationElectroniquesPublics",
-                    "fournisseurServiceCommunicationElectroniquesPublics",
-                  ),
-                  contientLocalisationFournitureServicesNumeriques("france"),
-                  contientLocalisationFournitureServicesNumeriques("autre"),
-                ),
-              ),
+              certainsSontTelcoFournisseursReseauxPlusieursPaysDontFrance,
             ),
           },
         },
