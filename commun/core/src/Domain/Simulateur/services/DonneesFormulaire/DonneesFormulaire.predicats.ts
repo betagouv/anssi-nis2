@@ -70,7 +70,19 @@ const fabriquePredicatChamp: FabriquePredicatChamp = <
     (donnees: DonneesFormulaireSimulateur) =>
       donnees !== undefined &&
       champ in donnees &&
-      donnees[champ].includes(valeur as never),
+      (donnees[champ] as DonneesFormulaireSimulateur[C][number][]).includes(
+        valeur,
+      ),
+  contientUnParmi:
+    <T extends DonneesFormulaireSimulateur[C][number]>(...listeValeur: T[]) =>
+    (donnees: DonneesFormulaireSimulateur) =>
+      donnees !== undefined &&
+      champ in donnees &&
+      listeValeur.some((valeur) =>
+        (donnees[champ] as DonneesFormulaireSimulateur[C][number][]).includes(
+          valeur,
+        ),
+      ),
   satisfait:
     (f: <T extends DonneesFormulaireSimulateur[C]>(valeurs: T) => boolean) =>
     (d: DonneesFormulaireSimulateur) =>

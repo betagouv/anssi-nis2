@@ -7,7 +7,7 @@ import {
   cocheAuMoinsUnEtPasseEtape,
 } from "../../../utilitaires/Simulateur.actions.ts";
 
-export const scenarioVaJusquaEtapeLocalisation: StoryObj<
+export const scenarioVaJusquaEtapeLocalisationService: StoryObj<
   typeof ChargeurEtape
 >["play"] = async ({ canvasElement }) => {
   mockSendFormData.mockClear();
@@ -26,5 +26,7 @@ export const scenarioVaJusquaEtapeLocalisation: StoryObj<
     ["trancheChiffreAffaire", "petit"],
   ]);
   await passeEtape([["secteurActivite", "infrastructureNumerique"]]);
-  await passeEtape([["activites", "fournisseurServicesDNS"]]);
+  await passeEtape([
+    ["activites", "fournisseurReseauxCommunicationElectroniquesPublics"],
+  ]);
 };

@@ -44,6 +44,9 @@ type PredicatsSurChamp<C extends NomsChampsSimulateur> = {
   contient: <T extends DonneesFormulaireSimulateur[C][number]>(
     valeur: T,
   ) => (donnees: DonneesFormulaireSimulateur) => boolean;
+  contientUnParmi: <T extends DonneesFormulaireSimulateur[C][number]>(
+    ...listeValeur: T[]
+  ) => (donnees: DonneesFormulaireSimulateur) => boolean;
   est: <T extends DonneesFormulaireSimulateur[C]>(
     valeurs: T,
   ) => (d: DonneesFormulaireSimulateur) => boolean;

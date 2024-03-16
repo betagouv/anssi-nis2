@@ -36,29 +36,15 @@ const sousEtapeSousSecteur =
     ),
   );
 
-// const sousEtapeLocalisationActiviteSpecifique =
-//   fabriquesInformationsEtapes.sousEtapeConditionnelle(
-//     ou(
-//       P.activites.satisfait(
-//         auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
-//       ),
-//       P.secteurActivite.contient("fournisseursNumeriques"),
-//       P.secteurActivite.contient("gestionServicesTic"),
-//     ),
-//     fabriquesInformationsEtapes.form(
-//       "Localisation de votre activité",
-//       validationReponsesLocalisationActiviteSpecifique,
-//       "localisationActiviteSpecifique",
-//     ),
-//   );
-
-const sousEtapeEtatFournitService =
+const sousEtapeLocalisationService =
   fabriquesInformationsEtapes.sousEtapeConditionnelle(
     et(
       P.secteurActivite.contient("infrastructureNumerique"),
       ou(
-        P.activites.contient("fournisseurServicesDNS"),
-        P.activites.contient("registresNomsDomainesPremierNiveau"),
+        P.activites.contientUnParmi(
+          "fournisseurReseauxCommunicationElectroniquesPublics",
+          "fournisseurServiceCommunicationElectroniquesPublics",
+        ),
       ),
     ),
     fabriquesInformationsEtapes.form(
@@ -130,7 +116,7 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
           contientAutreSecteurActiviteUniquement,
           contientSousSecteurAutresUniquement,
         ),
-        sousEtapeConditionnelle: sousEtapeEtatFournitService,
+        sousEtapeConditionnelle: sousEtapeLocalisationService,
       },
     ),
     fabriquesInformationsEtapes.resultat("Resultat"),
