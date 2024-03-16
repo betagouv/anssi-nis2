@@ -1,5 +1,4 @@
 import { match } from "ts-pattern";
-import { prop } from "../../../../../../utils/services/objects.operations";
 import { et, ou } from "../../../../../../utils/services/predicats.operations";
 import { certains } from "../../../../../../utils/services/sets.operations";
 import { AppartenancePaysUnionEuropeenne } from "../../ChampsSimulateur.definitions";
@@ -19,7 +18,12 @@ import {
   certainsSontInfrastructureNumeriqueAvecActivite,
   estEtablissementPrincipalFrance,
 } from "./ReponseInformationsSecteur.predicats";
-import { flow } from "fp-ts/lib/function";
+
+const contientValeurLocalisationFournitureServicesNumeriques =
+  (valeur: AppartenancePaysUnionEuropeenne) =>
+  (element: RepInfoSecteur<"Petit">): boolean =>
+    "localisationFournitureServicesNumeriques" in element &&
+    element.localisationFournitureServicesNumeriques.has(valeur);
 
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
   reponse: EtatEvaluationEnSuspens & ReponseEtatInformationsSecteur<"Petit">,
@@ -32,10 +36,7 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
           "fournisseurServiceCommunicationElectroniquesPublics",
         ),
         certains(
-          flow(
-            prop("localisationFournitureServicesNumeriques"),
-            (loc: Set<AppartenancePaysUnionEuropeenne>) => loc.has("france"),
-          ) as (element: RepInfoSecteur<"Petit">) => boolean,
+          contientValeurLocalisationFournitureServicesNumeriques("france"),
         ),
       ),
       () =>
@@ -51,10 +52,7 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
           "fournisseurServiceCommunicationElectroniquesPublics",
         ),
         certains(
-          flow(
-            prop("localisationFournitureServicesNumeriques"),
-            (loc: Set<AppartenancePaysUnionEuropeenne>) => loc.has("autre"),
-          ) as (element: RepInfoSecteur<"Petit">) => boolean,
+          contientValeurLocalisationFournitureServicesNumeriques("autre"),
         ),
       ),
       () =>

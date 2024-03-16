@@ -78,9 +78,7 @@ export const ResultatEligiblePetiteEntreprise: Story = {
       trancheChiffreAffaire: ["petit"],
       trancheNombreEmployes: ["petit"],
       secteurActivite: ["infrastructureNumerique"],
-      activites: ["registresNomsDomainesPremierNiveau"],
-      fournitServicesUnionEuropeenne: ["oui"],
-      localisationRepresentant: ["france"],
+      activites: ["prestataireServiceConfianceQualifie"],
     },
   },
   play: async ({ canvasElement }) => {
@@ -110,26 +108,22 @@ export const ResultatReguleAutrePaysUE: Story = {
   args: {
     donneesFormulaire: {
       ...archetypeDonneesFormulaire,
-      trancheChiffreAffaire: ["moyen"],
-      trancheNombreEmployes: ["moyen"],
+      trancheChiffreAffaire: ["petit"],
+      trancheNombreEmployes: ["petit"],
       secteurActivite: ["infrastructureNumerique"],
-      activites: ["registresNomsDomainesPremierNiveau"],
-      fournitServicesUnionEuropeenne: ["oui"],
-      localisationRepresentant: ["autre"],
+      activites: ["fournisseurServiceCommunicationElectroniquesPublics"],
+      localisationFournitureServicesNumeriques: ["autre"],
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await attendTexteCharge(canvasElement, pointsDAttention);
+    expect(await canvas.findByText("Votre entité sera régulée par NIS 2"));
     expect(
       await canvas.findByText(
-        "Nous ne pouvons pas déterminer si votre " +
-          "entité serait régulée par la directive NIS 2",
-      ),
-    );
-    expect(
-      await canvas.findByText(
-        "Veuillez-vous rapprocher de votre autorité nationale compétente.",
+        "Nous vous invitons à vous rapprocher de l’autorité nationale " +
+          "compétente NIS 2 des autres États membres de l'UE dans lesquels " +
+          "vous fournissez vos services.",
       ),
     );
 
