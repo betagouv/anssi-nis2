@@ -18,7 +18,7 @@ import { RowContainer } from "../../General/RowContainer.tsx";
 import { IconeResultat } from "./IconeResultat.tsx";
 import {
   changePropriete,
-  estCasNonGere,
+  estCasGere,
   getInformationsResultatEvaluation,
 } from "./LigneResultat.aide.ts";
 import { initialState, statusAffichePlus } from "./LigneResultat.constantes.ts";
@@ -63,13 +63,13 @@ export const LigneResultat: DefaultComponentExtensible<
           <Markdown components={{ p: "h4" }}>
             {informationsResultat.titre}
           </Markdown>
-          {estCasNonGere(etatRegulation) ? (
+          {!estCasGere(etatRegulation) ? (
             <p>{explicationContenuIncertain}</p>
           ) : (
             <Markdown>{libelleAvertissementRegule}</Markdown>
           )}
         </div>
-        {!estCasNonGere(etatRegulation) && (
+        {estCasGere(etatRegulation) && (
           <div className="fr-mt-1v fr-px-4w fr-py-3w fr-nis2-resultat-explications">
             <Markdown components={decaleTitre4Niveaux}>
               {contenuPrecisions.principal}

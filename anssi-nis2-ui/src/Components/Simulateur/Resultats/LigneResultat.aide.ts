@@ -21,7 +21,10 @@ import {
   estInformationsPourSecteur,
   estSecteurBancaire,
 } from "../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats.ts";
-import { et } from "../../../../../commun/utils/services/predicats.operations.ts";
+import {
+  et,
+  non,
+} from "../../../../../commun/utils/services/predicats.operations.ts";
 import { certains } from "../../../../../commun/utils/services/sets.operations.ts";
 import {
   libelleTitreIncertainAutrePaysUnionEuropeenne,
@@ -43,7 +46,7 @@ export const changePropriete = (
 
 export type ClassesCssResultat = { icone: string; cadre: string };
 
-const fabriqueClassesCSSResultat = (
+export const fabriqueClassesCSSResultat = (
   classeIcone: string,
   classeCadre: string,
 ): ClassesCssResultat => ({
@@ -169,14 +172,11 @@ const getNomFichierPrecisionRegule = (
                 et(
                   estInformationsPourSecteur("infrastructureNumerique"),
                   auMoinsUneActiviteEstParmis(
-                    "fournisseurServicesDNS",
-                    "registresNomsDomainesPremierNiveau",
-                    "fournisseurServicesInformatiqueNuage",
-                    "fournisseurServiceCentresDonnees",
-                    "fournisseurReseauxDiffusionContenu",
+                    "fournisseurReseauxCommunicationElectroniquesPublics",
+                    "fournisseurServiceCommunicationElectroniquesPublics",
                   ),
-                  estEtablissementPrincipalLocalise("france"),
-                  estEtablissementPrincipalLocalise("autre"),
+                  contientLocalisationFournitureServicesNumeriques("france"),
+                  contientLocalisationFournitureServicesNumeriques("autre"),
                 ),
               ),
             ),
@@ -197,7 +197,6 @@ const getNomFichierPrecisionRegule = (
                     "fournisseurReseauxCommunicationElectroniquesPublics",
                     "fournisseurServiceCommunicationElectroniquesPublics",
                   ),
-                  contientLocalisationFournitureServicesNumeriques("france"),
                   contientLocalisationFournitureServicesNumeriques("autre"),
                 ),
               ),
@@ -205,7 +204,32 @@ const getNomFichierPrecisionRegule = (
           },
         },
       },
-      () => "PrecisionsResultat.ReguleTelcoFranceEtAutreEM",
+      () => "PrecisionsResultat.ReguleTelcoAutreEM",
+    )
+    .with(
+      {
+        causes: {
+          InformationsSecteur: {
+            secteurs: P.when(
+              certains(
+                et(
+                  estInformationsPourSecteur("infrastructureNumerique"),
+                  auMoinsUneActiviteEstParmis(
+                    "fournisseurServicesDNS",
+                    "registresNomsDomainesPremierNiveau",
+                    "fournisseurServicesInformatiqueNuage",
+                    "fournisseurServiceCentresDonnees",
+                    "fournisseurReseauxDiffusionContenu",
+                  ),
+                  non(estEtablissementPrincipalLocalise("france")),
+                  estEtablissementPrincipalLocalise("autre"),
+                ),
+              ),
+            ),
+          },
+        },
+      },
+      () => "PrecisionsResultat.ReguleTelcoAutreEM",
     )
     .with(
       {
@@ -267,14 +291,17 @@ export const getInformationsResultatEvaluation = (
   classes: getClassesCssResultat(etatRegulation),
   fichierPrecisions: getNomFichierPrecision(etatRegulation),
 });
-
-export const estCasNonGere = (etatRegulation: EtatRegulationDefinitif) =>
+/**
+ * Détermine si le cas est un cas en cours d'implémentation dans l'algorithme
+ * @param etatRegulation
+ */
+export const estCasGere = (etatRegulation: EtatRegulationDefinitif) =>
   match(etatRegulation)
     .with(
       {
         decision: P.not("Incertain"),
       },
-      toujoursFaux,
+      toujoursVrai,
     )
     .with(
       {
@@ -283,7 +310,7 @@ export const estCasNonGere = (etatRegulation: EtatRegulationDefinitif) =>
           typeConstructionEnCours: "HorsUnionEuropeenne",
         },
       },
-      toujoursFaux,
+      toujoursVrai,
     )
     .with(
       {
@@ -291,6 +318,6 @@ export const estCasNonGere = (etatRegulation: EtatRegulationDefinitif) =>
           _tag: "DefiniDansUnAutreEtatMembre",
         },
       },
-      toujoursFaux,
+      toujoursVrai,
     )
-    .otherwise(toujoursVrai);
+    .otherwise(toujoursFaux);

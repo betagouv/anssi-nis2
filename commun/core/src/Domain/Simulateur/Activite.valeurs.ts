@@ -114,7 +114,6 @@ export const ValeursActivitesInfrastructureNumeriqueFournisseursServices = [
   "fournisseurServicesInformatiqueNuage",
   "fournisseurServiceCentresDonnees",
   "fournisseurReseauxDiffusionContenu",
-  "fournisseurServicesEnregristrementNomDomaine",
 ] as const;
 export const ValeursActivitesInfrastructureNumeriquePointEchangeServicesConfiance =
   [
@@ -130,6 +129,7 @@ export const ValeursActivitesInfrastructureNumerique = [
   ...ValeursActivitesInfrastructureNumeriqueFournisseursServices,
   ...ValeursActivitesInfrastructureNumeriquePointEchangeServicesConfiance,
   ...ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
+  "fournisseurServicesEnregristrementNomDomaine",
   "autreActiviteInfrastructureNumerique",
 ] as const;
 
