@@ -4,6 +4,7 @@ import {
   InformationEtapeForm,
   InformationsEtapesVariantes,
 } from "anssi-nis2-core/src/Domain/Simulateur/InformationsEtape.ts";
+import { VVV } from "../../../../commun/core/src/Domain/utilitaires/debug.ts";
 import { RowContainer } from "../General/RowContainer.tsx";
 import { StepperNavigation } from "./StepperNavigation.tsx";
 import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
@@ -16,12 +17,12 @@ import { cartoComposants } from "../../Services/Simulateur/Transformateurs/TypeE
 
 const etapeVarianteAffichee =
   (etatEtapes: EtatEtapes) => (donnees: DonneesFormulaireSimulateur) => {
-    const variante = etatEtapes.collectionEtapes.recupereEtape(
+    const variante = etatEtapes.collectionEtapes.contenuEtape(
       etatEtapes.indiceCourant,
+      etatEtapes.indiceSousEtape,
     ) as InformationsEtapesVariantes<InformationEtapeForm>;
-    return cartoComposants[
-      variante.variantes[variante.varianteAffichee(donnees)].type
-    ];
+    const numeroVariante = variante.varianteAffichee(donnees);
+    return cartoComposants[variante.variantes[numeroVariante].type];
   };
 
 const etapeAffichee = (etatEtapes: EtatEtapes) =>
@@ -39,6 +40,7 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
     etatEtapes.contenuEtapeCourante.fabriqueValidationReponses(
       donneesFormulaire,
     );
+  VVV(etatEtapes);
 
   const EtapeCourante = etapeAffichee(etatEtapes)(donneesFormulaire).composant;
 

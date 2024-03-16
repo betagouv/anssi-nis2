@@ -1,15 +1,6 @@
 import { isMatching, P } from "ts-pattern";
 import { estNonVide } from "../../../../../../utils/services/commun.predicats";
 import { Activite } from "../../Activite.definitions";
-import {
-  ChampsAvecPredicats,
-  DonneesFormulaireSimulateur,
-  DonneesSectorielles,
-  FabriquePredicatChamp,
-  NomsChampsSimulateur,
-  PredicatDonneesFormulaireSimulateur,
-} from "./DonneesFormulaire.definitions";
-import { ValeursNomChampsFormulaire } from "./DonneesFormulaire.valeurs";
 import { SecteurAvecBesoinLocalisationRepresentant } from "../../SecteurActivite.definitions";
 import { ValeursSecteursAvecBesoinLocalisationRepresentant } from "../../SecteurActivite.valeurs";
 import {
@@ -33,6 +24,15 @@ import {
   estMoyenneEntreprise,
   estPetiteEntreprise,
 } from "../TailleEntreprise/TailleEntite.predicats";
+import {
+  ChampsAvecPredicats,
+  DonneesFormulaireSimulateur,
+  DonneesSectorielles,
+  FabriquePredicatChamp,
+  NomsChampsSimulateur,
+  PredicatDonneesFormulaireSimulateur,
+} from "./DonneesFormulaire.definitions";
+import { ValeursNomChampsFormulaire } from "./DonneesFormulaire.valeurs";
 
 export const contientPetiteEntreprise = (d: DonneesFormulaireSimulateur) =>
   estPetiteEntreprise(d.trancheNombreEmployes, d.trancheChiffreAffaire);
@@ -222,16 +222,21 @@ export const contientUniquementSecteurNecessitantLocalisation = (
     ),
   );
 export const contientOperateurServicesEssentiels: PredicatDonneesFormulaireSimulateur =
-  isMatching({
-    designationOperateurServicesEssentiels: ["oui"],
-  });
+  predicatDonneesFormulaire.designationOperateurServicesEssentiels.est(["oui"]);
 
 export const contientInfrastructureNumerique: PredicatDonneesFormulaireSimulateur =
-  isMatching({
-    secteurActivite: ["infrastructureNumerique"],
-  });
+  predicatDonneesFormulaire.secteurActivite.contient("infrastructureNumerique");
 export const contientAutreSecteurActiviteUniquement = (
   donneesFormulaire: DonneesFormulaireSimulateur,
 ) =>
   donneesFormulaire.secteurActivite.length === 1 &&
   donneesFormulaire.secteurActivite[0] === "autreSecteurActivite";
+export const contientInfraNumLocalisationEtablissement = et(
+  contientInfrastructureNumerique,
+  ou(
+    predicatDonneesFormulaire.activites.contientUnParmi(
+      "fournisseurReseauxCommunicationElectroniquesPublics",
+      "fournisseurServiceCommunicationElectroniquesPublics",
+    ),
+  ),
+);

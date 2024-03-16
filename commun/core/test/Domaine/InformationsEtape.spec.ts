@@ -1,5 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { toujoursFaux } from "../../../utils/services/commun.predicats";
+import {
+  toujoursFaux,
+  toujoursVrai,
+} from "../../../utils/services/commun.predicats";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique";
 import { fabriquesInformationsEtapes } from "../../src/Domain/Simulateur/fabriques/InformationsEtape.fabrique";
@@ -70,6 +73,39 @@ describe("fabriquesInformationsEtapes", () => {
       expect(
         resultDeuxEtapes.varianteAffichee({
           ...donnees,
+          typeStructure: ["publique"],
+        }),
+      ).toBe(1);
+    });
+  });
+  describe(fabriquesInformationsEtapes.sousEtapeConditionnelle, () => {
+    it("Construit une sous-étape conditionnelle avec des variantes", () => {
+      const variantesDeuxEtapes: VariantesEtape<InformationEtapeForm>[] = [
+        {
+          etape: exInformationEtape.form1,
+          conditions: { typeStructure: ["privee"] },
+        },
+        {
+          etape: exInformationEtape.form2,
+          conditions: { typeStructure: ["publique"] },
+        },
+      ];
+      const variantes =
+        fabriquesInformationsEtapes.variantes(variantesDeuxEtapes);
+      const sousEtapeConditionnelle =
+        fabriquesInformationsEtapes.sousEtapeConditionnelle(
+          toujoursVrai,
+          variantes,
+        );
+      expect(
+        sousEtapeConditionnelle.sousEtape.varianteAffichee({
+          ...donneesFormulaireSimulateurVide,
+          typeStructure: ["privee"],
+        }),
+      ).toBe(0);
+      expect(
+        sousEtapeConditionnelle.sousEtape.varianteAffichee({
+          ...donneesFormulaireSimulateurVide,
           typeStructure: ["publique"],
         }),
       ).toBe(1);

@@ -108,7 +108,9 @@ const fabriqueInformationsEtapesVariantes = <
 
 const fabriqueSousEtapeConditionnelle: (
   condition: PredicatDonneesSimulateurDefinitions,
-  sousEtape: InformationEtapeForm,
+  sousEtape:
+    | InformationEtapeForm
+    | InformationsEtapesVariantes<InformationEtapeForm>,
 ) => SousEtapeConditionnelle = (condition, sousEtape) => ({
   condition: condition,
   sousEtape: sousEtape,

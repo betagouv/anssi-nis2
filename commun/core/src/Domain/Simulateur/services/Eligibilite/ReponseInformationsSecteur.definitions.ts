@@ -130,6 +130,3 @@ export type ReponseInformationsSecteur<Taille extends CategorieTaille> =
 export type PredicatInformationSecteurPossible = (
   i: RepInfoSecteur<CategorieTaille>,
 ) => boolean;
-// | InformationsSecteurSansBesoinLocalisation
-// | InformationsSecteurAvecBesoinLocalisation<Taille>
-// | InformationsSecteurAutre;

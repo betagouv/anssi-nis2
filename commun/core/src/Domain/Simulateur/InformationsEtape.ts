@@ -50,7 +50,9 @@ export type OptionsInformationEtapeForm = {
 
 export type SousEtapeConditionnelle = {
   readonly condition: PredicatDonneesSimulateurDefinitions;
-  readonly sousEtape: InformationEtapeForm;
+  readonly sousEtape:
+    | InformationEtapeForm
+    | InformationsEtapesVariantes<InformationEtapeForm>;
 };
 
 export type CapacitesEtapeFormulaire = {

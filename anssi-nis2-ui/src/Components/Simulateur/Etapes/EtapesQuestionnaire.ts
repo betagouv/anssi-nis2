@@ -1,9 +1,5 @@
-import {
-  estNonVide,
-  et,
-} from "../../../../../commun/utils/services/commun.predicats.ts";
+import { Pattern } from "ts-pattern";
 import { CollectionInformationsEtapes } from "../../../../../commun/core/src/Domain/Simulateur/CollectionInformationsEtapes.definitions.ts";
-import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
 import { fabriqueEtatEtape } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/EtatEtape.fabrique.ts";
 import { fabriquesInformationsEtapes } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/InformationsEtape.fabrique.ts";
 import {
@@ -18,11 +14,14 @@ import {
   validationReponsesTaille,
   validationReponsesTypeStructure,
 } from "../../../../../commun/core/src/Domain/Simulateur/services/ChampSimulateur/ValidationReponses.ts";
-import { estUnSecteurAvecDesSousSecteurs } from "../../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
 import {
   contientAutreSecteurActiviteUniquement,
+  contientInfraNumLocalisationEtablissement,
   predicatDonneesFormulaire as P,
 } from "../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
+import { estUnSecteurAvecDesSousSecteurs } from "../../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
+import { estNonVide } from "../../../../../commun/utils/services/commun.predicats.ts";
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
@@ -39,26 +38,32 @@ const sousEtapeSousSecteur =
     ),
   );
 
-const sousEtapeLocalisationService =
+const etapeLocalisationActiviteServices = fabriquesInformationsEtapes.form(
+  "Localisation de votre activité",
+  {
+    message: "Sélectionnez au moins une réponse",
+    validateur:
+      P.localisationFournitureServicesNumeriques.satisfait(estNonVide),
+  },
+  "localisationFournitureServicesNumeriques",
+);
+
+const sousEtapeLocalisationVariantes =
   fabriquesInformationsEtapes.sousEtapeConditionnelle(
-    et(
-      P.secteurActivite.contient("infrastructureNumerique"),
-      ou(
-        P.activites.contientUnParmi(
-          "fournisseurReseauxCommunicationElectroniquesPublics",
-          "fournisseurServiceCommunicationElectroniquesPublics",
-        ),
-      ),
-    ),
-    fabriquesInformationsEtapes.form(
-      "Localisation de votre activité",
+    contientInfraNumLocalisationEtablissement,
+    fabriquesInformationsEtapes.variantes([
       {
-        message: "Sélectionnez au moins une réponse",
-        validateur:
-          P.localisationFournitureServicesNumeriques.satisfait(estNonVide),
+        etape: etapeLocalisationActiviteServices,
+        conditions: {
+          activites: [
+            Pattern.union(
+              "fournisseurReseauxCommunicationElectroniquesPublics",
+              "fournisseurServiceCommunicationElectroniquesPublics",
+            ),
+          ],
+        },
       },
-      "localisationFournitureServicesNumeriques",
-    ),
+    ]),
   );
 
 const etapeTailleStructurePrivee = fabriquesInformationsEtapes.form(
@@ -118,9 +123,10 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
           contientAutreSecteurActiviteUniquement,
           contientSousSecteurAutresUniquement,
         ),
-        sousEtapeConditionnelle: sousEtapeLocalisationService,
+        sousEtapeConditionnelle: sousEtapeLocalisationVariantes,
       },
     ),
     fabriquesInformationsEtapes.resultat("Resultat"),
   );
+
 export const etatEtapesInitial = fabriqueEtatEtape(etapesQuestionnaire, 0);

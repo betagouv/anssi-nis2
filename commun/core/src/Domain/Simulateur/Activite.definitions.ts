@@ -162,11 +162,6 @@ export type ActiviteInfranumLocalEtabLot2 =
 export type ActiviteInfrastructureNumeriquePointEchangeServicesConfiance =
   (typeof ValeursActivitesInfrastructureNumeriquePointEchangeServicesConfiance)[number];
 
-/** Obsolete */
-// export type ActivitesLocalisablesGrand =
-//   | ActivitesFournisseursNumeriques
-//   | ActivitesGestionServicesTic;
-
 export interface ActivitesPourSecteur
   extends Record<SecteurSimple | SousSecteurListes, Activite> {
   gestionServicesTic: ActivitesGestionServicesTic;
