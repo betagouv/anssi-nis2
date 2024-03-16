@@ -91,6 +91,7 @@ export const getClassesCssResultat = (
       fabriqueClassesCSSResultat("fr-icon-check-line", "fr-nis2-eligible"),
     )
     .exhaustive();
+
 export const getTitrePourEtatEvaluation = (
   etatRegulation: EtatRegulationDefinitif,
 ) =>
@@ -291,6 +292,7 @@ export const getInformationsResultatEvaluation = (
   classes: getClassesCssResultat(etatRegulation),
   fichierPrecisions: getNomFichierPrecision(etatRegulation),
 });
+
 /**
  * Détermine si le cas est un cas en cours d'implémentation dans l'algorithme
  * @param etatRegulation

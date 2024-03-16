@@ -240,15 +240,15 @@ describe("LigneResultat.aide", () => {
         );
       });
     });
-    describe("Non régulés", () => {
-      // Standard
-      // Hors UE
-    });
+    // describe("Non régulés", () => {
+    //   // Standard
+    //   // Hors UE
+    // });
 
-    describe("Incertain", () => {
-      // Standard
-      // Autre EM
-    });
+    // describe("Incertain", () => {
+    //   // Standard
+    //   // Autre EM
+    // });
   });
 
   describe(estCasGere, () => {

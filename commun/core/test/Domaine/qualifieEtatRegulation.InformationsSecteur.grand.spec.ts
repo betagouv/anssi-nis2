@@ -96,43 +96,6 @@ describe("Secteur", () => {
         ),
       );
     });
-    describe("Gestion TIC et Fournisseurs Numériques", () => {
-      // it(
-      //   "en suspens / secteurs+activités EI localisables et bien localisés ==> toujours définitivement régulé EI",
-      //   assertionArbitraire(
-      //     fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-      //       fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_GE_AvecEnsembleDe(
-      //         arbInformationsSecteur_LocaliseesFrance_Grande_EI,
-      //       ),
-      //     ),
-      //     fabriqueVerificationReponseDefinitivementRegule(TE.EntiteImportante),
-      //   ),
-      // );
-      // it.skip(
-      //   "*** Raisons Skip *** : activit'e localisables prises en compte par ailleurs " +
-      //     "en suspens / secteurs+activités EI localisables et bien localisés ==> toujours définitivement régulé EI",
-      //   assertionArbitraire(
-      //     fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-      //       fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_GE_AvecEnsembleDe(
-      //         arbInformationsSecteur_LocaliseesAutre_Grande_EI,
-      //       ),
-      //     ),
-      //     verificationReponseDefinitivementIncertainAutrePaysUE,
-      //   ),
-      // );
-      // it.skip(
-      //   "*** Raisons Skip *** : activit'e localisables prises en compte par ailleurs " +
-      //     "en suspens / secteurs+activités EI localisables et localisés hors-france ==> toujours définitivement non-régulé",
-      //   assertionArbitraire(
-      //     fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-      //       fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_GE(
-      //         arbEnsembleSecteurs_AvecBesoinLoca_GrandEI,
-      //       ),
-      //     ),
-      //     verificationReponseNonRegule,
-      //   ),
-      // );
-    });
     describe("Secteurs listés", () => {
       it(
         "en suspens / secteur et sous-secteur en annexe 1 ==> toujours définitivement régulé EE",
