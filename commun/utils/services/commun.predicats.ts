@@ -1,5 +1,12 @@
-import { Predicat } from "./predicats.declarations";
+import { Predicat } from "./commun.declarations";
 
+export const toujoursVrai = () => true;
+export const toujoursFaux = () => false;
+export const toujourNegatif = () => -1;
+
+export const estNonVide = <T>(tableau: T[]): tableau is T[] =>
+  tableau.length > 0;
+export const estSingleton = <T extends string>(a: T[]) => a.length === 1;
 /**
  * Fabrique un prédicat d'égalité sur une valeur
  * @param cherche
@@ -16,7 +23,6 @@ export const estParmi: <T>(...listeCherche: T[]) => (compare: T) => boolean =
   <T>(...listeCherche: T[]) =>
   (compare: T) =>
     listeCherche.includes(compare);
-
 /**
  * Fabrique un prédicat d'égalité sur une liste de valeurs
  * @param listeCherche
@@ -27,7 +33,6 @@ export const contientUnParmi: <T>(
   <T>(...listeCherche: T[]) =>
   (listeCompare: T[]) =>
     listeCompare.some((compare) => listeCherche.includes(compare));
-
 /**
  * Inverse logique d'une fonction
  * "non" logique
@@ -40,7 +45,6 @@ export const non: <T>(
   <T>(predicat: Predicat<T>) =>
   (donnees: T) =>
     !predicat(donnees);
-
 /**
  * Et logique sur un ensemble de prédicats
  * Equivalent de Array.every en point free (composable)
@@ -52,7 +56,6 @@ export const et: <T>(
   <T>(...predicats: Array<Predicat<T>>) =>
   (donnees: T) =>
     predicats.every((p) => p(donnees));
-
 /**
  * "Ou" logique sur un ensemble de prédicats
  * Equivalent de Array.some en point free (composable)

@@ -1,10 +1,6 @@
 import { match } from "ts-pattern";
-import {
-  et,
-  non,
-  ou,
-} from "../../../../../../utils/services/predicats.operations";
 import { certains } from "../../../../../../utils/services/sets.operations";
+import { et, non, ou } from "../../../../../../utils/services/commun.predicats";
 import {
   resultatIncertainAutrePaysUE,
   resultatNonRegule,

@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { et, non, ou } from "../../../utils/services/predicats.operations";
 import {
+  et,
+  non,
+  ou,
   toujoursFaux,
   toujoursVrai,
-} from "../../src/Domain/Commun/Commun.predicats";
+} from "../../../utils/services/commun.predicats";
 
 describe("Opérations logiques sur prédicats", () => {
   describe("non", () => {

@@ -1,6 +1,6 @@
 import { match } from "ts-pattern";
-import { et, ou } from "../../../../../../utils/services/predicats.operations";
 import { certains } from "../../../../../../utils/services/sets.operations";
+import { et, ou } from "../../../../../../utils/services/commun.predicats";
 import { AppartenancePaysUnionEuropeenne } from "../../ChampsSimulateur.definitions";
 import { resultatNonRegule } from "../../Regulation.constantes";
 import { TypeEntite as TE } from "../../Regulation.definitions";

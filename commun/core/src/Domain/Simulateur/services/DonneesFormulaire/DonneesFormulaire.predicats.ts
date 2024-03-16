@@ -1,5 +1,5 @@
 import { isMatching, P } from "ts-pattern";
-import { estTableauNonVide } from "../../../Commun/Commun.predicats";
+import { estNonVide } from "../../../../../../utils/services/commun.predicats";
 import { Activite } from "../../Activite.definitions";
 import {
   ChampsAvecPredicats,
@@ -174,7 +174,7 @@ const contientUniquementSousSecteurAutre = isMatching({
 const contientSectorielleComplete = isMatching({
   secteurActivite: P.when(auMoinsUnSecteurListe),
   sousSecteurActivite: P.array(),
-  activites: P.when(estTableauNonVide<Activite>),
+  activites: P.when(estNonVide<Activite>),
 });
 
 export const verifieDonneesSectorielles = et(

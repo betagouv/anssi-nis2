@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { toujoursFaux } from "../../src/Domain/Commun/Commun.predicats";
+import { toujoursFaux } from "../../../utils/services/commun.predicats";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/DonneesFormulaire.constantes";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
 import { fabriquesInformationsEtapes } from "../../src/Domain/Simulateur/fabriques/InformationsEtape.fabrique";
@@ -55,7 +55,7 @@ describe("fabriquesInformationsEtapes", () => {
       const resultDeuxEtapes =
         fabriquesInformationsEtapes.variantes(variantesDeuxEtapes);
       const donnees = fabriqueDonneesFormulaire(
-        donneesFormulaireSimulateurVide
+        donneesFormulaireSimulateurVide,
       );
       expect(resultDeuxEtapes).toEqual({
         ...resultatAttendu,
@@ -65,13 +65,13 @@ describe("fabriquesInformationsEtapes", () => {
         resultDeuxEtapes.varianteAffichee({
           ...donnees,
           typeStructure: ["privee"],
-        })
+        }),
       ).toBe(0);
       expect(
         resultDeuxEtapes.varianteAffichee({
           ...donnees,
           typeStructure: ["publique"],
-        })
+        }),
       ).toBe(1);
     });
   });

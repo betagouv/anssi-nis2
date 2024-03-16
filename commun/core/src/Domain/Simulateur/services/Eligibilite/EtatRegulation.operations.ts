@@ -1,6 +1,6 @@
 import { match, P } from "ts-pattern";
-import { ou } from "../../../../../../utils/services/predicats.operations";
 import { tous } from "../../../../../../utils/services/sets.operations";
+import { ou } from "../../../../../../utils/services/commun.predicats";
 import { resultatNonRegule } from "../../Regulation.constantes";
 import { resultatEstDefinitif } from "./EtatRegulation.constantes";
 import {

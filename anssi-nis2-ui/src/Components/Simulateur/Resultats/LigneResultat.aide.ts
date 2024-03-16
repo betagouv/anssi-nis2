@@ -1,8 +1,10 @@
 import { P, match } from "ts-pattern";
 import {
+  et,
+  non,
   toujoursFaux,
   toujoursVrai,
-} from "../../../../../commun/core/src/Domain/Commun/Commun.predicats.ts";
+} from "../../../../../commun/utils/services/commun.predicats.ts";
 import {
   Regulation,
   TypeEntite,
@@ -21,10 +23,6 @@ import {
   estInformationsPourSecteur,
   estSecteurBancaire,
 } from "../../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats.ts";
-import {
-  et,
-  non,
-} from "../../../../../commun/utils/services/predicats.operations.ts";
 import { certains } from "../../../../../commun/utils/services/sets.operations.ts";
 import {
   libelleTitreIncertainAutrePaysUnionEuropeenne,

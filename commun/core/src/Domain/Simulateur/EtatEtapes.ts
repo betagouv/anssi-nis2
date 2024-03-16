@@ -2,7 +2,7 @@ import {
   toujourNegatif,
   toujoursFaux,
   toujoursVrai,
-} from "../Commun/Commun.predicats";
+} from "../../../../utils/services/commun.predicats";
 import { CollectionInformationsEtapes } from "./CollectionInformationsEtapes.definitions";
 import {
   CapaciteEtape,

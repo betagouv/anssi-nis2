@@ -1,13 +1,13 @@
 import { match } from "ts-pattern";
 import {
-  contientUnParmi,
-  est,
-} from "../../../../../utils/services/predicats.operations";
-import {
   ens,
   ensembleNeutreDe,
   union,
 } from "../../../../../utils/services/sets.operations";
+import {
+  contientUnParmi,
+  est,
+} from "../../../../../utils/services/commun.predicats";
 import { ActivitesInfrastructureNumerique } from "../Activite.definitions";
 import { DonneesFormulaireSimulateur } from "../DonneesFormulaire.definitions";
 import {

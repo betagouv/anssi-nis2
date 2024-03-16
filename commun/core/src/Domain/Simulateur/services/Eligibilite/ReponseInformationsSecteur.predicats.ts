@@ -1,12 +1,12 @@
 import { flow } from "fp-ts/lib/function";
 import { prop } from "../../../../../../utils/services/objects.operations";
+import { certains } from "../../../../../../utils/services/sets.operations";
 import {
   est,
   estParmi,
   et,
   non,
-} from "../../../../../../utils/services/predicats.operations";
-import { certains } from "../../../../../../utils/services/sets.operations";
+} from "../../../../../../utils/services/commun.predicats";
 import { Activite } from "../../Activite.definitions";
 import { AppartenancePaysUnionEuropeenne } from "../../ChampsSimulateur.definitions";
 import { SecteurActivite } from "../../SecteurActivite.definitions";

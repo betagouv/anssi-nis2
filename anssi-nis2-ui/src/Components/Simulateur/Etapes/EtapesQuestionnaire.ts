@@ -1,3 +1,7 @@
+import {
+  estNonVide,
+  et,
+} from "../../../../../commun/utils/services/commun.predicats.ts";
 import { CollectionInformationsEtapes } from "../../../../../commun/core/src/Domain/Simulateur/CollectionInformationsEtapes.definitions.ts";
 import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
 import { fabriqueEtatEtape } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/EtatEtape.fabrique.ts";
@@ -19,7 +23,6 @@ import {
   contientAutreSecteurActiviteUniquement,
   predicatDonneesFormulaire as P,
 } from "../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
-import { et } from "../../../../../commun/utils/services/predicats.operations.ts";
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
@@ -51,9 +54,8 @@ const sousEtapeLocalisationService =
       "Localisation de votre activité",
       {
         message: "Sélectionnez au moins une réponse",
-        validateur: P.localisationFournitureServicesNumeriques.satisfait(
-          (l) => l.length > 0,
-        ),
+        validateur:
+          P.localisationFournitureServicesNumeriques.satisfait(estNonVide),
       },
       "localisationFournitureServicesNumeriques",
     ),

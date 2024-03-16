@@ -1,4 +1,4 @@
-import { et } from "../../../../../../utils/services/predicats.operations";
+import { et } from "../../../../../../utils/services/commun.predicats";
 import {
   Activite,
   ActiviteInfranumLocalEtabLot1,
