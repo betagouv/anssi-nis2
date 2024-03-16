@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "../Simulateur/DonneesFormulaire.definitions";
+import { DonneesFormulaireSimulateur } from "../Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 
 const compareDonnees = (
   [champGauche, valeursGauche]: [string, string[]],

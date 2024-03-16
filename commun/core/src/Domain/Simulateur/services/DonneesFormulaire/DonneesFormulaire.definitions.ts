@@ -1,4 +1,4 @@
-import { Activite } from "./Activite.definitions";
+import { Activite } from "../../Activite.definitions";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
@@ -8,10 +8,10 @@ import {
   TypeEntitePublique,
   TypeStructure,
   ValeurChampSimulateur,
-} from "./ChampsSimulateur.definitions";
+} from "../../ChampsSimulateur.definitions";
 import { ValeursNomChampsFormulaire } from "./DonneesFormulaire.valeurs";
-import { SecteurActivite } from "./SecteurActivite.definitions";
-import { SousSecteurActivite } from "./SousSecteurActivite.definitions";
+import { SecteurActivite } from "../../SecteurActivite.definitions";
+import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
 
 export type NomsChampsSimulateur = (typeof ValeursNomChampsFormulaire)[number];
 

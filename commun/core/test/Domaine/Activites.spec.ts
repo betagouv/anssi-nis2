@@ -1,7 +1,7 @@
 import { libellesSecteursActivite } from "anssi-nis2-ui/src/References/LibellesSecteursActivite";
 import { libellesSousSecteursActivite } from "anssi-nis2-ui/src/References/LibellesSousSecteursActivite";
 import { describe, expect, it } from "vitest";
-import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
+import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique";
 import {
   AssociationSectorielleActivite,
   collecteTitresPourActivite,
@@ -30,7 +30,7 @@ describe("Questionnaire activités", () => {
         cartographieSousSecteursParSecteur(donneesFormulaire);
 
       expect(carteSousSecteurParSecteurObtenue).toStrictEqual(
-        carteSousSecteurParSecteurAttendue
+        carteSousSecteurParSecteurAttendue,
       );
     });
     it("Omet les secteurs et sous secteurs autres", () => {
@@ -59,7 +59,7 @@ describe("Questionnaire activités", () => {
         cartographieSousSecteursParSecteur(donneesFormulaire);
 
       expect(carteSousSecteurParSecteurObtenue).toStrictEqual(
-        carteSousSecteurParSecteurAttendue
+        carteSousSecteurParSecteurAttendue,
       );
     });
   });
@@ -77,7 +77,7 @@ describe("Questionnaire activités", () => {
       collecteTitresPourActivite(
         libellesSecteursActivite,
         libellesSousSecteursActivite,
-        donneesFormulaire
+        donneesFormulaire,
       );
 
     expect(titresExtraits).toStrictEqual(titresAttendus);
@@ -98,7 +98,7 @@ describe("Questionnaire activités", () => {
       collecteTitresPourActivite(
         libellesSecteursActivite,
         libellesSousSecteursActivite,
-        donneesFormulaire
+        donneesFormulaire,
       );
 
     expect(titresExtraits).toStrictEqual(titresAttendus);
@@ -127,7 +127,7 @@ describe("Questionnaire activités", () => {
       collecteTitresPourActivite(
         libellesSecteursActivite,
         libellesSousSecteursActivite,
-        donneesFormulaire
+        donneesFormulaire,
       );
 
     expect(titresExtraits).toStrictEqual(titresAttendus);

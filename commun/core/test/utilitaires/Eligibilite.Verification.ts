@@ -1,6 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { expect } from "vitest";
-import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire.definitions";
+import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { Eligibilite } from "../../src/Domain/Simulateur/Eligibilite.constantes";
 import { ResultatEligibilite } from "../../src/Domain/Simulateur/Eligibilite.definitions";
 import { calculeEligibilite } from "../../src/Domain/Simulateur/services/Eligibilite/Eligibilite.operations";

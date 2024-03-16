@@ -8,7 +8,7 @@ import {
   DesignationOperateurServicesEssentiels,
   TypeStructure,
 } from "../../ChampsSimulateur.definitions";
-import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
+import { DonneesFormulaireSimulateur } from "../DonneesFormulaire/DonneesFormulaire.definitions";
 import { FabriqueInformationsSecteur } from "../../fabriques/InformationsSecteur.fabrique";
 import { FabriqueInformationsStructure } from "../../fabriques/InformationsStructure.fabrique";
 import {

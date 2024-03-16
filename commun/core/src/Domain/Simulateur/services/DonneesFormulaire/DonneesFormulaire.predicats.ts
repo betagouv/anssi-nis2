@@ -8,8 +8,8 @@ import {
   FabriquePredicatChamp,
   NomsChampsSimulateur,
   PredicatDonneesFormulaireSimulateur,
-} from "../../DonneesFormulaire.definitions";
-import { ValeursNomChampsFormulaire } from "../../DonneesFormulaire.valeurs";
+} from "./DonneesFormulaire.definitions";
+import { ValeursNomChampsFormulaire } from "./DonneesFormulaire.valeurs";
 import { SecteurAvecBesoinLocalisationRepresentant } from "../../SecteurActivite.definitions";
 import { ValeursSecteursAvecBesoinLocalisationRepresentant } from "../../SecteurActivite.valeurs";
 import {

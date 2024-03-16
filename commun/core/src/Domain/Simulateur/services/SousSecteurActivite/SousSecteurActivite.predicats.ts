@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
+import { DonneesFormulaireSimulateur } from "../DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   SecteurActivite,
   SecteurComposite,

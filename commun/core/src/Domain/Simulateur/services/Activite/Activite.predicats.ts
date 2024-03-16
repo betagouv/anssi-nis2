@@ -14,7 +14,7 @@ import {
 import {
   DonneesFormulaireSimulateur,
   DonneesSectorielles,
-} from "../../DonneesFormulaire.definitions";
+} from "../DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   ValeursActivitesConcernesInfrastructureNumerique,
   ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,

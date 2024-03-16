@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
+import { DonneesFormulaireSimulateur } from "../DonneesFormulaire/DonneesFormulaire.definitions";
 import { ResultatEligibilite } from "../../Eligibilite.definitions";
 import { fabriqueRegule } from "../../fabriques/ResultatRegulation.fabrique";
 import {

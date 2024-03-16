@@ -3,7 +3,7 @@ import { fc } from "@fast-check/vitest";
 import {
   DonneesFormulaireSimulateur,
   PredicatDonneesFormulaireSimulateur,
-} from "../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
+} from "../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { non } from "../../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
 import {
   contientPetiteEntreprise,

@@ -1,5 +1,5 @@
 import { fc } from "@fast-check/vitest";
-import { DonneesFormulaireSimulateur } from "../../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
+import { DonneesFormulaireSimulateur } from "../../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 
 export const arbFormulaireVide: fc.Arbitrary<DonneesFormulaireSimulateur> =
   fc.record({

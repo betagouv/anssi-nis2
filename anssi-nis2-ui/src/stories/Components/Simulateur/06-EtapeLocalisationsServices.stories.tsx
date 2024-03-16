@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { donneesFormulaireSimulateurVide } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.constantes.ts";
+import { donneesFormulaireSimulateurVide } from "../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes.ts";
 import EtapeLocalisationsServices from "../../../Components/Simulateur/Etapes/EtapeLocalisationsServices.tsx";
 
 const meta: Meta<typeof EtapeLocalisationsServices> = {

@@ -3,7 +3,7 @@ import { ValeurChampSimulateur } from "../../ChampsSimulateur.definitions";
 import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "../../DonneesFormulaire.definitions";
+} from "../DonneesFormulaire/DonneesFormulaire.definitions";
 import { SecteurComposite } from "../../SecteurActivite.definitions";
 import { SousSecteurListes } from "../../SousSecteurActivite.definitions";
 import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions";

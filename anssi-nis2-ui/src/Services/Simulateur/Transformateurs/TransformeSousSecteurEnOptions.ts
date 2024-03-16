@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
 import { SecteurComposite } from "../../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { SimulateurContenuEtapeProps } from "../Props/simulateurEtapeProps";
 import { OptionsChampSimulateur } from "../Props/optionChampSimulateur";

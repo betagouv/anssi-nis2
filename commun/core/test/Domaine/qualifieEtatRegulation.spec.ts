@@ -1,6 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { describe, expect, it } from "vitest";
-import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/DonneesFormulaire.definitions";
+import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   fabriqueIncertain,
   resultatReguleOSE,

@@ -9,7 +9,7 @@ import {
   est,
 } from "../../../../../utils/services/commun.predicats";
 import { ActivitesInfrastructureNumerique } from "../Activite.definitions";
-import { DonneesFormulaireSimulateur } from "../DonneesFormulaire.definitions";
+import { DonneesFormulaireSimulateur } from "../services/DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   SecteurActivite,
   SecteurComposite,

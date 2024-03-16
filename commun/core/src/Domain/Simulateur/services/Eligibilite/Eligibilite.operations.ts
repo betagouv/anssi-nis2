@@ -1,5 +1,5 @@
 import { match, P } from "ts-pattern";
-import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
+import { DonneesFormulaireSimulateur } from "../DonneesFormulaire/DonneesFormulaire.definitions";
 import { R } from "../../Eligibilite.constantes";
 import {
   aucuneActiviteInfraNumConcernee,
@@ -61,7 +61,7 @@ const calculeEligibilitePetiteStructurePrivee: OperationCalculeEligibilite = (
     .otherwise(R.Incertain);
 
 const calculeEligibiliteRepresentantFrance: OperationCalculeEligibilite = (
-  donnees
+  donnees,
 ) =>
   match(donnees)
     .with(
@@ -69,7 +69,7 @@ const calculeEligibiliteRepresentantFrance: OperationCalculeEligibilite = (
         fournitServicesUnionEuropeenne: ["oui"],
         localisationRepresentant: ["france"],
       },
-      R.EligibleMoyenneGrandeEntreprise
+      R.EligibleMoyenneGrandeEntreprise,
     )
     .otherwise(R.NonEligible);
 
@@ -109,7 +109,6 @@ const calculeEligibiliteMoyenneOuGrandeStructurePrivee: OperationCalculeEligibil
       .when(
         contientSecteurNecessitantLocalisation,
         calculeEligibiliteGrandeServicesTicEtFournisseurNum,
-
       )
       .with(
         {

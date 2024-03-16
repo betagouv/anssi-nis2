@@ -1,5 +1,5 @@
 import { TypeStructure } from "../ChampsSimulateur.definitions";
-import { DonneesFormulaireSimulateur } from "../DonneesFormulaire.definitions";
+import { DonneesFormulaireSimulateur } from "../services/DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   contientMoyenneEntreprise,
   contientPetiteEntreprise,

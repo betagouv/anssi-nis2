@@ -31,7 +31,7 @@ import {
   ValeursActivitesTransportsParEau,
   ValeursActivitesTransportsRoutiers,
 } from "../../Activite.valeurs";
-import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
+import { DonneesFormulaireSimulateur } from "../DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   SecteurActivite,
   SecteurSimple,

@@ -2,7 +2,7 @@ import { fc } from "@fast-check/vitest";
 import {
   DonneesFormulaireSimulateur,
   DonneesSectorielles,
-} from "../../src/Domain/Simulateur/DonneesFormulaire.definitions";
+} from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 
 export type DonneesFormulaireExtensibles =
   | DonneesFormulaireSimulateur

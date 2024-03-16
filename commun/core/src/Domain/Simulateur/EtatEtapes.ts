@@ -10,7 +10,7 @@ import {
   InformationsEtape,
   TypeEtape,
 } from "./InformationsEtape";
-import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.definitions";
+import { DonneesFormulaireSimulateur } from "./services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { validationToutesLesReponses } from "./services/ChampSimulateur/ValidationReponses";
 
 /** Situation dans la collection */

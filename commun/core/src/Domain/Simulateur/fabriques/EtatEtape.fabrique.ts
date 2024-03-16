@@ -1,5 +1,5 @@
-import { DonneesFormulaireSimulateur } from "../DonneesFormulaire.definitions";
-import { donneesFormulaireSimulateurVide } from "../DonneesFormulaire.constantes";
+import { DonneesFormulaireSimulateur } from "../services/DonneesFormulaire/DonneesFormulaire.definitions";
+import { donneesFormulaireSimulateurVide } from "../services/DonneesFormulaire/DonneesFormulaire.constantes";
 import { EtatEtapes } from "../EtatEtapes";
 import { CollectionInformationsEtapes } from "../CollectionInformationsEtapes.definitions";
 

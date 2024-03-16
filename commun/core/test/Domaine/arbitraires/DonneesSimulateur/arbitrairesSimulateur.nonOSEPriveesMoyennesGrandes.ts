@@ -1,5 +1,5 @@
 import { fc } from "@fast-check/vitest";
-import { DonneesFormulaireSimulateur } from "../../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
+import { DonneesFormulaireSimulateur } from "../../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement } from "../../../../src/Domain/Simulateur/Eligibilite.constantes";
 import { exerceUniquementActivitesDansListe } from "../../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { non } from "../../../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";

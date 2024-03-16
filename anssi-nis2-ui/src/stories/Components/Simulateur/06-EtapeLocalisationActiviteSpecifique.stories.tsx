@@ -5,7 +5,7 @@ import {
   AppartenancePaysUnionEuropeenne,
   FournitServicesUnionEuropeenne,
 } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
-import { donneesFormulaireSimulateurVide } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.constantes.ts";
+import { donneesFormulaireSimulateurVide } from "../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes.ts";
 
 import EtapeLocalisationActiviteSpecifique from "../../../Components/Simulateur/Etapes/EtapeLocalisationActiviteSpecifique.tsx";
 import {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { ens } from "../../../utils/services/sets.operations";
-import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
+import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique";
 import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.fabriques";
 
 import { UnionReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.definitions";

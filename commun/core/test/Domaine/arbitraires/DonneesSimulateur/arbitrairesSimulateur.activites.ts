@@ -1,5 +1,5 @@
 import { fc } from "@fast-check/vitest";
-import { DonneesSectorielles } from "../../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
+import { DonneesSectorielles } from "../../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   ajouteAuMoinsUneActiviteAutre,
   ajouteChampsFacultatifs,

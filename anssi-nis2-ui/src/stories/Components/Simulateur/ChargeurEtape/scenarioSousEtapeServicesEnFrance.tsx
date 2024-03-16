@@ -1,7 +1,7 @@
 import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { Activite } from "../../../../../../commun/core/src/Domain/Simulateur/Activite.definitions.ts";
-import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
+import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique.ts";
 import { SecteurActivite } from "../../../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 
 import { libelleTitreReguleEntiteImportante } from "../../../../References/LibellesResultatsEligibilite.ts";

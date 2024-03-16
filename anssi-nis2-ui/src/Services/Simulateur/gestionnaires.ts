@@ -3,7 +3,7 @@ import { ValeurChampSimulateur } from "../../../../commun/core/src/Domain/Simula
 import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
+} from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
 
 import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
 import { GestionValeursFormulaire } from "./Props/gestionValeursFormulaire";

@@ -7,8 +7,8 @@ import {
 import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "../../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
-import { ValeursNomChampsFormulaire } from "../../../../src/Domain/Simulateur/DonneesFormulaire.valeurs";
+} from "../../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
+import { ValeursNomChampsFormulaire } from "../../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.valeurs";
 
 import {
   ajouteAuMoinsUneActiviteListee,

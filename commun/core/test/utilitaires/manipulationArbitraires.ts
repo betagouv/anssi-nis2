@@ -13,7 +13,7 @@ import {
 import {
   DonneesFormulaireSimulateur,
   DonneesSectorielles,
-} from "../../src/Domain/Simulateur/DonneesFormulaire.definitions";
+} from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { fabriqueListeActivitesDesSecteurs } from "../../src/Domain/Simulateur/services/Activite/Activite.fabriques";
 import {
   estActiviteAutre,

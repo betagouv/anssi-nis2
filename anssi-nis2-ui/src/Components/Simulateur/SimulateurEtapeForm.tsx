@@ -1,4 +1,4 @@
-import { DonneesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
+import { DonneesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
 import { EtatEtapes } from "anssi-nis2-core/src/Domain/Simulateur/EtatEtapes.ts";
 import {
   InformationEtapeForm,

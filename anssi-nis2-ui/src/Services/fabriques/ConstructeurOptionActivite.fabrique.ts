@@ -4,7 +4,7 @@ import {
   DonneesSectorielles,
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
+} from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
 import { SecteurSimple } from "../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { SousSecteurActivite } from "../../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import {

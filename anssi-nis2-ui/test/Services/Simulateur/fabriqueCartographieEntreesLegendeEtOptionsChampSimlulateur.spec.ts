@@ -3,7 +3,7 @@ import { fc } from "@fast-check/vitest";
 import {
   DonneesSectorielles,
   DonneesFormulaireSimulateur,
-} from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions";
+} from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { fabriqueArbEnrSecteurSousSecteurs } from "../../../../commun/core/test/utilitaires/manipulationArbitraires.fabriques";
 import { fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur } from "../../../src/Services/fabriques/ConstructeurOptionActivite.fabrique";
 import { ajouteArbitraireActivites } from "../../../../commun/core/test/utilitaires/manipulationArbitraires";

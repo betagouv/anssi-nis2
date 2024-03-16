@@ -1,5 +1,5 @@
 import { Body, Controller, Injectable, Post } from "@nestjs/common";
-import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/DonneesFormulaire.definitions";
+import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { JournalService } from "./journal.service";
 
 @Controller("journal")

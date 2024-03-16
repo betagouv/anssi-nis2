@@ -1,5 +1,5 @@
 import { Tag } from "../../../../utils/types/Tag";
-import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.definitions";
+import { DonneesFormulaireSimulateur } from "./services/DonneesFormulaire/DonneesFormulaire.definitions";
 
 import { ValeursRegulationEntite } from "./RegulationEntite.valeurs";
 import { CapsuleReponseDefinitions } from "./services/Eligibilite/CapsuleReponse.definitions";

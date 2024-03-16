@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { toujoursFaux } from "../../../utils/services/commun.predicats";
-import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/DonneesFormulaire.constantes";
-import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
+import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes";
+import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique";
 import { fabriquesInformationsEtapes } from "../../src/Domain/Simulateur/fabriques/InformationsEtape.fabrique";
 import {
   CapacitesEtapeFormulaire,

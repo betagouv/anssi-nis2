@@ -1,5 +1,5 @@
 import { ValeursappartenancePaysUnionEuropeenne } from "../../../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
-import { DonneesFormulaireSimulateur } from "../../../../src/Domain/Simulateur/DonneesFormulaire.definitions";
+import { DonneesFormulaireSimulateur } from "../../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   ajouteArbitraireActivites,
   ajouteChampsFacultatifs,

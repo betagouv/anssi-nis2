@@ -1,6 +1,6 @@
 import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
+import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique.ts";
 
 import { libelleTitreReguleEntiteEssentielle } from "../../../../References/LibellesResultatsEligibilite.ts";
 import { nettoieBrMd } from "../../../../Services/Markdown/TransformeMarkdown.operations.ts";
