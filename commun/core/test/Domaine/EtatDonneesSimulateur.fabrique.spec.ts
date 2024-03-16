@@ -522,6 +522,60 @@ describe("fabrique ReponseEtat", () => {
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
     });
+    describe("LocalisationsServices", () => {
+      it("transforme localisationFournitureServicesNumeriques", () => {
+        const donnees = fabriqueDonneesFormulaire({
+          designationOperateurServicesEssentiels: ["oui"],
+          typeStructure: ["privee"],
+          trancheNombreEmployes: ["petit"],
+          trancheChiffreAffaire: ["petit"],
+          appartenancePaysUnionEuropeenne: ["france"],
+          secteurActivite: ["infrastructureNumerique"],
+          activites: ["fournisseurReseauxCommunicationElectroniquesPublics"],
+          localisationFournitureServicesNumeriques: [
+            "france",
+            "autre",
+            "horsue",
+          ],
+        });
+        const resultatAttendu: UnionReponseEtat = {
+          _tag: "InformationsSecteur",
+          DesignationOperateurServicesEssentiels: {
+            designationOperateurServicesEssentiels: "oui",
+          },
+          AppartenancePaysUnionEuropeenne: {
+            appartenancePaysUnionEuropeenne: "france",
+          },
+          Structure: {
+            _categorieTaille: "Petit",
+            typeStructure: "privee",
+            trancheNombreEmployes: "petit",
+            trancheChiffreAffaire: "petit",
+          },
+          InformationsSecteur: {
+            _categorieTaille: "Petit",
+            secteurs: ens({
+              _categorieTaille: "Petit",
+              secteurActivite: "infrastructureNumerique",
+              activites: ens(
+                "fournisseurReseauxCommunicationElectroniquesPublics",
+              ),
+              localisationFournitureServicesNumeriques: ens(
+                "france",
+                "autre",
+                "horsue",
+              ),
+            }),
+          },
+        };
+
+        const resultatObtenu =
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
+        expect(resultatObtenu).toStrictEqual(resultatAttendu);
+      });
+    });
     // describe.skip(
     //   "*** Raison Skip *** plus en accord avec nouveau modèle" +
     //     "Données localisation",

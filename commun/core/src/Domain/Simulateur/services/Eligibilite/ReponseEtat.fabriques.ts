@@ -153,7 +153,7 @@ export const ConvertisseurDonneesBrutesVersEtatDonneesSimulateur = {
     _tag: "InformationsSecteur",
     Structure: FabriqueInformationsStructure.structurePetite(donnees),
     InformationsSecteur:
-      FabriqueInformationsSecteur.informationsSecteursPetit(donnees),
+      FabriqueInformationsSecteur.informationsSecteurs("Petit")(donnees),
   }),
 
   informationsSecteursMoyen: (
@@ -165,7 +165,7 @@ export const ConvertisseurDonneesBrutesVersEtatDonneesSimulateur = {
     _tag: "InformationsSecteur",
     Structure: FabriqueInformationsStructure.structureMoyenne(donnees),
     InformationsSecteur:
-      FabriqueInformationsSecteur.informationsSecteursMoyen(donnees),
+      FabriqueInformationsSecteur.informationsSecteurs("Moyen")(donnees),
   }),
 
   informationsSecteursGrand: (
@@ -177,7 +177,7 @@ export const ConvertisseurDonneesBrutesVersEtatDonneesSimulateur = {
     _tag: "InformationsSecteur",
     Structure: FabriqueInformationsStructure.structureGrande(donnees),
     InformationsSecteur:
-      FabriqueInformationsSecteur.informationsSecteursGrand(donnees),
+      FabriqueInformationsSecteur.informationsSecteurs("Grand")(donnees),
   }),
 
   informationsSecteurs: (

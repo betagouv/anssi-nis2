@@ -1,9 +1,17 @@
 import { match } from "ts-pattern";
 import {
+  contientUnParmi,
+  est,
+} from "../../../../../utils/services/predicats.operations";
+import {
   ens,
   ensembleNeutreDe,
   union,
 } from "../../../../../utils/services/sets.operations";
+import {
+  ActiviteInfranumLocalServices,
+  ActivitesInfrastructureNumerique,
+} from "../Activite.definitions";
 import { DonneesFormulaireSimulateur } from "../DonneesFormulaire.definitions";
 import {
   SecteurActivite,
@@ -15,6 +23,7 @@ import {
   InformationsSecteurComposite,
   InformationsSecteurCompositeAutre,
   InformationsSecteurSansBesoinLocalisation,
+  InfoSecteurExtraitActivites,
 } from "../services/Eligibilite/InformationsSecteur.definitions";
 import {
   InformationsSecteurPossible,
@@ -22,6 +31,7 @@ import {
   ReponseInformationsSecteur,
 } from "../services/Eligibilite/ReponseInformationsSecteur.definitions";
 import { CategorieTaille } from "../services/Eligibilite/ReponseStructure.definitions";
+import { fabriqueCategorieTaille } from "../services/Eligibilite/ReponseStructure.fabriques";
 import {
   estSecteurAutre,
   estUnSecteurAvecDesSousSecteurs,
@@ -54,20 +64,6 @@ export const FabriqueInformationsSecteur = {
           ...donnees.activites.filter(activiteEstDansSecteur(secteur)),
         ),
       }) as Set<InformationsSecteurSansBesoinLocalisation>,
-
-  // secteurSimpleAvecLocalisation:
-  //   <Taille extends CategorieTaille>(taille:Taille) =>(donnees: DonneesFormulaireSimulateur) =>
-  //
-  //   <Secteur extends  "infrastructureNumerique" | "gestionServicesTic" | "fournisseursNumeriques">(
-  //     secteur: Secteur,
-  //   ): Set<RepInfoSecteurLocalises<Taille>> =>
-  //     ens({
-  //       ...fabriqueCategorieTaille(taille)
-  //       secteurActivite: secteur as Secteur,
-  //       activites: ens(
-  //         ...donnees.activites.filter(activiteEstDansSecteur(secteur)),
-  //       ),
-  //     }),
 
   secteurComposite:
     (donnees: DonneesFormulaireSimulateur) =>
@@ -126,72 +122,126 @@ export const FabriqueInformationsSecteur = {
           ensembleNeutreDe<InformationsSecteurComposite>(),
         ),
 
-  secteurDepuisDonneesSimulateur: <Taille extends CategorieTaille>(
-    donnees: DonneesFormulaireSimulateur,
-    secteurActivite: SecteurActivite,
-  ): Set<InformationsSecteurPossible<Taille>> =>
-    match(secteurActivite)
-      .when(estSecteurAutre, FabriqueInformationsSecteur.secteurAutre())
-      // .when(
-      //   ou(
-      //     estSecteurAvecActivitesEssentielles,
-      //     estSecteurImportantsAvecBesoinLocalisation,
-      //   ),
-      //   FabriqueInformationsSecteur.secteurSimpleAvecLocalisation(donnees),
-      // )
-      .when(
-        estUnSecteurSansDesSousSecteurs,
-        FabriqueInformationsSecteur.secteurSimple(donnees),
-      )
-      .when(
-        estUnSecteurAvecDesSousSecteurs,
-        FabriqueInformationsSecteur.ensembleSecteursComposites(donnees),
-      )
-      .otherwise(ensembleNeutreDe<InformationsSecteurPossible<Taille>>) as Set<
-      InformationsSecteurPossible<Taille>
-    >,
-
-  listeSecteursDepuisDonneesSimulateur: <Taille extends CategorieTaille>(
-    donnees: DonneesFormulaireSimulateur,
-  ) =>
-    donnees.secteurActivite.reduce(
-      (liste, secteur) =>
-        union(
-          liste,
-          FabriqueInformationsSecteur.secteurDepuisDonneesSimulateur(
-            donnees,
-            secteur,
+  secteurInfrastructureNumerique:
+    <Taille extends CategorieTaille>(taille: Taille) =>
+    (
+      donnees: DonneesFormulaireSimulateur,
+      activitesInfraNum: ActivitesInfrastructureNumerique[],
+    ) =>
+    (): Set<
+      InfoSecteurExtraitActivites<
+        "infrastructureNumerique",
+        ActiviteInfranumLocalServices
+      >
+    > =>
+      match(activitesInfraNum)
+        .when(
+          contientUnParmi<ActivitesInfrastructureNumerique>(
+            "fournisseurReseauxCommunicationElectroniquesPublics",
+            "fournisseurServiceCommunicationElectroniquesPublics",
           ),
+          () =>
+            ens({
+              ...fabriqueCategorieTaille(taille),
+              secteurActivite: "infrastructureNumerique",
+              activites: ens(
+                ...donnees.activites.filter(
+                  activiteEstDansSecteur("infrastructureNumerique"),
+                ),
+              ),
+              localisationFournitureServicesNumeriques: ens(
+                ...donnees.localisationFournitureServicesNumeriques,
+              ),
+            }) as Set<
+              InfoSecteurExtraitActivites<
+                "infrastructureNumerique",
+                ActiviteInfranumLocalServices
+              >
+            >,
+        )
+        .otherwise(
+          () =>
+            ens({
+              ...fabriqueCategorieTaille(taille),
+              secteurActivite: "infrastructureNumerique",
+              activites: ens(
+                ...donnees.activites.filter(
+                  activiteEstDansSecteur("infrastructureNumerique"),
+                ),
+              ),
+              localisationFournitureServicesNumeriques: ens(
+                "france",
+                "autre",
+                "horsue",
+              ),
+            }) as Set<
+              InfoSecteurExtraitActivites<
+                "infrastructureNumerique",
+                ActiviteInfranumLocalServices
+              >
+            >,
         ),
-      new Set<InformationsSecteurPossible<Taille>>([]),
-    ),
 
-  informationsSecteursPetit: (
-    donnees: DonneesFormulaireSimulateur,
-  ): ReponseInformationsSecteur<"Petit"> => ({
-    _categorieTaille: "Petit",
-    secteurs:
-      FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur<"Petit">(
-        donnees,
-      ),
-  }),
+  secteurDepuisDonneesSimulateur:
+    <Taille extends CategorieTaille>(taille: Taille) =>
+    (
+      donnees: DonneesFormulaireSimulateur,
+      secteurActivite: SecteurActivite,
+    ): Set<InformationsSecteurPossible<Taille>> =>
+      match(secteurActivite)
+        .when(estSecteurAutre, FabriqueInformationsSecteur.secteurAutre())
+        .when(
+          est("infrastructureNumerique" as SecteurActivite),
+          FabriqueInformationsSecteur.secteurInfrastructureNumerique(taille)(
+            donnees,
+            donnees.activites.filter(
+              activiteEstDansSecteur("infrastructureNumerique"),
+            ),
+          ),
+        )
+        // .when(
+        //   ou(
+        //     estSecteurAvecActivitesEssentielles,
+        //     estSecteurImportantsAvecBesoinLocalisation,
+        //   ),
+        //   FabriqueInformationsSecteur.secteurSimpleAvecLocalisation(donnees),
+        // )
+        .when(
+          estUnSecteurSansDesSousSecteurs,
+          FabriqueInformationsSecteur.secteurSimple(donnees),
+        )
+        .when(
+          estUnSecteurAvecDesSousSecteurs,
+          FabriqueInformationsSecteur.ensembleSecteursComposites(donnees),
+        )
+        .otherwise(
+          ensembleNeutreDe<InformationsSecteurPossible<Taille>>,
+        ) as Set<InformationsSecteurPossible<Taille>>,
 
-  informationsSecteursMoyen: (
-    donnees: DonneesFormulaireSimulateur,
-  ): ReponseInformationsSecteur<"Moyen"> => ({
-    _categorieTaille: "Moyen",
-    secteurs:
-      FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur<"Moyen">(
-        donnees,
+  listeSecteursDepuisDonneesSimulateur:
+    <Taille extends CategorieTaille>(taille: Taille) =>
+    (donnees: DonneesFormulaireSimulateur) =>
+      donnees.secteurActivite.reduce(
+        (liste, secteur) =>
+          union(
+            liste,
+            FabriqueInformationsSecteur.secteurDepuisDonneesSimulateur(taille)(
+              donnees,
+              secteur,
+            ),
+          ),
+        new Set<InformationsSecteurPossible<Taille>>([]),
       ),
-  }),
-  informationsSecteursGrand: (
-    donnees: DonneesFormulaireSimulateur,
-  ): ReponseInformationsSecteur<"Grand"> => ({
-    _categorieTaille: "Grand",
-    secteurs:
-      FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur<"Grand">(
-        donnees,
-      ),
-  }),
+
+  informationsSecteurs:
+    <Taille extends CategorieTaille>(taille: Taille) =>
+    (
+      donnees: DonneesFormulaireSimulateur,
+    ): ReponseInformationsSecteur<Taille> => ({
+      ...fabriqueCategorieTaille(taille),
+      secteurs:
+        FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur(
+          taille,
+        )(donnees),
+    }),
 };

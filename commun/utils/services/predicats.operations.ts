@@ -12,10 +12,21 @@ export const est: <T>(cherche: T) => (compare: T) => boolean =
  * Fabrique un prédicat d'égalité sur une liste de valeurs
  * @param listeCherche
  */
-export const estParmis: <T>(...listeCherche: T[]) => (compare: T) => boolean =
+export const estParmi: <T>(...listeCherche: T[]) => (compare: T) => boolean =
   <T>(...listeCherche: T[]) =>
   (compare: T) =>
     listeCherche.includes(compare);
+
+/**
+ * Fabrique un prédicat d'égalité sur une liste de valeurs
+ * @param listeCherche
+ */
+export const contientUnParmi: <T>(
+  ...listeCherche: T[]
+) => (listeCompare: T[]) => boolean =
+  <T>(...listeCherche: T[]) =>
+  (listeCompare: T[]) =>
+    listeCompare.some((compare) => listeCherche.includes(compare));
 
 /**
  * Inverse logique d'une fonction

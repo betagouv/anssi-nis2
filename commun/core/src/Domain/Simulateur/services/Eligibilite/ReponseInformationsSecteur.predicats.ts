@@ -2,7 +2,7 @@ import { flow } from "fp-ts/lib/function";
 import { prop } from "../../../../../../utils/services/objects.operations";
 import {
   est,
-  estParmis,
+  estParmi,
   et,
   non,
 } from "../../../../../../utils/services/predicats.operations";
@@ -149,7 +149,7 @@ export const auMoinsUneActiviteEstParmis = (
 ) =>
   flow<[{ activites: Set<Activite> }], Set<Activite>, boolean>(
     prop("activites"),
-    certains(estParmis(...listeActiviteCherchee)),
+    certains(estParmi(...listeActiviteCherchee)),
   ) as PredicatInformationSecteurPossible;
 export const auMoinsUneActiviteEstDans = (
   activitesCherchees: readonly (Activite | string)[],
