@@ -1,61 +1,105 @@
+import { useMemo } from "react";
+import { FormSimulateur } from ".";
 import { AppartenancePaysUnionEuropeenne } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
-import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
-import { libellesPaysUnionEuropeenneLocalisation } from "../../../References/Libelles.ts";
+import { NomsChampsSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
 import {
-  texteQuestionLocalisastionsServices,
-  texteQuestionLocalisastionsServicesMention,
+  libellesPaysUnionEuropeenneLocalisation,
+  libellesPaysUnionEuropeenneLocalisationUE,
+} from "../../../References/Libelles.ts";
+import {
+  texteQuestionLocalisastionsEtabDecisionsCyber,
+  texteQuestionLocalisastionsEtabOperationsCyber,
+  texteQuestionLocalisastionsEtabPlusGrandNombreSalaries,
 } from "../../../References/LibellesQuestionsSimulateur.ts";
 import { genereTransformateurValeursVersOptions } from "../../../Services/Simulateur/genereTransformateurValeursVersOptions.ts";
-import { TransformeRecordToSelect } from "../../../Services/Simulateur/Operations/OptionsChampsSimulateur.declarations.ts";
+import { fabriqueGestionChangementSimple } from "../../../Services/Simulateur/gestionnaires.ts";
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
-import { FormSimulateur } from ".";
-import { useCallback, useMemo } from "react";
+import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 
-const getAppartenancePaysUnionEuropeenneLabel = (
-  value: AppartenancePaysUnionEuropeenne,
-  secteurActivite: Record<AppartenancePaysUnionEuropeenne, string>,
-) => secteurActivite[value];
-
-const transformeAppartenancePaysUnionEuropeenneVersOptions: TransformeRecordToSelect<AppartenancePaysUnionEuropeenne> =
-  genereTransformateurValeursVersOptions(
-    getAppartenancePaysUnionEuropeenneLabel,
-    "localisationFournitureServicesNumeriques",
+const fabriqueTransformateurOptionsCompletes = <
+  TypeChamp extends AppartenancePaysUnionEuropeenne,
+>(
+  nomChamps: Extract<
+    NomsChampsSimulateur,
+    "paysDecisionsCyber" | "paysOperationsCyber" | "paysPlusGrandNombreSalaries"
+  >,
+) =>
+  genereTransformateurValeursVersOptions<TypeChamp, string>(
+    (valeur) => libellesPaysUnionEuropeenneLocalisation[valeur],
+    nomChamps,
   );
 
 const EtapeLocalisationsServices = ({
   donneesFormulaire,
   propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
-  const gestionDonneesFormulaire = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = event.target.value as AppartenancePaysUnionEuropeenne;
-      propageActionSimulateur({
-        type: "checkSingle",
-        name: "pays",
-        newValue: newValue,
-      });
-    },
-    [propageActionSimulateur],
+  const gestionDonneesFormulaire = fabriqueGestionChangementSimple(
+    propageActionSimulateur,
   );
-  const options = useMemo(
+  const optionsPaysDecisionsCyber = useMemo(
     () =>
-      transformeAppartenancePaysUnionEuropeenneVersOptions(
+      fabriqueTransformateurOptionsCompletes("paysDecisionsCyber")(
         libellesPaysUnionEuropeenneLocalisation,
         gestionDonneesFormulaire,
         donneesFormulaire,
       ),
     [gestionDonneesFormulaire, donneesFormulaire],
   );
+  const optionsPaysOperationsCyber = useMemo(
+    () =>
+      fabriqueTransformateurOptionsCompletes("paysOperationsCyber")(
+        libellesPaysUnionEuropeenneLocalisation,
+        gestionDonneesFormulaire,
+        donneesFormulaire,
+      ),
+    [gestionDonneesFormulaire, donneesFormulaire],
+  );
+  const optionsPaysPlusGrandNombreSalaries = useMemo(
+    () =>
+      fabriqueTransformateurOptionsCompletes<
+        Exclude<AppartenancePaysUnionEuropeenne, "horsue">
+      >("paysPlusGrandNombreSalaries")(
+        libellesPaysUnionEuropeenneLocalisationUE,
+        gestionDonneesFormulaire,
+        donneesFormulaire,
+      ),
+    [gestionDonneesFormulaire, donneesFormulaire],
+  );
+
+  const paysDecisionsCyberEstHorsUE = useMemo(
+    () => donneesFormulaire.paysDecisionsCyber.includes("horsue"),
+    [donneesFormulaire],
+  );
+  const paysOperationsCyberEstHorsUE = useMemo(
+    () => donneesFormulaire.paysOperationsCyber.includes("horsue"),
+    [donneesFormulaire],
+  );
 
   return (
     <FormSimulateur>
       <div className="fr-fieldset__element">
-        <p>{texteQuestionLocalisastionsServices}</p>
-        <p className="fr-text-mention--grey fr-text--sm">
-          {texteQuestionLocalisastionsServicesMention}
-        </p>
-        {options && <Checkbox options={options} />}
+        <RadioButtons
+          legend={texteQuestionLocalisastionsEtabDecisionsCyber}
+          options={optionsPaysDecisionsCyber}
+        />
       </div>
+
+      {paysDecisionsCyberEstHorsUE && (
+        <div className="fr-fieldset__element">
+          <RadioButtons
+            legend={texteQuestionLocalisastionsEtabOperationsCyber}
+            options={optionsPaysOperationsCyber}
+          />
+        </div>
+      )}
+      {paysOperationsCyberEstHorsUE && (
+        <div className="fr-fieldset__element">
+          <RadioButtons
+            legend={texteQuestionLocalisastionsEtabPlusGrandNombreSalaries}
+            options={optionsPaysPlusGrandNombreSalaries}
+          />
+        </div>
+      )}
     </FormSimulateur>
   );
 };
