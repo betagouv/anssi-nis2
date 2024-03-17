@@ -26,6 +26,8 @@ import {
   RepInfoSecteur,
   RepInfoSecteurInfranum,
   ReponseInformationsSecteur,
+  ReponseInformationsSecteurInfranumActiviteLocalEtabLot1,
+  ReponseInformationsSecteurInfranumActiviteLocalEtabLot2,
   ReponseInformationsSecteurInfranumActiviteLocalServices,
   ReponseInformationsSecteurInfranumAutresActivitesListees,
 } from "../services/Eligibilite/ReponseInformationsSecteur.definitions";
@@ -121,6 +123,29 @@ export const FabriqueInformationsSecteur = {
           ensembleNeutreDe<InformationsSecteurComposite>(),
         ),
 
+  secteurAvecLocalisationEtablissementPrincipal:
+    <Taille extends CategorieTaille>(taille: Taille) =>
+    (
+      donnees: DonneesFormulaireSimulateur,
+      activitesInfraNum: ActivitesInfrastructureNumerique[],
+    ) =>
+      ens({
+        ...fabriqueCategorieTaille(taille),
+        secteurActivite: "infrastructureNumerique",
+        activites: ens(...activitesInfraNum),
+        paysDecisionsCyber: donnees.paysDecisionsCyber[0],
+        ...(donnees.paysDecisionsCyber[0] === "horsue"
+          ? {
+              paysOperationsCyber: donnees.paysOperationsCyber[0],
+              ...(donnees.paysOperationsCyber[0] === "horsue"
+                ? {
+                    paysPlusGrandNombreSalaries:
+                      donnees.paysPlusGrandNombreSalaries[0],
+                  }
+                : {}),
+            }
+          : {}),
+      }),
   secteurInfrastructureNumerique:
     <Taille extends CategorieTaille>(taille: Taille) =>
     (
@@ -144,6 +169,31 @@ export const FabriqueInformationsSecteur = {
               ),
             }) as Set<
               ReponseInformationsSecteurInfranumActiviteLocalServices<Taille>
+            >,
+        )
+        .when(
+          contientUnParmi<ActivitesInfrastructureNumerique>(
+            "registresNomsDomainesPremierNiveau",
+            "fournisseurServicesDNS",
+          ),
+          () =>
+            FabriqueInformationsSecteur.secteurAvecLocalisationEtablissementPrincipal(
+              taille,
+            )(donnees, activitesInfraNum) as Set<
+              ReponseInformationsSecteurInfranumActiviteLocalEtabLot2<Taille>
+            >,
+        )
+        .when(
+          contientUnParmi<ActivitesInfrastructureNumerique>(
+            "fournisseurServicesInformatiqueNuage",
+            "fournisseurServiceCentresDonnees",
+            "fournisseurReseauxDiffusionContenu",
+          ),
+          () =>
+            FabriqueInformationsSecteur.secteurAvecLocalisationEtablissementPrincipal(
+              taille,
+            )(donnees, activitesInfraNum) as Set<
+              ReponseInformationsSecteurInfranumActiviteLocalEtabLot1<Taille>
             >,
         )
         .otherwise(

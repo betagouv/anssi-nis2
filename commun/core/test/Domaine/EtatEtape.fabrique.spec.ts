@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { ens } from "../../../utils/services/sets.operations";
+import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique";
+import { LocalisationEtablissementPrincipal } from "../../src/Domain/Simulateur/services/Eligibilite/LocalisationsActivites.definitions";
 import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.fabriques";
 
 import { UnionReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.definitions";
@@ -568,6 +570,98 @@ describe("fabrique ReponseEtat", () => {
             }),
           },
         };
+
+        const resultatObtenu =
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
+        expect(resultatObtenu).toStrictEqual(resultatAttendu);
+      });
+    });
+    describe("Etablissement Principal", () => {
+      const donneesFormulaireBase = fabriqueDonneesFormulaire({
+        designationOperateurServicesEssentiels: ["oui"],
+        typeStructure: ["privee"],
+        trancheNombreEmployes: ["petit"],
+        trancheChiffreAffaire: ["petit"],
+        appartenancePaysUnionEuropeenne: ["france"],
+        secteurActivite: ["infrastructureNumerique"],
+        activites: ["registresNomsDomainesPremierNiveau"],
+      });
+      const fabriqueResultatAttenduPourLocaEtab: (
+        loca: LocalisationEtablissementPrincipal,
+      ) => UnionReponseEtat = (loca: LocalisationEtablissementPrincipal) => ({
+        _tag: "InformationsSecteur",
+        DesignationOperateurServicesEssentiels: {
+          designationOperateurServicesEssentiels: "oui",
+        },
+        AppartenancePaysUnionEuropeenne: {
+          appartenancePaysUnionEuropeenne: "france",
+        },
+        Structure: {
+          _categorieTaille: "Petit",
+          typeStructure: "privee",
+          trancheNombreEmployes: "petit",
+          trancheChiffreAffaire: "petit",
+        },
+        InformationsSecteur: {
+          _categorieTaille: "Petit",
+          secteurs: ens({
+            _categorieTaille: "Petit",
+            secteurActivite: "infrastructureNumerique",
+            activites: ens("registresNomsDomainesPremierNiveau"),
+            ...loca,
+          }),
+        },
+      });
+
+      it("paysDecisionCyber", () => {
+        const donnees = {
+          ...donneesFormulaireBase,
+          paysDecisionsCyber: ["france"],
+        } as DonneesFormulaireSimulateur;
+        const resultatAttendu: UnionReponseEtat =
+          fabriqueResultatAttenduPourLocaEtab({
+            paysDecisionsCyber: "france",
+          });
+
+        const resultatObtenu =
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
+        expect(resultatObtenu).toStrictEqual(resultatAttendu);
+      });
+      it("paysOperationsCyber", () => {
+        const donnees = {
+          ...donneesFormulaireBase,
+          paysDecisionsCyber: ["horsue"],
+          paysOperationsCyber: ["france"],
+        } as DonneesFormulaireSimulateur;
+        const resultatAttendu: UnionReponseEtat =
+          fabriqueResultatAttenduPourLocaEtab({
+            paysDecisionsCyber: "horsue",
+            paysOperationsCyber: "france",
+          });
+
+        const resultatObtenu =
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
+        expect(resultatObtenu).toStrictEqual(resultatAttendu);
+      });
+      it("paysPlusGrandNombreSalaries", () => {
+        const donnees = {
+          ...donneesFormulaireBase,
+          paysDecisionsCyber: ["horsue"],
+          paysOperationsCyber: ["horsue"],
+          paysPlusGrandNombreSalaries: ["france"],
+        } as DonneesFormulaireSimulateur;
+        const resultatAttendu: UnionReponseEtat =
+          fabriqueResultatAttenduPourLocaEtab({
+            paysDecisionsCyber: "horsue",
+            paysOperationsCyber: "horsue",
+            paysPlusGrandNombreSalaries: "france",
+          });
 
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
