@@ -1,24 +1,21 @@
+export const ChampsFormulaireFacultatifs = [
+  "typeEntitePublique",
+  "trancheChiffreAffaire",
+  "sousSecteurActivite",
+  "activites",
+  "fournitServicesUnionEuropeenne", // TODO : peut-être à supprimer
+  "localisationRepresentant", // TODO : peut-être à supprimer
+  "localisationFournitureServicesNumeriques",
+  "paysDecisionsCyber",
+  "paysOperationsCyber",
+  "paysPlusGrandNombreSalaries",
+] as const;
+
 export const ValeursNomChampsFormulaire = [
   "designationOperateurServicesEssentiels",
   "appartenancePaysUnionEuropeenne",
   "typeStructure",
-  "typeEntitePublique",
   "trancheNombreEmployes",
-  "trancheChiffreAffaire",
   "secteurActivite",
-  "sousSecteurActivite",
-  "activites",
-  "fournitServicesUnionEuropeenne",
-  "localisationRepresentant",
-  "localisationFournitureServicesNumeriques",
+  ...ChampsFormulaireFacultatifs,
 ] as const;
-
-export const ChampsFormulaireFacultatifs = [
-  "activites",
-  "sousSecteurActivite",
-  "typeEntitePublique",
-  "trancheChiffreAffaire",
-  "fournitServicesUnionEuropeenne",
-  "localisationRepresentant",
-  "localisationFournitureServicesNumeriques",
-];

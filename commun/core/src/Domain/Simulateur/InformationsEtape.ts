@@ -1,4 +1,4 @@
-import { PredicatDonneesSimulateurDefinitions } from "anssi-nis2-ui/src/Services/Simulateur/PredicatDonneesSimulateur.definitions";
+import { PredicatDonneesSimulateurDefinitions } from "./PredicatDonneesSimulateur.definitions";
 import { DonneesFormulaireSimulateur } from "./services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { P } from "ts-pattern";
 import { ValidationReponses } from "./services/ChampSimulateur/champs.domaine";

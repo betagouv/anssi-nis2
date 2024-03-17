@@ -7,7 +7,7 @@ import {
   TypeEntitePublique,
   TypeStructure,
 } from "../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
-import { DictionnaireLibellesSimulateur } from "../types/dictionnaireLibellesSimulateur";
+import { DictionnaireLibellesSimulateur } from "../types/dictionnaireLibellesSimulateur.declarations.ts";
 import { libellesActivites } from "./LibellesActivites.ts";
 import { libellesSecteursActivite } from "./LibellesSecteursActivite.ts";
 import { libellesSousSecteursActivite } from "./LibellesSousSecteursActivite.ts";
@@ -77,4 +77,7 @@ export const libellesSimulateur: DictionnaireLibellesSimulateur = {
   localisationRepresentant: libellesPaysUnionEuropeenneLocalisation,
   localisationFournitureServicesNumeriques:
     libellesPaysUnionEuropeenneLocalisation,
+  paysDecisionsCyber: libellesPaysUnionEuropeenneLocalisation,
+  paysOperationsCyber: libellesPaysUnionEuropeenneLocalisation,
+  paysPlusGrandNombreSalaries: libellesPaysUnionEuropeenneLocalisation,
 };

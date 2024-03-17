@@ -1,27 +1,24 @@
+import { Activite } from "../../../commun/core/src/Domain/Simulateur/Activite.definitions.ts";
 import {
   AppartenancePaysUnionEuropeenne,
   FournitServicesUnionEuropeenne,
-} from "../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
-import { ValeursActivites } from "../Domaine/Simulateur/Activite.definitions.ts";
-import {
-  appartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeEntitePublique,
   TypeStructure,
-} from "../Domaine/Simulateur/ChampsSimulateur.definitions.ts";
-import { SecteurActivite } from "../Domaine/Simulateur/SecteurActivite.definitions.ts";
-import { SousSecteurActivite } from "../Domaine/Simulateur/SousSecteurActivite.definitions.ts";
+} from "../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import { SecteurActivite } from "../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
+import { SousSecteurActivite } from "../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 
 export type DictionnaireLibellesSimulateur = {
-  activites: Record<ValeursActivites, string>;
+  activites: Record<Activite, string>;
   designationOperateurServicesEssentiels: Record<
     DesignationOperateurServicesEssentiels,
     string
   >;
   appartenancePaysUnionEuropeenne: Record<
-    appartenancePaysUnionEuropeenne,
+    AppartenancePaysUnionEuropeenne,
     string
   >;
   secteurActivite: Record<SecteurActivite, string>;
@@ -34,9 +31,12 @@ export type DictionnaireLibellesSimulateur = {
     FournitServicesUnionEuropeenne,
     string
   >;
-  localisationRepresentant: Record<appartenancePaysUnionEuropeenne, string>;
+  localisationRepresentant: Record<AppartenancePaysUnionEuropeenne, string>;
   localisationFournitureServicesNumeriques: Record<
     AppartenancePaysUnionEuropeenne,
     string
   >;
+  paysDecisionsCyber: Record<AppartenancePaysUnionEuropeenne, string>;
+  paysOperationsCyber: Record<AppartenancePaysUnionEuropeenne, string>;
+  paysPlusGrandNombreSalaries: Record<AppartenancePaysUnionEuropeenne, string>;
 };

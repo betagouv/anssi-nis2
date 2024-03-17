@@ -1,10 +1,10 @@
-import { PredicatDonneesSimulateurDefinitions } from "anssi-nis2-ui/src/Services/Simulateur/PredicatDonneesSimulateur.definitions";
 import { match } from "ts-pattern";
 import {
   toujourNegatif,
   toujoursFaux,
   toujoursVrai,
 } from "../../../../../utils/services/commun.predicats";
+import { PredicatDonneesSimulateurDefinitions } from "../PredicatDonneesSimulateur.definitions";
 import { DonneesFormulaireSimulateur } from "../services/DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   CapaciteEtape,
