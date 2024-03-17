@@ -21,7 +21,10 @@ import {
   predicatDonneesFormulaire as P,
 } from "../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
 import { estUnSecteurAvecDesSousSecteurs } from "../../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
-import { estNonVide } from "../../../../../commun/utils/services/commun.predicats.ts";
+import {
+  estNonVide,
+  et,
+} from "../../../../../commun/utils/services/commun.predicats.ts";
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
@@ -47,21 +50,60 @@ const etapeLocalisationActiviteServices = fabriquesInformationsEtapes.form(
   },
   "localisationFournitureServicesNumeriques",
 );
+const etapeLocalisationEtablissementPrincipal =
+  fabriquesInformationsEtapes.form(
+    "Localisation de votre activité",
+    {
+      message: "Sélectionnez au moins une réponse",
+      validateur: ou(
+        P.paysDecisionsCyber.contientUnParmi("france", "autre"),
+        et(
+          P.paysDecisionsCyber.est(["horsue"]),
+          P.paysOperationsCyber.contientUnParmi("france", "autre"),
+        ),
+        et(
+          P.paysDecisionsCyber.est(["horsue"]),
+          P.paysOperationsCyber.est(["horsue"]),
+          P.paysPlusGrandNombreSalaries.satisfait(estNonVide),
+        ),
+      ),
+    },
+    "localisationEtablissementPrincipal",
+  );
 
 const sousEtapeLocalisationVariantes =
   fabriquesInformationsEtapes.sousEtapeConditionnelle(
     contientInfraNumLocalisationEtablissement,
     fabriquesInformationsEtapes.variantes([
       {
+        etape: etapeLocalisationEtablissementPrincipal,
+        conditions: Pattern.when(
+          P.activites.contientUnParmi(
+            "registresNomsDomainesPremierNiveau",
+            "fournisseurServicesDNS",
+            "fournisseurServicesInformatiqueNuage",
+            "fournisseurServiceCentresDonnees",
+            "fournisseurReseauxDiffusionContenu",
+          ),
+        ),
+      },
+      {
+        etape: etapeLocalisationEtablissementPrincipal,
+        conditions: Pattern.when(
+          P.secteurActivite.contientUnParmi(
+            "gestionServicesTic",
+            "fournisseursNumeriques",
+          ),
+        ),
+      },
+      {
         etape: etapeLocalisationActiviteServices,
-        conditions: {
-          activites: [
-            Pattern.union(
-              "fournisseurReseauxCommunicationElectroniquesPublics",
-              "fournisseurServiceCommunicationElectroniquesPublics",
-            ),
-          ],
-        },
+        conditions: Pattern.when(
+          P.activites.contientUnParmi(
+            "fournisseurReseauxCommunicationElectroniquesPublics",
+            "fournisseurServiceCommunicationElectroniquesPublics",
+          ),
+        ),
       },
     ]),
   );

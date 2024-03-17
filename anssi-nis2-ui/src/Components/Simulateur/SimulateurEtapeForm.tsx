@@ -4,7 +4,6 @@ import {
   InformationEtapeForm,
   InformationsEtapesVariantes,
 } from "anssi-nis2-core/src/Domain/Simulateur/InformationsEtape.ts";
-import { VVV } from "../../../../commun/core/src/Domain/utilitaires/debug.ts";
 import { RowContainer } from "../General/RowContainer.tsx";
 import { StepperNavigation } from "./StepperNavigation.tsx";
 import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
@@ -40,7 +39,6 @@ export const SimulateurEtapeForm: SimulateurEtapeRenderedComponent = ({
     etatEtapes.contenuEtapeCourante.fabriqueValidationReponses(
       donneesFormulaire,
     );
-  VVV(etatEtapes);
 
   const EtapeCourante = etapeAffichee(etatEtapes)(donneesFormulaire).composant;
 

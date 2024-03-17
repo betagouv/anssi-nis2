@@ -22,9 +22,9 @@ export const scenarioVaJusquaEtapeLocalisationEtablissementPrincipal: StoryObj<
   await passeEtape([["typeStructure", "privee"]]);
 
   await passeEtape([
-    ["trancheNombreEmployes", "petit"],
+    ["trancheNombreEmployes", "moyen"],
     ["trancheChiffreAffaire", "petit"],
   ]);
-  await passeEtape([["secteurActivite", "infrastructureNumerique"]]);
-  await passeEtape([["activites", "registresNomsDomainesPremierNiveau"]]);
+  await passeEtape([["secteurActivite", "gestionServicesTic"]]);
+  await passeEtape([["activites", "fournisseurServicesSecuriteGeres"]]);
 };

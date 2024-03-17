@@ -231,12 +231,20 @@ export const contientAutreSecteurActiviteUniquement = (
 ) =>
   donneesFormulaire.secteurActivite.length === 1 &&
   donneesFormulaire.secteurActivite[0] === "autreSecteurActivite";
-export const contientInfraNumLocalisationEtablissement = et(
-  contientInfrastructureNumerique,
-  ou(
-    predicatDonneesFormulaire.activites.contientUnParmi(
-      "fournisseurReseauxCommunicationElectroniquesPublics",
-      "fournisseurServiceCommunicationElectroniquesPublics",
-    ),
+export const contientInfraNumLocalisationEtablissement = ou(
+  predicatDonneesFormulaire.activites.contientUnParmi(
+    "fournisseurReseauxCommunicationElectroniquesPublics",
+    "fournisseurServiceCommunicationElectroniquesPublics",
+  ),
+  predicatDonneesFormulaire.activites.contientUnParmi(
+    "registresNomsDomainesPremierNiveau",
+    "fournisseurServicesDNS",
+    "fournisseurServicesInformatiqueNuage",
+    "fournisseurServiceCentresDonnees",
+    "fournisseurReseauxDiffusionContenu",
+  ),
+  predicatDonneesFormulaire.secteurActivite.contientUnParmi(
+    "gestionServicesTic",
+    "fournisseursNumeriques",
   ),
 );
