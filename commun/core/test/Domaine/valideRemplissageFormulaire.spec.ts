@@ -19,7 +19,10 @@ import { arbForm } from "./arbitraires/DonneesSimulateur/arbitrairesSimulateur";
 describe("Invalide en cas de données absentes", () => {
   const donneesAbsentes = Object.entries(
     arbForm.nonValide.donneeAbsente,
-  ).filter(([nom]) => !ChampsFormulaireFacultatifs.includes(nom));
+  ).filter(
+    ([nom]) =>
+      !(ChampsFormulaireFacultatifs as unknown as string[]).includes(nom),
+  );
 
   it.each(donneesAbsentes)("%s", (_, donneeAbsente) => {
     verifieQue(donneesFormulaireSontCompletes)

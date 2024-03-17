@@ -79,6 +79,9 @@ const initialValue: Record<
   fournitServicesUnionEuropeenne: arbFormulaireVide,
   localisationRepresentant: arbFormulaireVide,
   localisationFournitureServicesNumeriques: arbFormulaireVide,
+  paysDecisionsCyber: arbFormulaireVide,
+  paysOperationsCyber: arbFormulaireVide,
+  paysPlusGrandNombreSalaries: arbFormulaireVide,
 };
 export const donneeAbsente = ValeursNomChampsFormulaire.reduce(
   (resultat, nom) => ({

@@ -15,4 +15,7 @@ export const arbFormulaireVide: fc.Arbitrary<DonneesFormulaireSimulateur> =
     typeEntitePublique: fc.constant([]),
     typeStructure: fc.constant([]),
     localisationFournitureServicesNumeriques: fc.constant([]),
+    paysDecisionsCyber: fc.constant([]),
+    paysOperationsCyber: fc.constant([]),
+    paysPlusGrandNombreSalaries: fc.constant([]),
   });

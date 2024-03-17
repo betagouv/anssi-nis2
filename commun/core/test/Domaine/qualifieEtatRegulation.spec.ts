@@ -127,6 +127,9 @@ describe("chaine de décision", () => {
       trancheNombreEmployes: ["moyen"],
       activites: ["fournisseurServicesSecuriteGeres"],
       localisationFournitureServicesNumeriques: [],
+      paysDecisionsCyber: [],
+      paysOperationsCyber: [],
+      paysPlusGrandNombreSalaries: [],
     },
     {
       description:
@@ -145,6 +148,9 @@ describe("chaine de décision", () => {
       trancheNombreEmployes: ["grand"],
       activites: ["fournisseurServicesInformatiqueNuage"],
       localisationFournitureServicesNumeriques: [],
+      paysDecisionsCyber: [],
+      paysOperationsCyber: [],
+      paysPlusGrandNombreSalaries: [],
     },
   ];
   it.each(contreExemples)(

@@ -194,15 +194,21 @@ export const ajouteChampsFacultatifs = <
     | "fournitServicesUnionEuropeenne"
     | "localisationRepresentant"
     | "localisationFournitureServicesNumeriques"
+    | "paysDecisionsCyber"
+    | "paysOperationsCyber"
+    | "paysPlusGrandNombreSalaries"
   >,
 >(
   base: T,
 ): fc.Arbitrary<DonneesFormulaireSimulateur> =>
-  fc.record({
+  fc.record<DonneesFormulaireSimulateur>({
     typeEntitePublique: fc.constant([]),
     fournitServicesUnionEuropeenne: fc.constant([]),
     localisationRepresentant: fc.constant([]),
     localisationFournitureServicesNumeriques: fc.constant([]),
+    paysDecisionsCyber: fc.constant([]),
+    paysOperationsCyber: fc.constant([]),
+    paysPlusGrandNombreSalaries: fc.constant([]),
     ...propageBase(base),
   });
 

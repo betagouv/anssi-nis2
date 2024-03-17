@@ -44,6 +44,9 @@ export const gestionnairesDeChamp: Record<
   localisationFournitureServicesNumeriques: genereGestionValeursMultiples(
     "localisationFournitureServicesNumeriques",
   ),
+  paysDecisionsCyber: gestionValeursSimples,
+  paysOperationsCyber: gestionValeursSimples,
+  paysPlusGrandNombreSalaries: gestionValeursSimples,
 };
 
 export const gestionnairesPourChamps = (

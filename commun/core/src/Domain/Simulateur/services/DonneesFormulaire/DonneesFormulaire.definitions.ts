@@ -29,6 +29,9 @@ export interface DonneesFormulaireSimulateur
   fournitServicesUnionEuropeenne: FournitServicesUnionEuropeenne[];
   localisationRepresentant: AppartenancePaysUnionEuropeenne[];
   localisationFournitureServicesNumeriques: AppartenancePaysUnionEuropeenne[];
+  paysDecisionsCyber: AppartenancePaysUnionEuropeenne[];
+  paysOperationsCyber: AppartenancePaysUnionEuropeenne[];
+  paysPlusGrandNombreSalaries: AppartenancePaysUnionEuropeenne[];
 }
 
 export type DonneesSectorielles = Pick<

@@ -157,6 +157,9 @@ describe.skip(
               fournitServicesUnionEuropeenne: [],
               localisationRepresentant: [],
               localisationFournitureServicesNumeriques: [],
+              paysDecisionsCyber: [],
+              paysOperationsCyber: [],
+              paysPlusGrandNombreSalaries: [],
             })
             .renvoieToujours(Eligibilite.Incertain));
       });

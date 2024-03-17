@@ -8,6 +8,7 @@ import {
   CapaciteEtape,
   InformationEtapeForm,
   InformationsEtape,
+  InformationsEtapesVariantes,
   TypeEtape,
 } from "./InformationsEtape";
 import { DonneesFormulaireSimulateur } from "./services/DonneesFormulaire/DonneesFormulaire.definitions";
@@ -36,7 +37,9 @@ export type RepresentationEtape = {
   readonly titreSuivant?: string;
   readonly donneesFormulaire: DonneesFormulaireSimulateur;
   readonly typeEtapeCourante: TypeEtape;
-  readonly contenuEtapeCourante: InformationEtapeForm;
+  readonly contenuEtapeCourante:
+    | InformationEtapeForm
+    | InformationsEtapesVariantes<InformationEtapeForm>;
 };
 
 export type CapacitesEtapes = {
