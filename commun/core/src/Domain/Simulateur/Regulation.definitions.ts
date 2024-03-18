@@ -35,12 +35,14 @@ export const Regulation: Record<RegulationEntite, RegulationEntite> = {
 export type TypeEntite =
   | "EntiteImportante"
   | "EntiteEssentielle"
-  | "AutreEtatMembreUE";
+  | "AutreEtatMembreUE"
+  | "EnregistrementUniquement";
 
 export const TypeEntite: Record<TypeEntite, TypeEntite> = {
   EntiteImportante: "EntiteImportante",
   EntiteEssentielle: "EntiteEssentielle",
   AutreEtatMembreUE: "AutreEtatMembreUE",
+  EnregistrementUniquement: "EnregistrementUniquement",
 };
 
 export type ResultatRegulationPositif = {

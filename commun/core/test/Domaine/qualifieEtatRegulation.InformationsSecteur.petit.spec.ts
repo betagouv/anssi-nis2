@@ -145,6 +145,21 @@ describe("Secteur", () => {
           ),
         );
         it(
+          "Fournisseur des services d’enregistrement de noms de domaine ==> Enregistrement uniquement",
+          assertionArbitraire(
+            fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
+              fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille(
+                "infrastructureNumerique",
+              )("fournisseurServicesEnregristrementNomDomaine")(
+                "Petit",
+              ) as fc.Arbitrary<ReponseInformationsSecteur<"Petit">>,
+            ),
+            fabriqueVerificationReponseDefinitivementRegule(
+              TE.EnregistrementUniquement,
+            ),
+          ),
+        );
+        it(
           "autre Activite Infrastructure Numerique (non listée) ==> définitivement non régulé",
           assertionArbitraire(
             fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
@@ -167,6 +182,7 @@ describe("Secteur", () => {
                 "fournisseurServicesDNS",
                 "prestataireServiceConfianceQualifie",
                 "prestataireServiceConfianceNonQualifie",
+                "fournisseurServicesEnregristrementNomDomaine",
                 "autreActiviteInfrastructureNumerique",
               ].includes(activite),
           );

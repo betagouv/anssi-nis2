@@ -110,6 +110,16 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
           TE.EntiteImportante,
         ),
     )
+    .when(
+      certainsSontInfrastructureNumeriqueAvecActivite(
+        "fournisseurServicesEnregristrementNomDomaine",
+      ),
+      () =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          TE.EnregistrementUniquement,
+        ),
+    )
     .otherwise(() =>
       fabriqueResultatEvaluationDefinitif(
         "InformationsSecteur",
