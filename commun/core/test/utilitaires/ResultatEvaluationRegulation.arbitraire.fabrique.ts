@@ -5,6 +5,7 @@ import {
   ActiviteInfranumLocalEtabLot1,
   ActiviteInfranumLocalEtabLot2,
   ActiviteInfranumLocalServices,
+  ActivitesGestionServicesTic,
   ActivitesPourSecteur,
 } from "../../src/Domain/Simulateur/Activite.definitions";
 import {
@@ -176,12 +177,35 @@ export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_Pour
       });
 export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab =
 
-    <Secteur extends "infrastructureNumerique">(secteur: Secteur) =>
+    <Secteur extends "infrastructureNumerique" | "gestionServicesTic">(
+      secteur: Secteur,
+    ) =>
     <
       TypeActivite extends
         | ActiviteInfranumLocalEtabLot1
-        | ActiviteInfranumLocalEtabLot2,
+        | ActiviteInfranumLocalEtabLot2
+        | ActivitesGestionServicesTic,
     >(
+      ...activites: TypeActivite[]
+    ) =>
+    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
+      A.enchaine((loc: LocalisationEtablissementPrincipal) =>
+        fc.record({
+          _categorieTaille: fc.constant(taille),
+          secteurs: fc.constant(
+            ens({
+              _categorieTaille: taille,
+              secteurActivite: secteur,
+              activites: ens(...activites),
+              ...loc,
+            }),
+          ),
+        }),
+      );
+export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab_Secteurs =
+
+    <Secteur extends "gestionServicesTic">(secteur: Secteur) =>
+    <TypeActivite extends ActivitesGestionServicesTic>(
       ...activites: TypeActivite[]
     ) =>
     <Taille extends CategorieTaille>(taille: `${Taille}`) =>

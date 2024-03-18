@@ -10,7 +10,6 @@ import {
   fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille,
   fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab,
   fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourServiceDansPays,
-  fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille,
   fabriqueArbInformationsSecteurAutre,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
@@ -20,7 +19,6 @@ import {
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import { fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen } from "../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
 import {
-  arbEnsembleSecteurs_AvecBesoinLoca_GrandEI,
   arbEnsembleSecteursAnnexe1,
   arbEnsembleSecteursAnnexe2,
   arbEnsembleSecteursCompositesActivitesAutres,
@@ -208,45 +206,62 @@ describe("Secteur", () => {
     });
 
     describe("Gestion TIC et Fournisseurs Numériques", () => {
-      // it.skip(
-      //   "*** Raison Skip *** n'existe plus dans le nouveau modèle" +
-      //     "en suspens / secteurs+activités EI localisables et bien localisés ==> toujours définitivement régulé EI",
-      //   assertionArbitraire(
-      //     fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
-      //       fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe(
-      //         arbInformationsSecteur_LocaliseesFrance_Grande_EI,
-      //       ),
-      //     ),
-      //     fabriqueVerificationReponseDefinitivementRegule(TE.EntiteImportante),
-      //   ),
-      // );
-      // it.skip(
-      //   "*** Raisons Skip *** : activit'e localisables prises en compte par ailleurs " +
-      //     "en suspens / secteurs+activités EI localisables et bien localisés ==> toujours définitivement régulé EI",
-      //   assertionArbitraire(
-      //     fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
-      //       fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe(
-      //         arbInformationsSecteur_LocaliseesAutre_Grande_EI,
-      //       ),
-      //     ),
-      //     verificationReponseDefinitivementIncertainAutrePaysUE,
-      //   ),
-      // );
-
-      it.skip(
-        "*** Raisons Skip *** : activit'e localisables prises en compte par ailleurs " +
-          "en suspens / secteurs+activités EI localisables et localisés hors-france ==> toujours définitivement non-régulé",
+      it(
+        "Gestion TIC / France à l'une des questions ==> definitivement EE",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
-            fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille(
-              "Moyen",
+            fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
+              "gestionServicesTic",
             )(
-              arbEnsembleSecteurs_AvecBesoinLoca_GrandEI as fc.Arbitrary<
-                Set<RepInfoSecteur<"Moyen">>
-              >,
-            ),
+              "fournisseurServicesGeres",
+              "fournisseurServicesSecuriteGeres",
+            )("Moyen")(arbLocalisationEtablissementPrincipal_France),
           ),
-          verificationReponseNonRegule,
+          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
+        ),
+      );
+      it(
+        "Gestion TIC / France à l'une des questions ==> definitivement EE",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+            fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
+              "fournisseursNumeriques",
+            )(
+              "fournisseursPlaceMarcheEnLigne",
+              "fournisseursMoteursRechercheEnLigne",
+              "fournisseursPlateformesServicesReseauxSociaux",
+            )("Moyen")(arbLocalisationEtablissementPrincipal_France),
+          ),
+          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
+        ),
+      );
+      it(
+        "Autre à l'une des questions ==> definitivement Autre État Membre UE",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+            fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
+              "gestionServicesTic",
+            )(
+              "fournisseurServicesGeres",
+              "fournisseurServicesSecuriteGeres",
+            )("Moyen")(arbLocalisationEtablissementPrincipal_AutreUE),
+          ),
+          fabriqueVerificationReponseDefinitivementRegule(TE.AutreEtatMembreUE),
+        ),
+      );
+      it(
+        "Autre à l'une des questions ==> definitivement Autre État Membre UE",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+            fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
+              "fournisseursNumeriques",
+            )(
+              "fournisseursPlaceMarcheEnLigne",
+              "fournisseursMoteursRechercheEnLigne",
+              "fournisseursPlateformesServicesReseauxSociaux",
+            )("Moyen")(arbLocalisationEtablissementPrincipal_AutreUE),
+          ),
+          fabriqueVerificationReponseDefinitivementRegule(TE.AutreEtatMembreUE),
         ),
       );
     });

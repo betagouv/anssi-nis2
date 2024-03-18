@@ -2,10 +2,7 @@ import { match } from "ts-pattern";
 import { certains } from "../../../../../../utils/services/sets.operations";
 import { et, non, ou } from "../../../../../../utils/services/commun.predicats";
 import { ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation } from "../../Activite.valeurs";
-import {
-  resultatIncertainAutrePaysUE,
-  resultatNonRegule,
-} from "../../Regulation.constantes";
+import { resultatNonRegule } from "../../Regulation.constantes";
 import { TypeEntite as TE } from "../../Regulation.definitions";
 import {
   EtatEvaluationEnSuspens,
@@ -22,7 +19,6 @@ import {
   certainsSontInfrastructureNumeriqueAvecActivite,
   contientValeurLocalisationFournitureServicesNumeriques,
   estEtablissementPrincipalFrance,
-  estInformationSecteurImportantAvecBesoinLocalisation,
   estInformationSecteurSousSecteurAutre,
   estInformationsPourSecteur,
   estInformationsSecteurEligibleSansBesoinLocalisation,
@@ -66,12 +62,16 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
     )
     .when(
       et(
-        certainsSontInfrastructureNumeriqueAvecActivite(
-          "fournisseurServicesDNS",
-          "registresNomsDomainesPremierNiveau",
-          "fournisseurServicesInformatiqueNuage",
-          "fournisseurServiceCentresDonnees",
-          "fournisseurReseauxDiffusionContenu",
+        ou(
+          certainsSontInfrastructureNumeriqueAvecActivite(
+            "fournisseurServicesDNS",
+            "registresNomsDomainesPremierNiveau",
+            "fournisseurServicesInformatiqueNuage",
+            "fournisseurServiceCentresDonnees",
+            "fournisseurReseauxDiffusionContenu",
+          ),
+          certains(estInformationsPourSecteur("gestionServicesTic")),
+          certains(estInformationsPourSecteur("fournisseursNumeriques")),
         ),
         certains(estEtablissementPrincipalFrance<"Moyen">),
       ),
@@ -82,16 +82,16 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
         ),
     )
     .when(
-      et(
-        ou(
-          certainsSontInfrastructureNumeriqueAvecActivite(
-            "fournisseurServicesDNS",
-            "registresNomsDomainesPremierNiveau",
-            "fournisseurServicesInformatiqueNuage",
-            "fournisseurServiceCentresDonnees",
-            "fournisseurReseauxDiffusionContenu",
-          ),
+      ou(
+        certainsSontInfrastructureNumeriqueAvecActivite(
+          "fournisseurServicesDNS",
+          "registresNomsDomainesPremierNiveau",
+          "fournisseurServicesInformatiqueNuage",
+          "fournisseurServiceCentresDonnees",
+          "fournisseurReseauxDiffusionContenu",
         ),
+        certains(estInformationsPourSecteur("gestionServicesTic")),
+        certains(estInformationsPourSecteur("fournisseursNumeriques")),
       ),
       () =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
@@ -110,13 +110,9 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
         ),
     )
     .when(
-      ou(
-        certainsSontInfrastructureNumeriqueAvecActivite(
-          "prestataireServiceConfianceNonQualifie",
-        ),
-        certainsSontInfrastructureNumeriqueAvecActivite(
-          "fournisseurPointEchangeInternet",
-        ),
+      certainsSontInfrastructureNumeriqueAvecActivite(
+        "prestataireServiceConfianceNonQualifie",
+        "fournisseurPointEchangeInternet",
       ),
       () =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
@@ -139,32 +135,32 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
           TE.EntiteImportante,
         ),
     )
-    .when(
-      certains(
-        et(
-          estInformationSecteurImportantAvecBesoinLocalisation,
-          // estSecteurBienLocaliseGrand,
-        ),
-      ),
-      () =>
-        fabriqueResultatEvaluationDefinitifCarSecteur(
-          reponse,
-          TE.EntiteImportante,
-        ),
-    )
-    .when(
-      certains(
-        et(
-          estInformationSecteurImportantAvecBesoinLocalisation,
-          // estSecteurBienLocaliseUE,
-        ),
-      ),
-      () =>
-        fabriqueResultatEvaluationDefinitif(
-          "InformationsSecteur",
-          resultatIncertainAutrePaysUE,
-        ),
-    )
+    // .when(
+    //   certains(
+    //     et(
+    //       estInformationSecteurImportantAvecBesoinLocalisation,
+    //       // estSecteurBienLocaliseGrand,
+    //     ),
+    //   ),
+    //   () =>
+    //     fabriqueResultatEvaluationDefinitifCarSecteur(
+    //       reponse,
+    //       TE.EntiteImportante,
+    //     ),
+    // )
+    // .when(
+    //   certains(
+    //     et(
+    //       estInformationSecteurImportantAvecBesoinLocalisation,
+    //       // estSecteurBienLocaliseUE,
+    //     ),
+    //   ),
+    //   () =>
+    //     fabriqueResultatEvaluationDefinitif(
+    //       "InformationsSecteur",
+    //       resultatIncertainAutrePaysUE,
+    //     ),
+    // )
     .when(
       certains(
         et(
