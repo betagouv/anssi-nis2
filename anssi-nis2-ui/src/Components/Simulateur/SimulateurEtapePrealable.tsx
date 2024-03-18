@@ -1,8 +1,10 @@
+import { noRefClick } from "../../Services/Echaffaudages/AssistantsEchaffaudages.tsx";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
 import { RowContainer } from "../General/RowContainer.tsx";
 import { Button } from "@codegouvfr/react-dsfr/Button";
 import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 import ImageLocalisation from "../../assets/localisation-france.svg";
+import { Link } from "react-router-dom";
 
 export const SimulateurEtapePrealable: SimulateurEtapeRenderedComponent = ({
   informationsBoutonsNavigation,
@@ -37,12 +39,11 @@ export const SimulateurEtapePrealable: SimulateurEtapeRenderedComponent = ({
         </RowContainer>
         <RowContainer className="fr-mt-0 fr-mb-7w" align="left">
           <div className="fr-col-offset-5">
-            <Button
-              onClick={informationsBoutonsNavigation.precedent}
-              priority="tertiary"
-            >
-              Revenir à l&apos;accueil
-            </Button>
+            <Link to={"/"}>
+              <Button onClick={noRefClick} priority="tertiary">
+                Revenir à l&apos;accueil
+              </Button>
+            </Link>
             <Button onClick={informationsBoutonsNavigation.suivant}>
               Débuter le test
             </Button>
