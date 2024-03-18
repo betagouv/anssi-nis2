@@ -8,6 +8,7 @@ import {
 import { fabriqueArb_ReponseInformationsSecteur_ME } from "../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import {
   fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille,
+  fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourServiceDansPays,
   fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille,
   fabriqueArbInformationsSecteurAutre,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
@@ -16,7 +17,10 @@ import {
   fabriqueVerificationReponseDefinitivementRegule,
   verificationReponseNonRegule,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
-import { fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen } from "../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
+import {
+  fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen,
+  fabriqueArbJamaisOse_ToujoursFrance_StructurePetit,
+} from "../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
 import {
   arbEnsembleSecteurs_AvecBesoinLoca_GrandEI,
   arbEnsembleSecteursAnnexe1,
@@ -26,10 +30,64 @@ import {
   arbEnsembleSecteursSimplesEligiblesPetitActivitesAutres,
 } from "./arbitraires/EnsembleInformationsSecteur.arbitraires";
 import { arbInformationsSecteur_Infranum_ActivitesSansBesoinLoca_GrandeEI } from "./arbitraires/InformationsSecteur.arbitraires";
+import {
+  arbLocalisationsServices_ContientAutreUE_SansFrance,
+  arbLocalisationsServices_ContientFrance,
+  arbLocalisationsServices_ContientUniquementHorsUE,
+} from "./arbitraires/LocalisationsServices.arbitraires";
 
 describe("Secteur", () => {
   describe("Moyens - En suspens", () => {
     describe("Inrasctructures Numériques", () => {
+      describe("Fournisseur de réseaux de communications électroniques publics et Fournisseur de services de communications électroniques accessibles au public", () => {
+        it(
+          "France, à minima ==> Définitivement EE",
+          assertionArbitraire(
+            fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+              fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourServiceDansPays(
+                "infrastructureNumerique",
+              )(
+                "fournisseurReseauxCommunicationElectroniquesPublics",
+                "fournisseurServiceCommunicationElectroniquesPublics",
+              )("Moyen")(arbLocalisationsServices_ContientFrance),
+            ),
+            fabriqueVerificationReponseDefinitivementRegule(
+              TE.EntiteEssentielle,
+            ),
+          ),
+        );
+        it(
+          "Autre(s) EM de l'UE, à minima ==> Définitivement Régulé autre",
+          assertionArbitraire(
+            fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
+              fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourServiceDansPays(
+                "infrastructureNumerique",
+              )(
+                "fournisseurReseauxCommunicationElectroniquesPublics",
+                "fournisseurServiceCommunicationElectroniquesPublics",
+              )("Petit")(arbLocalisationsServices_ContientAutreUE_SansFrance),
+            ),
+            fabriqueVerificationReponseDefinitivementRegule(
+              TE.AutreEtatMembreUE,
+            ),
+          ),
+        );
+        it(
+          "État(s) hors UE ==> Définitivement Non régulé",
+          assertionArbitraire(
+            fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
+              fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourServiceDansPays(
+                "infrastructureNumerique",
+              )(
+                "fournisseurReseauxCommunicationElectroniquesPublics",
+                "fournisseurServiceCommunicationElectroniquesPublics",
+              )("Petit")(arbLocalisationsServices_ContientUniquementHorsUE),
+            ),
+            verificationReponseNonRegule,
+          ),
+        );
+      });
+
       // it.skip(
       //   "*** Raison Skip *** n'existe plus dans le nouveau modèle" +
       //     "en suspens / secteurs+activités EE localisables (reg dom et fournisseur DNS) et bien localisés ==> toujours définitivement régulé EE",
