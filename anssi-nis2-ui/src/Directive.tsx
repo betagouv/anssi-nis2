@@ -25,6 +25,7 @@ import {CarteEnSavoirPlus} from "./Components/Directive/CarteEnSavoirPlus.tsx";
 import {MenuMobile} from "./Components/MenuMobile.tsx";
 import {Sommaire} from "./Components/Directive/Sommaire.tsx";
 import {MenuDesktop} from "./Components/MenuDesktop.tsx";
+import BlocPrincipal from "./Components/BlocPrincipal.tsx";
 
 const Directive: DefaultComponent = () => {
 
@@ -34,14 +35,14 @@ const Directive: DefaultComponent = () => {
           <MenuMobile />
           <MenuDesktop />
           <div className="fr-nis2-directive">
-              <div className="bloc fond-primaire hero" id="hero">
-                  <h1 className="texte-blanc">M’informer sur la directive NIS 2</h1>
+              <BlocPrincipal className="fond-primaire" id="hero">
+                  <h1 className="texte-blanc">M’informer sur la directive NIS 2</h1>
                   <img src={Hero} alt="Illustration du Hero de la directive NIS 2"/>
-              </div>
+              </BlocPrincipal>
               <div className="page">
                   <Sommaire />
                   <div className="contenu-page">
-                      <div className="bloc fond-blanc aucune-marge-basse">
+                      <BlocPrincipal className="fond-blanc aucune-marge-basse">
                           <h2 className="texte-primaire">La directive NIS 2 en détail</h2>
                           <div id="mot-du-directeur">
                               <h3>Le mot du directeur général</h3>
@@ -63,8 +64,8 @@ const Directive: DefaultComponent = () => {
                                   </figcaption>
                               </figure>
                           </div>
-                      </div>
-                      <div id="explication-nis2" className="bloc fond-blanc aucune-marge-basse">
+                      </BlocPrincipal>
+                      <BlocPrincipal id="explication-nis2" className="fond-blanc aucune-marge-basse">
                           <h3>Qu’est-ce que NIS 2 ?</h3>
                           <div>
                               <p>La directive NIS 2 (Network and Information System Security – en français : sécurité des
@@ -81,8 +82,8 @@ const Directive: DefaultComponent = () => {
                               <p>L’ANSSI, en tant qu’autorité nationale en matière de cybersécurité et de cyberdéfense, pilote
                                   la transposition en droit national de la directive et assure sa mise en œuvre.</p>
                           </div>
-                      </div>
-                      <div id="entites" className="bloc fond-blanc aucune-marge-basse">
+                      </BlocPrincipal>
+                      <BlocPrincipal id="entites" className="fond-blanc aucune-marge-basse">
                           <h3>Les entités essentielles (EE) et entités importantes (EI)</h3>
                           <p>Pour garantir une proportionnalité de traitement, la directive NIS 2 distingue deux catégories
                               d’entités régulées :</p>
@@ -95,8 +96,8 @@ const Directive: DefaultComponent = () => {
                           <p>La règlementation s’appuiera sur ces deux typologies d’entités (EE ou EI) pour définir des
                               objectifs adaptés et proportionnés aux enjeux de chacune de ces catégories.</p>
                           <CarteInformation contenu={["Les mécaniques d’identification des entités concernées par la directive NIS 2 seront précisées au travers du processus de transposition de la directive en droit national. L’ANSSI communiquera dès que possible les éléments correspondants."]} />
-                      </div>
-                      <div id="secteurs-activite" className="bloc fond-blanc aucune-marge-basse">
+                      </BlocPrincipal>
+                      <BlocPrincipal id="secteurs-activite" className="fond-blanc aucune-marge-basse">
                           <h3>+ de 10 000 entités concernées sur 18 secteurs d’activité</h3>
                           <div className="conteneur-secteurs-activites">
                               <SecteurActivite image={CollectivitesTerritoriales} titre="Collectivités territoriales"/>
@@ -104,12 +105,12 @@ const Directive: DefaultComponent = () => {
                               <SecteurActivite image={MoyennesEntreprises} titre="Moyennes entreprises"/>
                               <SecteurActivite image={GrandesEntreprises} titre="Grandes entreprises"/>
                           </div>
-                      </div>
-                      <div id="secteurs-concernes" className="bloc fond-blanc aucune-marge-basse">
+                      </BlocPrincipal>
+                      <BlocPrincipal id="secteurs-concernes" className="fond-blanc aucune-marge-basse">
                           <h3>Les secteurs concernés</h3>
                           <ListeSecteursConcernes/>
-                      </div>
-                      <div id="obligations" className="bloc fond-blanc aucune-marge-basse">
+                      </BlocPrincipal>
+                      <BlocPrincipal id="obligations" className="fond-blanc aucune-marge-basse">
                           <h3>Quelles obligations pour les entités ?</h3>
                           <h4>Le partage d’informations</h4>
                           <p>Les entités seront tenues de fournir un certain nombre d’informations à l’ANSSI et de les mettre à jour.</p>
@@ -118,15 +119,15 @@ const Directive: DefaultComponent = () => {
                           <h4>La déclaration d’incidents</h4>
                           <p>Les entités devront signaler à l’ANSSI leurs incidents de sécurité ayant un impact important et fournir des rapports concernant l’évolution de la situation.</p>
                           <CarteInformation contenu={["Conformément à la directive NIS 2, des actions de supervision seront assurées pour vérifier le respect par les entités de leurs obligations. En cas de non-respect de ces dernières, les entités s’exposeront à des sanctions.", "La directive prévoit la capacité d’imposer, entre autres, des sanctions financières aux entités régulées. Ces sanctions, qui doivent être proportionnées au(x) manquement(s), pourront aller jusqu’à un pourcentage du chiffre d’affaires mondial des entités (2% pour les EE et 1,4% pour les EI)."]} />
-                      </div>
-                      <div id="demarche" className="bloc fond-blanc">
+                      </BlocPrincipal>
+                      <BlocPrincipal id="demarche" className="fond-blanc">
                           <h3>L’ANSSI vous accompagne dans cette démarche</h3>
                           <p>Animée par une volonté forte de co-construire le dispositif national avec l’ensemble des acteurs régulés, des consultations avec les fédérations professionnelles, les associations d’élus locaux et les ministères concernés par NIS 2 sont en cours depuis l’automne 2023 afin d’échanger avec les représentants des futures entités régulées. Ces consultations se poursuivront tout au long des travaux de transposition.</p>
                           <p>En parallèle, l’ANSSI développe de nouveaux outils, avec notamment la création du service numérique « MonEspaceNIS2 » dont la vocation est d’accompagner les assujettis dans leur mise en conformité à la directive. Ce service s’étoffera au fil du temps pour proposer des services pertinents pour les entités. L’ANSSI souhaite capitaliser sur ses actions historiques de conseil, de sensibilisation et d’assistance opérationnelle.</p>
                           <img src={Demarche} alt="Accompagnement dans cette démarche" />
                           <a href="#hero">Haut de page</a>
-                      </div>
-                      <div id="en-savoir-plus" className="bloc fond-blanc">
+                      </BlocPrincipal>
+                      <BlocPrincipal id="en-savoir-plus" className="fond-blanc">
                           <h3>En savoir plus</h3>
                           <p>Retrouvez ci-dessous les éléments de contexte pour comprendre plus en détail les enjeux et modalités de la directive.</p>
                           <div className="conteneur-cartes-en-savoir-plus">
@@ -134,7 +135,7 @@ const Directive: DefaultComponent = () => {
                               <CarteEnSavoirPlus image={Presentation} titre="Découvrir la présentation en vidéo" lien="https://cyber.gouv.fr//directive-nis-2" />
                               <CarteEnSavoirPlus image={FAQ} titre="Trouver les réponses à vos questions dans la FAQ" lien="http://aide.monespacenis2.cyber.gouv.fr" />
                           </div>
-                      </div>
+                      </BlocPrincipal>
                   </div>
               </div>
           </div>

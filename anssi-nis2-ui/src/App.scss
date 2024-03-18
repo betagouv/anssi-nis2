@@ -784,10 +784,18 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
   display: none;
 }
 
+.fr-nis2-bloc-principal {
+  padding: 40px 16px;
+}
+
 @media screen and (min-width: 768px) {
   .fr-nis2-menu-burger {
     top: 24px;
     right: 24px;
+  }
+
+  .fr-nis2-bloc-principal {
+    padding: 40px 56px;
   }
 }
 
