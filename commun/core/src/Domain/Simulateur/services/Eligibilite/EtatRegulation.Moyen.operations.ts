@@ -20,6 +20,7 @@ import {
   auMoinsUneActiviteEstDans,
   auMoinsUneActiviteListee,
   certainsSontInfrastructureNumeriqueAvecActivite,
+  contientValeurLocalisationFournitureServicesNumeriques,
   estInformationSecteurImportantAvecBesoinLocalisation,
   estInformationSecteurSousSecteurAutre,
   estInformationsPourSecteur,
@@ -30,6 +31,22 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
   reponse: EtatEvaluationEnSuspens & ReponseEtatInformationsSecteur,
 ): EtatRegulation =>
   match(reponse.InformationsSecteur.secteurs)
+    .when(
+      et(
+        certainsSontInfrastructureNumeriqueAvecActivite(
+          "fournisseurReseauxCommunicationElectroniquesPublics",
+          "fournisseurServiceCommunicationElectroniquesPublics",
+        ),
+        certains(
+          contientValeurLocalisationFournitureServicesNumeriques("france"),
+        ),
+      ),
+      () =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          TE.EntiteEssentielle,
+        ),
+    )
     .when(
       certainsSontInfrastructureNumeriqueAvecActivite(
         "prestataireServiceConfianceQualifie",

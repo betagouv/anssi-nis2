@@ -1,12 +1,13 @@
 import { flow } from "fp-ts/lib/function";
-import { prop } from "../../../../../../utils/services/objects.operations";
-import { certains } from "../../../../../../utils/services/sets.operations";
+import { isMatching, P } from "ts-pattern";
 import {
   est,
   estParmi,
   et,
   non,
 } from "../../../../../../utils/services/commun.predicats";
+import { prop } from "../../../../../../utils/services/objects.operations";
+import { certains } from "../../../../../../utils/services/sets.operations";
 import { Activite } from "../../Activite.definitions";
 import { AppartenancePaysUnionEuropeenne } from "../../ChampsSimulateur.definitions";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
@@ -34,7 +35,6 @@ import {
   ReponseInformationsSecteurInfranumActiviteLocalServices,
 } from "./ReponseInformationsSecteur.definitions";
 import { CategorieTaille } from "./ReponseStructure.definitions";
-import { P, isMatching } from "ts-pattern";
 
 export const eqInformationsSecteur = (
   a: InformationsSecteurPossible<CategorieTaille>,
@@ -192,3 +192,8 @@ export const certainsSontInfrastructureNumeriqueAvecActivite = (
       ),
     }),
   );
+export const contientValeurLocalisationFournitureServicesNumeriques =
+  <Taille extends CategorieTaille>(valeur: AppartenancePaysUnionEuropeenne) =>
+  (element: RepInfoSecteur<Taille>): boolean =>
+    "localisationFournitureServicesNumeriques" in element &&
+    element.localisationFournitureServicesNumeriques.has(valeur);

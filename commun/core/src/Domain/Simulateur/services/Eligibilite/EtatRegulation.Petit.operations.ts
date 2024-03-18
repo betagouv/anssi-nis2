@@ -1,7 +1,6 @@
 import { match } from "ts-pattern";
-import { certains } from "../../../../../../utils/services/sets.operations";
 import { et, ou } from "../../../../../../utils/services/commun.predicats";
-import { AppartenancePaysUnionEuropeenne } from "../../ChampsSimulateur.definitions";
+import { certains } from "../../../../../../utils/services/sets.operations";
 import { resultatNonRegule } from "../../Regulation.constantes";
 import { TypeEntite as TE } from "../../Regulation.definitions";
 import {
@@ -16,14 +15,9 @@ import { ReponseEtatInformationsSecteur } from "./ReponseEtat.definitions";
 import { RepInfoSecteur } from "./ReponseInformationsSecteur.definitions";
 import {
   certainsSontInfrastructureNumeriqueAvecActivite,
+  contientValeurLocalisationFournitureServicesNumeriques,
   estEtablissementPrincipalFrance,
 } from "./ReponseInformationsSecteur.predicats";
-
-const contientValeurLocalisationFournitureServicesNumeriques =
-  (valeur: AppartenancePaysUnionEuropeenne) =>
-  (element: RepInfoSecteur<"Petit">): boolean =>
-    "localisationFournitureServicesNumeriques" in element &&
-    element.localisationFournitureServicesNumeriques.has(valeur);
 
 export const evalueRegulationEtatReponseInformationsSecteurEnSuspensPetit = (
   reponse: EtatEvaluationEnSuspens & ReponseEtatInformationsSecteur<"Petit">,
