@@ -28,6 +28,7 @@ import {
   libelleTitreIncertainAutrePaysUnionEuropeenne,
   libelleTitreIncertainStandard,
   libelleTitreNonRegule,
+  libelleTitreReguleEnregistrementUniquement,
   libelleTitreReguleEntiteEssentielle,
   libelleTitreReguleEntiteEssentielleTelcoPlusieursPaysDontFrance,
   libelleTitreReguleEntiteImportante,
@@ -131,6 +132,13 @@ export const getTitrePourEtatEvaluation = (
     .with(
       { decision: Regulation.Regule, typeEntite: TypeEntite.EntiteImportante },
       () => libelleTitreReguleEntiteImportante,
+    )
+    .with(
+      {
+        decision: Regulation.Regule,
+        typeEntite: TypeEntite.EnregistrementUniquement,
+      },
+      () => libelleTitreReguleEnregistrementUniquement,
     )
     .with(
       {

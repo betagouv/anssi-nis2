@@ -27,6 +27,8 @@ export const libelleTitreReguleEntiteEssentielleTelcoPlusieursPaysDontFrance =
   "Votre entité sera régulée par NIS 2 en France  \nen tant qu’Entité Essentielle (EE)";
 export const libelleTitreReguleEntiteNonDeterminee =
   "Votre entité sera régulée par NIS 2";
+export const libelleTitreReguleEnregistrementUniquement =
+  "Votre entité sera régulée par NIS 2  \navec pour seule nécessité de s’enregistrer";
 export const libelleTitreReguleEntiteImportante =
   "Votre entité sera régulée par NIS 2  \nen tant qu’Entité Importante (EI)";
 

@@ -9,6 +9,7 @@ import {
   getInformationsResultatEvaluation,
 } from "../../src/Components/Simulateur/Resultats/LigneResultat.aide";
 import {
+  libelleTitreReguleEnregistrementUniquement,
   libelleTitreReguleEntiteEssentielle,
   libelleTitreReguleEntiteEssentielleTelcoPlusieursPaysDontFrance,
   libelleTitreReguleEntiteImportante,
@@ -94,7 +95,7 @@ describe("LigneResultat.aide", () => {
           _resultatEvaluationRegulation: "Definitif",
           etapeEvaluee: "InformationsSecteur",
           decision: "Regule",
-          typeEntite: "EntiteImportante",
+          typeEntite: "EnregistrementUniquement",
           causes: {
             Structure: {
               _categorieTaille: "Grand",
@@ -113,7 +114,7 @@ describe("LigneResultat.aide", () => {
           },
         };
         const informationsResultatEvaluationAttendues = {
-          titre: libelleTitreReguleEntiteImportante,
+          titre: libelleTitreReguleEnregistrementUniquement,
           classes: fabriqueClassesCSSResultat(
             "fr-icon-check-line",
             "fr-nis2-eligible",
