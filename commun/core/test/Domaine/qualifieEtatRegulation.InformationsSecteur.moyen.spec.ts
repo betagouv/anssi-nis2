@@ -8,6 +8,7 @@ import {
 import { fabriqueArb_ReponseInformationsSecteur_ME } from "../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import {
   fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille,
+  fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab,
   fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourServiceDansPays,
   fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille,
   fabriqueArbInformationsSecteurAutre,
@@ -17,10 +18,7 @@ import {
   fabriqueVerificationReponseDefinitivementRegule,
   verificationReponseNonRegule,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
-import {
-  fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen,
-  fabriqueArbJamaisOse_ToujoursFrance_StructurePetit,
-} from "../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
+import { fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen } from "../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
 import {
   arbEnsembleSecteurs_AvecBesoinLoca_GrandEI,
   arbEnsembleSecteursAnnexe1,
@@ -30,6 +28,10 @@ import {
   arbEnsembleSecteursSimplesEligiblesPetitActivitesAutres,
 } from "./arbitraires/EnsembleInformationsSecteur.arbitraires";
 import { arbInformationsSecteur_Infranum_ActivitesSansBesoinLoca_GrandeEI } from "./arbitraires/InformationsSecteur.arbitraires";
+import {
+  arbLocalisationEtablissementPrincipal_AutreUE,
+  arbLocalisationEtablissementPrincipal_France,
+} from "./arbitraires/LocalisationEtablissementPrincipal.arbitraires";
 import {
   arbLocalisationsServices_ContientAutreUE_SansFrance,
   arbLocalisationsServices_ContientFrance,
@@ -59,13 +61,13 @@ describe("Secteur", () => {
         it(
           "Autre(s) EM de l'UE, à minima ==> Définitivement Régulé autre",
           assertionArbitraire(
-            fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
+            fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
               fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourServiceDansPays(
                 "infrastructureNumerique",
               )(
                 "fournisseurReseauxCommunicationElectroniquesPublics",
                 "fournisseurServiceCommunicationElectroniquesPublics",
-              )("Petit")(arbLocalisationsServices_ContientAutreUE_SansFrance),
+              )("Moyen")(arbLocalisationsServices_ContientAutreUE_SansFrance),
             ),
             fabriqueVerificationReponseDefinitivementRegule(
               TE.AutreEtatMembreUE,
@@ -75,43 +77,53 @@ describe("Secteur", () => {
         it(
           "État(s) hors UE ==> Définitivement Non régulé",
           assertionArbitraire(
-            fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
+            fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
               fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourServiceDansPays(
                 "infrastructureNumerique",
               )(
                 "fournisseurReseauxCommunicationElectroniquesPublics",
                 "fournisseurServiceCommunicationElectroniquesPublics",
-              )("Petit")(arbLocalisationsServices_ContientUniquementHorsUE),
+              )("Moyen")(arbLocalisationsServices_ContientUniquementHorsUE),
             ),
             verificationReponseNonRegule,
           ),
         );
       });
 
-      // it.skip(
-      //   "*** Raison Skip *** n'existe plus dans le nouveau modèle" +
-      //     "en suspens / secteurs+activités EE localisables (reg dom et fournisseur DNS) et bien localisés ==> toujours définitivement régulé EE",
-      //   assertionArbitraire(
-      //     fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
-      //       fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe(
-      //         arbInformationsSecteur_LocaliseesFrance_Grande_Infranum_EE,
-      //       ),
-      //     ),
-      //     fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
-      //   ),
-      // );
-      // it.skip(
-      //   "*** Raisons Skip *** : activit'e localisables prises en compte par ailleurs " +
-      //     "en suspens / secteurs+activités EE localisables (reg dom et fournisseur DNS) et localisées en UE ==> toujours définitivement Incertain / Voir autre pays UE",
-      //   assertionArbitraire(
-      //     fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
-      //       fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe(
-      //         arbInformationsSecteur_LocaliseesAutrePaysUE_Grande_Infranum_EE,
-      //       ),
-      //     ),
-      //     verificationReponseDefinitivementIncertainAutrePaysUE,
-      //   ),
-      // );
+      describe("Fournisseur de services DNS, à l’exclusion des opérateurs de serveurs racines de noms de domaines ou Registres de noms de domaines de premier niveau", () => {
+        it(
+          "France premiere question ==> definitivement EE",
+          assertionArbitraire(
+            fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+              fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
+                "infrastructureNumerique",
+              )(
+                "fournisseurServicesDNS",
+                "registresNomsDomainesPremierNiveau",
+              )("Moyen")(arbLocalisationEtablissementPrincipal_France),
+            ),
+            fabriqueVerificationReponseDefinitivementRegule(
+              TE.EntiteEssentielle,
+            ),
+          ),
+        );
+        it(
+          "France premiere question ==> definitivement Autre État Membre UE",
+          assertionArbitraire(
+            fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+              fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
+                "infrastructureNumerique",
+              )(
+                "fournisseurServicesDNS",
+                "registresNomsDomainesPremierNiveau",
+              )("Moyen")(arbLocalisationEtablissementPrincipal_AutreUE),
+            ),
+            fabriqueVerificationReponseDefinitivementRegule(
+              TE.AutreEtatMembreUE,
+            ),
+          ),
+        );
+      });
       it(
         "en suspens / secteurs Infrastructure Numérique + activités EI (ni reg dom ni fournisseur DNS) sans besoin localisation ==> toujours définitivement régulé EI",
         assertionArbitraire(
