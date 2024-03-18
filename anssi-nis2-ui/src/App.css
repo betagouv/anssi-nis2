@@ -508,6 +508,10 @@ legend.fr-text--medium {
 }
 
 .fr-nis2-bien-debuter {
+  & a {
+    background: none;
+  }
+
   .fr-nis2-logo-localisation {
     & img {
       margin-left: 2.5rem;
