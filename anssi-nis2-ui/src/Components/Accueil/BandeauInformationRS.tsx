@@ -1,38 +1,18 @@
 import ReseauxSociaux from "../ReseauxSociaux.tsx";
+import BlocPrincipal from "../BlocPrincipal.tsx";
 
 export const BandeauInformationRS = () => (
-  <div className="fr-follow">
-    <div className="fr-container">
-      <div className="fr-grid-row">
-        <div className="fr-col-12 fr-col-md-8">
-          <div className="fr-follow__newsletter">
-            <div>
-              <p className="fr-h5">Restez informé</p>
-              <p className="fr-text--sm">
-                Pour se tenir au courant des évolutions du contexte
-                réglementaire et ce que devra faire votre entité pour se
-                protéger des cyber-menaces.
-              </p>
-            </div>
-            <div>
-              <a href="/infolettre">
-                <button
-                  className="fr-btn"
-                  title="S‘abonner à notre lettre d’information"
-                >
-                  {" "}
-                  S&apos;abonner
-                </button>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="fr-col-12 fr-col-md-4">
-          <ReseauxSociaux />
-        </div>
-      </div>
-    </div>
-  </div>
+  <BlocPrincipal id="informations">
+    <h2>Restez informé</h2>
+    <p>
+      Pour se tenir au courant des évolutions du contexte
+      réglementaire et ce que devra faire votre entité pour se
+      protéger des cyber-menaces.
+    </p>
+    <a href="/infolettre" className="fr-nis2-bouton-secondaire infolettre">S'abonner</a>
+    <div className="separateur"></div>
+    <ReseauxSociaux />
+  </BlocPrincipal>
 );
 
 export default BandeauInformationRS;

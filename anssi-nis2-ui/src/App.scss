@@ -786,6 +786,26 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
 
 .fr-nis2-bloc-principal {
   padding: 40px 16px;
+
+  &.aucune-marge-basse {
+    padding-bottom: 0;
+  }
+
+  &.fond-blanc {
+    background: white;
+  }
+
+  &.fond-primaire {
+    background: var(--couleur-primaire);
+  }
+
+  .texte-blanc {
+    color: white;
+  }
+
+  .texte-primaire {
+    color: var(--couleur-primaire);
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -821,5 +841,29 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
         border-bottom: 4px solid #FDC82E;
       }
     }
+  }
+}
+
+.fr-nis2-bouton-principal {
+  padding: 10px 24px;
+  font-size: 18px;
+  background: #FDC82E;
+  font-weight: 500;
+  text-align: center;
+
+  &:hover {
+    background: #FFDB71 !important;
+  }
+}
+
+.fr-nis2-bouton-secondaire {
+  padding: 10px 24px;
+  font-size: 18px;
+  background: #272771;
+  font-weight: 500;
+  color: white;
+
+  &:hover {
+    background: #41419F !important;
   }
 }
