@@ -4,7 +4,6 @@ import { RowContainer } from "../General/RowContainer.tsx";
 import { Button } from "@codegouvfr/react-dsfr/Button";
 import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 import ImageLocalisation from "../../assets/localisation-france.svg";
-import { Link } from "react-router-dom";
 
 export const SimulateurEtapePrealable: SimulateurEtapeRenderedComponent = ({
   informationsBoutonsNavigation,
@@ -39,11 +38,11 @@ export const SimulateurEtapePrealable: SimulateurEtapeRenderedComponent = ({
         </RowContainer>
         <RowContainer className="fr-mt-0 fr-mb-7w" align="left">
           <div className="fr-col-offset-5">
-            <Link to={"/"}>
+            <a href="/">
               <Button onClick={noRefClick} priority="tertiary">
                 Revenir à l&apos;accueil
               </Button>
-            </Link>
+            </a>
             <Button onClick={informationsBoutonsNavigation.suivant}>
               Débuter le test
             </Button>
