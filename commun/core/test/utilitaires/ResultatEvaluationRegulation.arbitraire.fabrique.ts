@@ -3,6 +3,7 @@ import { flow } from "fp-ts/lib/function";
 import { ens } from "../../../utils/services/sets.operations";
 import {
   ActiviteInfranumLocalEtabLot1,
+  ActiviteInfranumLocalEtabLot2,
   ActiviteInfranumLocalServices,
   ActivitesPourSecteur,
 } from "../../src/Domain/Simulateur/Activite.definitions";
@@ -176,7 +177,11 @@ export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_Pour
 export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab =
 
     <Secteur extends "infrastructureNumerique">(secteur: Secteur) =>
-    <TypeActivite extends ActiviteInfranumLocalEtabLot1>(
+    <
+      TypeActivite extends
+        | ActiviteInfranumLocalEtabLot1
+        | ActiviteInfranumLocalEtabLot2,
+    >(
       ...activites: TypeActivite[]
     ) =>
     <Taille extends CategorieTaille>(taille: `${Taille}`) =>

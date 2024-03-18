@@ -69,6 +69,9 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
         certainsSontInfrastructureNumeriqueAvecActivite(
           "fournisseurServicesDNS",
           "registresNomsDomainesPremierNiveau",
+          "fournisseurServicesInformatiqueNuage",
+          "fournisseurServiceCentresDonnees",
+          "fournisseurReseauxDiffusionContenu",
         ),
         certains(estEtablissementPrincipalFrance<"Moyen">),
       ),
@@ -84,6 +87,9 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
           certainsSontInfrastructureNumeriqueAvecActivite(
             "fournisseurServicesDNS",
             "registresNomsDomainesPremierNiveau",
+            "fournisseurServicesInformatiqueNuage",
+            "fournisseurServiceCentresDonnees",
+            "fournisseurReseauxDiffusionContenu",
           ),
         ),
       ),

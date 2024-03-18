@@ -27,7 +27,6 @@ import {
   arbEnsembleSecteursSimplesActivitesAutres,
   arbEnsembleSecteursSimplesEligiblesPetitActivitesAutres,
 } from "./arbitraires/EnsembleInformationsSecteur.arbitraires";
-import { arbInformationsSecteur_Infranum_ActivitesSansBesoinLoca_GrandeEI } from "./arbitraires/InformationsSecteur.arbitraires";
 import {
   arbLocalisationEtablissementPrincipal_AutreUE,
   arbLocalisationEtablissementPrincipal_France,
@@ -124,19 +123,6 @@ describe("Secteur", () => {
           ),
         );
       });
-      it(
-        "en suspens / secteurs Infrastructure Numérique + activités EI (ni reg dom ni fournisseur DNS) sans besoin localisation ==> toujours définitivement régulé EI",
-        assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
-            fabriqueArb_ReponseInformationsSecteur_ME(
-              arbInformationsSecteur_Infranum_ActivitesSansBesoinLoca_GrandeEI as fc.Arbitrary<
-                Set<RepInfoSecteur<"Moyen">>
-              >,
-            ),
-          ),
-          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteImportante),
-        ),
-      );
 
       it(
         "Prestataire de services de confiance qualifié ==> définitivement régulé EE",
@@ -178,7 +164,49 @@ describe("Secteur", () => {
           verificationReponseNonRegule,
         ),
       );
+      describe(
+        "Fournisseur de services d’informatique en nuage, " +
+          "Fournisseur de services de centres de données, " +
+          "Fournisseur de réseaux de diffusion de contenu",
+        () => {
+          it(
+            "France à l'une des questions ==> definitivement EE",
+            assertionArbitraire(
+              fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+                fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
+                  "infrastructureNumerique",
+                )(
+                  "fournisseurServicesInformatiqueNuage",
+                  "fournisseurServiceCentresDonnees",
+                  "fournisseurReseauxDiffusionContenu",
+                )("Moyen")(arbLocalisationEtablissementPrincipal_France),
+              ),
+              fabriqueVerificationReponseDefinitivementRegule(
+                TE.EntiteEssentielle,
+              ),
+            ),
+          );
+          it(
+            "Autre à l'une des questions ==> definitivement Autre État Membre UE",
+            assertionArbitraire(
+              fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+                fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
+                  "infrastructureNumerique",
+                )(
+                  "fournisseurServicesInformatiqueNuage",
+                  "fournisseurServiceCentresDonnees",
+                  "fournisseurReseauxDiffusionContenu",
+                )("Moyen")(arbLocalisationEtablissementPrincipal_AutreUE),
+              ),
+              fabriqueVerificationReponseDefinitivementRegule(
+                TE.AutreEtatMembreUE,
+              ),
+            ),
+          );
+        },
+      );
     });
+
     describe("Gestion TIC et Fournisseurs Numériques", () => {
       // it.skip(
       //   "*** Raison Skip *** n'existe plus dans le nouveau modèle" +

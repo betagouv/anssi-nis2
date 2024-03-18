@@ -97,7 +97,7 @@ describe("Secteur", () => {
             ),
           );
           it(
-            "France premiere question ==> definitivement Autre État Membre UE",
+            "Autre à l'une des questions ==> definitivement Autre État Membre UE",
             assertionArbitraire(
               fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
                 fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
