@@ -135,32 +135,6 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
           TE.EntiteImportante,
         ),
     )
-    // .when(
-    //   certains(
-    //     et(
-    //       estInformationSecteurImportantAvecBesoinLocalisation,
-    //       // estSecteurBienLocaliseGrand,
-    //     ),
-    //   ),
-    //   () =>
-    //     fabriqueResultatEvaluationDefinitifCarSecteur(
-    //       reponse,
-    //       TE.EntiteImportante,
-    //     ),
-    // )
-    // .when(
-    //   certains(
-    //     et(
-    //       estInformationSecteurImportantAvecBesoinLocalisation,
-    //       // estSecteurBienLocaliseUE,
-    //     ),
-    //   ),
-    //   () =>
-    //     fabriqueResultatEvaluationDefinitif(
-    //       "InformationsSecteur",
-    //       resultatIncertainAutrePaysUE,
-    //     ),
-    // )
     .when(
       certains(
         et(

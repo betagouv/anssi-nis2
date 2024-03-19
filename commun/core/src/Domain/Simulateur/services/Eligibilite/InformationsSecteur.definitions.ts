@@ -22,7 +22,6 @@ import {
   SousSecteurFabrication,
   SousSecteurTransport,
 } from "../../SousSecteurActivite.definitions";
-import { CategorieTaille } from "./ReponseStructure.definitions";
 
 export type InformationsSecteurSimpleListe = {
   secteurActivite: SecteursDefinitsSansBesoinLocalisationRepresentant;
@@ -123,12 +122,6 @@ export type InformationsSecteurInfranumAutresActivitesListees_MG =
     | ActiviteInfranumLocalEtabLot2
   >;
 
-export type InformationsSecteurInfranumAutresActivitesListees<
-  Taille extends CategorieTaille,
-> = Taille extends "Petit"
-  ? InformationsSecteurInfranumAutresActivitesListees_P
-  : InformationsSecteurInfranumAutresActivitesListees_MG;
-
 export type InformationsAutresSecteursListes<
   S extends Exclude<
     SecteurSimple,
@@ -142,35 +135,10 @@ export type InformationsAutresSecteursListes<
   activites: Set<ActivitesPourSecteur[S extends SecteurSimple ? S : never]>;
 };
 
-// export type InformationsSecteurListe =
-//   | InformationsSecteurAvecActiviteInfranumLocalServices
-//   | InformationsSecteurAvecActiviteInfranumLocalEtabLot1
-//   | InformationsSecteurAvecActiviteInfranumLocalEtabLot2
-//   | InfoSecteursMoinsActivites<
-//       "infrastructureNumerique",
-//       ActiviteInfranumLocalServices | ActiviteInfranumLocalEtabLot1
-//     >
-//   | InformationsSecteurLocalEtab
-//   | InformationsAutresSecteursListes
-//   | InformationsSecteursCompositeListe;
-//
-// export type InformationsSecteurAvecBesoinLocalisation =
-//   | InformationsSecteurAvecActiviteInfranumLocalServices
-//   | InformationsSecteurAvecActiviteInfranumLocalEtabLot1
-//   | InformationsSecteurAvecActiviteInfranumLocalEtabLot2
-//   | InformationsSecteurLocalEtab;
-//   {
-//   secteurActivite: SecteurAvecBesoinLocalisationRepresentant;
-//   activites: Set<ActivitesAvecBesoinLocalisationRepresentant<Taille>>;
-// } & EtablissementPrincipalLocalisation;
-
 export type InformationSecteurSimpleAutre = {
   secteurActivite: ExtraitAutre<SecteurActivite>;
 };
 
-export type InformationsSecteurAutre =
-  | InformationSecteurSimpleAutre
-  | InformationsSecteurCompositeAutre;
 export type InformationsSecteurSansBesoinLocalisation =
   | InformationsSecteursCompositeListe
   | InformationsSecteurSimpleListe;

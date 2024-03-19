@@ -56,32 +56,7 @@ export const arbEnsembleSecteursSimplesEligiblesPetitActivitesAutres: fc.Arbitra
 > = fabriqueArb_EnsInformationsSecteur_ActivitesAutres(
   arbSecteurActivite_InfrastructureNumerique,
 ) as fc.Arbitrary<Set<InformationsSecteurPossible<"Petit">>>;
-// export const arbEnsembleSecteursLocalisablesPetitFrance: fc.Arbitrary<
-//   Set<RepInfoSecteurLocalises<"Petit">>
-// > = fabriqueArb_EnsInformationsSecteurPossible(
-//   arbInformationsSecteur_AvecActivitesEssentielles_LocaliseesFrance_Petite,
-// ) as fc.Arbitrary<Set<RepInfoSecteurLocalises<"Petit">>>;
 
-// const arbEnsInformationsSecteur_Infranum_ActivitesAvecBesoinLoca_HorsUE_PE =
-//   fabriqueArb_EnsInformationsSecteurPossible(
-//     arbInformationsSecteur_Infranum_PE_ActivitesAvecBesoinLocalisation_LocaliseesHorsUE,
-//   );
-// const arbEnsInformationsSecteur_Infranum_HorsUE_PE =
-//   fabriqueArb_EnsInformationsSecteurPossible<"Petit">(
-//     arbInformationsSecteur_Infranum_LocaliseesHorsUE_PE as fc.Arbitrary<
-//       InformationsSecteurPossible<"Petit">
-//     >,
-//   );
-// export const arbEnsembleSecteurs_AvecBesoinLoca_NonUE: fc.Arbitrary<
-//   Set<RepInfoSecteurLocalises<"Petit">>
-// > = fc.oneof(
-//   arbEnsInformationsSecteur_Infranum_ActivitesAvecBesoinLoca_HorsUE_PE,
-//   arbEnsInformationsSecteur_Infranum_HorsUE_PE,
-// ) as fc.Arbitrary<Set<RepInfoSecteurLocalises<"Petit">>>;
-// export const arbEnsembleSecteurs_Infranum_PE_AutreUE =
-//   fabriqueArb_EnsInformationsSecteurPossible(
-//     arbInformationsSecteur_Infranum_LocaliseesAutrePaysUE_PE,
-//   ) as fc.Arbitrary<Set<InformationsSecteurPossible<"Petit">>>;
 /**
  * Ensemble de Secteurs
  * - "Gestion des services TIC

@@ -40,26 +40,6 @@ export const arbTranchePetitMoyenGrand_ToujoursMoyen =
   fc.constant<"moyen">("moyen");
 export const arbTranchePetitMoyenGrand_ToujoursGrand =
   fc.constant<"grand">("grand");
-
-export const arbLocalisationRepresentant_JamaisFrance = fc.constantFrom(
-  "autre" as const,
-  "horsue" as const,
-);
-export const arbLocalisationRepresentant_ToujoursFrance = fc.constant(
-  "france" as const,
-);
-export const arbLocalisationRepresentant_ToujoursAutre = fc.constant(
-  "autre" as const,
-);
-export const arbLocalisationRepresentant_ToujoursHorsUE = fc.constant(
-  "horsue" as const,
-);
-export const arbFournitServiceUnionEuropeenne_ToujoursOui = fc.constant(
-  "oui" as const,
-);
-export const arbFournitServiceUnionEuropeenne_ToujoursNon = fc.constant(
-  "non" as const,
-);
 export const arbCategorieTaille_ToujoursMoyen = fc.constant("Moyen" as const);
 export const arbCategorieTaille_ToujoursGrand = fc.constant("Grand" as const);
 export const arbTypeStructure_Privee = fc.constant("privee" as const);
