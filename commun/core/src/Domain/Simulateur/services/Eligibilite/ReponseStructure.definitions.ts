@@ -61,10 +61,10 @@ type TranchesTaillePublic<T extends CategorieTaille> = T extends "Petit"
   : T extends "Moyen"
     ? TrancheTaillePublicMoyen
     : TrancheTaillePublicGrand;
-type TailleSecteurPrive<T extends CategorieTaille> = TranchesTaillePrive<T> &
-  CategoriseTaille<T>;
-type TailleSecteurPublic<T extends CategorieTaille> = TranchesTaillePublic<T> &
-  CategoriseTaille<T>;
+export type TailleSecteurPrive<T extends CategorieTaille> =
+  TranchesTaillePrive<T> & CategoriseTaille<T>;
+export type TailleSecteurPublic<T extends CategorieTaille> =
+  TranchesTaillePublic<T> & CategoriseTaille<T>;
 export type TailleSecteur<
   S extends TypeStructure,
   T extends CategorieTaille,

@@ -529,7 +529,7 @@ describe("fabrique ReponseEtat", () => {
         const donnees = fabriqueDonneesFormulaire({
           designationOperateurServicesEssentiels: ["oui"],
           typeStructure: ["privee"],
-          trancheNombreEmployes: ["petit"],
+          trancheNombreEmployes: ["moyen"],
           trancheChiffreAffaire: ["petit"],
           appartenancePaysUnionEuropeenne: ["france"],
           secteurActivite: ["infrastructureNumerique"],
@@ -549,15 +549,15 @@ describe("fabrique ReponseEtat", () => {
             appartenancePaysUnionEuropeenne: "france",
           },
           Structure: {
-            _categorieTaille: "Petit",
+            _categorieTaille: "Moyen",
             typeStructure: "privee",
-            trancheNombreEmployes: "petit",
+            trancheNombreEmployes: "moyen",
             trancheChiffreAffaire: "petit",
           },
           InformationsSecteur: {
-            _categorieTaille: "Petit",
+            _categorieTaille: "Moyen",
             secteurs: ens({
-              _categorieTaille: "Petit",
+              _categorieTaille: "Moyen",
               secteurActivite: "infrastructureNumerique",
               activites: ens(
                 "fournisseurReseauxCommunicationElectroniquesPublics",
@@ -582,7 +582,7 @@ describe("fabrique ReponseEtat", () => {
       const donneesFormulaireBase = fabriqueDonneesFormulaire({
         designationOperateurServicesEssentiels: ["oui"],
         typeStructure: ["privee"],
-        trancheNombreEmployes: ["petit"],
+        trancheNombreEmployes: ["grand"],
         trancheChiffreAffaire: ["petit"],
         appartenancePaysUnionEuropeenne: ["france"],
         secteurActivite: ["infrastructureNumerique"],
@@ -599,15 +599,15 @@ describe("fabrique ReponseEtat", () => {
           appartenancePaysUnionEuropeenne: "france",
         },
         Structure: {
-          _categorieTaille: "Petit",
+          _categorieTaille: "Grand",
           typeStructure: "privee",
-          trancheNombreEmployes: "petit",
+          trancheNombreEmployes: "grand",
           trancheChiffreAffaire: "petit",
         },
         InformationsSecteur: {
-          _categorieTaille: "Petit",
+          _categorieTaille: "Grand",
           secteurs: ens({
-            _categorieTaille: "Petit",
+            _categorieTaille: "Grand",
             secteurActivite: "infrastructureNumerique",
             activites: ens("registresNomsDomainesPremierNiveau"),
             ...loca,
@@ -615,7 +615,7 @@ describe("fabrique ReponseEtat", () => {
         },
       });
 
-      it("paysDecisionCyber", () => {
+      it("paysDecisionCyber France", () => {
         const donnees = {
           ...donneesFormulaireBase,
           paysDecisionsCyber: ["france"],
@@ -631,7 +631,7 @@ describe("fabrique ReponseEtat", () => {
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
-      it("paysOperationsCyber", () => {
+      it("paysOperationsCyber France", () => {
         const donnees = {
           ...donneesFormulaireBase,
           paysDecisionsCyber: ["horsue"],
@@ -649,7 +649,7 @@ describe("fabrique ReponseEtat", () => {
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
-      it("paysPlusGrandNombreSalaries", () => {
+      it("paysPlusGrandNombreSalaries France", () => {
         const donnees = {
           ...donneesFormulaireBase,
           paysDecisionsCyber: ["horsue"],
@@ -670,271 +670,5 @@ describe("fabrique ReponseEtat", () => {
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
     });
-    // describe.skip(
-    //   "*** Raison Skip *** plus en accord avec nouveau modèle" +
-    //     "Données localisation",
-    //   () => {
-    //     it("Enchaine les données jusqu'à un secteur petite structure privée localisée", () => {
-    //       const donnees = fabriqueDonneesFormulaire({
-    //         designationOperateurServicesEssentiels: ["oui"],
-    //         typeStructure: ["privee"],
-    //         trancheNombreEmployes: ["petit"],
-    //         trancheChiffreAffaire: ["petit"],
-    //         appartenancePaysUnionEuropeenne: ["france"],
-    //         secteurActivite: ["infrastructureNumerique"],
-    //         activites: ["registresNomsDomainesPremierNiveau"],
-    //         fournitServicesUnionEuropeenne: ["oui"],
-    //         localisationRepresentant: ["france"],
-    //       });
-    //       const resultatAttendu: UnionReponseEtat = {
-    //         _tag: "InformationsSecteur",
-    //         DesignationOperateurServicesEssentiels: {
-    //           designationOperateurServicesEssentiels: "oui",
-    //         },
-    //         AppartenancePaysUnionEuropeenne: {
-    //           appartenancePaysUnionEuropeenne: "france",
-    //         },
-    //         Structure: {
-    //           _categorieTaille: "Petit",
-    //           typeStructure: "privee",
-    //           trancheNombreEmployes: "petit",
-    //           trancheChiffreAffaire: "petit",
-    //         },
-    //         InformationsSecteur: {
-    //           _categorieTaille: "Petit",
-    //           secteurs: ens({
-    //             secteurActivite: "infrastructureNumerique",
-    //             activites: ens("registresNomsDomainesPremierNiveau"),
-    //             fournitServicesUnionEuropeenne: "oui",
-    //             localisationRepresentant: "france",
-    //           }),
-    //         },
-    //       };
-    //       const resultatObtenu =
-    //         ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-    //           donnees,
-    //         );
-    //       expect(resultatObtenu).toStrictEqual(resultatAttendu);
-    //     });
-    //     it("Enchaine les données jusqu'à un secteur petite structure privée localisée hors UE", () => {
-    //       const donnees = fabriqueDonneesFormulaire({
-    //         designationOperateurServicesEssentiels: ["oui"],
-    //         typeStructure: ["privee"],
-    //         trancheNombreEmployes: ["petit"],
-    //         trancheChiffreAffaire: ["petit"],
-    //         appartenancePaysUnionEuropeenne: ["france"],
-    //         secteurActivite: ["infrastructureNumerique"],
-    //         activites: ["registresNomsDomainesPremierNiveau"],
-    //         fournitServicesUnionEuropeenne: ["non"],
-    //       });
-    //       const resultatAttendu: UnionReponseEtat = {
-    //         _tag: "InformationsSecteur",
-    //         DesignationOperateurServicesEssentiels: {
-    //           designationOperateurServicesEssentiels: "oui",
-    //         },
-    //         AppartenancePaysUnionEuropeenne: {
-    //           appartenancePaysUnionEuropeenne: "france",
-    //         },
-    //         Structure: {
-    //           _categorieTaille: "Petit",
-    //           typeStructure: "privee",
-    //           trancheNombreEmployes: "petit",
-    //           trancheChiffreAffaire: "petit",
-    //         },
-    //         InformationsSecteur: {
-    //           _categorieTaille: "Petit",
-    //           secteurs: ens({
-    //             secteurActivite: "infrastructureNumerique",
-    //             activites: ens("registresNomsDomainesPremierNiveau"),
-    //             fournitServicesUnionEuropeenne: "non",
-    //           }),
-    //         },
-    //       };
-    //       const resultatObtenu =
-    //         ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-    //           donnees,
-    //         );
-    //       expect(resultatObtenu).toStrictEqual(resultatAttendu);
-    //     });
-    //     it("Enchaine les données jusqu'à un secteur grande structure privée localisée hors UE", () => {
-    //       const donnees = fabriqueDonneesFormulaire({
-    //         designationOperateurServicesEssentiels: ["non"],
-    //         typeStructure: ["privee"],
-    //         trancheNombreEmployes: ["grand"],
-    //         trancheChiffreAffaire: ["petit"],
-    //         appartenancePaysUnionEuropeenne: ["france"],
-    //         secteurActivite: ["infrastructureNumerique"],
-    //         activites: ["registresNomsDomainesPremierNiveau"],
-    //         fournitServicesUnionEuropeenne: ["non"],
-    //       });
-    //       const resultatAttendu: UnionReponseEtat = {
-    //         _tag: "InformationsSecteur",
-    //         DesignationOperateurServicesEssentiels: {
-    //           designationOperateurServicesEssentiels: "non",
-    //         },
-    //         AppartenancePaysUnionEuropeenne: {
-    //           appartenancePaysUnionEuropeenne: "france",
-    //         },
-    //         Structure: {
-    //           _categorieTaille: "Grand",
-    //           typeStructure: "privee",
-    //           trancheNombreEmployes: "grand",
-    //           trancheChiffreAffaire: "petit",
-    //         },
-    //         InformationsSecteur: {
-    //           _categorieTaille: "Grand",
-    //           secteurs: ens({
-    //             secteurActivite: "infrastructureNumerique",
-    //             activites: ens("registresNomsDomainesPremierNiveau"),
-    //             fournitServicesUnionEuropeenne: "non",
-    //           }),
-    //         },
-    //       };
-    //       const resultatObtenu =
-    //         ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-    //           donnees,
-    //         );
-    //       expect(resultatObtenu).toStrictEqual(resultatAttendu);
-    //     });
-    //     it("Enchaine les données jusqu'à un secteur grande structure publique localisée hors france", () => {
-    //       const donnees = fabriqueDonneesFormulaire({
-    //         designationOperateurServicesEssentiels: ["non"],
-    //         typeStructure: ["publique"],
-    //         typeEntitePublique: ["collectiviteTerritoriale"],
-    //         trancheNombreEmployes: ["grand"],
-    //         appartenancePaysUnionEuropeenne: ["france"],
-    //         secteurActivite: ["infrastructureNumerique"],
-    //         activites: ["registresNomsDomainesPremierNiveau"],
-    //         fournitServicesUnionEuropeenne: ["oui"],
-    //         localisationRepresentant: ["autre"],
-    //       });
-    //       const resultatAttendu: UnionReponseEtat = {
-    //         _tag: "InformationsSecteur",
-    //         DesignationOperateurServicesEssentiels: {
-    //           designationOperateurServicesEssentiels: "non",
-    //         },
-    //         AppartenancePaysUnionEuropeenne: {
-    //           appartenancePaysUnionEuropeenne: "france",
-    //         },
-    //         Structure: {
-    //           _categorieTaille: "Grand",
-    //           typeStructure: "publique",
-    //           trancheNombreEmployes: "grand",
-    //           typeEntitePublique: "collectiviteTerritoriale",
-    //         },
-    //         InformationsSecteur: {
-    //           _categorieTaille: "Grand",
-    //           secteurs: ens({
-    //             secteurActivite: "infrastructureNumerique",
-    //             activites: ens("registresNomsDomainesPremierNiveau"),
-    //             fournitServicesUnionEuropeenne: "oui",
-    //             localisationRepresentant: "autre",
-    //           }),
-    //         },
-    //       };
-    //       const resultatObtenu =
-    //         ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-    //           donnees,
-    //         );
-    //       expect(resultatObtenu).toStrictEqual(resultatAttendu);
-    //     });
-    //     it("grande structure gestion TIC localisée hors france", () => {
-    //       const donnees = fabriqueDonneesFormulaire({
-    //         typeEntitePublique: [],
-    //         fournitServicesUnionEuropeenne: ["oui"],
-    //         localisationRepresentant: ["france"],
-    //         secteurActivite: ["gestionServicesTic"],
-    //         sousSecteurActivite: [],
-    //         designationOperateurServicesEssentiels: ["non"],
-    //         typeStructure: ["privee"],
-    //         trancheChiffreAffaire: ["grand"],
-    //         appartenancePaysUnionEuropeenne: ["france"],
-    //         trancheNombreEmployes: ["moyen"],
-    //         activites: ["fournisseurServicesSecuriteGeres"],
-    //       });
-    //       const resultatAttendu: UnionReponseEtat = {
-    //         _tag: "InformationsSecteur",
-    //         DesignationOperateurServicesEssentiels: {
-    //           designationOperateurServicesEssentiels: "non",
-    //         },
-    //         AppartenancePaysUnionEuropeenne: {
-    //           appartenancePaysUnionEuropeenne: "france",
-    //         },
-    //         Structure: {
-    //           _categorieTaille: "Grand",
-    //           typeStructure: "privee",
-    //           trancheChiffreAffaire: "grand",
-    //           trancheNombreEmployes: "moyen",
-    //         },
-    //         InformationsSecteur: {
-    //           _categorieTaille: "Grand",
-    //           secteurs: ens({
-    //             secteurActivite: "gestionServicesTic",
-    //             activites: ens("fournisseurServicesSecuriteGeres"),
-    //             localisationRepresentant: "france",
-    //             fournitServicesUnionEuropeenne: "oui",
-    //           }),
-    //         },
-    //       };
-    //       const resultatObtenu =
-    //         ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-    //           donnees,
-    //         );
-    //       expect(resultatObtenu).toStrictEqual(resultatAttendu);
-    //     });
-    //     it("grande structure gestion TIC localisée hors france", () => {
-    //       const donnees = fabriqueDonneesFormulaire({
-    //         typeEntitePublique: [],
-    //         fournitServicesUnionEuropeenne: ["oui"],
-    //         localisationRepresentant: ["france"],
-    //         secteurActivite: ["gestionServicesTic", "infrastructureNumerique"],
-    //         sousSecteurActivite: [],
-    //         designationOperateurServicesEssentiels: ["non"],
-    //         typeStructure: ["privee"],
-    //         trancheChiffreAffaire: ["grand"],
-    //         appartenancePaysUnionEuropeenne: ["france"],
-    //         trancheNombreEmployes: ["grand"],
-    //         activites: ["fournisseurServicesInformatiqueNuage"],
-    //       });
-    //       const resultatAttendu: UnionReponseEtat = {
-    //         _tag: "InformationsSecteur",
-    //         DesignationOperateurServicesEssentiels: {
-    //           designationOperateurServicesEssentiels: "non",
-    //         },
-    //         AppartenancePaysUnionEuropeenne: {
-    //           appartenancePaysUnionEuropeenne: "france",
-    //         },
-    //         Structure: {
-    //           _categorieTaille: "Grand",
-    //           typeStructure: "privee",
-    //           trancheChiffreAffaire: "grand",
-    //           trancheNombreEmployes: "grand",
-    //         },
-    //         InformationsSecteur: {
-    //           _categorieTaille: "Grand",
-    //           secteurs: ens(
-    //             {
-    //               secteurActivite: "gestionServicesTic",
-    //               activites: ens(),
-    //               localisationRepresentant: "france",
-    //               fournitServicesUnionEuropeenne: "oui",
-    //             },
-    //             {
-    //               secteurActivite: "infrastructureNumerique",
-    //               activites: ens("fournisseurServicesInformatiqueNuage"),
-    //               localisationRepresentant: "france",
-    //               fournitServicesUnionEuropeenne: "oui",
-    //             },
-    //           ),
-    //         },
-    //       };
-    //       const resultatObtenu =
-    //         ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-    //           donnees,
-    //         );
-    //       expect(resultatObtenu).toStrictEqual(resultatAttendu);
-    //     });
-    //   },
-    // );
   });
 });
