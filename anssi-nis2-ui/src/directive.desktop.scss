@@ -1,18 +1,16 @@
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 1280px) {
     .fr-header__service, .fr-header__operator {
         display: flex;
     }
 
     .fr-nis2-directive {
-        .bloc {
-        }
 
         h2 {
             font-size: 40px;
             margin-bottom: 64px;
         }
 
-        .bloc.hero {
+        .fr-nis2-bloc-principal#hero {
             max-width: 100%;
             padding: 100px 10vw;
             margin: 0 0 67px;

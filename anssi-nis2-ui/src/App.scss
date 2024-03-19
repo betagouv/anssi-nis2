@@ -784,14 +784,111 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
   display: none;
 }
 
+.fr-nis2-bloc-principal {
+  padding: 40px 16px;
+
+  &.aucune-marge-basse {
+    padding-bottom: 0;
+  }
+
+  &.fond-blanc {
+    background: white;
+  }
+
+  &.fond-primaire {
+    background: var(--couleur-primaire);
+  }
+
+  .texte-blanc {
+    color: white;
+  }
+
+  .texte-primaire {
+    color: var(--couleur-primaire);
+  }
+
+  &#informations {
+    padding-top: 32px;
+    padding-bottom: 32px;
+
+    h2 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .infolettre {
+      display: flex;
+      justify-content: center;
+    }
+
+    .separateur {
+      height: 1px;
+      background: #6A6AF4;
+      margin: 24px 0;
+    }
+
+    .fr-follow {
+      padding: 0;
+    }
+  }
+}
+
 @media screen and (min-width: 768px) {
   .fr-nis2-menu-burger {
     top: 24px;
     right: 24px;
   }
+
+  .fr-nis2-bloc-principal {
+    padding: 40px 56px;
+
+    &#informations {
+      background: #F5F5FE;
+
+      .contenu-bloc-principal {
+        display: flex;
+        align-items: center;
+      }
+
+      & > * {
+        flex: 1;
+      }
+
+      h2 {
+        text-align: left;
+      }
+
+      .restez-informe {
+        max-width: 48%;
+      }
+
+      .infolettre {
+        width: fit-content;
+      }
+
+      .separateur {
+        min-width: 1px;
+        max-width: 1px;
+        height: 188px;
+        margin-left: 40px;
+        margin-right: 40px;
+      }
+
+      .fr-follow {
+        h2 {
+          line-height: 28px;
+        }
+      }
+    }
+  }
 }
 
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 1280px) {
   .fr-nis2-menu-burger {
     display: none;
   }
@@ -814,4 +911,53 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
       }
     }
   }
+
+  .fr-nis2-bloc-principal {
+    .contenu-bloc-principal {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    &#informations {
+      flex-direction: row;
+
+      .restez-informe {
+        max-width: 690px;
+      }
+
+      .separateur {
+        margin-left: 103px;
+        margin-right: 103px;
+      }
+    }
+  }
+}
+
+.fr-nis2-bouton-principal {
+  padding: 10px 24px;
+  font-size: 18px;
+  background: #FDC82E;
+  font-weight: 500;
+  text-align: center;
+
+  &:hover {
+    background: #FFDB71 !important;
+  }
+}
+
+.fr-nis2-bouton-secondaire {
+  padding: 10px 24px;
+  font-size: 18px;
+  background: #272771;
+  font-weight: 500;
+  color: white;
+  text-align: center;
+
+  &:hover {
+    background: #41419F !important;
+  }
+}
+
+.fr-follow .fr-link::before {
+  background: #272771;
 }
