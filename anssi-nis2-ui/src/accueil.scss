@@ -26,6 +26,10 @@
             margin-left: -16px;
             margin-bottom: 102px;
         }
+
+        #hero-tablette {
+            display: none;
+        }
     }
 
     #concernes {
@@ -85,6 +89,7 @@
             .carte-se-preparer {
                 img {
                     margin-bottom: 16px;
+                    width: 100%;
                 }
 
                 .numero {
@@ -113,7 +118,7 @@
                     margin-bottom: 0;
                 }
 
-                .prochainement {
+                :not(.numero).prochainement {
                     margin-top: 16px;
                     background: #D6E3FF;
                     padding: 2px 8px;

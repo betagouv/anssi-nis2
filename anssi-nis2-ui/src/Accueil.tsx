@@ -2,17 +2,14 @@ import "@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css";
 import "@gouvfr/dsfr/dist/utility/utility.css";
 
 import "./accueil.scss";
+import "./accueil.tablette.scss";
 
 import { DefaultComponent } from "./Services/Props";
 import {
   BandeauAccueil,
   BandeauConcerne,
-  BandeauNis2EU,
   BandeauQuiEstANSSI,
   BandeauInformationRS,
-  BandeauQuandSePreparer,
-  BandeauObligations,
-  BandeauEnSavoirPlus,
 } from "./Components/Accueil";
 import MiseEnPage from "./Components/MiseEnPage.tsx";
 import {MenuMobile} from "./Components/MenuMobile.tsx";
@@ -20,7 +17,6 @@ import {MenuDesktop} from "./Components/MenuDesktop.tsx";
 import BlocPrincipal from "./Components/BlocPrincipal.tsx";
 import Paragraphe from "./Components/Accueil/Paragraphe.tsx";
 import {Link} from "react-router-dom";
-import CarteSePreparer from "./Components/Accueil/CarteSePreparer.tsx";
 import BandeauSePreparer from "./Components/Accueil/BandeauSePreprarer.tsx";
 import JalonEtape from "./Components/Accueil/JalonEtape.tsx";
 
