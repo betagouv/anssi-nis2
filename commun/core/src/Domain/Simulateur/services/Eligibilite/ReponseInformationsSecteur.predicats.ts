@@ -158,24 +158,7 @@ export const auMoinsUneActiviteEstDans = (
     prop("activites"),
     certains((activite) => activitesCherchees.includes(activite)),
   ) as PredicatInformationSecteurPossible;
-// export const contientActivitesInfrastructureNumeriqueEligiblesPetitEntite = <
-//   Taille extends CategorieTaille,
-// >(
-//   s:
-//     | InformationsSecteurAvecBesoinLocalisation<Taille>
-//     | InformationsSecteurPossible<Taille>,
-// ) =>
-//   certains(estActiviteInfrastructureNumeriqueEligiblesPetitEntite)(
-//     (s as InformationsSecteurAvecBesoinLocalisation<Taille>).activites,
-//   );
-// export const contientDesActivitesInfrastructureNumeriqueEssentielles = <
-//   T extends CategorieTaille,
-// >(
-//   s: InformationsSecteurPossible<T>,
-// ) =>
-//   certains(estActiviteInfrastructureNumeriqueAvecBesoinLocalisation)(
-//     (s as InformationsSecteurAvecBesoinLocalisation<T>).activites,
-//   );
+
 export const contientActivitesListees = <T extends CategorieTaille>(
   s: InformationsSecteurPossible<T>,
 ) => certains(estActiviteListee)((s as RepInfoSecteurListes<T>).activites);

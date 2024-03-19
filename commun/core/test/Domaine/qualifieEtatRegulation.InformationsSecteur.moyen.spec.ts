@@ -47,26 +47,27 @@ describe("Secteur", () => {
         "Moyen",
       );
 
+    const fabriqueArbJamaisOse_ToujoursFrance =
+      fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen;
     describe("Inrasctructures Numériques", () => {
       const fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourServiceDansPays =
         fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourServiceDansPays(
           "infrastructureNumerique",
         );
-
       const fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourEtab =
         fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourEtab(
           "infrastructureNumerique",
         );
+
       const fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites =
         fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites(
           "infrastructureNumerique",
         );
-
       describe("Fournisseur de réseaux de communications électroniques publics et Fournisseur de services de communications électroniques accessibles au public", () => {
         it(
           "France, à minima ==> Définitivement EE",
           assertionArbitraire(
-            fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+            fabriqueArbJamaisOse_ToujoursFrance(
               fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourServiceDansPays(
                 "fournisseurReseauxCommunicationElectroniquesPublics",
                 "fournisseurServiceCommunicationElectroniquesPublics",
@@ -80,7 +81,7 @@ describe("Secteur", () => {
         it(
           "Autre(s) EM de l'UE, à minima ==> Définitivement Régulé autre",
           assertionArbitraire(
-            fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+            fabriqueArbJamaisOse_ToujoursFrance(
               fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourServiceDansPays(
                 "fournisseurReseauxCommunicationElectroniquesPublics",
                 "fournisseurServiceCommunicationElectroniquesPublics",
@@ -94,7 +95,7 @@ describe("Secteur", () => {
         it(
           "État(s) hors UE ==> Définitivement Non régulé",
           assertionArbitraire(
-            fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+            fabriqueArbJamaisOse_ToujoursFrance(
               fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourServiceDansPays(
                 "fournisseurReseauxCommunicationElectroniquesPublics",
                 "fournisseurServiceCommunicationElectroniquesPublics",
@@ -104,70 +105,6 @@ describe("Secteur", () => {
           ),
         );
       });
-      describe("Fournisseur de services DNS, à l’exclusion des opérateurs de serveurs racines de noms de domaines ou Registres de noms de domaines de premier niveau", () => {
-        it(
-          "France premiere question ==> definitivement EE",
-          assertionArbitraire(
-            fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
-              fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourEtab(
-                "fournisseurServicesDNS",
-                "registresNomsDomainesPremierNiveau",
-              )(arbLocalisationEtablissementPrincipal_France),
-            ),
-            fabriqueVerificationReponseDefinitivementRegule(
-              TE.EntiteEssentielle,
-            ),
-          ),
-        );
-        it(
-          "France premiere question ==> definitivement Autre État Membre UE",
-          assertionArbitraire(
-            fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
-              fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourEtab(
-                "fournisseurServicesDNS",
-                "registresNomsDomainesPremierNiveau",
-              )(arbLocalisationEtablissementPrincipal_AutreUE),
-            ),
-            fabriqueVerificationReponseDefinitivementRegule(
-              TE.AutreEtatMembreUE,
-            ),
-          ),
-        );
-      });
-      it(
-        "Prestataire de services de confiance qualifié ==> définitivement régulé EE",
-        assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
-            fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites(
-              "prestataireServiceConfianceQualifie",
-            ),
-          ),
-          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
-        ),
-      );
-      it(
-        "Prestataire de services de confiance non-qualifié ou Fournisseur de points d’échange internet ==> définitivement régulé EI",
-        assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
-            fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites(
-              "prestataireServiceConfianceNonQualifie",
-              "fournisseurPointEchangeInternet",
-            ),
-          ),
-          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteImportante),
-        ),
-      );
-      it(
-        "autre Activite Infrastructure Numerique (non listée) ==> définitivement non régulé",
-        assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
-            fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites(
-              "autreActiviteInfrastructureNumerique",
-            ),
-          ),
-          verificationReponseNonRegule,
-        ),
-      );
       describe(
         "Fournisseur de services d’informatique en nuage, " +
           "Fournisseur de services de centres de données, " +
@@ -176,7 +113,7 @@ describe("Secteur", () => {
           it(
             "France à l'une des questions ==> definitivement EE",
             assertionArbitraire(
-              fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+              fabriqueArbJamaisOse_ToujoursFrance(
                 fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourEtab(
                   "fournisseurServicesInformatiqueNuage",
                   "fournisseurServiceCentresDonnees",
@@ -191,7 +128,7 @@ describe("Secteur", () => {
           it(
             "Autre à l'une des questions ==> definitivement Autre État Membre UE",
             assertionArbitraire(
-              fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+              fabriqueArbJamaisOse_ToujoursFrance(
                 fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourEtab(
                   "fournisseurServicesInformatiqueNuage",
                   "fournisseurServiceCentresDonnees",
@@ -204,6 +141,70 @@ describe("Secteur", () => {
             ),
           );
         },
+      );
+      describe("Fournisseur de services DNS, à l’exclusion des opérateurs de serveurs racines de noms de domaines ou Registres de noms de domaines de premier niveau", () => {
+        it(
+          "France premiere question ==> definitivement EE",
+          assertionArbitraire(
+            fabriqueArbJamaisOse_ToujoursFrance(
+              fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourEtab(
+                "fournisseurServicesDNS",
+                "registresNomsDomainesPremierNiveau",
+              )(arbLocalisationEtablissementPrincipal_France),
+            ),
+            fabriqueVerificationReponseDefinitivementRegule(
+              TE.EntiteEssentielle,
+            ),
+          ),
+        );
+        it(
+          "France premiere question ==> definitivement Autre État Membre UE",
+          assertionArbitraire(
+            fabriqueArbJamaisOse_ToujoursFrance(
+              fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourEtab(
+                "fournisseurServicesDNS",
+                "registresNomsDomainesPremierNiveau",
+              )(arbLocalisationEtablissementPrincipal_AutreUE),
+            ),
+            fabriqueVerificationReponseDefinitivementRegule(
+              TE.AutreEtatMembreUE,
+            ),
+          ),
+        );
+      });
+      it(
+        "Prestataire de services de confiance qualifié ==> définitivement régulé EE",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance(
+            fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites(
+              "prestataireServiceConfianceQualifie",
+            ),
+          ),
+          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
+        ),
+      );
+      it(
+        "Prestataire de services de confiance non-qualifié ou Fournisseur de points d’échange internet ==> définitivement régulé EI",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance(
+            fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites(
+              "prestataireServiceConfianceNonQualifie",
+              "fournisseurPointEchangeInternet",
+            ),
+          ),
+          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteImportante),
+        ),
+      );
+      it(
+        "autre Activite Infrastructure Numerique (non listée) ==> définitivement non régulé",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance(
+            fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites(
+              "autreActiviteInfrastructureNumerique",
+            ),
+          ),
+          verificationReponseNonRegule,
+        ),
       );
     });
 
@@ -219,7 +220,7 @@ describe("Secteur", () => {
       it(
         "Gestion TIC / France à l'une des questions ==> definitivement EE",
         assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+          fabriqueArbJamaisOse_ToujoursFrance(
             fabriqueArb_EnsInfosSecteurSingleton_gestionServicesTic_PourActivites_PourEtab(
               "fournisseurServicesGeres",
               "fournisseurServicesSecuriteGeres",
@@ -231,7 +232,7 @@ describe("Secteur", () => {
       it(
         "Gestion TIC / France à l'une des questions ==> definitivement EE",
         assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+          fabriqueArbJamaisOse_ToujoursFrance(
             fabriqueArb_EnsInfosSecteurSingleton_fournisseursNumeriques_PourActivites_PourEtab(
               "fournisseursPlaceMarcheEnLigne",
               "fournisseursMoteursRechercheEnLigne",
@@ -244,7 +245,7 @@ describe("Secteur", () => {
       it(
         "Autre à l'une des questions ==> definitivement Autre État Membre UE",
         assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+          fabriqueArbJamaisOse_ToujoursFrance(
             fabriqueArb_EnsInfosSecteurSingleton_gestionServicesTic_PourActivites_PourEtab(
               "fournisseurServicesGeres",
               "fournisseurServicesSecuriteGeres",
@@ -256,7 +257,7 @@ describe("Secteur", () => {
       it(
         "Autre à l'une des questions ==> definitivement Autre État Membre UE",
         assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+          fabriqueArbJamaisOse_ToujoursFrance(
             fabriqueArb_EnsInfosSecteurSingleton_fournisseursNumeriques_PourActivites_PourEtab(
               "fournisseursPlaceMarcheEnLigne",
               "fournisseursMoteursRechercheEnLigne",
@@ -269,9 +270,9 @@ describe("Secteur", () => {
     });
     describe("Secteurs listés", () => {
       it(
-        "en suspens / secteur et sous-secteur en annexe 1 ==> toujours définitivement régulé EE",
+        "en suspens / secteur et sous-secteur en annexe 1 ==> toujours définitivement régulé EI",
         assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+          fabriqueArbJamaisOse_ToujoursFrance(
             fabriqueArb_ReponseInformationsSecteur_ME(
               arbEnsembleSecteursAnnexe1 as fc.Arbitrary<
                 Set<RepInfoSecteur<"Moyen">>
@@ -284,7 +285,7 @@ describe("Secteur", () => {
       it(
         "en suspens / secteur et sous-secteur en annexe 2 ==> toujours définitivement régulé EI",
         assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+          fabriqueArbJamaisOse_ToujoursFrance(
             fabriqueArb_ReponseInformationsSecteur_ME(
               arbEnsembleSecteursAnnexe2 as fc.Arbitrary<
                 Set<RepInfoSecteur<"Moyen">>
@@ -299,7 +300,7 @@ describe("Secteur", () => {
       it(
         "en suspens / secteurs/sous-secteur listés, uniquement activités autres ==> toujours définitivement non-régulé",
         assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+          fabriqueArbJamaisOse_ToujoursFrance(
             fc.oneof(
               fabriqueArb_ReponseInformationsSecteur_ME(
                 arbEnsembleSecteursCompositesActivitesAutres as fc.Arbitrary<
@@ -324,7 +325,7 @@ describe("Secteur", () => {
       it(
         "en suspens / secteur autre Grand ==> toujours définitivement non régulé",
         assertionArbitraire(
-          fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
+          fabriqueArbJamaisOse_ToujoursFrance(
             fabriqueArbInformationsSecteurAutre("Moyen"),
           ),
           verificationReponseNonRegule,
