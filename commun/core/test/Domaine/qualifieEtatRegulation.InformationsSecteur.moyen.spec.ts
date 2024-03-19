@@ -93,11 +93,11 @@ describe("Secteur", () => {
           assertionArbitraire(
             fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
               fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
-                "infrastructureNumerique",
-              )(
+                "Moyen",
+              )("infrastructureNumerique")(
                 "fournisseurServicesDNS",
                 "registresNomsDomainesPremierNiveau",
-              )("Moyen")(arbLocalisationEtablissementPrincipal_France),
+              )(arbLocalisationEtablissementPrincipal_France),
             ),
             fabriqueVerificationReponseDefinitivementRegule(
               TE.EntiteEssentielle,
@@ -109,11 +109,11 @@ describe("Secteur", () => {
           assertionArbitraire(
             fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
               fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
-                "infrastructureNumerique",
-              )(
+                "Moyen",
+              )("infrastructureNumerique")(
                 "fournisseurServicesDNS",
                 "registresNomsDomainesPremierNiveau",
-              )("Moyen")(arbLocalisationEtablissementPrincipal_AutreUE),
+              )(arbLocalisationEtablissementPrincipal_AutreUE),
             ),
             fabriqueVerificationReponseDefinitivementRegule(
               TE.AutreEtatMembreUE,
@@ -172,12 +172,12 @@ describe("Secteur", () => {
             assertionArbitraire(
               fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
                 fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
-                  "infrastructureNumerique",
-                )(
+                  "Moyen",
+                )("infrastructureNumerique")(
                   "fournisseurServicesInformatiqueNuage",
                   "fournisseurServiceCentresDonnees",
                   "fournisseurReseauxDiffusionContenu",
-                )("Moyen")(arbLocalisationEtablissementPrincipal_France),
+                )(arbLocalisationEtablissementPrincipal_France),
               ),
               fabriqueVerificationReponseDefinitivementRegule(
                 TE.EntiteEssentielle,
@@ -189,12 +189,12 @@ describe("Secteur", () => {
             assertionArbitraire(
               fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
                 fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
-                  "infrastructureNumerique",
-                )(
+                  "Moyen",
+                )("infrastructureNumerique")(
                   "fournisseurServicesInformatiqueNuage",
                   "fournisseurServiceCentresDonnees",
                   "fournisseurReseauxDiffusionContenu",
-                )("Moyen")(arbLocalisationEtablissementPrincipal_AutreUE),
+                )(arbLocalisationEtablissementPrincipal_AutreUE),
               ),
               fabriqueVerificationReponseDefinitivementRegule(
                 TE.AutreEtatMembreUE,
@@ -211,11 +211,11 @@ describe("Secteur", () => {
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
             fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
-              "gestionServicesTic",
-            )(
+              "Moyen",
+            )("gestionServicesTic")(
               "fournisseurServicesGeres",
               "fournisseurServicesSecuriteGeres",
-            )("Moyen")(arbLocalisationEtablissementPrincipal_France),
+            )(arbLocalisationEtablissementPrincipal_France),
           ),
           fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
         ),
@@ -225,12 +225,12 @@ describe("Secteur", () => {
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
             fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
-              "fournisseursNumeriques",
-            )(
+              "Moyen",
+            )("fournisseursNumeriques")(
               "fournisseursPlaceMarcheEnLigne",
               "fournisseursMoteursRechercheEnLigne",
               "fournisseursPlateformesServicesReseauxSociaux",
-            )("Moyen")(arbLocalisationEtablissementPrincipal_France),
+            )(arbLocalisationEtablissementPrincipal_France),
           ),
           fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
         ),
@@ -240,11 +240,11 @@ describe("Secteur", () => {
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
             fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
-              "gestionServicesTic",
-            )(
+              "Moyen",
+            )("gestionServicesTic")(
               "fournisseurServicesGeres",
               "fournisseurServicesSecuriteGeres",
-            )("Moyen")(arbLocalisationEtablissementPrincipal_AutreUE),
+            )(arbLocalisationEtablissementPrincipal_AutreUE),
           ),
           fabriqueVerificationReponseDefinitivementRegule(TE.AutreEtatMembreUE),
         ),
@@ -254,12 +254,12 @@ describe("Secteur", () => {
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen(
             fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
-              "fournisseursNumeriques",
-            )(
+              "Moyen",
+            )("fournisseursNumeriques")(
               "fournisseursPlaceMarcheEnLigne",
               "fournisseursMoteursRechercheEnLigne",
               "fournisseursPlateformesServicesReseauxSociaux",
-            )("Moyen")(arbLocalisationEtablissementPrincipal_AutreUE),
+            )(arbLocalisationEtablissementPrincipal_AutreUE),
           ),
           fabriqueVerificationReponseDefinitivementRegule(TE.AutreEtatMembreUE),
         ),

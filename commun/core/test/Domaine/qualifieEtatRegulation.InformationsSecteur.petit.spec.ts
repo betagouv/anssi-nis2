@@ -85,11 +85,11 @@ describe("Secteur", () => {
             assertionArbitraire(
               fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
                 fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
-                  "infrastructureNumerique",
-                )(
+                  "Petit",
+                )("infrastructureNumerique")(
                   "fournisseurServicesDNS",
                   "registresNomsDomainesPremierNiveau",
-                )("Petit")(arbLocalisationEtablissementPrincipal_France),
+                )(arbLocalisationEtablissementPrincipal_France),
               ),
               fabriqueVerificationReponseDefinitivementRegule(
                 TE.EntiteEssentielle,
@@ -101,11 +101,11 @@ describe("Secteur", () => {
             assertionArbitraire(
               fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
                 fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
-                  "infrastructureNumerique",
-                )(
+                  "Petit",
+                )("infrastructureNumerique")(
                   "fournisseurServicesDNS",
                   "registresNomsDomainesPremierNiveau",
-                )("Petit")(arbLocalisationEtablissementPrincipal_AutreUE),
+                )(arbLocalisationEtablissementPrincipal_AutreUE),
               ),
               fabriqueVerificationReponseDefinitivementRegule(
                 TE.AutreEtatMembreUE,

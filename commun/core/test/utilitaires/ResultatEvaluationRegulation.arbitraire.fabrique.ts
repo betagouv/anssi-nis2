@@ -5,7 +5,6 @@ import {
   ActiviteInfranumLocalEtabLot1,
   ActiviteInfranumLocalEtabLot2,
   ActiviteInfranumLocalServices,
-  ActivitesGestionServicesTic,
   ActivitesPourSecteur,
 } from "../../src/Domain/Simulateur/Activite.definitions";
 import {
@@ -40,21 +39,6 @@ import {
   fabriqueArb_EnsActivites_Autres_PourSecteurSimple,
   fabriqueArb_EnsActivites_AvecFiltre_PourSecteur,
 } from "./EnsActivites.arbitraires.fabriques";
-
-export const fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille =
-  <Taille extends CategorieTaille>(taille: `${Taille}`) =>
-    A.enchaine<Set<RepInfoSecteur<Taille>>, ReponseInformationsSecteur<Taille>>(
-      (info) =>
-        fc.record({
-          _categorieTaille: fc.constant(taille),
-          secteurs: fc.constant(info),
-        }),
-    );
-
-// export const fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_GE =
-//   fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille(
-//     "Grand",
-//   );
 
 export const fabriqueArb_EnsInformationsSecteurPossible = <
   Taille extends CategorieTaille,
@@ -101,29 +85,7 @@ export const fabriqueArbInformationsSecteurAutre = <T extends CategorieTaille>(
       }),
     ),
   );
-// export const fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille =
-//   <Taille extends CategorieTaille>(taille: `${Taille}`) =>
-//     fabriqueArb_ReponseInformationsSecteur_LocalisableUe_HorsFrance_PourTaille(
-//       taille,
-//     );
-// export const fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_ME_AvecEnsembleDe =
-//   flow(
-//     fabriqueArb_EnsInformationsSecteurPossible as (
-//       arb: fc.Arbitrary<RepInfoSecteur<CategorieTaille>>,
-//     ) => fc.Arbitrary<Set<RepInfoSecteur<"Moyen">>>,
-//     fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille(
-//       "Moyen",
-//     ),
-//   );
-// export const fabriqueArb_ReponseInformationsSecteur_Localisable_Oui_France_GE_AvecEnsembleDe =
-//   flow(
-//     fabriqueArb_EnsInformationsSecteurPossible as (
-//       arb: fc.Arbitrary<RepInfoSecteur<CategorieTaille>>,
-//     ) => fc.Arbitrary<Set<RepInfoSecteur<"Grand">>>,
-//     fabriqueArb_ReponseInformationsSecteur_SecteurLocalisable_Oui_France_PourTaille(
-//       "Grand",
-//     ),
-//   );
+
 export const fabriqueArb_EnsInformationsSecteur_ActivitesListees = flow(
   A.enchaine(fabriqueArb_EnsActivites_Autres_PourSecteurSimple) as (
     arb: fc.Arbitrary<SecteurActivite>,
@@ -175,53 +137,63 @@ export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_Pour
           }),
         ),
       });
-export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab =
 
-    <Secteur extends "infrastructureNumerique" | "gestionServicesTic">(
-      secteur: Secteur,
-    ) =>
-    <
-      TypeActivite extends
-        | ActiviteInfranumLocalEtabLot1
-        | ActiviteInfranumLocalEtabLot2
-        | ActivitesGestionServicesTic,
-    >(
-      ...activites: TypeActivite[]
-    ) =>
-    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
-      A.enchaine((loc: LocalisationEtablissementPrincipal) =>
-        fc.record({
-          _categorieTaille: fc.constant(taille),
-          secteurs: fc.constant(
-            ens({
-              _categorieTaille: taille,
-              secteurActivite: secteur,
-              activites: ens(...activites),
-              ...loc,
-            }),
-          ),
-        }),
-      );
-export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab_Secteurs =
+type TypeCond<
+  Taille extends CategorieTaille,
+  Secteur extends
+    | "infrastructureNumerique"
+    | "gestionServicesTic"
+    | "fournisseursNumeriques",
+> = Taille extends "Petit"
+  ? ActiviteInfranumLocalEtabLot1
+  : Secteur extends "infrastructureNumerique"
+    ? ActiviteInfranumLocalEtabLot1 | ActiviteInfranumLocalEtabLot2
+    : ActivitesPourSecteur[Secteur];
 
-    <Secteur extends "gestionServicesTic">(secteur: Secteur) =>
-    <TypeActivite extends ActivitesGestionServicesTic>(
-      ...activites: TypeActivite[]
-    ) =>
-    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
-      A.enchaine((loc: LocalisationEtablissementPrincipal) =>
-        fc.record({
-          _categorieTaille: fc.constant(taille),
-          secteurs: fc.constant(
-            ens({
-              _categorieTaille: taille,
-              secteurActivite: secteur,
-              activites: ens(...activites),
-              ...loc,
-            }),
-          ),
-        }),
-      );
+export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab: <
+  Taille extends CategorieTaille,
+>(
+  taille: Taille,
+) => <
+  Secteur extends
+    | "infrastructureNumerique"
+    | "gestionServicesTic"
+    | "fournisseursNumeriques",
+>(
+  secteur: Secteur,
+) => <TypeActivite extends TypeCond<Taille, Secteur>>(
+  ...activites: TypeActivite[]
+) => (
+  arb: fc.Arbitrary<LocalisationEtablissementPrincipal>,
+) => fc.Arbitrary<ReponseInformationsSecteur<Taille>> =
+  <Taille extends CategorieTaille>(taille: Taille) =>
+  <
+    Secteur extends
+      | "infrastructureNumerique"
+      | "gestionServicesTic"
+      | "fournisseursNumeriques",
+  >(
+    secteur: Secteur,
+  ) =>
+  <TypeActivite extends TypeCond<Taille, Secteur>>(
+    ...activites: TypeActivite[]
+  ) =>
+    A.enchaine((loc: LocalisationEtablissementPrincipal) =>
+      fc.record({
+        _categorieTaille: fc.constant(taille as unknown as `${Taille}`),
+        secteurs: fc.constant(
+          ens({
+            _categorieTaille: taille as unknown as `${Taille}`,
+            secteurActivite: secteur,
+            activites: ens(...activites),
+            ...loc,
+          }),
+        ),
+      }),
+    ) as (
+      arb: fc.Arbitrary<LocalisationEtablissementPrincipal>,
+    ) => fc.Arbitrary<ReponseInformationsSecteur<Taille>>;
+
 export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourServiceDansPays =
 
     <Secteur extends "infrastructureNumerique">(secteur: Secteur) =>
@@ -242,6 +214,3 @@ export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_Pour
           ),
         }),
       );
-
-
-//: fc.Arbitrary<ReponseInformationsSecteur<Taille>>

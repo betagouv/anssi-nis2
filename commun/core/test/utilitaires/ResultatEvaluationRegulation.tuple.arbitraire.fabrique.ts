@@ -38,10 +38,11 @@ export const fabriqueArbJamaisOse_ToujoursFrance_StructurePetit =
     arbReponseStructure_ToujoursPrivee_ToujoursPE,
   );
 
-export const fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen =
-  fabriqueArbJamaisOse_ToujoursFrance<"privee", "Moyen">(
-    arbReponseStructure_ToujoursPrivee_ToujoursME,
-  );
+export const fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen: <T>(
+  arbInformationsSecteur: fc.Arbitrary<ReponseInformationsSecteur<"Moyen">>,
+) => any = fabriqueArbJamaisOse_ToujoursFrance<"privee", "Moyen">(
+  arbReponseStructure_ToujoursPrivee_ToujoursME,
+);
 export const fabriqueArbJamaisOse_ToujoursFrance_StructureGrand =
   fabriqueArbJamaisOse_ToujoursFrance<"privee", "Grand">(
     arbReponseStructure_ToujoursPrivee_ToujoursGE,
