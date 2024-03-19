@@ -3,7 +3,7 @@ import BlocPrincipal from "../BlocPrincipal.tsx";
 
 export const BandeauInformationRS = () => (
   <BlocPrincipal id="informations">
-    <div>
+    <div className="restez-informe">
       <h2>Restez informé</h2>
       <p>
         Pour se tenir au courant des évolutions du contexte

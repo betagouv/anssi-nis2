@@ -6,7 +6,9 @@ type BlocPrincipalProps = DefaultProps & {
 const BlocPrincipal: DefaultComponentExtensible<BlocPrincipalProps> = ({ children, className, id }: BlocPrincipalProps) => {
     return (
         <div id={id} className={"fr-nis2-bloc-principal " + className}>
-            {children}
+            <div className="contenu-bloc-principal">
+                {children}
+            </div>
         </div>
     );
 };

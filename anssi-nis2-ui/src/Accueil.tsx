@@ -3,8 +3,10 @@ import "@gouvfr/dsfr/dist/utility/utility.css";
 
 import "./accueil.scss";
 import "./accueil.tablette.scss";
+import "./accueil.desktop.scss";
 
 import { DefaultComponent } from "./Services/Props";
+import {Link} from "react-router-dom";
 import {
   BandeauAccueil,
   BandeauConcerne,
@@ -16,9 +18,9 @@ import {MenuMobile} from "./Components/MenuMobile.tsx";
 import {MenuDesktop} from "./Components/MenuDesktop.tsx";
 import BlocPrincipal from "./Components/BlocPrincipal.tsx";
 import Paragraphe from "./Components/Accueil/Paragraphe.tsx";
-import {Link} from "react-router-dom";
 import BandeauSePreparer from "./Components/Accueil/BandeauSePreprarer.tsx";
 import JalonEtape from "./Components/Accueil/JalonEtape.tsx";
+import PisteEtape from "./assets/chemin-etape.svg";
 
 const Accueil: DefaultComponent = () => {
   return (
@@ -45,6 +47,7 @@ const Accueil: DefaultComponent = () => {
           <BlocPrincipal id="etapes" className="fond-primaire">
             <h2 className="texte-blanc">Les étapes de la transposition</h2>
             <div className="conteneur-etapes">
+              <img id="piste-etape" src={PisteEtape} alt="Piste des étapes de la transposition" />
               <JalonEtape annee={2021} jalons={[{contenu: "Négociations européennes autour de la révision de NIS 1"}]} />
               <JalonEtape annee={2022} jalons={[{date: "27 décembre 2022", contenu: "Publication de la directive NIS 2 au Journal Officiel de l'UE"}]} />
               <JalonEtape annee={2024} jalons={[{date: "17 octobre 2024", contenu: "Échéance de transposition nationale pour chaque État membre"}]} />

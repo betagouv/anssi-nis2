@@ -12,11 +12,13 @@ const CarteSePreparer: DefaultComponentExtensible<CarteSePreparerProps> = ({ ima
         <div className="carte-se-preparer">
             <img src={image} alt={titre} />
             <p className={`numero ${prochainement ? 'prochainement' : ''}`}>{numero}</p>
-            <h3>{titre}</h3>
-            <p>{contenu}</p>
-            {prochainement && (
-                <p className="prochainement">À venir prochainement</p>
-            )}
+            <div className="contenu">
+                <h3>{titre}</h3>
+                <p>{contenu}</p>
+                {prochainement && (
+                    <p className="prochainement">À venir prochainement</p>
+                )}
+            </div>
         </div>
     );
 };

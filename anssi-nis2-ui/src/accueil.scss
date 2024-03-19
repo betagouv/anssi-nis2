@@ -138,6 +138,10 @@
             border-left: 2px solid #545D8E;
             position: relative;
 
+            #piste-etape {
+                display: none;
+            }
+
             &:before {
                 content: '';
                 min-width: 20px;

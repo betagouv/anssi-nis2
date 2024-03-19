@@ -158,8 +158,11 @@
         }
 
         #informations {
-            display: flex;
-            align-items: center;
+
+            .contenu-bloc-principal {
+                display: flex;
+                align-items: center;
+            }
 
             & > * {
                 flex: 1;
@@ -167,6 +170,10 @@
 
             h2 {
                 text-align: left;
+            }
+
+            .restez-informe {
+                max-width: 288px;
             }
 
             .infolettre {
