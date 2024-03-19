@@ -29,6 +29,104 @@
   font-size: 1.125rem;
 }
 
+.fr-nis2-bom {
+  position: fixed;
+  right: 10px;
+  bottom: 20px;
+  transition: height 0.2s, padding 0.2s;
+
+  &.bom-ferme {
+    border-radius: 20px;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 16px 2px 30px;
+    gap: 8px;
+    background-color: #272771 !important;
+
+    &:hover {
+      filter: saturate(110%) contrast(110%);
+      background-color: #2323ff !important;
+    }
+
+    &:before {
+      content: "";
+      background-image: url(assets/vignette-bom.svg);
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      left: -25px;
+    }
+
+    & img {
+      transform: rotate(-90deg);
+    }
+  }
+
+  &.bom-ouvert {
+    width: 320px;
+    border-radius: 15px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+
+    & h4 {
+      color: white;
+      height: 100px;
+      background: url(assets/entete-fenetre-bom.svg) no-repeat;
+      background-position-y: -1px;
+      background-size: 100%;
+      padding-left: 86px;
+      padding-top: 43px;
+      font-size: 0.9rem;
+      line-height: 1.4rem;
+      margin-bottom: 0;
+
+      & .plus-grand {
+        font-size: 1.3rem;
+      }
+    }
+
+    & .contenu {
+      padding: 24px 18px;
+      border-left: 1px solid #272771;
+      border-right: 1px solid #272771;
+
+      & ul {
+        list-style-type: none;
+        padding-left: 0;
+
+        & a {
+          color: #272771;
+        }
+      }
+    }
+
+    & .fermeture-bom {
+      display: flex;
+      width: 100%;
+      padding-right: 10px;
+      padding-bottom: 10px;
+      justify-content: flex-end;
+      border-left: 1px solid #272771;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+      border-bottom: 1px solid #272771;
+      border-right: 1px solid #272771;
+
+      & button {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
 .fr-nis2-accueil-principal {
   height: 720px;
 
@@ -76,7 +174,8 @@
   padding-top: 100px;
   z-index: initial;
 
-  & h2, h3 {
+  & h2,
+  h3 {
     text-align: center;
     color: #272771;
     margin-bottom: 1rem;
@@ -466,7 +565,8 @@ legend.fr-text--medium {
 }
 
 .fr-nis2-aidez-nous {
-  background: var(--yellow-tournesol-975-75, #fef6e3) url(assets/faq.svg) no-repeat;
+  background: var(--yellow-tournesol-975-75, #fef6e3) url(assets/faq.svg)
+    no-repeat;
   background-size: 5rem;
 }
 
@@ -536,23 +636,23 @@ legend.fr-text--medium {
 
 .fr-radio-group input[type="radio"] + label {
   background-image: radial-gradient(
-          #fff 10px,
-          var(--background-action-high-blue-france) 11px,
-          transparent 12px
+    #fff 10px,
+    var(--background-action-high-blue-france) 11px,
+    transparent 12px
   );
 }
 
 .fr-radio-group input[type="radio"]:checked + label {
   background-image: radial-gradient(
-          transparent 10px,
-          var(--background-action-high-blue-france) 11px,
-          transparent 12px
-  ),
-  radial-gradient(transparent 7px, #fff 8px, transparent 9px),
-  radial-gradient(
-          var(--background-action-high-blue-france) 5px,
-          transparent 6px
-  );
+      transparent 10px,
+      var(--background-action-high-blue-france) 11px,
+      transparent 12px
+    ),
+    radial-gradient(transparent 7px, #fff 8px, transparent 9px),
+    radial-gradient(
+      var(--background-action-high-blue-france) 5px,
+      transparent 6px
+    );
 }
 
 .fr-nis2-faq {
