@@ -50,8 +50,6 @@
         }
 
         #explications-nis2 {
-            padding-top: 0;
-
             .conteneur-paragraphes {
                 column-gap: 16px;
                 row-gap: 48px;
@@ -95,6 +93,15 @@
 
                     p {
                         font-size: 16px;
+                    }
+
+                    .conteneur-image {
+                        display: flex;
+                        justify-content: center;
+
+                        img {
+                            max-width: 500px;
+                        }
                     }
                 }
 
@@ -173,7 +180,7 @@
             }
 
             .restez-informe {
-                max-width: 288px;
+                max-width: 48%;
             }
 
             .infolettre {

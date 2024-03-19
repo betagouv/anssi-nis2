@@ -10,7 +10,9 @@ type CarteSePreparerProps = DefaultProps & {
 const CarteSePreparer: DefaultComponentExtensible<CarteSePreparerProps> = ({ image, numero, titre, contenu, prochainement }: CarteSePreparerProps) => {
     return (
         <div className="carte-se-preparer">
-            <img src={image} alt={titre} />
+            <div className="conteneur-image">
+                <img src={image} alt={titre} />
+            </div>
             <p className={`numero ${prochainement ? 'prochainement' : ''}`}>{numero}</p>
             <div className="contenu">
                 <h3>{titre}</h3>
