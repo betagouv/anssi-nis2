@@ -230,34 +230,4 @@
             }
         }
     }
-
-    #informations {
-        padding-top: 32px;
-        padding-bottom: 32px;
-
-        h2 {
-            font-size: 22px;
-            margin-bottom: 8px;
-        }
-
-        p {
-            font-size: 14px;
-            font-weight: 400;
-        }
-
-        .infolettre {
-            display: flex;
-            justify-content: center;
-        }
-
-        .separateur {
-            height: 1px;
-            background: #6A6AF4;
-            margin: 24px 0;
-        }
-
-        .fr-follow {
-            padding: 0;
-        }
-    }
 }

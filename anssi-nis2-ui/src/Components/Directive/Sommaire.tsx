@@ -3,7 +3,7 @@ import {LienRubrique} from "./LienRubrique.tsx";
 import {useEffect, useState} from "react";
 
 const requeteMediaDesktop = () => {
-    return window.matchMedia('(min-width: 1440px)').matches;
+    return window.matchMedia('(min-width: 1280px)').matches;
 }
 
 const elementDansViewport = (el: Element) => {
@@ -62,7 +62,7 @@ export const Sommaire: DefaultComponent = () => {
             <summary>Dans cette rubrique</summary>
             <ul>
                 <LienRubrique id="mot-du-directeur" titre="Le mot du Directeur Général"/>
-                <LienRubrique id="explication-nis2" titre="Qu’est-ce que NIS 2 ?"/>
+                <LienRubrique id="explication-nis2" titre="Qu’est-ce que NIS&nbsp;2 ?"/>
                 <LienRubrique id="entites" titre="Les entités essentielles (EE) et entités importantes (EI)"/>
                 <LienRubrique id="secteurs-activite"
                               titre="+ de 10 000 entités concernées sur 18 secteurs d’activité"/>

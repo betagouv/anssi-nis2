@@ -3,7 +3,7 @@ import "@gouvfr/dsfr/dist/utility/utility.css";
 
 import "./directive.scss";
 import "./directive.tablette.scss";
-import "./directive.desktop.scss"
+import "./directive.desktop.scss";
 import Hero from "../src/assets/directive-hero.svg";
 import DirecteurANSSI from "../src/assets/Directeur ANSSI.png";
 import CollectivitesTerritoriales from "../src/assets/collectivites-territoriales.svg";
@@ -36,19 +36,19 @@ const Directive: DefaultComponent = () => {
           <MenuDesktop />
           <div className="fr-nis2-directive">
               <BlocPrincipal className="fond-primaire" id="hero">
-                  <h1 className="texte-blanc">M’informer sur la directive NIS 2</h1>
+                  <h1 className="texte-blanc">M’informer sur la directive NIS&nbsp;2</h1>
                   <img src={Hero} alt="Illustration du Hero de la directive NIS 2"/>
               </BlocPrincipal>
               <div className="page">
                   <Sommaire />
                   <div className="contenu-page">
                       <BlocPrincipal className="fond-blanc aucune-marge-basse">
-                          <h2 className="texte-primaire">La directive NIS 2 en détail</h2>
+                          <h2 className="texte-primaire">La directive NIS&nbsp;2 en détail</h2>
                           <div id="mot-du-directeur">
                               <h3>Le mot du directeur général</h3>
-                              <p>La directive NIS 2 permet d’élever le niveau global de cybersécurité par l’application de
+                              <p>La directive NIS&nbsp;2 permet d’élever le niveau global de cybersécurité par l’application de
                                   règles harmonisées et simplifiées. </p>
-                              <p>Face à une cybermenace qui s’accroît, NIS 2 relève le défi d’une meilleure sécurisation des
+                              <p>Face à une cybermenace qui s’accroît, NIS&nbsp;2 relève le défi d’une meilleure sécurisation des
                                   tissus économique et administratif de la France.</p>
                               <p>Les exigences prévues par la directive européenne invitent de nombreuses entités à construire
                                   une solide feuille de route pour déployer et renforcer leurs moyens de cyberdéfense, avec pour
@@ -66,9 +66,9 @@ const Directive: DefaultComponent = () => {
                           </div>
                       </BlocPrincipal>
                       <BlocPrincipal id="explication-nis2" className="fond-blanc aucune-marge-basse">
-                          <h3>Qu’est-ce que NIS 2 ?</h3>
+                          <h3>Qu’est-ce que NIS&nbsp;2 ?</h3>
                           <div>
-                              <p>La directive NIS 2 (Network and Information System Security – en français : sécurité des
+                              <p>La directive NIS&nbsp;2 (Network and Information System Security – en français : sécurité des
                                   réseaux et des systèmes d’Information) vise à renforcer le niveau de cybersécurité des tissus
                                   économique et administratif des pays membres de l’UE.</p>
                               <p>L’enjeu est de mieux protéger les réseaux et les systèmes d’information servant à fournir des
@@ -85,7 +85,7 @@ const Directive: DefaultComponent = () => {
                       </BlocPrincipal>
                       <BlocPrincipal id="entites" className="fond-blanc aucune-marge-basse">
                           <h3>Les entités essentielles (EE) et entités importantes (EI)</h3>
-                          <p>Pour garantir une proportionnalité de traitement, la directive NIS 2 distingue deux catégories
+                          <p>Pour garantir une proportionnalité de traitement, la directive NIS&nbsp;2 distingue deux catégories
                               d’entités régulées :</p>
                           <div className="conteneur-cartes">
                               <CarteEntite titre="EE" contenu="Entités essentielles"/>
@@ -122,7 +122,7 @@ const Directive: DefaultComponent = () => {
                       </BlocPrincipal>
                       <BlocPrincipal id="demarche" className="fond-blanc">
                           <h3>L’ANSSI vous accompagne dans cette démarche</h3>
-                          <p>Animée par une volonté forte de co-construire le dispositif national avec l’ensemble des acteurs régulés, des consultations avec les fédérations professionnelles, les associations d’élus locaux et les ministères concernés par NIS 2 sont en cours depuis l’automne 2023 afin d’échanger avec les représentants des futures entités régulées. Ces consultations se poursuivront tout au long des travaux de transposition.</p>
+                          <p>Animée par une volonté forte de co-construire le dispositif national avec l’ensemble des acteurs régulés, des consultations avec les fédérations professionnelles, les associations d’élus locaux et les ministères concernés par NIS&nbsp;2 sont en cours depuis l’automne 2023 afin d’échanger avec les représentants des futures entités régulées. Ces consultations se poursuivront tout au long des travaux de transposition.</p>
                           <p>En parallèle, l’ANSSI développe de nouveaux outils, avec notamment la création du service numérique « MonEspaceNIS2 » dont la vocation est d’accompagner les assujettis dans leur mise en conformité à la directive. Ce service s’étoffera au fil du temps pour proposer des services pertinents pour les entités. L’ANSSI souhaite capitaliser sur ses actions historiques de conseil, de sensibilisation et d’assistance opérationnelle.</p>
                           <div className="conteneur-image">
                             <img src={Demarche} alt="Accompagnement dans cette démarche" />

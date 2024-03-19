@@ -163,43 +163,5 @@
                 margin: 0 auto;
             }
         }
-
-        #informations {
-
-            .contenu-bloc-principal {
-                display: flex;
-                align-items: center;
-            }
-
-            & > * {
-                flex: 1;
-            }
-
-            h2 {
-                text-align: left;
-            }
-
-            .restez-informe {
-                max-width: 48%;
-            }
-
-            .infolettre {
-                width: fit-content;
-            }
-
-            .separateur {
-                min-width: 1px;
-                max-width: 1px;
-                height: 188px;
-                margin-left: 40px;
-                margin-right: 40px;
-            }
-
-            .fr-follow {
-                h2 {
-                    line-height: 28px;
-                }
-            }
-        }
     }
 }

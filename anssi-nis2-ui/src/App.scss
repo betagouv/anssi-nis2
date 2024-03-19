@@ -806,6 +806,36 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
   .texte-primaire {
     color: var(--couleur-primaire);
   }
+
+  &#informations {
+    padding-top: 32px;
+    padding-bottom: 32px;
+
+    h2 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .infolettre {
+      display: flex;
+      justify-content: center;
+    }
+
+    .separateur {
+      height: 1px;
+      background: #6A6AF4;
+      margin: 24px 0;
+    }
+
+    .fr-follow {
+      padding: 0;
+    }
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -816,10 +846,49 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
 
   .fr-nis2-bloc-principal {
     padding: 40px 56px;
+
+    &#informations {
+      background: #F5F5FE;
+
+      .contenu-bloc-principal {
+        display: flex;
+        align-items: center;
+      }
+
+      & > * {
+        flex: 1;
+      }
+
+      h2 {
+        text-align: left;
+      }
+
+      .restez-informe {
+        max-width: 48%;
+      }
+
+      .infolettre {
+        width: fit-content;
+      }
+
+      .separateur {
+        min-width: 1px;
+        max-width: 1px;
+        height: 188px;
+        margin-left: 40px;
+        margin-right: 40px;
+      }
+
+      .fr-follow {
+        h2 {
+          line-height: 28px;
+        }
+      }
+    }
   }
 }
 
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 1280px) {
   .fr-nis2-menu-burger {
     display: none;
   }
@@ -839,6 +908,26 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
       &.active {
         color: #282828;
         border-bottom: 4px solid #FDC82E;
+      }
+    }
+  }
+
+  .fr-nis2-bloc-principal {
+    .contenu-bloc-principal {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    &#informations {
+      flex-direction: row;
+
+      .restez-informe {
+        max-width: 690px;
+      }
+
+      .separateur {
+        margin-left: 103px;
+        margin-right: 103px;
       }
     }
   }
@@ -867,4 +956,8 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
   &:hover {
     background: #41419F !important;
   }
+}
+
+.fr-follow .fr-link::before {
+  background: #272771;
 }
