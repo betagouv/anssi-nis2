@@ -3,12 +3,10 @@ import {
   Activite,
   ActiviteInfranumLocalEtabLot1,
   ActiviteInfrastructureNumeriqueSansBesoinLocalisation,
-  ActivitesInfrastructureNumeriqueEligiblesPetitEntite,
   ActivitesPourSecteur,
 } from "../../Activite.definitions";
 import {
   ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
-  ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite,
   ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation,
 } from "../../Activite.valeurs";
 import {
@@ -97,12 +95,6 @@ export const exerceAucuneActivitesDansListe =
     d: T,
   ) =>
     d.activites.every((a) => !liste.includes(a));
-export const estActiviteInfrastructureNumeriqueEligiblesPetitEntite = (
-  a: Activite,
-) =>
-  ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite.includes(
-    a as ActivitesInfrastructureNumeriqueEligiblesPetitEntite,
-  );
 export const estActiviteInfrastructureNumeriqueAvecBesoinLocalisation = (
   a: Activite | ActiviteInfranumLocalEtabLot1,
 ): a is ActiviteInfranumLocalEtabLot1 =>

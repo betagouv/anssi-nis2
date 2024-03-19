@@ -70,7 +70,7 @@ export type ReponseInformationsSecteurInfranumAutresActivitesListees<
   : ReponseInformationsSecteurInfranumAutresActivitesListees_MG;
 
 /**
- * Réponse Informations Secteur pour:
+ * Réponse Informations Secteur pour :
  * - "gestionServicesTic" | "fournisseursNumeriques"
  * - Taille = "Petit"
  */
@@ -78,7 +78,7 @@ export type ReponseInformationsSecteurLocalEtab_P = CategoriseTaille<"Petit"> &
   InformationsSecteurLocalEtab;
 
 /**
- * Réponse Informations Secteur pour:
+ * Réponse Informations Secteur pour :
  * - "gestionServicesTic" | "fournisseursNumeriques"
  * - Taille = "Moyen" | "Grand"
  * Contient une localisation de services

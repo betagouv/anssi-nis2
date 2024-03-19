@@ -137,27 +137,6 @@ export const fabriqueResultatEvaluationEnSuspensStructure = ([
       structure,
     ),
   );
-export const fabriqueResultatEvaluationEnSuspensSecteurPetit = ([
-  designationOperateurServicesEssentiel,
-  appartenancePaysUnionEuropeenne,
-  structure,
-  informationsSecteur,
-]: [
-  ReponseDesignationOperateurServicesEssentiels,
-  ReponseAppartenancePaysUnionEuropeenne,
-  ReponseStructure<TypeStructure, "Petit">,
-  ReponseInformationsSecteur<"Petit">,
-]) =>
-  fabriqueResultatEvaluationEnSuspens(
-    "Structure",
-    resultatIncertain,
-    FabriqueEtatDonneesSimulateur.informationsSecteurChaine(
-      designationOperateurServicesEssentiel,
-      appartenancePaysUnionEuropeenne,
-      structure,
-      informationsSecteur,
-    ),
-  );
 export const fabriqueResultatEvaluationEnSuspensSecteur = <
   S extends TypeStructure,
   T extends CategorieTaille,

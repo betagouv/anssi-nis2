@@ -32,7 +32,6 @@ import {
   ValeursActivitesTransportsFerroviaires,
   ValeursActivitesTransportsParEau,
   ValeursActivitesTransportsRoutiers,
-  ValeursActivitesInfrastructureNumeriquePointEchangeServicesConfiance,
   ValeursActivitesInfrastructureNumeriqueFournisseursServices,
   ValeursActivitesInfrastructureNumeriqueFournisseursCommElecPublics,
 } from "./Activite.valeurs";
@@ -159,8 +158,6 @@ export type ActiviteInfranumLocalEtabLot1 =
   (typeof ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau)[number];
 export type ActiviteInfranumLocalEtabLot2 =
   (typeof ValeursActivitesInfrastructureNumeriqueFournisseursServices)[number];
-export type ActiviteInfrastructureNumeriquePointEchangeServicesConfiance =
-  (typeof ValeursActivitesInfrastructureNumeriquePointEchangeServicesConfiance)[number];
 
 export interface ActivitesPourSecteur
   extends Record<SecteurSimple | SousSecteurListes, Activite> {

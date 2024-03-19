@@ -61,14 +61,7 @@ export type InformationsSecteursCompositeListe =
 export type InformationsSecteurComposite =
   | InformationsSecteursCompositeListe
   | InformationsSecteurCompositeAutre;
-// export type ActivitesAvecBesoinLocalisationRepresentant<
-//   Taille extends CategorieTaille,
-// > = Taille extends "Petit"
-//   ? ActiviteInfranumLocalEtabLot1
-//   :
-//       | ActiviteInfranumLocalEtabLot1
-//       | ActivitesFournisseursNumeriques
-//       | ActivitesGestionServicesTic;
+
 export type InformationsSecteurLocalEtab<
   S extends SecteursReqLocalEtap = SecteursReqLocalEtap,
 > = {

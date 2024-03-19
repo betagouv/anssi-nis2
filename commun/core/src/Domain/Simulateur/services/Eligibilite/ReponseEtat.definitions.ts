@@ -6,11 +6,7 @@ import {
   CapsuleInformationsSecteur,
   CapsuleStructure,
 } from "./CapsuleReponse.definitions";
-import { ReponseInformationsSecteur } from "./ReponseInformationsSecteur.definitions";
-import {
-  CategorieTaille,
-  ReponseStructure,
-} from "./ReponseStructure.definitions";
+import { CategorieTaille } from "./ReponseStructure.definitions";
 
 export type ReponseEtatVide = Tag<"ReponseEtatVide">;
 export type ReponseEtatDesignationOperateurServicesEssentiels =
@@ -26,17 +22,6 @@ export type ReponseEtatStructure<
 > = Tag<"Structure"> &
   RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> &
   CapsuleStructure<Type, Taille>;
-
-export type ReponseEtatInformationsSecteurPetit = Tag<"InformationsSecteur"> &
-  RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> & {
-    Structure: ReponseStructure<TypeStructure, "Petit">;
-    InformationsSecteur: ReponseInformationsSecteur<"Petit">;
-  };
-export type ReponseEtatInformationsSecteurGrand = Tag<"InformationsSecteur"> &
-  RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> & {
-    Structure: ReponseStructure<TypeStructure, "Grand">;
-    InformationsSecteur: ReponseInformationsSecteur<"Grand">;
-  };
 
 export type ReponseEtatInformationsSecteur<
   T extends CategorieTaille = CategorieTaille,
