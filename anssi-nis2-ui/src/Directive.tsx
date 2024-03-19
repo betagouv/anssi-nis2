@@ -124,7 +124,9 @@ const Directive: DefaultComponent = () => {
                           <h3>L’ANSSI vous accompagne dans cette démarche</h3>
                           <p>Animée par une volonté forte de co-construire le dispositif national avec l’ensemble des acteurs régulés, des consultations avec les fédérations professionnelles, les associations d’élus locaux et les ministères concernés par NIS 2 sont en cours depuis l’automne 2023 afin d’échanger avec les représentants des futures entités régulées. Ces consultations se poursuivront tout au long des travaux de transposition.</p>
                           <p>En parallèle, l’ANSSI développe de nouveaux outils, avec notamment la création du service numérique « MonEspaceNIS2 » dont la vocation est d’accompagner les assujettis dans leur mise en conformité à la directive. Ce service s’étoffera au fil du temps pour proposer des services pertinents pour les entités. L’ANSSI souhaite capitaliser sur ses actions historiques de conseil, de sensibilisation et d’assistance opérationnelle.</p>
-                          <img src={Demarche} alt="Accompagnement dans cette démarche" />
+                          <div className="conteneur-image">
+                            <img src={Demarche} alt="Accompagnement dans cette démarche" />
+                          </div>
                           <a href="#hero">Haut de page</a>
                       </BlocPrincipal>
                       <BlocPrincipal id="en-savoir-plus" className="fond-blanc">

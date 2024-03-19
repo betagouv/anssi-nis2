@@ -114,6 +114,14 @@
             gap: 8px;
             font-weight: 500;
 
+            &::marker {
+                display: none;
+            }
+
+            &::-webkit-details-marker {
+                display: none;
+            }
+
             &:before {
                 content: '';
                 background: url(assets/icone-menu.svg);
@@ -281,8 +289,16 @@
 
     #demarche {
         margin-bottom: 48px;
+
+        .conteneur-image {
+            display: flex;
+            justify-content: center;
+        }
+
         img {
             margin-top: 8px;
+            width: 100%;
+            max-width: 690px;
         }
 
         a {
