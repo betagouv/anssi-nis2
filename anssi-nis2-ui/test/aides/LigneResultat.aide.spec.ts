@@ -13,6 +13,7 @@ import {
   libelleTitreReguleEntiteEssentielle,
   libelleTitreReguleEntiteEssentielleTelcoPlusieursPaysDontFrance,
   libelleTitreReguleEntiteImportante,
+  libelleTitreReguleEntiteNonDeterminee,
 } from "../../src/References/LibellesResultatsEligibilite";
 
 describe("LigneResultat.aide", () => {
@@ -173,16 +174,15 @@ describe("LigneResultat.aide", () => {
           _resultatEvaluationRegulation: "Definitif",
           etapeEvaluee: "InformationsSecteur",
           decision: "Regule",
-          typeEntite: "EntiteImportante",
           causes: {
             Structure: {
-              _categorieTaille: "Grand",
               typeStructure: "privee",
-              trancheChiffreAffaire: "moyen",
-              trancheNombreEmployes: "grand",
+              _categorieTaille: "Moyen",
+              trancheChiffreAffaire: "petit",
+              trancheNombreEmployes: "moyen",
             },
             InformationsSecteur: {
-              _categorieTaille: "Grand",
+              _categorieTaille: "Moyen",
               secteurs: ens({
                 _categorieTaille: "Grand",
                 secteurActivite: "infrastructureNumerique",
@@ -191,9 +191,10 @@ describe("LigneResultat.aide", () => {
               }),
             },
           },
+          typeEntite: "AutreEtatMembreUE",
         };
         const informationsResultatEvaluationAttendues = {
-          titre: libelleTitreReguleEntiteImportante,
+          titre: libelleTitreReguleEntiteNonDeterminee,
           classes: fabriqueClassesCSSResultat(
             "fr-icon-check-line",
             "fr-nis2-eligible",

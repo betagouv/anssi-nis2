@@ -97,43 +97,47 @@ describe("Secteur", () => {
             ),
           );
         });
-        describe("Fournisseur de services DNS, à l’exclusion des opérateurs de serveurs racines de noms de domaines ou Registres de noms de domaines de premier niveau", () => {
-          it(
-            "France premiere question ==> definitivement EE",
-            assertionArbitraire(
-              fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-                fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourEtab(
-                  "fournisseurServicesDNS",
-                  "registresNomsDomainesPremierNiveau",
-                )(arbLocalisationEtablissementPrincipal_France),
+        describe(
+          "Fournisseur de services DNS, à l’exclusion des opérateurs de serveurs racines de noms de domaines " +
+            "ou Registres de noms de domaines de premier niveau",
+          () => {
+            it(
+              "France premiere question ==> definitivement EE",
+              assertionArbitraire(
+                fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
+                  fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourEtab(
+                    "fournisseurServicesDNS",
+                    "registresNomsDomainesPremierNiveau",
+                  )(arbLocalisationEtablissementPrincipal_France),
+                ),
+                fabriqueVerificationReponseDefinitivementRegule(
+                  TE.EntiteEssentielle,
+                ),
               ),
-              fabriqueVerificationReponseDefinitivementRegule(
-                TE.EntiteEssentielle,
+            );
+            it(
+              "Autre à l'une des questions ==> definitivement Autre État Membre UE",
+              assertionArbitraire(
+                fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
+                  fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourEtab(
+                    "fournisseurServicesDNS",
+                    "registresNomsDomainesPremierNiveau",
+                  )(arbLocalisationEtablissementPrincipal_AutreUE),
+                ),
+                fabriqueVerificationReponseDefinitivementRegule(
+                  TE.AutreEtatMembreUE,
+                ),
               ),
-            ),
-          );
-          it(
-            "Autre à l'une des questions ==> definitivement Autre État Membre UE",
-            assertionArbitraire(
-              fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-                fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourEtab(
-                  "fournisseurServicesDNS",
-                  "registresNomsDomainesPremierNiveau",
-                )(arbLocalisationEtablissementPrincipal_AutreUE),
-              ),
-              fabriqueVerificationReponseDefinitivementRegule(
-                TE.AutreEtatMembreUE,
-              ),
-            ),
-          );
-        });
+            );
+          },
+        );
         it(
           "Prestataire de services de confiance qualifié ==> définitivement régulé EE",
           assertionArbitraire(
             fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
               fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites(
                 "prestataireServiceConfianceQualifie",
-              ) as fc.Arbitrary<ReponseInformationsSecteur<"Petit">>,
+              ),
             ),
             fabriqueVerificationReponseDefinitivementRegule(
               TE.EntiteEssentielle,
