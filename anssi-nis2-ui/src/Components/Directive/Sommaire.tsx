@@ -6,13 +6,55 @@ const requeteMediaDesktop = () => {
     return window.matchMedia('(min-width: 1440px)').matches;
 }
 
+const elementDansViewport = (el: Element) => {
+    const rect = el.getBoundingClientRect();
+    return (
+        rect.top >= -1 &&
+        rect.left >= 0 &&
+        rect.bottom <=
+        (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
+
+const gestionnaireIntersections = (entrees: IntersectionObserverEntry[]) => {
+    const tousLiens = document.querySelectorAll(".sommaire li a");
+    const toutesSections = document.querySelectorAll("div[id]");
+    const toutesEntrees = new Set(
+        entrees
+            .filter((e) => e.isIntersecting)
+            .map((entry) => entry.target)
+    );
+
+    let sectionCourante;
+    for (let i = 0; i < toutesSections.length; i++) {
+        sectionCourante = toutesSections[i];
+        if (elementDansViewport(sectionCourante) || toutesEntrees.has(sectionCourante)) {
+            tousLiens.forEach((link) => link.classList.remove("active"));
+            document
+                .querySelector(`.sommaire li a[href="#${sectionCourante.id}"]`)
+                ?.classList.add("active");
+            break;
+        }
+    }
+};
+
 export const Sommaire: DefaultComponent = () => {
     const [estDesktop, setEstDesktop] = useState<boolean>(requeteMediaDesktop());
 
     useEffect(() => {
         const auditeur = () => setEstDesktop(requeteMediaDesktop());
         window.addEventListener('resize', auditeur);
-        return () => window.removeEventListener('resize', auditeur);
+
+        const observateur = new IntersectionObserver(gestionnaireIntersections);
+        document.querySelectorAll("div[id] h3").forEach((section) => {
+            observateur.observe(section);
+        });
+
+        return () => {
+            window.removeEventListener('resize', auditeur);
+            observateur.disconnect();
+        };
     }, []);
 
     return (

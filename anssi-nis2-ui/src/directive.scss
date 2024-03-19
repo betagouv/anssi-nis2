@@ -160,6 +160,21 @@
 
                 a {
                     background: none;
+                    display: flex;
+
+                    &.active {
+                        color: #272771;
+
+                        &:before {
+                            content: '';
+                            min-width: 2px;
+                            height: 24px;
+                            background: #272771;
+                            display: inline-block;
+                            margin-left: -8px;
+                            margin-right: 8px;
+                        }
+                    }
                 }
             }
         }
