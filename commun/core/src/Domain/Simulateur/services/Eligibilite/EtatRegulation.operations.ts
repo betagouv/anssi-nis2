@@ -32,10 +32,17 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspens = (
       ),
     )
     .with("Moyen", () =>
-      evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen(reponse),
+      evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen(
+        reponse as EtatEvaluationEnSuspens &
+          ReponseEtatInformationsSecteur<"Moyen">,
+      ),
     )
-    .with("Grand", () =>
-      evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand(reponse),
+    .with(
+      "Grand",
+      () =>
+        evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand(
+          reponse,
+        ) as EtatEvaluationEnSuspens & ReponseEtatInformationsSecteur<"Grand">,
     )
     .exhaustive();
 
