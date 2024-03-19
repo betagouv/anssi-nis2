@@ -121,17 +121,18 @@ export const fabriqueArb_EnsInformationsSecteur_ActivitesAutres = flow(
   ) => fc.Arbitrary<RepInfoSecteur<CategorieTaille>>,
   fabriqueArb_EnsInformationsSecteurPossible,
 );
-export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille =
+export const fabriqueArb_EnsInfosSecteurSingleton_PourTaille_PourSecteur_PourActivites =
 
-    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
+    <Taille extends CategorieTaille>(taille: Taille) =>
     <Secteur extends SecteurSimple>(secteur: Secteur) =>
     <TypeActivite extends ActivitesPourSecteur[Secteur]>(
       ...activites: TypeActivite[]
     ) =>
       fc.record({
-        _categorieTaille: fc.constant(taille),
+        _categorieTaille: fc.constant(taille as unknown as `${Taille}`),
         secteurs: fc.constant(
           ens({
+            _categorieTaille: taille as unknown as `${Taille}`,
             secteurActivite: secteur,
             activites: ens(...activites),
           }),
@@ -150,7 +151,7 @@ type TypeCond<
     ? ActiviteInfranumLocalEtabLot1 | ActiviteInfranumLocalEtabLot2
     : ActivitesPourSecteur[Secteur];
 
-export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab: <
+export const fabriqueArb_EnsInfosSecteurSingleton_PourTaille_PourSecteur_PourActivites_PourEtab: <
   Taille extends CategorieTaille,
 >(
   taille: Taille,
@@ -194,7 +195,7 @@ export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_Pour
       arb: fc.Arbitrary<LocalisationEtablissementPrincipal>,
     ) => fc.Arbitrary<ReponseInformationsSecteur<Taille>>;
 
-export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourServiceDansPays =
+export const fabriqueArb_EnsInfosSecteurSingleton_PourTaille_PourSecteur_PourActivites_PourServiceDansPays =
 
     <Taille extends CategorieTaille>(taille: `${Taille}`) =>
     <Secteur extends "infrastructureNumerique">(secteur: Secteur) =>

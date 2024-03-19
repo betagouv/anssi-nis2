@@ -4,10 +4,10 @@ import { ValeursActivitesInfrastructureNumerique } from "../../src/Domain/Simula
 import { TypeEntite as TE } from "../../src/Domain/Simulateur/Regulation.definitions";
 import { ReponseInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
 import {
-  fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab,
-  fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille,
+  fabriqueArb_EnsInfosSecteurSingleton_PourTaille_PourSecteur_PourActivites,
+  fabriqueArb_EnsInfosSecteurSingleton_PourTaille_PourSecteur_PourActivites_PourEtab,
+  fabriqueArb_EnsInfosSecteurSingleton_PourTaille_PourSecteur_PourActivites_PourServiceDansPays,
   fabriqueArbInformationsSecteurAutre,
-  fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourServiceDansPays,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
   assertionArbitraire,
@@ -20,55 +20,50 @@ import {
   arbLocalisationEtablissementPrincipal_France,
 } from "./arbitraires/LocalisationEtablissementPrincipal.arbitraires";
 import {
-  arbLocalisationsServices_ContientFrance,
   arbLocalisationsServices_ContientAutreUE_SansFrance,
+  arbLocalisationsServices_ContientFrance,
   arbLocalisationsServices_ContientUniquementHorsUE,
 } from "./arbitraires/LocalisationsServices.arbitraires";
 import { arbReponseInformationsSecteurPetit } from "./arbitraires/ReponseInformationsSecteur.arbitraires";
 
 describe("Secteur", () => {
   describe("Petit", () => {
-    const fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePourServiceDansPays_PE =
-      fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourServiceDansPays(
+    const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourServiceDansPays =
+      fabriqueArb_EnsInfosSecteurSingleton_PourTaille_PourSecteur_PourActivites_PourServiceDansPays(
         "Petit",
       );
-    const fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePourEtab_PE =
-      fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourEtab(
+    const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourEtab =
+      fabriqueArb_EnsInfosSecteurSingleton_PourTaille_PourSecteur_PourActivites_PourEtab(
         "Petit",
       );
-    const fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaille_PE =
-      fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille(
+    const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites =
+      fabriqueArb_EnsInfosSecteurSingleton_PourTaille_PourSecteur_PourActivites(
         "Petit",
       );
     describe("Décision en suspens", () => {
       describe("Infrastructure Numérique", () => {
-        const fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePourServiceDansPaysPE_Infranum =
-          fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePourServiceDansPays_PE(
+        const fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourServiceDansPays =
+          fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourServiceDansPays(
             "infrastructureNumerique",
           );
-
-        const fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePourEtabPE_Infranum =
-          fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePourEtab_PE(
+        const fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourEtab =
+          fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourEtab(
             "infrastructureNumerique",
           );
-        const fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePE_Infranum =
-          fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaille_PE(
+        const fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites =
+          fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites(
             "infrastructureNumerique",
           );
 
         describe("Fournisseur de réseaux de communications électroniques publics et Fournisseur de services de communications électroniques accessibles au public", () => {
-          const fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePourServiceDansPaysPEInfranum_FournisseursCommeElecPub =
-            fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePourServiceDansPaysPE_Infranum(
-              "fournisseurReseauxCommunicationElectroniquesPublics",
-              "fournisseurServiceCommunicationElectroniquesPublics",
-            );
           it(
             "France, à minima ==> Définitivement EI",
             assertionArbitraire(
               fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-                fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePourServiceDansPaysPEInfranum_FournisseursCommeElecPub(
-                  arbLocalisationsServices_ContientFrance,
-                ),
+                fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourServiceDansPays(
+                  "fournisseurReseauxCommunicationElectroniquesPublics",
+                  "fournisseurServiceCommunicationElectroniquesPublics",
+                )(arbLocalisationsServices_ContientFrance),
               ),
               fabriqueVerificationReponseDefinitivementRegule(
                 TE.EntiteImportante,
@@ -79,9 +74,10 @@ describe("Secteur", () => {
             "Autre(s) EM de l'UE, à minima ==> Définitivement Régulé autre",
             assertionArbitraire(
               fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-                fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePourServiceDansPaysPEInfranum_FournisseursCommeElecPub(
-                  arbLocalisationsServices_ContientAutreUE_SansFrance,
-                ),
+                fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourServiceDansPays(
+                  "fournisseurReseauxCommunicationElectroniquesPublics",
+                  "fournisseurServiceCommunicationElectroniquesPublics",
+                )(arbLocalisationsServices_ContientAutreUE_SansFrance),
               ),
               fabriqueVerificationReponseDefinitivementRegule(
                 TE.AutreEtatMembreUE,
@@ -92,9 +88,10 @@ describe("Secteur", () => {
             "État(s) hors UE ==> Définitivement Non régulé",
             assertionArbitraire(
               fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-                fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePourServiceDansPaysPEInfranum_FournisseursCommeElecPub(
-                  arbLocalisationsServices_ContientUniquementHorsUE,
-                ),
+                fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourServiceDansPays(
+                  "fournisseurReseauxCommunicationElectroniquesPublics",
+                  "fournisseurServiceCommunicationElectroniquesPublics",
+                )(arbLocalisationsServices_ContientUniquementHorsUE),
               ),
               verificationReponseNonRegule,
             ),
@@ -105,7 +102,7 @@ describe("Secteur", () => {
             "France premiere question ==> definitivement EE",
             assertionArbitraire(
               fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-                fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePourEtabPE_Infranum(
+                fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourEtab(
                   "fournisseurServicesDNS",
                   "registresNomsDomainesPremierNiveau",
                 )(arbLocalisationEtablissementPrincipal_France),
@@ -119,7 +116,7 @@ describe("Secteur", () => {
             "Autre à l'une des questions ==> definitivement Autre État Membre UE",
             assertionArbitraire(
               fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-                fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePourEtabPE_Infranum(
+                fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites_PourEtab(
                   "fournisseurServicesDNS",
                   "registresNomsDomainesPremierNiveau",
                 )(arbLocalisationEtablissementPrincipal_AutreUE),
@@ -134,7 +131,7 @@ describe("Secteur", () => {
           "Prestataire de services de confiance qualifié ==> définitivement régulé EE",
           assertionArbitraire(
             fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-              fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePE_Infranum(
+              fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites(
                 "prestataireServiceConfianceQualifie",
               ) as fc.Arbitrary<ReponseInformationsSecteur<"Petit">>,
             ),
@@ -147,9 +144,9 @@ describe("Secteur", () => {
           "Prestataire de services de confiance non qualifié ==> définitivement régulé EI",
           assertionArbitraire(
             fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-              fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePE_Infranum(
+              fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites(
                 "prestataireServiceConfianceNonQualifie",
-              ) as fc.Arbitrary<ReponseInformationsSecteur<"Petit">>,
+              ),
             ),
             fabriqueVerificationReponseDefinitivementRegule(
               TE.EntiteImportante,
@@ -160,9 +157,9 @@ describe("Secteur", () => {
           "Fournisseur des services d’enregistrement de noms de domaine ==> Enregistrement uniquement",
           assertionArbitraire(
             fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-              fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePE_Infranum(
+              fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites(
                 "fournisseurServicesEnregristrementNomDomaine",
-              ) as fc.Arbitrary<ReponseInformationsSecteur<"Petit">>,
+              ),
             ),
             fabriqueVerificationReponseDefinitivementRegule(
               TE.EnregistrementUniquement,
@@ -173,9 +170,9 @@ describe("Secteur", () => {
           "autre Activite Infrastructure Numerique (non listée) ==> définitivement non régulé",
           assertionArbitraire(
             fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-              fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePE_Infranum(
+              fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites(
                 "autreActiviteInfrastructureNumerique",
-              ) as unknown as fc.Arbitrary<ReponseInformationsSecteur<"Petit">>,
+              ),
             ),
             verificationReponseNonRegule,
           ),
@@ -198,7 +195,7 @@ describe("Secteur", () => {
           "autre Activite listée dans Infrastructure Numerique  ==> définitivement non régulé",
           assertionArbitraire(
             fabriqueArbJamaisOse_ToujoursFrance_StructurePetit(
-              fabriqueArbEnsInfosSecteurSingletonPourSecteurPourActivitesPourTaillePE_Infranum(
+              fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites(
                 ...activitesPENonReguleesPE,
               ) as unknown as fc.Arbitrary<ReponseInformationsSecteur<"Petit">>,
             ),

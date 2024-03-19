@@ -7,7 +7,7 @@ import {
 } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
 import { fabriqueArb_ReponseInformationsSecteur_GE } from "../utilitaires/ReponseInformationsSecteur.arbitraires.fabriques";
 import {
-  fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille,
+  fabriqueArb_EnsInfosSecteurSingleton_PourTaille_PourSecteur_PourActivites,
   fabriqueArbInformationsSecteurAutre,
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
@@ -71,13 +71,13 @@ describe("Secteur", () => {
         "Prestataire de services de confiance (non-)qualifié ou Fournisseur de points d’échange internet ==> définitivement régulé EE",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille(
-              "infrastructureNumerique",
-            )(
+            fabriqueArb_EnsInfosSecteurSingleton_PourTaille_PourSecteur_PourActivites(
+              "Grand",
+            )("infrastructureNumerique")(
               "prestataireServiceConfianceQualifie",
               "prestataireServiceConfianceNonQualifie",
               "fournisseurPointEchangeInternet",
-            )("Grand") as fc.Arbitrary<ReponseInformationsSecteur<"Grand">>,
+            ) as fc.Arbitrary<ReponseInformationsSecteur<"Grand">>,
           ),
           fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
         ),
@@ -86,10 +86,10 @@ describe("Secteur", () => {
         "autre Activite Infrastructure Numerique (non listée) ==> définitivement non régulé",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance_StructureGrand(
-            fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille(
-              "infrastructureNumerique",
-            )("autreActiviteInfrastructureNumerique")(
+            fabriqueArb_EnsInfosSecteurSingleton_PourTaille_PourSecteur_PourActivites(
               "Grand",
+            )("infrastructureNumerique")(
+              "autreActiviteInfrastructureNumerique",
             ) as unknown as fc.Arbitrary<ReponseInformationsSecteur<"Grand">>,
           ),
           verificationReponseNonRegule,
