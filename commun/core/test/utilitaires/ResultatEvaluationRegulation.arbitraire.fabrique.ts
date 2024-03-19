@@ -123,11 +123,11 @@ export const fabriqueArb_EnsInformationsSecteur_ActivitesAutres = flow(
 );
 export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille =
 
+    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
     <Secteur extends SecteurSimple>(secteur: Secteur) =>
     <TypeActivite extends ActivitesPourSecteur[Secteur]>(
       ...activites: TypeActivite[]
     ) =>
-    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
       fc.record({
         _categorieTaille: fc.constant(taille),
         secteurs: fc.constant(
@@ -196,11 +196,11 @@ export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_Pour
 
 export const fabriqueArb_EnsInfosSecteurSingleton_PourSecteur_PourActivites_PourTaille_PourServiceDansPays =
 
+    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
     <Secteur extends "infrastructureNumerique">(secteur: Secteur) =>
     <TypeActivite extends ActiviteInfranumLocalServices>(
       ...activites: TypeActivite[]
     ) =>
-    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
       A.enchaine((loc: LocalisationsServices) =>
         fc.record({
           _categorieTaille: fc.constant(taille),
