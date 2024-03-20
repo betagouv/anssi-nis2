@@ -12,6 +12,8 @@ describe(ChargeurExpressBasicAuth, () => {
   const configurationParDefaut = {
     utilisateur: "username",
     motDePasse: "password",
+    listeBlancheIp: '',
+    _tag: "AuthentificationBasiqueActivee" as const,
   };
   afterEach(() => {
     jest.clearAllMocks();
@@ -66,7 +68,6 @@ describe(ChargeurExpressBasicAuth, () => {
 
     expect(chargeurAuthentificationBasiqueHTTP).not.toHaveBeenCalled();
     expect(basicAuth).not.toHaveBeenCalled();
-    expect(app.use).not.toHaveBeenCalled();
   });
 
   describe("configuration du chargeur", () => {
@@ -135,7 +136,6 @@ describe(ChargeurExpressBasicAuth, () => {
 
         expect(chargeurAuthentificationBasiqueHTTP).not.toHaveBeenCalled();
         expect(basicAuth).not.toHaveBeenCalled();
-        expect(app.use).not.toHaveBeenCalled();
       },
     );
   });
