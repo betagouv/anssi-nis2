@@ -1,9 +1,9 @@
 const ReseauxSociaux = () => (
   <div className="fr-follow__social fr-follow">
-    <p className="fr-h5">
+    <h2>
       Suivez-nous
       <br /> sur les réseaux sociaux
-    </p>
+    </h2>
     <ul className="fr-links-group">
       <li>
         <a

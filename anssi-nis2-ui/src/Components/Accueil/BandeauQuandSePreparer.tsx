@@ -20,18 +20,18 @@ const BandeauQuandSePreparer = () => {
             </div>
             <div className="fr-col">
               <p className="fr-text--lead fr-py-4v fr-mb-2w">
-                La directive NIS 2 a été publiée le&nbsp;27 décembre
+                La directive NIS&nbsp;2 a été publiée le&nbsp;27 décembre
                 2022&nbsp;au Journal Officiel de l&apos;Union européenne et
                 prévoit un délai de 21 mois pour que chaque Etat membre
                 transpose en droit national les différentes exigences
                 réglementaires.
               </p>
               <p className="fr-text--lead fr-text--bold fr-mb-3v">
-                NIS 2 rentrera en vigueur en France le 18 octobre 2024.
+                NIS&nbsp;2 rentrera en vigueur en France le 18 octobre 2024.
               </p>
               <p className="fr-text--lead fr-mb-4w">
                 Pour estimer rapidement si votre entité est assujettie et
-                recevoir des informations relatives à NIS 2, nous vous invitons
+                recevoir des informations relatives à NIS&nbsp;2, nous vous invitons
                 à effectuer le test.
               </p>
               <Link to={"/simulateur"}>
