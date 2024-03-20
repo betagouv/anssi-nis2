@@ -44,13 +44,21 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
     )
     .when(
       et(
-        ou(
-          certainsSontInfrastructureNumeriqueAvecActivite(
-            "fournisseurServicesDNS",
-            "registresNomsDomainesPremierNiveau",
-          ),
+        certainsSontInfrastructureNumeriqueAvecActivite(
+          "fournisseurServicesDNS",
+          "registresNomsDomainesPremierNiveau",
         ),
         certains(estEtablissementPrincipalFrance<"Moyen">),
+      ),
+      () =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          TE.EntiteEssentielle,
+        ),
+    )
+    .when(
+      certainsSontInfrastructureNumeriqueAvecActivite(
+        "prestataireServiceConfianceQualifie",
       ),
       () =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
@@ -75,16 +83,6 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
           TE.EntiteImportante,
-        ),
-    )
-    .when(
-      certainsSontInfrastructureNumeriqueAvecActivite(
-        "prestataireServiceConfianceQualifie",
-      ),
-      () =>
-        fabriqueResultatEvaluationDefinitifCarSecteur(
-          reponse,
-          TE.EntiteEssentielle,
         ),
     )
     .when(
