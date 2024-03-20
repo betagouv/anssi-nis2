@@ -3,10 +3,7 @@ import {
   arbReponseAppartenanceUnionEuropeenne_ToujoursFrance,
   arbReponseAppartenanceUnionEuropeenne_ToujoursHorsUE,
 } from "./ReponseAppartenanceUnionEuropeenne.arbitraires";
-import {
-  arbReponseDesignationOperateurServicesEssentiels_JamaisOui,
-  arbReponseDesignationOperateurServicesEssentiels_ToujoursNon,
-} from "./ReponseDesignationOperateurServicesEssentiels.arbitraires";
+import { arbReponseDesignationOperateurServicesEssentiels_JamaisOui } from "./ReponseDesignationOperateurServicesEssentiels.arbitraires";
 import { TupleArb_DesignationOSE_AppartenanceUE } from "./ResultatEvaluationRegulation.arbitraires.definitions";
 
 export const arbTuple_JamaisOse_ToujoursHorsUE: TupleArb_DesignationOSE_AppartenanceUE =
