@@ -584,12 +584,6 @@ legend.fr-text--medium {
   background: #fef4f2 url(assets/in-progress.svg) no-repeat;
 }
 
-.fr-nis2-aidez-nous {
-  background: var(--yellow-tournesol-975-75, #fef6e3) url(assets/faq.svg)
-    no-repeat;
-  background-size: 5rem;
-}
-
 .fr-nis2-en-cours-developpement,
 .fr-nis2-aidez-nous {
   background-position-y: center;
@@ -1004,6 +998,19 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
       }
     }
   }
+
+  .stepper-navigation {
+    margin-top: -40px;
+
+    .validation {
+      transform: translateY(36px);
+    }
+  }
+
+  .fr-nis2-simulateur .fr-nis2-aidez-nous {
+    flex-direction: row !important;
+    gap: 24px;
+  }
 }
 
 .fr-nis2-bouton-principal {
@@ -1129,6 +1136,32 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
       display: flex;
       justify-content: center;
     }
+  }
 
+  .stepper-navigation {
+    display: flex;
+    flex-direction: column;
+
+    button.fr-btn:not(.fr-btn--secondary) {
+      background: #272771;
+    }
+  }
+
+  .fr-nis2-aidez-nous {
+    display: flex;
+    flex-direction: column;
+    background: var(--yellow-tournesol-975-75, #fef6e3);
+
+    img {
+      margin-bottom: 24px;
+    }
+
+    h6 {
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
   }
 }

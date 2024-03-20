@@ -51,7 +51,6 @@ export const FormRestezInformes: DefaultComponentExtensible<
       <div className="fr-container fr-px-0">
         <div className="fr-grid-row">
           {mode === "complet" && (
-            <div className="fr-col fr-mr-3w">
               <Input
                 label={libellesContact.nomOrganisation}
                 state="default"
@@ -59,9 +58,7 @@ export const FormRestezInformes: DefaultComponentExtensible<
                   "nomOrganisation",
                 )}
               />
-            </div>
           )}
-          <div className="fr-mb-10v fr-col">
             <Input
               label={libellesContact.adresseElectronique}
               state="default"
@@ -75,10 +72,9 @@ export const FormRestezInformes: DefaultComponentExtensible<
                 closable={false}
               />
             )}
-          </div>
         </div>
       </div>
-      <div className="fr-fieldset__element">
+      <div className="fr-fieldset__element fr-mt-5w">
         <Checkbox
           options={[
             {
