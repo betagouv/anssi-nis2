@@ -81,10 +81,13 @@ describe("Réponses partielles", () => {
           fabriqueResultatEvaluationInconnuOse,
         ),
         (reponse) => {
-          const resultatAttendu: EtatRegulationDefinitif = {
-            _resultatEvaluationRegulation: "Definitif",
+          const copieProp = propReponseEtat(reponse);
+          const resultatAttendu: EtatEvaluationEnSuspens = {
+            _tag: "DesignationOperateurServicesEssentiels",
+            _resultatEvaluationRegulation: "EnSuspens",
             etapeEvaluee: "DesignationOperateurServicesEssentiels",
             ...resultatIncertain,
+            ...copieProp("DesignationOperateurServicesEssentiels"),
           };
           const resultatObtenu = evalueRegulationEtatReponseOse(reponse);
           expect(resultatObtenu).toStrictEqual(resultatAttendu);

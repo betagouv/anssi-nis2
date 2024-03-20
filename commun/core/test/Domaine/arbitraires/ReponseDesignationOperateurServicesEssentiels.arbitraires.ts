@@ -21,3 +21,9 @@ export const arbReponseDesignationOperateurServicesEssentiels_ToujoursNeSaitPas 
     designationOperateurServicesEssentiels:
       arbDesignationOperateurServicesEssentiels_ToujoursNeSaitPas,
   });
+
+export const arbReponseDesignationOperateurServicesEssentiels_JamaisOui =
+  fc.oneof(
+    arbReponseDesignationOperateurServicesEssentiels_ToujoursNon,
+    arbReponseDesignationOperateurServicesEssentiels_ToujoursNeSaitPas,
+  );

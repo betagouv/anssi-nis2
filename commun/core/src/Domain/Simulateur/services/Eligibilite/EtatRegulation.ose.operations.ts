@@ -1,9 +1,7 @@
-import { match } from "ts-pattern";
-import { resultatIncertain } from "../../Regulation.constantes";
+import { P, match } from "ts-pattern";
 import { resultatEstDefinitif } from "./EtatRegulation.constantes";
 import { EtatRegulation } from "./EtatRegulation.definitions";
 import {
-  fabriqueResultatEvaluationDefinitif,
   fabriqueResultatEvaluationReguleOse,
   propageDonneesEvaluees,
   propageResultatIncertainEnSuspens,
@@ -28,24 +26,12 @@ export const evalueRegulationEtatReponseOse = (
     .with(
       {
         DesignationOperateurServicesEssentiels: {
-          designationOperateurServicesEssentiels: "non",
+          designationOperateurServicesEssentiels: P.union("non", "nsp"),
         },
       },
       propageResultatIncertainEnSuspens(
         "DesignationOperateurServicesEssentiels",
       ),
-    )
-    .with(
-      {
-        DesignationOperateurServicesEssentiels: {
-          designationOperateurServicesEssentiels: "nsp",
-        },
-      },
-      () =>
-        fabriqueResultatEvaluationDefinitif(
-          "DesignationOperateurServicesEssentiels",
-          resultatIncertain,
-        ),
     )
     .otherwise(
       propageResultatIncertainEnSuspens(
