@@ -18,4 +18,5 @@ Critiques est également soumise à NIS 2.
 ## Sécurité nationale
 
 Si votre entité exerce une activité dans les domaines de la sécurité nationale, de la sécurité publique, de la défense,
-ou de l’application de la loi, et n’agit pas en tant que prestataire de confiance, vous pourriez être exempté.
+ou de l’application de la loi, et n’agit pas en tant que prestataire de confiance, vous pourriez être exempté de
+certaines obligations relatives à la directive NIS 2.
