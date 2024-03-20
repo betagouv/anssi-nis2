@@ -184,6 +184,18 @@ describe("Secteur", () => {
         ),
       );
       it(
+        "Fournisseur des services d’enregistrement de noms de domaine ==> Enregistrement uniquement",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance(
+            fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites(
+              "fournisseurServicesEnregristrementNomDomaine",
+            ),
+          ),
+          verifieReponseDefinitivementRegule(TE.EnregistrementUniquement),
+        ),
+      );
+
+      it(
         "autre Activite Infrastructure Numerique (non listée) ==> définitivement non régulé",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance(

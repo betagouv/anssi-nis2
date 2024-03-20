@@ -65,16 +65,10 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
         ),
     )
     .when(
-      ou(
-        certainsSontInfrastructureNumeriqueAvecActivite(
-          "prestataireServiceConfianceQualifie",
-        ),
-        certainsSontInfrastructureNumeriqueAvecActivite(
-          "prestataireServiceConfianceNonQualifie",
-        ),
-        certainsSontInfrastructureNumeriqueAvecActivite(
-          "fournisseurPointEchangeInternet",
-        ),
+      certainsSontInfrastructureNumeriqueAvecActivite(
+        "prestataireServiceConfianceQualifie",
+        "prestataireServiceConfianceNonQualifie",
+        "fournisseurPointEchangeInternet",
       ),
       () =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
@@ -109,6 +103,16 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
           TE.EntiteImportante,
+        ),
+    )
+    .when(
+      certainsSontInfrastructureNumeriqueAvecActivite(
+        "fournisseurServicesEnregristrementNomDomaine",
+      ),
+      () =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          TE.EnregistrementUniquement,
         ),
     )
     .when(

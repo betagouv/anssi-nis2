@@ -99,6 +99,16 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
         ),
     )
     .when(
+      certainsSontInfrastructureNumeriqueAvecActivite(
+        "fournisseurServicesEnregristrementNomDomaine",
+      ),
+      () =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          TE.EnregistrementUniquement,
+        ),
+    )
+    .when(
       et(
         certainsSontInfrastructureNumeriqueAvecActivite(
           "fournisseurReseauxCommunicationElectroniquesPublics",
