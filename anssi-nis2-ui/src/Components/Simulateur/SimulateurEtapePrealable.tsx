@@ -4,61 +4,50 @@ import { RowContainer } from "../General/RowContainer.tsx";
 import { Button } from "@codegouvfr/react-dsfr/Button";
 import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 import ImageLocalisation from "../../assets/localisation-france.svg";
+import BlocPrincipal from "../BlocPrincipal.tsx";
 
 export const SimulateurEtapePrealable: SimulateurEtapeRenderedComponent = ({
   informationsBoutonsNavigation,
 }: SimulateurEtapeRenderedProps) => (
-  <>
-    <RowContainer className="fr-py-3w fr-nis2-bien-debuter">
-      <div className="fr-col-8 fr-background-alt--grey">
-        <RowContainer align="left" className="fr-mt-7w">
-          <div className="fr-col-offset-1 fr-col-6">
-            <h2>Pour bien débuter</h2>
-          </div>
-        </RowContainer>
-        <RowContainer align="left" className="">
-          <div className="fr-col-offset-1 fr-col-6">
+    <BlocPrincipal className="fond-gris" id="etape-prealable">
+        <h2>Pour bien débuter</h2>
+        <div className="conteneur-texte-image">
+            <div>
+                <p>
+                    Ce test permet de cerner si votre entité sera concernée par la
+                    directive NIS 2, et ce dès 2024. Nous le tiendrons à jour au fil
+                    des précisions apportées par la transposition en droit français.
+                </p>
+                <p className="dernier">
+                    <b>
+                        Si votre entité appartient à un groupe d’entreprises aux activités
+                        variées, ce test peut être réalisé pour chaque entreprise filiale,
+                        ou pour le groupe si celui-ci mène une activité économique.
+                    </b>
+                </p>
+            </div>
+            <div className="conteneur-image">
+                <img
+                    src={ImageLocalisation}
+                    alt="Illustration localisations en France"
+                />
+            </div>
+        </div>
+        <div className="informations">
             <p>
-              Ce test permet de cerner si votre entité sera concernée par la
-              directive NIS 2, et ce dès 2024. Nous le tiendrons à jour au fil
-              des précisions apportées par la transposition en droit français.
-            </p>
-            <p className="fr-text--bold">
-              Si votre entité appartient à un groupe d’entreprises aux activités
-              variées, ce test peut être réalisé pour chaque entreprise filiale,
-              ou pour le groupe si celui-ci mène une activité économique.
-            </p>
-          </div>
-          <div className="fr-col-3 fr-nis2-logo-localisation">
-            <img
-              src={ImageLocalisation}
-              alt="Illustration localisations en France"
-            />
-          </div>
-          <div className="fr-col-offset-1 fr-col-10 fr-notice fr-notice--info">
-            <div className="fr-container">
-              <p className="fr-notice__body">
                 Les résultats du test sont strictement indicatifs, dans
                 l&apos;attente de l&apos;adoption définitive des textes
                 législatifs et réglementaires de transposition de la directive
                 NIS 2.
-              </p>
-            </div>
-          </div>
-        </RowContainer>
-        <RowContainer className="fr-mt-0 fr-mb-7w" align="left">
-          <div className="fr-col-offset-5">
-            <a href="/">
-              <Button onClick={noRefClick} priority="tertiary">
+            </p>
+        </div>
+        <div className="conteneur-actions">
+            <a href="/" className="fr-nis2-bouton-tertiaire">
                 Revenir à l&apos;accueil
-              </Button>
             </a>
-            <Button onClick={informationsBoutonsNavigation.suivant}>
-              Débuter le test
+            <Button onClick={informationsBoutonsNavigation.suivant} className="fr-nis2-bouton-secondaire">
+                Débuter le test
             </Button>
-          </div>
-        </RowContainer>
-      </div>
-    </RowContainer>
-  </>
+        </div>
+    </BlocPrincipal>
 );

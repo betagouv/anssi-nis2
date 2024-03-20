@@ -837,6 +837,10 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
     background: var(--couleur-primaire);
   }
 
+  &.fond-gris {
+    background: #F6F6F6;
+  }
+
   .texte-blanc {
     color: white;
   }
@@ -969,6 +973,37 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
       }
     }
   }
+
+  .fr-nis2-simulateur {
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    #etape-prealable {
+      max-width: 790px;
+      margin: 0 auto;
+
+      .contenu-bloc-principal {
+        padding: 56px 102px;
+      }
+
+      .conteneur-texte-image {
+        display: flex;
+        gap: 40px;
+      }
+
+      .conteneur-actions {
+        display: flex;
+        justify-content: end;
+        gap: 16px;
+
+        & > * {
+          width: fit-content;
+          height: fit-content;
+        }
+      }
+    }
+  }
 }
 
 .fr-nis2-bouton-principal {
@@ -996,6 +1031,104 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
   }
 }
 
+.fr-nis2-bouton-tertiaire {
+  background: none;
+  display: flex;
+  justify-content: center;
+  padding: 10px 24px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #272771;
+  text-align: center;
+  border: 1px solid #C1C1FB;
+
+  &:hover {
+    background: #0000000A !important;
+  }
+}
+
 .fr-follow .fr-link::before {
   background: #272771;
+}
+
+.fr-nis2-simulateur {
+  .fr-nis2-bloc-principal {
+    padding: 24px 16px;
+
+    .contenu-bloc-principal {
+      max-width: 792px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 32px;
+    }
+
+    p {
+      font-size: 20px;
+      font-weight: normal;
+      line-height: 32px;
+    }
+  }
+
+  #etape-prealable {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 40px 16px;
+
+    h2 {
+      font-size: 32px;
+      margin-bottom: 32px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #161616;
+      font-weight: normal;
+      line-height: 24px;
+
+      &.dernier {
+        margin-bottom: 0;
+      }
+    }
+
+    .conteneur-image {
+      margin-top: 8px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .informations {
+      margin: 40px 0;
+      border: 1px solid #C1C1FB;
+      background: #ECECFE;
+      padding: 16px 16px 16px 64px;
+
+      p {
+        margin-bottom: 0;
+
+        &:before {
+          content: '';
+          width: 24px;
+          height: 24px;
+          display: inline-block;
+          background: url(assets/icone-information.svg);
+          margin-left: -32px;
+          margin-right: 8px;
+          transform: translateY(8px);
+        }
+      }
+    }
+
+    a {
+      margin-bottom: 16px;
+    }
+
+    button {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+  }
 }
