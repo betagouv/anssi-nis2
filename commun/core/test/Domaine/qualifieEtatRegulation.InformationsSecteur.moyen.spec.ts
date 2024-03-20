@@ -116,7 +116,7 @@ describe("Secteur", () => {
                   "fournisseurReseauxDiffusionContenu",
                 )(arbLocalisationEtablissementPrincipal_France),
               ),
-              verifieReponseDefinitivementRegule(TE.EntiteEssentielle),
+              verifieReponseDefinitivementRegule(TE.EntiteImportante),
             ),
           );
           it(
@@ -218,7 +218,7 @@ describe("Secteur", () => {
           "fournisseursNumeriques",
         );
       it(
-        "Gestion TIC / France à l'une des questions ==> definitivement EE",
+        "Gestion TIC / France à l'une des questions ==> definitivement EI",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance(
             fabriqueArb_EnsInfosSecteurSingleton_gestionServicesTic_PourActivites_PourEtab(
@@ -226,7 +226,7 @@ describe("Secteur", () => {
               "fournisseurServicesSecuriteGeres",
             )(arbLocalisationEtablissementPrincipal_France),
           ),
-          verifieReponseDefinitivementRegule(TE.EntiteEssentielle),
+          verifieReponseDefinitivementRegule(TE.EntiteImportante),
         ),
       );
       it(
@@ -239,7 +239,7 @@ describe("Secteur", () => {
               "fournisseursPlateformesServicesReseauxSociaux",
             )(arbLocalisationEtablissementPrincipal_France),
           ),
-          verifieReponseDefinitivementRegule(TE.EntiteEssentielle),
+          verifieReponseDefinitivementRegule(TE.EntiteImportante),
         ),
       );
       it(
