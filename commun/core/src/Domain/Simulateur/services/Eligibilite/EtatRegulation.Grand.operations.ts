@@ -1,10 +1,7 @@
 import { match } from "ts-pattern";
 import { certains } from "../../../../../../utils/services/sets.operations";
 import { et, non, ou } from "../../../../../../utils/services/commun.predicats";
-import {
-  resultatIncertainAutrePaysUE,
-  resultatNonRegule,
-} from "../../Regulation.constantes";
+import { resultatNonRegule } from "../../Regulation.constantes";
 import {
   EtatEvaluationEnSuspens,
   EtatRegulation,
@@ -19,7 +16,6 @@ import {
   certainsSontInfrastructureNumeriqueAvecActivite,
   contientValeurLocalisationFournitureServicesNumeriques,
   estEtablissementPrincipalFrance,
-  estInformationSecteurImportantAvecBesoinLocalisation,
   estInformationSecteurSousSecteurAutre,
   estInformationsPourSecteur,
   estInformationsSecteurEligibleSansBesoinLocalisation,
@@ -49,22 +45,6 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
     )
     .when(
       et(
-        certainsSontInfrastructureNumeriqueAvecActivite(
-          "fournisseurReseauxCommunicationElectroniquesPublics",
-          "fournisseurServiceCommunicationElectroniquesPublics",
-        ),
-        certains(
-          contientValeurLocalisationFournitureServicesNumeriques("autre"),
-        ),
-      ),
-      () =>
-        fabriqueResultatEvaluationDefinitifCarSecteur(
-          reponse,
-          TE.AutreEtatMembreUE,
-        ),
-    )
-    .when(
-      et(
         ou(
           certainsSontInfrastructureNumeriqueAvecActivite(
             "fournisseurServicesDNS",
@@ -87,24 +67,6 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
     .when(
       ou(
         certainsSontInfrastructureNumeriqueAvecActivite(
-          "fournisseurServicesDNS",
-          "registresNomsDomainesPremierNiveau",
-          "fournisseurServicesInformatiqueNuage",
-          "fournisseurServiceCentresDonnees",
-          "fournisseurReseauxDiffusionContenu",
-        ),
-        certains(estInformationsPourSecteur("gestionServicesTic")),
-        certains(estInformationsPourSecteur("fournisseursNumeriques")),
-      ),
-      () =>
-        fabriqueResultatEvaluationDefinitifCarSecteur(
-          reponse,
-          TE.AutreEtatMembreUE,
-        ),
-    )
-    .when(
-      ou(
-        certainsSontInfrastructureNumeriqueAvecActivite(
           "prestataireServiceConfianceQualifie",
         ),
         certainsSontInfrastructureNumeriqueAvecActivite(
@@ -118,32 +80,6 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
           TE.EntiteEssentielle,
-        ),
-    )
-    .when(
-      certains(
-        et(
-          estInformationSecteurImportantAvecBesoinLocalisation,
-          // estSecteurBienLocaliseGrand,
-        ),
-      ),
-      () =>
-        fabriqueResultatEvaluationDefinitifCarSecteur(
-          reponse,
-          TE.EntiteImportante,
-        ),
-    )
-    .when(
-      certains(
-        et(
-          estInformationSecteurImportantAvecBesoinLocalisation,
-          // estSecteurBienLocaliseUE,
-        ),
-      ),
-      () =>
-        fabriqueResultatEvaluationDefinitif(
-          "InformationsSecteur",
-          resultatIncertainAutrePaysUE,
         ),
     )
     .when(
@@ -173,6 +109,40 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensGrand = (
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
           TE.EntiteImportante,
+        ),
+    )
+    .when(
+      et(
+        certainsSontInfrastructureNumeriqueAvecActivite(
+          "fournisseurReseauxCommunicationElectroniquesPublics",
+          "fournisseurServiceCommunicationElectroniquesPublics",
+        ),
+        certains(
+          contientValeurLocalisationFournitureServicesNumeriques("autre"),
+        ),
+      ),
+      () =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          TE.AutreEtatMembreUE,
+        ),
+    )
+    .when(
+      ou(
+        certainsSontInfrastructureNumeriqueAvecActivite(
+          "fournisseurServicesDNS",
+          "registresNomsDomainesPremierNiveau",
+          "fournisseurServicesInformatiqueNuage",
+          "fournisseurServiceCentresDonnees",
+          "fournisseurReseauxDiffusionContenu",
+        ),
+        certains(estInformationsPourSecteur("gestionServicesTic")),
+        certains(estInformationsPourSecteur("fournisseursNumeriques")),
+      ),
+      () =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          TE.AutreEtatMembreUE,
         ),
     )
     .otherwise(() =>

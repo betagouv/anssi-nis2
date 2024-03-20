@@ -1,7 +1,6 @@
 import { match } from "ts-pattern";
 import { certains } from "../../../../../../utils/services/sets.operations";
 import { et, non, ou } from "../../../../../../utils/services/commun.predicats";
-import { ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation } from "../../Activite.valeurs";
 import { resultatNonRegule } from "../../Regulation.constantes";
 import { TypeEntite as TE } from "../../Regulation.definitions";
 import {
@@ -14,7 +13,6 @@ import {
 } from "./EtatRegulation.fabriques";
 import { ReponseEtatInformationsSecteur } from "./ReponseEtat.definitions";
 import {
-  auMoinsUneActiviteEstDans,
   auMoinsUneActiviteListee,
   certainsSontInfrastructureNumeriqueAvecActivite,
   contientValeurLocalisationFournitureServicesNumeriques,
@@ -46,22 +44,6 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
     )
     .when(
       et(
-        certainsSontInfrastructureNumeriqueAvecActivite(
-          "fournisseurReseauxCommunicationElectroniquesPublics",
-          "fournisseurServiceCommunicationElectroniquesPublics",
-        ),
-        certains(
-          contientValeurLocalisationFournitureServicesNumeriques("autre"),
-        ),
-      ),
-      () =>
-        fabriqueResultatEvaluationDefinitifCarSecteur(
-          reponse,
-          TE.AutreEtatMembreUE,
-        ),
-    )
-    .when(
-      et(
         ou(
           certainsSontInfrastructureNumeriqueAvecActivite(
             "fournisseurServicesDNS",
@@ -79,24 +61,6 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
           TE.EntiteEssentielle,
-        ),
-    )
-    .when(
-      ou(
-        certainsSontInfrastructureNumeriqueAvecActivite(
-          "fournisseurServicesDNS",
-          "registresNomsDomainesPremierNiveau",
-          "fournisseurServicesInformatiqueNuage",
-          "fournisseurServiceCentresDonnees",
-          "fournisseurReseauxDiffusionContenu",
-        ),
-        certains(estInformationsPourSecteur("gestionServicesTic")),
-        certains(estInformationsPourSecteur("fournisseursNumeriques")),
-      ),
-      () =>
-        fabriqueResultatEvaluationDefinitifCarSecteur(
-          reponse,
-          TE.AutreEtatMembreUE,
         ),
     )
     .when(
@@ -123,10 +87,9 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
     .when(
       certains(
         et(
-          estInformationsPourSecteur("infrastructureNumerique"),
-          auMoinsUneActiviteEstDans(
-            ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation,
-          ),
+          estInformationsSecteurEligibleSansBesoinLocalisation,
+          non(estInformationSecteurSousSecteurAutre),
+          auMoinsUneActiviteListee,
         ),
       ),
       () =>
@@ -136,17 +99,37 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
         ),
     )
     .when(
-      certains(
-        et(
-          estInformationsSecteurEligibleSansBesoinLocalisation,
-          non(estInformationSecteurSousSecteurAutre),
-          auMoinsUneActiviteListee,
+      et(
+        certainsSontInfrastructureNumeriqueAvecActivite(
+          "fournisseurReseauxCommunicationElectroniquesPublics",
+          "fournisseurServiceCommunicationElectroniquesPublics",
+        ),
+        certains(
+          contientValeurLocalisationFournitureServicesNumeriques("autre"),
         ),
       ),
       () =>
         fabriqueResultatEvaluationDefinitifCarSecteur(
           reponse,
-          "EntiteImportante",
+          TE.AutreEtatMembreUE,
+        ),
+    )
+    .when(
+      ou(
+        certainsSontInfrastructureNumeriqueAvecActivite(
+          "fournisseurServicesDNS",
+          "registresNomsDomainesPremierNiveau",
+          "fournisseurServicesInformatiqueNuage",
+          "fournisseurServiceCentresDonnees",
+          "fournisseurReseauxDiffusionContenu",
+        ),
+        certains(estInformationsPourSecteur("gestionServicesTic")),
+        certains(estInformationsPourSecteur("fournisseursNumeriques")),
+      ),
+      () =>
+        fabriqueResultatEvaluationDefinitifCarSecteur(
+          reponse,
+          TE.AutreEtatMembreUE,
         ),
     )
     .otherwise(() =>
