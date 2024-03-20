@@ -1,38 +1,39 @@
+import { EtatEtape } from "../../../../commun/core/src/Domain/Simulateur/EtatEtape.definitions.ts";
+import { etapeSuivanteEstResultat } from "../../../../commun/core/src/Domain/Simulateur/EtatEtape.predicats.ts";
 import { DonneesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
-import { EtatEtapes } from "../../../../commun/core/src/Domain/Simulateur/EtatEtapes.ts";
 import {
   fabriqueEtatEtapePrecedent,
   fabriqueEtatEtapeSuivant,
 } from "../../../../commun/core/src/Domain/Simulateur/services/EtatEtape/EtatEtape.operations.ts";
 import { noRefClick } from "../Echaffaudages/AssistantsEchaffaudages.tsx";
 import { EnvoieDonneesFormulaire } from "../Simulateur/Operations/appelsApi";
-import { donneesFormulaireSontCompletes } from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
 
 const centreSurHautFormulaire = () =>
   window.scrollTo({ top: document.getElementById("debutForm")?.offsetTop });
 
 export const fabriqueGestionSuivant =
   (
-    setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
-    etatEtapes: EtatEtapes,
+    setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtape>>,
+    etatEtapes: EtatEtape,
     donneesSimulateur: DonneesFormulaireSimulateur,
     envoieDonneesFormulaire: EnvoieDonneesFormulaire,
   ) =>
   (e: React.MouseEvent) => {
     e.preventDefault();
-    if (donneesFormulaireSontCompletes(donneesSimulateur)) {
-      envoieDonneesFormulaire(donneesSimulateur).then(() =>
-        setEtatEtape(fabriqueEtatEtapeSuivant(etatEtapes, donneesSimulateur)),
-      );
+    if (etapeSuivanteEstResultat(etatEtapes)(donneesSimulateur)) {
+      envoieDonneesFormulaire(donneesSimulateur).then(() => {
+        setEtatEtape(fabriqueEtatEtapeSuivant(etatEtapes, donneesSimulateur));
+        centreSurHautFormulaire();
+      });
     } else {
       setEtatEtape(fabriqueEtatEtapeSuivant(etatEtapes, donneesSimulateur));
+      centreSurHautFormulaire();
     }
-    centreSurHautFormulaire();
   };
 
 export const fabriqueGestionPrecedent = (
-  setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
-  etatEtapes: EtatEtapes,
+  setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtape>>,
+  etatEtapes: EtatEtape,
   donneesSimulateur: DonneesFormulaireSimulateur,
 ) => {
   if (etatEtapes.collectionEtapes.estPremiereEtape(etatEtapes.indiceCourant))
@@ -45,8 +46,8 @@ export const fabriqueGestionPrecedent = (
 };
 
 export const fabriqueInformationsBoutonsNavigation = (
-  setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtapes>>,
-  etatEtapes: EtatEtapes,
+  setEtatEtape: React.Dispatch<React.SetStateAction<EtatEtape>>,
+  etatEtapes: EtatEtape,
   donneesFormulaireSimulateur: DonneesFormulaireSimulateur,
   envoieDonneesFormulaire: EnvoieDonneesFormulaire,
 ) => ({

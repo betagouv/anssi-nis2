@@ -11,7 +11,7 @@ import {
 } from "../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import {
   assertionArbitraire,
-  fabriqueVerificationReponseDefinitivementRegule,
+  verifieReponseDefinitivementRegule,
   verificationReponseNonRegule,
 } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import { fabriqueArbJamaisOse_ToujoursFrance_StructureMoyen } from "../utilitaires/ResultatEvaluationRegulation.tuple.arbitraire.fabrique";
@@ -73,9 +73,7 @@ describe("Secteur", () => {
                 "fournisseurServiceCommunicationElectroniquesPublics",
               )(arbLocalisationsServices_ContientFrance),
             ),
-            fabriqueVerificationReponseDefinitivementRegule(
-              TE.EntiteEssentielle,
-            ),
+            verifieReponseDefinitivementRegule(TE.EntiteEssentielle),
           ),
         );
         it(
@@ -87,9 +85,7 @@ describe("Secteur", () => {
                 "fournisseurServiceCommunicationElectroniquesPublics",
               )(arbLocalisationsServices_ContientAutreUE_SansFrance),
             ),
-            fabriqueVerificationReponseDefinitivementRegule(
-              TE.AutreEtatMembreUE,
-            ),
+            verifieReponseDefinitivementRegule(TE.AutreEtatMembreUE),
           ),
         );
         it(
@@ -120,9 +116,7 @@ describe("Secteur", () => {
                   "fournisseurReseauxDiffusionContenu",
                 )(arbLocalisationEtablissementPrincipal_France),
               ),
-              fabriqueVerificationReponseDefinitivementRegule(
-                TE.EntiteEssentielle,
-              ),
+              verifieReponseDefinitivementRegule(TE.EntiteEssentielle),
             ),
           );
           it(
@@ -135,9 +129,7 @@ describe("Secteur", () => {
                   "fournisseurReseauxDiffusionContenu",
                 )(arbLocalisationEtablissementPrincipal_AutreUE),
               ),
-              fabriqueVerificationReponseDefinitivementRegule(
-                TE.AutreEtatMembreUE,
-              ),
+              verifieReponseDefinitivementRegule(TE.AutreEtatMembreUE),
             ),
           );
         },
@@ -152,9 +144,7 @@ describe("Secteur", () => {
                 "registresNomsDomainesPremierNiveau",
               )(arbLocalisationEtablissementPrincipal_France),
             ),
-            fabriqueVerificationReponseDefinitivementRegule(
-              TE.EntiteEssentielle,
-            ),
+            verifieReponseDefinitivementRegule(TE.EntiteEssentielle),
           ),
         );
         it(
@@ -166,9 +156,7 @@ describe("Secteur", () => {
                 "registresNomsDomainesPremierNiveau",
               )(arbLocalisationEtablissementPrincipal_AutreUE),
             ),
-            fabriqueVerificationReponseDefinitivementRegule(
-              TE.AutreEtatMembreUE,
-            ),
+            verifieReponseDefinitivementRegule(TE.AutreEtatMembreUE),
           ),
         );
       });
@@ -180,7 +168,7 @@ describe("Secteur", () => {
               "prestataireServiceConfianceQualifie",
             ),
           ),
-          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
+          verifieReponseDefinitivementRegule(TE.EntiteEssentielle),
         ),
       );
       it(
@@ -192,7 +180,7 @@ describe("Secteur", () => {
               "fournisseurPointEchangeInternet",
             ),
           ),
-          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteImportante),
+          verifieReponseDefinitivementRegule(TE.EntiteImportante),
         ),
       );
       it(
@@ -226,7 +214,7 @@ describe("Secteur", () => {
               "fournisseurServicesSecuriteGeres",
             )(arbLocalisationEtablissementPrincipal_France),
           ),
-          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
+          verifieReponseDefinitivementRegule(TE.EntiteEssentielle),
         ),
       );
       it(
@@ -239,7 +227,7 @@ describe("Secteur", () => {
               "fournisseursPlateformesServicesReseauxSociaux",
             )(arbLocalisationEtablissementPrincipal_France),
           ),
-          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteEssentielle),
+          verifieReponseDefinitivementRegule(TE.EntiteEssentielle),
         ),
       );
       it(
@@ -251,7 +239,7 @@ describe("Secteur", () => {
               "fournisseurServicesSecuriteGeres",
             )(arbLocalisationEtablissementPrincipal_AutreUE),
           ),
-          fabriqueVerificationReponseDefinitivementRegule(TE.AutreEtatMembreUE),
+          verifieReponseDefinitivementRegule(TE.AutreEtatMembreUE),
         ),
       );
       it(
@@ -264,7 +252,7 @@ describe("Secteur", () => {
               "fournisseursPlateformesServicesReseauxSociaux",
             )(arbLocalisationEtablissementPrincipal_AutreUE),
           ),
-          fabriqueVerificationReponseDefinitivementRegule(TE.AutreEtatMembreUE),
+          verifieReponseDefinitivementRegule(TE.AutreEtatMembreUE),
         ),
       );
     });
@@ -279,7 +267,7 @@ describe("Secteur", () => {
               >,
             ),
           ),
-          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteImportante),
+          verifieReponseDefinitivementRegule(TE.EntiteImportante),
         ),
       );
       it(
@@ -292,7 +280,7 @@ describe("Secteur", () => {
               >,
             ),
           ),
-          fabriqueVerificationReponseDefinitivementRegule(TE.EntiteImportante),
+          verifieReponseDefinitivementRegule(TE.EntiteImportante),
         ),
       );
     });

@@ -1,23 +1,24 @@
 import { match, P } from "ts-pattern";
+import { ignoreEtapeSuivante } from "../../EtatEtape.predicats";
 import { DonneesFormulaireSimulateur } from "../DonneesFormulaire/DonneesFormulaire.definitions";
 import { ConstantesEtatEtape } from "../../EtatEtape.constantes";
-import { EtatEtapes } from "../../EtatEtapes";
-import { fabriqueEtatEtape } from "../../fabriques/EtatEtape.fabrique";
+import { EtatEtape } from "../../EtatEtape.definitions";
+import { fabriqueEtatEtape } from "../../EtatEtape.fabrique";
 
 type ConstruitSuccesseur = (
-  etatEtapeCourant: EtatEtapes,
+  etatEtapeCourant: EtatEtape,
   indiceEtape: number,
   indiceSousEtape: number,
   donneesFormulaire: DonneesFormulaireSimulateur,
-) => EtatEtapes;
+) => EtatEtape;
 type FabriqueSuccesseurEtatEtape = (
-  etatEtapes: EtatEtapes,
+  etatEtapes: EtatEtape,
   donnees: DonneesFormulaireSimulateur,
-) => EtatEtapes;
+) => EtatEtape;
 type FabriqueChangementEtatEtape = (
-  etatEtapes: EtatEtapes,
+  etatEtapes: EtatEtape,
   donnees: DonneesFormulaireSimulateur,
-) => () => EtatEtapes;
+) => () => EtatEtape;
 const construitEtatEtapeSuccesseur: ConstruitSuccesseur = (
   etatEtapes,
   indiceEtape,
@@ -64,17 +65,17 @@ const descendSousEtape: FabriqueChangementEtatEtape =
       donnees,
     );
 const quandRempliContitionSousEtape = (
-  etatEtapes: EtatEtapes,
+  etatEtapes: EtatEtape,
   donnees: DonneesFormulaireSimulateur,
 ) =>
   P.when(() =>
     etatEtapes.contenuEtapeCourante.remplitContitionSousEtape(donnees),
   );
 const fabriqueEtatEtapeSuivantSansCondition = (
-  etatEtapes: EtatEtapes,
+  etatEtapes: EtatEtape,
   donnees: DonneesFormulaireSimulateur,
-) => {
-  return match<EtatEtapes>(etatEtapes)
+) =>
+  match<EtatEtape>(etatEtapes)
     .with(
       {
         estSurSousEtape: false,
@@ -90,17 +91,16 @@ const fabriqueEtatEtapeSuivantSansCondition = (
       incrementeEtatEtape(etatEtapes, donnees),
     )
     .otherwise(() => etatEtapes);
-};
 export const fabriqueEtatEtapeSuivant: FabriqueSuccesseurEtatEtape = (
-  etatEtapes,
+  etatEtapeCourant,
   nouvellesDonnees,
 ) => {
   const etatEtapeSuivantSansCondition = fabriqueEtatEtapeSuivantSansCondition(
-    etatEtapes,
+    etatEtapeCourant,
     nouvellesDonnees,
   );
   if (
-    etatEtapes.ignoreEtapeSuivante(
+    ignoreEtapeSuivante(etatEtapeCourant)(
       etatEtapeSuivantSansCondition,
       nouvellesDonnees,
     )

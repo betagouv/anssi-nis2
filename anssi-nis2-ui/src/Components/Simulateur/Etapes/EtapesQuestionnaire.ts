@@ -1,6 +1,6 @@
 import { Pattern } from "ts-pattern";
 import { CollectionInformationsEtapes } from "../../../../../commun/core/src/Domain/Simulateur/CollectionInformationsEtapes.definitions.ts";
-import { fabriqueEtatEtape } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/EtatEtape.fabrique.ts";
+import { fabriqueEtatEtape } from "../../../../../commun/core/src/Domain/Simulateur/EtatEtape.fabrique.ts";
 import { fabriquesInformationsEtapes } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/InformationsEtape.fabrique.ts";
 import {
   contientSousSecteurAutresUniquement,

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes";
-import { EtatEtapes } from "../../src/Domain/Simulateur/EtatEtapes";
+import { EtatEtape } from "../../src/Domain/Simulateur/EtatEtape.definitions";
 import {
   fabriqueEtatEtapePrecedent,
   fabriqueEtatEtapeSuivant,
@@ -11,17 +11,17 @@ import { exEtatEtape } from "./exemples/etatEtape.exemple";
 const donneesVides = donneesFormulaireSimulateurVide;
 
 const attendEtatEtapeEgaux = (
-  etatEtapeResultant: EtatEtapes,
-  etatEtapeAttendu: EtatEtapes,
+  etatEtapeResultant: EtatEtape,
+  etatEtapeAttendu: EtatEtape,
   ignoreProprietes = ["ignoreEtapeSuivante"],
 ) =>
   Object.keys(etatEtapeAttendu)
     .filter((champ) => !ignoreProprietes.includes(champ))
     .map((champ) =>
       expect(
-        etatEtapeResultant[champ as keyof EtatEtapes],
+        etatEtapeResultant[champ as keyof EtatEtape],
         `Propriété ${champ}`,
-      ).toStrictEqual(etatEtapeAttendu[champ as keyof EtatEtapes]),
+      ).toStrictEqual(etatEtapeAttendu[champ as keyof EtatEtape]),
     );
 
 describe(fabriqueEtatEtapeSuivant, () => {

@@ -1,7 +1,7 @@
 import { fc } from "@fast-check/vitest";
 import { describe, expect, it } from "vitest";
 import { CollectionInformationsEtapes } from "../../src/Domain/Simulateur/CollectionInformationsEtapes.definitions";
-import { InformationsEtapeVide } from "../../src/Domain/Simulateur/EtatEtapes";
+import { InformationsEtapeVide } from "../../src/Domain/Simulateur/EtatEtape.definitions";
 import {
   EtapeExistante,
   InformationEtapeForm,

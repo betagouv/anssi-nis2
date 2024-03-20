@@ -84,7 +84,7 @@ export const verificationReponseNonRegule = (reponse: EtatRegulation) => {
     afficheDifferences(resultatAttendu, resultatObtenu),
   ).toStrictEqual(resultatAttendu);
 };
-export const verificationReponseDefinitivementIncertainAutrePaysUE = (
+export const verifieReponseDefinitivementIncertainAutrePaysUE = (
   reponse: EtatRegulation,
 ) => {
   const resultatAttendu: EtatRegulationDefinitif = {
@@ -101,7 +101,7 @@ export const verificationReponseDefinitivementIncertainAutrePaysUE = (
     afficheDifferences(resultatAttendu, resultatObtenu),
   ).toStrictEqual(resultatAttendu);
 };
-export const fabriqueVerificationReponseDefinitivementRegule =
+export const verifieReponseDefinitivementRegule =
   (typeEntite: TypeEntite) => (reponse: EtatRegulation) => {
     const causes: CausesRegulation = {
       ...propReponseEtat(reponse)("Structure"),

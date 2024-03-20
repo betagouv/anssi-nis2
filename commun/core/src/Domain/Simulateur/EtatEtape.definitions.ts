@@ -42,14 +42,9 @@ export type RepresentationEtape = {
     | InformationsEtapesVariantes<InformationEtapeForm>;
 };
 
-export type CapacitesEtapes = {
-  readonly ignoreEtapeSuivante: (
-    etat: EtatEtapes,
-    donnees: DonneesFormulaireSimulateur,
-  ) => boolean;
-};
+export type CapacitesEtapes = {};
 
-export type EtatEtapes = SituationEtape &
+export type EtatEtape = SituationEtape &
   PredicatsEtape &
   RepresentationEtape &
   CapacitesEtapes;

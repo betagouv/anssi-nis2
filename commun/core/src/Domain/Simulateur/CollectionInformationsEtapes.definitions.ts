@@ -1,5 +1,5 @@
 import { InformationEtapeForm, InformationsEtape } from "./InformationsEtape";
-import { InformationsEtapeVide } from "./EtatEtapes";
+import { InformationsEtapeVide } from "./EtatEtape.definitions";
 import { ConstantesEtatEtape } from "./EtatEtape.constantes";
 
 export class CollectionInformationsEtapes extends Array<InformationsEtape> {
@@ -9,7 +9,7 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   get nombreEtapes(): number {
     return this.reduce(
       (somme, etape) => somme + etape.longueurComptabilisee,
-      0
+      0,
     );
   }
 
@@ -17,7 +17,7 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
     this.reduce(
       (nombre, etape, indiceCourant) =>
         indiceCourant > indice ? nombre : nombre + etape.longueurComptabilisee,
-      0
+      0,
     );
 
   estPremiereEtape = (indice: number): boolean =>
@@ -43,11 +43,11 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
     indice === ConstantesEtatEtape.indiceEtapeInitial;
 
   recupereInformationsEtapeSuivante = (
-    indiceDepart: number
+    indiceDepart: number,
   ): InformationsEtape =>
     this.reduce(
       this.recuperationEtapeSuivanteOuDefaut(indiceDepart),
-      InformationsEtapeVide as unknown as InformationsEtape
+      InformationsEtapeVide as unknown as InformationsEtape,
     );
 
   recupereSousEtape = (indice: number, indiceSousEtape: number) =>

@@ -1,6 +1,6 @@
 import { donneesFormulaireSimulateurVide } from "../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes";
-import { EtatEtapes } from "../../../src/Domain/Simulateur/EtatEtapes";
-import { fabriqueEtatEtape } from "../../../src/Domain/Simulateur/fabriques/EtatEtape.fabrique";
+import { EtatEtape } from "../../../src/Domain/Simulateur/EtatEtape.definitions";
+import { fabriqueEtatEtape } from "../../../src/Domain/Simulateur/EtatEtape.fabrique";
 import { exCollectionInformationEtape } from "./collectionInformationEtape.exemples";
 
 const indiceEtapeInitiale = 0;
@@ -39,7 +39,7 @@ const etatEtapeVariantEn2Etape3 = fabriqueEtatEtape(
   exCollectionInformationEtape.longueur3.avecVariante.enDeuxieme,
   2,
 );
-const etatEtapeVariantEn2Etape2a: EtatEtapes = {
+const etatEtapeVariantEn2Etape2a: EtatEtape = {
   ...fabriqueEtatEtape(
     exCollectionInformationEtape.longueur3.avecVariante.enDeuxieme,
     1,
@@ -50,7 +50,7 @@ const etatEtapeVariantEn2Etape2a: EtatEtapes = {
     typeStructure: ["privee"],
   },
 };
-const etatEtapeVariantEn2Etape2b: EtatEtapes = {
+const etatEtapeVariantEn2Etape2b: EtatEtape = {
   ...fabriqueEtatEtape(
     exCollectionInformationEtape.longueur3.avecVariante.enDeuxieme,
     1,
