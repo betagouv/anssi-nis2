@@ -87,7 +87,7 @@ export type ReponseInformationsSecteurLocalEtab_MG = CategoriseTaille<
   "Moyen" | "Grand"
 > &
   InformationsSecteurLocalEtab &
-  LocalisationsServices;
+  LocalisationEtablissementPrincipal;
 
 export type RepInfoSecteurLocalEtab<Taille extends CategorieTaille> =
   Taille extends "Petit"

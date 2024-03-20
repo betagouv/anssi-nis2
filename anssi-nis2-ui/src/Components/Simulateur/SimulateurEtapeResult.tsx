@@ -28,7 +28,20 @@ export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
   return (
     <>
       {/*<pre>{JSON.stringify(donneesFormulaire, null, 2)}</pre>*/}
-      {/*<pre>{JSON.stringify(etatRegulation, null, 2)}</pre>*/}
+      {/*<pre>*/}
+      {/*  {JSON.stringify(*/}
+      {/*    donneesReponse,*/}
+      {/*    (_key, value) => (value instanceof Set ? [...value] : value),*/}
+      {/*    2,*/}
+      {/*  )}*/}
+      {/*</pre>*/}
+      {/*<pre>*/}
+      {/*  {JSON.stringify(*/}
+      {/*    etatRegulation,*/}
+      {/*    (_key, value) => (value instanceof Set ? [...value] : value),*/}
+      {/*    2,*/}
+      {/*  )}*/}
+      {/*</pre>*/}
       {informationsBoutonsNavigation && (
         <center>
           <button onClick={informationsBoutonsNavigation.precedent}>

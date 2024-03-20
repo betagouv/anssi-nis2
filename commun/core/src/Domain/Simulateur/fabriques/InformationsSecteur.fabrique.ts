@@ -8,7 +8,10 @@ import {
   contientUnParmi,
   est,
 } from "../../../../../utils/services/commun.predicats";
-import { ActivitesInfrastructureNumerique } from "../Activite.definitions";
+import {
+  ActivitesInfrastructureNumerique,
+  ActivitesPourSecteur,
+} from "../Activite.definitions";
 import { DonneesFormulaireSimulateur } from "../services/DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   SecteurActivite,
@@ -25,6 +28,7 @@ import {
   InformationsSecteurPossible,
   RepInfoSecteur,
   RepInfoSecteurInfranum,
+  RepInfoSecteurLocalEtab,
   ReponseInformationsSecteur,
   ReponseInformationsSecteurInfranumActiviteLocalEtabLot1,
   ReponseInformationsSecteurInfranumActiviteLocalEtabLot2,
@@ -125,13 +129,19 @@ export const FabriqueInformationsSecteur = {
 
   secteurAvecLocalisationEtablissementPrincipal:
     <Taille extends CategorieTaille>(taille: Taille) =>
-    (
+    <
+      Secteur extends
+        | "infrastructureNumerique"
+        | "gestionServicesTic"
+        | "fournisseursNumeriques",
+    >(
       donnees: DonneesFormulaireSimulateur,
-      activitesInfraNum: ActivitesInfrastructureNumerique[],
+      secteur: Secteur,
+      activitesInfraNum: ActivitesPourSecteur[Secteur][],
     ) =>
       ens({
         ...fabriqueCategorieTaille(taille),
-        secteurActivite: "infrastructureNumerique",
+        secteurActivite: secteur,
         activites: ens(...activitesInfraNum),
         paysDecisionsCyber: donnees.paysDecisionsCyber[0],
         ...(donnees.paysDecisionsCyber[0] === "horsue"
@@ -146,6 +156,15 @@ export const FabriqueInformationsSecteur = {
             }
           : {}),
       }),
+  // secteurGestionServicesTic:
+  //   <Taille extends CategorieTaille>(taille: Taille) =>
+  //   (
+  //     donnees: DonneesFormulaireSimulateur,
+  //     activitesInfraNum: ActivitesInfrastructureNumerique[],
+  //   ) =>
+  //   (): Set<RepInfoSecteurInfranum<Taille>> =>
+  //     match(activitesInfraNum)
+  //       .when(
   secteurInfrastructureNumerique:
     <Taille extends CategorieTaille>(taille: Taille) =>
     (
@@ -179,7 +198,7 @@ export const FabriqueInformationsSecteur = {
           () =>
             FabriqueInformationsSecteur.secteurAvecLocalisationEtablissementPrincipal(
               taille,
-            )(donnees, activitesInfraNum) as Set<
+            )(donnees, "infrastructureNumerique", activitesInfraNum) as Set<
               ReponseInformationsSecteurInfranumActiviteLocalEtabLot2<Taille>
             >,
         )
@@ -192,7 +211,7 @@ export const FabriqueInformationsSecteur = {
           () =>
             FabriqueInformationsSecteur.secteurAvecLocalisationEtablissementPrincipal(
               taille,
-            )(donnees, activitesInfraNum) as Set<
+            )(donnees, "infrastructureNumerique", activitesInfraNum) as Set<
               ReponseInformationsSecteurInfranumActiviteLocalEtabLot1<Taille>
             >,
         )
@@ -223,6 +242,32 @@ export const FabriqueInformationsSecteur = {
               activiteEstDansSecteur("infrastructureNumerique"),
             ),
           ),
+        )
+        .when(
+          est("gestionServicesTic" as SecteurActivite),
+          () =>
+            FabriqueInformationsSecteur.secteurAvecLocalisationEtablissementPrincipal(
+              taille,
+            )(
+              donnees,
+              "gestionServicesTic",
+              donnees.activites.filter(
+                activiteEstDansSecteur("gestionServicesTic"),
+              ),
+            ) as Set<RepInfoSecteurLocalEtab<Taille>>,
+        )
+        .when(
+          est("fournisseursNumeriques" as SecteurActivite),
+          () =>
+            FabriqueInformationsSecteur.secteurAvecLocalisationEtablissementPrincipal(
+              taille,
+            )(
+              donnees,
+              "fournisseursNumeriques",
+              donnees.activites.filter(
+                activiteEstDansSecteur("fournisseursNumeriques"),
+              ),
+            ) as Set<RepInfoSecteurLocalEtab<Taille>>,
         )
         .when(
           estUnSecteurSansDesSousSecteurs,

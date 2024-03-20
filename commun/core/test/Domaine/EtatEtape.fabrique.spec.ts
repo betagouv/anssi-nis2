@@ -669,6 +669,54 @@ describe("fabrique ReponseEtat", () => {
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
+      it("convertie correctement Gestion TIC", () => {
+        const donnees = {
+          designationOperateurServicesEssentiels: ["non"],
+          appartenancePaysUnionEuropeenne: ["france"],
+          secteurActivite: ["gestionServicesTic"],
+          sousSecteurActivite: [],
+          trancheChiffreAffaire: ["moyen"],
+          trancheNombreEmployes: ["petit"],
+          typeStructure: ["privee"],
+          typeEntitePublique: [],
+          activites: ["fournisseurServicesGeres"],
+          fournitServicesUnionEuropeenne: [],
+          localisationRepresentant: [],
+          localisationFournitureServicesNumeriques: [],
+          paysDecisionsCyber: ["france"],
+          paysOperationsCyber: [],
+          paysPlusGrandNombreSalaries: [],
+        } as DonneesFormulaireSimulateur;
+        const etatDonneeesSimuAttendu: UnionReponseEtat = {
+          _tag: "InformationsSecteur",
+          DesignationOperateurServicesEssentiels: {
+            designationOperateurServicesEssentiels: "non",
+          },
+          AppartenancePaysUnionEuropeenne: {
+            appartenancePaysUnionEuropeenne: "france",
+          },
+          Structure: {
+            typeStructure: "privee",
+            _categorieTaille: "Moyen",
+            trancheChiffreAffaire: "moyen",
+            trancheNombreEmployes: "petit",
+          },
+          InformationsSecteur: {
+            _categorieTaille: "Moyen",
+            secteurs: ens({
+              _categorieTaille: "Moyen",
+              secteurActivite: "gestionServicesTic",
+              activites: ens("fournisseurServicesGeres"),
+              paysDecisionsCyber: "france",
+            }),
+          },
+        };
+        const resultatObtenu =
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
+        expect(resultatObtenu).toStrictEqual(etatDonneeesSimuAttendu);
+      });
     });
   });
 });
