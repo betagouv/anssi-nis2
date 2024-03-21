@@ -20,9 +20,22 @@ export const libelleTitreIncertainAutrePaysUnionEuropeenne =
 export const libelleTitreIncertainStandard =
   "Nous ne pouvons vous répondre dans l’immédiat";
 export const libelleTitreNonRegule =
-  "Votre entité ne serait pas régulée  \npar la directive NIS 2";
-export const libelleTitreRegule =
-  "Votre entité serait régulée  \npar la directive NIS 2";
+  "Votre entité ne sera pas régulée par NIS 2";
+export const libelleTitreReguleEntiteEssentielle =
+  "Votre entité sera régulée par NIS 2  \nen tant qu’Entité Essentielle (EE)";
+export const libelleTitreReguleEntiteEssentielleTelcoPlusieursPaysDontFrance =
+  "Votre entité sera régulée par NIS 2 en France  \nen tant qu’Entité Essentielle (EE)";
+export const libelleTitreReguleEntiteNonDeterminee =
+  "Votre entité sera régulée par NIS 2";
+export const libelleTitreReguleEnregistrementUniquement =
+  "Votre entité sera régulée par NIS 2  \navec pour seule nécessité de s’enregistrer";
+export const libelleTitreReguleEntiteImportante =
+  "Votre entité sera régulée par NIS 2  \nen tant qu’Entité Importante (EI)";
+
+export const libelleAvertissementRegule =
+  "Ce résultat se base sur les éléments saisis et est **_strictement indicatif_** " +
+  "et **_susceptible d'évoluer_** dans le cadre de l'adoption prochaine des textes " +
+  "législatifs et réglementaires de transposition de la directive NIS 2.";
 export const explicationContenuIncertain =
   "Le test est en cours d’évolution pour prendre en compte l’ensemble des " +
   "typologies d’entités, mais n’est pas encore en mesure de couvrir les " +

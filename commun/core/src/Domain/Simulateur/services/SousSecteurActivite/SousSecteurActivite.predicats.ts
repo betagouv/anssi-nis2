@@ -1,40 +1,53 @@
-import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
-import { SecteurActivite } from "../../SecteurActivite.definitions";
+import { DonneesFormulaireSimulateur } from "../DonneesFormulaire/DonneesFormulaire.definitions";
 import {
-  SecteursAvecSousSecteurs,
+  SecteurActivite,
+  SecteurComposite,
+} from "../../SecteurActivite.definitions";
+import {
+  PeutEtreSousSecteurActivite,
   SousSecteurActivite,
+  SousSecteurAutre,
 } from "../../SousSecteurActivite.definitions";
 import { groupementsSecteursParSousSecteurs } from "../../SousSecteurActivite.valeurs";
 import { estUnSecteurAvecDesSousSecteurs } from "../SecteurActivite/SecteurActivite.predicats";
 
+export const estSousSecteur = (
+  sousSecteur: PeutEtreSousSecteurActivite,
+): sousSecteur is SousSecteurActivite =>
+  sousSecteur !== "PasDeSousSecteurActivite";
 export const estSousSecteurListe = (sousSecteur?: SousSecteurActivite) =>
   !sousSecteur?.startsWith("autre");
-export const estSousSecteurAutre = (sousSecteur?: SousSecteurActivite) =>
-  sousSecteur?.startsWith("autre");
+export const estSousSecteurAutre = (
+  sousSecteur?: SousSecteurActivite,
+): sousSecteur is SousSecteurAutre => !!sousSecteur?.startsWith("autre");
 
 export const auMoinsUnSousSecteurListe = (sousSecteur: SousSecteurActivite[]) =>
-  sousSecteur.length > 0 && sousSecteur?.some(estSousSecteurListe);
+  !!sousSecteur &&
+  sousSecteur.length > 0 &&
+  sousSecteur?.some(estSousSecteurListe);
 export const uniquementDesSousSecteursAutres = (
-  sousSecteur: SousSecteurActivite[]
+  sousSecteur: SousSecteurActivite[],
 ): sousSecteur is SousSecteurActivite[] =>
   sousSecteur.length > 0 && sousSecteur?.every(estSousSecteurAutre);
 
 export const sousSecteurAppartientASecteur =
-  (valeurGroupement: SecteursAvecSousSecteurs) =>
+  (valeurGroupement: SecteurComposite) =>
   (donneesFormulaireSimulateur: DonneesFormulaireSimulateur) => {
     const donneesSecteursActivite = donneesFormulaireSimulateur[
       "sousSecteurActivite"
     ] as SousSecteurActivite[];
     return donneesSecteursActivite.some((sousSecteur) =>
-      groupementsSecteursParSousSecteurs[valeurGroupement].includes(sousSecteur)
+      groupementsSecteursParSousSecteurs[valeurGroupement].includes(
+        sousSecteur,
+      ),
     );
   };
 export const estDansSecteur =
   (secteur: SecteurActivite) => (sousSecteur: SousSecteurActivite) => {
     return (
       estUnSecteurAvecDesSousSecteurs(secteur) &&
-      groupementsSecteursParSousSecteurs[
-        secteur as SecteursAvecSousSecteurs
-      ].includes(sousSecteur)
+      groupementsSecteursParSousSecteurs[secteur as SecteurComposite].includes(
+        sousSecteur,
+      )
     );
   };

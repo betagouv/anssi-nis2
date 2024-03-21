@@ -1,7 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { toujoursFaux } from "../../src/Domain/Commun/Commun.predicats";
-import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/DonneesFormulaire.constantes";
-import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
+import {
+  toujoursFaux,
+  toujoursVrai,
+} from "../../../utils/services/commun.predicats";
+import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes";
+import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique";
 import { fabriquesInformationsEtapes } from "../../src/Domain/Simulateur/fabriques/InformationsEtape.fabrique";
 import {
   CapacitesEtapeFormulaire,
@@ -55,7 +58,7 @@ describe("fabriquesInformationsEtapes", () => {
       const resultDeuxEtapes =
         fabriquesInformationsEtapes.variantes(variantesDeuxEtapes);
       const donnees = fabriqueDonneesFormulaire(
-        donneesFormulaireSimulateurVide
+        donneesFormulaireSimulateurVide,
       );
       expect(resultDeuxEtapes).toEqual({
         ...resultatAttendu,
@@ -65,13 +68,46 @@ describe("fabriquesInformationsEtapes", () => {
         resultDeuxEtapes.varianteAffichee({
           ...donnees,
           typeStructure: ["privee"],
-        })
+        }),
       ).toBe(0);
       expect(
         resultDeuxEtapes.varianteAffichee({
           ...donnees,
           typeStructure: ["publique"],
-        })
+        }),
+      ).toBe(1);
+    });
+  });
+  describe(fabriquesInformationsEtapes.sousEtapeConditionnelle, () => {
+    it("Construit une sous-étape conditionnelle avec des variantes", () => {
+      const variantesDeuxEtapes: VariantesEtape<InformationEtapeForm>[] = [
+        {
+          etape: exInformationEtape.form1,
+          conditions: { typeStructure: ["privee"] },
+        },
+        {
+          etape: exInformationEtape.form2,
+          conditions: { typeStructure: ["publique"] },
+        },
+      ];
+      const variantes =
+        fabriquesInformationsEtapes.variantes(variantesDeuxEtapes);
+      const sousEtapeConditionnelle =
+        fabriquesInformationsEtapes.sousEtapeConditionnelle(
+          toujoursVrai,
+          variantes,
+        );
+      expect(
+        sousEtapeConditionnelle.sousEtape.varianteAffichee({
+          ...donneesFormulaireSimulateurVide,
+          typeStructure: ["privee"],
+        }),
+      ).toBe(0);
+      expect(
+        sousEtapeConditionnelle.sousEtape.varianteAffichee({
+          ...donneesFormulaireSimulateurVide,
+          typeStructure: ["publique"],
+        }),
       ).toBe(1);
     });
   });

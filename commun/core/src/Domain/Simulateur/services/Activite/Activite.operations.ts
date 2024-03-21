@@ -1,12 +1,12 @@
 import { Activite } from "../../Activite.definitions";
 import {
   ValeursActivitesAdministrationPublique,
-  ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
+  ValeursActivitesConstructionVehiculesAutomobiles,
   ValeursActivitesEauPotable,
   ValeursActivitesEauUsees,
   ValeursActivitesElectricite,
   ValeursActivitesEspace,
-  ValeursActivitesFabricationAutreMaterielsTransports,
+  ValeursActivitesFabricationAutresMaterielTransports,
   ValeursActivitesFabricationDispositifsMedicaux,
   ValeursActivitesFabricationEquipementsElectroniques,
   ValeursActivitesFabricationMachinesEquipements,
@@ -28,13 +28,16 @@ import {
   ValeursActivitesServicesPostauxExpedition,
   ValeursActivitesTransportsAeriens,
   ValeursActivitesTransportsFerroviaires,
-  ValeursActivitesTransportsParEaux,
+  ValeursActivitesTransportsParEau,
   ValeursActivitesTransportsRoutiers,
 } from "../../Activite.valeurs";
-import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
-import { SecteurActivite } from "../../SecteurActivite.definitions";
+import { DonneesFormulaireSimulateur } from "../DonneesFormulaire/DonneesFormulaire.definitions";
 import {
-  SecteursSansSousSecteur,
+  SecteurActivite,
+  SecteurSimple,
+} from "../../SecteurActivite.definitions";
+import {
+  PeutEtreSousSecteurActivite,
   SousSecteurActivite,
 } from "../../SousSecteurActivite.definitions";
 import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions";
@@ -42,28 +45,28 @@ import { estUnSecteurAvecDesSousSecteurs } from "../SecteurActivite/SecteurActiv
 import { cartographieSousSecteursParSecteur } from "../SousSecteurActivite/SousSecteurActivite.operations";
 
 export const activitesParSecteurEtSousSecteur: Record<
-  ValeurCleSectorielle,
+  SecteurSimple | SousSecteurActivite,
   readonly Activite[]
 > = {
   administrationPublique: ValeursActivitesAdministrationPublique,
   autreSecteurActivite: [],
   autreSousSecteurEnergie: [],
   autreSousSecteurFabrication: [],
-  autreSousSecteurTransport: [],
+  autreSousSecteurTransports: [],
   banqueSecteurBancaire: ValeursActivitesSecteurBancaire,
   constructionVehiculesAutomobiles:
-    ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
+    ValeursActivitesConstructionVehiculesAutomobiles,
   eauPotable: ValeursActivitesEauPotable,
   eauxUsees: ValeursActivitesEauUsees,
   electricite: ValeursActivitesElectricite,
   espace: ValeursActivitesEspace,
   fabricationAutresMaterielTransports:
-    ValeursActivitesFabricationAutreMaterielsTransports,
+    ValeursActivitesFabricationAutresMaterielTransports,
   fabricationDispositifsMedicaux:
     ValeursActivitesFabricationDispositifsMedicaux,
   fabricationEquipementsElectroniques:
     ValeursActivitesFabricationEquipementsElectroniques,
-  fabricationFabricationProduitsInformatiquesElectroniquesOptiques:
+  fabricationProduitsInformatiquesElectroniquesOptiques:
     ValeursActivitesFabricationProduitsInformatiquesElectroniquesOptiques,
   fabricationMachinesEquipements:
     ValeursActivitesFabricationMachinesEquipements,
@@ -86,16 +89,16 @@ export const activitesParSecteurEtSousSecteur: Record<
   servicesPostauxExpedition: ValeursActivitesServicesPostauxExpedition,
   transportsAeriens: ValeursActivitesTransportsAeriens,
   transportsFerroviaires: ValeursActivitesTransportsFerroviaires,
-  transportsParEau: ValeursActivitesTransportsParEaux,
+  transportsParEau: ValeursActivitesTransportsParEau,
   transportsRoutiers: ValeursActivitesTransportsRoutiers,
 };
 export type AssociationSectorielleActivite = {
-  secteurOuSousSecteur: ValeurCleSectorielle;
+  secteurOuSousSecteur: SecteurSimple | SousSecteurActivite;
   titreActivite: string;
 };
 const collecteTitresSecteursSimples = (
   libelleSecteursActivite: string,
-  secteur: SecteursSansSousSecteur
+  secteur: SecteurSimple,
 ): AssociationSectorielleActivite[] => [
   {
     titreActivite: libelleSecteursActivite,
@@ -105,11 +108,11 @@ const collecteTitresSecteursSimples = (
 const collecteTitreSousSecteurs: (
   libelleSecteursActivite: string,
   listeSousSecteurs: SousSecteurActivite[],
-  libellesSousSecteursActivite: Record<SousSecteurActivite, string>
+  libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
 ) => AssociationSectorielleActivite[] = (
   libelleSecteursActivite: string,
   listeSousSecteurs: SousSecteurActivite[],
-  libellesSousSecteursActivite: Record<SousSecteurActivite, string>
+  libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
 ) =>
   listeSousSecteurs.map((sousSecteur: SousSecteurActivite) => ({
     secteurOuSousSecteur: sousSecteur,
@@ -119,34 +122,34 @@ const rempliSousSecteurs = (
   listeSousSecteurs: SousSecteurActivite[],
   secteur: SecteurActivite,
   libelleSecteursActivite: string,
-  libellesSousSecteursActivite: Record<SousSecteurActivite, string>
+  libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
 ): AssociationSectorielleActivite[] => {
   if (
     estUnSecteurAvecDesSousSecteurs(secteur) &&
     listeSousSecteurs.length === 0
   )
     throw Error(
-      `Houla! un secteur avec sous secteurs n'en n'a pas ! ${secteur}`
+      `Houla! un secteur avec sous secteurs n'en n'a pas ! ${secteur}`,
     );
   return listeSousSecteurs.length === 0
     ? collecteTitresSecteursSimples(
         libelleSecteursActivite,
-        secteur as SecteursSansSousSecteur
+        secteur as SecteurSimple,
       )
     : collecteTitreSousSecteurs(
         libelleSecteursActivite,
         listeSousSecteurs,
-        libellesSousSecteursActivite
+        libellesSousSecteursActivite,
       );
 };
 export const collecteTitresPourActivite: (
   libellesSecteursActivite: Record<SecteurActivite, string>,
   libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
-  donneesFormulaire: DonneesFormulaireSimulateur
+  donneesFormulaire: DonneesFormulaireSimulateur,
 ) => AssociationSectorielleActivite[] = (
   libellesSecteursActivite,
   libellesSousSecteursActivite,
-  donneesFormulaire
+  donneesFormulaire,
 ) =>
   cartographieSousSecteursParSecteur(donneesFormulaire).reduce<
     AssociationSectorielleActivite[]
@@ -157,20 +160,23 @@ export const collecteTitresPourActivite: (
           listeSousSecteurs,
           secteur,
           libellesSecteursActivite[secteur],
-          libellesSousSecteursActivite
-        )
+          libellesSousSecteursActivite,
+        ),
       ),
-    []
+    [],
   );
-export const fabriqueListeActivitesDesSecteurs = (
-  secteurActivite: ValeurCleSectorielle[],
-  filtreActivite: (activite: Activite) => boolean
-): Activite[] =>
-  Array.from(
-    secteurActivite.reduce((ensembleActivites, secteur) => {
-      activitesParSecteurEtSousSecteur[secteur]
-        ?.filter(filtreActivite)
-        .map((activite: Activite) => ensembleActivites.add(activite));
-      return ensembleActivites;
-    }, new Set<Activite>())
-  );
+const getValeurCleSectorielle = <T>(
+  secteur: T,
+  sousSecteur: PeutEtreSousSecteurActivite,
+): ValeurCleSectorielle =>
+  (sousSecteur !== "PasDeSousSecteurActivite"
+    ? sousSecteur
+    : secteur) as ValeurCleSectorielle;
+export const getActivitesPour = <T extends SecteurActivite>(
+  secteur: T,
+  sousSecteur: PeutEtreSousSecteurActivite,
+) => [
+  ...activitesParSecteurEtSousSecteur[
+    getValeurCleSectorielle(secteur, sousSecteur)
+  ],
+];

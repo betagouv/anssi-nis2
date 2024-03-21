@@ -1,7 +1,7 @@
 import { Test } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
-import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/DonneesFormulaire.definitions";
-import { donneesFormulaireSimulateurVide } from "~core/src/Domain/Simulateur/DonneesFormulaire.constantes";
+import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
+import { donneesFormulaireSimulateurVide } from "~core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes";
 import { fabriqueMockRepository } from "../test/utilitaires/facilitateurs";
 import { SimulateurReponse } from "./simulateur-reponse.entity";
 import { SimulateurReponseService } from "./simulateur-reponse.service";

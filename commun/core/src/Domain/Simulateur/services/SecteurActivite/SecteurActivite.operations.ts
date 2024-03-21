@@ -1,9 +1,9 @@
-import { SecteurActivite } from "../../SecteurActivite.definitions";
 import {
-  SecteursAvecSousSecteurs,
-  SecteursSansSousSecteur,
-  SousSecteurActivite,
-} from "../../SousSecteurActivite.definitions";
+  SecteurActivite,
+  SecteurComposite,
+  SecteurSimple,
+} from "../../SecteurActivite.definitions";
+import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
 import { sousSecteursParSecteur } from "../../SousSecteurActivite.valeurs";
 import {
   contientSousSecteur,
@@ -12,19 +12,23 @@ import {
 } from "./SecteurActivite.predicats";
 
 export const fabriqueSecteurContientLeSousSecteur =
-  (secteur: SecteursAvecSousSecteurs) =>
+  (secteur: SecteurComposite) =>
   ([sousSecteur]: [SousSecteurActivite, string]) =>
     estUnSecteurAvecDesSousSecteurs(secteur) &&
     contientSousSecteur(secteur, sousSecteur);
 export const fabriqueTupleSecteurSousSecteurs: (
-  secteur: SecteursAvecSousSecteurs
+  secteur: SecteurComposite,
 ) => [SecteurActivite, Readonly<SousSecteurActivite[]>] = (secteur) => [
   secteur,
   sousSecteursParSecteur[secteur],
 ];
+export const fabriqueTuplesSecteurSousSecteur: (
+  secteur: SecteurComposite,
+) => [SecteurComposite, SousSecteurActivite][] = (secteur) =>
+  sousSecteursParSecteur[secteur].map((sousSecteur) => [secteur, sousSecteur]);
 export const fabriqueListePartielleSecteursAvecSousSecteurs = (
   listeSousSecteurs: readonly SousSecteurActivite[],
-  secteur: SecteursAvecSousSecteurs
+  secteur: SecteurComposite,
 ): {
   secteur: SecteurActivite;
   sousSecteur: SousSecteurActivite;
@@ -34,10 +38,10 @@ export const fabriqueListePartielleSecteursAvecSousSecteurs = (
     sousSecteur: sousSecteur,
   }));
 export const filtreSecteursSansSousSecteurs: (
-  secteursActivite: SecteurActivite[]
-) => SecteursSansSousSecteur[] = (secteursActivite) => {
+  secteursActivite: SecteurActivite[],
+) => SecteurSimple[] = (secteursActivite) => {
   if (!secteursActivite || secteursActivite.length === 0) return [];
   return secteursActivite.filter(
-    estUnSecteurSansSousSecteur
-  ) as SecteursSansSousSecteur[];
+    estUnSecteurSansSousSecteur,
+  ) as SecteurSimple[];
 };

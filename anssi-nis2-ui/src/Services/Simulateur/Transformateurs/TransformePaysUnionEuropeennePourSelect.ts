@@ -8,5 +8,5 @@ export const transformePaysUnionEuropeennePourSelect: TransformeRecordToSelect<A
       value: string,
       paysUnionEuropeenne: Record<AppartenancePaysUnionEuropeenne, string>,
     ) => paysUnionEuropeenne[value as AppartenancePaysUnionEuropeenne],
-    "appartenancePaysUnionEurpopeenne",
+    "appartenancePaysUnionEuropeenne",
   );

@@ -1,8 +1,4 @@
-import {
-  SecteursSansSousSecteur,
-  SousSecteurActivite,
-} from "./SousSecteurActivite.definitions";
+import { SecteurSimple } from "./SecteurActivite.definitions";
+import { SousSecteurListes } from "./SousSecteurActivite.definitions";
 
-export type ValeurCleSectorielle =
-  | SecteursSansSousSecteur
-  | SousSecteurActivite;
+export type ValeurCleSectorielle = SecteurSimple | SousSecteurListes;

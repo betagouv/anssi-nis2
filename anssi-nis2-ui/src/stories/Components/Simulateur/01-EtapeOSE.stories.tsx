@@ -18,7 +18,7 @@ type Story = StoryObj<typeof EtapeOSE>;
 const creeActionPropagationFormulaireSimu = (newValue: string) => {
   const actionTypique = {
     type: "checkSingle",
-    name: "designeOperateurServicesEssentiels",
+    name: "designationOperateurServicesEssentiels",
   };
   return {
     ...actionTypique,

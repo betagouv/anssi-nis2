@@ -1,48 +1,48 @@
-import { donneesFormulaireSimulateurVide } from "../../../src/Domain/Simulateur/DonneesFormulaire.constantes";
-import { EtatEtapes } from "../../../src/Domain/Simulateur/EtatEtapes";
-import { fabriqueEtatEtape } from "../../../src/Domain/Simulateur/fabriques/EtatEtape.fabrique";
+import { donneesFormulaireSimulateurVide } from "../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes";
+import { EtatEtape } from "../../../src/Domain/Simulateur/EtatEtape.definitions";
+import { fabriqueEtatEtape } from "../../../src/Domain/Simulateur/EtatEtape.fabrique";
 import { exCollectionInformationEtape } from "./collectionInformationEtape.exemples";
 
 const indiceEtapeInitiale = 0;
 const etatEtapesInitial = fabriqueEtatEtape(
   exCollectionInformationEtape.longueur2.simple,
-  indiceEtapeInitiale
+  indiceEtapeInitiale,
 );
 const etatEtapes2 = fabriqueEtatEtape(
   exCollectionInformationEtape.longueur2.simple,
-  1
+  1,
 );
 
 const avantDerniereEtapeEvitable = fabriqueEtatEtape(
   exCollectionInformationEtape.longueur3.avecEtapeEvitable.enAvantDernier,
-  indiceEtapeInitiale
+  indiceEtapeInitiale,
 );
 
 const avantDerniereEtapeEvitable_etatDerniereEtape = fabriqueEtatEtape(
   exCollectionInformationEtape.longueur3.avecEtapeEvitable.enAvantDernier,
-  2
+  2,
 );
 
 const etatEtapes2AvecConditionnelle3 = fabriqueEtatEtape(
   exCollectionInformationEtape.longueur3.avecSousEtape.enDernier,
-  1
+  1,
 );
 const etatEtapes3 = fabriqueEtatEtape(
   exCollectionInformationEtape.longueur3.avecSousEtape.enDernier,
-  2
+  2,
 );
 const etatEtapeVariantEn2Etape1 = fabriqueEtatEtape(
   exCollectionInformationEtape.longueur3.avecVariante.enDeuxieme,
-  0
+  0,
 );
 const etatEtapeVariantEn2Etape3 = fabriqueEtatEtape(
   exCollectionInformationEtape.longueur3.avecVariante.enDeuxieme,
-  2
+  2,
 );
-const etatEtapeVariantEn2Etape2a: EtatEtapes = {
+const etatEtapeVariantEn2Etape2a: EtatEtape = {
   ...fabriqueEtatEtape(
     exCollectionInformationEtape.longueur3.avecVariante.enDeuxieme,
-    1
+    1,
   ),
   varianteEtape: 0,
   donneesFormulaire: {
@@ -50,10 +50,10 @@ const etatEtapeVariantEn2Etape2a: EtatEtapes = {
     typeStructure: ["privee"],
   },
 };
-const etatEtapeVariantEn2Etape2b: EtatEtapes = {
+const etatEtapeVariantEn2Etape2b: EtatEtape = {
   ...fabriqueEtatEtape(
     exCollectionInformationEtape.longueur3.avecVariante.enDeuxieme,
-    1
+    1,
   ),
   varianteEtape: 1,
   donneesFormulaire: {
@@ -64,22 +64,22 @@ const etatEtapeVariantEn2Etape2b: EtatEtapes = {
 const etatEtapes3avantDernier = fabriqueEtatEtape(
   exCollectionInformationEtape.longueur4.avecSousEtape.enAvantDernier,
   2,
-  0
+  0,
 );
 const etatEtapes3_1avantDernier = fabriqueEtatEtape(
   exCollectionInformationEtape.longueur4.avecSousEtape.enAvantDernier,
   2,
-  1
+  1,
 );
 const etatEtapes4avantDernier = fabriqueEtatEtape(
   exCollectionInformationEtape.longueur4.avecSousEtape.enAvantDernier,
   3,
-  0
+  0,
 );
 const etatEtapes3SousEtapeAttendu = fabriqueEtatEtape(
   exCollectionInformationEtape.longueur3.avecSousEtape.enDernier,
   2,
-  1
+  1,
 );
 
 export const exEtatEtape = {

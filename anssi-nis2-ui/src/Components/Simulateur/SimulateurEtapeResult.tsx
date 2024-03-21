@@ -1,7 +1,7 @@
 import { estRegule } from "../../../../commun/core/src/Domain/Simulateur/Regulation.predicats.ts";
-import { calculePrecisionResultat } from "../../../../commun/core/src/Domain/Simulateur/Resultat.operations.ts";
-import { calculeEligibilite } from "../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/Eligibilite.operations.ts";
-import { transformeEligibiliteEnRegulationEntite } from "../../../../commun/core/src/Domain/Simulateur/services/Regulation/Regulation.operations.ts";
+import { evalueEtatRegulation } from "../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EvalueEtatRegulation.ts";
+import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/ReponseEtat.fabriques.ts";
+import { EtatRegulation } from "../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions.ts";
 import { SimulateurEtapeRenderedComponent } from "../../Services/Simulateur/Props/component";
 import { SimulateurEtapeRenderedProps } from "../../Services/Simulateur/Props/simulateurEtapeProps";
 import { EnSavoirPlus } from "./Resultats/EnSavoirPlus.tsx";
@@ -18,20 +18,43 @@ import {
 export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
   donneesFormulaire,
 }: SimulateurEtapeRenderedProps) => {
-  const statutEligibiliteNIS2 = calculeEligibilite(donneesFormulaire);
-  const regulationEntite = transformeEligibiliteEnRegulationEntite(
-    statutEligibiliteNIS2,
-  )(donneesFormulaire);
-  const regulation = regulationEntite.decision;
-  const precision = calculePrecisionResultat(regulation)(donneesFormulaire);
-  const modeFormulaireEmail = getModeFormulaireEmail(regulation);
+  const donneesReponse =
+    ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+      donneesFormulaire,
+    ) as EtatRegulation;
+  const etatRegulation = evalueEtatRegulation(donneesReponse);
+  const modeFormulaireEmail = getModeFormulaireEmail(etatRegulation.decision);
   return (
     <>
-      <LigneResultat regulation={regulation} precision={precision} />
+      {/*<pre>{JSON.stringify(donneesFormulaire, null, 2)}</pre>*/}
+      {/*<pre>*/}
+      {/*  {JSON.stringify(*/}
+      {/*    donneesReponse,*/}
+      {/*    (_key, value) => (value instanceof Set ? [...value] : value),*/}
+      {/*    2,*/}
+      {/*  )}*/}
+      {/*</pre>*/}
+      {/*<pre>*/}
+      {/*  {JSON.stringify(*/}
+      {/*    etatRegulation,*/}
+      {/*    (_key, value) => (value instanceof Set ? [...value] : value),*/}
+      {/*    2,*/}
+      {/*  )}*/}
+      {/*</pre>*/}
+      {/*{informationsBoutonsNavigation && (*/}
+      {/*  <center>*/}
+      {/*    <button onClick={informationsBoutonsNavigation.precedent}>*/}
+      {/*      Modifier mes réponses*/}
+      {/*    </button>*/}
+      {/*  </center>*/}
+      {/*)}*/}
+      <LigneResultat etatRegulation={etatRegulation} />
       <LigneResterInformer mode={modeFormulaireEmail} />
-      {estRegule(regulation) && <LigneEtMaintenant />}
-      {estRegule(regulation) && <EnSavoirPlus />}
-      <LigneBienDebuter avecPdf={affichePdf(regulation)(donneesFormulaire)} />
+      {estRegule(etatRegulation.decision) && <LigneEtMaintenant />}
+      {estRegule(etatRegulation.decision) && <EnSavoirPlus />}
+      <LigneBienDebuter
+        avecPdf={affichePdf(etatRegulation.decision)(donneesFormulaire)}
+      />
       <LigneReseauxSociaux />
     </>
   );

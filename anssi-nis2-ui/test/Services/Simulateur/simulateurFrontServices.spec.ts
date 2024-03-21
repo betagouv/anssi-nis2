@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { Activite } from "../../../../commun/core/src/Domain/Simulateur/Activite.definitions";
-import { donneesFormulaireSimulateurVide } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.constantes";
-import { fabriqueDonneesFormulaire } from "../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
+import { donneesFormulaireSimulateurVide } from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes";
+import { fabriqueDonneesFormulaire } from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique";
 import { genereTransformateurValeursVersOptions } from "../../../src/Services/Simulateur/genereTransformateurValeursVersOptions";
 import { libellesPaysUnionEuropeenneLocalisation } from "../../../src/References/Libelles";
 import { transformePaysUnionEuropeennePourSelect } from "../../../src/Services/Simulateur/Transformateurs/TransformePaysUnionEuropeennePourSelect";
@@ -14,16 +14,16 @@ describe(genereTransformateurValeursVersOptions, () => {
       nativeInputProps: {
         checked: optionsChecked[0],
         onChange: onChange,
-        name: "appartenancePaysUnionEurpopeenne",
+        name: "appartenancePaysUnionEuropeenne",
         value: "france",
       },
     },
     {
-      label: "Autres états membres",
+      label: "Autres états membres de l'Union Européenne",
       nativeInputProps: {
         checked: optionsChecked[1],
         onChange: onChange,
-        name: "appartenancePaysUnionEurpopeenne",
+        name: "appartenancePaysUnionEuropeenne",
         value: "autre",
       },
     },
@@ -32,7 +32,7 @@ describe(genereTransformateurValeursVersOptions, () => {
       nativeInputProps: {
         checked: optionsChecked[2],
         onChange: onChange,
-        name: "appartenancePaysUnionEurpopeenne",
+        name: "appartenancePaysUnionEuropeenne",
         value: "horsue",
       },
     },
@@ -51,7 +51,7 @@ describe(genereTransformateurValeursVersOptions, () => {
   it("génère un champ d'option avec les bons états checked", () => {
     const attendu = optionsPaysUE([true, false, false]);
     const defaultDataForm = fabriqueDonneesFormulaire({
-      appartenancePaysUnionEurpopeenne: ["france"],
+      appartenancePaysUnionEuropeenne: ["france"],
     });
     const optionsPaysUEObtenu = transformePaysUnionEuropeennePourSelect(
       libellesPaysUnionEuropeenneLocalisation,

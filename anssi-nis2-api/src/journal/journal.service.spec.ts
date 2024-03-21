@@ -1,6 +1,6 @@
 import { Test } from "@nestjs/testing";
-import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/DonneesFormulaire.definitions";
-import { donneesFormulaireSimulateurVide } from "~core/src/Domain/Simulateur/DonneesFormulaire.constantes";
+import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
+import { donneesFormulaireSimulateurVide } from "~core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes";
 import { SegmentsConcernesNis2 } from "./entites/segments-concernes-nis2.entite-journal";
 import { JournalService } from "./journal.service";
 import { fournisseurTestJournalService } from "./journal.service.fournisseur-test";
@@ -116,7 +116,7 @@ describe("JournalService", () => {
       sousSecteurActivite: [
         "hydrogene",
         "electricite",
-        "autreSousSecteurTransport",
+        "autreSousSecteurTransports",
       ],
       typeStructure: ["privee"],
       trancheNombreEmployes: ["grand"],

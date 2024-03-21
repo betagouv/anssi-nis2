@@ -1,22 +1,21 @@
-import { SousSecteurActivite } from "./SousSecteurActivite.definitions";
-import { SecteurActivite } from "./SecteurActivite.definitions";
+import { UnionDe } from "../../../../utils/types/UnionDe";
+import { Activite } from "./Activite.definitions";
 import {
-  ValeursAppartenancePaysUnionEuropeenne,
+  ValeursappartenancePaysUnionEuropeenne,
   ValeursDesignationOperateurServicesEssentiels,
   ValeursOuiNon,
   ValeursPetitMoyenGrand,
   ValeursTypeEntitePublique,
   ValeursTypeStructure,
 } from "./ChampsSimulateur.valeurs";
-import { Activite } from "./Activite.definitions";
-
-type UnionDe<T extends Readonly<Array<string>>> = T[number];
+import { SecteurActivite } from "./SecteurActivite.definitions";
+import { SousSecteurActivite } from "./SousSecteurActivite.definitions";
 
 export type DesignationOperateurServicesEssentiels = UnionDe<
   typeof ValeursDesignationOperateurServicesEssentiels
 >;
 export type AppartenancePaysUnionEuropeenne = UnionDe<
-  typeof ValeursAppartenancePaysUnionEuropeenne
+  typeof ValeursappartenancePaysUnionEuropeenne
 >;
 export type TypeStructure = UnionDe<typeof ValeursTypeStructure>;
 export type TypeEntitePublique = UnionDe<typeof ValeursTypeEntitePublique>;

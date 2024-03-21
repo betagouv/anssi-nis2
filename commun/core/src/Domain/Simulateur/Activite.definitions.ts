@@ -1,11 +1,11 @@
 import {
   ValeursActivitesAdministrationPublique,
-  ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
+  ValeursActivitesConstructionVehiculesAutomobiles,
   ValeursActivitesEauPotable,
   ValeursActivitesEauUsees,
   ValeursActivitesElectricite,
   ValeursActivitesEspace,
-  ValeursActivitesFabricationAutreMaterielsTransports,
+  ValeursActivitesFabricationAutresMaterielTransports,
   ValeursActivitesFabricationDispositifsMedicaux,
   ValeursActivitesFabricationEquipementsElectroniques,
   ValeursActivitesFabricationMachinesEquipements,
@@ -18,6 +18,9 @@ import {
   ValeursActivitesHydrogene,
   ValeursActivitesInfrastructureMarcheFinancier,
   ValeursActivitesInfrastructureNumerique,
+  ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite,
+  ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
+  ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation,
   ValeursActivitesPetrole,
   ValeursActivitesProductionTransformationDistributionDenreesAlimentaires,
   ValeursActivitesRecherche,
@@ -27,9 +30,13 @@ import {
   ValeursActivitesServicesPostauxExpedition,
   ValeursActivitesTransportsAeriens,
   ValeursActivitesTransportsFerroviaires,
-  ValeursActivitesTransportsParEaux,
+  ValeursActivitesTransportsParEau,
   ValeursActivitesTransportsRoutiers,
+  ValeursActivitesInfrastructureNumeriqueFournisseursServices,
+  ValeursActivitesInfrastructureNumeriqueFournisseursCommElecPublics,
 } from "./Activite.valeurs";
+import { SecteurSimple } from "./SecteurActivite.definitions";
+import { SousSecteurListes } from "./SousSecteurActivite.definitions";
 
 export type ActivitesElectricite = (typeof ValeursActivitesElectricite)[number];
 export type ActivitesReseauxChaleurFroid =
@@ -47,14 +54,14 @@ export type ActivitesTransportsAeriens =
   (typeof ValeursActivitesTransportsAeriens)[number];
 export type ActivitesTransportsFerroviaires =
   (typeof ValeursActivitesTransportsFerroviaires)[number];
-export type ActivitesTransportsParEaux =
-  (typeof ValeursActivitesTransportsParEaux)[number];
+export type ActivitesTransportsParEau =
+  (typeof ValeursActivitesTransportsParEau)[number];
 export type ActivitesTransportsRoutiers =
   (typeof ValeursActivitesTransportsRoutiers)[number];
 export type ActivitesTransports =
   | ActivitesTransportsAeriens
   | ActivitesTransportsFerroviaires
-  | ActivitesTransportsParEaux
+  | ActivitesTransportsParEau
   | ActivitesTransportsRoutiers;
 export type ActivitesSecteurBancaire =
   (typeof ValeursActivitesSecteurBancaire)[number];
@@ -86,17 +93,17 @@ export type ActivitesFabricationEquipementsElectroniques =
   (typeof ValeursActivitesFabricationEquipementsElectroniques)[number];
 export type ActivitesFabricationMachinesEquipements =
   (typeof ValeursActivitesFabricationMachinesEquipements)[number];
-export type ActivitesConstructionVehiculesAutomobilesRemorquesSemi =
-  (typeof ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi)[number];
-export type ActivitesFabricationAutreMaterielsTransports =
-  (typeof ValeursActivitesFabricationAutreMaterielsTransports)[number];
+export type ActivitesConstructionVehiculesAutomobiles =
+  (typeof ValeursActivitesConstructionVehiculesAutomobiles)[number];
+export type ActivitesFabricationAutresMaterielTransports =
+  (typeof ValeursActivitesFabricationAutresMaterielTransports)[number];
 export type ActivitesFabrication =
   | ActivitesFabricationDispositifsMedicaux
   | ActivitesFabricationProduitsInformatiquesElectroniquesOptiques
   | ActivitesFabricationEquipementsElectroniques
   | ActivitesFabricationMachinesEquipements
-  | ActivitesConstructionVehiculesAutomobilesRemorquesSemi
-  | ActivitesFabricationAutreMaterielsTransports;
+  | ActivitesConstructionVehiculesAutomobiles
+  | ActivitesFabricationAutresMaterielTransports;
 export type ActivitesFournisseursNumeriques =
   (typeof ValeursActivitesFournisseursNumeriques)[number];
 export type ActivitesRecherche = (typeof ValeursActivitesRecherche)[number];
@@ -121,7 +128,70 @@ export type Activite =
   | ActivitesFabrication
   | ActivitesFournisseursNumeriques
   | ActivitesRecherche;
+
+export type ActiviteSecteursSimples = Exclude<
+  Activite,
+  ActivitesEnergie | ActivitesTransports | ActivitesFabrication
+>;
+export type ExclusionAutreDe<Type extends string> =
+  Type extends `autre${string}` ? never : Type;
+
+export type ActiviteSecteursSimplesListe =
+  ExclusionAutreDe<ActiviteSecteursSimples>;
+
 export type DescriptionActivite = {
   titre: string;
   description: string;
 };
+
+/** Obsolete */
+export type ActivitesInfrastructureNumeriqueEligiblesPetitEntite =
+  (typeof ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite)[number];
+
+/** Obsolete */
+export type ActiviteInfrastructureNumeriqueSansBesoinLocalisation =
+  (typeof ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation)[number];
+
+export type ActiviteInfranumLocalServices =
+  (typeof ValeursActivitesInfrastructureNumeriqueFournisseursCommElecPublics)[number];
+export type ActiviteInfranumLocalEtabLot1 =
+  (typeof ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau)[number];
+export type ActiviteInfranumLocalEtabLot2 =
+  (typeof ValeursActivitesInfrastructureNumeriqueFournisseursServices)[number];
+
+export interface ActivitesPourSecteur
+  extends Record<SecteurSimple | SousSecteurListes, Activite> {
+  gestionServicesTic: ActivitesGestionServicesTic;
+  fournisseursNumeriques: ActivitesFournisseursNumeriques;
+  energie: ActivitesEnergie;
+  transports: ActivitesTransports;
+  secteurBancaire: ActivitesSecteurBancaire;
+  infrastructureMarcheFinancier: ActivitesInfrastructureMarcheFinancier;
+  sante: ActivitesSante;
+  eauPotable: ActivitesEauPotable;
+  eauUsees: ActivitesEauUsees;
+  infrastructureNumerique: ActivitesInfrastructureNumerique;
+  administrationPublique: ActivitesAdministrationPublique;
+  espace: ActivitesEspace;
+  servicesPostauxExpedition: ActivitesServicesPostauxExpedition;
+  gestionDechets: ActivitesGestionDechets;
+  fabricationProductionDistributionProduitsChimiques: ActivitesFabricationProductionDistributionProduitsChimiques;
+  productionTransformationDistributionDenreesAlimentaires: ActivitesProductionTransformationDistributionDenreesAlimentaires;
+  fabrication: ActivitesFabrication;
+  recherche: ActivitesRecherche;
+  electricite: ActivitesElectricite;
+  gaz: ActivitesGaz;
+  hydrogene: ActivitesHydrogene;
+  petrole: ActivitesPetrole;
+  reseauxChaleurFroid: ActivitesReseauxChaleurFroid;
+  transportsAeriens: ActivitesTransportsAeriens;
+  transportsFerroviaires: ActivitesTransportsFerroviaires;
+  transportsParEau: ActivitesTransportsParEau;
+  transportsRoutiers: ActivitesTransportsRoutiers;
+  fabricationDispositifsMedicaux: ActivitesFabricationDispositifsMedicaux;
+  fabricationEquipementsElectroniques: ActivitesFabricationEquipementsElectroniques;
+  fabricationProduitsInformatiquesElectroniquesOptiques: ActivitesFabricationProduitsInformatiquesElectroniquesOptiques;
+  fabricationMachinesEquipements: ActivitesFabricationMachinesEquipements;
+  constructionVehiculesAutomobiles: ActivitesConstructionVehiculesAutomobiles;
+  fabricationAutresMaterielTransports: ActivitesFabricationAutresMaterielTransports;
+}

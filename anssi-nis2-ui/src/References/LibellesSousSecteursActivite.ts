@@ -25,8 +25,9 @@ export const libellesSousSecteurFabrication: DetailsSousSecteurUnique<SousSecteu
     fabricationDispositifsMedicaux:
       "Fabrication de dispositifs médicaux et de dispositifs médicaux de diagnostic in vitro",
     fabricationEquipementsElectroniques:
-      "Fabrication d’équipements électriques",
-    fabricationFabricationProduitsInformatiquesElectroniquesOptiques:
+      "Fabrication de produits informatiques, électroniques et optiques",
+    fabricationProduitsInformatiquesElectroniquesOptiques:
+
       "Fabrication de produits informatiques, électroniques et optiques",
     fabricationMachinesEquipements:
       "Fabrication de machines et équipements n.c.a.",
@@ -39,7 +40,7 @@ export const libellesSousSecteurTransports: DetailsSousSecteurUnique<SousSecteur
     transportsFerroviaires: "Ferroviaires",
     transportsParEau: "Par eau",
     transportsRoutiers: "Routiers",
-    autreSousSecteurTransport: "Autre sous-secteur",
+    autreSousSecteurTransports: "Autre sous-secteur",
   };
 
 export const libellesSousSecteursActivite: Record<SousSecteurActivite, string> =

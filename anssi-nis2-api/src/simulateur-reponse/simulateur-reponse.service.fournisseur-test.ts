@@ -1,4 +1,4 @@
-import { donneesFormulaireSimulateurVide } from "~core/src/Domain/Simulateur/DonneesFormulaire.constantes";
+import { donneesFormulaireSimulateurVide } from "~core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes";
 import { SimulateurReponseService } from "./simulateur-reponse.service";
 
 export const mockSimulateurReponseService = {

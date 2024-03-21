@@ -26,6 +26,7 @@ export const listeDescriptionsActivites: Record<
   autreActiviteInfrastructureNumerique: [],
   autreActivitePetrole: [],
   autreActiviteProductionTransformationDistributionDenreesAlimentaires: [],
+  autreActiviteRecherche: [],
   autreActiviteReseauxChaleurFroid: [],
   autreActiviteSante: [],
   autreActiviteSecteurBancaire: [],
@@ -506,6 +507,7 @@ export const listeDescriptionsActivites: Record<
         "entre eux sur plusieurs terminaux, notamment par conversations en ligne, publications, vidéos et recommandations",
     },
   ],
+  fournisseurServicesEnregristrementNomDomaine: [],
   gestionnaireInfrastructure: [
     {
       titre: "Gestionnaire de l’infrastructure",
@@ -566,13 +568,39 @@ export const listeDescriptionsActivites: Record<
     },
   ],
   organismeRecherche: [],
-  prestataireServiceConfiance: [
+  prestataireServiceConfianceQualifie: [
     {
       titre: "Service de confiance",
       description:
         "Un service électronique normalement fourni contre rémunération qui consiste :" +
-        "\\\n\\\n" +
-        "\n\\\na) en la création, en la vérification et en la validation de signatures électroniques, de cachets électroniques ou d’horodatages électroniques, de services d’envoi recommandé électronique et de certificats relatifs à ces services; ou" +
+        "\n\n" +
+        "\n\na) en la création, en la vérification et en la validation de signatures électroniques, de cachets électroniques ou d’horodatages électroniques, de services d’envoi recommandé électronique et de certificats relatifs à ces services; ou" +
+        "\n\nb) en la création, en la vérification et en la validation de certificats pour l’authentification de site internet; ou" +
+        "\n\nc) en la conservation de signatures électroniques, de cachets électroniques ou des certificats relatifs à ces services.",
+    },
+    {
+      titre: "Service de confiance qualifié",
+      description:
+        "Un service de confiance qui satisfait aux exigences du règlement n° 910/2014 " +
+        "du Parlement européen et du Conseil du 23 juillet 2014 sur " +
+        "l’identification électronique et les services de confiance pour " +
+        "les transactions électroniques au sein du marché intérieur.",
+    },
+    {
+      titre: "Prestataire de services de confiance qualifié",
+      description:
+        "Un prestataire de services de confiance qui fournit un ou plusieurs " +
+        "services de confiance qualifiés et a obtenu de l’organe de contrôle " +
+        "le statut qualifié",
+    },
+  ],
+  prestataireServiceConfianceNonQualifie: [
+    {
+      titre: "Service de confiance",
+      description:
+        "Un service électronique normalement fourni contre rémunération qui consiste :" +
+        "\n\n" +
+        "\n\na) en la création, en la vérification et en la validation de signatures électroniques, de cachets électroniques ou d’horodatages électroniques, de services d’envoi recommandé électronique et de certificats relatifs à ces services; ou" +
         "\n\nb) en la création, en la vérification et en la validation de certificats pour l’authentification de site internet; ou" +
         "\n\nc) en la conservation de signatures électroniques, de cachets électroniques ou des certificats relatifs à ces services.",
     },
@@ -580,7 +608,7 @@ export const listeDescriptionsActivites: Record<
       titre: "Prestataire de services de confiance",
       description:
         "Une personne physique ou morale qui fournit un ou plusieurs services de confiance, " +
-        "en tant que prestataire de services de confiance qualifié ou non qualifié.",
+        "en tant que prestataire de services de confiance.",
     },
   ],
   prestataireSoinsSante: [

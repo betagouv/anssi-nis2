@@ -1,5 +1,5 @@
 import { Test } from "@nestjs/testing";
-import { donneesFormulaireSimulateurVide } from "~core/src/Domain/Simulateur/DonneesFormulaire.constantes";
+import { donneesFormulaireSimulateurVide } from "~core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes";
 import { fournisseurTestJournalService } from "../journal/journal.service.fournisseur-test";
 import { SimulateurReponseController } from "./simulateur-reponse.controller";
 import { fournisseurTestSimulateurReponseService } from "./simulateur-reponse.service.fournisseur-test";

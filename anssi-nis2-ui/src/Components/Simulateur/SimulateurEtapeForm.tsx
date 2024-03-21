@@ -1,5 +1,5 @@
-import { DonneesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
-import { EtatEtapes } from "anssi-nis2-core/src/Domain/Simulateur/EtatEtapes.ts";
+import { DonneesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
+import { EtatEtape } from "../../../../commun/core/src/Domain/Simulateur/EtatEtape.definitions.ts";
 import {
   InformationEtapeForm,
   InformationsEtapesVariantes,
@@ -15,16 +15,16 @@ import { AidezNousAmeliorerService } from "../AidezNousAmeliorerService.tsx";
 import { cartoComposants } from "../../Services/Simulateur/Transformateurs/TypeEtapeVersComposantEtape.transformateur.ts";
 
 const etapeVarianteAffichee =
-  (etatEtapes: EtatEtapes) => (donnees: DonneesFormulaireSimulateur) => {
-    const variante = etatEtapes.collectionEtapes.recupereEtape(
+  (etatEtapes: EtatEtape) => (donnees: DonneesFormulaireSimulateur) => {
+    const variante = etatEtapes.collectionEtapes.contenuEtape(
       etatEtapes.indiceCourant,
+      etatEtapes.indiceSousEtape,
     ) as InformationsEtapesVariantes<InformationEtapeForm>;
-    return cartoComposants[
-      variante.variantes[variante.varianteAffichee(donnees)].type
-    ];
+    const numeroVariante = variante.varianteAffichee(donnees);
+    return cartoComposants[variante.variantes[numeroVariante].type];
   };
 
-const etapeAffichee = (etatEtapes: EtatEtapes) =>
+const etapeAffichee = (etatEtapes: EtatEtape) =>
   etatEtapes.typeEtapeCourante === "variante"
     ? etapeVarianteAffichee(etatEtapes)
     : () => cartoComposants[etatEtapes.typeEtapeCourante];

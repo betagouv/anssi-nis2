@@ -1,26 +1,45 @@
-import { SecteurActivite } from "./SecteurActivite.definitions";
-import { estUnSecteurSansDesSousSecteurs } from "./services/SecteurActivite/SecteurActivite.predicats";
+export const ValeursSecteursComposites = [
+  "energie",
+  "transports",
+  "fabrication",
+] as const;
+export const ValeurSecteurInfrastructureNumerique = [
+  "infrastructureNumerique",
+] as const;
+export const ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal = [
+  "gestionServicesTic",
+  "fournisseursNumeriques",
+] as const;
+export const ValeursSecteursAvecBesoinLocalisationRepresentant = [
+  ...ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal,
+  ...ValeurSecteurInfrastructureNumerique,
+] as const;
 
-export const ValeursSecteursActivites = [
+export const ValeursSecteursActivitesAnnexe1 = [
   "administrationPublique",
+  "energie",
+  "transports",
   "banqueSecteurBancaire",
+  "infrastructureMarchesFinanciers",
+  "sante",
   "eauPotable",
   "eauxUsees",
-  "energie",
-  "espace",
-  "fabrication",
-  "fabricationProductionDistributionProduitsChimiques",
-  "fournisseursNumeriques",
-  "gestionDechets",
-  "gestionServicesTic",
-  "infrastructureMarchesFinanciers",
   "infrastructureNumerique",
-  "productionTransformationDistributionDenreesAlimentaires",
-  "recherche",
-  "sante",
+  "gestionServicesTic",
+  "espace",
+] as const;
+export const ValeursSecteursActivitesAnnexe2 = [
   "servicesPostauxExpedition",
-  "transports",
+  "gestionDechets",
+  "fabricationProductionDistributionProduitsChimiques",
+  "productionTransformationDistributionDenreesAlimentaires",
+  "fabrication",
+  "fournisseursNumeriques",
+  "recherche",
+] as const;
+
+export const ValeursSecteursActivites = [
+  ...ValeursSecteursActivitesAnnexe1,
+  ...ValeursSecteursActivitesAnnexe2,
   "autreSecteurActivite",
 ] as const;
-export const ValeursSecteursSansSousSecteur: SecteurActivite[] =
-  ValeursSecteursActivites.filter(estUnSecteurSansDesSousSecteurs);

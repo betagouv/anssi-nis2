@@ -2,7 +2,7 @@ import { fc } from "@fast-check/vitest";
 import {
   DonneesFormulaireSimulateur,
   DonneesSectorielles,
-} from "../../src/Domain/Simulateur/DonneesFormulaire.definitions";
+} from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 
 export type DonneesFormulaireExtensibles =
   | DonneesFormulaireSimulateur
@@ -21,7 +21,8 @@ export type PiocheDonneesForm<T extends keyof DonneesFormulaireSimulateur> =
   Pick<DonneesFormulaireSimulateur, T>;
 
 export type DonneesAjout<
-  D extends keyof DonneesFormulaireSimulateur = keyof DonneesFormulaireSimulateur
+  D extends
+    keyof DonneesFormulaireSimulateur = keyof DonneesFormulaireSimulateur,
 > = D extends infer U extends keyof DonneesFormulaireSimulateur
   ? PiocheDonneesForm<U>
   : never;
@@ -43,11 +44,26 @@ export type ArbitraireDonneesFormulaireSimulateurNomme =
   ArbitraireDonneesFormulaireSimulateur & { nom: string };
 
 export type DonneesExtensiblesAvecActivite<
-  DonneesPartielles extends DonneesSectorielles
+  DonneesPartielles extends DonneesSectorielles,
 > = DonneesPartielles & Pick<DonneesFormulaireSimulateur, "activites">;
 export type ArbitraireEnrichi = ArbitraireDonneesFormulaireSimulateurNomme & {
   sansBesoinLocalisation: ArbitraireDonneesFormulaireSimulateurNomme;
   neFournitPasServiceUe: ArbitraireDonneesFormulaireSimulateurNomme;
   avecLocalisationRepresentant: ArbitraireDonneesFormulaireSimulateurNomme;
+  avecLocalisationRepresentantHorsFrance: ArbitraireDonneesFormulaireSimulateurNomme;
   avecLocalisationRepresentantFrance: ArbitraireDonneesFormulaireSimulateurNomme;
 };
+export type AvecParams<TypeAjout extends DonneesAjout = DonneesAjout> = {
+  [k in keyof TypeAjout]: fc.Arbitrary<TypeAjout[k]>;
+};
+export type DonneesFormulairesAvanttrancheChiffreAffaire =
+  | Omit<DonneesBrutesSansActivite, "trancheNombreEmployes">
+  | Omit<DonneesFormulaireSimulateur, "trancheNombreEmployes">
+  | (DonneesSectorielles &
+      Pick<
+        DonneesFormulaireSimulateur,
+        | "designationOperateurServicesEssentiels"
+        | "typeStructure"
+        | "trancheChiffreAffaire"
+        | "appartenancePaysUnionEuropeenne"
+      >);

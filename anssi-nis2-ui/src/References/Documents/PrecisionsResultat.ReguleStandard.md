@@ -1,8 +1,8 @@
 # Points d'attention
 
-Ce résultat est présenté au vu des éléments saisis et sous réserve des mécanismes d'exemption ou de désignation pouvant
-être mis en place au cas par cas par le gouvernement français pour certaines entités. Ces exemptions ou désignations
-seront connues au plus tard le 18 octobre 2024.
+Des mécanismes d'exemption ou de désignation unitaires pourront également être mis en place au cas par cas par le
+gouvernement français conformément aux dispositions prévues par la directive NIS 2. Ils seront connus au plus tard le 18
+octobre 2024.
 
 ---
 
@@ -15,4 +15,5 @@ Critiques est également soumise à NIS 2.
 ## Sécurité nationale
 
 Si votre entité exerce une activité dans les domaines de la sécurité nationale, de la sécurité publique, de la défense,
-ou de l’application de la loi, et n’agit pas en tant que prestataire de confiance, vous pourriez être exempté.
+ou de l’application de la loi, et n’agit pas en tant que prestataire de confiance, vous pourriez être exempté de
+certaines obligations relatives à la directive NIS 2.

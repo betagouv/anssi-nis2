@@ -3,7 +3,7 @@ export const ValeursDesignationOperateurServicesEssentiels = [
   ...ValeursOuiNon,
   "nsp",
 ] as const;
-export const ValeursAppartenancePaysUnionEuropeenne = [
+export const ValeursappartenancePaysUnionEuropeenne = [
   "france",
   "autre",
   "horsue",

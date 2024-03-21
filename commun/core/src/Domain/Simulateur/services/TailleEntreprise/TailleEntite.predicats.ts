@@ -5,23 +5,25 @@ import {
 
 type PredicatTailleEntite = (
   nombreEmployes: TrancheNombreEmployes[],
-  chiffreAffaire: TrancheChiffreAffaire[]
+  chiffreAffaire: TrancheChiffreAffaire[],
 ) => boolean;
 
 export const estPetiteEntreprise: PredicatTailleEntite = (
   nombreEmployes,
-  chiffreAffaire
-) => nombreEmployes.includes("petit") && chiffreAffaire.includes("petit");
+  chiffreAffaire,
+) =>
+  !!nombreEmployes &&
+  nombreEmployes.includes("petit") &&
+  chiffreAffaire.includes("petit");
 
 export const estMoyenneEntreprise: PredicatTailleEntite = (
   nombreEmployes,
-  chiffreAffaire
+  chiffreAffaire,
 ) =>
-  (nombreEmployes.includes("moyen") && chiffreAffaire.includes("moyen")) ||
-  (nombreEmployes.includes("moyen") && chiffreAffaire.includes("petit")) ||
-  (nombreEmployes.includes("petit") && chiffreAffaire.includes("moyen"));
+  (nombreEmployes.includes("moyen") || chiffreAffaire.includes("moyen")) &&
+  !(nombreEmployes.includes("grand") || chiffreAffaire.includes("grand"));
 
 export const estGrandeEntreprise: PredicatTailleEntite = (
   nombreEmployes,
-  chiffreAffaire
+  chiffreAffaire,
 ) => nombreEmployes.includes("grand") || chiffreAffaire.includes("grand");

@@ -1,22 +1,36 @@
-import { Activite } from "../../Activite.definitions";
+import { et } from "../../../../../../utils/services/commun.predicats";
+import {
+  Activite,
+  ActiviteInfranumLocalEtabLot1,
+  ActiviteInfrastructureNumeriqueSansBesoinLocalisation,
+  ActivitesPourSecteur,
+} from "../../Activite.definitions";
+import {
+  ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
+  ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation,
+} from "../../Activite.valeurs";
 import {
   DonneesFormulaireSimulateur,
   DonneesSectorielles,
-} from "../../DonneesFormulaire.definitions";
+} from "../DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   ValeursActivitesConcernesInfrastructureNumerique,
   ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
 } from "../../Eligibilite.constantes";
-import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions";
+import { SecteurSimple } from "../../SecteurActivite.definitions";
+import { SousSecteurListes } from "../../SousSecteurActivite.definitions";
 import { activitesParSecteurEtSousSecteur } from "./Activite.operations";
 
 const prefixeAutreActivite = "autreActivite";
 
 export const activiteEstDansSecteur =
-  (secteurActivite: ValeurCleSectorielle) => (activite: Activite) =>
-    activitesParSecteurEtSousSecteur[secteurActivite].includes(activite);
+  <S extends SecteurSimple | SousSecteurListes>(secteurActivite: S) =>
+  (activite: Activite): activite is ActivitesPourSecteur[S] =>
+    activitesParSecteurEtSousSecteur[
+      secteurActivite as SecteurSimple | SousSecteurListes
+    ].includes(activite);
 
-export const estActiviteAutre = (activite: Activite) =>
+export const estActiviteAutre = <T extends Activite>(activite: T) =>
   activite.startsWith(prefixeAutreActivite);
 export const estActiviteListee = (activite: Activite) =>
   !activite.startsWith(prefixeAutreActivite);
@@ -24,50 +38,78 @@ export const auMoinsUneActiviteListee = (activites: Activite[]) =>
   activites && activites.length > 0 && activites.some(estActiviteListee);
 
 export const auMoinsUneActiviteCommuneAvec =
-  (listeActivites1: Activite[]) => (listeActivites2: Activite[]) =>
-    listeActivites1.some((activite) => listeActivites2.includes(activite));
+  (activitesCherchees: Activite[]) => (listeTesteeActivites: Activite[]) =>
+    activitesCherchees.some((activite) =>
+      listeTesteeActivites.includes(activite),
+    );
 export const aucuneActiviteCommuneAvec =
-  (listeActivites1: Activite[]) => (listeActivites2: Activite[]) =>
-    listeActivites1.every((activite) => !listeActivites2.includes(activite));
-export const auMoinsUneActiviteAutre = (activites: Activite[]) =>
-  activites && activites.length && activites.some(estActiviteAutre);
+  (activitesCherchees: Activite[]) => (listeTesteeActivites: Activite[]) =>
+    activitesCherchees.every(
+      (activite) => !listeTesteeActivites.includes(activite),
+    );
+
 export const aucuneActiviteListee = (activites: Activite[]) =>
   activites.every(estActiviteAutre);
 export const auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement =
   auMoinsUneActiviteCommuneAvec(
-    ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement
+    ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
   );
 export const auMoinsUneActiviteInfraNumConcernee =
   auMoinsUneActiviteCommuneAvec(
-    ValeursActivitesConcernesInfrastructureNumerique
+    ValeursActivitesConcernesInfrastructureNumerique,
   );
 export const aucuneActiviteInfraNumConcernee = aucuneActiviteCommuneAvec(
-  ValeursActivitesConcernesInfrastructureNumerique
+  ValeursActivitesConcernesInfrastructureNumerique,
 );
+
+export const estActiviteInfraNumConcerneeFranceUniquement = (
+  activite: Activite,
+) =>
+  ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement.includes(
+    activite,
+  );
 export const exerceActiviteDansListe =
   (liste: Activite[]) =>
   <
     T extends DonneesSectorielles &
-      Pick<DonneesFormulaireSimulateur, "activites">
+      Pick<DonneesFormulaireSimulateur, "activites">,
   >(
-    d: T
+    d: T,
   ) =>
     d.activites.some((a) => liste.includes(a));
 export const exerceUniquementActivitesDansListe =
   (liste: Activite[]) =>
   <
     T extends DonneesSectorielles &
-      Pick<DonneesFormulaireSimulateur, "activites">
+      Pick<DonneesFormulaireSimulateur, "activites">,
   >(
-    d: T
+    d: T,
   ) =>
     d.activites.every((a) => liste.includes(a));
 export const exerceAucuneActivitesDansListe =
   (liste: Activite[]) =>
   <
     T extends DonneesSectorielles &
-      Pick<DonneesFormulaireSimulateur, "activites">
+      Pick<DonneesFormulaireSimulateur, "activites">,
   >(
-    d: T
+    d: T,
   ) =>
     d.activites.every((a) => !liste.includes(a));
+export const estActiviteInfrastructureNumeriqueAvecBesoinLocalisation = (
+  a: Activite | ActiviteInfranumLocalEtabLot1,
+): a is ActiviteInfranumLocalEtabLot1 =>
+  ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau.includes(
+    a as ActiviteInfranumLocalEtabLot1,
+  );
+export const estActiviteInfrastructureNumeriqueSansBesoinLocalisation = (
+  a: Activite | ActiviteInfrastructureNumeriqueSansBesoinLocalisation,
+): a is ActiviteInfrastructureNumeriqueSansBesoinLocalisation =>
+  ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation.includes(
+    a as ActiviteInfrastructureNumeriqueSansBesoinLocalisation,
+  );
+export const estActiviteListeeSansBesoinLocalisation: (
+  donnees: Activite,
+) => boolean = et(
+  estActiviteListee,
+  estActiviteInfrastructureNumeriqueSansBesoinLocalisation,
+);

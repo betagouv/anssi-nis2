@@ -1,8 +1,8 @@
 import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
+import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique.ts";
 
-import { libelleTitreRegule } from "../../../../References/LibellesResultatsEligibilite.ts";
+import { libelleTitreReguleEntiteEssentielle } from "../../../../References/LibellesResultatsEligibilite.ts";
 import { nettoieBrMd } from "../../../../Services/Markdown/TransformeMarkdown.operations.ts";
 import {
   cliqueSurDebuterLeTest,
@@ -24,8 +24,8 @@ export const scenarioEtapeSousActiviteConditionnelle: StoryObj<
 
   step("Va jusqu'à l'étape Secteurs d'activité", async () => {
     await cliqueSurDebuterLeTest(canvas);
-    await passeEtape([["designeOperateurServicesEssentiels", "oui"]]);
-    await passeEtape([["appartenancePaysUnionEurpopeenne", "france"]]);
+    await passeEtape([["designationOperateurServicesEssentiels", "oui"]]);
+    await passeEtape([["appartenancePaysUnionEuropeenne", "france"]]);
     await passeEtape([["typeStructure", "privee"]]);
     await passeEtape([
       ["trancheNombreEmployes", "petit"],
@@ -48,7 +48,7 @@ export const scenarioEtapeSousActiviteConditionnelle: StoryObj<
     ["activites", "gestionnaireReseauDistribution"],
   ]);
 
-  await canvas.findByText(nettoieBrMd(libelleTitreRegule));
+  await canvas.findByText(nettoieBrMd(libelleTitreReguleEntiteEssentielle));
 
   await expect(mockSendFormData).toHaveBeenCalledTimes(1);
   await expect(mockSendFormData).toHaveBeenCalledWith(
@@ -57,8 +57,8 @@ export const scenarioEtapeSousActiviteConditionnelle: StoryObj<
         "entrepriseElectriciteRemplissantFonctionFourniture",
         "gestionnaireReseauDistribution",
       ],
-      designeOperateurServicesEssentiels: ["oui"],
-      appartenancePaysUnionEurpopeenne: ["france"],
+      designationOperateurServicesEssentiels: ["oui"],
+      appartenancePaysUnionEuropeenne: ["france"],
       secteurActivite: ["energie"],
       sousSecteurActivite: ["electricite", "gaz"],
       trancheChiffreAffaire: ["petit"],

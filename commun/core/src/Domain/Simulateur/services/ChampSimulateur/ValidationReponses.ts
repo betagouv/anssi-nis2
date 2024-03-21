@@ -1,4 +1,4 @@
-import { NomsChampsSimulateur } from "../../DonneesFormulaire.definitions";
+import { NomsChampsSimulateur } from "../DonneesFormulaire/DonneesFormulaire.definitions";
 import { ValidationReponses } from "./champs.domaine";
 import {
   auMoinsUn,
@@ -10,7 +10,7 @@ import {
 } from "./champs.predicats";
 
 export const fabriqueValidationUneReponses = (
-  nomChamp: NomsChampsSimulateur
+  nomChamp: NomsChampsSimulateur,
 ): ValidationReponses => ({
   message: "Selectionnez une réponse",
   validateur: exactementUn(nomChamp),
@@ -19,7 +19,7 @@ export const validationReponsesTaille: ValidationReponses = {
   message: "Sélectionnez une réponse pour chaque critère",
   validateur: et(
     auMoinsUn("trancheNombreEmployes"),
-    auMoinsUn("trancheChiffreAffaire")
+    auMoinsUn("trancheChiffreAffaire"),
   ),
 };
 export const validationReponsesSecteurs: ValidationReponses = {
@@ -43,19 +43,6 @@ export const validationReponsesTypeStructure: ValidationReponses = {
   message: "Sélectionnez une réponse par question",
   validateur: et(
     auMoinsUn("typeStructure"),
-    lorsque("typeStructure", "publique", auMoinsUn("typeEntitePublique"))
+    lorsque("typeStructure", "publique", auMoinsUn("typeEntitePublique")),
   ),
 };
-
-export const validationReponsesLocalisationActiviteSpecifique: ValidationReponses =
-  {
-    message: "Sélectionnez une réponse par question",
-    validateur: et(
-      auMoinsUn("fournitServicesUnionEuropeenne"),
-      lorsque(
-        "fournitServicesUnionEuropeenne",
-        "oui",
-        auMoinsUn("localisationRepresentant")
-      )
-    ),
-  };

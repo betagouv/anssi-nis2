@@ -1,7 +1,7 @@
 import {
   toujoursFaux,
   toujoursVrai,
-} from "../../../../../commun/core/src/Domain/Commun/Commun.predicats";
+} from "../../../../utils/services/commun.predicats";
 import {
   fausseValidationReponse,
   FauxSimulateurEtapeComposant,
@@ -14,13 +14,13 @@ import { SousEtapeConditionnelle } from "../../../src/Domain/Simulateur/Informat
 
 const fabriqueFausseInformationEtapeForm = (
   titre: string,
-  options = optionsInformationEtapeFormParDefaut
+  options = optionsInformationEtapeFormParDefaut,
 ) =>
   fabriquesInformationsEtapes.form(
     titre,
     fausseValidationReponse,
     FauxSimulateurEtapeComposant,
-    options
+    options,
   );
 
 const informationEtapeForm = fabriqueFausseInformationEtapeForm("Etape Form");
@@ -33,13 +33,13 @@ const informationEtapeFormToujoursEvitee = fabriqueFausseInformationEtapeForm(
   "Etape Form Evitée",
   {
     ignoreSi: () => true,
-  }
+  },
 );
 const informationEtapeFormJamaisEvitee = fabriqueFausseInformationEtapeForm(
   "Etape Form Non Evitée",
   {
     ignoreSi: () => false,
-  }
+  },
 );
 
 const informationSousEtapeForm =
@@ -53,7 +53,7 @@ const etapeEmployesAvecSousEtapeActivite = fabriqueFausseInformationEtapeForm(
   {
     sousEtapeConditionnelle: sousEtapeToujoursPresente,
     ignoreSi: toujoursFaux,
-  }
+  },
 );
 
 const infoEtapesVariantesPriveePublique = fabriquesInformationsEtapes.variantes(
@@ -66,7 +66,7 @@ const infoEtapesVariantesPriveePublique = fabriquesInformationsEtapes.variantes(
       etape: informationEtapeForm2,
       conditions: { typeStructure: ["publique"] },
     },
-  ]
+  ],
 );
 
 export const exInformationEtape = {

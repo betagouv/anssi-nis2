@@ -1,10 +1,10 @@
 import { StoryObj } from "@storybook/react";
-import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
+import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique.ts";
 import { ChargeurEtape } from "../../../../Components/Simulateur/ChargeurEtape.tsx";
 import { within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 
-import { libelleTitreRegule } from "../../../../References/LibellesResultatsEligibilite.ts";
+import { libelleTitreReguleEntiteEssentielle } from "../../../../References/LibellesResultatsEligibilite.ts";
 import { nettoieBrMd } from "../../../../Services/Markdown/TransformeMarkdown.operations.ts";
 import {
   cliqueSurDebuterLeTest,
@@ -24,8 +24,8 @@ export const scenarioTypeEntitePublique: StoryObj<
   const passeEtape = cocheAuMoinsUnEtPasseEtape(canvas);
 
   await cliqueSurDebuterLeTest(canvas);
-  await passeEtape([["designeOperateurServicesEssentiels", "oui"]]);
-  await passeEtape([["appartenancePaysUnionEurpopeenne", "france"]]);
+  await passeEtape([["designationOperateurServicesEssentiels", "oui"]]);
+  await passeEtape([["appartenancePaysUnionEuropeenne", "france"]]);
   await passeEtape([
     ["typeStructure", typeStructure],
     ["typeEntitePublique", "administrationCentrale"],
@@ -35,14 +35,14 @@ export const scenarioTypeEntitePublique: StoryObj<
   await passeEtape([["secteurActivite", "energie"]]);
   await passeEtape([["sousSecteurActivite", "autreSousSecteurEnergie"]]);
 
-  await canvas.findByText(nettoieBrMd(libelleTitreRegule));
+  await canvas.findByText(nettoieBrMd(libelleTitreReguleEntiteEssentielle));
 
   await expect(mockSendFormData).toHaveBeenCalledTimes(1);
   await expect(mockSendFormData).toHaveBeenCalledWith(
     fabriqueDonneesFormulaire({
       activites: [],
-      designeOperateurServicesEssentiels: ["oui"],
-      appartenancePaysUnionEurpopeenne: ["france"],
+      designationOperateurServicesEssentiels: ["oui"],
+      appartenancePaysUnionEuropeenne: ["france"],
       secteurActivite: ["energie"],
       sousSecteurActivite: ["autreSousSecteurEnergie"],
       trancheChiffreAffaire: [],

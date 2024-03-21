@@ -7,7 +7,7 @@ import {
   TypeEntitePublique,
   TypeStructure,
 } from "../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
-import { DictionnaireLibellesSimulateur } from "../types/dictionnaireLibellesSimulateur";
+import { DictionnaireLibellesSimulateur } from "../types/dictionnaireLibellesSimulateur.declarations.ts";
 import { libellesActivites } from "./LibellesActivites.ts";
 import { libellesSecteursActivite } from "./LibellesSecteursActivite.ts";
 import { libellesSousSecteursActivite } from "./LibellesSousSecteursActivite.ts";
@@ -33,13 +33,20 @@ export const libellesPaysUnionEuropeenneLocalisation: Record<
   string
 > = {
   france: "France",
-  autre: "Autres états membres",
+  autre: "Autres états membres de l'Union Européenne",
   horsue: "Autres états hors Union Européenne",
+};
+export const libellesPaysUnionEuropeenneLocalisationUE: Record<
+  Exclude<AppartenancePaysUnionEuropeenne, "horsue">,
+  string
+> = {
+  france: "France",
+  autre: "Autres états membres de l'Union Européenne",
 };
 
 export const libellesTypesStructure: Record<TypeStructure, string> = {
-  publique: "Organisation ou entreprise publique",
-  privee: "Entreprise privée",
+  privee: "Entreprise privée ou publique",
+  publique: "Administration publique",
 };
 
 export const libellesTypeEntitePublique: Record<TypeEntitePublique, string> = {
@@ -65,8 +72,8 @@ export const libellesTranchesCA: Record<TrancheChiffreAffaire, string> = {
 
 export const libellesSimulateur: DictionnaireLibellesSimulateur = {
   activites: libellesActivites,
-  designeOperateurServicesEssentiels: libellesDesigneOSE,
-  appartenancePaysUnionEurpopeenne: libellesPaysUnionEuropeenneLocalisation,
+  designationOperateurServicesEssentiels: libellesDesigneOSE,
+  appartenancePaysUnionEuropeenne: libellesPaysUnionEuropeenneLocalisation,
   secteurActivite: libellesSecteursActivite,
   sousSecteurActivite: libellesSousSecteursActivite,
   trancheChiffreAffaire: libellesTranchesCA,
@@ -75,4 +82,9 @@ export const libellesSimulateur: DictionnaireLibellesSimulateur = {
   typeEntitePublique: libellesTypeEntitePublique,
   fournitServicesUnionEuropeenne: libellesFournitServicesUnionEuropeenne,
   localisationRepresentant: libellesPaysUnionEuropeenneLocalisation,
+  localisationFournitureServicesNumeriques:
+    libellesPaysUnionEuropeenneLocalisation,
+  paysDecisionsCyber: libellesPaysUnionEuropeenneLocalisation,
+  paysOperationsCyber: libellesPaysUnionEuropeenneLocalisation,
+  paysPlusGrandNombreSalaries: libellesPaysUnionEuropeenneLocalisation,
 };

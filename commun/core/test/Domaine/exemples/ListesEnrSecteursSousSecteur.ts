@@ -7,35 +7,37 @@ import {
   estSecteurParmi,
 } from "../../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurListe } from "../../../../../commun/core/src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
-import { SecteurActivite } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
-import { ValeursSecteursSansSousSecteur } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
+import { ValeursSecteursSansSousSecteur } from "../../../src/Domain/Simulateur/SecteurActivite.constantes";
+import {
+  SecteurActivite,
+  SecteurComposite,
+} from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
+import { ValeursSecteursComposites } from "../../../src/Domain/Simulateur/SecteurActivite.valeurs";
 import {
   EnrSecteurSousSecteur,
-  SecteursAvecSousSecteurs,
   SousSecteurActivite,
 } from "../../../src/Domain/Simulateur/SousSecteurActivite.definitions";
-import { ValeursSecteursAvecSousSecteurs } from "../../../src/Domain/Simulateur/SousSecteurActivite.valeurs";
 
 export const listeEnrSecteursSansSousSecteur: EnrSecteurSousSecteur[] =
   ValeursSecteursSansSousSecteur.map((secteur) => ({
     secteur: secteur,
   }));
 export const listeEnrSecteursEtSousSecteurs: EnrSecteurSousSecteur[] =
-  ValeursSecteursAvecSousSecteurs.map(fabriqueTupleSecteurSousSecteurs).reduce(
+  ValeursSecteursComposites.map(fabriqueTupleSecteurSousSecteurs).reduce(
     (
       listeTuples: {
         secteur: SecteurActivite;
         sousSecteur: SousSecteurActivite;
       }[],
-      [secteur, listeSousSecteurs]
+      [secteur, listeSousSecteurs],
     ) => [
       ...listeTuples,
       ...fabriqueListePartielleSecteursAvecSousSecteurs(
         listeSousSecteurs,
-        secteur as SecteursAvecSousSecteurs
+        secteur as SecteurComposite,
       ),
     ],
-    []
+    [],
   );
 
 export const listeEnrSecteursAvecLeursSousSecteurs: EnrSecteurSousSecteur[] = [
@@ -43,18 +45,18 @@ export const listeEnrSecteursAvecLeursSousSecteurs: EnrSecteurSousSecteur[] = [
   ...listeEnrSecteursEtSousSecteurs,
 ];
 export const filtreSecteurListeSecteursSousSecteurs = (
-  secteurFiltre: SecteurActivite
+  secteurFiltre: SecteurActivite,
 ) =>
   listeEnrSecteursAvecLeursSousSecteurs.filter(
-    (enrSecteurSousSecteur) => enrSecteurSousSecteur.secteur == secteurFiltre
+    (enrSecteurSousSecteur) => enrSecteurSousSecteur.secteur == secteurFiltre,
   );
 
 export const filtreEnrSectorielHorsSecteurs = (
-  secteursFiltre: SecteurActivite[]
+  secteursFiltre: SecteurActivite[],
 ) =>
   listeEnrSecteursAvecLeursSousSecteurs.filter(
     (enrSecteurSousSecteur) =>
-      !estSecteurParmi(enrSecteurSousSecteur.secteur)(secteursFiltre)
+      !estSecteurParmi(enrSecteurSousSecteur.secteur)(secteursFiltre),
   );
 
 export const secteurEtSousSecteursSontListes = (enr: EnrSecteurSousSecteur) =>
@@ -63,5 +65,5 @@ export const secteurEtSousSecteursSontListes = (enr: EnrSecteurSousSecteur) =>
 export const listeAutresSecteursSousSecteurs =
   listeEnrSecteursAvecLeursSousSecteurs.filter(
     (enr) =>
-      enr.secteur.startsWith("autre") || enr.sousSecteur?.startsWith("autre")
+      enr.secteur.startsWith("autre") || enr.sousSecteur?.startsWith("autre"),
   );

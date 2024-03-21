@@ -38,6 +38,7 @@ export const libellesActivites: Record<Activite, string> = {
   autreActivitePetrole: "Autre activité",
   autreActiviteProductionTransformationDistributionDenreesAlimentaires:
     "Autre activité",
+  autreActiviteRecherche: "Autre activité",
   autreActiviteReseauxChaleurFroid: "Autre activité",
   autreActiviteSante: "Autre activité",
   autreActiviteSecteurBancaire: "Autre activité",
@@ -236,6 +237,8 @@ export const libellesActivites: Record<Activite, string> = {
   fournisseursPlaceMarcheEnLigne: "Fournisseurs de places de marché en ligne",
   fournisseursPlateformesServicesReseauxSociaux:
     "Fournisseurs de plateformes de services de réseaux sociaux",
+  fournisseurServicesEnregristrementNomDomaine:
+    "Fournisseur des services d’enregistrement de noms de domaine",
   gestionnaireInfrastructure: "Gestionnaires des infrastructures",
   gestionnaireInstallationGNL: "Gestionnaires d’installation de GNL",
   gestionnaireInstallationStockage: "Gestionnaires d’installation de stockage",
@@ -247,7 +250,10 @@ export const libellesActivites: Record<Activite, string> = {
   operateurReseauChaleurFroid:
     "Opérateurs de réseaux de chaleur ou de réseaux de froid",
   organismeRecherche: "Organismes de recherche",
-  prestataireServiceConfiance: "Prestataires de service de confiance",
+  prestataireServiceConfianceQualifie:
+    "Prestataires de service de confiance qualifié",
+  prestataireServiceConfianceNonQualifie:
+    "Prestataires de service de confiance non qualifié",
   prestataireSoinsSante: "Prestataires de soins de santé",
   prestatairesServicesPostauxExpedition:
     "Prestataires de services postaux, y compris les prestataires de " +

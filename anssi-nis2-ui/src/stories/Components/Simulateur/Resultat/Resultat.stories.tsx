@@ -4,7 +4,7 @@ import { expect } from "@storybook/jest";
 
 import { Meta, StoryObj } from "@storybook/react";
 import { within } from "@storybook/testing-library";
-import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique.ts";
+import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique.ts";
 import { SimulateurEtapeResult } from "../../../../Components/Simulateur/SimulateurEtapeResult.tsx";
 
 import {
@@ -15,8 +15,8 @@ import { attendTexteCharge } from "../../../utilitaires/interaction.facilitateur
 import { verifieTitresSectionsPresentes } from "./Resultat.aide.ts";
 
 const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
-  designeOperateurServicesEssentiels: ["non"],
-  appartenancePaysUnionEurpopeenne: ["france"],
+  designationOperateurServicesEssentiels: ["non"],
+  appartenancePaysUnionEuropeenne: ["france"],
   typeStructure: ["privee"],
   trancheChiffreAffaire: ["petit"],
   trancheNombreEmployes: ["petit"],
@@ -42,7 +42,7 @@ export const ResultatEligibleOSE: Story = {
   args: {
     donneesFormulaire: {
       ...archetypeDonneesFormulaire,
-      designeOperateurServicesEssentiels: ["oui"],
+      designationOperateurServicesEssentiels: ["oui"],
       trancheNombreEmployes: ["petit"],
       trancheChiffreAffaire: ["petit"],
     },
@@ -52,6 +52,11 @@ export const ResultatEligibleOSE: Story = {
 
     await attendTexteCharge(canvasElement, pointsDAttention);
 
+    expect(
+      await canvas.findByText(
+        "Votre entité sera régulée par NIS 2 en tant qu’Entité Essentielle (EE)",
+      ),
+    );
     await verifieTitresSectionsPresentes(
       canvasElement,
       new Set(["etMaintenant", "enSavoirPlus", "bienDebuter"]),
@@ -73,17 +78,53 @@ export const ResultatEligiblePetiteEntreprise: Story = {
       trancheChiffreAffaire: ["petit"],
       trancheNombreEmployes: ["petit"],
       secteurActivite: ["infrastructureNumerique"],
-      activites: ["registresNomsDomainesPremierNiveau"],
-      fournitServicesUnionEuropeenne: ["oui"],
-      localisationRepresentant: ["france"],
+      activites: ["prestataireServiceConfianceQualifie"],
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await attendTexteCharge(canvasElement, pointsDAttention);
+    expect(
+      await canvas.findByText(
+        "Votre entité sera régulée par NIS 2 en tant qu’Entité Essentielle (EE)",
+      ),
+    );
     await verifieTitresSectionsPresentes(
       canvasElement,
       new Set(["etMaintenant", "enSavoirPlus", "bienDebuter"]),
+    );
+
+    const titrePrecisions = await canvas.findByText(pointsDAttention);
+    expect(titrePrecisions).toBeInTheDocument();
+    expect(titrePrecisions.tagName).toBe("H4");
+
+    await canvas.findByText(texteIntroductionBienDebuterPetiteEntite);
+    await expect(
+      canvas.queryByText(texteIntroductionBienDebuterGrandeEntite),
+    ).not.toBeInTheDocument();
+  },
+};
+export const ResultatReguleAutrePaysUE: Story = {
+  args: {
+    donneesFormulaire: {
+      ...archetypeDonneesFormulaire,
+      trancheChiffreAffaire: ["petit"],
+      trancheNombreEmployes: ["petit"],
+      secteurActivite: ["infrastructureNumerique"],
+      activites: ["fournisseurServiceCommunicationElectroniquesPublics"],
+      localisationFournitureServicesNumeriques: ["autre"],
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await attendTexteCharge(canvasElement, pointsDAttention);
+    expect(await canvas.findByText("Votre entité sera régulée par NIS 2"));
+    expect(
+      await canvas.findByText(
+        "Nous vous invitons à vous rapprocher de l’autorité nationale " +
+          "compétente NIS 2 des autres États membres de l'UE dans lesquels " +
+          "vous fournissez vos services.",
+      ),
     );
 
     const titrePrecisions = await canvas.findByText(pointsDAttention);
@@ -108,6 +149,12 @@ export const ResultatEligibleGrandeEntreprise: Story = {
     const canvas = within(canvasElement);
     await attendTexteCharge(canvasElement, pointsDAttention);
 
+    expect(
+      await canvas.findByText(
+        "Votre entité sera régulée par NIS 2 en tant qu’Entité Essentielle (EE)",
+      ),
+    );
+
     await verifieTitresSectionsPresentes(
       canvasElement,
       new Set(["etMaintenant", "enSavoirPlus", "bienDebuter"]),
@@ -129,7 +176,7 @@ export const ResultatNonEligible: Story = {
   args: {
     donneesFormulaire: {
       ...archetypeDonneesFormulaire,
-      designeOperateurServicesEssentiels: ["non"],
+      designationOperateurServicesEssentiels: ["non"],
       typeStructure: ["privee"],
       secteurActivite: ["autreSecteurActivite"],
       activites: [],
@@ -138,6 +185,9 @@ export const ResultatNonEligible: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await attendTexteCharge(canvasElement, pointsDAttention);
+    expect(
+      await canvas.findByText("Votre entité ne sera pas régulée par NIS 2"),
+    );
 
     await verifieTitresSectionsPresentes(
       canvasElement,

@@ -1,15 +1,12 @@
-import { SecteurActivite } from "./SecteurActivite.definitions";
+import {
+  SecteurActivite,
+  SecteurComposite,
+} from "./SecteurActivite.definitions";
 import {
   DescriptionSecteur,
-  SecteursAvecSousSecteurs,
   SousSecteurActivite,
 } from "./SousSecteurActivite.definitions";
 
-export const ValeursSecteursAvecSousSecteurs = [
-  "energie",
-  "transports",
-  "fabrication",
-] as const;
 export const ValeursSousSecteurEnergie = [
   "electricite",
   "gaz",
@@ -23,26 +20,20 @@ export const ValeursSousSecteurTransport = [
   "transportsFerroviaires",
   "transportsParEau",
   "transportsRoutiers",
-  "autreSousSecteurTransport",
+  "autreSousSecteurTransports",
 ] as const;
 export const ValeursSousSecteurFabrication = [
   "fabricationDispositifsMedicaux",
   "fabricationEquipementsElectroniques",
-  "fabricationFabricationProduitsInformatiquesElectroniquesOptiques",
+  "fabricationProduitsInformatiquesElectroniquesOptiques",
   "fabricationMachinesEquipements",
   "constructionVehiculesAutomobiles",
   "fabricationAutresMaterielTransports",
   "autreSousSecteurFabrication",
 ] as const;
 
-export const ValeursSousSecteursActivites = [
-  ...ValeursSousSecteurEnergie,
-  ...ValeursSousSecteurFabrication,
-  ...ValeursSousSecteurTransport,
-] as const;
-
 export const sousSecteursParSecteur: Record<
-  Extract<SecteurActivite, SecteursAvecSousSecteurs>,
+  Extract<SecteurActivite, SecteurComposite>,
   DescriptionSecteur
 > = {
   energie: ValeursSousSecteurEnergie,
@@ -51,7 +42,7 @@ export const sousSecteursParSecteur: Record<
 };
 
 export const groupementsSecteursParSousSecteurs: Record<
-  SecteursAvecSousSecteurs,
+  SecteurComposite,
   readonly SousSecteurActivite[]
 > = {
   energie: ValeursSousSecteurEnergie,

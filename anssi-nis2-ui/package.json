@@ -38,6 +38,7 @@
     "remark-frontmatter": "^5.0.0",
     "remark-yaml-config": "^7.0.0",
     "tss-react": "^4.8.8",
+    "ts-pattern": "^5.0.5",
     "unified": "^11.0.4",
     "yaml": "^2.3.4"
   },

@@ -18,8 +18,8 @@ export const scenarioEtapeSecteurFabricationSuivant: StoryObj<
   step("Va jusqu'à l'étape Secteurs d'activité", async () => {
     await cliqueSurDebuterLeTest(canvas);
 
-    await passeEtape([["designeOperateurServicesEssentiels", "oui"]]);
-    await passeEtape([["appartenancePaysUnionEurpopeenne", "france"]]);
+    await passeEtape([["designationOperateurServicesEssentiels", "oui"]]);
+    await passeEtape([["appartenancePaysUnionEuropeenne", "france"]]);
     await passeEtape([
       ["typeStructure", "publique"],
       ["typeEntitePublique", "administrationCentrale"],

@@ -1,5 +1,5 @@
-import { RegulationEntite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
-import { PrecisionResultat } from "../../../../commun/core/src/Domain/Simulateur/Resultat.declarations.ts";
+import { EtatRegulationDefinitif } from "../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions.ts";
+import { getNomFichierPrecision } from "../../Components/Simulateur/Resultats/LigneResultat.aide.ts";
 import { chargeContenuMarkdown } from "../depots/ChargeContenuMarkdown.depot.ts";
 import { separeMarkdownParLignes } from "../Markdown/TransformeMarkdown.operations.ts";
 import { precisionsResultatVide } from "../Simulateur/Props/ContenusResultatEligibilite.constantes.ts";
@@ -15,10 +15,11 @@ export const fabriquePrecisionsResultatProps = (
   };
 };
 
-export const chargeContenuPour =
-  (r: RegulationEntite) => async (p: PrecisionResultat) =>
-    chargeContenuMarkdown(
-      `PrecisionsResultat.${r}${p}`,
-      fabriquePrecisionsResultatProps,
-      precisionsResultatVide,
-    );
+export const chargeContenuPourEtat = async (
+  etatRegulation: EtatRegulationDefinitif,
+) =>
+  chargeContenuMarkdown(
+    getNomFichierPrecision(etatRegulation),
+    fabriquePrecisionsResultatProps,
+    precisionsResultatVide,
+  );

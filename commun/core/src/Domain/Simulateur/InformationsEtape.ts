@@ -1,10 +1,10 @@
-import { PredicatDonneesSimulateurDefinitions } from "anssi-nis2-ui/src/Services/Simulateur/PredicatDonneesSimulateur.definitions";
-import { DonneesFormulaireSimulateur } from "./DonneesFormulaire.definitions";
+import { PredicatDonneesSimulateurDefinitions } from "./PredicatDonneesSimulateur.definitions";
+import { DonneesFormulaireSimulateur } from "./services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { P } from "ts-pattern";
 import { ValidationReponses } from "./services/ChampSimulateur/champs.domaine";
 
 const typeEtapes = [
-  "designeOperateurServicesEssentiels",
+  "designationOperateurServicesEssentiels",
   "appartenanceUnionEuropeenne",
   "typeStructure",
   "tailleEntitePublique",
@@ -13,6 +13,8 @@ const typeEtapes = [
   "sousSecteursActivite",
   "activites",
   "localisationActiviteSpecifique",
+  "localisationFournitureServicesNumeriques",
+  "localisationEtablissementPrincipal",
   "prealable",
   "resultat",
   "inexistante",
@@ -43,18 +45,20 @@ export type EtapeResultat = EtapeExistante;
 export type OptionsInformationEtapeForm = {
   readonly sousEtapeConditionnelle?: SousEtapeConditionnelle;
   readonly ignoreSi: (
-    donneesFormulaire: DonneesFormulaireSimulateur
+    donneesFormulaire: DonneesFormulaireSimulateur,
   ) => boolean;
 };
 
 export type SousEtapeConditionnelle = {
   readonly condition: PredicatDonneesSimulateurDefinitions;
-  readonly sousEtape: InformationEtapeForm;
+  readonly sousEtape:
+    | InformationEtapeForm
+    | InformationsEtapesVariantes<InformationEtapeForm>;
 };
 
 export type CapacitesEtapeFormulaire = {
   readonly fabriqueValidationReponses: (
-    donnees: DonneesFormulaireSimulateur
+    donnees: DonneesFormulaireSimulateur,
   ) => ValidationReponses;
 };
 export type InformationEtapeForm = EtapeExistante &
@@ -68,7 +72,7 @@ export type VariantesEtape<TypeEtape extends InformationEtapeForm> = {
 };
 
 export type InformationsEtapesVariantes<
-  TypeEtape extends InformationEtapeForm
+  TypeEtape extends InformationEtapeForm,
 > = EtapeExistante &
   CapacitesEtapeFormulaire & {
     readonly variantes: TypeEtape[];

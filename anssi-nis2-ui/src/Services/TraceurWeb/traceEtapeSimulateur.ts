@@ -1,8 +1,8 @@
-import { DonneesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
-import { EtatEtapes } from "../../../../commun/core/src/Domain/Simulateur/EtatEtapes.ts";
+import { DonneesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
+import { EtatEtape } from "../../../../commun/core/src/Domain/Simulateur/EtatEtape.definitions.ts";
 
 export const traceEtapeSimulateur = (
-  etatEtapes: EtatEtapes,
+  etatEtapes: EtatEtape,
   donneesFormulaireSimulateur: DonneesFormulaireSimulateur,
 ) => {
   window._mtm ||= [];

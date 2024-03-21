@@ -1,63 +1,99 @@
-import { DonneesFormulaireSimulateur } from "../../DonneesFormulaire.definitions";
-import { SecteurActivite } from "../../SecteurActivite.definitions";
 import {
-  SecteursAvecSousSecteurs,
-  SousSecteurActivite,
-} from "../../SousSecteurActivite.definitions";
+  SecteurActivite,
+  SecteurInfrastructureNumerique,
+  SecteurAvecBesoinLocalisationRepresentant,
+  SecteurComposite,
+  SecteursSansBesoinLocalisationRepresentant,
+} from "../../SecteurActivite.definitions";
 import {
-  sousSecteursParSecteur,
-  ValeursSecteursAvecSousSecteurs,
-} from "../../SousSecteurActivite.valeurs";
+  ValeurSecteurInfrastructureNumerique,
+  ValeursSecteursAvecBesoinLocalisationRepresentant,
+  ValeursSecteursComposites,
+  ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal,
+} from "../../SecteurActivite.valeurs";
+import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
+import { sousSecteursParSecteur } from "../../SousSecteurActivite.valeurs";
 
-export const contientAutreSecteurActiviteUniquement = (
-  donneesFormulaire: DonneesFormulaireSimulateur
-) =>
-  donneesFormulaire.secteurActivite.length === 1 &&
-  donneesFormulaire.secteurActivite[0] === "autreSecteurActivite";
-export const estUnSecteurAvecDesSousSecteurs = (secteur: string) =>
-  ValeursSecteursAvecSousSecteurs.includes(secteur as SecteursAvecSousSecteurs);
+export const estUnSecteurAvecDesSousSecteurs = (
+  secteur: string,
+): secteur is SecteurComposite =>
+  ValeursSecteursComposites.includes(secteur as SecteurComposite);
 
 export const filtreSecteursAvecSousSecteurs = (secteur: SecteurActivite[]) =>
-  secteur.filter(estUnSecteurAvecDesSousSecteurs) as SecteursAvecSousSecteurs[];
+  secteur.filter(estUnSecteurAvecDesSousSecteurs) as SecteurComposite[];
 export const estUnSecteurSansDesSousSecteurs = (secteur: string) => {
-  return !ValeursSecteursAvecSousSecteurs?.includes(
-    secteur as SecteursAvecSousSecteurs
-  );
+  return !ValeursSecteursComposites?.includes(secteur as SecteurComposite);
 };
+export const estSecteur =
+  (secteurReference: SecteurActivite) => (secteurCompare: SecteurActivite) =>
+    secteurReference === secteurCompare;
 export const estSecteurListe = (secteur: SecteurActivite) =>
   !secteur.startsWith("autre");
 export const estSecteurAutre = (secteur: SecteurActivite) =>
   secteur.startsWith("autre");
 export const contientSousSecteur = (
   secteur: string,
-  sousSecteur: SousSecteurActivite
-) =>
-  sousSecteursParSecteur[secteur as SecteursAvecSousSecteurs].includes(
-    sousSecteur
-  );
-export const auMoinsUnSecteurAvecDesSousSecteurs = (
-  secteurs: SecteurActivite[]
-) => secteurs.length > 0 && secteurs.some(estUnSecteurAvecDesSousSecteurs);
+  sousSecteur: SousSecteurActivite,
+) => sousSecteursParSecteur[secteur as SecteurComposite].includes(sousSecteur);
 export const auMoinsUnSecteurListe = (
-  secteurs: SecteurActivite[]
+  secteurs: SecteurActivite[],
 ): secteurs is SecteurActivite[] =>
   secteurs.length > 0 && secteurs.some(estSecteurListe);
-export const aucunSecteurListe = (
-  secteurs: SecteurActivite[]
-): secteurs is SecteurActivite[] => !auMoinsUnSecteurListe(secteurs);
+
 export const uniquementDesSecteursAutres = (
-  secteurs: SecteurActivite[]
+  secteurs: SecteurActivite[],
 ): secteurs is SecteurActivite[] =>
   secteurs.length > 0 && secteurs.every(estSecteurAutre);
 
 export const estUnSecteurSansSousSecteur = (secteur: string) =>
-  !(ValeursSecteursAvecSousSecteurs as readonly string[]).includes(secteur);
+  !(ValeursSecteursComposites as readonly string[]).includes(secteur);
 
 const predicatSecteurDansListe = (
   secteursFiltre: SecteurActivite[],
-  secteurCherche: string
+  secteurCherche: string,
 ) => secteursFiltre.some((secteur) => secteur == secteurCherche);
 
 export const estSecteurParmi =
   (secteurCherche: SecteurActivite) => (secteursFiltre: SecteurActivite[]) =>
     predicatSecteurDansListe(secteursFiltre, secteurCherche);
+export const estSecteurDansListe =
+  (secteursFiltre: SecteurActivite[]) => (secteurCherche: SecteurActivite) =>
+    predicatSecteurDansListe(secteursFiltre, secteurCherche);
+
+/**
+ * Vérifie si secteur n'est pas dans :
+ *   "infrastructureNumerique",
+ *   "gestionServicesTic",
+ *   "fournisseursNumeriques",
+ * @param secteur
+ */
+export const estSecteurNeNecessitantPasLocalisationRepresentant = (
+  secteur: SecteursSansBesoinLocalisationRepresentant | SecteurActivite,
+): secteur is SecteursSansBesoinLocalisationRepresentant =>
+  !ValeursSecteursAvecBesoinLocalisationRepresentant.includes(
+    secteur as SecteurAvecBesoinLocalisationRepresentant,
+  );
+export const estSecteurNeNecessitantPasLocalisationRepresentantPetiteEntite = <
+  T extends SecteurActivite,
+>(
+  secteur: T | SecteurInfrastructureNumerique,
+) =>
+  !ValeurSecteurInfrastructureNumerique.includes(
+    secteur as (typeof ValeurSecteurInfrastructureNumerique)[number],
+  );
+export const estSecteurImportantsAvecBesoinLocalisation = (
+  secteur: SecteurActivite,
+) =>
+  ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal.includes(
+    secteur as (typeof ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal)[number],
+  );
+/**
+ *   "infrastructureNumerique",
+ * @param secteur
+ */
+export const estSecteurAvecActivitesEssentielles = (
+  secteur: SecteurActivite | SecteurInfrastructureNumerique,
+): secteur is SecteurInfrastructureNumerique =>
+  ValeurSecteurInfrastructureNumerique.includes(
+    secteur as (typeof ValeurSecteurInfrastructureNumerique)[number],
+  );

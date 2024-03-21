@@ -1,5 +1,5 @@
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
-import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/DonneesFormulaire.definitions";
+import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { extraitSectorisationDonneesSimulateur } from "~core/src/Domain/Simulateur/services/Sectorisation/Sectorisation.operations";
 import { Evenements } from "./entites/evenements.entite-journal";
 import { Injectable } from "@nestjs/common";

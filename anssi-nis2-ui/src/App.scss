@@ -407,11 +407,26 @@ legend.fr-text--medium {
 }
 
 .fr-nis2-resultat {
+  & strong > em,
+  em > strong,
+  b > i,
+  i > b {
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: underline;
+  }
+
   & h4 {
     text-align: center;
-    margin: 1rem 0 0 0;
+    margin: 1rem 0 1.5rem 0;
     padding: 0;
     line-height: 2.25rem;
+  }
+
+  & > p {
+    font-size: .875rem;
+    text-align: center;
+    margin: 0;
   }
 
   &.fr-nis2-eligible {
@@ -419,8 +434,8 @@ legend.fr-text--medium {
   }
 
   &.fr-nis2-eligible {
-    & h4,
-    & .fr-nis2-icone {
+    & h4, p,
+    .fr-nis2-icone {
       color: var(--green-menthe-sun-373-moon-652, #37635f);
     }
 
@@ -430,13 +445,16 @@ legend.fr-text--medium {
   }
 
   &.fr-nis2-non-eligible {
-    background-color: var(--yellow-tournesol-925-125);
+    background-color: var(--yellow-tournesol-975-75);
   }
 
   &.fr-nis2-non-eligible {
-    & h4,
-    & .fr-nis2-icone {
+    & h4, .fr-nis2-icone {
       color: #a88e26;
+    }
+
+    & p {
+      color: #7D6A20;
     }
 
     & .fr-nis2-icone {
@@ -446,6 +464,11 @@ legend.fr-text--medium {
 
   &.fr-nis2-incertain-UE {
     background-color: var(--background-alt-grey, #f6f6f6);
+
+    & h4, p,
+    .fr-nis2-icone {
+      color: var(--light-decisions-text-text-mention-grey, #666);
+    }
 
     & .fr-nis2-icone {
       text-align: center;
@@ -566,8 +589,7 @@ legend.fr-text--medium {
 }
 
 .fr-nis2-aidez-nous {
-  background: var(--yellow-tournesol-975-75, #fef6e3) url(assets/faq.svg)
-    no-repeat;
+  background: var(--yellow-tournesol-975-75, #fef6e3) url(assets/faq.svg) no-repeat;
   background-size: 5rem;
 }
 
@@ -628,6 +650,43 @@ legend.fr-text--medium {
     margin-left: 1rem;
     margin-top: 4rem;
   }
+
+  & .fr-notice--info {
+    border: 1px solid var(--light-decisions-background-background-action-low-blue-france-hover, #C1C1FB);
+    background: var(--light-decisions-background-background-contrast-blue-france, #ECECFE);
+  }
+
+  & .fr-notice__body::before {
+    color: #00008F
+  }
+
+  & .fr-notice__body {
+    color: var(--light-decisions-text-text-title-grey, #161616);
+    font-size: 1rem;
+  }
+
+  & p.fr-notice__body {
+    padding-right: 0;
+  }
+}
+
+
+.fr-notice--info {
+  border: 1px solid var(--light-decisions-background-background-action-low-blue-france-hover, #C1C1FB);
+  background: var(--light-decisions-background-background-contrast-blue-france, #ECECFE);
+}
+
+.fr-notice__body::before {
+  color: #00008F
+}
+
+.fr-notice__body {
+  color: var(--light-decisions-text-text-title-grey, #161616);
+  font-size: 1rem;
+}
+
+p.fr-notice__body {
+  padding-right: 0;
 }
 
 .fr-input,
@@ -637,23 +696,23 @@ legend.fr-text--medium {
 
 .fr-radio-group input[type="radio"] + label {
   background-image: radial-gradient(
-    #fff 10px,
-    var(--background-action-high-blue-france) 11px,
-    transparent 12px
+                  #fff 10px,
+                  var(--background-action-high-blue-france) 11px,
+                  transparent 12px
   );
 }
 
 .fr-radio-group input[type="radio"]:checked + label {
   background-image: radial-gradient(
-      transparent 10px,
-      var(--background-action-high-blue-france) 11px,
-      transparent 12px
-    ),
-    radial-gradient(transparent 7px, #fff 8px, transparent 9px),
-    radial-gradient(
-      var(--background-action-high-blue-france) 5px,
-      transparent 6px
-    );
+                  transparent 10px,
+                  var(--background-action-high-blue-france) 11px,
+                  transparent 12px
+  ),
+  radial-gradient(transparent 7px, #fff 8px, transparent 9px),
+  radial-gradient(
+                  var(--background-action-high-blue-france) 5px,
+                  transparent 6px
+  );
 }
 
 .fr-nis2-faq {

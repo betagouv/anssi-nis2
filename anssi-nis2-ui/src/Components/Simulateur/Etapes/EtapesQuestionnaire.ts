@@ -1,6 +1,6 @@
-import { CollectionInformationsEtapes } from "../../../../../commun/core/src/Domain/Simulateur/CollectionInformationsEtapes.ts";
-import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
-import { fabriqueEtatEtape } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/EtatEtape.fabrique.ts";
+import { Pattern } from "ts-pattern";
+import { CollectionInformationsEtapes } from "../../../../../commun/core/src/Domain/Simulateur/CollectionInformationsEtapes.definitions.ts";
+import { fabriqueEtatEtape } from "../../../../../commun/core/src/Domain/Simulateur/EtatEtape.fabrique.ts";
 import { fabriquesInformationsEtapes } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/InformationsEtape.fabrique.ts";
 import {
   contientSousSecteurAutresUniquement,
@@ -9,18 +9,22 @@ import {
 import {
   fabriqueValidationUneReponses,
   validationReponsesActivites,
-  validationReponsesLocalisationActiviteSpecifique,
   validationReponsesSecteurs,
   validationReponsesSousActivites,
   validationReponsesTaille,
   validationReponsesTypeStructure,
 } from "../../../../../commun/core/src/Domain/Simulateur/services/ChampSimulateur/ValidationReponses.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
 import {
   contientAutreSecteurActiviteUniquement,
-  estUnSecteurAvecDesSousSecteurs,
-} from "../../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
-import { auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement } from "../../../../../commun/core/src/Domain/Simulateur/services/Activite/Activite.predicats.ts";
-import { predicatDonneesFormulaire as P } from "../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
+  contientInfraNumLocalisationEtablissement,
+  predicatDonneesFormulaire as P,
+} from "../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats.ts";
+import { estUnSecteurAvecDesSousSecteurs } from "../../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
+import {
+  estNonVide,
+  et,
+} from "../../../../../commun/utils/services/commun.predicats.ts";
 
 const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
@@ -37,20 +41,71 @@ const sousEtapeSousSecteur =
     ),
   );
 
-const sousEtapeLocalisationActiviteSpecifique =
-  fabriquesInformationsEtapes.sousEtapeConditionnelle(
-    ou(
-      P.champs("activites").verifie(
-        auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement,
+const etapeLocalisationActiviteServices = fabriquesInformationsEtapes.form(
+  "Localisation de votre activité",
+  {
+    message: "Sélectionnez au moins une réponse",
+    validateur:
+      P.localisationFournitureServicesNumeriques.satisfait(estNonVide),
+  },
+  "localisationFournitureServicesNumeriques",
+);
+const etapeLocalisationEtablissementPrincipal =
+  fabriquesInformationsEtapes.form(
+    "Localisation de votre activité",
+    {
+      message: "Sélectionnez au moins une réponse",
+      validateur: ou(
+        P.paysDecisionsCyber.contientUnParmi("france", "autre"),
+        et(
+          P.paysDecisionsCyber.est(["horsue"]),
+          P.paysOperationsCyber.contientUnParmi("france", "autre"),
+        ),
+        et(
+          P.paysDecisionsCyber.est(["horsue"]),
+          P.paysOperationsCyber.est(["horsue"]),
+          P.paysPlusGrandNombreSalaries.satisfait(estNonVide),
+        ),
       ),
-      P.champs("secteurActivite").contient("fournisseursNumeriques"),
-      P.champs("secteurActivite").contient("gestionServicesTic"),
-    ),
-    fabriquesInformationsEtapes.form(
-      "Localisation de votre activité",
-      validationReponsesLocalisationActiviteSpecifique,
-      "localisationActiviteSpecifique",
-    ),
+    },
+    "localisationEtablissementPrincipal",
+  );
+
+const sousEtapeLocalisationVariantes =
+  fabriquesInformationsEtapes.sousEtapeConditionnelle(
+    contientInfraNumLocalisationEtablissement,
+    fabriquesInformationsEtapes.variantes([
+      {
+        etape: etapeLocalisationEtablissementPrincipal,
+        conditions: Pattern.when(
+          P.activites.contientUnParmi(
+            "registresNomsDomainesPremierNiveau",
+            "fournisseurServicesDNS",
+            "fournisseurServicesInformatiqueNuage",
+            "fournisseurServiceCentresDonnees",
+            "fournisseurReseauxDiffusionContenu",
+          ),
+        ),
+      },
+      {
+        etape: etapeLocalisationEtablissementPrincipal,
+        conditions: Pattern.when(
+          P.secteurActivite.contientUnParmi(
+            "gestionServicesTic",
+            "fournisseursNumeriques",
+          ),
+        ),
+      },
+      {
+        etape: etapeLocalisationActiviteServices,
+        conditions: Pattern.when(
+          P.activites.contientUnParmi(
+            "fournisseurReseauxCommunicationElectroniquesPublics",
+            "fournisseurServiceCommunicationElectroniquesPublics",
+          ),
+        ),
+      },
+    ]),
   );
 
 const etapeTailleStructurePrivee = fabriquesInformationsEtapes.form(
@@ -76,12 +131,12 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
     fabriquesInformationsEtapes.prealable("Pour bien débuter"),
     fabriquesInformationsEtapes.form(
       "Désignation éventuelle",
-      fabriqueValidationUneReponses("designeOperateurServicesEssentiels"),
-      "designeOperateurServicesEssentiels",
+      fabriqueValidationUneReponses("designationOperateurServicesEssentiels"),
+      "designationOperateurServicesEssentiels",
     ),
     fabriquesInformationsEtapes.form(
       "Localisation de l'activité",
-      fabriqueValidationUneReponses("appartenancePaysUnionEurpopeenne"),
+      fabriqueValidationUneReponses("appartenancePaysUnionEuropeenne"),
       "appartenanceUnionEuropeenne",
     ),
     fabriquesInformationsEtapes.form(
@@ -110,9 +165,10 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
           contientAutreSecteurActiviteUniquement,
           contientSousSecteurAutresUniquement,
         ),
-        sousEtapeConditionnelle: sousEtapeLocalisationActiviteSpecifique,
+        sousEtapeConditionnelle: sousEtapeLocalisationVariantes,
       },
     ),
     fabriquesInformationsEtapes.resultat("Resultat"),
   );
+
 export const etatEtapesInitial = fabriqueEtatEtape(etapesQuestionnaire, 0);

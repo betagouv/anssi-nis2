@@ -3,7 +3,7 @@ import { ValeurChampSimulateur } from "../../../../commun/core/src/Domain/Simula
 import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
-} from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
+} from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
 
 import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
 import { GestionValeursFormulaire } from "./Props/gestionValeursFormulaire";
@@ -30,8 +30,8 @@ export const gestionnairesDeChamp: Record<
   NomsChampsSimulateur,
   GestionValeursFormulaire
 > = {
-  designeOperateurServicesEssentiels: gestionValeursSimples,
-  appartenancePaysUnionEurpopeenne: gestionValeursSimples,
+  designationOperateurServicesEssentiels: gestionValeursSimples,
+  appartenancePaysUnionEuropeenne: gestionValeursSimples,
   secteurActivite: genereGestionValeursMultiples("secteurActivite"),
   sousSecteurActivite: genereGestionValeursMultiples("sousSecteurActivite"),
   activites: genereGestionValeursMultiples("activites"),
@@ -41,6 +41,12 @@ export const gestionnairesDeChamp: Record<
   typeEntitePublique: gestionValeursSimples,
   fournitServicesUnionEuropeenne: gestionValeursSimples,
   localisationRepresentant: gestionValeursSimples,
+  localisationFournitureServicesNumeriques: genereGestionValeursMultiples(
+    "localisationFournitureServicesNumeriques",
+  ),
+  paysDecisionsCyber: gestionValeursSimples,
+  paysOperationsCyber: gestionValeursSimples,
+  paysPlusGrandNombreSalaries: gestionValeursSimples,
 };
 
 export const gestionnairesPourChamps = (

@@ -1,5 +1,5 @@
 import { ValeurChampSimulateur } from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
-import { NomsChampsSimulateur } from "../../../../commun/core/src/Domain/Simulateur/DonneesFormulaire.definitions.ts";
+import { NomsChampsSimulateur } from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
 import { CanvasObject } from "./Canvas.d.tsx";
 import { userEvent } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";

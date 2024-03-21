@@ -1,14 +1,15 @@
 import { fc } from "@fast-check/vitest";
 import { describe, expect, it } from "vitest";
 import { UnionPetitMoyenGrand } from "../../src/Domain/Simulateur/ChampsSimulateur.definitions";
-import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/DonneesFormulaire.constantes";
-import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/fabriques/DonneesFormulaire.fabrique";
+import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes";
+import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique";
 import { auMoinsUneActiviteListee } from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import {
   contientPetiteEntreprise,
   predicatDonneesFormulaire,
 } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
-import { fabriqueArbSingleton } from "../utilitaires/manipulationArbitraires";
+
+import { fabriqueArbSingleton } from "../utilitaires/manipulationArbitraires.fabriques";
 
 describe("predicatDonneesFormulaire", () => {
   describe("Champ contient", () => {
@@ -18,14 +19,14 @@ describe("predicatDonneesFormulaire", () => {
         secteurActivite: ["infrastructureNumerique"],
       };
       expect(donnees).toSatisfy(
-        predicatDonneesFormulaire
-          .champs("secteurActivite")
-          .contient("infrastructureNumerique")
+        predicatDonneesFormulaire.secteurActivite.contient(
+          "infrastructureNumerique",
+        ),
       );
       expect(donnees).not.toSatisfy(
-        predicatDonneesFormulaire
-          .champs("secteurActivite")
-          .contient("fournisseursNumeriques")
+        predicatDonneesFormulaire.secteurActivite.contient(
+          "fournisseursNumeriques",
+        ),
       );
     });
   });
@@ -35,9 +36,7 @@ describe("predicatDonneesFormulaire", () => {
         activites: ["entiteCentralesStockage"],
       });
       expect(donnees).toSatisfy(
-        predicatDonneesFormulaire
-          .champs("activites")
-          .verifie(auMoinsUneActiviteListee)
+        predicatDonneesFormulaire.activites.satisfait(auMoinsUneActiviteListee),
       );
     });
   });
@@ -49,8 +48,8 @@ describe("predicatDonneesFormulaire", () => {
           fabriqueDonneesFormulaire({
             trancheNombreEmployes: ["petit"],
             trancheChiffreAffaire: ["petit"],
-          })
-        )
+          }),
+        ),
       ).toBeTruthy();
     });
 
@@ -58,22 +57,22 @@ describe("predicatDonneesFormulaire", () => {
     const petitMoyenGrand: UnionPetitMoyenGrand[] = ["petit", "moyen", "grand"];
     const verifieDonneesNeContientPasPetiteEntreprise = (
       trancheA: UnionPetitMoyenGrand[],
-      trancheB: UnionPetitMoyenGrand[]
+      trancheB: UnionPetitMoyenGrand[],
     ) =>
       !contientPetiteEntreprise(
         fabriqueDonneesFormulaire({
           trancheNombreEmployes: trancheA,
           trancheChiffreAffaire: trancheB,
-        })
+        }),
       );
     it("est faux pour toute tranche employes moyen et grand", () => {
       fc.assert(
         fc.property(
           fabriqueArbSingleton(moyenGrand),
           fabriqueArbSingleton(petitMoyenGrand),
-          verifieDonneesNeContientPasPetiteEntreprise
+          verifieDonneesNeContientPasPetiteEntreprise,
         ),
-        { verbose: true }
+        { verbose: true },
       );
     });
     it("est faux pour toute tranche CA moyen et grand", () => {
@@ -81,9 +80,9 @@ describe("predicatDonneesFormulaire", () => {
         fc.property(
           fabriqueArbSingleton(petitMoyenGrand),
           fabriqueArbSingleton(moyenGrand),
-          verifieDonneesNeContientPasPetiteEntreprise
+          verifieDonneesNeContientPasPetiteEntreprise,
         ),
-        { verbose: true }
+        { verbose: true },
       );
     });
   });

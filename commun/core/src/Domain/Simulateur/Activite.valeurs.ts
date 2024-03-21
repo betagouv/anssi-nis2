@@ -48,7 +48,7 @@ export const ValeursActivitesTransportsFerroviaires = [
   "entrepriseFerroviaire",
   "autreActiviteTransportsFerroviaires",
 ] as const;
-export const ValeursActivitesTransportsParEaux = [
+export const ValeursActivitesTransportsParEau = [
   "societeTransportEaux",
   "entiteGestionnairePorts",
   "exploitantsServiceTrafficMaritime",
@@ -62,7 +62,7 @@ export const ValeursActivitesTransportsRoutiers = [
 export const ValeursActivitesTransports = [
   ...ValeursActivitesTransportsAeriens,
   ...ValeursActivitesTransportsFerroviaires,
-  ...ValeursActivitesTransportsParEaux,
+  ...ValeursActivitesTransportsParEau,
   ...ValeursActivitesTransportsRoutiers,
 ] as const;
 export const ValeursActivitesSecteurBancaire = [
@@ -91,16 +91,45 @@ export const ValeursActivitesEauUsees = [
   "autreActiviteEauPotable",
 ] as const;
 
-export const ValeursActivitesInfrastructureNumerique = [
-  "fournisseurReseauxCommunicationElectroniquesPublics",
-  "fournisseurServiceCommunicationElectroniquesPublics",
-  "prestataireServiceConfiance",
+/** Obsolete */
+export const ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation = [
   "fournisseurPointEchangeInternet",
-  "fournisseurServicesDNS",
-  "registresNomsDomainesPremierNiveau",
   "fournisseurServicesInformatiqueNuage",
   "fournisseurServiceCentresDonnees",
   "fournisseurReseauxDiffusionContenu",
+  "prestataireServiceConfiance",
+] as const;
+/** Obsolete */
+export const ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite = [
+  "fournisseurReseauxCommunicationElectroniquesPublics",
+  "fournisseurServiceCommunicationElectroniquesPublics",
+  "prestataireServiceConfiance",
+] as const;
+export const ValeursActivitesInfrastructureNumeriqueFournisseursCommElecPublics =
+  [
+    "fournisseurReseauxCommunicationElectroniquesPublics",
+    "fournisseurServiceCommunicationElectroniquesPublics",
+  ] as const;
+export const ValeursActivitesInfrastructureNumeriqueFournisseursServices = [
+  "fournisseurServicesInformatiqueNuage",
+  "fournisseurServiceCentresDonnees",
+  "fournisseurReseauxDiffusionContenu",
+] as const;
+export const ValeursActivitesInfrastructureNumeriquePointEchangeServicesConfiance =
+  [
+    "prestataireServiceConfianceQualifie",
+    "prestataireServiceConfianceNonQualifie",
+    "fournisseurPointEchangeInternet",
+  ] as const;
+export const ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau =
+  ["registresNomsDomainesPremierNiveau", "fournisseurServicesDNS"] as const;
+
+export const ValeursActivitesInfrastructureNumerique = [
+  ...ValeursActivitesInfrastructureNumeriqueFournisseursCommElecPublics,
+  ...ValeursActivitesInfrastructureNumeriqueFournisseursServices,
+  ...ValeursActivitesInfrastructureNumeriquePointEchangeServicesConfiance,
+  ...ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
+  "fournisseurServicesEnregristrementNomDomaine",
   "autreActiviteInfrastructureNumerique",
 ] as const;
 
@@ -169,13 +198,13 @@ export const ValeursActivitesFabricationMachinesEquipements = [
   "fabriquantAutresMachinesUsageSpecifiqueNCA",
   "autreActiviteFabricationMachinesEquipements",
 ] as const;
-export const ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi = [
+export const ValeursActivitesConstructionVehiculesAutomobiles = [
   "constructionVehiculesAutomobiles",
   "fabriquantCarrosseriesVehiculesAutomobiles",
   "fabriquantEquipementsAutomobiles",
   "autreActiviteConstructionVehiculesAutomobilesRemorquesSemi",
 ] as const;
-export const ValeursActivitesFabricationAutreMaterielsTransports = [
+export const ValeursActivitesFabricationAutresMaterielTransports = [
   "constructionNavale",
   "constructionNaviresStructuresFlottantesCiviles",
   "constructionBateauxPlaisance",
@@ -191,8 +220,8 @@ export const ValeursActivitesFabrication = [
   ...ValeursActivitesFabricationProduitsInformatiquesElectroniquesOptiques,
   ...ValeursActivitesFabricationEquipementsElectroniques,
   ...ValeursActivitesFabricationMachinesEquipements,
-  ...ValeursActivitesConstructionVehiculesAutomobilesRemorquesSemi,
-  ...ValeursActivitesFabricationAutreMaterielsTransports,
+  ...ValeursActivitesConstructionVehiculesAutomobiles,
+  ...ValeursActivitesFabricationAutresMaterielTransports,
 ] as const;
 export const ValeursActivitesFournisseursNumeriques = [
   "fournisseursPlaceMarcheEnLigne",
@@ -200,7 +229,10 @@ export const ValeursActivitesFournisseursNumeriques = [
   "fournisseursPlateformesServicesReseauxSociaux",
   "autreActiviteFournisseursNumeriques",
 ] as const;
-export const ValeursActivitesRecherche = ["organismeRecherche"] as const;
+export const ValeursActivitesRecherche = [
+  "organismeRecherche",
+  "autreActiviteRecherche",
+] as const;
 export const ValeursActivites =
   // Annexe 1
   [

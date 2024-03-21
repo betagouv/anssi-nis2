@@ -1,9 +1,12 @@
 import { useEffect, useReducer } from "react";
 import Markdown from "react-markdown";
 
-import { explicationContenuIncertain } from "../../../References/LibellesResultatsEligibilite.ts";
+import {
+  explicationContenuIncertain,
+  libelleAvertissementRegule,
+} from "../../../References/LibellesResultatsEligibilite.ts";
 import { decaleTitre4Niveaux } from "../../../Services/constantes.ts";
-import { chargeContenuPour } from "../../../Services/fabriques/PrecisionsResultatProps.fabrique.ts";
+import { chargeContenuPourEtat } from "../../../Services/fabriques/PrecisionsResultatProps.fabrique.ts";
 import {
   DefaultComponentExtensible,
   DefaultProps,
@@ -13,40 +16,33 @@ import { precisionsResultatVide } from "../../../Services/Simulateur/Props/Conte
 import { CenteredContainer } from "../../General/CenteredContainer.tsx";
 import { RowContainer } from "../../General/RowContainer.tsx";
 import { IconeResultat } from "./IconeResultat.tsx";
-import { initialState, statusAffichePlus } from "./LigneResultat.constantes.ts";
 import {
   changePropriete,
-  classDivResultat,
-  classPourIconeResultat,
-  estIncertainStandard,
-  recupereTitrePourResultat,
+  estCasGere,
+  getInformationsResultatEvaluation,
 } from "./LigneResultat.aide.ts";
+import { initialState, statusAffichePlus } from "./LigneResultat.constantes.ts";
 
 export const LigneResultat: DefaultComponentExtensible<
   DefaultProps & LigneResultatProps
-> = ({ regulation, precision }: LigneResultatProps) => {
+> = ({ etatRegulation }: LigneResultatProps) => {
   const [contenuPrecisions, propageContenuPrecisions] = useReducer(
     changePropriete,
     { ...initialState, ...precisionsResultatVide },
   );
-
   const basculePlus = () =>
     propageContenuPrecisions({
       type: "estAfficheAnnexe",
       value: !contenuPrecisions.estAfficheAnnexe,
     });
 
-  const estCasNonGere = estIncertainStandard(regulation, precision);
-
   const statusAfficheAnnexe =
     statusAffichePlus[`${contenuPrecisions.estAfficheAnnexe}`];
-
-  const classesDivResultat = [
-    "fr-px-4w fr-pt-3w fr-pb-4w fr-nis2-resultat",
-    classDivResultat(regulation, precision),
-  ].join(" ");
+  const classesIcone = `fr-fi-arrow-${statusAfficheAnnexe.directionIcone}-s-line`;
+  const informationsResultat =
+    getInformationsResultatEvaluation(etatRegulation);
   useEffect(() => {
-    chargeContenuPour(regulation)(precision).then((p) => {
+    chargeContenuPourEtat(etatRegulation).then((p) => {
       propageContenuPrecisions({
         type: "principal",
         value: p.principal,
@@ -56,20 +52,24 @@ export const LigneResultat: DefaultComponentExtensible<
         value: p.annexe,
       });
     });
-  }, [precision, regulation]);
+  }, [etatRegulation]);
   return (
     <RowContainer>
       <CenteredContainer>
-        <div className={classesDivResultat}>
-          <IconeResultat
-            classIcone={classPourIconeResultat(regulation, precision)}
-          />
+        <div
+          className={`fr-px-4w fr-pt-3w fr-pb-4w fr-nis2-resultat ${informationsResultat.classes.cadre}`}
+        >
+          <IconeResultat classIcone={informationsResultat.classes.icone} />
           <Markdown components={{ p: "h4" }}>
-            {recupereTitrePourResultat(regulation, precision)}
+            {informationsResultat.titre}
           </Markdown>
-          {estCasNonGere && <p>{explicationContenuIncertain}</p>}
+          {!estCasGere(etatRegulation) ? (
+            <p>{explicationContenuIncertain}</p>
+          ) : (
+            <Markdown>{libelleAvertissementRegule}</Markdown>
+          )}
         </div>
-        {!estCasNonGere && (
+        {estCasGere(etatRegulation) && (
           <div className="fr-mt-1v fr-px-4w fr-py-3w fr-nis2-resultat-explications">
             <Markdown components={decaleTitre4Niveaux}>
               {contenuPrecisions.principal}
@@ -85,9 +85,7 @@ export const LigneResultat: DefaultComponentExtensible<
                 </Markdown>
                 <button onClick={basculePlus}>
                   {statusAfficheAnnexe.libelleBouton}
-                  <i
-                    className={`fr-fi-arrow-${statusAfficheAnnexe.directionIcone}-s-line`}
-                  />
+                  <i className={classesIcone} />
                 </button>
               </>
             )}

@@ -1,5 +1,5 @@
-import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { userEvent, within } from "@storybook/testing-library";
 import { attendTexteCharge } from "../../../utilitaires/interaction.facilitateurs.ts";
 
 export const verifieAucunBlocDepliable = (canvasElement: HTMLElement) => {
@@ -35,4 +35,16 @@ export const verifieTexteEnAnnexe = async (
   await userEvent.click(moinsInformations);
   await expect(canvas.queryByText(texteEnAnnexe)).not.toBeVisible();
   await canvas.findByText("Plus d'informations");
+};
+export const verifieTexteAvertissementPresent = async (
+  canvasElement: HTMLElement,
+) => {
+  const canvas = within(canvasElement);
+  expect(await canvas.findByText("strictement indicatif"));
+  expect(await canvas.findByText("susceptible d'évoluer"));
+};
+export const verifieTexteAvertissementAbsent = (canvasElement: HTMLElement) => {
+  expect(
+    within(canvasElement).queryByText("susceptible d'évoluer"),
+  ).not.toBeInTheDocument();
 };
