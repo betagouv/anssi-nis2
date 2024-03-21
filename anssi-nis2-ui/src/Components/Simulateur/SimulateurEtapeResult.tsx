@@ -17,7 +17,6 @@ import {
 
 export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
   donneesFormulaire,
-  informationsBoutonsNavigation,
 }: SimulateurEtapeRenderedProps) => {
   const donneesReponse =
     ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
@@ -42,13 +41,13 @@ export const SimulateurEtapeResult: SimulateurEtapeRenderedComponent = ({
       {/*    2,*/}
       {/*  )}*/}
       {/*</pre>*/}
-      {informationsBoutonsNavigation && (
-        <center>
-          <button onClick={informationsBoutonsNavigation.precedent}>
-            Modifier mes réponses
-          </button>
-        </center>
-      )}
+      {/*{informationsBoutonsNavigation && (*/}
+      {/*  <center>*/}
+      {/*    <button onClick={informationsBoutonsNavigation.precedent}>*/}
+      {/*      Modifier mes réponses*/}
+      {/*    </button>*/}
+      {/*  </center>*/}
+      {/*)}*/}
       <LigneResultat etatRegulation={etatRegulation} />
       <LigneResterInformer mode={modeFormulaireEmail} />
       {estRegule(etatRegulation.decision) && <LigneEtMaintenant />}
