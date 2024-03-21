@@ -1,0 +1,43 @@
+@media screen and (min-width: 1280px) {
+  .fr-nis2-simulateur {
+    .fr-nis2-bloc-principal {
+      padding: 56px 102px;
+
+      .contenu-bloc-principal {
+        max-width: 792px;
+      }
+    }
+
+    #hero {
+      padding: 40px 102px;
+      h1 {
+        font-size: 32px;
+      }
+    }
+
+    #prealable {
+      max-width: 792px;
+      margin: 56px auto;
+
+      h2 {
+        font-size: 40px;
+      }
+
+      .conteneur-description {
+        display: flex;
+        gap: 40px;
+        margin-bottom: 64px;
+      }
+
+      .conteneur-actions {
+        flex-direction: row;
+        justify-content: flex-end;
+
+        & > * {
+          width: fit-content !important;
+          height: fit-content;
+        }
+      }
+    }
+  }
+}
