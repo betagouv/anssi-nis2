@@ -18,7 +18,7 @@ import {
   contientValeurLocalisationFournitureServicesNumeriques,
   estEtablissementPrincipalFrance,
   estInformationSecteurSousSecteurAutre,
-  estInformationsPourSecteur,
+  estInformationsSecteurAvecActivitesListeesPourSecteur,
   estInformationsSecteurEligibleSansBesoinLocalisation,
 } from "./ReponseInformationsSecteur.predicats";
 
@@ -74,8 +74,16 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
             "fournisseurServiceCentresDonnees",
             "fournisseurReseauxDiffusionContenu",
           ),
-          certains(estInformationsPourSecteur("gestionServicesTic")),
-          certains(estInformationsPourSecteur("fournisseursNumeriques")),
+          certains(
+            estInformationsSecteurAvecActivitesListeesPourSecteur(
+              "gestionServicesTic",
+            ),
+          ),
+          certains(
+            estInformationsSecteurAvecActivitesListeesPourSecteur(
+              "fournisseursNumeriques",
+            ),
+          ),
         ),
         certains(estEtablissementPrincipalFrance<"Moyen">),
       ),
@@ -145,8 +153,16 @@ export const evalueRegulationEtatReponseInformationsSecteurEnSuspensMoyen = (
           "fournisseurServiceCentresDonnees",
           "fournisseurReseauxDiffusionContenu",
         ),
-        certains(estInformationsPourSecteur("gestionServicesTic")),
-        certains(estInformationsPourSecteur("fournisseursNumeriques")),
+        certains(
+          estInformationsSecteurAvecActivitesListeesPourSecteur(
+            "gestionServicesTic",
+          ),
+        ),
+        certains(
+          estInformationsSecteurAvecActivitesListeesPourSecteur(
+            "fournisseursNumeriques",
+          ),
+        ),
       ),
       () =>
         fabriqueResultatEvaluationDefinitifCarSecteur(

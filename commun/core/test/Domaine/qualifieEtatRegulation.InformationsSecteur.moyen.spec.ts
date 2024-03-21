@@ -230,6 +230,17 @@ describe("Secteur", () => {
         ),
       );
       it(
+        "Gestion TIC / France à l'une des questions / activitè autre ==> definitivement EI",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance(
+            fabriqueArb_EnsInfosSecteurSingleton_gestionServicesTic_PourActivites_PourEtab(
+              "autreActiviteGestionServicesTic",
+            )(arbLocalisationEtablissementPrincipal_France),
+          ),
+          verificationReponseNonRegule,
+        ),
+      );
+      it(
         "Gestion TIC / France à l'une des questions ==> definitivement EE",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance(

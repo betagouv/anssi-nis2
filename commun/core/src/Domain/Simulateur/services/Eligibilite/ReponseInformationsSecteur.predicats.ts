@@ -13,7 +13,10 @@ import { AppartenancePaysUnionEuropeenne } from "../../ChampsSimulateur.definiti
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import { ValeursSecteursActivitesAnnexe1 } from "../../SecteurActivite.valeurs";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
-import { estActiviteListee } from "../Activite/Activite.predicats";
+import {
+  estActiviteAutre,
+  estActiviteListee,
+} from "../Activite/Activite.predicats";
 import {
   estSecteur,
   estSecteurAutre,
@@ -68,12 +71,7 @@ export const estEtablissementPrincipalFrance = <Taille extends CategorieTaille>(
     reponse.paysOperationsCyber === "france") ||
   ("paysPlusGrandNombreSalaries" in reponse &&
     reponse.paysPlusGrandNombreSalaries === "france");
-export const estInformationSecteurImportantAvecBesoinLocalisation = (
-  informationsSecteur: InformationsSecteurPossible<CategorieTaille>,
-) =>
-  estSecteurImportantsAvecBesoinLocalisation(
-    informationsSecteur.secteurActivite as SecteurActivite,
-  );
+
 /**
  *   "infrastructureNumerique",
  * @param sec
@@ -123,6 +121,18 @@ export const estInformationsPourSecteur = (secteur: SecteurActivite) =>
     prop("secteurActivite"),
     estSecteur(secteur),
   ) as PredicatInformationSecteurPossible;
+
+export const estInformationsSecteurAvecActivitesListeesPourSecteur = (
+  secteur: SecteurActivite,
+) =>
+  isMatching({
+    secteurActivite: secteur,
+    activites: P.when(
+      certains<Activite>(non(estActiviteAutre)) as (
+        a: Set<Activite>,
+      ) => a is Set<Activite>,
+    ),
+  });
 export const estSecteurBancaire = flow<
   [{ secteurActivite: SecteurActivite }],
   SecteurActivite,
@@ -150,13 +160,6 @@ export const auMoinsUneActiviteEstParmis = (
   flow<[{ activites: Set<Activite> }], Set<Activite>, boolean>(
     prop("activites"),
     certains(estParmi(...listeActiviteCherchee)),
-  ) as PredicatInformationSecteurPossible;
-export const auMoinsUneActiviteEstDans = (
-  activitesCherchees: readonly (Activite | string)[],
-) =>
-  flow<[{ activites: Set<Activite> }], Set<Activite>, boolean>(
-    prop("activites"),
-    certains((activite) => activitesCherchees.includes(activite)),
   ) as PredicatInformationSecteurPossible;
 
 export const contientActivitesListees = <T extends CategorieTaille>(
