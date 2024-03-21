@@ -71,4 +71,41 @@
       }
     }
   }
+
+  #etape-formulaire {
+    margin-top: 40px;
+
+    #simulateur {
+      margin-top: 0;
+    }
+  }
+
+  #stepper-navigation {
+    display: flex;
+    flex-direction: column;
+
+    .message-validation {
+      color: #929292;
+      font-size: 14px;
+    }
+  }
+
+  .fr-nis2-aidez-nous {
+    background: var(--yellow-tournesol-975-75, #fef6e3);
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    margin: 40px 16px;
+
+    img {
+      margin-bottom: 24px;
+    }
+
+    p {
+      margin: 0;
+      &:first-of-type {
+        margin-bottom: 4px;
+      }
+    }
+  }
 }

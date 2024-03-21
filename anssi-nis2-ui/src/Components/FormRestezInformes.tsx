@@ -49,7 +49,6 @@ export const FormRestezInformes: DefaultComponentExtensible<
   return (
     <form className="fr-mb-0" onSubmit={handleSubmit(envoiDonnees)}>
       <div className="fr-container fr-px-0">
-        <div className="fr-grid-row">
           {mode === "complet" && (
             <div className="fr-col fr-mr-3w">
               <Input
@@ -77,7 +76,6 @@ export const FormRestezInformes: DefaultComponentExtensible<
             )}
           </div>
         </div>
-      </div>
       <div className="fr-fieldset__element">
         <Checkbox
           options={[

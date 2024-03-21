@@ -39,5 +39,29 @@
         }
       }
     }
+
+    #etape-formulaire {
+      max-width: 792px;
+      margin: 56px auto 0;
+
+      #stepper-navigation {
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 24px;
+        align-items: center;
+      }
+    }
+
+    .fr-nis2-aidez-nous {
+      max-width: 792px;
+      margin: 24px auto 56px;
+      flex-direction: row;
+      padding: 24px;
+      gap: 24px;
+
+      img {
+        margin-bottom: 0;
+      }
+    }
   }
 }
