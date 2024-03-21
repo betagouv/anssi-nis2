@@ -1,7 +1,5 @@
 import { match } from "ts-pattern";
-import { VVV } from "../../../utilitaires/debug";
 import { resultatIncertain } from "../../Regulation.constantes";
-import { resultatEstDefinitif } from "./EtatRegulation.constantes";
 import { EtatRegulation } from "./EtatRegulation.definitions";
 import {
   fabriqueResultatEvaluationDefinitif,

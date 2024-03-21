@@ -670,6 +670,25 @@ legend.fr-text--medium {
   }
 }
 
+
+.fr-notice--info {
+  border: 1px solid var(--light-decisions-background-background-action-low-blue-france-hover, #C1C1FB);
+  background: var(--light-decisions-background-background-contrast-blue-france, #ECECFE);
+}
+
+.fr-notice__body::before {
+  color: #00008F
+}
+
+.fr-notice__body {
+  color: var(--light-decisions-text-text-title-grey, #161616);
+  font-size: 1rem;
+}
+
+p.fr-notice__body {
+  padding-right: 0;
+}
+
 .fr-input,
 .fr-checkbox-group input[type="checkbox"] + label::before {
   background-color: #fff;

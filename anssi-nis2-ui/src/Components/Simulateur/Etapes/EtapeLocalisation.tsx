@@ -19,26 +19,39 @@ const EtapeLocalisationCalculee = ({
   const gestionDonneesFormulaire = fabriqueGestionChangementSimple(
     propageActionSimulateur,
   );
-  const options = useMemo(
-    () =>
-      transformePaysUnionEuropeennePourSelect(
-        libellesPaysUnionEuropeenneLocalisation,
-        gestionDonneesFormulaire,
-        donneesFormulaire,
-      ),
-    [donneesFormulaire, gestionDonneesFormulaire],
-  );
+  const options = useMemo(() => {
+    const optionChampSimulateurs = transformePaysUnionEuropeennePourSelect(
+      libellesPaysUnionEuropeenneLocalisation,
+      gestionDonneesFormulaire,
+      donneesFormulaire,
+    );
+    optionChampSimulateurs[1].nativeInputProps.disabled = true;
+    optionChampSimulateurs[2].nativeInputProps.disabled = true;
+    return optionChampSimulateurs;
+  }, [donneesFormulaire, gestionDonneesFormulaire]);
 
   return (
-    <FormSimulateur>
-      <div className="fr-fieldset__element">
-        <RadioButtons
-          legend={texteQuestionMembreUE}
-          hintText={texteQuestionMembreUEIndication}
-          options={options}
-        />
+    <>
+      <FormSimulateur>
+        <div className="fr-fieldset__element">
+          <RadioButtons
+            legend={texteQuestionMembreUE}
+            hintText={texteQuestionMembreUEIndication}
+            options={options}
+          />
+        </div>
+      </FormSimulateur>
+      <div className="fr-col-12 fr-mb-5w fr-notice fr-notice--info">
+        <div className="fr-container">
+          <p className="fr-notice__body">
+            Le test est dans un premier temps focalisé sur les entités établies
+            en France, il sera par la suite disponible pour les entités établies
+            dans les autres États de l&apos;Union Européenne et dans les États
+            hors Union Européenne.
+          </p>
+        </div>
       </div>
-    </FormSimulateur>
+    </>
   );
 };
 

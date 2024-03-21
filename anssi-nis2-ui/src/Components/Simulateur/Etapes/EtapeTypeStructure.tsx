@@ -26,16 +26,15 @@ const EtapeTypeStructureCalculee: SimulateurEtapeNodeComponent = ({
     propageActionSimulateur,
   );
 
-  const optionsTypeStructure = useMemo(
-    () =>
-      transformeTypeStructureVersOptions(
-        libellesTypesStructure,
-        gestionDonneesFormulaire,
-        donneesFormulaire,
-      ),
-    [donneesFormulaire, gestionDonneesFormulaire],
-  );
-
+  const optionsTypeStructure = useMemo(() => {
+    const optionChampSimulateurs = transformeTypeStructureVersOptions(
+      libellesTypesStructure,
+      gestionDonneesFormulaire,
+      donneesFormulaire,
+    );
+    optionChampSimulateurs[1].nativeInputProps.disabled = true;
+    return optionChampSimulateurs;
+  }, [donneesFormulaire, gestionDonneesFormulaire]);
   const estEntitePublique = useMemo(
     () => donneesFormulaire.typeStructure.includes("publique"),
     [donneesFormulaire],
@@ -47,22 +46,33 @@ const EtapeTypeStructureCalculee: SimulateurEtapeNodeComponent = ({
   );
 
   return (
-    <FormSimulateur>
-      <div className="fr-fieldset__element">
-        <RadioButtons
-          legend={texteLegendeTypeStructure}
-          options={optionsTypeStructure}
-        />
-      </div>
-      {estEntitePublique && (
+    <>
+      <FormSimulateur>
         <div className="fr-fieldset__element">
           <RadioButtons
-            legend={texteQuestionTypeEntitePublique}
-            options={optionsTypeEntitePublique}
+            legend={texteLegendeTypeStructure}
+            options={optionsTypeStructure}
           />
         </div>
-      )}
-    </FormSimulateur>
+        {estEntitePublique && (
+          <div className="fr-fieldset__element">
+            <RadioButtons
+              legend={texteQuestionTypeEntitePublique}
+              options={optionsTypeEntitePublique}
+            />
+          </div>
+        )}
+      </FormSimulateur>
+      <div className="fr-col-12 fr-mb-5w fr-notice fr-notice--info">
+        <div className="fr-container">
+          <p className="fr-notice__body">
+            Le test est dans un premier temps focalisé sur les entreprises
+            privées ou publiques. Il sera par la suite disponible pour les
+            administrations publiques.
+          </p>
+        </div>
+      </div>
+    </>
   );
 };
 

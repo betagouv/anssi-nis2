@@ -22,6 +22,7 @@ export type NativeInputProps = {
   value: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   checked: boolean;
+  disabled?: boolean;
 };
 export type MatomoProps = DefaultProps & {
   SiteId: number;
