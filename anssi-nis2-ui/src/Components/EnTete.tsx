@@ -1,5 +1,6 @@
 import Header from "@codegouvfr/react-dsfr/Header";
 import AnssiLogo from "../assets/ANSSI.svg";
+import Badge from "@codegouvfr/react-dsfr/Badge";
 
 const EnTete = () => (
   <Header
@@ -21,7 +22,7 @@ const EnTete = () => (
       orientation: "horizontal",
     }}
     serviceTagline=""
-    serviceTitle={<>MonEspaceNIS2</>}
+    serviceTitle={<>MonEspaceNIS2{' '}<Badge noIcon severity="success">Bêta</Badge></>}
   />
 );
 
