@@ -2,6 +2,7 @@ import { P, match } from "ts-pattern";
 import {
   et,
   non,
+  ou,
   toujoursFaux,
   toujoursVrai,
 } from "../../../../../commun/utils/services/commun.predicats.ts";
@@ -190,7 +191,13 @@ const getNomFichierPrecisionRegule = (
         causes: {
           InformationsSecteur: {
             secteurs: P.when(
-              certains(estInformationsPourSecteur("infrastructureNumerique")),
+              certains(
+                ou(
+                  estInformationsPourSecteur("infrastructureNumerique"),
+                  estInformationsPourSecteur("gestionServicesTic"),
+                  estInformationsPourSecteur("fournisseursNumeriques"),
+                ),
+              ),
             ),
           },
         },
