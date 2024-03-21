@@ -231,6 +231,28 @@ describe("Secteur", () => {
         ),
       );
       it(
+        "Gestion TIC / France à l'une des questions / activitè autre ==> definitivement EI",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance(
+            fabriqueArb_EnsInfosSecteurSingleton_gestionServicesTic_PourActivites_PourEtab(
+              "autreActiviteGestionServicesTic",
+            )(arbLocalisationEtablissementPrincipal_France),
+          ),
+          verificationReponseNonRegule,
+        ),
+      );
+      it(
+        "Fournisseur num / France à l'une des questions / activitè autre ==> definitivement EI",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance(
+            fabriqueArb_EnsInfosSecteurSingleton_fournisseursNumeriques_PourActivites_PourEtab(
+              "autreActiviteFournisseursNumeriques",
+            )(arbLocalisationEtablissementPrincipal_France),
+          ),
+          verificationReponseNonRegule,
+        ),
+      );
+      it(
         "Autre à l'une des questions ==> definitivement Autre État Membre UE",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance(

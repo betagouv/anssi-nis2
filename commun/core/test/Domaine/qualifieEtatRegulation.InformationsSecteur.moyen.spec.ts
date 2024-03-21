@@ -241,6 +241,17 @@ describe("Secteur", () => {
         ),
       );
       it(
+        "Fournisseur num / France à l'une des questions / activitè autre ==> definitivement EI",
+        assertionArbitraire(
+          fabriqueArbJamaisOse_ToujoursFrance(
+            fabriqueArb_EnsInfosSecteurSingleton_fournisseursNumeriques_PourActivites_PourEtab(
+              "autreActiviteFournisseursNumeriques",
+            )(arbLocalisationEtablissementPrincipal_France),
+          ),
+          verificationReponseNonRegule,
+        ),
+      );
+      it(
         "Gestion TIC / France à l'une des questions ==> definitivement EE",
         assertionArbitraire(
           fabriqueArbJamaisOse_ToujoursFrance(
