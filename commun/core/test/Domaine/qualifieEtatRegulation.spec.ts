@@ -11,6 +11,7 @@ import {
   TypeEntite,
 } from "../../src/Domain/Simulateur/Regulation.definitions";
 import {
+  fabriqueResultatEvaluationEnSuspensAppUE,
   fabriqueResultatEvaluationEnSuspensStructure,
   fabriqueResultatEvaluationInconnuOse,
 } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.fabriques";
@@ -23,7 +24,10 @@ import {
 import { assertionArbitraire } from "../utilitaires/ResultatEvaluationRegulation.assertions";
 import { arbReponseStructure_ToujoursPrivee_ToujoursPE } from "./arbitraires/ReponseStructure.arbitraires";
 import { arbReponseDesignationOperateurServicesEssentiels_ToujoursOui } from "./arbitraires/ReponseDesignationOperateurServicesEssentiels.arbitraires";
-import { arbTuple_JamaisOse_ToujoursAutreUE } from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
+import {
+  arbTuple_JamaisOse_ToujoursAutreUE,
+  arbTuple_JamaisOse_ToujoursHorsUE,
+} from "./arbitraires/ResultatEvaluationRegulation.arbitraire";
 
 type DonneesTest = {
   description: string;
@@ -69,6 +73,29 @@ describe("chaine de décision", () => {
       },
     ),
   );
+  it(
+    "AppUE == Hors UE ==> toujours Définitif / Non-Régulé",
+    assertionArbitraire(
+      fc
+        .tuple(...arbTuple_JamaisOse_ToujoursHorsUE)
+        .map(
+          fabriqueResultatEvaluationEnSuspensAppUE,
+        ) as fc.Arbitrary<EtatRegulation>,
+      (reponse) => {
+        const resultatAttendu: EtatRegulationDefinitif = {
+          _resultatEvaluationRegulation: "Definitif",
+          etapeEvaluee: "InformationsSecteur",
+          ...fabriqueIncertain({
+            _tag: "ConstructionTestEnCours",
+            typeConstructionEnCours: "HorsUnionEuropeenne",
+          }),
+        };
+        const resultatObtenu = evalueEtatRegulation(reponse);
+        expect(resultatObtenu).toStrictEqual(resultatAttendu);
+      },
+    ),
+  );
+
   const contreExemples: (DonneesFormulaireSimulateur & DonneesTest)[] = [
     {
       description:

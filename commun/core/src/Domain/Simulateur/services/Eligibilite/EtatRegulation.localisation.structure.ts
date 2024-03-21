@@ -1,4 +1,5 @@
 import { match } from "ts-pattern";
+import { VVV } from "../../../utilitaires/debug";
 import { resultatIncertain } from "../../Regulation.constantes";
 import { resultatEstDefinitif } from "./EtatRegulation.constantes";
 import { EtatRegulation } from "./EtatRegulation.definitions";
@@ -12,7 +13,10 @@ export const evalueRegulationEtatReponseStructure = (
   reponse: EtatRegulation,
 ): EtatRegulation =>
   match(reponse)
-    .with(resultatEstDefinitif, propageDonneesEvaluees("Structure"))
+    .when(
+      (r) => r._resultatEvaluationRegulation === "Definitif",
+      propageDonneesEvaluees("Structure"),
+    )
     .with(
       {
         _resultatEvaluationRegulation: "EnSuspens",
