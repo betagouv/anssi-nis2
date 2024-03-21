@@ -1,8 +1,6 @@
 export const libellesAccueil = {
   concerne: {
-    titre: "Mon organisation est-elle concernée ?",
-    resume:
-      "Réalisez un test pour déterminer si votre organisation est " +
-      "assujettie à la directive NIS 2",
+    titre: "Mon entité est-elle concernée ?",
+    resume: "Déterminez si votre entité est assujettie à la directive NIS 2"
   },
 };

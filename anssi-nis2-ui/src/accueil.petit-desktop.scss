@@ -65,6 +65,7 @@
                 gap: 66px;
                 padding: 0;
                 border-left: none;
+                padding-left: 60px;
 
                 #piste-etape {
                     display: flex;
@@ -124,7 +125,7 @@
 
                     &:last-of-type {
                         height: 348px;
-                        margin-top: -260px;
+                        margin-top: -290px;
 
                         .jalon {
                             .contenu {

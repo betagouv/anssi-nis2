@@ -43,7 +43,7 @@ const Directive: DefaultComponent = () => {
                   <Sommaire />
                   <div className="contenu-page">
                       <BlocPrincipal className="fond-blanc aucune-marge-basse">
-                          <h2 className="texte-primaire">La directive NIS&nbsp;2 en détail</h2>
+                          <h2 className="texte-primaire">La directive NIS&nbsp;2 en synthèse</h2>
                           <div id="mot-du-directeur">
                               <h3>Le mot du directeur général</h3>
                               <p>La directive NIS&nbsp;2 permet d’élever le niveau global de cybersécurité par l’application de
