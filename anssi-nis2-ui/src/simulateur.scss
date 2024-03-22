@@ -90,7 +90,7 @@
     }
   }
 
-  .fr-nis2-aidez-nous {
+  .fr-nis2-aidez-nous, .fr-nis2-en-cours-developpement  {
     background: var(--yellow-tournesol-975-75, #fef6e3);
     padding: 24px 16px;
     display: flex;
@@ -107,5 +107,11 @@
         margin-bottom: 4px;
       }
     }
+  }
+
+  .fr-nis2-formulaire-restez-informes {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
   }
 }

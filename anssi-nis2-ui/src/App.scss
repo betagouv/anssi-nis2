@@ -584,29 +584,6 @@ legend.fr-text--medium {
   display: none;
 }
 
-.fr-nis2-en-cours-developpement {
-  background: #fef4f2 url(assets/in-progress.svg) no-repeat;
-}
-
-.fr-nis2-en-cours-developpement,
-.fr-nis2-aidez-nous {
-  background-position-y: center;
-  background-position-x: 1rem;
-  /*display: flex;*/
-  padding: 24px;
-  align-items: flex-start;
-  align-self: stretch;
-
-  & p,
-  & h6 {
-    margin: 0 0 0 6.5rem;
-  }
-
-  & h6 {
-    padding-bottom: 0.25rem;
-  }
-}
-
 .fr-nis2-tuile-lien {
   gap: 1.125rem;
 
