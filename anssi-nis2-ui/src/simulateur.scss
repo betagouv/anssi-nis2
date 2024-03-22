@@ -1,0 +1,117 @@
+.fr-nis2-simulateur {
+
+  .conteneur-image {
+    display: flex;
+    justify-content: center;
+  }
+
+  p {
+    color: #161616;
+  }
+
+  #hero {
+    padding-top: 24px;
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 20px;
+      line-height: 32px;
+      margin-bottom: 0 ;
+    }
+  }
+
+  #prealable {
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+    h2 {
+      font-size: 32px;
+      margin-bottom: 32px;
+    }
+
+    img {
+      margin-bottom: 40px;
+    }
+
+    .conteneur-information {
+      padding: 16px;
+      background: #ECECFE;
+      border: 1px solid #C1C1FB;
+
+      p {
+        margin-left: 32px;
+        margin-bottom: 0;
+
+        &:before {
+          content: '';
+          width: 24px;
+          height: 24px;
+          background: url(assets/icone-info.svg);
+          display: inline-block;
+          margin-left: -32px;
+          margin-right: 8px;
+          transform: translateY(6px);
+        }
+      }
+    }
+
+    .conteneur-actions {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      button {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+
+  #etape-formulaire {
+    margin-top: 40px;
+
+    #simulateur {
+      margin-top: 0;
+    }
+  }
+
+  #stepper-navigation {
+    display: flex;
+    flex-direction: column;
+
+    .message-validation {
+      color: #929292;
+      font-size: 14px;
+    }
+  }
+
+  .fr-nis2-aidez-nous, .fr-nis2-en-cours-developpement  {
+    background: var(--yellow-tournesol-975-75, #fef6e3);
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    margin: 40px 16px;
+
+    img {
+      margin-bottom: 24px;
+    }
+
+    p {
+      margin: 0;
+      &:first-of-type {
+        margin-bottom: 4px;
+      }
+    }
+  }
+
+  .fr-nis2-formulaire-restez-informes {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+}

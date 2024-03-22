@@ -47,11 +47,9 @@ export const FormRestezInformes: DefaultComponentExtensible<
     register(nomChamp, validationParChamp[nomChamp]);
 
   return (
-    <form className="fr-mb-0" onSubmit={handleSubmit(envoiDonnees)}>
+    <form className="fr-nis2-formulaire-restez-informes" onSubmit={handleSubmit(envoiDonnees)}>
       <div className="fr-container fr-px-0">
-        <div className="fr-grid-row">
           {mode === "complet" && (
-            <div className="fr-col fr-mr-3w">
               <Input
                 label={libellesContact.nomOrganisation}
                 state="default"
@@ -59,9 +57,8 @@ export const FormRestezInformes: DefaultComponentExtensible<
                   "nomOrganisation",
                 )}
               />
-            </div>
           )}
-          <div className="fr-mb-10v fr-col">
+          <div>
             <Input
               label={libellesContact.adresseElectronique}
               state="default"
@@ -77,7 +74,6 @@ export const FormRestezInformes: DefaultComponentExtensible<
             )}
           </div>
         </div>
-      </div>
       <div className="fr-fieldset__element">
         <Checkbox
           options={[

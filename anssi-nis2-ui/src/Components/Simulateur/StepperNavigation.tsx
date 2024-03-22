@@ -15,15 +15,11 @@ export const StepperNavigation = ({
   onClickNext: (e: React.MouseEvent) => void;
   donneesFormulaire: DonneesFormulaireSimulateur;
 }) => (
-  <div className="fr-grid-row fr-mr-auto" style={{ width: "100%" }}>
-    <div
-      className="fr-col fr-right fr-my-1w fr-text--sm fr-text-mention--grey"
-      style={{ textAlign: "right" }}
-    >
+  <div id="stepper-navigation">
+    <p className="message-validation">
       {validationReponses.message}
-    </div>
-    <div className="fr-col-5">
-      <div className="fr-fieldset__element">
+    </p>
+    <div className="conteneur-actions">
         <ButtonsGroup
           alignment="right"
           buttons={[
@@ -42,7 +38,6 @@ export const StepperNavigation = ({
           ]}
           inlineLayoutWhen="sm and up"
         />
-      </div>
     </div>
   </div>
 );
