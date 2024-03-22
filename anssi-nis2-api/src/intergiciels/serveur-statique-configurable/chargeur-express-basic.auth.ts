@@ -6,21 +6,19 @@ import { ServeurStatiqueConfigurableModuleToken } from "./serveur-statique-confi
 import { ConfigService } from "@nestjs/config";
 
 
-export const BasicAuthDesactivee = {_tag:"AuthentificationBasiqueDesactivee", listeBlancheIp: ".*"} as const;
+export const BasicAuthDesactivee = {_tag:"AuthentificationBasiqueDesactivee"} as const;
 
 export type ConfigurationBasicAuth =
   | {
       readonly _tag: "AuthentificationBasiqueActivee";
       readonly utilisateur: string;
       readonly motDePasse: string;
-      readonly listeBlancheIp: string;
     }
   | typeof BasicAuthDesactivee;
 
 type ClesConfigurationBasicAuth = {
   UTILISATEUR_BASIC_AUTH?: string;
   MOT_DE_PASSE_BASIC_AUTH?: string;
-  LISTE_BLANCHE_IP?: string;
 };
 
 export const fabriqueFournisseurServeurStatique = (
@@ -28,17 +26,14 @@ export const fabriqueFournisseurServeurStatique = (
 ) => {
   const utilisateurbasicauth = configService.get("UTILISATEUR_BASIC_AUTH");
   const motdepassebasicauth = configService.get("MOT_DE_PASSE_BASIC_AUTH");
-  const listeBlancheIp = configService.get("LISTE_BLANCHE_IP", "^.*");
 
   if (!utilisateurbasicauth || !motdepassebasicauth) {
-    return new ChargeurExpressBasicAuth({...BasicAuthDesactivee,listeBlancheIp:listeBlancheIp
-  });
+    return new ChargeurExpressBasicAuth({...BasicAuthDesactivee });
   }
   return new ChargeurExpressBasicAuth({
     _tag: "AuthentificationBasiqueActivee" as const,
     utilisateur: utilisateurbasicauth,
     motDePasse: motdepassebasicauth,
-    listeBlancheIp:listeBlancheIp
   });
 };
 
@@ -62,24 +57,9 @@ export class ChargeurExpressBasicAuth extends ExpressLoader {
   ) {
     const app = httpAdapter.getInstance();
 
-    this.configureFiltrageIp(app);
     this.configureAuthentificationBasique(app);
 
     super.register(httpAdapter, optionsArr);
-  }
-
-  private configureFiltrageIp(app: ExpressApp) {
-    const filtrageIP = (requete, reponse, suite) => {
-      const listeBlanche = this.configuration.listeBlancheIp.split(";");
-      const ip = requete.headers['x-real-ip'];
-
-      if (!listeBlanche.some(whitelist => (RegExp(whitelist).test(ip)))) {
-        reponse.sendStatus(403);
-        return;
-      }
-      suite();
-    }
-    app.use("/", filtrageIP);
   }
 
   private configureAuthentificationBasique(app: ExpressApp) {
