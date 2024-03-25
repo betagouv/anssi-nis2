@@ -1,4 +1,3 @@
-import { partitionneLocalisationServices } from "../../../utilitaires/manipulationArbitraires";
 import { arbActivitesAutres } from "./arbitrairesSimulateur.activites";
 import { arbFournisseursInfrastructureNumerique } from "./arbitrairesSimulateur.infrastructuresNumeriques";
 import {
@@ -28,9 +27,8 @@ export const arbForm = {
         secteursListes: {
           sansBesoinLocalisation:
             arbNonOSEPrivesMoyenneGrandeSansBesoinLocalisation,
-          avecBesoinLocalisation: partitionneLocalisationServices(
+          avecBesoinLocalisation:
             arbNonOSEPrivesMoyenneGrandeAvecBesoinLocalisation,
-          ),
         },
 
         secteursAutres: arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles,
@@ -46,7 +44,7 @@ export const arbForm = {
         },
       },
     },
-    publique: partitionneLocalisationServices(arbNonOSEPublique),
+    publique: arbNonOSEPublique,
     horsUE: arbHorsUe,
     autrePaysUe: arbAutrePaysUe,
   },

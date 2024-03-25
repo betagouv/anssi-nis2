@@ -126,27 +126,6 @@ describe("validation des arbitraires", () => {
           (pour: ArbitraireDonneesFormulaireSimulateur) =>
           () =>
             fc.assert(fc.property(pour, predicat));
-        it(
-          "avecLocalisationRepresentantFrance",
-          verifiePour(verificationPriveGrandFranceAvecLocalisation)(
-            arbForm.nonDesigneOSE.privee.grand.secteursListes
-              .avecBesoinLocalisation.avecLocalisationRepresentantFrance,
-          ),
-        );
-        it(
-          "avecLocalisationRepresentantHorsFrance",
-          verifiePour(verificationPriveGrandFranceAvecLocalisation)(
-            arbForm.nonDesigneOSE.privee.grand.secteursListes
-              .avecBesoinLocalisation.avecLocalisationRepresentantHorsFrance,
-          ),
-        );
-        it(
-          "avecLocalisationRepresentantHorsFrance",
-          verifiePour(verificationPriveGrandFranceAvecLocalisation)(
-            arbForm.nonDesigneOSE.privee.grand.secteursListes
-              .avecBesoinLocalisation.avecLocalisationRepresentantFrance,
-          ),
-        );
       });
 
       describe("arbForm.nonDesigneOSE.privee.activitesAutres", () => {

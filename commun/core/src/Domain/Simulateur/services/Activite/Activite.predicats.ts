@@ -34,11 +34,6 @@ export const auMoinsUneActiviteCommuneAvec =
       listeTesteeActivites.includes(activite),
     );
 
-export const auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement =
-  auMoinsUneActiviteCommuneAvec([
-    "registresNomsDomainesPremierNiveau",
-    "fournisseurServicesDNS",
-  ]);
 export const auMoinsUneActiviteInfraNumConcernee =
   auMoinsUneActiviteCommuneAvec([
     "fournisseurReseauxCommunicationElectroniquesPublics",
@@ -47,21 +42,6 @@ export const auMoinsUneActiviteInfraNumConcernee =
     "prestataireServiceConfianceNonQualifie",
   ]);
 
-export const estActiviteInfraNumConcerneeFranceUniquement = (
-  activite: Activite,
-) =>
-  ["registresNomsDomainesPremierNiveau", "fournisseurServicesDNS"].includes(
-    activite,
-  );
-export const exerceActiviteDansListe =
-  (liste: Activite[]) =>
-  <
-    T extends DonneesSectorielles &
-      Pick<DonneesFormulaireSimulateur, "activites">,
-  >(
-    d: T,
-  ) =>
-    d.activites.some((a) => liste.includes(a));
 export const exerceUniquementActivitesDansListe =
   (liste: Activite[]) =>
   <

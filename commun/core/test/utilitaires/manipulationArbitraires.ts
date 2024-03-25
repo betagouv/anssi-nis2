@@ -1,15 +1,10 @@
 import { fc } from "@fast-check/vitest";
 import { Activite } from "../../src/Domain/Simulateur/Activite.definitions";
 import {
-  AppartenancePaysUnionEuropeenne,
-  FournitServicesUnionEuropeenne,
   UnionPetitMoyenGrand,
   ValeurChampSimulateur,
 } from "../../src/Domain/Simulateur/ChampsSimulateur.definitions";
-import {
-  ValeursappartenancePaysUnionEuropeenne,
-  ValeursPetitMoyenGrand,
-} from "../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
+import { ValeursPetitMoyenGrand } from "../../src/Domain/Simulateur/ChampsSimulateur.valeurs";
 import {
   DonneesFormulaireSimulateur,
   DonneesSectorielles,
@@ -19,17 +14,11 @@ import {
   estActiviteAutre,
   estActiviteListee,
 } from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
-import { non } from "../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
-import {
-  contientSecteurNecessitantLocalisation,
-  contientUniquementSecteurNecessitantLocalisation,
-} from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
 import { filtreSecteursSansSousSecteurs } from "../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.operations";
 
 import {
   ArbitraireDonneesFormulaireSimulateur,
   ArbitraireDonneesFormulaireSimulateurNomme,
-  ArbitraireEnrichi,
   AvecParams,
   DonneesAjout,
   DonneesExtensiblesAvecActivite,
@@ -218,73 +207,3 @@ export const nommeArbitraire =
     arbitraire: ArbitraireDonneesFormulaireSimulateur,
   ): ArbitraireDonneesFormulaireSimulateurNomme =>
     Object.assign(arbitraire, { nom });
-
-export const partitionneLocalisationServices = (
-  arbitraire:
-    | ArbitraireDonneesFormulaireSimulateur
-    | ArbitraireDonneesFormulaireSimulateurNomme,
-): ArbitraireEnrichi =>
-  Object.assign(
-    arbitraire,
-    {
-      sansBesoinLocalisation: nommeArbitraire("sansBesoinLocalisation")(
-        arbitraire.filter(non(contientSecteurNecessitantLocalisation)),
-      ),
-      neFournitPasServiceUe: nommeArbitraire("avecFournitServiceUE")(
-        etend(arbitraire.filter(contientSecteurNecessitantLocalisation)).avec({
-          fournitServicesUnionEuropeenne: fc.constant<
-            FournitServicesUnionEuropeenne[]
-          >(["non"]),
-        }),
-      ),
-      avecLocalisationRepresentant: nommeArbitraire(
-        "avecLocalisationRepresentant",
-      )(
-        etend(arbitraire.filter(contientSecteurNecessitantLocalisation)).avec({
-          fournitServicesUnionEuropeenne: fc.constant(["oui"]),
-          localisationRepresentant: fabriqueArbSingleton(
-            ValeursappartenancePaysUnionEuropeenne,
-          ),
-        }),
-      ),
-      avecLocalisationRepresentantHorsFrance: nommeArbitraire(
-        "avecLocalisationRepresentantHorsFrance",
-      )(
-        etend(arbitraire.filter(contientSecteurNecessitantLocalisation)).avec({
-          fournitServicesUnionEuropeenne: fc.constant(["oui"]),
-          localisationRepresentant:
-            fabriqueArbSingleton<AppartenancePaysUnionEuropeenne>([
-              "autre",
-              "horsue",
-            ]),
-        }),
-      ),
-      avecLocalisationRepresentantFrance: nommeArbitraire(
-        "avecLocalisationRepresentant",
-      )(
-        etend(
-          arbitraire.filter(contientUniquementSecteurNecessitantLocalisation),
-        ).avec({
-          fournitServicesUnionEuropeenne: fc.constant(["oui"]),
-          localisationRepresentant: fc.constant<
-            AppartenancePaysUnionEuropeenne[]
-          >(["france"]),
-        }),
-      ),
-    },
-    {
-      nom:
-        (arbitraire as ArbitraireDonneesFormulaireSimulateurNomme).nom ??
-        "multiple",
-    },
-  );
-export const arrayOfOne = <T>(
-  originalArray: T[],
-  constraints?: fc.SubarrayConstraints,
-): fc.Arbitrary<T[]> =>
-  fc.subarray(
-    originalArray,
-    constraints !== undefined
-      ? { ...constraints, minLength: 1, maxLength: 1 }
-      : { minLength: 1, maxLength: 1 },
-  );

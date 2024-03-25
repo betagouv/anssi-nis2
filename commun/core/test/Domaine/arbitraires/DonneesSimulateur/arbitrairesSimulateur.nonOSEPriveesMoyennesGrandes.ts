@@ -12,7 +12,6 @@ import {
   ajouteAuMoinsUneActiviteListee,
   ajouteChampsFacultatifs,
   etend,
-  partitionneLocalisationServices,
 } from "../../../utilitaires/manipulationArbitraires";
 import {
   fabriqueArbContraintSurtrancheChiffreAffaire,
@@ -33,22 +32,20 @@ import {
 } from "./arbitrairesSimulateur.valeursSectorielles";
 
 export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance =
-  partitionneLocalisationServices(
-    etend(arbNonOSEPrivesPetitFournisseurInfraNum)
-      .avec({
-        trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
-        fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.oui,
-        localisationRepresentant: arbLocalisationRepresentant.france,
-      })
-      .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
-      .filter(
-        exerceUniquementActivitesDansListe([
-          "registresNomsDomainesPremierNiveau",
-          "fournisseurServicesDNS",
-        ]),
-      )
-      .chain(ajouteChampsFacultatifs),
-  );
+  etend(arbNonOSEPrivesPetitFournisseurInfraNum)
+    .avec({
+      trancheChiffreAffaire: fabriqueArbTrancheSingleton(),
+      fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.oui,
+      localisationRepresentant: arbLocalisationRepresentant.france,
+    })
+    .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
+    .filter(
+      exerceUniquementActivitesDansListe([
+        "registresNomsDomainesPremierNiveau",
+        "fournisseurServicesDNS",
+      ]),
+    )
+    .chain(ajouteChampsFacultatifs);
 
 const arbNonOSEPrivesMoyenneGrande = etend(arbSecteursEtSousSecteursListes)
   .avec({
