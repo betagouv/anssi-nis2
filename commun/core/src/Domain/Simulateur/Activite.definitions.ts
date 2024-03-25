@@ -18,9 +18,7 @@ import {
   ValeursActivitesHydrogene,
   ValeursActivitesInfrastructureMarcheFinancier,
   ValeursActivitesInfrastructureNumerique,
-  ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite,
   ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
-  ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation,
   ValeursActivitesPetrole,
   ValeursActivitesProductionTransformationDistributionDenreesAlimentaires,
   ValeursActivitesRecherche,
@@ -143,14 +141,6 @@ export type DescriptionActivite = {
   titre: string;
   description: string;
 };
-
-/** Obsolete */
-export type ActivitesInfrastructureNumeriqueEligiblesPetitEntite =
-  (typeof ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite)[number];
-
-/** Obsolete */
-export type ActiviteInfrastructureNumeriqueSansBesoinLocalisation =
-  (typeof ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation)[number];
 
 export type ActiviteInfranumLocalServices =
   (typeof ValeursActivitesInfrastructureNumeriqueFournisseursCommElecPublics)[number];

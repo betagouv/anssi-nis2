@@ -1,13 +1,10 @@
-import { DonneesSectorielles } from "../../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
-import {
-  ValeursActivitesConcernesInfrastructureNumerique,
-  ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
-} from "../../../../src/Domain/Simulateur/Eligibilite.constantes";
+import { Activite } from "../../../../src/Domain/Simulateur/Activite.definitions";
 import {
   exerceActiviteDansListe,
   exerceAucuneActivitesDansListe,
   exerceUniquementActivitesDansListe,
 } from "../../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { DonneesSectorielles } from "../../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   ajouteAuMoinsUneActiviteListee,
   ajouteChampsFacultatifs,
@@ -55,9 +52,13 @@ export const arbNonOSEPrivesPetitFournisseurInfraNum =
     .chain(ajouteChampsFacultatifs);
 
 const valeursActivitesInfrastructureNumerique = [
-  ...ValeursActivitesConcernesInfrastructureNumerique,
-  ...ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
-];
+  "fournisseurReseauxCommunicationElectroniquesPublics",
+  "fournisseurServiceCommunicationElectroniquesPublics",
+  "prestataireServiceConfianceQualifie",
+  "prestataireServiceConfianceNonQualifie",
+  "registresNomsDomainesPremierNiveau",
+  "fournisseurServicesDNS",
+] as Activite[];
 const arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes =
   arbNonOSEPrivesPetitFournisseurInfraNum.filter(
     exerceAucuneActivitesDansListe(valeursActivitesInfrastructureNumerique),
@@ -79,9 +80,10 @@ const arbNonOSEPrivesPetitHorsFournisseurInfraNum = etend<DonneesSectorielles>(
 
 const extendInfranumDNSOuNomDomaine = etend(
   arbNonOSEPrivesPetitFournisseurInfraNum.filter(
-    exerceUniquementActivitesDansListe(
-      ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
-    ),
+    exerceUniquementActivitesDansListe([
+      "registresNomsDomainesPremierNiveau",
+      "fournisseurServicesDNS",
+    ]),
   ),
 );
 const infraNumDNSOuNomDomaine = {
@@ -105,19 +107,24 @@ const infraNumDNSOuNomDomaine = {
 export const arbFournisseursInfrastructureNumerique = {
   fournisseursInfraNum: {
     petitInfraNum: {
-      /** Petite entité privéé exerçant une Activité dans la liste {@link ValeursActivitesConcernesInfrastructureNumerique} */
       activitesConcernes: Object.assign(
         arbNonOSEPrivesPetitFournisseurInfraNum.filter(
-          exerceActiviteDansListe(
-            ValeursActivitesConcernesInfrastructureNumerique,
-          ),
+          exerceActiviteDansListe([
+            "fournisseurReseauxCommunicationElectroniquesPublics",
+            "fournisseurServiceCommunicationElectroniquesPublics",
+            "prestataireServiceConfianceQualifie",
+            "prestataireServiceConfianceNonQualifie",
+          ]),
         ),
         {
           uniquement: partitionneLocalisationServices(
             arbNonOSEPrivesPetitFournisseurInfraNum.filter(
-              exerceUniquementActivitesDansListe(
-                ValeursActivitesConcernesInfrastructureNumerique,
-              ),
+              exerceUniquementActivitesDansListe([
+                "fournisseurReseauxCommunicationElectroniquesPublics",
+                "fournisseurServiceCommunicationElectroniquesPublics",
+                "prestataireServiceConfianceQualifie",
+                "prestataireServiceConfianceNonQualifie",
+              ]),
             ),
           ),
         },

@@ -91,20 +91,6 @@ export const ValeursActivitesEauUsees = [
   "autreActiviteEauPotable",
 ] as const;
 
-/** Obsolete */
-export const ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation = [
-  "fournisseurPointEchangeInternet",
-  "fournisseurServicesInformatiqueNuage",
-  "fournisseurServiceCentresDonnees",
-  "fournisseurReseauxDiffusionContenu",
-  "prestataireServiceConfiance",
-] as const;
-/** Obsolete */
-export const ValeursActivitesInfrastructureNumeriqueEligiblesPetitEntite = [
-  "fournisseurReseauxCommunicationElectroniquesPublics",
-  "fournisseurServiceCommunicationElectroniquesPublics",
-  "prestataireServiceConfiance",
-] as const;
 export const ValeursActivitesInfrastructureNumeriqueFournisseursCommElecPublics =
   [
     "fournisseurReseauxCommunicationElectroniquesPublics",

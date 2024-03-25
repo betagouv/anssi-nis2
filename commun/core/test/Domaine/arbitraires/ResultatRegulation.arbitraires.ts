@@ -1,5 +1,4 @@
 import { fc } from "@fast-check/vitest";
-import { ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement } from "../../../src/Domain/Simulateur/Eligibilite.constantes";
 import {
   fabriqueRegule,
   resultatReguleOSE,
@@ -19,9 +18,10 @@ export const generateurResultatRegulationConstants = fc.constantFrom(
 export const generateurResultatRegulationInfranum = fc
   .record<CausesRegulation>({
     secteurActivite: fc.constant(["infrastructureNumerique"]),
-    activites: arrayOfOne(
-      ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
-    ),
+    activites: arrayOfOne([
+      "registresNomsDomainesPremierNiveau",
+      "fournisseurServicesDNS",
+    ]),
     fournitServicesUnionEuropeenne: fc.constant(["oui"]),
     localisationRepresentant: fc.constant(["france"]),
   })

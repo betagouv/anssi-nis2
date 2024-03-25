@@ -1,5 +1,4 @@
 import { DonneesFormulaireSimulateur } from "../DonneesFormulaire/DonneesFormulaire.definitions";
-import { ResultatEligibilite } from "../../Eligibilite.definitions";
 import { fabriqueRegule } from "../../fabriques/ResultatRegulation.fabrique";
 import {
   causeReguleOSE,
@@ -32,20 +31,6 @@ import { P, match } from "ts-pattern";
 const toujoursIncertain = () => resultatIncertain;
 const toujoursNonRegule = () => resultatNonRegule;
 const toujoursReguleOSE = () => fabriqueRegule(causeReguleOSE);
-
-const calculateurRegulationParStatutEligibilite: Record<
-  ResultatEligibilite,
-  (d: DonneesFormulaireSimulateur) => ResultatRegulationEntite
-> = {
-  EligibleMoyenneGrandeEntreprise: toujoursReguleOSE,
-  EligiblePetiteEntreprise: toujoursReguleOSE,
-  Incertain: toujoursIncertain,
-  NonEligible: toujoursNonRegule,
-};
-
-export const transformeEligibiliteEnRegulationEntite = (
-  e: ResultatEligibilite,
-) => calculateurRegulationParStatutEligibilite[e];
 
 const regulationInfrastructureNumerique = (
   donnees: DonneesFormulaireSimulateur,

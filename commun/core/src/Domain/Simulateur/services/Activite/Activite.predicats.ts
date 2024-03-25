@@ -1,24 +1,15 @@
-import { et } from "../../../../../../utils/services/commun.predicats";
 import {
   Activite,
   ActiviteInfranumLocalEtabLot1,
-  ActiviteInfrastructureNumeriqueSansBesoinLocalisation,
   ActivitesPourSecteur,
 } from "../../Activite.definitions";
-import {
-  ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
-  ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation,
-} from "../../Activite.valeurs";
+import { ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau } from "../../Activite.valeurs";
+import { SecteurSimple } from "../../SecteurActivite.definitions";
+import { SousSecteurListes } from "../../SousSecteurActivite.definitions";
 import {
   DonneesFormulaireSimulateur,
   DonneesSectorielles,
 } from "../DonneesFormulaire/DonneesFormulaire.definitions";
-import {
-  ValeursActivitesConcernesInfrastructureNumerique,
-  ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
-} from "../../Eligibilite.constantes";
-import { SecteurSimple } from "../../SecteurActivite.definitions";
-import { SousSecteurListes } from "../../SousSecteurActivite.definitions";
 import { activitesParSecteurEtSousSecteur } from "./Activite.operations";
 
 const prefixeAutreActivite = "autreActivite";
@@ -42,30 +33,24 @@ export const auMoinsUneActiviteCommuneAvec =
     activitesCherchees.some((activite) =>
       listeTesteeActivites.includes(activite),
     );
-export const aucuneActiviteCommuneAvec =
-  (activitesCherchees: Activite[]) => (listeTesteeActivites: Activite[]) =>
-    activitesCherchees.every(
-      (activite) => !listeTesteeActivites.includes(activite),
-    );
 
-export const aucuneActiviteListee = (activites: Activite[]) =>
-  activites.every(estActiviteAutre);
 export const auMoinsUneActiviteInfraNumConcerneeEnFranceUniquement =
-  auMoinsUneActiviteCommuneAvec(
-    ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
-  );
+  auMoinsUneActiviteCommuneAvec([
+    "registresNomsDomainesPremierNiveau",
+    "fournisseurServicesDNS",
+  ]);
 export const auMoinsUneActiviteInfraNumConcernee =
-  auMoinsUneActiviteCommuneAvec(
-    ValeursActivitesConcernesInfrastructureNumerique,
-  );
-export const aucuneActiviteInfraNumConcernee = aucuneActiviteCommuneAvec(
-  ValeursActivitesConcernesInfrastructureNumerique,
-);
+  auMoinsUneActiviteCommuneAvec([
+    "fournisseurReseauxCommunicationElectroniquesPublics",
+    "fournisseurServiceCommunicationElectroniquesPublics",
+    "prestataireServiceConfianceQualifie",
+    "prestataireServiceConfianceNonQualifie",
+  ]);
 
 export const estActiviteInfraNumConcerneeFranceUniquement = (
   activite: Activite,
 ) =>
-  ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement.includes(
+  ["registresNomsDomainesPremierNiveau", "fournisseurServicesDNS"].includes(
     activite,
   );
 export const exerceActiviteDansListe =
@@ -101,15 +86,3 @@ export const estActiviteInfrastructureNumeriqueAvecBesoinLocalisation = (
   ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau.includes(
     a as ActiviteInfranumLocalEtabLot1,
   );
-export const estActiviteInfrastructureNumeriqueSansBesoinLocalisation = (
-  a: Activite | ActiviteInfrastructureNumeriqueSansBesoinLocalisation,
-): a is ActiviteInfrastructureNumeriqueSansBesoinLocalisation =>
-  ValeursActivitesInfrastructureNumeriqueSansBesoinLocalisation.includes(
-    a as ActiviteInfrastructureNumeriqueSansBesoinLocalisation,
-  );
-export const estActiviteListeeSansBesoinLocalisation: (
-  donnees: Activite,
-) => boolean = et(
-  estActiviteListee,
-  estActiviteInfrastructureNumeriqueSansBesoinLocalisation,
-);

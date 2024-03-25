@@ -1,8 +1,7 @@
 import { fc } from "@fast-check/vitest";
-import { DonneesFormulaireSimulateur } from "../../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
-import { ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement } from "../../../../src/Domain/Simulateur/Eligibilite.constantes";
 import { exerceUniquementActivitesDansListe } from "../../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import { non } from "../../../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
+import { DonneesFormulaireSimulateur } from "../../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   contientSecteurNecessitantLocalisation,
   contientUniquementSecteurNecessitantLocalisation,
@@ -19,12 +18,6 @@ import {
   fabriqueArbContraintSurtrancheChiffreAffaire,
   fabriqueArbTrancheSingleton,
 } from "../../../utilitaires/manipulationArbitraires.fabriques";
-import { arbNonOSEPrivesPetitFournisseurInfraNum } from "./arbitrairesSimulateur.infrastructuresNumeriques";
-import {
-  arbEnrAutresSecteursSousSecteurs,
-  arbSecteursEtSousSecteursListes,
-  arbSecteursSousSecteursListes,
-} from "./arbitrairesSimulateur.valeursSectorielles";
 import {
   arbappartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
@@ -32,6 +25,12 @@ import {
   arbLocalisationRepresentant,
   arbTypeStructure,
 } from "../ValeursChampsSimulateur.arbitraire";
+import { arbNonOSEPrivesPetitFournisseurInfraNum } from "./arbitrairesSimulateur.infrastructuresNumeriques";
+import {
+  arbEnrAutresSecteursSousSecteurs,
+  arbSecteursEtSousSecteursListes,
+  arbSecteursSousSecteursListes,
+} from "./arbitrairesSimulateur.valeursSectorielles";
 
 export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance =
   partitionneLocalisationServices(
@@ -43,9 +42,10 @@ export const arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFranc
       })
       .chain(fabriqueArbContraintSurtrancheChiffreAffaire)
       .filter(
-        exerceUniquementActivitesDansListe(
-          ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
-        ),
+        exerceUniquementActivitesDansListe([
+          "registresNomsDomainesPremierNiveau",
+          "fournisseurServicesDNS",
+        ]),
       )
       .chain(ajouteChampsFacultatifs),
   );
