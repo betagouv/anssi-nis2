@@ -680,8 +680,6 @@ describe("fabrique ReponseEtat", () => {
           typeStructure: ["privee"],
           typeEntitePublique: [],
           activites: ["fournisseurServicesGeres"],
-          fournitServicesUnionEuropeenne: [],
-          localisationRepresentant: [],
           localisationFournitureServicesNumeriques: [],
           paysDecisionsCyber: ["france"],
           paysOperationsCyber: [],

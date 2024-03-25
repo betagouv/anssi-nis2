@@ -2,7 +2,6 @@ import { Activite } from "../../Activite.definitions";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
-  FournitServicesUnionEuropeenne,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeEntitePublique,
@@ -26,8 +25,6 @@ export interface DonneesFormulaireSimulateur
   trancheNombreEmployes: TrancheNombreEmployes[];
   typeStructure: TypeStructure[];
   typeEntitePublique: TypeEntitePublique[];
-  fournitServicesUnionEuropeenne: FournitServicesUnionEuropeenne[];
-  localisationRepresentant: AppartenancePaysUnionEuropeenne[];
   localisationFournitureServicesNumeriques: AppartenancePaysUnionEuropeenne[];
   paysDecisionsCyber: AppartenancePaysUnionEuropeenne[];
   paysOperationsCyber: AppartenancePaysUnionEuropeenne[];
@@ -38,10 +35,6 @@ export type DonneesSectorielles = Pick<
   DonneesFormulaireSimulateur,
   "secteurActivite" | "sousSecteurActivite"
 >;
-
-export type PredicatDonneesFormulaireSimulateur = (
-  d: DonneesFormulaireSimulateur,
-) => boolean;
 
 type PredicatsSurChamp<C extends NomsChampsSimulateur> = {
   contient: <T extends DonneesFormulaireSimulateur[C][number]>(

@@ -1,9 +1,6 @@
 import { arbActivitesAutres } from "./arbitrairesSimulateur.activites";
 import { arbFournisseursInfrastructureNumerique } from "./arbitrairesSimulateur.infrastructuresNumeriques";
 import {
-  arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance,
-  arbNonOSEPrivesMoyenGrandFournisseurNumerique,
-  arbNonOSEPrivesMoyenGrandGestionTic,
   arbNonOSEPrivesMoyenneGrandeAutresActivites,
   arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles,
   arbNonOSEPrivesMoyenneGrandeAvecBesoinLocalisation,
@@ -33,15 +30,6 @@ export const arbForm = {
 
         secteursAutres: arbNonOSEPrivesMoyenneGrandeAutresValeursSectorielles,
         activitesAutres: arbNonOSEPrivesMoyenneGrandeAutresActivites,
-      },
-      exceptions: {
-        etablissementPrincipalFrance: {
-          moyenGrandInfraNum:
-            arbNonOSEPrivesMoyenGrandFournisseurInfraNumActivitesConcernesFrance,
-          moyenGrandGestionTic: arbNonOSEPrivesMoyenGrandGestionTic,
-          moyenGrandFournisseurNum:
-            arbNonOSEPrivesMoyenGrandFournisseurNumerique,
-        },
       },
     },
     publique: arbNonOSEPublique,

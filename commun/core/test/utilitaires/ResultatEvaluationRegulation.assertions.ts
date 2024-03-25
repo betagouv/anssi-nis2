@@ -62,13 +62,6 @@ export const assertion = {
       assertion.propriete(arb, (a) => {
         expect(a).not.toStrictEqual(valeur);
       }),
-
-  tousExclusifs: <T>(...arbs: fc.Arbitrary<T>[]) =>
-    arbs.map((arbA) =>
-      arbs
-        .filter((a) => a != arbA)
-        .map((arbB) => assertion.exclusifs(arbA, arbB)),
-    ),
 };
 export const verificationReponseNonRegule = (reponse: EtatRegulation) => {
   const resultatAttendu: EtatRegulationDefinitif = {

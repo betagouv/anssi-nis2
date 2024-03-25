@@ -76,8 +76,6 @@ const initialValue: Record<
   trancheNombreEmployes: arbFormulaireVide,
   typeEntitePublique: arbFormulaireVide,
   typeStructure: arbFormulaireVide,
-  fournitServicesUnionEuropeenne: arbFormulaireVide,
-  localisationRepresentant: arbFormulaireVide,
   localisationFournitureServicesNumeriques: arbFormulaireVide,
   paysDecisionsCyber: arbFormulaireVide,
   paysOperationsCyber: arbFormulaireVide,

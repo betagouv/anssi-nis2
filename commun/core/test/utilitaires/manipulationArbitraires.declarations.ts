@@ -10,12 +10,7 @@ export type DonneesFormulaireExtensibles =
   | DonneesBrutesSansActivite
   | DonneesSectorielles
   | Omit<DonneesBrutesSansActivite, "trancheNombreEmployes">
-  | Omit<
-      DonneesFormulaireSimulateur,
-      | "typeEntitePublique"
-      | "fournitServicesUnionEuropeenne"
-      | "localisationRepresentant"
-    >;
+  | Omit<DonneesFormulaireSimulateur, "typeEntitePublique">;
 
 export type PiocheDonneesForm<T extends keyof DonneesFormulaireSimulateur> =
   Pick<DonneesFormulaireSimulateur, T>;

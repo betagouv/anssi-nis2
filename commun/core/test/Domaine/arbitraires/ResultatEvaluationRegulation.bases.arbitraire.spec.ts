@@ -12,7 +12,6 @@ import {
   estSecteurListe,
 } from "../../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurListe } from "../../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats";
-import { fabriqueArbInformationsSecteurAutre } from "../../utilitaires/ResultatEvaluationRegulation.arbitraire.fabrique";
 import { assertion } from "../../utilitaires/ResultatEvaluationRegulation.assertions";
 import {
   arbEnsembleSecteurs_AvecBesoinLoca_GrandEI,
@@ -21,11 +20,6 @@ import {
 } from "./EnsembleInformationsSecteur.arbitraires";
 import { arbInformationsSecteur_Infranum_PE_ActivitesAvecBesoinLocalisation_LocaliseesHorsUE } from "./InformationsSecteur.arbitraires";
 import {
-  arbReponseAppartenanceUnionEuropeenne_ToujoursAutreUE,
-  arbReponseAppartenanceUnionEuropeenne_ToujoursHorsUE,
-} from "./ReponseAppartenanceUnionEuropeenne.arbitraires";
-import { arbReponseInformationsSecteurPetit } from "./ReponseInformationsSecteur.arbitraires";
-import {
   arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE,
   arbSecteurAvecSousSecteurListes,
   arbSecteurImportantAvecBesoinLocalisation,
@@ -33,25 +27,6 @@ import {
 } from "./SecteurActivite.arbitraires";
 
 describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
-  describe("Capsules", () => {
-    describe("appartenancePaysUnionEuropeenne", () => {
-      it("toujours france et jamais france sont exclusifs", () =>
-        assertion.tousExclusifs(
-          arbReponseAppartenanceUnionEuropeenne_ToujoursAutreUE,
-          arbReponseAppartenanceUnionEuropeenne_ToujoursHorsUE,
-        ));
-    });
-    describe("InformationsSecteurPetit", () => {
-      describe("arbInformationsSecteur*", () => {
-        it("arbInformationsSecteurPetitAutre et arbInformationsSecteurPetit sont exclusifs", () =>
-          assertion.exclusifs(
-            fabriqueArbInformationsSecteurAutre("Petit"),
-            arbReponseInformationsSecteurPetit,
-          ));
-      });
-    });
-  });
-
   describe("bases", () => {
     describe("arbSecteurSansSousSecteur", () => {
       it("n'est pas vide", () =>
@@ -61,11 +36,6 @@ describe("ResultatEvaluationRegulation.bases.arbitraire", () => {
       it("ne contient pas 'autre'", () =>
         assertion.neContientPas("autreSecteurActivite")(
           arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE,
-        ));
-      it("exclusif avec les secteurs localisables", () =>
-        assertion.tousExclusifs(
-          arbSecteurActivite_Listes_SansSousSecteur_SansBesoinLoca_GE,
-          arbSecteurImportantAvecBesoinLocalisation,
         ));
     });
     describe("arbSecteurLocalisables", () => {

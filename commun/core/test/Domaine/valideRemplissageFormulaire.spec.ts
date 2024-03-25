@@ -216,16 +216,5 @@ describe("Validation des données formulaire", () => {
           .estToujoursFaux,
       );
     });
-    describe("Petite Infrastructure numérique ne fournit pas en UE", () => {
-      const donnees: DonneesFormulaireSimulateur = {
-        ...formulairePetitInfraNumSansLocalisation,
-        fournitServicesUnionEuropeenne: ["non"],
-      };
-      it(
-        "verifieCompletudeDonneesFormulairePrivee",
-        verifieQue(verifieCompletudeDonneesFormulairePrivee).pour(donnees)
-          .estToujoursVrai,
-      );
-    });
   });
 });

@@ -180,8 +180,6 @@ export const ajouteChampsFacultatifs = <
   T extends Omit<
     DonneesFormulaireSimulateur,
     | "typeEntitePublique"
-    | "fournitServicesUnionEuropeenne"
-    | "localisationRepresentant"
     | "localisationFournitureServicesNumeriques"
     | "paysDecisionsCyber"
     | "paysOperationsCyber"
@@ -192,8 +190,6 @@ export const ajouteChampsFacultatifs = <
 ): fc.Arbitrary<DonneesFormulaireSimulateur> =>
   fc.record<DonneesFormulaireSimulateur>({
     typeEntitePublique: fc.constant([]),
-    fournitServicesUnionEuropeenne: fc.constant([]),
-    localisationRepresentant: fc.constant([]),
     localisationFournitureServicesNumeriques: fc.constant([]),
     paysDecisionsCyber: fc.constant([]),
     paysOperationsCyber: fc.constant([]),

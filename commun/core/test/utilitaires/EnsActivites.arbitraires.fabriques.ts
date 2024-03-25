@@ -51,32 +51,6 @@ export const fabriqueArb_EnsActivites_AvecFiltre_PourSecteur =
         )(secteur, sousSecteur),
     }) as unknown as fc.Arbitrary<Sortie>;
 
-// export const fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe =
-//   <
-//     Taille extends CategorieTaille,
-//     S extends
-//       SecteurAvecBesoinLocalisationRepresentant = SecteurAvecBesoinLocalisationRepresentant,
-//     A extends
-//       ActivitesAvecBesoinLocalisationRepresentant<Taille> = ActivitesAvecBesoinLocalisationRepresentant<Taille>,
-//   >(
-//     fabriqueActivite: (
-//       secteur: S,
-//       sousSecteur: PeutEtreSousSecteurActivite,
-//     ) => fc.Arbitrary<Set<A>>,
-//   ) =>
-//   (
-//     arbLocalisationRepresentant: fc.Arbitrary<AppartenancePaysUnionEuropeenne>,
-//   ) =>
-//   (
-//     secteur: S,
-//   ): fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<Taille>> =>
-//     fc.record<InformationsSecteurAvecBesoinLocalisation<Taille>>({
-//       secteurActivite: fc.constant(secteur),
-//       activites: fabriqueActivite(secteur, "PasDeSousSecteurActivite"),
-//       fournitServicesUnionEuropeenne:
-//         arbFournitServiceUnionEuropeenne_ToujoursOui,
-//       localisationRepresentant: arbLocalisationRepresentant,
-//     }) as fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<Taille>>;
 export const fabriqueArb_EnsActivites_PourSecteurInfraNumLocalisable_HorsUe = <
   T extends SecteurAvecBesoinLocalisationRepresentant,
   Sortie extends RepInfoSecteurLocalises<CategorieTaille>,

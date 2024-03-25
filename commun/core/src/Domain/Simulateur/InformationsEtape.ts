@@ -12,7 +12,6 @@ const typeEtapes = [
   "secteursActivite",
   "sousSecteursActivite",
   "activites",
-  "localisationActiviteSpecifique",
   "localisationFournitureServicesNumeriques",
   "localisationEtablissementPrincipal",
   "prealable",
