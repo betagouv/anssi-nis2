@@ -4,11 +4,11 @@ import {
   SecteurActivite,
   SecteurAvecBesoinLocalisationRepresentant,
 } from "../../src/Domain/Simulateur/SecteurActivite.definitions";
-import { getActivitesPour } from "../../src/Domain/Simulateur/services/Activite/Activite.operations";
+import { getActivitesPour } from "../../src/Domain/Simulateur/Activite.operations";
 import {
   estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
   estActiviteListee,
-} from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+} from "../../src/Domain/Simulateur/Activite.predicats";
 import {
   RepInfoSecteur,
   RepInfoSecteurLocalises,

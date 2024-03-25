@@ -14,7 +14,7 @@ import {
 import {
   estActiviteAutre,
   estActiviteListee,
-} from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+} from "../../src/Domain/Simulateur/Activite.predicats";
 import {
   InformationsAutresSecteursListes,
   InformationsSecteurComposite,

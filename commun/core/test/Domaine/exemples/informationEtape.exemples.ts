@@ -9,7 +9,7 @@ import {
 import {
   fabriquesInformationsEtapes,
   optionsInformationEtapeFormParDefaut,
-} from "../../../src/Domain/Simulateur/fabriques/InformationsEtape.fabrique";
+} from "../../../src/Domain/Simulateur/InformationsEtape.fabrique";
 import { SousEtapeConditionnelle } from "../../../src/Domain/Simulateur/InformationsEtape";
 
 const fabriqueFausseInformationEtapeForm = (

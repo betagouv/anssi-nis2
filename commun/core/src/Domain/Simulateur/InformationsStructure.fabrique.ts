@@ -1,15 +1,15 @@
-import { TypeStructure } from "../ChampsSimulateur.definitions";
-import { DonneesFormulaireSimulateur } from "../services/DonneesFormulaire/DonneesFormulaire.definitions";
+import { TypeStructure } from "./ChampsSimulateur.definitions";
+import { DonneesFormulaireSimulateur } from "./services/DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   contientMoyenneEntreprise,
   contientPetiteEntreprise,
-} from "../services/DonneesFormulaire/DonneesFormulaire.predicats";
+} from "./services/DonneesFormulaire/DonneesFormulaire.predicats";
 import {
   CategorieTaille,
   ReponseStructure,
   TailleSecteurPrive,
   TailleSecteurPublic,
-} from "../services/Eligibilite/ReponseStructure.definitions";
+} from "./services/Eligibilite/ReponseStructure.definitions";
 
 export const FabriqueInformationsStructure = {
   informationsTailleSecteurPrive:

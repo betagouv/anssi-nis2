@@ -5,7 +5,7 @@ import { ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal } from "../
 import {
   estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
   estActiviteListee,
-} from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+} from "../../../src/Domain/Simulateur/Activite.predicats";
 import { estInformationSecteurAvecActivitesEssentielles } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.predicats";
 import {
   estSecteurImportantsAvecBesoinLocalisation,

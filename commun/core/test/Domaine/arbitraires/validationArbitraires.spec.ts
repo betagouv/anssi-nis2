@@ -1,10 +1,10 @@
 import { describe, it } from "vitest";
 import { fc } from "@fast-check/vitest";
+import { non } from "../../../../utils/services/commun.predicats";
 import {
   DonneesFormulaireSimulateur,
   PredicatDonneesFormulaireSimulateur,
 } from "../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
-import { non } from "../../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
 import {
   contientPetiteEntreprise,
   contientSecteurNecessitantLocalisation,

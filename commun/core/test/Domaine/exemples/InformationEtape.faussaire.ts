@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import { fabriquesInformationsEtapes } from "../../../src/Domain/Simulateur/fabriques/InformationsEtape.fabrique";
+import { fabriquesInformationsEtapes } from "../../../src/Domain/Simulateur/InformationsEtape.fabrique";
 import { TypeEtape } from "../../../src/Domain/Simulateur/InformationsEtape";
 import { ValidationReponses } from "../../../src/Domain/Simulateur/services/ChampSimulateur/champs.domaine";
 

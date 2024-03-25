@@ -4,7 +4,7 @@ import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/service
 import {
   fabriqueIncertain,
   resultatReguleOSE,
-} from "../../src/Domain/Simulateur/fabriques/ResultatRegulation.fabrique";
+} from "../../src/Domain/Simulateur/ResultatRegulation.fabrique";
 import {
   Regulation,
   RegulationEntite,

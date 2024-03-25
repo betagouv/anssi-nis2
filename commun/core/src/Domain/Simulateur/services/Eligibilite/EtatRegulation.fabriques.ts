@@ -2,7 +2,7 @@ import { TypeStructure } from "../../ChampsSimulateur.definitions";
 import {
   fabriqueRegule,
   resultatReguleOSE,
-} from "../../fabriques/ResultatRegulation.fabrique";
+} from "../../ResultatRegulation.fabrique";
 import { resultatIncertain } from "../../Regulation.constantes";
 import {
   ResultatRegulationEntite,

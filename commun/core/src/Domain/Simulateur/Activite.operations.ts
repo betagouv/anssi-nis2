@@ -1,4 +1,4 @@
-import { Activite } from "../../Activite.definitions";
+import { Activite } from "./Activite.definitions";
 import {
   ValeursActivitesAdministrationPublique,
   ValeursActivitesConstructionVehiculesAutomobiles,
@@ -30,19 +30,16 @@ import {
   ValeursActivitesTransportsFerroviaires,
   ValeursActivitesTransportsParEau,
   ValeursActivitesTransportsRoutiers,
-} from "../../Activite.valeurs";
-import { DonneesFormulaireSimulateur } from "../DonneesFormulaire/DonneesFormulaire.definitions";
-import {
-  SecteurActivite,
-  SecteurSimple,
-} from "../../SecteurActivite.definitions";
+} from "./Activite.valeurs";
+import { DonneesFormulaireSimulateur } from "./services/DonneesFormulaire/DonneesFormulaire.definitions";
+import { SecteurActivite, SecteurSimple } from "./SecteurActivite.definitions";
 import {
   PeutEtreSousSecteurActivite,
   SousSecteurActivite,
-} from "../../SousSecteurActivite.definitions";
-import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions";
-import { estUnSecteurAvecDesSousSecteurs } from "../SecteurActivite/SecteurActivite.predicats";
-import { cartographieSousSecteursParSecteur } from "../SousSecteurActivite/SousSecteurActivite.operations";
+} from "./SousSecteurActivite.definitions";
+import { ValeurCleSectorielle } from "./ValeurCleSectorielle.definitions";
+import { estUnSecteurAvecDesSousSecteurs } from "./services/SecteurActivite/SecteurActivite.predicats";
+import { cartographieSousSecteursParSecteur } from "./services/SousSecteurActivite/SousSecteurActivite.operations";
 
 export const activitesParSecteurEtSousSecteur: Record<
   SecteurSimple | SousSecteurActivite,

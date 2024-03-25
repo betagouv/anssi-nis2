@@ -1,11 +1,8 @@
 import { Pattern } from "ts-pattern";
 import { CollectionInformationsEtapes } from "../../../../../commun/core/src/Domain/Simulateur/CollectionInformationsEtapes.definitions.ts";
 import { fabriqueEtatEtape } from "../../../../../commun/core/src/Domain/Simulateur/EtatEtape.fabrique.ts";
-import { fabriquesInformationsEtapes } from "../../../../../commun/core/src/Domain/Simulateur/fabriques/InformationsEtape.fabrique.ts";
-import {
-  contientSousSecteurAutresUniquement,
-  ou,
-} from "../../../../../commun/core/src/Domain/Simulateur/services/ChampSimulateur/champs.predicats.ts";
+import { fabriquesInformationsEtapes } from "../../../../../commun/core/src/Domain/Simulateur/InformationsEtape.fabrique.ts";
+import { contientSousSecteurAutresUniquement } from "../../../../../commun/core/src/Domain/Simulateur/services/ChampSimulateur/champs.predicats.ts";
 import {
   fabriqueValidationUneReponses,
   validationReponsesActivites,
@@ -24,6 +21,7 @@ import { estUnSecteurAvecDesSousSecteurs } from "../../../../../commun/core/src/
 import {
   estNonVide,
   et,
+  ou,
 } from "../../../../../commun/utils/services/commun.predicats.ts";
 
 const contientDesSecteursAvecSousSecteurs = ({

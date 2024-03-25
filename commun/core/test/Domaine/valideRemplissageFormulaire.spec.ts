@@ -3,7 +3,6 @@ import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/ser
 import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique";
 import {
-  contientSecteursLocalisesValides,
   donneesFormulaireSontCompletes,
   verifieCompletudeDonneesCommunes,
   verifieCompletudeDonneesFormulairePrivee,
@@ -88,13 +87,6 @@ describe("Validation des données formulaire", () => {
   describe("Données privées : verifieCompletudeDonneesFormulairePrivee", () => {
     it.each(donneesTestsArbPrivee)("$nom", ({ arbitraireEligible }) => {
       verifieQue(verifieCompletudeDonneesFormulairePrivee)
-        .estToujoursVrai()
-        .quelqueSoit(arbitraireEligible);
-    });
-  });
-  describe("Données privées : contientSecteursLocalisesValides", () => {
-    it.each(donneesTestArbPriveeSansAutre)("$nom", ({ arbitraireEligible }) => {
-      verifieQue(contientSecteursLocalisesValides)
         .estToujoursVrai()
         .quelqueSoit(arbitraireEligible);
     });
@@ -222,22 +214,6 @@ describe("Validation des données formulaire", () => {
         "verifieCompletudeDonneesFormulairePublique",
         verifieQue(verifieCompletudeDonneesFormulairePublique).pour(donnees)
           .estToujoursFaux,
-      );
-    });
-    describe("Petite Infrastructure numérique non localisée", () => {
-      it(
-        "contientSecteursLocalisesValides",
-        verifieQue(contientSecteursLocalisesValides).pour(
-          formulairePetitInfraNumSansLocalisation,
-        ).estToujoursFaux,
-      );
-      it(
-        "contientSecteursLocalisesValides",
-        verifieQue(contientSecteursLocalisesValides).pour({
-          ...formulairePetitInfraNumSansLocalisation,
-          secteurActivite: ["gestionServicesTic"],
-          activites: ["fournisseurServicesSecuriteGeres"],
-        }).estToujoursVrai,
       );
     });
     describe("Petite Infrastructure numérique ne fournit pas en UE", () => {

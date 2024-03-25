@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
+import { et } from "../../../utils/services/commun.predicats";
 import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique";
@@ -7,7 +8,6 @@ import {
   auMoinsUn,
   auMoinsUneActiviteParValeurSectorielleListee,
   auMoinsUnSousSecteurParSecteur,
-  et,
   lorsque,
 } from "../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
 import { contientAutreSecteurActiviteUniquement } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";

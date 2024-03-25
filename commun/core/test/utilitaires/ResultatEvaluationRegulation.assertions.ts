@@ -1,6 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { expect } from "vitest";
-import { fabriqueRegule } from "../../src/Domain/Simulateur/fabriques/ResultatRegulation.fabrique";
+import { fabriqueRegule } from "../../src/Domain/Simulateur/ResultatRegulation.fabrique";
 import { resultatNonRegule } from "../../src/Domain/Simulateur/Regulation.constantes";
 import { CausesRegulation } from "../../src/Domain/Simulateur/Regulation.definitions";
 import type { TypeEntite } from "../../src/Domain/Simulateur/Regulation.definitions";

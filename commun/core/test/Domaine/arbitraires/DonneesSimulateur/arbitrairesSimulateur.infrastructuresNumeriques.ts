@@ -1,5 +1,5 @@
 import { Activite } from "../../../../src/Domain/Simulateur/Activite.definitions";
-import { exerceAucuneActivitesDansListe } from "../../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { exerceAucuneActivitesDansListe } from "../../../../src/Domain/Simulateur/Activite.predicats";
 import { DonneesSectorielles } from "../../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   ajouteAuMoinsUneActiviteListee,

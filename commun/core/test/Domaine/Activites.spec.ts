@@ -5,7 +5,7 @@ import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/services/
 import {
   AssociationSectorielleActivite,
   collecteTitresPourActivite,
-} from "../../src/Domain/Simulateur/services/Activite/Activite.operations";
+} from "../../src/Domain/Simulateur/Activite.operations";
 import { cartographieSousSecteursParSecteur } from "../../src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.operations";
 
 describe("Questionnaire activités", () => {

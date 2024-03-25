@@ -1,6 +1,6 @@
 import { fc } from "@fast-check/vitest";
-import { exerceUniquementActivitesDansListe } from "../../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
-import { non } from "../../../../src/Domain/Simulateur/services/ChampSimulateur/champs.predicats";
+import { non } from "../../../../../utils/services/commun.predicats";
+import { exerceUniquementActivitesDansListe } from "../../../../src/Domain/Simulateur/Activite.predicats";
 import { DonneesFormulaireSimulateur } from "../../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   contientSecteurNecessitantLocalisation,

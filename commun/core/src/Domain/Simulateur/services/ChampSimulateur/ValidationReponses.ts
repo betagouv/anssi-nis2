@@ -1,10 +1,10 @@
+import { et } from "../../../../../../utils/services/commun.predicats";
 import { NomsChampsSimulateur } from "../DonneesFormulaire/DonneesFormulaire.definitions";
 import { ValidationReponses } from "./champs.domaine";
 import {
   auMoinsUn,
   auMoinsUneActiviteParValeurSectorielleListee,
   auMoinsUnSousSecteurParSecteur,
-  et,
   exactementUn,
   lorsque,
 } from "./champs.predicats";

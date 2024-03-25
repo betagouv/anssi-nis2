@@ -2,14 +2,14 @@ import {
   Activite,
   ActiviteInfranumLocalEtabLot1,
   ActivitesPourSecteur,
-} from "../../Activite.definitions";
-import { ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau } from "../../Activite.valeurs";
-import { SecteurSimple } from "../../SecteurActivite.definitions";
-import { SousSecteurListes } from "../../SousSecteurActivite.definitions";
+} from "./Activite.definitions";
+import { ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau } from "./Activite.valeurs";
+import { SecteurSimple } from "./SecteurActivite.definitions";
+import { SousSecteurListes } from "./SousSecteurActivite.definitions";
 import {
   DonneesFormulaireSimulateur,
   DonneesSectorielles,
-} from "../DonneesFormulaire/DonneesFormulaire.definitions";
+} from "./services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { activitesParSecteurEtSousSecteur } from "./Activite.operations";
 
 const prefixeAutreActivite = "autreActivite";

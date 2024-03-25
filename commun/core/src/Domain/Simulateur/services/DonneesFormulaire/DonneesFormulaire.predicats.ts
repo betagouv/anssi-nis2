@@ -1,20 +1,17 @@
 import { isMatching, P } from "ts-pattern";
-import { estNonVide } from "../../../../../../utils/services/commun.predicats";
+import {
+  estNonVide,
+  et,
+  ou,
+} from "../../../../../../utils/services/commun.predicats";
 import { Activite } from "../../Activite.definitions";
 import { SecteurAvecBesoinLocalisationRepresentant } from "../../SecteurActivite.definitions";
 import { ValeursSecteursAvecBesoinLocalisationRepresentant } from "../../SecteurActivite.valeurs";
 import {
   auMoinsUneActiviteListee,
   estActiviteAutre,
-} from "../Activite/Activite.predicats";
-import {
-  auMoinsUn,
-  et,
-  exactementUn,
-  non,
-  ou,
-  oux,
-} from "../ChampSimulateur/champs.predicats";
+} from "../../Activite.predicats";
+import { auMoinsUn, exactementUn } from "../ChampSimulateur/champs.predicats";
 import {
   auMoinsUnSecteurListe,
   uniquementDesSecteursAutres,
@@ -30,7 +27,6 @@ import {
   DonneesSectorielles,
   FabriquePredicatChamp,
   NomsChampsSimulateur,
-  PredicatDonneesFormulaireSimulateur,
 } from "./DonneesFormulaire.definitions";
 import { ValeursNomChampsFormulaire } from "./DonneesFormulaire.valeurs";
 
@@ -123,43 +119,6 @@ export const verifieDonneesCommunesPublique = isMatching({
   typeStructure: ["publique"],
   typeEntitePublique: [P._],
 });
-
-const estInfranumDnsOuRegistre = isMatching({
-  secteurActivite: ["infrastructureNumerique"],
-  activites: P.union(
-    ["fournisseurServicesDNS"],
-    ["registresNomsDomainesPremierNiveau"],
-  ),
-});
-export const contientServiceTicOuFournisseurNum: PredicatDonneesFormulaireSimulateur =
-  isMatching({
-    secteurActivite: P.union(
-      ["gestionServicesTic"],
-      ["fournisseursNumeriques"],
-    ),
-  });
-export const contientSecteurALocaliser = ou(
-  estInfranumDnsOuRegistre,
-  et(non(contientPetiteEntreprise), contientServiceTicOuFournisseurNum),
-);
-
-const neFournitPasDeServiceDansUE = isMatching({
-  fournitServicesUnionEuropeenne: ["non"],
-  localisationRepresentant: [],
-});
-
-const fournitServiceUEBienRemplit = isMatching({
-  fournitServicesUnionEuropeenne: ["oui"],
-  localisationRepresentant: P.not([]),
-});
-
-export const contientSecteursLocalisesValides = oux(
-  non(contientSecteurALocaliser),
-  et(
-    contientSecteurALocaliser,
-    ou(neFournitPasDeServiceDansUE, fournitServiceUEBienRemplit),
-  ),
-);
 
 const contientUniquementSecteurAutre = isMatching({
   secteurActivite: P.when(uniquementDesSecteursAutres),

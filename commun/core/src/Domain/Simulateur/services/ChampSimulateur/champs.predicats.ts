@@ -1,13 +1,15 @@
+import * as Predic from "../../../../../../utils/services/commun.predicats";
+import { estChaineNonVide } from "../../../../../../utils/services/string.operations";
 import { Activite } from "../../Activite.definitions";
+import { activiteEstDansSecteur } from "../../Activite.predicats";
 import { ValeurChampSimulateur } from "../../ChampsSimulateur.definitions";
+import { SecteurComposite } from "../../SecteurActivite.definitions";
+import { SousSecteurListes } from "../../SousSecteurActivite.definitions";
+import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions";
 import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../DonneesFormulaire/DonneesFormulaire.definitions";
-import { SecteurComposite } from "../../SecteurActivite.definitions";
-import { SousSecteurListes } from "../../SousSecteurActivite.definitions";
-import { ValeurCleSectorielle } from "../../ValeurCleSectorielle.definitions";
-import { activiteEstDansSecteur } from "../Activite/Activite.predicats";
 import { filtreSecteursSansSousSecteurs } from "../SecteurActivite/SecteurActivite.operations";
 import {
   estSecteurListe,
@@ -21,36 +23,6 @@ import {
 import { fabriqueListeValeursSectorielles } from "../ValeursSectorielles/ValeursSectorielles.operations";
 import { PredicatDonneesFormulaire } from "./champs.domaine";
 
-const appliqueValidateur: <T extends DonneesFormulaireSimulateur>(
-  donnees: T,
-) => (validateur: PredicatDonneesFormulaire) => boolean =
-  (donnees) => (validateur) =>
-    validateur(donnees);
-export const et: (
-  ...validateurs: Array<PredicatDonneesFormulaire>
-) => PredicatDonneesFormulaire =
-  (...validateurs) =>
-  (donnees) =>
-    validateurs.every(appliqueValidateur(donnees));
-
-export const ou: (
-  ...validateurs: Array<PredicatDonneesFormulaire>
-) => PredicatDonneesFormulaire =
-  (...validateurs) =>
-  (donnees) =>
-    validateurs.some(appliqueValidateur(donnees));
-
-export const oux: (
-  ...validateurs: Array<PredicatDonneesFormulaire>
-) => PredicatDonneesFormulaire =
-  (...validateurs) =>
-  (donnees) =>
-    validateurs.filter(appliqueValidateur(donnees)).length === 1;
-
-export const non: (
-  validateur: PredicatDonneesFormulaire,
-) => PredicatDonneesFormulaire = (validateur) => (d) => !validateur(d);
-
 export const lorsque: (
   champ: NomsChampsSimulateur,
   valeur: ValeurChampSimulateur,
@@ -58,9 +30,6 @@ export const lorsque: (
 ) => PredicatDonneesFormulaire =
   (champ, valeur, predicat) => (donnees: DonneesFormulaireSimulateur) =>
     donnees[champ][0] != valeur || predicat(donnees);
-
-export const estChaineNonVide = <T extends string>(listeValeurs: T) =>
-  listeValeurs.length > 0;
 
 export const auMoinsN = (
   n: number,
@@ -92,7 +61,7 @@ const collecteValidateursParSecteurAvecSousSecteur = (
 ) => valeursSecteur.map(sousSecteurAppartientASecteur);
 
 const construitPredicatToutSousSecteur = (valeursSecteur: SecteurComposite[]) =>
-  et(
+  Predic.et(
     ...collecteValidateursParSecteurAvecSousSecteur(valeursSecteur),
     auMoinsN(valeursSecteur.length, "sousSecteurActivite"),
   );

@@ -1,7 +1,7 @@
 import {
   estActiviteAutre,
   estActiviteListee,
-} from "../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+} from "../../../src/Domain/Simulateur/Activite.predicats";
 import { Arbitraire as A } from "../../utilitaires/Arbitraires.operations";
 import {
   fabriqueArb_EnsActivites_AvecFiltre_PourSecteur,

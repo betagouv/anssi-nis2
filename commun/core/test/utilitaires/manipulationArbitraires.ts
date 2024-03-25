@@ -9,11 +9,11 @@ import {
   DonneesFormulaireSimulateur,
   DonneesSectorielles,
 } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
-import { fabriqueListeActivitesDesSecteurs } from "../../src/Domain/Simulateur/services/Activite/Activite.fabriques";
+import { fabriqueListeActivitesDesSecteurs } from "../../src/Domain/Simulateur/Activite.fabriques";
 import {
   estActiviteAutre,
   estActiviteListee,
-} from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+} from "../../src/Domain/Simulateur/Activite.predicats";
 import { filtreSecteursSansSousSecteurs } from "../../src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.operations";
 
 import {
