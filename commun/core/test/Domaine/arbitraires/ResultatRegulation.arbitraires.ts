@@ -1,4 +1,6 @@
 import { fc } from "@fast-check/vitest";
+import { ens } from "../../../../utils/services/sets.operations";
+import { TypeStructure } from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
 import {
   fabriqueRegule,
   resultatReguleOSE,
@@ -8,7 +10,8 @@ import {
   CausesRegulation,
   ResultatRegulationEntite,
 } from "../../../src/Domain/Simulateur/Regulation.definitions";
-import { arrayOfOne } from "../../utilitaires/manipulationArbitraires";
+import { ReponseInformationsSecteur } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
+import { ReponseStructure } from "../../../src/Domain/Simulateur/services/Eligibilite/ReponseStructure.definitions";
 
 export const generateurResultatRegulationConstants = fc.constantFrom(
   resultatIncertain,
@@ -17,13 +20,24 @@ export const generateurResultatRegulationConstants = fc.constantFrom(
 
 export const generateurResultatRegulationInfranum = fc
   .record<CausesRegulation>({
-    secteurActivite: fc.constant(["infrastructureNumerique"]),
-    activites: arrayOfOne([
-      "registresNomsDomainesPremierNiveau",
-      "fournisseurServicesDNS",
-    ]),
-    fournitServicesUnionEuropeenne: fc.constant(["oui"]),
-    localisationRepresentant: fc.constant(["france"]),
+    Structure: fc.constant<ReponseStructure<TypeStructure, "Moyen">>({
+      typeStructure: "privee",
+      _categorieTaille: "Moyen",
+      trancheChiffreAffaire: "moyen",
+      trancheNombreEmployes: "moyen",
+    }),
+    InformationsSecteur: fc.constant<ReponseInformationsSecteur<"Moyen">>({
+      _categorieTaille: "Moyen",
+      secteurs: ens({
+        _categorieTaille: "Moyen",
+        secteurActivite: "infrastructureNumerique",
+        activites: ens(
+          "registresNomsDomainesPremierNiveau",
+          "fournisseurServicesDNS",
+        ),
+        paysDecisionsCyber: "france",
+      }),
+    }),
   })
   .chain((cause) =>
     fc.constant(fabriqueRegule(cause)),

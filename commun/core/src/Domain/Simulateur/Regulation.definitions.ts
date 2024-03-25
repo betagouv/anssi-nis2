@@ -1,14 +1,11 @@
 import { Tag } from "../../../../utils/types/Tag";
-import { DonneesFormulaireSimulateur } from "./services/DonneesFormulaire/DonneesFormulaire.definitions";
 
 import { ValeursRegulationEntite } from "./RegulationEntite.valeurs";
 import { CapsuleReponseDefinitions } from "./services/Eligibilite/CapsuleReponse.definitions";
 
 export type RegulationEntite = (typeof ValeursRegulationEntite)[number];
 
-export type CausesRegulation =
-  | Partial<DonneesFormulaireSimulateur>
-  | CapsuleReponseDefinitions;
+export type CausesRegulation = CapsuleReponseDefinitions;
 
 export type InformationsManquantes = Tag<"InformationsManquantes">;
 export type EnAttenteTranspositionLoiFrancaise =
