@@ -128,7 +128,7 @@ export const FabriqueInformationsSecteur = {
         ),
 
   secteurAvecLocalisationEtablissementPrincipal:
-    <Taille extends CategorieTaille>(taille: Taille) =>
+    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
     <
       Secteur extends
         | "infrastructureNumerique"
@@ -156,17 +156,8 @@ export const FabriqueInformationsSecteur = {
             }
           : {}),
       }),
-  // secteurGestionServicesTic:
-  //   <Taille extends CategorieTaille>(taille: Taille) =>
-  //   (
-  //     donnees: DonneesFormulaireSimulateur,
-  //     activitesInfraNum: ActivitesInfrastructureNumerique[],
-  //   ) =>
-  //   (): Set<RepInfoSecteurInfranum<Taille>> =>
-  //     match(activitesInfraNum)
-  //       .when(
   secteurInfrastructureNumerique:
-    <Taille extends CategorieTaille>(taille: Taille) =>
+    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
     (
       donnees: DonneesFormulaireSimulateur,
       activitesInfraNum: ActivitesInfrastructureNumerique[],
@@ -227,7 +218,7 @@ export const FabriqueInformationsSecteur = {
         ),
 
   secteurDepuisDonneesSimulateur:
-    <Taille extends CategorieTaille>(taille: Taille) =>
+    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
     (
       donnees: DonneesFormulaireSimulateur,
       secteurActivite: SecteurActivite,
@@ -282,7 +273,7 @@ export const FabriqueInformationsSecteur = {
         ) as Set<InformationsSecteurPossible<Taille>>,
 
   listeSecteursDepuisDonneesSimulateur:
-    <Taille extends CategorieTaille>(taille: Taille) =>
+    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
     (donnees: DonneesFormulaireSimulateur) =>
       donnees.secteurActivite.reduce(
         (liste, secteur) =>
@@ -291,13 +282,13 @@ export const FabriqueInformationsSecteur = {
             FabriqueInformationsSecteur.secteurDepuisDonneesSimulateur(taille)(
               donnees,
               secteur,
-            ),
+            ) as Set<InformationsSecteurPossible<Taille>>,
           ),
         new Set<InformationsSecteurPossible<Taille>>([]),
       ),
 
   informationsSecteurs:
-    <Taille extends CategorieTaille>(taille: Taille) =>
+    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
     (
       donnees: DonneesFormulaireSimulateur,
     ): ReponseInformationsSecteur<Taille> => ({
@@ -305,6 +296,6 @@ export const FabriqueInformationsSecteur = {
       secteurs:
         FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur(
           taille,
-        )(donnees),
+        )(donnees) as Set<RepInfoSecteur<Taille>>,
     }),
 };
