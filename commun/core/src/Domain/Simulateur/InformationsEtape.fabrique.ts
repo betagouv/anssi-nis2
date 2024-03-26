@@ -59,6 +59,31 @@ const fabriqueInformationsEtapeForm = (
   };
 };
 
+const fabriqueInformationsEtapeSpeciale = (
+  titre: string,
+  validationReponses: ValidationReponses,
+  type: TypeEtape,
+  options: Partial<OptionsInformationEtapeForm> = optionsInformationEtapeFormParDefaut,
+): InformationEtapeForm => {
+  const optionsCompletes = {
+    ...optionsInformationEtapeFormParDefaut,
+    ...options,
+  };
+  return {
+    type: type,
+    titre: titre,
+    validationReponses: validationReponses,
+    options: optionsCompletes,
+    longueurComptabilisee: 1,
+    existe: true,
+    remplitContitionSousEtape: (donnees: DonneesFormulaireSimulateur) =>
+      options.sousEtapeConditionnelle?.condition(donnees) || false,
+    estIgnoree: optionsCompletes.ignoreSi,
+    varianteAffichee: toujourNegatif,
+    fabriqueValidationReponses: () => validationReponses,
+  };
+};
+
 const fabriqueInformationEtapePrealable: (titre: string) => EtapePrealable = (
   titre: string,
 ) => ({
@@ -120,6 +145,7 @@ export const fabriquesInformationsEtapes = {
   sousEtapeConditionnelle: fabriqueSousEtapeConditionnelle,
   resultat: fabriqueInformationsEtapeResultat,
   form: fabriqueInformationsEtapeForm,
+  speciale: fabriqueInformationsEtapeSpeciale,
   prealable: fabriqueInformationEtapePrealable,
   variantes: fabriqueInformationsEtapesVariantes,
 } as const;

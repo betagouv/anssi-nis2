@@ -76,6 +76,24 @@ const sousEtapeLocalisationVariantes =
       {
         etape: etapeLocalisationEtablissementPrincipal,
         conditions: Pattern.when(
+          et(
+            P.activites.contientUnParmi(
+              "registresNomsDomainesPremierNiveau",
+              "fournisseurServicesDNS",
+              "fournisseurServicesInformatiqueNuage",
+              "fournisseurServiceCentresDonnees",
+              "fournisseurReseauxDiffusionContenu",
+            ),
+            P.activites.contientUnParmi(
+              "fournisseurReseauxCommunicationElectroniquesPublics",
+              "fournisseurServiceCommunicationElectroniquesPublics",
+            ),
+          ),
+        ),
+      },
+      {
+        etape: etapeLocalisationEtablissementPrincipal,
+        conditions: Pattern.when(
           P.activites.contientUnParmi(
             "registresNomsDomainesPremierNiveau",
             "fournisseurServicesDNS",
