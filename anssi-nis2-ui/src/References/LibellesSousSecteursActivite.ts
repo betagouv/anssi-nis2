@@ -25,9 +25,8 @@ export const libellesSousSecteurFabrication: DetailsSousSecteurUnique<SousSecteu
     fabricationDispositifsMedicaux:
       "Fabrication de dispositifs médicaux et de dispositifs médicaux de diagnostic in vitro",
     fabricationEquipementsElectroniques:
-      "Fabrication de produits informatiques, électroniques et optiques",
+      "Fabrication d’équipements électriques",
     fabricationProduitsInformatiquesElectroniquesOptiques:
-
       "Fabrication de produits informatiques, électroniques et optiques",
     fabricationMachinesEquipements:
       "Fabrication de machines et équipements n.c.a.",
