@@ -5,10 +5,12 @@ import {
 } from "../../questionnaire/reducerQuestionnaire.ts";
 import { EtapePrealable } from "./EtapesRefacto/EtapePrealable.tsx";
 import {
+  valideEtapeAppartenanceUE,
   valideEtapeDesignation,
   valideEtapePrealable,
 } from "../../questionnaire/actions.ts";
 import { EtapeDesignation } from "./EtapesRefacto/EtapeDesignation.tsx";
+import { EtapeAppartenanceUE } from "./EtapesRefacto/EtapeAppartenanceUE.tsx";
 
 export const Questionnaire = () => {
   const [etat, dispatch] = useReducer(reducerQuestionnaire, etatParDefaut);
@@ -22,6 +24,13 @@ export const Questionnaire = () => {
     return (
       <EtapeDesignation
         onValider={(reponse) => dispatch(valideEtapeDesignation(reponse))}
+      />
+    );
+
+  if (etat.etapeCourante === "appartenanceUnionEuropeenne")
+    return (
+      <EtapeAppartenanceUE
+        onValider={(reponse) => dispatch(valideEtapeAppartenanceUE(reponse))}
       />
     );
 };
