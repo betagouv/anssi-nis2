@@ -101,6 +101,9 @@ export const predicatDonneesFormulaire = {
   ),
 };
 
+export const estEntitePrivee = (d: DonneesFormulaireSimulateur) =>
+  d.typeStructure.includes("privee");
+
 export const verifieCompletudeDonneesCommunes = et(
   exactementUn("designationOperateurServicesEssentiels"),
   exactementUn("appartenancePaysUnionEuropeenne"),
