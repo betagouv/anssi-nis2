@@ -54,7 +54,7 @@ export const router = sentryCreateBrowserRouter([
   {
     path: "/a-propos",
     element: (
-      <PageEdito titre="A propos">
+      <PageEdito titre="À propos">
         <APropos />
       </PageEdito>
     ),
