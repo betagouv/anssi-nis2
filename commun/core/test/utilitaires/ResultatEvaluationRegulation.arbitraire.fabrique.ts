@@ -14,7 +14,7 @@ import {
 import {
   estActiviteAutre,
   estActiviteListee,
-} from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+} from "../../src/Domain/Simulateur/Activite.predicats";
 import {
   InformationsAutresSecteursListes,
   InformationsSecteurComposite,
@@ -53,37 +53,39 @@ export const fabriqueArb_EnsInformationsSecteurPossible = <
     }),
   );
 
-export const fabriqueArbInformationsSecteurAutre = <T extends CategorieTaille>(
-  taille: T,
+export const fabriqueArbInformationsSecteurAutre = <
+  Taille extends CategorieTaille,
+>(
+  taille: `${Taille}`,
 ) =>
-  fc.constantFrom<ReponseInformationsSecteur<T>>(
+  fc.constantFrom<ReponseInformationsSecteur<Taille>>(
     fabriqueContenuCapsuleInformationSecteur(taille)(
       ens({
         ...fabriqueCategorieTaille(taille),
         secteurActivite: "autreSecteurActivite",
       }),
-    ),
+    ) as ReponseInformationsSecteur<Taille>,
     fabriqueContenuCapsuleInformationSecteur(taille)(
       ens({
         ...fabriqueCategorieTaille(taille),
         secteurActivite: "energie",
         sousSecteurActivite: "autreSousSecteurEnergie",
       }),
-    ),
+    ) as ReponseInformationsSecteur<Taille>,
     fabriqueContenuCapsuleInformationSecteur(taille)(
       ens({
         ...fabriqueCategorieTaille(taille),
         secteurActivite: "fabrication",
         sousSecteurActivite: "autreSousSecteurFabrication",
       }),
-    ),
+    ) as ReponseInformationsSecteur<Taille>,
     fabriqueContenuCapsuleInformationSecteur(taille)(
       ens({
         ...fabriqueCategorieTaille(taille),
         secteurActivite: "transports",
         sousSecteurActivite: "autreSousSecteurTransports",
       }),
-    ),
+    ) as ReponseInformationsSecteur<Taille>,
   );
 
 export const fabriqueArb_EnsInformationsSecteur_ActivitesListees = flow(

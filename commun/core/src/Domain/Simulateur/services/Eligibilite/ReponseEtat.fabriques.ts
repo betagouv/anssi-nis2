@@ -9,8 +9,8 @@ import {
   TypeStructure,
 } from "../../ChampsSimulateur.definitions";
 import { DonneesFormulaireSimulateur } from "../DonneesFormulaire/DonneesFormulaire.definitions";
-import { FabriqueInformationsSecteur } from "../../fabriques/InformationsSecteur.fabrique";
-import { FabriqueInformationsStructure } from "../../fabriques/InformationsStructure.fabrique";
+import { FabriqueInformationsSecteur } from "../../InformationsSecteur.fabrique";
+import { FabriqueInformationsStructure } from "../../InformationsStructure.fabrique";
 import {
   contientMoyenneEntreprise,
   contientPetiteEntreprise,

@@ -5,7 +5,7 @@ import {
 } from "../../../utils/services/commun.predicats";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique";
-import { fabriquesInformationsEtapes } from "../../src/Domain/Simulateur/fabriques/InformationsEtape.fabrique";
+import { fabriquesInformationsEtapes } from "../../src/Domain/Simulateur/InformationsEtape.fabrique";
 import {
   CapacitesEtapeFormulaire,
   EtapeExistante,

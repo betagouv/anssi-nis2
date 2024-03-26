@@ -80,8 +80,6 @@ export const libellesSimulateur: DictionnaireLibellesSimulateur = {
   trancheNombreEmployes: libellesTranchesNombreEmployes,
   typeStructure: libellesTypesStructure,
   typeEntitePublique: libellesTypeEntitePublique,
-  fournitServicesUnionEuropeenne: libellesFournitServicesUnionEuropeenne,
-  localisationRepresentant: libellesPaysUnionEuropeenneLocalisation,
   localisationFournitureServicesNumeriques:
     libellesPaysUnionEuropeenneLocalisation,
   paysDecisionsCyber: libellesPaysUnionEuropeenneLocalisation,

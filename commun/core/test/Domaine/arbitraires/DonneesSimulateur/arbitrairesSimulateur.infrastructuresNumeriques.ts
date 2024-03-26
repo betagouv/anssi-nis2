@@ -1,19 +1,11 @@
+import { Activite } from "../../../../src/Domain/Simulateur/Activite.definitions";
+import { exerceAucuneActivitesDansListe } from "../../../../src/Domain/Simulateur/Activite.predicats";
 import { DonneesSectorielles } from "../../../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
-import {
-  ValeursActivitesConcernesInfrastructureNumerique,
-  ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
-} from "../../../../src/Domain/Simulateur/Eligibilite.constantes";
-import {
-  exerceActiviteDansListe,
-  exerceAucuneActivitesDansListe,
-  exerceUniquementActivitesDansListe,
-} from "../../../../src/Domain/Simulateur/services/Activite/Activite.predicats";
 import {
   ajouteAuMoinsUneActiviteListee,
   ajouteChampsFacultatifs,
   etend,
-  partitionneLocalisationServices,
-} from "../../../utilitaires/manipulationArbitraires";
+} from "../../../utilitaires/manipulationArbitraires.DonneesFormulaireExtensibles";
 import { fabriqueArbEnrSecteurSousSecteurs } from "../../../utilitaires/manipulationArbitraires.fabriques";
 import {
   filtreEnrSectorielHorsSecteurs,
@@ -22,8 +14,6 @@ import {
 import {
   arbappartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
-  arbFournitServiceUnionEuropeenne,
-  arbLocalisationRepresentant,
   arbTranche,
   arbTypeStructure,
 } from "../ValeursChampsSimulateur.arbitraire";
@@ -55,9 +45,13 @@ export const arbNonOSEPrivesPetitFournisseurInfraNum =
     .chain(ajouteChampsFacultatifs);
 
 const valeursActivitesInfrastructureNumerique = [
-  ...ValeursActivitesConcernesInfrastructureNumerique,
-  ...ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
-];
+  "fournisseurReseauxCommunicationElectroniquesPublics",
+  "fournisseurServiceCommunicationElectroniquesPublics",
+  "prestataireServiceConfianceQualifie",
+  "prestataireServiceConfianceNonQualifie",
+  "registresNomsDomainesPremierNiveau",
+  "fournisseurServicesDNS",
+] as Activite[];
 const arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes =
   arbNonOSEPrivesPetitFournisseurInfraNum.filter(
     exerceAucuneActivitesDansListe(valeursActivitesInfrastructureNumerique),
@@ -77,56 +71,10 @@ const arbNonOSEPrivesPetitHorsFournisseurInfraNum = etend<DonneesSectorielles>(
   .chain(ajouteAuMoinsUneActiviteListee)
   .chain(ajouteChampsFacultatifs);
 
-const extendInfranumDNSOuNomDomaine = etend(
-  arbNonOSEPrivesPetitFournisseurInfraNum.filter(
-    exerceUniquementActivitesDansListe(
-      ValeursActivitesConcernesInfrastructureNumeriqueFranceUniquement,
-    ),
-  ),
-);
-const infraNumDNSOuNomDomaine = {
-  neFournitPasEnUE: extendInfranumDNSOuNomDomaine.avec({
-    fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.non,
-  }),
-  representantFrance: extendInfranumDNSOuNomDomaine.avec({
-    fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.oui,
-    localisationRepresentant: arbLocalisationRepresentant.france,
-  }),
-  representantUE: extendInfranumDNSOuNomDomaine.avec({
-    fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.oui,
-    localisationRepresentant: arbLocalisationRepresentant.autre,
-  }),
-  representantHorsUE: extendInfranumDNSOuNomDomaine.avec({
-    fournitServicesUnionEuropeenne: arbFournitServiceUnionEuropeenne.oui,
-    localisationRepresentant: arbLocalisationRepresentant.horsue,
-  }),
-};
-
 export const arbFournisseursInfrastructureNumerique = {
-  fournisseursInfraNum: {
-    petitInfraNum: {
-      /** Petite entité privéé exerçant une Activité dans la liste {@link ValeursActivitesConcernesInfrastructureNumerique} */
-      activitesConcernes: Object.assign(
-        arbNonOSEPrivesPetitFournisseurInfraNum.filter(
-          exerceActiviteDansListe(
-            ValeursActivitesConcernesInfrastructureNumerique,
-          ),
-        ),
-        {
-          uniquement: partitionneLocalisationServices(
-            arbNonOSEPrivesPetitFournisseurInfraNum.filter(
-              exerceUniquementActivitesDansListe(
-                ValeursActivitesConcernesInfrastructureNumerique,
-              ),
-            ),
-          ),
-        },
-      ),
-      infraNumDNSOuNomDomaine,
-    },
-    activitesNonConcernes:
-      arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes,
-  },
+  petitInfraNum: arbNonOSEPrivesPetitFournisseurInfraNum,
+  activitesNonConcernes:
+    arbNonOSEPrivesPetitFournisseurInfraNumActivitesNonConcernes,
   listeNonFournisseursInfrastructureNumerique:
     arbNonOSEPrivesPetitHorsFournisseurInfraNum,
 };

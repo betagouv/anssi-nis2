@@ -1,4 +1,4 @@
-import { causeReguleOSE } from "../Regulation.constantes";
+import { causeReguleOSE } from "./Regulation.constantes";
 import {
   CausesIncertitude,
   CausesRegulation,
@@ -6,7 +6,7 @@ import {
   ResultatRegulationIncertain,
   ResultatRegulationPositif,
   TypeEntite,
-} from "../Regulation.definitions";
+} from "./Regulation.definitions";
 
 export const fabriqueRegule = (
   causes: CausesRegulation,

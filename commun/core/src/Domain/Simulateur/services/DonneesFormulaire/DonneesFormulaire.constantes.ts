@@ -10,8 +10,6 @@ export const donneesFormulaireSimulateurVide: DonneesFormulaireSimulateur = {
   typeStructure: [],
   typeEntitePublique: [],
   activites: [],
-  fournitServicesUnionEuropeenne: [],
-  localisationRepresentant: [],
   localisationFournitureServicesNumeriques: [],
   paysDecisionsCyber: [],
   paysOperationsCyber: [],

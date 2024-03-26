@@ -1,7 +1,7 @@
 import {
   AssociationSectorielleActivite,
   collecteTitresPourActivite,
-} from "../../../../../commun/core/src/Domain/Simulateur/services/Activite/Activite.operations.ts";
+} from "../../../../../commun/core/src/Domain/Simulateur/Activite.operations.ts";
 import { FormSimulateur } from "./index.ts";
 import React, { useMemo } from "react";
 import { libellesSecteursActivite } from "../../../References/LibellesSecteursActivite.ts";

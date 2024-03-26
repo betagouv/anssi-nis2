@@ -1,5 +1,5 @@
 import { fc } from "@fast-check/vitest";
-import { fabriquesInformationsEtapes } from "../../../../src/Domain/Simulateur/fabriques/InformationsEtape.fabrique";
+import { fabriquesInformationsEtapes } from "../../../../src/Domain/Simulateur/InformationsEtape.fabrique";
 import { faussaireInformationEtapeForm } from "../../exemples/InformationEtape.faussaire";
 
 export const arbInformationEtapeForm = fc

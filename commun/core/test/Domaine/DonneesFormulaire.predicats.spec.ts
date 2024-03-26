@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { UnionPetitMoyenGrand } from "../../src/Domain/Simulateur/ChampsSimulateur.definitions";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique";
-import { auMoinsUneActiviteListee } from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { auMoinsUneActiviteListee } from "../../src/Domain/Simulateur/Activite.predicats";
 import {
   contientPetiteEntreprise,
   predicatDonneesFormulaire,

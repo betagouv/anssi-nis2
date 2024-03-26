@@ -6,10 +6,10 @@ import { CategorieTaille } from "./ReponseStructure.definitions";
 import { fabriqueCategorieTaille } from "./ReponseStructure.fabriques";
 
 export const fabriqueContenuCapsuleInformationSecteur =
-  <T extends CategorieTaille>(taille: T) =>
+  <Taille extends CategorieTaille>(taille: `${Taille}`) =>
   (
-    ensembleSecteurs: Set<RepInfoSecteur<T>>,
-  ): ReponseInformationsSecteur<T> => ({
+    ensembleSecteurs: Set<RepInfoSecteur<Taille>>,
+  ): ReponseInformationsSecteur<Taille> => ({
     ...fabriqueCategorieTaille(taille),
     secteurs: ensembleSecteurs,
   });

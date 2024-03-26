@@ -4,11 +4,11 @@ import {
   SecteurActivite,
   SecteurAvecBesoinLocalisationRepresentant,
 } from "../../src/Domain/Simulateur/SecteurActivite.definitions";
-import { getActivitesPour } from "../../src/Domain/Simulateur/services/Activite/Activite.operations";
+import { getActivitesPour } from "../../src/Domain/Simulateur/Activite.operations";
 import {
   estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
   estActiviteListee,
-} from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+} from "../../src/Domain/Simulateur/Activite.predicats";
 import {
   RepInfoSecteur,
   RepInfoSecteurLocalises,
@@ -49,34 +49,8 @@ export const fabriqueArb_EnsActivites_AvecFiltre_PourSecteur =
         fabriqueArb_EnsActivites_AvecFiltre_PourSecteurPeutEtreComposite(
           filtre,
         )(secteur, sousSecteur),
-    }) as unknown as fc.Arbitrary<Sortie>;
+    } as { [k in keyof Sortie]: fc.Arbitrary<Sortie[k]> });
 
-// export const fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe =
-//   <
-//     Taille extends CategorieTaille,
-//     S extends
-//       SecteurAvecBesoinLocalisationRepresentant = SecteurAvecBesoinLocalisationRepresentant,
-//     A extends
-//       ActivitesAvecBesoinLocalisationRepresentant<Taille> = ActivitesAvecBesoinLocalisationRepresentant<Taille>,
-//   >(
-//     fabriqueActivite: (
-//       secteur: S,
-//       sousSecteur: PeutEtreSousSecteurActivite,
-//     ) => fc.Arbitrary<Set<A>>,
-//   ) =>
-//   (
-//     arbLocalisationRepresentant: fc.Arbitrary<AppartenancePaysUnionEuropeenne>,
-//   ) =>
-//   (
-//     secteur: S,
-//   ): fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<Taille>> =>
-//     fc.record<InformationsSecteurAvecBesoinLocalisation<Taille>>({
-//       secteurActivite: fc.constant(secteur),
-//       activites: fabriqueActivite(secteur, "PasDeSousSecteurActivite"),
-//       fournitServicesUnionEuropeenne:
-//         arbFournitServiceUnionEuropeenne_ToujoursOui,
-//       localisationRepresentant: arbLocalisationRepresentant,
-//     }) as fc.Arbitrary<InformationsSecteurAvecBesoinLocalisation<Taille>>;
 export const fabriqueArb_EnsActivites_PourSecteurInfraNumLocalisable_HorsUe = <
   T extends SecteurAvecBesoinLocalisationRepresentant,
   Sortie extends RepInfoSecteurLocalises<CategorieTaille>,
@@ -105,43 +79,7 @@ export const fabriqueArb_EnsActivites_PourSecteurEILocalisable_HorsUe = <
   } as {
     [K in keyof Sortie]: fc.Arbitrary<Sortie[K]>;
   }) as fc.Arbitrary<Sortie>;
-// export const fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe_PourFiltre = <
-//   Taille extends CategorieTaille,
-//   S extends SecteurAvecBesoinLocalisationRepresentant,
-//   A extends ActivitesAvecBesoinLocalisationRepresentant<Taille>,
-// >(
-//   predicatActivite: (a: Activite | ActiviteInfranumLocalEtabLot1) => boolean,
-// ) =>
-//   fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe<Taille, S, A>(
-//     fabriqueArb_EnsActivites_AvecFiltre_PourSecteurPeutEtreComposite(
-//       predicatActivite,
-//     ),
-//   );
-// export const fabriqueArb_EnsActivites_PourSecteurLocalisable_Liste_GE =
-//   fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe_PourFiltre<
-//     CategorieTaille,
-//     SecteurAvecBesoinLocalisationRepresentant,
-//     ActivitesLocalisablesGrand
-//   >(estActiviteListee);
-// export const fabriqueArb_EnsActivites_InfranumAvecBesoinLocalisation =
-//   fabriqueArb_EnsActivites_PourSecteurLocalisableEnUe_PourFiltre(
-//     estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
-//   );
-// export const fabriqueArb_EnsActivites_Infranum_Localisees =
-//   <
-//     TypeSecteurActivite extends
-//       | "gestionServicesTic"
-//       | "fournisseursNumeriques"
-//       | "infrastructureNumerique",
-//   >(
-//     arbSecteurActivite: fc.Arbitrary<TypeSecteurActivite>,
-//   ) =>
-//   <TypeAppartenancePaysUnionEuropeenne extends AppartenancePaysUnionEuropeenne>(
-//     arb: fc.Arbitrary<TypeAppartenancePaysUnionEuropeenne>,
-//   ) =>
-//     A.enchaine(fabriqueArb_EnsActivites_InfranumAvecBesoinLocalisation(arb))(
-//       arbSecteurActivite,
-//     );
+
 export const fabriqueArb_EnsActivites_Autres_PourSecteurSimple = <
   T extends SecteurActivite,
   U extends RepInfoSecteur<CategorieTaille>,

@@ -17,7 +17,7 @@ import { SimulateurDonneesFormulaireActions } from "../Simulateur/Props/donneesF
 import {
   activitesParSecteurEtSousSecteur,
   AssociationSectorielleActivite,
-} from "../../../../commun/core/src/Domain/Simulateur/services/Activite/Activite.operations.ts";
+} from "../../../../commun/core/src/Domain/Simulateur/Activite.operations.ts";
 import React, { Dispatch } from "react";
 
 export const constructeurOptionActiviteFabrique: (

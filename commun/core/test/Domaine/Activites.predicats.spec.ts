@@ -1,6 +1,6 @@
 import { describe, it } from "vitest";
 import { fc } from "@fast-check/vitest";
-import { auMoinsUneActiviteInfraNumConcernee } from "../../src/Domain/Simulateur/services/Activite/Activite.predicats";
+import { auMoinsUneActiviteInfraNumConcernee } from "../../src/Domain/Simulateur/Activite.predicats";
 import { verifieQue } from "../utilitaires/assure";
 import { ValeursActivites } from "../../src/Domain/Simulateur/Activite.valeurs";
 

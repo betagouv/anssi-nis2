@@ -3,9 +3,9 @@ import {
   toujourNegatif,
   toujoursFaux,
   toujoursVrai,
-} from "../../../../../utils/services/commun.predicats";
-import { PredicatDonneesSimulateurDefinitions } from "../PredicatDonneesSimulateur.definitions";
-import { DonneesFormulaireSimulateur } from "../services/DonneesFormulaire/DonneesFormulaire.definitions";
+} from "../../../../utils/services/commun.predicats";
+import { PredicatDonneesSimulateurDefinitions } from "./PredicatDonneesSimulateur.definitions";
+import { DonneesFormulaireSimulateur } from "./services/DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   CapaciteEtape,
   EtapePrealable,
@@ -17,9 +17,9 @@ import {
   SousEtapeConditionnelle,
   TypeEtape,
   VariantesEtape,
-} from "../InformationsEtape";
-import { ValidationReponses } from "../services/ChampSimulateur/champs.domaine";
-import { validationToutesLesReponses } from "../services/ChampSimulateur/ValidationReponses";
+} from "./InformationsEtape";
+import { ValidationReponses } from "./services/ChampSimulateur/champs.domaine";
+import { validationToutesLesReponses } from "./services/ChampSimulateur/ValidationReponses";
 
 const fabriqueInformationsEtapeResultat: (titre: string) => EtapeResultat = (
   titre,

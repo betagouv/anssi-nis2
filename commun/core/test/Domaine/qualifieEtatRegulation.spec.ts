@@ -4,9 +4,8 @@ import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/service
 import {
   fabriqueIncertain,
   resultatReguleOSE,
-} from "../../src/Domain/Simulateur/fabriques/ResultatRegulation.fabrique";
+} from "../../src/Domain/Simulateur/ResultatRegulation.fabrique";
 import {
-  Regulation,
   RegulationEntite,
   TypeEntite,
 } from "../../src/Domain/Simulateur/Regulation.definitions";
@@ -98,48 +97,6 @@ describe("chaine de décision", () => {
 
   const contreExemples: (DonneesFormulaireSimulateur & DonneesTest)[] = [
     {
-      description:
-        "Non OSE > Privée > Infra Num > Moyenne/Grande : Moyen grand Gestion TIC",
-      decisionAttendue: Regulation.Regule,
-      typeEntite: "EntiteImportante",
-      typeEntitePublique: [],
-      fournitServicesUnionEuropeenne: ["oui"],
-      localisationRepresentant: ["france"],
-      secteurActivite: ["gestionServicesTic"],
-      sousSecteurActivite: [],
-      designationOperateurServicesEssentiels: ["non"],
-      typeStructure: ["privee"],
-      trancheChiffreAffaire: ["grand"],
-      appartenancePaysUnionEuropeenne: ["france"],
-      trancheNombreEmployes: ["moyen"],
-      activites: ["fournisseurServicesSecuriteGeres"],
-      localisationFournitureServicesNumeriques: [],
-      paysDecisionsCyber: [],
-      paysOperationsCyber: [],
-      paysPlusGrandNombreSalaries: [],
-    },
-    {
-      description:
-        "Moyenne ou grande entité localisée en France ou en UE > secteur d'activité et activité listés avec besoin de localisation",
-      decisionAttendue: "Regule",
-      typeEntite: "EntiteEssentielle",
-      typeEntitePublique: [],
-      fournitServicesUnionEuropeenne: ["oui"],
-      localisationRepresentant: ["france"],
-      secteurActivite: ["gestionServicesTic", "infrastructureNumerique"],
-      sousSecteurActivite: [],
-      designationOperateurServicesEssentiels: ["non"],
-      typeStructure: ["privee"],
-      trancheChiffreAffaire: ["grand"],
-      appartenancePaysUnionEuropeenne: ["france"],
-      trancheNombreEmployes: ["grand"],
-      activites: ["fournisseurServicesInformatiqueNuage"],
-      localisationFournitureServicesNumeriques: [],
-      paysDecisionsCyber: [],
-      paysOperationsCyber: [],
-      paysPlusGrandNombreSalaries: [],
-    },
-    {
       description: "Gestion TIC France",
       decisionAttendue: "Regule",
       typeEntite: "EntiteImportante",
@@ -152,8 +109,6 @@ describe("chaine de décision", () => {
       typeStructure: ["privee"],
       typeEntitePublique: [],
       activites: ["fournisseurServicesGeres"],
-      fournitServicesUnionEuropeenne: [],
-      localisationRepresentant: [],
       localisationFournitureServicesNumeriques: [],
       paysDecisionsCyber: ["france"],
       paysOperationsCyber: [],

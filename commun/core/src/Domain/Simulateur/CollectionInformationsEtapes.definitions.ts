@@ -47,7 +47,7 @@ export class CollectionInformationsEtapes extends Array<InformationsEtape> {
   ): InformationsEtape =>
     this.reduce(
       this.recuperationEtapeSuivanteOuDefaut(indiceDepart),
-      InformationsEtapeVide as unknown as InformationsEtape,
+      InformationsEtapeVide,
     );
 
   recupereSousEtape = (indice: number, indiceSousEtape: number) =>

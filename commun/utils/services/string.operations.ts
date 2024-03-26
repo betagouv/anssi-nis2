@@ -42,3 +42,5 @@ export const construitAncre = flow(
   encodeURI,
   ajoutePrefixe("#")
 );
+export const estChaineNonVide = <T extends string>(listeValeurs: T) =>
+  listeValeurs.length > 0;

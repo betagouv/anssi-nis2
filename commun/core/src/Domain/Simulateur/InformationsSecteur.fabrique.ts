@@ -3,27 +3,27 @@ import {
   ens,
   ensembleNeutreDe,
   union,
-} from "../../../../../utils/services/sets.operations";
+} from "../../../../utils/services/sets.operations";
 import {
   contientUnParmi,
   est,
-} from "../../../../../utils/services/commun.predicats";
+} from "../../../../utils/services/commun.predicats";
 import {
   ActivitesInfrastructureNumerique,
   ActivitesPourSecteur,
-} from "../Activite.definitions";
-import { DonneesFormulaireSimulateur } from "../services/DonneesFormulaire/DonneesFormulaire.definitions";
+} from "./Activite.definitions";
+import { DonneesFormulaireSimulateur } from "./services/DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   SecteurActivite,
   SecteurComposite,
   SecteurSimple,
-} from "../SecteurActivite.definitions";
-import { activiteEstDansSecteur } from "../services/Activite/Activite.predicats";
+} from "./SecteurActivite.definitions";
+import { activiteEstDansSecteur } from "./Activite.predicats";
 import {
   InformationsSecteurComposite,
   InformationsSecteurCompositeAutre,
   InformationsSecteurSansBesoinLocalisation,
-} from "../services/Eligibilite/InformationsSecteur.definitions";
+} from "./services/Eligibilite/InformationsSecteur.definitions";
 import {
   InformationsSecteurPossible,
   RepInfoSecteur,
@@ -34,23 +34,23 @@ import {
   ReponseInformationsSecteurInfranumActiviteLocalEtabLot2,
   ReponseInformationsSecteurInfranumActiviteLocalServices,
   ReponseInformationsSecteurInfranumAutresActivitesListees,
-} from "../services/Eligibilite/ReponseInformationsSecteur.definitions";
-import { CategorieTaille } from "../services/Eligibilite/ReponseStructure.definitions";
-import { fabriqueCategorieTaille } from "../services/Eligibilite/ReponseStructure.fabriques";
+} from "./services/Eligibilite/ReponseInformationsSecteur.definitions";
+import { CategorieTaille } from "./services/Eligibilite/ReponseStructure.definitions";
+import { fabriqueCategorieTaille } from "./services/Eligibilite/ReponseStructure.fabriques";
 import {
   estSecteurAutre,
   estUnSecteurAvecDesSousSecteurs,
   estUnSecteurSansDesSousSecteurs,
-} from "../services/SecteurActivite/SecteurActivite.predicats";
+} from "./services/SecteurActivite/SecteurActivite.predicats";
 import {
   estDansSecteur,
   estSousSecteurAutre,
-} from "../services/SousSecteurActivite/SousSecteurActivite.predicats";
+} from "./services/SousSecteurActivite/SousSecteurActivite.predicats";
 import {
   SousSecteurActivite,
   SousSecteurAutre,
   SousSecteurListes,
-} from "../SousSecteurActivite.definitions";
+} from "./SousSecteurActivite.definitions";
 
 export const FabriqueInformationsSecteur = {
   secteurAutre:
@@ -128,7 +128,7 @@ export const FabriqueInformationsSecteur = {
         ),
 
   secteurAvecLocalisationEtablissementPrincipal:
-    <Taille extends CategorieTaille>(taille: Taille) =>
+    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
     <
       Secteur extends
         | "infrastructureNumerique"
@@ -156,17 +156,8 @@ export const FabriqueInformationsSecteur = {
             }
           : {}),
       }),
-  // secteurGestionServicesTic:
-  //   <Taille extends CategorieTaille>(taille: Taille) =>
-  //   (
-  //     donnees: DonneesFormulaireSimulateur,
-  //     activitesInfraNum: ActivitesInfrastructureNumerique[],
-  //   ) =>
-  //   (): Set<RepInfoSecteurInfranum<Taille>> =>
-  //     match(activitesInfraNum)
-  //       .when(
   secteurInfrastructureNumerique:
-    <Taille extends CategorieTaille>(taille: Taille) =>
+    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
     (
       donnees: DonneesFormulaireSimulateur,
       activitesInfraNum: ActivitesInfrastructureNumerique[],
@@ -227,7 +218,7 @@ export const FabriqueInformationsSecteur = {
         ),
 
   secteurDepuisDonneesSimulateur:
-    <Taille extends CategorieTaille>(taille: Taille) =>
+    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
     (
       donnees: DonneesFormulaireSimulateur,
       secteurActivite: SecteurActivite,
@@ -282,7 +273,7 @@ export const FabriqueInformationsSecteur = {
         ) as Set<InformationsSecteurPossible<Taille>>,
 
   listeSecteursDepuisDonneesSimulateur:
-    <Taille extends CategorieTaille>(taille: Taille) =>
+    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
     (donnees: DonneesFormulaireSimulateur) =>
       donnees.secteurActivite.reduce(
         (liste, secteur) =>
@@ -291,13 +282,13 @@ export const FabriqueInformationsSecteur = {
             FabriqueInformationsSecteur.secteurDepuisDonneesSimulateur(taille)(
               donnees,
               secteur,
-            ),
+            ) as Set<InformationsSecteurPossible<Taille>>,
           ),
         new Set<InformationsSecteurPossible<Taille>>([]),
       ),
 
   informationsSecteurs:
-    <Taille extends CategorieTaille>(taille: Taille) =>
+    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
     (
       donnees: DonneesFormulaireSimulateur,
     ): ReponseInformationsSecteur<Taille> => ({
@@ -305,6 +296,6 @@ export const FabriqueInformationsSecteur = {
       secteurs:
         FabriqueInformationsSecteur.listeSecteursDepuisDonneesSimulateur(
           taille,
-        )(donnees),
+        )(donnees) as Set<RepInfoSecteur<Taille>>,
     }),
 };

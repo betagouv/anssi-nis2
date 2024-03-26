@@ -6,8 +6,6 @@ export const arbFormulaireVide: fc.Arbitrary<DonneesFormulaireSimulateur> =
     activites: fc.constant([]),
     designationOperateurServicesEssentiels: fc.constant([]),
     appartenancePaysUnionEuropeenne: fc.constant([]),
-    fournitServicesUnionEuropeenne: fc.constant([]),
-    localisationRepresentant: fc.constant([]),
     secteurActivite: fc.constant([]),
     sousSecteurActivite: fc.constant([]),
     trancheChiffreAffaire: fc.constant([]),

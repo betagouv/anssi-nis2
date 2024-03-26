@@ -3,8 +3,6 @@ export const ChampsFormulaireFacultatifs = [
   "trancheChiffreAffaire",
   "sousSecteurActivite",
   "activites",
-  "fournitServicesUnionEuropeenne", // TODO : peut-être à supprimer
-  "localisationRepresentant", // TODO : peut-être à supprimer
   "localisationFournitureServicesNumeriques",
   "paysDecisionsCyber",
   "paysOperationsCyber",

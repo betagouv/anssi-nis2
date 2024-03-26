@@ -1,10 +1,8 @@
 import { describe, it } from "vitest";
-import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { donneesFormulaireSimulateurVide } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes";
-import { ChampsFormulaireFacultatifs } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.valeurs";
+import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique";
 import {
-  contientSecteursLocalisesValides,
   donneesFormulaireSontCompletes,
   verifieCompletudeDonneesCommunes,
   verifieCompletudeDonneesFormulairePrivee,
@@ -13,6 +11,7 @@ import {
   verifieDonneesCommunesPublique,
   verifieDonneesSectorielles,
 } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.predicats";
+import { ChampsFormulaireFacultatifs } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.valeurs";
 import { verifieQue } from "../utilitaires/assure";
 import { arbForm } from "./arbitraires/DonneesSimulateur/arbitrairesSimulateur";
 
@@ -21,7 +20,7 @@ describe("Invalide en cas de données absentes", () => {
     arbForm.nonValide.donneeAbsente,
   ).filter(
     ([nom]) =>
-      !(ChampsFormulaireFacultatifs as unknown as string[]).includes(nom),
+      !(ChampsFormulaireFacultatifs as readonly string[]).includes(nom),
   );
 
   it.each(donneesAbsentes)("%s", (_, donneeAbsente) => {
@@ -34,45 +33,10 @@ describe("Invalide en cas de données absentes", () => {
 describe("Validation des données formulaire", () => {
   const donneesTestArbPriveeSansAutre = [
     {
-      nom: "designeOSE.petit.sansBesoinLocalisation",
-      arbitraireEligible: arbForm.designeOSE.petit.sansBesoinLocalisation,
-    },
-    {
-      nom: "designeOSE.petit.avecLocalisation",
-      arbitraireEligible: arbForm.designeOSE.petit.avecLocalisationRepresentant,
-    },
-    {
-      nom: "designeOSE.moyenGrand.sansBesoinLocalisation",
-      arbitraireEligible: arbForm.designeOSE.moyenGrand.sansBesoinLocalisation,
-    },
-    {
-      nom: "designeOSE.moyenGrand.avecLocalisationRepresentant",
-      arbitraireEligible:
-        arbForm.designeOSE.moyenGrand.avecLocalisationRepresentant,
-    },
-    {
       nom: "nonDesigneOSE.privee.grand.secteursListes.sansBesoinLocalisation",
       arbitraireEligible:
         arbForm.nonDesigneOSE.privee.grand.secteursListes
           .sansBesoinLocalisation,
-    },
-    {
-      nom: "nonDesigneOSE.privee.grand.secteursListes.avecFournitServiceUE",
-      arbitraireEligible:
-        arbForm.nonDesigneOSE.privee.grand.secteursListes.avecBesoinLocalisation
-          .neFournitPasServiceUe,
-    },
-    {
-      nom: "nonDesigneOSE.privee.grand.secteursListes.avecLocalisationRepresentant",
-      arbitraireEligible:
-        arbForm.nonDesigneOSE.privee.grand.secteursListes.avecBesoinLocalisation
-          .avecLocalisationRepresentant,
-    },
-    {
-      nom: "nonDesigneOSE.privee.petit.fournisseursInfraNum.petitInfraNum.activitesConcernes",
-      arbitraireEligible:
-        arbForm.nonDesigneOSE.privee.petit.fournisseursInfraNum.petitInfraNum
-          .activitesConcernes,
     },
   ];
   const donneesTestArbAutres = [
@@ -94,41 +58,13 @@ describe("Validation des données formulaire", () => {
     ...donneesTestArbAutres,
   ];
 
-  const donneesTestsArbPublique = [
-    {
-      nom: "nonDesigneOSE.publique.sansBesoinLocalisation",
-      arbitraireEligible: arbForm.nonDesigneOSE.publique.sansBesoinLocalisation,
-    },
-    {
-      nom: "nonDesigneOSE.publique.avecLocalisationRepresentant",
-      arbitraireEligible:
-        arbForm.nonDesigneOSE.publique.avecLocalisationRepresentant,
-    },
-    {
-      nom: "nonDesigneOSE.publique.avecLocalisationRepresentantFrance",
-      arbitraireEligible:
-        arbForm.nonDesigneOSE.publique.avecLocalisationRepresentantFrance,
-    },
-    {
-      nom: "nonDesigneOSE.publique.neFournitPasServiceUe",
-      arbitraireEligible: arbForm.nonDesigneOSE.publique.neFournitPasServiceUe,
-    },
-  ];
-
   const donneesTestsArbitraires = [
-    ...donneesTestsArbPublique,
+    {
+      nom: "nonDesigneOSE.publique",
+      arbitraireEligible: arbForm.nonDesigneOSE.publique,
+    },
     ...donneesTestsArbPrivee,
   ];
-
-  const formulairePetitInfraNumSansLocalisation = fabriqueDonneesFormulaire({
-    designationOperateurServicesEssentiels: ["non"],
-    appartenancePaysUnionEuropeenne: ["france"],
-    typeStructure: ["privee"],
-    secteurActivite: ["infrastructureNumerique"],
-    trancheNombreEmployes: ["petit"],
-    trancheChiffreAffaire: ["petit"],
-    activites: ["fournisseurServicesDNS"],
-  });
 
   describe("Données privées : verifieDonneesCommunesPrivee", () => {
     it.each(donneesTestsArbPrivee)(" $nom", ({ arbitraireEligible }) => {
@@ -145,16 +81,14 @@ describe("Validation des données formulaire", () => {
         .quelqueSoit(arbitraireEligible);
     });
   });
-  describe("Données privées : contientSecteursLocalisesValides", () => {
-    it.each(donneesTestArbPriveeSansAutre)("$nom", ({ arbitraireEligible }) => {
-      verifieQue(contientSecteursLocalisesValides)
-        .estToujoursVrai()
-        .quelqueSoit(arbitraireEligible);
-    });
-  });
 
   describe("verifieCompletudeDonneesFormulairePublique", () => {
-    it.each(donneesTestsArbPublique)("$nom", ({ arbitraireEligible }) => {
+    it.each([
+      {
+        nom: "nonDesigneOSE.publique.sansBesoinLocalisation",
+        arbitraireEligible: arbForm.nonDesigneOSE.publique,
+      },
+    ])("$nom", ({ arbitraireEligible }) => {
       verifieQue(verifieCompletudeDonneesFormulairePublique)
         .estToujoursVrai()
         .quelqueSoit(arbitraireEligible);
@@ -162,7 +96,12 @@ describe("Validation des données formulaire", () => {
   });
 
   describe("verifieDonneesCommunesPublique", () => {
-    it.each(donneesTestsArbPublique)(
+    it.each([
+      {
+        nom: "nonDesigneOSE.publique.sansBesoinLocalisation",
+        arbitraireEligible: arbForm.nonDesigneOSE.publique,
+      },
+    ])(
       "Doit accepter des données éligibles: $nom",
       ({ arbitraireEligible }) => {
         verifieQue(verifieDonneesCommunesPublique)
@@ -265,56 +204,6 @@ describe("Validation des données formulaire", () => {
         "verifieCompletudeDonneesFormulairePublique",
         verifieQue(verifieCompletudeDonneesFormulairePublique).pour(donnees)
           .estToujoursFaux,
-      );
-    });
-    describe("Petite Infrastructure numérique non localisée", () => {
-      it(
-        "contientSecteursLocalisesValides",
-        verifieQue(contientSecteursLocalisesValides).pour(
-          formulairePetitInfraNumSansLocalisation,
-        ).estToujoursFaux,
-      );
-      it(
-        "verifieDonneesSectorielles",
-        verifieQue(verifieDonneesSectorielles).pour(
-          formulairePetitInfraNumSansLocalisation,
-        ).estToujoursFaux,
-      );
-      it(
-        "contientSecteursLocalisesValides",
-        verifieQue(contientSecteursLocalisesValides).pour({
-          ...formulairePetitInfraNumSansLocalisation,
-          secteurActivite: ["gestionServicesTic"],
-          activites: ["fournisseurServicesSecuriteGeres"],
-        }).estToujoursVrai,
-      );
-      it(
-        "verifieDonneesSectorielles",
-        verifieQue(verifieDonneesSectorielles).pour(
-          formulairePetitInfraNumSansLocalisation,
-        ).estToujoursFaux,
-      );
-    });
-    describe("Petite Infrastructure numérique sans représentant", () => {
-      const donnees: DonneesFormulaireSimulateur = {
-        ...formulairePetitInfraNumSansLocalisation,
-        fournitServicesUnionEuropeenne: ["oui"],
-      };
-      it(
-        "verifieCompletudeDonneesFormulairePrivee",
-        verifieQue(verifieCompletudeDonneesFormulairePrivee).pour(donnees)
-          .estToujoursFaux,
-      );
-    });
-    describe("Petite Infrastructure numérique ne fournit pas en UE", () => {
-      const donnees: DonneesFormulaireSimulateur = {
-        ...formulairePetitInfraNumSansLocalisation,
-        fournitServicesUnionEuropeenne: ["non"],
-      };
-      it(
-        "verifieCompletudeDonneesFormulairePrivee",
-        verifieQue(verifieCompletudeDonneesFormulairePrivee).pour(donnees)
-          .estToujoursVrai,
       );
     });
   });

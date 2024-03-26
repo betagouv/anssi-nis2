@@ -13,10 +13,7 @@ import { AppartenancePaysUnionEuropeenne } from "../../ChampsSimulateur.definiti
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import { ValeursSecteursActivitesAnnexe1 } from "../../SecteurActivite.valeurs";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
-import {
-  estActiviteAutre,
-  estActiviteListee,
-} from "../Activite/Activite.predicats";
+import { estActiviteAutre, estActiviteListee } from "../../Activite.predicats";
 import {
   estSecteur,
   estSecteurAutre,

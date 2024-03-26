@@ -41,10 +41,12 @@ const ajouteYaml = (
   node: Literal<string>,
   i: number,
   a: readonly Literal<string>[],
-) =>
-  isHeading(a[i + 1])
-    ? ajouteUneSection(acc, parse(node.value), a[i + 1] as unknown as Heading)
+) => {
+  const aElement = a[i + 1];
+  return isHeading(aElement)
+    ? ajouteUneSection(acc, parse(node.value), aElement as Heading)
     : ajouteMatter(acc, parse(node.value));
+};
 const creeMatiereAvecTitre = (
   acc: StructureMarkdown,
   node: Literal<string>,

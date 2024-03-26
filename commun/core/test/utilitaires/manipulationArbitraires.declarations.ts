@@ -10,12 +10,7 @@ export type DonneesFormulaireExtensibles =
   | DonneesBrutesSansActivite
   | DonneesSectorielles
   | Omit<DonneesBrutesSansActivite, "trancheNombreEmployes">
-  | Omit<
-      DonneesFormulaireSimulateur,
-      | "typeEntitePublique"
-      | "fournitServicesUnionEuropeenne"
-      | "localisationRepresentant"
-    >;
+  | Omit<DonneesFormulaireSimulateur, "typeEntitePublique">;
 
 export type PiocheDonneesForm<T extends keyof DonneesFormulaireSimulateur> =
   Pick<DonneesFormulaireSimulateur, T>;
@@ -46,13 +41,7 @@ export type ArbitraireDonneesFormulaireSimulateurNomme =
 export type DonneesExtensiblesAvecActivite<
   DonneesPartielles extends DonneesSectorielles,
 > = DonneesPartielles & Pick<DonneesFormulaireSimulateur, "activites">;
-export type ArbitraireEnrichi = ArbitraireDonneesFormulaireSimulateurNomme & {
-  sansBesoinLocalisation: ArbitraireDonneesFormulaireSimulateurNomme;
-  neFournitPasServiceUe: ArbitraireDonneesFormulaireSimulateurNomme;
-  avecLocalisationRepresentant: ArbitraireDonneesFormulaireSimulateurNomme;
-  avecLocalisationRepresentantHorsFrance: ArbitraireDonneesFormulaireSimulateurNomme;
-  avecLocalisationRepresentantFrance: ArbitraireDonneesFormulaireSimulateurNomme;
-};
+
 export type AvecParams<TypeAjout extends DonneesAjout = DonneesAjout> = {
   [k in keyof TypeAjout]: fc.Arbitrary<TypeAjout[k]>;
 };

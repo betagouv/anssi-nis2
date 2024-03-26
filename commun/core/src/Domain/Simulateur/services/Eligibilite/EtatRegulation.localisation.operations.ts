@@ -1,5 +1,5 @@
 import { match } from "ts-pattern";
-import { fabriqueIncertain } from "../../fabriques/ResultatRegulation.fabrique";
+import { fabriqueIncertain } from "../../ResultatRegulation.fabrique";
 import { resultatEstDefinitif } from "./EtatRegulation.constantes";
 import { EtatRegulation } from "./EtatRegulation.definitions";
 import {

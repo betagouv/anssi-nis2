@@ -1,6 +1,6 @@
-import { Activite } from "../../Activite.definitions";
-import { SecteurSimple } from "../../SecteurActivite.definitions";
-import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
+import { Activite } from "./Activite.definitions";
+import { SecteurSimple } from "./SecteurActivite.definitions";
+import { SousSecteurActivite } from "./SousSecteurActivite.definitions";
 import { activitesParSecteurEtSousSecteur } from "./Activite.operations";
 
 export const fabriqueListeActivitesDesSecteurs = (

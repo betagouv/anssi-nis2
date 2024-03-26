@@ -1,6 +1,7 @@
 import { fc } from "@fast-check/vitest";
 import { describe, expect, it } from "vitest";
 import { ResultatRegulationEntite } from "../../src/Domain/Simulateur/Regulation.definitions";
+import { estResultatRegulationPositif } from "../../src/Domain/Simulateur/Regulation.predicats";
 import {
   EtapeEvaluation,
   EtatRegulationDefinitif,
@@ -11,7 +12,6 @@ import { evalueRegulationEtatReponseLocalisation } from "../../src/Domain/Simula
 import { evalueRegulationEtatReponseStructure } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.localisation.structure";
 import { evalueRegulationEtatReponseInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
 import { evalueRegulationEtatReponseOse } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.ose.operations";
-import { estResultatRegulationPositif } from "../../src/Domain/Simulateur/services/Regulation/Regulation.predicats";
 import { arbitrairesResultatRegulation } from "./arbitraires/ResultatRegulation.arbitraires";
 
 describe("Regulation Etat Reponse", () => {

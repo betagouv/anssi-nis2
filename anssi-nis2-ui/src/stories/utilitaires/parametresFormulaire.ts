@@ -20,12 +20,16 @@ export abstract class ParametresDonneesSpecifiqueField<
     valeurs: TypeValeurs[],
   ): DonneesFormulaireSimulateur;
 
-  protected construitDonneesPourField<TypeField extends string, TypeValeurs>(
+  protected construitDonneesPourField<
+    TypeField extends keyof DonneesFormulaireSimulateur,
+    TypeValeurs,
+  >(
     fieldName: TypeField,
     listeValeurs: TypeValeurs[],
   ): DonneesFormulaireSimulateur {
     return {
-      [fieldName as TypeField]: listeValeurs,
+      [fieldName as keyof DonneesFormulaireSimulateur]:
+        listeValeurs as DonneesFormulaireSimulateur[TypeField][],
     } as unknown as DonneesFormulaireSimulateur;
   }
 }

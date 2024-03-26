@@ -5,8 +5,7 @@ import {
   ajouteChampsFacultatifs,
   etend,
   nommeArbitraire,
-  partitionneLocalisationServices,
-} from "../../../utilitaires/manipulationArbitraires";
+} from "../../../utilitaires/manipulationArbitraires.DonneesFormulaireExtensibles";
 import {
   fabriqueArbContraintSurtrancheChiffreAffaire,
   fabriqueArbSingleton,
@@ -51,8 +50,9 @@ export const arbOSEMoyenGrand = etend(arbitraireSecteursSousSecteurs)
   .chain(ajouteChampsFacultatifs) as fc.Arbitrary<DonneesFormulaireSimulateur>;
 
 export const arbDesigneOSE = {
-  petit: partitionneLocalisationServices(
-    nommeArbitraire("Petites entités désignées OSE pour NIS 1")(arbOSEPetit),
+  petit: nommeArbitraire("Petites entités désignées OSE pour NIS 1")(
+    arbOSEPetit,
   ),
-  moyenGrand: partitionneLocalisationServices(arbOSEMoyenGrand),
+
+  moyenGrand: arbOSEMoyenGrand,
 };

@@ -14,7 +14,7 @@ import {
   ajouteAuMoinsUneActiviteListee,
   ajouteChampsFacultatifs,
   etend,
-} from "../../../utilitaires/manipulationArbitraires";
+} from "../../../utilitaires/manipulationArbitraires.DonneesFormulaireExtensibles";
 import {
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,
@@ -76,8 +76,6 @@ const initialValue: Record<
   trancheNombreEmployes: arbFormulaireVide,
   typeEntitePublique: arbFormulaireVide,
   typeStructure: arbFormulaireVide,
-  fournitServicesUnionEuropeenne: arbFormulaireVide,
-  localisationRepresentant: arbFormulaireVide,
   localisationFournitureServicesNumeriques: arbFormulaireVide,
   paysDecisionsCyber: arbFormulaireVide,
   paysOperationsCyber: arbFormulaireVide,

@@ -1,6 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { expect } from "vitest";
-import { fabriqueRegule } from "../../src/Domain/Simulateur/fabriques/ResultatRegulation.fabrique";
+import { fabriqueRegule } from "../../src/Domain/Simulateur/ResultatRegulation.fabrique";
 import { resultatNonRegule } from "../../src/Domain/Simulateur/Regulation.constantes";
 import { CausesRegulation } from "../../src/Domain/Simulateur/Regulation.definitions";
 import type { TypeEntite } from "../../src/Domain/Simulateur/Regulation.definitions";
@@ -62,13 +62,6 @@ export const assertion = {
       assertion.propriete(arb, (a) => {
         expect(a).not.toStrictEqual(valeur);
       }),
-
-  tousExclusifs: <T>(...arbs: fc.Arbitrary<T>[]) =>
-    arbs.map((arbA) =>
-      arbs
-        .filter((a) => a != arbA)
-        .map((arbB) => assertion.exclusifs(arbA, arbB)),
-    ),
 };
 export const verificationReponseNonRegule = (reponse: EtatRegulation) => {
   const resultatAttendu: EtatRegulationDefinitif = {
