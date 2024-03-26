@@ -8,9 +8,11 @@ import {
   valideEtapeAppartenanceUE,
   valideEtapeDesignation,
   valideEtapePrealable,
+  valideTypeStructure,
 } from "../../questionnaire/actions.ts";
 import { EtapeDesignation } from "./EtapesRefacto/EtapeDesignation.tsx";
 import { EtapeAppartenanceUE } from "./EtapesRefacto/EtapeAppartenanceUE.tsx";
+import { EtapeTypeStructure } from "./EtapesRefacto/EtapeTypeStructure.tsx";
 
 export const Questionnaire = () => {
   const [etat, dispatch] = useReducer(reducerQuestionnaire, etatParDefaut);
@@ -31,6 +33,13 @@ export const Questionnaire = () => {
     return (
       <EtapeAppartenanceUE
         onValider={(reponse) => dispatch(valideEtapeAppartenanceUE(reponse))}
+      />
+    );
+
+  if (etat.etapeCourante === "typeStructure")
+    return (
+      <EtapeTypeStructure
+        onValider={(reponse) => dispatch(valideTypeStructure(reponse))}
       />
     );
 };
