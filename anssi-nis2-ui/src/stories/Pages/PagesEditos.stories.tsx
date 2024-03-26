@@ -17,7 +17,7 @@ type Story = StoryObj<typeof PageEdito>;
 
 export const PageAPropos: Story = {
   args: {
-    titre: "A propos",
+    titre: "À propos",
     children: <APropos />,
   },
 };
