@@ -65,12 +65,13 @@ const etendAvecActivitesVides = <DonneesPartielles extends DonneesSectorielles>(
   base: DonneesPartielles &
     Partial<Pick<DonneesFormulaireSimulateur, "activites">>,
 ) =>
-  fc.record({
-    ...propageBase(base),
+  fc.record<DonneesPartielles>({
+    ...propageBase<
+      DonneesPartielles &
+        Partial<Pick<DonneesFormulaireSimulateur, "activites">>
+    >(base),
     activites: fc.constant([]),
-  }) as unknown as fc.Arbitrary<
-    DonneesExtensiblesAvecActivite<DonneesPartielles>
-  >;
+  }) as fc.Arbitrary<DonneesExtensiblesAvecActivite<DonneesPartielles>>;
 
 const extraitOptionsAjoutArbitrairesActivite = (options?: {
   minLength?: number;

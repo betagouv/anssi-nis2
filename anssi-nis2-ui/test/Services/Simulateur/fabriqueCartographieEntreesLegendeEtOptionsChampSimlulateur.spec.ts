@@ -6,7 +6,7 @@ import {
 } from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { fabriqueArbEnrSecteurSousSecteurs } from "../../../../commun/core/test/utilitaires/manipulationArbitraires.fabriques";
 import { fabriqueCartographieEntreesLegendeEtOptionsChampSimlulateur } from "../../../src/Services/fabriques/ConstructeurOptionActivite.fabrique";
-import { ajouteArbitraireActivites } from "../../../../commun/core/test/utilitaires/manipulationArbitraires";
+import { ajouteArbitraireActivites } from "../../../../commun/core/test/utilitaires/manipulationArbitraires.DonneesFormulaireExtensibles";
 import { listeEnrSecteursAvecLeursSousSecteurs } from "../../../../commun/core/test/Domaine/exemples/ListesEnrSecteursSousSecteur";
 
 const donneesArbitrairesFormNonOSEPrivesMoyenneGrandeAutresActivites: fc.Arbitrary<

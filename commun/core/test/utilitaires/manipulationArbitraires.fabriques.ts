@@ -9,7 +9,7 @@ import { EnrSecteurSousSecteur } from "../../src/Domain/Simulateur/SousSecteurAc
 import {
   contrainteTranchesSansDoublonSurValeur,
   propageBase,
-} from "./manipulationArbitraires";
+} from "./manipulationArbitraires.DonneesFormulaireExtensibles";
 import {
   AvecParams,
   DonneesAjout,
@@ -39,11 +39,12 @@ export const fabriqueEtendAvec: <
     ajouts: AvecParams<TypeAjout>,
   ) =>
     arbitraire.chain((base) =>
-      fc.record<TypeRetour>({
+      fc.record({
         ...propageBase(base),
         ...ajouts,
       } as unknown as { [K in keyof TypeRetour]: fc.Arbitrary<TypeRetour[K]> }),
     ) as fc.Arbitrary<TypeRetour>;
+
 export const fabriqueArbSingleton = <T>(valeursPossibles: Readonly<T[]>) =>
   fc.subarray<T>([...valeursPossibles], {
     minLength: 1,

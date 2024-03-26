@@ -11,7 +11,7 @@ import {
   ajouteAuMoinsUneActiviteListee,
   ajouteChampsFacultatifs,
   etend,
-} from "../../../utilitaires/manipulationArbitraires";
+} from "../../../utilitaires/manipulationArbitraires.DonneesFormulaireExtensibles";
 import {
   fabriqueArbContraintSurtrancheChiffreAffaire,
   fabriqueArbTrancheSingleton,
@@ -19,8 +19,6 @@ import {
 import {
   arbappartenancePaysUnionEuropeenne,
   arbDesigneOperateurServicesEssentiels,
-  arbFournitServiceUnionEuropeenne,
-  arbLocalisationRepresentant,
   arbTypeStructure,
 } from "../ValeursChampsSimulateur.arbitraire";
 import {

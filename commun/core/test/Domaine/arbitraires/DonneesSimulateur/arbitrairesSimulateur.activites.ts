@@ -4,7 +4,7 @@ import {
   ajouteAuMoinsUneActiviteAutre,
   ajouteChampsFacultatifs,
   etend,
-} from "../../../utilitaires/manipulationArbitraires";
+} from "../../../utilitaires/manipulationArbitraires.DonneesFormulaireExtensibles";
 import { PiocheDonneesForm } from "../../../utilitaires/manipulationArbitraires.declarations";
 import { fabriqueArbTrancheSingleton } from "../../../utilitaires/manipulationArbitraires.fabriques";
 import { arbSecteursSousSecteursListes } from "./arbitrairesSimulateur.valeursSectorielles";

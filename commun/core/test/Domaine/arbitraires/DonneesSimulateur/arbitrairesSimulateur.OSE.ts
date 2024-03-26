@@ -5,7 +5,7 @@ import {
   ajouteChampsFacultatifs,
   etend,
   nommeArbitraire,
-} from "../../../utilitaires/manipulationArbitraires";
+} from "../../../utilitaires/manipulationArbitraires.DonneesFormulaireExtensibles";
 import {
   fabriqueArbContraintSurtrancheChiffreAffaire,
   fabriqueArbSingleton,

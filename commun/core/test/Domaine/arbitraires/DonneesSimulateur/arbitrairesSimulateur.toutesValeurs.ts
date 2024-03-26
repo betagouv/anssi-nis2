@@ -14,7 +14,7 @@ import {
   ajouteAuMoinsUneActiviteListee,
   ajouteChampsFacultatifs,
   etend,
-} from "../../../utilitaires/manipulationArbitraires";
+} from "../../../utilitaires/manipulationArbitraires.DonneesFormulaireExtensibles";
 import {
   fabriqueArbSingleton,
   fabriqueArbTrancheSingleton,

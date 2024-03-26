@@ -189,7 +189,7 @@ describe("Secteur", () => {
             fabriqueArbJamaisOse_ToujoursFrance(
               fabriqueArb_EnsInfosSecteurSingleton_Infranum_PourActivites(
                 ...activitesPENonReguleesPE,
-              ) as unknown as fc.Arbitrary<ReponseInformationsSecteur<"Petit">>,
+              ) as fc.Arbitrary<ReponseInformationsSecteur<"Petit">>,
             ),
             verificationReponseNonRegule,
           ),

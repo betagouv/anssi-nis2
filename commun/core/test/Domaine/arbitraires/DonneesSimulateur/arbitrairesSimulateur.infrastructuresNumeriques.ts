@@ -5,7 +5,7 @@ import {
   ajouteAuMoinsUneActiviteListee,
   ajouteChampsFacultatifs,
   etend,
-} from "../../../utilitaires/manipulationArbitraires";
+} from "../../../utilitaires/manipulationArbitraires.DonneesFormulaireExtensibles";
 import { fabriqueArbEnrSecteurSousSecteurs } from "../../../utilitaires/manipulationArbitraires.fabriques";
 import {
   filtreEnrSectorielHorsSecteurs,

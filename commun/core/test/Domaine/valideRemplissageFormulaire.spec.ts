@@ -20,7 +20,7 @@ describe("Invalide en cas de données absentes", () => {
     arbForm.nonValide.donneeAbsente,
   ).filter(
     ([nom]) =>
-      !(ChampsFormulaireFacultatifs as unknown as string[]).includes(nom),
+      !(ChampsFormulaireFacultatifs as readonly string[]).includes(nom),
   );
 
   it.each(donneesAbsentes)("%s", (_, donneeAbsente) => {
@@ -65,16 +65,6 @@ describe("Validation des données formulaire", () => {
     },
     ...donneesTestsArbPrivee,
   ];
-
-  const formulairePetitInfraNumSansLocalisation = fabriqueDonneesFormulaire({
-    designationOperateurServicesEssentiels: ["non"],
-    appartenancePaysUnionEuropeenne: ["france"],
-    typeStructure: ["privee"],
-    secteurActivite: ["infrastructureNumerique"],
-    trancheNombreEmployes: ["petit"],
-    trancheChiffreAffaire: ["petit"],
-    activites: ["fournisseurServicesDNS"],
-  });
 
   describe("Données privées : verifieDonneesCommunesPrivee", () => {
     it.each(donneesTestsArbPrivee)(" $nom", ({ arbitraireEligible }) => {

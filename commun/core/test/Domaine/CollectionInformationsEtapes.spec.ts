@@ -6,7 +6,7 @@ import {
   EtapeExistante,
   InformationEtapeForm,
 } from "../../src/Domain/Simulateur/InformationsEtape";
-import { decoreChaineRendue } from "../utilitaires/manipulationArbitraires";
+import { decoreChaineRendue } from "../utilitaires/manipulationArbitraires.DonneesFormulaireExtensibles";
 import { arbitrairesCollectionEtape } from "./arbitraires/ParcoursSimulateur/CollectionInformationsEtapes.arbitraires";
 import { arbitrairesInformationEtape } from "./arbitraires/ParcoursSimulateur/informationEtape.arbitraires";
 import { arbListeEtapesEtIndice } from "./arbitraires/ParcoursSimulateur/listeEtapes";

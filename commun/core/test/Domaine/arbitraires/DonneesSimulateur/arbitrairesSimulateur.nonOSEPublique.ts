@@ -3,7 +3,7 @@ import {
   ajouteAuMoinsUneActiviteArbitraire,
   ajouteChampsFacultatifs,
   etend,
-} from "../../../utilitaires/manipulationArbitraires";
+} from "../../../utilitaires/manipulationArbitraires.DonneesFormulaireExtensibles";
 import {
   fabriqueArbContraintSurtrancheChiffreAffaire,
   fabriqueArbSingleton,
