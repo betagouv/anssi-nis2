@@ -17,7 +17,7 @@ export interface EtatQuestionnaire {
   trancheChiffreAffaire: TrancheChiffreAffaire[];
 }
 
-const etatParDefaut: EtatQuestionnaire = {
+export const etatParDefaut: EtatQuestionnaire = {
   etapeCourante: "prealable",
   designationOperateurServicesEssentiels: [],
   appartenancePaysUnionEuropeenne: [],
