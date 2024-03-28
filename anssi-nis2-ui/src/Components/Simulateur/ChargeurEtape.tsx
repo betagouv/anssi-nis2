@@ -9,6 +9,7 @@ import { fabriqueInformationsBoutonsNavigation } from "../../Services/fabriques/
 import { traceEtapeSimulateur } from "../../Services/TraceurWeb/traceEtapeSimulateur.ts";
 import { AppContext } from "../../Services/AppContexte/AppContext.definition.ts";
 import { cartoComposants } from "../../Services/Simulateur/Transformateurs/TypeEtapeVersComposantEtape.transformateur.ts";
+import { Questionnaire } from "./Questionnaire.tsx";
 
 const ChargeurEtapeCalcule: DefaultComponent = () => {
   const [donneesFormulaireSimulateur, propageActionSimulateur] = useReducer(
@@ -46,6 +47,7 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
         informationsBoutonsNavigation={informationsBoutonsNavigation}
         etatEtapes={etatEtapes}
       />
+      <Questionnaire />
     </>
   );
 };
