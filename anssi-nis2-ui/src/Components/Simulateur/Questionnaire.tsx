@@ -19,38 +19,36 @@ import { EtapeTailleEntitePrivee } from "./EtapesRefacto/EtapeTailleEntitePrivee
 export const Questionnaire = () => {
   const [etat, dispatch] = useReducer(reducerQuestionnaire, etatParDefaut);
 
-  if (etat.etapeCourante === "prealable")
-    return (
-      <EtapePrealable onValider={() => dispatch(valideEtapePrealable())} />
-    );
-
-  if (etat.etapeCourante === "designationOperateurServicesEssentiels")
-    return (
-      <EtapeDesignation
-        onValider={(reponse) => dispatch(valideEtapeDesignation(reponse))}
-      />
-    );
-
-  if (etat.etapeCourante === "appartenanceUnionEuropeenne")
-    return (
-      <EtapeAppartenanceUE
-        onValider={(reponse) => dispatch(valideEtapeAppartenanceUE(reponse))}
-      />
-    );
-
-  if (etat.etapeCourante === "typeStructure")
-    return (
-      <EtapeTypeStructure
-        onValider={(reponse) => dispatch(valideTypeStructure(reponse))}
-      />
-    );
-
-  if (etat.etapeCourante === "tailleEntitePrivee")
-    return (
-      <EtapeTailleEntitePrivee
-        onValider={(nombre, chiffreAffaire) =>
-          dispatch(valideTailleEntitePrivee(nombre, chiffreAffaire))
-        }
-      />
-    );
+  switch (etat.etapeCourante) {
+    case "prealable":
+      return (
+        <EtapePrealable onValider={() => dispatch(valideEtapePrealable())} />
+      );
+    case "designationOperateurServicesEssentiels":
+      return (
+        <EtapeDesignation
+          onValider={(reponse) => dispatch(valideEtapeDesignation(reponse))}
+        />
+      );
+    case "appartenanceUnionEuropeenne":
+      return (
+        <EtapeAppartenanceUE
+          onValider={(reponse) => dispatch(valideEtapeAppartenanceUE(reponse))}
+        />
+      );
+    case "typeStructure":
+      return (
+        <EtapeTypeStructure
+          onValider={(reponse) => dispatch(valideTypeStructure(reponse))}
+        />
+      );
+    case "tailleEntitePrivee":
+      return (
+        <EtapeTailleEntitePrivee
+          onValider={(nombre, chiffreAffaire) =>
+            dispatch(valideTailleEntitePrivee(nombre, chiffreAffaire))
+          }
+        />
+      );
+  }
 };
