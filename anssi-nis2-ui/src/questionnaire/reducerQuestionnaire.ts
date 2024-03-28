@@ -12,6 +12,7 @@ import {
   estSecteurAutre,
   estUnSecteurAvecDesSousSecteurs,
 } from "anssi-nis2-core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
+import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 
 export interface EtatQuestionnaire {
   etapeCourante: TypeEtape;
@@ -21,6 +22,7 @@ export interface EtatQuestionnaire {
   trancheNombreEmployes: TrancheNombreEmployes[];
   trancheChiffreAffaire: TrancheChiffreAffaire[];
   secteurActivite: SecteurActivite[];
+  sousSecteurActivite: SousSecteurActivite[];
 }
 
 export const etatParDefaut: EtatQuestionnaire = {
@@ -31,6 +33,7 @@ export const etatParDefaut: EtatQuestionnaire = {
   trancheNombreEmployes: [],
   trancheChiffreAffaire: [],
   secteurActivite: [],
+  sousSecteurActivite: [],
 };
 
 export const reducerQuestionnaire = (
@@ -82,6 +85,12 @@ export const reducerQuestionnaire = (
           : action.secteurs.some(estUnSecteurAvecDesSousSecteurs)
           ? "sousSecteursActivite"
           : "activites",
+      };
+
+    case "VALIDE_ETAPE_SOUS_SECTEURS_ACTIVITE":
+      return {
+        ...etat,
+        sousSecteurActivite: action.sousSecteurs,
       };
 
     case "VIDE":

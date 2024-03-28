@@ -10,6 +10,7 @@ import {
   valideEtapeDesignation,
   valideEtapePrealable,
   valideSecteursActivite,
+  valideSousSecteursActivite,
   valideTailleEntitePrivee,
   valideTypeStructure,
 } from "../../src/questionnaire/actions";
@@ -110,6 +111,15 @@ describe("Le reducer du Questionnaire", () => {
       ]);
       expect(etat.etapeCourante).toBe("activites");
     });
+  });
+
+  describe("à la validation de l'étape « Sous-secteurs d'activité »", () => {
+    it("sauvegarde les informations de l'étape", () => {
+      const etat = executer([valideSousSecteursActivite(["electricite"])]);
+      expect(etat.sousSecteurActivite).toEqual(["electricite"]);
+    });
+
+    it.todo("passe à l'etape …");
   });
 });
 

@@ -6,6 +6,7 @@ import {
   TypeStructure,
 } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
+import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 
 export type ActionQuestionnaire =
   | ActionVide
@@ -14,7 +15,8 @@ export type ActionQuestionnaire =
   | ActionValideEtapeAppartenanceUE
   | ActionValideTypeStructure
   | ActionValideTailleEntitePrivee
-  | ActionValideSecteursActivite;
+  | ActionValideSecteursActivite
+  | ActionValideSousSecteursActivite;
 
 interface ActionVide {
   type: "VIDE";
@@ -48,6 +50,11 @@ interface ActionValideTailleEntitePrivee {
 interface ActionValideSecteursActivite {
   type: "VALIDE_ETAPE_SECTEURS_ACTIVITE";
   secteurs: SecteurActivite[];
+}
+
+interface ActionValideSousSecteursActivite {
+  type: "VALIDE_ETAPE_SOUS_SECTEURS_ACTIVITE";
+  sousSecteurs: SousSecteurActivite[];
 }
 
 export const valideEtapePrealable = (): ActionSuivantEtapePrealable => ({
@@ -89,4 +96,11 @@ export const valideSecteursActivite = (
 ): ActionValideSecteursActivite => ({
   type: "VALIDE_ETAPE_SECTEURS_ACTIVITE",
   secteurs,
+});
+
+export const valideSousSecteursActivite = (
+  sousSecteurs: SousSecteurActivite[],
+): ActionValideSousSecteursActivite => ({
+  type: "VALIDE_ETAPE_SOUS_SECTEURS_ACTIVITE",
+  sousSecteurs,
 });
