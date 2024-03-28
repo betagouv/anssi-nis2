@@ -1,12 +1,15 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import {
+  etatParDefaut,
   EtatQuestionnaire,
   reducerQuestionnaire,
 } from "../../src/questionnaire/reducerQuestionnaire";
 import {
+  ActionQuestionnaire,
   valideEtapeAppartenanceUE,
   valideEtapeDesignation,
   valideEtapePrealable,
+  valideSecteursActivite,
   valideTailleEntitePrivee,
   valideTypeStructure,
 } from "../../src/questionnaire/actions";
@@ -90,4 +93,36 @@ describe("Le reducer du Questionnaire", () => {
       expect(etat.etapeCourante).toBe("secteursActivite");
     });
   });
+
+  describe("à la validation de l'étape « Secteurs d'activité »", () => {
+    it("sauvegarde les informations de l'étape", () => {
+      const etat = executer([valideSecteursActivite(["energie"])]);
+      expect(etat.secteurActivite).toEqual(["energie"]);
+    });
+
+    it("passe à l'étape « Résultat » s'il n'y a que des secteurs classés « Autre »", () => {
+      const etat = executer([valideSecteursActivite(["autreSecteurActivite"])]);
+      expect(etat.etapeCourante).toBe("resultat");
+    });
+
+    it("passe à l'étape « Sous secteurs d'activité » si certains secteurs ont des sous-secteurs", () => {
+      const etat = executer([valideSecteursActivite(["energie"])]);
+      expect(etat.etapeCourante).toBe("sousSecteursActivite");
+    });
+
+    it("passe à l'étape « Activités » dans les autres cas", () => {
+      const etat = executer([
+        valideSecteursActivite(["banqueSecteurBancaire"]),
+      ]);
+      expect(etat.etapeCourante).toBe("activites");
+    });
+  });
 });
+
+function executer(actions: ActionQuestionnaire[]): EtatQuestionnaire {
+  return actions.reduce(
+    (etat: EtatQuestionnaire, action: ActionQuestionnaire) =>
+      reducerQuestionnaire(etat, action),
+    etatParDefaut,
+  );
+}

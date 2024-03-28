@@ -7,6 +7,11 @@ import {
 } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { TypeEtape } from "anssi-nis2-core/src/Domain/Simulateur/InformationsEtape.ts";
 import { ActionQuestionnaire } from "./actions.ts";
+import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
+import {
+  estSecteurAutre,
+  estUnSecteurAvecDesSousSecteurs,
+} from "anssi-nis2-core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
 
 export interface EtatQuestionnaire {
   etapeCourante: TypeEtape;
@@ -15,6 +20,7 @@ export interface EtatQuestionnaire {
   typeStructure: TypeStructure[];
   trancheNombreEmployes: TrancheNombreEmployes[];
   trancheChiffreAffaire: TrancheChiffreAffaire[];
+  secteurActivite: SecteurActivite[];
 }
 
 export const etatParDefaut: EtatQuestionnaire = {
@@ -24,6 +30,7 @@ export const etatParDefaut: EtatQuestionnaire = {
   typeStructure: [],
   trancheNombreEmployes: [],
   trancheChiffreAffaire: [],
+  secteurActivite: [],
 };
 
 export const reducerQuestionnaire = (
@@ -64,6 +71,17 @@ export const reducerQuestionnaire = (
         trancheNombreEmployes: action.nombreEmployes,
         trancheChiffreAffaire: action.chiffreAffaire,
         etapeCourante: "secteursActivite",
+      };
+
+    case "VALIDE_ETAPE_SECTEURS_ACTIVITE":
+      return {
+        ...etat,
+        secteurActivite: action.secteurs,
+        etapeCourante: action.secteurs.every(estSecteurAutre)
+          ? "resultat"
+          : action.secteurs.some(estUnSecteurAvecDesSousSecteurs)
+          ? "sousSecteursActivite"
+          : "activites",
       };
 
     case "VIDE":

@@ -8,6 +8,7 @@ import {
   valideEtapeAppartenanceUE,
   valideEtapeDesignation,
   valideEtapePrealable,
+  valideSecteursActivite,
   valideTailleEntitePrivee,
   valideTypeStructure,
 } from "../../questionnaire/actions.ts";
@@ -15,6 +16,7 @@ import { EtapeDesignation } from "./EtapesRefacto/EtapeDesignation.tsx";
 import { EtapeAppartenanceUE } from "./EtapesRefacto/EtapeAppartenanceUE.tsx";
 import { EtapeTypeStructure } from "./EtapesRefacto/EtapeTypeStructure.tsx";
 import { EtapeTailleEntitePrivee } from "./EtapesRefacto/EtapeTailleEntitePrivee.tsx";
+import { EtapeSecteursActivite } from "./EtapesRefacto/EtapeSecteursActivite.tsx";
 
 export const Questionnaire = () => {
   const [etat, dispatch] = useReducer(reducerQuestionnaire, etatParDefaut);
@@ -50,5 +52,14 @@ export const Questionnaire = () => {
           }
         />
       );
+    case "secteursActivite":
+      return (
+        <EtapeSecteursActivite
+          onValider={(reponse) => dispatch(valideSecteursActivite(reponse))}
+        />
+      );
+
+    case "resultat":
+      return <h1>RÉSULTAT</h1>;
   }
 };

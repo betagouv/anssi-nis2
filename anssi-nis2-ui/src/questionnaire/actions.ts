@@ -5,6 +5,7 @@ import {
   TrancheNombreEmployes,
   TypeStructure,
 } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 
 export type ActionQuestionnaire =
   | ActionVide
@@ -12,7 +13,8 @@ export type ActionQuestionnaire =
   | ActionValideEtapeDesignation
   | ActionValideEtapeAppartenanceUE
   | ActionValideTypeStructure
-  | ActionValideTailleEntitePrivee;
+  | ActionValideTailleEntitePrivee
+  | ActionValideSecteursActivite;
 
 interface ActionVide {
   type: "VIDE";
@@ -41,6 +43,11 @@ interface ActionValideTailleEntitePrivee {
   type: "VALIDE_ETAPE_TAILLE_ENTITE_PRIVEE";
   nombreEmployes: TrancheNombreEmployes[];
   chiffreAffaire: TrancheChiffreAffaire[];
+}
+
+interface ActionValideSecteursActivite {
+  type: "VALIDE_ETAPE_SECTEURS_ACTIVITE";
+  secteurs: SecteurActivite[];
 }
 
 export const valideEtapePrealable = (): ActionSuivantEtapePrealable => ({
@@ -75,4 +82,11 @@ export const valideTailleEntitePrivee = (
   type: "VALIDE_ETAPE_TAILLE_ENTITE_PRIVEE",
   nombreEmployes,
   chiffreAffaire,
+});
+
+export const valideSecteursActivite = (
+  secteurs: SecteurActivite[],
+): ActionValideSecteursActivite => ({
+  type: "VALIDE_ETAPE_SECTEURS_ACTIVITE",
+  secteurs,
 });
