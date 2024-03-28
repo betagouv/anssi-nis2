@@ -8,11 +8,13 @@ import {
   valideEtapeAppartenanceUE,
   valideEtapeDesignation,
   valideEtapePrealable,
+  valideTailleEntitePrivee,
   valideTypeStructure,
 } from "../../questionnaire/actions.ts";
 import { EtapeDesignation } from "./EtapesRefacto/EtapeDesignation.tsx";
 import { EtapeAppartenanceUE } from "./EtapesRefacto/EtapeAppartenanceUE.tsx";
 import { EtapeTypeStructure } from "./EtapesRefacto/EtapeTypeStructure.tsx";
+import { EtapeTailleEntitePrivee } from "./EtapesRefacto/EtapeTailleEntitePrivee.tsx";
 
 export const Questionnaire = () => {
   const [etat, dispatch] = useReducer(reducerQuestionnaire, etatParDefaut);
@@ -40,6 +42,15 @@ export const Questionnaire = () => {
     return (
       <EtapeTypeStructure
         onValider={(reponse) => dispatch(valideTypeStructure(reponse))}
+      />
+    );
+
+  if (etat.etapeCourante === "tailleEntitePrivee")
+    return (
+      <EtapeTailleEntitePrivee
+        onValider={(nombre, chiffreAffaire) =>
+          dispatch(valideTailleEntitePrivee(nombre, chiffreAffaire))
+        }
       />
     );
 };
