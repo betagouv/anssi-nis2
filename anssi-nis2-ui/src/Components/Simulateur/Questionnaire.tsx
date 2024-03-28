@@ -1,10 +1,12 @@
-import { useReducer } from "react";
+import { useReducer, useRef } from "react";
 import {
   etatParDefaut,
+  EtatQuestionnaire,
   reducerQuestionnaire,
 } from "../../questionnaire/reducerQuestionnaire.ts";
 import { EtapePrealable } from "./EtapesRefacto/EtapePrealable.tsx";
 import {
+  ActionQuestionnaire,
   valideEtapeAppartenanceUE,
   valideEtapeDesignation,
   valideEtapePrealable,
@@ -18,8 +20,27 @@ import { EtapeTypeStructure } from "./EtapesRefacto/EtapeTypeStructure.tsx";
 import { EtapeTailleEntitePrivee } from "./EtapesRefacto/EtapeTailleEntitePrivee.tsx";
 import { EtapeSecteursActivite } from "./EtapesRefacto/EtapeSecteursActivite.tsx";
 
+function executer(actions: ActionQuestionnaire[]): EtatQuestionnaire {
+  return actions.reduce(
+    (etat: EtatQuestionnaire, action: ActionQuestionnaire) =>
+      reducerQuestionnaire(etat, action),
+    etatParDefaut,
+  );
+}
+
 export const Questionnaire = () => {
-  const [etat, dispatch] = useReducer(reducerQuestionnaire, etatParDefaut);
+  const etatQuestionnaire: EtatQuestionnaire = useRef(
+    executer([
+      valideEtapePrealable(),
+      valideEtapeDesignation(["non"]),
+      valideEtapeAppartenanceUE(["france"]),
+      valideTypeStructure(["privee"]),
+      valideTailleEntitePrivee(["petit"], ["petit"]),
+      valideSecteursActivite(["energie"]),
+    ]),
+  ).current;
+
+  const [etat, dispatch] = useReducer(reducerQuestionnaire, etatQuestionnaire);
 
   switch (etat.etapeCourante) {
     case "prealable":
@@ -58,6 +79,9 @@ export const Questionnaire = () => {
           onValider={(reponse) => dispatch(valideSecteursActivite(reponse))}
         />
       );
+
+    case "sousSecteursActivite":
+      return <h3>SOUS-SECTEURS</h3>;
 
     case "resultat":
       return <h1>RÉSULTAT</h1>;
