@@ -30,7 +30,7 @@ describe("Le reducer du Questionnaire", () => {
   describe("à la validation de l'étape « Désignation »", () => {
     let etat: EtatQuestionnaire;
     beforeEach(() => {
-      etat = reducerQuestionnaire(undefined, valideEtapeDesignation(["oui"]));
+      etat = executer([valideEtapeDesignation(["oui"])]);
     });
 
     it("sauvegarde les informations de l'étape", () => {
@@ -45,10 +45,7 @@ describe("Le reducer du Questionnaire", () => {
   describe("à la validation de l'étape « Appartenance UE »", () => {
     let etat: EtatQuestionnaire;
     beforeEach(() => {
-      etat = reducerQuestionnaire(
-        undefined,
-        valideEtapeAppartenanceUE(["france"]),
-      );
+      etat = executer([valideEtapeAppartenanceUE(["france"])]);
     });
 
     it("sauvegarde les informations de l'étape", () => {
@@ -63,7 +60,7 @@ describe("Le reducer du Questionnaire", () => {
   describe("à la validation de l'étape « Type de structure »", () => {
     let etat: EtatQuestionnaire;
     beforeEach(() => {
-      etat = reducerQuestionnaire(undefined, valideTypeStructure(["privee"]));
+      etat = executer([valideTypeStructure(["privee"])]);
     });
 
     it("sauvegarde les informations de l'étape", () => {
@@ -78,10 +75,7 @@ describe("Le reducer du Questionnaire", () => {
   describe("à la validation de l'étape « Taille d'entité privée »", () => {
     let etat: EtatQuestionnaire;
     beforeEach(() => {
-      etat = reducerQuestionnaire(
-        undefined,
-        valideTailleEntitePrivee(["petit"], ["moyen"]),
-      );
+      etat = executer([valideTailleEntitePrivee(["petit"], ["moyen"])]);
     });
 
     it("sauvegarde les informations de l'étape", () => {
