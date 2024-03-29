@@ -1,6 +1,6 @@
 import { StoryObj } from "@storybook/react";
 import { ChargeurEtape } from "../../../../Components/Simulateur/ChargeurEtape.tsx";
-import { within } from "@storybook/testing-library";
+import { within } from "@storybook/test";
 import {
   cliqueSurDebuterLeTest,
   cocheAuMoinsUnEtPasseEtape,

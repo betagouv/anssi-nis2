@@ -1,5 +1,5 @@
 import { StoryObj } from "@storybook/react";
-import { within } from "@storybook/testing-library";
+import { within } from "@storybook/test";
 import { ChargeurEtape } from "../../../../Components/Simulateur/ChargeurEtape.tsx";
 import { mockSendFormData } from "../../../utilitaires/mocks.ts";
 import {

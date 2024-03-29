@@ -1,6 +1,5 @@
-import { expect } from "@storybook/jest";
 import { StoryObj } from "@storybook/react";
-import { within } from "@storybook/testing-library";
+import { within, expect } from "@storybook/test";
 import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique.ts";
 import { ChargeurEtape } from "../../../../Components/Simulateur/ChargeurEtape.tsx";
 import { mockSendFormData } from "../../../utilitaires/mocks.ts";

@@ -1,5 +1,4 @@
-import { expect } from "@storybook/jest";
-import { waitFor, within } from "@storybook/testing-library";
+import { waitFor, within, expect } from "@storybook/test";
 
 export const attendTexteCharge = async (
   canvasElement: HTMLElement,

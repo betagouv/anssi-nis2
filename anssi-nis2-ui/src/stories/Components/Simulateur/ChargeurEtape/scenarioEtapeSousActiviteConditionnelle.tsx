@@ -1,5 +1,4 @@
-import { within } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { within, expect } from "@storybook/test";
 import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique.ts";
 
 import { libelleTitreReguleEntiteEssentielle } from "../../../../References/LibellesResultatsEligibilite.ts";

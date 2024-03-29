@@ -1,5 +1,4 @@
-import { expect } from "@storybook/jest";
-import { userEvent, within } from "@storybook/testing-library";
+import { within, expect, userEvent } from "@storybook/test";
 import { attendTexteCharge } from "../../../utilitaires/interaction.facilitateurs.ts";
 
 export const verifieAucunBlocDepliable = (canvasElement: HTMLElement) => {
