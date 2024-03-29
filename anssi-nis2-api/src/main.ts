@@ -1,7 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import * as process from "process";
-import { ValidationPipe } from "@nestjs/common";
+import { LogLevel, ValidationPipe } from "@nestjs/common";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { IpFilter } from "express-ipfilter";
 
@@ -24,9 +24,30 @@ const activeFiltrageIp = (app: NestExpressApplication) => {
   );
 };
 
+const POSSIBLE_LOG_LEVELS: readonly LogLevel[] = [
+  "error",
+  "warn",
+  "verbose",
+  "debug",
+  "log",
+  "fatal",
+] as const;
+
+const logLevelFromConfig = process.env.NESTJS_LOG_LEVEL
+  ? process.env.NESTJS_LOG_LEVEL
+  : "log;error;fatal";
+
+const isLogLevel = (s: string): s is LogLevel =>
+  POSSIBLE_LOG_LEVELS.includes(s as LogLevel);
+
+const logLevel: LogLevel[] = logLevelFromConfig
+  .trim()
+  .split(";")
+  .filter(isLogLevel);
+
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-    logger: ["error", "warn", "verbose", "debug", "log", "fatal"],
+    logger: logLevel,
   });
   app.set("trust proxy", 1);
   activeFiltrageIp(app);
