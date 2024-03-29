@@ -11,7 +11,7 @@ const RestezInformes: DefaultComponentExtensible<RestezInformesProps> = ({
   const [emailEnregistre, setEmailEnregistre] = useState(false);
 
   return (
-    <div className="fr-container">
+    <div className="fr-container fr-nis2-page-restez-informe">
       <h2 className="fr-text-action-high--blue-france fr-h1">
         Restez informés
       </h2>
