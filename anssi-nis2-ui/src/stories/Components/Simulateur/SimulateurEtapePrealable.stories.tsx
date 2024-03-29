@@ -1,9 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { fn, mocked } from "@storybook/test";
 import { donneesFormulaireSimulateurVide } from "../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes.ts";
 import { SimulateurEtapePrealable } from "../../../Components/Simulateur/SimulateurEtapePrealable.tsx";
 import { pageDecorator } from "../../utilitaires/PageDecorator.tsx";
-import "@storybook/test";
-import * as test from "@storybook/test";
 import { etatEtapesInitial } from "../../../Components/Simulateur/Etapes/EtapesQuestionnaire.ts";
 
 const meta = {
@@ -20,12 +19,12 @@ export const SimulateurEtapePrealableStory: Story = {
   name: "Etape Préalable",
   args: {
     informationsBoutonsNavigation: {
-      precedent: test.fn(),
-      suivant: test.fn(),
+      precedent: fn(),
+      suivant: fn(),
     },
     etatEtapes: etatEtapesInitial,
 
-    donneesFormulaire: test.mocked(donneesFormulaireSimulateurVide),
-    propageActionSimulateur: test.fn(),
+    donneesFormulaire: mocked(donneesFormulaireSimulateurVide),
+    propageActionSimulateur: fn(),
   },
 };
