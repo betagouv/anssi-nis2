@@ -10,11 +10,11 @@ jobs:
         with:
           node-version: "16.x"
       - name: Installe les dépendances
-        run: yarn
+        run: npm ci
       - name: Installe Playwright
         run: npx playwright install --with-deps chromium
       - name: Construction de Storybook
-        run: yarn workspace anssi-nis2-ui run storybook:build
+        run: npm run storybook:build -w anssi-nis2-ui
       - name: Tests UI
         run: |
           npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
