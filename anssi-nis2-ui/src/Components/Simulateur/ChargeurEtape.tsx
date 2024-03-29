@@ -32,6 +32,10 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
     () => traceEtapeSimulateur(etatEtapes, donneesFormulaireSimulateur),
     [donneesFormulaireSimulateur, etatEtapes],
   );
+
+  const afficheQuestionnaireRefacto =
+    import.meta.env.VITE_AFFICHE_QUESTIONNAIRE_REFACTO === "true";
+
   return (
     <>
       <Helmet>
@@ -47,7 +51,7 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
         informationsBoutonsNavigation={informationsBoutonsNavigation}
         etatEtapes={etatEtapes}
       />
-      <Questionnaire />
+      {afficheQuestionnaireRefacto && <Questionnaire />}
     </>
   );
 };
