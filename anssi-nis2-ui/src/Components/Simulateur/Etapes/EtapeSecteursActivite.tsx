@@ -4,13 +4,12 @@ import { FormSimulateur } from "./index.ts";
 
 import { libellesSecteursActivite } from "../../../References/LibellesSecteursActivite.ts";
 import { useCallback, useMemo } from "react";
-import React from "react";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
 import { transformeSecteursActiviteVersOptions } from "../../../Services/Simulateur/Transformateurs/TransformeSecteursActiviteVersOptions.ts";
 import { texteQuestionSecteurActivites } from "../../../References/LibellesQuestionsSimulateur.ts";
 
-const EtapeSecteursActiviteCalculee = ({
+const EtapeSecteursActivite = ({
   propageActionSimulateur,
   donneesFormulaire,
 }: SimulateurContenuEtapeProps) => {
@@ -46,7 +45,5 @@ const EtapeSecteursActiviteCalculee = ({
     </FormSimulateur>
   );
 };
-
-const EtapeSecteursActivite = React.memo(EtapeSecteursActiviteCalculee);
 
 export default EtapeSecteursActivite;

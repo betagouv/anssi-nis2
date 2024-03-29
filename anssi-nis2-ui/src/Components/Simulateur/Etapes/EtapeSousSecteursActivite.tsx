@@ -1,7 +1,7 @@
 import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import { SecteurComposite } from "../../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { FormSimulateur } from "./index.ts";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { SousSecteurCheckbox } from "../Inputs/SousSecteurCheckbox.tsx";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
@@ -10,7 +10,7 @@ import { OptionsChampSimulateur } from "../../../Services/Simulateur/Props/optio
 import { transformeSousSecteurEnOptions } from "../../../Services/Simulateur/Transformateurs/TransformeSousSecteurEnOptions.ts";
 import { texteQuestionSousSecteursActivites } from "../../../References/LibellesQuestionsSimulateur.ts";
 
-const EtapeSousSecteursActiviteCalculee = ({
+const EtapeSousSecteursActivite = ({
   propageActionSimulateur,
   donneesFormulaire,
 }: SimulateurContenuEtapeProps) => {
@@ -57,7 +57,5 @@ const EtapeSousSecteursActiviteCalculee = ({
     </FormSimulateur>
   );
 };
-
-const EtapeSousSecteursActivite = React.memo(EtapeSousSecteursActiviteCalculee);
 
 export default EtapeSousSecteursActivite;

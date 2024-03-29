@@ -4,7 +4,7 @@ import {
 } from "../../../References/Libelles.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { FormSimulateur } from "./index.ts";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { SimulateurEtapeNodeComponent } from "../../../Services/Simulateur/Props/component";
 import { fabriqueGestionChangementSimple } from "../../../Services/Simulateur/gestionnaires.ts";
 
@@ -18,7 +18,7 @@ import {
   texteQuestionTypeEntitePublique,
 } from "../../../References/LibellesQuestionsSimulateur.ts";
 
-const EtapeTypeStructureCalculee: SimulateurEtapeNodeComponent = ({
+const EtapeTypeStructure: SimulateurEtapeNodeComponent = ({
   donneesFormulaire,
   propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
@@ -75,7 +75,5 @@ const EtapeTypeStructureCalculee: SimulateurEtapeNodeComponent = ({
     </>
   );
 };
-
-const EtapeTypeStructure = React.memo(EtapeTypeStructureCalculee);
 
 export default EtapeTypeStructure;

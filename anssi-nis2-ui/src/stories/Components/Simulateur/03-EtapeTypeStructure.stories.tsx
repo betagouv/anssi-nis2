@@ -7,8 +7,8 @@ import {
 } from "../../utilitaires/parametresFormulaire.ts";
 import { EtapeTypeStructure } from "../../../Components/Simulateur/Etapes";
 import { Meta, StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { userEvent, within } from "@storybook/test";
+import { expect } from "@storybook/test";
 
 import { libellesTypesStructure } from "../../../References/Libelles.ts";
 

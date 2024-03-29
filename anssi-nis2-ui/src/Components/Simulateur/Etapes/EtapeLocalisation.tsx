@@ -3,7 +3,6 @@ import { FormSimulateur } from "./index.ts";
 import { useMemo } from "react";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { fabriqueGestionChangementSimple } from "../../../Services/Simulateur/gestionnaires.ts";
-import React from "react";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
 import { transformePaysUnionEuropeennePourSelect } from "../../../Services/Simulateur/Transformateurs/TransformePaysUnionEuropeennePourSelect.ts";
@@ -12,7 +11,7 @@ import {
   texteQuestionMembreUEIndication,
 } from "../../../References/LibellesQuestionsSimulateur.ts";
 
-const EtapeLocalisationCalculee = ({
+const EtapeLocalisation = ({
   donneesFormulaire,
   propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
@@ -54,6 +53,4 @@ const EtapeLocalisationCalculee = ({
     </>
   );
 };
-
-const EtapeLocalisation = React.memo(EtapeLocalisationCalculee);
 export default EtapeLocalisation;

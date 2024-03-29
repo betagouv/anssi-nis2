@@ -3,7 +3,7 @@ import {
   collecteTitresPourActivite,
 } from "../../../../../commun/core/src/Domain/Simulateur/Activite.operations.ts";
 import { FormSimulateur } from "./index.ts";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { libellesSecteursActivite } from "../../../References/LibellesSecteursActivite.ts";
 import { libellesSousSecteursActivite } from "../../../References/LibellesSousSecteursActivite.ts";
 
@@ -16,7 +16,7 @@ import {
   texteQuestionActivitesMention,
 } from "../../../References/LibellesQuestionsSimulateur.ts";
 
-const EtapeActivitesCalculee = ({
+const EtapeActivites = ({
   propageActionSimulateur,
   donneesFormulaire,
 }: SimulateurContenuEtapeProps) => {
@@ -56,7 +56,5 @@ const EtapeActivitesCalculee = ({
     </FormSimulateur>
   );
 };
-
-const EtapeActivites = React.memo(EtapeActivitesCalculee);
 
 export default EtapeActivites;

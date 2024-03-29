@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { EtapeOSE } from "../../../Components/Simulateur/Etapes";
-import { userEvent, within } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { userEvent, within } from "@storybook/test";
+import { expect } from "@storybook/test";
 import { libellesDesigneOSE } from "../../../References/Libelles.ts";
 
 const meta: Meta<typeof EtapeOSE> = {

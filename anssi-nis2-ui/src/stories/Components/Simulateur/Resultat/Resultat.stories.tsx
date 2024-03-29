@@ -1,9 +1,9 @@
 // noinspection TypeScriptValidateJSTypes - Incompatibilité des selecteurs testing-library (any) et des string
 
-import { expect } from "@storybook/jest";
+import { expect } from "@storybook/test";
 
 import { Meta, StoryObj } from "@storybook/react";
-import { within } from "@storybook/testing-library";
+import { within } from "@storybook/test";
 import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique.ts";
 import { SimulateurEtapeResult } from "../../../../Components/Simulateur/SimulateurEtapeResult.tsx";
 

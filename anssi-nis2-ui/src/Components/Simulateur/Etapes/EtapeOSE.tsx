@@ -1,5 +1,5 @@
 import { FormSimulateur } from "./index.ts";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { fabriqueGestionChangementSimple } from "../../../Services/Simulateur/gestionnaires.ts";
 
@@ -8,7 +8,7 @@ import { transformeReponsesDesigneOSEPourSelect } from "../../../Services/Simula
 import { texteQuestionOperateurServiceEssentiel } from "../../../References/LibellesQuestionsSimulateur.ts";
 import { libellesDesigneOSE } from "../../../References/Libelles.ts";
 
-const EtapeOSECalculee = ({
+const EtapeOSE = ({
   donneesFormulaire,
   propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
@@ -36,6 +36,6 @@ const EtapeOSECalculee = ({
   );
 };
 
-const EtapeOSE = React.memo(EtapeOSECalculee);
+// const EtapeOSE = React.memo(EtapeOSECalculee);
 
 export default EtapeOSE;

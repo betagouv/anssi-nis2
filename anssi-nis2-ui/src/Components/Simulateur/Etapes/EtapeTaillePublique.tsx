@@ -2,7 +2,6 @@ import { TrancheNombreEmployes } from "anssi-nis2-core/src/Domain/Simulateur/Cha
 import { libellesTranchesNombreEmployes } from "../../../References/Libelles.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { FormSimulateur } from "./index.ts";
-import React from "react";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
 import { transformeTranchesNombreEmployesVersOptions } from "../../../Services/Simulateur/Transformateurs/TransformeTranchesPetitMoyenGrandVersOptions.ts";
@@ -11,7 +10,7 @@ import {
   texteQuestionTaillePublique,
 } from "../../../References/LibellesQuestionsSimulateur.ts";
 
-const EtapeTaillePubliqueCalculee = ({
+const EtapeTaillePublique = ({
   donneesFormulaire,
   propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
@@ -42,7 +41,5 @@ const EtapeTaillePubliqueCalculee = ({
     </FormSimulateur>
   );
 };
-
-const EtapeTaillePublique = React.memo(EtapeTaillePubliqueCalculee);
 
 export default EtapeTaillePublique;

@@ -8,7 +8,6 @@ import {
 } from "../../../References/Libelles.ts";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { FormSimulateur } from "./index.ts";
-import React from "react";
 
 import { SimulateurContenuEtapeProps } from "../../../Services/Simulateur/Props/simulateurEtapeProps";
 
@@ -22,7 +21,7 @@ import {
   texteQuestionNombreEmployes,
 } from "../../../References/LibellesQuestionsSimulateur.ts";
 
-const EtapeTailleCalculee = ({
+const EtapeTaille = ({
   donneesFormulaire,
   propageActionSimulateur,
 }: SimulateurContenuEtapeProps) => {
@@ -68,7 +67,5 @@ const EtapeTailleCalculee = ({
     </FormSimulateur>
   );
 };
-
-const EtapeTaille = React.memo(EtapeTailleCalculee);
 
 export default EtapeTaille;
