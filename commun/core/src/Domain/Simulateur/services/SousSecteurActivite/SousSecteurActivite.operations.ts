@@ -23,14 +23,14 @@ import { sousSecteursParSecteur } from "../../SousSecteurActivite.valeurs";
 
 const extraitSousSecteurs = (
   secteur: SecteurComposite,
-  sousSecteurActivite: SousSecteurActivite[],
+  sousSecteurActivite: SousSecteurActivite[]
 ) =>
   sousSecteurActivite.filter((sousSecteur) =>
-    contientSousSecteur(secteur, sousSecteur),
+    contientSousSecteur(secteur, sousSecteur)
   );
 const extraitSousSecteursOuListeVide = (
   secteur: string,
-  sousSecteurActivite: SousSecteurActivite[],
+  sousSecteurActivite: SousSecteurActivite[]
 ) =>
   estUnSecteurAvecDesSousSecteurs(secteur)
     ? extraitSousSecteurs(secteur as SecteurComposite, sousSecteurActivite)
@@ -38,11 +38,11 @@ const extraitSousSecteursOuListeVide = (
 
 const genereSecteurAvecSousSecteurs = (
   secteur: SecteurActivite,
-  sousSecteurActivite: SousSecteurActivite[],
+  sousSecteurActivite: SousSecteurActivite[]
 ): Array<[SecteurActivite, SousSecteurActivite[]]> => {
   const sousSecteurs = extraitSousSecteursOuListeVide(
     secteur,
-    sousSecteurActivite.filter(estSousSecteurListe),
+    sousSecteurActivite.filter(estSousSecteurListe)
   );
   return estUnSecteurAvecDesSousSecteurs(secteur) && sousSecteurs.length === 0
     ? []
@@ -60,19 +60,19 @@ export const cartographieSousSecteursParSecteur = ({
         ...acc,
         ...genereSecteurAvecSousSecteurs(secteur, sousSecteurActivite),
       ],
-      [],
+      []
     );
 export const extraitCouplesAvecSecteurUniques = (
-  couplesSecteurSousSecteur: EnrSecteurSousSecteur[],
+  couplesSecteurSousSecteur: EnrSecteurSousSecteur[]
 ) =>
   Array.from(
     couplesSecteurSousSecteur.reduce(
       (listeSecteurs, couple) => listeSecteurs.add(couple.secteur),
-      new Set<SecteurActivite>(),
-    ),
+      new Set<SecteurActivite>()
+    )
   );
 export const extraitSousSecteursDesCouples = (
-  couplesSecteurSousSecteur: EnrSecteurSousSecteur[],
+  couplesSecteurSousSecteur: EnrSecteurSousSecteur[]
 ) =>
   Array.from(
     couplesSecteurSousSecteur.reduce(
@@ -80,34 +80,34 @@ export const extraitSousSecteursDesCouples = (
         couple.sousSecteur
           ? listeSousSecteurs.add(couple.sousSecteur)
           : listeSousSecteurs,
-      new Set<SousSecteurActivite>(),
-    ),
+      new Set<SousSecteurActivite>()
+    )
   ).filter((sousSecteur) => sousSecteur !== undefined);
 const fabriqueTupleSectoriel = (
-  secteur: SecteurActivite,
+  secteur: SecteurActivite
 ): [SecteurActivite, PeutEtreSousSecteurActivite][] =>
   estUnSecteurAvecDesSousSecteurs(secteur)
     ? fabriqueTuplesSecteurSousSecteur(secteur)
     : [[secteur, "PasDeSousSecteurActivite"]];
 const accumuleTuplesSecteurs = (
   acc: [SecteurActivite, PeutEtreSousSecteurActivite][],
-  secteur: SecteurActivite,
+  secteur: SecteurActivite
 ): [SecteurActivite, PeutEtreSousSecteurActivite][] => [
   ...acc,
   ...fabriqueTupleSectoriel(secteur),
 ];
 export const filtreValsursSecteursInutiles = (
-  listeSecteurs: readonly SecteurActivite[],
+  listeSecteurs: readonly SecteurActivite[]
 ) =>
   listeSecteurs
     .filter(estSecteurNeNecessitantPasLocalisationRepresentant)
     .reduce(
       accumuleTuplesSecteurs,
-      [] as [SecteurActivite, PeutEtreSousSecteurActivite][],
+      [] as [SecteurActivite, PeutEtreSousSecteurActivite][]
     )
     .filter(
       ([, ssSecteur]) =>
-        estSousSecteur(ssSecteur) && estSousSecteurListe(ssSecteur),
+        estSousSecteur(ssSecteur) && estSousSecteurListe(ssSecteur)
     );
 
 export const secteurDe = (recherche: SousSecteurActivite): SecteurActivite => {
