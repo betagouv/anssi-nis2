@@ -119,7 +119,31 @@ describe("Le reducer du Questionnaire", () => {
       expect(etat.sousSecteurActivite).toEqual(["electricite"]);
     });
 
-    it.todo("passe à l'etape …");
+    it("passe à l'etape « Résultat » si tous les secteurs & sous-secteurs sont du « Autre » (donc aucun intérêt à aller vers « Activités »)", () => {
+      const etat = executer([
+        valideSecteursActivite(["autreSecteurActivite"]),
+        valideSousSecteursActivite(["autreSousSecteurFabrication"]),
+      ]);
+
+      expect(etat.etapeCourante).toBe("resultat");
+    });
+
+    it("passe à l'étape « Activités » s'il y a un secteur qui n'est pas du « Autre » (même si tous les sous-secteurs sont « Autres ») car on va vouloir ses activités", () => {
+      const necessiteEtapeActivite = "eauxUsees";
+
+      const avecUnSecteurATraiter = executer([
+        valideSecteursActivite(["transports", necessiteEtapeActivite]),
+        valideSousSecteursActivite(["autreSousSecteurTransports"]),
+      ]);
+
+      expect(avecUnSecteurATraiter.etapeCourante).toBe("activites");
+    });
+
+    it("passe à l'étape « Activités » s'il y a des sous-secteurs qui ne sont pas du « Autre »", () => {
+      const etat = executer([valideSousSecteursActivite(["electricite"])]);
+
+      expect(etat.etapeCourante).toBe("activites");
+    });
   });
 });
 
