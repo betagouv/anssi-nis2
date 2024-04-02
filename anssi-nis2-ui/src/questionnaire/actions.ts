@@ -18,7 +18,8 @@ export type ActionQuestionnaire =
   | ActionValideTailleEntitePrivee
   | ActionValideSecteursActivite
   | ActionValideSousSecteursActivite
-  | ActionValideActivites;
+  | ActionValideActivites
+  | ActionValideLocalisationEtablissementPrincipal;
 
 interface ActionVide {
   type: "VIDE";
@@ -58,9 +59,17 @@ interface ActionValideSousSecteursActivite {
   type: "VALIDE_ETAPE_SOUS_SECTEURS_ACTIVITE";
   sousSecteurs: SousSecteurActivite[];
 }
+
 interface ActionValideActivites {
   type: "VALIDE_ETAPE_ACTIVITES";
   activites: Activite[];
+}
+
+interface ActionValideLocalisationEtablissementPrincipal {
+  type: "VALIDE_ETAPE_LOCALISATION_ETABLISSEMENT_PRINCIPAL";
+  paysDecision: AppartenancePaysUnionEuropeenne[];
+  paysOperation: AppartenancePaysUnionEuropeenne[];
+  paysSalaries: AppartenancePaysUnionEuropeenne[];
 }
 
 export const valideEtapePrealable = (): ActionSuivantEtapePrealable => ({
@@ -117,3 +126,16 @@ export const valideActivites = (
   type: "VALIDE_ETAPE_ACTIVITES",
   activites,
 });
+
+export function valideLocalisationEtablissementPrincipal(
+  paysDecision: AppartenancePaysUnionEuropeenne[],
+  paysOperation: AppartenancePaysUnionEuropeenne[],
+  paysSalaries: AppartenancePaysUnionEuropeenne[],
+): ActionValideLocalisationEtablissementPrincipal {
+  return {
+    type: "VALIDE_ETAPE_LOCALISATION_ETABLISSEMENT_PRINCIPAL",
+    paysDecision,
+    paysOperation,
+    paysSalaries,
+  };
+}

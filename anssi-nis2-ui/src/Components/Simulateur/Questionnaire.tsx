@@ -11,6 +11,7 @@ import {
   valideEtapeAppartenanceUE,
   valideEtapeDesignation,
   valideEtapePrealable,
+  valideLocalisationEtablissementPrincipal,
   valideSecteursActivite,
   valideSousSecteursActivite,
   valideTailleEntitePrivee,
@@ -28,6 +29,7 @@ import { EtapeActivites } from "./EtapesRefacto/EtapeActivites.tsx";
 import { selectSecteursPourSaisieActivites } from "../../questionnaire/selecteursQuestionnaire.ts";
 import { estUnSecteurAvecDesSousSecteurs } from "anssi-nis2-core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
 import { SecteurComposite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
+import { EtapeLocalisationEtablissementPrincipal } from "./EtapesRefacto/EtapeLocalisationEtablissementPrincipal.tsx";
 
 function executer(actions: ActionQuestionnaire[]): EtatQuestionnaire {
   return actions.reduce(
@@ -47,6 +49,7 @@ export const Questionnaire = () => {
       valideTailleEntitePrivee(["petit"], ["petit"]),
       valideSecteursActivite(["banqueSecteurBancaire", "eauxUsees", "energie"]),
       valideSousSecteursActivite(["gaz", "hydrogene"]),
+      valideActivites(["fournisseurServicesDNS"]),
     ]),
   ).current;
 
@@ -109,6 +112,15 @@ export const Questionnaire = () => {
         <EtapeActivites
           secteursChoisis={selectSecteursPourSaisieActivites(etat)}
           onValider={(reponse) => dispatch(valideActivites(reponse))}
+        />
+      );
+
+    case "localisationEtablissementPrincipal":
+      return (
+        <EtapeLocalisationEtablissementPrincipal
+          onValider={(...pays) =>
+            dispatch(valideLocalisationEtablissementPrincipal(...pays))
+          }
         />
       );
 
