@@ -7,6 +7,7 @@ import {
 import { EtapePrealable } from "./EtapesRefacto/EtapePrealable.tsx";
 import {
   ActionQuestionnaire,
+  valideActivites,
   valideEtapeAppartenanceUE,
   valideEtapeDesignation,
   valideEtapePrealable,
@@ -110,6 +111,7 @@ export const Questionnaire = () => {
             ...etat.secteurActivite,
             ...etat.sousSecteurActivite,
           ])}
+          onValider={(reponse) => dispatch(valideActivites(reponse))}
         />
       );
 

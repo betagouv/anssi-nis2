@@ -19,8 +19,10 @@ type StateDeReponse = Partial<Record<SecteurAvecActivite, Activite[]>>;
 
 export function EtapeActivites({
   secteursChoisis,
+  onValider,
 }: {
   secteursChoisis: SecteurAvecActivite[];
+  onValider: (activites: Activite[]) => void;
 }) {
   const [reponse, setReponse] = useState<StateDeReponse>(
     dictionnaireParSecteur(secteursChoisis),
@@ -92,7 +94,7 @@ export function EtapeActivites({
             buttons={[
               {
                 children: "Suivant",
-                onClick: () => {},
+                onClick: () => onValider(toutesLesActivitesDe(reponse)),
                 type: "submit",
                 disabled: unSecteurEstSansReponse(reponse),
               },
@@ -122,4 +124,8 @@ function libelleSecteurOuSousSecteur(s: SecteurAvecActivite) {
 
 function unSecteurEstSansReponse(reponse: StateDeReponse) {
   return Object.values(reponse).some((activites) => activites.length === 0);
+}
+
+function toutesLesActivitesDe(reponse: StateDeReponse) {
+  return Object.values(reponse).flat();
 }
