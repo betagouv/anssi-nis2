@@ -107,10 +107,7 @@ export const Questionnaire = () => {
     case "activites":
       return (
         <EtapeActivites
-          secteursChoisis={selectSecteursPourSaisieActivites([
-            ...etat.secteurActivite,
-            ...etat.sousSecteurActivite,
-          ])}
+          secteursChoisis={selectSecteursPourSaisieActivites(etat)}
           onValider={(reponse) => dispatch(valideActivites(reponse))}
         />
       );

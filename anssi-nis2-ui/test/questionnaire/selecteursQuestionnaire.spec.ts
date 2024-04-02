@@ -18,9 +18,7 @@ describe("Les sélecteurs sur l'etat du questionnaire", () => {
         valideSecteursActivite(["banqueSecteurBancaire"]),
       ]);
 
-      const resultat = selectSecteursPourSaisieActivites(
-        sansSousSecteur.secteurActivite,
-      );
+      const resultat = selectSecteursPourSaisieActivites(sansSousSecteur);
 
       expect(resultat).toEqual(["banqueSecteurBancaire"]);
     });
@@ -30,9 +28,7 @@ describe("Les sélecteurs sur l'etat du questionnaire", () => {
         valideSousSecteursActivite(["fabricationDispositifsMedicaux"]),
       ]);
 
-      const resultat = selectSecteursPourSaisieActivites(
-        unSousSecteur.sousSecteurActivite,
-      );
+      const resultat = selectSecteursPourSaisieActivites(unSousSecteur);
 
       expect(resultat).toEqual(["fabricationDispositifsMedicaux"]);
     });
@@ -40,9 +36,7 @@ describe("Les sélecteurs sur l'etat du questionnaire", () => {
     it("ignore les secteurs qui possèdent un sous-secteur (c'est-à-dire les secteurs composites)", () => {
       const avecUnComposite = executer([valideSecteursActivite(["energie"])]);
 
-      const resultat = selectSecteursPourSaisieActivites(
-        avecUnComposite.secteurActivite,
-      );
+      const resultat = selectSecteursPourSaisieActivites(avecUnComposite);
 
       expect(resultat).toEqual([]);
     });
@@ -53,10 +47,7 @@ describe("Les sélecteurs sur l'etat du questionnaire", () => {
         valideSousSecteursActivite(["electricite"]),
       ]);
 
-      const resultat = selectSecteursPourSaisieActivites([
-        ...panachage.secteurActivite,
-        ...panachage.sousSecteurActivite,
-      ]);
+      const resultat = selectSecteursPourSaisieActivites(panachage);
 
       expect(resultat).toEqual(["eauxUsees", "electricite"]);
     });
