@@ -37,6 +37,7 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
     import.meta.env.VITE_VERSION_QUESTIONNAIRE || "v1";
   const afficheQuestionnaireV1 = versionQuestionnaire === "v1";
   const afficheQuestionnaireV2 = versionQuestionnaire === "v2";
+  const afficheLesDeux = versionQuestionnaire === "all";
 
   return (
     <>
@@ -47,7 +48,7 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
         </title>
       </Helmet>
       <div id="debutForm"></div>
-      {afficheQuestionnaireV1 && (
+      {(afficheQuestionnaireV1 || afficheLesDeux) && (
         <ElementRendu
           propageActionSimulateur={propageActionSimulateur}
           donneesFormulaire={donneesFormulaireSimulateur}
@@ -55,7 +56,7 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
           etatEtapes={etatEtapes}
         />
       )}
-      {afficheQuestionnaireV2 && <Questionnaire />}
+      {(afficheQuestionnaireV2 || afficheLesDeux) && <Questionnaire />}
     </>
   );
 };
