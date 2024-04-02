@@ -19,6 +19,7 @@ import {
   estSousSecteur,
   estSousSecteurListe,
 } from "./SousSecteurActivite.predicats";
+import { sousSecteursParSecteur } from "../../SousSecteurActivite.valeurs";
 
 const extraitSousSecteurs = (
   secteur: SecteurComposite,
@@ -108,3 +109,11 @@ export const filtreValsursSecteursInutiles = (
       ([, ssSecteur]) =>
         estSousSecteur(ssSecteur) && estSousSecteurListe(ssSecteur),
     );
+
+export const secteurDe = (recherche: SousSecteurActivite): SecteurActivite => {
+  const tupleDuSecteur = Object.entries(sousSecteursParSecteur).find(
+    ([, sousSecteurs]) => sousSecteurs.includes(recherche)
+  );
+
+  return tupleDuSecteur![0] as SecteurActivite;
+};
