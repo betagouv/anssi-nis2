@@ -22,6 +22,7 @@ import { EtapeTailleEntitePrivee } from "./EtapesRefacto/EtapeTailleEntitePrivee
 import { EtapeSecteursActivite } from "./EtapesRefacto/EtapeSecteursActivite.tsx";
 import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import { EtapeSousSecteursActivite } from "./EtapesRefacto/EtapeSousSecteursActivite.tsx";
+import { EtapeResultat } from "./EtapesRefacto/EtapeResultat.tsx";
 
 function executer(actions: ActionQuestionnaire[]): EtatQuestionnaire {
   return actions.reduce(
@@ -39,7 +40,7 @@ export const Questionnaire = () => {
       valideEtapeAppartenanceUE(["france"]),
       valideTypeStructure(["privee"]),
       valideTailleEntitePrivee(["petit"], ["petit"]),
-      valideSecteursActivite(["energie", "transports"]),
+      valideSecteursActivite(["autreSecteurActivite"]),
     ]),
   ).current;
 
@@ -94,6 +95,6 @@ export const Questionnaire = () => {
       );
 
     case "resultat":
-      return <h1>RÉSULTAT</h1>;
+      return <EtapeResultat reponses={etat} />;
   }
 };
