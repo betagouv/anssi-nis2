@@ -23,6 +23,8 @@ import { EtapeSecteursActivite } from "./EtapesRefacto/EtapeSecteursActivite.tsx
 import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import { EtapeSousSecteursActivite } from "./EtapesRefacto/EtapeSousSecteursActivite.tsx";
 import { EtapeResultat } from "./EtapesRefacto/EtapeResultat.tsx";
+import { estUnSecteurAvecDesSousSecteurs } from "anssi-nis2-core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
+import { SecteurComposite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 
 function executer(actions: ActionQuestionnaire[]): EtatQuestionnaire {
   return actions.reduce(
@@ -40,7 +42,8 @@ export const Questionnaire = () => {
       valideEtapeAppartenanceUE(["france"]),
       valideTypeStructure(["privee"]),
       valideTailleEntitePrivee(["petit"], ["petit"]),
-      valideSecteursActivite(["autreSecteurActivite"]),
+      valideSecteursActivite(["banqueSecteurBancaire", "eauxUsees", "energie"]),
+      valideSousSecteursActivite(["gaz", "hydrogene"]),
     ]),
   ).current;
 
@@ -87,7 +90,11 @@ export const Questionnaire = () => {
     case "sousSecteursActivite":
       return (
         <EtapeSousSecteursActivite
-          secteursChoisis={etat.secteurActivite}
+          secteursChoisis={
+            etat.secteurActivite.filter((s) =>
+              estUnSecteurAvecDesSousSecteurs(s),
+            ) as SecteurComposite[]
+          }
           onValider={(reponse: SousSecteurActivite[]) =>
             dispatch(valideSousSecteursActivite(reponse))
           }
