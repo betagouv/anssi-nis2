@@ -106,7 +106,7 @@ export const Questionnaire = () => {
     case "activites":
       return (
         <EtapeActivites
-          secteurActivites={selectSecteursPourSaisieActivites([
+          secteursChoisis={selectSecteursPourSaisieActivites([
             ...etat.secteurActivite,
             ...etat.sousSecteurActivite,
           ])}

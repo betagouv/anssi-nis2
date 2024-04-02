@@ -1,5 +1,6 @@
-import BlocPrincipal from "../../BlocPrincipal.tsx";
+import { useState } from "react";
 import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
+import BlocPrincipal from "../../BlocPrincipal.tsx";
 import { FormSimulateur } from "../Etapes";
 import { SecteurSimple } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { EnsembleChamps } from "../Inputs/EnsembleChamps.tsx";
@@ -10,12 +11,33 @@ import { secteurDe } from "anssi-nis2-core/src/Domain/Simulateur/services/SousSe
 import { activitesParSecteurEtSousSecteur } from "anssi-nis2-core/src/Domain/Simulateur/Activite.operations.ts";
 import { libellesActivites } from "../../../References/LibellesActivites.ts";
 import { listeDescriptionsActivites } from "../../../References/ListeDescriptionsActivites.ts";
+import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
+import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
+
+type SecteurAvecActivite = SecteurSimple | SousSecteurActivite;
+type StateDeReponse = Partial<Record<SecteurAvecActivite, Activite[]>>;
 
 export function EtapeActivites({
-  secteurActivites,
+  secteursChoisis,
 }: {
-  secteurActivites: (SecteurSimple | SousSecteurActivite)[];
+  secteursChoisis: SecteurAvecActivite[];
 }) {
+  const [reponse, setReponse] = useState<StateDeReponse>(
+    dictionnaireParSecteur(secteursChoisis),
+  );
+
+  const cocheActivite = (secteur: SecteurAvecActivite, cochee: Activite) => {
+    const existantes = reponse[secteur];
+    const apresAjout = [...existantes!, cochee];
+    setReponse({ ...reponse, [secteur]: apresAjout });
+  };
+
+  const enleveActivite = (secteur: SecteurAvecActivite, cible: Activite) => {
+    const existantes = reponse[secteur];
+    const apresRetrait = existantes!.filter((activite) => activite !== cible);
+    setReponse({ ...reponse, [secteur]: apresRetrait });
+  };
+
   return (
     <BlocPrincipal className="fond-gris" id="etape-formulaire">
       <Stepper
@@ -36,7 +58,7 @@ export function EtapeActivites({
             définitions des activités.
           </p>
 
-          {secteurActivites.map((s) => (
+          {secteursChoisis.map((s) => (
             <EnsembleChamps
               legende={libelleSecteurOuSousSecteur(s)}
               optionsSecteurActivite={activitesParSecteurEtSousSecteur[s].map(
@@ -46,8 +68,11 @@ export function EtapeActivites({
                   nativeInputProps: {
                     name: activite,
                     value: activite,
-                    onChange: () => {},
-                    checked: false,
+                    onChange: (event) => {
+                      if (event.target.checked) cocheActivite(s, activite);
+                      else enleveActivite(s, activite);
+                    },
+                    checked: reponse[s]!.includes(activite),
                   },
                 }),
               )}
@@ -56,11 +81,35 @@ export function EtapeActivites({
           ))}
         </div>
       </FormSimulateur>
+
+      <div id="stepper-navigation">
+        <p className="message-validation">
+          Sélectionnez au moins une réponse par secteur
+        </p>
+        <div className="conteneur-actions">
+          <ButtonsGroup
+            alignment="right"
+            buttons={[
+              {
+                children: "Suivant",
+                onClick: () => {},
+                type: "submit",
+                disabled: unSecteurEstSansReponse(reponse),
+              },
+            ]}
+            inlineLayoutWhen="sm and up"
+          />
+        </div>
+      </div>
     </BlocPrincipal>
   );
 }
 
-function libelleSecteurOuSousSecteur(s: SecteurSimple | SousSecteurActivite) {
+function dictionnaireParSecteur(secteurs: SecteurAvecActivite[]) {
+  return secteurs.reduce((resultat, s) => ({ ...resultat, [s]: [] }), {});
+}
+
+function libelleSecteurOuSousSecteur(s: SecteurAvecActivite) {
   const estSousSecteur = Object.keys(libellesSousSecteursActivite).includes(s);
 
   if (!estSousSecteur) return libellesSecteursActivite[s as SecteurSimple];
@@ -69,4 +118,8 @@ function libelleSecteurOuSousSecteur(s: SecteurSimple | SousSecteurActivite) {
   const racine = libellesSecteursActivite[secteurAssocie];
   const detail = libellesSousSecteursActivite[s as SousSecteurActivite];
   return `${racine} / ${detail}`;
+}
+
+function unSecteurEstSansReponse(reponse: StateDeReponse) {
+  return Object.values(reponse).some((activites) => activites.length === 0);
 }
