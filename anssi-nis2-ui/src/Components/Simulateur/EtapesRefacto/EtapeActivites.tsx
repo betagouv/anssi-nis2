@@ -20,9 +20,11 @@ type StateDeReponse = Partial<Record<SecteurAvecActivite, Activite[]>>;
 export function EtapeActivites({
   secteursChoisis,
   onValider,
+  onPrecedent,
 }: {
   secteursChoisis: SecteurAvecActivite[];
   onValider: (activites: Activite[]) => void;
+  onPrecedent: () => void;
 }) {
   const [reponse, setReponse] = useState<StateDeReponse>(
     dictionnaireParSecteur(secteursChoisis),
@@ -88,6 +90,7 @@ export function EtapeActivites({
         message="Sélectionnez au moins une réponse par secteur"
         onSuivant={() => onValider(toutesLesActivitesDe(reponse))}
         suivantDisabled={unSecteurEstSansReponse(reponse)}
+        onPrecedent={onPrecedent}
       />
     </BlocPrincipal>
   );

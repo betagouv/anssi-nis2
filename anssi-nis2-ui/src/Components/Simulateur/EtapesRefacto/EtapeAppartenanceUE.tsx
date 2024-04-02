@@ -8,8 +8,10 @@ import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 
 export const EtapeAppartenanceUE = ({
   onValider,
+  onPrecedent,
 }: {
   onValider: (reponse: AppartenancePaysUnionEuropeenne[]) => void;
+  onPrecedent: () => void;
 }) => {
   const [reponse, setReponse] = useState<AppartenancePaysUnionEuropeenne[]>([]);
 
@@ -74,6 +76,7 @@ export const EtapeAppartenanceUE = ({
         message="Sélectionnez une réponse"
         onSuivant={() => onValider(reponse)}
         suivantDisabled={reponse.length === 0}
+        onPrecedent={onPrecedent}
       />
     </BlocPrincipal>
   );

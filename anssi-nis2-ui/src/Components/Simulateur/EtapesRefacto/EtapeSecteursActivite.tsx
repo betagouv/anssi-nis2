@@ -9,8 +9,10 @@ import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 
 export const EtapeSecteursActivite = ({
   onValider,
+  onPrecedent,
 }: {
   onValider: (reponse: SecteurActivite[]) => void;
+  onPrecedent: () => void;
 }) => {
   const [reponse, setReponse] = useState<SecteurActivite[]>([]);
 
@@ -49,6 +51,7 @@ export const EtapeSecteursActivite = ({
         message="Sélectionnez au moins une réponse"
         onSuivant={() => onValider(reponse)}
         suivantDisabled={reponse.length === 0}
+        onPrecedent={onPrecedent}
       />
     </BlocPrincipal>
   );

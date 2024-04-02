@@ -8,8 +8,10 @@ import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 
 export function EtapeLocalisationServicesNumeriques({
   onValider,
+  onPrecedent,
 }: {
   onValider: (pays: AppartenancePaysUnionEuropeenne[]) => void;
+  onPrecedent: () => void;
 }) {
   const [reponse, setReponse] = useState<AppartenancePaysUnionEuropeenne[]>([]);
 
@@ -86,6 +88,7 @@ export function EtapeLocalisationServicesNumeriques({
         message="Sélectionnez au moins une réponse"
         onSuivant={() => onValider(reponse)}
         suivantDisabled={reponse.length === 0}
+        onPrecedent={onPrecedent}
       />
     </BlocPrincipal>
   );

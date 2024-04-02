@@ -4,6 +4,7 @@ export function PrecedentSuivant(props: {
   message: string;
   onSuivant: () => void;
   suivantDisabled: boolean;
+  onPrecedent?: () => void;
 }) {
   return (
     <div id="stepper-navigation">
@@ -12,6 +13,12 @@ export function PrecedentSuivant(props: {
         <ButtonsGroup
           alignment="right"
           buttons={[
+            {
+              children: "Précédent",
+              onClick: props.onPrecedent,
+              priority: "secondary",
+              disabled: !props.onPrecedent,
+            },
             {
               children: "Suivant",
               onClick: props.onSuivant,

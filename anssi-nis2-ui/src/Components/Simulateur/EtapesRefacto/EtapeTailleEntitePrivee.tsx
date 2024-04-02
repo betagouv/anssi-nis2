@@ -11,11 +11,13 @@ import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 
 export function EtapeTailleEntitePrivee({
   onValider,
+  onPrecedent,
 }: {
   onValider: (
     nombre: TrancheNombreEmployes[],
     chiffreAffaire: TrancheChiffreAffaire[],
   ) => void;
+  onPrecedent: () => void;
 }) {
   const [reponseNombre, setReponseNombre] = useState<TrancheNombreEmployes[]>(
     [],
@@ -101,6 +103,7 @@ export function EtapeTailleEntitePrivee({
         suivantDisabled={
           reponseNombre.length === 0 || reponseChiffreAffaire.length === 0
         }
+        onPrecedent={onPrecedent}
       />
     </BlocPrincipal>
   );

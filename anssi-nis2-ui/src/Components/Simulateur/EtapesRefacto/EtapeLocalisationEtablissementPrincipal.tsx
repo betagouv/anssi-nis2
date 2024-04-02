@@ -15,12 +15,14 @@ type StateDeReponse = {
 
 export function EtapeLocalisationEtablissementPrincipal({
   onValider,
+  onPrecedent,
 }: {
   onValider: (
     paysDecision: AppartenancePaysUnionEuropeenne[],
     paysOperation: AppartenancePaysUnionEuropeenne[],
     paysSalaries: AppartenancePaysUnionEuropeenne[],
   ) => void;
+  onPrecedent: () => void;
 }) {
   const [reponse, setReponse] = useState<StateDeReponse>({
     paysDecision: [],
@@ -86,6 +88,7 @@ export function EtapeLocalisationEtablissementPrincipal({
           )
         }
         suivantDisabled={!reponseEstComplete(reponse)}
+        onPrecedent={onPrecedent}
       />
     </BlocPrincipal>
   );

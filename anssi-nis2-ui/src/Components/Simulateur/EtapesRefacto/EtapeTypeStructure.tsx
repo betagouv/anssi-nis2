@@ -8,8 +8,10 @@ import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 
 export const EtapeTypeStructure = ({
   onValider,
+  onPrecedent,
 }: {
   onValider: (typeStructure: TypeStructure[]) => void;
+  onPrecedent: () => void;
 }) => {
   const [reponse, setReponse] = useState<TypeStructure[]>([]);
 
@@ -64,6 +66,7 @@ export const EtapeTypeStructure = ({
         message="Sélectionnez une réponse"
         onSuivant={() => onValider(reponse)}
         suivantDisabled={reponse.length === 0}
+        onPrecedent={onPrecedent}
       />
     </BlocPrincipal>
   );

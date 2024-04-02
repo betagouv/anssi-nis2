@@ -16,9 +16,11 @@ import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 export function EtapeSousSecteursActivite({
   secteursChoisis,
   onValider,
+  onPrecedent,
 }: {
   secteursChoisis: SecteurComposite[];
   onValider: (sousSecteurs: SousSecteurActivite[]) => void;
+  onPrecedent: () => void;
 }) {
   const [reponse, setReponse] = useState<
     Partial<Record<SecteurActivite, SousSecteurActivite[]>>
@@ -85,6 +87,7 @@ export function EtapeSousSecteursActivite({
         message="Sélectionnez au moins une réponse par secteur"
         onSuivant={() => onValider(tousLesSousSecteursDe(reponse))}
         suivantDisabled={unSecteurEstSansReponse(reponse)}
+        onPrecedent={onPrecedent}
       />
     </BlocPrincipal>
   );

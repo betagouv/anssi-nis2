@@ -32,7 +32,7 @@ import { estUnSecteurAvecDesSousSecteurs } from "anssi-nis2-core/src/Domain/Simu
 import { SecteurComposite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { EtapeLocalisationServicesNumeriques } from "./EtapesRefacto/EtapeLocalisationServicesNumeriques.tsx";
 import { EtapeLocalisationEtablissementPrincipal } from "./EtapesRefacto/EtapeLocalisationEtablissementPrincipal.tsx";
-import { quiSupporteUndo } from "../../questionnaire/quiSupporteUndo.ts";
+import { quiSupporteUndo, undo } from "../../questionnaire/quiSupporteUndo.ts";
 
 function executer(actions: ActionQuestionnaire[]): EtatQuestionnaire {
   return actions.reduce(
@@ -51,8 +51,8 @@ export const Questionnaire = () => {
       valideTypeStructure(["privee"]),
       valideTailleEntitePrivee(["petit"], ["petit"]),
       valideSecteursActivite(["gestionServicesTic"]),
-      // valideSousSecteursActivite(["gaz", "hydrogene"]),
-      // valideActivites(["fournisseurReseauxCommunicationElectroniquesPublics"]),
+      valideSousSecteursActivite(["gaz", "hydrogene"]),
+      valideActivites(["fournisseurReseauxCommunicationElectroniquesPublics"]),
     ]),
   ).current;
 
@@ -76,12 +76,14 @@ export const Questionnaire = () => {
       return (
         <EtapeAppartenanceUE
           onValider={(reponse) => dispatch(valideEtapeAppartenanceUE(reponse))}
+          onPrecedent={() => dispatch(undo())}
         />
       );
     case "typeStructure":
       return (
         <EtapeTypeStructure
           onValider={(reponse) => dispatch(valideTypeStructure(reponse))}
+          onPrecedent={() => dispatch(undo())}
         />
       );
     case "tailleEntitePrivee":
@@ -90,12 +92,14 @@ export const Questionnaire = () => {
           onValider={(nombre, chiffreAffaire) =>
             dispatch(valideTailleEntitePrivee(nombre, chiffreAffaire))
           }
+          onPrecedent={() => dispatch(undo())}
         />
       );
     case "secteursActivite":
       return (
         <EtapeSecteursActivite
           onValider={(reponse) => dispatch(valideSecteursActivite(reponse))}
+          onPrecedent={() => dispatch(undo())}
         />
       );
 
@@ -110,6 +114,7 @@ export const Questionnaire = () => {
           onValider={(reponse: SousSecteurActivite[]) =>
             dispatch(valideSousSecteursActivite(reponse))
           }
+          onPrecedent={() => dispatch(undo())}
         />
       );
 
@@ -118,6 +123,7 @@ export const Questionnaire = () => {
         <EtapeActivites
           secteursChoisis={selectSecteursPourSaisieActivites(etat.courant)}
           onValider={(reponse) => dispatch(valideActivites(reponse))}
+          onPrecedent={() => dispatch(undo())}
         />
       );
 
@@ -127,6 +133,7 @@ export const Questionnaire = () => {
           onValider={(...pays) =>
             dispatch(valideLocalisationEtablissementPrincipal(...pays))
           }
+          onPrecedent={() => dispatch(undo())}
         />
       );
 
@@ -136,6 +143,7 @@ export const Questionnaire = () => {
           onValider={(pays) =>
             dispatch(valideLocalisationServicesNumeriques(pays))
           }
+          onPrecedent={() => dispatch(undo())}
         />
       );
 
