@@ -165,6 +165,28 @@ export const reducerQuestionnaire = (
       };
     }
 
+    case "VALIDE_ETAPE_LOCALISATION_SERVICES_NUMERIQUES": {
+      const versEtablissementPrincipal =
+        contientUnParmi(...etat.secteurActivite)([
+          "gestionServicesTic",
+          "fournisseursNumeriques",
+        ]) ||
+        contientUnParmi(...etat.activites)([
+          "registresNomsDomainesPremierNiveau",
+          "fournisseurServicesDNS",
+          "fournisseurServicesInformatiqueNuage",
+          "fournisseurServiceCentresDonnees",
+          "fournisseurReseauxDiffusionContenu",
+        ]);
+
+      return {
+        ...etat,
+        localisationFournitureServicesNumeriques: action.pays,
+        etapeCourante: versEtablissementPrincipal
+          ? "localisationEtablissementPrincipal"
+          : "resultat",
+      };
+    }
     case "VIDE":
     default:
       return etat;
