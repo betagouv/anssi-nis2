@@ -33,8 +33,10 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
     [donneesFormulaireSimulateur, etatEtapes],
   );
 
-  const afficheQuestionnaireRefacto =
-    import.meta.env.VITE_AFFICHE_QUESTIONNAIRE_REFACTO === "true";
+  const versionQuestionnaire =
+    import.meta.env.VITE_VERSION_QUESTIONNAIRE || "v1";
+  const afficheQuestionnaireV1 = versionQuestionnaire === "v1";
+  const afficheQuestionnaireV2 = versionQuestionnaire === "v2";
 
   return (
     <>
@@ -45,13 +47,15 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
         </title>
       </Helmet>
       <div id="debutForm"></div>
-      <ElementRendu
-        propageActionSimulateur={propageActionSimulateur}
-        donneesFormulaire={donneesFormulaireSimulateur}
-        informationsBoutonsNavigation={informationsBoutonsNavigation}
-        etatEtapes={etatEtapes}
-      />
-      {afficheQuestionnaireRefacto && <Questionnaire />}
+      {afficheQuestionnaireV1 && (
+        <ElementRendu
+          propageActionSimulateur={propageActionSimulateur}
+          donneesFormulaire={donneesFormulaireSimulateur}
+          informationsBoutonsNavigation={informationsBoutonsNavigation}
+          etatEtapes={etatEtapes}
+        />
+      )}
+      {afficheQuestionnaireV2 && <Questionnaire />}
     </>
   );
 };
