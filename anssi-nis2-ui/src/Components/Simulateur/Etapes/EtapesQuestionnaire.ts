@@ -159,7 +159,7 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
       validationReponsesActivites,
       "activites",
       {
-        ignoreSi: ou(
+        ignoreSi: et(
           contientAutreSecteurActiviteUniquement,
           contientSousSecteurAutresUniquement,
         ),

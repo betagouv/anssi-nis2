@@ -1,4 +1,3 @@
-import { DonneesFormulaireSimulateur } from "../DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   SecteurActivite,
   SecteurComposite,
@@ -8,6 +7,7 @@ import {
   PeutEtreSousSecteurActivite,
   SousSecteurActivite,
 } from "../../SousSecteurActivite.definitions";
+import { DonneesFormulaireSimulateur } from "../DonneesFormulaire/DonneesFormulaire.definitions";
 import { fabriqueTuplesSecteurSousSecteur } from "../SecteurActivite/SecteurActivite.operations";
 import {
   contientSousSecteur,
@@ -34,6 +34,20 @@ const extraitSousSecteursOuListeVide = (
   estUnSecteurAvecDesSousSecteurs(secteur)
     ? extraitSousSecteurs(secteur as SecteurComposite, sousSecteurActivite)
     : [];
+
+const genereSecteurAvecSousSecteurs = (
+  secteur: SecteurActivite,
+  sousSecteurActivite: SousSecteurActivite[],
+): Array<[SecteurActivite, SousSecteurActivite[]]> => {
+  const sousSecteurs = extraitSousSecteursOuListeVide(
+    secteur,
+    sousSecteurActivite.filter(estSousSecteurListe),
+  );
+  return estUnSecteurAvecDesSousSecteurs(secteur) && sousSecteurs.length === 0
+    ? []
+    : [[secteur, sousSecteurs]];
+};
+
 export const cartographieSousSecteursParSecteur = ({
   secteurActivite,
   sousSecteurActivite,
@@ -43,13 +57,7 @@ export const cartographieSousSecteursParSecteur = ({
     .reduce<[SecteurActivite, SousSecteurActivite[]][]>(
       (acc, secteur) => [
         ...acc,
-        [
-          secteur,
-          extraitSousSecteursOuListeVide(
-            secteur,
-            sousSecteurActivite.filter(estSousSecteurListe),
-          ),
-        ],
+        ...genereSecteurAvecSousSecteurs(secteur, sousSecteurActivite),
       ],
       [],
     );
