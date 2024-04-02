@@ -9,6 +9,7 @@ import { fabriqueInformationsBoutonsNavigation } from "../../Services/fabriques/
 import { traceEtapeSimulateur } from "../../Services/TraceurWeb/traceEtapeSimulateur.ts";
 import { AppContext } from "../../Services/AppContexte/AppContext.definition.ts";
 import { cartoComposants } from "../../Services/Simulateur/Transformateurs/TypeEtapeVersComposantEtape.transformateur.ts";
+import { Questionnaire } from "./Questionnaire.tsx";
 
 const ChargeurEtapeCalcule: DefaultComponent = () => {
   const [donneesFormulaireSimulateur, propageActionSimulateur] = useReducer(
@@ -31,6 +32,12 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
     () => traceEtapeSimulateur(etatEtapes, donneesFormulaireSimulateur),
     [donneesFormulaireSimulateur, etatEtapes],
   );
+
+  const versionQuestionnaire =
+    import.meta.env.VITE_VERSION_QUESTIONNAIRE || "v1";
+  const afficheQuestionnaireV1 = versionQuestionnaire === "v1";
+  const afficheQuestionnaireV2 = versionQuestionnaire === "v2";
+
   return (
     <>
       <Helmet>
@@ -40,12 +47,15 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
         </title>
       </Helmet>
       <div id="debutForm"></div>
-      <ElementRendu
-        propageActionSimulateur={propageActionSimulateur}
-        donneesFormulaire={donneesFormulaireSimulateur}
-        informationsBoutonsNavigation={informationsBoutonsNavigation}
-        etatEtapes={etatEtapes}
-      />
+      {afficheQuestionnaireV1 && (
+        <ElementRendu
+          propageActionSimulateur={propageActionSimulateur}
+          donneesFormulaire={donneesFormulaireSimulateur}
+          informationsBoutonsNavigation={informationsBoutonsNavigation}
+          etatEtapes={etatEtapes}
+        />
+      )}
+      {afficheQuestionnaireV2 && <Questionnaire />}
     </>
   );
 };
