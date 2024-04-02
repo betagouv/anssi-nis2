@@ -5,7 +5,7 @@ import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { libellesSecteursActivite } from "../../../References/LibellesSecteursActivite.ts";
 import { useState } from "react";
 import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
-import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
+import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 
 export const EtapeSecteursActivite = ({
   onValider,
@@ -45,23 +45,11 @@ export const EtapeSecteursActivite = ({
         </div>
       </FormSimulateur>
 
-      <div id="stepper-navigation">
-        <p className="message-validation">Sélectionnez au moins une réponse</p>
-        <div className="conteneur-actions">
-          <ButtonsGroup
-            alignment="right"
-            buttons={[
-              {
-                children: "Suivant",
-                onClick: () => onValider(reponse),
-                type: "submit",
-                disabled: reponse.length === 0,
-              },
-            ]}
-            inlineLayoutWhen="sm and up"
-          />
-        </div>
-      </div>
+      <PrecedentSuivant
+        message="Sélectionnez au moins une réponse"
+        onSuivant={() => onValider(reponse)}
+        suivantDisabled={reponse.length === 0}
+      />
     </BlocPrincipal>
   );
 };

@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
-import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
 import BlocPrincipal from "../../BlocPrincipal.tsx";
 import { FormSimulateur } from "../Etapes";
 import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
 } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 
 export function EtapeTailleEntitePrivee({
   onValider,
@@ -95,27 +95,13 @@ export function EtapeTailleEntitePrivee({
         </div>
       </FormSimulateur>
 
-      <div id="stepper-navigation">
-        <p className="message-validation">
-          Sélectionnez une réponse pour chaque critère
-        </p>
-        <div className="conteneur-actions">
-          <ButtonsGroup
-            alignment="right"
-            buttons={[
-              {
-                children: "Suivant",
-                onClick: () => onValider(reponseNombre, reponseChiffreAffaire),
-                type: "submit",
-                disabled:
-                  reponseNombre.length === 0 ||
-                  reponseChiffreAffaire.length === 0,
-              },
-            ]}
-            inlineLayoutWhen="sm and up"
-          />
-        </div>
-      </div>
+      <PrecedentSuivant
+        message="Sélectionnez une réponse pour chaque critère"
+        onSuivant={() => onValider(reponseNombre, reponseChiffreAffaire)}
+        suivantDisabled={
+          reponseNombre.length === 0 || reponseChiffreAffaire.length === 0
+        }
+      />
     </BlocPrincipal>
   );
 }

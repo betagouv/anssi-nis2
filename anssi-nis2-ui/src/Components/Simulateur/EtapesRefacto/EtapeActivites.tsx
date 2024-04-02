@@ -11,8 +11,8 @@ import { secteurDe } from "anssi-nis2-core/src/Domain/Simulateur/services/SousSe
 import { activitesParSecteurEtSousSecteur } from "anssi-nis2-core/src/Domain/Simulateur/Activite.operations.ts";
 import { libellesActivites } from "../../../References/LibellesActivites.ts";
 import { listeDescriptionsActivites } from "../../../References/ListeDescriptionsActivites.ts";
-import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
 import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
+import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 
 type SecteurAvecActivite = SecteurSimple | SousSecteurActivite;
 type StateDeReponse = Partial<Record<SecteurAvecActivite, Activite[]>>;
@@ -84,25 +84,11 @@ export function EtapeActivites({
         </div>
       </FormSimulateur>
 
-      <div id="stepper-navigation">
-        <p className="message-validation">
-          Sélectionnez au moins une réponse par secteur
-        </p>
-        <div className="conteneur-actions">
-          <ButtonsGroup
-            alignment="right"
-            buttons={[
-              {
-                children: "Suivant",
-                onClick: () => onValider(toutesLesActivitesDe(reponse)),
-                type: "submit",
-                disabled: unSecteurEstSansReponse(reponse),
-              },
-            ]}
-            inlineLayoutWhen="sm and up"
-          />
-        </div>
-      </div>
+      <PrecedentSuivant
+        message="Sélectionnez au moins une réponse par secteur"
+        onSuivant={() => onValider(toutesLesActivitesDe(reponse))}
+        suivantDisabled={unSecteurEstSansReponse(reponse)}
+      />
     </BlocPrincipal>
   );
 }
