@@ -20,6 +20,7 @@ import { EtapeAppartenanceUE } from "./EtapesRefacto/EtapeAppartenanceUE.tsx";
 import { EtapeTypeStructure } from "./EtapesRefacto/EtapeTypeStructure.tsx";
 import { EtapeTailleEntitePrivee } from "./EtapesRefacto/EtapeTailleEntitePrivee.tsx";
 import { EtapeSecteursActivite } from "./EtapesRefacto/EtapeSecteursActivite.tsx";
+import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import { EtapeSousSecteursActivite } from "./EtapesRefacto/EtapeSousSecteursActivite.tsx";
 
 function executer(actions: ActionQuestionnaire[]): EtatQuestionnaire {
@@ -86,7 +87,9 @@ export const Questionnaire = () => {
       return (
         <EtapeSousSecteursActivite
           secteursChoisis={etat.secteurActivite}
-          onValider={(reponse) => dispatch(valideSousSecteursActivite(reponse))}
+          onValider={(reponse: SousSecteurActivite[]) =>
+            dispatch(valideSousSecteursActivite(reponse))
+          }
         />
       );
 
