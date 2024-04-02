@@ -7,6 +7,7 @@ import {
 import { EtapePrealable } from "./EtapesRefacto/EtapePrealable.tsx";
 import {
   ActionQuestionnaire,
+  valideActivites,
   valideEtapeAppartenanceUE,
   valideEtapeDesignation,
   valideEtapePrealable,
@@ -23,6 +24,8 @@ import { EtapeSecteursActivite } from "./EtapesRefacto/EtapeSecteursActivite.tsx
 import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import { EtapeSousSecteursActivite } from "./EtapesRefacto/EtapeSousSecteursActivite.tsx";
 import { EtapeResultat } from "./EtapesRefacto/EtapeResultat.tsx";
+import { EtapeActivites } from "./EtapesRefacto/EtapeActivites.tsx";
+import { selectSecteursPourSaisieActivites } from "../../questionnaire/selecteursQuestionnaire.ts";
 import { estUnSecteurAvecDesSousSecteurs } from "anssi-nis2-core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
 import { SecteurComposite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 
@@ -98,6 +101,14 @@ export const Questionnaire = () => {
           onValider={(reponse: SousSecteurActivite[]) =>
             dispatch(valideSousSecteursActivite(reponse))
           }
+        />
+      );
+
+    case "activites":
+      return (
+        <EtapeActivites
+          secteursChoisis={selectSecteursPourSaisieActivites(etat)}
+          onValider={(reponse) => dispatch(valideActivites(reponse))}
         />
       );
 

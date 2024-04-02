@@ -9,11 +9,14 @@ import {
   valideEtapeAppartenanceUE,
   valideEtapeDesignation,
   valideEtapePrealable,
+  valideActivites,
   valideSecteursActivite,
   valideSousSecteursActivite,
   valideTailleEntitePrivee,
   valideTypeStructure,
 } from "../../src/questionnaire/actions";
+import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions";
+import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions";
 
 describe("Le reducer du Questionnaire", () => {
   it("indique l'étape « préalable » comme étape de départ", () => {
@@ -119,7 +122,90 @@ describe("Le reducer du Questionnaire", () => {
       expect(etat.sousSecteurActivite).toEqual(["electricite"]);
     });
 
-    it.todo("passe à l'etape …");
+    it("passe à l'etape « Résultat » si tous les secteurs & sous-secteurs sont du « Autre » (donc aucun intérêt à aller vers « Activités »)", () => {
+      const etat = executer([
+        valideSecteursActivite(["autreSecteurActivite"]),
+        valideSousSecteursActivite(["autreSousSecteurFabrication"]),
+      ]);
+
+      expect(etat.etapeCourante).toBe("resultat");
+    });
+
+    it("passe à l'étape « Activités » s'il y a un secteur qui n'est pas du « Autre » (même si tous les sous-secteurs sont « Autres ») car on va vouloir ses activités", () => {
+      const necessiteEtapeActivite = "eauxUsees";
+
+      const avecUnSecteurATraiter = executer([
+        valideSecteursActivite(["transports", necessiteEtapeActivite]),
+        valideSousSecteursActivite(["autreSousSecteurTransports"]),
+      ]);
+
+      expect(avecUnSecteurATraiter.etapeCourante).toBe("activites");
+    });
+
+    it("passe à l'étape « Activités » s'il y a des sous-secteurs qui ne sont pas du « Autre »", () => {
+      const etat = executer([valideSousSecteursActivite(["electricite"])]);
+
+      expect(etat.etapeCourante).toBe("activites");
+    });
+  });
+
+  describe("à la validation de l'étape « Activités »", () => {
+    it("sauvegarde les informations de l'étape", () => {
+      const etat = executer([valideActivites(["etablissementCredit"])]);
+      expect(etat.activites).toEqual(["etablissementCredit"]);
+    });
+
+    const secteurVersLocalisationEtablissement: SecteurActivite[] = [
+      "gestionServicesTic",
+      "fournisseursNumeriques",
+    ];
+    secteurVersLocalisationEtablissement.forEach((secteur) =>
+      it(`navigue vers l'étape « Localisation de l'établissement principal » si le secteur d'activité « ${secteur} est présent`, () => {
+        const peuImporte = "autreActiviteHydrogene";
+
+        const etat = executer([
+          valideSecteursActivite([secteur]),
+          valideActivites([peuImporte]),
+        ]);
+
+        expect(etat.etapeCourante).toBe("localisationEtablissementPrincipal");
+      }),
+    );
+
+    const activitesVersLocalisationEtablissement: Activite[] = [
+      "registresNomsDomainesPremierNiveau",
+      "fournisseurServicesDNS",
+      "fournisseurServicesInformatiqueNuage",
+      "fournisseurServiceCentresDonnees",
+      "fournisseurReseauxDiffusionContenu",
+    ];
+    activitesVersLocalisationEtablissement.forEach((activite) =>
+      it(`navigue vers l'étape « Localisation de l'établissement principal » si l'activité « ${activite} » est présente`, () => {
+        const etat = executer([valideActivites([activite])]);
+
+        expect(etat.etapeCourante).toBe("localisationEtablissementPrincipal");
+      }),
+    );
+
+    const activitesVersLocalisationServiceNumerique: Activite[] = [
+      "fournisseurReseauxCommunicationElectroniquesPublics",
+      "fournisseurServiceCommunicationElectroniquesPublics",
+    ];
+    activitesVersLocalisationServiceNumerique.forEach((activite) =>
+      it(`navigue vers l'étape « Localisation de la fourniture des services numériques » si l'activité « ${activite} » est présente`, () => {
+        const etat = executer([valideActivites([activite])]);
+
+        expect(etat.etapeCourante).toBe(
+          "localisationFournitureServicesNumeriques",
+        );
+      }),
+    );
+
+    it("navigue vers l'étape « Résultat » si l'activité saisie n'est pas dans les cas précédents", () => {
+      const etat = executer([valideActivites(["acteurDuMarche"])]);
+
+      expect(etat.etapeCourante).toBe("resultat");
+    });
   });
 });
 
