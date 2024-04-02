@@ -5,6 +5,7 @@ import { FormSimulateur } from "../Etapes";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { AppartenancePaysUnionEuropeenne } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
+import { contientUnParmi } from "../../../../../commun/utils/services/commun.predicats.ts";
 
 type StateDeReponse = {
   paysDecision: AppartenancePaysUnionEuropeenne[];
@@ -90,7 +91,7 @@ export function EtapeLocalisationEtablissementPrincipal({
                     reponse.paysSalaries,
                   ),
                 type: "submit",
-                disabled: false,
+                disabled: !reponseEstComplete(reponse),
               },
             ]}
             inlineLayoutWhen="sm and up"
@@ -199,4 +200,28 @@ function uneOption(
   onChange: () => void,
 ) {
   return { label, nativeInputProps: { value, checked, onChange } };
+}
+
+function reponseEstComplete(reponse: StateDeReponse) {
+  const { paysDecision, paysOperation, paysSalaries } = reponse;
+
+  const decisionEnFranceOuUE = contientUnParmi(...paysDecision)([
+    "france",
+    "autre",
+  ]);
+
+  const decisionHorsUE = paysDecision[0] === "horsue";
+  const operationEnFranceOuUE = contientUnParmi(...paysOperation)([
+    "france",
+    "autre",
+  ]);
+
+  const operationHorsUE = paysOperation[0] === "horsue";
+  const paysSalariesRepondu = paysSalaries.length > 0;
+
+  return (
+    decisionEnFranceOuUE ||
+    (decisionHorsUE && operationEnFranceOuUE) ||
+    (operationHorsUE && paysSalariesRepondu)
+  );
 }
