@@ -1,5 +1,4 @@
 import Accueil from "./Accueil.tsx";
-import { PageFaq } from "./Components/PageFaq.tsx";
 import Simulateur from "./Simulateur.tsx";
 import PageEdito from "./Components/PagesEdito/PageEdito.tsx";
 import APropos from "./Components/PagesEdito/APropos.tsx";
@@ -46,10 +45,6 @@ export const router = sentryCreateBrowserRouter([
   {
     path: "/simulateur",
     element: <Simulateur />,
-  },
-  {
-    path: "/faq",
-    element: <PageFaq />,
   },
   {
     path: "/a-propos",
