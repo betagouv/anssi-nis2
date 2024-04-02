@@ -17,7 +17,7 @@ export function EtapeSousSecteursActivite({
   secteursChoisis,
   onValider,
 }: {
-  secteursChoisis: SecteurActivite[];
+  secteursChoisis: SecteurComposite[];
   onValider: (sousSecteurs: SousSecteurActivite[]) => void;
 }) {
   const [reponse, setReponse] = useState<
