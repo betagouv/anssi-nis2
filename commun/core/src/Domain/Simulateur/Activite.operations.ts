@@ -38,7 +38,6 @@ import {
   SousSecteurActivite,
 } from "./SousSecteurActivite.definitions";
 import { ValeurCleSectorielle } from "./ValeurCleSectorielle.definitions";
-import { estUnSecteurAvecDesSousSecteurs } from "./services/SecteurActivite/SecteurActivite.predicats";
 import { cartographieSousSecteursParSecteur } from "./services/SousSecteurActivite/SousSecteurActivite.operations";
 
 export const activitesParSecteurEtSousSecteur: Record<
@@ -121,13 +120,13 @@ const rempliSousSecteurs = (
   libelleSecteursActivite: string,
   libellesSousSecteursActivite: Record<SousSecteurActivite, string>,
 ): AssociationSectorielleActivite[] => {
-  if (
-    estUnSecteurAvecDesSousSecteurs(secteur) &&
-    listeSousSecteurs.length === 0
-  )
-    throw Error(
-      `Houla! un secteur avec sous secteurs n'en n'a pas ! ${secteur}`,
-    );
+  // if (
+  //   estUnSecteurAvecDesSousSecteurs(secteur) && !estSousSecteurAutre(secteur) &&
+  //   listeSousSecteurs.length === 0
+  // )
+  //   throw Error(
+  //     `Houla! un secteur avec sous secteurs n'en n'a pas ! ${secteur}`,
+  //   );
   return listeSousSecteurs.length === 0
     ? collecteTitresSecteursSimples(
         libelleSecteursActivite,
