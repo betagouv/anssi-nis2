@@ -1,12 +1,10 @@
-import { useReducer, useRef } from "react";
+import { useReducer } from "react";
 import {
   etatParDefaut,
-  EtatQuestionnaire,
   reducerQuestionnaire,
 } from "../../questionnaire/reducerQuestionnaire.ts";
 import { EtapePrealable } from "./EtapesRefacto/EtapePrealable.tsx";
 import {
-  ActionQuestionnaire,
   valideActivites,
   valideEtapeAppartenanceUE,
   valideEtapeDesignation,
@@ -34,31 +32,10 @@ import { EtapeLocalisationServicesNumeriques } from "./EtapesRefacto/EtapeLocali
 import { EtapeLocalisationEtablissementPrincipal } from "./EtapesRefacto/EtapeLocalisationEtablissementPrincipal.tsx";
 import { quiSupporteUndo, undo } from "../../questionnaire/quiSupporteUndo.ts";
 
-function executer(actions: ActionQuestionnaire[]): EtatQuestionnaire {
-  return actions.reduce(
-    (etat: EtatQuestionnaire, action: ActionQuestionnaire) =>
-      reducerQuestionnaire(etat, action),
-    etatParDefaut,
-  );
-}
-
 export const Questionnaire = () => {
-  const etatInitial: EtatQuestionnaire = useRef(
-    executer([
-      valideEtapePrealable(),
-      valideEtapeDesignation(["non"]),
-      valideEtapeAppartenanceUE(["france"]),
-      valideTypeStructure(["privee"]),
-      valideTailleEntitePrivee(["petit"], ["petit"]),
-      valideSecteursActivite(["gestionServicesTic"]),
-      valideSousSecteursActivite(["gaz", "hydrogene"]),
-      valideActivites(["fournisseurReseauxCommunicationElectroniquesPublics"]),
-    ]),
-  ).current;
-
   const [etat, dispatch] = useReducer(
-    quiSupporteUndo(reducerQuestionnaire, etatInitial),
-    { courant: etatInitial, precedents: [] },
+    quiSupporteUndo(reducerQuestionnaire, etatParDefaut),
+    { courant: etatParDefaut, precedents: [] },
   );
 
   switch (etat.courant.etapeCourante) {
