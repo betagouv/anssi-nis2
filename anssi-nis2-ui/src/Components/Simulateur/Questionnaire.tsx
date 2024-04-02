@@ -12,6 +12,7 @@ import {
   valideEtapeDesignation,
   valideEtapePrealable,
   valideLocalisationEtablissementPrincipal,
+  valideLocalisationServicesNumeriques,
   valideSecteursActivite,
   valideSousSecteursActivite,
   valideTailleEntitePrivee,
@@ -126,7 +127,13 @@ export const Questionnaire = () => {
       );
 
     case "localisationFournitureServicesNumeriques":
-      return <EtapeLocalisationServicesNumeriques />;
+      return (
+        <EtapeLocalisationServicesNumeriques
+          onValider={(pays) =>
+            dispatch(valideLocalisationServicesNumeriques(pays))
+          }
+        />
+      );
 
     case "resultat":
       return <EtapeResultat reponses={etat} />;

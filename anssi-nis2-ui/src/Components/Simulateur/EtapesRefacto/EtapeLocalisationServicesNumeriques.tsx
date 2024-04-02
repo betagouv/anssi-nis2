@@ -4,8 +4,13 @@ import { FormSimulateur } from "../Etapes";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { useState } from "react";
 import { AppartenancePaysUnionEuropeenne } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
 
-export function EtapeLocalisationServicesNumeriques() {
+export function EtapeLocalisationServicesNumeriques({
+  onValider,
+}: {
+  onValider: (pays: AppartenancePaysUnionEuropeenne[]) => void;
+}) {
   const [reponse, setReponse] = useState<AppartenancePaysUnionEuropeenne[]>([]);
 
   const coche = (pays: AppartenancePaysUnionEuropeenne) => {
@@ -76,6 +81,24 @@ export function EtapeLocalisationServicesNumeriques() {
           />
         </div>
       </FormSimulateur>
+
+      <div id="stepper-navigation">
+        <p className="message-validation">Sélectionnez au moins une réponse</p>
+        <div className="conteneur-actions">
+          <ButtonsGroup
+            alignment="right"
+            buttons={[
+              {
+                children: "Suivant",
+                onClick: () => onValider(reponse),
+                type: "submit",
+                disabled: reponse.length === 0,
+              },
+            ]}
+            inlineLayoutWhen="sm and up"
+          />
+        </div>
+      </div>
     </BlocPrincipal>
   );
 }
