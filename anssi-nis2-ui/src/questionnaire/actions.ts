@@ -19,7 +19,8 @@ export type ActionQuestionnaire =
   | ActionValideSecteursActivite
   | ActionValideSousSecteursActivite
   | ActionValideActivites
-  | ActionValideLocalisationEtablissementPrincipal;
+  | ActionValideLocalisationEtablissementPrincipal
+  | ActionValideLocalisationServicesNumeriques;
 
 interface ActionVide {
   type: "VIDE";
@@ -70,6 +71,11 @@ interface ActionValideLocalisationEtablissementPrincipal {
   paysDecision: AppartenancePaysUnionEuropeenne[];
   paysOperation: AppartenancePaysUnionEuropeenne[];
   paysSalaries: AppartenancePaysUnionEuropeenne[];
+}
+
+interface ActionValideLocalisationServicesNumeriques {
+  type: "VALIDE_ETAPE_LOCALISATION_SERVICES_NUMERIQUES";
+  pays: AppartenancePaysUnionEuropeenne[];
 }
 
 export const valideEtapePrealable = (): ActionSuivantEtapePrealable => ({
@@ -127,15 +133,20 @@ export const valideActivites = (
   activites,
 });
 
-export function valideLocalisationEtablissementPrincipal(
+export const valideLocalisationEtablissementPrincipal = (
   paysDecision: AppartenancePaysUnionEuropeenne[],
   paysOperation: AppartenancePaysUnionEuropeenne[],
   paysSalaries: AppartenancePaysUnionEuropeenne[],
-): ActionValideLocalisationEtablissementPrincipal {
-  return {
-    type: "VALIDE_ETAPE_LOCALISATION_ETABLISSEMENT_PRINCIPAL",
-    paysDecision,
-    paysOperation,
-    paysSalaries,
-  };
-}
+): ActionValideLocalisationEtablissementPrincipal => ({
+  type: "VALIDE_ETAPE_LOCALISATION_ETABLISSEMENT_PRINCIPAL",
+  paysDecision,
+  paysOperation,
+  paysSalaries,
+});
+
+export const valideLocalisationServicesNumeriques = (
+  pays: AppartenancePaysUnionEuropeenne[],
+): ActionValideLocalisationServicesNumeriques => ({
+  type: "VALIDE_ETAPE_LOCALISATION_SERVICES_NUMERIQUES",
+  pays,
+});
