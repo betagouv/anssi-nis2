@@ -11,6 +11,7 @@ import {
   valideEtapeAppartenanceUE,
   valideEtapeDesignation,
   valideEtapePrealable,
+  valideLocalisationEtablissementPrincipal,
   valideSecteursActivite,
   valideSousSecteursActivite,
   valideTailleEntitePrivee,
@@ -115,7 +116,13 @@ export const Questionnaire = () => {
       );
 
     case "localisationEtablissementPrincipal":
-      return <EtapeLocalisationEtablissementPrincipal />;
+      return (
+        <EtapeLocalisationEtablissementPrincipal
+          onValider={(...pays) =>
+            dispatch(valideLocalisationEtablissementPrincipal(...pays))
+          }
+        />
+      );
 
     case "resultat":
       return <EtapeResultat reponses={etat} />;
