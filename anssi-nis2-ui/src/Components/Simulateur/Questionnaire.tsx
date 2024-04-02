@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { PropsWithChildren, useReducer } from "react";
 import {
   etatParDefaut,
   reducerQuestionnaire,
@@ -31,6 +31,7 @@ import { SecteurComposite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurA
 import { EtapeLocalisationServicesNumeriques } from "./EtapesRefacto/EtapeLocalisationServicesNumeriques.tsx";
 import { EtapeLocalisationEtablissementPrincipal } from "./EtapesRefacto/EtapeLocalisationEtablissementPrincipal.tsx";
 import { quiSupporteUndo, undo } from "../../questionnaire/quiSupporteUndo.ts";
+import { AidezNousAmeliorerService } from "../AidezNousAmeliorerService.tsx";
 
 export const Questionnaire = () => {
   const [etat, dispatch] = useReducer(
@@ -43,88 +44,122 @@ export const Questionnaire = () => {
       return (
         <EtapePrealable onValider={() => dispatch(valideEtapePrealable())} />
       );
+
     case "designationOperateurServicesEssentiels":
       return (
-        <EtapeDesignation
-          onValider={(reponse) => dispatch(valideEtapeDesignation(reponse))}
-        />
+        <AvecDemandeDeFeedback>
+          <EtapeDesignation
+            onValider={(reponse) => dispatch(valideEtapeDesignation(reponse))}
+          />
+        </AvecDemandeDeFeedback>
       );
+
     case "appartenanceUnionEuropeenne":
       return (
-        <EtapeAppartenanceUE
-          onValider={(reponse) => dispatch(valideEtapeAppartenanceUE(reponse))}
-          onPrecedent={() => dispatch(undo())}
-        />
+        <AvecDemandeDeFeedback>
+          <EtapeAppartenanceUE
+            onValider={(reponse) =>
+              dispatch(valideEtapeAppartenanceUE(reponse))
+            }
+            onPrecedent={() => dispatch(undo())}
+          />
+        </AvecDemandeDeFeedback>
       );
+
     case "typeStructure":
       return (
-        <EtapeTypeStructure
-          onValider={(reponse) => dispatch(valideTypeStructure(reponse))}
-          onPrecedent={() => dispatch(undo())}
-        />
+        <AvecDemandeDeFeedback>
+          <EtapeTypeStructure
+            onValider={(reponse) => dispatch(valideTypeStructure(reponse))}
+            onPrecedent={() => dispatch(undo())}
+          />
+        </AvecDemandeDeFeedback>
       );
+
     case "tailleEntitePrivee":
       return (
-        <EtapeTailleEntitePrivee
-          onValider={(nombre, chiffreAffaire) =>
-            dispatch(valideTailleEntitePrivee(nombre, chiffreAffaire))
-          }
-          onPrecedent={() => dispatch(undo())}
-        />
+        <AvecDemandeDeFeedback>
+          <EtapeTailleEntitePrivee
+            onValider={(nombre, chiffreAffaire) =>
+              dispatch(valideTailleEntitePrivee(nombre, chiffreAffaire))
+            }
+            onPrecedent={() => dispatch(undo())}
+          />
+        </AvecDemandeDeFeedback>
       );
+
     case "secteursActivite":
       return (
-        <EtapeSecteursActivite
-          onValider={(reponse) => dispatch(valideSecteursActivite(reponse))}
-          onPrecedent={() => dispatch(undo())}
-        />
+        <AvecDemandeDeFeedback>
+          <EtapeSecteursActivite
+            onValider={(reponse) => dispatch(valideSecteursActivite(reponse))}
+            onPrecedent={() => dispatch(undo())}
+          />
+        </AvecDemandeDeFeedback>
       );
 
     case "sousSecteursActivite":
       return (
-        <EtapeSousSecteursActivite
-          secteursChoisis={
-            etat.courant.secteurActivite.filter((s) =>
-              estUnSecteurAvecDesSousSecteurs(s),
-            ) as SecteurComposite[]
-          }
-          onValider={(reponse: SousSecteurActivite[]) =>
-            dispatch(valideSousSecteursActivite(reponse))
-          }
-          onPrecedent={() => dispatch(undo())}
-        />
+        <AvecDemandeDeFeedback>
+          <EtapeSousSecteursActivite
+            secteursChoisis={
+              etat.courant.secteurActivite.filter((s) =>
+                estUnSecteurAvecDesSousSecteurs(s),
+              ) as SecteurComposite[]
+            }
+            onValider={(reponse: SousSecteurActivite[]) =>
+              dispatch(valideSousSecteursActivite(reponse))
+            }
+            onPrecedent={() => dispatch(undo())}
+          />
+        </AvecDemandeDeFeedback>
       );
 
     case "activites":
       return (
-        <EtapeActivites
-          secteursChoisis={selectSecteursPourSaisieActivites(etat.courant)}
-          onValider={(reponse) => dispatch(valideActivites(reponse))}
-          onPrecedent={() => dispatch(undo())}
-        />
+        <AvecDemandeDeFeedback>
+          <EtapeActivites
+            secteursChoisis={selectSecteursPourSaisieActivites(etat.courant)}
+            onValider={(reponse) => dispatch(valideActivites(reponse))}
+            onPrecedent={() => dispatch(undo())}
+          />
+        </AvecDemandeDeFeedback>
       );
 
     case "localisationEtablissementPrincipal":
       return (
-        <EtapeLocalisationEtablissementPrincipal
-          onValider={(...pays) =>
-            dispatch(valideLocalisationEtablissementPrincipal(...pays))
-          }
-          onPrecedent={() => dispatch(undo())}
-        />
+        <AvecDemandeDeFeedback>
+          <EtapeLocalisationEtablissementPrincipal
+            onValider={(...pays) =>
+              dispatch(valideLocalisationEtablissementPrincipal(...pays))
+            }
+            onPrecedent={() => dispatch(undo())}
+          />
+        </AvecDemandeDeFeedback>
       );
 
     case "localisationFournitureServicesNumeriques":
       return (
-        <EtapeLocalisationServicesNumeriques
-          onValider={(pays) =>
-            dispatch(valideLocalisationServicesNumeriques(pays))
-          }
-          onPrecedent={() => dispatch(undo())}
-        />
+        <AvecDemandeDeFeedback>
+          <EtapeLocalisationServicesNumeriques
+            onValider={(pays) =>
+              dispatch(valideLocalisationServicesNumeriques(pays))
+            }
+            onPrecedent={() => dispatch(undo())}
+          />
+        </AvecDemandeDeFeedback>
       );
 
     case "resultat":
       return <EtapeResultat reponses={etat.courant} />;
   }
 };
+
+function AvecDemandeDeFeedback(props: PropsWithChildren) {
+  return (
+    <>
+      {props.children}
+      <AidezNousAmeliorerService />
+    </>
+  );
+}
