@@ -146,6 +146,25 @@ export const reducerQuestionnaire = (
       };
     }
 
+    case "VALIDE_ETAPE_LOCALISATION_ETABLISSEMENT_PRINCIPAL": {
+      const versFournitureServicesNumeriques = contientUnParmi(
+        ...etat.activites,
+      )([
+        "fournisseurReseauxCommunicationElectroniquesPublics",
+        "fournisseurServiceCommunicationElectroniquesPublics",
+      ]);
+
+      return {
+        ...etat,
+        paysDecisionsCyber: action.paysDecision,
+        paysOperationsCyber: action.paysOperation,
+        paysPlusGrandNombreSalaries: action.paysSalaries,
+        etapeCourante: versFournitureServicesNumeriques
+          ? "localisationFournitureServicesNumeriques"
+          : "resultat",
+      };
+    }
+
     case "VIDE":
     default:
       return etat;
