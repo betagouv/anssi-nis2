@@ -16,6 +16,7 @@ import {
 import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
 import { estSousSecteurAutre } from "anssi-nis2-core/src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats.ts";
+import { contientUnParmi } from "../../../commun/utils/services/commun.predicats.ts";
 
 export interface EtatQuestionnaire {
   etapeCourante: TypeEtape;
@@ -112,6 +113,38 @@ export const reducerQuestionnaire = (
             ? "resultat"
             : "activites",
       };
+
+    case "VALIDE_ETAPE_ACTIVITES": {
+      const versEtablissementPrincipal =
+        contientUnParmi(...etat.secteurActivite)([
+          "gestionServicesTic",
+          "fournisseursNumeriques",
+        ]) ||
+        contientUnParmi(...action.activites)([
+          "registresNomsDomainesPremierNiveau",
+          "fournisseurServicesDNS",
+          "fournisseurServicesInformatiqueNuage",
+          "fournisseurServiceCentresDonnees",
+          "fournisseurReseauxDiffusionContenu",
+        ]);
+
+      const versFournitureServicesNumeriques = contientUnParmi(
+        ...action.activites,
+      )([
+        "fournisseurReseauxCommunicationElectroniquesPublics",
+        "fournisseurServiceCommunicationElectroniquesPublics",
+      ]);
+
+      return {
+        ...etat,
+        activites: action.activites,
+        etapeCourante: versEtablissementPrincipal
+          ? "localisationEtablissementPrincipal"
+          : versFournitureServicesNumeriques
+          ? "localisationFournitureServicesNumeriques"
+          : "resultat",
+      };
+    }
 
     case "VIDE":
     default:
