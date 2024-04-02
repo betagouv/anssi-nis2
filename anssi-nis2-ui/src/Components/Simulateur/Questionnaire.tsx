@@ -1,12 +1,10 @@
-import { useReducer, useRef } from "react";
+import { useReducer } from "react";
 import {
   etatParDefaut,
-  EtatQuestionnaire,
   reducerQuestionnaire,
 } from "../../questionnaire/reducerQuestionnaire.ts";
 import { EtapePrealable } from "./EtapesRefacto/EtapePrealable.tsx";
 import {
-  ActionQuestionnaire,
   valideActivites,
   valideEtapeAppartenanceUE,
   valideEtapeDesignation,
@@ -32,32 +30,15 @@ import { estUnSecteurAvecDesSousSecteurs } from "anssi-nis2-core/src/Domain/Simu
 import { SecteurComposite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { EtapeLocalisationServicesNumeriques } from "./EtapesRefacto/EtapeLocalisationServicesNumeriques.tsx";
 import { EtapeLocalisationEtablissementPrincipal } from "./EtapesRefacto/EtapeLocalisationEtablissementPrincipal.tsx";
-
-function executer(actions: ActionQuestionnaire[]): EtatQuestionnaire {
-  return actions.reduce(
-    (etat: EtatQuestionnaire, action: ActionQuestionnaire) =>
-      reducerQuestionnaire(etat, action),
-    etatParDefaut,
-  );
-}
+import { quiSupporteUndo, undo } from "../../questionnaire/quiSupporteUndo.ts";
 
 export const Questionnaire = () => {
-  const etatInitial: EtatQuestionnaire = useRef(
-    executer([
-      valideEtapePrealable(),
-      valideEtapeDesignation(["non"]),
-      valideEtapeAppartenanceUE(["france"]),
-      valideTypeStructure(["privee"]),
-      valideTailleEntitePrivee(["petit"], ["petit"]),
-      valideSecteursActivite(["banqueSecteurBancaire", "eauxUsees", "energie"]),
-      valideSousSecteursActivite(["gaz", "hydrogene"]),
-      valideActivites(["fournisseurReseauxCommunicationElectroniquesPublics"]),
-    ]),
-  ).current;
+  const [etat, dispatch] = useReducer(
+    quiSupporteUndo(reducerQuestionnaire, etatParDefaut),
+    { courant: etatParDefaut, precedents: [] },
+  );
 
-  const [etat, dispatch] = useReducer(reducerQuestionnaire, etatInitial);
-
-  switch (etat.etapeCourante) {
+  switch (etat.courant.etapeCourante) {
     case "prealable":
       return (
         <EtapePrealable onValider={() => dispatch(valideEtapePrealable())} />
@@ -72,12 +53,14 @@ export const Questionnaire = () => {
       return (
         <EtapeAppartenanceUE
           onValider={(reponse) => dispatch(valideEtapeAppartenanceUE(reponse))}
+          onPrecedent={() => dispatch(undo())}
         />
       );
     case "typeStructure":
       return (
         <EtapeTypeStructure
           onValider={(reponse) => dispatch(valideTypeStructure(reponse))}
+          onPrecedent={() => dispatch(undo())}
         />
       );
     case "tailleEntitePrivee":
@@ -86,12 +69,14 @@ export const Questionnaire = () => {
           onValider={(nombre, chiffreAffaire) =>
             dispatch(valideTailleEntitePrivee(nombre, chiffreAffaire))
           }
+          onPrecedent={() => dispatch(undo())}
         />
       );
     case "secteursActivite":
       return (
         <EtapeSecteursActivite
           onValider={(reponse) => dispatch(valideSecteursActivite(reponse))}
+          onPrecedent={() => dispatch(undo())}
         />
       );
 
@@ -99,21 +84,23 @@ export const Questionnaire = () => {
       return (
         <EtapeSousSecteursActivite
           secteursChoisis={
-            etat.secteurActivite.filter((s) =>
+            etat.courant.secteurActivite.filter((s) =>
               estUnSecteurAvecDesSousSecteurs(s),
             ) as SecteurComposite[]
           }
           onValider={(reponse: SousSecteurActivite[]) =>
             dispatch(valideSousSecteursActivite(reponse))
           }
+          onPrecedent={() => dispatch(undo())}
         />
       );
 
     case "activites":
       return (
         <EtapeActivites
-          secteursChoisis={selectSecteursPourSaisieActivites(etat)}
+          secteursChoisis={selectSecteursPourSaisieActivites(etat.courant)}
           onValider={(reponse) => dispatch(valideActivites(reponse))}
+          onPrecedent={() => dispatch(undo())}
         />
       );
 
@@ -123,6 +110,7 @@ export const Questionnaire = () => {
           onValider={(...pays) =>
             dispatch(valideLocalisationEtablissementPrincipal(...pays))
           }
+          onPrecedent={() => dispatch(undo())}
         />
       );
 
@@ -132,10 +120,11 @@ export const Questionnaire = () => {
           onValider={(pays) =>
             dispatch(valideLocalisationServicesNumeriques(pays))
           }
+          onPrecedent={() => dispatch(undo())}
         />
       );
 
     case "resultat":
-      return <EtapeResultat reponses={etat} />;
+      return <EtapeResultat reponses={etat.courant} />;
   }
 };

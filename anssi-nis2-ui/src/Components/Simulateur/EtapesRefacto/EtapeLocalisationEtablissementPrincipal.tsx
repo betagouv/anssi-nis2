@@ -4,8 +4,8 @@ import BlocPrincipal from "../../BlocPrincipal.tsx";
 import { FormSimulateur } from "../Etapes";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { AppartenancePaysUnionEuropeenne } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
-import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
 import { contientUnParmi } from "../../../../../commun/utils/services/commun.predicats.ts";
+import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 
 type StateDeReponse = {
   paysDecision: AppartenancePaysUnionEuropeenne[];
@@ -15,12 +15,14 @@ type StateDeReponse = {
 
 export function EtapeLocalisationEtablissementPrincipal({
   onValider,
+  onPrecedent,
 }: {
   onValider: (
     paysDecision: AppartenancePaysUnionEuropeenne[],
     paysOperation: AppartenancePaysUnionEuropeenne[],
     paysSalaries: AppartenancePaysUnionEuropeenne[],
   ) => void;
+  onPrecedent: () => void;
 }) {
   const [reponse, setReponse] = useState<StateDeReponse>({
     paysDecision: [],
@@ -76,28 +78,18 @@ export function EtapeLocalisationEtablissementPrincipal({
         )}
       </FormSimulateur>
 
-      <div id="stepper-navigation">
-        <p className="message-validation">Sélectionnez au moins une réponse</p>
-        <div className="conteneur-actions">
-          <ButtonsGroup
-            alignment="right"
-            buttons={[
-              {
-                children: "Suivant",
-                onClick: () =>
-                  onValider(
-                    reponse.paysDecision,
-                    reponse.paysOperation,
-                    reponse.paysSalaries,
-                  ),
-                type: "submit",
-                disabled: !reponseEstComplete(reponse),
-              },
-            ]}
-            inlineLayoutWhen="sm and up"
-          />
-        </div>
-      </div>
+      <PrecedentSuivant
+        message="Sélectionnez au moins une réponse"
+        onSuivant={() =>
+          onValider(
+            reponse.paysDecision,
+            reponse.paysOperation,
+            reponse.paysSalaries,
+          )
+        }
+        suivantDisabled={!reponseEstComplete(reponse)}
+        onPrecedent={onPrecedent}
+      />
     </BlocPrincipal>
   );
 }

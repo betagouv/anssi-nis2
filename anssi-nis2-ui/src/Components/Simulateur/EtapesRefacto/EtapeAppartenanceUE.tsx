@@ -4,12 +4,14 @@ import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import BlocPrincipal from "../../BlocPrincipal.tsx";
 import { FormSimulateur } from "../Etapes";
 import { AppartenancePaysUnionEuropeenne } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
-import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
+import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 
 export const EtapeAppartenanceUE = ({
   onValider,
+  onPrecedent,
 }: {
   onValider: (reponse: AppartenancePaysUnionEuropeenne[]) => void;
+  onPrecedent: () => void;
 }) => {
   const [reponse, setReponse] = useState<AppartenancePaysUnionEuropeenne[]>([]);
 
@@ -70,23 +72,12 @@ export const EtapeAppartenanceUE = ({
         </div>
       </div>
 
-      <div id="stepper-navigation">
-        <p className="message-validation">Sélectionnez une réponse</p>
-        <div className="conteneur-actions">
-          <ButtonsGroup
-            alignment="right"
-            buttons={[
-              {
-                children: "Suivant",
-                onClick: () => onValider(reponse),
-                type: "submit",
-                disabled: reponse.length === 0,
-              },
-            ]}
-            inlineLayoutWhen="sm and up"
-          />
-        </div>
-      </div>
+      <PrecedentSuivant
+        message="Sélectionnez une réponse"
+        onSuivant={() => onValider(reponse)}
+        suivantDisabled={reponse.length === 0}
+        onPrecedent={onPrecedent}
+      />
     </BlocPrincipal>
   );
 };

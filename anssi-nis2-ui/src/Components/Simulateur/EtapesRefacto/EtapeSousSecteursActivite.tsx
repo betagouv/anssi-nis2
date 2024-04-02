@@ -11,14 +11,16 @@ import { fabriqueTupleSecteurSousSecteurs } from "anssi-nis2-core/src/Domain/Sim
 import { libellesSousSecteursActivite } from "../../../References/LibellesSousSecteursActivite.ts";
 import { useState } from "react";
 import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
-import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
+import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 
 export function EtapeSousSecteursActivite({
   secteursChoisis,
   onValider,
+  onPrecedent,
 }: {
   secteursChoisis: SecteurComposite[];
   onValider: (sousSecteurs: SousSecteurActivite[]) => void;
+  onPrecedent: () => void;
 }) {
   const [reponse, setReponse] = useState<
     Partial<Record<SecteurActivite, SousSecteurActivite[]>>
@@ -81,25 +83,12 @@ export function EtapeSousSecteursActivite({
         </div>
       </FormSimulateur>
 
-      <div id="stepper-navigation">
-        <p className="message-validation">
-          Sélectionnez au moins une réponse par secteur
-        </p>
-        <div className="conteneur-actions">
-          <ButtonsGroup
-            alignment="right"
-            buttons={[
-              {
-                children: "Suivant",
-                onClick: () => onValider(tousLesSousSecteursDe(reponse)),
-                type: "submit",
-                disabled: unSecteurEstSansReponse(reponse),
-              },
-            ]}
-            inlineLayoutWhen="sm and up"
-          />
-        </div>
-      </div>
+      <PrecedentSuivant
+        message="Sélectionnez au moins une réponse par secteur"
+        onSuivant={() => onValider(tousLesSousSecteursDe(reponse))}
+        suivantDisabled={unSecteurEstSansReponse(reponse)}
+        onPrecedent={onPrecedent}
+      />
     </BlocPrincipal>
   );
 }
