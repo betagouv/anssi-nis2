@@ -32,6 +32,7 @@ import { estUnSecteurAvecDesSousSecteurs } from "anssi-nis2-core/src/Domain/Simu
 import { SecteurComposite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { EtapeLocalisationServicesNumeriques } from "./EtapesRefacto/EtapeLocalisationServicesNumeriques.tsx";
 import { EtapeLocalisationEtablissementPrincipal } from "./EtapesRefacto/EtapeLocalisationEtablissementPrincipal.tsx";
+import { quiSupporteUndo } from "../../questionnaire/quiSupporteUndo.ts";
 
 function executer(actions: ActionQuestionnaire[]): EtatQuestionnaire {
   return actions.reduce(
@@ -49,15 +50,18 @@ export const Questionnaire = () => {
       valideEtapeAppartenanceUE(["france"]),
       valideTypeStructure(["privee"]),
       valideTailleEntitePrivee(["petit"], ["petit"]),
-      valideSecteursActivite(["banqueSecteurBancaire", "eauxUsees", "energie"]),
-      valideSousSecteursActivite(["gaz", "hydrogene"]),
-      valideActivites(["fournisseurReseauxCommunicationElectroniquesPublics"]),
+      valideSecteursActivite(["gestionServicesTic"]),
+      // valideSousSecteursActivite(["gaz", "hydrogene"]),
+      // valideActivites(["fournisseurReseauxCommunicationElectroniquesPublics"]),
     ]),
   ).current;
 
-  const [etat, dispatch] = useReducer(reducerQuestionnaire, etatInitial);
+  const [etat, dispatch] = useReducer(
+    quiSupporteUndo(reducerQuestionnaire, etatInitial),
+    { courant: etatInitial, precedents: [] },
+  );
 
-  switch (etat.etapeCourante) {
+  switch (etat.courant.etapeCourante) {
     case "prealable":
       return (
         <EtapePrealable onValider={() => dispatch(valideEtapePrealable())} />
@@ -99,7 +103,7 @@ export const Questionnaire = () => {
       return (
         <EtapeSousSecteursActivite
           secteursChoisis={
-            etat.secteurActivite.filter((s) =>
+            etat.courant.secteurActivite.filter((s) =>
               estUnSecteurAvecDesSousSecteurs(s),
             ) as SecteurComposite[]
           }
@@ -112,7 +116,7 @@ export const Questionnaire = () => {
     case "activites":
       return (
         <EtapeActivites
-          secteursChoisis={selectSecteursPourSaisieActivites(etat)}
+          secteursChoisis={selectSecteursPourSaisieActivites(etat.courant)}
           onValider={(reponse) => dispatch(valideActivites(reponse))}
         />
       );
@@ -136,6 +140,6 @@ export const Questionnaire = () => {
       );
 
     case "resultat":
-      return <EtapeResultat reponses={etat} />;
+      return <EtapeResultat reponses={etat.courant} />;
   }
 };
