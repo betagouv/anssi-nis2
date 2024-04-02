@@ -28,6 +28,10 @@ const contientDesSecteursAvecSousSecteurs = ({
   secteurActivite,
 }: DonneesFormulaireSimulateur) =>
   secteurActivite.some(estUnSecteurAvecDesSousSecteurs);
+const contientUniquementDesSecteursAvecSousSecteurs = ({
+  secteurActivite,
+}: DonneesFormulaireSimulateur) =>
+  secteurActivite.every(estUnSecteurAvecDesSousSecteurs);
 
 const sousEtapeSousSecteur =
   fabriquesInformationsEtapes.sousEtapeConditionnelle(
@@ -159,9 +163,12 @@ export const etapesQuestionnaire: CollectionInformationsEtapes =
       validationReponsesActivites,
       "activites",
       {
-        ignoreSi: et(
+        ignoreSi: ou(
           contientAutreSecteurActiviteUniquement,
-          contientSousSecteurAutresUniquement,
+          et(
+            contientUniquementDesSecteursAvecSousSecteurs,
+            contientSousSecteurAutresUniquement,
+          ),
         ),
         sousEtapeConditionnelle: sousEtapeLocalisationVariantes,
       },
