@@ -1,3 +1,4 @@
+import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
@@ -7,18 +8,18 @@ import {
   TypeStructure,
 } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { TypeEtape } from "anssi-nis2-core/src/Domain/Simulateur/InformationsEtape.ts";
-import { ActionQuestionnaire } from "./actions.ts";
 import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import {
   estSecteurAutre,
   estUnSecteurAvecDesSousSecteurs,
 } from "anssi-nis2-core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
-import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
-import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
 import { estSousSecteurAutre } from "anssi-nis2-core/src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats.ts";
+import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
+import { match, P } from "ts-pattern";
 import { contientUnParmi } from "../../../commun/utils/services/commun.predicats.ts";
+import { ActionQuestionnaire } from "./actions.ts";
 
-export interface EtatQuestionnaire {
+export type EtatQuestionnaire = {
   etapeCourante: TypeEtape;
   designationOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[];
   appartenancePaysUnionEuropeenne: AppartenancePaysUnionEuropeenne[];
@@ -33,7 +34,7 @@ export interface EtatQuestionnaire {
   paysDecisionsCyber: AppartenancePaysUnionEuropeenne[];
   paysOperationsCyber: AppartenancePaysUnionEuropeenne[];
   paysPlusGrandNombreSalaries: AppartenancePaysUnionEuropeenne[];
-}
+};
 
 export const etatParDefaut: EtatQuestionnaire = {
   etapeCourante: "prealable",
@@ -52,69 +53,69 @@ export const etatParDefaut: EtatQuestionnaire = {
   paysPlusGrandNombreSalaries: [],
 };
 
-export const reducerQuestionnaire = (
+export const reducerQuestionnaireMatch = (
   etat: EtatQuestionnaire = etatParDefaut,
-  action: ActionQuestionnaire,
-): EtatQuestionnaire => {
-  switch (action.type) {
-    case "VALIDE_ETAPE_PREALABLE":
-      return {
-        ...etat,
-        etapeCourante: "designationOperateurServicesEssentiels",
-      };
-
-    case "VALIDE_ETAPE_DESIGNATION":
-      return {
-        ...etat,
-        designationOperateurServicesEssentiels: action.designations,
-        etapeCourante: "appartenanceUnionEuropeenne",
-      };
-
-    case "VALIDE_ETAPE_APPARTENANCE_UE":
-      return {
-        ...etat,
-        appartenancePaysUnionEuropeenne: action.appartenances,
-        etapeCourante: "typeStructure",
-      };
-
-    case "VALIDE_ETAPE_TYPE_STRUCTURE":
-      return {
-        ...etat,
-        typeStructure: action.types,
-        etapeCourante: "tailleEntitePrivee",
-      };
-
-    case "VALIDE_ETAPE_TAILLE_ENTITE_PRIVEE":
-      return {
-        ...etat,
-        trancheNombreEmployes: action.nombreEmployes,
-        trancheChiffreAffaire: action.chiffreAffaire,
-        etapeCourante: "secteursActivite",
-      };
-
-    case "VALIDE_ETAPE_SECTEURS_ACTIVITE":
-      return {
-        ...etat,
+  actionTraitee: ActionQuestionnaire,
+): EtatQuestionnaire => ({
+  ...etat,
+  ...match(actionTraitee)
+    .with({ type: "VALIDE_ETAPE_PREALABLE" }, () => ({
+      etapeCourante: "designationOperateurServicesEssentiels" as TypeEtape,
+    }))
+    .with({ type: "VALIDE_ETAPE_DESIGNATION" }, (action) => ({
+      designationOperateurServicesEssentiels: action.designations,
+      etapeCourante: "appartenanceUnionEuropeenne" as TypeEtape,
+    }))
+    .with({ type: "VALIDE_ETAPE_APPARTENANCE_UE" }, (action) => ({
+      appartenancePaysUnionEuropeenne: action.appartenances,
+      etapeCourante: "typeStructure" as TypeEtape,
+    }))
+    .with({ type: "VALIDE_ETAPE_TYPE_STRUCTURE" }, (action) => ({
+      typeStructure: action.types,
+      etapeCourante: "tailleEntitePrivee" as TypeEtape,
+    }))
+    .with({ type: "VALIDE_ETAPE_TAILLE_ENTITE_PRIVEE" }, (action) => ({
+      trancheNombreEmployes: action.nombreEmployes,
+      trancheChiffreAffaire: action.chiffreAffaire,
+      etapeCourante: "secteursActivite" as TypeEtape,
+    }))
+    .with(
+      {
+        type: "VALIDE_ETAPE_SECTEURS_ACTIVITE",
+        secteurs: P.when((s) => s.every(estSecteurAutre)),
+      },
+      (action) => ({
         secteurActivite: action.secteurs,
-        etapeCourante: action.secteurs.every(estSecteurAutre)
-          ? "resultat"
-          : action.secteurs.some(estUnSecteurAvecDesSousSecteurs)
-          ? "sousSecteursActivite"
-          : "activites",
-      };
-
-    case "VALIDE_ETAPE_SOUS_SECTEURS_ACTIVITE":
-      return {
-        ...etat,
-        sousSecteurActivite: action.sousSecteurs,
-        etapeCourante:
-          etat.secteurActivite.every(estSecteurAutre) &&
-          action.sousSecteurs.every(estSousSecteurAutre)
-            ? "resultat"
-            : "activites",
-      };
-
-    case "VALIDE_ETAPE_ACTIVITES": {
+        etapeCourante: "resultat" as TypeEtape,
+      }),
+    )
+    .with(
+      {
+        type: "VALIDE_ETAPE_SECTEURS_ACTIVITE",
+        secteurs: P.when((s) => s.every(estUnSecteurAvecDesSousSecteurs)),
+      },
+      (action) => ({
+        secteurActivite: action.secteurs,
+        etapeCourante: "sousSecteursActivite" as TypeEtape,
+      }),
+    )
+    .with(
+      {
+        type: "VALIDE_ETAPE_SECTEURS_ACTIVITE",
+      },
+      (action) => ({
+        secteurActivite: action.secteurs,
+        etapeCourante: "activites" as TypeEtape,
+      }),
+    )
+    .with({ type: "VALIDE_ETAPE_SOUS_SECTEURS_ACTIVITE" }, (action) => ({
+      sousSecteurActivite: action.sousSecteurs,
+      etapeCourante: (etat.secteurActivite.every(estSecteurAutre) &&
+      action.sousSecteurs.every(estSousSecteurAutre)
+        ? "resultat"
+        : "activites") as TypeEtape,
+    }))
+    .with({ type: "VALIDE_ETAPE_ACTIVITES" }, (action) => {
       const versEtablissementPrincipal =
         contientUnParmi(...etat.secteurActivite)([
           "gestionServicesTic",
@@ -136,59 +137,59 @@ export const reducerQuestionnaire = (
       ]);
 
       return {
-        ...etat,
         activites: action.activites,
-        etapeCourante: versEtablissementPrincipal
+        etapeCourante: (versEtablissementPrincipal
           ? "localisationEtablissementPrincipal"
           : versFournitureServicesNumeriques
           ? "localisationFournitureServicesNumeriques"
-          : "resultat",
+          : "resultat") as TypeEtape,
       };
-    }
-
-    case "VALIDE_ETAPE_LOCALISATION_ETABLISSEMENT_PRINCIPAL": {
-      const versFournitureServicesNumeriques = contientUnParmi(
-        ...etat.activites,
-      )([
-        "fournisseurReseauxCommunicationElectroniquesPublics",
-        "fournisseurServiceCommunicationElectroniquesPublics",
-      ]);
-
-      return {
-        ...etat,
-        paysDecisionsCyber: action.paysDecision,
-        paysOperationsCyber: action.paysOperation,
-        paysPlusGrandNombreSalaries: action.paysSalaries,
-        etapeCourante: versFournitureServicesNumeriques
-          ? "localisationFournitureServicesNumeriques"
-          : "resultat",
-      };
-    }
-
-    case "VALIDE_ETAPE_LOCALISATION_SERVICES_NUMERIQUES": {
-      const versEtablissementPrincipal =
-        contientUnParmi(...etat.secteurActivite)([
-          "gestionServicesTic",
-          "fournisseursNumeriques",
-        ]) ||
-        contientUnParmi(...etat.activites)([
-          "registresNomsDomainesPremierNiveau",
-          "fournisseurServicesDNS",
-          "fournisseurServicesInformatiqueNuage",
-          "fournisseurServiceCentresDonnees",
-          "fournisseurReseauxDiffusionContenu",
+    })
+    .with(
+      { type: "VALIDE_ETAPE_LOCALISATION_ETABLISSEMENT_PRINCIPAL" },
+      (action) => {
+        const versFournitureServicesNumeriques = contientUnParmi(
+          ...etat.activites,
+        )([
+          "fournisseurReseauxCommunicationElectroniquesPublics",
+          "fournisseurServiceCommunicationElectroniquesPublics",
         ]);
 
-      return {
-        ...etat,
-        localisationFournitureServicesNumeriques: action.pays,
-        etapeCourante: versEtablissementPrincipal
-          ? "localisationEtablissementPrincipal"
-          : "resultat",
-      };
-    }
-    case "VIDE":
-    default:
-      return etat;
-  }
-};
+        return {
+          paysDecisionsCyber: action.paysDecision,
+          paysOperationsCyber: action.paysOperation,
+          paysPlusGrandNombreSalaries: action.paysSalaries,
+          etapeCourante: (versFournitureServicesNumeriques
+            ? "localisationFournitureServicesNumeriques"
+            : "resultat") as TypeEtape,
+        };
+      },
+    )
+    .with(
+      { type: "VALIDE_ETAPE_LOCALISATION_SERVICES_NUMERIQUES" },
+      (action) => {
+        const versEtablissementPrincipal =
+          contientUnParmi(...etat.secteurActivite)([
+            "gestionServicesTic",
+            "fournisseursNumeriques",
+          ]) ||
+          contientUnParmi(...etat.activites)([
+            "registresNomsDomainesPremierNiveau",
+            "fournisseurServicesDNS",
+            "fournisseurServicesInformatiqueNuage",
+            "fournisseurServiceCentresDonnees",
+            "fournisseurReseauxDiffusionContenu",
+          ]);
+
+        return {
+          localisationFournitureServicesNumeriques: action.pays,
+          etapeCourante: versEtablissementPrincipal
+            ? "localisationEtablissementPrincipal"
+            : ("resultat" as TypeEtape),
+        };
+      },
+    )
+    .otherwise(() => {}),
+});
+
+export const reducerQuestionnaire = reducerQuestionnaireMatch;
