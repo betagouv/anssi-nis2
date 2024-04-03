@@ -15,13 +15,21 @@ export function PrecedentSuivant(props: {
           buttons={[
             {
               children: "Précédent",
-              onClick: props.onPrecedent,
+              onClick: () => {
+                if (!props.onPrecedent) return;
+
+                props.onPrecedent();
+                centreSurHautFormulaire();
+              },
               priority: "secondary",
               disabled: !props.onPrecedent,
             },
             {
               children: "Suivant",
-              onClick: props.onSuivant,
+              onClick: () => {
+                props.onSuivant();
+                centreSurHautFormulaire();
+              },
               type: "submit",
               disabled: props.suivantDisabled,
             },
@@ -32,3 +40,6 @@ export function PrecedentSuivant(props: {
     </div>
   );
 }
+
+const centreSurHautFormulaire = () =>
+  window.scrollTo({ top: document.getElementById("debutForm")?.offsetTop });
