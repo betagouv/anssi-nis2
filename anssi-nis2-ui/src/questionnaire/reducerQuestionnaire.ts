@@ -16,6 +16,7 @@ import {
 import { estSousSecteurAutre } from "anssi-nis2-core/src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats.ts";
 import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import { match, P } from "ts-pattern";
+import { tous } from "../../../commun/utils/services/arrays.predicats.ts";
 import { contientUnParmi } from "../../../commun/utils/services/commun.predicats.ts";
 import { ActionQuestionnaire } from "./actions.ts";
 
@@ -109,7 +110,7 @@ export const reducerQuestionnaire = (
     .with(
       {
         type: "VALIDE_ETAPE_SECTEURS_ACTIVITE",
-        secteurs: P.when((s) => s.every(estSecteurAutre)),
+        secteurs: P.when(tous(estSecteurAutre)),
       },
       (action) =>
         vaVers("resultat", {
@@ -119,7 +120,7 @@ export const reducerQuestionnaire = (
     .with(
       {
         type: "VALIDE_ETAPE_SECTEURS_ACTIVITE",
-        secteurs: P.when((s) => s.every(estUnSecteurAvecDesSousSecteurs)),
+        secteurs: P.when(tous(estUnSecteurAvecDesSousSecteurs)),
       },
       (action) =>
         vaVers("sousSecteursActivite", {
