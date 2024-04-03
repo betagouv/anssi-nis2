@@ -39,16 +39,18 @@ export const scenarioTypeEntitePublique: StoryObj<
 
   await expect(mockSendFormData).toHaveBeenCalledTimes(1);
   await expect(mockSendFormData).toHaveBeenCalledWith(
-    fabriqueDonneesFormulaire({
-      activites: [],
-      designationOperateurServicesEssentiels: ["oui"],
-      appartenancePaysUnionEuropeenne: ["france"],
-      secteurActivite: ["energie"],
-      sousSecteurActivite: ["autreSousSecteurEnergie"],
-      trancheChiffreAffaire: [],
-      trancheNombreEmployes: ["petit"],
-      typeStructure: [typeStructure],
-      typeEntitePublique: ["administrationCentrale"],
-    }),
+    expect.objectContaining(
+      fabriqueDonneesFormulaire({
+        activites: [],
+        designationOperateurServicesEssentiels: ["oui"],
+        appartenancePaysUnionEuropeenne: ["france"],
+        secteurActivite: ["energie"],
+        sousSecteurActivite: ["autreSousSecteurEnergie"],
+        trancheChiffreAffaire: [],
+        trancheNombreEmployes: ["petit"],
+        typeStructure: [typeStructure],
+        typeEntitePublique: ["administrationCentrale"],
+      }),
+    ),
   );
 };

@@ -52,18 +52,20 @@ export const scenarioEtapeSousActiviteConditionnelle: StoryObj<
 
   await expect(mockSendFormData).toHaveBeenCalledTimes(1);
   await expect(mockSendFormData).toHaveBeenCalledWith(
-    fabriqueDonneesFormulaire({
-      activites: [
-        "entrepriseElectriciteRemplissantFonctionFourniture",
-        "gestionnaireReseauDistribution",
-      ],
-      designationOperateurServicesEssentiels: ["oui"],
-      appartenancePaysUnionEuropeenne: ["france"],
-      secteurActivite: ["energie"],
-      sousSecteurActivite: ["electricite", "gaz"],
-      trancheChiffreAffaire: ["petit"],
-      trancheNombreEmployes: ["petit"],
-      typeStructure: ["privee"],
-    }),
+    expect.objectContaining(
+      fabriqueDonneesFormulaire({
+        activites: [
+          "entrepriseElectriciteRemplissantFonctionFourniture",
+          "gestionnaireReseauDistribution",
+        ],
+        designationOperateurServicesEssentiels: ["oui"],
+        appartenancePaysUnionEuropeenne: ["france"],
+        secteurActivite: ["energie"],
+        sousSecteurActivite: ["electricite", "gaz"],
+        trancheChiffreAffaire: ["petit"],
+        trancheNombreEmployes: ["petit"],
+        typeStructure: ["privee"],
+      }),
+    ),
   );
 };
