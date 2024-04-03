@@ -52,7 +52,7 @@ export function EtapeTailleEntitePrivee({
                 },
               },
               {
-                label: "50 à 49",
+                label: "50 à 249",
                 nativeInputProps: {
                   checked: reponseNombre[0] === "moyen",
                   onChange: () => setReponseNombre(["moyen"]),
