@@ -1,3 +1,4 @@
+import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
@@ -7,9 +8,9 @@ import {
 } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
-import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
 
 export type ActionQuestionnaire =
+  | ActionUndo
   | ActionVide
   | ActionSuivantEtapePrealable
   | ActionValideEtapeDesignation
@@ -77,6 +78,8 @@ interface ActionValideLocalisationServicesNumeriques {
   type: "VALIDE_ETAPE_LOCALISATION_SERVICES_NUMERIQUES";
   pays: AppartenancePaysUnionEuropeenne[];
 }
+
+export type ActionUndo = { type: "UNDO" };
 
 export const valideEtapePrealable = (): ActionSuivantEtapePrealable => ({
   type: "VALIDE_ETAPE_PREALABLE",

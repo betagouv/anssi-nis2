@@ -1,13 +1,50 @@
 import { describe, expect, it } from "vitest";
+import { ActionQuestionnaire } from "../../src/questionnaire/actions";
 import { quiSupporteUndo, undo } from "../../src/questionnaire/quiSupporteUndo";
+import {
+  etatParDefaut,
+  EtatQuestionnaire,
+} from "../../src/questionnaire/reducerQuestionnaire";
 
-type Incremente = { type: "+" };
-const incremente = (): Incremente => ({ type: "+" });
+const listeActions: Pick<ActionQuestionnaire, "type">[] = [
+  { type: "VIDE" },
+  { type: "VALIDE_ETAPE_PREALABLE" },
+  { type: "VALIDE_ETAPE_SECTEURS_ACTIVITE" },
+];
 
-const reducerPlusMoins = (etat: number, action: Incremente) => {
+const listeEtats: EtatQuestionnaire[] = [
+  {
+    ...etatParDefaut,
+    etapeCourante: "prealable",
+  },
+  {
+    ...etatParDefaut,
+    etapeCourante: "designationOperateurServicesEssentiels",
+  },
+  {
+    ...etatParDefaut,
+    etapeCourante: "activites",
+  },
+];
+
+const reducerTroisEtats: (
+  etat: EtatQuestionnaire,
+  action: Pick<ActionQuestionnaire, "type">,
+) => EtatQuestionnaire = (
+  etat: EtatQuestionnaire,
+  action: Pick<ActionQuestionnaire, "type">,
+) => {
   switch (action.type) {
-    case "+":
-      return etat + 1;
+    case "VALIDE_ETAPE_PREALABLE":
+      return {
+        ...etatParDefaut,
+        etapeCourante: "designationOperateurServicesEssentiels",
+      };
+    case "VALIDE_ETAPE_SECTEURS_ACTIVITE":
+      return {
+        ...etatParDefaut,
+        etapeCourante: "activites",
+      };
     default:
       return etat;
   }
@@ -15,33 +52,31 @@ const reducerPlusMoins = (etat: number, action: Incremente) => {
 
 describe("Le reducer « Undo »", () => {
   it("connaît, pour ses tests, un reducer qui peut incrémenter un nombre", () => {
-    expect(reducerPlusMoins(0, incremente())).toBe(1);
+    expect(reducerTroisEtats(listeEtats[0], listeActions[1])).toStrictEqual(
+      listeEtats[1],
+    );
   });
 
-  it("wrap un reducer existant sans rien faire de plus", () => {
-    const supporteLeUndo = quiSupporteUndo(reducerPlusMoins, 0);
+  const reducerAvecUndo = quiSupporteUndo(reducerTroisEtats, listeEtats[0]);
 
-    expect(supporteLeUndo).not.toBe(undefined);
+  it("wrap un reducer existant sans rien faire de plus", () => {
+    expect(reducerAvecUndo).not.toBe(undefined);
   });
 
   it("stocke les états précédents dans un champ `precedents`", () => {
-    const plusMoinsAvecUndo = quiSupporteUndo(reducerPlusMoins, 0);
+    const un = reducerAvecUndo(undefined, listeActions[1]);
+    const deux = reducerAvecUndo(un, listeActions[2]);
 
-    const un = plusMoinsAvecUndo(undefined, incremente());
-    const deux = plusMoinsAvecUndo(un, incremente());
-
-    expect(deux.precedents).toEqual([1, 0]);
-    expect(deux.courant).toEqual(2);
+    expect(deux.precedents).toStrictEqual([listeEtats[1], listeEtats[0]]);
+    expect(deux.courant).toStrictEqual(listeEtats[2]);
   });
 
   it("permet de revenir à l'état précédent avec une action dédiée", () => {
-    const plusMoinsAvecUndo = quiSupporteUndo(reducerPlusMoins, 0);
+    const un = reducerAvecUndo(undefined, listeActions[1]);
+    const deux = reducerAvecUndo(un, listeActions[2]);
+    const apresUndo = reducerAvecUndo(deux, undo());
 
-    const un = plusMoinsAvecUndo(undefined, incremente());
-    const deux = plusMoinsAvecUndo(un, incremente());
-    const apresUndo = plusMoinsAvecUndo(deux, undo());
-
-    expect(apresUndo.courant).toBe(1);
-    expect(apresUndo.precedents).toEqual([0]);
+    expect(apresUndo.courant).toStrictEqual(listeEtats[1]);
+    expect(apresUndo.precedents).toStrictEqual([listeEtats[0]]);
   });
 });
