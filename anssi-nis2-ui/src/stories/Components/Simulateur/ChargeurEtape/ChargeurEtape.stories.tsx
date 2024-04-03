@@ -11,7 +11,6 @@ import { scenarioEtapeSecteurFabricationSuivant } from "./scenarioEtapeSecteurFa
 import { scenarioIgnoreEtapeActivitePourSecteurActiviteAutre } from "./scenarioIgnoreEtapeActivitePourSecteurActiviteAutre.tsx";
 import { scenarioIgnoreEtapeActivitePourSousSecteurActiviteAutre } from "./scenarioIgnoreEtapeActivitePourSousSecteurActiviteAutre.tsx";
 import { scenarioEtapeActivitePourSecteurActiviteAutreEtListes } from "./scenarioEtapeActivitePourSecteurActiviteAutreEtListes.tsx";
-import { scenarioTypeEntitePublique } from "./scenarioTypeEntitePublique.tsx";
 import { scenarioVaJusquaEtapeLocalisationEtablissementPrincipal } from "./scenarioVaJusquaEtapeLocalisationEtablissementPrincipal.tsx";
 import { scenarioVaJusquaEtapeLocalisationService } from "./scenarioVaJusquaEtapeLocalisationService.tsx";
 
@@ -75,7 +74,3 @@ export const EtapeActivitePourSecteurActiviteAutreEtListes =
   fabriqueStoryChargeurEtape(
     scenarioEtapeActivitePourSecteurActiviteAutreEtListes,
   );
-
-export const TypeEntitePublique = fabriqueStoryChargeurEtape(
-  scenarioTypeEntitePublique,
-);

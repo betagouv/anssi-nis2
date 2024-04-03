@@ -30,19 +30,21 @@ export const EtapeSecteursActivite = ({
         <div className="fr-fieldset__element">
           <Checkbox
             legend="Dans quels secteurs d'activités votre organisation produit-elle des biens et/ou des services ?"
-            options={Object.entries(libellesSecteursActivite).map(
-              ([id, libelle]) => ({
-                label: libelle,
-                nativeInputProps: {
-                  checked: reponse.includes(id as SecteurActivite),
-                  onChange: (event) => {
-                    if (event.target.checked)
-                      setReponse([...reponse, id as SecteurActivite]);
-                    else setReponse(reponse.filter((s) => s !== id));
-                  },
+            options={(
+              Object.entries(libellesSecteursActivite) as [
+                SecteurActivite,
+                string,
+              ][]
+            ).map(([id, libelle]) => ({
+              label: libelle,
+              nativeInputProps: {
+                checked: reponse.includes(id),
+                onChange: (event) => {
+                  if (event.target.checked) setReponse([...reponse, id]);
+                  else setReponse(reponse.filter((s) => s !== id));
                 },
-              }),
-            )}
+              },
+            }))}
           />
         </div>
       </FormSimulateur>
