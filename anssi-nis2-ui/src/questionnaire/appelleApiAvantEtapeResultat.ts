@@ -6,7 +6,7 @@ import { EtatQuestionnaire } from "./reducerQuestionnaire.ts";
 export const quiAppelleFonctionAvantResultat =
   <
     TEtat extends EtatQuestionnaire,
-    TAction extends Pick<ActionQuestionnaire, "type">,
+    TAction extends Pick<ActionQuestionnaire, "type"> = ActionQuestionnaire,
   >(
     etapeCible: TypeEtape,
     hookFonction: EnvoieDonneesFormulaire,

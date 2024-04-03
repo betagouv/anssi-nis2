@@ -23,13 +23,13 @@ import { AppartenancePaysUnionEuropeenne } from "anssi-nis2-core/src/Domain/Simu
 
 describe("Le reducer du Questionnaire", () => {
   it("indique l'étape « préalable » comme étape de départ", () => {
-    const etat = reducerQuestionnaire(undefined, { type: "VIDE" });
+    const etat = reducerQuestionnaire(etatParDefaut, { type: "VIDE" });
 
     expect(etat.etapeCourante).toBe("prealable");
   });
 
   it("passe à l'étape « Désignation » quand l'étape préalable est validée", () => {
-    const etat = reducerQuestionnaire(undefined, valideEtapePrealable());
+    const etat = reducerQuestionnaire(etatParDefaut, valideEtapePrealable());
 
     expect(etat.etapeCourante).toBe("designationOperateurServicesEssentiels");
   });

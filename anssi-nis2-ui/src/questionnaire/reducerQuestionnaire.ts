@@ -78,7 +78,7 @@ const vaVers = (
   ...detailsQuestionnaire,
 });
 export const reducerQuestionnaire = (
-  etat: EtatQuestionnaire = etatParDefaut,
+  etat: EtatQuestionnaire,
   actionTraitee: ActionQuestionnaire,
 ): EtatQuestionnaire => ({
   ...etat,
