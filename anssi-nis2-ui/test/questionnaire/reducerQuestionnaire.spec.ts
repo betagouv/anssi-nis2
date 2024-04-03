@@ -127,7 +127,7 @@ describe("Le reducer du Questionnaire", () => {
 
     it("passe à l'etape « Résultat » si tous les secteurs & sous-secteurs sont du « Autre » (donc aucun intérêt à aller vers « Activités »)", () => {
       const etat = executer([
-        valideSecteursActivite(["autreSecteurActivite"]),
+        valideSecteursActivite(["autreSecteurActivite", "fabrication"]),
         valideSousSecteursActivite(["autreSousSecteurFabrication"]),
       ]);
 
