@@ -8,9 +8,9 @@ export const selectSecteursPourSaisieActivites = (
   etat: EtatQuestionnaire,
 ): (SecteurSimple | SousSecteurActivite)[] => {
   const elements = [...etat.secteurActivite, ...etat.sousSecteurActivite];
-  const sansSousSecteurs = elements.filter(
-    non(estUnSecteurAvecDesSousSecteurs),
-  );
+  const sansSousSecteurs = elements
+    .filter(non(estUnSecteurAvecDesSousSecteurs))
+    .filter((s) => !s.startsWith("autre"));
 
   return sansSousSecteurs as (SecteurSimple | SousSecteurActivite)[];
 };
