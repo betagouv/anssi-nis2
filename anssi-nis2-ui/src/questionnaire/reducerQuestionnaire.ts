@@ -77,8 +77,8 @@ const vaVers = (
   etape: TypeEtape,
   detailsQuestionnaire?: Partial<EtatQuestionnaire>,
 ) => ({
-  etapeCourante: etape,
   ...detailsQuestionnaire,
+  etapeCourante: etape,
 });
 
 const valideEtape = (
