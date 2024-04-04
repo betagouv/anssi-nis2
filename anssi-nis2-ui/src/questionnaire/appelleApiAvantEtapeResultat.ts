@@ -1,12 +1,11 @@
 import { TypeEtape } from "../../../commun/core/src/Domain/Simulateur/InformationsEtape.ts";
+import { DonneesFormulaireSimulateur } from "../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
 import { EnvoieDonneesFormulaire } from "../Services/Simulateur/Operations/appelsApi";
-import { ActionQuestionnaire } from "./actions.ts";
-import { EtatQuestionnaire } from "./reducerQuestionnaire.ts";
 
 export const quiAppelleFonctionAvantResultat =
   <
-    TEtat extends EtatQuestionnaire,
-    TAction extends Pick<ActionQuestionnaire, "type"> = ActionQuestionnaire,
+    TEtat extends { etapeCourante: TypeEtape } & DonneesFormulaireSimulateur,
+    TAction,
   >(
     etapeCible: TypeEtape,
     hookFonction: EnvoieDonneesFormulaire,

@@ -1,12 +1,16 @@
 import { describe, expect, it } from "vitest";
 import { ActionQuestionnaire } from "../../src/questionnaire/actions";
-import { quiSupporteUndo, undo } from "../../src/questionnaire/quiSupporteUndo";
+import {
+  ActionUndo,
+  quiSupporteUndo,
+  undo,
+} from "../../src/questionnaire/quiSupporteUndo";
 import {
   etatParDefaut,
   EtatQuestionnaire,
 } from "../../src/questionnaire/reducerQuestionnaire";
 
-const listeActions: Pick<ActionQuestionnaire, "type">[] = [
+const listeActions: Pick<ActionQuestionnaire | ActionUndo, "type">[] = [
   { type: "VIDE" },
   { type: "VALIDE_ETAPE_PREALABLE" },
   { type: "VALIDE_ETAPE_SECTEURS_ACTIVITE" },
@@ -27,12 +31,9 @@ const listeEtats: EtatQuestionnaire[] = [
   },
 ];
 
-const reducerTroisEtats: (
+const reducerTroisEtats = (
   etat: EtatQuestionnaire,
-  action: Pick<ActionQuestionnaire, "type">,
-) => EtatQuestionnaire = (
-  etat: EtatQuestionnaire,
-  action: Pick<ActionQuestionnaire, "type">,
+  action: Pick<ActionQuestionnaire | ActionUndo, "type">,
 ) => {
   switch (action.type) {
     case "VALIDE_ETAPE_PREALABLE":

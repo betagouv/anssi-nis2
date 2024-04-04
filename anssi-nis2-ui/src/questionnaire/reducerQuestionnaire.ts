@@ -22,6 +22,7 @@ import {
   ou,
 } from "../../../commun/utils/services/commun.predicats.ts";
 import { ActionQuestionnaire } from "./actions.ts";
+import { ActionUndo } from "./quiSupporteUndo.ts";
 
 export type EtatQuestionnaire = {
   etapeCourante: TypeEtape;
@@ -82,7 +83,7 @@ const vaVers = (
 });
 export const reducerQuestionnaire = (
   etat: EtatQuestionnaire,
-  actionTraitee: ActionQuestionnaire,
+  actionTraitee: ActionQuestionnaire | ActionUndo,
 ): EtatQuestionnaire => ({
   ...etat,
   ...match(actionTraitee)

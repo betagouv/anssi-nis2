@@ -1,12 +1,11 @@
-import { ActionQuestionnaire, ActionUndo } from "./actions.ts";
-import { EtatQuestionnaire } from "./reducerQuestionnaire.ts";
-
-type AvecUndo<TEtat extends EtatQuestionnaire> = {
+type AvecUndo<TEtat> = {
   precedents: TEtat[];
   courant: TEtat;
 };
 
-const fabriqueEtatAvecUndo = <TEtat extends EtatQuestionnaire>(
+export type ActionUndo = { type: "UNDO" };
+
+const fabriqueEtatAvecUndo = <TEtat>(
   courant: TEtat,
   precedents: TEtat[] = [],
 ): AvecUndo<TEtat> => ({
@@ -15,10 +14,7 @@ const fabriqueEtatAvecUndo = <TEtat extends EtatQuestionnaire>(
 });
 
 export const quiSupporteUndo =
-  <
-    TEtat extends EtatQuestionnaire,
-    TAction extends Pick<ActionQuestionnaire, "type">,
-  >(
+  <TEtat, TAction extends { type: string }>(
     reducerWrappe: (etat: TEtat, action: TAction) => TEtat,
     etatInitial: TEtat,
   ): ((etat: AvecUndo<TEtat>, action: TAction) => AvecUndo<TEtat>) =>
