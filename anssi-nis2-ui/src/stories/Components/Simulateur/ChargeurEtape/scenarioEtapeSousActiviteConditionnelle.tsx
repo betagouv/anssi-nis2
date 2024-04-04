@@ -15,23 +15,21 @@ import { ChargeurEtape } from "../../../../Components/Simulateur/ChargeurEtape.t
 
 export const scenarioEtapeSousActiviteConditionnelle: StoryObj<
   typeof ChargeurEtape
->["play"] = async ({ canvasElement, step }) => {
+>["play"] = async ({ canvasElement }) => {
   mockSendFormData.mockClear();
 
   const canvas = within(canvasElement);
   const passeEtape = cocheAuMoinsUnEtPasseEtape(canvas);
   const passeEtapeValidableAvecUnSeulCheck = cocheEtPasseEtape(1)(canvas);
 
-  step("Va jusqu'à l'étape Secteurs d'activité", async () => {
-    await cliqueSurDebuterLeTest(canvas);
-    await passeEtape([["designationOperateurServicesEssentiels", "oui"]]);
-    await passeEtape([["appartenancePaysUnionEuropeenne", "france"]]);
-    await passeEtape([["typeStructure", "privee"]]);
-    await passeEtape([
-      ["trancheNombreEmployes", "petit"],
-      ["trancheChiffreAffaire", "petit"],
-    ]);
-  });
+  await cliqueSurDebuterLeTest(canvas);
+  await passeEtape([["designationOperateurServicesEssentiels", "oui"]]);
+  await passeEtape([["appartenancePaysUnionEuropeenne", "france"]]);
+  await passeEtape([["typeStructure", "privee"]]);
+  await passeEtape([
+    ["trancheNombreEmployes", "petit"],
+    ["trancheChiffreAffaire", "petit"],
+  ]);
 
   await passeEtape([["secteurActivite", "energie"]]);
   await expect(mockSendFormData).not.toHaveBeenCalled();
@@ -52,18 +50,20 @@ export const scenarioEtapeSousActiviteConditionnelle: StoryObj<
 
   await expect(mockSendFormData).toHaveBeenCalledTimes(1);
   await expect(mockSendFormData).toHaveBeenCalledWith(
-    fabriqueDonneesFormulaire({
-      activites: [
-        "entrepriseElectriciteRemplissantFonctionFourniture",
-        "gestionnaireReseauDistribution",
-      ],
-      designationOperateurServicesEssentiels: ["oui"],
-      appartenancePaysUnionEuropeenne: ["france"],
-      secteurActivite: ["energie"],
-      sousSecteurActivite: ["electricite", "gaz"],
-      trancheChiffreAffaire: ["petit"],
-      trancheNombreEmployes: ["petit"],
-      typeStructure: ["privee"],
-    }),
+    expect.objectContaining(
+      fabriqueDonneesFormulaire({
+        activites: [
+          "entrepriseElectriciteRemplissantFonctionFourniture",
+          "gestionnaireReseauDistribution",
+        ],
+        designationOperateurServicesEssentiels: ["oui"],
+        appartenancePaysUnionEuropeenne: ["france"],
+        secteurActivite: ["energie"],
+        sousSecteurActivite: ["electricite", "gaz"],
+        trancheChiffreAffaire: ["petit"],
+        trancheNombreEmployes: ["petit"],
+        typeStructure: ["privee"],
+      }),
+    ),
   );
 };

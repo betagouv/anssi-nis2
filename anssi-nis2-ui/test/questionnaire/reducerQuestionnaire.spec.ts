@@ -23,13 +23,13 @@ import { AppartenancePaysUnionEuropeenne } from "anssi-nis2-core/src/Domain/Simu
 
 describe("Le reducer du Questionnaire", () => {
   it("indique l'étape « préalable » comme étape de départ", () => {
-    const etat = reducerQuestionnaire(undefined, { type: "VIDE" });
+    const etat = reducerQuestionnaire(etatParDefaut, { type: "VIDE" });
 
     expect(etat.etapeCourante).toBe("prealable");
   });
 
   it("passe à l'étape « Désignation » quand l'étape préalable est validée", () => {
-    const etat = reducerQuestionnaire(undefined, valideEtapePrealable());
+    const etat = reducerQuestionnaire(etatParDefaut, valideEtapePrealable());
 
     expect(etat.etapeCourante).toBe("designationOperateurServicesEssentiels");
   });
@@ -107,7 +107,14 @@ describe("Le reducer du Questionnaire", () => {
     });
 
     it("passe à l'étape « Sous secteurs d'activité » si certains secteurs ont des sous-secteurs", () => {
-      const etat = executer([valideSecteursActivite(["energie"])]);
+      const secteurSansSousSecteur = "sante";
+      const secteurAvecSousSecteur = "energie";
+      const etat = executer([
+        valideSecteursActivite([
+          secteurSansSousSecteur,
+          secteurAvecSousSecteur,
+        ]),
+      ]);
       expect(etat.etapeCourante).toBe("sousSecteursActivite");
     });
 
@@ -126,8 +133,12 @@ describe("Le reducer du Questionnaire", () => {
     });
 
     it("passe à l'etape « Résultat » si tous les secteurs & sous-secteurs sont du « Autre » (donc aucun intérêt à aller vers « Activités »)", () => {
+      const secteurAvecSousSecteur = "fabrication";
       const etat = executer([
-        valideSecteursActivite(["autreSecteurActivite"]),
+        valideSecteursActivite([
+          "autreSecteurActivite",
+          secteurAvecSousSecteur,
+        ]),
         valideSousSecteursActivite(["autreSousSecteurFabrication"]),
       ]);
 
@@ -157,52 +168,58 @@ describe("Le reducer du Questionnaire", () => {
       const etat = executer([valideActivites(["etablissementCredit"])]);
       expect(etat.activites).toEqual(["etablissementCredit"]);
     });
+    describe("navigue vers l'étape « Localisation de l'établissement principal » ...", () => {
+      const secteurVersLocalisationEtablissement: SecteurActivite[] = [
+        "gestionServicesTic",
+        "fournisseursNumeriques",
+      ];
+      it.each(secteurVersLocalisationEtablissement)(
+        `... si le secteur d'activité « %s » est présent`,
+        (secteur) => {
+          const peuImporte = "autreActiviteHydrogene";
 
-    const secteurVersLocalisationEtablissement: SecteurActivite[] = [
-      "gestionServicesTic",
-      "fournisseursNumeriques",
-    ];
-    secteurVersLocalisationEtablissement.forEach((secteur) =>
-      it(`navigue vers l'étape « Localisation de l'établissement principal » si le secteur d'activité « ${secteur} est présent`, () => {
-        const peuImporte = "autreActiviteHydrogene";
+          const etat = executer([
+            valideSecteursActivite([secteur]),
+            valideActivites([peuImporte]),
+          ]);
 
-        const etat = executer([
-          valideSecteursActivite([secteur]),
-          valideActivites([peuImporte]),
-        ]);
+          expect(etat.etapeCourante).toBe("localisationEtablissementPrincipal");
+        },
+      );
 
-        expect(etat.etapeCourante).toBe("localisationEtablissementPrincipal");
-      }),
-    );
+      const activitesVersLocalisationEtablissement: Activite[] = [
+        "registresNomsDomainesPremierNiveau",
+        "fournisseurServicesDNS",
+        "fournisseurServicesInformatiqueNuage",
+        "fournisseurServiceCentresDonnees",
+        "fournisseurReseauxDiffusionContenu",
+      ];
+      it.each(activitesVersLocalisationEtablissement)(
+        `... si l'activité « %s » est présente`,
+        (activite) => {
+          const etat = executer([valideActivites([activite])]);
 
-    const activitesVersLocalisationEtablissement: Activite[] = [
-      "registresNomsDomainesPremierNiveau",
-      "fournisseurServicesDNS",
-      "fournisseurServicesInformatiqueNuage",
-      "fournisseurServiceCentresDonnees",
-      "fournisseurReseauxDiffusionContenu",
-    ];
-    activitesVersLocalisationEtablissement.forEach((activite) =>
-      it(`navigue vers l'étape « Localisation de l'établissement principal » si l'activité « ${activite} » est présente`, () => {
-        const etat = executer([valideActivites([activite])]);
+          expect(etat.etapeCourante).toBe("localisationEtablissementPrincipal");
+        },
+      );
+    });
 
-        expect(etat.etapeCourante).toBe("localisationEtablissementPrincipal");
-      }),
-    );
+    describe("navigue vers l'étape « Localisation de la fourniture des services numériques »", () => {
+      const activitesVersLocalisationServiceNumerique: Activite[] = [
+        "fournisseurReseauxCommunicationElectroniquesPublics",
+        "fournisseurServiceCommunicationElectroniquesPublics",
+      ];
+      it.each(activitesVersLocalisationServiceNumerique)(
+        `... si l'activité « %s » est présente`,
+        (activite) => {
+          const etat = executer([valideActivites([activite])]);
 
-    const activitesVersLocalisationServiceNumerique: Activite[] = [
-      "fournisseurReseauxCommunicationElectroniquesPublics",
-      "fournisseurServiceCommunicationElectroniquesPublics",
-    ];
-    activitesVersLocalisationServiceNumerique.forEach((activite) =>
-      it(`navigue vers l'étape « Localisation de la fourniture des services numériques » si l'activité « ${activite} » est présente`, () => {
-        const etat = executer([valideActivites([activite])]);
-
-        expect(etat.etapeCourante).toBe(
-          "localisationFournitureServicesNumeriques",
-        );
-      }),
-    );
+          expect(etat.etapeCourante).toBe(
+            "localisationFournitureServicesNumeriques",
+          );
+        },
+      );
+    });
 
     it("navigue vers l'étape « Résultat » si l'activité saisie n'est pas dans les cas précédents", () => {
       const etat = executer([valideActivites(["acteurDuMarche"])]);

@@ -1,3 +1,4 @@
+import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
@@ -7,18 +8,25 @@ import {
   TypeStructure,
 } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { TypeEtape } from "anssi-nis2-core/src/Domain/Simulateur/InformationsEtape.ts";
-import { ActionQuestionnaire } from "./actions.ts";
 import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
+import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import {
   estSecteurAutre,
   estUnSecteurAvecDesSousSecteurs,
-} from "anssi-nis2-core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
-import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
-import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
-import { estSousSecteurAutre } from "anssi-nis2-core/src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats.ts";
-import { contientUnParmi } from "../../../commun/utils/services/commun.predicats.ts";
+} from "../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
+import { estSousSecteurAutre } from "../../../commun/core/src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats.ts";
+import {
+  certains,
+  tous,
+} from "../../../commun/utils/services/arrays.predicats.ts";
+import {
+  contientUnParmi,
+  ou,
+} from "../../../commun/utils/services/commun.predicats.ts";
+import { ActionQuestionnaire } from "./actions.ts";
+import { ActionUndo } from "./quiSupporteUndo.ts";
 
-export interface EtatQuestionnaire {
+export type EtatQuestionnaire = {
   etapeCourante: TypeEtape;
   designationOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[];
   appartenancePaysUnionEuropeenne: AppartenancePaysUnionEuropeenne[];
@@ -33,7 +41,7 @@ export interface EtatQuestionnaire {
   paysDecisionsCyber: AppartenancePaysUnionEuropeenne[];
   paysOperationsCyber: AppartenancePaysUnionEuropeenne[];
   paysPlusGrandNombreSalaries: AppartenancePaysUnionEuropeenne[];
-}
+};
 
 export const etatParDefaut: EtatQuestionnaire = {
   etapeCourante: "prealable",
@@ -52,143 +60,118 @@ export const etatParDefaut: EtatQuestionnaire = {
   paysPlusGrandNombreSalaries: [],
 };
 
-export const reducerQuestionnaire = (
-  etat: EtatQuestionnaire = etatParDefaut,
-  action: ActionQuestionnaire,
-): EtatQuestionnaire => {
+const contientActiviteFournisseurNumeriquePublic = contientUnParmi(
+  "fournisseurReseauxCommunicationElectroniquesPublics",
+  "fournisseurServiceCommunicationElectroniquesPublics",
+);
+const contientUnSecteurTicOuFournisseurNumerique = contientUnParmi(
+  "gestionServicesTic",
+  "fournisseursNumeriques",
+);
+const contientActiviteFournisseurServicesNumeriques = contientUnParmi(
+  "registresNomsDomainesPremierNiveau",
+  "fournisseurServicesDNS",
+  "fournisseurServicesInformatiqueNuage",
+  "fournisseurServiceCentresDonnees",
+  "fournisseurReseauxDiffusionContenu",
+);
+
+const vaVers = (
+  etape: TypeEtape,
+  detailsQuestionnaire?: Partial<EtatQuestionnaire>,
+) => ({
+  ...detailsQuestionnaire,
+  etapeCourante: etape,
+});
+
+const valideEtape = (
+  action: ActionQuestionnaire | ActionUndo,
+  etat: EtatQuestionnaire,
+) => {
   switch (action.type) {
     case "VALIDE_ETAPE_PREALABLE":
-      return {
-        ...etat,
-        etapeCourante: "designationOperateurServicesEssentiels",
-      };
-
+      return vaVers("designationOperateurServicesEssentiels");
     case "VALIDE_ETAPE_DESIGNATION":
-      return {
-        ...etat,
+      return vaVers("appartenanceUnionEuropeenne", {
         designationOperateurServicesEssentiels: action.designations,
-        etapeCourante: "appartenanceUnionEuropeenne",
-      };
-
+      });
     case "VALIDE_ETAPE_APPARTENANCE_UE":
-      return {
-        ...etat,
+      return vaVers("typeStructure", {
         appartenancePaysUnionEuropeenne: action.appartenances,
-        etapeCourante: "typeStructure",
-      };
-
+      });
     case "VALIDE_ETAPE_TYPE_STRUCTURE":
-      return {
-        ...etat,
+      return vaVers("tailleEntitePrivee", {
         typeStructure: action.types,
-        etapeCourante: "tailleEntitePrivee",
-      };
-
+      });
     case "VALIDE_ETAPE_TAILLE_ENTITE_PRIVEE":
-      return {
-        ...etat,
+      return vaVers("secteursActivite", {
         trancheNombreEmployes: action.nombreEmployes,
         trancheChiffreAffaire: action.chiffreAffaire,
-        etapeCourante: "secteursActivite",
-      };
-
+      });
     case "VALIDE_ETAPE_SECTEURS_ACTIVITE":
-      return {
-        ...etat,
-        secteurActivite: action.secteurs,
-        etapeCourante: action.secteurs.every(estSecteurAutre)
+      return vaVers(
+        tous(estSecteurAutre)(action.secteurs)
           ? "resultat"
-          : action.secteurs.some(estUnSecteurAvecDesSousSecteurs)
+          : certains(estUnSecteurAvecDesSousSecteurs)(action.secteurs)
           ? "sousSecteursActivite"
           : "activites",
-      };
-
+        {
+          secteurActivite: action.secteurs,
+        },
+      );
     case "VALIDE_ETAPE_SOUS_SECTEURS_ACTIVITE":
-      return {
-        ...etat,
-        sousSecteurActivite: action.sousSecteurs,
-        etapeCourante:
-          etat.secteurActivite.every(estSecteurAutre) &&
-          action.sousSecteurs.every(estSousSecteurAutre)
-            ? "resultat"
-            : "activites",
-      };
-
-    case "VALIDE_ETAPE_ACTIVITES": {
-      const versEtablissementPrincipal =
-        contientUnParmi(...etat.secteurActivite)([
-          "gestionServicesTic",
-          "fournisseursNumeriques",
-        ]) ||
-        contientUnParmi(...action.activites)([
-          "registresNomsDomainesPremierNiveau",
-          "fournisseurServicesDNS",
-          "fournisseurServicesInformatiqueNuage",
-          "fournisseurServiceCentresDonnees",
-          "fournisseurReseauxDiffusionContenu",
-        ]);
-
-      const versFournitureServicesNumeriques = contientUnParmi(
-        ...action.activites,
-      )([
-        "fournisseurReseauxCommunicationElectroniquesPublics",
-        "fournisseurServiceCommunicationElectroniquesPublics",
-      ]);
-
-      return {
-        ...etat,
-        activites: action.activites,
-        etapeCourante: versEtablissementPrincipal
-          ? "localisationEtablissementPrincipal"
-          : versFournitureServicesNumeriques
+      return vaVers(
+        etat.secteurActivite.every(
+          ou(estSecteurAutre, estUnSecteurAvecDesSousSecteurs),
+        ) && action.sousSecteurs.every(estSousSecteurAutre)
+          ? "resultat"
+          : "activites",
+        {
+          sousSecteurActivite: action.sousSecteurs,
+        },
+      );
+    case "VALIDE_ETAPE_ACTIVITES":
+      return vaVers(
+        contientActiviteFournisseurNumeriquePublic(action.activites)
           ? "localisationFournitureServicesNumeriques"
-          : "resultat",
-      };
-    }
-
-    case "VALIDE_ETAPE_LOCALISATION_ETABLISSEMENT_PRINCIPAL": {
-      const versFournitureServicesNumeriques = contientUnParmi(
-        ...etat.activites,
-      )([
-        "fournisseurReseauxCommunicationElectroniquesPublics",
-        "fournisseurServiceCommunicationElectroniquesPublics",
-      ]);
-
-      return {
-        ...etat,
-        paysDecisionsCyber: action.paysDecision,
-        paysOperationsCyber: action.paysOperation,
-        paysPlusGrandNombreSalaries: action.paysSalaries,
-        etapeCourante: versFournitureServicesNumeriques
-          ? "localisationFournitureServicesNumeriques"
-          : "resultat",
-      };
-    }
-
-    case "VALIDE_ETAPE_LOCALISATION_SERVICES_NUMERIQUES": {
-      const versEtablissementPrincipal =
-        contientUnParmi(...etat.secteurActivite)([
-          "gestionServicesTic",
-          "fournisseursNumeriques",
-        ]) ||
-        contientUnParmi(...etat.activites)([
-          "registresNomsDomainesPremierNiveau",
-          "fournisseurServicesDNS",
-          "fournisseurServicesInformatiqueNuage",
-          "fournisseurServiceCentresDonnees",
-          "fournisseurReseauxDiffusionContenu",
-        ]);
-
-      return {
-        ...etat,
-        localisationFournitureServicesNumeriques: action.pays,
-        etapeCourante: versEtablissementPrincipal
+          : contientUnSecteurTicOuFournisseurNumerique(etat.secteurActivite) ||
+            contientActiviteFournisseurServicesNumeriques(action.activites)
           ? "localisationEtablissementPrincipal"
           : "resultat",
-      };
-    }
-    case "VIDE":
+        {
+          activites: action.activites,
+        },
+      );
+    case "VALIDE_ETAPE_LOCALISATION_ETABLISSEMENT_PRINCIPAL":
+      return vaVers(
+        contientActiviteFournisseurNumeriquePublic(etat.activites)
+          ? "localisationFournitureServicesNumeriques"
+          : "resultat",
+        {
+          paysDecisionsCyber: action.paysDecision,
+          paysOperationsCyber: action.paysOperation,
+          paysPlusGrandNombreSalaries: action.paysSalaries,
+        },
+      );
+    case "VALIDE_ETAPE_LOCALISATION_SERVICES_NUMERIQUES":
+      return vaVers(
+        contientUnSecteurTicOuFournisseurNumerique(etat.secteurActivite) ||
+          contientActiviteFournisseurServicesNumeriques(etat.activites)
+          ? "localisationEtablissementPrincipal"
+          : "resultat",
+        {
+          localisationFournitureServicesNumeriques: action.pays,
+        },
+      );
     default:
-      return etat;
+      return {};
   }
 };
+
+export const reducerQuestionnaire = (
+  etat: EtatQuestionnaire,
+  actionTraitee: ActionQuestionnaire | ActionUndo,
+): EtatQuestionnaire => ({
+  ...etat,
+  ...valideEtape(actionTraitee, etat),
+});

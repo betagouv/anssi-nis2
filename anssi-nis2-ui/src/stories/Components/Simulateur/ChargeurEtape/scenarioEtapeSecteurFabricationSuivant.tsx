@@ -9,23 +9,21 @@ import { mockSendFormData } from "../../../utilitaires/mocks.ts";
 
 export const scenarioEtapeSecteurFabricationSuivant: StoryObj<
   typeof ChargeurEtape
->["play"] = async ({ canvasElement, step }) => {
+>["play"] = async ({ canvasElement }) => {
   mockSendFormData.mockClear();
 
   const canvas = within(canvasElement);
   const passeEtape = cocheAuMoinsUnEtPasseEtape(canvas);
 
-  step("Va jusqu'à l'étape Secteurs d'activité", async () => {
-    await cliqueSurDebuterLeTest(canvas);
+  await cliqueSurDebuterLeTest(canvas);
 
-    await passeEtape([["designationOperateurServicesEssentiels", "oui"]]);
-    await passeEtape([["appartenancePaysUnionEuropeenne", "france"]]);
-    await passeEtape([
-      ["typeStructure", "publique"],
-      ["typeEntitePublique", "administrationCentrale"],
-    ]);
-    await passeEtape([["trancheNombreEmployes", "petit"]]);
-  });
+  await passeEtape([["designationOperateurServicesEssentiels", "oui"]]);
+  await passeEtape([["appartenancePaysUnionEuropeenne", "france"]]);
+  await passeEtape([["typeStructure", "privee"]]);
+  await passeEtape([
+    ["trancheNombreEmployes", "grand"],
+    ["trancheChiffreAffaire", "grand"],
+  ]);
 
   await passeEtape([["secteurActivite", "fabrication"]]);
 };

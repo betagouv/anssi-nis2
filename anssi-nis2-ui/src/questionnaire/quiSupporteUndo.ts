@@ -1,27 +1,36 @@
-type AvecUndo<TEtat> = { precedents: TEtat[]; courant: TEtat };
+type AvecUndo<TEtat> = {
+  precedents: TEtat[];
+  courant: TEtat;
+};
 
-export function quiSupporteUndo<TEtat, TAction extends { type: string }>(
-  reducerWrappe: (etat: TEtat, action: TAction) => TEtat,
-  etatInitial: TEtat,
-): (etat: AvecUndo<TEtat>, action: TAction | ActionUndo) => AvecUndo<TEtat> {
-  const etatUndoInitial = { precedents: [], courant: etatInitial };
+export type ActionUndo = { type: "UNDO" };
 
-  return (
-    etat: AvecUndo<TEtat> = etatUndoInitial,
-    action: TAction | ActionUndo,
+const fabriqueEtatAvecUndo = <TEtat>(
+  courant: TEtat,
+  precedents: TEtat[] = [],
+): AvecUndo<TEtat> => ({
+  courant,
+  precedents,
+});
+
+export const quiSupporteUndo =
+  <TEtat, TAction extends { type: string }>(
+    reducerWrappe: (etat: TEtat, action: TAction) => TEtat,
+    etatInitial: TEtat,
+  ): ((etat: AvecUndo<TEtat>, action: TAction) => AvecUndo<TEtat>) =>
+  (
+    etat: AvecUndo<TEtat> = fabriqueEtatAvecUndo(etatInitial),
+    action: TAction,
   ) => {
     if (action.type === "UNDO") {
       const [precedent, ...ancetres] = etat.precedents;
-      return { courant: precedent, precedents: ancetres };
+      return fabriqueEtatAvecUndo(precedent, ancetres);
     }
 
-    const nouvelEtat = reducerWrappe(etat.courant, action as TAction);
-    return {
-      precedents: [etat.courant, ...etat.precedents],
-      courant: nouvelEtat,
-    };
+    return fabriqueEtatAvecUndo(reducerWrappe(etat.courant, action), [
+      etat.courant,
+      ...etat.precedents,
+    ]);
   };
-}
 
-export type ActionUndo = { type: "UNDO" };
 export const undo = (): ActionUndo => ({ type: "UNDO" });

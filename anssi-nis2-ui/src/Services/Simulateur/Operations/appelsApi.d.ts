@@ -1,8 +1,8 @@
-import { IDonneesBrutesFormulaireSimulateur } from "../../../Domaine/Simulateur/DonneesFormulaire.definitions.ts";
+import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
 import { AggregatInformationsEmail } from "../../../Domaine/Contact/InformationsEmail.definitions.ts";
 
 export type EnvoieDonneesFormulaire = (
-  formData: IDonneesBrutesFormulaireSimulateur,
+  formData: DonneesFormulaireSimulateur,
 ) => Promise<string>;
 export type EnregistreInformationsEmail = (
   informations: InformationsEmai,

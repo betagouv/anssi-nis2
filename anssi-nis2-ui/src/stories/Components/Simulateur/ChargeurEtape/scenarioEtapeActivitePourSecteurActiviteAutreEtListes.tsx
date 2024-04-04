@@ -44,15 +44,17 @@ export const scenarioEtapeActivitePourSecteurActiviteAutreEtListes: StoryObj<
 
   await expect(mockSendFormData).toHaveBeenCalledTimes(1);
   await expect(mockSendFormData).toHaveBeenCalledWith(
-    fabriqueDonneesFormulaire({
-      activites: ["fournisseursDistributeursEauxConsommation"],
-      designationOperateurServicesEssentiels: ["oui"],
-      appartenancePaysUnionEuropeenne: ["france"],
-      secteurActivite: ["eauPotable", "autreSecteurActivite"],
-      sousSecteurActivite: [],
-      trancheChiffreAffaire: ["petit"],
-      trancheNombreEmployes: ["petit"],
-      typeStructure: ["privee"],
-    }),
+    expect.objectContaining(
+      fabriqueDonneesFormulaire({
+        activites: ["fournisseursDistributeursEauxConsommation"],
+        designationOperateurServicesEssentiels: ["oui"],
+        appartenancePaysUnionEuropeenne: ["france"],
+        secteurActivite: ["eauPotable", "autreSecteurActivite"],
+        sousSecteurActivite: [],
+        trancheChiffreAffaire: ["petit"],
+        trancheNombreEmployes: ["petit"],
+        typeStructure: ["privee"],
+      }),
+    ),
   );
 };

@@ -37,17 +37,19 @@ export const scenarioDerniereEtapeEstResultat: StoryObj<
 
   await expect(mockSendFormData).toHaveBeenCalledTimes(1);
   await expect(mockSendFormData).toHaveBeenCalledWith(
-    fabriqueDonneesFormulaire({
-      activites: [
-        "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
-      ],
-      designationOperateurServicesEssentiels: ["oui"],
-      appartenancePaysUnionEuropeenne: ["france"],
-      secteurActivite: ["espace"],
-      sousSecteurActivite: [],
-      trancheChiffreAffaire: ["petit"],
-      trancheNombreEmployes: ["petit"],
-      typeStructure: ["privee"],
-    }),
+    expect.objectContaining(
+      fabriqueDonneesFormulaire({
+        activites: [
+          "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
+        ],
+        designationOperateurServicesEssentiels: ["oui"],
+        appartenancePaysUnionEuropeenne: ["france"],
+        secteurActivite: ["espace"],
+        sousSecteurActivite: [],
+        trancheChiffreAffaire: ["petit"],
+        trancheNombreEmployes: ["petit"],
+        typeStructure: ["privee"],
+      }),
+    ),
   );
 };

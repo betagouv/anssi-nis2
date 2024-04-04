@@ -15,8 +15,9 @@ export const estSousSecteur = (
   sousSecteur: PeutEtreSousSecteurActivite,
 ): sousSecteur is SousSecteurActivite =>
   sousSecteur !== "PasDeSousSecteurActivite";
-export const estSousSecteurListe = (sousSecteur?: SousSecteurActivite) =>
-  !sousSecteur?.startsWith("autre");
+export const estSousSecteurListe = (
+  sousSecteur?: SousSecteurActivite | SecteurActivite,
+) => !sousSecteur?.startsWith("autre");
 export const estSousSecteurAutre = (
   sousSecteur?: SousSecteurActivite,
 ): sousSecteur is SousSecteurAutre => !!sousSecteur?.startsWith("autre");

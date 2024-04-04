@@ -1,3 +1,4 @@
+import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
@@ -7,7 +8,6 @@ import {
 } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
-import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
 
 export type ActionQuestionnaire =
   | ActionVide

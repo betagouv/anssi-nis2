@@ -37,15 +37,17 @@ export const scenarioIgnoreEtapeActivitePourSousSecteurActiviteAutre: StoryObj<
 
   await expect(mockSendFormData).toHaveBeenCalledTimes(1);
   await expect(mockSendFormData).toHaveBeenCalledWith(
-    fabriqueDonneesFormulaire({
-      activites: [],
-      designationOperateurServicesEssentiels: ["oui"],
-      appartenancePaysUnionEuropeenne: ["france"],
-      secteurActivite: ["energie"],
-      sousSecteurActivite: ["autreSousSecteurEnergie"],
-      trancheChiffreAffaire: ["petit"],
-      trancheNombreEmployes: ["petit"],
-      typeStructure: ["privee"],
-    }),
+    expect.objectContaining(
+      fabriqueDonneesFormulaire({
+        activites: [],
+        designationOperateurServicesEssentiels: ["oui"],
+        appartenancePaysUnionEuropeenne: ["france"],
+        secteurActivite: ["energie"],
+        sousSecteurActivite: ["autreSousSecteurEnergie"],
+        trancheChiffreAffaire: ["petit"],
+        trancheNombreEmployes: ["petit"],
+        typeStructure: ["privee"],
+      }),
+    ),
   );
 };
