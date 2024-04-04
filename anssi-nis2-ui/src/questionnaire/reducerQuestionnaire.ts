@@ -15,7 +15,10 @@ import {
   estUnSecteurAvecDesSousSecteurs,
 } from "../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
 import { estSousSecteurAutre } from "../../../commun/core/src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats.ts";
-import { tous } from "../../../commun/utils/services/arrays.predicats.ts";
+import {
+  certains,
+  tous,
+} from "../../../commun/utils/services/arrays.predicats.ts";
 import {
   contientUnParmi,
   ou,
@@ -109,7 +112,7 @@ const valideEtape = (
       return vaVers(
         tous(estSecteurAutre)(action.secteurs)
           ? "resultat"
-          : tous(estUnSecteurAvecDesSousSecteurs)(action.secteurs)
+          : certains(estUnSecteurAvecDesSousSecteurs)(action.secteurs)
           ? "sousSecteursActivite"
           : "activites",
         {

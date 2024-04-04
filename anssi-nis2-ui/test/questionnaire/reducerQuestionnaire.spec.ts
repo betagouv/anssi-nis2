@@ -107,7 +107,14 @@ describe("Le reducer du Questionnaire", () => {
     });
 
     it("passe à l'étape « Sous secteurs d'activité » si certains secteurs ont des sous-secteurs", () => {
-      const etat = executer([valideSecteursActivite(["energie"])]);
+      const secteurSansSousSecteur = "sante";
+      const secteurAvecSousSecteur = "energie";
+      const etat = executer([
+        valideSecteursActivite([
+          secteurSansSousSecteur,
+          secteurAvecSousSecteur,
+        ]),
+      ]);
       expect(etat.etapeCourante).toBe("sousSecteursActivite");
     });
 
