@@ -1,14 +1,10 @@
-import { PropsWithChildren, useContext, useReducer } from "react";
-import { quiAppelleFonctionAvantResultat } from "../../questionnaire/appelleApiAvantEtapeResultat.ts";
+import { PropsWithChildren, useReducer } from "react";
 import {
   etatParDefaut,
-  EtatQuestionnaire,
   reducerQuestionnaire,
 } from "../../questionnaire/reducerQuestionnaire.ts";
-import { AppContext } from "../../Services/AppContexte/AppContext.definition.ts";
 import { EtapePrealable } from "./EtapesRefacto/EtapePrealable.tsx";
 import {
-  ActionQuestionnaire,
   valideActivites,
   valideEtapeAppartenanceUE,
   valideEtapeDesignation,
@@ -24,11 +20,7 @@ import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousS
 import { estUnSecteurAvecDesSousSecteurs } from "anssi-nis2-core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
 import { SecteurComposite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { selectSecteursPourSaisieActivites } from "../../questionnaire/selecteursQuestionnaire.ts";
-import {
-  ActionUndo,
-  quiSupporteUndo,
-  undo,
-} from "../../questionnaire/quiSupporteUndo.ts";
+import { quiSupporteUndo, undo } from "../../questionnaire/quiSupporteUndo.ts";
 import { EtapeDesignation } from "./EtapesRefacto/EtapeDesignation.tsx";
 import { EtapeAppartenanceUE } from "./EtapesRefacto/EtapeAppartenanceUE.tsx";
 import { EtapeTypeStructure } from "./EtapesRefacto/EtapeTypeStructure.tsx";
@@ -42,19 +34,10 @@ import { EtapeLocalisationEtablissementPrincipal } from "./EtapesRefacto/EtapeLo
 import { AidezNousAmeliorerService } from "../AidezNousAmeliorerService.tsx";
 
 export const Questionnaire = () => {
-  const { envoieDonneesFormulaire } = useContext(AppContext);
+  // const { envoieDonneesFormulaire } = useContext(AppContext);
 
   const [etat, dispatch] = useReducer(
-    quiSupporteUndo(
-      quiAppelleFonctionAvantResultat<
-        EtatQuestionnaire,
-        ActionQuestionnaire | ActionUndo
-      >(
-        "resultat",
-        envoieDonneesFormulaire,
-      )(reducerQuestionnaire),
-      etatParDefaut,
-    ),
+    quiSupporteUndo(reducerQuestionnaire, etatParDefaut),
     { courant: etatParDefaut, precedents: [] },
   );
 
