@@ -1,8 +1,9 @@
-import { PropsWithChildren, useReducer } from "react";
+import { PropsWithChildren, useContext, useReducer } from "react";
 import {
   etatParDefaut,
   reducerQuestionnaire,
 } from "../../questionnaire/reducerQuestionnaire.ts";
+import { AppContext } from "../../Services/AppContexte/AppContext.definition.ts";
 import { EtapePrealable } from "./EtapesRefacto/EtapePrealable.tsx";
 import {
   valideActivites,
@@ -34,7 +35,7 @@ import { EtapeLocalisationEtablissementPrincipal } from "./EtapesRefacto/EtapeLo
 import { AidezNousAmeliorerService } from "../AidezNousAmeliorerService.tsx";
 
 export const Questionnaire = () => {
-  // const { envoieDonneesFormulaire } = useContext(AppContext);
+  const { envoieDonneesFormulaire } = useContext(AppContext);
 
   const [etat, dispatch] = useReducer(
     quiSupporteUndo(reducerQuestionnaire, etatParDefaut),
@@ -153,7 +154,12 @@ export const Questionnaire = () => {
       );
 
     case "resultat":
-      return <EtapeResultat reponses={etat.courant} />;
+      return (
+        <EtapeResultat
+          reponses={etat.courant}
+          persistance={envoieDonneesFormulaire}
+        />
+      );
   }
 };
 

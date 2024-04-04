@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { EnvoieDonneesFormulaire } from "../../../Services/Simulateur/Operations/appelsApi";
 import { LigneResultat } from "../Resultats/LigneResultat.tsx";
 import { DonneesFormulaireSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
 import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "anssi-nis2-core/src/Domain/Simulateur/services/Eligibilite/ReponseEtat.fabriques.ts";
@@ -16,8 +18,10 @@ import { LigneReseauxSociaux } from "../Resultats/LigneReseauxSociaux.tsx";
 
 export const EtapeResultat = ({
   reponses,
+  persistance,
 }: {
   reponses: DonneesFormulaireSimulateur;
+  persistance: EnvoieDonneesFormulaire;
 }) => {
   const donneesReponse =
     ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
@@ -25,6 +29,10 @@ export const EtapeResultat = ({
     ) as EtatRegulation;
   const etatRegulation = evalueEtatRegulation(donneesReponse);
   const modeFormulaireEmail = getModeFormulaireEmail(etatRegulation.decision);
+
+  useEffect(() => {
+    persistance(reponses);
+  }, [persistance, reponses]);
 
   return (
     <>
