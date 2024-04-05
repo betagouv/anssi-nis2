@@ -1,18 +1,16 @@
-// noinspection TypeScriptValidateJSTypes - Incompatibilité des selecteurs testing-library (any) et des string
-
 import { expect } from "@storybook/jest";
 
 import { Meta, StoryObj } from "@storybook/react";
 import { within } from "@storybook/testing-library";
-import { fabriqueDonneesFormulaire } from "../../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique.ts";
-import { SimulateurEtapeResult } from "../../../../Components/Simulateur/SimulateurEtapeResult.tsx";
+import { fabriqueDonneesFormulaire } from "anssi-nis2-core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique.ts";
 
 import {
   texteIntroductionBienDebuterGrandeEntite,
   texteIntroductionBienDebuterPetiteEntite,
 } from "../../../../References/LibellesResultatsEligibilite.ts";
 import { attendTexteCharge } from "../../../utilitaires/interaction.facilitateurs.ts";
-import { verifieTitresSectionsPresentes } from "./Resultat.aide.ts";
+import { verifieTitresSectionsPresentes } from "../Resultat/Resultat.aide.ts";
+import { EtapeResultat } from "../../../../Components/Simulateur/EtapesRefacto/EtapeResultat.tsx";
 
 const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
   designationOperateurServicesEssentiels: ["non"],
@@ -25,22 +23,20 @@ const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
   activites: ["fournisseursDistributeursEauxConsommation"],
 });
 
-const meta: Meta<typeof SimulateurEtapeResult> = {
+const meta: Meta<typeof EtapeResultat> = {
   title: "Composants/Simulateur/Resultat",
-  component: SimulateurEtapeResult,
-  args: {
-    donneesFormulaire: archetypeDonneesFormulaire,
-  },
+  component: EtapeResultat,
+  args: { reponses: archetypeDonneesFormulaire, persistance: async () => "" },
 };
 
 export default meta;
-type Story = StoryObj<typeof SimulateurEtapeResult>;
+type Story = StoryObj<typeof EtapeResultat>;
 
 const pointsDAttention = "Points d'attention";
 
 export const ResultatEligibleOSE: Story = {
   args: {
-    donneesFormulaire: {
+    reponses: {
       ...archetypeDonneesFormulaire,
       designationOperateurServicesEssentiels: ["oui"],
       trancheNombreEmployes: ["petit"],
@@ -73,7 +69,7 @@ export const ResultatEligibleOSE: Story = {
 };
 export const ResultatEligiblePetiteEntreprise: Story = {
   args: {
-    donneesFormulaire: {
+    reponses: {
       ...archetypeDonneesFormulaire,
       trancheChiffreAffaire: ["petit"],
       trancheNombreEmployes: ["petit"],
@@ -106,7 +102,7 @@ export const ResultatEligiblePetiteEntreprise: Story = {
 };
 export const ResultatReguleAutrePaysUE: Story = {
   args: {
-    donneesFormulaire: {
+    reponses: {
       ...archetypeDonneesFormulaire,
       trancheChiffreAffaire: ["petit"],
       trancheNombreEmployes: ["petit"],
@@ -139,7 +135,7 @@ export const ResultatReguleAutrePaysUE: Story = {
 };
 export const ResultatEligibleGrandeEntreprise: Story = {
   args: {
-    donneesFormulaire: {
+    reponses: {
       ...archetypeDonneesFormulaire,
       trancheChiffreAffaire: ["grand"],
       trancheNombreEmployes: ["grand"],
@@ -174,7 +170,7 @@ export const ResultatEligibleGrandeEntreprise: Story = {
 
 export const ResultatNonEligible: Story = {
   args: {
-    donneesFormulaire: {
+    reponses: {
       ...archetypeDonneesFormulaire,
       designationOperateurServicesEssentiels: ["non"],
       typeStructure: ["privee"],
