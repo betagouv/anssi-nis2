@@ -1,6 +1,3 @@
-import { flow } from "fp-ts/lib/function";
-import { toLowerCase } from "fp-ts/lib/string";
-
 /**
  * Regex pour détecter les caractères à supprimer dans une URL
  * Copié depuis github-slugger
@@ -17,30 +14,9 @@ export const replace =
 
 export const match = (regexp: RegExp) => (texte: string) => texte.match(regexp);
 
-export const matchAll = (regexp: RegExp) => (texte: string) =>
-  texte.matchAll(regexp);
-
 export const normalize =
   (form: "NFC" | "NFD" | "NFKC" | "NFKD") => (texte: string) =>
     texte.normalize(form);
 
-export const ajoutePrefixe = (prefix: string) => (texte: string) =>
-  `${prefix}${texte}`;
-
-const slug = replace(regexSlug, "");
-
-export const replactIfString =
-  (searchValue: string | RegExp, replaceValue: string) =>
-  (maybeString: string | number) =>
-    typeof maybeString === "string"
-      ? maybeString.replace(searchValue, replaceValue)
-      : maybeString;
-export const construitAncre = flow(
-  toLowerCase,
-  slug,
-  replace(/ /g, "-"),
-  encodeURI,
-  ajoutePrefixe("#")
-);
 export const estChaineNonVide = <T extends string>(listeValeurs: T) =>
   listeValeurs.length > 0;
