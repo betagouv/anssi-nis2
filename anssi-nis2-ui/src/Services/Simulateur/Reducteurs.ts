@@ -2,17 +2,9 @@ import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
-import {
-  LibellesSousSecteurs,
-  SousSecteurActivite,
-} from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import React, { Reducer } from "react";
 import { ValeurChampSimulateur } from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { fabriqueDonneesFormulaire } from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique.ts";
-import { SecteurComposite } from "../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
-import { fabriqueSecteurContientLeSousSecteur } from "../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.operations.ts";
-
-import { entreesLibellesSousSecteurs } from "../../References/LibellesSousSecteursActivite.ts";
 import { gestionnairesPourChamps } from "./gestionnaires.ts";
 import { BoutonsNavigation } from "./Props/boutonsNavigation";
 
@@ -20,8 +12,6 @@ import {
   SimulateurDonneesFormulaireActions,
   SimulateurDonneesFormulaireActionType,
 } from "./Props/donneesFormulaire";
-import { OptionsChampSimulateur } from "./Props/optionChampSimulateur";
-import { transformateurSousSecteurActivite } from "./Transformateurs/TransformateurSousSecteurActivite.ts";
 
 const fabriqueDonneesFormulaireSimulateurSimple = (
   state: DonneesFormulaireSimulateur,
@@ -84,35 +74,3 @@ export const changeInfobulleOuverte: Reducer<
   if (id === nouvelId) return { id: "" };
   return { id: nouvelId };
 };
-const reducteurCleValeurVersObjet = (
-  libellesSousSecteurDuSecteur: LibellesSousSecteurs,
-  [sousSecteur, libelle]: [SousSecteurActivite, string],
-) => ({
-  ...libellesSousSecteurDuSecteur,
-  [sousSecteur]: libelle,
-});
-export const reducteurSecteursVersOptions =
-  (
-    gereChangement: (event: React.ChangeEvent<HTMLInputElement>) => void,
-    donneesFormulaire: DonneesFormulaireSimulateur,
-  ) =>
-  (
-    secteursAvecOptionsSousSecteurs: [
-      SecteurComposite,
-      OptionsChampSimulateur,
-    ][],
-    secteur: SecteurComposite,
-  ): [SecteurComposite, OptionsChampSimulateur][] => {
-    const valeursAssocieesLibelles = entreesLibellesSousSecteurs
-      .filter(fabriqueSecteurContientLeSousSecteur(secteur))
-      .reduce(reducteurCleValeurVersObjet, {}) as Record<
-      SousSecteurActivite,
-      string
-    >;
-    const sousSecteurActivite = transformateurSousSecteurActivite(
-      valeursAssocieesLibelles,
-      gereChangement,
-      donneesFormulaire,
-    );
-    return [...secteursAvecOptionsSousSecteurs, [secteur, sousSecteurActivite]];
-  };

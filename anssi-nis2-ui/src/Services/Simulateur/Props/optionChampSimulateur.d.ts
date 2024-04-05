@@ -10,7 +10,3 @@ export type OptionChampSimulateur = {
 };
 
 export type OptionsChampSimulateur = Array<OptionChampSimulateur>;
-export type AttributsEntreeChoixMultiple = {
-  legende: string;
-  options: OptionChampSimulateur[];
-};

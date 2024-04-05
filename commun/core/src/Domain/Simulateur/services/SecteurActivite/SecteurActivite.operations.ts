@@ -1,21 +1,8 @@
-import {
-  SecteurActivite,
-  SecteurComposite,
-  SecteurSimple,
-} from "../../SecteurActivite.definitions";
+import { SecteurActivite, SecteurComposite, SecteurSimple } from "../../SecteurActivite.definitions";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
 import { sousSecteursParSecteur } from "../../SousSecteurActivite.valeurs";
-import {
-  contientSousSecteur,
-  estUnSecteurAvecDesSousSecteurs,
-  estUnSecteurSansSousSecteur,
-} from "./SecteurActivite.predicats";
+import { estUnSecteurSansSousSecteur } from "./SecteurActivite.predicats";
 
-export const fabriqueSecteurContientLeSousSecteur =
-  (secteur: SecteurComposite) =>
-  ([sousSecteur]: [SousSecteurActivite, string]) =>
-    estUnSecteurAvecDesSousSecteurs(secteur) &&
-    contientSousSecteur(secteur, sousSecteur);
 export const fabriqueTupleSecteurSousSecteurs: (
   secteur: SecteurComposite,
 ) => [SecteurActivite, Readonly<SousSecteurActivite[]>] = (secteur) => [

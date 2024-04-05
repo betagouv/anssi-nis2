@@ -48,6 +48,3 @@ export const libellesSousSecteursActivite: Record<SousSecteurActivite, string> =
     ...libellesSousSecteurFabrication,
     ...libellesSousSecteurTransports,
   };
-export const entreesLibellesSousSecteurs = Object.entries(
-  libellesSousSecteursActivite,
-) as [SousSecteurActivite, string][];
