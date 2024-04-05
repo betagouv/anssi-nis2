@@ -1,7 +1,6 @@
 import { TypeEtape } from "../../../../../commun/core/src/Domain/Simulateur/InformationsEtape.ts";
 import EtapeLocalisationsEtablissementPrincipal from "../../../Components/Simulateur/Etapes/EtapeLocalisationsEtablissementPrincipal.tsx";
 import EtapeLocalisationsServices from "../../../Components/Simulateur/Etapes/EtapeLocalisationsServices.tsx";
-import { SimulateurEtapePrealable } from "../../../Components/Simulateur/SimulateurEtapePrealable.tsx";
 import { SimulateurEtapeResult } from "../../../Components/Simulateur/SimulateurEtapeResult.tsx";
 import {
   EtapeActivites,
@@ -64,7 +63,7 @@ export const cartoComposants: Record<TypeEtape, RepresentationEtape> = {
   },
   prealable: {
     composant: elementVide,
-    conteneur: SimulateurEtapePrealable,
+    conteneur: elementVide,
   },
   resultat: {
     composant: elementVide,
