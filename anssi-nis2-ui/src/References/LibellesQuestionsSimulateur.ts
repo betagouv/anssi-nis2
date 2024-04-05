@@ -17,9 +17,6 @@ export const texteEtapeTaillePublique =
 export const texteQuestionTaillePublique =
   "Nombre d’employés (équivalents temps pleins)";
 
-export const texteQuestionSecteurActivites =
-  "Dans quels secteurs d’activités votre organisation produit-elle des biens et/ou des services\xa0?";
-
 export const texteQuestionSousSecteursActivites =
   "Précisez les sous-secteurs concernés\xa0:";
 
