@@ -4,7 +4,6 @@ import EtapeLocalisationsServices from "../../../Components/Simulateur/Etapes/Et
 import { SimulateurEtapeResult } from "../../../Components/Simulateur/SimulateurEtapeResult.tsx";
 import {
   EtapeActivites,
-  EtapeSousSecteursActivite,
   EtapeTaillePublique,
 } from "../../../Components/Simulateur/Etapes";
 import {
@@ -44,7 +43,7 @@ export const cartoComposants: Record<TypeEtape, RepresentationEtape> = {
     conteneur: SimulateurEtapeForm,
   },
   sousSecteursActivite: {
-    composant: EtapeSousSecteursActivite,
+    composant: elementVide,
     conteneur: SimulateurEtapeForm,
   },
   activites: { composant: EtapeActivites, conteneur: SimulateurEtapeForm },
