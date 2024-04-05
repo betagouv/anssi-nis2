@@ -1,9 +1,3 @@
-export const texteQuestionLocalisationActivite =
-  "Fournissez-vous des services numériques dans au moins un état membre" +
-  " de l'Union Européenne\xa0?";
-
-export const texteQuestionLocalisastionRepresentant =
-  "Dans quel pays sera établi votre représentant dans l'Union Européenne\xa0?";
 export const texteQuestionLocalisastionsServices =
   "Dans quels états membres de l’Union Européenne fournissez-vous des services numériques\xa0?";
 export const texteQuestionLocalisastionsEtabDecisionsCyber =
