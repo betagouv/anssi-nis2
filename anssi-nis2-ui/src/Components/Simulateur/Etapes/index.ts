@@ -1,4 +1,3 @@
-import EtapeLocalisation from "./EtapeLocalisation.tsx";
 import EtapeTypeStructure from "./EtapeTypeStructure.tsx";
 import EtapeTaille from "./EtapeTaille.tsx";
 import EtapeSecteursActivite from "./EtapeSecteursActivite.tsx";
@@ -8,7 +7,6 @@ import FormSimulateur from "./FormSimulateur.tsx";
 import EtapeTaillePublique from "./EtapeTaillePublique.tsx";
 
 export {
-  EtapeLocalisation,
   EtapeTypeStructure,
   EtapeTaillePublique,
   EtapeTaille,
