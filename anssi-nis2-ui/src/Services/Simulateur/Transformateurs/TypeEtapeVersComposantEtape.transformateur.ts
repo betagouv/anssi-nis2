@@ -8,7 +8,6 @@ import {
   EtapeSousSecteursActivite,
   EtapeTaille,
   EtapeTaillePublique,
-  EtapeTypeStructure,
 } from "../../../Components/Simulateur/Etapes";
 import {
   SimulateurEtapeNodeComponent,
@@ -31,7 +30,7 @@ export const cartoComposants: Record<TypeEtape, RepresentationEtape> = {
     conteneur: SimulateurEtapeForm,
   },
   typeStructure: {
-    composant: EtapeTypeStructure,
+    composant: elementVide,
     conteneur: SimulateurEtapeForm,
   },
   tailleEntitePublique: {

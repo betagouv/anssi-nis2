@@ -12,11 +12,6 @@ export const texteQuestionLocalisastionsServicesMention =
   "Fournisseur de réseaux de communications électroniques publics, ou" +
   " Fournisseur de services de communications électroniques accessibles au public.";
 
-export const texteLegendeTypeStructure =
-  "Quel type de structure qualifie votre entité ?";
-export const texteQuestionTypeEntitePublique =
-  "Précisez le type d’entité publique\xa0:";
-
 export const texteEtapeTaille =
   "Quelles sont les caractéristiques clés de votre entité\xa0?";
 export const texteQuestionNombreEmployes =
