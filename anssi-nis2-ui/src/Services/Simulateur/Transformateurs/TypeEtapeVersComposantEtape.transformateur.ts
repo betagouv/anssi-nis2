@@ -1,6 +1,5 @@
 import { TypeEtape } from "../../../../../commun/core/src/Domain/Simulateur/InformationsEtape.ts";
 import { SimulateurEtapeResult } from "../../../Components/Simulateur/SimulateurEtapeResult.tsx";
-import { EtapeTaillePublique } from "../../../Components/Simulateur/Etapes";
 import {
   SimulateurEtapeNodeComponent,
   SimulateurEtapeRenderedComponent,
@@ -26,7 +25,7 @@ export const cartoComposants: Record<TypeEtape, RepresentationEtape> = {
     conteneur: SimulateurEtapeForm,
   },
   tailleEntitePublique: {
-    composant: EtapeTaillePublique,
+    composant: elementVide,
     conteneur: SimulateurEtapeForm,
   },
   tailleEntitePrivee: {
