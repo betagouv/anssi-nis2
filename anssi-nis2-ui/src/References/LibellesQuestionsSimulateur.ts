@@ -12,13 +12,6 @@ export const texteQuestionLocalisastionsServicesMention =
   "Fournisseur de réseaux de communications électroniques publics, ou" +
   " Fournisseur de services de communications électroniques accessibles au public.";
 
-export const texteEtapeTaille =
-  "Quelles sont les caractéristiques clés de votre entité\xa0?";
-export const texteQuestionNombreEmployes =
-  "Nombre d’employés (équivalents temps pleins)";
-export const texteQuestionChiffreAffaire =
-  "Chiffre d’affaires annuel de l’année passée";
-
 export const texteEtapeTaillePublique =
   "Quelles sont les caractéristiques clés de votre organisation\xa0?";
 export const texteQuestionTaillePublique =
