@@ -5,7 +5,6 @@ import { SimulateurEtapeResult } from "../../../Components/Simulateur/Simulateur
 import {
   EtapeActivites,
   EtapeLocalisation,
-  EtapeOSE,
   EtapeSecteursActivite,
   EtapeSousSecteursActivite,
   EtapeTaille,
@@ -25,7 +24,7 @@ type RepresentationEtape = {
 };
 export const cartoComposants: Record<TypeEtape, RepresentationEtape> = {
   designationOperateurServicesEssentiels: {
-    composant: EtapeOSE,
+    composant: elementVide,
     conteneur: SimulateurEtapeForm,
   },
   appartenanceUnionEuropeenne: {
