@@ -2,10 +2,7 @@ import { TypeEtape } from "../../../../../commun/core/src/Domain/Simulateur/Info
 import EtapeLocalisationsEtablissementPrincipal from "../../../Components/Simulateur/Etapes/EtapeLocalisationsEtablissementPrincipal.tsx";
 import EtapeLocalisationsServices from "../../../Components/Simulateur/Etapes/EtapeLocalisationsServices.tsx";
 import { SimulateurEtapeResult } from "../../../Components/Simulateur/SimulateurEtapeResult.tsx";
-import {
-  EtapeActivites,
-  EtapeTaillePublique,
-} from "../../../Components/Simulateur/Etapes";
+import { EtapeTaillePublique } from "../../../Components/Simulateur/Etapes";
 import {
   SimulateurEtapeNodeComponent,
   SimulateurEtapeRenderedComponent,
@@ -46,7 +43,7 @@ export const cartoComposants: Record<TypeEtape, RepresentationEtape> = {
     composant: elementVide,
     conteneur: SimulateurEtapeForm,
   },
-  activites: { composant: EtapeActivites, conteneur: SimulateurEtapeForm },
+  activites: { composant: elementVide, conteneur: SimulateurEtapeForm },
   localisationFournitureServicesNumeriques: {
     composant: EtapeLocalisationsServices,
     conteneur: SimulateurEtapeForm,

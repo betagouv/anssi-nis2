@@ -17,21 +17,6 @@ export const texteEtapeTaillePublique =
 export const texteQuestionTaillePublique =
   "Nombre d’employés (équivalents temps pleins)";
 
-export const texteQuestionSousSecteursActivites =
-  "Précisez les sous-secteurs concernés\xa0:";
-
-export const texteQuestionActivite =
-  "Quelles sont les activités pratiquées dans les secteurs sélectionnés\xa0?";
-export const texteQuestionActivitesMention =
-  "Cliquez sur les info-bulles pour obtenir plus d’informations sur les définitions des activités.";
-
-export const texteQuestionMembreUE =
-  "Dans quel état membre de l’Union Européenne êtes-vous établi\xa0?";
-export const texteQuestionMembreUEIndication =
-  "Pour votre entreprise filiale si celle-ci fait partie d’un groupe, ou pour" +
-  " le groupe si celui-ci mène une activité économique. Ce sujet pourra être" +
-  " précisé par la Commission Européenne.";
-
 export const texteInfobulleBoutonFermer = "Masquer le message";
 export const texteInfobulleIconeInformation =
   "Informations à propos de l'activité";
