@@ -1,11 +1,8 @@
-import React from "react";
 import { ValeurChampSimulateur } from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
-
-import { SimulateurDonneesFormulaireActions } from "./Props/donneesFormulaire";
 import { GestionValeursFormulaire } from "./Props/gestionValeursFormulaire";
 
 export const gestionValeursSimples = (value: ValeurChampSimulateur) => [value];
@@ -50,15 +47,3 @@ export const gestionnairesDeChamp: Record<
 export const gestionnairesPourChamps = (
   name: NomsChampsSimulateur,
 ): GestionValeursFormulaire => gestionnairesDeChamp[name];
-
-export const fabriqueGestionChangementSimple =
-  (
-    propageActionSimulateur: React.Dispatch<SimulateurDonneesFormulaireActions>,
-  ) =>
-  (evt: React.ChangeEvent<HTMLInputElement>) => {
-    propageActionSimulateur({
-      type: "checkSingle",
-      name: evt.target.name as NomsChampsSimulateur,
-      newValue: evt.target.value as ValeurChampSimulateur,
-    });
-  };
