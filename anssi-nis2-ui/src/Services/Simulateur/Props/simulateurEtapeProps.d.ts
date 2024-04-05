@@ -10,8 +10,6 @@ export interface SimulateurEtapeProps extends DefaultProps {
   propageActionSimulateur: Dispatch<SimulateurDonneesFormulaireActions>;
 }
 
-export interface SimulateurContenuEtapeProps extends SimulateurEtapeProps {}
-
 export interface SimulateurEtapeRenderedProps extends SimulateurEtapeProps {
   informationsBoutonsNavigation: BoutonsNavigation;
   etatEtapes: EtatEtapes;
