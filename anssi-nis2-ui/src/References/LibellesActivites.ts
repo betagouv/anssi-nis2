@@ -19,6 +19,7 @@ export const libellesActivites: Record<Activite, string> = {
   autreActiviteAdministrationPublique: "Autre activité",
   autreActiviteConstructionVehiculesAutomobilesRemorquesSemi: "Autre activité",
   autreActiviteEauPotable: "Autre activité",
+  autreActiviteEauxUsees: "Autre activité",
   autreActiviteElectricite: "Autre activité",
   autreActiviteEspace: "Autre activité",
   autreActiviteFabricationDispositifsMedicaux: "Autre activité",
@@ -33,7 +34,7 @@ export const libellesActivites: Record<Activite, string> = {
   autreActiviteGestionDechets: "Autre activité",
   autreActiviteGestionServicesTic: "Autre activité",
   autreActiviteHydrogene: "Autre activité",
-  autreActiviteInfrastructureMarcheFinancie: "Autre activité",
+  autreActiviteInfrastructureMarcheFinancier: "Autre activité",
   autreActiviteInfrastructureNumerique: "Autre activité",
   autreActivitePetrole: "Autre activité",
   autreActiviteProductionTransformationDistributionDenreesAlimentaires:
@@ -244,7 +245,8 @@ export const libellesActivites: Record<Activite, string> = {
   gestionnaireInstallationStockage: "Gestionnaires d’installation de stockage",
   gestionnaireReseau: "Gestionnaire de réseau de distribution",
   gestionnaireReseauDistribution: "Gestionnaires de réseau de distribution",
-  gestionnaireReseauTransport: "Gestionnaire de réseau de transport",
+  gestionnaireReseauTransportGaz: "Gestionnaire de réseau de transport",
+  gestionnaireReseauTransportElectricite: "Gestionnaire de réseau de transport",
   laboratoireReferenceUE: "Laboratoires de référence de l’Union européenne",
   operateurDesigneMarcheOuNemo: "Opérateur désigné du marché ou NEMO",
   operateurReseauChaleurFroid:

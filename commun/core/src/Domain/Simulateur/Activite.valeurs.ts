@@ -88,7 +88,7 @@ export const ValeursActivitesEauPotable = [
 ] as const;
 export const ValeursActivitesEauUsees = [
   "collectantEvacuantTraitantEaux",
-  "autreActiviteEauUsees",
+  "autreActiviteEauxUsees",
 ] as const;
 
 export const ValeursActivitesInfrastructureNumeriqueFournisseursCommElecPublics =
