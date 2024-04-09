@@ -115,9 +115,7 @@ const valideEtape = (
           : certains(estUnSecteurAvecDesSousSecteurs)(action.secteurs)
           ? "sousSecteursActivite"
           : "activites",
-        {
-          secteurActivite: action.secteurs,
-        },
+        { secteurActivite: action.secteurs },
       );
     case "VALIDE_ETAPE_SOUS_SECTEURS_ACTIVITE":
       return vaVers(
@@ -138,16 +136,19 @@ const valideEtape = (
           : contientActiviteFournisseurNumeriquePublic(action.activites)
           ? "localisationFournitureServicesNumeriques"
           : "resultat",
-        {
-          activites: action.activites,
-        },
+        { activites: action.activites },
       );
     case "VALIDE_ETAPE_LOCALISATION_ETABLISSEMENT_PRINCIPAL":
-      return vaVers("resultat", {
-        paysDecisionsCyber: action.paysDecision,
-        paysOperationsCyber: action.paysOperation,
-        paysPlusGrandNombreSalaries: action.paysSalaries,
-      });
+      return vaVers(
+        contientActiviteFournisseurNumeriquePublic(etat.activites)
+          ? "localisationFournitureServicesNumeriques"
+          : "resultat",
+        {
+          paysDecisionsCyber: action.paysDecision,
+          paysOperationsCyber: action.paysOperation,
+          paysPlusGrandNombreSalaries: action.paysSalaries,
+        },
+      );
     case "VALIDE_ETAPE_LOCALISATION_SERVICES_NUMERIQUES":
       return vaVers("resultat", {
         localisationFournitureServicesNumeriques: action.pays,

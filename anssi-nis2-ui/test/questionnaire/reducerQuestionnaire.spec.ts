@@ -259,6 +259,26 @@ describe("Le reducer du Questionnaire", () => {
       expect(etat.paysPlusGrandNombreSalaries).toEqual(["france"]);
     });
 
+    describe("navigue vers l'étape « Localisation de la fourniture des services numériques »", () => {
+      const activitesVersLocalisationServiceNumerique: Activite[] = [
+        "fournisseurReseauxCommunicationElectroniquesPublics",
+        "fournisseurServiceCommunicationElectroniquesPublics",
+      ];
+      it.each(activitesVersLocalisationServiceNumerique)(
+        `... si l'activité « %s » est présente`,
+        (activite) => {
+          const etat = executer([
+            valideActivites([activite]),
+            valideLocalisationEtablissementPrincipal(["france"], [], []),
+          ]);
+
+          expect(etat.etapeCourante).toBe(
+            "localisationFournitureServicesNumeriques",
+          );
+        },
+      );
+    });
+
     it("navigue vers l'étape « Résultat »", () => {
       const etat = executer([
         valideLocalisationEtablissementPrincipal(["france"], [], []),
