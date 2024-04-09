@@ -143,16 +143,11 @@ const valideEtape = (
         },
       );
     case "VALIDE_ETAPE_LOCALISATION_ETABLISSEMENT_PRINCIPAL":
-      return vaVers(
-        contientActiviteFournisseurNumeriquePublic(etat.activites)
-          ? "localisationFournitureServicesNumeriques"
-          : "resultat",
-        {
-          paysDecisionsCyber: action.paysDecision,
-          paysOperationsCyber: action.paysOperation,
-          paysPlusGrandNombreSalaries: action.paysSalaries,
-        },
-      );
+      return vaVers("resultat", {
+        paysDecisionsCyber: action.paysDecision,
+        paysOperationsCyber: action.paysOperation,
+        paysPlusGrandNombreSalaries: action.paysSalaries,
+      });
     case "VALIDE_ETAPE_LOCALISATION_SERVICES_NUMERIQUES":
       return vaVers(
         contientUnSecteurTicOuFournisseurNumerique(etat.secteurActivite) ||

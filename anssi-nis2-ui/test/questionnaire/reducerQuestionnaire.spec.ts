@@ -19,7 +19,6 @@ import {
 } from "../../src/questionnaire/actions";
 import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions";
 import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions";
-import { AppartenancePaysUnionEuropeenne } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions";
 
 describe("Le reducer du Questionnaire", () => {
   it("indique l'étape « préalable » comme étape de départ", () => {
@@ -243,37 +242,9 @@ describe("Le reducer du Questionnaire", () => {
       expect(etat.paysPlusGrandNombreSalaries).toEqual(["france"]);
     });
 
-    const activitesVersLocalisationServicesNumeriques: Activite[] = [
-      "fournisseurReseauxCommunicationElectroniquesPublics",
-      "fournisseurServiceCommunicationElectroniquesPublics",
-    ];
-    activitesVersLocalisationServicesNumeriques.forEach((activite) =>
-      it(`navigue vers l'étape « Localisation des services numériques » lorsque l'activité « ${activite} » est présente`, () => {
-        const versEtablissementPrincipal = valideSecteursActivite([
-          "gestionServicesTic",
-        ]);
-        const peuImporte: AppartenancePaysUnionEuropeenne[] = ["france"];
-        const etat = executer([
-          versEtablissementPrincipal,
-          valideActivites([activite]),
-          valideLocalisationEtablissementPrincipal(peuImporte, [], []),
-        ]);
-
-        expect(etat.etapeCourante).toBe(
-          "localisationFournitureServicesNumeriques",
-        );
-      }),
-    );
-
-    it("navigue vers l'étape « Résultat » le cas échéant", () => {
-      const versEtablissementPrincipal = valideSecteursActivite([
-        "gestionServicesTic",
-      ]);
-      const peuImporte: AppartenancePaysUnionEuropeenne[] = ["france"];
+    it("navigue vers l'étape « Résultat »", () => {
       const etat = executer([
-        versEtablissementPrincipal,
-        valideActivites(["fournisseurServicesDNS"]),
-        valideLocalisationEtablissementPrincipal(peuImporte, [], []),
+        valideLocalisationEtablissementPrincipal(["france"], [], []),
       ]);
 
       expect(etat.etapeCourante).toBe("resultat");
