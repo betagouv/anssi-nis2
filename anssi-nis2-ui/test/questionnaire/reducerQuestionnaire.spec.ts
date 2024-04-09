@@ -167,6 +167,7 @@ describe("Le reducer du Questionnaire", () => {
       const etat = executer([valideActivites(["etablissementCredit"])]);
       expect(etat.activites).toEqual(["etablissementCredit"]);
     });
+
     describe("navigue vers l'étape « Localisation de l'établissement principal » ...", () => {
       const secteurVersLocalisationEtablissement: SecteurActivite[] = [
         "gestionServicesTic",
@@ -218,6 +219,22 @@ describe("Le reducer du Questionnaire", () => {
           );
         },
       );
+    });
+
+    it("navigue en priorité vers l'étape « Location de l'établissement principal » si les 2 étapes de localisation sont possibles", () => {
+      const versLocalisationServiceNumerique =
+        "fournisseurReseauxCommunicationElectroniquesPublics";
+      const versLocalisationEtablissementPrincipal =
+        "registresNomsDomainesPremierNiveau";
+
+      const etat = executer([
+        valideActivites([
+          versLocalisationServiceNumerique,
+          versLocalisationEtablissementPrincipal,
+        ]),
+      ]);
+
+      expect(etat.etapeCourante).toBe("localisationEtablissementPrincipal");
     });
 
     it("navigue vers l'étape « Résultat » si l'activité saisie n'est pas dans les cas précédents", () => {

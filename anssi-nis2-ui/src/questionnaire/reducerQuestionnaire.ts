@@ -132,11 +132,11 @@ const valideEtape = (
       );
     case "VALIDE_ETAPE_ACTIVITES":
       return vaVers(
-        contientActiviteFournisseurNumeriquePublic(action.activites)
-          ? "localisationFournitureServicesNumeriques"
-          : contientUnSecteurTicOuFournisseurNumerique(etat.secteurActivite) ||
-            contientActiviteFournisseurServicesNumeriques(action.activites)
+        contientUnSecteurTicOuFournisseurNumerique(etat.secteurActivite) ||
+          contientActiviteFournisseurServicesNumeriques(action.activites)
           ? "localisationEtablissementPrincipal"
+          : contientActiviteFournisseurNumeriquePublic(action.activites)
+          ? "localisationFournitureServicesNumeriques"
           : "resultat",
         {
           activites: action.activites,
