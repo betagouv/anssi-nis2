@@ -149,15 +149,9 @@ const valideEtape = (
         paysPlusGrandNombreSalaries: action.paysSalaries,
       });
     case "VALIDE_ETAPE_LOCALISATION_SERVICES_NUMERIQUES":
-      return vaVers(
-        contientUnSecteurTicOuFournisseurNumerique(etat.secteurActivite) ||
-          contientActiviteFournisseurServicesNumeriques(etat.activites)
-          ? "localisationEtablissementPrincipal"
-          : "resultat",
-        {
-          localisationFournitureServicesNumeriques: action.pays,
-        },
-      );
+      return vaVers("resultat", {
+        localisationFournitureServicesNumeriques: action.pays,
+      });
     default:
       return {};
   }
