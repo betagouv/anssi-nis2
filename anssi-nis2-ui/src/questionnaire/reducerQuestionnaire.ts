@@ -132,37 +132,26 @@ const valideEtape = (
       );
     case "VALIDE_ETAPE_ACTIVITES":
       return vaVers(
-        contientActiviteFournisseurNumeriquePublic(action.activites)
-          ? "localisationFournitureServicesNumeriques"
-          : contientUnSecteurTicOuFournisseurNumerique(etat.secteurActivite) ||
-            contientActiviteFournisseurServicesNumeriques(action.activites)
+        contientUnSecteurTicOuFournisseurNumerique(etat.secteurActivite) ||
+          contientActiviteFournisseurServicesNumeriques(action.activites)
           ? "localisationEtablissementPrincipal"
+          : contientActiviteFournisseurNumeriquePublic(action.activites)
+          ? "localisationFournitureServicesNumeriques"
           : "resultat",
         {
           activites: action.activites,
         },
       );
     case "VALIDE_ETAPE_LOCALISATION_ETABLISSEMENT_PRINCIPAL":
-      return vaVers(
-        contientActiviteFournisseurNumeriquePublic(etat.activites)
-          ? "localisationFournitureServicesNumeriques"
-          : "resultat",
-        {
-          paysDecisionsCyber: action.paysDecision,
-          paysOperationsCyber: action.paysOperation,
-          paysPlusGrandNombreSalaries: action.paysSalaries,
-        },
-      );
+      return vaVers("resultat", {
+        paysDecisionsCyber: action.paysDecision,
+        paysOperationsCyber: action.paysOperation,
+        paysPlusGrandNombreSalaries: action.paysSalaries,
+      });
     case "VALIDE_ETAPE_LOCALISATION_SERVICES_NUMERIQUES":
-      return vaVers(
-        contientUnSecteurTicOuFournisseurNumerique(etat.secteurActivite) ||
-          contientActiviteFournisseurServicesNumeriques(etat.activites)
-          ? "localisationEtablissementPrincipal"
-          : "resultat",
-        {
-          localisationFournitureServicesNumeriques: action.pays,
-        },
-      );
+      return vaVers("resultat", {
+        localisationFournitureServicesNumeriques: action.pays,
+      });
     default:
       return {};
   }

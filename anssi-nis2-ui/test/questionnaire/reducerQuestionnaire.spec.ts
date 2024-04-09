@@ -19,7 +19,6 @@ import {
 } from "../../src/questionnaire/actions";
 import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions";
 import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions";
-import { AppartenancePaysUnionEuropeenne } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions";
 
 describe("Le reducer du Questionnaire", () => {
   it("indique l'étape « préalable » comme étape de départ", () => {
@@ -168,6 +167,7 @@ describe("Le reducer du Questionnaire", () => {
       const etat = executer([valideActivites(["etablissementCredit"])]);
       expect(etat.activites).toEqual(["etablissementCredit"]);
     });
+
     describe("navigue vers l'étape « Localisation de l'établissement principal » ...", () => {
       const secteurVersLocalisationEtablissement: SecteurActivite[] = [
         "gestionServicesTic",
@@ -221,6 +221,22 @@ describe("Le reducer du Questionnaire", () => {
       );
     });
 
+    it("navigue en priorité vers l'étape « Location de l'établissement principal » si les 2 étapes de localisation sont possibles", () => {
+      const versLocalisationServiceNumerique =
+        "fournisseurReseauxCommunicationElectroniquesPublics";
+      const versLocalisationEtablissementPrincipal =
+        "registresNomsDomainesPremierNiveau";
+
+      const etat = executer([
+        valideActivites([
+          versLocalisationServiceNumerique,
+          versLocalisationEtablissementPrincipal,
+        ]),
+      ]);
+
+      expect(etat.etapeCourante).toBe("localisationEtablissementPrincipal");
+    });
+
     it("navigue vers l'étape « Résultat » si l'activité saisie n'est pas dans les cas précédents", () => {
       const etat = executer([valideActivites(["acteurDuMarche"])]);
 
@@ -243,37 +259,9 @@ describe("Le reducer du Questionnaire", () => {
       expect(etat.paysPlusGrandNombreSalaries).toEqual(["france"]);
     });
 
-    const activitesVersLocalisationServicesNumeriques: Activite[] = [
-      "fournisseurReseauxCommunicationElectroniquesPublics",
-      "fournisseurServiceCommunicationElectroniquesPublics",
-    ];
-    activitesVersLocalisationServicesNumeriques.forEach((activite) =>
-      it(`navigue vers l'étape « Localisation des services numériques » lorsque l'activité « ${activite} » est présente`, () => {
-        const versEtablissementPrincipal = valideSecteursActivite([
-          "gestionServicesTic",
-        ]);
-        const peuImporte: AppartenancePaysUnionEuropeenne[] = ["france"];
-        const etat = executer([
-          versEtablissementPrincipal,
-          valideActivites([activite]),
-          valideLocalisationEtablissementPrincipal(peuImporte, [], []),
-        ]);
-
-        expect(etat.etapeCourante).toBe(
-          "localisationFournitureServicesNumeriques",
-        );
-      }),
-    );
-
-    it("navigue vers l'étape « Résultat » le cas échéant", () => {
-      const versEtablissementPrincipal = valideSecteursActivite([
-        "gestionServicesTic",
-      ]);
-      const peuImporte: AppartenancePaysUnionEuropeenne[] = ["france"];
+    it("navigue vers l'étape « Résultat »", () => {
       const etat = executer([
-        versEtablissementPrincipal,
-        valideActivites(["fournisseurServicesDNS"]),
-        valideLocalisationEtablissementPrincipal(peuImporte, [], []),
+        valideLocalisationEtablissementPrincipal(["france"], [], []),
       ]);
 
       expect(etat.etapeCourante).toBe("resultat");
@@ -287,45 +275,7 @@ describe("Le reducer du Questionnaire", () => {
       expect(etat.localisationFournitureServicesNumeriques).toEqual(["france"]);
     });
 
-    const secteursVersEtablissementPrincipal: SecteurActivite[] = [
-      "gestionServicesTic",
-      "fournisseursNumeriques",
-    ];
-    secteursVersEtablissementPrincipal.forEach((secteur) =>
-      it(`navigue vers l'étape « Localisation de l'établissement principal » si le secteur « ${secteur} » est présent`, () => {
-        const peuImporte = "france";
-        const etat = executer([
-          valideSecteursActivite([secteur]),
-          valideLocalisationServicesNumeriques([peuImporte]),
-        ]);
-
-        expect(etat.etapeCourante).toEqual(
-          "localisationEtablissementPrincipal",
-        );
-      }),
-    );
-
-    const activitesVersEtablissementPrincipal: Activite[] = [
-      "registresNomsDomainesPremierNiveau",
-      "fournisseurServicesDNS",
-      "fournisseurServicesInformatiqueNuage",
-      "fournisseurServiceCentresDonnees",
-      "fournisseurReseauxDiffusionContenu",
-    ];
-    activitesVersEtablissementPrincipal.forEach((activite) =>
-      it(`navigue vers l'étape « Localisation de l'établissement principal » si l'activité « ${activite} » est présente`, () => {
-        const peuImporte = "france";
-
-        const etat = executer([
-          valideActivites([activite]),
-          valideLocalisationServicesNumeriques([peuImporte]),
-        ]);
-
-        expect(etat.etapeCourante).toBe("localisationEtablissementPrincipal");
-      }),
-    );
-
-    it("navigue vers l'étape « Résultat » le cas échéant", () => {
+    it("navigue vers l'étape « Résultat »", () => {
       const etat = executer([valideLocalisationServicesNumeriques(["france"])]);
 
       expect(etat.etapeCourante).toBe("resultat");
