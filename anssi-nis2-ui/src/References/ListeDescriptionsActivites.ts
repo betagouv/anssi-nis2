@@ -10,6 +10,7 @@ export const listeDescriptionsActivites: Record<
   autreActiviteAdministrationPublique: [],
   autreActiviteConstructionVehiculesAutomobilesRemorquesSemi: [],
   autreActiviteEauPotable: [],
+  autreActiviteEauxUsees: [],
   autreActiviteElectricite: [],
   autreActiviteEspace: [],
   autreActiviteFabricationDispositifsMedicaux: [],
@@ -22,7 +23,7 @@ export const listeDescriptionsActivites: Record<
   autreActiviteGestionDechets: [],
   autreActiviteGestionServicesTic: [],
   autreActiviteHydrogene: [],
-  autreActiviteInfrastructureMarcheFinancie: [],
+  autreActiviteInfrastructureMarcheFinancier: [],
   autreActiviteInfrastructureNumerique: [],
   autreActivitePetrole: [],
   autreActiviteProductionTransformationDistributionDenreesAlimentaires: [],
@@ -541,7 +542,7 @@ export const listeDescriptionsActivites: Record<
         "avec d'autres réseaux, et chargée de garantir la capacité à long terme du réseau à satisfaire une demande raisonnable de distribution d’électricité.",
     },
   ],
-  gestionnaireReseauTransport: [
+  gestionnaireReseauTransportElectricite: [
     {
       titre: "Gestionnaire de réseau de transport",
       description:
@@ -550,6 +551,7 @@ export const listeDescriptionsActivites: Record<
         "avec d'autres réseaux, et chargée de garantir la capacité à long terme du réseau à satisfaire une demande raisonnable de transport d’électricité.",
     },
   ],
+  gestionnaireReseauTransportGaz: [],
   laboratoireReferenceUE: [],
   operateurDesigneMarcheOuNemo: [
     {

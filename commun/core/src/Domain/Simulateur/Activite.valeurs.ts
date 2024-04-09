@@ -3,7 +3,7 @@ export const ValeursActivitesElectricite = [
   "entrepriseElectriciteRemplissantFonctionFourniture",
   "exploitantsPointRecharge",
   "gestionnaireReseau",
-  "gestionnaireReseauTransport",
+  "gestionnaireReseauTransportElectricite",
   "operateurDesigneMarcheOuNemo",
   "producteur",
   "autreActiviteElectricite",
@@ -21,7 +21,7 @@ export const ValeursActivitesPetrole = [
 export const ValeursActivitesGaz = [
   "entrepriseFourniture",
   "gestionnaireReseauDistribution",
-  "gestionnaireReseauTransport",
+  "gestionnaireReseauTransportGaz",
   "gestionnaireInstallationStockage",
   "gestionnaireInstallationGNL",
   "autreActiviteGaz",
@@ -72,7 +72,7 @@ export const ValeursActivitesSecteurBancaire = [
 export const ValeursActivitesInfrastructureMarcheFinancier = [
   "exploitantsPlateformesNegociation",
   "contrepartieCentrales",
-  "autreActiviteInfrastructureMarcheFinancie",
+  "autreActiviteInfrastructureMarcheFinancier",
 ] as const;
 export const ValeursActivitesSante = [
   "prestataireSoinsSante",
@@ -88,7 +88,7 @@ export const ValeursActivitesEauPotable = [
 ] as const;
 export const ValeursActivitesEauUsees = [
   "collectantEvacuantTraitantEaux",
-  "autreActiviteEauPotable",
+  "autreActiviteEauxUsees",
 ] as const;
 
 export const ValeursActivitesInfrastructureNumeriqueFournisseursCommElecPublics =
