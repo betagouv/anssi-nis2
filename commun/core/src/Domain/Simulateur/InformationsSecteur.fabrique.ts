@@ -1,24 +1,24 @@
 import { match } from "ts-pattern";
 import {
+  contientUnParmi,
+  est,
+} from "../../../../utils/services/commun.predicats";
+import {
   ens,
   ensembleNeutreDe,
   union,
 } from "../../../../utils/services/sets.operations";
 import {
-  contientUnParmi,
-  est,
-} from "../../../../utils/services/commun.predicats";
-import {
   ActivitesInfrastructureNumerique,
   ActivitesPourSecteur,
 } from "./Activite.definitions";
-import { DonneesFormulaireSimulateur } from "./services/DonneesFormulaire/DonneesFormulaire.definitions";
+import { activiteEstDansSecteur } from "./Activite.predicats";
 import {
   SecteurActivite,
   SecteurComposite,
   SecteurSimple,
 } from "./SecteurActivite.definitions";
-import { activiteEstDansSecteur } from "./Activite.predicats";
+import { DonneesFormulaireSimulateur } from "./services/DonneesFormulaire/DonneesFormulaire.definitions";
 import {
   InformationsSecteurComposite,
   InformationsSecteurCompositeAutre,
@@ -30,10 +30,6 @@ import {
   RepInfoSecteurInfranum,
   RepInfoSecteurLocalEtab,
   ReponseInformationsSecteur,
-  ReponseInformationsSecteurInfranumActiviteLocalEtabLot1,
-  ReponseInformationsSecteurInfranumActiviteLocalEtabLot2,
-  ReponseInformationsSecteurInfranumActiviteLocalServices,
-  ReponseInformationsSecteurInfranumAutresActivitesListees,
 } from "./services/Eligibilite/ReponseInformationsSecteur.definitions";
 import { CategorieTaille } from "./services/Eligibilite/ReponseStructure.definitions";
 import { fabriqueCategorieTaille } from "./services/Eligibilite/ReponseStructure.fabriques";
@@ -177,9 +173,7 @@ export const FabriqueInformationsSecteur = {
               localisationFournitureServicesNumeriques: ens(
                 ...donnees.localisationFournitureServicesNumeriques,
               ),
-            }) as Set<
-              ReponseInformationsSecteurInfranumActiviteLocalServices<Taille>
-            >,
+            }),
         )
         .when(
           contientUnParmi<ActivitesInfrastructureNumerique>(
@@ -189,9 +183,7 @@ export const FabriqueInformationsSecteur = {
           () =>
             FabriqueInformationsSecteur.secteurAvecLocalisationEtablissementPrincipal(
               taille,
-            )(donnees, "infrastructureNumerique", activitesInfraNum) as Set<
-              ReponseInformationsSecteurInfranumActiviteLocalEtabLot2<Taille>
-            >,
+            )(donnees, "infrastructureNumerique", activitesInfraNum),
         )
         .when(
           contientUnParmi<ActivitesInfrastructureNumerique>(
@@ -202,20 +194,15 @@ export const FabriqueInformationsSecteur = {
           () =>
             FabriqueInformationsSecteur.secteurAvecLocalisationEtablissementPrincipal(
               taille,
-            )(donnees, "infrastructureNumerique", activitesInfraNum) as Set<
-              ReponseInformationsSecteurInfranumActiviteLocalEtabLot1<Taille>
-            >,
+            )(donnees, "infrastructureNumerique", activitesInfraNum),
         )
-        .otherwise(
-          () =>
-            ens({
-              ...fabriqueCategorieTaille(taille),
-              secteurActivite: "infrastructureNumerique",
-              activites: ens(...activitesInfraNum),
-            }) as Set<
-              ReponseInformationsSecteurInfranumAutresActivitesListees<Taille>
-            >,
-        ),
+        .otherwise(() =>
+          ens({
+            ...fabriqueCategorieTaille(taille),
+            secteurActivite: "infrastructureNumerique",
+            activites: ens(...activitesInfraNum),
+          }),
+        ) as Set<RepInfoSecteurInfranum<Taille>>,
 
   secteurDepuisDonneesSimulateur:
     <Taille extends CategorieTaille>(taille: `${Taille}`) =>

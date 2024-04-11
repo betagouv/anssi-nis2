@@ -84,24 +84,6 @@ export type InfoSecteursMoinsActivites<
   activites: Set<Exclude<ActivitesPourSecteur[S], A>>;
 };
 
-export type InformationsSecteurAvecActiviteInfranumLocalServices =
-  InfoSecteurExtraitActivites<
-    "infrastructureNumerique",
-    ActiviteInfranumLocalServices
-  >;
-
-export type InformationsSecteurAvecActiviteInfranumLocalEtabLot1 =
-  InfoSecteurExtraitActivites<
-    "infrastructureNumerique",
-    ActiviteInfranumLocalEtabLot1
-  >;
-
-export type InformationsSecteurAvecActiviteInfranumLocalEtabLot2 =
-  InfoSecteurExtraitActivites<
-    "infrastructureNumerique",
-    ActiviteInfranumLocalEtabLot2
-  >;
-
 export type InformationsSecteurInfranumAutresActivitesListees_P =
   InfoSecteursMoinsActivites<
     "infrastructureNumerique",

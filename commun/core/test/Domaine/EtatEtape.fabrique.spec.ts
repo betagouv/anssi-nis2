@@ -3,9 +3,9 @@ import { ens } from "../../../utils/services/sets.operations";
 import { DonneesFormulaireSimulateur } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { fabriqueDonneesFormulaire } from "../../src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique";
 import { LocalisationEtablissementPrincipal } from "../../src/Domain/Simulateur/services/Eligibilite/LocalisationsActivites.definitions";
-import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.fabriques";
 
 import { UnionReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.definitions";
+import { ConvertisseurDonneesBrutesVersEtatDonneesSimulateur } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.fabriques";
 
 describe("fabrique ReponseEtat", () => {
   describe("depuisDonneesFormulaireSimulateur", () => {
@@ -706,6 +706,67 @@ describe("fabrique ReponseEtat", () => {
               secteurActivite: "gestionServicesTic",
               activites: ens("fournisseurServicesGeres"),
               paysDecisionsCyber: "france",
+            }),
+          },
+        };
+        const resultatObtenu =
+          ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
+            donnees,
+          );
+        expect(resultatObtenu).toStrictEqual(etatDonneeesSimuAttendu);
+      });
+    });
+
+    describe("Combinaison de « Établissement Principal » et « Localisations Services »", () => {
+      it("convertit correctement des données de localisation combinées", () => {
+        const franceEtFrance = {
+          localisationFournitureServicesNumeriques: ["france"],
+          paysDecisionsCyber: ["france"],
+        };
+
+        const donnees = {
+          designationOperateurServicesEssentiels: ["non"],
+          appartenancePaysUnionEuropeenne: ["france"],
+          secteurActivite: ["infrastructureNumerique"],
+          trancheChiffreAffaire: ["petit"],
+          trancheNombreEmployes: ["petit"],
+          typeStructure: ["privee"],
+          activites: [
+            "fournisseurReseauxCommunicationElectroniquesPublics",
+            "fournisseurServicesDNS",
+          ],
+          ...franceEtFrance,
+          paysOperationsCyber: [],
+          typeEntitePublique: [],
+          sousSecteurActivite: [],
+          paysPlusGrandNombreSalaries: [],
+        } as DonneesFormulaireSimulateur;
+
+        const etatDonneeesSimuAttendu: UnionReponseEtat = {
+          _tag: "InformationsSecteur",
+          DesignationOperateurServicesEssentiels: {
+            designationOperateurServicesEssentiels: "non",
+          },
+          AppartenancePaysUnionEuropeenne: {
+            appartenancePaysUnionEuropeenne: "france",
+          },
+          Structure: {
+            typeStructure: "privee",
+            _categorieTaille: "Petit",
+            trancheChiffreAffaire: "petit",
+            trancheNombreEmployes: "petit",
+          },
+          InformationsSecteur: {
+            _categorieTaille: "Petit",
+            secteurs: ens({
+              _categorieTaille: "Petit",
+              secteurActivite: "infrastructureNumerique",
+              activites: ens(
+                "fournisseurReseauxCommunicationElectroniquesPublics",
+                "fournisseurServicesDNS",
+              ),
+              paysDecisionsCyber: "france",
+              localisationFournitureServicesNumeriques: ens("france"),
             }),
           },
         };

@@ -8,12 +8,16 @@ import {
 } from "../../../../../../utils/services/commun.predicats";
 import { prop } from "../../../../../../utils/services/objects.operations";
 import { certains } from "../../../../../../utils/services/sets.operations";
-import { Activite } from "../../Activite.definitions";
+import {
+  Activite,
+  ActiviteInfranumLocalEtabLot1,
+  ActiviteInfranumLocalServices,
+} from "../../Activite.definitions";
+import { estActiviteAutre, estActiviteListee } from "../../Activite.predicats";
 import { AppartenancePaysUnionEuropeenne } from "../../ChampsSimulateur.definitions";
 import { SecteurActivite } from "../../SecteurActivite.definitions";
 import { ValeursSecteursActivitesAnnexe1 } from "../../SecteurActivite.valeurs";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
-import { estActiviteAutre, estActiviteListee } from "../../Activite.predicats";
 import {
   estSecteur,
   estSecteurAutre,
@@ -23,7 +27,14 @@ import {
   estSecteurListe,
 } from "../SecteurActivite/SecteurActivite.predicats";
 import { estSousSecteurAutre } from "../SousSecteurActivite/SousSecteurActivite.predicats";
-import { InformationsSecteursComposite } from "./InformationsSecteur.definitions";
+import {
+  InformationsSecteursComposite,
+  InfoSecteurExtraitActivites,
+} from "./InformationsSecteur.definitions";
+import {
+  LocalisationEtablissementPrincipal,
+  LocalisationsServices,
+} from "./LocalisationsActivites.definitions";
 import {
   InformationsSecteurPossible,
   PredicatInformationSecteurPossible,
@@ -31,10 +42,11 @@ import {
   RepInfoSecteurInfranum,
   RepInfoSecteurListes,
   RepInfoSecteurLocalEtab,
-  ReponseInformationsSecteurInfranumActiviteLocalEtabLot1,
-  ReponseInformationsSecteurInfranumActiviteLocalServices,
 } from "./ReponseInformationsSecteur.definitions";
-import { CategorieTaille } from "./ReponseStructure.definitions";
+import {
+  CategorieTaille,
+  CategoriseTaille,
+} from "./ReponseStructure.definitions";
 
 export const eqInformationsSecteur = (
   a: InformationsSecteurPossible<CategorieTaille>,
@@ -45,14 +57,24 @@ export const contientLocalisationFournitureServicesNumeriques =
   (localisation: AppartenancePaysUnionEuropeenne) =>
   <Taille extends CategorieTaille>(
     reponse: RepInfoSecteur<Taille>,
-  ): reponse is ReponseInformationsSecteurInfranumActiviteLocalServices<Taille> =>
+  ): reponse is CategoriseTaille<Taille> &
+    InfoSecteurExtraitActivites<
+      "infrastructureNumerique",
+      ActiviteInfranumLocalServices
+    > &
+    LocalisationsServices =>
     "localisationFournitureServicesNumeriques" in reponse &&
     reponse.localisationFournitureServicesNumeriques.has(localisation);
 export const estEtablissementPrincipalLocalise =
   (localisation: AppartenancePaysUnionEuropeenne) =>
   <Taille extends CategorieTaille>(
     reponse: RepInfoSecteur<Taille>,
-  ): reponse is ReponseInformationsSecteurInfranumActiviteLocalEtabLot1<Taille> =>
+  ): reponse is CategoriseTaille<Taille> &
+    InfoSecteurExtraitActivites<
+      "infrastructureNumerique",
+      ActiviteInfranumLocalEtabLot1
+    > &
+    LocalisationEtablissementPrincipal =>
     ("paysDecisionsCyber" in reponse &&
       reponse.paysDecisionsCyber === localisation) ||
     ("paysOperationsCyber" in reponse &&
@@ -61,7 +83,12 @@ export const estEtablissementPrincipalLocalise =
       reponse.paysPlusGrandNombreSalaries === localisation);
 export const estEtablissementPrincipalFrance = <Taille extends CategorieTaille>(
   reponse: RepInfoSecteur<Taille>,
-): reponse is ReponseInformationsSecteurInfranumActiviteLocalEtabLot1<Taille> =>
+): reponse is CategoriseTaille<Taille> &
+  InfoSecteurExtraitActivites<
+    "infrastructureNumerique",
+    ActiviteInfranumLocalEtabLot1
+  > &
+  LocalisationEtablissementPrincipal =>
   ("paysDecisionsCyber" in reponse &&
     reponse.paysDecisionsCyber === "france") ||
   ("paysOperationsCyber" in reponse &&
