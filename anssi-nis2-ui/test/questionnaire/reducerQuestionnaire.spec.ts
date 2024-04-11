@@ -5,7 +5,6 @@ import {
   reducerQuestionnaire,
 } from "../../src/questionnaire/reducerQuestionnaire";
 import {
-  ActionQuestionnaire,
   valideActivites,
   valideEtapeAppartenanceUE,
   valideEtapeDesignation,
@@ -19,6 +18,7 @@ import {
 } from "../../src/questionnaire/actions";
 import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions";
 import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions";
+import { executer } from "./reducerQuestionnaire.aide";
 
 describe("Le reducer du Questionnaire", () => {
   it("indique l'étape « préalable » comme étape de départ", () => {
@@ -302,11 +302,3 @@ describe("Le reducer du Questionnaire", () => {
     });
   });
 });
-
-function executer(actions: ActionQuestionnaire[]): EtatQuestionnaire {
-  return actions.reduce(
-    (etat: EtatQuestionnaire, action: ActionQuestionnaire) =>
-      reducerQuestionnaire(etat, action),
-    etatParDefaut,
-  );
-}

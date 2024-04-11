@@ -2,6 +2,7 @@ import { match } from "ts-pattern";
 import {
   contientUnParmi,
   est,
+  et,
 } from "../../../../utils/services/commun.predicats";
 import {
   ens,
@@ -123,35 +124,23 @@ export const FabriqueInformationsSecteur = {
           ensembleNeutreDe<InformationsSecteurComposite>(),
         ),
 
-  secteurAvecLocalisationEtablissementPrincipal:
-    <Taille extends CategorieTaille>(taille: `${Taille}`) =>
-    <
-      Secteur extends
-        | "infrastructureNumerique"
-        | "gestionServicesTic"
-        | "fournisseursNumeriques",
-    >(
-      donnees: DonneesFormulaireSimulateur,
-      secteur: Secteur,
-      activitesInfraNum: ActivitesPourSecteur[Secteur][],
-    ) =>
-      ens({
-        ...fabriqueCategorieTaille(taille),
-        secteurActivite: secteur,
-        activites: ens(...activitesInfraNum),
-        paysDecisionsCyber: donnees.paysDecisionsCyber[0],
-        ...(donnees.paysDecisionsCyber[0] === "horsue"
-          ? {
-              paysOperationsCyber: donnees.paysOperationsCyber[0],
-              ...(donnees.paysOperationsCyber[0] === "horsue"
-                ? {
-                    paysPlusGrandNombreSalaries:
-                      donnees.paysPlusGrandNombreSalaries[0],
-                  }
-                : {}),
-            }
-          : {}),
-      }),
+  transformeDonneesLocalisationEtablissementPrincipal: (
+    donnees: DonneesFormulaireSimulateur,
+  ) => ({
+    paysDecisionsCyber: donnees.paysDecisionsCyber[0],
+    ...(donnees.paysDecisionsCyber[0] === "horsue"
+      ? {
+          paysOperationsCyber: donnees.paysOperationsCyber[0],
+          ...(donnees.paysOperationsCyber[0] === "horsue"
+            ? {
+                paysPlusGrandNombreSalaries:
+                  donnees.paysPlusGrandNombreSalaries[0],
+              }
+            : {}),
+        }
+      : {}),
+  }),
+
   secteurInfrastructureNumerique:
     <Taille extends CategorieTaille>(taille: `${Taille}`) =>
     (
@@ -160,6 +149,33 @@ export const FabriqueInformationsSecteur = {
     ) =>
     (): Set<RepInfoSecteurInfranum<Taille>> =>
       match(activitesInfraNum)
+        .when(
+          et(
+            contientUnParmi<ActivitesInfrastructureNumerique>(
+              "registresNomsDomainesPremierNiveau",
+              "fournisseurServicesDNS",
+              "fournisseurServicesInformatiqueNuage",
+              "fournisseurServiceCentresDonnees",
+              "fournisseurReseauxDiffusionContenu",
+            ),
+            contientUnParmi<ActivitesInfrastructureNumerique>(
+              "fournisseurReseauxCommunicationElectroniquesPublics",
+              "fournisseurServiceCommunicationElectroniquesPublics",
+            ),
+          ),
+          () =>
+            ens({
+              ...fabriqueCategorieTaille(taille),
+              secteurActivite: "infrastructureNumerique",
+              activites: ens(...activitesInfraNum),
+              localisationFournitureServicesNumeriques: ens(
+                ...donnees.localisationFournitureServicesNumeriques,
+              ),
+              ...FabriqueInformationsSecteur.transformeDonneesLocalisationEtablissementPrincipal(
+                donnees,
+              ),
+            }),
+        )
         .when(
           contientUnParmi<ActivitesInfrastructureNumerique>(
             "fournisseurReseauxCommunicationElectroniquesPublics",
@@ -179,22 +195,29 @@ export const FabriqueInformationsSecteur = {
           contientUnParmi<ActivitesInfrastructureNumerique>(
             "registresNomsDomainesPremierNiveau",
             "fournisseurServicesDNS",
-          ),
-          () =>
-            FabriqueInformationsSecteur.secteurAvecLocalisationEtablissementPrincipal(
-              taille,
-            )(donnees, "infrastructureNumerique", activitesInfraNum),
-        )
-        .when(
-          contientUnParmi<ActivitesInfrastructureNumerique>(
             "fournisseurServicesInformatiqueNuage",
             "fournisseurServiceCentresDonnees",
             "fournisseurReseauxDiffusionContenu",
           ),
           () =>
-            FabriqueInformationsSecteur.secteurAvecLocalisationEtablissementPrincipal(
-              taille,
-            )(donnees, "infrastructureNumerique", activitesInfraNum),
+            (<
+              Secteur extends
+                | "infrastructureNumerique"
+                | "gestionServicesTic"
+                | "fournisseursNumeriques",
+            >(
+              donnees: DonneesFormulaireSimulateur,
+              secteur: Secteur,
+              activitesInfraNum: ActivitesPourSecteur[Secteur][],
+            ) =>
+              ens({
+                ...fabriqueCategorieTaille(taille),
+                secteurActivite: secteur,
+                activites: ens(...activitesInfraNum),
+                ...FabriqueInformationsSecteur.transformeDonneesLocalisationEtablissementPrincipal(
+                  donnees,
+                ),
+              }))(donnees, "infrastructureNumerique", activitesInfraNum),
         )
         .otherwise(() =>
           ens({
@@ -224,9 +247,24 @@ export const FabriqueInformationsSecteur = {
         .when(
           est("gestionServicesTic" as SecteurActivite),
           () =>
-            FabriqueInformationsSecteur.secteurAvecLocalisationEtablissementPrincipal(
-              taille,
-            )(
+            (<
+              Secteur extends
+                | "infrastructureNumerique"
+                | "gestionServicesTic"
+                | "fournisseursNumeriques",
+            >(
+              donnees: DonneesFormulaireSimulateur,
+              secteur: Secteur,
+              activitesInfraNum: ActivitesPourSecteur[Secteur][],
+            ) =>
+              ens({
+                ...fabriqueCategorieTaille(taille),
+                secteurActivite: secteur,
+                activites: ens(...activitesInfraNum),
+                ...FabriqueInformationsSecteur.transformeDonneesLocalisationEtablissementPrincipal(
+                  donnees,
+                ),
+              }))(
               donnees,
               "gestionServicesTic",
               donnees.activites.filter(
@@ -237,9 +275,24 @@ export const FabriqueInformationsSecteur = {
         .when(
           est("fournisseursNumeriques" as SecteurActivite),
           () =>
-            FabriqueInformationsSecteur.secteurAvecLocalisationEtablissementPrincipal(
-              taille,
-            )(
+            (<
+              Secteur extends
+                | "infrastructureNumerique"
+                | "gestionServicesTic"
+                | "fournisseursNumeriques",
+            >(
+              donnees: DonneesFormulaireSimulateur,
+              secteur: Secteur,
+              activitesInfraNum: ActivitesPourSecteur[Secteur][],
+            ) =>
+              ens({
+                ...fabriqueCategorieTaille(taille),
+                secteurActivite: secteur,
+                activites: ens(...activitesInfraNum),
+                ...FabriqueInformationsSecteur.transformeDonneesLocalisationEtablissementPrincipal(
+                  donnees,
+                ),
+              }))(
               donnees,
               "fournisseursNumeriques",
               donnees.activites.filter(
