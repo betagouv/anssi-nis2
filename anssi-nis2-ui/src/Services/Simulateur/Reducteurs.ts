@@ -2,11 +2,10 @@ import {
   DonneesFormulaireSimulateur,
   NomsChampsSimulateur,
 } from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
-import React, { Reducer } from "react";
+import { Reducer } from "react";
 import { ValeurChampSimulateur } from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { fabriqueDonneesFormulaire } from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.fabrique.ts";
 import { gestionnairesPourChamps } from "./gestionnaires.ts";
-import { BoutonsNavigation } from "./Props/boutonsNavigation";
 
 import {
   SimulateurDonneesFormulaireActions,
@@ -51,20 +50,6 @@ export const reduitDonneesFormulaire: Reducer<
 > = (state, { name, newValue, type }) =>
   actionsFabriqueDonneesFormulaire[type](state, name, newValue);
 
-export type ActionsBoutonNavigation = {
-  readonly bouton: "precedent" | "suivant";
-  readonly newHandler: React.MouseEventHandler;
-};
-
-export const reducerBoutons: Reducer<
-  BoutonsNavigation,
-  ActionsBoutonNavigation
-> = (state, { bouton, newHandler }: ActionsBoutonNavigation) => {
-  if (newHandler === undefined) {
-    return state;
-  }
-  return { ...state, [bouton]: newHandler };
-};
 export const changeInfobulleOuverte: Reducer<
   {
     id: string;
