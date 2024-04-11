@@ -5,6 +5,7 @@ import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { useState } from "react";
 import { TypeStructure } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
+import { TitresEtapes } from "../TitresEtapes.ts";
 
 export const EtapeTypeStructure = ({
   onValider,
@@ -20,7 +21,7 @@ export const EtapeTypeStructure = ({
       <Stepper
         currentStep={3}
         stepCount={6}
-        title="Type de structure"
+        title={TitresEtapes["typeStructure"]}
         className="fr-mb-5w"
       />
       <hr className="fr-pb-5w" />

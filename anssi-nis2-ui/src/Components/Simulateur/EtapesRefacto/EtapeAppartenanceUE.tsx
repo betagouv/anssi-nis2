@@ -5,6 +5,7 @@ import BlocPrincipal from "../../BlocPrincipal.tsx";
 import { FormSimulateur } from "../Etapes";
 import { AppartenancePaysUnionEuropeenne } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
+import { TitresEtapes } from "../TitresEtapes.ts";
 
 export const EtapeAppartenanceUE = ({
   onValider,
@@ -20,7 +21,7 @@ export const EtapeAppartenanceUE = ({
       <Stepper
         currentStep={2}
         stepCount={6}
-        title="Localisation de l'activité"
+        title={TitresEtapes["appartenanceUnionEuropeenne"]}
         className="fr-mb-5w"
       />
       <hr className="fr-pb-5w" />

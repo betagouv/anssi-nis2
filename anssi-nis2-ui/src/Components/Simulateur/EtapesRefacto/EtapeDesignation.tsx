@@ -5,6 +5,7 @@ import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { DesignationOperateurServicesEssentiels } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { useState } from "react";
 import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
+import { TitresEtapes } from "../TitresEtapes.ts";
 
 export const EtapeDesignation = ({
   onValider,
@@ -20,7 +21,7 @@ export const EtapeDesignation = ({
       <Stepper
         currentStep={1}
         stepCount={6}
-        title="Désignation éventuelle"
+        title={TitresEtapes["designationOperateurServicesEssentiels"]}
         className="fr-mb-5w"
       />
       <hr className="fr-pb-5w" />

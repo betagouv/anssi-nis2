@@ -8,6 +8,7 @@ import {
   TrancheNombreEmployes,
 } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
+import { TitresEtapes } from "../TitresEtapes.ts";
 
 export function EtapeTailleEntitePrivee({
   onValider,
@@ -31,7 +32,7 @@ export function EtapeTailleEntitePrivee({
       <Stepper
         currentStep={4}
         stepCount={6}
-        title="Taille de l'organisation"
+        title={TitresEtapes["tailleEntitePrivee"]}
         className="fr-mb-5w"
       />
       <hr className="fr-pb-5w" />

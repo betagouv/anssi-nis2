@@ -6,6 +6,7 @@ import { libellesSecteursActivite } from "../../../References/LibellesSecteursAc
 import { useState } from "react";
 import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
+import { TitresEtapes } from "../TitresEtapes.ts";
 
 export const EtapeSecteursActivite = ({
   onValider,
@@ -21,7 +22,7 @@ export const EtapeSecteursActivite = ({
       <Stepper
         currentStep={5}
         stepCount={6}
-        title="Secteurs d'activité"
+        title={TitresEtapes["secteursActivite"]}
         className="fr-mb-5w"
       />
       <hr className="fr-pb-5w" />

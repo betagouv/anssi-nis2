@@ -6,6 +6,7 @@ import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { AppartenancePaysUnionEuropeenne } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { contientUnParmi } from "../../../../../commun/utils/services/commun.predicats.ts";
 import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
+import { TitresEtapes } from "../TitresEtapes.ts";
 
 type StateDeReponse = {
   paysDecision: AppartenancePaysUnionEuropeenne[];
@@ -38,7 +39,7 @@ export function EtapeLocalisationEtablissementPrincipal({
       <Stepper
         currentStep={6}
         stepCount={6}
-        title="Localisation de votre activité"
+        title={TitresEtapes["localisationEtablissementPrincipal"]}
         className="fr-mb-5w"
       />
       <hr className="fr-pb-5w" />
