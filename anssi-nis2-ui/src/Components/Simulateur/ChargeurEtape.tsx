@@ -7,9 +7,14 @@ import { etatEtapesInitial } from "./Etapes/EtapesQuestionnaire.ts";
 import { useReducteurDonneesFormulaireDuContexte } from "../../Services/AppContexte/AppContext.operations.ts";
 import { fabriqueInformationsBoutonsNavigation } from "../../Services/fabriques/BoutonsNavigation.fabrique.ts";
 import { traceEtapeSimulateur } from "../../Services/TraceurWeb/traceEtapeSimulateur.ts";
-import { AppContext } from "../../Services/AppContexte/AppContext.definition.ts";
 import { cartoComposants } from "../../Services/Simulateur/Transformateurs/TypeEtapeVersComposantEtape.transformateur.ts";
 import { Questionnaire } from "./Questionnaire.tsx";
+import { AppContext } from "../../Services/AppContexte/AppContext.definition.ts";
+import { quiSupporteUndo } from "../../questionnaire/quiSupporteUndo.ts";
+import {
+  etatParDefaut,
+  reducerQuestionnaire,
+} from "../../questionnaire/reducerQuestionnaire.ts";
 
 const ChargeurEtapeCalcule: DefaultComponent = () => {
   const [donneesFormulaireSimulateur, propageActionSimulateur] = useReducer(
@@ -26,6 +31,11 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
     etatEtapes,
     donneesFormulaireSimulateur,
     envoieDonneesFormulaire,
+  );
+
+  const [etatQuestionnaire, dispatchQuestionnaire] = useReducer(
+    quiSupporteUndo(reducerQuestionnaire, etatParDefaut),
+    { courant: etatParDefaut, precedents: [] },
   );
 
   useEffect(
@@ -56,7 +66,13 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
           etatEtapes={etatEtapes}
         />
       )}
-      {(afficheQuestionnaireV2 || afficheLesDeux) && <Questionnaire />}
+      {(afficheQuestionnaireV2 || afficheLesDeux) && (
+        <Questionnaire
+          etat={etatQuestionnaire.courant}
+          dispatch={dispatchQuestionnaire}
+          envoieDonneesFormulaire={envoieDonneesFormulaire}
+        />
+      )}
     </>
   );
 };

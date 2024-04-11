@@ -1,11 +1,8 @@
-import { PropsWithChildren, useContext, useReducer } from "react";
-import {
-  etatParDefaut,
-  reducerQuestionnaire,
-} from "../../questionnaire/reducerQuestionnaire.ts";
-import { AppContext } from "../../Services/AppContexte/AppContext.definition.ts";
+import { Dispatch, PropsWithChildren } from "react";
+import { EtatQuestionnaire } from "../../questionnaire/reducerQuestionnaire.ts";
 import { EtapePrealable } from "./EtapesRefacto/EtapePrealable.tsx";
 import {
+  ActionQuestionnaire,
   valideActivites,
   valideEtapeAppartenanceUE,
   valideEtapeDesignation,
@@ -21,7 +18,7 @@ import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousS
 import { estUnSecteurAvecDesSousSecteurs } from "anssi-nis2-core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
 import { SecteurComposite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { selectSecteursPourSaisieActivites } from "../../questionnaire/selecteursQuestionnaire.ts";
-import { quiSupporteUndo, undo } from "../../questionnaire/quiSupporteUndo.ts";
+import { ActionUndo, undo } from "../../questionnaire/quiSupporteUndo.ts";
 import { EtapeDesignation } from "./EtapesRefacto/EtapeDesignation.tsx";
 import { EtapeAppartenanceUE } from "./EtapesRefacto/EtapeAppartenanceUE.tsx";
 import { EtapeTypeStructure } from "./EtapesRefacto/EtapeTypeStructure.tsx";
@@ -33,16 +30,18 @@ import { EtapeActivites } from "./EtapesRefacto/EtapeActivites.tsx";
 import { EtapeLocalisationServicesNumeriques } from "./EtapesRefacto/EtapeLocalisationServicesNumeriques.tsx";
 import { EtapeLocalisationEtablissementPrincipal } from "./EtapesRefacto/EtapeLocalisationEtablissementPrincipal.tsx";
 import { AidezNousAmeliorerService } from "../AidezNousAmeliorerService.tsx";
+import { EnvoieDonneesFormulaire } from "../../Services/Simulateur/Operations/appelsApi";
 
-export const Questionnaire = () => {
-  const { envoieDonneesFormulaire } = useContext(AppContext);
-
-  const [etat, dispatch] = useReducer(
-    quiSupporteUndo(reducerQuestionnaire, etatParDefaut),
-    { courant: etatParDefaut, precedents: [] },
-  );
-
-  switch (etat.courant.etapeCourante) {
+export const Questionnaire = ({
+  etat,
+  dispatch,
+  envoieDonneesFormulaire,
+}: {
+  etat: EtatQuestionnaire;
+  dispatch: Dispatch<ActionQuestionnaire | ActionUndo>;
+  envoieDonneesFormulaire: EnvoieDonneesFormulaire;
+}) => {
+  switch (etat.etapeCourante) {
     case "prealable":
       return (
         <EtapePrealable onValider={() => dispatch(valideEtapePrealable())} />
@@ -106,7 +105,7 @@ export const Questionnaire = () => {
         <AvecDemandeDeFeedback>
           <EtapeSousSecteursActivite
             secteursChoisis={
-              etat.courant.secteurActivite.filter((s) =>
+              etat.secteurActivite.filter((s) =>
                 estUnSecteurAvecDesSousSecteurs(s),
               ) as SecteurComposite[]
             }
@@ -122,7 +121,7 @@ export const Questionnaire = () => {
       return (
         <AvecDemandeDeFeedback>
           <EtapeActivites
-            secteursChoisis={selectSecteursPourSaisieActivites(etat.courant)}
+            secteursChoisis={selectSecteursPourSaisieActivites(etat)}
             onValider={(reponse) => dispatch(valideActivites(reponse))}
             onPrecedent={() => dispatch(undo())}
           />
@@ -155,10 +154,7 @@ export const Questionnaire = () => {
 
     case "resultat":
       return (
-        <EtapeResultat
-          reponses={etat.courant}
-          persistance={envoieDonneesFormulaire}
-        />
+        <EtapeResultat reponses={etat} persistance={envoieDonneesFormulaire} />
       );
   }
 };
