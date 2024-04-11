@@ -1,4 +1,5 @@
 import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
+import { centreSurHautFormulaire } from "./scroll.ts";
 
 export function PrecedentSuivant(props: {
   message: string;
@@ -40,8 +41,3 @@ export function PrecedentSuivant(props: {
     </div>
   );
 }
-
-const centreSurHautFormulaire = () => {
-  const debut = document.getElementById("debutForm");
-  debut?.scrollIntoView({ behavior: "smooth" });
-};

@@ -31,6 +31,7 @@ import { EtapeLocalisationServicesNumeriques } from "./EtapesRefacto/EtapeLocali
 import { EtapeLocalisationEtablissementPrincipal } from "./EtapesRefacto/EtapeLocalisationEtablissementPrincipal.tsx";
 import { AidezNousAmeliorerService } from "../AidezNousAmeliorerService.tsx";
 import { EnvoieDonneesFormulaire } from "../../Services/Simulateur/Operations/appelsApi";
+import { centreSurHautFormulaire } from "./scroll.ts";
 
 export const Questionnaire = ({
   etat,
@@ -44,7 +45,12 @@ export const Questionnaire = ({
   switch (etat.etapeCourante) {
     case "prealable":
       return (
-        <EtapePrealable onValider={() => dispatch(valideEtapePrealable())} />
+        <EtapePrealable
+          onValider={() => {
+            dispatch(valideEtapePrealable());
+            centreSurHautFormulaire();
+          }}
+        />
       );
 
     case "designationOperateurServicesEssentiels":
