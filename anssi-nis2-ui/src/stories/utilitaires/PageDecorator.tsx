@@ -1,5 +1,4 @@
 import { AggregatInformationsEmail } from "../../../../commun/core/src/Domain/Contact/InformationsEmail.definitions.ts";
-import { reduitDonneesFormulaire } from "../../Services/Simulateur/Reducteurs.ts";
 
 import { Contexte } from "../../Services/contexte";
 
@@ -13,7 +12,4 @@ export const defaultContext: Contexte = {
       accepteInfolettreServicesDedies: true,
       nomOrganisation: "Titi International",
     }),
-  simulateur: {
-    reducteurDonneesFormulaire: reduitDonneesFormulaire,
-  },
 };
