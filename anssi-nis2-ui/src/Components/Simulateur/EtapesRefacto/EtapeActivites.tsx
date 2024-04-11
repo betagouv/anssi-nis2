@@ -13,6 +13,7 @@ import { libellesActivites } from "../../../References/LibellesActivites.ts";
 import { listeDescriptionsActivites } from "../../../References/ListeDescriptionsActivites.ts";
 import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
 import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
+import { TitresEtapes } from "../TitresEtapes.ts";
 
 type SecteurAvecActivite = SecteurSimple | SousSecteurActivite;
 type StateDeReponse = Partial<Record<SecteurAvecActivite, Activite[]>>;
@@ -47,7 +48,7 @@ export function EtapeActivites({
       <Stepper
         currentStep={6}
         stepCount={6}
-        title="Activités pratiquées"
+        title={TitresEtapes["activites"]}
         className="fr-mb-5w"
       />
       <hr className="fr-pb-5w" />

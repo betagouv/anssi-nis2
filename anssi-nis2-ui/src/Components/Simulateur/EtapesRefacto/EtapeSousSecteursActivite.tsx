@@ -12,6 +12,7 @@ import { libellesSousSecteursActivite } from "../../../References/LibellesSousSe
 import { useState } from "react";
 import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
+import { TitresEtapes } from "../TitresEtapes.ts";
 
 export function EtapeSousSecteursActivite({
   secteursChoisis,
@@ -51,7 +52,7 @@ export function EtapeSousSecteursActivite({
       <Stepper
         currentStep={5}
         stepCount={6}
-        title="Sous-secteurs d'activité"
+        title={TitresEtapes["sousSecteursActivite"]}
         className="fr-mb-5w"
       />
       <hr className="fr-pb-5w" />

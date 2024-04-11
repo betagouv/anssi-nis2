@@ -5,6 +5,7 @@ import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { useState } from "react";
 import { AppartenancePaysUnionEuropeenne } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
+import { TitresEtapes } from "../TitresEtapes.ts";
 
 export function EtapeLocalisationServicesNumeriques({
   onValider,
@@ -28,7 +29,7 @@ export function EtapeLocalisationServicesNumeriques({
       <Stepper
         currentStep={6}
         stepCount={6}
-        title="Localisation de votre activité"
+        title={TitresEtapes["localisationFournitureServicesNumeriques"]}
         className="fr-mb-5w"
       />
       <hr className="fr-pb-5w" />

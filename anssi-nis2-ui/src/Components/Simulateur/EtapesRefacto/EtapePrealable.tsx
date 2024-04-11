@@ -1,10 +1,11 @@
 import { Button } from "@codegouvfr/react-dsfr/Button";
 import ImageLocalisation from "../../../assets/localisation-france.svg";
 import BlocPrincipal from "../../BlocPrincipal.tsx";
+import { TitresEtapes } from "../TitresEtapes.ts";
 
 export const EtapePrealable = ({ onValider }: { onValider: () => void }) => (
   <BlocPrincipal className="fond-gris" id="prealable">
-    <h2>Pour bien débuter</h2>
+    <h2>{TitresEtapes["prealable"]}</h2>
     <div className="conteneur-description">
       <div className="conteneur-paragraphes">
         <p>
