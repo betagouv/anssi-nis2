@@ -15,6 +15,7 @@ import {
   etatParDefaut,
   reducerQuestionnaire,
 } from "../../questionnaire/reducerQuestionnaire.ts";
+import { TitresEtapes } from "./TitresEtapes.ts";
 
 const ChargeurEtapeCalcule: DefaultComponent = () => {
   const [donneesFormulaireSimulateur, propageActionSimulateur] = useReducer(
@@ -55,7 +56,9 @@ const ChargeurEtapeCalcule: DefaultComponent = () => {
         <title>
           MonEspaceNIS2 - Suis-je concerné ? -{" "}
           {afficheQuestionnaireV1 ? etatEtapes.contenuEtapeCourante.titre : ""}
-          {afficheQuestionnaireV2 ? etatEtapes.contenuEtapeCourante.titre : ""}
+          {afficheQuestionnaireV2
+            ? TitresEtapes[etatQuestionnaire.courant.etapeCourante]
+            : ""}
         </title>
       </Helmet>
       <div id="debutForm"></div>
