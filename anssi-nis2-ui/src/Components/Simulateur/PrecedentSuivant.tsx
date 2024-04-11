@@ -41,5 +41,7 @@ export function PrecedentSuivant(props: {
   );
 }
 
-const centreSurHautFormulaire = () =>
-  window.scrollTo({ top: document.getElementById("debutForm")?.offsetTop });
+const centreSurHautFormulaire = () => {
+  const debut = document.getElementById("debutForm");
+  debut?.scrollIntoView({ behavior: "smooth" });
+};
