@@ -9,8 +9,14 @@ import {
 export const sendFormDataToApi: EnvoieDonneesFormulaire = async (
   formData: DonneesFormulaireSimulateur,
 ) => {
-  const simulationApi = genereClientApi();
-  await simulationApi.post("/simulateur-reponse", formData);
+  try {
+    const api = genereClientApi();
+    await api.post("/simulateur-reponse", formData);
+  } catch (e) {
+    throw Error(
+      "Erreur à l'appel API d'enregistrement du questionnaire : " + e,
+    );
+  }
 };
 
 export const enregistreInformationsEmailVersApi: EnregistreInformationsEmail =
