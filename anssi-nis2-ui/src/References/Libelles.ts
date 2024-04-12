@@ -36,13 +36,6 @@ export const libellesPaysUnionEuropeenneLocalisation: Record<
   autre: "Autres états membres de l'Union Européenne",
   horsue: "Autres états hors Union Européenne",
 };
-export const libellesPaysUnionEuropeenneLocalisationUE: Record<
-  Exclude<AppartenancePaysUnionEuropeenne, "horsue">,
-  string
-> = {
-  france: "France",
-  autre: "Autres états membres de l'Union Européenne",
-};
 
 export const libellesTypesStructure: Record<TypeStructure, string> = {
   privee: "Entreprise privée ou publique",
