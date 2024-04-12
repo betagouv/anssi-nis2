@@ -19,6 +19,7 @@ export const sendFormDataToApi: EnvoieDonneesFormulaire = async (
     .then((response) => console.log(JSON.stringify(response)));
   return data;
 };
+
 export const enregistreInformationsEmailVersApi: EnregistreInformationsEmail =
   async (informations: InformationsEmail) => {
     const simulationApi = genereClientApi("informations-emails");
