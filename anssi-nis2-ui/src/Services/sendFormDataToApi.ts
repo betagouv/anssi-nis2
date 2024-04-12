@@ -10,14 +10,14 @@ export const sendFormDataToApi: EnvoieDonneesFormulaire = async (
   formData: DonneesFormulaireSimulateur,
 ) => {
   const simulationApi = genereClientApi();
-  await simulationApi.post("/", formData);
+  await simulationApi.post("/simulateur-reponse", formData);
 };
 
 export const enregistreInformationsEmailVersApi: EnregistreInformationsEmail =
   async (informations: InformationsEmail) => {
     try {
-      const api = genereClientApi("informations-emails");
-      await api.post("/", informations);
+      const api = genereClientApi();
+      await api.post("/informations-emails", informations);
     } catch (e) {
       throw Error("Erreur à l'appel API d'enregistrement d'email : " + e);
     }
