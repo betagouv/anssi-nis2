@@ -1,7 +1,4 @@
-import {
-  AggregatInformationsEmail,
-  InformationsEmail,
-} from "../../../commun/core/src/Domain/Contact/InformationsEmail.definitions.ts";
+import { InformationsEmail } from "../../../commun/core/src/Domain/Contact/InformationsEmail.definitions.ts";
 import { DonneesFormulaireSimulateur } from "../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
 import { genereClientApi } from "./prepare.ts";
 import {
@@ -12,24 +9,22 @@ import {
 export const sendFormDataToApi: EnvoieDonneesFormulaire = async (
   formData: DonneesFormulaireSimulateur,
 ) => {
-  const data = JSON.stringify(formData);
-  const simulationApi = genereClientApi();
-  simulationApi
-    .post("/", formData)
-    .then((response) => console.log(JSON.stringify(response)));
-  return data;
+  try {
+    const api = genereClientApi();
+    await api.post("/simulateur-reponse", formData);
+  } catch (e) {
+    throw Error(
+      "Erreur à l'appel API d'enregistrement du questionnaire : " + e,
+    );
+  }
 };
+
 export const enregistreInformationsEmailVersApi: EnregistreInformationsEmail =
   async (informations: InformationsEmail) => {
-    const simulationApi = genereClientApi("informations-emails");
-    simulationApi
-      .post("/", informations)
-      .then((response) => {
-        response.data as AggregatInformationsEmail;
-      })
-      .catch((reason) => {
-        throw Error(
-          "Erreur à l'appel API d'enregistrement d'email : " + reason,
-        );
-      });
+    try {
+      const api = genereClientApi();
+      await api.post("/informations-emails", informations);
+    } catch (e) {
+      throw Error("Erreur à l'appel API d'enregistrement d'email : " + e);
+    }
   };

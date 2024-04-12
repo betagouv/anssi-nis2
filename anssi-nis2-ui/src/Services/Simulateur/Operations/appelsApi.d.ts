@@ -3,7 +3,7 @@ import { AggregatInformationsEmail } from "../../../Domaine/Contact/Informations
 
 export type EnvoieDonneesFormulaire = (
   formData: DonneesFormulaireSimulateur,
-) => Promise<string>;
+) => Promise<void>;
 export type EnregistreInformationsEmail = (
   informations: InformationsEmai,
 ) => Promise<AggregatInformationsEmail>;
