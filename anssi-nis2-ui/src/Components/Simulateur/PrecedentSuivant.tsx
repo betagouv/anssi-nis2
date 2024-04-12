@@ -17,10 +17,11 @@ export function PrecedentSuivant(props: {
             {
               children: "Précédent",
               onClick: () => {
+                centreSurHautFormulaire();
+
                 if (!props.onPrecedent) return;
 
                 props.onPrecedent();
-                centreSurHautFormulaire();
               },
               priority: "secondary",
               disabled: !props.onPrecedent,
@@ -28,8 +29,8 @@ export function PrecedentSuivant(props: {
             {
               children: "Suivant",
               onClick: () => {
-                props.onSuivant();
                 centreSurHautFormulaire();
+                props.onSuivant();
               },
               type: "submit",
               disabled: props.suivantDisabled,
