@@ -36,6 +36,11 @@ export const BOM: DefaultComponent = () => {
         <ul>
           <li>
             <a href={urlFAQ} target="_blank" rel="noreferrer">
+              Nous contacter
+            </a>
+          </li>
+          <li>
+            <a href={urlFAQ} target="_blank" rel="noreferrer">
               Consulter à la FAQ
             </a>
           </li>
