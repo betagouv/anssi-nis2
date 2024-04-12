@@ -26,7 +26,7 @@ const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
 const meta: Meta<typeof EtapeResultat> = {
   title: "Composants/Simulateur/Resultat",
   component: EtapeResultat,
-  args: { reponses: archetypeDonneesFormulaire, persistance: async () => "" },
+  args: { reponses: archetypeDonneesFormulaire, persistance: async () => {} },
 };
 
 export default meta;

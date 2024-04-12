@@ -3,7 +3,7 @@ import { AggregatInformationsEmail } from "../../../../commun/core/src/Domain/Co
 import { Contexte } from "../../Services/contexte";
 
 export const defaultContext: Contexte = {
-  envoieDonneesFormulaire: async () => "",
+  envoieDonneesFormulaire: async () => {},
   enregistreInformationsEmail:
     async (): Promise<AggregatInformationsEmail> => ({
       id: 0,

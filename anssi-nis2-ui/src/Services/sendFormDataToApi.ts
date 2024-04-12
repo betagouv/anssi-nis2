@@ -9,12 +9,8 @@ import {
 export const sendFormDataToApi: EnvoieDonneesFormulaire = async (
   formData: DonneesFormulaireSimulateur,
 ) => {
-  const data = JSON.stringify(formData);
   const simulationApi = genereClientApi();
-  simulationApi
-    .post("/", formData)
-    .then((response) => console.log(JSON.stringify(response)));
-  return data;
+  await simulationApi.post("/", formData);
 };
 
 export const enregistreInformationsEmailVersApi: EnregistreInformationsEmail =
