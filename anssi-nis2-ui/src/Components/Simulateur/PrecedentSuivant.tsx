@@ -1,4 +1,5 @@
 import ButtonsGroup from "@codegouvfr/react-dsfr/ButtonsGroup";
+import { centreSurHautFormulaire } from "./scroll.ts";
 
 export function PrecedentSuivant(props: {
   message: string;
@@ -40,6 +41,3 @@ export function PrecedentSuivant(props: {
     </div>
   );
 }
-
-const centreSurHautFormulaire = () =>
-  window.scrollTo({ top: document.getElementById("debutForm")?.offsetTop });
