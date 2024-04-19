@@ -1,5 +1,6 @@
 import { Crm } from "./crm";
 import { HttpService } from "@nestjs/axios";
+import { CreeInformationsEmailDto } from "./dto/cree-informations-email.dto";
 
 export class CrmBrevo extends Crm {
   constructor(
@@ -10,10 +11,12 @@ export class CrmBrevo extends Crm {
     super();
   }
 
-  async inscrisUtilisateur(email: string): Promise<void> {
+  async inscrisUtilisateur(
+    inscription: CreeInformationsEmailDto,
+  ): Promise<void> {
     await this.http.axiosRef.post(
       `${this.baseUrl}/contacts`,
-      { email },
+      { email: inscription.email },
       {
         headers: {
           "api-key": this.cleApi,

@@ -23,7 +23,7 @@ export class InformationsEmailsService {
 
     const infos = await this.informationsEmailRepository.save(inscription);
 
-    await this.crm.inscrisUtilisateur(inscription.email);
+    await this.crm.inscrisUtilisateur(inscription);
 
     return infos;
   }

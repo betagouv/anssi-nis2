@@ -1,4 +1,5 @@
 import { Crm } from "./crm";
+import { CreeInformationsEmailDto } from "./dto/cree-informations-email.dto";
 
 export class CrmInMemory extends Crm {
   public inscrits: string[] = [];
@@ -9,7 +10,11 @@ export class CrmInMemory extends Crm {
     this.avecLog = activeLeLog;
   }
 
-  async inscrisUtilisateur(email: string): Promise<void> {
+  async inscrisUtilisateur(
+    inscription: CreeInformationsEmailDto,
+  ): Promise<void> {
+    const { email } = inscription;
+
     if (this.avecLog) console.log(`[CRM In-Memory] Nouvel inscrit : ${email}`);
 
     this.inscrits.push(email);
