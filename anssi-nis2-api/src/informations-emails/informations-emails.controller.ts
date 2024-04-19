@@ -9,7 +9,7 @@ export class InformationsEmailsController {
   ) {}
 
   @Post()
-  async ajoute(@Body() creeInformationsEmailDto: CreeInformationsEmailDto) {
-    return this.informationsEmailsService.ajoute(creeInformationsEmailDto);
+  async ajoute(@Body() inscription: CreeInformationsEmailDto) {
+    return this.informationsEmailsService.ajoute(inscription);
   }
 }

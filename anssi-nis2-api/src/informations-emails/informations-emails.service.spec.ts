@@ -1,71 +1,57 @@
 import { InformationsEmailsService } from "./informations-emails.service";
 import { mockInformationsEmailRepository } from "./informations-emails.repository.mock";
 import { informationsEmail } from "./example/informations.email.exemples";
-import {
-  espereEmailsInformationCorrespondASonDto,
-  serviceConfigurationPourTests,
-} from "../test/utilitaires/facilitateurs";
+import { espereEmailsInformationCorrespondASonDto } from "../test/utilitaires/facilitateurs";
 import { InformationsEmail } from "./entities/informations-email.entity";
-import { Test } from "@nestjs/testing";
-import { getRepositoryToken, TypeOrmModule } from "@nestjs/typeorm";
-import { fabriqueAsynchroneOptionsTypeOrm } from "../Fabriques/fabriqueAsynchroneOptionsTypeOrm";
-import { ConfigModule } from "@nestjs/config";
+import { Test, TestingModuleBuilder } from "@nestjs/testing";
+import { getRepositoryToken } from "@nestjs/typeorm";
+import { Crm } from "./crm";
+import { CrmInMemory } from "./crm.InMemory";
 
 describe("InformationsEmailsService", () => {
-  const testingModuleBuilder = Test.createTestingModule({
-    providers: [
-      {
-        provide: getRepositoryToken(InformationsEmail),
-        useValue: mockInformationsEmailRepository,
-      },
-      InformationsEmailsService,
-    ],
+  let testingModuleBuilder: TestingModuleBuilder;
+  let crmInMemory: CrmInMemory;
+
+  beforeEach(() => {
+    crmInMemory = new CrmInMemory({ activeLeLog: false });
+
+    testingModuleBuilder = Test.createTestingModule({
+      providers: [
+        {
+          provide: getRepositoryToken(InformationsEmail),
+          useValue: mockInformationsEmailRepository,
+        },
+        { provide: Crm, useValue: crmInMemory },
+        InformationsEmailsService,
+      ],
+    });
   });
 
-  it("ajoute les donnees dans la base mockée", async () => {
-    const mockModule = await testingModuleBuilder.compile();
-    const srv = mockModule.get<InformationsEmailsService>(
-      InformationsEmailsService,
-    );
-    const reponse = await srv.ajoute(informationsEmail);
+  const fabriqueService = async () => {
+    const module = await testingModuleBuilder.compile();
+    return module.get(InformationsEmailsService);
+  };
+
+  it("ajoute les données dans la base mockée", async () => {
+    const service = await fabriqueService();
+
+    const reponse = await service.ajoute(informationsEmail);
+
     espereEmailsInformationCorrespondASonDto(reponse, informationsEmail);
   });
-  // Suppression pour des raisons de bug dans l'API : impossiuble d'ajouter dans
-  //  la base avec des validations
-  it.skip("n'autorise pas l'ajout de donn'ees avec un email mal formé", async () => {
-    const mockModule = await testingModuleBuilder.compile();
-    const informationEmailService = mockModule.get<InformationsEmailsService>(
-      InformationsEmailsService,
-    );
-    const informationsEmailInvalide = {
+
+  it("ajoute le nouvel inscrit au CRM", async () => {
+    const service = await fabriqueService();
+
+    await service.ajoute({
       ...informationsEmail,
-      email: "INVALIDE",
-    };
-    await expect(
-      informationEmailService.ajoute(informationsEmailInvalide),
-    ).rejects.toThrow();
-  });
-});
+      email: "utilisateur@societe.fr",
+    });
 
-describe.skip("InformationsEmailsService sur vraie DB", () => {
-  const testingModuleBuilder = Test.createTestingModule({
-    controllers: [],
-    imports: [
-      TypeOrmModule.forRootAsync(fabriqueAsynchroneOptionsTypeOrm()),
-      TypeOrmModule.forFeature([InformationsEmail]),
-      ConfigModule.forRoot({
-        isGlobal: true,
-      }),
-    ],
-    providers: [...[serviceConfigurationPourTests, InformationsEmailsService]],
+    expect(crmInMemory.inscrits).toContain("utilisateur@societe.fr");
   });
 
-  it("ajoute les donnees dans la base réelle", async () => {
-    const mockModule = await testingModuleBuilder.compile();
-    const srv = mockModule.get<InformationsEmailsService>(
-      InformationsEmailsService,
-    );
-    const reponse = await srv.ajoute(informationsEmail);
-    espereEmailsInformationCorrespondASonDto(reponse, informationsEmail);
-  });
+  it.todo(
+    "enregistre le nom de l'organisation s'il est présent (cas de l'inscription après le test)",
+  );
 });
