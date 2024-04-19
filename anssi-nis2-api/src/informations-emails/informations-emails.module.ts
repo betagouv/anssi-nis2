@@ -7,6 +7,7 @@ import { Crm } from "./crm";
 import { CrmBrevo } from "./crm.brevo";
 import { HttpModule, HttpService } from "@nestjs/axios";
 import { ConfigService } from "@nestjs/config";
+import { CrmInMemory } from "./crm.InMemory";
 
 @Module({
   imports: [TypeOrmModule.forFeature([InformationsEmail]), HttpModule],
@@ -15,12 +16,12 @@ import { ConfigService } from "@nestjs/config";
     {
       provide: Crm,
       inject: [ConfigService, HttpService],
-      useFactory: (config: ConfigService, http: HttpService) =>
-        new CrmBrevo(
-          http,
-          config.get("BREVO_API_BASE_URL"),
-          config.get("BREVO_CLE_API"),
-        ),
+      useFactory: (config: ConfigService, http: HttpService) => {
+        const cleApi = config.get("BREVO_CLE_API");
+        return cleApi
+          ? new CrmBrevo(http, config.get("BREVO_API_BASE_URL"), cleApi)
+          : new CrmInMemory({ activeLeLog: true });
+      },
     },
   ],
   controllers: [InformationsEmailsController],
