@@ -16,7 +16,10 @@ export class CrmBrevo extends Crm {
   ): Promise<void> {
     await this.http.axiosRef.post(
       `${this.baseUrl}/contacts`,
-      { email: inscription.email },
+      {
+        email: inscription.email,
+        emailBlacklisted: !inscription.accepteInfolettreNis2,
+      },
       {
         headers: {
           "api-key": this.cleApi,
