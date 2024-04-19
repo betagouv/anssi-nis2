@@ -18,11 +18,11 @@ describe("InformationsEmailsService", () => {
   });
 
   it("ajoute les donnees dans la base mockée", async () => {
-    const mockModule = await testingModuleBuilder.compile();
-    const srv = mockModule.get<InformationsEmailsService>(
-      InformationsEmailsService,
-    );
-    const reponse = await srv.ajoute(informationsEmail);
+    const module = await testingModuleBuilder.compile();
+    const service = module.get(InformationsEmailsService);
+
+    const reponse = await service.ajoute(informationsEmail);
+
     espereEmailsInformationCorrespondASonDto(reponse, informationsEmail);
   });
 });
