@@ -17,17 +17,13 @@ export class InformationsEmailsService {
   ) {}
 
   async ajoute(
-    creeInformationsEmailDto: CreeInformationsEmailDto,
+    inscription: CreeInformationsEmailDto,
   ): Promise<InformationsEmail> {
-    this.logger.debug(
-      `Ajout d'un email : ${JSON.stringify(creeInformationsEmailDto)}`,
-    );
+    this.logger.debug(`Ajout d'un email : ${JSON.stringify(inscription)}`);
 
-    const infos = await this.informationsEmailRepository.save(
-      creeInformationsEmailDto,
-    );
+    const infos = await this.informationsEmailRepository.save(inscription);
 
-    await this.crm.inscrisUtilisateur(creeInformationsEmailDto.email);
+    await this.crm.inscrisUtilisateur(inscription.email);
 
     return infos;
   }
