@@ -19,6 +19,7 @@ export class CrmBrevo extends Crm {
       {
         email: inscription.email,
         emailBlacklisted: !inscription.accepteInfolettreNis2,
+        attributes: { ORGANISATION: inscription.nomOrganisation },
       },
       {
         headers: {
