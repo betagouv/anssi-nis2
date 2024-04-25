@@ -64,3 +64,11 @@ export type ResultatRegulationEntite<
   : R extends "NonRegule"
     ? ResultatRegulationNonRegule
     : ResultatRegulationIncertain;
+
+//------------------------------------
+// TYPES RÉÉCRITS
+
+export type ResultatEligibilite = {
+  regulation: RegulationEntite,
+  typeEntite: TypeEntite
+}
