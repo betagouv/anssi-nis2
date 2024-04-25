@@ -6,11 +6,12 @@ export const BandeauInformationRS = () => (
     <div className="restez-informe">
       <h2>Restez informé</h2>
       <p>
-        Pour se tenir au courant des évolutions du contexte
-        réglementaire et ce que devra faire votre entité pour se
-        protéger des cyber-menaces.
+        Pour se tenir au courant des évolutions du contexte réglementaire et ce
+        que devra faire votre entité pour se protéger des cyber-menaces.
       </p>
-      <a href="/infolettre" className="fr-nis2-bouton-secondaire infolettre">S'abonner</a>
+      <a href="/infolettre" className="fr-nis2-bouton-secondaire infolettre">
+        S&apos;abonner
+      </a>
     </div>
     <div className="separateur"></div>
     <ReseauxSociaux />

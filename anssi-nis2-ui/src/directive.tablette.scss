@@ -1,102 +1,102 @@
 @media screen and (min-width: 768px) {
-    .fr-nis2-directive {
-        .aucune-marge-basse {
-            padding-bottom: 0;
-        }
-
-        h3 {
-            font-size: 32px;
-        }
-
-        .fr-nis2-bloc-principal#hero {
-            padding: 72px 56px;
-
-            h1 {
-                max-width: 62%;
-                margin: 0;
-            }
-
-            img {
-                width: 170px;
-                right: 56px;
-            }
-        }
-
-        p {
-            font-size: 20px;
-        }
-
-        #mot-du-directeur {
-            padding: 40px;
-
-            p {
-                font-size: 20px;
-
-                &:last-of-type {
-                    margin-bottom: 32px;
-                }
-            }
-
-            figure {
-                display: flex;
-                gap: 16px;
-                align-items: center;
-
-                figcaption {
-                    p:first-of-type {
-                        margin-top: 0;
-                    }
-
-                    p:last-of-type {
-                        margin-bottom: 0;
-                    }
-                }
-            }
-        }
-
-        #entites {
-            .conteneur-cartes {
-                display: flex;
-                justify-content: center;
-            }
-        }
-
-        #secteurs-activite {
-            .conteneur-secteurs-activites {
-                display: flex;
-                flex-direction: row;
-            }
-        }
-
-        #secteurs-concernes {
-            .conteneur-secteurs-concernes {
-                flex-direction: row;
-                gap: 24px;
-            }
-        }
-
-        #obligations {
-            h4 {
-                font-size: 24px;
-            }
-
-            p:not(.italique) {
-                font-size: 18px;
-            }
-        }
-
-        #demarche {
-            img {
-                width: 100%;
-            }
-        }
-
-        #en-savoir-plus {
-            .conteneur-cartes-en-savoir-plus {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                grid-gap: 24px;
-            }
-        }
+  .fr-nis2-directive {
+    .aucune-marge-basse {
+      padding-bottom: 0;
     }
+
+    h3 {
+      font-size: 32px;
+    }
+
+    .fr-nis2-bloc-principal#hero {
+      padding: 72px 56px;
+
+      h1 {
+        max-width: 62%;
+        margin: 0;
+      }
+
+      img {
+        width: 170px;
+        right: 56px;
+      }
+    }
+
+    p {
+      font-size: 20px;
+    }
+
+    #mot-du-directeur {
+      padding: 40px;
+
+      p {
+        font-size: 20px;
+
+        &:last-of-type {
+          margin-bottom: 32px;
+        }
+      }
+
+      figure {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+
+        figcaption {
+          p:first-of-type {
+            margin-top: 0;
+          }
+
+          p:last-of-type {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    #entites {
+      .conteneur-cartes {
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    #secteurs-activite {
+      .conteneur-secteurs-activites {
+        display: flex;
+        flex-direction: row;
+      }
+    }
+
+    #secteurs-concernes {
+      .conteneur-secteurs-concernes {
+        flex-direction: row;
+        gap: 24px;
+      }
+    }
+
+    #obligations {
+      h4 {
+        font-size: 24px;
+      }
+
+      p:not(.italique) {
+        font-size: 18px;
+      }
+    }
+
+    #demarche {
+      img {
+        width: 100%;
+      }
+    }
+
+    #en-savoir-plus {
+      .conteneur-cartes-en-savoir-plus {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 24px;
+      }
+    }
+  }
 }

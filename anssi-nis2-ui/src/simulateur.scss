@@ -1,5 +1,4 @@
 .fr-nis2-simulateur {
-
   .conteneur-image {
     display: flex;
     justify-content: center;
@@ -19,7 +18,7 @@
     p {
       font-size: 20px;
       line-height: 32px;
-      margin-bottom: 0 ;
+      margin-bottom: 0;
     }
   }
 
@@ -38,15 +37,15 @@
 
     .conteneur-information {
       padding: 16px;
-      background: #ECECFE;
-      border: 1px solid #C1C1FB;
+      background: #ececfe;
+      border: 1px solid #c1c1fb;
 
       p {
         margin-left: 32px;
         margin-bottom: 0;
 
         &:before {
-          content: '';
+          content: "";
           width: 24px;
           height: 24px;
           background: url(assets/icone-info.svg);
@@ -90,7 +89,8 @@
     }
   }
 
-  .fr-nis2-aidez-nous, .fr-nis2-en-cours-developpement  {
+  .fr-nis2-aidez-nous,
+  .fr-nis2-en-cours-developpement {
     background: var(--yellow-tournesol-975-75, #fef6e3);
     padding: 24px 16px;
     display: flex;

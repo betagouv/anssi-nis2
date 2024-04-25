@@ -4,7 +4,7 @@ import BlocPrincipal from "../BlocPrincipal.tsx";
 
 export const BandeauConcerneSimulateur: DefaultComponent = () => (
   <BlocPrincipal className="fond-primaire" id="hero">
-      <h1 className="texte-blanc">{libellesAccueil.concerne.titre}</h1>
-      <p className="texte-blanc">{libellesAccueil.concerne.resume}</p>
+    <h1 className="texte-blanc">{libellesAccueil.concerne.titre}</h1>
+    <p className="texte-blanc">{libellesAccueil.concerne.resume}</p>
   </BlocPrincipal>
 );

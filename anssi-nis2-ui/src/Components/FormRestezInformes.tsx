@@ -47,33 +47,34 @@ export const FormRestezInformes: DefaultComponentExtensible<
     register(nomChamp, validationParChamp[nomChamp]);
 
   return (
-    <form className="fr-nis2-formulaire-restez-informes" onSubmit={handleSubmit(envoiDonnees)}>
+    <form
+      className="fr-nis2-formulaire-restez-informes"
+      onSubmit={handleSubmit(envoiDonnees)}
+    >
       <div className="fr-container fr-px-0">
-          {mode === "complet" && (
-              <Input
-                label={libellesContact.nomOrganisation}
-                state="default"
-                nativeInputProps={construitPropagationChangement(
-                  "nomOrganisation",
-                )}
-              />
-          )}
-          <div>
-            <Input
-              label={libellesContact.adresseElectronique}
-              state="default"
-              nativeInputProps={construitPropagationChangement("email")}
+        {mode === "complet" && (
+          <Input
+            label={libellesContact.nomOrganisation}
+            state="default"
+            nativeInputProps={construitPropagationChangement("nomOrganisation")}
+          />
+        )}
+        <div>
+          <Input
+            label={libellesContact.adresseElectronique}
+            state="default"
+            nativeInputProps={construitPropagationChangement("email")}
+          />
+          {errors.email && (
+            <Alert
+              severity="warning"
+              small
+              description={errors.email.message ?? ""}
+              closable={false}
             />
-            {errors.email && (
-              <Alert
-                severity="warning"
-                small
-                description={errors.email.message ?? ""}
-                closable={false}
-              />
-            )}
-          </div>
+          )}
         </div>
+      </div>
       <div className="fr-fieldset__element">
         <Checkbox
           options={[

@@ -1,64 +1,63 @@
 @media screen and (min-width: 1280px) {
-    .fr-header__service, .fr-header__operator {
+  .fr-header__service,
+  .fr-header__operator {
+    display: flex;
+  }
+
+  .fr-nis2-directive {
+    h2 {
+      font-size: 40px;
+      margin-bottom: 64px;
+    }
+
+    .fr-nis2-bloc-principal#hero {
+      max-width: 100%;
+      padding: 100px 10vw;
+      margin: 0 0 67px;
+
+      h1 {
+        font-size: 48px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      img {
+        width: 213px;
+        top: -8px;
+        right: 14vw;
+      }
+    }
+
+    .page {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .sommaire {
+      margin-top: 0;
+      background: #f5f5fe;
+      min-width: 306px;
+      padding-right: 32px;
+      position: sticky;
+      top: 0;
+      height: fit-content;
+
+      summary {
+        display: none;
+      }
+
+      ul {
+        li {
+          border-bottom: none;
+        }
+      }
+    }
+
+    #demarche {
+      a {
         display: flex;
+      }
     }
-
-    .fr-nis2-directive {
-
-        h2 {
-            font-size: 40px;
-            margin-bottom: 64px;
-        }
-
-        .fr-nis2-bloc-principal#hero {
-            max-width: 100%;
-            padding: 100px 10vw;
-            margin: 0 0 67px;
-
-            h1 {
-                font-size: 48px;
-                max-width: 1200px;
-                margin: 0 auto;
-            }
-
-            img {
-                width: 213px;
-                top: -8px;
-                right: 14vw;
-            }
-        }
-
-        .page {
-            display: flex;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .sommaire {
-            margin-top: 0;
-            background: #F5F5FE;
-            min-width: 306px;
-            padding-right: 32px;
-            position: sticky;
-            top: 0;
-            height: fit-content;
-
-            summary {
-                display: none;
-            }
-
-            ul {
-                li {
-                    border-bottom: none;
-                }
-            }
-        }
-
-        #demarche {
-            a {
-                display: flex;
-            }
-        }
-    }
-
+  }
 }

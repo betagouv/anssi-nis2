@@ -14,7 +14,7 @@ export const LigneEtMaintenant = () => (
           votre entité : votre structure, vos contacts référents.
         </p>
         <div className="fr-nis2-en-cours-developpement">
-          <img src={EnCours} alt="Icone en cours" width={80}/>
+          <img src={EnCours} alt="Icone en cours" width={80} />
           <p>
             Cet espace est actuellement en cours de développement et sera mis à
             disposition au cours du <strong>premier semestre 2024</strong>. Nous
