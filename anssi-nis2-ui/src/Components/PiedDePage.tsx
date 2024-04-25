@@ -15,8 +15,8 @@ const PiedDePage = () => (
           <div className="fr-footer__content">
             <p className="fr-footer__content-desc">
               MonEspaceNIS2 accompagne les entités publiques et privées qui
-              seront concernées par la directive européenne NIS&nbsp;2 dans leur mise
-              en conformité
+              seront concernées par la directive européenne NIS&nbsp;2 dans leur
+              mise en conformité
               <br />
               <br />
               Il est développé par l&apos;Agence nationale de la sécurité des

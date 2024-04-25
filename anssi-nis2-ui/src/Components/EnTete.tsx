@@ -22,7 +22,14 @@ const EnTete = () => (
       orientation: "horizontal",
     }}
     serviceTagline=""
-    serviceTitle={<>MonEspaceNIS2{' '}<Badge noIcon severity="success">Bêta</Badge></>}
+    serviceTitle={
+      <>
+        MonEspaceNIS2{" "}
+        <Badge noIcon severity="success">
+          Bêta
+        </Badge>
+      </>
+    }
   />
 );
 

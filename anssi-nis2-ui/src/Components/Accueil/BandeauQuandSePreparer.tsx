@@ -31,8 +31,8 @@ const BandeauQuandSePreparer = () => {
               </p>
               <p className="fr-text--lead fr-mb-4w">
                 Pour estimer rapidement si votre entité est assujettie et
-                recevoir des informations relatives à NIS&nbsp;2, nous vous invitons
-                à effectuer le test.
+                recevoir des informations relatives à NIS&nbsp;2, nous vous
+                invitons à effectuer le test.
               </p>
               <Link to={"/simulateur"}>
                 <Button
