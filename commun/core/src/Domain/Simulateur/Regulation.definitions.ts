@@ -82,4 +82,5 @@ export type ResumesPointsAttention =
 
 export type PointsAttentionPrecis =
   | "ResilienceEntiteCritique"
-  | "SecuriteNationale";
+  | "SecuriteNationale"
+  | "DORA";

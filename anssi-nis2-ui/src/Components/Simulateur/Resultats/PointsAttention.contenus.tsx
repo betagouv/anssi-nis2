@@ -54,4 +54,16 @@ export const Precisions: Record<
       </>
     ),
   },
+  DORA: {
+    titre: "DORA",
+    texte: (
+      <>
+        Au vu des éléments saisis sur votre secteur d&apos;activité (secteur
+        financier), votre entité pourrait également être concernée par le
+        règlement (UE) DORA 2022/2054 pour la Résilience Opérationnelle
+        Numérique qui sera applicable en l&apos;État dans tous les pays de
+        l&apos;Union Européenne à partir du 17 janvier 2025.
+      </>
+    ),
+  },
 };
