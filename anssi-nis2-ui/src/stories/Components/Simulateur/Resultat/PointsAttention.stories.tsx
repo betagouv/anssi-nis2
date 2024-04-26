@@ -15,6 +15,7 @@ export const Defaut = {
       "SecuriteNationale",
       "DORA",
       "EnregistrementNomsDeDomaines",
+      "CriteresDePossibleInclusion",
     ],
   },
 };

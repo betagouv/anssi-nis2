@@ -70,11 +70,39 @@ export const Precisions: Record<
     titre: "Enregistrement de noms de domaines",
     texte: (
       <>
-        L’enregistrement de noms de domaines étant l&apos;unique activité
+        L&apos;enregistrement de noms de domaines étant l&apos;unique activité
         reconnue par la directive NIS 2 pratiquée par votre entité, seul
         l&apos;enregistrement et la mise à jour de vos données auprès de
         l&apos;ANSSI sera nécessaire.
       </>
+    ),
+  },
+  CriteresDePossibleInclusion: {
+    titre: "Critères de possible inclusion",
+    texte: (
+      <ul>
+        <li>
+          l&apos;entité est, dans un État membre, le seul prestataire d&apos;un
+          service qui est essentiel au maintien d&apos;activités sociétales ou
+          économiques critiques ;
+        </li>
+        <li>
+          une perturbation du service fourni par l&apos;entité pourrait avoir un
+          impact important sur la sécurité publique, la sûreté publique ou la
+          santé publique ;
+        </li>
+        <li>
+          une perturbation du service fourni par l&apos;entité pourrait induire
+          un risque systémique important, en particulier pour les secteurs où
+          cette perturbation pourrait avoir un impact transfrontière ;
+        </li>
+        <li>
+          l&apos;entité est critique en raison de son importance spécifique au
+          niveau national ou régional pour le secteur ou le type de service en
+          question, ou pour d&apos;autres secteurs interdépendants dans
+          l&apos;État membre ;
+        </li>
+      </ul>
     ),
   },
 };

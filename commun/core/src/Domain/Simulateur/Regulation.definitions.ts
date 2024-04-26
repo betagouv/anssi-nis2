@@ -84,4 +84,5 @@ export type PointsAttentionPrecis =
   | "ResilienceEntiteCritique"
   | "SecuriteNationale"
   | "DORA"
-  | "EnregistrementNomsDeDomaines";
+  | "EnregistrementNomsDeDomaines"
+  | "CriteresDePossibleInclusion";
