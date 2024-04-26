@@ -42,4 +42,16 @@ export const Precisions: Record<
       </>
     ),
   },
+  SecuriteNationale: {
+    titre: "Sécurité nationale",
+    texte: (
+      <>
+        Si votre entité exerce une activité dans les domaines de la sécurité
+        nationale, de la sécurité publique, de la défense, ou de
+        l&apos;application de la loi, et n&apos;agit pas en tant que prestataire
+        de confiance, vous pourriez être exempté de certaines obligations
+        relatives à la directive NIS 2.
+      </>
+    ),
+  },
 };
