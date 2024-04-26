@@ -73,6 +73,7 @@ export type ResultatEligibilite = {
   typeEntite: TypeEntite;
   pointsAttention: {
     resumes: ResumesPointsAttention[];
+    precisions: PointsAttentionPrecis[];
   };
 };
 
