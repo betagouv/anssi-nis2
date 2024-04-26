@@ -58,17 +58,27 @@ export type ResultatRegulationNonRegule = {
 };
 
 export type ResultatRegulationEntite<
-  R extends RegulationEntite = RegulationEntite,
+  R extends RegulationEntite = RegulationEntite
 > = R extends "Regule"
   ? ResultatRegulationPositif
   : R extends "NonRegule"
-    ? ResultatRegulationNonRegule
-    : ResultatRegulationIncertain;
+  ? ResultatRegulationNonRegule
+  : ResultatRegulationIncertain;
 
 //------------------------------------
 // TYPES RÉÉCRITS
 
 export type ResultatEligibilite = {
-  regulation: RegulationEntite,
-  typeEntite: TypeEntite
-}
+  regulation: RegulationEntite;
+  typeEntite: TypeEntite;
+  pointsAttention: {
+    resumes: ResumesPointsAttention[];
+  };
+};
+
+export type ResumesPointsAttention =
+  | "MecanismesExemption"
+  | "TelcoAutreEtatMembre";
+
+export type PointsAttentionPrecis =
+  | "ResilienceEntiteCritique"
