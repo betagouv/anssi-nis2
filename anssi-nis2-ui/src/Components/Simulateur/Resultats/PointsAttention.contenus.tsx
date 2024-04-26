@@ -66,4 +66,15 @@ export const Precisions: Record<
       </>
     ),
   },
+  EnregistrementNomsDeDomaines: {
+    titre: "Enregistrement de noms de domaines",
+    texte: (
+      <>
+        L’enregistrement de noms de domaines étant l&apos;unique activité
+        reconnue par la directive NIS 2 pratiquée par votre entité, seul
+        l&apos;enregistrement et la mise à jour de vos données auprès de
+        l&apos;ANSSI sera nécessaire.
+      </>
+    ),
+  },
 };

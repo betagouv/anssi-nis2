@@ -10,6 +10,11 @@ export default meta;
 export const Defaut = {
   args: {
     resumes: ["TelcoAutreEtatMembre", "MecanismesExemption"],
-    precisions: ["ResilienceEntiteCritique", "SecuriteNationale", "DORA"],
+    precisions: [
+      "ResilienceEntiteCritique",
+      "SecuriteNationale",
+      "DORA",
+      "EnregistrementNomsDeDomaines",
+    ],
   },
 };
