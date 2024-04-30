@@ -1,8 +1,12 @@
 import { SpecificationEntiteOSE } from "./SpecificationEntiteOSE.ts";
 
+export type SpecificationTexte = { "Designation OSE": string };
+
+export class Specifications extends Array<SpecificationEntiteOSE> {}
+
 export class FabriqueDeSpecifications {
-  lis(specificationTextuelle: { "Designation OSE": string }) {
-    const valeur = specificationTextuelle["Designation OSE"];
+  transforme(specification: SpecificationTexte) {
+    const valeur = specification["Designation OSE"];
 
     if (valeur === "Oui") return new SpecificationEntiteOSE(["oui"]);
 

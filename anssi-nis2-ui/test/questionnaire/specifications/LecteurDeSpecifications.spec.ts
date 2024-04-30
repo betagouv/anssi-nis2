@@ -1,57 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { SpecificationEntiteOSE } from "../../../src/questionnaire/specifications/SpecificationEntiteOSE";
-import {
-  etatParDefaut,
-  EtatQuestionnaire,
-} from "../../../src/questionnaire/reducerQuestionnaire";
 import { LecteurDeSpecifications } from "../../../src/questionnaire/specifications/LecteurDeSpecifications";
 
 describe("Le lecteur de spécifications", () => {
-  describe("avec la spécification d'entité OSE", () => {
-    const entiteOui: EtatQuestionnaire = {
-      ...etatParDefaut,
-      designationOperateurServicesEssentiels: ["oui"],
-    };
-    const entiteNon: EtatQuestionnaire = {
-      ...etatParDefaut,
-      designationOperateurServicesEssentiels: ["non"],
-    };
-    const entiteNeSaitPas: EtatQuestionnaire = {
-      ...etatParDefaut,
-      designationOperateurServicesEssentiels: ["nsp"],
-    };
+  it("utilise un fichier CSV pour produire des spécifications", () => {
+    const fichier =
+      "./test/questionnaire/specifications/specification-deux-lignes.csv";
+    const lecteur = new LecteurDeSpecifications();
 
-    it("sait instancier une spécification « Oui »", () => {
-      const lecteur = new LecteurDeSpecifications();
+    const specifications = lecteur.lis(fichier);
 
-      const specification = lecteur.lis({ "Designation OSE": "Oui" });
-
-      expect(specification).toBeInstanceOf(SpecificationEntiteOSE);
-
-      expect(specification.evalue(entiteOui)).toBe(true);
-      expect(specification.evalue(entiteNon)).toBe(false);
-      expect(specification.evalue(entiteNeSaitPas)).toBe(false);
-    });
-
-    it("sait instancier une spécification « Non / Ne sais pas »", () => {
-      const lecteur = new LecteurDeSpecifications();
-
-      const specification = lecteur.lis({
-        "Designation OSE": "Non / Ne sait pas",
-      });
-
-      expect(specification).toBeInstanceOf(SpecificationEntiteOSE);
-      expect(specification.evalue(entiteOui)).toBe(false);
-      expect(specification.evalue(entiteNon)).toBe(true);
-      expect(specification.evalue(entiteNeSaitPas)).toBe(true);
-    });
-
-    it("lève une exception si la spécification reçue n'est pas gérée", () => {
-      const lecteur = new LecteurDeSpecifications();
-
-      expect(() =>
-        lecteur.lis({ "Designation OSE": "Mauvaise valeur" }),
-      ).toThrowError("Mauvaise valeur");
-    });
+    expect(specifications.length).toBe(2);
   });
 });
