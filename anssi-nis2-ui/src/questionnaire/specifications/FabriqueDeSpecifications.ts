@@ -1,19 +1,44 @@
 import { SpecificationEntiteOSE } from "./SpecificationEntiteOSE.ts";
-import { Specifications } from "./Specifications.ts";
+import { Specification, Specifications } from "./Specifications.ts";
+import { SpecificationLocalisation } from "./SpecificationLocalisation.ts";
 
-export type SpecificationTexte = { "Designation OSE": string };
+export type SpecificationTexte = {
+  "Designation OSE": string;
+  Localisation: string;
+};
 
 export class FabriqueDeSpecifications {
   transforme(specification: SpecificationTexte): Specifications {
+    const transformations: Specification[] = [
+      this.specificationOSE(specification),
+      this.specificationLocalisation(specification),
+    ].filter((s) => s !== undefined) as Specification[];
+
+    return new Specifications(...transformations);
+  }
+
+  private specificationOSE = (
+    specification: SpecificationTexte,
+  ): SpecificationEntiteOSE | undefined => {
     const valeur = specification["Designation OSE"];
 
-    if (valeur === "Oui")
-      return new Specifications(new SpecificationEntiteOSE(["oui"]));
-
+    if (!valeur) return;
+    if (valeur === "Oui") return new SpecificationEntiteOSE(["oui"]);
     if (valeur === "Non / Ne sait pas")
-      return new Specifications(new SpecificationEntiteOSE(["non", "nsp"]));
+      return new SpecificationEntiteOSE(["non", "nsp"]);
 
     throw new ErreurLectureDeSpecifications(valeur, "Designation OSE");
+  };
+
+  private specificationLocalisation(
+    specification: SpecificationTexte,
+  ): SpecificationLocalisation | undefined {
+    const valeur = specification["Localisation"];
+
+    if (!valeur) return;
+    if (valeur === "France") return new SpecificationLocalisation(["france"]);
+
+    throw new ErreurLectureDeSpecifications(valeur, "Localisation");
   }
 }
 
