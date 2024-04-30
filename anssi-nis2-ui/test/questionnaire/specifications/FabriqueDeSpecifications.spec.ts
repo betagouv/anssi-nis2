@@ -24,7 +24,7 @@ describe("La fabrique de spécifications", () => {
     it("sait instancier une spécification « Oui »", () => {
       const lecteur = new FabriqueDeSpecifications();
 
-      const specification = lecteur.transforme({ "Designation OSE": "Oui" });
+      const [specification] = lecteur.transforme({ "Designation OSE": "Oui" });
 
       expect(specification).toBeInstanceOf(SpecificationEntiteOSE);
 
@@ -36,7 +36,7 @@ describe("La fabrique de spécifications", () => {
     it("sait instancier une spécification « Non / Ne sais pas »", () => {
       const lecteur = new FabriqueDeSpecifications();
 
-      const specification = lecteur.transforme({
+      const [specification] = lecteur.transforme({
         "Designation OSE": "Non / Ne sait pas",
       });
 

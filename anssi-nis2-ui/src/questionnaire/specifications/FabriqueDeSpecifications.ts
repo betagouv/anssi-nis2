@@ -5,13 +5,13 @@ export type SpecificationTexte = { "Designation OSE": string };
 export class Specifications extends Array<SpecificationEntiteOSE> {}
 
 export class FabriqueDeSpecifications {
-  transforme(specification: SpecificationTexte) {
+  transforme(specification: SpecificationTexte): Specifications {
     const valeur = specification["Designation OSE"];
 
-    if (valeur === "Oui") return new SpecificationEntiteOSE(["oui"]);
+    if (valeur === "Oui") return [new SpecificationEntiteOSE(["oui"])];
 
     if (valeur === "Non / Ne sait pas")
-      return new SpecificationEntiteOSE(["non", "nsp"]);
+      return [new SpecificationEntiteOSE(["non", "nsp"])];
 
     throw new ErreurLectureDeSpecifications(valeur, "Designation OSE");
   }
