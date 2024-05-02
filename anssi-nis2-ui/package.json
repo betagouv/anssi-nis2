@@ -27,6 +27,7 @@
     "@mui/material": "^5.14.7",
     "@types/mdast": "^4.0.3",
     "axios": "^1.6.0",
+    "papaparse": "^5.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
@@ -37,8 +38,8 @@
     "remark": "^15.0.1",
     "remark-frontmatter": "^5.0.0",
     "remark-yaml-config": "^7.0.0",
-    "tss-react": "^4.8.8",
-    "ts-pattern": "^5.0.5"
+    "ts-pattern": "^5.0.5",
+    "tss-react": "^4.8.8"
   },
   "devDependencies": {
     "@storybook/addon-coverage": "^1.0.0",
@@ -54,6 +55,7 @@
     "@storybook/testing-library": "^0.2.2",
     "@testing-library/jest-dom": "^6.1.2",
     "@testing-library/react": "^14.0.0",
+    "@types/papaparse": "^5.3.14",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@types/react-helmet": "^6.1.7",
