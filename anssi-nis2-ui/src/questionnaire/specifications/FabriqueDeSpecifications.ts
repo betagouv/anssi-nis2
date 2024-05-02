@@ -1,11 +1,7 @@
 import { SpecificationEntiteOSE } from "./SpecificationEntiteOSE.ts";
 import { Specification, Specifications } from "./Specifications.ts";
 import { SpecificationLocalisation } from "./SpecificationLocalisation.ts";
-
-export type SpecificationTexte = {
-  "Designation OSE": string;
-  Localisation: string;
-};
+import { SpecificationTexte } from "./FormatDesSpecificationsCSV.ts";
 
 export class FabriqueDeSpecifications {
   transforme(specification: SpecificationTexte): Specifications {

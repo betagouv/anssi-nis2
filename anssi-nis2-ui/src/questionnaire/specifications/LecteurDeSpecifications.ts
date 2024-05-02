@@ -1,10 +1,11 @@
 import fs from "node:fs";
 import { parse } from "papaparse";
 import { Specifications } from "./Specifications.ts";
+import { FabriqueDeSpecifications } from "./FabriqueDeSpecifications.ts";
 import {
-  FabriqueDeSpecifications,
   SpecificationTexte,
-} from "./FabriqueDeSpecifications.ts";
+  valideColonnesDuCSV,
+} from "./FormatDesSpecificationsCSV.ts";
 
 export class LecteurDeSpecifications {
   private readonly fabrique = new FabriqueDeSpecifications();
@@ -16,6 +17,8 @@ export class LecteurDeSpecifications {
       header: true,
       skipEmptyLines: true,
     });
+
+    valideColonnesDuCSV(records.meta.fields!);
 
     return records.data.map((r) => this.fabrique.transforme(r));
   }

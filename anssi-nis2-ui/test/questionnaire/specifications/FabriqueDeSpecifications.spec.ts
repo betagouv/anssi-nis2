@@ -4,10 +4,8 @@ import {
   etatParDefaut,
   EtatQuestionnaire,
 } from "../../../src/questionnaire/reducerQuestionnaire";
-import {
-  FabriqueDeSpecifications,
-  SpecificationTexte,
-} from "../../../src/questionnaire/specifications/FabriqueDeSpecifications";
+import { FabriqueDeSpecifications } from "../../../src/questionnaire/specifications/FabriqueDeSpecifications";
+import { SpecificationTexte } from "../../../src/questionnaire/specifications/FormatDesSpecificationsCSV";
 
 describe("La fabrique de spécifications", () => {
   let fabrique: FabriqueDeSpecifications;
