@@ -11,8 +11,10 @@ export class Specifications {
     private readonly _resultat: ResultatEligibilite,
   ) {}
 
-  evalue(reponses: EtatQuestionnaire) {
-    return this.regles.every((r) => r.evalue(reponses));
+  evalue(reponses: EtatQuestionnaire): ResultatEligibilite | undefined {
+    const passeToutesLesRegles = this.regles.every((r) => r.evalue(reponses));
+
+    if (passeToutesLesRegles) return this._resultat;
   }
 
   nombreDeRegles() {

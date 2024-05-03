@@ -6,6 +6,7 @@ import {
 import { FabriqueDeSpecifications } from "../../../src/questionnaire/specifications/FabriqueDeSpecifications";
 import { SpecificationTexte } from "../../../src/questionnaire/specifications/FormatDesSpecificationsCSV";
 import { Specifications } from "../../../src/questionnaire/specifications/Specifications";
+import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions";
 
 describe("La fabrique de spécifications", () => {
   let fabrique: FabriqueDeSpecifications;
@@ -34,9 +35,9 @@ describe("La fabrique de spécifications", () => {
       );
 
       expect(specs.nombreDeRegles()).toBe(1);
-      expect(specs.evalue(entiteOui)).toBe(true);
-      expect(specs.evalue(entiteNon)).toBe(false);
-      expect(specs.evalue(entiteNeSaitPas)).toBe(false);
+      expect(specs.evalue(entiteOui)).toMatchObject(reguleEE());
+      expect(specs.evalue(entiteNon)).toBe(undefined);
+      expect(specs.evalue(entiteNeSaitPas)).toBe(undefined);
     });
 
     it("sait instancier une règle « Non / Ne sait pas »", () => {
@@ -48,9 +49,9 @@ describe("La fabrique de spécifications", () => {
       );
 
       expect(specs.nombreDeRegles()).toBe(1);
-      expect(specs.evalue(entiteOui)).toBe(false);
-      expect(specs.evalue(entiteNon)).toBe(true);
-      expect(specs.evalue(entiteNeSaitPas)).toBe(true);
+      expect(specs.evalue(entiteOui)).toBe(undefined);
+      expect(specs.evalue(entiteNon)).toMatchObject(reguleEE());
+      expect(specs.evalue(entiteNeSaitPas)).toMatchObject(reguleEE());
     });
 
     it("lève une exception si la valeur reçue n'est pas gérée", () => {
@@ -86,8 +87,8 @@ describe("La fabrique de spécifications", () => {
       );
 
       expect(specs.nombreDeRegles()).toBe(1);
-      expect(specs.evalue(entiteFrance)).toBe(true);
-      expect(specs.evalue(entiteAutre)).toBe(false);
+      expect(specs.evalue(entiteFrance)).toMatchObject(reguleEE());
+      expect(specs.evalue(entiteAutre)).toBe(undefined);
     });
 
     it("lève une exception si la valeur reçue n'est pas gérée", () => {
@@ -176,4 +177,8 @@ function uneSpecification(
     Resultat: "CHAQUE TEST DOIT LE DÉFINIR",
     ...surcharge,
   };
+}
+
+function reguleEE(): Partial<ResultatEligibilite> {
+  return { regulation: "Regule", typeEntite: "EntiteEssentielle" };
 }
