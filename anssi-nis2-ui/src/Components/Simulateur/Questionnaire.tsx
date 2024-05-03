@@ -25,7 +25,6 @@ import { EtapeTypeStructure } from "./EtapesRefacto/EtapeTypeStructure.tsx";
 import { EtapeTailleEntitePrivee } from "./EtapesRefacto/EtapeTailleEntitePrivee.tsx";
 import { EtapeSecteursActivite } from "./EtapesRefacto/EtapeSecteursActivite.tsx";
 import { EtapeSousSecteursActivite } from "./EtapesRefacto/EtapeSousSecteursActivite.tsx";
-import { EtapeResultat } from "./EtapesRefacto/EtapeResultat.tsx";
 import { EtapeActivites } from "./EtapesRefacto/EtapeActivites.tsx";
 import { EtapeLocalisationServicesNumeriques } from "./EtapesRefacto/EtapeLocalisationServicesNumeriques.tsx";
 import { EtapeLocalisationEtablissementPrincipal } from "./EtapesRefacto/EtapeLocalisationEtablissementPrincipal.tsx";
@@ -33,6 +32,7 @@ import { AidezNousAmeliorerService } from "../AidezNousAmeliorerService.tsx";
 import { EnvoieDonneesFormulaire } from "../../Services/Simulateur/Operations/appelsApi";
 import { centreSurHautFormulaire } from "./scroll.ts";
 import { PersisteReponsesDuQuestionnaire } from "./EtapesRefacto/PersisteReponsesDuQuestionnaire.tsx";
+import { AiguilleVersEtapeResultat } from "./AiguilleVersEtapeResultat.tsx";
 
 export const Questionnaire = ({
   etat,
@@ -165,7 +165,7 @@ export const Questionnaire = ({
           reponses={etat}
           persistance={envoieDonneesFormulaire}
         >
-          <EtapeResultat reponses={etat} />
+          <AiguilleVersEtapeResultat reponses={etat} />
         </PersisteReponsesDuQuestionnaire>
       );
   }
