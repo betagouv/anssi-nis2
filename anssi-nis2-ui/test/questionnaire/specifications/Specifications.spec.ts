@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { SpecificationEntiteOSE } from "../../../src/questionnaire/specifications/SpecificationEntiteOSE";
+import { RegleEntiteOSE } from "../../../src/questionnaire/specifications/RegleEntiteOSE";
 import { Specifications } from "../../../src/questionnaire/specifications/Specifications";
 import {
   etatParDefaut,
@@ -14,8 +14,8 @@ describe("Les spécifications", () => {
 
   it("acceptent un questionnaire si toutes ses réponses sont conformes aux spécifications", () => {
     const deuxFoisOSE = new Specifications(
-      new SpecificationEntiteOSE(["oui"]),
-      new SpecificationEntiteOSE(["oui"]),
+      new RegleEntiteOSE(["oui"]),
+      new RegleEntiteOSE(["oui"]),
     );
 
     const passePourOui = deuxFoisOSE.evalue(entiteOui);
@@ -25,8 +25,8 @@ describe("Les spécifications", () => {
 
   it("rejettent un questionnaire si une réponse n'est pas conforme aux spécifications", () => {
     const deuxFoisNon = new Specifications(
-      new SpecificationEntiteOSE(["non"]),
-      new SpecificationEntiteOSE(["non"]),
+      new RegleEntiteOSE(["non"]),
+      new RegleEntiteOSE(["non"]),
     );
 
     const passePourOui = deuxFoisNon.evalue(entiteOui);

@@ -1,47 +1,47 @@
-import { SpecificationEntiteOSE } from "./SpecificationEntiteOSE.ts";
-import { Specification, Specifications } from "./Specifications.ts";
-import { SpecificationLocalisation } from "./SpecificationLocalisation.ts";
+import { RegleEntiteOSE } from "./RegleEntiteOSE.ts";
+import { Regle, Specifications } from "./Specifications.ts";
+import { RegleLocalisation } from "./RegleLocalisation.ts";
 import { SpecificationTexte } from "./FormatDesSpecificationsCSV.ts";
 
 export class FabriqueDeSpecifications {
-  transforme(specification: SpecificationTexte): Specifications {
-    const transformations: Specification[] = [
-      this.specificationOSE(specification),
-      this.specificationLocalisation(specification),
-    ].filter((s) => s !== undefined) as Specification[];
+  transforme(texte: SpecificationTexte): Specifications {
+    const regles: Regle[] = [
+      this.regleOSE(texte),
+      this.regleLocalisation(texte),
+    ].filter((s) => s !== undefined) as Regle[];
 
-    return new Specifications(...transformations);
+    return new Specifications(...regles);
   }
 
-  private specificationOSE = (
-    specification: SpecificationTexte,
-  ): SpecificationEntiteOSE | undefined => {
-    const valeur = specification["Designation OSE"];
+  private regleOSE = (
+    texte: SpecificationTexte,
+  ): RegleEntiteOSE | undefined => {
+    const valeur = texte["Designation OSE"];
 
     if (!valeur) return;
-    if (valeur === "Oui") return new SpecificationEntiteOSE(["oui"]);
+    if (valeur === "Oui") return new RegleEntiteOSE(["oui"]);
     if (valeur === "Non / Ne sait pas")
-      return new SpecificationEntiteOSE(["non", "nsp"]);
+      return new RegleEntiteOSE(["non", "nsp"]);
 
-    throw new ErreurLectureDeSpecifications(valeur, "Designation OSE");
+    throw new ErreurLectureDeRegle(valeur, "Designation OSE");
   };
 
-  private specificationLocalisation(
-    specification: SpecificationTexte,
-  ): SpecificationLocalisation | undefined {
-    const valeur = specification["Localisation"];
+  private regleLocalisation(
+    texte: SpecificationTexte,
+  ): RegleLocalisation | undefined {
+    const valeur = texte["Localisation"];
 
     if (!valeur) return;
-    if (valeur === "France") return new SpecificationLocalisation(["france"]);
+    if (valeur === "France") return new RegleLocalisation(["france"]);
 
-    throw new ErreurLectureDeSpecifications(valeur, "Localisation");
+    throw new ErreurLectureDeRegle(valeur, "Localisation");
   }
 }
 
-class ErreurLectureDeSpecifications extends Error {
+class ErreurLectureDeRegle extends Error {
   constructor(valeurErreur: string, typeDeSpecification: string) {
     super(
-      `La valeur ${valeurErreur} est invalide pour la spécification ${typeDeSpecification}`,
+      `La valeur ${valeurErreur} est invalide pour la règle ${typeDeSpecification}`,
     );
   }
 }

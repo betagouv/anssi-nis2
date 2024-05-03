@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { SpecificationEntiteOSE } from "../../../src/questionnaire/specifications/SpecificationEntiteOSE";
+import { RegleEntiteOSE } from "../../../src/questionnaire/specifications/RegleEntiteOSE";
 import {
   etatParDefaut,
   EtatQuestionnaire,
@@ -33,7 +33,7 @@ describe("La fabrique de spécifications", () => {
         uneSpecification({ "Designation OSE": "Oui" }),
       );
 
-      expect(specification).toBeInstanceOf(SpecificationEntiteOSE);
+      expect(specification).toBeInstanceOf(RegleEntiteOSE);
 
       expect(specification.evalue(entiteOui)).toBe(true);
       expect(specification.evalue(entiteNon)).toBe(false);
@@ -45,7 +45,7 @@ describe("La fabrique de spécifications", () => {
         uneSpecification({ "Designation OSE": "Non / Ne sait pas" }),
       );
 
-      expect(specification).toBeInstanceOf(SpecificationEntiteOSE);
+      expect(specification).toBeInstanceOf(RegleEntiteOSE);
       expect(specification.evalue(entiteOui)).toBe(false);
       expect(specification.evalue(entiteNon)).toBe(true);
       expect(specification.evalue(entiteNeSaitPas)).toBe(true);
