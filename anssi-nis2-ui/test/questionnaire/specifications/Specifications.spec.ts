@@ -1,36 +1,47 @@
-import { describe, expect, it } from "vitest";
-import { SpecificationEntiteOSE } from "../../../src/questionnaire/specifications/SpecificationEntiteOSE";
+import { beforeEach, describe, expect, it } from "vitest";
 import { Specifications } from "../../../src/questionnaire/specifications/Specifications";
 import {
   etatParDefaut,
   EtatQuestionnaire,
 } from "../../../src/questionnaire/reducerQuestionnaire";
+import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions";
+import { RegleEntiteOSE } from "../../../src/questionnaire/specifications/RegleEntiteOSE";
 
 describe("Les spécifications", () => {
-  const entiteOui: EtatQuestionnaire = {
-    ...etatParDefaut,
-    designationOperateurServicesEssentiels: ["oui"],
+  const resultatDeLaSpec: ResultatEligibilite = {
+    regulation: "Regule",
+    typeEntite: "EntiteEssentielle",
+    pointsAttention: { precisions: [], resumes: [] },
   };
 
-  it("acceptent un questionnaire si toutes ses réponses sont conformes aux spécifications", () => {
-    const deuxFoisOSE = new Specifications(
-      new SpecificationEntiteOSE(["oui"]),
-      new SpecificationEntiteOSE(["oui"]),
+  let entiteOseOuiEstReguleEE: Specifications;
+
+  beforeEach(() => {
+    entiteOseOuiEstReguleEE = new Specifications(
+      [new RegleEntiteOSE(["oui"])],
+      resultatDeLaSpec,
     );
-
-    const passePourOui = deuxFoisOSE.evalue(entiteOui);
-
-    expect(passePourOui).toBe(true);
   });
 
-  it("rejettent un questionnaire si une réponse n'est pas conforme aux spécifications", () => {
-    const deuxFoisNon = new Specifications(
-      new SpecificationEntiteOSE(["non"]),
-      new SpecificationEntiteOSE(["non"]),
-    );
+  it("retourne le résultat spécifié si toutes les réponses du questionnaire sont conformes aux règles", () => {
+    const entiteOui: EtatQuestionnaire = {
+      ...etatParDefaut,
+      designationOperateurServicesEssentiels: ["oui"],
+    };
 
-    const passePourOui = deuxFoisNon.evalue(entiteOui);
+    const resultat = entiteOseOuiEstReguleEE.evalue(entiteOui);
 
-    expect(passePourOui).toBe(false);
+    expect(resultat).toBe(resultatDeLaSpec);
+  });
+
+  it("retourne `undefined` dès qu'une réponse du questionnaire n'est pas conforme à une règle", () => {
+    const entiteNon: EtatQuestionnaire = {
+      ...etatParDefaut,
+      designationOperateurServicesEssentiels: ["non"],
+    };
+
+    const resultat = entiteOseOuiEstReguleEE.evalue(entiteNon);
+
+    expect(resultat).toBe(undefined);
   });
 });
