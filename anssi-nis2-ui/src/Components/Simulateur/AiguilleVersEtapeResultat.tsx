@@ -3,6 +3,8 @@ import { EtapeResultat } from "./EtapesRefacto/EtapeResultat.tsx";
 import { EtapeResultatV2 } from "./EtapeResultatV2.tsx";
 import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 import { ReactElement } from "react";
+import { evalueEligibilite } from "../../questionnaire/specifications/EvalueEligibilite.ts";
+import SpecificationsCompletes from "../../questionnaire/specifications/specifications-completes.csv?raw";
 
 export function AiguilleVersEtapeResultat(props: {
   version: string;
@@ -13,7 +15,7 @@ export function AiguilleVersEtapeResultat(props: {
   const afficheLesDeux = props.version === "all";
 
   const v2: ReactElement = (
-    <AvecEvaluationEligibilitie>
+    <AvecEvaluationEligibilitie reponses={props.reponses}>
       {(r: ResultatEligibilite) => <EtapeResultatV2 resultat={r} />}
     </AvecEvaluationEligibilitie>
   );
@@ -32,13 +34,10 @@ export function AiguilleVersEtapeResultat(props: {
 }
 
 function AvecEvaluationEligibilitie(props: {
+  reponses: EtatQuestionnaire;
   children: (r: ResultatEligibilite) => ReactElement;
 }) {
-  return props.children(fauxResultatReguleEE);
-}
+  const resultat = evalueEligibilite(props.reponses, SpecificationsCompletes);
 
-const fauxResultatReguleEE: ResultatEligibilite = {
-  regulation: "Regule",
-  typeEntite: "EntiteEssentielle",
-  pointsAttention: { resumes: [], precisions: [] },
-};
+  return props.children(resultat);
+}
