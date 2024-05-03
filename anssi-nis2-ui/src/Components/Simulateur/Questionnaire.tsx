@@ -32,6 +32,7 @@ import { EtapeLocalisationEtablissementPrincipal } from "./EtapesRefacto/EtapeLo
 import { AidezNousAmeliorerService } from "../AidezNousAmeliorerService.tsx";
 import { EnvoieDonneesFormulaire } from "../../Services/Simulateur/Operations/appelsApi";
 import { centreSurHautFormulaire } from "./scroll.ts";
+import { PersisteReponsesDuQuestionnaire } from "./EtapesRefacto/PersisteReponsesDuQuestionnaire.tsx";
 
 export const Questionnaire = ({
   etat,
@@ -160,7 +161,12 @@ export const Questionnaire = ({
 
     case "resultat":
       return (
-        <EtapeResultat reponses={etat} persistance={envoieDonneesFormulaire} />
+        <PersisteReponsesDuQuestionnaire
+          reponses={etat}
+          persistance={envoieDonneesFormulaire}
+        >
+          <EtapeResultat reponses={etat} />
+        </PersisteReponsesDuQuestionnaire>
       );
   }
 };
