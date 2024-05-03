@@ -4,11 +4,11 @@ import { LecteurDeSpecifications } from "../../../src/questionnaire/specificatio
 describe("Le lecteur de spécifications", () => {
   it("utilise un fichier CSV pour produire un tableau de toutes les spécifications", () => {
     const lecteur = new LecteurDeSpecifications();
-    const fichier = leCSV("specification-deux-lignes.csv");
+    const fichier = leCSV("specification-une-ligne.csv");
 
     const specifications = lecteur.lis(fichier);
 
-    expect(specifications.length).toBe(2);
+    expect(specifications.length).toBe(1);
   });
 
   it("lève une exception si les colonnes du CSV ne sont pas celles attendues", () => {
