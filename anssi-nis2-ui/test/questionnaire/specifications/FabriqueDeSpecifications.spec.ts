@@ -5,6 +5,7 @@ import {
 } from "../../../src/questionnaire/reducerQuestionnaire";
 import { FabriqueDeSpecifications } from "../../../src/questionnaire/specifications/FabriqueDeSpecifications";
 import { SpecificationTexte } from "../../../src/questionnaire/specifications/FormatDesSpecificationsCSV";
+import { Specifications } from "../../../src/questionnaire/specifications/Specifications";
 
 describe("La fabrique de spécifications", () => {
   let fabrique: FabriqueDeSpecifications;
@@ -29,7 +30,7 @@ describe("La fabrique de spécifications", () => {
 
     it("sait instancier une règle « Oui »", () => {
       const specs = fabrique.transforme(
-        uneSpecification({ "Designation OSE": "Oui" }),
+        uneSpecification({ "Designation OSE": "Oui", Resultat: "Regule EE" }),
       );
 
       expect(specs.nombreDeRegles()).toBe(1);
@@ -40,7 +41,10 @@ describe("La fabrique de spécifications", () => {
 
     it("sait instancier une règle « Non / Ne sait pas »", () => {
       const specs = fabrique.transforme(
-        uneSpecification({ "Designation OSE": "Non / Ne sait pas" }),
+        uneSpecification({
+          "Designation OSE": "Non / Ne sait pas",
+          Resultat: "Regule EE",
+        }),
       );
 
       expect(specs.nombreDeRegles()).toBe(1);
@@ -59,7 +63,7 @@ describe("La fabrique de spécifications", () => {
 
     it("n'instancie pas de règle si aucune valeur n'est passée", () => {
       const specifications = fabrique.transforme(
-        uneSpecification({ "Designation OSE": "" }),
+        uneSpecification({ "Designation OSE": "", Resultat: "Regule EE" }),
       );
 
       expect(specifications.nombreDeRegles()).toBe(0);
@@ -78,7 +82,7 @@ describe("La fabrique de spécifications", () => {
 
     it("sait instancier une règle « France »", () => {
       const specs = fabrique.transforme(
-        uneSpecification({ Localisation: "France" }),
+        uneSpecification({ Localisation: "France", Resultat: "Regule EE" }),
       );
 
       expect(specs.nombreDeRegles()).toBe(1);
@@ -94,10 +98,71 @@ describe("La fabrique de spécifications", () => {
 
     it("n'instancie pas de règle si aucune valeur n'est passée", () => {
       const specifications = fabrique.transforme(
-        uneSpecification({ Localisation: "" }),
+        uneSpecification({ Localisation: "", Resultat: "Regule EE" }),
       );
 
       expect(specifications.nombreDeRegles()).toBe(0);
+    });
+  });
+
+  describe("pour le résultat", () => {
+    it("sait instancier un résultat « Régulée EE»", () => {
+      const specs: Specifications = fabrique.transforme(
+        uneSpecification({ Resultat: "Regule EE" }),
+      );
+
+      expect(specs.resultat().regulation).toBe("Regule");
+      expect(specs.resultat().typeEntite).toBe("EntiteEssentielle");
+    });
+
+    it("sait instancier un résultat « Régulée EI »", () => {
+      const specs: Specifications = fabrique.transforme(
+        uneSpecification({ Resultat: "Regule EI" }),
+      );
+
+      expect(specs.resultat().regulation).toBe("Regule");
+      expect(specs.resultat().typeEntite).toBe("EntiteImportante");
+    });
+
+    it("sait instancier un résultat « Régulée EI »", () => {
+      const specs: Specifications = fabrique.transforme(
+        uneSpecification({ Resultat: "Regule enregistrement seul" }),
+      );
+
+      expect(specs.resultat().regulation).toBe("Regule");
+      expect(specs.resultat().typeEntite).toBe("EnregistrementUniquement");
+    });
+
+    it("sait instancier un résultat « Régulée Autre Etat Membre »", () => {
+      const specs: Specifications = fabrique.transforme(
+        uneSpecification({ Resultat: "Regule autre EM" }),
+      );
+
+      expect(specs.resultat().regulation).toBe("Regule");
+      expect(specs.resultat().typeEntite).toBe("AutreEtatMembreUE");
+    });
+
+    it("sait instancier un résultat « Non regulée »", () => {
+      const specs: Specifications = fabrique.transforme(
+        uneSpecification({ Resultat: "Non regule" }),
+      );
+
+      expect(specs.resultat().regulation).toBe("NonRegule");
+    });
+
+    it("sait instancier un résultat « Incertain »", () => {
+      const specs: Specifications = fabrique.transforme(
+        uneSpecification({ Resultat: "Incertain" }),
+      );
+
+      expect(specs.resultat().regulation).toBe("Incertain");
+      expect(specs.resultat().typeEntite).toBe("AutreEtatMembreUE");
+    });
+
+    it("lève une exception si la valeur reçue n'est pas gérée", () => {
+      expect(() =>
+        fabrique.transforme(uneSpecification({ Resultat: "X" })),
+      ).toThrowError("X");
     });
   });
 });
@@ -108,8 +173,7 @@ function uneSpecification(
   return {
     "Designation OSE": "",
     Localisation: "",
-    "Resultat: statut": "",
-    "Resultat: type entite": "",
+    Resultat: "CHAQUE TEST DOIT LE DÉFINIR",
     ...surcharge,
   };
 }

@@ -1,8 +1,7 @@
 export enum ClesDuCSV {
   "Designation OSE",
   "Localisation",
-  "Resultat: statut",
-  "Resultat: type entite",
+  "Resultat",
 }
 
 // Type créé à partir des clés du CSV.
