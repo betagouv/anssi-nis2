@@ -1,5 +1,6 @@
 import { EtatQuestionnaire } from "../../questionnaire/reducerQuestionnaire.ts";
 import { EtapeResultat } from "./EtapesRefacto/EtapeResultat.tsx";
+import { EtapeResultatV2 } from "./EtapeResultatV2.tsx";
 
 export function AiguilleVersEtapeResultat(props: {
   version: string;
@@ -20,12 +21,4 @@ export function AiguilleVersEtapeResultat(props: {
         <EtapeResultatV2 />
       </>
     );
-}
-
-function EtapeResultatV2() {
-  return (
-    <div>
-      <h1>RÉSULTAT V2</h1>
-    </div>
-  );
 }
