@@ -13,13 +13,13 @@ export class LecteurDeSpecifications {
   lis(fichier: string): Specifications[] {
     const texte = fs.readFileSync(fichier).toString("utf-8");
 
-    const records = parse<SpecificationTexte>(texte, {
+    const lignes = parse<SpecificationTexte>(texte, {
       header: true,
       skipEmptyLines: true,
     });
 
-    valideColonnesDuCSV(records.meta.fields!);
+    valideColonnesDuCSV(lignes.meta.fields!);
 
-    return records.data.map((r) => this.fabrique.transforme(r));
+    return lignes.data.map((ligne) => this.fabrique.transforme(ligne));
   }
 }
