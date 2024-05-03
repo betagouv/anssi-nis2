@@ -109,5 +109,11 @@ describe("La fabrique de spécifications", () => {
 function uneSpecification(
   surcharge: Partial<SpecificationTexte>,
 ): SpecificationTexte {
-  return { "Designation OSE": "", Localisation: "", ...surcharge };
+  return {
+    "Designation OSE": "",
+    Localisation: "",
+    "Resultat: statut": "",
+    "Resultat: type entite": "",
+    ...surcharge,
+  };
 }
