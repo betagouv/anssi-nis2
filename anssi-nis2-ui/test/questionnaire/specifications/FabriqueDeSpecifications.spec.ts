@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { RegleEntiteOSE } from "../../../src/questionnaire/specifications/RegleEntiteOSE";
 import {
   etatParDefaut,
   EtatQuestionnaire,
@@ -14,7 +13,7 @@ describe("La fabrique de spécifications", () => {
     fabrique = new FabriqueDeSpecifications();
   });
 
-  describe("pour la spécification « d'entité OSE »", () => {
+  describe("pour la règle « d'entité OSE »", () => {
     const entiteOui: EtatQuestionnaire = {
       ...etatParDefaut,
       designationOperateurServicesEssentiels: ["oui"],
@@ -28,30 +27,29 @@ describe("La fabrique de spécifications", () => {
       designationOperateurServicesEssentiels: ["nsp"],
     };
 
-    it("sait instancier une spécification « Oui »", () => {
-      const [specification] = fabrique.transforme(
+    it("sait instancier une règle « Oui »", () => {
+      const specs = fabrique.transforme(
         uneSpecification({ "Designation OSE": "Oui" }),
       );
 
-      expect(specification).toBeInstanceOf(RegleEntiteOSE);
-
-      expect(specification.evalue(entiteOui)).toBe(true);
-      expect(specification.evalue(entiteNon)).toBe(false);
-      expect(specification.evalue(entiteNeSaitPas)).toBe(false);
+      expect(specs.nombreDeRegles()).toBe(1);
+      expect(specs.evalue(entiteOui)).toBe(true);
+      expect(specs.evalue(entiteNon)).toBe(false);
+      expect(specs.evalue(entiteNeSaitPas)).toBe(false);
     });
 
-    it("sait instancier une spécification « Non / Ne sait pas »", () => {
-      const [specification] = fabrique.transforme(
+    it("sait instancier une règle « Non / Ne sait pas »", () => {
+      const specs = fabrique.transforme(
         uneSpecification({ "Designation OSE": "Non / Ne sait pas" }),
       );
 
-      expect(specification).toBeInstanceOf(RegleEntiteOSE);
-      expect(specification.evalue(entiteOui)).toBe(false);
-      expect(specification.evalue(entiteNon)).toBe(true);
-      expect(specification.evalue(entiteNeSaitPas)).toBe(true);
+      expect(specs.nombreDeRegles()).toBe(1);
+      expect(specs.evalue(entiteOui)).toBe(false);
+      expect(specs.evalue(entiteNon)).toBe(true);
+      expect(specs.evalue(entiteNeSaitPas)).toBe(true);
     });
 
-    it("lève une exception si la spécification reçue n'est pas gérée", () => {
+    it("lève une exception si la valeur reçue n'est pas gérée", () => {
       expect(() =>
         fabrique.transforme(
           uneSpecification({ "Designation OSE": "Mauvaise valeur" }),
@@ -59,16 +57,16 @@ describe("La fabrique de spécifications", () => {
       ).toThrowError("Mauvaise valeur");
     });
 
-    it("n'instancie pas de spécification si aucune valeur n'est passée", () => {
+    it("n'instancie pas de règle si aucune valeur n'est passée", () => {
       const specifications = fabrique.transforme(
         uneSpecification({ "Designation OSE": "" }),
       );
 
-      expect(specifications.length).toBe(0);
+      expect(specifications.nombreDeRegles()).toBe(0);
     });
   });
 
-  describe("pour la spécification de « Localisation »", () => {
+  describe("pour la règle de « Localisation »", () => {
     const entiteFrance: EtatQuestionnaire = {
       ...etatParDefaut,
       appartenancePaysUnionEuropeenne: ["france"],
@@ -78,30 +76,28 @@ describe("La fabrique de spécifications", () => {
       appartenancePaysUnionEuropeenne: ["autre"],
     };
 
-    it("sait instancier une spécification « France »", () => {
-      const [specification] = fabrique.transforme(
+    it("sait instancier une règle « France »", () => {
+      const specs = fabrique.transforme(
         uneSpecification({ Localisation: "France" }),
       );
 
-      const accepteFrance = specification.evalue(entiteFrance);
-      const accepteAutre = specification.evalue(entiteAutre);
-
-      expect(accepteFrance).toBe(true);
-      expect(accepteAutre).toBe(false);
+      expect(specs.nombreDeRegles()).toBe(1);
+      expect(specs.evalue(entiteFrance)).toBe(true);
+      expect(specs.evalue(entiteAutre)).toBe(false);
     });
 
-    it("lève une exception si la spécification reçue n'est pas gérée", () => {
+    it("lève une exception si la valeur reçue n'est pas gérée", () => {
       expect(() =>
         fabrique.transforme(uneSpecification({ Localisation: "12345" })),
       ).toThrowError("12345");
     });
 
-    it("n'instancie pas de spécification si aucune valeur n'est passée", () => {
+    it("n'instancie pas de règle si aucune valeur n'est passée", () => {
       const specifications = fabrique.transforme(
         uneSpecification({ Localisation: "" }),
       );
 
-      expect(specifications.length).toBe(0);
+      expect(specifications.nombreDeRegles()).toBe(0);
     });
   });
 });

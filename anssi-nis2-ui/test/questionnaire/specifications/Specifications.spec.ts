@@ -13,10 +13,10 @@ describe("Les spécifications", () => {
   };
 
   it("acceptent un questionnaire si toutes ses réponses sont conformes aux spécifications", () => {
-    const deuxFoisOSE = new Specifications(
+    const deuxFoisOSE = new Specifications([
       new RegleEntiteOSE(["oui"]),
       new RegleEntiteOSE(["oui"]),
-    );
+    ]);
 
     const passePourOui = deuxFoisOSE.evalue(entiteOui);
 
@@ -24,10 +24,10 @@ describe("Les spécifications", () => {
   });
 
   it("rejettent un questionnaire si une réponse n'est pas conforme aux spécifications", () => {
-    const deuxFoisNon = new Specifications(
+    const deuxFoisNon = new Specifications([
       new RegleEntiteOSE(["non"]),
       new RegleEntiteOSE(["non"]),
-    );
+    ]);
 
     const passePourOui = deuxFoisNon.evalue(entiteOui);
 

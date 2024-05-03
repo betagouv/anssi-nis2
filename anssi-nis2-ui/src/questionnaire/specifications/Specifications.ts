@@ -4,8 +4,14 @@ export interface Regle {
   evalue(reponses: EtatQuestionnaire): boolean;
 }
 
-export class Specifications extends Array<Regle> {
+export class Specifications {
+  constructor(private readonly regles: Regle[]) {}
+
   evalue(reponses: EtatQuestionnaire) {
-    return this.every((spec) => spec.evalue(reponses));
+    return this.regles.every((r) => r.evalue(reponses));
+  }
+
+  public nombreDeRegles() {
+    return this.regles.length;
   }
 }

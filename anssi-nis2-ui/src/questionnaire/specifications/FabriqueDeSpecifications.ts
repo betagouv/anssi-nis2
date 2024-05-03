@@ -10,7 +10,7 @@ export class FabriqueDeSpecifications {
       this.regleLocalisation(texte),
     ].filter((s) => s !== undefined) as Regle[];
 
-    return new Specifications(...regles);
+    return new Specifications(regles);
   }
 
   private regleOSE = (
