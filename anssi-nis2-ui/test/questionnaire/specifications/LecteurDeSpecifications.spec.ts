@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { LecteurDeSpecifications } from "../../../src/questionnaire/specifications/LecteurDeSpecifications";
+import { leCSV } from "./aidesAuxTests";
 
 describe("Le lecteur de spécifications", () => {
   it("utilise un fichier CSV pour produire un tableau de toutes les spécifications", () => {
@@ -19,5 +20,3 @@ describe("Le lecteur de spécifications", () => {
     ).toThrowError("manque des colonnes");
   });
 });
-
-const leCSV = (nom: string) => "./test/questionnaire/specifications/" + nom;

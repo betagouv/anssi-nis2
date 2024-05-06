@@ -106,6 +106,49 @@ describe("La fabrique de spécifications", () => {
     });
   });
 
+  describe("pour la règle « Type de structure »", () => {
+    const privee: EtatQuestionnaire = {
+      ...etatParDefaut,
+      typeStructure: ["privee"],
+    };
+    const publique: EtatQuestionnaire = {
+      ...etatParDefaut,
+      typeStructure: ["publique"],
+    };
+
+    it("instancie une règle « Entreprise privee ou publique »", () => {
+      const specs: Specifications = fabrique.transforme(
+        uneSpecification({
+          "Type de structure": "Entreprise privee ou publique",
+          Resultat: "Regule EE",
+        }),
+      );
+
+      expect(specs.nombreDeRegles()).toBe(1);
+      expect(specs.evalue(privee)).toMatchObject(reguleEE());
+      expect(specs.evalue(publique)).toBe(undefined);
+    });
+
+    it("n'instancie pas de règle si aucune valeur n'est passée", () => {
+      const specs: Specifications = fabrique.transforme(
+        uneSpecification({
+          "Type de structure": "",
+          Resultat: "Regule EE",
+        }),
+      );
+
+      expect(specs.nombreDeRegles()).toBe(0);
+    });
+
+    it("lève une exception si la valeur reçue n'est pas gérée", () => {
+      expect(() => {
+        fabrique.transforme(
+          uneSpecification({ "Type de structure": "X", Resultat: "Regule EE" }),
+        );
+      }).toThrowError("X");
+    });
+  });
+
   describe("pour le résultat", () => {
     it("sait instancier un résultat « Régulée EE»", () => {
       const specs: Specifications = fabrique.transforme(
@@ -174,6 +217,7 @@ function uneSpecification(
   return {
     "Designation OSE": "",
     Localisation: "",
+    "Type de structure": "",
     Resultat: "CHAQUE TEST DOIT LE DÉFINIR",
     ...surcharge,
   };

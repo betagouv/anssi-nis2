@@ -3,12 +3,14 @@ import { Regle, Specifications } from "./Specifications.ts";
 import { RegleLocalisation } from "./RegleLocalisation.ts";
 import { SpecificationTexte } from "./FormatDesSpecificationsCSV.ts";
 import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
+import { RegleTypeDeStructure } from "./RegleTypeDeStructure.ts";
 
 export class FabriqueDeSpecifications {
   transforme(texte: SpecificationTexte): Specifications {
     const regles: Regle[] = [
       this.regleOSE(texte),
       this.regleLocalisation(texte),
+      this.regleTypeDeStructure(texte),
     ].filter((s) => s !== undefined) as Regle[];
 
     const resultat = this.transformeResultat(texte);
@@ -38,6 +40,16 @@ export class FabriqueDeSpecifications {
     if (valeur === "France") return new RegleLocalisation(["france"]);
 
     throw new ErreurLectureDeRegle(valeur, "Localisation");
+  }
+
+  private regleTypeDeStructure(texte: SpecificationTexte) {
+    const valeur = texte["Type de structure"];
+
+    if (!valeur) return;
+    if (valeur === "Entreprise privee ou publique")
+      return new RegleTypeDeStructure(["privee"]);
+
+    throw new ErreurLectureDeRegle(valeur, "Type de structure");
   }
 
   private transformeResultat(texte: SpecificationTexte): ResultatEligibilite {

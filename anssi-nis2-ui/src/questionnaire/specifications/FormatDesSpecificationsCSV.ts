@@ -1,6 +1,7 @@
 export enum ClesDuCSV {
   "Designation OSE",
   "Localisation",
+  "Type de structure",
   "Resultat",
 }
 

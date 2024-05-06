@@ -1,4 +1,3 @@
-import fs from "node:fs";
 import { parse } from "papaparse";
 import { Specifications } from "./Specifications.ts";
 import { FabriqueDeSpecifications } from "./FabriqueDeSpecifications.ts";
@@ -10,10 +9,8 @@ import {
 export class LecteurDeSpecifications {
   private readonly fabrique = new FabriqueDeSpecifications();
 
-  lis(fichier: string): Specifications[] {
-    const texte = fs.readFileSync(fichier).toString("utf-8");
-
-    const lignes = parse<SpecificationTexte>(texte, {
+  lis(contenuCsv: string): Specifications[] {
+    const lignes = parse<SpecificationTexte>(contenuCsv, {
       header: true,
       skipEmptyLines: true,
     });
