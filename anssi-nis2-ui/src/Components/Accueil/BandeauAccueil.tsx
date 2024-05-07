@@ -7,7 +7,8 @@ const BandeauAccueil: DefaultComponent = () => (
   <BlocPrincipal className="fond-primaire" id="hero">
     <h1 className="texte-blanc">Directive NIS&nbsp;2</h1>
     <h2 className="texte-blanc">
-      Élever collectivement notre niveau de cybersécurité
+      Élever collectivement
+      <br /> notre niveau de cybersécurité
     </h2>
     <img
       src={Marches}
