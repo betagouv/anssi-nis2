@@ -13,22 +13,12 @@ export class FabriqueDeSpecifications {
       RegleEntiteOSE.nouvelle(texte),
       RegleLocalisation.nouvelle(texte),
       RegleTypeDeStructure.nouvelle(texte),
-      this.regleTaille(texte),
+      RegleTaille.nouvelle(texte),
     ].filter((s) => s !== undefined) as Regle[];
 
     const resultat = this.transformeResultat(texte);
 
     return new Specifications(regles, resultat);
-  }
-  private regleTaille(texte: SpecificationTexte) {
-    const valeur = texte["Taille"];
-
-    if (!valeur) return;
-    if (valeur === "Petite") return new RegleTaille("petit");
-    if (valeur === "Moyenne") return new RegleTaille("moyen");
-    if (valeur === "Grande") return new RegleTaille("grand");
-
-    throw new ErreurLectureDeRegle(valeur, "Taille");
   }
 
   private transformeResultat(texte: SpecificationTexte): ResultatEligibilite {
