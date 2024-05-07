@@ -5,11 +5,12 @@ import { SpecificationTexte } from "./FormatDesSpecificationsCSV.ts";
 import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 import { RegleTypeDeStructure } from "./regles/RegleTypeDeStructure.ts";
 import { RegleTaille } from "./regles/RegleTaille.ts";
+import { ErreurLectureDeRegle } from "./regles/ErreurLectureDeRegle.ts";
 
 export class FabriqueDeSpecifications {
   transforme(texte: SpecificationTexte): Specifications {
     const regles: Regle[] = [
-      this.regleOSE(texte),
+      RegleEntiteOSE.nouvelle(texte),
       this.regleLocalisation(texte),
       this.regleTypeDeStructure(texte),
       this.regleTaille(texte),
@@ -19,19 +20,6 @@ export class FabriqueDeSpecifications {
 
     return new Specifications(regles, resultat);
   }
-
-  private regleOSE = (
-    texte: SpecificationTexte,
-  ): RegleEntiteOSE | undefined => {
-    const valeur = texte["Designation OSE"];
-
-    if (!valeur) return;
-    if (valeur === "Oui") return new RegleEntiteOSE(["oui"]);
-    if (valeur === "Non / Ne sait pas")
-      return new RegleEntiteOSE(["non", "nsp"]);
-
-    throw new ErreurLectureDeRegle(valeur, "Designation OSE");
-  };
 
   private regleLocalisation(
     texte: SpecificationTexte,
@@ -111,13 +99,5 @@ export class FabriqueDeSpecifications {
       };
 
     throw new ErreurLectureDeRegle(valeur, "Resultat");
-  }
-}
-
-class ErreurLectureDeRegle extends Error {
-  constructor(valeurErreur: string, typeDeSpecification: string) {
-    super(
-      `La valeur ${valeurErreur} est invalide pour la règle ${typeDeSpecification}`,
-    );
   }
 }
