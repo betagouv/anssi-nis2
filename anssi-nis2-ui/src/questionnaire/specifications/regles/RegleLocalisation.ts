@@ -7,11 +7,11 @@ import { SpecificationTexte } from "../FormatDesSpecificationsCSV.ts";
 
 export class RegleLocalisation implements Regle {
   constructor(
-    private readonly valeursAcceptees: AppartenancePaysUnionEuropeenne[],
+    private readonly valeursAcceptees: AppartenancePaysUnionEuropeenne,
   ) {}
 
   evalue(etat: EtatQuestionnaire) {
-    return contientUnParmi(...this.valeursAcceptees)(
+    return contientUnParmi(this.valeursAcceptees)(
       etat.appartenancePaysUnionEuropeenne,
     );
   }
@@ -20,7 +20,7 @@ export class RegleLocalisation implements Regle {
     const valeur = texte["Localisation"];
 
     if (!valeur) return;
-    if (valeur === "France") return new RegleLocalisation(["france"]);
+    if (valeur === "France") return new RegleLocalisation("france");
 
     throw new ErreurLectureDeRegle(valeur, "Localisation");
   }
