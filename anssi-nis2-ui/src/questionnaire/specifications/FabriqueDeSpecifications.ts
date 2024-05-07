@@ -12,7 +12,7 @@ export class FabriqueDeSpecifications {
     const regles: Regle[] = [
       RegleEntiteOSE.nouvelle(texte),
       RegleLocalisation.nouvelle(texte),
-      this.regleTypeDeStructure(texte),
+      RegleTypeDeStructure.nouvelle(texte),
       this.regleTaille(texte),
     ].filter((s) => s !== undefined) as Regle[];
 
@@ -20,16 +20,6 @@ export class FabriqueDeSpecifications {
 
     return new Specifications(regles, resultat);
   }
-  private regleTypeDeStructure(texte: SpecificationTexte) {
-    const valeur = texte["Type de structure"];
-
-    if (!valeur) return;
-    if (valeur === "Entreprise privee ou publique")
-      return new RegleTypeDeStructure(["privee"]);
-
-    throw new ErreurLectureDeRegle(valeur, "Type de structure");
-  }
-
   private regleTaille(texte: SpecificationTexte) {
     const valeur = texte["Taille"];
 
