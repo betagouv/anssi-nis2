@@ -6,10 +6,10 @@ import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle.ts";
 import { SpecificationTexte } from "../FormatDesSpecificationsCSV.ts";
 
 export class RegleTypeDeStructure implements Regle {
-  constructor(private readonly valeursAcceptees: TypeStructure[]) {}
+  constructor(private readonly valeursAcceptees: TypeStructure) {}
 
   evalue(reponses: EtatQuestionnaire): boolean {
-    return contientUnParmi(...this.valeursAcceptees)(reponses.typeStructure);
+    return contientUnParmi(this.valeursAcceptees)(reponses.typeStructure);
   }
 
   static nouvelle(texte: SpecificationTexte): RegleTypeDeStructure | undefined {
@@ -17,7 +17,7 @@ export class RegleTypeDeStructure implements Regle {
 
     if (!valeur) return;
     if (valeur === "Entreprise privee ou publique")
-      return new RegleTypeDeStructure(["privee"]);
+      return new RegleTypeDeStructure("privee");
 
     throw new ErreurLectureDeRegle(valeur, "Type de structure");
   }
