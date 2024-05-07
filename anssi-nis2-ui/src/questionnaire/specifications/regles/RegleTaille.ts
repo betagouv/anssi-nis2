@@ -9,7 +9,28 @@ export class RegleTaille implements Regle {
   constructor(private readonly tailleAttendue: UnionPetitMoyenGrand) {}
 
   evalue(etat: EtatQuestionnaire): boolean {
-    return contientUnParmi(this.tailleAttendue)(etat.trancheNombreEmployes);
+    const employes = etat.trancheNombreEmployes;
+    const ca = etat.trancheChiffreAffaire;
+
+    let tailleReelle: UnionPetitMoyenGrand | undefined;
+
+    const employesPetit = contientUnParmi("petit")(employes);
+    if (employesPetit) {
+      if (contientUnParmi("petit")(ca)) tailleReelle = "petit";
+      if (contientUnParmi("moyen")(ca)) tailleReelle = "moyen";
+      if (contientUnParmi("grand")(ca)) tailleReelle = "grand";
+    }
+
+    const employesMoyen = contientUnParmi("moyen")(employes);
+    if (employesMoyen) {
+      if (contientUnParmi("petit")(ca)) tailleReelle = "moyen";
+      if (contientUnParmi("moyen")(ca)) tailleReelle = "moyen";
+      if (contientUnParmi("grand")(ca)) tailleReelle = "grand";
+    }
+
+    if (contientUnParmi("grand")(employes)) tailleReelle = "grand";
+
+    return tailleReelle === this.tailleAttendue;
   }
 
   static nouvelle(texte: SpecificationTexte): RegleTaille | undefined {
