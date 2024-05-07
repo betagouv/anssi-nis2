@@ -11,7 +11,7 @@ export class FabriqueDeSpecifications {
   transforme(texte: SpecificationTexte): Specifications {
     const regles: Regle[] = [
       RegleEntiteOSE.nouvelle(texte),
-      this.regleLocalisation(texte),
+      RegleLocalisation.nouvelle(texte),
       this.regleTypeDeStructure(texte),
       this.regleTaille(texte),
     ].filter((s) => s !== undefined) as Regle[];
@@ -20,18 +20,6 @@ export class FabriqueDeSpecifications {
 
     return new Specifications(regles, resultat);
   }
-
-  private regleLocalisation(
-    texte: SpecificationTexte,
-  ): RegleLocalisation | undefined {
-    const valeur = texte["Localisation"];
-
-    if (!valeur) return;
-    if (valeur === "France") return new RegleLocalisation(["france"]);
-
-    throw new ErreurLectureDeRegle(valeur, "Localisation");
-  }
-
   private regleTypeDeStructure(texte: SpecificationTexte) {
     const valeur = texte["Type de structure"];
 
