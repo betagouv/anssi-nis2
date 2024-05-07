@@ -1,10 +1,10 @@
-import { RegleEntiteOSE } from "./RegleEntiteOSE.ts";
+import { RegleEntiteOSE } from "./regles/RegleEntiteOSE.ts";
 import { Regle, Specifications } from "./Specifications.ts";
-import { RegleLocalisation } from "./RegleLocalisation.ts";
+import { RegleLocalisation } from "./regles/RegleLocalisation.ts";
 import { SpecificationTexte } from "./FormatDesSpecificationsCSV.ts";
 import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
-import { RegleTypeDeStructure } from "./RegleTypeDeStructure.ts";
-import { RegleTaille } from "./RegleTaille.ts";
+import { RegleTypeDeStructure } from "./regles/RegleTypeDeStructure.ts";
+import { RegleTaille } from "./regles/RegleTaille.ts";
 
 export class FabriqueDeSpecifications {
   transforme(texte: SpecificationTexte): Specifications {

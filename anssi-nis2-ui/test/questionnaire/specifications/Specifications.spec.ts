@@ -5,7 +5,7 @@ import {
   EtatQuestionnaire,
 } from "../../../src/questionnaire/reducerQuestionnaire";
 import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions";
-import { RegleEntiteOSE } from "../../../src/questionnaire/specifications/RegleEntiteOSE";
+import { RegleEntiteOSE } from "../../../src/questionnaire/specifications/regles/RegleEntiteOSE";
 
 describe("Les spécifications", () => {
   const resultatDeLaSpec: ResultatEligibilite = {
