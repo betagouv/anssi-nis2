@@ -4,6 +4,7 @@ import { RegleLocalisation } from "./RegleLocalisation.ts";
 import { SpecificationTexte } from "./FormatDesSpecificationsCSV.ts";
 import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 import { RegleTypeDeStructure } from "./RegleTypeDeStructure.ts";
+import { RegleTaille } from "./RegleTaille.ts";
 
 export class FabriqueDeSpecifications {
   transforme(texte: SpecificationTexte): Specifications {
@@ -11,6 +12,7 @@ export class FabriqueDeSpecifications {
       this.regleOSE(texte),
       this.regleLocalisation(texte),
       this.regleTypeDeStructure(texte),
+      this.regleTaille(texte),
     ].filter((s) => s !== undefined) as Regle[];
 
     const resultat = this.transformeResultat(texte);
@@ -50,6 +52,17 @@ export class FabriqueDeSpecifications {
       return new RegleTypeDeStructure(["privee"]);
 
     throw new ErreurLectureDeRegle(valeur, "Type de structure");
+  }
+
+  private regleTaille(texte: SpecificationTexte) {
+    const valeur = texte["Taille"];
+
+    if (!valeur) return;
+    if (valeur === "Petite") return new RegleTaille("petit");
+    if (valeur === "Moyenne") return new RegleTaille("moyen");
+    if (valeur === "Grande") return new RegleTaille("grand");
+
+    throw new ErreurLectureDeRegle(valeur, "Taille");
   }
 
   private transformeResultat(texte: SpecificationTexte): ResultatEligibilite {
