@@ -1,11 +1,16 @@
 import { Helmet } from "react-helmet";
 import { DefaultComponentExtensible, MatomoProps } from "../../Services/Props";
+import { useConfigurationMatomo } from "./useConfigurationMatomo.hook.tsx";
+import { Fragment } from "react";
 
 const Matomo: DefaultComponentExtensible<MatomoProps> = ({
   SiteId,
   JavascriptContainerHash,
   GestionBalises,
 }: MatomoProps) => {
+  const [optOut] = useConfigurationMatomo();
+  if (optOut) return <Fragment />;
+
   const scriptMatomoJavascript = `var _paq = window._paq = window._paq || [];
   /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
   _paq.push(['trackPageView']);
@@ -23,6 +28,7 @@ const Matomo: DefaultComponentExtensible<MatomoProps> = ({
     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
     g.async=true; g.src='https://stats.beta.gouv.fr/js/container_${JavascriptContainerHash}.js'; s.parentNode.insertBefore(g,s);
   })();`;
+
   return (
     <>
       <Helmet>
