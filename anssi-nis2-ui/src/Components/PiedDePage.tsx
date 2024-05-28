@@ -84,6 +84,11 @@ const PiedDePage = () => (
                 Gestion des cookies
               </a>
             </li>
+            <li className="fr-footer__bottom-item">
+              <a href="/accessibilite" className="fr-footer__bottom-link">
+                Accessibilité : non conforme
+              </a>
+            </li>
           </ul>
           <div className="fr-footer__bottom-copy">
             <p>
