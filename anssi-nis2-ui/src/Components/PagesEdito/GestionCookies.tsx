@@ -1,4 +1,5 @@
 import { DefaultComponent } from "../../Services/Props";
+import { MatomoOptOut } from "../Matomo/MatomoOptOut";
 
 const GestionCookies: DefaultComponent = () => {
   return (
@@ -36,6 +37,7 @@ const GestionCookies: DefaultComponent = () => {
         anonymisée avant d’être enregistrée. Il est donc impossible d’associer
         vos visites sur ce site à votre personne.
       </p>
+      <MatomoOptOut />
       <h3>Je contribue à enrichir vos données, puis-je y accéder&nbsp;?</h3>
       <p>
         Bien sûr ! Les statistiques d’usage de la majorité de nos produits, dont
