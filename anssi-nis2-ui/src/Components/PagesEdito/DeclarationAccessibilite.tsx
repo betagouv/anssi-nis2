@@ -1,8 +1,6 @@
 export function DeclarationAccessibilite() {
   return (
     <>
-      <h1>Déclaration d&apos;accessibilité</h1>
-
       <p> Établie le 24 mai 2024.</p>
       <p>
         Notre organisation s&apos;engage à rendre son service accessible,
