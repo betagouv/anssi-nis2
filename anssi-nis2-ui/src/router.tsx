@@ -16,6 +16,7 @@ import RestezInformes from "./Components/RestezInformes.tsx";
 import * as Sentry from "@sentry/react";
 import React from "react";
 import Directive from "./Directive.tsx";
+import { DeclarationAccessibilite } from "./Components/PagesEdito/DeclarationAccessibilite.tsx";
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
@@ -38,14 +39,8 @@ const sentryCreateBrowserRouter =
   Sentry.wrapCreateBrowserRouter(createBrowserRouter);
 
 export const router = sentryCreateBrowserRouter([
-  {
-    path: "/",
-    element: <Accueil />,
-  },
-  {
-    path: "/simulateur",
-    element: <Simulateur />,
-  },
+  { path: "/", element: <Accueil /> },
+  { path: "/simulateur", element: <Simulateur /> },
   {
     path: "/a-propos",
     element: (
@@ -78,8 +73,13 @@ export const router = sentryCreateBrowserRouter([
       </PageEdito>
     ),
   },
+  { path: "/directive", element: <Directive /> },
   {
-    path: "/directive",
-    element: <Directive />,
+    path: "/accessibilite",
+    element: (
+      <PageEdito titre="Déclaration d'accessibilité">
+        <DeclarationAccessibilite />
+      </PageEdito>
+    ),
   },
 ]);
