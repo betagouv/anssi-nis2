@@ -269,6 +269,11 @@ const Directive: DefaultComponent = () => {
                     titre="Trouver les réponses à vos questions dans la FAQ"
                     lien="http://aide.monespacenis2.cyber.gouv.fr"
                   />
+                  <CarteEnSavoirPlus
+                    image={Presentation}
+                    titre="Visionner le bilan des consultations des écosystèmes sectoriels"
+                    lien="https://www.dailymotion.com/video/k3s6qjVAhdBHtaAKAGe"
+                  />
                 </div>
               </BlocPrincipal>
             </div>
