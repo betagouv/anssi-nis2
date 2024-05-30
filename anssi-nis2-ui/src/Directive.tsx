@@ -261,13 +261,18 @@ const Directive: DefaultComponent = () => {
                   />
                   <CarteEnSavoirPlus
                     image={Presentation}
-                    titre="Découvrir la présentation en vidéo"
-                    lien="https://cyber.gouv.fr//directive-nis-2"
+                    titre="Découvrir la directive en vidéo"
+                    lien="https://cyber.gouv.fr/directive-nis-2"
                   />
                   <CarteEnSavoirPlus
                     image={FAQ}
                     titre="Trouver les réponses à vos questions dans la FAQ"
-                    lien="http://aide.monespacenis2.cyber.gouv.fr"
+                    lien="https://aide.monespacenis2.cyber.gouv.fr"
+                  />
+                  <CarteEnSavoirPlus
+                    image={Presentation}
+                    titre="Visionner le bilan des consultations des écosystèmes sectoriels"
+                    lien="https://www.dailymotion.com/video/k3s6qjVAhdBHtaAKAGe"
                   />
                 </div>
               </BlocPrincipal>
