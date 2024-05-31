@@ -7,6 +7,7 @@ import { FabriqueDeSpecifications } from "../../../src/questionnaire/specificati
 import { SpecificationTexte } from "../../../src/questionnaire/specifications/FormatDesSpecificationsCSV";
 import { Specifications } from "../../../src/questionnaire/specifications/Specifications";
 import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions";
+import { UnionPetitMoyenGrand } from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions";
 
 describe("La fabrique de spécifications", () => {
   let fabrique: FabriqueDeSpecifications;
@@ -149,6 +150,67 @@ describe("La fabrique de spécifications", () => {
     });
   });
 
+  describe("pour la règle « Taille »", () => {
+    const entiteDeTaille = (taille: UnionPetitMoyenGrand) => ({
+      ...etatParDefaut,
+      trancheNombreEmployes: [taille],
+      trancheChiffreAffaire: [taille],
+    });
+
+    const petiteEntite: EtatQuestionnaire = entiteDeTaille("petit");
+    const entiteMoyenne: EtatQuestionnaire = entiteDeTaille("moyen");
+    const grandeEntite: EtatQuestionnaire = entiteDeTaille("grand");
+
+    it("sait instancier une règle « Petite »", () => {
+      const specs = fabrique.transforme(
+        uneSpecification({ Taille: "Petite", Resultat: "Regule EE" }),
+      );
+
+      expect(specs.nombreDeRegles()).toBe(1);
+      expect(specs.evalue(petiteEntite)).toMatchObject(reguleEE());
+      expect(specs.evalue(entiteMoyenne)).toBe(undefined);
+      expect(specs.evalue(grandeEntite)).toBe(undefined);
+    });
+
+    it("sait instancier une règle « Moyenne »", () => {
+      const specs = fabrique.transforme(
+        uneSpecification({ Taille: "Moyenne", Resultat: "Regule EE" }),
+      );
+
+      expect(specs.nombreDeRegles()).toBe(1);
+      expect(specs.evalue(petiteEntite)).toBe(undefined);
+      expect(specs.evalue(entiteMoyenne)).toMatchObject(reguleEE());
+      expect(specs.evalue(grandeEntite)).toBe(undefined);
+    });
+
+    it("sait instancier une règle « Grande »", () => {
+      const specs = fabrique.transforme(
+        uneSpecification({ Taille: "Grande", Resultat: "Regule EE" }),
+      );
+
+      expect(specs.nombreDeRegles()).toBe(1);
+      expect(specs.evalue(petiteEntite)).toBe(undefined);
+      expect(specs.evalue(entiteMoyenne)).toBe(undefined);
+      expect(specs.evalue(grandeEntite)).toMatchObject(reguleEE());
+    });
+
+    it("n'instancie pas de règle si aucune valeur n'est passée", () => {
+      const specs: Specifications = fabrique.transforme(
+        uneSpecification({ Taille: "", Resultat: "Regule EE" }),
+      );
+
+      expect(specs.nombreDeRegles()).toBe(0);
+    });
+
+    it("lève une exception si la valeur reçue n'est pas gérée", () => {
+      expect(() => {
+        fabrique.transforme(
+          uneSpecification({ Taille: "XXL", Resultat: "Regule EE" }),
+        );
+      }).toThrowError("XXL");
+    });
+  });
+
   describe("pour le résultat", () => {
     it("sait instancier un résultat « Régulée EE»", () => {
       const specs: Specifications = fabrique.transforme(
@@ -218,6 +280,7 @@ function uneSpecification(
     "Designation OSE": "",
     Localisation: "",
     "Type de structure": "",
+    Taille: "",
     Resultat: "CHAQUE TEST DOIT LE DÉFINIR",
     ...surcharge,
   };

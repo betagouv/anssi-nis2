@@ -1,55 +1,24 @@
-import { RegleEntiteOSE } from "./RegleEntiteOSE.ts";
+import { RegleEntiteOSE } from "./regles/RegleEntiteOSE.ts";
 import { Regle, Specifications } from "./Specifications.ts";
-import { RegleLocalisation } from "./RegleLocalisation.ts";
+import { RegleLocalisation } from "./regles/RegleLocalisation.ts";
 import { SpecificationTexte } from "./FormatDesSpecificationsCSV.ts";
 import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
-import { RegleTypeDeStructure } from "./RegleTypeDeStructure.ts";
+import { RegleTypeDeStructure } from "./regles/RegleTypeDeStructure.ts";
+import { RegleTaille } from "./regles/RegleTaille.ts";
+import { ErreurLectureDeRegle } from "./regles/ErreurLectureDeRegle.ts";
 
 export class FabriqueDeSpecifications {
   transforme(texte: SpecificationTexte): Specifications {
     const regles: Regle[] = [
-      this.regleOSE(texte),
-      this.regleLocalisation(texte),
-      this.regleTypeDeStructure(texte),
+      RegleEntiteOSE.nouvelle(texte),
+      RegleLocalisation.nouvelle(texte),
+      RegleTypeDeStructure.nouvelle(texte),
+      RegleTaille.nouvelle(texte),
     ].filter((s) => s !== undefined) as Regle[];
 
     const resultat = this.transformeResultat(texte);
 
     return new Specifications(regles, resultat);
-  }
-
-  private regleOSE = (
-    texte: SpecificationTexte,
-  ): RegleEntiteOSE | undefined => {
-    const valeur = texte["Designation OSE"];
-
-    if (!valeur) return;
-    if (valeur === "Oui") return new RegleEntiteOSE(["oui"]);
-    if (valeur === "Non / Ne sait pas")
-      return new RegleEntiteOSE(["non", "nsp"]);
-
-    throw new ErreurLectureDeRegle(valeur, "Designation OSE");
-  };
-
-  private regleLocalisation(
-    texte: SpecificationTexte,
-  ): RegleLocalisation | undefined {
-    const valeur = texte["Localisation"];
-
-    if (!valeur) return;
-    if (valeur === "France") return new RegleLocalisation(["france"]);
-
-    throw new ErreurLectureDeRegle(valeur, "Localisation");
-  }
-
-  private regleTypeDeStructure(texte: SpecificationTexte) {
-    const valeur = texte["Type de structure"];
-
-    if (!valeur) return;
-    if (valeur === "Entreprise privee ou publique")
-      return new RegleTypeDeStructure(["privee"]);
-
-    throw new ErreurLectureDeRegle(valeur, "Type de structure");
   }
 
   private transformeResultat(texte: SpecificationTexte): ResultatEligibilite {
@@ -98,13 +67,5 @@ export class FabriqueDeSpecifications {
       };
 
     throw new ErreurLectureDeRegle(valeur, "Resultat");
-  }
-}
-
-class ErreurLectureDeRegle extends Error {
-  constructor(valeurErreur: string, typeDeSpecification: string) {
-    super(
-      `La valeur ${valeurErreur} est invalide pour la règle ${typeDeSpecification}`,
-    );
   }
 }
