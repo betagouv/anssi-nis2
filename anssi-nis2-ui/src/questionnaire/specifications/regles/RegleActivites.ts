@@ -26,6 +26,14 @@ export class RegleActivites implements Regle {
         "fournisseurReseauxCommunicationElectroniquesPublics",
       );
 
+    if (
+      valeur ===
+      "Fournisseurs de services de communications électroniques accessibles au public"
+    )
+      return new RegleActivites(
+        "fournisseurServiceCommunicationElectroniquesPublics",
+      );
+
     throw new ErreurLectureDeRegle(valeur, "Activités");
   }
 }

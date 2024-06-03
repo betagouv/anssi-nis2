@@ -457,6 +457,13 @@ describe("La fabrique de spécifications", () => {
         libelleSecteur: "Infrastructure numérique",
         secteur: "infrastructureNumerique",
       },
+      {
+        libelleActivite:
+          "Fournisseurs de services de communications électroniques accessibles au public",
+        activite: "fournisseurServiceCommunicationElectroniquesPublics",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
     ];
 
     it.each(casDeTest)(
