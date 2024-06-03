@@ -8,6 +8,8 @@ import { SpecificationTexte } from "../../../src/questionnaire/specifications/Fo
 import { Specifications } from "../../../src/questionnaire/specifications/Specifications";
 import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions";
 import { UnionPetitMoyenGrand } from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions";
+import { SecteurActivite } from "../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions";
+import { libellesSecteursActivite } from "../../../src/References/LibellesSecteursActivite";
 
 describe("La fabrique de spécifications", () => {
   let fabrique: FabriqueDeSpecifications;
@@ -211,6 +213,77 @@ describe("La fabrique de spécifications", () => {
     });
   });
 
+  describe("pour la règle « Secteurs »", () => {
+    const entiteDuSecteur = (secteur: SecteurActivite): EtatQuestionnaire => ({
+      ...etatParDefaut,
+      secteurActivite: [secteur],
+    });
+    const entiteDesSecteurs = (
+      secteurs: SecteurActivite[],
+    ): EtatQuestionnaire => ({
+      ...etatParDefaut,
+      secteurActivite: secteurs,
+    });
+
+    const tousLesSecteurs = Object.entries(libellesSecteursActivite).map(
+      ([id, libelle]) => ({ id, libelle }),
+    );
+
+    it.each(tousLesSecteurs)(
+      "sait instancier une règle pour le secteur $libelle",
+      ({ id, libelle }: { id: SecteurActivite; libelle: string }) => {
+        const entite = entiteDuSecteur(id);
+        const specs = fabrique.transforme(
+          uneSpecification({ Secteurs: libelle, Resultat: "Regule EE" }),
+        );
+
+        expect(specs.nombreDeRegles()).toBe(1);
+        expect(specs.evalue(entite)).toMatchObject(reguleEE());
+      },
+    );
+
+    it("ne matche pas un secteur qui n'est pas celui de la règle", () => {
+      const banque = entiteDuSecteur("banqueSecteurBancaire");
+      const specsEnergie = fabrique.transforme(
+        uneSpecification({ Secteurs: "Énergie", Resultat: "Regule EE" }),
+      );
+
+      const resultat = specsEnergie.evalue(banque);
+
+      expect(resultat).toBe(undefined);
+    });
+
+    it("matche dès qu'un secteur est parmi ceux de la règle", () => {
+      const banqueEtEnergie = entiteDesSecteurs([
+        "banqueSecteurBancaire",
+        "energie",
+      ]);
+      const specsEnergie = fabrique.transforme(
+        uneSpecification({ Secteurs: "Énergie", Resultat: "Regule EE" }),
+      );
+
+      const resultat = specsEnergie.evalue(banqueEtEnergie);
+
+      expect(resultat).toMatchObject(reguleEE());
+    });
+
+    it("n'instancie pas de règle si aucune valeur n'est passée", () => {
+      const specs: Specifications = fabrique.transforme(
+        uneSpecification({ Secteurs: "", Resultat: "Regule EE" }),
+      );
+
+      expect(specs.nombreDeRegles()).toBe(0);
+    });
+
+    it("lève une exception si la valeur reçue n'est pas gérée", () => {
+      expect(() => {
+        fabrique.transforme(
+          uneSpecification({ Secteurs: "Tennis", Resultat: "Regule EE" }),
+        );
+      }).toThrowError("Tennis");
+    });
+  });
+
   describe("pour le résultat", () => {
     it("sait instancier un résultat « Régulée EE»", () => {
       const specs: Specifications = fabrique.transforme(
@@ -281,6 +354,7 @@ function uneSpecification(
     Localisation: "",
     "Type de structure": "",
     Taille: "",
+    Secteurs: "",
     Resultat: "CHAQUE TEST DOIT LE DÉFINIR",
     ...surcharge,
   };
