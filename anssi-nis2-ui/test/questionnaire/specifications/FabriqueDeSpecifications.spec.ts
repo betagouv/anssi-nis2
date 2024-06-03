@@ -12,6 +12,7 @@ import { SecteurActivite } from "../../../../commun/core/src/Domain/Simulateur/S
 import { libellesSecteursActivite } from "../../../src/References/LibellesSecteursActivite";
 import { SousSecteurActivite } from "../../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions";
 import { libellesSousSecteursActivite } from "../../../src/References/LibellesSousSecteursActivite";
+import { Activite } from "../../../../commun/core/src/Domain/Simulateur/Activite.definitions";
 
 describe("La fabrique de spécifications", () => {
   let fabrique: FabriqueDeSpecifications;
@@ -437,6 +438,62 @@ describe("La fabrique de spécifications", () => {
           }),
         );
       }).toThrowError("Parachute");
+    });
+  });
+
+  describe("pour la règle « Activités »", () => {
+    type CasDeTest = {
+      libelleActivite: string;
+      activite: Activite;
+      libelleSecteur: string;
+      secteur: SecteurActivite;
+    };
+
+    const casDeTest: CasDeTest[] = [
+      {
+        libelleActivite:
+          "Fournisseurs de réseaux de communications électroniques publics",
+        activite: "fournisseurReseauxCommunicationElectroniquesPublics",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
+    ];
+
+    it.each(casDeTest)(
+      `sait instancier la règle $libelleActivite du secteur $libelleSecteur`,
+      ({ libelleActivite, activite, libelleSecteur, secteur }) => {
+        const specs: Specifications = fabrique.transforme(
+          uneSpecification({
+            Activités: libelleActivite,
+            Secteurs: libelleSecteur,
+            Resultat: "Regule EE",
+          }),
+        );
+
+        const reponse: EtatQuestionnaire = {
+          ...etatParDefaut,
+          secteurActivite: [secteur],
+          activites: [activite],
+        };
+
+        expect(specs.evalue(reponse)).toMatchObject(reguleEE());
+      },
+    );
+
+    it("n'instancie pas de règle si aucune valeur n'est passée", () => {
+      const specs: Specifications = fabrique.transforme(
+        uneSpecification({ Activités: "", Resultat: "Regule EE" }),
+      );
+
+      expect(specs.nombreDeRegles()).toBe(0);
+    });
+
+    it("lève une exception si la valeur reçue n'est pas gérée", () => {
+      expect(() => {
+        fabrique.transforme(
+          uneSpecification({ Activités: "Volley", Resultat: "Regule EE" }),
+        );
+      }).toThrowError("Volley");
     });
   });
 

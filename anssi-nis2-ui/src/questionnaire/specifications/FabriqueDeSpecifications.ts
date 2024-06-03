@@ -8,6 +8,7 @@ import { RegleTaille } from "./regles/RegleTaille.ts";
 import { ErreurLectureDeRegle } from "./regles/ErreurLectureDeRegle.ts";
 import { RegleSecteurs } from "./regles/RegleSecteurs.ts";
 import { RegleSousSecteurs } from "./regles/RegleSousSecteurs.ts";
+import { RegleActivites } from "./regles/RegleActivites.ts";
 
 export class FabriqueDeSpecifications {
   transforme(texte: SpecificationTexte): Specifications {
@@ -18,6 +19,7 @@ export class FabriqueDeSpecifications {
       RegleTaille.nouvelle(texte),
       RegleSecteurs.nouvelle(texte),
       RegleSousSecteurs.nouvelle(texte),
+      RegleActivites.nouvelle(texte),
     ].filter((s) => s !== undefined) as Regle[];
 
     const resultat = this.transformeResultat(texte);
