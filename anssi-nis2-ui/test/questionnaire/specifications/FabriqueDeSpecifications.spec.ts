@@ -512,6 +512,7 @@ function uneSpecification(
     Taille: "",
     Secteurs: "",
     "Sous-secteurs": "",
+    Activités: "",
     Resultat: "CHAQUE TEST DOIT LE DÉFINIR",
     ...surcharge,
   };
