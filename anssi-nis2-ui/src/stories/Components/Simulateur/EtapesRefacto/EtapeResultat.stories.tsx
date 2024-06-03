@@ -11,6 +11,7 @@ import {
 import { attendTexteCharge } from "../../../utilitaires/interaction.facilitateurs.ts";
 import { verifieTitresSectionsPresentes } from "../Resultat/Resultat.aide.ts";
 import { EtapeResultat } from "../../../../Components/Simulateur/EtapesRefacto/EtapeResultat.tsx";
+import { compareEtEnvoieVersSentry } from "../../../../Components/Simulateur/compareEtEnvoieVersSentry.tsx";
 
 const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
   designationOperateurServicesEssentiels: ["non"],
@@ -26,7 +27,10 @@ const archetypeDonneesFormulaire = fabriqueDonneesFormulaire({
 const meta: Meta<typeof EtapeResultat> = {
   title: "Composants/Simulateur/Resultat",
   component: EtapeResultat,
-  args: { reponses: archetypeDonneesFormulaire },
+  args: {
+    reponses: archetypeDonneesFormulaire,
+    comparateurV1V2: compareEtEnvoieVersSentry,
+  },
 };
 
 export default meta;
