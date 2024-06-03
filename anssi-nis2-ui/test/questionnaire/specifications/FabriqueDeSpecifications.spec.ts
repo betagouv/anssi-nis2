@@ -10,6 +10,8 @@ import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulate
 import { UnionPetitMoyenGrand } from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions";
 import { SecteurActivite } from "../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions";
 import { libellesSecteursActivite } from "../../../src/References/LibellesSecteursActivite";
+import { SousSecteurActivite } from "../../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions";
+import { libellesSousSecteursActivite } from "../../../src/References/LibellesSousSecteursActivite";
 
 describe("La fabrique de spécifications", () => {
   let fabrique: FabriqueDeSpecifications;
@@ -284,6 +286,160 @@ describe("La fabrique de spécifications", () => {
     });
   });
 
+  describe("pour la règle « Sous-secteurs »", () => {
+    const entiteDuSousSecteur = (
+      sousSecteur: SousSecteurActivite,
+    ): EtatQuestionnaire => ({
+      ...etatParDefaut,
+      sousSecteurActivite: [sousSecteur],
+    });
+
+    const entiteDesSousSecteur = (
+      sousSecteurs: SousSecteurActivite[],
+    ): EtatQuestionnaire => ({
+      ...etatParDefaut,
+      sousSecteurActivite: sousSecteurs,
+    });
+
+    const tousSaufAutres = Object.entries(libellesSousSecteursActivite)
+      .filter(([, libelle]) => libelle !== "Autre sous-secteur")
+      .map(([id, libelle]) => ({ id, libelle }));
+
+    it.each(tousSaufAutres)(
+      "sait instancier une règle pour le sous-secteur $libelle",
+      ({ id, libelle }: { id: SousSecteurActivite; libelle: string }) => {
+        const entite = entiteDuSousSecteur(id);
+        const specs = fabrique.transforme(
+          uneSpecification({ "Sous-secteurs": libelle, Resultat: "Regule EE" }),
+        );
+
+        expect(specs.nombreDeRegles()).toBe(1);
+        expect(specs.evalue(entite)).toMatchObject(reguleEE());
+      },
+    );
+
+    it("ne matche pas un sous-secteur qui n'est pas celui de la règle", () => {
+      const gaz = entiteDuSousSecteur("gaz");
+      const transportAerien = fabrique.transforme(
+        uneSpecification({ "Sous-secteurs": "Aériens", Resultat: "Regule EE" }),
+      );
+
+      const resultat = transportAerien.evalue(gaz);
+
+      expect(resultat).toBe(undefined);
+    });
+
+    it("matche dès qu'un secteur est parmi ceux de la règle", () => {
+      const aeriensEtFerroviaires = entiteDesSousSecteur([
+        "transportsAeriens",
+        "transportsFerroviaires",
+      ]);
+      const specsFeroviaires = fabrique.transforme(
+        uneSpecification({
+          "Sous-secteurs": "Ferroviaires",
+          Resultat: "Regule EE",
+        }),
+      );
+
+      const resultat = specsFeroviaires.evalue(aeriensEtFerroviaires);
+
+      expect(resultat).toMatchObject(reguleEE());
+    });
+
+    describe("quand il s'agit de la valeur « Autre sous-secteur »", () => {
+      it("sait instancier une règle pour le « Autre » du secteur Énergie", () => {
+        const autreDeEnergie: EtatQuestionnaire = {
+          ...entiteDuSousSecteur("autreSousSecteurEnergie"),
+          secteurActivite: ["energie"],
+        };
+
+        const specsAutreEnergie = fabrique.transforme(
+          uneSpecification({
+            Secteurs: "Énergie",
+            "Sous-secteurs": "Autre sous-secteur",
+            Resultat: "Regule EE",
+          }),
+        );
+
+        expect(specsAutreEnergie.nombreDeRegles()).toBe(2);
+        expect(specsAutreEnergie.evalue(autreDeEnergie)).toMatchObject(
+          reguleEE(),
+        );
+      });
+
+      it("sait instancier une règle pour le « Autre » du secteur Fabrication", () => {
+        const autreDeFabrication: EtatQuestionnaire = {
+          ...entiteDuSousSecteur("autreSousSecteurFabrication"),
+          secteurActivite: ["fabrication"],
+        };
+
+        const specsAutreFabrication = fabrique.transforme(
+          uneSpecification({
+            Secteurs: "Fabrication",
+            "Sous-secteurs": "Autre sous-secteur",
+            Resultat: "Regule EE",
+          }),
+        );
+
+        expect(specsAutreFabrication.nombreDeRegles()).toBe(2);
+        expect(specsAutreFabrication.evalue(autreDeFabrication)).toMatchObject(
+          reguleEE(),
+        );
+      });
+
+      it("sait instancier une règle pour le « Autre » du secteur Transports", () => {
+        const autreDeTransports: EtatQuestionnaire = {
+          ...entiteDuSousSecteur("autreSousSecteurTransports"),
+          secteurActivite: ["transports"],
+        };
+
+        const specsAutreFabrication = fabrique.transforme(
+          uneSpecification({
+            Secteurs: "Transports",
+            "Sous-secteurs": "Autre sous-secteur",
+            Resultat: "Regule EE",
+          }),
+        );
+
+        expect(specsAutreFabrication.nombreDeRegles()).toBe(2);
+        expect(specsAutreFabrication.evalue(autreDeTransports)).toMatchObject(
+          reguleEE(),
+        );
+      });
+
+      it("jette une erreur si le secteur parent n'a pas de sous-secteur connu", () => {
+        expect(() => {
+          fabrique.transforme(
+            uneSpecification({
+              "Sous-secteurs": "Autre sous-secteur",
+              Secteurs: "Gestion des services TIC", // Ce secteur n'a pas de sous-secteur
+              Resultat: "Regule EE",
+            }),
+          );
+        }).toThrowError("Autre sous-secteur");
+      });
+    });
+
+    it("n'instancie pas de règle si aucune valeur n'est passée", () => {
+      const specs: Specifications = fabrique.transforme(
+        uneSpecification({ "Sous-secteurs": "", Resultat: "Regule EE" }),
+      );
+
+      expect(specs.nombreDeRegles()).toBe(0);
+    });
+
+    it("lève une exception si la valeur reçue n'est pas gérée", () => {
+      expect(() => {
+        fabrique.transforme(
+          uneSpecification({
+            "Sous-secteurs": "Parachute",
+            Resultat: "Regule EE",
+          }),
+        );
+      }).toThrowError("Parachute");
+    });
+  });
+
   describe("pour le résultat", () => {
     it("sait instancier un résultat « Régulée EE»", () => {
       const specs: Specifications = fabrique.transforme(
@@ -355,6 +511,7 @@ function uneSpecification(
     "Type de structure": "",
     Taille: "",
     Secteurs: "",
+    "Sous-secteurs": "",
     Resultat: "CHAQUE TEST DOIT LE DÉFINIR",
     ...surcharge,
   };
