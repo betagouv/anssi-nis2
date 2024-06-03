@@ -13,6 +13,7 @@ export class LecteurDeSpecifications {
     const lignes = parse<SpecificationTexte>(contenuCsv, {
       header: true,
       skipEmptyLines: true,
+      delimiter: ";",
     });
 
     valideColonnesDuCSV(lignes.meta.fields!);
