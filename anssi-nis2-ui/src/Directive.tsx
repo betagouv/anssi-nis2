@@ -93,11 +93,10 @@ const Directive: DefaultComponent = () => {
                 <h3>Qu&apos;est-ce que NIS&nbsp;2 ?</h3>
                 <div>
                   <p>
-                    La directive NIS&nbsp;2 (Network and Information System
-                    Security – en français : sécurité des réseaux et des
-                    systèmes d&apos;Information) vise à renforcer le niveau de
-                    cybersécurité des tissus économique et administratif des
-                    pays membres de l&apos;UE.
+                    La directive NIS&nbsp;2 (en français : sécurité des réseaux
+                    et des systèmes d&apos;Information) vise à renforcer le
+                    niveau de cybersécurité des tissus économique et
+                    administratif des pays membres de l&apos;UE.
                   </p>
                   <p>
                     L&apos;enjeu est de mieux protéger les réseaux et les
