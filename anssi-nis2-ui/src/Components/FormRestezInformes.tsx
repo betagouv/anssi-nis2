@@ -86,6 +86,9 @@ export const FormRestezInformes: DefaultComponentExtensible<
             },
           ]}
         />
+        <div>
+          La politique RGPD de MonEspaceNIS2 sera prochainement disponible.
+        </div>
       </div>
       <div className="fr-fieldset__element">
         <Button type="submit">S&apos;inscrire</Button>
