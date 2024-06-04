@@ -464,6 +464,13 @@ describe("La fabrique de spécifications", () => {
         libelleSecteur: "Infrastructure numérique",
         secteur: "infrastructureNumerique",
       },
+      {
+        libelleActivite:
+          "Fournisseurs de services DNS, à l'exclusion des opérateurs de serveurs racines de noms de domaines",
+        activite: "fournisseurServicesDNS",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
     ];
 
     it.each(casDeTest)(

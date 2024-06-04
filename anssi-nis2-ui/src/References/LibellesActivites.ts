@@ -220,8 +220,7 @@ export const libellesActivites: Record<Activite, string> = {
   fournisseurServiceCommunicationElectroniquesPublics:
     "Fournisseurs de services de communications électroniques accessibles au public",
   fournisseurServicesDNS:
-    "Fournisseurs de services DNS, à l'exclusion des opérateurs de serveurs " +
-    "racines de noms de domaines",
+    "Fournisseurs de services DNS, à l'exclusion des opérateurs de serveurs racines de noms de domaines",
   fournisseurServicesGeres: "Fournisseurs de services gérés",
   fournisseurServicesInformatiqueNuage:
     "Fournisseurs de services d'informatique en nuage",

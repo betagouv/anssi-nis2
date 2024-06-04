@@ -4,6 +4,7 @@ import { SpecificationTexte } from "../FormatDesSpecificationsCSV.ts";
 import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle.ts";
 import { Activite } from "../../../../../commun/core/src/Domain/Simulateur/Activite.definitions.ts";
 import { contientUnParmi } from "../../../../../commun/utils/services/commun.predicats.ts";
+import { libellesActivites } from "../../../References/LibellesActivites.ts";
 
 export class RegleActivites implements Regle {
   constructor(private readonly activite: Activite) {}
@@ -18,22 +19,14 @@ export class RegleActivites implements Regle {
 
     if (!valeur) return;
 
-    if (
-      valeur ===
-      "Fournisseurs de réseaux de communications électroniques publics"
-    )
-      return new RegleActivites(
-        "fournisseurReseauxCommunicationElectroniquesPublics",
-      );
+    const activiteCorrespondante = Object.entries(libellesActivites).find(
+      ([, libelle]) => libelle === valeur,
+    );
 
-    if (
-      valeur ===
-      "Fournisseurs de services de communications électroniques accessibles au public"
-    )
-      return new RegleActivites(
-        "fournisseurServiceCommunicationElectroniquesPublics",
-      );
+    if (!activiteCorrespondante)
+      throw new ErreurLectureDeRegle(valeur, "Activités");
 
-    throw new ErreurLectureDeRegle(valeur, "Activités");
+    const [id] = activiteCorrespondante;
+    return new RegleActivites(id as Activite);
   }
 }
