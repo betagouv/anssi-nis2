@@ -37,7 +37,7 @@ const Accueil: DefaultComponent = () => {
             <div className="conteneur-paragraphes">
               <Paragraphe
                 titre="Renforcer la cybersécurité dans l'UE"
-                contenu="La directive NIS&nbsp;2 (Network and Information System Security – en français : sécurité des réseaux et des systèmes d'Information) vise à renforcer le niveau de cybersécurité des tissus économique et administratif des pays membres de l'UE."
+                contenu="La directive NIS&nbsp;2 (en français : sécurité des réseaux et des systèmes d'Information) vise à renforcer le niveau de cybersécurité des tissus économique et administratif des pays membres de l'UE."
               ></Paragraphe>
               <Paragraphe
                 titre="18 secteurs d'activités"
