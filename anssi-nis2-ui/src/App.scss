@@ -34,9 +34,7 @@
   z-index: 999;
   right: 10px;
   bottom: 20px;
-  transition:
-    height 0.2s,
-    padding 0.2s;
+  transition: height 0.2s, padding 0.2s;
 
   &.bom-ferme {
     border-radius: 20px;
@@ -793,6 +791,10 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
     display: flex;
     border-bottom: 1px solid #dddddd;
 
+    &[target="_blank"]::after {
+      display: none;
+    }
+
     &.active {
       color: #000091;
 
@@ -958,6 +960,10 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
       color: #272771;
       font-size: 14px;
       font-weight: bold;
+
+      &[target="_blank"]::after {
+        display: none;
+      }
 
       &.active {
         color: #282828;
