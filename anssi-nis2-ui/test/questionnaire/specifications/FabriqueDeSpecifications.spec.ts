@@ -471,6 +471,12 @@ describe("La fabrique de spécifications", () => {
         libelleSecteur: "Infrastructure numérique",
         secteur: "infrastructureNumerique",
       },
+      {
+        libelleActivite: "Registres de noms de domaines de premier niveau",
+        activite: "registresNomsDomainesPremierNiveau",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
     ];
 
     it.each(casDeTest)(
