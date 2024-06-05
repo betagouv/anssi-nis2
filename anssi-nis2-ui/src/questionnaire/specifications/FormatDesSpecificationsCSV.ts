@@ -5,6 +5,7 @@ export enum ClesDuCSV {
   "Taille",
   "Secteurs",
   "Sous-secteurs",
+  "Activités",
   "Resultat",
 }
 

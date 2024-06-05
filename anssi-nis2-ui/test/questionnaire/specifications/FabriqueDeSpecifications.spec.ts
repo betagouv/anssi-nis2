@@ -12,6 +12,7 @@ import { SecteurActivite } from "../../../../commun/core/src/Domain/Simulateur/S
 import { libellesSecteursActivite } from "../../../src/References/LibellesSecteursActivite";
 import { SousSecteurActivite } from "../../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions";
 import { libellesSousSecteursActivite } from "../../../src/References/LibellesSousSecteursActivite";
+import { Activite } from "../../../../commun/core/src/Domain/Simulateur/Activite.definitions";
 
 describe("La fabrique de spécifications", () => {
   let fabrique: FabriqueDeSpecifications;
@@ -440,6 +441,125 @@ describe("La fabrique de spécifications", () => {
     });
   });
 
+  describe("pour la règle « Activités »", () => {
+    type CasDeTest = {
+      libelleActivite: string;
+      activite: Activite;
+      libelleSecteur: string;
+      secteur: SecteurActivite;
+    };
+
+    const casDeTest: CasDeTest[] = [
+      {
+        libelleActivite:
+          "Fournisseurs de réseaux de communications électroniques publics",
+        activite: "fournisseurReseauxCommunicationElectroniquesPublics",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
+      {
+        libelleActivite:
+          "Fournisseurs de services de communications électroniques accessibles au public",
+        activite: "fournisseurServiceCommunicationElectroniquesPublics",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
+      {
+        libelleActivite:
+          "Fournisseurs de services DNS, à l'exclusion des opérateurs de serveurs racines de noms de domaines",
+        activite: "fournisseurServicesDNS",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
+      {
+        libelleActivite: "Registres de noms de domaines de premier niveau",
+        activite: "registresNomsDomainesPremierNiveau",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
+      {
+        libelleActivite:
+          "Fournisseur des services d'enregistrement de noms de domaine",
+        activite: "fournisseurServicesEnregristrementNomDomaine",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
+      {
+        libelleActivite: "Prestataires de service de confiance qualifié",
+        activite: "prestataireServiceConfianceQualifie",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
+      {
+        libelleActivite: "Prestataires de service de confiance non qualifié",
+        activite: "prestataireServiceConfianceNonQualifie",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
+      {
+        libelleActivite: "Fournisseurs de services d'informatique en nuage",
+        activite: "fournisseurServicesInformatiqueNuage",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
+      {
+        libelleActivite: "Fournisseurs de services de centres de données",
+        activite: "fournisseurServiceCentresDonnees",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
+      {
+        libelleActivite: "Fournisseurs de réseaux de diffusion de contenu",
+        activite: "fournisseurReseauxDiffusionContenu",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
+      {
+        libelleActivite: "Autre activité",
+        activite: "autreActiviteInfrastructureNumerique",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
+    ];
+
+    it.each(casDeTest)(
+      `sait instancier la règle $libelleActivite du secteur $libelleSecteur`,
+      ({ libelleActivite, activite, libelleSecteur, secteur }) => {
+        const specs: Specifications = fabrique.transforme(
+          uneSpecification({
+            Activités: libelleActivite,
+            Secteurs: libelleSecteur,
+            Resultat: "Regule EE",
+          }),
+        );
+
+        const reponse: EtatQuestionnaire = {
+          ...etatParDefaut,
+          secteurActivite: [secteur],
+          activites: [activite],
+        };
+
+        expect(specs.evalue(reponse)).toMatchObject(reguleEE());
+      },
+    );
+
+    it("n'instancie pas de règle si aucune valeur n'est passée", () => {
+      const specs: Specifications = fabrique.transforme(
+        uneSpecification({ Activités: "", Resultat: "Regule EE" }),
+      );
+
+      expect(specs.nombreDeRegles()).toBe(0);
+    });
+
+    it("lève une exception si la valeur reçue n'est pas gérée", () => {
+      expect(() => {
+        fabrique.transforme(
+          uneSpecification({ Activités: "Volley", Resultat: "Regule EE" }),
+        );
+      }).toThrowError("Volley");
+    });
+  });
+
   describe("pour le résultat", () => {
     it("sait instancier un résultat « Régulée EE»", () => {
       const specs: Specifications = fabrique.transforme(
@@ -512,6 +632,7 @@ function uneSpecification(
     Taille: "",
     Secteurs: "",
     "Sous-secteurs": "",
+    Activités: "",
     Resultat: "CHAQUE TEST DOIT LE DÉFINIR",
     ...surcharge,
   };
