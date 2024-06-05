@@ -19,27 +19,33 @@ export class RegleActivites implements Regle {
 
     if (!valeur) return;
 
-    if (valeur === "Autre activité") {
-      const secteur = texte["Secteurs"];
-      switch (secteur) {
-        case "Infrastructure numérique":
-          return new RegleActivites("autreActiviteInfrastructureNumerique");
-        default:
-          throw new ErreurLectureDeRegle(
-            `${valeur} pour le secteur ${secteur}`,
-            "Activités",
-          );
-      }
-    }
-
-    const activiteCorrespondante = Object.entries(libellesActivites).find(
-      ([, libelle]) => libelle === valeur,
-    );
-
-    if (!activiteCorrespondante)
-      throw new ErreurLectureDeRegle(valeur, "Activités");
-
-    const [id] = activiteCorrespondante;
-    return new RegleActivites(id as Activite);
+    return valeur === "Autre activité"
+      ? recupereAutreActivite(texte)
+      : recupereActiviteIdentifiee(valeur);
   }
 }
+
+const recupereAutreActivite = (texte: SpecificationTexte) => {
+  const secteur = texte["Secteurs"];
+  switch (secteur) {
+    case "Infrastructure numérique":
+      return new RegleActivites("autreActiviteInfrastructureNumerique");
+    default:
+      throw new ErreurLectureDeRegle(
+        `"Autre activité" pour le secteur ${secteur}`,
+        "Activités",
+      );
+  }
+};
+
+const recupereActiviteIdentifiee = (valeur: string) => {
+  const activiteCorrespondante = Object.entries(libellesActivites).find(
+    ([, libelle]) => libelle === valeur,
+  );
+
+  if (!activiteCorrespondante)
+    throw new ErreurLectureDeRegle(valeur, "Activités");
+
+  const [id] = activiteCorrespondante;
+  return new RegleActivites(id as Activite);
+};
