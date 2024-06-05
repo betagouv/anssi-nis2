@@ -273,6 +273,11 @@ const Directive: DefaultComponent = () => {
                     titre="Visionner le bilan des consultations des écosystèmes sectoriels"
                     lien="https://www.dailymotion.com/video/k3s6qjVAhdBHtaAKAGe"
                   />
+                  <CarteEnSavoirPlus
+                    image={DirectiveIntegrale}
+                    titre="Télécharger la plaquette d'informations NIS 2"
+                    lien="/statique/Plaquette_NIS2_2024.pdf"
+                  />
                 </div>
               </BlocPrincipal>
             </div>
