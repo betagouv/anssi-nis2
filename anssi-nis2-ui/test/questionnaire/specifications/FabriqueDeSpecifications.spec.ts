@@ -477,6 +477,49 @@ describe("La fabrique de spécifications", () => {
         libelleSecteur: "Infrastructure numérique",
         secteur: "infrastructureNumerique",
       },
+      {
+        libelleActivite:
+          "Fournisseur des services d'enregistrement de noms de domaine",
+        activite: "fournisseurServicesEnregristrementNomDomaine",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
+      {
+        libelleActivite: "Prestataires de service de confiance qualifié",
+        activite: "prestataireServiceConfianceQualifie",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
+      {
+        libelleActivite: "Prestataires de service de confiance non qualifié",
+        activite: "prestataireServiceConfianceNonQualifie",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
+      {
+        libelleActivite: "Fournisseurs de services d'informatique en nuage",
+        activite: "fournisseurServicesInformatiqueNuage",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
+      {
+        libelleActivite: "Fournisseurs de services de centres de données",
+        activite: "fournisseurServiceCentresDonnees",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
+      {
+        libelleActivite: "Fournisseurs de réseaux de diffusion de contenu",
+        activite: "fournisseurReseauxDiffusionContenu",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
+      {
+        libelleActivite: "Fournisseurs de points d'échange internet",
+        activite: "fournisseurPointEchangeInternet",
+        libelleSecteur: "Infrastructure numérique",
+        secteur: "infrastructureNumerique",
+      },
     ];
 
     it.each(casDeTest)(
