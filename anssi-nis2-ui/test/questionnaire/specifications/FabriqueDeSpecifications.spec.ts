@@ -515,8 +515,8 @@ describe("La fabrique de spécifications", () => {
         secteur: "infrastructureNumerique",
       },
       {
-        libelleActivite: "Fournisseurs de points d'échange internet",
-        activite: "fournisseurPointEchangeInternet",
+        libelleActivite: "Autre activité",
+        activite: "autreActiviteInfrastructureNumerique",
         libelleSecteur: "Infrastructure numérique",
         secteur: "infrastructureNumerique",
       },

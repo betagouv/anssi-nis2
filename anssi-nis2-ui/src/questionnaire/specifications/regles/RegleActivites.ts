@@ -19,6 +19,19 @@ export class RegleActivites implements Regle {
 
     if (!valeur) return;
 
+    if (valeur === "Autre activité") {
+      const secteur = texte["Secteurs"];
+      switch (secteur) {
+        case "Infrastructure numérique":
+          return new RegleActivites("autreActiviteInfrastructureNumerique");
+        default:
+          throw new ErreurLectureDeRegle(
+            `${valeur} pour le secteur ${secteur}`,
+            "Activités",
+          );
+      }
+    }
+
     const activiteCorrespondante = Object.entries(libellesActivites).find(
       ([, libelle]) => libelle === valeur,
     );
