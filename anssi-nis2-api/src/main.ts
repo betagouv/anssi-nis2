@@ -4,6 +4,7 @@ import * as process from "process";
 import { LogLevel, ValidationPipe } from "@nestjs/common";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { IpFilter } from "express-ipfilter";
+import { join } from "path";
 
 const listeningPort = process.env.PORT || 3000;
 
@@ -45,6 +46,12 @@ const logLevel: LogLevel[] = logLevelFromConfig
   .split(";")
   .filter(isLogLevel);
 
+const sersFichiersStatiques = (app: NestExpressApplication) => {
+  app.useStaticAssets(join(__dirname, "../../../statique"), {
+    prefix: "/statique",
+  });
+};
+
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     logger: logLevel,
@@ -54,6 +61,9 @@ async function bootstrap() {
   app.enableCors();
   app.setGlobalPrefix("api");
   app.useGlobalPipes(new ValidationPipe());
+
+  sersFichiersStatiques(app);
+
   await app.listen(listeningPort);
 }
 
