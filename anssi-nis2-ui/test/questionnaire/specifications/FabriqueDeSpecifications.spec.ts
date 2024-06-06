@@ -595,6 +595,14 @@ describe("La fabrique de spécifications", () => {
         libelleSecteur: "Infrastructure des marchés financiers",
         secteur: "infrastructureMarchesFinanciers",
       },
+      {
+        libelleActivite: "Autre activité",
+        activite:
+          "autreActiviteProductionTransformationDistributionDenreesAlimentaires",
+        libelleSecteur:
+          "Production transformation et distribution de denrées alimentaires",
+        secteur: "productionTransformationDistributionDenreesAlimentaires",
+      },
     ];
 
     it.each(casDeTest)(
