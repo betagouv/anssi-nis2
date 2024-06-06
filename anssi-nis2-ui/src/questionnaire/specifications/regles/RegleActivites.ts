@@ -25,41 +25,47 @@ export class RegleActivites implements Regle {
   }
 }
 
+const mappingDirect: Record<string, Activite> = {
+  "Infrastructure numérique": "autreActiviteInfrastructureNumerique",
+  "Gestion des services TIC": "autreActiviteGestionServicesTic",
+  "Fournisseurs numériques": "autreActiviteFournisseursNumeriques",
+  "Banques (secteur bancaire)": "autreActiviteSecteurBancaire",
+  "Eau potable": "autreActiviteEauPotable",
+  "Eaux usées": "autreActiviteEauxUsees",
+  "Fabrication, production et distribution de produits chimiques":
+    "autreActiviteFabricationProductionDistributionProduitsChimiques",
+  "Infrastructure des marchés financiers":
+    "autreActiviteInfrastructureMarcheFinancier",
+  "Production transformation et distribution de denrées alimentaires":
+    "autreActiviteProductionTransformationDistributionDenreesAlimentaires",
+  Recherche: "autreActiviteRecherche",
+  "Services postaux et d'expédition": "autreActiviteServicesPostauxExpedition",
+  Espace: "autreActiviteEspace",
+  "Gestion des déchets": "autreActiviteGestionDechets",
+};
+
+const mappingEnergie: Record<string, Activite> = {
+  Électricité: "autreActiviteElectricite",
+  Gaz: "autreActiviteGaz",
+  Hydrogène: "autreActiviteHydrogene",
+  Pétrole: "autreActivitePetrole",
+  "Réseaux de chaleur et de froid": "autreActiviteReseauxChaleurFroid",
+};
+
+const mappingFabrication: Record<string, Activite> = {
+  "Construction de véhicules automobiles, remorques et semi- remorques":
+    "autreActiviteConstructionVehiculesAutomobilesRemorquesSemi",
+  "Fabrication de dispositifs médicaux et de dispositifs médicaux de diagnostic in vitro":
+    "autreActiviteFabricationDispositifsMedicaux",
+};
 const recupereAutreActivite = (texte: SpecificationTexte) => {
   const secteur = texte["Secteurs"];
   const sousSecteur = texte["Sous-secteurs"];
-
-  const mappingDirect: Record<string, Activite> = {
-    "Infrastructure numérique": "autreActiviteInfrastructureNumerique",
-    "Gestion des services TIC": "autreActiviteGestionServicesTic",
-    "Fournisseurs numériques": "autreActiviteFournisseursNumeriques",
-    "Banques (secteur bancaire)": "autreActiviteSecteurBancaire",
-    "Eau potable": "autreActiviteEauPotable",
-    "Eaux usées": "autreActiviteEauxUsees",
-    "Fabrication, production et distribution de produits chimiques":
-      "autreActiviteFabricationProductionDistributionProduitsChimiques",
-    "Infrastructure des marchés financiers":
-      "autreActiviteInfrastructureMarcheFinancier",
-    "Production transformation et distribution de denrées alimentaires":
-      "autreActiviteProductionTransformationDistributionDenreesAlimentaires",
-    Recherche: "autreActiviteRecherche",
-    "Services postaux et d'expédition":
-      "autreActiviteServicesPostauxExpedition",
-    Espace: "autreActiviteEspace",
-    "Gestion des déchets": "autreActiviteGestionDechets",
-  };
 
   const estMappingDirect = Object.keys(mappingDirect).includes(secteur);
   if (estMappingDirect) return new RegleActivites(mappingDirect[secteur]);
 
   if (secteur === "Énergie") {
-    const mappingEnergie: Record<string, Activite> = {
-      Électricité: "autreActiviteElectricite",
-      Gaz: "autreActiviteGaz",
-      Hydrogène: "autreActiviteHydrogene",
-      Pétrole: "autreActivitePetrole",
-      "Réseaux de chaleur et de froid": "autreActiviteReseauxChaleurFroid",
-    };
     const activite = mappingEnergie[sousSecteur];
 
     if (!activite)
@@ -72,11 +78,6 @@ const recupereAutreActivite = (texte: SpecificationTexte) => {
   }
 
   if (secteur === "Fabrication") {
-    const mappingFabrication: Record<string, Activite> = {
-      "Construction de véhicules automobiles, remorques et semi- remorques":
-        "autreActiviteConstructionVehiculesAutomobilesRemorquesSemi",
-    };
-
     const activite = mappingFabrication[sousSecteur];
 
     if (!activite)

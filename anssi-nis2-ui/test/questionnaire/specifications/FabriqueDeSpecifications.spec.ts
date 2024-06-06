@@ -678,6 +678,15 @@ describe("La fabrique de spécifications", () => {
           "Construction de véhicules automobiles, remorques et semi- remorques",
         sousSecteur: "constructionVehiculesAutomobiles",
       },
+      {
+        libelleActivite: "Autre activité",
+        activite: "autreActiviteFabricationDispositifsMedicaux",
+        libelleSecteur: "Fabrication",
+        secteur: "fabrication",
+        libelleSousSecteur:
+          "Fabrication de dispositifs médicaux et de dispositifs médicaux de diagnostic in vitro",
+        sousSecteur: "fabricationDispositifsMedicaux",
+      },
     ];
 
     it.each(casDeTest)(
