@@ -30,6 +30,8 @@ const recupereAutreActivite = (texte: SpecificationTexte) => {
   switch (secteur) {
     case "Infrastructure numérique":
       return new RegleActivites("autreActiviteInfrastructureNumerique");
+    case "Gestion des services TIC":
+      return new RegleActivites("autreActiviteGestionServicesTic");
     default:
       throw new ErreurLectureDeRegle(
         `"Autre activité" pour le secteur ${secteur}`,
