@@ -297,4 +297,12 @@ export const autresActivites: CasDeTest[] = [
     libelleSousSecteur: "Par eau",
     sousSecteur: "transportsParEau",
   },
+  {
+    libelleActivite: "Autre activité",
+    activite: "autreActiviteTransportsRoutiers",
+    libelleSecteur: "Transports",
+    secteur: "transports",
+    libelleSousSecteur: "Routiers",
+    sousSecteur: "transportsRoutiers",
+  },
 ];
