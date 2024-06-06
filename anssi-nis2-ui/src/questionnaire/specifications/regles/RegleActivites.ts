@@ -54,6 +54,8 @@ const recupereAutreActivite = (texte: SpecificationTexte) => {
       return new RegleActivites("autreActiviteRecherche");
     case "Services postaux et d'expédition":
       return new RegleActivites("autreActiviteServicesPostauxExpedition");
+    case "Espace":
+      return new RegleActivites("autreActiviteEspace");
     default:
       throw new ErreurLectureDeRegle(
         `"Autre activité" pour le secteur ${secteur}`,

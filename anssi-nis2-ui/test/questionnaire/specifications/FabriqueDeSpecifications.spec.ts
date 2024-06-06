@@ -615,6 +615,12 @@ describe("La fabrique de spécifications", () => {
         libelleSecteur: "Services postaux et d'expédition",
         secteur: "servicesPostauxExpedition",
       },
+      {
+        libelleActivite: "Autre activité",
+        activite: "autreActiviteEspace",
+        libelleSecteur: "Espace",
+        secteur: "espace",
+      },
     ];
 
     it.each(casDeTest)(
