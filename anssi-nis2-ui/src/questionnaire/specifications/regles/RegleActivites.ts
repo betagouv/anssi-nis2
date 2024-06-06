@@ -66,6 +66,7 @@ const mappingFabrication: Record<string, Activite> = {
 const mappingTransports: Record<string, Activite> = {
   Aériens: "autreActiviteTransportsAeriens",
   Ferroviaires: "autreActiviteTransportsFerroviaires",
+  "Par eau": "autreActiviteTransportsParEaux",
 };
 
 const recupereAutreActivite = (texte: SpecificationTexte) => {
