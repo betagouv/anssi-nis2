@@ -78,46 +78,29 @@ const recupereAutreActivite = (texte: SpecificationTexte) => {
   const estMappingDirect = Object.keys(mappingDirect).includes(secteur);
   if (estMappingDirect) return new RegleActivites(mappingDirect[secteur]);
 
-  if (secteur === "Énergie") {
-    const activite = mappingEnergie[sousSecteur];
+  const mappingsParSousSecteurs: Record<string, Record<string, Activite>> = {
+    Énergie: mappingEnergie,
+    Fabrication: mappingFabrication,
+    Transports: mappingTransports,
+  };
 
-    if (!activite)
-      throw new ErreurLectureDeRegle(
-        `"Autre activité" pour le secteur ${secteur} (sous-secteur : ${sousSecteur})`,
-        "Activités",
-      );
+  const secteursAvecAutreActivite = Object.keys(mappingsParSousSecteurs);
+  const secteurConnu = secteursAvecAutreActivite.includes(secteur);
+  if (!secteurConnu)
+    throw new ErreurLectureDeRegle(
+      `"Autre activité" pour le secteur ${secteur} (sous-secteur : ${sousSecteur})`,
+      "Activités",
+    );
 
-    return new RegleActivites(activite);
-  }
+  const activite = mappingsParSousSecteurs[secteur][sousSecteur];
 
-  if (secteur === "Fabrication") {
-    const activite = mappingFabrication[sousSecteur];
+  if (!activite)
+    throw new ErreurLectureDeRegle(
+      `"Autre activité" pour le secteur ${secteur} (sous-secteur : ${sousSecteur})`,
+      "Activités",
+    );
 
-    if (!activite)
-      throw new ErreurLectureDeRegle(
-        `"Autre activité" pour le secteur ${secteur} (sous-secteur : ${sousSecteur})`,
-        "Activités",
-      );
-
-    return new RegleActivites(activite);
-  }
-
-  if (secteur === "Transports") {
-    const activite = mappingTransports[sousSecteur];
-
-    if (!activite)
-      throw new ErreurLectureDeRegle(
-        `"Autre activité" pour le secteur ${secteur} (sous-secteur : ${sousSecteur})`,
-        "Activités",
-      );
-
-    return new RegleActivites(activite);
-  }
-
-  throw new ErreurLectureDeRegle(
-    `"Autre activité" pour le secteur ${secteur} (sous-secteur : ${sousSecteur})`,
-    "Activités",
-  );
+  return new RegleActivites(activite);
 };
 
 const recupereActiviteIdentifiee = (valeur: string) => {
