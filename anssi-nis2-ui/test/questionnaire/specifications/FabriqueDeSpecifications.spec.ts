@@ -538,6 +538,31 @@ describe("La fabrique de spécifications", () => {
         libelleSecteur: "Gestion des services TIC",
         secteur: "gestionServicesTic",
       },
+      {
+        libelleActivite: "Fournisseurs de places de marché en ligne",
+        activite: "fournisseursPlaceMarcheEnLigne",
+        libelleSecteur: "Fournisseurs numériques",
+        secteur: "fournisseursNumeriques",
+      },
+      {
+        libelleActivite: "Fournisseurs de moteurs de recherche en ligne",
+        activite: "fournisseursMoteursRechercheEnLigne",
+        libelleSecteur: "Fournisseurs numériques",
+        secteur: "fournisseursNumeriques",
+      },
+      {
+        libelleActivite:
+          "Fournisseurs de plateformes de services de réseaux sociaux",
+        activite: "fournisseursPlateformesServicesReseauxSociaux",
+        libelleSecteur: "Fournisseurs numériques",
+        secteur: "fournisseursNumeriques",
+      },
+      {
+        libelleActivite: "Autre activité",
+        activite: "autreActiviteFournisseursNumeriques",
+        libelleSecteur: "Fournisseurs numériques",
+        secteur: "fournisseursNumeriques",
+      },
     ];
 
     it.each(casDeTest)(
