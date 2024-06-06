@@ -57,6 +57,8 @@ const mappingFabrication: Record<string, Activite> = {
     "autreActiviteConstructionVehiculesAutomobilesRemorquesSemi",
   "Fabrication de dispositifs médicaux et de dispositifs médicaux de diagnostic in vitro":
     "autreActiviteFabricationDispositifsMedicaux",
+  "Fabrication de produits informatiques, électroniques et optiques":
+    "autreActiviteFabricationProduitsInformatiquesElectroniquesOptiques",
 };
 const recupereAutreActivite = (texte: SpecificationTexte) => {
   const secteur = texte["Secteurs"];

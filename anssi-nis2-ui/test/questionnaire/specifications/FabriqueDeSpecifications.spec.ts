@@ -687,6 +687,16 @@ describe("La fabrique de spécifications", () => {
           "Fabrication de dispositifs médicaux et de dispositifs médicaux de diagnostic in vitro",
         sousSecteur: "fabricationDispositifsMedicaux",
       },
+      {
+        libelleActivite: "Autre activité",
+        activite:
+          "autreActiviteFabricationProduitsInformatiquesElectroniquesOptiques",
+        libelleSecteur: "Fabrication",
+        secteur: "fabrication",
+        libelleSousSecteur:
+          "Fabrication de produits informatiques, électroniques et optiques",
+        sousSecteur: "fabricationProduitsInformatiquesElectroniquesOptiques",
+      },
     ];
 
     it.each(casDeTest)(
