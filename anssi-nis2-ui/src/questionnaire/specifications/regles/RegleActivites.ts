@@ -62,6 +62,11 @@ const mappingFabrication: Record<string, Activite> = {
   "Fabrication de machines et équipements n.c.a.":
     "autreActiviteFabricationMachinesEquipements",
 };
+
+const mappingTransports: Record<string, Activite> = {
+  Aériens: "autreActiviteTransportsAeriens",
+};
+
 const recupereAutreActivite = (texte: SpecificationTexte) => {
   const secteur = texte["Secteurs"];
   const sousSecteur = texte["Sous-secteurs"];
@@ -83,6 +88,18 @@ const recupereAutreActivite = (texte: SpecificationTexte) => {
 
   if (secteur === "Fabrication") {
     const activite = mappingFabrication[sousSecteur];
+
+    if (!activite)
+      throw new ErreurLectureDeRegle(
+        `"Autre activité" pour le secteur ${secteur} (sous-secteur : ${sousSecteur})`,
+        "Activités",
+      );
+
+    return new RegleActivites(activite);
+  }
+
+  if (secteur === "Transports") {
+    const activite = mappingTransports[sousSecteur];
 
     if (!activite)
       throw new ErreurLectureDeRegle(

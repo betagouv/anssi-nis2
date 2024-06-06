@@ -273,4 +273,12 @@ export const autresActivites: CasDeTest[] = [
     libelleSousSecteur: "Fabrication de machines et équipements n.c.a.",
     sousSecteur: "fabricationMachinesEquipements",
   },
+  {
+    libelleActivite: "Autre activité",
+    activite: "autreActiviteTransportsAeriens",
+    libelleSecteur: "Transports",
+    secteur: "transports",
+    libelleSousSecteur: "Aériens",
+    sousSecteur: "transportsAeriens",
+  },
 ];
