@@ -7,7 +7,10 @@ import { FabriqueDeSpecifications } from "../../../src/questionnaire/specificati
 import { SpecificationTexte } from "../../../src/questionnaire/specifications/FormatDesSpecificationsCSV";
 import { Specifications } from "../../../src/questionnaire/specifications/Specifications";
 import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions";
-import { UnionPetitMoyenGrand } from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions";
+import {
+  AppartenancePaysUnionEuropeenne,
+  UnionPetitMoyenGrand,
+} from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions";
 import { SecteurActivite } from "../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions";
 import { libellesSecteursActivite } from "../../../src/References/LibellesSecteursActivite";
 import { SousSecteurActivite } from "../../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions";
@@ -502,6 +505,107 @@ describe("La fabrique de spécifications", () => {
     });
   });
 
+  describe("pour la règle « Extra - Fourniture de service »", () => {
+    const entiteQuiFournitEn = (
+      localisations: AppartenancePaysUnionEuropeenne[],
+    ): EtatQuestionnaire => ({
+      ...etatParDefaut,
+      localisationFournitureServicesNumeriques: localisations,
+    });
+
+    it("instancie une règle pour la valeur « France »", () => {
+      const specsFrance: Specifications = fabrique.transforme(
+        uneSpecification({
+          "Extra - Fourniture de service": "France",
+          Resultat: "Regule EE",
+        }),
+      );
+
+      const enFrance = entiteQuiFournitEn(["france"]);
+
+      expect(specsFrance.nombreDeRegles()).toBe(1);
+      expect(specsFrance.evalue(enFrance)).toMatchObject(reguleEE());
+    });
+
+    it("instancie une règle pour la valeur « Autres États membres de l'Union Européenne »", () => {
+      const specsAutreDansUE: Specifications = fabrique.transforme(
+        uneSpecification({
+          "Extra - Fourniture de service":
+            "Autres États membres de l'Union Européenne",
+          Resultat: "Regule EE",
+        }),
+      );
+
+      const autreEnUE = entiteQuiFournitEn(["autre"]);
+
+      expect(specsAutreDansUE.nombreDeRegles()).toBe(1);
+      expect(specsAutreDansUE.evalue(autreEnUE)).toMatchObject(reguleEE());
+    });
+
+    it("instancie une règle pour la valeur « Autres États hors Union Européenne »", () => {
+      const specsHorsUE: Specifications = fabrique.transforme(
+        uneSpecification({
+          "Extra - Fourniture de service": "Autres États hors Union Européenne",
+          Resultat: "Regule EE",
+        }),
+      );
+
+      const horsUE = entiteQuiFournitEn(["horsue"]);
+
+      expect(specsHorsUE.nombreDeRegles()).toBe(1);
+      expect(specsHorsUE.evalue(horsUE)).toMatchObject(reguleEE());
+    });
+
+    describe("lorsque la valeur est un cumul de réponses", () => {
+      it("instancie la règle en prenant en compte chaque réponse individuelle", () => {
+        const specsFranceEtUE = fabrique.transforme(
+          uneSpecification({
+            "Extra - Fourniture de service":
+              "France + Autres États membres de l'Union Européenne",
+            Resultat: "Regule EE",
+          }),
+        );
+
+        expect(specsFranceEtUE.nombreDeRegles()).toBe(1);
+
+        expect(
+          specsFranceEtUE.evalue(entiteQuiFournitEn(["france"])),
+        ).toMatchObject(reguleEE());
+        expect(
+          specsFranceEtUE.evalue(entiteQuiFournitEn(["autre"])),
+        ).toMatchObject(reguleEE());
+        expect(
+          specsFranceEtUE.evalue(entiteQuiFournitEn(["france", "horsue"])),
+        ).toMatchObject(reguleEE());
+        expect(specsFranceEtUE.evalue(entiteQuiFournitEn(["horsue"]))).toBe(
+          undefined,
+        );
+      });
+    });
+
+    it("n'instancie pas de règle si aucune valeur n'est passée", () => {
+      const specs: Specifications = fabrique.transforme(
+        uneSpecification({
+          "Extra - Fourniture de service": "",
+          Resultat: "Regule EE",
+        }),
+      );
+
+      expect(specs.nombreDeRegles()).toBe(0);
+    });
+
+    it("lève une exception si la valeur reçue n'est pas gérée", () => {
+      expect(() => {
+        fabrique.transforme(
+          uneSpecification({
+            "Extra - Fourniture de service": "Jardin",
+            Resultat: "Regule EE",
+          }),
+        );
+      }).toThrowError("Jardin");
+    });
+  });
+
   describe("pour le résultat", () => {
     it("sait instancier un résultat « Régulée EE»", () => {
       const specs: Specifications = fabrique.transforme(
@@ -575,6 +679,7 @@ function uneSpecification(
     Secteurs: "",
     "Sous-secteurs": "",
     Activités: "",
+    "Extra - Fourniture de service": "",
     Resultat: "CHAQUE TEST DOIT LE DÉFINIR",
     ...surcharge,
   };
