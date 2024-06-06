@@ -55,8 +55,17 @@ const recupereAutreActivite = (texte: SpecificationTexte) => {
   if (secteur === "Énergie") {
     const mappingEnergie: Record<string, Activite> = {
       Électricité: "autreActiviteElectricite",
+      Gaz: "autreActiviteGaz",
     };
-    return new RegleActivites(mappingEnergie[sousSecteur]);
+    const activite = mappingEnergie[sousSecteur];
+
+    if (!activite)
+      throw new ErreurLectureDeRegle(
+        `"Autre activité" pour le secteur ${secteur} (sous-secteur : ${sousSecteur})`,
+        "Activités",
+      );
+
+    return new RegleActivites(activite);
   }
 
   throw new ErreurLectureDeRegle(
