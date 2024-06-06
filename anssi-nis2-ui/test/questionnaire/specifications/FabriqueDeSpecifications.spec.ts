@@ -589,6 +589,12 @@ describe("La fabrique de spécifications", () => {
           "Fabrication, production et distribution de produits chimiques",
         secteur: "fabricationProductionDistributionProduitsChimiques",
       },
+      {
+        libelleActivite: "Autre activité",
+        activite: "autreActiviteInfrastructureMarcheFinancier",
+        libelleSecteur: "Infrastructure des marchés financiers",
+        secteur: "infrastructureMarchesFinanciers",
+      },
     ];
 
     it.each(casDeTest)(
