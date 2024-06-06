@@ -603,6 +603,12 @@ describe("La fabrique de spécifications", () => {
           "Production transformation et distribution de denrées alimentaires",
         secteur: "productionTransformationDistributionDenreesAlimentaires",
       },
+      {
+        libelleActivite: "Autre activité",
+        activite: "autreActiviteRecherche",
+        libelleSecteur: "Recherche",
+        secteur: "recherche",
+      },
     ];
 
     it.each(casDeTest)(
