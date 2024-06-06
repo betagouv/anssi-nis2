@@ -653,6 +653,14 @@ describe("La fabrique de spécifications", () => {
         libelleSousSecteur: "Hydrogène",
         sousSecteur: "hydrogene",
       },
+      {
+        libelleActivite: "Autre activité",
+        activite: "autreActivitePetrole",
+        libelleSecteur: "Énergie",
+        secteur: "energie",
+        libelleSousSecteur: "Pétrole",
+        sousSecteur: "petrole",
+      },
     ];
 
     it.each(casDeTest)(

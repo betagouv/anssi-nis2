@@ -57,6 +57,7 @@ const recupereAutreActivite = (texte: SpecificationTexte) => {
       Électricité: "autreActiviteElectricite",
       Gaz: "autreActiviteGaz",
       Hydrogène: "autreActiviteHydrogene",
+      Pétrole: "autreActivitePetrole",
     };
     const activite = mappingEnergie[sousSecteur];
 
