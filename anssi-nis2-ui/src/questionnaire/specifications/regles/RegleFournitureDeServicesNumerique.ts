@@ -23,13 +23,22 @@ export class RegleFournitureDeServicesNumerique implements Regle {
 
     if (!valeur) return;
 
-    if (valeur === "France")
-      return new RegleFournitureDeServicesNumerique(["france"]);
-    if (valeur === "Autres États membres de l'Union Européenne")
-      return new RegleFournitureDeServicesNumerique(["autre"]);
-    if (valeur === "Autres États hors Union Européenne")
-      return new RegleFournitureDeServicesNumerique(["horsue"]);
+    const morceaux = valeur.split(SEPARATEUR).map((m) => m.trim());
+    const tousConnus = morceaux.every((m) => Object.keys(mapping).includes(m));
 
-    throw new ErreurLectureDeRegle(valeur, "Extra - Fourniture de service");
+    if (!tousConnus)
+      throw new ErreurLectureDeRegle(valeur, "Extra - Fourniture de service");
+
+    return new RegleFournitureDeServicesNumerique(
+      morceaux.map((m) => mapping[m]),
+    );
   }
 }
+
+const mapping: Record<string, AppartenancePaysUnionEuropeenne> = {
+  France: "france",
+  "Autres États membres de l'Union Européenne": "autre",
+  "Autres États hors Union Européenne": "horsue",
+};
+
+const SEPARATEUR = "+";

@@ -556,6 +556,33 @@ describe("La fabrique de spécifications", () => {
       expect(specsHorsUE.evalue(horsUE)).toMatchObject(reguleEE());
     });
 
+    describe("lorsque la valeur est un cumul de réponses", () => {
+      it("instancie la règle en prenant en compte chaque réponse individuelle", () => {
+        const specsFranceEtUE = fabrique.transforme(
+          uneSpecification({
+            "Extra - Fourniture de service":
+              "France + Autres États membres de l'Union Européenne",
+            Resultat: "Regule EE",
+          }),
+        );
+
+        expect(specsFranceEtUE.nombreDeRegles()).toBe(1);
+
+        expect(
+          specsFranceEtUE.evalue(entiteQuiFournitEn(["france"])),
+        ).toMatchObject(reguleEE());
+        expect(
+          specsFranceEtUE.evalue(entiteQuiFournitEn(["autre"])),
+        ).toMatchObject(reguleEE());
+        expect(
+          specsFranceEtUE.evalue(entiteQuiFournitEn(["france", "horsue"])),
+        ).toMatchObject(reguleEE());
+        expect(specsFranceEtUE.evalue(entiteQuiFournitEn(["horsue"]))).toBe(
+          undefined,
+        );
+      });
+    });
+
     it("n'instancie pas de règle si aucune valeur n'est passée", () => {
       const specs: Specifications = fabrique.transforme(
         uneSpecification({
