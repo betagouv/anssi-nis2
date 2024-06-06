@@ -199,6 +199,12 @@ export const autresActivites: CasDeTest[] = [
   },
   {
     libelleActivite: "Autre activité",
+    activite: "autreActiviteSante",
+    libelleSecteur: "Santé",
+    secteur: "sante",
+  },
+  {
+    libelleActivite: "Autre activité",
     activite: "autreActiviteElectricite",
     libelleSecteur: "Énergie",
     secteur: "energie",

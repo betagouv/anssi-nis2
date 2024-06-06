@@ -42,6 +42,7 @@ const mappingDirect: Record<string, Activite> = {
   "Services postaux et d'expédition": "autreActiviteServicesPostauxExpedition",
   Espace: "autreActiviteEspace",
   "Gestion des déchets": "autreActiviteGestionDechets",
+  Santé: "autreActiviteSante",
 };
 
 const mappingEnergie: Record<string, Activite> = {
