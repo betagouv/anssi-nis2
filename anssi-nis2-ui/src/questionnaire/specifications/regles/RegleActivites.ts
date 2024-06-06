@@ -29,53 +29,40 @@ const recupereAutreActivite = (texte: SpecificationTexte) => {
   const secteur = texte["Secteurs"];
   const sousSecteur = texte["Sous-secteurs"];
 
-  switch (secteur) {
-    case "Infrastructure numérique":
-      return new RegleActivites("autreActiviteInfrastructureNumerique");
-    case "Gestion des services TIC":
-      return new RegleActivites("autreActiviteGestionServicesTic");
-    case "Fournisseurs numériques":
-      return new RegleActivites("autreActiviteFournisseursNumeriques");
-    case "Banques (secteur bancaire)":
-      return new RegleActivites("autreActiviteSecteurBancaire");
-    case "Eau potable":
-      return new RegleActivites("autreActiviteEauPotable");
-    case "Eaux usées":
-      return new RegleActivites("autreActiviteEauxUsees");
-    case "Fabrication, production et distribution de produits chimiques":
-      return new RegleActivites(
-        "autreActiviteFabricationProductionDistributionProduitsChimiques",
-      );
-    case "Infrastructure des marchés financiers":
-      return new RegleActivites("autreActiviteInfrastructureMarcheFinancier");
-    case "Production transformation et distribution de denrées alimentaires":
-      return new RegleActivites(
-        "autreActiviteProductionTransformationDistributionDenreesAlimentaires",
-      );
-    case "Recherche":
-      return new RegleActivites("autreActiviteRecherche");
-    case "Services postaux et d'expédition":
-      return new RegleActivites("autreActiviteServicesPostauxExpedition");
-    case "Espace":
-      return new RegleActivites("autreActiviteEspace");
-    case "Gestion des déchets":
-      return new RegleActivites("autreActiviteGestionDechets");
-    case "Énergie":
-      switch (sousSecteur) {
-        case "Électricité":
-          return new RegleActivites("autreActiviteElectricite");
-        default:
-          throw new ErreurLectureDeRegle(
-            `"Autre activité" pour le secteur ${secteur} (sous-secteur : ${sousSecteur})`,
-            "Activités",
-          );
-      }
-    default:
-      throw new ErreurLectureDeRegle(
-        `"Autre activité" pour le secteur ${secteur}`,
-        "Activités",
-      );
+  const mappingDirect: Record<string, Activite> = {
+    "Infrastructure numérique": "autreActiviteInfrastructureNumerique",
+    "Gestion des services TIC": "autreActiviteGestionServicesTic",
+    "Fournisseurs numériques": "autreActiviteFournisseursNumeriques",
+    "Banques (secteur bancaire)": "autreActiviteSecteurBancaire",
+    "Eau potable": "autreActiviteEauPotable",
+    "Eaux usées": "autreActiviteEauxUsees",
+    "Fabrication, production et distribution de produits chimiques":
+      "autreActiviteFabricationProductionDistributionProduitsChimiques",
+    "Infrastructure des marchés financiers":
+      "autreActiviteInfrastructureMarcheFinancier",
+    "Production transformation et distribution de denrées alimentaires":
+      "autreActiviteProductionTransformationDistributionDenreesAlimentaires",
+    Recherche: "autreActiviteRecherche",
+    "Services postaux et d'expédition":
+      "autreActiviteServicesPostauxExpedition",
+    Espace: "autreActiviteEspace",
+    "Gestion des déchets": "autreActiviteGestionDechets",
+  };
+
+  const estMappingDirect = Object.keys(mappingDirect).includes(secteur);
+  if (estMappingDirect) return new RegleActivites(mappingDirect[secteur]);
+
+  if (secteur === "Énergie") {
+    const mappingEnergie: Record<string, Activite> = {
+      Électricité: "autreActiviteElectricite",
+    };
+    return new RegleActivites(mappingEnergie[sousSecteur]);
   }
+
+  throw new ErreurLectureDeRegle(
+    `"Autre activité" pour le secteur ${secteur} (sous-secteur : ${sousSecteur})`,
+    "Activités",
+  );
 };
 
 const recupereActiviteIdentifiee = (valeur: string) => {
