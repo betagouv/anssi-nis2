@@ -569,6 +569,12 @@ describe("La fabrique de spécifications", () => {
         libelleSecteur: "Banques (secteur bancaire)",
         secteur: "banqueSecteurBancaire",
       },
+      {
+        libelleActivite: "Autre activité",
+        activite: "autreActiviteEauPotable",
+        libelleSecteur: "Eau potable",
+        secteur: "eauPotable",
+      },
     ];
 
     it.each(casDeTest)(

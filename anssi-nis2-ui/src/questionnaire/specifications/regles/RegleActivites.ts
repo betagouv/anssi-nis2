@@ -36,6 +36,8 @@ const recupereAutreActivite = (texte: SpecificationTexte) => {
       return new RegleActivites("autreActiviteFournisseursNumeriques");
     case "Banques (secteur bancaire)":
       return new RegleActivites("autreActiviteSecteurBancaire");
+    case "Eau potable":
+      return new RegleActivites("autreActiviteEauPotable");
     default:
       throw new ErreurLectureDeRegle(
         `"Autre activité" pour le secteur ${secteur}`,
