@@ -581,6 +581,14 @@ describe("La fabrique de spécifications", () => {
         libelleSecteur: "Eaux usées",
         secteur: "eauxUsees",
       },
+      {
+        libelleActivite: "Autre activité",
+        activite:
+          "autreActiviteFabricationProductionDistributionProduitsChimiques",
+        libelleSecteur:
+          "Fabrication, production et distribution de produits chimiques",
+        secteur: "fabricationProductionDistributionProduitsChimiques",
+      },
     ];
 
     it.each(casDeTest)(
