@@ -669,6 +669,15 @@ describe("La fabrique de spécifications", () => {
         libelleSousSecteur: "Réseaux de chaleur et de froid",
         sousSecteur: "reseauxChaleurFroid",
       },
+      {
+        libelleActivite: "Autre activité",
+        activite: "autreActiviteConstructionVehiculesAutomobilesRemorquesSemi",
+        libelleSecteur: "Fabrication",
+        secteur: "fabrication",
+        libelleSousSecteur:
+          "Construction de véhicules automobiles, remorques et semi- remorques",
+        sousSecteur: "constructionVehiculesAutomobiles",
+      },
     ];
 
     it.each(casDeTest)(
