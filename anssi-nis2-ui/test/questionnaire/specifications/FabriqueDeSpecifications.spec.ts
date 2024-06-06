@@ -697,6 +697,14 @@ describe("La fabrique de spécifications", () => {
           "Fabrication de produits informatiques, électroniques et optiques",
         sousSecteur: "fabricationProduitsInformatiquesElectroniquesOptiques",
       },
+      {
+        libelleActivite: "Autre activité",
+        activite: "autreActiviteFabricationMachinesEquipements",
+        libelleSecteur: "Fabrication",
+        secteur: "fabrication",
+        libelleSousSecteur: "Fabrication de machines et équipements n.c.a.",
+        sousSecteur: "fabricationMachinesEquipements",
+      },
     ];
 
     it.each(casDeTest)(
