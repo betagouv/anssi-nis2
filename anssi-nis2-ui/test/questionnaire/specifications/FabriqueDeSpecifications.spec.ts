@@ -575,6 +575,7 @@ function uneSpecification(
     Secteurs: "",
     "Sous-secteurs": "",
     Activités: "",
+    "Extra - Fourniture de service": "",
     Resultat: "CHAQUE TEST DOIT LE DÉFINIR",
     ...surcharge,
   };

@@ -6,6 +6,7 @@ export enum ClesDuCSV {
   "Secteurs",
   "Sous-secteurs",
   "Activités",
+  "Extra - Fourniture de service",
   "Resultat",
 }
 
