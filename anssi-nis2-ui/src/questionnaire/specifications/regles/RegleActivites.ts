@@ -27,6 +27,8 @@ export class RegleActivites implements Regle {
 
 const recupereAutreActivite = (texte: SpecificationTexte) => {
   const secteur = texte["Secteurs"];
+  const sousSecteur = texte["Sous-secteurs"];
+
   switch (secteur) {
     case "Infrastructure numérique":
       return new RegleActivites("autreActiviteInfrastructureNumerique");
@@ -58,6 +60,16 @@ const recupereAutreActivite = (texte: SpecificationTexte) => {
       return new RegleActivites("autreActiviteEspace");
     case "Gestion des déchets":
       return new RegleActivites("autreActiviteGestionDechets");
+    case "Énergie":
+      switch (sousSecteur) {
+        case "Électricité":
+          return new RegleActivites("autreActiviteElectricite");
+        default:
+          throw new ErreurLectureDeRegle(
+            `"Autre activité" pour le secteur ${secteur} (sous-secteur : ${sousSecteur})`,
+            "Activités",
+          );
+      }
     default:
       throw new ErreurLectureDeRegle(
         `"Autre activité" pour le secteur ${secteur}`,

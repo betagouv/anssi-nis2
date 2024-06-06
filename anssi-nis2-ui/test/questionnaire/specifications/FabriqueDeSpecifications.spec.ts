@@ -447,6 +447,8 @@ describe("La fabrique de spécifications", () => {
       activite: Activite;
       libelleSecteur: string;
       secteur: SecteurActivite;
+      libelleSousSecteur?: string;
+      sousSecteur?: SousSecteurActivite;
     };
 
     const casDeTest: CasDeTest[] = [
@@ -627,15 +629,31 @@ describe("La fabrique de spécifications", () => {
         libelleSecteur: "Gestion des déchets",
         secteur: "gestionDechets",
       },
+      {
+        libelleActivite: "Autre activité",
+        activite: "autreActiviteElectricite",
+        libelleSecteur: "Énergie",
+        secteur: "energie",
+        libelleSousSecteur: "Électricité",
+        sousSecteur: "electricite",
+      },
     ];
 
     it.each(casDeTest)(
       `sait instancier la règle $libelleActivite du secteur $libelleSecteur`,
-      ({ libelleActivite, activite, libelleSecteur, secteur }) => {
+      ({
+        libelleActivite,
+        activite,
+        libelleSecteur,
+        secteur,
+        libelleSousSecteur,
+        sousSecteur,
+      }) => {
         const specs: Specifications = fabrique.transforme(
           uneSpecification({
             Activités: libelleActivite,
             Secteurs: libelleSecteur,
+            "Sous-secteurs": libelleSousSecteur,
             Resultat: "Regule EE",
           }),
         );
@@ -643,6 +661,7 @@ describe("La fabrique de spécifications", () => {
         const reponse: EtatQuestionnaire = {
           ...etatParDefaut,
           secteurActivite: [secteur],
+          sousSecteurActivite: [sousSecteur],
           activites: [activite],
         };
 
