@@ -85,6 +85,11 @@ const PiedDePage = () => (
               </a>
             </li>
             <li className="fr-footer__bottom-item">
+              <a href="/securite" className="fr-footer__bottom-link">
+                Sécurité
+              </a>
+            </li>
+            <li className="fr-footer__bottom-item">
               <a href="/accessibilite" className="fr-footer__bottom-link">
                 Accessibilité : non conforme
               </a>
