@@ -1038,3 +1038,28 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
 .texte-edito .fr-nis2-formulaire-restez-informes .fr-checkbox-group {
   margin-top: 16px;
 }
+
+.Sécurité {
+  .encart-homologation {
+    width: 100%;
+    display: none;
+  }
+
+  @media screen and (max-width: 600px) {
+    .encart-mobile {
+      display: inline-block;
+    }
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 1200px) {
+    .encart-tablette {
+      display: inline-block;
+    }
+  }
+
+  @media screen and (min-width: 1201px) {
+    .encart-desktop {
+      display: inline-block;
+    }
+  }
+}
