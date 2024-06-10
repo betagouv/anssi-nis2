@@ -17,6 +17,7 @@ import * as Sentry from "@sentry/react";
 import React from "react";
 import Directive from "./Directive.tsx";
 import { DeclarationAccessibilite } from "./Components/PagesEdito/DeclarationAccessibilite.tsx";
+import Securite from "./Components/PagesEdito/Securite.tsx";
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
@@ -62,6 +63,14 @@ export const router = sentryCreateBrowserRouter([
     element: (
       <PageEdito titre="Gestion des cookies">
         <GestionCookies />
+      </PageEdito>
+    ),
+  },
+  {
+    path: "/securite",
+    element: (
+      <PageEdito titre="Sécurité">
+        <Securite />
       </PageEdito>
     ),
   },
