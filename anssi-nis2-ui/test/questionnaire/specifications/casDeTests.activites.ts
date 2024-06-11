@@ -14,27 +14,27 @@ export type CasDeTest = {
 export const infrastructureNumerique: CasDeTest[] = [
   {
     libelleActivite:
-      "Fournisseurs de réseaux de communications électroniques publics",
+      "Fournisseur de réseaux de communications électroniques publics",
     activite: "fournisseurReseauxCommunicationElectroniquesPublics",
     libelleSecteur: "Infrastructure numérique",
     secteur: "infrastructureNumerique",
   },
   {
     libelleActivite:
-      "Fournisseurs de services de communications électroniques accessibles au public",
+      "Fournisseur de services de communications électroniques accessibles au public",
     activite: "fournisseurServiceCommunicationElectroniquesPublics",
     libelleSecteur: "Infrastructure numérique",
     secteur: "infrastructureNumerique",
   },
   {
     libelleActivite:
-      "Fournisseurs de services DNS, à l'exclusion des opérateurs de serveurs racines de noms de domaines",
+      "Fournisseur de services DNS, à l'exclusion des opérateurs de serveurs racines de noms de domaines",
     activite: "fournisseurServicesDNS",
     libelleSecteur: "Infrastructure numérique",
     secteur: "infrastructureNumerique",
   },
   {
-    libelleActivite: "Registres de noms de domaines de premier niveau",
+    libelleActivite: "Registre de noms de domaines de premier niveau",
     activite: "registresNomsDomainesPremierNiveau",
     libelleSecteur: "Infrastructure numérique",
     secteur: "infrastructureNumerique",
@@ -47,31 +47,31 @@ export const infrastructureNumerique: CasDeTest[] = [
     secteur: "infrastructureNumerique",
   },
   {
-    libelleActivite: "Prestataires de service de confiance qualifié",
+    libelleActivite: "Prestataire de service de confiance qualifié",
     activite: "prestataireServiceConfianceQualifie",
     libelleSecteur: "Infrastructure numérique",
     secteur: "infrastructureNumerique",
   },
   {
-    libelleActivite: "Prestataires de service de confiance non qualifié",
+    libelleActivite: "Prestataire de service de confiance non qualifié",
     activite: "prestataireServiceConfianceNonQualifie",
     libelleSecteur: "Infrastructure numérique",
     secteur: "infrastructureNumerique",
   },
   {
-    libelleActivite: "Fournisseurs de services d'informatique en nuage",
+    libelleActivite: "Fournisseur de services d'informatique en nuage",
     activite: "fournisseurServicesInformatiqueNuage",
     libelleSecteur: "Infrastructure numérique",
     secteur: "infrastructureNumerique",
   },
   {
-    libelleActivite: "Fournisseurs de services de centres de données",
+    libelleActivite: "Fournisseur de services de centres de données",
     activite: "fournisseurServiceCentresDonnees",
     libelleSecteur: "Infrastructure numérique",
     secteur: "infrastructureNumerique",
   },
   {
-    libelleActivite: "Fournisseurs de réseaux de diffusion de contenu",
+    libelleActivite: "Fournisseur de réseaux de diffusion de contenu",
     activite: "fournisseurReseauxDiffusionContenu",
     libelleSecteur: "Infrastructure numérique",
     secteur: "infrastructureNumerique",
@@ -86,13 +86,13 @@ export const infrastructureNumerique: CasDeTest[] = [
 
 export const gestionDesServicesTIC: CasDeTest[] = [
   {
-    libelleActivite: "Fournisseurs de services gérés",
+    libelleActivite: "Fournisseur de services gérés",
     activite: "fournisseurServicesGeres",
     libelleSecteur: "Gestion des services TIC",
     secteur: "gestionServicesTic",
   },
   {
-    libelleActivite: "Fournisseurs de services de sécurité gérés",
+    libelleActivite: "Fournisseur de services de sécurité gérés",
     activite: "fournisseurServicesSecuriteGeres",
     libelleSecteur: "Gestion des services TIC",
     secteur: "gestionServicesTic",
@@ -107,20 +107,20 @@ export const gestionDesServicesTIC: CasDeTest[] = [
 
 export const fournisseursNumeriques: CasDeTest[] = [
   {
-    libelleActivite: "Fournisseurs de places de marché en ligne",
+    libelleActivite: "Fournisseur de places de marché en ligne",
     activite: "fournisseursPlaceMarcheEnLigne",
     libelleSecteur: "Fournisseurs numériques",
     secteur: "fournisseursNumeriques",
   },
   {
-    libelleActivite: "Fournisseurs de moteurs de recherche en ligne",
+    libelleActivite: "Fournisseur de moteurs de recherche en ligne",
     activite: "fournisseursMoteursRechercheEnLigne",
     libelleSecteur: "Fournisseurs numériques",
     secteur: "fournisseursNumeriques",
   },
   {
     libelleActivite:
-      "Fournisseurs de plateformes de services de réseaux sociaux",
+      "Fournisseur de plateformes de services de réseaux sociaux",
     activite: "fournisseursPlateformesServicesReseauxSociaux",
     libelleSecteur: "Fournisseurs numériques",
     secteur: "fournisseursNumeriques",

@@ -210,22 +210,21 @@ export const libellesActivites: Record<Activite, string> = {
     "Fabrication de produits électroniques grand public",
   fabriquantProduitsInformatiquesElectroniquesOptiques:
     "Fabrication de produits informatiques, électroniques et optiques",
-  fournisseurPointEchangeInternet: "Fournisseurs de points d'échange internet",
+  fournisseurPointEchangeInternet: "Fournisseur de points d'échange internet",
   fournisseurReseauxCommunicationElectroniquesPublics:
-    "Fournisseurs de réseaux de communications électroniques publics",
+    "Fournisseur de réseaux de communications électroniques publics",
   fournisseurReseauxDiffusionContenu:
-    "Fournisseurs de réseaux de diffusion de contenu",
+    "Fournisseur de réseaux de diffusion de contenu",
   fournisseurServiceCentresDonnees:
-    "Fournisseurs de services de centres de données",
+    "Fournisseur de services de centres de données",
   fournisseurServiceCommunicationElectroniquesPublics:
-    "Fournisseurs de services de communications électroniques accessibles au public",
+    "Fournisseur de services de communications électroniques accessibles au public",
   fournisseurServicesDNS:
-    "Fournisseurs de services DNS, à l'exclusion des opérateurs de serveurs racines de noms de domaines",
-  fournisseurServicesGeres: "Fournisseurs de services gérés",
+    "Fournisseur de services DNS, à l'exclusion des opérateurs de serveurs racines de noms de domaines",
+  fournisseurServicesGeres: "Fournisseur de services gérés",
   fournisseurServicesInformatiqueNuage:
-    "Fournisseurs de services d'informatique en nuage",
-  fournisseurServicesSecuriteGeres:
-    "Fournisseurs de services de sécurité gérés",
+    "Fournisseur de services d'informatique en nuage",
+  fournisseurServicesSecuriteGeres: "Fournisseur de services de sécurité gérés",
   fournisseursDistributeursEauxConsommation:
     "Fournisseurs et distributeurs d'eaux destinées à la consommation " +
     "humaine, à l'exclusion des distributeurs pour lesquels la distribution " +
@@ -233,10 +232,10 @@ export const libellesActivites: Record<Activite, string> = {
     "essentielle de leur activité générale de distribution d'autres produits " +
     "et biens",
   fournisseursMoteursRechercheEnLigne:
-    "Fournisseurs de moteurs de recherche en ligne",
-  fournisseursPlaceMarcheEnLigne: "Fournisseurs de places de marché en ligne",
+    "Fournisseur de moteurs de recherche en ligne",
+  fournisseursPlaceMarcheEnLigne: "Fournisseur de places de marché en ligne",
   fournisseursPlateformesServicesReseauxSociaux:
-    "Fournisseurs de plateformes de services de réseaux sociaux",
+    "Fournisseur de plateformes de services de réseaux sociaux",
   fournisseurServicesEnregristrementNomDomaine:
     "Fournisseur des services d'enregistrement de noms de domaine",
   gestionnaireInfrastructure: "Gestionnaires des infrastructures",
@@ -252,9 +251,9 @@ export const libellesActivites: Record<Activite, string> = {
     "Opérateurs de réseaux de chaleur ou de réseaux de froid",
   organismeRecherche: "Organismes de recherche",
   prestataireServiceConfianceQualifie:
-    "Prestataires de service de confiance qualifié",
+    "Prestataire de service de confiance qualifié",
   prestataireServiceConfianceNonQualifie:
-    "Prestataires de service de confiance non qualifié",
+    "Prestataire de service de confiance non qualifié",
   prestataireSoinsSante: "Prestataires de soins de santé",
   prestatairesServicesPostauxExpedition:
     "Prestataires de services postaux, y compris les prestataires de " +
@@ -264,7 +263,7 @@ export const libellesActivites: Record<Activite, string> = {
     "Entités exerçant des activités de recherche et de développement dans le " +
     "domaine des médicaments",
   registresNomsDomainesPremierNiveau:
-    "Registres de noms de domaines de premier niveau",
+    "Registre de noms de domaines de premier niveau",
   secteurAlimentaireDistributionGrosProductionTransformationIndustrielle:
     "Entreprises du secteur alimentaire qui exercent des activités de " +
     "distribution en gros ainsi que de production et de transformation " +
