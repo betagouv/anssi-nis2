@@ -5,6 +5,8 @@ export interface Regle {
   evalue(reponses: EtatQuestionnaire): boolean;
 }
 
+export const estValeurVide = (v: string) => v === "-";
+
 export class Specifications {
   constructor(
     private readonly regles: Regle[],

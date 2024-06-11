@@ -1,4 +1,4 @@
-import { Regle } from "../Specifications.ts";
+import { estValeurVide, Regle } from "../Specifications.ts";
 import { SpecificationTexte } from "../FormatDesSpecificationsCSV.ts";
 import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle.ts";
 import { AppartenancePaysUnionEuropeenne } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
@@ -21,7 +21,7 @@ export class RegleFournitureDeServicesNumerique implements Regle {
   ): RegleFournitureDeServicesNumerique | undefined {
     const valeur = texte["Extra - Fourniture de service"];
 
-    if (!valeur) return;
+    if (estValeurVide(valeur)) return;
 
     const morceaux = valeur.split(SEPARATEUR).map((m) => m.trim());
     const tousConnus = morceaux.every((m) => Object.keys(mapping).includes(m));

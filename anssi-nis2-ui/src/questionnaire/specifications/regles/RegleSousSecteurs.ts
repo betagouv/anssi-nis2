@@ -1,5 +1,5 @@
 import { EtatQuestionnaire } from "../../reducerQuestionnaire.ts";
-import { Regle } from "../Specifications.ts";
+import { estValeurVide, Regle } from "../Specifications.ts";
 import { SpecificationTexte } from "../FormatDesSpecificationsCSV.ts";
 import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle.ts";
 import { libellesSousSecteursActivite } from "../../../References/LibellesSousSecteursActivite.ts";
@@ -17,7 +17,7 @@ export class RegleSousSecteurs implements Regle {
   static nouvelle(texte: SpecificationTexte): RegleSousSecteurs | undefined {
     const sousSecteurAttendu = texte["Sous-secteurs"];
 
-    if (!sousSecteurAttendu) return;
+    if (estValeurVide(sousSecteurAttendu)) return;
 
     return sousSecteurAttendu === "Autre sous-secteur"
       ? chercheSousSecteurAutre(texte["Secteurs"])

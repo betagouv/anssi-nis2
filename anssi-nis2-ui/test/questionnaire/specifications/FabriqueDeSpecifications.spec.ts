@@ -46,7 +46,7 @@ describe("La fabrique de spécifications", () => {
 
     it("sait instancier une règle « Oui »", () => {
       const specs = fabrique.transforme(
-        uneSpecification({ "Designation OSE": "Oui", Resultat: "Regule EE" }),
+        uneSpecification({ "Designation OSE": "Oui", Resultat: "Régulée EE" }),
       );
 
       expect(specs.nombreDeRegles()).toBe(1);
@@ -55,11 +55,22 @@ describe("La fabrique de spécifications", () => {
       expect(specs.evalue(entiteNeSaitPas)).toBe(undefined);
     });
 
+    it("sait instancier une règle « Non »", () => {
+      const specs = fabrique.transforme(
+        uneSpecification({ "Designation OSE": "Non", Resultat: "Régulée EE" }),
+      );
+
+      expect(specs.nombreDeRegles()).toBe(1);
+      expect(specs.evalue(entiteOui)).toBe(undefined);
+      expect(specs.evalue(entiteNon)).toMatchObject(reguleEE());
+      expect(specs.evalue(entiteNeSaitPas)).toBe(undefined);
+    });
+
     it("sait instancier une règle « Non / Ne sait pas »", () => {
       const specs = fabrique.transforme(
         uneSpecification({
           "Designation OSE": "Non / Ne sait pas",
-          Resultat: "Regule EE",
+          Resultat: "Régulée EE",
         }),
       );
 
@@ -79,7 +90,7 @@ describe("La fabrique de spécifications", () => {
 
     it("n'instancie pas de règle si aucune valeur n'est passée", () => {
       const specifications = fabrique.transforme(
-        uneSpecification({ "Designation OSE": "", Resultat: "Regule EE" }),
+        uneSpecification({ "Designation OSE": "", Resultat: "Régulée EE" }),
       );
 
       expect(specifications.nombreDeRegles()).toBe(0);
@@ -98,7 +109,7 @@ describe("La fabrique de spécifications", () => {
 
     it("sait instancier une règle « France »", () => {
       const specs = fabrique.transforme(
-        uneSpecification({ Localisation: "France", Resultat: "Regule EE" }),
+        uneSpecification({ Localisation: "France", Resultat: "Régulée EE" }),
       );
 
       expect(specs.nombreDeRegles()).toBe(1);
@@ -114,7 +125,7 @@ describe("La fabrique de spécifications", () => {
 
     it("n'instancie pas de règle si aucune valeur n'est passée", () => {
       const specifications = fabrique.transforme(
-        uneSpecification({ Localisation: "", Resultat: "Regule EE" }),
+        uneSpecification({ Localisation: "-", Resultat: "Régulée EE" }),
       );
 
       expect(specifications.nombreDeRegles()).toBe(0);
@@ -131,11 +142,11 @@ describe("La fabrique de spécifications", () => {
       typeStructure: ["publique"],
     };
 
-    it("instancie une règle « Entreprise privee ou publique »", () => {
+    it("instancie une règle « Entreprise privée ou publique »", () => {
       const specs: Specifications = fabrique.transforme(
         uneSpecification({
-          "Type de structure": "Entreprise privee ou publique",
-          Resultat: "Regule EE",
+          "Type de structure": "Entreprise privée ou publique",
+          Resultat: "Régulée EE",
         }),
       );
 
@@ -147,8 +158,8 @@ describe("La fabrique de spécifications", () => {
     it("n'instancie pas de règle si aucune valeur n'est passée", () => {
       const specs: Specifications = fabrique.transforme(
         uneSpecification({
-          "Type de structure": "",
-          Resultat: "Regule EE",
+          "Type de structure": "-",
+          Resultat: "Régulée EE",
         }),
       );
 
@@ -158,7 +169,10 @@ describe("La fabrique de spécifications", () => {
     it("lève une exception si la valeur reçue n'est pas gérée", () => {
       expect(() => {
         fabrique.transforme(
-          uneSpecification({ "Type de structure": "X", Resultat: "Regule EE" }),
+          uneSpecification({
+            "Type de structure": "X",
+            Resultat: "Régulée EE",
+          }),
         );
       }).toThrowError("X");
     });
@@ -177,7 +191,7 @@ describe("La fabrique de spécifications", () => {
 
     it("sait instancier une règle « Petite »", () => {
       const specs = fabrique.transforme(
-        uneSpecification({ Taille: "Petite", Resultat: "Regule EE" }),
+        uneSpecification({ Taille: "Petite", Resultat: "Régulée EE" }),
       );
 
       expect(specs.nombreDeRegles()).toBe(1);
@@ -188,7 +202,7 @@ describe("La fabrique de spécifications", () => {
 
     it("sait instancier une règle « Moyenne »", () => {
       const specs = fabrique.transforme(
-        uneSpecification({ Taille: "Moyenne", Resultat: "Regule EE" }),
+        uneSpecification({ Taille: "Moyenne", Resultat: "Régulée EE" }),
       );
 
       expect(specs.nombreDeRegles()).toBe(1);
@@ -199,7 +213,7 @@ describe("La fabrique de spécifications", () => {
 
     it("sait instancier une règle « Grande »", () => {
       const specs = fabrique.transforme(
-        uneSpecification({ Taille: "Grande", Resultat: "Regule EE" }),
+        uneSpecification({ Taille: "Grande", Resultat: "Régulée EE" }),
       );
 
       expect(specs.nombreDeRegles()).toBe(1);
@@ -210,7 +224,7 @@ describe("La fabrique de spécifications", () => {
 
     it("n'instancie pas de règle si aucune valeur n'est passée", () => {
       const specs: Specifications = fabrique.transforme(
-        uneSpecification({ Taille: "", Resultat: "Regule EE" }),
+        uneSpecification({ Taille: "-", Resultat: "Régulée EE" }),
       );
 
       expect(specs.nombreDeRegles()).toBe(0);
@@ -219,7 +233,7 @@ describe("La fabrique de spécifications", () => {
     it("lève une exception si la valeur reçue n'est pas gérée", () => {
       expect(() => {
         fabrique.transforme(
-          uneSpecification({ Taille: "XXL", Resultat: "Regule EE" }),
+          uneSpecification({ Taille: "XXL", Resultat: "Régulée EE" }),
         );
       }).toThrowError("XXL");
     });
@@ -246,7 +260,7 @@ describe("La fabrique de spécifications", () => {
       ({ id, libelle }: { id: SecteurActivite; libelle: string }) => {
         const entite = entiteDuSecteur(id);
         const specs = fabrique.transforme(
-          uneSpecification({ Secteurs: libelle, Resultat: "Regule EE" }),
+          uneSpecification({ Secteurs: libelle, Resultat: "Régulée EE" }),
         );
 
         expect(specs.nombreDeRegles()).toBe(1);
@@ -257,7 +271,7 @@ describe("La fabrique de spécifications", () => {
     it("ne matche pas un secteur qui n'est pas celui de la règle", () => {
       const banque = entiteDuSecteur("banqueSecteurBancaire");
       const specsEnergie = fabrique.transforme(
-        uneSpecification({ Secteurs: "Énergie", Resultat: "Regule EE" }),
+        uneSpecification({ Secteurs: "Énergie", Resultat: "Régulée EE" }),
       );
 
       const resultat = specsEnergie.evalue(banque);
@@ -271,7 +285,7 @@ describe("La fabrique de spécifications", () => {
         "energie",
       ]);
       const specsEnergie = fabrique.transforme(
-        uneSpecification({ Secteurs: "Énergie", Resultat: "Regule EE" }),
+        uneSpecification({ Secteurs: "Énergie", Resultat: "Régulée EE" }),
       );
 
       const resultat = specsEnergie.evalue(banqueEtEnergie);
@@ -281,7 +295,7 @@ describe("La fabrique de spécifications", () => {
 
     it("n'instancie pas de règle si aucune valeur n'est passée", () => {
       const specs: Specifications = fabrique.transforme(
-        uneSpecification({ Secteurs: "", Resultat: "Regule EE" }),
+        uneSpecification({ Secteurs: "-", Resultat: "Régulée EE" }),
       );
 
       expect(specs.nombreDeRegles()).toBe(0);
@@ -290,7 +304,7 @@ describe("La fabrique de spécifications", () => {
     it("lève une exception si la valeur reçue n'est pas gérée", () => {
       expect(() => {
         fabrique.transforme(
-          uneSpecification({ Secteurs: "Tennis", Resultat: "Regule EE" }),
+          uneSpecification({ Secteurs: "Tennis", Resultat: "Régulée EE" }),
         );
       }).toThrowError("Tennis");
     });
@@ -320,7 +334,10 @@ describe("La fabrique de spécifications", () => {
       ({ id, libelle }: { id: SousSecteurActivite; libelle: string }) => {
         const entite = entiteDuSousSecteur(id);
         const specs = fabrique.transforme(
-          uneSpecification({ "Sous-secteurs": libelle, Resultat: "Regule EE" }),
+          uneSpecification({
+            "Sous-secteurs": libelle,
+            Resultat: "Régulée EE",
+          }),
         );
 
         expect(specs.nombreDeRegles()).toBe(1);
@@ -331,7 +348,10 @@ describe("La fabrique de spécifications", () => {
     it("ne matche pas un sous-secteur qui n'est pas celui de la règle", () => {
       const gaz = entiteDuSousSecteur("gaz");
       const transportAerien = fabrique.transforme(
-        uneSpecification({ "Sous-secteurs": "Aériens", Resultat: "Regule EE" }),
+        uneSpecification({
+          "Sous-secteurs": "Aériens",
+          Resultat: "Régulée EE",
+        }),
       );
 
       const resultat = transportAerien.evalue(gaz);
@@ -347,7 +367,7 @@ describe("La fabrique de spécifications", () => {
       const specsFeroviaires = fabrique.transforme(
         uneSpecification({
           "Sous-secteurs": "Ferroviaires",
-          Resultat: "Regule EE",
+          Resultat: "Régulée EE",
         }),
       );
 
@@ -367,7 +387,7 @@ describe("La fabrique de spécifications", () => {
           uneSpecification({
             Secteurs: "Énergie",
             "Sous-secteurs": "Autre sous-secteur",
-            Resultat: "Regule EE",
+            Resultat: "Régulée EE",
           }),
         );
 
@@ -387,7 +407,7 @@ describe("La fabrique de spécifications", () => {
           uneSpecification({
             Secteurs: "Fabrication",
             "Sous-secteurs": "Autre sous-secteur",
-            Resultat: "Regule EE",
+            Resultat: "Régulée EE",
           }),
         );
 
@@ -407,7 +427,7 @@ describe("La fabrique de spécifications", () => {
           uneSpecification({
             Secteurs: "Transports",
             "Sous-secteurs": "Autre sous-secteur",
-            Resultat: "Regule EE",
+            Resultat: "Régulée EE",
           }),
         );
 
@@ -423,7 +443,7 @@ describe("La fabrique de spécifications", () => {
             uneSpecification({
               "Sous-secteurs": "Autre sous-secteur",
               Secteurs: "Gestion des services TIC", // Ce secteur n'a pas de sous-secteur
-              Resultat: "Regule EE",
+              Resultat: "Régulée EE",
             }),
           );
         }).toThrowError("Autre sous-secteur");
@@ -432,7 +452,7 @@ describe("La fabrique de spécifications", () => {
 
     it("n'instancie pas de règle si aucune valeur n'est passée", () => {
       const specs: Specifications = fabrique.transforme(
-        uneSpecification({ "Sous-secteurs": "", Resultat: "Regule EE" }),
+        uneSpecification({ "Sous-secteurs": "-", Resultat: "Régulée EE" }),
       );
 
       expect(specs.nombreDeRegles()).toBe(0);
@@ -443,7 +463,7 @@ describe("La fabrique de spécifications", () => {
         fabrique.transforme(
           uneSpecification({
             "Sous-secteurs": "Parachute",
-            Resultat: "Regule EE",
+            Resultat: "Régulée EE",
           }),
         );
       }).toThrowError("Parachute");
@@ -465,7 +485,7 @@ describe("La fabrique de spécifications", () => {
         activite,
         libelleSecteur,
         secteur,
-        libelleSousSecteur,
+        libelleSousSecteur = "-",
         sousSecteur,
       }) => {
         const specs: Specifications = fabrique.transforme(
@@ -473,7 +493,7 @@ describe("La fabrique de spécifications", () => {
             Activités: libelleActivite,
             Secteurs: libelleSecteur,
             "Sous-secteurs": libelleSousSecteur,
-            Resultat: "Regule EE",
+            Resultat: "Régulée EE",
           }),
         );
 
@@ -490,7 +510,7 @@ describe("La fabrique de spécifications", () => {
 
     it("n'instancie pas de règle si aucune valeur n'est passée", () => {
       const specs: Specifications = fabrique.transforme(
-        uneSpecification({ Activités: "", Resultat: "Regule EE" }),
+        uneSpecification({ Activités: "-", Resultat: "Régulée EE" }),
       );
 
       expect(specs.nombreDeRegles()).toBe(0);
@@ -499,7 +519,7 @@ describe("La fabrique de spécifications", () => {
     it("lève une exception si la valeur reçue n'est pas gérée", () => {
       expect(() => {
         fabrique.transforme(
-          uneSpecification({ Activités: "Volley", Resultat: "Regule EE" }),
+          uneSpecification({ Activités: "Volley", Resultat: "Régulée EE" }),
         );
       }).toThrowError("Volley");
     });
@@ -517,7 +537,7 @@ describe("La fabrique de spécifications", () => {
       const specsFrance: Specifications = fabrique.transforme(
         uneSpecification({
           "Extra - Fourniture de service": "France",
-          Resultat: "Regule EE",
+          Resultat: "Régulée EE",
         }),
       );
 
@@ -532,7 +552,7 @@ describe("La fabrique de spécifications", () => {
         uneSpecification({
           "Extra - Fourniture de service":
             "Autres États membres de l'Union Européenne",
-          Resultat: "Regule EE",
+          Resultat: "Régulée EE",
         }),
       );
 
@@ -546,7 +566,7 @@ describe("La fabrique de spécifications", () => {
       const specsHorsUE: Specifications = fabrique.transforme(
         uneSpecification({
           "Extra - Fourniture de service": "Autres États hors Union Européenne",
-          Resultat: "Regule EE",
+          Resultat: "Régulée EE",
         }),
       );
 
@@ -562,7 +582,7 @@ describe("La fabrique de spécifications", () => {
           uneSpecification({
             "Extra - Fourniture de service":
               "France + Autres États membres de l'Union Européenne",
-            Resultat: "Regule EE",
+            Resultat: "Régulée EE",
           }),
         );
 
@@ -586,8 +606,8 @@ describe("La fabrique de spécifications", () => {
     it("n'instancie pas de règle si aucune valeur n'est passée", () => {
       const specs: Specifications = fabrique.transforme(
         uneSpecification({
-          "Extra - Fourniture de service": "",
-          Resultat: "Regule EE",
+          "Extra - Fourniture de service": "-",
+          Resultat: "Régulée EE",
         }),
       );
 
@@ -599,7 +619,7 @@ describe("La fabrique de spécifications", () => {
         fabrique.transforme(
           uneSpecification({
             "Extra - Fourniture de service": "Jardin",
-            Resultat: "Regule EE",
+            Resultat: "Régulée EE",
           }),
         );
       }).toThrowError("Jardin");
@@ -609,7 +629,7 @@ describe("La fabrique de spécifications", () => {
   describe("pour le résultat", () => {
     it("sait instancier un résultat « Régulée EE»", () => {
       const specs: Specifications = fabrique.transforme(
-        uneSpecification({ Resultat: "Regule EE" }),
+        uneSpecification({ Resultat: "Régulée EE" }),
       );
 
       expect(specs.resultat().regulation).toBe("Regule");
@@ -618,25 +638,25 @@ describe("La fabrique de spécifications", () => {
 
     it("sait instancier un résultat « Régulée EI »", () => {
       const specs: Specifications = fabrique.transforme(
-        uneSpecification({ Resultat: "Regule EI" }),
+        uneSpecification({ Resultat: "Régulée EI" }),
       );
 
       expect(specs.resultat().regulation).toBe("Regule");
       expect(specs.resultat().typeEntite).toBe("EntiteImportante");
     });
 
-    it("sait instancier un résultat « Régulée EI »", () => {
+    it("sait instancier un résultat « Régulée, enregistrement seul »", () => {
       const specs: Specifications = fabrique.transforme(
-        uneSpecification({ Resultat: "Regule enregistrement seul" }),
+        uneSpecification({ Resultat: "Régulée, enregistrement seul" }),
       );
 
       expect(specs.resultat().regulation).toBe("Regule");
       expect(specs.resultat().typeEntite).toBe("EnregistrementUniquement");
     });
 
-    it("sait instancier un résultat « Régulée Autre Etat Membre »", () => {
+    it("sait instancier un résultat « Régulée, sans précision EE/EI »", () => {
       const specs: Specifications = fabrique.transforme(
-        uneSpecification({ Resultat: "Regule autre EM" }),
+        uneSpecification({ Resultat: "Régulée, sans précision EE/EI" }),
       );
 
       expect(specs.resultat().regulation).toBe("Regule");
@@ -645,7 +665,7 @@ describe("La fabrique de spécifications", () => {
 
     it("sait instancier un résultat « Non regulée »", () => {
       const specs: Specifications = fabrique.transforme(
-        uneSpecification({ Resultat: "Non regule" }),
+        uneSpecification({ Resultat: "Non régulée" }),
       );
 
       expect(specs.resultat().regulation).toBe("NonRegule");
@@ -673,13 +693,13 @@ function uneSpecification(
 ): SpecificationTexte {
   return {
     "Designation OSE": "",
-    Localisation: "",
-    "Type de structure": "",
-    Taille: "",
-    Secteurs: "",
-    "Sous-secteurs": "",
-    Activités: "",
-    "Extra - Fourniture de service": "",
+    Localisation: "-",
+    "Type de structure": "-",
+    Taille: "-",
+    Secteurs: "-",
+    "Sous-secteurs": "-",
+    Activités: "-",
+    "Extra - Fourniture de service": "-",
     Resultat: "CHAQUE TEST DOIT LE DÉFINIR",
     ...surcharge,
   };

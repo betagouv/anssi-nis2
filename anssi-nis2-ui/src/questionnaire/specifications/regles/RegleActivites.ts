@@ -1,4 +1,4 @@
-import { Regle } from "../Specifications.ts";
+import { estValeurVide, Regle } from "../Specifications.ts";
 import { EtatQuestionnaire } from "../../reducerQuestionnaire.ts";
 import { SpecificationTexte } from "../FormatDesSpecificationsCSV.ts";
 import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle.ts";
@@ -17,7 +17,7 @@ export class RegleActivites implements Regle {
   static nouvelle(texte: SpecificationTexte): RegleActivites | undefined {
     const valeur = texte["Activités"];
 
-    if (!valeur) return;
+    if (estValeurVide(valeur)) return;
 
     return valeur === "Autre activité"
       ? recupereAutreActivite(texte)
@@ -62,6 +62,10 @@ const mappingFabrication: Record<string, Activite> = {
     "autreActiviteFabricationProduitsInformatiquesElectroniquesOptiques",
   "Fabrication de machines et équipements n.c.a.":
     "autreActiviteFabricationMachinesEquipements",
+  "Fabrication d'équipements électriques":
+    "autreActiviteFabricationEquipementsElectroniques",
+  "Fabrication d'autres matériels de transport":
+    "autreActiviteConstructionVehiculesAutomobilesRemorquesSemi",
 };
 
 const mappingTransports: Record<string, Activite> = {
