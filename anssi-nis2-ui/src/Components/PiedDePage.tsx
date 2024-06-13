@@ -95,18 +95,6 @@ const PiedDePage = () => (
               </a>
             </li>
           </ul>
-          <div className="fr-footer__bottom-copy">
-            <p>
-              Sauf mention contraire, tous les contenus de ce site sont sous{" "}
-              <a
-                href="https://github.com/etalab/licence-ouverte/blob/master/LO.md"
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                licence etalab-2.0
-              </a>
-            </p>
-          </div>
         </div>
       </div>
     </footer>
