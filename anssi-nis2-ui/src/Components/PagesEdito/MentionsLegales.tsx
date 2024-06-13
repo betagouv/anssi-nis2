@@ -34,15 +34,50 @@ const MentionsLegales: DefaultComponent = () => {
         Toute correspondance à leur attention doit être adressée à
         l&apos;adresse suivante&nbsp;:
         <br />
-        <a href="mailto:support@scalingo.com.">support@scalingo.com</a>.
+        <a href="mailto:support@scalingo.com">support@scalingo.com</a>.
       </p>
-      <h3>Crédits images</h3>
-      <p>...</p>
-      <h3>Protection des contenus</h3>
+
+      <h3>Propriété intellectuelle</h3>
+      <h4>Protection des contenus</h4>
       <p>
-        Sauf mention expresse contraire, tous les contenus protégeables par le
-        droit de la Propriété intellectuelle ne peuvent être reproduits ou
-        réutilisés sans l&apos;autorisation expresse de l&apos;ANSSI.
+        Les contenus présents sur le site internet de l&apos;ANSSI dénommé
+        «&nbsp;MonEspaceNIS2&nbsp;» sont couverts par la&nbsp;{" "}
+        <a
+          rel="noreferrer noopener"
+          target="_blank"
+          href="https://github.com/betagouv/anssi-nis2/blob/main/LICENSE"
+        >
+          licence Apache-2.0
+        </a>
+        , sauf mention explicite. Toutefois, l&apos;exploitation commerciale de
+        ces contenus reste soumise à une autorisation préalable de l&apos;agence
+        nationale de la sécurité des systèmes d&apos;information.
+      </p>
+      <p>
+        Sont notamment considérés comme des contenus présents sur le site les
+        recommandations, les éléments graphiques et les photographies de
+        l&apos;ANSSI.
+      </p>
+      <p>
+        Les logotypes de l&apos;ANSSI sont protégés par des marques enregistrées
+        auprès de l&apos;Institut national de la propriété industrielle. Toute
+        utilisation de ces logotypes est soumise à une autorisation préalable de
+        l&apos;ANSSI.
+      </p>
+      <p>
+        Les documents officiels en particulier ceux publiés au Journal Officiel
+        ou sur le site circulaires.gouv.fr peuvent être utilisés librement.
+      </p>
+      <p>
+        Les liens hypertextes renvoyant vers la page d&apos;accueil de
+        MonEspaceNIS2 ou l&apos;une de ses rubriques sont autorisés. Les liens
+        pointant vers des contenus (notamment des images) dont la diffusion et
+        la reproduction ne sont pas expressément autorisés sont interdits. En
+        outre, les pages de ce site internet ne doivent pas être imbriquées à
+        l&apos;intérieur des pages d&apos;un autre site (framing). En toute
+        hypothèse, l&apos;établissement d&apos;un lien vers le site
+        MonEspaceNIS2 ne constitue pas une approbation par l&apos;ANSSI du
+        contenu du site établissant ce lien.
       </p>
       <h3>Demande d&apos;autorisation</h3>
       <p>
