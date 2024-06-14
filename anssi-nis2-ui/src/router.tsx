@@ -18,6 +18,7 @@ import React from "react";
 import Directive from "./Directive.tsx";
 import { DeclarationAccessibilite } from "./Components/PagesEdito/DeclarationAccessibilite.tsx";
 import Securite from "./Components/PagesEdito/Securite.tsx";
+import PolitiqueConfidentialite from "./Components/PagesEdito/PolitiqueConfidentialite.tsx";
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
@@ -55,6 +56,14 @@ export const router = sentryCreateBrowserRouter([
     element: (
       <PageEdito titre="Mentions légales">
         <MentionsLegales />
+      </PageEdito>
+    ),
+  },
+  {
+    path: "/politique-confidentialite",
+    element: (
+      <PageEdito titre="Politique de confidentialité">
+        <PolitiqueConfidentialite />
       </PageEdito>
     ),
   },

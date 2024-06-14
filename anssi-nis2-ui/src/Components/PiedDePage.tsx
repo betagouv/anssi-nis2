@@ -80,6 +80,14 @@ const PiedDePage = () => (
               </a>
             </li>
             <li className="fr-footer__bottom-item">
+              <a
+                href="/politique-confidentialite"
+                className="fr-footer__bottom-link"
+              >
+                Politique de confidentialité
+              </a>
+            </li>
+            <li className="fr-footer__bottom-item">
               <a href="/gestion-des-cookies" className="fr-footer__bottom-link">
                 Gestion des cookies
               </a>
