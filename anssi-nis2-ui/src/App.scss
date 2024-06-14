@@ -40,64 +40,52 @@
     border-radius: 20px;
     color: #fff;
     font-size: 1.1rem;
-    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2px 16px 2px 30px;
+    padding: 6px 19px;
     gap: 8px;
-    background-color: #272771 !important;
+    height: 40px;
+    background-color: var(--couleur-primaire) !important;
+    border: 1px solid white;
 
     &:hover {
-      filter: saturate(110%) contrast(110%);
-      background-color: #2323ff !important;
-    }
-
-    &:before {
-      content: "";
-      background-image: url(assets/vignette-bom.svg);
-      background-repeat: no-repeat;
-      background-size: contain;
-      width: 50px;
-      height: 50px;
-      position: absolute;
-      left: -25px;
-    }
-
-    & img {
-      transform: rotate(-90deg);
+      background-color: #41419f !important;
     }
   }
 
   &.bom-ouvert {
     width: 320px;
-    border-radius: 15px;
+    border-radius: 1em;
+    border: 1px solid #cbd5e1;
     background: white;
     display: flex;
     flex-direction: column;
     z-index: 1;
 
     & h4 {
+      display: flex;
+      font-weight: normal;
+      justify-content: center;
+      flex-direction: column;
       color: white;
-      height: 100px;
-      background: url(assets/entete-fenetre-bom.svg) no-repeat;
-      background-position-y: -1px;
-      background-size: 100%;
-      padding-left: 86px;
-      padding-top: 43px;
-      font-size: 0.9rem;
-      line-height: 1.4rem;
+      height: 80px;
+      background-color: var(--couleur-primaire);
+      border-radius: 1.1em 1.1em 0 0;
+      padding-left: 1.3em;
+      font-size: 14px;
+      text-align: left;
       margin-bottom: 0;
+      line-height: unset;
 
       & .plus-grand {
-        font-size: 1.3rem;
+        font-size: 21px;
+        font-weight: bold;
       }
     }
 
     & .contenu {
       padding: 24px 18px;
-      border-left: 1px solid #272771;
-      border-right: 1px solid #272771;
 
       & ul {
         list-style-type: none;
@@ -115,11 +103,6 @@
       padding-right: 10px;
       padding-bottom: 10px;
       justify-content: flex-end;
-      border-left: 1px solid #272771;
-      border-bottom-left-radius: 15px;
-      border-bottom-right-radius: 15px;
-      border-bottom: 1px solid #272771;
-      border-right: 1px solid #272771;
 
       & button {
         font-size: 1rem;
