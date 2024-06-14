@@ -41,14 +41,6 @@ const PolitiqueConfidentialite: DefaultComponent = () => {
         >
           Loi informatique et libertés de 1978 modifiée (« LIL »)
         </a>
-        . La Politique de confidentialité fait partie intégrante des&nbsp;
-        <a
-          rel="noreferrer noopener"
-          target="_blank"
-          href="https://monservicesecurise.cyber.gouv.fr/cgu"
-        >
-          Conditions générales d&apos;utilisation
-        </a>
         .
       </p>
       <h3>1. Objet</h3>
@@ -62,15 +54,8 @@ const PolitiqueConfidentialite: DefaultComponent = () => {
         L&apos;ANSSI est libre de modifier, à tout moment, la Politique de
         confidentialité, afin notamment de prendre en compte toute évolution
         législative, réglementaire, jurisprudentielle et technique. La version
-        qui prévaut est&nbsp;
-        <a
-          rel="noreferrer noopener"
-          target="_blank"
-          href="https://monservicesecurise.cyber.gouv.fr/confidentialite"
-        >
-          celle accessible en ligne
-        </a>
-        .
+        qui prévaut est{" "}
+        <a href="/politique-confidentialite">celle accessible en ligne</a>.
       </p>
       <p>
         L&apos;Utilisateur sera informé en cas de modification de la Politique
@@ -92,7 +77,7 @@ const PolitiqueConfidentialite: DefaultComponent = () => {
       <h3>3. Fondement juridique du traitement</h3>
       <p>
         Le fondement juridique des traitements se trouve à l&apos;article 6.1.
-        a) du&nbsp;{" "}
+        a) du{" "}
         <a
           rel="noreferrer noopener"
           target="_blank"
@@ -153,7 +138,7 @@ const PolitiqueConfidentialite: DefaultComponent = () => {
       <p>
         Cette collecte d&apos;informations se limite au nécessaire, conformément
         au principe de minimisation des données. Les définitions fournies à
-        l&apos;article 4 du&nbsp;{" "}
+        l&apos;article 4 du{" "}
         <a
           rel="noreferrer noopener"
           target="_blank"
@@ -289,7 +274,6 @@ const PolitiqueConfidentialite: DefaultComponent = () => {
             <ul>
               <li>Adresse&nbsp;: 6 boulevard Haussmann, 75008 Paris, France</li>
               <li>
-                {" "}
                 <a
                   rel="noreferrer noopener"
                   target="_blank"
@@ -338,7 +322,7 @@ const PolitiqueConfidentialite: DefaultComponent = () => {
         l&apos;Utilisateur dispose des droits suivants :
         <ul>
           <li>
-            droit d&apos;accès (article 15 du&nbsp;{" "}
+            droit d&apos;accès (article 15 du{" "}
             <a
               rel="noreferrer noopener"
               target="_blank"
@@ -347,7 +331,7 @@ const PolitiqueConfidentialite: DefaultComponent = () => {
               RGPD
             </a>
             ), de rectification, de mise à jour et de complétude de ses données
-            (article 16 du&nbsp;{" "}
+            (article 16 du{" "}
             <a
               rel="noreferrer noopener"
               target="_blank"
@@ -359,7 +343,7 @@ const PolitiqueConfidentialite: DefaultComponent = () => {
           </li>
           <li>
             droit d&apos;effacement de ses données dans les conditions prévues à
-            l&apos;article 17 du&nbsp;{" "}
+            l&apos;article 17 du{" "}
             <a
               rel="noreferrer noopener"
               target="_blank"
@@ -372,8 +356,7 @@ const PolitiqueConfidentialite: DefaultComponent = () => {
             éventuelles homologations déjà effectuées.
           </li>
           <li>
-            droit à la limitation du traitement de ses données (article 18
-            du&nbsp;{" "}
+            droit à la limitation du traitement de ses données (article 18 du{" "}
             <a
               rel="noreferrer noopener"
               target="_blank"
@@ -385,7 +368,7 @@ const PolitiqueConfidentialite: DefaultComponent = () => {
           </li>
           <li>
             droit à la portabilité des données qu&apos;il a fournies (article 20
-            du&nbsp;{" "}
+            du{" "}
             <a
               rel="noreferrer noopener"
               target="_blank"
@@ -401,7 +384,7 @@ const PolitiqueConfidentialite: DefaultComponent = () => {
         L&apos;Utilisateur peut exercer ses droits en contactant l&apos;ANSSI
         <ul>
           <li>
-            par courriel à l&apos;adresse suivante :
+            par courriel à l&apos;adresse suivante&nbsp;:{" "}
             <a href="mailto:lab-inno@ssi.gouv.fr">lab-inno@ssi.gouv.fr</a>
           </li>
           <li>
