@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { DefaultComponent } from "../../Services/Props";
-import chevron from "../../assets/forme-chevron-blanc.svg";
+import iconeAide from "../../assets/icone_aide_point_interrogation.svg";
 
 enum EtatBOM {
   Ouvert,
@@ -21,15 +21,15 @@ export const BOM: DefaultComponent = () => {
         onClick={() => changeEtat(Ouvert)}
         aria-label="Menu d'assitance"
       >
+        <img src={iconeAide} alt="" />
         Aide
-        <img src={chevron} alt="" />
       </button>
     );
 
   return (
     <div className="fr-nis2-bom bom-ouvert" onClick={() => changeEtat(Ferme)}>
       <h4>
-        Bienvenue sur <br /> <span className="plus-grand">MonEspaceNIS2</span>
+        Aide <br /> <span className="plus-grand">Une question ?</span>
       </h4>
       <div className="contenu">
         Vous souhaitez :
