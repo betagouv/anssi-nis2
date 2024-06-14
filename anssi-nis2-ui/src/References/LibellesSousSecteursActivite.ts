@@ -21,11 +21,11 @@ export const libellesSousSecteurFabrication: DetailsSousSecteurUnique<SousSecteu
     constructionVehiculesAutomobiles:
       "Construction de véhicules automobiles, remorques et semi- remorques",
     fabricationAutresMaterielTransports:
-      "Fabrication d’autres matériels de transport",
+      "Fabrication d'autres matériels de transport",
     fabricationDispositifsMedicaux:
       "Fabrication de dispositifs médicaux et de dispositifs médicaux de diagnostic in vitro",
     fabricationEquipementsElectroniques:
-      "Fabrication d’équipements électriques",
+      "Fabrication d'équipements électriques", // Ici, on note une coquille entre le libellé 'électrique' et l'ID 'Electronique'
     fabricationProduitsInformatiquesElectroniquesOptiques:
       "Fabrication de produits informatiques, électroniques et optiques",
     fabricationMachinesEquipements:

@@ -28,7 +28,7 @@ export const passeEtapeEnCochant = async <
   for (let i = 0; i < champsACliquer.length; i++) {
     const [champ, valeur] = champsACliquer[i];
     verifieEtatBoutonSuivant(suivantActiveApres, boutonSuivant);
-    const champACliquer = await canvas.findByText(
+    const champACliquer = await canvas.findByLabelText(
       libellesValeurDeChamp(champ, valeur),
     );
     await userEvent.click(champACliquer);

@@ -1,5 +1,5 @@
 import { EtatQuestionnaire } from "../../reducerQuestionnaire.ts";
-import { Regle } from "../Specifications.ts";
+import { estValeurVide, Regle } from "../Specifications.ts";
 import { SpecificationTexte } from "../FormatDesSpecificationsCSV.ts";
 import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle.ts";
 import { contientUnParmi } from "../../../../../commun/utils/services/commun.predicats.ts";
@@ -17,7 +17,7 @@ export class RegleSecteurs implements Regle {
   static nouvelle(texte: SpecificationTexte): RegleSecteurs | undefined {
     const secteurAttendu = texte["Secteurs"];
 
-    if (!secteurAttendu) return;
+    if (estValeurVide(secteurAttendu)) return;
 
     const secteur = Object.entries(libellesSecteursActivite).find(
       ([, valeur]) => valeur == secteurAttendu,

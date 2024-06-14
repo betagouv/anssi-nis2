@@ -457,14 +457,6 @@ export const listeDescriptionsActivites: Record<
         "Un fournisseur de services gérés qui effectue ou fournit une assistance pour des activités liées à la gestion " +
         "des risques en matière de cybersécurité.",
     },
-    {
-      titre: "Fournisseur de services gérés",
-      description:
-        "Une entité qui fournit des services liés à l’installation, à la gestion, à l’exploitation " +
-        "ou à l’entretien de produits, de réseaux, d’infrastructures ou d’applications TIC ou d’autres " +
-        "réseaux et systèmes d’information, par l’intermédiaire d’une assistance ou d’une administration " +
-        "active, soit dans les locaux des clients, soit à distance.",
-    },
   ],
   fournisseursDistributeursEauxConsommation: [
     {

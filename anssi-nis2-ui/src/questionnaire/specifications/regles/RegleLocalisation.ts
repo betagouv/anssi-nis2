@@ -1,7 +1,7 @@
 import { EtatQuestionnaire } from "../../reducerQuestionnaire.ts";
 import { AppartenancePaysUnionEuropeenne } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { contientUnParmi } from "../../../../../commun/utils/services/commun.predicats.ts";
-import { Regle } from "../Specifications.ts";
+import { estValeurVide, Regle } from "../Specifications.ts";
 import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle.ts";
 import { SpecificationTexte } from "../FormatDesSpecificationsCSV.ts";
 
@@ -19,7 +19,7 @@ export class RegleLocalisation implements Regle {
   static nouvelle(texte: SpecificationTexte): RegleLocalisation | undefined {
     const valeur = texte["Localisation"];
 
-    if (!valeur) return;
+    if (estValeurVide(valeur)) return;
     if (valeur === "France") return new RegleLocalisation("france");
 
     throw new ErreurLectureDeRegle(valeur, "Localisation");

@@ -32,35 +32,35 @@ export class FabriqueDeSpecifications {
   private transformeResultat(texte: SpecificationTexte): ResultatEligibilite {
     const valeur = texte["Resultat"];
 
-    if (valeur === "Regule EE")
+    if (valeur === "Régulée EE")
       return {
         regulation: "Regule",
         typeEntite: "EntiteEssentielle",
         pointsAttention: { precisions: [], resumes: [] },
       };
 
-    if (valeur === "Regule EI")
+    if (valeur === "Régulée EI")
       return {
         regulation: "Regule",
         typeEntite: "EntiteImportante",
         pointsAttention: { precisions: [], resumes: [] },
       };
 
-    if (valeur === "Regule enregistrement seul")
+    if (valeur === "Régulée, enregistrement seul")
       return {
         regulation: "Regule",
         typeEntite: "EnregistrementUniquement",
         pointsAttention: { precisions: [], resumes: [] },
       };
 
-    if (valeur === "Regule autre EM")
+    if (valeur === "Régulée, sans précision EE/EI")
       return {
         regulation: "Regule",
         typeEntite: "AutreEtatMembreUE",
         pointsAttention: { precisions: [], resumes: [] },
       };
 
-    if (valeur === "Non regule")
+    if (valeur === "Non régulée")
       return {
         regulation: "NonRegule",
         typeEntite: "AutreEtatMembreUE", // Le type est sans importance ici.

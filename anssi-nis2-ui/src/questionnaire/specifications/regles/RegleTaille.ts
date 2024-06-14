@@ -1,5 +1,5 @@
 import { EtatQuestionnaire } from "../../reducerQuestionnaire.ts";
-import { Regle } from "../Specifications.ts";
+import { estValeurVide, Regle } from "../Specifications.ts";
 import { UnionPetitMoyenGrand } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { contientUnParmi } from "../../../../../commun/utils/services/commun.predicats.ts";
 import { SpecificationTexte } from "../FormatDesSpecificationsCSV.ts";
@@ -36,7 +36,7 @@ export class RegleTaille implements Regle {
   static nouvelle(texte: SpecificationTexte): RegleTaille | undefined {
     const valeur = texte["Taille"];
 
-    if (!valeur) return;
+    if (estValeurVide(valeur)) return;
     if (valeur === "Petite") return new RegleTaille("petit");
     if (valeur === "Moyenne") return new RegleTaille("moyen");
     if (valeur === "Grande") return new RegleTaille("grand");
