@@ -14,8 +14,16 @@ export function compareEtEnvoieVersSentry(
       SpecificationsCompletes,
     );
 
+    const estIdentique =
+      resultatV2.regulation === regulationV1.decision &&
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      resultatV2.typeEntite === regulationV1?.typeEntite;
+
+    const niveauLog = estIdentique ? "info" : "error";
+
     Sentry.captureMessage("COMPARAISON V1 & V2", {
-      level: "info",
+      level: niveauLog,
       extra: { reponses, resultatV2, regulationV1 },
     });
   } catch (e) {
