@@ -5,6 +5,7 @@ import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulate
 import { ReactElement } from "react";
 import { evalueEligibilite } from "../../questionnaire/specifications/EvalueEligibilite.ts";
 import SpecificationsCompletes from "../../questionnaire/specifications/specifications-completes.csv?raw";
+import { compareEtEnvoieVersSentry } from "./compareEtEnvoieVersSentry.tsx";
 
 export function AiguilleVersEtapeResultat(props: {
   version: string;
@@ -14,19 +15,27 @@ export function AiguilleVersEtapeResultat(props: {
   const afficheV2 = props.version === "v2";
   const afficheLesDeux = props.version === "all";
 
+  const v1: ReactElement = (
+    <EtapeResultat
+      reponses={props.reponses}
+      comparateurV1V2={compareEtEnvoieVersSentry}
+    />
+  );
+
   const v2: ReactElement = (
     <AvecEvaluationEligibilitie reponses={props.reponses}>
       {(r: ResultatEligibilite) => <EtapeResultatV2 resultat={r} />}
     </AvecEvaluationEligibilitie>
   );
 
-  if (afficheV1) return <EtapeResultat reponses={props.reponses} />;
+  if (afficheV1) return v1;
+
   if (afficheV2) return v2;
 
   if (afficheLesDeux)
     return (
       <>
-        <EtapeResultat reponses={props.reponses} />
+        v1
         <hr />
         {v2}
       </>
