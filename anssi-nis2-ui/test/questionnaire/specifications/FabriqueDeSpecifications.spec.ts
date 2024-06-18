@@ -6,7 +6,6 @@ import {
 import { FabriqueDeSpecifications } from "../../../src/questionnaire/specifications/FabriqueDeSpecifications";
 import { SpecificationTexte } from "../../../src/questionnaire/specifications/FormatDesSpecificationsCSV";
 import { Specifications } from "../../../src/questionnaire/specifications/Specifications";
-import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions";
 import {
   AppartenancePaysUnionEuropeenne,
   UnionPetitMoyenGrand,
@@ -22,6 +21,7 @@ import {
   gestionDesServicesTIC,
   infrastructureNumerique,
 } from "./casDeTests.activites";
+import { reguleEE } from "./aidesAuxTests";
 
 describe("La fabrique de spécifications", () => {
   let fabrique: FabriqueDeSpecifications;
@@ -804,8 +804,4 @@ function uneSpecification(
     Code: "",
     ...surcharge,
   };
-}
-
-function reguleEE(): Partial<ResultatEligibilite> {
-  return { regulation: "Regule", typeEntite: "EntiteEssentielle" };
 }
