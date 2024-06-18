@@ -30,6 +30,17 @@ describe("La fabrique de spécifications", () => {
     fabrique = new FabriqueDeSpecifications();
   });
 
+  it("préserve le code des spécifications", () => {
+    const avecUnCode = uneSpecification({
+      Code: "R1255",
+      Resultat: "Régulée EE",
+    });
+
+    const specs = fabrique.transforme(avecUnCode);
+
+    expect(specs.code).toBe("R1255");
+  });
+
   describe("pour la règle « d'entité OSE »", () => {
     const entiteOui: EtatQuestionnaire = {
       ...etatParDefaut,

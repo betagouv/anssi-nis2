@@ -28,7 +28,7 @@ export class FabriqueDeSpecifications {
 
     const resultat = this.transformeResultat(texte);
 
-    return new Specifications(regles, resultat);
+    return new Specifications(regles, resultat, texte["Code"]);
   }
 
   private transformeResultat(texte: SpecificationTexte): ResultatEligibilite {

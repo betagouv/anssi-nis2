@@ -20,6 +20,7 @@ describe("Les spécifications", () => {
     entiteOseOuiEstReguleEE = new Specifications(
       [new RegleEntiteOSE(["oui"])],
       resultatDeLaSpec,
+      "R1000",
     );
   });
 
