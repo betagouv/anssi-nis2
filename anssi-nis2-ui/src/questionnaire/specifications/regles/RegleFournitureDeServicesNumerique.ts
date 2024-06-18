@@ -3,7 +3,6 @@ import { SpecificationTexte } from "../FormatDesSpecificationsCSV.ts";
 import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle.ts";
 import { AppartenancePaysUnionEuropeenne } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { EtatQuestionnaire } from "../../reducerQuestionnaire.ts";
-import { contientUnParmi } from "../../../../../commun/utils/services/commun.predicats.ts";
 
 export class RegleFournitureDeServicesNumerique implements Regle {
   constructor(
@@ -13,7 +12,9 @@ export class RegleFournitureDeServicesNumerique implements Regle {
   evalue(reponses: EtatQuestionnaire): boolean {
     const reponse = reponses.localisationFournitureServicesNumeriques;
 
-    return contientUnParmi(...this.localisationsAcceptees)(reponse);
+    if (reponse.length !== this.localisationsAcceptees.length) return false;
+
+    return reponse.every((r) => this.localisationsAcceptees.includes(r));
   }
 
   static nouvelle(

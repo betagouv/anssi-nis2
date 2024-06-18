@@ -577,8 +577,8 @@ describe("La fabrique de spécifications", () => {
     });
 
     describe("lorsque la valeur est un cumul de réponses", () => {
-      it("instancie la règle en prenant en compte chaque réponse individuelle", () => {
-        const specsFranceEtUE = fabrique.transforme(
+      it("instancie une règle qui match si les réponses sont exactement la combinaison des valeurs individuelles attendues", () => {
+        const specsFranceEtAutreUE = fabrique.transforme(
           uneSpecification({
             "Extra - Fourniture de service":
               "France + Autres États membres de l'Union Européenne",
@@ -586,20 +586,24 @@ describe("La fabrique de spécifications", () => {
           }),
         );
 
-        expect(specsFranceEtUE.nombreDeRegles()).toBe(1);
+        expect(specsFranceEtAutreUE.nombreDeRegles()).toBe(1);
 
         expect(
-          specsFranceEtUE.evalue(entiteQuiFournitEn(["france"])),
+          specsFranceEtAutreUE.evalue(entiteQuiFournitEn(["france", "autre"])),
         ).toMatchObject(reguleEE());
+
         expect(
-          specsFranceEtUE.evalue(entiteQuiFournitEn(["autre"])),
-        ).toMatchObject(reguleEE());
-        expect(
-          specsFranceEtUE.evalue(entiteQuiFournitEn(["france", "horsue"])),
-        ).toMatchObject(reguleEE());
-        expect(specsFranceEtUE.evalue(entiteQuiFournitEn(["horsue"]))).toBe(
+          specsFranceEtAutreUE.evalue(entiteQuiFournitEn(["france"])),
+        ).toBe(undefined);
+        expect(specsFranceEtAutreUE.evalue(entiteQuiFournitEn(["autre"]))).toBe(
           undefined,
         );
+        expect(
+          specsFranceEtAutreUE.evalue(entiteQuiFournitEn(["france", "horsue"])),
+        ).toBe(undefined);
+        expect(
+          specsFranceEtAutreUE.evalue(entiteQuiFournitEn(["horsue"])),
+        ).toBe(undefined);
       });
     });
 
