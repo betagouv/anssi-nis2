@@ -4,7 +4,7 @@ import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulate
 
 export type ResultatAvecAnalyse = {
   resultat: ResultatEligibilite;
-  specificationsRetenues: Specifications[];
+  specificationsRetenues: string[];
 };
 
 export class EnsembleDeSpecifications {
@@ -24,7 +24,7 @@ export class EnsembleDeSpecifications {
 
     return {
       resultat: premierPassant.resultat(),
-      specificationsRetenues: [premierPassant],
+      specificationsRetenues: [premierPassant.code],
     };
   }
 

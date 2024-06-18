@@ -11,6 +11,7 @@ export class Specifications {
   constructor(
     private readonly regles: Regle[],
     private readonly _resultat: ResultatEligibilite,
+    public readonly code: string,
   ) {}
 
   evalue(reponses: EtatQuestionnaire): ResultatEligibilite | undefined {
