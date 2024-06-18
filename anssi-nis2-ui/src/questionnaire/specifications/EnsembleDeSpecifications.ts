@@ -2,10 +2,14 @@ import { Specifications } from "./Specifications.ts";
 import { EtatQuestionnaire } from "../reducerQuestionnaire.ts";
 import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 
+export type ResultatAvecAnalyse = {
+  resultat: ResultatEligibilite;
+};
+
 export class EnsembleDeSpecifications {
   constructor(private readonly specifications: Specifications[]) {}
 
-  premierPassant(reponses: EtatQuestionnaire): ResultatEligibilite {
+  premierPassant(reponses: EtatQuestionnaire): ResultatAvecAnalyse {
     const premierPassant = this.specifications.find(
       (s) => s.evalue(reponses) !== undefined,
     );
@@ -17,7 +21,7 @@ export class EnsembleDeSpecifications {
       );
     }
 
-    return premierPassant.resultat();
+    return { resultat: premierPassant.resultat() };
   }
 
   nombre() {

@@ -14,11 +14,13 @@ export function compareEtEnvoieVersSentry(
       SpecificationsCompletes,
     );
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const typeEntiteV1 = regulationV1?.typeEntite;
+
     const estIdentique =
-      resultatV2.regulation === regulationV1.decision &&
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      resultatV2.typeEntite === regulationV1?.typeEntite;
+      resultatV2.resultat.regulation === regulationV1.decision &&
+      resultatV2.resultat.typeEntite === typeEntiteV1;
 
     const niveauLog = estIdentique ? "info" : "error";
 

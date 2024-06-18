@@ -46,7 +46,10 @@ function AvecEvaluationEligibilitie(props: {
   reponses: EtatQuestionnaire;
   children: (r: ResultatEligibilite) => ReactElement;
 }) {
-  const resultat = evalueEligibilite(props.reponses, SpecificationsCompletes);
+  const { resultat } = evalueEligibilite(
+    props.reponses,
+    SpecificationsCompletes,
+  );
 
   return props.children(resultat);
 }
