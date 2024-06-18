@@ -3,7 +3,7 @@ import { EtapeResultat } from "./EtapesRefacto/EtapeResultat.tsx";
 import { EtapeResultatV2 } from "./EtapeResultatV2.tsx";
 import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 import { ReactElement } from "react";
-import { evalueEligibilite } from "../../questionnaire/specifications/EvalueEligibilite.ts";
+import { evalueEligibilite } from "../../questionnaire/specifications/evalueEligibilite.ts";
 import SpecificationsCompletes from "../../questionnaire/specifications/specifications-completes.csv?raw";
 import { compareEtEnvoieVersSentry } from "./compareEtEnvoieVersSentry.tsx";
 

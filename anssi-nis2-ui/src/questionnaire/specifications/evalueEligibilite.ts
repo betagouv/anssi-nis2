@@ -9,9 +9,7 @@ export function evalueEligibilite(
   const lecteur = new LecteurDeSpecifications();
   const specifications = lecteur.lis(cheminCsv);
 
-  const premierPassant = specifications.find(
-    (s) => s.evalue(reponses) !== undefined,
-  );
+  const premierPassant = specifications.premierPassant(reponses);
 
   if (!premierPassant) {
     const detail = JSON.stringify(reponses);

@@ -4,7 +4,7 @@ import {
   EtatQuestionnaire,
 } from "../../../src/questionnaire/reducerQuestionnaire";
 import { leCSV } from "./aidesAuxTests";
-import { evalueEligibilite } from "../../../src/questionnaire/specifications/EvalueEligibilite";
+import { evalueEligibilite } from "../../../src/questionnaire/specifications/evalueEligibilite";
 
 describe("L'évaluation complète de l'égibilité", () => {
   it("soumet un questionnaire à la spécification CSV, et retourne le résultat obtenu", () => {

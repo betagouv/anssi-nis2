@@ -1,7 +1,7 @@
 import * as Sentry from "@sentry/react";
 import { DonneesFormulaireSimulateur } from "../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
 import { EtatRegulationDefinitif } from "../../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions.ts";
-import { evalueEligibilite } from "../../questionnaire/specifications/EvalueEligibilite.ts";
+import { evalueEligibilite } from "../../questionnaire/specifications/evalueEligibilite.ts";
 import SpecificationsCompletes from "../../questionnaire/specifications/specifications-completes.csv?raw";
 
 export function compareEtEnvoieVersSentry(
