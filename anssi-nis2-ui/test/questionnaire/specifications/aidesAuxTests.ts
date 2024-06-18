@@ -26,3 +26,35 @@ export function reguleEI(): ResultatEligibilite {
     pointsAttention: { resumes: [], precisions: [] },
   };
 }
+
+export function reguleSansPrecision(): ResultatEligibilite {
+  return {
+    regulation: "Regule",
+    typeEntite: "AutreEtatMembreUE",
+    pointsAttention: { resumes: [], precisions: [] },
+  };
+}
+
+export function reguleEnregistrementSeul(): ResultatEligibilite {
+  return {
+    regulation: "Regule",
+    typeEntite: "EnregistrementUniquement",
+    pointsAttention: { resumes: [], precisions: [] },
+  };
+}
+
+export function nonRegulee(): ResultatEligibilite {
+  return {
+    regulation: "NonRegule",
+    typeEntite: "EnregistrementUniquement", // Peu importe le type
+    pointsAttention: { resumes: [], precisions: [] },
+  };
+}
+
+export function neSaitPas(): ResultatEligibilite {
+  return {
+    regulation: "Incertain",
+    typeEntite: "EnregistrementUniquement", // Peu importe le type
+    pointsAttention: { resumes: [], precisions: [] },
+  };
+}
