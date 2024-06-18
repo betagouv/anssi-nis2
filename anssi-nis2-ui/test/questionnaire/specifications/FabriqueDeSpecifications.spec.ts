@@ -66,10 +66,10 @@ describe("La fabrique de spécifications", () => {
       expect(specs.evalue(entiteNeSaitPas)).toBe(undefined);
     });
 
-    it("sait instancier une règle « Non / Ne sait pas »", () => {
+    it("sait instancier une règle « Non [OU] Ne sait pas »", () => {
       const specs = fabrique.transforme(
         uneSpecification({
-          "Designation OSE": "Non / Ne sait pas",
+          "Designation OSE": "Non [OU] Ne sait pas",
           Resultat: "Régulée EE",
         }),
       );
