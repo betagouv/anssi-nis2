@@ -11,6 +11,6 @@ describe("La lecture de la spécification complète en CSV", () => {
 
     const specifications = lecteur.lis(csv);
 
-    expect(specifications.length).toBe(284);
+    expect(specifications.length).toBe(281);
   });
 });

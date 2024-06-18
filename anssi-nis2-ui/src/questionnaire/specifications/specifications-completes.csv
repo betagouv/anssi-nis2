@@ -28,11 +28,8 @@ Non;France;Entreprise privée ou publique;Petite;Infrastructure numérique;-;Fou
 Non;France;Entreprise privée ou publique;Petite;Infrastructure numérique;-;Fournisseur de points d'échange internet;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1026
 Non;France;Entreprise privée ou publique;Petite;Infrastructure numérique;-;Autre activité;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1027
 Non;France;Entreprise privée ou publique;Petite;Banques (secteur bancaire);-;-;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1028
-Non;France;Entreprise privée ou publique;Petite;Banques (secteur bancaire);-;Autre activité;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1029
 Non;France;Entreprise privée ou publique;Petite;Eau potable;-;-;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1030
-Non;France;Entreprise privée ou publique;Petite;Eau potable;-;Autre activité;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1031
 Non;France;Entreprise privée ou publique;Petite;Eaux usées;-;-;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1032
-Non;France;Entreprise privée ou publique;Petite;Eaux usées;-;Autre activité;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1033
 Non;France;Entreprise privée ou publique;Petite;Énergie;Électricité;-;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1034
 Non;France;Entreprise privée ou publique;Petite;Énergie;Électricité;Autre activité;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1035
 Non;France;Entreprise privée ou publique;Petite;Énergie;Gaz;-;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1036
@@ -129,11 +126,11 @@ Non;France;Entreprise privée ou publique;Moyenne;Fournisseurs numériques;-;Fou
 Non;France;Entreprise privée ou publique;Moyenne;Fournisseurs numériques;-;Fournisseur de plateformes de services de réseaux sociaux;-;France;Régulée EI;#MecanismeExemption, #ResilienceEntiteCritique, #SecuriteNationale;R1127
 Non;France;Entreprise privée ou publique;Moyenne;Fournisseurs numériques;-;Fournisseur de plateformes de services de réseaux sociaux;-;Autres États membres de l'Union Européenne;Régulée, sans précision EE/EI;#EtablissementPrincipalUE;R1128
 Non;France;Entreprise privée ou publique;Moyenne;Fournisseurs numériques;-;Autre activité;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1129
-Non;France;Entreprise privée ou publique;Moyenne;Banques (secteur bancaire);-;-;-;-;Régulée EI;#MecanismeExemption, #ResilienceEntiteCritique, #SecuriteNationale;R1130
+Non;France;Entreprise privée ou publique;Moyenne;Banques (secteur bancaire);-;Établissements de crédit;-;-;Régulée EI;#MecanismeExemption, #ResilienceEntiteCritique, #SecuriteNationale;R1130
 Non;France;Entreprise privée ou publique;Moyenne;Banques (secteur bancaire);-;Autre activité;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1131
-Non;France;Entreprise privée ou publique;Moyenne;Eau potable;-;-;-;-;Régulée EI;#MecanismeExemption, #ResilienceEntiteCritique, #SecuriteNationale;R1132
+Non;France;Entreprise privée ou publique;Moyenne;Eau potable;-;Fournisseurs et distributeurs d'eaux destinées à la consommation humaine, à l'exclusion des distributeurs pour lesquels la distribution d'eaux destinées à la consommation humaine constitue une partie non essentielle de leur activité générale de distribution d'autres produits et biens;-;-;Régulée EI;#MecanismeExemption, #ResilienceEntiteCritique, #SecuriteNationale;R1132
 Non;France;Entreprise privée ou publique;Moyenne;Eau potable;-;Autre activité;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1133
-Non;France;Entreprise privée ou publique;Moyenne;Eaux usées;-;-;-;-;Régulée EI;#MecanismeExemption, #ResilienceEntiteCritique, #SecuriteNationale;R1134
+Non;France;Entreprise privée ou publique;Moyenne;Eaux usées;-;Entreprises collectant, évacuant ou traitant les eaux urbaines résiduaires, les eaux ménagères usées ou les eaux industrielles usées, à l'exclusion des entreprises pour lesquelles la collecte, l'évacuation ou le traitement des eaux urbaines résiduaires, des eaux ménagères usées ou des eaux industrielles usées constituent une partie non essentielle de leur activité générale;-;-;Régulée EI;#MecanismeExemption, #ResilienceEntiteCritique, #SecuriteNationale;R1134
 Non;France;Entreprise privée ou publique;Moyenne;Eaux usées;-;Autre activité;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1135
 Non;France;Entreprise privée ou publique;Moyenne;Énergie;Électricité;-;-;-;Régulée EI;#MecanismeExemption, #ResilienceEntiteCritique, #SecuriteNationale;R1136
 Non;France;Entreprise privée ou publique;Moyenne;Énergie;Électricité;Autre activité;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1137
@@ -227,11 +224,11 @@ Non;France;Entreprise privée ou publique;Grande;Fournisseurs numériques;-;Four
 Non;France;Entreprise privée ou publique;Grande;Fournisseurs numériques;-;Fournisseur de plateformes de services de réseaux sociaux;-;France;Régulée EE;#MecanismeExemption, #ResilienceEntiteCritique, #SecuriteNationale;R1225
 Non;France;Entreprise privée ou publique;Grande;Fournisseurs numériques;-;Fournisseur de plateformes de services de réseaux sociaux;-;Autres États membres de l'Union Européenne;Régulée, sans précision EE/EI;#EtablissementPrincipalUE;R1226
 Non;France;Entreprise privée ou publique;Grande;Fournisseurs numériques;-;Autre activité;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1227
-Non;France;Entreprise privée ou publique;Grande;Banques (secteur bancaire);-;-;-;-;Régulée EE;#MecanismeExemption, #ResilienceEntiteCritique, #SecuriteNationale;R1228
+Non;France;Entreprise privée ou publique;Grande;Banques (secteur bancaire);-;Établissements de crédit;-;-;Régulée EE;#MecanismeExemption, #ResilienceEntiteCritique, #SecuriteNationale;R1228
 Non;France;Entreprise privée ou publique;Grande;Banques (secteur bancaire);-;Autre activité;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1229
-Non;France;Entreprise privée ou publique;Grande;Eau potable;-;-;-;-;Régulée EE;#MecanismeExemption, #ResilienceEntiteCritique, #SecuriteNationale;R1230
+Non;France;Entreprise privée ou publique;Grande;Eau potable;-;Fournisseurs et distributeurs d'eaux destinées à la consommation humaine, à l'exclusion des distributeurs pour lesquels la distribution d'eaux destinées à la consommation humaine constitue une partie non essentielle de leur activité générale de distribution d'autres produits et biens;-;-;Régulée EE;#MecanismeExemption, #ResilienceEntiteCritique, #SecuriteNationale;R1230
 Non;France;Entreprise privée ou publique;Grande;Eau potable;-;Autre activité;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1231
-Non;France;Entreprise privée ou publique;Grande;Eaux usées;-;-;-;-;Régulée EE;#MecanismeExemption, #ResilienceEntiteCritique, #SecuriteNationale;R1232
+Non;France;Entreprise privée ou publique;Grande;Eaux usées;-;Entreprises collectant, évacuant ou traitant les eaux urbaines résiduaires, les eaux ménagères usées ou les eaux industrielles usées, à l'exclusion des entreprises pour lesquelles la collecte, l'évacuation ou le traitement des eaux urbaines résiduaires, des eaux ménagères usées ou des eaux industrielles usées constituent une partie non essentielle de leur activité générale;-;-;Régulée EE;#MecanismeExemption, #ResilienceEntiteCritique, #SecuriteNationale;R1232
 Non;France;Entreprise privée ou publique;Grande;Eaux usées;-;Autre activité;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1233
 Non;France;Entreprise privée ou publique;Grande;Énergie;Électricité;-;-;-;Régulée EE;#MecanismeExemption, #ResilienceEntiteCritique, #SecuriteNationale;R1234
 Non;France;Entreprise privée ou publique;Grande;Énergie;Électricité;Autre activité;-;-;Non régulée;#MecanismeExemption, #CriteresDePossibleInclusion;R1235
