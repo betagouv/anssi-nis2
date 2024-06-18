@@ -13,7 +13,7 @@ describe("L'évaluation complète de l'égibilité", () => {
       designationOperateurServicesEssentiels: ["oui"],
     };
 
-    const resultat = evalueEligibilite(
+    const { resultat } = evalueEligibilite(
       reponseEntiteOse,
       leCSV("specification-ose-est-regulee-ee.csv"),
     );
