@@ -10,6 +10,7 @@ import { RegleSecteurs } from "./regles/RegleSecteurs.ts";
 import { RegleSousSecteurs } from "./regles/RegleSousSecteurs.ts";
 import { RegleActivites } from "./regles/RegleActivites.ts";
 import { RegleFournitureDeServicesNumerique } from "./regles/RegleFournitureDeServicesNumerique.ts";
+import { RegleEtablissementPrincipal } from "./regles/RegleEtablissementPrincipal.ts";
 
 export class FabriqueDeSpecifications {
   transforme(texte: SpecificationTexte): Specifications {
@@ -22,6 +23,7 @@ export class FabriqueDeSpecifications {
       RegleSousSecteurs.nouvelle(texte),
       RegleActivites.nouvelle(texte),
       RegleFournitureDeServicesNumerique.nouvelle(texte),
+      RegleEtablissementPrincipal.nouvelle(texte),
     ].filter((s) => s !== undefined) as Regle[];
 
     const resultat = this.transformeResultat(texte);

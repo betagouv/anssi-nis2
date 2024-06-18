@@ -626,6 +626,105 @@ describe("La fabrique de spécifications", () => {
     });
   });
 
+  describe("pour la règle « Extra - Établissement principal »", () => {
+    const entiteAvecDecisionEn = (
+      pays: AppartenancePaysUnionEuropeenne,
+    ): EtatQuestionnaire => ({
+      ...etatParDefaut,
+      paysDecisionsCyber: [pays],
+    });
+
+    const entiteQuiOpereEn = (
+      pays: AppartenancePaysUnionEuropeenne,
+    ): EtatQuestionnaire => ({
+      ...etatParDefaut,
+      paysOperationsCyber: [pays],
+    });
+
+    const entiteAvecSalariesBasesEn = (
+      pays: AppartenancePaysUnionEuropeenne,
+    ): EtatQuestionnaire => ({
+      ...etatParDefaut,
+      paysPlusGrandNombreSalaries: [pays],
+    });
+
+    it("instancie la règle « France »", () => {
+      expect(() =>
+        fabrique.transforme(
+          uneSpecification({
+            "Extra - Établissement principal": "France",
+            Resultat: "Régulée EE",
+          }),
+        ),
+      ).not.toThrowError();
+    });
+
+    it("instancie la règle « Autres États membres de l'Union Européenne »", () => {
+      expect(() =>
+        fabrique.transforme(
+          uneSpecification({
+            "Extra - Établissement principal":
+              "Autres États membres de l'Union Européenne",
+            Resultat: "Régulée EE",
+          }),
+        ),
+      ).not.toThrowError();
+    });
+
+    it("est un match dès qu'un pays de la réponse correspond au pays de la règle", () => {
+      const specsFrance: Specifications = fabrique.transforme(
+        uneSpecification({
+          "Extra - Établissement principal": "France",
+          Resultat: "Régulée EE",
+        }),
+      );
+
+      const decisionFr = entiteAvecDecisionEn("france");
+      expect(specsFrance.evalue(decisionFr)).toMatchObject(reguleEE());
+
+      const operationFr = entiteQuiOpereEn("france");
+      expect(specsFrance.evalue(operationFr)).toMatchObject(reguleEE());
+
+      const salariesFr = entiteAvecSalariesBasesEn("france");
+      expect(specsFrance.evalue(salariesFr)).toMatchObject(reguleEE());
+    });
+
+    it("ne match pas si aucun pays de la réponse ne correspond à celui de la règle", () => {
+      const specsFrance: Specifications = fabrique.transforme(
+        uneSpecification({
+          "Extra - Établissement principal": "France",
+          Resultat: "Régulée EE",
+        }),
+      );
+
+      const decisionAutreUE = entiteAvecDecisionEn("autre");
+
+      expect(specsFrance.evalue(decisionAutreUE)).toBe(undefined);
+    });
+
+    it("n'instancie pas de règle si aucune valeur n'est passée", () => {
+      const specs: Specifications = fabrique.transforme(
+        uneSpecification({
+          "Extra - Établissement principal": "-",
+          Resultat: "Régulée EE",
+        }),
+      );
+
+      expect(specs.nombreDeRegles()).toBe(0);
+    });
+
+    it("lève une exception si la valeur reçue n'est pas gérée", () => {
+      expect(() => {
+        fabrique.transforme(
+          uneSpecification({
+            "Extra - Établissement principal": "Jardin",
+            Resultat: "Régulée EE",
+          }),
+        );
+      }).toThrowError("Jardin");
+    });
+  });
+
   describe("pour le résultat", () => {
     it("sait instancier un résultat « Régulée EE»", () => {
       const specs: Specifications = fabrique.transforme(
