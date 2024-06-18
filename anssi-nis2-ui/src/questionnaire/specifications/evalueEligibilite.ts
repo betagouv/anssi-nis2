@@ -8,5 +8,5 @@ export function evalueEligibilite(
 ): ResultatAvecAnalyse {
   const lecteur = new LecteurDeSpecifications();
   const specifications = lecteur.lis(cheminCsv);
-  return specifications.premierPassant(reponses);
+  return specifications.evalue(reponses);
 }

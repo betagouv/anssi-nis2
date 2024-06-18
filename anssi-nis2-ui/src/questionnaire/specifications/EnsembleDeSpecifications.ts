@@ -10,7 +10,7 @@ export type ResultatAvecAnalyse = {
 export class EnsembleDeSpecifications {
   constructor(private readonly specifications: Specifications[]) {}
 
-  premierPassant(reponses: EtatQuestionnaire): ResultatAvecAnalyse {
+  evalue(reponses: EtatQuestionnaire): ResultatAvecAnalyse {
     const passants = this.specifications.filter(
       (s) => s.evalue(reponses) !== undefined,
     );

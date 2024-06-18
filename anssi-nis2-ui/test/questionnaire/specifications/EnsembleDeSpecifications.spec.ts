@@ -37,7 +37,7 @@ describe("Un ensemble de spécifications", () => {
         designationOperateurServicesEssentiels: ["oui"],
       };
 
-      const resultat = uneSeuleSpec.premierPassant(reponseOSEOui);
+      const resultat = uneSeuleSpec.evalue(reponseOSEOui);
 
       expect(resultat.specificationsRetenues.length).toBe(1);
       expect(resultat.specificationsRetenues[0]).toBe("R1000");
@@ -57,7 +57,7 @@ describe("Un ensemble de spécifications", () => {
         secteurActivite: ["energie"],
       };
 
-      const resultat = deuxSpecs.premierPassant(reponseQuiMatchLesDeux);
+      const resultat = deuxSpecs.evalue(reponseQuiMatchLesDeux);
 
       expect(resultat.specificationsRetenues).toEqual(["R1000", "R1001"]);
     });
@@ -113,7 +113,7 @@ describe("Un ensemble de spécifications", () => {
         secteurActivite: ["energie"],
       };
 
-      const resultat = ensembleDansLeDesordre.premierPassant(entiteEnergie);
+      const resultat = ensembleDansLeDesordre.evalue(entiteEnergie);
 
       expect(resultat.specificationsRetenues).toEqual([
         "Regulee EE (1)",
