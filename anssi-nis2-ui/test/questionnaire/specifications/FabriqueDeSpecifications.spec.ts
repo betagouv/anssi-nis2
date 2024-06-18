@@ -700,6 +700,7 @@ function uneSpecification(
     "Sous-secteurs": "-",
     Activités: "-",
     "Extra - Fourniture de service": "-",
+    "Extra - Établissement principal": "-",
     Resultat: "CHAQUE TEST DOIT LE DÉFINIR",
     ...surcharge,
   };
