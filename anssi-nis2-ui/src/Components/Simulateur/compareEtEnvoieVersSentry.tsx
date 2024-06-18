@@ -22,7 +22,11 @@ export function compareEtEnvoieVersSentry(
 
     const niveauLog = estIdentique ? "info" : "error";
 
-    Sentry.captureMessage("COMPARAISON V1 & V2", {
+    const titre = estIdentique
+      ? "MATCH COMPARAISON V1 & V2"
+      : "DIFFÉRENCE COMPARAISON V1 & V2";
+
+    Sentry.captureMessage(titre, {
       level: niveauLog,
       extra: { reponses, resultatV2, regulationV1 },
     });
