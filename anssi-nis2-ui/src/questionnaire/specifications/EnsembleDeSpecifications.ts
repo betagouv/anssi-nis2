@@ -11,20 +11,21 @@ export class EnsembleDeSpecifications {
   constructor(private readonly specifications: Specifications[]) {}
 
   premierPassant(reponses: EtatQuestionnaire): ResultatAvecAnalyse {
-    const premierPassant = this.specifications.find(
+    const passants = this.specifications.filter(
       (s) => s.evalue(reponses) !== undefined,
     );
 
-    if (!premierPassant) {
+    if (passants.length === 0) {
       const detail = JSON.stringify(reponses);
       throw new Error(
         `Aucune spécification ne correspond au questionnaire. ${detail}`,
       );
     }
+    const premierPassant = passants[0];
 
     return {
       resultat: premierPassant.resultat(),
-      specificationsRetenues: [premierPassant.code],
+      specificationsRetenues: passants.map((p) => p.code),
     };
   }
 
