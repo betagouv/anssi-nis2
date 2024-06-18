@@ -8,15 +8,5 @@ export function evalueEligibilite(
 ): ResultatEligibilite {
   const lecteur = new LecteurDeSpecifications();
   const specifications = lecteur.lis(cheminCsv);
-
-  const premierPassant = specifications.premierPassant(reponses);
-
-  if (!premierPassant) {
-    const detail = JSON.stringify(reponses);
-    throw new Error(
-      `Aucune spécification ne correspond au questionnaire. ${detail}`,
-    );
-  }
-
-  return premierPassant.resultat();
+  return specifications.premierPassant(reponses);
 }
