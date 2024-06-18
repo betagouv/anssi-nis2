@@ -9,7 +9,7 @@ describe("Le lecteur de spécifications", () => {
 
     const specifications = lecteur.lis(fichier);
 
-    expect(specifications.length).toBe(1);
+    expect(specifications.nombre()).toBe(1);
   });
 
   it("lève une exception si les colonnes du CSV ne sont pas celles attendues", () => {
