@@ -21,6 +21,9 @@ export class EnsembleDeSpecifications {
         `Aucune spécification ne correspond au questionnaire. ${detail}`,
       );
     }
+
+    passants.sort(prioriseLesSpecifications);
+
     const premierPassant = passants[0];
 
     return {
@@ -32,4 +35,11 @@ export class EnsembleDeSpecifications {
   nombre() {
     return this.specifications.length;
   }
+}
+
+function prioriseLesSpecifications(
+  a: Specifications,
+  b: Specifications,
+): number {
+  return a.ordreDePriorite() - b.ordreDePriorite();
 }

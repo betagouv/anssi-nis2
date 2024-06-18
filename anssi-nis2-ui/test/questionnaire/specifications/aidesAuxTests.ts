@@ -18,3 +18,11 @@ export function reguleEE(): ResultatEligibilite {
     pointsAttention: { resumes: [], precisions: [] },
   };
 }
+
+export function reguleEI(): ResultatEligibilite {
+  return {
+    regulation: "Regule",
+    typeEntite: "EntiteImportante",
+    pointsAttention: { resumes: [], precisions: [] },
+  };
+}
