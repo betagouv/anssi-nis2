@@ -2,7 +2,14 @@ import { describe, expect, it } from "vitest";
 import { EnsembleDeSpecifications } from "../../../src/questionnaire/specifications/EnsembleDeSpecifications";
 import { RegleEntiteOSE } from "../../../src/questionnaire/specifications/regles/RegleEntiteOSE";
 import { Specifications } from "../../../src/questionnaire/specifications/Specifications";
-import { reguleEE, reguleEI } from "./aidesAuxTests";
+import {
+  neSaitPas,
+  nonRegulee,
+  reguleEE,
+  reguleEI,
+  reguleEnregistrementSeul,
+  reguleSansPrecision,
+} from "./aidesAuxTests";
 import {
   etatParDefaut,
   EtatQuestionnaire,
@@ -68,8 +75,36 @@ describe("Un ensemble de spécifications", () => {
         "Regulee EI (2)",
       );
 
+      const energieReguleeSansPrecision = new Specifications(
+        [new RegleSecteurs("energie")],
+        reguleSansPrecision(),
+        "Regulee sans précision (3)",
+      );
+
+      const energieReguleeEnregistrementSeul = new Specifications(
+        [new RegleSecteurs("energie")],
+        reguleEnregistrementSeul(),
+        "Regulee enregistrement seul (4)",
+      );
+
+      const energieNonRegulee = new Specifications(
+        [new RegleSecteurs("energie")],
+        nonRegulee(),
+        "Non regulee (5)",
+      );
+
+      const energieNeSaitPas = new Specifications(
+        [new RegleSecteurs("energie")],
+        neSaitPas(),
+        "Ne sait pas (6)",
+      );
+
       const ensembleDansLeDesordre = new EnsembleDeSpecifications([
+        energieNonRegulee,
         energieReguleeEI,
+        energieReguleeEnregistrementSeul,
+        energieNeSaitPas,
+        energieReguleeSansPrecision,
         energieReguleeEE,
       ]);
 
@@ -83,6 +118,10 @@ describe("Un ensemble de spécifications", () => {
       expect(resultat.specificationsRetenues).toEqual([
         "Regulee EE (1)",
         "Regulee EI (2)",
+        "Regulee sans précision (3)",
+        "Regulee enregistrement seul (4)",
+        "Non regulee (5)",
+        "Ne sait pas (6)",
       ]);
     });
   });

@@ -24,10 +24,10 @@ export class EnsembleDeSpecifications {
 
     passants.sort(prioriseLesSpecifications);
 
-    const premierPassant = passants[0];
+    const laPlusStricte = passants[0];
 
     return {
-      resultat: premierPassant.resultat(),
+      resultat: laPlusStricte.resultat(),
       specificationsRetenues: passants.map((p) => p.code),
     };
   }

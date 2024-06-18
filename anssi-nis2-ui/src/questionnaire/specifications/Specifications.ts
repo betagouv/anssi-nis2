@@ -29,18 +29,21 @@ export class Specifications {
   }
 
   ordreDePriorite(): number {
-    if (
-      this._resultat.regulation === "Regule" &&
-      this._resultat.typeEntite === "EntiteEssentielle"
-    )
-      return 1;
+    const { regulation, typeEntite } = this._resultat;
 
-    if (
-      this._resultat.regulation === "Regule" &&
-      this._resultat.typeEntite === "EntiteImportante"
-    )
-      return 2;
+    if (regulation === "Regule") {
+      if (typeEntite === "EntiteEssentielle") return 1;
+      if (typeEntite === "EntiteImportante") return 2;
+      if (typeEntite === "AutreEtatMembreUE") return 3;
+      if (typeEntite === "EnregistrementUniquement") return 4;
+    }
 
-    return 9999;
+    if (regulation === "NonRegule") return 5;
+
+    if (regulation === "Incertain") return 6;
+
+    throw new Error(
+      `Impossible de déterminer la priorité de la spécification "${this.code}"`,
+    );
   }
 }
