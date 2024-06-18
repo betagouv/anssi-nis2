@@ -27,4 +27,20 @@ export class Specifications {
   resultat() {
     return this._resultat;
   }
+
+  ordreDePriorite(): number {
+    if (
+      this._resultat.regulation === "Regule" &&
+      this._resultat.typeEntite === "EntiteEssentielle"
+    )
+      return 1;
+
+    if (
+      this._resultat.regulation === "Regule" &&
+      this._resultat.typeEntite === "EntiteImportante"
+    )
+      return 2;
+
+    return 9999;
+  }
 }

@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { EnsembleDeSpecifications } from "../../../src/questionnaire/specifications/EnsembleDeSpecifications";
 import { RegleEntiteOSE } from "../../../src/questionnaire/specifications/regles/RegleEntiteOSE";
 import { Specifications } from "../../../src/questionnaire/specifications/Specifications";
-import { reguleEE } from "./aidesAuxTests";
+import { reguleEE, reguleEI } from "./aidesAuxTests";
 import {
   etatParDefaut,
   EtatQuestionnaire,
@@ -53,6 +53,37 @@ describe("Un ensemble de spécifications", () => {
       const resultat = deuxSpecs.premierPassant(reponseQuiMatchLesDeux);
 
       expect(resultat.specificationsRetenues).toEqual(["R1000", "R1001"]);
+    });
+
+    it("trie les spécifications retenues de la plus stricte à la moins stricte", () => {
+      const energieReguleeEE = new Specifications(
+        [new RegleSecteurs("energie")],
+        reguleEE(),
+        "Regulee EE (1)",
+      );
+
+      const energieReguleeEI = new Specifications(
+        [new RegleSecteurs("energie")],
+        reguleEI(),
+        "Regulee EI (2)",
+      );
+
+      const ensembleDansLeDesordre = new EnsembleDeSpecifications([
+        energieReguleeEI,
+        energieReguleeEE,
+      ]);
+
+      const entiteEnergie: EtatQuestionnaire = {
+        ...etatParDefaut,
+        secteurActivite: ["energie"],
+      };
+
+      const resultat = ensembleDansLeDesordre.premierPassant(entiteEnergie);
+
+      expect(resultat.specificationsRetenues).toEqual([
+        "Regulee EE (1)",
+        "Regulee EI (2)",
+      ]);
     });
   });
 });
