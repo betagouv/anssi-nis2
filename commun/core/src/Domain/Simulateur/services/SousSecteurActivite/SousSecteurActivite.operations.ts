@@ -1,17 +1,11 @@
-import {
-  SecteurActivite,
-  SecteurComposite,
-} from "../../SecteurActivite.definitions";
+import { SecteurActivite } from "../../SecteurActivite.definitions";
 import {
   EnrSecteurSousSecteur,
   PeutEtreSousSecteurActivite,
   SousSecteurActivite,
 } from "../../SousSecteurActivite.definitions";
-import { DonneesFormulaireSimulateur } from "../DonneesFormulaire/DonneesFormulaire.definitions";
 import { fabriqueTuplesSecteurSousSecteur } from "../SecteurActivite/SecteurActivite.operations";
 import {
-  contientSousSecteur,
-  estSecteurListe,
   estSecteurNeNecessitantPasLocalisationRepresentant,
   estUnSecteurAvecDesSousSecteurs,
 } from "../SecteurActivite/SecteurActivite.predicats";
@@ -21,47 +15,6 @@ import {
 } from "./SousSecteurActivite.predicats";
 import { sousSecteursParSecteur } from "../../SousSecteurActivite.valeurs";
 
-const extraitSousSecteurs = (
-  secteur: SecteurComposite,
-  sousSecteurActivite: SousSecteurActivite[]
-) =>
-  sousSecteurActivite.filter((sousSecteur) =>
-    contientSousSecteur(secteur, sousSecteur)
-  );
-const extraitSousSecteursOuListeVide = (
-  secteur: string,
-  sousSecteurActivite: SousSecteurActivite[]
-) =>
-  estUnSecteurAvecDesSousSecteurs(secteur)
-    ? extraitSousSecteurs(secteur as SecteurComposite, sousSecteurActivite)
-    : [];
-
-const genereSecteurAvecSousSecteurs = (
-  secteur: SecteurActivite,
-  sousSecteurActivite: SousSecteurActivite[]
-): Array<[SecteurActivite, SousSecteurActivite[]]> => {
-  const sousSecteurs = extraitSousSecteursOuListeVide(
-    secteur,
-    sousSecteurActivite.filter(estSousSecteurListe)
-  );
-  return estUnSecteurAvecDesSousSecteurs(secteur) && sousSecteurs.length === 0
-    ? []
-    : [[secteur, sousSecteurs]];
-};
-
-export const cartographieSousSecteursParSecteur = ({
-  secteurActivite,
-  sousSecteurActivite,
-}: DonneesFormulaireSimulateur) =>
-  secteurActivite
-    .filter(estSecteurListe)
-    .reduce<[SecteurActivite, SousSecteurActivite[]][]>(
-      (acc, secteur) => [
-        ...acc,
-        ...genereSecteurAvecSousSecteurs(secteur, sousSecteurActivite),
-      ],
-      []
-    );
 export const extraitCouplesAvecSecteurUniques = (
   couplesSecteurSousSecteur: EnrSecteurSousSecteur[]
 ) =>

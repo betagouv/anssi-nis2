@@ -38,9 +38,9 @@ export const contientMoyenneEntreprise = (d: DonneesFormulaireSimulateur) =>
 const verifAuMoinsUn = {
   activiteListee: <
     T extends DonneesSectorielles &
-      Pick<DonneesFormulaireSimulateur, "activites">,
+      Pick<DonneesFormulaireSimulateur, "activites">
   >(
-    donnees: T,
+    donnees: T
   ): donnees is T => auMoinsUneActiviteListee(donnees.activites),
 };
 
@@ -48,18 +48,18 @@ const fabriqueSatisfaitUniquement =
   <TypeNom extends NomsChampsSimulateur>(
     champ: TypeNom,
     predicat: (
-      activite: DonneesFormulaireSimulateur[TypeNom][number],
-    ) => boolean,
+      activite: DonneesFormulaireSimulateur[TypeNom][number]
+    ) => boolean
   ) =>
   <T extends DonneesSectorielles & Pick<DonneesFormulaireSimulateur, TypeNom>>(
-    donnees: T,
+    donnees: T
   ) =>
     donnees[champ].every(predicat);
 
 const fabriquePredicatChamp: FabriquePredicatChamp = <
-  C extends NomsChampsSimulateur,
+  C extends NomsChampsSimulateur
 >(
-  champ: C,
+  champ: C
 ) => ({
   contient:
     <T extends DonneesFormulaireSimulateur[C][number]>(valeur: T) =>
@@ -67,7 +67,7 @@ const fabriquePredicatChamp: FabriquePredicatChamp = <
       donnees !== undefined &&
       champ in donnees &&
       (donnees[champ] as DonneesFormulaireSimulateur[C][number][]).includes(
-        valeur,
+        valeur
       ),
   contientUnParmi:
     <T extends DonneesFormulaireSimulateur[C][number]>(...listeValeur: T[]) =>
@@ -76,8 +76,8 @@ const fabriquePredicatChamp: FabriquePredicatChamp = <
       champ in donnees &&
       listeValeur.some((valeur) =>
         (donnees[champ] as DonneesFormulaireSimulateur[C][number][]).includes(
-          valeur,
-        ),
+          valeur
+        )
       ),
   satisfait:
     (f: <T extends DonneesFormulaireSimulateur[C]>(valeurs: T) => boolean) =>
@@ -97,7 +97,7 @@ export const predicatDonneesFormulaire = {
   },
   ...ValeursNomChampsFormulaire.reduce(
     (acc, nom) => ({ ...acc, [nom]: fabriquePredicatChamp(nom) }),
-    {} as ChampsAvecPredicats,
+    {} as ChampsAvecPredicats
   ),
 };
 
@@ -106,11 +106,11 @@ export const verifieCompletudeDonneesCommunes = et(
   exactementUn("appartenancePaysUnionEuropeenne"),
   exactementUn("trancheNombreEmployes"),
   exactementUn("typeStructure"),
-  auMoinsUn("secteurActivite"),
+  auMoinsUn("secteurActivite")
 );
 
 export const verifieDonneesCommunesPrivee: (
-  donnees: DonneesFormulaireSimulateur,
+  donnees: DonneesFormulaireSimulateur
 ) => boolean = isMatching({
   trancheChiffreAffaire: [P._],
   typeStructure: ["privee"],
@@ -139,61 +139,44 @@ const contientSectorielleComplete = isMatching({
 export const verifieDonneesSectorielles = ou(
   contientUniquementSecteurAutre,
   contientUniquementSousSecteurAutre,
-  contientSectorielleComplete,
+  contientSectorielleComplete
 );
 
 export const verifieCompletudeDonneesFormulairePrivee = et(
   verifieDonneesCommunesPrivee,
-  verifieDonneesSectorielles,
+  verifieDonneesSectorielles
 );
 export const verifieCompletudeDonneesFormulairePublique = et(
   verifieDonneesCommunesPublique,
-  verifieDonneesSectorielles,
+  verifieDonneesSectorielles
 );
 export const donneesFormulaireSontCompletes = et(
   verifieCompletudeDonneesCommunes,
   ou(
     verifieCompletudeDonneesFormulairePrivee,
-    verifieCompletudeDonneesFormulairePublique,
-  ),
+    verifieCompletudeDonneesFormulairePublique
+  )
 );
 
 export const contientSecteurNecessitantLocalisation = (
-  d: DonneesSectorielles,
+  d: DonneesSectorielles
 ) =>
   ValeursSecteursAvecBesoinLocalisationRepresentant.some((s) =>
     predicatDonneesFormulaire.secteurActivite.contient(s)(
-      d as DonneesFormulaireSimulateur,
-    ),
+      d as DonneesFormulaireSimulateur
+    )
   );
 export const contientUniquementSecteurNecessitantLocalisation = (
-  d: DonneesSectorielles,
+  d: DonneesSectorielles
 ) =>
   d.secteurActivite.every((s) =>
     ValeursSecteursAvecBesoinLocalisationRepresentant.includes(
-      s as SecteurAvecBesoinLocalisationRepresentant,
-    ),
+      s as SecteurAvecBesoinLocalisationRepresentant
+    )
   );
 
 export const contientAutreSecteurActiviteUniquement = (
-  donneesFormulaire: DonneesFormulaireSimulateur,
+  donneesFormulaire: DonneesFormulaireSimulateur
 ) =>
   donneesFormulaire.secteurActivite.length === 1 &&
   donneesFormulaire.secteurActivite[0] === "autreSecteurActivite";
-export const contientInfraNumLocalisationEtablissement = ou(
-  predicatDonneesFormulaire.activites.contientUnParmi(
-    "fournisseurReseauxCommunicationElectroniquesPublics",
-    "fournisseurServiceCommunicationElectroniquesPublics",
-  ),
-  predicatDonneesFormulaire.activites.contientUnParmi(
-    "registresNomsDomainesPremierNiveau",
-    "fournisseurServicesDNS",
-    "fournisseurServicesInformatiqueNuage",
-    "fournisseurServiceCentresDonnees",
-    "fournisseurReseauxDiffusionContenu",
-  ),
-  predicatDonneesFormulaire.secteurActivite.contientUnParmi(
-    "gestionServicesTic",
-    "fournisseursNumeriques",
-  ),
-);

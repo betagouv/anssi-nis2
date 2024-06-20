@@ -2,7 +2,6 @@ import { fc } from "@fast-check/vitest";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
-  FournitServicesUnionEuropeenne,
   TypeEntitePublique,
   TypeStructure,
   UnionPetitMoyenGrand,
@@ -30,7 +29,7 @@ export const arbAppartenancePaysUnionEuropeenne_ToujoursHorsUe =
   fc.constant<AppartenancePaysUnionEuropeenne>("horsue");
 
 export const arbTranchePetitMoyenGrand_ToutesValeurs = fc.constantFrom(
-  ...ValeursPetitMoyenGrand,
+  ...ValeursPetitMoyenGrand
 );
 export const arbTranchePetitMoyenGrand_PetitMoyen = fc.constantFrom<
   "petit" | "moyen"
@@ -45,7 +44,7 @@ export const arbCategorieTaille_ToujoursGrand = fc.constant("Grand" as const);
 export const arbTypeStructure_Privee = fc.constant("privee" as const);
 export const arbTypeStructure_Publique = fc.constant("publique" as const);
 export const arbTypeEntitePublique = fc.constantFrom<TypeEntitePublique>(
-  ...ValeursTypeEntitePublique,
+  ...ValeursTypeEntitePublique
 );
 export const arbDesigneOperateurServicesEssentiels: ArbitraireChampFormulaire<DesignationOperateurServicesEssentiels> =
   {
@@ -73,13 +72,7 @@ export const arbappartenancePaysUnionEuropeenne: ArbitraireChampFormulaire<
   horsFrance: fabriqueArbSingleton(["horsue", "autre"]),
   tout: fabriqueArbSingleton(ValeursappartenancePaysUnionEuropeenne),
 };
-export const arbLocalisationRepresentant = arbappartenancePaysUnionEuropeenne;
-export const arbFournitServiceUnionEuropeenne: ArbitraireChampFormulaire<FournitServicesUnionEuropeenne> =
-  {
-    non: fc.constant<FournitServicesUnionEuropeenne[]>(["non"]),
-    oui: fc.constant<FournitServicesUnionEuropeenne[]>(["oui"]),
-  };
 export type ArbitraireChampFormulaire<
   T extends ValeurChampSimulateur,
-  TypesAdditionnelles extends string = T,
+  TypesAdditionnelles extends string = T
 > = Record<T | TypesAdditionnelles, fc.Arbitrary<T[]>>;

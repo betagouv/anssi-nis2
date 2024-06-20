@@ -42,15 +42,6 @@ export const auMoinsUneActiviteInfraNumConcernee =
     "prestataireServiceConfianceNonQualifie",
   ]);
 
-export const exerceUniquementActivitesDansListe =
-  (liste: Activite[]) =>
-  <
-    T extends DonneesSectorielles &
-      Pick<DonneesFormulaireSimulateur, "activites">,
-  >(
-    d: T,
-  ) =>
-    d.activites.every((a) => liste.includes(a));
 export const exerceAucuneActivitesDansListe =
   (liste: Activite[]) =>
   <
