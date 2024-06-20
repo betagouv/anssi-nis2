@@ -5,7 +5,7 @@ import {
 import { ReactElement } from "react";
 
 export const TextesDesResumes: Record<ResumesPointsAttention, ReactElement> = {
-  MecanismesExemption: (
+  MecanismeExemption: (
     <>
       Des mécanismes d&apos;exemption ou de désignation pourront également être
       mis en place au cas par cas par le gouvernement français pour certaines
