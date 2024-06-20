@@ -1,4 +1,4 @@
-import { Fragment, ReactElement } from "react";
+import { ReactElement } from "react";
 import {
   PointsAttentionPrecis,
   ResumesPointsAttention,
@@ -17,15 +17,47 @@ export const TextesDesResumes: Record<ResumesPointsAttention, ReactElement> = {
       En tant que fournisseur de réseaux de communications électroniques publics
       ou fournisseur de services de communications électroniques accessibles au
       public, nous vous invitons à vous rapprocher des autorités nationales
-      compétentes NIS 2 de l&apos;ensemble des États membres de l&apos;UE dans
-      lesquels vous fournissez vos services.
+      compétentes NIS&nbsp;2 de l&apos;ensemble des États membres de l&apos;UE
+      dans lesquels vous fournissez vos services.
     </>
   ),
-  NumeriqueUE: <Fragment />,
-  FournitureServicesUE: <Fragment />,
-  EtablissementPrincipalUE: <Fragment />,
-  EtabliUE: <Fragment />,
-  RepresentantUE: <Fragment />,
+  NumeriqueUE: (
+    <>
+      En raison de certaines de vos activités liées aux infrastructures
+      numériques, de gestion des services TIC ou de fourniture de services
+      numériques, nous vous invitons à vous rapprocher de l&apos;autorité
+      nationale compétente NIS&nbsp;2 de l&apos;État membre de l&apos;UE dans
+      lequel se trouve votre établissement principal.
+    </>
+  ),
+  FournitureServicesUE: (
+    <>
+      Nous vous invitons à vous rapprocher de l&apos;autorité nationale
+      compétente NIS&nbsp;2 des autres États membres de l&apos;UE dans lesquels
+      vous fournissez vos services.
+    </>
+  ),
+  EtablissementPrincipalUE: (
+    <>
+      Nous vous invitons à vous rapprocher de l&apos;autorité nationale
+      compétente NIS&nbsp;2 de l&apos;État membre de l&apos;UE dans lequel se
+      trouve votre établissement principal.
+    </>
+  ),
+  EtabliUE: (
+    <>
+      Nous vous invitons à vous rapprocher de l&apos;autorité nationale
+      compétente NIS&nbsp;2 de l&apos;État membre de l&apos;UE dans lequel vous
+      êtes établi.
+    </>
+  ),
+  RepresentantUE: (
+    <>
+      Nous vous invitons à vous rapprocher de l&apos;autorité nationale
+      compétente NIS&nbsp;2 de l&apos;État membre de l&apos;UE dans lequel votre
+      représentant est ou sera établi.
+    </>
+  ),
 };
 export const Precisions: Record<
   PointsAttentionPrecis,
