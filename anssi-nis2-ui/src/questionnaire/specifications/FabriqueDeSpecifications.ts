@@ -2,7 +2,11 @@ import { RegleEntiteOSE } from "./regles/RegleEntiteOSE.ts";
 import { Regle, Specifications } from "./Specifications.ts";
 import { RegleLocalisation } from "./regles/RegleLocalisation.ts";
 import { SpecificationTexte } from "./FormatDesSpecificationsCSV.ts";
-import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
+import {
+  PointsAttentionPrecis,
+  ResultatEligibilite,
+  ResumesPointsAttention,
+} from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 import { RegleTypeDeStructure } from "./regles/RegleTypeDeStructure.ts";
 import { RegleTaille } from "./regles/RegleTaille.ts";
 import { ErreurLectureDeRegle } from "./regles/ErreurLectureDeRegle.ts";
@@ -34,48 +38,64 @@ export class FabriqueDeSpecifications {
   private transformeResultat(texte: SpecificationTexte): ResultatEligibilite {
     const valeur = texte["Resultat"];
 
+    const pointsAttention = this.getPointsAttention(texte);
+
     if (valeur === "Régulée EE")
       return {
         regulation: "Regule",
         typeEntite: "EntiteEssentielle",
-        pointsAttention: { precisions: [], resumes: [] },
+        pointsAttention,
       };
 
     if (valeur === "Régulée EI")
       return {
         regulation: "Regule",
         typeEntite: "EntiteImportante",
-        pointsAttention: { precisions: [], resumes: [] },
+        pointsAttention,
       };
 
     if (valeur === "Régulée, enregistrement seul")
       return {
         regulation: "Regule",
         typeEntite: "EnregistrementUniquement",
-        pointsAttention: { precisions: [], resumes: [] },
+        pointsAttention,
       };
 
     if (valeur === "Régulée, sans précision EE/EI")
       return {
         regulation: "Regule",
         typeEntite: "AutreEtatMembreUE",
-        pointsAttention: { precisions: [], resumes: [] },
+        pointsAttention,
       };
 
     if (valeur === "Non régulée")
       return {
         regulation: "NonRegule",
         typeEntite: "AutreEtatMembreUE", // Le type est sans importance ici.
-        pointsAttention: { precisions: [], resumes: [] },
+        pointsAttention,
       };
 
     if (valeur === "Incertain")
       return {
         regulation: "Incertain",
         typeEntite: "AutreEtatMembreUE", // Le type est sans importance ici.
-        pointsAttention: { precisions: [], resumes: [] },
+        pointsAttention,
       };
 
     throw new ErreurLectureDeRegle(valeur, "Resultat");
   }
+
+  private getPointsAttention = (
+    texte: SpecificationTexte,
+  ): {
+    resumes: ResumesPointsAttention[];
+    precisions: PointsAttentionPrecis[];
+  } => {
+    const valeur = texte["Points d'attention"];
+
+    if (valeur.includes("#MecanismeExemption"))
+      return { precisions: [], resumes: ["MecanismeExemption"] };
+
+    return { precisions: [], resumes: [] };
+  };
 }

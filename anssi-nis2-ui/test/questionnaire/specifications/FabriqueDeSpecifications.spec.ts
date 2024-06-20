@@ -21,7 +21,7 @@ import {
   gestionDesServicesTIC,
   infrastructureNumerique,
 } from "./casDeTests.activites";
-import { reguleEE } from "./aidesAuxTests";
+import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions";
 
 describe("La fabrique de spécifications", () => {
   let fabrique: FabriqueDeSpecifications;
@@ -800,6 +800,21 @@ describe("La fabrique de spécifications", () => {
       ).toThrowError("X");
     });
   });
+
+  describe("pour la partie « Points d'attention »", () => {
+    it("comprend le résumé #MecanismeExemption", () => {
+      const specs: Specifications = fabrique.transforme(
+        uneSpecification({
+          Resultat: "Régulée EE",
+          "Points d'attention": "#MecanismeExemption",
+        }),
+      );
+
+      expect(specs.resultat().pointsAttention.resumes).toEqual([
+        "MecanismeExemption",
+      ]);
+    });
+  });
 });
 
 function uneSpecification(
@@ -819,5 +834,12 @@ function uneSpecification(
     "Points d'attention": "-",
     Code: "",
     ...surcharge,
+  };
+}
+
+export function reguleEE(): Partial<ResultatEligibilite> {
+  return {
+    regulation: "Regule",
+    typeEntite: "EntiteEssentielle",
   };
 }
