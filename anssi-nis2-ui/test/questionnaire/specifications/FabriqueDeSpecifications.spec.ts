@@ -816,6 +816,7 @@ function uneSpecification(
     "Extra - Fourniture de service": "-",
     "Extra - Établissement principal": "-",
     Resultat: "CHAQUE TEST DOIT LE DÉFINIR",
+    "Points d'attention": "-",
     Code: "",
     ...surcharge,
   };

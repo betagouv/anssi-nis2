@@ -9,6 +9,7 @@ export enum ClesDuCSV {
   "Extra - Fourniture de service",
   "Extra - Établissement principal",
   "Resultat",
+  "Points d'attention",
   "Code",
 }
 
