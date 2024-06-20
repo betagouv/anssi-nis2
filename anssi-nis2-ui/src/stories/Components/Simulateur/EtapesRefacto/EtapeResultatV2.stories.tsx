@@ -12,7 +12,7 @@ const resultat: ResultatEligibilite = {
   regulation: "Regule",
   typeEntite: "EntiteImportante",
   pointsAttention: {
-    resumes: ["MecanismesExemption"],
+    resumes: ["MecanismeExemption"],
     precisions: ["ResilienceEntiteCritique", "SecuriteNationale", "DORA"],
   },
 };
