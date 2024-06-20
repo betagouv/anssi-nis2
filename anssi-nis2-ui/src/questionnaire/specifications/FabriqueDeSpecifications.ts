@@ -96,6 +96,9 @@ export class FabriqueDeSpecifications {
     if (valeur.includes("#MecanismeExemption"))
       return { precisions: [], resumes: ["MecanismeExemption"] };
 
+    if (valeur.includes("#TelecomUE"))
+      return { precisions: [], resumes: ["TelecomUE"] };
+
     return { precisions: [], resumes: [] };
   };
 }
