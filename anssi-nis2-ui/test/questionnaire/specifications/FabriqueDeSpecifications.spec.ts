@@ -805,7 +805,7 @@ describe("La fabrique de spécifications", () => {
     });
   });
 
-  describe("pour la partie « Points d'attention »", () => {
+  describe("pour les « Points d'attention »", () => {
     const tousLesResumes: [string, ResumesPointsAttention][] = [
       ["#MecanismeExemption", "MecanismeExemption"],
       ["#TelecomUE", "TelecomUE"],
@@ -826,43 +826,43 @@ describe("La fabrique de spécifications", () => {
         expect(resumes).toEqual([resumeAttendu]);
       },
     );
-  });
 
-  const toutesLesPrecisions: [string, PointsAttentionPrecis][] = [
-    ["#ResilienceEntiteCritique", "ResilienceEntiteCritique"],
-    ["#SecuriteNationale", "SecuriteNationale"],
-    ["#DORA", "DORA"],
-    ["#EnregistrementNomsDeDomaines", "EnregistrementNomsDeDomaines"],
-    ["#CriteresDePossibleInclusion", "CriteresDePossibleInclusion"],
-  ];
-  it.each(toutesLesPrecisions)(
-    "comprend la précision %s",
-    (cleCsv, precisionAttendue) => {
+    const toutesLesPrecisions: [string, PointsAttentionPrecis][] = [
+      ["#ResilienceEntiteCritique", "ResilienceEntiteCritique"],
+      ["#SecuriteNationale", "SecuriteNationale"],
+      ["#DORA", "DORA"],
+      ["#EnregistrementNomsDeDomaines", "EnregistrementNomsDeDomaines"],
+      ["#CriteresDePossibleInclusion", "CriteresDePossibleInclusion"],
+    ];
+    it.each(toutesLesPrecisions)(
+      "comprend la précision %s",
+      (cleCsv, precisionAttendue) => {
+        const specs: Specifications = fabrique.transforme(
+          uneSpecification({
+            Resultat: "Régulée EE",
+            "Points d'attention": cleCsv,
+          }),
+        );
+
+        const { precisions } = specs.resultat().pointsAttention;
+
+        expect(precisions).toEqual([precisionAttendue]);
+      },
+    );
+
+    it("sait répartir entre les résumés et les précisions", () => {
       const specs: Specifications = fabrique.transforme(
         uneSpecification({
           Resultat: "Régulée EE",
-          "Points d'attention": cleCsv,
+          "Points d'attention": "#TelecomUE, #DORA",
         }),
       );
 
-      const { precisions } = specs.resultat().pointsAttention;
+      const { resumes, precisions } = specs.resultat().pointsAttention;
 
-      expect(precisions).toEqual([precisionAttendue]);
-    },
-  );
-
-  it("sait répartir entre les résumés et les précisions", () => {
-    const specs: Specifications = fabrique.transforme(
-      uneSpecification({
-        Resultat: "Régulée EE",
-        "Points d'attention": "#TelecomUE, #DORA",
-      }),
-    );
-
-    const { resumes, precisions } = specs.resultat().pointsAttention;
-
-    expect(resumes).toEqual(["TelecomUE"]);
-    expect(precisions).toEqual(["DORA"]);
+      expect(resumes).toEqual(["TelecomUE"]);
+      expect(precisions).toEqual(["DORA"]);
+    });
   });
 });
 
