@@ -77,13 +77,16 @@ export type ResultatEligibilite = {
   };
 };
 
+export const CodesResumesPointsAttention = ["MecanismeExemption", "TelecomUE"];
 export type ResumesPointsAttention =
-  | "MecanismeExemption"
-  | "TelecomUE";
+  (typeof CodesResumesPointsAttention)[number];
 
+export const CodesPrecisionsPointsAttention = [
+  "ResilienceEntiteCritique",
+  "SecuriteNationale",
+  "DORA",
+  "EnregistrementNomsDeDomaines",
+  "CriteresDePossibleInclusion",
+];
 export type PointsAttentionPrecis =
-  | "ResilienceEntiteCritique"
-  | "SecuriteNationale"
-  | "DORA"
-  | "EnregistrementNomsDeDomaines"
-  | "CriteresDePossibleInclusion";
+  (typeof CodesPrecisionsPointsAttention)[number];

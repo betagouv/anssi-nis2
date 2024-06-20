@@ -22,6 +22,7 @@ import {
   infrastructureNumerique,
 } from "./casDeTests.activites";
 import {
+  PointsAttentionPrecis,
   ResultatEligibilite,
   ResumesPointsAttention,
 } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions";
@@ -825,6 +826,43 @@ describe("La fabrique de spécifications", () => {
         expect(resumes).toEqual([resumeAttendu]);
       },
     );
+  });
+
+  const toutesLesPrecisions: [string, PointsAttentionPrecis][] = [
+    ["#ResilienceEntiteCritique", "ResilienceEntiteCritique"],
+    ["#SecuriteNationale", "SecuriteNationale"],
+    ["#DORA", "DORA"],
+    ["#EnregistrementNomsDeDomaines", "EnregistrementNomsDeDomaines"],
+    ["#CriteresDePossibleInclusion", "CriteresDePossibleInclusion"],
+  ];
+  it.each(toutesLesPrecisions)(
+    "comprend la précision %s",
+    (cleCsv, precisionAttendue) => {
+      const specs: Specifications = fabrique.transforme(
+        uneSpecification({
+          Resultat: "Régulée EE",
+          "Points d'attention": cleCsv,
+        }),
+      );
+
+      const { precisions } = specs.resultat().pointsAttention;
+
+      expect(precisions).toEqual([precisionAttendue]);
+    },
+  );
+
+  it("sait répartir entre les résumés et les précisions", () => {
+    const specs: Specifications = fabrique.transforme(
+      uneSpecification({
+        Resultat: "Régulée EE",
+        "Points d'attention": "#TelecomUE, #DORA",
+      }),
+    );
+
+    const { resumes, precisions } = specs.resultat().pointsAttention;
+
+    expect(resumes).toEqual(["TelecomUE"]);
+    expect(precisions).toEqual(["DORA"]);
   });
 });
 
