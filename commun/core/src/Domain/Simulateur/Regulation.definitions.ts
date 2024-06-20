@@ -77,7 +77,15 @@ export type ResultatEligibilite = {
   };
 };
 
-export const CodesResumesPointsAttention = ["MecanismeExemption", "TelecomUE"];
+export const CodesResumesPointsAttention = [
+  "MecanismeExemption",
+  "TelecomUE",
+  "NumeriqueUE",
+  "FournitureServicesUE",
+  "EtablissementPrincipalUE",
+  "EtabliUE",
+  "RepresentantUE",
+];
 export type ResumesPointsAttention =
   (typeof CodesResumesPointsAttention)[number];
 
