@@ -79,7 +79,7 @@ export type ResultatEligibilite = {
 
 export type ResumesPointsAttention =
   | "MecanismeExemption"
-  | "TelcoAutreEtatMembre";
+  | "TelecomUE";
 
 export type PointsAttentionPrecis =
   | "ResilienceEntiteCritique"

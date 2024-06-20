@@ -12,7 +12,7 @@ export const TextesDesResumes: Record<ResumesPointsAttention, ReactElement> = {
       entités et qui seront connus au plus tard le 18 octobre 2024.
     </>
   ),
-  TelcoAutreEtatMembre: (
+  TelecomUE: (
     <>
       En tant que fournisseur de réseaux de communications électroniques publics
       ou fournisseur de services de communications électroniques accessibles au
