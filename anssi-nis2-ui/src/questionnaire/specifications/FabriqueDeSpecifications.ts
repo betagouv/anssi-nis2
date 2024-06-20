@@ -3,6 +3,8 @@ import { Regle, Specifications } from "./Specifications.ts";
 import { RegleLocalisation } from "./regles/RegleLocalisation.ts";
 import { SpecificationTexte } from "./FormatDesSpecificationsCSV.ts";
 import {
+  CodesPrecisionsPointsAttention,
+  CodesResumesPointsAttention,
   PointsAttentionPrecis,
   ResultatEligibilite,
   ResumesPointsAttention,
@@ -93,12 +95,16 @@ export class FabriqueDeSpecifications {
   } => {
     const valeur = texte["Points d'attention"];
 
-    if (valeur.includes("#MecanismeExemption"))
-      return { precisions: [], resumes: ["MecanismeExemption"] };
+    const nettoyees = valeur.split(",").map((v) => v.trim().replace("#", ""));
 
-    if (valeur.includes("#TelecomUE"))
-      return { precisions: [], resumes: ["TelecomUE"] };
+    const resumes: ResumesPointsAttention[] = [];
+    const precisions: PointsAttentionPrecis[] = [];
 
-    return { precisions: [], resumes: [] };
+    for (const v of nettoyees) {
+      if (CodesResumesPointsAttention.includes(v)) resumes.push(v);
+      if (CodesPrecisionsPointsAttention.includes(v)) precisions.push(v);
+    }
+
+    return { precisions, resumes };
   };
 }
