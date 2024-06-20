@@ -1,21 +1,19 @@
 import {
   SecteurActivite,
-  SecteurInfrastructureNumerique,
   SecteurAvecBesoinLocalisationRepresentant,
   SecteurComposite,
+  SecteurInfrastructureNumerique,
   SecteursSansBesoinLocalisationRepresentant,
 } from "../../SecteurActivite.definitions";
 import {
   ValeurSecteurInfrastructureNumerique,
+  ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal,
   ValeursSecteursAvecBesoinLocalisationRepresentant,
   ValeursSecteursComposites,
-  ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal,
 } from "../../SecteurActivite.valeurs";
-import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
-import { sousSecteursParSecteur } from "../../SousSecteurActivite.valeurs";
 
 export const estUnSecteurAvecDesSousSecteurs = (
-  secteur: string,
+  secteur: string
 ): secteur is SecteurComposite =>
   ValeursSecteursComposites.includes(secteur as SecteurComposite);
 
@@ -31,17 +29,13 @@ export const estSecteurListe = (secteur: SecteurActivite) =>
   !secteur.startsWith("autre");
 export const estSecteurAutre = (secteur: SecteurActivite) =>
   secteur.startsWith("autre");
-export const contientSousSecteur = (
-  secteur: string,
-  sousSecteur: SousSecteurActivite,
-) => sousSecteursParSecteur[secteur as SecteurComposite].includes(sousSecteur);
 export const auMoinsUnSecteurListe = (
-  secteurs: SecteurActivite[],
+  secteurs: SecteurActivite[]
 ): secteurs is SecteurActivite[] =>
   secteurs.length > 0 && secteurs.some(estSecteurListe);
 
 export const uniquementDesSecteursAutres = (
-  secteurs: SecteurActivite[],
+  secteurs: SecteurActivite[]
 ): secteurs is SecteurActivite[] =>
   secteurs.length > 0 && secteurs.every(estSecteurAutre);
 
@@ -50,7 +44,7 @@ export const estUnSecteurSansSousSecteur = (secteur: string) =>
 
 const predicatSecteurDansListe = (
   secteursFiltre: SecteurActivite[],
-  secteurCherche: string,
+  secteurCherche: string
 ) => secteursFiltre.some((secteur) => secteur == secteurCherche);
 
 export const estSecteurParmi =
@@ -68,32 +62,28 @@ export const estSecteurDansListe =
  * @param secteur
  */
 export const estSecteurNeNecessitantPasLocalisationRepresentant = (
-  secteur: SecteursSansBesoinLocalisationRepresentant | SecteurActivite,
+  secteur: SecteursSansBesoinLocalisationRepresentant | SecteurActivite
 ): secteur is SecteursSansBesoinLocalisationRepresentant =>
   !ValeursSecteursAvecBesoinLocalisationRepresentant.includes(
-    secteur as SecteurAvecBesoinLocalisationRepresentant,
+    secteur as SecteurAvecBesoinLocalisationRepresentant
   );
 export const estSecteurNeNecessitantPasLocalisationRepresentantPetiteEntite = <
-  T extends SecteurActivite,
+  T extends SecteurActivite
 >(
-  secteur: T | SecteurInfrastructureNumerique,
+  secteur: T | SecteurInfrastructureNumerique
 ) =>
   !ValeurSecteurInfrastructureNumerique.includes(
-    secteur as (typeof ValeurSecteurInfrastructureNumerique)[number],
+    secteur as (typeof ValeurSecteurInfrastructureNumerique)[number]
   );
 export const estSecteurImportantsAvecBesoinLocalisation = (
-  secteur: SecteurActivite,
+  secteur: SecteurActivite
 ) =>
   ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal.includes(
-    secteur as (typeof ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal)[number],
+    secteur as (typeof ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal)[number]
   );
-/**
- *   "infrastructureNumerique",
- * @param secteur
- */
 export const estSecteurAvecActivitesEssentielles = (
-  secteur: SecteurActivite | SecteurInfrastructureNumerique,
+  secteur: SecteurActivite | SecteurInfrastructureNumerique
 ): secteur is SecteurInfrastructureNumerique =>
   ValeurSecteurInfrastructureNumerique.includes(
-    secteur as (typeof ValeurSecteurInfrastructureNumerique)[number],
+    secteur as (typeof ValeurSecteurInfrastructureNumerique)[number]
   );
