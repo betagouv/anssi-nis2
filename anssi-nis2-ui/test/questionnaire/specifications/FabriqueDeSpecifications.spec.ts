@@ -863,6 +863,31 @@ describe("La fabrique de spécifications", () => {
       expect(resumes).toEqual(["TelecomUE"]);
       expect(precisions).toEqual(["DORA"]);
     });
+
+    it("ne fait rien s'il n'y a pas de points d'attention", () => {
+      const specs = fabrique.transforme(
+        uneSpecification({
+          Resultat: "Régulée EE",
+          "Points d'attention": "-",
+        }),
+      );
+
+      const { resumes, precisions } = specs.resultat().pointsAttention;
+
+      expect(resumes).toEqual([]);
+      expect(precisions).toEqual([]);
+    });
+
+    it("lève une exception si un point d'attention est inconnu", () => {
+      expect(() =>
+        fabrique.transforme(
+          uneSpecification({
+            Resultat: "Régulée EE",
+            "Points d'attention": "#Train",
+          }),
+        ),
+      ).toThrowError("Train");
+    });
   });
 });
 

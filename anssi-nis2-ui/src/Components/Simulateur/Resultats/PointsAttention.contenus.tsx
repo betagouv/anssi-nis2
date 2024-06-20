@@ -1,8 +1,8 @@
+import { Fragment, ReactElement } from "react";
 import {
   PointsAttentionPrecis,
   ResumesPointsAttention,
 } from "../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
-import { ReactElement } from "react";
 
 export const TextesDesResumes: Record<ResumesPointsAttention, ReactElement> = {
   MecanismeExemption: (
@@ -21,6 +21,11 @@ export const TextesDesResumes: Record<ResumesPointsAttention, ReactElement> = {
       lesquels vous fournissez vos services.
     </>
   ),
+  NumeriqueUE: <Fragment />,
+  FournitureServicesUE: <Fragment />,
+  EtablissementPrincipalUE: <Fragment />,
+  EtabliUE: <Fragment />,
+  RepresentantUE: <Fragment />,
 };
 export const Precisions: Record<
   PointsAttentionPrecis,

@@ -1,5 +1,5 @@
 import { RegleEntiteOSE } from "./regles/RegleEntiteOSE.ts";
-import { Regle, Specifications } from "./Specifications.ts";
+import { estValeurVide, Regle, Specifications } from "./Specifications.ts";
 import { RegleLocalisation } from "./regles/RegleLocalisation.ts";
 import { SpecificationTexte } from "./FormatDesSpecificationsCSV.ts";
 import {
@@ -95,11 +95,20 @@ export class FabriqueDeSpecifications {
   } => {
     const valeur = texte["Points d'attention"];
 
+    if (estValeurVide(valeur)) return { resumes: [], precisions: [] };
+
     const nettoyees = valeur.split(",").map((v) => v.trim().replace("#", ""));
+
+    const inconnus = nettoyees.filter(
+      (v) =>
+        !CodesResumesPointsAttention.includes(v) &&
+        !CodesPrecisionsPointsAttention.includes(v),
+    );
+    if (inconnus.length > 0)
+      throw new ErreurLectureDeRegle(inconnus.join(","), "Points d'attention");
 
     const resumes: ResumesPointsAttention[] = [];
     const precisions: PointsAttentionPrecis[] = [];
-
     for (const v of nettoyees) {
       if (CodesResumesPointsAttention.includes(v)) resumes.push(v);
       if (CodesPrecisionsPointsAttention.includes(v)) precisions.push(v);
