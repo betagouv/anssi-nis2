@@ -18,11 +18,15 @@ export function compareEtEnvoieVersSentry(
     // @ts-ignore
     const typeEntiteV1 = regulationV1?.typeEntite;
 
+    const estNonRegulee =
+      regulationV1.decision === "NonRegule" &&
+      resultatV2.resultat.regulation === "NonRegule";
+
     const estIdentique =
       resultatV2.resultat.regulation === regulationV1.decision &&
       resultatV2.resultat.typeEntite === typeEntiteV1;
 
-    const niveauLog = estIdentique ? "info" : "error";
+    const niveauLog = estIdentique || estNonRegulee ? "info" : "error";
 
     const titre = estIdentique
       ? "MATCH COMPARAISON V1 & V2"
