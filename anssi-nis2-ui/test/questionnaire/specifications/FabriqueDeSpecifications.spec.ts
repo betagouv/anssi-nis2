@@ -21,7 +21,10 @@ import {
   gestionDesServicesTIC,
   infrastructureNumerique,
 } from "./casDeTests.activites";
-import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions";
+import {
+  ResultatEligibilite,
+  ResumesPointsAttention,
+} from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions";
 
 describe("La fabrique de spécifications", () => {
   let fabrique: FabriqueDeSpecifications;
@@ -802,18 +805,26 @@ describe("La fabrique de spécifications", () => {
   });
 
   describe("pour la partie « Points d'attention »", () => {
-    it("comprend le résumé #MecanismeExemption", () => {
-      const specs: Specifications = fabrique.transforme(
-        uneSpecification({
-          Resultat: "Régulée EE",
-          "Points d'attention": "#MecanismeExemption",
-        }),
-      );
+    const tousLesResumes: [string, ResumesPointsAttention][] = [
+      ["#MecanismeExemption", "MecanismeExemption"],
+      ["#TelecomUE", "TelecomUE"],
+    ];
 
-      expect(specs.resultat().pointsAttention.resumes).toEqual([
-        "MecanismeExemption",
-      ]);
-    });
+    it.each(tousLesResumes)(
+      `comprend le résumé %s`,
+      (cleCsv, resumeAttendu) => {
+        const specs: Specifications = fabrique.transforme(
+          uneSpecification({
+            Resultat: "Régulée EE",
+            "Points d'attention": cleCsv,
+          }),
+        );
+
+        const { resumes } = specs.resultat().pointsAttention;
+
+        expect(resumes).toEqual([resumeAttendu]);
+      },
+    );
   });
 });
 
