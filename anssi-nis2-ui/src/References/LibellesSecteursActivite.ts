@@ -1,7 +1,6 @@
 import { SecteurActivite } from "../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions";
 
 export const libellesSecteursActivite: Record<SecteurActivite, string> = {
-  administrationPublique: "Administration publique / administration centrale",
   banqueSecteurBancaire: "Banques (secteur bancaire)",
   eauPotable: "Eau potable",
   eauxUsees: "Eaux usées",
