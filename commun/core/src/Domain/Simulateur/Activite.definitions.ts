@@ -1,5 +1,4 @@
 import {
-  ValeursActivitesAdministrationPublique,
   ValeursActivitesConstructionVehiculesAutomobiles,
   ValeursActivitesEauPotable,
   ValeursActivitesEauUsees,
@@ -72,8 +71,6 @@ export type ActivitesInfrastructureNumerique =
   (typeof ValeursActivitesInfrastructureNumerique)[number];
 export type ActivitesGestionServicesTic =
   (typeof ValeursActivitesGestionServicesTic)[number];
-export type ActivitesAdministrationPublique =
-  (typeof ValeursActivitesAdministrationPublique)[number];
 export type ActivitesEspace = (typeof ValeursActivitesEspace)[number];
 export type ActivitesServicesPostauxExpedition =
   (typeof ValeursActivitesServicesPostauxExpedition)[number];
@@ -116,7 +113,6 @@ export type Activite =
   | ActivitesEauUsees
   | ActivitesInfrastructureNumerique
   | ActivitesGestionServicesTic
-  | ActivitesAdministrationPublique
   | ActivitesEspace
   // Annexe 2
   | ActivitesServicesPostauxExpedition
@@ -161,7 +157,6 @@ export interface ActivitesPourSecteur
   eauPotable: ActivitesEauPotable;
   eauUsees: ActivitesEauUsees;
   infrastructureNumerique: ActivitesInfrastructureNumerique;
-  administrationPublique: ActivitesAdministrationPublique;
   espace: ActivitesEspace;
   servicesPostauxExpedition: ActivitesServicesPostauxExpedition;
   gestionDechets: ActivitesGestionDechets;

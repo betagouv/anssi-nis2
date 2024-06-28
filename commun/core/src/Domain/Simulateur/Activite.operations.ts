@@ -1,6 +1,5 @@
 import { Activite } from "./Activite.definitions";
 import {
-  ValeursActivitesAdministrationPublique,
   ValeursActivitesConstructionVehiculesAutomobiles,
   ValeursActivitesEauPotable,
   ValeursActivitesEauUsees,
@@ -39,7 +38,6 @@ export const activitesParSecteurEtSousSecteur: Record<
   SecteurSimple | SousSecteurActivite,
   readonly Activite[]
 > = {
-  administrationPublique: ValeursActivitesAdministrationPublique,
   autreSecteurActivite: [],
   autreSousSecteurEnergie: [],
   autreSousSecteurFabrication: [],

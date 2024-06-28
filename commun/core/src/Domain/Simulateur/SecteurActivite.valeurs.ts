@@ -16,7 +16,6 @@ export const ValeursSecteursAvecBesoinLocalisationRepresentant = [
 ] as const;
 
 export const ValeursSecteursActivitesAnnexe1 = [
-  "administrationPublique",
   "energie",
   "transports",
   "banqueSecteurBancaire",

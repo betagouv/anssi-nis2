@@ -124,11 +124,6 @@ export const ValeursActivitesGestionServicesTic = [
   "fournisseurServicesSecuriteGeres",
   "autreActiviteGestionServicesTic",
 ] as const;
-export const ValeursActivitesAdministrationPublique = [
-  "administrationPouvoirsPublicsCentraux",
-  "administrationPubliqueNiveauRegional",
-  "autreActiviteAdministrationPublique",
-] as const;
 export const ValeursActivitesEspace = [
   "exploitantsInfrastructureTerrestresFournitureServicesSpaciaux",
   "autreActiviteEspace",
@@ -231,7 +226,6 @@ export const ValeursActivites =
     ...ValeursActivitesEauUsees,
     ...ValeursActivitesInfrastructureNumerique,
     ...ValeursActivitesGestionServicesTic,
-    ...ValeursActivitesAdministrationPublique,
     ...ValeursActivitesEspace,
     // Annexe 2
     ...ValeursActivitesServicesPostauxExpedition,

@@ -4,19 +4,12 @@ export const libellesActivites: Record<Activite, string> = {
   acteurDuMarche:
     "Acteurs du marché fournissant des services d'agrégation, de " +
     "participation active de la demande ou de stockage d'énergie",
-  administrationPouvoirsPublicsCentraux:
-    "Entités de l'administration publique des pouvoirs publics centraux " +
-    "définies comme telles par un État membre conformément au droit national",
-  administrationPubliqueNiveauRegional:
-    "Entités de l'administration publique au niveau régional définies comme " +
-    "telles par un État membre conformément au droit national",
   autoritesRoutieresControleGestionCirculation:
     "Autorités routières chargées du contrôle de la gestion de la " +
     "circulation, à l'exclusion des entités publiques pour lesquelles la " +
     "gestion de la circulation ou l'exploitation de systèmes de transport " +
     "intelligents constituent une partie non essentielle de leur activité " +
     "générale",
-  autreActiviteAdministrationPublique: "Autre activité",
   autreActiviteConstructionVehiculesAutomobilesRemorquesSemi: "Autre activité",
   autreActiviteEauPotable: "Autre activité",
   autreActiviteEauxUsees: "Autre activité",

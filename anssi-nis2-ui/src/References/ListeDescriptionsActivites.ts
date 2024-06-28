@@ -7,7 +7,6 @@ export const listeDescriptionsActivites: Record<
   Activite,
   DescriptionActivite[]
 > = {
-  autreActiviteAdministrationPublique: [],
   autreActiviteConstructionVehiculesAutomobilesRemorquesSemi: [],
   autreActiviteEauPotable: [],
   autreActiviteEauxUsees: [],
@@ -68,8 +67,6 @@ export const listeDescriptionsActivites: Record<
         "la conservation de cette énergie et la reconversion ultérieure de celle-ci en énergie électrique ou son utilisation en tant qu'autre vecteur d’énergie.",
     },
   ],
-  administrationPouvoirsPublicsCentraux: [],
-  administrationPubliqueNiveauRegional: [],
   autoritesRoutieresControleGestionCirculation: [
     {
       titre: "Autorité routière",
