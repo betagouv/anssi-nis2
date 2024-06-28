@@ -57,6 +57,11 @@
         flex-direction: row;
         flex-wrap: wrap;
 
+        .actions {
+          margin: auto;
+          a { width: fit-content;}
+        }
+
         .paragraphe {
           max-width: 47%;
           border-left: 4px solid #272771;

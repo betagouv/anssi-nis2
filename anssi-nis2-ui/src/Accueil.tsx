@@ -51,9 +51,17 @@ const Accueil: DefaultComponent = () => {
                 titre="3 obligations majeures"
                 contenu="Chaque entité assujettie devra fournir certaines informations à l'ANSSI, mettre en place des mesures de gestion des risques adaptées, et déclarer ses incidents de sécurité. En cas de manquement, des sanctions financières (jusqu'à 2 % du CA mondial) pourront être imposées."
               />
-              <Link to="/directive#hero" className="fr-nis2-bouton-secondaire">
-                M&apos;informer sur la directive
-              </Link>
+              <div className="actions">
+                <Link to="/infolettre" className="fr-nis2-bouton-tertiaire">
+                  M&apos;abonner à la newsletter
+                </Link>
+                <Link
+                  to="/directive#hero"
+                  className="fr-nis2-bouton-secondaire"
+                >
+                  M&apos;informer sur la directive
+                </Link>
+              </div>
             </div>
           </BlocPrincipal>
           <BandeauSePreparer />

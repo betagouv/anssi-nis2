@@ -59,6 +59,18 @@
       flex-direction: column;
       gap: 32px;
 
+      .actions {
+        display: flex;
+        gap: 32px;
+        flex-wrap: wrap;
+
+        a {
+          display: flex;
+          width: 100%;
+          justify-content: center;
+        }
+      }
+
       .paragraphe {
         padding-left: 16px;
         border-left: 4px solid #272771;
