@@ -21,7 +21,7 @@ export const MenuMobile: DefaultComponent = () => {
             Fermer
           </button>
           <NavLink to="/">Accueil</NavLink>
-          <NavLink to="/directive">M’informer sur la directive</NavLink>
+          <NavLink to="/directive">M&apos;informer sur la directive</NavLink>
           <NavLink to="/simulateur">Tester si mon entité est concernée</NavLink>
           <NavLink
             to="https://aide.monespacenis2.cyber.gouv.fr"
