@@ -385,7 +385,7 @@ const PolitiqueConfidentialite: DefaultComponent = () => {
         <ul>
           <li>
             par courriel à l&apos;adresse suivante&nbsp;:{" "}
-            <a href="mailto:lab-inno@ssi.gouv.fr">lab-inno@ssi.gouv.fr</a>
+            <a href="mailto:lab-innov@ssi.gouv.fr">lab-innov@ssi.gouv.fr</a>
           </li>
           <li>
             par courriel au délégué à la protection des données des services du
