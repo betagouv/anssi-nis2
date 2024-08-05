@@ -193,7 +193,8 @@ const Directive: DefaultComponent = () => {
                 <h4>Le partage d&apos;informations</h4>
                 <p>
                   Les entités seront tenues de fournir un certain nombre
-                  d&apos;informations à l&apos;ANSSI et de les mettre à jour.
+                  d&apos;informations à l&apos;autorité nationale désignée et de
+                  les mettre à jour.
                 </p>
                 <h4>La gestion des risques cyber</h4>
                 <p>
@@ -205,9 +206,10 @@ const Directive: DefaultComponent = () => {
                 </p>
                 <h4>La déclaration d&apos;incidents</h4>
                 <p>
-                  Les entités devront signaler à l&apos;ANSSI leurs incidents de
-                  sécurité ayant un impact important et fournir des rapports
-                  concernant l&apos;évolution de la situation.
+                  Les entités devront signaler à l&apos;autorité nationale
+                  désignée leurs incidents de sécurité ayant un impact important
+                  et fournir des rapports concernant l&apos;évolution de la
+                  situation.
                 </p>
                 <CarteInformation
                   contenu={[
