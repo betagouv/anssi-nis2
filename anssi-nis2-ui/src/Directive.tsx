@@ -108,7 +108,7 @@ const Directive: DefaultComponent = () => {
                     introduit des exigences plus adaptées, notamment au regard
                     du renforcement de la menace cyber. Elle prévoit un socle de
                     mesures juridiques, techniques et organisationnelles que les
-                    futures entités assujetties devront mettre en œuvre, en
+                    futures entités régulées devront mettre en œuvre, en
                     fonction du risque existant, afin d&apos;élever leur niveau
                     général de cybersécurité et d&apos;accroître leur résilience
                     opérationnelle.
@@ -231,8 +231,8 @@ const Directive: DefaultComponent = () => {
                 <p>
                   En parallèle, l&apos;ANSSI développe de nouveaux outils, avec
                   notamment la création du service numérique « MonEspaceNIS2 »
-                  dont la vocation est d&apos;accompagner les assujettis dans
-                  leur mise en conformité à la directive. Ce service
+                  dont la vocation est d&apos;accompagner les entités régulées
+                  dans leur mise en conformité à la directive. Ce service
                   s&apos;étoffera au fil du temps pour proposer des services
                   pertinents pour les entités. L&apos;ANSSI souhaite capitaliser
                   sur ses actions historiques de conseil, de sensibilisation et

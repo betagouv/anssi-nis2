@@ -23,8 +23,8 @@ const BandeauSePreparer: DefaultComponent = () => {
         <CarteSePreparer
           image={Assujeti}
           numero={2}
-          titre="Savoir si votre entité est assujettie"
-          contenu="Réalisez un test en ligne pour déterminer si votre entité est assujettie à la directive NIS&nbsp;2 et à quelle catégorie elle appartient."
+          titre="Savoir si votre entité est régulée"
+          contenu="Réalisez un test en ligne pour déterminer si votre entité est régulée par la directive NIS&nbsp;2 et à quelle catégorie elle appartient."
         />
         <CarteSePreparer
           image={Declarer}
