@@ -8,7 +8,7 @@ const BandeauConcerne: DefaultComponent = () => {
       <div className="carte-concernes">
         <h2 className="texte-primaire">Mon entité est-elle concernée ?</h2>
         <p>
-          Réalisez un test pour déterminer si votre entité est assujettie à la
+          Réalisez un test pour déterminer si votre entité est régulée par la
           directive NIS&nbsp;2 et à quelle catégorie elle appartient.
         </p>
         <Link to={"/simulateur"} className="fr-nis2-bouton-principal">
