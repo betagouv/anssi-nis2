@@ -148,7 +148,7 @@ const Directive: DefaultComponent = () => {
                 </p>
                 <CarteInformation
                   contenu={[
-                    "Les mécaniques d&apos;identification des entités concernées par la directive NIS 2 seront précisées au travers du processus de transposition de la directive en droit national. L&apos;ANSSI communiquera dès que possible les éléments correspondants.",
+                    "Les mécaniques d'identification des entités concernées par la directive NIS 2 seront précisées au travers du processus de transposition de la directive en droit national. L'ANSSI communiquera dès que possible les éléments correspondants.",
                   ]}
                 />
               </BlocPrincipal>
