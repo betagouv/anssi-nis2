@@ -177,11 +177,11 @@ export const libellesActivites: Record<Activite, string> = {
     "Fabrication de machines et équipements n.c.a.",
   fabriquantMachineUsageGeneral:
     "Fabrication de machines d'usage général\n" +
-    "Fabrication de moteurs et turbines, à l'exception des moteurs d'avions et de véhicules\n" +
-    "Fabrication d'équipements hydrauliques et pneumatiques\n" +
-    "Fabrication d'autres pompes et compresseurs\n" +
-    "Fabrication d'autres articles de robinetterie\n" +
-    "Fabrication d'engrenages et d'organes mécaniques de transmission",
+    "- Fabrication de moteurs et turbines, à l'exception des moteurs d'avions et de véhicules\n" +
+    "- Fabrication d'équipements hydrauliques et pneumatiques\n" +
+    "- Fabrication d'autres pompes et compresseurs\n" +
+    "- Fabrication d'autres articles de robinetterie\n" +
+    "- Fabrication d'engrenages et d'organes mécaniques de transmission",
   fabriquantMachinesAgricolesForestieres:
     "Fabrication de machines agricoles et forestières",
   fabriquantMachinesFormageMetauxMachinesOutils:
