@@ -127,6 +127,37 @@ export const fournisseursNumeriques: CasDeTest[] = [
   },
 ];
 
+export const fabrication: CasDeTest[] = [
+  {
+    libelleActivite:
+      "Fabrication de fils et câbles et de matériel d'installation électrique - Fabrication de câbles de fibres optiques - Fabrication d'autres fils et câbles électroniques ou électriques - Fabrication de matériel d'installation électrique",
+    activite: "fabriquantFilsCablesMaterielInstallationElectrique",
+    libelleSecteur: "Fabrication",
+    secteur: "fabrication",
+  },
+  {
+    libelleActivite:
+      "Fabrication d'appareils ménagers - Fabrication d'appareils électroménagers - Fabrication d'appareils ménagers non électriques",
+    activite: "fabriquantAppareilsMenagers",
+    libelleSecteur: "Fabrication",
+    secteur: "fabrication",
+  },
+  {
+    libelleActivite:
+      "Fabrication de composants et cartes électroniques - Fabrication de composants électroniques - Fabrication de cartes électroniques assemblées",
+    activite: "fabriquantComposantCartesElectroniques",
+    libelleSecteur: "Fabrication",
+    secteur: "fabrication",
+  },
+  {
+    libelleActivite:
+      "Fabrication de machines d'usage général - Fabrication de moteurs et turbines, à l'exception des moteurs d'avions et de véhicules - Fabrication d'équipements hydrauliques et pneumatiques - Fabrication d'autres pompes et compresseurs - Fabrication d'autres articles de robinetterie - Fabrication d'engrenages et d'organes mécaniques de transmission",
+    activite: "fabriquantMachineUsageGeneral",
+    libelleSecteur: "Fabrication",
+    secteur: "fabrication",
+  },
+];
+
 export const autresActivites: CasDeTest[] = [
   {
     libelleActivite: "Autre activité",

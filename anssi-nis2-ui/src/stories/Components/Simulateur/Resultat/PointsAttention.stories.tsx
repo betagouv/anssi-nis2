@@ -1,5 +1,9 @@
 import { Meta } from "@storybook/react";
 import { PointsAttention } from "../../../../Components/Simulateur/Resultats/PointsAttention.tsx";
+import {
+  CodesPrecisionsPointsAttention,
+  CodesResumesPointsAttention,
+} from "../../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 
 const meta: Meta<typeof PointsAttention> = {
   component: PointsAttention,
@@ -9,21 +13,7 @@ export default meta;
 
 export const Defaut = {
   args: {
-    resumes: [
-      "TelecomUE",
-      "MecanismeExemption",
-      "NumeriqueUE",
-      "FournitureServicesUE",
-      "EtablissementPrincipalUE",
-      "EtabliUE",
-      "RepresentantUE",
-    ],
-    precisions: [
-      "ResilienceEntiteCritique",
-      "SecuriteNationale",
-      "DORA",
-      "EnregistrementNomsDeDomaines",
-      "CriteresDePossibleInclusion",
-    ],
+    resumes: CodesResumesPointsAttention,
+    precisions: CodesPrecisionsPointsAttention,
   },
 };

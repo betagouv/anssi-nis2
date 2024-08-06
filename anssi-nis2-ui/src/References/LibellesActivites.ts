@@ -49,8 +49,8 @@ export const libellesActivites: Record<Activite, string> = {
     "usées ou des eaux industrielles usées constituent une partie non " +
     "essentielle de leur activité générale",
   constructionAeronautiqueSpatiale:
-    "Construction aéronautique et spatiale\n" +
-    "- Construction aéronautique et spatiale civile\n" +
+    "Construction aéronautique et spatiale " +
+    "- Construction aéronautique et spatiale civile " +
     "- Construction aéronautique et spatiale militaire",
   constructionBateauxNaviresMilitaires:
     "Construction de bateaux et navires militaires",
@@ -112,42 +112,42 @@ export const libellesActivites: Record<Activite, string> = {
     "distribution de substances ou de mélanges et entreprises procédant " +
     "à la production d'articles, à partir de substances ou de mélanges",
   fabricationMaterielTransportNCA:
-    "Fabrication de matériels de transport n.c.a.\n" +
-    "- Fabrication de motocycles\n" +
-    "- Fabrication de bicyclettes et de véhicules pour invalides\n" +
+    "Fabrication de matériels de transport n.c.a. " +
+    "- Fabrication de motocycles " +
+    "- Fabrication de bicyclettes et de véhicules pour invalides " +
     "- Fabrication d'autres équipements de transport n.c.a.",
   fabriquantAppareilEclairage: "Fabrication d'appareils d'éclairage",
   fabriquantAppareilsMenagers:
-    "Fabrication d'appareils ménagers\n" +
-    "- Fabrication d'appareils électroménagers\n" +
+    "Fabrication d'appareils ménagers " +
+    "- Fabrication d'appareils électroménagers " +
     "- Fabrication d'appareils ménagers non électriques",
   fabriquantAutresMachinesUsageGeneral:
-    "Fabrication d'autres machines d'usage général\n" +
+    "Fabrication d'autres machines d'usage général " +
     "- Fabrication de fours et brûleurs et d'équipements fixes de chauffage " +
-    "domestique\n" +
-    "- Fabrication de matériel de levage et de manutention\n" +
+    "domestique " +
+    "- Fabrication de matériel de levage et de manutention " +
     "- Fabrication de machines et d'équipements de bureau (à l'exception " +
-    "des ordinateurs et équipements périphériques)\n" +
-    "- Fabrication d'outillage portatif à moteur incorporé\n" +
-    "- Fabrication d'équipements aérauliques et frigorifiques industriels\n" +
-    "- Fabrication de machines diverses d'usage général\n",
+    "des ordinateurs et équipements périphériques) " +
+    "- Fabrication d'outillage portatif à moteur incorporé " +
+    "- Fabrication d'équipements aérauliques et frigorifiques industriels " +
+    "- Fabrication de machines diverses d'usage général",
   fabriquantAutresMachinesUsageSpecifiqueNCA:
-    "Fabrication d'autres machines d'usage spécifique\n" +
-    "- Fabrication de machines pour la métallurgie\n" +
-    "- Fabrication de machines pour l'extraction ou la construction\n" +
-    "- Fabrication de machines pour l'industrie agroalimentaire\n" +
-    "- Fabrication de machines pour les industries textiles et du cuir\n" +
-    "- Fabrication de machines pour les industries du papier et du carton\n" +
+    "Fabrication d'autres machines d'usage spécifique " +
+    "- Fabrication de machines pour la métallurgie " +
+    "- Fabrication de machines pour l'extraction ou la construction " +
+    "- Fabrication de machines pour l'industrie agroalimentaire " +
+    "- Fabrication de machines pour les industries textiles et du cuir " +
+    "- Fabrication de machines pour les industries du papier et du carton " +
     "- Fabrication de machines pour le travail du caoutchouc ou des " +
-    "plastiques\n" +
-    "- Fabrication de machines de fabrication additive\n" +
+    "plastiques " +
+    "- Fabrication de machines de fabrication additive " +
     "- Fabrication d'autres machines d'usage spécifique n.c.a.",
   fabriquantCarrosseriesVehiculesAutomobiles:
     "Fabrication de carrosseries de véhicules automobiles; fabrication de " +
     "remorques et de semi-remorques",
   fabriquantComposantCartesElectroniques:
-    "Fabrication de composants et cartes électroniques\n" +
-    "- Fabrication de composants électroniques\n" +
+    "Fabrication de composants et cartes électroniques " +
+    "- Fabrication de composants électroniques " +
     "- Fabrication de cartes électroniques assemblées",
   fabriquantDispositifsMedicaux:
     "Entités fabriquant des dispositifs médicaux et entités fabriquant des " +
@@ -163,24 +163,24 @@ export const libellesActivites: Record<Activite, string> = {
     "Fabrication d'équipements d'irradiation médicale, d'équipements " +
     "électromédicaux et électrothérapeutiques",
   fabriquantEquipementsAutomobiles:
-    "Fabrication d'équipements automobiles\n" +
-    "- Fabrication d'équipements électriques et électroniques automobiles\n" +
+    "Fabrication d'équipements automobiles " +
+    "- Fabrication d'équipements électriques et électroniques automobiles " +
     "- Fabrication d'autres équipements automobiles",
   fabriquantFilsCablesMaterielInstallationElectrique:
-    "Fabrication de fils et câbles et de matériel d'installation électrique\n" +
-    "- Fabrication de câbles de fibres optiques\n" +
-    "- Fabrication d'autres fils et câbles électroniques ou électriques\n" +
+    "Fabrication de fils et câbles et de matériel d'installation électrique " +
+    "- Fabrication de câbles de fibres optiques " +
+    "- Fabrication d'autres fils et câbles électroniques ou électriques " +
     "- Fabrication de matériel d'installation électrique",
   fabriquantInstrumentsMesureEssaiNavigationHorlogerie:
     "Fabrication d'instruments de mesure, d'essai et de navigation ; horlogerie",
   fabriquantMachineEquipementNCA:
     "Fabrication de machines et équipements n.c.a.",
   fabriquantMachineUsageGeneral:
-    "Fabrication de machines d'usage général\n" +
-    "- Fabrication de moteurs et turbines, à l'exception des moteurs d'avions et de véhicules\n" +
-    "- Fabrication d'équipements hydrauliques et pneumatiques\n" +
-    "- Fabrication d'autres pompes et compresseurs\n" +
-    "- Fabrication d'autres articles de robinetterie\n" +
+    "Fabrication de machines d'usage général " +
+    "- Fabrication de moteurs et turbines, à l'exception des moteurs d'avions et de véhicules " +
+    "- Fabrication d'équipements hydrauliques et pneumatiques " +
+    "- Fabrication d'autres pompes et compresseurs " +
+    "- Fabrication d'autres articles de robinetterie " +
     "- Fabrication d'engrenages et d'organes mécaniques de transmission",
   fabriquantMachinesAgricolesForestieres:
     "Fabrication de machines agricoles et forestières",
