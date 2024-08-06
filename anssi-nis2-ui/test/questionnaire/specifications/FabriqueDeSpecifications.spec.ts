@@ -17,6 +17,7 @@ import { libellesSousSecteursActivite } from "../../../src/References/LibellesSo
 import {
   autresActivites,
   CasDeTest,
+  fabrication,
   fournisseursNumeriques,
   gestionDesServicesTIC,
   infrastructureNumerique,
@@ -490,6 +491,7 @@ describe("La fabrique de spécifications", () => {
       ...infrastructureNumerique,
       ...gestionDesServicesTIC,
       ...fournisseursNumeriques,
+      ...fabrication,
       ...autresActivites,
     ];
 
@@ -807,8 +809,12 @@ describe("La fabrique de spécifications", () => {
 
   describe("pour les « Points d'attention »", () => {
     const tousLesResumes: [string, ResumesPointsAttention][] = [
-      ["#MecanismeExemption", "MecanismeExemption"],
-      ["#TelecomUE", "TelecomUE"],
+      [
+        "#MecanismeExemptionSecuriteNationale",
+        "MecanismeExemptionSecuriteNationale",
+      ],
+      ["#TelecomFranceEtAutresEMdelUE", "TelecomFranceEtAutresEMdelUE"],
+      ["#TelecomAutresEMdelUEUniquement", "TelecomAutresEMdelUEUniquement"],
     ];
 
     it.each(tousLesResumes)(
@@ -829,9 +835,8 @@ describe("La fabrique de spécifications", () => {
 
     const toutesLesPrecisions: [string, PointsAttentionPrecis][] = [
       ["#ResilienceEntiteCritique", "ResilienceEntiteCritique"],
-      ["#SecuriteNationale", "SecuriteNationale"],
       ["#DORA", "DORA"],
-      ["#EnregistrementNomsDeDomaines", "EnregistrementNomsDeDomaines"],
+      ["#EnregistrementNomsDeDomaine", "EnregistrementNomsDeDomaine"],
       ["#CriteresDePossibleInclusion", "CriteresDePossibleInclusion"],
     ];
     it.each(toutesLesPrecisions)(
@@ -854,13 +859,13 @@ describe("La fabrique de spécifications", () => {
       const specs: Specifications = fabrique.transforme(
         uneSpecification({
           Resultat: "Régulée EE",
-          "Points d'attention": "#TelecomUE, #DORA",
+          "Points d'attention": "#TelecomFranceEtAutresEMdelUE, #DORA",
         }),
       );
 
       const { resumes, precisions } = specs.resultat().pointsAttention;
 
-      expect(resumes).toEqual(["TelecomUE"]);
+      expect(resumes).toEqual(["TelecomFranceEtAutresEMdelUE"]);
       expect(precisions).toEqual(["DORA"]);
     });
 

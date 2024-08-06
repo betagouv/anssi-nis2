@@ -5,20 +5,34 @@ import {
 } from "../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 
 export const TextesDesResumes: Record<ResumesPointsAttention, ReactElement> = {
-  MecanismeExemption: (
+  MecanismeExemptionSecuriteNationale: (
     <>
-      Des mécanismes d&apos;exemption ou de désignation pourront également être
-      mis en place au cas par cas par le gouvernement français pour certaines
-      entités et qui seront connus au plus tard le 18 octobre 2024.
+      Des mécanismes d&apos;exemption pourront être mis en place au cas par cas
+      par le gouvernement français pour certaines entités répondant à des
+      critères spécifiques.
+      <br />
+      En effet, les entités qui exercent des activités dans les domaines de la
+      sécurité nationale, de la sécurité publique, de la défense ou de
+      l&apos;application de la loi, y compris la prévention et la détection des
+      infractions pénales, ainsi que les enquêtes et les poursuites en la
+      matière, ou qui fournissent des services exclusivement aux entités de
+      l&apos;administration publique exerçant des activités dans les domaines
+      susmentionnés peuvent être exemptées de certaines obligations relatives à
+      la directive NIS&nbsp;2 lorsqu&apos;elles n&apos;agissent pas en tant que
+      prestataire de services de confiance. Ces éventuelles exemptions seront
+      connues à l&apos;issue du processus de transposition de la directive
+      NIS&nbsp;2.
     </>
   ),
-  TelecomUE: (
+  TelecomFranceEtAutresEMdelUE: (
     <>
-      En tant que fournisseur de réseaux de communications électroniques publics
-      ou fournisseur de services de communications électroniques accessibles au
-      public, nous vous invitons à vous rapprocher des autorités nationales
-      compétentes NIS&nbsp;2 de l&apos;ensemble des États membres de l&apos;UE
-      dans lesquels vous fournissez vos services.
+      Au titre de votre activité de fournisseur de réseaux de communications
+      électroniques publics et/ou de fournisseur de services de communications
+      électroniques accessibles au public, votre entité relève, pour lesdites
+      activités, de l&apos;ensemble des Etats membres de l&apos;Union Européenne
+      (dont la France) dans lesquels vos services sont fournis et devra se
+      conformer aux réglementations NIS&nbsp;2 en vigueur dans ces Etats
+      membres-ci.
     </>
   ),
   NumeriqueUE: (
@@ -30,18 +44,26 @@ export const TextesDesResumes: Record<ResumesPointsAttention, ReactElement> = {
       lequel se trouve votre établissement principal.
     </>
   ),
-  FournitureServicesUE: (
+  TelecomAutresEMdelUEUniquement: (
     <>
-      Nous vous invitons à vous rapprocher de l&apos;autorité nationale
-      compétente NIS&nbsp;2 des autres États membres de l&apos;UE dans lesquels
-      vous fournissez vos services.
+      Au titre de votre activité de fournisseur de réseaux de communications
+      électroniques publics et/ou de fournisseur de services de communications
+      électroniques accessibles au public, votre entité relève, pour lesdites
+      activités, de l&apos;ensemble des Etats membres de l&apos;Union Européenne
+      dans lesquels vos services sont fournis et devra se conformer aux
+      réglementations NIS&nbsp;2 en vigueur dans ces Etats membres-ci.
     </>
   ),
-  EtablissementPrincipalUE: (
+  NumeriqueEtabliEMUEhorsFrance: (
     <>
-      Nous vous invitons à vous rapprocher de l&apos;autorité nationale
-      compétente NIS&nbsp;2 de l&apos;État membre de l&apos;UE dans lequel se
-      trouve votre établissement principal.
+      Votre entité exerce des activités des secteurs «&nbsp;Infrastructure
+      numérique&nbsp;», «&nbsp;Gestion des services TIC&nbsp;» et/ou
+      «&nbsp;Fournisseurs numériques&nbsp;» pour lesquelles l&apos;établissement
+      principal au sens de la directive NIS&nbsp;2 est dans l&apos;Union
+      Européenne, hors de France. Pour ces activités-ci, votre entité dépend de
+      l&apos;Etat membre de l&apos;Union Européenne dans lequel se trouve votre
+      établissement principal, et, à ce titre, nous vous invitons à vous
+      rapprocher de l&apos;autorité nationale compétente NIS&nbsp;2 associée.
     </>
   ),
   EtabliUE: (
@@ -64,82 +86,109 @@ export const Precisions: Record<
   { titre: string; texte: ReactElement }
 > = {
   ResilienceEntiteCritique: {
-    titre: "REC",
+    titre: "Directive REC",
     texte: (
       <>
-        Toute entité concernée par{" "}
+        Toute entité régulée par{" "}
         <a
           href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32022L2557"
           target="_blank"
           rel="noreferrer"
         >
-          la directive UE 2022/2557
+          la directive (UE) 2022/2557
         </a>{" "}
-        de Résilience des Entités Critiques est également soumise à NIS 2.
-      </>
-    ),
-  },
-  SecuriteNationale: {
-    titre: "Sécurité nationale",
-    texte: (
-      <>
-        Si votre entité exerce une activité dans les domaines de la sécurité
-        nationale, de la sécurité publique, de la défense, ou de
-        l&apos;application de la loi, et n&apos;agit pas en tant que prestataire
-        de confiance, vous pourriez être exempté de certaines obligations
-        relatives à la directive NIS 2.
+        concernant la Résilience des Entités Critiques (REC) sera également
+        soumise à NIS&nbsp;2, en tant qu&apos;entité essentielle.
       </>
     ),
   },
   DORA: {
-    titre: "DORA",
+    titre: "Règlement DORA",
     texte: (
       <>
-        Au vu des éléments saisis sur votre secteur d&apos;activité (secteur
-        financier), votre entité pourrait également être concernée par le
-        règlement (UE) DORA 2022/2054 pour la Résilience Opérationnelle
-        Numérique qui sera applicable en l&apos;État dans tous les pays de
-        l&apos;Union Européenne à partir du 17 janvier 2025.
+        Certaines entités exerçant dans le secteur financier (secteur bancaire,
+        infrastructure des marchés financiers, assurances désignées opérateurs
+        de services essentiels en France au titre de NIS&nbsp;1…) seront
+        également concernées par{" "}
+        <a
+          href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32022R2554"
+          target="_blank"
+          rel="noreferrer"
+        >
+          le règlement (UE) DORA 2022/2554
+        </a>{" "}
+        pour la Résilience Opérationnelle Numérique, qui sera applicable en
+        l&apos;état dans tous les pays de l&apos;Union Européenne à partir du 17
+        janvier 2025.
+        <br />
+        Pour ces entités, les obligations de la directive DORA en matière de
+        gestion de risques, de notification d&apos;incidents et de supervision
+        se substitueront aux obligations de même type de la directive
+        NIS&nbsp;2. En revanche, les autres obligations de la directive
+        NIS&nbsp;2 (telles celles relatives à la désignation des CSIRT, au cadre
+        national de gestion des crises de cybersécurité, et au registre des
+        entités essentielles et importantes) demeureront pour les entités
+        susmentionnées.
       </>
     ),
   },
-  EnregistrementNomsDeDomaines: {
-    titre: "Enregistrement de noms de domaines",
+  EnregistrementNomsDeDomaine: {
+    titre: "Fournisseur de services d'enregistrement de noms de domaine",
     texte: (
       <>
-        L&apos;enregistrement de noms de domaines étant l&apos;unique activité
-        reconnue par la directive NIS 2 pratiquée par votre entité, seul
-        l&apos;enregistrement et la mise à jour de vos données auprès de
-        l&apos;ANSSI sera nécessaire.
+        D&apos;après les éléments que vous avez renseignés, la fourniture de
+        services d&apos;enregistrement de noms de domaines est la seule activité
+        régulée par la directive NIS&nbsp;2 que votre entité exerce. Dans ce
+        cas, vos seules obligations concerneront l&apos;enregistrement de votre
+        entité auprès de l&apos;autorité nationale désignée ainsi que la mise à
+        jour des données enregistrées, en cas de changement.
       </>
     ),
   },
   CriteresDePossibleInclusion: {
-    titre: "Critères de possible inclusion",
+    titre:
+      "Critères de désignation unitaire « Entité Essentielle » ou « Entité Importante »",
     texte: (
-      <ul>
-        <li>
-          l&apos;entité est, dans un État membre, le seul prestataire d&apos;un
-          service qui est essentiel au maintien d&apos;activités sociétales ou
-          économiques critiques ;
-        </li>
-        <li>
-          une perturbation du service fourni par l&apos;entité pourrait avoir un
-          impact important sur la sécurité publique, la sûreté publique ou la
-          santé publique ;
-        </li>
-        <li>
-          une perturbation du service fourni par l&apos;entité pourrait induire
-          un risque systémique important, en particulier pour les secteurs où
-          cette perturbation pourrait avoir un impact transfrontière ;
-        </li>
-        <li>
-          l&apos;entité est critique en raison de son importance spécifique au
-          niveau national ou régional pour le secteur ou le type de service en
-          question, ou pour d&apos;autres secteurs interdépendants dans
-          l&apos;État membre ;
-        </li>
-      </ul>
+      <>
+        Sur la base de critères exposés ci-après, des désignations unitaires
+        peuvent être décidées par le gouvernement français, au cas par cas :
+        <ul>
+          <li>
+            une entité a priori non incluse par défaut dans le périmètre des
+            entités régulées NIS&nbsp;2 peut être désignée entité essentielle ou
+            entité importante ;
+          </li>
+          <li>
+            une entité a priori importante par défaut peut être désignée entité
+            essentielle.
+          </li>
+        </ul>
+        Les critères de désignation unitaire sont les suivants :
+        <ul>
+          <li>
+            l&apos;entité est, dans un État membre, le seul prestataire
+            d&apos;un service qui est essentiel au maintien d&apos;activités
+            sociétales ou économiques critiques ;
+          </li>
+          <li>
+            une perturbation du service fourni par l&apos;entité pourrait avoir
+            un impact important sur la sécurité publique, la sûreté publique ou
+            la santé publique ;
+          </li>
+          <li>
+            une perturbation du service fourni par l&apos;entité pourrait
+            induire un risque systémique important, en particulier pour les
+            secteurs où cette perturbation pourrait avoir un impact
+            transfrontière ;
+          </li>
+          <li>
+            l&apos;entité est critique en raison de son importance spécifique au
+            niveau national ou régional pour le secteur ou le type de service en
+            question, ou pour d&apos;autres secteurs interdépendants dans
+            l&apos;État membre.
+          </li>
+        </ul>
+      </>
     ),
   },
 };

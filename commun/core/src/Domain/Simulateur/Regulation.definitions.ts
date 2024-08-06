@@ -78,11 +78,11 @@ export type ResultatEligibilite = {
 };
 
 export const CodesResumesPointsAttention = [
-  "MecanismeExemption",
-  "TelecomUE",
+  "MecanismeExemptionSecuriteNationale",
+  "TelecomFranceEtAutresEMdelUE",
+  "TelecomAutresEMdelUEUniquement",
   "NumeriqueUE",
-  "FournitureServicesUE",
-  "EtablissementPrincipalUE",
+  "NumeriqueEtabliEMUEhorsFrance",
   "EtabliUE",
   "RepresentantUE",
 ];
@@ -91,9 +91,8 @@ export type ResumesPointsAttention =
 
 export const CodesPrecisionsPointsAttention = [
   "ResilienceEntiteCritique",
-  "SecuriteNationale",
   "DORA",
-  "EnregistrementNomsDeDomaines",
+  "EnregistrementNomsDeDomaine",
   "CriteresDePossibleInclusion",
 ];
 export type PointsAttentionPrecis =
