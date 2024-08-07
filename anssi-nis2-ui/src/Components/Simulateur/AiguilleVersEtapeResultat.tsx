@@ -35,7 +35,7 @@ export function AiguilleVersEtapeResultat(props: {
   if (afficheLesDeux)
     return (
       <>
-        v1
+        {v1}
         <hr />
         {v2}
       </>
