@@ -85,6 +85,7 @@ export const CodesResumesPointsAttention = [
   "NumeriqueEtabliEMUEhorsFrance",
   "EtabliUE",
   "RepresentantUE",
+  "OSE"
 ];
 export type ResumesPointsAttention =
   (typeof CodesResumesPointsAttention)[number];

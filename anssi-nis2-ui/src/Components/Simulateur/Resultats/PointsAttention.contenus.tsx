@@ -80,6 +80,21 @@ export const TextesDesResumes: Record<ResumesPointsAttention, ReactElement> = {
       représentant est ou sera établi.
     </>
   ),
+  OSE: (
+    <>
+      Dans le cas où votre entité a été désignée Opérateur de Service Essentiel
+      au titre de NIS&nbsp;1{" "}
+      <a
+        href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32016L1148"
+        target="_blank"
+        rel="noreferrer"
+      >
+        (Directive (UE) 2016/1148)
+      </a>
+      , celle-ci sera désignée entité essentielle au titre de la réglementation
+      NIS&nbsp;2.
+    </>
+  ),
 };
 export const Precisions: Record<
   PointsAttentionPrecis,

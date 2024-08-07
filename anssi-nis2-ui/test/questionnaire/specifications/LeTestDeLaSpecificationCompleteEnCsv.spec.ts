@@ -11,6 +11,6 @@ describe("La lecture de la spécification complète en CSV", () => {
 
     const specifications = lecteur.lis(csv);
 
-    expect(specifications.nombre()).toBe(337);
+    expect(specifications.nombre()).toBe(673);
   });
 });
