@@ -22,6 +22,7 @@ export class RegleEntiteOSE implements Regle {
     if (!valeur) return;
     if (valeur === "Oui") return new RegleEntiteOSE(["oui"]);
     if (valeur === "Non") return new RegleEntiteOSE(["non"]);
+    if (valeur === "Ne sait pas") return new RegleEntiteOSE(["nsp"]);
     if (valeur === "Non [OU] Ne sait pas")
       return new RegleEntiteOSE(["non", "nsp"]);
 

@@ -82,6 +82,20 @@ describe("La fabrique de spécifications", () => {
       expect(specs.evalue(entiteNeSaitPas)).toBe(undefined);
     });
 
+    it("sait instancier une règle « Ne sait pas »", () => {
+      const specs = fabrique.transforme(
+        uneSpecification({
+          "Designation OSE": "Ne sait pas",
+          Resultat: "Régulée EE",
+        }),
+      );
+
+      expect(specs.nombreDeRegles()).toBe(1);
+      expect(specs.evalue(entiteOui)).toBe(undefined);
+      expect(specs.evalue(entiteNon)).toBe(undefined);
+      expect(specs.evalue(entiteNeSaitPas)).toMatchObject(reguleEE());
+    });
+
     it("sait instancier une règle « Non [OU] Ne sait pas »", () => {
       const specs = fabrique.transforme(
         uneSpecification({
