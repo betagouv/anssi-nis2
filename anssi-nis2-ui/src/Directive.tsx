@@ -280,6 +280,11 @@ const Directive: DefaultComponent = () => {
                     titre="Télécharger la plaquette d'informations NIS 2"
                     lien="/statique/Plaquette_NIS2_2024.pdf"
                   />
+                  <CarteEnSavoirPlus
+                    image={DirectiveIntegrale}
+                    titre="Download NIS&nbsp;2's information booklet"
+                    lien="/statique/Plaquette_NIS2_2024_English.pdf"
+                  />
                 </div>
               </BlocPrincipal>
             </div>
