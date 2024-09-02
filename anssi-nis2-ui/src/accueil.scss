@@ -38,6 +38,8 @@
     z-index: 1;
 
     .carte-concernes {
+      display: flex;
+      flex-direction: column;
       padding: 40px 32px 50px 32px;
       text-align: center;
       background: white;
@@ -49,6 +51,18 @@
 
       p {
         padding-bottom: 24px;
+      }
+
+      .actions {
+        display: flex;
+        gap: 32px;
+        flex-wrap: wrap;
+
+        a {
+          display: flex;
+          width: 100%;
+          justify-content: center;
+        }
       }
     }
   }

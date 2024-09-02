@@ -47,6 +47,14 @@
           font-size: 40px;
           padding: 0 24px;
         }
+
+        .actions {
+          margin: auto;
+
+          a {
+            width: fit-content;
+          }
+        }
       }
     }
 
