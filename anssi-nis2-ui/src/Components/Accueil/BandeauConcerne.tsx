@@ -11,9 +11,14 @@ const BandeauConcerne: DefaultComponent = () => {
           Réalisez un test pour déterminer si votre entité est régulée par la
           directive NIS&nbsp;2 et à quelle catégorie elle appartient.
         </p>
-        <Link to={"/simulateur"} className="fr-nis2-bouton-principal">
-          Débuter le test
-        </Link>
+        <div className="actions">
+          <Link to="/infolettre" className="fr-nis2-bouton-tertiaire">
+            M&apos;abonner à la newsletter
+          </Link>
+          <Link to="/simulateur" className="fr-nis2-bouton-principal">
+            Débuter le test
+          </Link>
+        </div>
       </div>
     </BlocPrincipal>
   );
