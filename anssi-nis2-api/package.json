@@ -6,10 +6,10 @@
   "private": true,
   "license": "See LICENSE file",
   "scripts": {
-    "build": "nest build",
+    "build": "knex migrate:latest && nest build",
     "prettier": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "nest start --watch",
+    "start:dev": "knex migrate:latest && nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/anssi-nis2-api/src/main",
     "test": "jest",
