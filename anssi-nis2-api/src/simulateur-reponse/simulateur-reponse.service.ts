@@ -16,8 +16,4 @@ export class SimulateurReponseService {
     simulateurReponse.reponseJson = JSON.stringify(reponses);
     return this.simulateurReponseRepository.save(simulateurReponse);
   }
-
-  trouveTout() {
-    return this.simulateurReponseRepository.find();
-  }
 }
