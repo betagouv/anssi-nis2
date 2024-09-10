@@ -1,2 +1,2 @@
 web: npm start
-postdeploy: npm run db:migrate
+postdeploy: npx knex migrate:latest
