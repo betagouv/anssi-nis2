@@ -89,8 +89,14 @@ export const Questionnaire = ({
       return (
         <AvecDemandeDeFeedback>
           <EtapeTailleEntitePrivee
-            onValider={(nombre, chiffreAffaire) =>
-              dispatch(valideTailleEntitePrivee(nombre, chiffreAffaire))
+            onValider={(nombre, chiffreAffaire, bilanFinancier) =>
+              dispatch(
+                valideTailleEntitePrivee(
+                  nombre,
+                  chiffreAffaire,
+                  bilanFinancier,
+                ),
+              )
             }
             onPrecedent={() => dispatch(undo())}
           />

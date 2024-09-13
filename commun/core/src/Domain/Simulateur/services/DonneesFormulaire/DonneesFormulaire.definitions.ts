@@ -2,6 +2,7 @@ import { Activite } from "../../Activite.definitions";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
+  TrancheBilanFinancier,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeEntitePublique,
@@ -23,6 +24,7 @@ export interface DonneesFormulaireSimulateur
   sousSecteurActivite: SousSecteurActivite[];
   trancheChiffreAffaire: TrancheChiffreAffaire[];
   trancheNombreEmployes: TrancheNombreEmployes[];
+  trancheBilanFinancier: TrancheBilanFinancier[];
   typeStructure: TypeStructure[];
   typeEntitePublique: TypeEntitePublique[];
   localisationFournitureServicesNumeriques: AppartenancePaysUnionEuropeenne[];
@@ -38,20 +40,20 @@ export type DonneesSectorielles = Pick<
 
 type PredicatsSurChamp<C extends NomsChampsSimulateur> = {
   contient: <T extends DonneesFormulaireSimulateur[C][number]>(
-    valeur: T,
+    valeur: T
   ) => (donnees: DonneesFormulaireSimulateur) => boolean;
   contientUnParmi: <T extends DonneesFormulaireSimulateur[C][number]>(
     ...listeValeur: T[]
   ) => (donnees: DonneesFormulaireSimulateur) => boolean;
   est: <T extends DonneesFormulaireSimulateur[C]>(
-    valeurs: T,
+    valeurs: T
   ) => (d: DonneesFormulaireSimulateur) => boolean;
   satisfait: (
-    f: <T extends DonneesFormulaireSimulateur[C]>(valeurs: T) => boolean,
+    f: <T extends DonneesFormulaireSimulateur[C]>(valeurs: T) => boolean
   ) => (d: DonneesFormulaireSimulateur) => boolean;
 };
 export type FabriquePredicatChamp = <C extends NomsChampsSimulateur>(
-  champ: C,
+  champ: C
 ) => PredicatsSurChamp<C>;
 export type ChampsAvecPredicats = {
   [K in NomsChampsSimulateur]: PredicatsSurChamp<K>;

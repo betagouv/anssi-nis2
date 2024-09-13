@@ -22,7 +22,7 @@ describe("fabrique ReponseEtat", () => {
         };
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-            donnees,
+            donnees
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
@@ -38,7 +38,7 @@ describe("fabrique ReponseEtat", () => {
         };
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-            donnees,
+            donnees
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
@@ -60,7 +60,7 @@ describe("fabrique ReponseEtat", () => {
         };
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-            donnees,
+            donnees
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
@@ -91,7 +91,7 @@ describe("fabrique ReponseEtat", () => {
         };
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-            donnees,
+            donnees
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
@@ -120,7 +120,7 @@ describe("fabrique ReponseEtat", () => {
         };
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-            donnees,
+            donnees
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
@@ -158,7 +158,7 @@ describe("fabrique ReponseEtat", () => {
         };
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-            donnees,
+            donnees
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
@@ -196,7 +196,7 @@ describe("fabrique ReponseEtat", () => {
         };
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-            donnees,
+            donnees
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
@@ -236,7 +236,7 @@ describe("fabrique ReponseEtat", () => {
         };
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-            donnees,
+            donnees
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
@@ -277,13 +277,13 @@ describe("fabrique ReponseEtat", () => {
               {
                 secteurActivite: "sante",
                 activites: ens("rechercheDeveloppementMedicament"),
-              },
+              }
             ),
           },
         };
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-            donnees,
+            donnees
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
@@ -329,7 +329,7 @@ describe("fabrique ReponseEtat", () => {
                 secteurActivite: "sante",
                 activites: ens(
                   "rechercheDeveloppementMedicament",
-                  "laboratoireReferenceUE",
+                  "laboratoireReferenceUE"
                 ),
               },
               {
@@ -337,15 +337,15 @@ describe("fabrique ReponseEtat", () => {
                 sousSecteurActivite: "fabricationEquipementsElectroniques",
                 activites: ens(
                   "fabriquantPilesAccumulateursElectriques",
-                  "fabriquantAppareilEclairage",
+                  "fabriquantAppareilEclairage"
                 ),
-              },
+              }
             ),
           },
         };
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-            donnees,
+            donnees
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
@@ -398,7 +398,7 @@ describe("fabrique ReponseEtat", () => {
                 secteurActivite: "sante",
                 activites: ens(
                   "rechercheDeveloppementMedicament",
-                  "laboratoireReferenceUE",
+                  "laboratoireReferenceUE"
                 ),
               },
               {
@@ -406,7 +406,7 @@ describe("fabrique ReponseEtat", () => {
                 sousSecteurActivite: "fabricationEquipementsElectroniques",
                 activites: ens(
                   "fabriquantPilesAccumulateursElectriques",
-                  "fabriquantAppareilEclairage",
+                  "fabriquantAppareilEclairage"
                 ),
               },
               {
@@ -415,20 +415,20 @@ describe("fabrique ReponseEtat", () => {
                   "fabricationProduitsInformatiquesElectroniquesOptiques",
                 activites: ens(
                   "fabriquantEquipementCommunication",
-                  "fabriquantProduitsElectroniquesGrandPublic",
+                  "fabriquantProduitsElectroniquesGrandPublic"
                 ),
               },
               {
                 secteurActivite: "transports",
                 sousSecteurActivite: "transportsFerroviaires",
                 activites: ens("entrepriseFerroviaire"),
-              },
+              }
             ),
           },
         };
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-            donnees,
+            donnees
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
@@ -475,13 +475,13 @@ describe("fabrique ReponseEtat", () => {
               {
                 secteurActivite: "transports",
                 sousSecteurActivite: "autreSousSecteurTransports",
-              },
+              }
             ),
           },
         };
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-            donnees,
+            donnees
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
@@ -519,7 +519,7 @@ describe("fabrique ReponseEtat", () => {
         };
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-            donnees,
+            donnees
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
@@ -560,12 +560,12 @@ describe("fabrique ReponseEtat", () => {
               _categorieTaille: "Moyen",
               secteurActivite: "infrastructureNumerique",
               activites: ens(
-                "fournisseurReseauxCommunicationElectroniquesPublics",
+                "fournisseurReseauxCommunicationElectroniquesPublics"
               ),
               localisationFournitureServicesNumeriques: ens(
                 "france",
                 "autre",
-                "horsue",
+                "horsue"
               ),
             }),
           },
@@ -573,7 +573,7 @@ describe("fabrique ReponseEtat", () => {
 
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-            donnees,
+            donnees
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
@@ -589,7 +589,7 @@ describe("fabrique ReponseEtat", () => {
         activites: ["registresNomsDomainesPremierNiveau"],
       });
       const fabriqueResultatAttenduPourLocaEtab: (
-        loca: LocalisationEtablissementPrincipal,
+        loca: LocalisationEtablissementPrincipal
       ) => UnionReponseEtat = (loca: LocalisationEtablissementPrincipal) => ({
         _tag: "InformationsSecteur",
         DesignationOperateurServicesEssentiels: {
@@ -627,7 +627,7 @@ describe("fabrique ReponseEtat", () => {
 
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-            donnees,
+            donnees
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
@@ -645,7 +645,7 @@ describe("fabrique ReponseEtat", () => {
 
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-            donnees,
+            donnees
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
@@ -665,7 +665,7 @@ describe("fabrique ReponseEtat", () => {
 
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-            donnees,
+            donnees
           );
         expect(resultatObtenu).toStrictEqual(resultatAttendu);
       });
@@ -677,6 +677,7 @@ describe("fabrique ReponseEtat", () => {
           sousSecteurActivite: [],
           trancheChiffreAffaire: ["moyen"],
           trancheNombreEmployes: ["petit"],
+          trancheBilanFinancier: ["petit"],
           typeStructure: ["privee"],
           typeEntitePublique: [],
           activites: ["fournisseurServicesGeres"],
@@ -711,7 +712,7 @@ describe("fabrique ReponseEtat", () => {
         };
         const resultatObtenu =
           ConvertisseurDonneesBrutesVersEtatDonneesSimulateur.depuisDonneesFormulaireSimulateur(
-            donnees,
+            donnees
           );
         expect(resultatObtenu).toStrictEqual(etatDonneeesSimuAttendu);
       });
