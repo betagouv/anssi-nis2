@@ -1,22 +1,10 @@
-import { isMatching, P } from "ts-pattern";
-import {
-  estNonVide,
-  et,
-  ou,
-} from "../../../../../../utils/services/commun.predicats";
-import { Activite } from "../../Activite.definitions";
+import { isMatching } from "ts-pattern";
 import { SecteurAvecBesoinLocalisationRepresentant } from "../../SecteurActivite.definitions";
 import { ValeursSecteursAvecBesoinLocalisationRepresentant } from "../../SecteurActivite.valeurs";
 import {
   auMoinsUneActiviteListee,
   estActiviteAutre,
 } from "../../Activite.predicats";
-import { auMoinsUn, exactementUn } from "../ChampSimulateur/champs.predicats";
-import {
-  auMoinsUnSecteurListe,
-  uniquementDesSecteursAutres,
-} from "../SecteurActivite/SecteurActivite.predicats";
-import { uniquementDesSousSecteursAutres } from "../SousSecteurActivite/SousSecteurActivite.predicats";
 import {
   estMoyenneEntreprise,
   estPetiteEntreprise,
@@ -100,63 +88,6 @@ export const predicatDonneesFormulaire = {
     {} as ChampsAvecPredicats
   ),
 };
-
-export const verifieCompletudeDonneesCommunes = et(
-  exactementUn("designationOperateurServicesEssentiels"),
-  exactementUn("appartenancePaysUnionEuropeenne"),
-  exactementUn("trancheNombreEmployes"),
-  exactementUn("typeStructure"),
-  auMoinsUn("secteurActivite")
-);
-
-export const verifieDonneesCommunesPrivee: (
-  donnees: DonneesFormulaireSimulateur
-) => boolean = isMatching({
-  trancheChiffreAffaire: [P._],
-  typeStructure: ["privee"],
-});
-export const verifieDonneesCommunesPublique = isMatching({
-  typeStructure: ["publique"],
-  typeEntitePublique: [P._],
-});
-
-const contientUniquementSecteurAutre = isMatching({
-  secteurActivite: P.when(uniquementDesSecteursAutres),
-  sousSecteurActivite: P.array(),
-  activites: P.array(),
-});
-const contientUniquementSousSecteurAutre = isMatching({
-  secteurActivite: P.when(auMoinsUnSecteurListe),
-  sousSecteurActivite: P.when(uniquementDesSousSecteursAutres),
-  activites: P.array(),
-});
-const contientSectorielleComplete = isMatching({
-  secteurActivite: P.when(auMoinsUnSecteurListe),
-  sousSecteurActivite: P.array(),
-  activites: P.when(estNonVide<Activite>),
-});
-
-export const verifieDonneesSectorielles = ou(
-  contientUniquementSecteurAutre,
-  contientUniquementSousSecteurAutre,
-  contientSectorielleComplete
-);
-
-export const verifieCompletudeDonneesFormulairePrivee = et(
-  verifieDonneesCommunesPrivee,
-  verifieDonneesSectorielles
-);
-export const verifieCompletudeDonneesFormulairePublique = et(
-  verifieDonneesCommunesPublique,
-  verifieDonneesSectorielles
-);
-export const donneesFormulaireSontCompletes = et(
-  verifieCompletudeDonneesCommunes,
-  ou(
-    verifieCompletudeDonneesFormulairePrivee,
-    verifieCompletudeDonneesFormulairePublique
-  )
-);
 
 export const contientSecteurNecessitantLocalisation = (
   d: DonneesSectorielles

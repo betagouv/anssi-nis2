@@ -4,6 +4,7 @@ import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import BlocPrincipal from "../../BlocPrincipal.tsx";
 import { FormSimulateur } from "../Etapes";
 import {
+  TrancheBilanFinancier,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
 } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
@@ -17,6 +18,7 @@ export function EtapeTailleEntitePrivee({
   onValider: (
     nombre: TrancheNombreEmployes[],
     chiffreAffaire: TrancheChiffreAffaire[],
+    bilanFinancier: TrancheBilanFinancier[],
   ) => void;
   onPrecedent: () => void;
 }) {
@@ -25,6 +27,9 @@ export function EtapeTailleEntitePrivee({
   );
   const [reponseChiffreAffaire, setReponseChiffreAffaire] = useState<
     TrancheChiffreAffaire[]
+  >([]);
+  const [reponseBilanFinancier, setReponseBilanFinancier] = useState<
+    TrancheBilanFinancier[]
   >([]);
 
   return (
@@ -79,15 +84,14 @@ export function EtapeTailleEntitePrivee({
                 },
               },
               {
-                label:
-                  "10 à 50 millions €, ou bilan annuel de 10 à 43 millions €",
+                label: "10 à 50 millions €",
                 nativeInputProps: {
                   checked: reponseChiffreAffaire[0] === "moyen",
                   onChange: () => setReponseChiffreAffaire(["moyen"]),
                 },
               },
               {
-                label: "≥ 50 millions €, ou bilan annuel ≥ 43 millions €",
+                label: "≥ 50 millions €",
                 nativeInputProps: {
                   checked: reponseChiffreAffaire[0] === "grand",
                   onChange: () => setReponseChiffreAffaire(["grand"]),
@@ -95,17 +99,63 @@ export function EtapeTailleEntitePrivee({
               },
             ]}
           />
+          {doitDemanderBilanFinancier(reponseNombre, reponseChiffreAffaire) && (
+            <RadioButtons
+              legend="Bilan financier annuel de l'année passée"
+              options={[
+                {
+                  label: "< 10 millions €",
+                  nativeInputProps: {
+                    checked: reponseBilanFinancier[0] === "petit",
+                    onChange: () => setReponseBilanFinancier(["petit"]),
+                  },
+                },
+                {
+                  label: "10 à 43 millions €",
+                  nativeInputProps: {
+                    checked: reponseBilanFinancier[0] === "moyen",
+                    onChange: () => setReponseBilanFinancier(["moyen"]),
+                  },
+                },
+                {
+                  label: "≥ 43 millions €",
+                  nativeInputProps: {
+                    checked: reponseBilanFinancier[0] === "grand",
+                    onChange: () => setReponseBilanFinancier(["grand"]),
+                  },
+                },
+              ]}
+            />
+          )}
         </div>
       </FormSimulateur>
 
       <PrecedentSuivant
         message="Sélectionnez une réponse pour chaque critère"
-        onSuivant={() => onValider(reponseNombre, reponseChiffreAffaire)}
+        onSuivant={() =>
+          onValider(reponseNombre, reponseChiffreAffaire, reponseBilanFinancier)
+        }
         suivantDisabled={
-          reponseNombre.length === 0 || reponseChiffreAffaire.length === 0
+          reponseNombre.length === 0 ||
+          reponseChiffreAffaire.length === 0 ||
+          (doitDemanderBilanFinancier(reponseNombre, reponseChiffreAffaire) &&
+            reponseBilanFinancier.length === 0)
         }
         onPrecedent={onPrecedent}
       />
     </BlocPrincipal>
   );
+}
+
+function doitDemanderBilanFinancier(
+  trancheNombre: TrancheNombreEmployes[],
+  trancheCa: TrancheChiffreAffaire[],
+): boolean {
+  const [nombre] = trancheNombre;
+  const [ca] = trancheCa;
+
+  if (nombre === "petit" && (ca === "moyen" || ca === "grand")) return true;
+  if (nombre === "moyen" && ca === "grand") return true;
+
+  return false;
 }

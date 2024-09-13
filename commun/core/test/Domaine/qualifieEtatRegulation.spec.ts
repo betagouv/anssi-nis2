@@ -106,6 +106,7 @@ describe("chaine de décision", () => {
       sousSecteurActivite: [],
       trancheChiffreAffaire: ["moyen"],
       trancheNombreEmployes: ["petit"],
+      trancheBilanFinancier: ['petit'],
       typeStructure: ["privee"],
       typeEntitePublique: [],
       activites: ["fournisseurServicesGeres"],

@@ -59,8 +59,8 @@ export const libellesTranchesNombreEmployes: Record<
 
 export const libellesTranchesCA: Record<TrancheChiffreAffaire, string> = {
   petit: "< 10 millions €",
-  moyen: "10 à 50 millions €, ou bilan annuel de 10 à 43 millions €",
-  grand: "≥ 50 millions €, ou bilan annuel ≥ 43 millions €",
+  moyen: "10 à 50 millions €",
+  grand: "≥ 50 millions €",
 };
 
 export const libellesSimulateur: DictionnaireLibellesSimulateur = {

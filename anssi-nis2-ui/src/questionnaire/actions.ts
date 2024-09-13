@@ -2,6 +2,7 @@ import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definit
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
+  TrancheBilanFinancier,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeStructure,
@@ -49,6 +50,7 @@ interface ActionValideTailleEntitePrivee {
   type: "VALIDE_ETAPE_TAILLE_ENTITE_PRIVEE";
   nombreEmployes: TrancheNombreEmployes[];
   chiffreAffaire: TrancheChiffreAffaire[];
+  bilanFinancier: TrancheBilanFinancier[];
 }
 
 interface ActionValideSecteursActivite {
@@ -106,10 +108,12 @@ export const valideTypeStructure = (
 export const valideTailleEntitePrivee = (
   nombreEmployes: TrancheNombreEmployes[],
   chiffreAffaire: TrancheChiffreAffaire[],
+  bilanFinancier: TrancheBilanFinancier[],
 ): ActionValideTailleEntitePrivee => ({
   type: "VALIDE_ETAPE_TAILLE_ENTITE_PRIVEE",
   nombreEmployes,
   chiffreAffaire,
+  bilanFinancier,
 });
 
 export const valideSecteursActivite = (

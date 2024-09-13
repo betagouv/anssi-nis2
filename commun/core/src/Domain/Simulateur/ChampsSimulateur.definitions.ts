@@ -22,6 +22,7 @@ export type TypeEntitePublique = UnionDe<typeof ValeursTypeEntitePublique>;
 export type UnionPetitMoyenGrand = UnionDe<typeof ValeursPetitMoyenGrand>;
 export type TrancheNombreEmployes = UnionPetitMoyenGrand;
 export type TrancheChiffreAffaire = UnionPetitMoyenGrand;
+export type TrancheBilanFinancier = UnionPetitMoyenGrand;
 export type FournitServicesUnionEuropeenne = UnionDe<typeof ValeursOuiNon>;
 export type ValeurChampSimulateur =
   | DesignationOperateurServicesEssentiels
