@@ -11,21 +11,36 @@ export class RegleTaille implements Regle {
   evalue(etat: EtatQuestionnaire): boolean {
     const employes = etat.trancheNombreEmployes;
     const ca = etat.trancheChiffreAffaire;
+    const bilan = etat.trancheBilanFinancier;
 
     let tailleReelle: UnionPetitMoyenGrand | undefined;
 
     const employesPetit = contientUnParmi("petit")(employes);
     if (employesPetit) {
       if (contientUnParmi("petit")(ca)) tailleReelle = "petit";
-      if (contientUnParmi("moyen")(ca)) tailleReelle = "moyen";
-      if (contientUnParmi("grand")(ca)) tailleReelle = "grand";
+
+      if (contientUnParmi("moyen")(ca)) {
+        if (contientUnParmi("petit")(bilan)) tailleReelle = "petit";
+        if (contientUnParmi("moyen")(bilan)) tailleReelle = "moyen";
+        if (contientUnParmi("grand")(bilan)) tailleReelle = "moyen";
+      }
+
+      if (contientUnParmi("grand")(ca)) {
+        if (contientUnParmi("petit")(bilan)) tailleReelle = "petit";
+        if (contientUnParmi("moyen")(bilan)) tailleReelle = "moyen";
+        if (contientUnParmi("grand")(bilan)) tailleReelle = "grand";
+      }
     }
 
     const employesMoyen = contientUnParmi("moyen")(employes);
     if (employesMoyen) {
       if (contientUnParmi("petit")(ca)) tailleReelle = "moyen";
       if (contientUnParmi("moyen")(ca)) tailleReelle = "moyen";
-      if (contientUnParmi("grand")(ca)) tailleReelle = "grand";
+      if (contientUnParmi("grand")(ca)) {
+        if (contientUnParmi("petit")(bilan)) tailleReelle = "moyen";
+        if (contientUnParmi("moyen")(bilan)) tailleReelle = "moyen";
+        if (contientUnParmi("grand")(bilan)) tailleReelle = "grand";
+      }
     }
 
     if (contientUnParmi("grand")(employes)) tailleReelle = "grand";

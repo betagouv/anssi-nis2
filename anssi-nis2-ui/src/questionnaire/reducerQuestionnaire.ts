@@ -2,6 +2,7 @@ import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definit
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
+  TrancheBilanFinancier,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeEntitePublique,
@@ -33,6 +34,7 @@ export type EtatQuestionnaire = {
   typeStructure: TypeStructure[];
   trancheNombreEmployes: TrancheNombreEmployes[];
   trancheChiffreAffaire: TrancheChiffreAffaire[];
+  trancheBilanFinancier: TrancheBilanFinancier[];
   secteurActivite: SecteurActivite[];
   sousSecteurActivite: SousSecteurActivite[];
   activites: Activite[];
@@ -50,6 +52,7 @@ export const etatParDefaut: EtatQuestionnaire = {
   typeStructure: [],
   trancheNombreEmployes: [],
   trancheChiffreAffaire: [],
+  trancheBilanFinancier: [],
   secteurActivite: [],
   sousSecteurActivite: [],
   activites: [],
@@ -124,6 +127,7 @@ const valideEtape = (
       return vaVers("secteursActivite", {
         trancheNombreEmployes: action.nombreEmployes,
         trancheChiffreAffaire: action.chiffreAffaire,
+        trancheBilanFinancier: action.bilanFinancier,
       });
 
     case "VALIDE_ETAPE_SECTEURS_ACTIVITE":
