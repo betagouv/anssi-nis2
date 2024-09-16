@@ -81,12 +81,15 @@ describe("Le reducer du Questionnaire", () => {
   describe("à la validation de l'étape « Taille d'entité privée »", () => {
     let etat: EtatQuestionnaire;
     beforeEach(() => {
-      etat = executer([valideTailleEntitePrivee(["petit"], ["moyen"])]);
+      etat = executer([
+        valideTailleEntitePrivee(["petit"], ["moyen"], ["grand"]),
+      ]);
     });
 
     it("sauvegarde les informations de l'étape", () => {
       expect(etat.trancheNombreEmployes).toEqual(["petit"]);
       expect(etat.trancheChiffreAffaire).toEqual(["moyen"]);
+      expect(etat.trancheBilanFinancier).toEqual(["grand"]);
     });
 
     it("passe à l'étape « Secteurs d'activité »", () => {
