@@ -4,209 +4,145 @@ import {
   EtatQuestionnaire,
 } from "../../../../src/questionnaire/reducerQuestionnaire";
 import { RegleTaille } from "../../../../src/questionnaire/specifications/regles/RegleTaille";
+import { UnionPetitMoyenGrand } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions";
 
 describe("La règle de « Taille »", () => {
-  it("considère comme « Petite » une entité de 1 à 49 salariés et CA < 10m€", () => {
-    const entite: EtatQuestionnaire = {
-      ...etatParDefaut,
-      trancheNombreEmployes: ["petit"],
-      trancheChiffreAffaire: ["petit"],
-    };
-    const spec = new RegleTaille("petit");
+  const tailles: Record<string, UnionPetitMoyenGrand> = {
+    Petite: "petit",
+    Moyenne: "moyen",
+    Grande: "grand",
+  };
+  const nbSalaries: Record<string, UnionPetitMoyenGrand> = {
+    "< 50": "petit",
+    ">= 50 et < 250": "moyen",
+    ">= 250": "grand",
+  };
+  const tranchesCa: Record<string, UnionPetitMoyenGrand> = {
+    "< 10M€": "petit",
+    ">= 10M€ et < 50M€": "moyen",
+    ">= 50M€": "grand",
+  };
+  const tranchesBilan: Record<string, UnionPetitMoyenGrand> = {
+    "< 10M€": "petit",
+    ">= 10M€ et < 43M€": "moyen",
+    ">= 43M€": "grand",
+  };
 
-    const resultat = spec.evalue(entite);
+  describe("lorsque seuls « nombre de salariés » et « chiffre d'affaires annuel » importent", () => {
+    const casDeTest: {
+      tailleAttendue: string;
+      salaries: string;
+      ca: string;
+    }[] = [
+      { tailleAttendue: "Petite", salaries: "< 50", ca: "< 10M€" },
+      { tailleAttendue: "Moyenne", salaries: ">= 50 et < 250", ca: "< 10M€" },
+      {
+        tailleAttendue: "Moyenne",
+        salaries: ">= 50 et < 250",
+        ca: ">= 10M€ et < 50M€",
+      },
+      { tailleAttendue: "Grande", salaries: ">= 250", ca: "< 10M€" },
+      { tailleAttendue: "Grande", salaries: ">= 250", ca: ">= 10M€ et < 50M€" },
+      { tailleAttendue: "Grande", salaries: ">= 250", ca: ">= 50M€" },
+    ];
 
-    expect(resultat).toBe(true);
+    it.each(casDeTest)(
+      "Nombre de salariés : $salaries . Chiffre d'affaires : $ca . Taille : $tailleAttendue ",
+      ({ tailleAttendue, salaries, ca }) => {
+        const entite: EtatQuestionnaire = {
+          ...etatParDefaut,
+          trancheNombreEmployes: [nbSalaries[salaries]],
+          trancheChiffreAffaire: [tranchesCa[ca]],
+        };
+
+        const spec = new RegleTaille(tailles[tailleAttendue]);
+
+        const resultat = spec.evalue(entite);
+
+        expect(resultat).toBe(true);
+      },
+    );
   });
 
-  it("considère comme « Petite » une entité de 1 à 49 salariés et CA de 10 à 50m€ et bilan financier < 10m€", () => {
-    const entite: EtatQuestionnaire = {
-      ...etatParDefaut,
-      trancheNombreEmployes: ["petit"],
-      trancheChiffreAffaire: ["moyen"],
-      trancheBilanFinancier: ["petit"],
-    };
-    const spec = new RegleTaille("petit");
+  describe("lorsque tous les critères importent", () => {
+    const casDeTest: {
+      tailleAttendue: string;
+      salaries: string;
+      ca: string;
+      bilanFinancier: string;
+    }[] = [
+      {
+        tailleAttendue: "Petite",
+        salaries: "< 50",
+        ca: ">= 10M€ et < 50M€",
+        bilanFinancier: "< 10M€",
+      },
+      {
+        tailleAttendue: "Moyenne",
+        salaries: "< 50",
+        ca: ">= 10M€ et < 50M€",
+        bilanFinancier: ">= 10M€ et < 43M€",
+      },
+      {
+        tailleAttendue: "Moyenne",
+        salaries: "< 50",
+        ca: ">= 10M€ et < 50M€",
+        bilanFinancier: ">= 43M€",
+      },
+      {
+        tailleAttendue: "Petite",
+        salaries: "< 50",
+        ca: ">= 50M€",
+        bilanFinancier: "< 10M€",
+      },
+      {
+        tailleAttendue: "Moyenne",
+        salaries: "< 50",
+        ca: ">= 50M€",
+        bilanFinancier: ">= 10M€ et < 43M€",
+      },
+      {
+        tailleAttendue: "Grande",
+        salaries: "< 50",
+        ca: ">= 50M€",
+        bilanFinancier: ">= 43M€",
+      },
+      {
+        tailleAttendue: "Moyenne",
+        salaries: ">= 50 et < 250",
+        ca: ">= 50M€",
+        bilanFinancier: "< 10M€",
+      },
+      {
+        tailleAttendue: "Moyenne",
+        salaries: ">= 50 et < 250",
+        ca: ">= 50M€",
+        bilanFinancier: ">= 10M€ et < 43M€",
+      },
+      {
+        tailleAttendue: "Grande",
+        salaries: ">= 50 et < 250",
+        ca: ">= 50M€",
+        bilanFinancier: ">= 43M€",
+      },
+    ];
 
-    const resultat = spec.evalue(entite);
+    it.each(casDeTest)(
+      "Nombre de salariés : $salaries . Chiffre d'affaires : $ca . Bilan: $bilanFinancier . Taille : $tailleAttendue ",
+      ({ tailleAttendue, salaries, ca, bilanFinancier }) => {
+        const entite: EtatQuestionnaire = {
+          ...etatParDefaut,
+          trancheNombreEmployes: [nbSalaries[salaries]],
+          trancheChiffreAffaire: [tranchesCa[ca]],
+          trancheBilanFinancier: [tranchesBilan[bilanFinancier]],
+        };
 
-    expect(resultat).toBe(true);
-  });
+        const spec = new RegleTaille(tailles[tailleAttendue]);
 
-  it("considère comme « Moyenne » une entité de 1 à 49 salariés et CA de 10 à 50m€ et bilan financier entre 10m€ et 43m€", () => {
-    const entite: EtatQuestionnaire = {
-      ...etatParDefaut,
-      trancheNombreEmployes: ["petit"],
-      trancheChiffreAffaire: ["moyen"],
-      trancheBilanFinancier: ["moyen"],
-    };
-    const spec = new RegleTaille("moyen");
+        const resultat = spec.evalue(entite);
 
-    const resultat = spec.evalue(entite);
-
-    expect(resultat).toBe(true);
-  });
-
-  it("considère comme « Moyenne » une entité de 1 à 49 salariés et CA de 10 à 50m€ et bilan financier >= 43m€", () => {
-    const entite: EtatQuestionnaire = {
-      ...etatParDefaut,
-      trancheNombreEmployes: ["petit"],
-      trancheChiffreAffaire: ["moyen"],
-      trancheBilanFinancier: ["grand"],
-    };
-    const spec = new RegleTaille("moyen");
-
-    const resultat = spec.evalue(entite);
-
-    expect(resultat).toBe(true);
-  });
-
-  it("considère comme « Petite » une entité de 1 à 49 salariés et CA > 50m€ et bilan financier < 10m€", () => {
-    const entite: EtatQuestionnaire = {
-      ...etatParDefaut,
-      trancheNombreEmployes: ["petit"],
-      trancheChiffreAffaire: ["grand"],
-      trancheBilanFinancier: ["petit"],
-    };
-    const spec = new RegleTaille("petit");
-
-    const resultat = spec.evalue(entite);
-
-    expect(resultat).toBe(true);
-  });
-
-  it("considère comme « Moyenne » une entité de 1 à 49 salariés et CA > 50m€ et bilan financier entre 10m€ et 43m€", () => {
-    const entite: EtatQuestionnaire = {
-      ...etatParDefaut,
-      trancheNombreEmployes: ["petit"],
-      trancheChiffreAffaire: ["grand"],
-      trancheBilanFinancier: ["moyen"],
-    };
-    const spec = new RegleTaille("moyen");
-
-    const resultat = spec.evalue(entite);
-
-    expect(resultat).toBe(true);
-  });
-
-  it("considère comme « Grande » une entité de 1 à 49 salariés et CA > 50m€ et bilan financier > 43m€", () => {
-    const entite: EtatQuestionnaire = {
-      ...etatParDefaut,
-      trancheNombreEmployes: ["petit"],
-      trancheChiffreAffaire: ["grand"],
-      trancheBilanFinancier: ["grand"],
-    };
-    const spec = new RegleTaille("grand");
-
-    const resultat = spec.evalue(entite);
-
-    expect(resultat).toBe(true);
-  });
-
-  it("considère comme « Moyenne » une entité de 50 à 249 salariés et CA < 10m€", () => {
-    const entite: EtatQuestionnaire = {
-      ...etatParDefaut,
-      trancheNombreEmployes: ["moyen"],
-      trancheChiffreAffaire: ["petit"],
-    };
-    const spec = new RegleTaille("moyen");
-
-    const resultat = spec.evalue(entite);
-
-    expect(resultat).toBe(true);
-  });
-
-  it("considère comme « Moyenne » une entité de 50 à 249 salariés et CA de 10 à 50m€", () => {
-    const entite: EtatQuestionnaire = {
-      ...etatParDefaut,
-      trancheNombreEmployes: ["moyen"],
-      trancheChiffreAffaire: ["moyen"],
-    };
-    const spec = new RegleTaille("moyen");
-
-    const resultat = spec.evalue(entite);
-
-    expect(resultat).toBe(true);
-  });
-
-  it("considère comme « Moyenne » une entité de 50 à 249 salariés et CA > 50m€ et bilan < 10m€", () => {
-    const entite: EtatQuestionnaire = {
-      ...etatParDefaut,
-      trancheNombreEmployes: ["moyen"],
-      trancheChiffreAffaire: ["grand"],
-      trancheBilanFinancier: ["petit"],
-    };
-    const spec = new RegleTaille("moyen");
-
-    const resultat = spec.evalue(entite);
-
-    expect(resultat).toBe(true);
-  });
-
-  it("considère comme « Moyenne » une entité de 50 à 249 salariés et CA > 50m€ et bilan entre 10m€ et 43m€", () => {
-    const entite: EtatQuestionnaire = {
-      ...etatParDefaut,
-      trancheNombreEmployes: ["moyen"],
-      trancheChiffreAffaire: ["grand"],
-      trancheBilanFinancier: ["moyen"],
-    };
-    const spec = new RegleTaille("moyen");
-
-    const resultat = spec.evalue(entite);
-
-    expect(resultat).toBe(true);
-  });
-
-  it("considère comme « Grande » une entité de 50 à 249 salariés et CA > 50m€ et bilan > 43m€", () => {
-    const entite: EtatQuestionnaire = {
-      ...etatParDefaut,
-      trancheNombreEmployes: ["moyen"],
-      trancheChiffreAffaire: ["grand"],
-      trancheBilanFinancier: ["grand"],
-    };
-    const spec = new RegleTaille("grand");
-
-    const resultat = spec.evalue(entite);
-
-    expect(resultat).toBe(true);
-  });
-
-  it("considère comme « Grande » une entité > 250 salariés et CA < 10m€", () => {
-    const entite: EtatQuestionnaire = {
-      ...etatParDefaut,
-      trancheNombreEmployes: ["grand"],
-      trancheChiffreAffaire: ["petit"],
-    };
-    const spec = new RegleTaille("grand");
-
-    const resultat = spec.evalue(entite);
-
-    expect(resultat).toBe(true);
-  });
-
-  it("considère comme « Grande » une entité > 250 salariés et CA de 10 à 50m€", () => {
-    const entite: EtatQuestionnaire = {
-      ...etatParDefaut,
-      trancheNombreEmployes: ["grand"],
-      trancheChiffreAffaire: ["moyen"],
-    };
-    const spec = new RegleTaille("grand");
-
-    const resultat = spec.evalue(entite);
-
-    expect(resultat).toBe(true);
-  });
-
-  it("considère comme « Grande » une entité > 250 salariés et CA > 50m€", () => {
-    const entite: EtatQuestionnaire = {
-      ...etatParDefaut,
-      trancheNombreEmployes: ["grand"],
-      trancheChiffreAffaire: ["grand"],
-    };
-    const spec = new RegleTaille("grand");
-
-    const resultat = spec.evalue(entite);
-
-    expect(resultat).toBe(true);
+        expect(resultat).toBe(true);
+      },
+    );
   });
 });
