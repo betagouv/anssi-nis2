@@ -60,22 +60,34 @@ export const etatParDefaut: EtatQuestionnaire = {
   paysPlusGrandNombreSalaries: [],
 };
 
-const doitPasserParLocalisationFournitureServicesNumeriques = contientUnParmi(
-  "fournisseurReseauxCommunicationElectroniquesPublics",
-  "fournisseurServiceCommunicationElectroniquesPublics",
-);
-const contientUnSecteurTicOuFournisseurNumerique = contientUnParmi(
-  "gestionServicesTic",
-  "fournisseursNumeriques",
-);
-const contientActiviteFournisseurServicesNumeriques = contientUnParmi(
-  "registresNomsDomainesPremierNiveau",
-  "fournisseurServicesDNS",
-  "fournisseurServicesInformatiqueNuage",
-  "fournisseurServiceCentresDonnees",
-  "fournisseurReseauxDiffusionContenu",
-  "fournisseurServicesEnregristrementNomDomaine",
-);
+const doitPasserParLocalisationFournitureServicesNumeriques = (
+  activites: Activite[],
+) =>
+  contientUnParmi(
+    "fournisseurReseauxCommunicationElectroniquesPublics",
+    "fournisseurServiceCommunicationElectroniquesPublics",
+  )(activites);
+
+const doitPasserParLocalisationEtablissementPrincipal = (
+  secteurs: SecteurActivite[],
+  activites: Activite[],
+) => {
+  const ticOuFournisseurNumerique = contientUnParmi(
+    "gestionServicesTic",
+    "fournisseursNumeriques",
+  )(secteurs);
+
+  const activiteFournisseurServiceNumerique = contientUnParmi(
+    "registresNomsDomainesPremierNiveau",
+    "fournisseurServicesDNS",
+    "fournisseurServicesInformatiqueNuage",
+    "fournisseurServiceCentresDonnees",
+    "fournisseurReseauxDiffusionContenu",
+    "fournisseurServicesEnregristrementNomDomaine",
+  )(activites);
+
+  return ticOuFournisseurNumerique || activiteFournisseurServiceNumerique;
+};
 
 const vaVers = (
   etape: TypeEtape,
@@ -134,19 +146,24 @@ const valideEtape = (
         { sousSecteurActivite: action.sousSecteurs },
       );
 
-    case "VALIDE_ETAPE_ACTIVITES":
+    case "VALIDE_ETAPE_ACTIVITES": {
+      const etablissementPrincipal =
+        doitPasserParLocalisationEtablissementPrincipal(
+          etat.secteurActivite,
+          action.activites,
+        );
+      const fournitureServicesNumeriques =
+        doitPasserParLocalisationFournitureServicesNumeriques(action.activites);
+
       return vaVers(
-        contientUnSecteurTicOuFournisseurNumerique(etat.secteurActivite) ||
-          contientActiviteFournisseurServicesNumeriques(action.activites)
+        etablissementPrincipal
           ? "localisationEtablissementPrincipal"
-          : doitPasserParLocalisationFournitureServicesNumeriques(
-              action.activites,
-            )
+          : fournitureServicesNumeriques
           ? "localisationFournitureServicesNumeriques"
           : "resultat",
         { activites: action.activites },
       );
-
+    }
     case "VALIDE_ETAPE_LOCALISATION_ETABLISSEMENT_PRINCIPAL":
       return vaVers(
         doitPasserParLocalisationFournitureServicesNumeriques(etat.activites)
