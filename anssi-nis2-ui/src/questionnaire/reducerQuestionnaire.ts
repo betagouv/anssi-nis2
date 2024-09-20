@@ -91,23 +91,28 @@ const valideEtape = (
   switch (action.type) {
     case "VALIDE_ETAPE_PREALABLE":
       return vaVers("designationOperateurServicesEssentiels");
+
     case "VALIDE_ETAPE_DESIGNATION":
       return vaVers("appartenanceUnionEuropeenne", {
         designationOperateurServicesEssentiels: action.designations,
       });
+
     case "VALIDE_ETAPE_APPARTENANCE_UE":
       return vaVers("typeStructure", {
         appartenancePaysUnionEuropeenne: action.appartenances,
       });
+
     case "VALIDE_ETAPE_TYPE_STRUCTURE":
       return vaVers("tailleEntitePrivee", {
         typeStructure: action.types,
       });
+
     case "VALIDE_ETAPE_TAILLE_ENTITE_PRIVEE":
       return vaVers("secteursActivite", {
         trancheNombreEmployes: action.nombreEmployes,
         trancheChiffreAffaire: action.chiffreAffaire,
       });
+
     case "VALIDE_ETAPE_SECTEURS_ACTIVITE":
       return vaVers(
         tous(estSecteurAutre)(action.secteurs)
@@ -115,10 +120,9 @@ const valideEtape = (
           : certains(estUnSecteurAvecDesSousSecteurs)(action.secteurs)
           ? "sousSecteursActivite"
           : "activites",
-        {
-          secteurActivite: action.secteurs,
-        },
+        { secteurActivite: action.secteurs },
       );
+
     case "VALIDE_ETAPE_SOUS_SECTEURS_ACTIVITE":
       return vaVers(
         etat.secteurActivite.every(
@@ -126,10 +130,9 @@ const valideEtape = (
         ) && action.sousSecteurs.every(estSousSecteurAutre)
           ? "resultat"
           : "activites",
-        {
-          sousSecteurActivite: action.sousSecteurs,
-        },
+        { sousSecteurActivite: action.sousSecteurs },
       );
+
     case "VALIDE_ETAPE_ACTIVITES":
       return vaVers(
         contientUnSecteurTicOuFournisseurNumerique(etat.secteurActivite) ||
@@ -138,20 +141,21 @@ const valideEtape = (
           : contientActiviteFournisseurNumeriquePublic(action.activites)
           ? "localisationFournitureServicesNumeriques"
           : "resultat",
-        {
-          activites: action.activites,
-        },
+        { activites: action.activites },
       );
+
     case "VALIDE_ETAPE_LOCALISATION_ETABLISSEMENT_PRINCIPAL":
       return vaVers("resultat", {
         paysDecisionsCyber: action.paysDecision,
         paysOperationsCyber: action.paysOperation,
         paysPlusGrandNombreSalaries: action.paysSalaries,
       });
+
     case "VALIDE_ETAPE_LOCALISATION_SERVICES_NUMERIQUES":
       return vaVers("resultat", {
         localisationFournitureServicesNumeriques: action.pays,
       });
+
     default:
       return {};
   }
@@ -159,8 +163,8 @@ const valideEtape = (
 
 export const reducerQuestionnaire = (
   etat: EtatQuestionnaire,
-  actionTraitee: ActionQuestionnaire | ActionUndo,
+  action: ActionQuestionnaire | ActionUndo,
 ): EtatQuestionnaire => ({
   ...etat,
-  ...valideEtape(actionTraitee, etat),
+  ...valideEtape(action, etat),
 });
