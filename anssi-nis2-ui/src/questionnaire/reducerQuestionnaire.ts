@@ -60,7 +60,7 @@ export const etatParDefaut: EtatQuestionnaire = {
   paysPlusGrandNombreSalaries: [],
 };
 
-const contientActiviteFournisseurNumeriquePublic = contientUnParmi(
+const doitPasserParLocalisationFournitureServicesNumeriques = contientUnParmi(
   "fournisseurReseauxCommunicationElectroniquesPublics",
   "fournisseurServiceCommunicationElectroniquesPublics",
 );
@@ -139,7 +139,9 @@ const valideEtape = (
         contientUnSecteurTicOuFournisseurNumerique(etat.secteurActivite) ||
           contientActiviteFournisseurServicesNumeriques(action.activites)
           ? "localisationEtablissementPrincipal"
-          : contientActiviteFournisseurNumeriquePublic(action.activites)
+          : doitPasserParLocalisationFournitureServicesNumeriques(
+              action.activites,
+            )
           ? "localisationFournitureServicesNumeriques"
           : "resultat",
         { activites: action.activites },
@@ -147,7 +149,7 @@ const valideEtape = (
 
     case "VALIDE_ETAPE_LOCALISATION_ETABLISSEMENT_PRINCIPAL":
       return vaVers(
-        contientActiviteFournisseurNumeriquePublic(etat.activites)
+        doitPasserParLocalisationFournitureServicesNumeriques(etat.activites)
           ? "localisationFournitureServicesNumeriques"
           : "resultat",
         {
