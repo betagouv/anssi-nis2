@@ -260,7 +260,31 @@ describe("Le reducer du Questionnaire", () => {
       expect(etat.paysPlusGrandNombreSalaries).toEqual(["france"]);
     });
 
-    it("navigue vers l'étape « Résultat »", () => {
+    describe("navigue vers l'étape « Localisation de la fourniture des services numériques »", () => {
+      const activitesVersLocalisationServiceNumerique: Activite[] = [
+        "fournisseurReseauxCommunicationElectroniquesPublics",
+        "fournisseurServiceCommunicationElectroniquesPublics",
+      ];
+      it.each(activitesVersLocalisationServiceNumerique)(
+        `... si l'activité « %s » est présente car elle a été sélectionnée à l'étape « Activités »`,
+        (activite) => {
+          const activitesNecessitantLesDeuxEtapesExtra: Activite[] = [
+            "fournisseurServicesDNS", // Fournisseur DNS fait passer par « Établissement principal activite »
+            activite, // … puis on ajoute l'activité qui doit faire passer par « Fourniture des services numériques »
+          ];
+          const etat = executer([
+            valideActivites(activitesNecessitantLesDeuxEtapesExtra),
+            valideLocalisationEtablissementPrincipal(["france"], [], []),
+          ]);
+
+          expect(etat.etapeCourante).toBe(
+            "localisationFournitureServicesNumeriques",
+          );
+        },
+      );
+    });
+
+    it("autrement, navigue vers l'étape « Résultat »", () => {
       const etat = executer([
         valideLocalisationEtablissementPrincipal(["france"], [], []),
       ]);
