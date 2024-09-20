@@ -74,6 +74,7 @@ const contientActiviteFournisseurServicesNumeriques = contientUnParmi(
   "fournisseurServicesInformatiqueNuage",
   "fournisseurServiceCentresDonnees",
   "fournisseurReseauxDiffusionContenu",
+  "fournisseurServicesEnregristrementNomDomaine",
 );
 
 const vaVers = (

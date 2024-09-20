@@ -193,6 +193,7 @@ describe("Le reducer du Questionnaire", () => {
         "fournisseurServicesInformatiqueNuage",
         "fournisseurServiceCentresDonnees",
         "fournisseurReseauxDiffusionContenu",
+        "fournisseurServicesEnregristrementNomDomaine",
       ];
       it.each(activitesVersLocalisationEtablissement)(
         `... si l'activité « %s » est présente`,
