@@ -6,8 +6,6 @@ import { NestExpressApplication } from "@nestjs/platform-express";
 import { IpFilter } from "express-ipfilter";
 import { join } from "path";
 
-const listeningPort = process.env.PORT || 3000;
-
 const activeFiltrageIp = (app: NestExpressApplication) => {
   const ipAutorisees = process.env.ADRESSES_IP_AUTORISEES?.split(",") ?? [];
   const activerFiltrageIp = ipAutorisees.length > 0;
@@ -52,7 +50,7 @@ const sersFichiersStatiques = (app: NestExpressApplication) => {
   });
 };
 
-export async function creeServeur() {
+export async function creeServeur(port: number) {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     logger: logLevel,
   });
@@ -65,7 +63,7 @@ export async function creeServeur() {
   sersFichiersStatiques(app);
 
   return {
-    ecoute: async () => await app.listen(listeningPort),
-    arrete: async () => await app.close(),
+    ecoute: () => app.listen(port),
+    arrete: () => app.close(),
   };
 }

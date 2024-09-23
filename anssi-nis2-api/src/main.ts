@@ -1,3 +1,5 @@
 import { creeServeur } from "./serveur";
 
-creeServeur().then((serveur) => serveur.ecoute());
+const portEcoute = Number(process.env.PORT) || 3000;
+
+creeServeur(portEcoute).then((serveur) => serveur.ecoute());
