@@ -4,7 +4,7 @@ import { AdaptateurPersistance } from "./adaptateurPersistance";
 import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 
 export class AdaptateurPersistancePostgres implements AdaptateurPersistance {
-  knex: Knex.Knex;
+  private readonly knex: Knex.Knex;
 
   constructor() {
     this.knex = Knex(configurationKnex);

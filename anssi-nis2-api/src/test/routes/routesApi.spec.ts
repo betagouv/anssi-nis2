@@ -7,6 +7,10 @@ import { AdaptateurPersistanceMemoire } from "../../adaptateurs/adaptateurPersis
 import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { donneesFormulaireSimulateurVide } from "~core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes";
 import { AdaptateurJournalMemoire } from "../../adaptateurs/adaptateurJournal.memoire";
+import {
+  EvenementJournal,
+  TypeEvenement,
+} from "../../adaptateurs/adaptateurJournal";
 
 describe("Le routeur '/api/", () => {
   let serveur: ServeurMonEspaceNIS2;
@@ -14,6 +18,7 @@ describe("Le routeur '/api/", () => {
   let adaptateurJournal: AdaptateurJournalMemoire;
 
   beforeEach(async () => {
+    jest.useFakeTimers();
     adaptateurPersistance = new AdaptateurPersistanceMemoire();
     adaptateurJournal = new AdaptateurJournalMemoire();
     serveur = await creeServeur(1234, ImplementationDuServeur.Express, {
@@ -24,6 +29,7 @@ describe("Le routeur '/api/", () => {
   });
 
   afterEach(() => {
+    jest.useRealTimers();
     serveur.arrete();
   });
 
@@ -67,11 +73,15 @@ describe("Le routeur '/api/", () => {
     });
 
     it("délègue à l'adaptateur Journal la consigne d'un événement de réponse reçue", async () => {
-      let donneesRecues: DonneesFormulaireSimulateur;
-      adaptateurJournal.consigneReponseSimulateur = async (
-        donnees: DonneesFormulaireSimulateur,
+      const aujourdhui = new Date("2024-09-24");
+
+      jest.useFakeTimers().setSystemTime(aujourdhui);
+
+      let evenementRecu: EvenementJournal<TypeEvenement.ReponseSimulateurRecue>;
+      adaptateurJournal.consigneEvenement = async (
+        evenement: EvenementJournal<TypeEvenement.ReponseSimulateurRecue>,
       ) => {
-        donneesRecues = donnees;
+        evenementRecu = evenement;
       };
 
       await fetch("http://localhost:1234/api/simulateur-reponse", {
@@ -83,7 +93,9 @@ describe("Le routeur '/api/", () => {
         body: JSON.stringify(donneesFormulaireSimulateurVide),
       });
 
-      expect(donneesRecues).toStrictEqual({
+      expect(evenementRecu.type).toBe("REPONSE_SIMULATEUR_RECUE");
+      expect(evenementRecu.date).toEqual(aujourdhui);
+      expect(evenementRecu.donnees).toStrictEqual({
         designationOperateurServicesEssentiels: [],
         appartenancePaysUnionEuropeenne: [],
         secteurActivite: [],

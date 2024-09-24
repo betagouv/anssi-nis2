@@ -1,6 +1,10 @@
 import * as express from "express";
 import { AdaptateurPersistance } from "../adaptateurs/adaptateurPersistance";
-import { AdaptateurJournal } from "../adaptateurs/adaptateurJournal";
+import {
+  AdaptateurJournal,
+  TypeEvenement,
+} from "../adaptateurs/adaptateurJournal";
+import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 
 export const routesApi = ({
   adaptateurPersistance,
@@ -13,7 +17,13 @@ export const routesApi = ({
 
   routes.post("/simulateur-reponse", async (requete, reponse) => {
     await adaptateurPersistance.sauvegardeReponseFormulaire(requete.body);
-    await adaptateurJournal.consigneReponseSimulateur(requete.body);
+    await adaptateurJournal.consigneEvenement<TypeEvenement.ReponseSimulateurRecue>(
+      {
+        type: TypeEvenement.ReponseSimulateurRecue,
+        donnees: requete.body as DonneesFormulaireSimulateur,
+        date: new Date(),
+      },
+    );
 
     reponse.sendStatus(201);
   });
