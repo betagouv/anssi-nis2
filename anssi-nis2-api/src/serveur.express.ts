@@ -20,10 +20,7 @@ export async function creeServeurExpress(
   app.use("/statique", express.static(join(__dirname, "../../../statique")));
   app.use(express.json());
 
-  app.use(
-    "/api",
-    routesApi({ adaptateurPersistance: dependances.adaptateurPersistance }),
-  );
+  app.use("/api", routesApi({ ...dependances }));
 
   // Matcher "*" en dernier pour que le routing React fonctionne
   app.get("*", (_req, res) => res.sendFile(appReact().fichierIndex()));
