@@ -11,6 +11,7 @@ import {
   EvenementJournal,
   TypeEvenement,
 } from "../../adaptateurs/adaptateurJournal";
+import { POST } from "../utilitaires/http";
 
 describe("Le routeur '/api/", () => {
   let serveur: ServeurMonEspaceNIS2;
@@ -42,16 +43,9 @@ describe("Le routeur '/api/", () => {
         donneesRecues = donnees;
       };
 
-      const reponse = await fetch(
-        "http://localhost:1234/api/simulateur-reponse",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(donneesFormulaireSimulateurVide),
-        },
+      const reponse = await POST(
+        "/api/simulateur-reponse",
+        donneesFormulaireSimulateurVide,
       );
 
       expect(reponse.status).toBe(201);
@@ -84,14 +78,7 @@ describe("Le routeur '/api/", () => {
         evenementRecu = evenement;
       };
 
-      await fetch("http://localhost:1234/api/simulateur-reponse", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(donneesFormulaireSimulateurVide),
-      });
+      await POST(`/api/simulateur-reponse`, donneesFormulaireSimulateurVide);
 
       expect(evenementRecu.type).toBe("REPONSE_SIMULATEUR_RECUE");
       expect(evenementRecu.date).toEqual(aujourdhui);
