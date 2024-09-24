@@ -1,7 +1,7 @@
 import { creeServeur } from "./serveur";
 import { DependanceServeur, ImplementationDuServeur } from "./serveur.types";
 import { AdaptateurPersistancePostgres } from "./adaptateurs/adaptateurPersistance.postgres";
-import { AdaptateurJournalMemoire } from "./adaptateurs/adaptateurJournal.memoire";
+import { AdaptateurJournalPostgres } from "./adaptateurs/adaptateurJournal.postgres";
 const { Nest, Express } = ImplementationDuServeur;
 
 const portEcoute = Number(process.env.PORT) || 3000;
@@ -13,7 +13,7 @@ const dependances: DependanceServeur =
   process.env.AVEC_IMPLEMENTATION_EXPRESSJS === "true"
     ? {
         adaptateurPersistance: new AdaptateurPersistancePostgres(),
-        adaptateurJournal: new AdaptateurJournalMemoire(),
+        adaptateurJournal: new AdaptateurJournalPostgres(),
       }
     : null;
 

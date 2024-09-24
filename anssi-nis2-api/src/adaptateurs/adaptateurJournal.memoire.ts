@@ -1,10 +1,15 @@
-import { AdaptateurJournal } from "./adaptateurJournal";
-import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
+import {
+  AdaptateurJournal,
+  EvenementJournal,
+  TypeEvenement,
+} from "./adaptateurJournal";
 
 export class AdaptateurJournalMemoire implements AdaptateurJournal {
-  private readonly donnees = [];
+  private readonly reponses: EvenementJournal<TypeEvenement>[] = [];
 
-  async consigneReponseSimulateur(donnees: DonneesFormulaireSimulateur) {
-    this.donnees.push(donnees);
+  async consigneEvenement<T extends TypeEvenement>(
+    evenement: EvenementJournal<T>,
+  ) {
+    this.reponses.push(evenement);
   }
 }
