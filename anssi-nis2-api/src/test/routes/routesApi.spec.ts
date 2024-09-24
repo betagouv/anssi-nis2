@@ -12,6 +12,7 @@ import {
   TypeEvenement,
 } from "../../adaptateurs/adaptateurJournal";
 import { POST } from "../utilitaires/http";
+import { CreeInformationsEmailDto } from "../../informations-emails/dto/cree-informations-email.dto";
 
 describe("Le routeur '/api/", () => {
   let serveur: ServeurMonEspaceNIS2;
@@ -96,6 +97,32 @@ describe("Le routeur '/api/", () => {
         paysDecisionsCyber: [],
         paysOperationsCyber: [],
         paysPlusGrandNombreSalaries: [],
+      });
+    });
+  });
+
+  describe("sur la route POST '/api/informations-emails'", () => {
+    it("délègue à l'adaptateur de persistance la sauvegarde des données", async () => {
+      let donneesRecues: CreeInformationsEmailDto;
+      adaptateurPersistance.sauvegardeInformationsEmail = async (
+        donnees: CreeInformationsEmailDto,
+      ) => {
+        donneesRecues = donnees;
+      };
+
+      const reponse = await POST("/api/informations-emails", {
+        email: "jean@mail.com",
+        nomOrganisation: "Entreprise",
+        accepteInfolettreNis2: true,
+        accepteInfolettreServicesDedies: false,
+      });
+
+      expect(reponse.status).toBe(201);
+      expect(donneesRecues).toStrictEqual({
+        email: "jean@mail.com",
+        nomOrganisation: "Entreprise",
+        accepteInfolettreNis2: true,
+        accepteInfolettreServicesDedies: false,
       });
     });
   });

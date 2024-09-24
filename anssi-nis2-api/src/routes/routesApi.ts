@@ -28,5 +28,10 @@ export const routesApi = ({
     reponse.sendStatus(201);
   });
 
+  routes.post("/informations-emails", async (requete, reponse) => {
+    await adaptateurPersistance.sauvegardeInformationsEmail(requete.body);
+    reponse.sendStatus(201);
+  });
+
   return routes;
 };
