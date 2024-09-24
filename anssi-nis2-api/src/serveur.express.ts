@@ -1,13 +1,15 @@
 import * as http from "node:http";
 import * as express from "express";
-import { ServeurMonEspaceNIS2 } from "./serveur.types";
+import { DependanceServeur, ServeurMonEspaceNIS2 } from "./serveur.types";
 import { join } from "path";
 import { IpFilter } from "express-ipfilter";
 import { Express } from "express";
 import { extraisIp } from "./http/requeteHttp";
+import { routesApi } from "./routes/routesApi";
 
 export async function creeServeurExpress(
   port: number,
+  dependances: DependanceServeur,
 ): Promise<ServeurMonEspaceNIS2> {
   const app = express();
 
@@ -16,18 +18,22 @@ export async function creeServeurExpress(
 
   app.use(express.static(appReact().cheminDuBuild()));
   app.use("/statique", express.static(join(__dirname, "../../../statique")));
+  app.use(express.json());
+
+  app.use(
+    "/api",
+    routesApi({ adaptateurPersistance: dependances.adaptateurPersistance }),
+  );
 
   // Matcher "*" en dernier pour que le routing React fonctionne
   app.get("*", (_req, res) => res.sendFile(appReact().fichierIndex()));
 
   let serveur: http.Server;
   return {
-    ecoute: () => {
-      serveur = app.listen(port);
+    ecoute: (callbackSucces) => {
+      serveur = app.listen(port, callbackSucces);
     },
-    arrete: () => {
-      serveur.close();
-    },
+    arrete: () => serveur.close(),
   };
 }
 
