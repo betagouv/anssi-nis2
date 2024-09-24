@@ -1,4 +1,5 @@
 import { AdaptateurPersistance } from "./adaptateurs/adaptateurPersistance";
+import { AdaptateurJournal } from "./adaptateurs/adaptateurJournal";
 
 export type ServeurMonEspaceNIS2 = {
   ecoute: (callbackSucces?: () => void) => void;
@@ -12,4 +13,5 @@ export enum ImplementationDuServeur {
 
 export type DependanceServeur = {
   adaptateurPersistance: AdaptateurPersistance;
+  adaptateurJournal: AdaptateurJournal;
 };
