@@ -13,19 +13,23 @@ import {
 } from "../../adaptateurs/adaptateurJournal";
 import { POST } from "../utilitaires/http";
 import { CreeInformationsEmailDto } from "../../informations-emails/dto/cree-informations-email.dto";
+import { AdaptateurCrmMemoire } from "../../adaptateurs/adaptateurCrm.memoire";
 
 describe("Le routeur '/api/", () => {
   let serveur: ServeurMonEspaceNIS2;
   let adaptateurPersistance: AdaptateurPersistanceMemoire;
   let adaptateurJournal: AdaptateurJournalMemoire;
+  let adaptateurCrm: AdaptateurCrmMemoire;
 
   beforeEach(async () => {
     jest.useFakeTimers();
     adaptateurPersistance = new AdaptateurPersistanceMemoire();
     adaptateurJournal = new AdaptateurJournalMemoire();
+    adaptateurCrm = new AdaptateurCrmMemoire();
     serveur = await creeServeur(1234, ImplementationDuServeur.Express, {
       adaptateurPersistance,
       adaptateurJournal,
+      adaptateurCrm,
     });
     serveur.ecoute();
   });
@@ -119,6 +123,29 @@ describe("Le routeur '/api/", () => {
 
       expect(reponse.status).toBe(201);
       expect(donneesRecues).toStrictEqual({
+        email: "jean@mail.com",
+        nomOrganisation: "Entreprise",
+        accepteInfolettreNis2: true,
+        accepteInfolettreServicesDedies: false,
+      });
+    });
+
+    it("délègue à l'adaptateur CRM l'inscription de l'utilisateur", async () => {
+      let inscription: CreeInformationsEmailDto;
+      adaptateurCrm.inscrisUtilisateur = async (
+        donnees: CreeInformationsEmailDto,
+      ) => {
+        inscription = donnees;
+      };
+
+      await POST("/api/informations-emails", {
+        email: "jean@mail.com",
+        nomOrganisation: "Entreprise",
+        accepteInfolettreNis2: true,
+        accepteInfolettreServicesDedies: false,
+      });
+
+      expect(inscription).toStrictEqual({
         email: "jean@mail.com",
         nomOrganisation: "Entreprise",
         accepteInfolettreNis2: true,

@@ -5,13 +5,16 @@ import {
   TypeEvenement,
 } from "../adaptateurs/adaptateurJournal";
 import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
+import { AdaptateurCrm } from "../adaptateurs/adaptateurCrm";
 
 export const routesApi = ({
   adaptateurPersistance,
   adaptateurJournal,
+  adaptateurCrm,
 }: {
   adaptateurPersistance: AdaptateurPersistance;
   adaptateurJournal: AdaptateurJournal;
+  adaptateurCrm: AdaptateurCrm;
 }) => {
   const routes = express.Router();
 
@@ -30,6 +33,8 @@ export const routesApi = ({
 
   routes.post("/informations-emails", async (requete, reponse) => {
     await adaptateurPersistance.sauvegardeInformationsEmail(requete.body);
+    await adaptateurCrm.inscrisUtilisateur(requete.body);
+
     reponse.sendStatus(201);
   });
 

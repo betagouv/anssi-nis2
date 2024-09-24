@@ -2,6 +2,8 @@ import { creeServeur } from "./serveur";
 import { DependanceServeur, ImplementationDuServeur } from "./serveur.types";
 import { AdaptateurPersistancePostgres } from "./adaptateurs/adaptateurPersistance.postgres";
 import { AdaptateurJournalPostgres } from "./adaptateurs/adaptateurJournal.postgres";
+import { AdaptateurCrmBrevo } from "./adaptateurs/adaptateurCrm.brevo";
+
 const { Nest, Express } = ImplementationDuServeur;
 
 const portEcoute = Number(process.env.PORT) || 3000;
@@ -14,6 +16,10 @@ const dependances: DependanceServeur =
     ? {
         adaptateurPersistance: new AdaptateurPersistancePostgres(),
         adaptateurJournal: new AdaptateurJournalPostgres(),
+        adaptateurCrm: new AdaptateurCrmBrevo(
+          new URL(process.env.BREVO_API_BASE_URL),
+          process.env.BREVO_CLE_API,
+        ),
       }
     : null;
 
