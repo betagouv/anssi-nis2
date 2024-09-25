@@ -14,6 +14,7 @@ export async function creeServeurExpress(
   const app = express();
 
   dependances.adaptateurGestionErreur.initialise(app);
+  dependances.adaptateurProtection.initialise(app);
 
   app.set("trust proxy", 1);
   activeFiltrageIp(app);
