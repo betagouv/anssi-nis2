@@ -5,6 +5,8 @@ import { AdaptateurJournalPostgres } from "./adaptateurs/adaptateurJournal.postg
 import { AdaptateurCrmBrevo } from "./adaptateurs/adaptateurCrm.brevo";
 import { AdaptateurGestionErreurSentry } from "./adaptateurs/adaptateurGestionErreur.sentry";
 import { AdaptateurGestionErreurMemoire } from "./adaptateurs/adaptateurGestionErreur.memoire";
+import { AdaptateurProtectionRateLimit } from "./adaptateurs/adaptateurProtection.rateLimit";
+import { AdaptateurProtectionMemoire } from "./adaptateurs/adaptateurProtection.memoire";
 
 const { Nest, Express } = ImplementationDuServeur;
 
@@ -30,6 +32,9 @@ const dependances: DependanceServeur =
               Number(process.env.SENTRY_SAMPLE_RATE_DU_TRACING) || 0,
             )
           : new AdaptateurGestionErreurMemoire(),
+        adaptateurProtection: process.env.LIMITATION_REQUETES_COURTE_DUREE
+          ? new AdaptateurProtectionRateLimit()
+          : new AdaptateurProtectionMemoire(),
       }
     : null;
 
