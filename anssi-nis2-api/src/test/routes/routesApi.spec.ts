@@ -14,6 +14,7 @@ import {
 import { POST } from "../utilitaires/http";
 import { CreeInformationsEmailDto } from "../../informations-emails/dto/cree-informations-email.dto";
 import { AdaptateurCrmMemoire } from "../../adaptateurs/adaptateurCrm.memoire";
+import { AdaptateurGestionErreurMemoire } from "../../adaptateurs/adaptateurGestionErreur.memoire";
 
 describe("Le routeur '/api/", () => {
   let serveur: ServeurMonEspaceNIS2;
@@ -30,6 +31,7 @@ describe("Le routeur '/api/", () => {
       adaptateurPersistance,
       adaptateurJournal,
       adaptateurCrm,
+      adaptateurGestionErreur: new AdaptateurGestionErreurMemoire(),
     });
     serveur.ecoute();
   });
