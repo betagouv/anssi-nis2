@@ -3,6 +3,8 @@ import { DependanceServeur, ImplementationDuServeur } from "./serveur.types";
 import { AdaptateurPersistancePostgres } from "./adaptateurs/adaptateurPersistance.postgres";
 import { AdaptateurJournalPostgres } from "./adaptateurs/adaptateurJournal.postgres";
 import { AdaptateurCrmBrevo } from "./adaptateurs/adaptateurCrm.brevo";
+import { AdaptateurGestionErreurSentry } from "./adaptateurs/adaptateurGestionErreur.sentry";
+import { AdaptateurGestionErreurMemoire } from "./adaptateurs/adaptateurGestionErreur.memoire";
 
 const { Nest, Express } = ImplementationDuServeur;
 
@@ -20,6 +22,14 @@ const dependances: DependanceServeur =
           new URL(process.env.BREVO_API_BASE_URL),
           process.env.BREVO_CLE_API,
         ),
+        adaptateurGestionErreur: process.env.SENTRY_DSN
+          ? new AdaptateurGestionErreurSentry(
+              process.env.SENTRY_DSN,
+              process.env.SENTRY_ENVIRONNEMENT,
+              process.env.SENTRY_CHEMINS_IGNORES_PAR_TRACING?.split(",") ?? [],
+              Number(process.env.SENTRY_SAMPLE_RATE_DU_TRACING) || 0,
+            )
+          : new AdaptateurGestionErreurMemoire(),
       }
     : null;
 

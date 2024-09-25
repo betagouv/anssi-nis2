@@ -13,6 +13,8 @@ export async function creeServeurExpress(
 ): Promise<ServeurMonEspaceNIS2> {
   const app = express();
 
+  dependances.adaptateurGestionErreur.initialise(app);
+
   app.set("trust proxy", 1);
   activeFiltrageIp(app);
 
@@ -24,6 +26,8 @@ export async function creeServeurExpress(
 
   // Matcher "*" en dernier pour que le routing React fonctionne
   app.get("*", (_req, res) => res.sendFile(appReact().fichierIndex()));
+
+  app.use(dependances.adaptateurGestionErreur.controleurErreurs);
 
   let serveur: http.Server;
   return {
