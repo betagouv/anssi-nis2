@@ -17,6 +17,7 @@ export async function creeServeurExpress(
   dependances.adaptateurProtection.initialise(app);
 
   app.set("trust proxy", 1);
+  app.disable("x-powered-by");
   activeFiltrageIp(app);
 
   app.use(express.static(appReact().cheminDuBuild()));
