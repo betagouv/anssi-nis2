@@ -99,14 +99,18 @@ const indicatifEtChangeant = (
     Ce résultat se base sur les éléments saisis et est{" "}
     <u>strictement indicatif</u> et <u>susceptible d&apos;évoluer</u> dans le
     cadre de l&apos;adoption prochaine des textes législatifs et réglementaires
-    de transposition de la directive NIS 2.
+    de transposition de la directive NIS 2.<br></br> Ce simulateur ne se
+    substitue pas à une <u>analyse</u> approfondie (notamment d’ordre juridique){" "}
+    <u>dont la responsabilité revient à l’entité elle-même</u>.
   </>
 );
 
 const indicatifSeulement = (
   <>
     Ce résultat se base sur les éléments saisis et est{" "}
-    <u>strictement indicatif</u>.
+    <u>strictement indicatif</u>.<br></br> Ce simulateur ne se substitue pas à
+    une <u>analyse</u> approfondie (notamment d’ordre juridique){" "}
+    <u>dont la responsabilité revient à l’entité elle-même</u>.
   </>
 );
 

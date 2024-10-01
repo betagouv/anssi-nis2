@@ -35,7 +35,8 @@ export const libelleTitreReguleEntiteImportante =
 export const libelleAvertissementRegule =
   "Ce résultat se base sur les éléments saisis et est **_strictement indicatif_** " +
   "et **_susceptible d'évoluer_** dans le cadre de l'adoption prochaine des textes " +
-  "législatifs et réglementaires de transposition de la directive NIS 2.";
+  "législatifs et réglementaires de transposition de la directive NIS 2. \n\n" +
+  "Ce simulateur ne se substitue pas à une **_analyse_** approfondie (notamment d’ordre juridique) **_dont la responsabilité revient à l’entité_** elle-même.";
 export const explicationContenuIncertain =
   "Le test est en cours d’évolution pour prendre en compte l’ensemble des " +
   "typologies d’entités, mais n’est pas encore en mesure de couvrir les " +
