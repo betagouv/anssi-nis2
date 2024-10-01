@@ -17,6 +17,7 @@ import { libellesSousSecteursActivite } from "../../../src/References/LibellesSo
 import {
   autresActivites,
   CasDeTest,
+  energie,
   fabrication,
   fournisseursNumeriques,
   gestionDesServicesTIC,
@@ -506,6 +507,7 @@ describe("La fabrique de spécifications", () => {
       ...gestionDesServicesTIC,
       ...fournisseursNumeriques,
       ...fabrication,
+      ...energie,
       ...autresActivites,
     ];
 

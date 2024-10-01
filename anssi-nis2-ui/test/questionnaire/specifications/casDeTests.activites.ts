@@ -127,6 +127,25 @@ export const fournisseursNumeriques: CasDeTest[] = [
   },
 ];
 
+export const energie: CasDeTest[] = [
+  {
+    libelleActivite: "Gestionnaire de réseau de transport",
+    activite: "gestionnaireReseauTransportElectricite",
+    libelleSecteur: "Énergie",
+    secteur: "energie",
+    libelleSousSecteur: "Électricité",
+    sousSecteur: "electricite",
+  },
+  {
+    libelleActivite: "Gestionnaire de réseau de transport",
+    activite: "gestionnaireReseauTransportGaz",
+    libelleSecteur: "Énergie",
+    secteur: "energie",
+    libelleSousSecteur: "Gaz",
+    sousSecteur: "gaz",
+  },
+];
+
 export const fabrication: CasDeTest[] = [
   {
     libelleActivite:

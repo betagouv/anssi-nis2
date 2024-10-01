@@ -21,6 +21,8 @@ export class RegleActivites implements Regle {
 
     return valeur === "Autre activité"
       ? recupereAutreActivite(texte)
+      : valeur === "Gestionnaire de réseau de transport"
+      ? recupereReseauTransport(texte)
       : recupereActiviteIdentifiee(valeur);
   }
 }
@@ -117,4 +119,18 @@ const recupereActiviteIdentifiee = (valeur: string) => {
 
   const [id] = activiteCorrespondante;
   return new RegleActivites(id as Activite);
+};
+
+const recupereReseauTransport = (texte: SpecificationTexte) => {
+  const sousSecteur = texte["Sous-secteurs"];
+
+  if (sousSecteur === "Électricité")
+    return new RegleActivites("gestionnaireReseauTransportElectricite");
+  if (sousSecteur === "Gaz")
+    return new RegleActivites("gestionnaireReseauTransportGaz");
+
+  throw new ErreurLectureDeRegle(
+    `"Gestionnaire de réseau de transport" pour le sous-secteur : ${sousSecteur}`,
+    "Activités",
+  );
 };
