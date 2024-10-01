@@ -213,8 +213,8 @@ const Directive: DefaultComponent = () => {
                 </p>
                 <CarteInformation
                   contenu={[
-                    "Conformément à la directive NIS 2, des actions de supervision seront assurées pour vérifier le respect par les entités de leurs obligations. En cas de non-respect de ces dernières, les entités s&apos;exposeront à des sanctions.",
-                    "La directive prévoit la capacité d&apos;imposer, entre autres, des sanctions financières aux entités régulées. Ces sanctions, qui doivent être proportionnées au(x) manquement(s), pourront aller jusqu&apos;à un pourcentage du chiffre d&apos;affaires mondial des entités (2% pour les EE et 1,4% pour les EI).",
+                    "Conformément à la directive NIS 2, des actions de supervision seront assurées pour vérifier le respect par les entités de leurs obligations. En cas de non-respect de ces dernières, les entités s'exposeront à des sanctions.",
+                    "La directive prévoit la capacité d'imposer, entre autres, des sanctions financières aux entités régulées. Ces sanctions, qui doivent être proportionnées au(x) manquement(s), pourront aller jusqu'à un pourcentage du chiffre d'affaires mondial des entités (2% pour les EE et 1,4% pour les EI).",
                   ]}
                 />
               </BlocPrincipal>
