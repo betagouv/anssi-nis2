@@ -49,7 +49,7 @@ const activeFiltrageIp = (app: Express) => {
 
   app.use(
     IpFilter(ipAutorisees, {
-      detectIp: (requete) => extraisIp(requete).waf,
+      detectIp: (requete) => extraisIp(requete.headers).waf,
       mode: "allow",
       log: false,
     }),
