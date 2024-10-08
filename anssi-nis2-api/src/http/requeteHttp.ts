@@ -1,5 +1,7 @@
-export function extraisIp(headersExpress: Express.Request) {
-  const ips = headersExpress["x-forwarded-for"]?.split(", ");
+import * as http from "http";
+
+export function extraisIp(headersExpress: http.IncomingHttpHeaders) {
+  const ips = (headersExpress["x-forwarded-for"] as string)?.split(", ");
 
   if (!ips) return {};
 
