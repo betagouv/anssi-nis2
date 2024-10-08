@@ -1,9 +1,5 @@
-export const POST = async (path: string, body: object) =>
-  await fetch(`http://localhost:1234${path}`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
+import * as request from "supertest";
+import { Express } from "express";
+
+export const POST = async (app: Express, path: string, body: object) =>
+  await request(app).post(path).send(body).set("Accept", "application/json");

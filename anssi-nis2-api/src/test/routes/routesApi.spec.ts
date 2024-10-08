@@ -1,8 +1,3 @@
-import {
-  ImplementationDuServeur,
-  ServeurMonEspaceNIS2,
-} from "../../serveur.types";
-import { creeServeur } from "../../serveur";
 import { AdaptateurPersistanceMemoire } from "../../adaptateurs/adaptateurPersistance.memoire";
 import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { donneesFormulaireSimulateurVide } from "~core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes";
@@ -16,9 +11,11 @@ import { CreeInformationsEmailDto } from "../../informations-emails/dto/cree-inf
 import { AdaptateurCrmMemoire } from "../../adaptateurs/adaptateurCrm.memoire";
 import { AdaptateurGestionErreurMemoire } from "../../adaptateurs/adaptateurGestionErreur.memoire";
 import { AdaptateurProtectionMemoire } from "../../adaptateurs/adaptateurProtection.memoire";
+import { creeServeurExpress } from "../../serveur.express";
+import { Express } from "express";
 
 describe("Le routeur '/api/", () => {
-  let serveur: ServeurMonEspaceNIS2;
+  let serveur: { app: Express };
   let adaptateurPersistance: AdaptateurPersistanceMemoire;
   let adaptateurJournal: AdaptateurJournalMemoire;
   let adaptateurCrm: AdaptateurCrmMemoire;
@@ -28,19 +25,17 @@ describe("Le routeur '/api/", () => {
     adaptateurPersistance = new AdaptateurPersistanceMemoire();
     adaptateurJournal = new AdaptateurJournalMemoire();
     adaptateurCrm = new AdaptateurCrmMemoire();
-    serveur = await creeServeur(1234, ImplementationDuServeur.Express, {
+    serveur = await creeServeurExpress(1234, {
       adaptateurPersistance,
       adaptateurJournal,
       adaptateurCrm,
       adaptateurGestionErreur: new AdaptateurGestionErreurMemoire(),
       adaptateurProtection: new AdaptateurProtectionMemoire(),
     });
-    serveur.ecoute();
   });
 
   afterEach(() => {
     jest.useRealTimers();
-    serveur.arrete();
   });
 
   describe("sur la route POST '/api/simulateur-reponse'", () => {
@@ -53,6 +48,7 @@ describe("Le routeur '/api/", () => {
       };
 
       const reponse = await POST(
+        serveur.app,
         "/api/simulateur-reponse",
         donneesFormulaireSimulateurVide,
       );
@@ -87,7 +83,11 @@ describe("Le routeur '/api/", () => {
         evenementRecu = evenement;
       };
 
-      await POST(`/api/simulateur-reponse`, donneesFormulaireSimulateurVide);
+      await POST(
+        serveur.app,
+        `/api/simulateur-reponse`,
+        donneesFormulaireSimulateurVide,
+      );
 
       expect(evenementRecu.type).toBe("REPONSE_SIMULATEUR_RECUE");
       expect(evenementRecu.date).toEqual(aujourdhui);
@@ -118,7 +118,7 @@ describe("Le routeur '/api/", () => {
         donneesRecues = donnees;
       };
 
-      const reponse = await POST("/api/informations-emails", {
+      const reponse = await POST(serveur.app, "/api/informations-emails", {
         email: "jean@mail.com",
         nomOrganisation: "Entreprise",
         accepteInfolettreNis2: true,
@@ -142,7 +142,7 @@ describe("Le routeur '/api/", () => {
         inscription = donnees;
       };
 
-      await POST("/api/informations-emails", {
+      await POST(serveur.app, "/api/informations-emails", {
         email: "jean@mail.com",
         nomOrganisation: "Entreprise",
         accepteInfolettreNis2: true,

@@ -10,7 +10,7 @@ import { routesApi } from "./routes/routesApi";
 export async function creeServeurExpress(
   port: number,
   dependances: DependanceServeur,
-): Promise<ServeurMonEspaceNIS2> {
+): Promise<ServeurMonEspaceNIS2 & { app: Express }> {
   const app = express();
 
   dependances.adaptateurGestionErreur.initialise(app);
@@ -37,6 +37,7 @@ export async function creeServeurExpress(
       serveur = app.listen(port, callbackSucces);
     },
     arrete: () => serveur.close(),
+    app,
   };
 }
 
