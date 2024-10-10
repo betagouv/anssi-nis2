@@ -33,16 +33,6 @@ export const TextesDesResumes: Record<ResumesPointsAttention, ReactElement> = {
       lequel se trouve votre établissement principal.
     </>
   ),
-  TelecomAutresEMdelUEUniquement: (
-    <>
-      Au titre de votre activité de fournisseur de réseaux de communications
-      électroniques publics et/ou de fournisseur de services de communications
-      électroniques accessibles au public, votre entité relève, pour lesdites
-      activités, de l&apos;ensemble des Etats membres de l&apos;Union Européenne
-      dans lesquels vos services sont fournis et devra se conformer aux
-      réglementations NIS&nbsp;2 en vigueur dans ces Etats membres-ci.
-    </>
-  ),
   NumeriqueEtabliEMUEhorsFrance: (
     <>
       Votre entité exerce des activités des secteurs «&nbsp;Infrastructure
@@ -100,6 +90,19 @@ export const Precisions: Record<
         Européenne (dont la France) dans lesquels vos services sont fournis et
         devra se conformer aux réglementations NIS&nbsp;2 en vigueur dans ces
         Etats membres-ci.
+      </>
+    ),
+  },
+  TelecomAutresEMdelUEUniquement: {
+    titre: "Juridiction",
+    texte: (
+      <>
+        Au titre de votre activité de fournisseur de réseaux de communications
+        électroniques publics et/ou de fournisseur de services de communications
+        électroniques accessibles au public, votre entité relève, pour lesdites
+        activités, de l’ensemble des Etats membres de l’Union Européenne dans
+        lesquels vos services sont fournis et devra se conformer aux
+        réglementations NIS 2 en vigueur dans ces Etats membres-ci.
       </>
     ),
   },
