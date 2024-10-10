@@ -82,12 +82,12 @@ export const CodesResumesPointsAttention = [
   "NumeriqueEtabliEMUEhorsFrance",
   "EtabliUE",
   "RepresentantUE",
-  "OSE",
 ];
 export type ResumesPointsAttention =
   (typeof CodesResumesPointsAttention)[number];
 
 export const CodesPrecisionsPointsAttention = [
+  "OSE",
   "MecanismeExemptionSecuriteNationale",
   "TelecomFranceEtAutresEMdelUE",
   "TelecomAutresEMdelUEUniquement",

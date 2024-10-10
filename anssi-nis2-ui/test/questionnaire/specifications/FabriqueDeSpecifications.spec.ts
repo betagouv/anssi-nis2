@@ -829,7 +829,6 @@ describe("La fabrique de spécifications", () => {
       ["#NumeriqueEtabliEMUEhorsFrance", "NumeriqueEtabliEMUEhorsFrance"],
       ["#EtabliUE", "EtabliUE"],
       ["#RepresentantUE", "RepresentantUE"],
-      ["#OSE", "OSE"],
     ];
 
     it.each(tousLesResumes)(
@@ -860,6 +859,7 @@ describe("La fabrique de spécifications", () => {
       ["#NumeriqueEtabliEMUEhorsFrance", "NumeriqueEtabliEMUEhorsFrance"],
       ["#EnregistrementNomsDeDomaine", "EnregistrementNomsDeDomaine"],
       ["#CriteresDePossibleInclusion", "CriteresDePossibleInclusion"],
+      ["#OSE", "OSE"],
     ];
     it.each(toutesLesPrecisions)(
       "comprend la précision %s",
