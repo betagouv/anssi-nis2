@@ -171,10 +171,7 @@ export const Questionnaire = ({
           reponses={etat}
           persistance={envoieDonneesFormulaire}
         >
-          <AiguilleVersEtapeResultat
-            version={import.meta.env.VITE_VERSION_ETAPE_RESULTAT || "v1"}
-            reponses={etat}
-          />
+          <AiguilleVersEtapeResultat reponses={etat} />
         </PersisteReponsesDuQuestionnaire>
       );
   }

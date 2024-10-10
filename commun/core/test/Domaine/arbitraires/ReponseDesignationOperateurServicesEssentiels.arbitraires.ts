@@ -3,14 +3,8 @@ import { ReponseDesignationOperateurServicesEssentiels } from "../../../src/Doma
 import {
   arbDesignationOperateurServicesEssentiels_ToujoursNeSaitPas,
   arbDesignationOperateurServicesEssentiels_ToujoursNon,
-  arbDesignationOperateurServicesEssentiels_ToujoursOui,
 } from "./ValeursChampsSimulateur.arbitraire";
 
-export const arbReponseDesignationOperateurServicesEssentiels_ToujoursOui =
-  fc.record<ReponseDesignationOperateurServicesEssentiels>({
-    designationOperateurServicesEssentiels:
-      arbDesignationOperateurServicesEssentiels_ToujoursOui,
-  });
 export const arbReponseDesignationOperateurServicesEssentiels_ToujoursNon =
   fc.record<ReponseDesignationOperateurServicesEssentiels>({
     designationOperateurServicesEssentiels:

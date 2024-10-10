@@ -8,16 +8,9 @@ import {
   InformationsSecteurInfranumAutresActivitesListees_MG,
   InformationsSecteurInfranumAutresActivitesListees_P,
   InformationsSecteurLocalEtab,
-  InformationsSecteursCompositeListe,
 } from "./InformationsSecteur.definitions";
-import {
-  LocalisationEtablissementPrincipal,
-  LocalisationsServices,
-} from "./LocalisationsActivites.definitions";
-import {
-  CategorieTaille,
-  CategoriseTaille,
-} from "./ReponseStructure.definitions";
+import { LocalisationEtablissementPrincipal, LocalisationsServices } from "./LocalisationsActivites.definitions";
+import { CategorieTaille, CategoriseTaille } from "./ReponseStructure.definitions";
 
 export type ReponseInformationsSecteurInfranumActiviteLocalServices<
   Taille extends CategorieTaille,
@@ -101,11 +94,6 @@ export type RepInfoSecteurInfranum<Taille extends CategorieTaille> =
   | ReponseInformationsSecteurInfranumActiviteLocalEtabLot2<Taille>
   | ReponseInformationsSecteurInfranumAutresActivitesListees<Taille>;
 
-export type RepInfoSecteurListes<Taille extends CategorieTaille> =
-  | RepInfoSecteurInfranum<Taille>
-  | RepInfoSecteurLocalEtab<Taille>
-  | InformationsSecteursCompositeListe
-  | InformationsAutresSecteursListes;
 
 export type RepInfoSecteur<Taille extends CategorieTaille> =
   | RepInfoSecteurInfranum<Taille>

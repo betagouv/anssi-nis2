@@ -1,5 +1,4 @@
 import React from "react";
-import { EtatRegulationDefinitif } from "../../../commun/core/src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions.ts";
 
 export type Props = {
   className?: string;
@@ -37,8 +36,4 @@ export type RestezInformesProps = DefaultProps & {
 };
 export type FormulaireRestezInformesProps = RestezInformesProps & {
   setEmailEnregistre: React.Dispatch<boolean>;
-};
-
-export type LigneResultatProps = {
-  etatRegulation: EtatRegulationDefinitif;
 };

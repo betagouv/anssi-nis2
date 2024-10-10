@@ -1,11 +1,6 @@
 import { flow } from "fp-ts/lib/function";
 import { isMatching, P } from "ts-pattern";
-import {
-  est,
-  estParmi,
-  et,
-  non,
-} from "../../../../../../utils/services/commun.predicats";
+import { et, non } from "../../../../../../utils/services/commun.predicats";
 import { prop } from "../../../../../../utils/services/objects.operations";
 import { certains } from "../../../../../../utils/services/sets.operations";
 import { Activite } from "../../Activite.definitions";
@@ -15,7 +10,6 @@ import { ValeursSecteursActivitesAnnexe1 } from "../../SecteurActivite.valeurs";
 import { SousSecteurActivite } from "../../SousSecteurActivite.definitions";
 import { estActiviteAutre, estActiviteListee } from "../../Activite.predicats";
 import {
-  estSecteur,
   estSecteurAutre,
   estSecteurAvecActivitesEssentielles,
   estSecteurDansListe,
@@ -29,10 +23,8 @@ import {
   PredicatInformationSecteurPossible,
   RepInfoSecteur,
   RepInfoSecteurInfranum,
-  RepInfoSecteurListes,
   RepInfoSecteurLocalEtab,
   ReponseInformationsSecteurInfranumActiviteLocalEtabLot1,
-  ReponseInformationsSecteurInfranumActiviteLocalServices,
 } from "./ReponseInformationsSecteur.definitions";
 import { CategorieTaille } from "./ReponseStructure.definitions";
 
@@ -41,24 +33,6 @@ export const eqInformationsSecteur = (
   b: InformationsSecteurPossible<CategorieTaille>,
 ) => a.secteurActivite === b.secteurActivite;
 
-export const contientLocalisationFournitureServicesNumeriques =
-  (localisation: AppartenancePaysUnionEuropeenne) =>
-  <Taille extends CategorieTaille>(
-    reponse: RepInfoSecteur<Taille>,
-  ): reponse is ReponseInformationsSecteurInfranumActiviteLocalServices<Taille> =>
-    "localisationFournitureServicesNumeriques" in reponse &&
-    reponse.localisationFournitureServicesNumeriques.has(localisation);
-export const estEtablissementPrincipalLocalise =
-  (localisation: AppartenancePaysUnionEuropeenne) =>
-  <Taille extends CategorieTaille>(
-    reponse: RepInfoSecteur<Taille>,
-  ): reponse is ReponseInformationsSecteurInfranumActiviteLocalEtabLot1<Taille> =>
-    ("paysDecisionsCyber" in reponse &&
-      reponse.paysDecisionsCyber === localisation) ||
-    ("paysOperationsCyber" in reponse &&
-      reponse.paysOperationsCyber === localisation) ||
-    ("paysPlusGrandNombreSalaries" in reponse &&
-      reponse.paysPlusGrandNombreSalaries === localisation);
 export const estEtablissementPrincipalFrance = <Taille extends CategorieTaille>(
   reponse: RepInfoSecteur<Taille>,
 ): reponse is ReponseInformationsSecteurInfranumActiviteLocalEtabLot1<Taille> =>
@@ -113,11 +87,6 @@ export const estSecteurAnnexe1 = flow<
     ValeursSecteursActivitesAnnexe1 as unknown as SecteurActivite[],
   ),
 ) as PredicatInformationSecteurPossible;
-export const estInformationsPourSecteur = (secteur: SecteurActivite) =>
-  flow<[{ secteurActivite: SecteurActivite }], SecteurActivite, boolean>(
-    prop("secteurActivite"),
-    estSecteur(secteur),
-  ) as PredicatInformationSecteurPossible;
 
 export const estInformationsSecteurAvecActivitesListeesPourSecteur = (
   secteur: SecteurActivite,
@@ -130,14 +99,6 @@ export const estInformationsSecteurAvecActivitesListeesPourSecteur = (
       ) => a is Set<Activite>,
     ),
   });
-export const estSecteurBancaire = flow<
-  [{ secteurActivite: SecteurActivite }],
-  SecteurActivite,
-  boolean
->(
-  prop("secteurActivite"),
-  estSecteur("banqueSecteurBancaire"),
-) as PredicatInformationSecteurPossible;
 export const auMoinsUneActiviteListee = flow<
   [{ activites: Set<Activite> }],
   Set<Activite>,
@@ -146,22 +107,7 @@ export const auMoinsUneActiviteListee = flow<
   prop<Set<Activite>, "activites">("activites"),
   certains(estActiviteListee),
 ) as PredicatInformationSecteurPossible;
-export const auMoinsUneActiviteEst = (activiteCherchee: Activite) =>
-  flow<[{ activites: Set<Activite> }], Set<Activite>, boolean>(
-    prop("activites"),
-    certains(est(activiteCherchee)),
-  ) as PredicatInformationSecteurPossible;
-export const auMoinsUneActiviteEstParmis = (
-  ...listeActiviteCherchee: Activite[]
-) =>
-  flow<[{ activites: Set<Activite> }], Set<Activite>, boolean>(
-    prop("activites"),
-    certains(estParmi(...listeActiviteCherchee)),
-  ) as PredicatInformationSecteurPossible;
 
-export const contientActivitesListees = <T extends CategorieTaille>(
-  s: InformationsSecteurPossible<T>,
-) => certains(estActiviteListee)((s as RepInfoSecteurListes<T>).activites);
 export const certainsSontInfrastructureNumeriqueAvecActivite = (
   ...activiteCherchee: Activite[]
 ) =>
