@@ -825,10 +825,11 @@ describe("La fabrique de spécifications", () => {
 
   describe("pour les « Points d'attention »", () => {
     const tousLesResumes: [string, ResumesPointsAttention][] = [
-      [
-        "#MecanismeExemptionSecuriteNationale",
-        "MecanismeExemptionSecuriteNationale",
-      ],
+      ["#NumeriqueUE", "NumeriqueUE"],
+      ["#NumeriqueEtabliEMUEhorsFrance", "NumeriqueEtabliEMUEhorsFrance"],
+      ["#EtabliUE", "EtabliUE"],
+      ["#RepresentantUE", "RepresentantUE"],
+      ["#OSE", "OSE"],
     ];
 
     it.each(tousLesResumes)(
@@ -848,6 +849,10 @@ describe("La fabrique de spécifications", () => {
     );
 
     const toutesLesPrecisions: [string, PointsAttentionPrecis][] = [
+      [
+        "#MecanismeExemptionSecuriteNationale",
+        "MecanismeExemptionSecuriteNationale",
+      ],
       ["#ResilienceEntiteCritique", "ResilienceEntiteCritique"],
       ["#DORA", "DORA"],
       ["#TelecomFranceEtAutresEMdelUE", "TelecomFranceEtAutresEMdelUE"],

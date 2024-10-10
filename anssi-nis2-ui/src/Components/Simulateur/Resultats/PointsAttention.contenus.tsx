@@ -5,25 +5,6 @@ import {
 } from "../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 
 export const TextesDesResumes: Record<ResumesPointsAttention, ReactElement> = {
-  MecanismeExemptionSecuriteNationale: (
-    <>
-      Des mécanismes d&apos;exemption pourront être mis en place au cas par cas
-      par le gouvernement français pour certaines entités répondant à des
-      critères spécifiques.
-      <br />
-      En effet, les entités qui exercent des activités dans les domaines de la
-      sécurité nationale, de la sécurité publique, de la défense ou de
-      l&apos;application de la loi, y compris la prévention et la détection des
-      infractions pénales, ainsi que les enquêtes et les poursuites en la
-      matière, ou qui fournissent des services exclusivement aux entités de
-      l&apos;administration publique exerçant des activités dans les domaines
-      susmentionnés peuvent être exemptées de certaines obligations relatives à
-      la directive NIS&nbsp;2 lorsqu&apos;elles n&apos;agissent pas en tant que
-      prestataire de services de confiance. Ces éventuelles exemptions seront
-      connues à l&apos;issue du processus de transposition de la directive
-      NIS&nbsp;2.
-    </>
-  ),
   NumeriqueUE: (
     <>
       En raison de certaines de vos activités liées aux infrastructures
@@ -79,6 +60,29 @@ export const Precisions: Record<
   PointsAttentionPrecis,
   { titre: string; texte: ReactElement }
 > = {
+  MecanismeExemptionSecuriteNationale: {
+    titre: "Sécurité nationale",
+    texte: (
+      <>
+        Des mécanismes d&apos;exemption pourront être mis en place au cas par
+        cas par le gouvernement français pour certaines entités répondant à des
+        critères spécifiques.
+        <br />
+        En effet, les entités qui exercent des activités dans les domaines de la
+        sécurité nationale, de la sécurité publique, de la défense ou de
+        l&apos;application de la loi, y compris la prévention et la détection
+        des infractions pénales, ainsi que les enquêtes et les poursuites en la
+        matière, ou qui fournissent des services exclusivement aux entités de
+        l&apos;administration publique exerçant des activités dans les domaines
+        susmentionnés peuvent être exemptées de certaines obligations relatives
+        à la directive NIS&nbsp;2 lorsqu&apos;elles n&apos;agissent pas en tant
+        que prestataire de services de confiance.
+        <br />
+        Ces éventuelles exemptions seront connues à l&apos;issue du processus de
+        transposition de la directive NIS&nbsp;2.
+      </>
+    ),
+  },
   TelecomFranceEtAutresEMdelUE: {
     titre: "Juridiction",
     texte: (
