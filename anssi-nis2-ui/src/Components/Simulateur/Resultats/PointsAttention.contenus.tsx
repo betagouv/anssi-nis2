@@ -100,9 +100,9 @@ export const Precisions: Record<
         Au titre de votre activité de fournisseur de réseaux de communications
         électroniques publics et/ou de fournisseur de services de communications
         électroniques accessibles au public, votre entité relève, pour lesdites
-        activités, de l’ensemble des Etats membres de l’Union Européenne dans
-        lesquels vos services sont fournis et devra se conformer aux
-        réglementations NIS 2 en vigueur dans ces Etats membres-ci.
+        activités, de l&apos;ensemble des Etats membres de l&apos;Union
+        Européenne dans lesquels vos services sont fournis et devra se conformer
+        aux réglementations NIS 2 en vigueur dans ces Etats membres-ci.
       </>
     ),
   },
@@ -120,6 +120,22 @@ export const Precisions: Record<
         </a>{" "}
         concernant la Résilience des Entités Critiques (REC) sera également
         soumise à NIS&nbsp;2, en tant qu&apos;entité essentielle.
+      </>
+    ),
+  },
+  NumeriqueEtabliEMUEhorsFrance: {
+    titre: "Juridiction",
+    texte: (
+      <>
+        Votre entité exerce des activités des secteurs «&nbsp;Infrastructure
+        numérique&nbsp;», «&nbsp;Gestion des services TIC&nbsp;» et/ou
+        «&nbsp;Fournisseurs numériques&nbsp;» pour lesquelles
+        l&apos;établissement principal au sens de la directive NIS&nbsp;2 est
+        dans l&apos;Union Européenne, hors de France. Pour ces activités-ci,
+        votre entité dépend de l&apos;Etat membre de l&apos;Union Européenne
+        dans lequel se trouve votre établissement principal, et, à ce titre,
+        nous vous invitons à vous rapprocher de l&apos;autorité nationale
+        compétente NIS&nbsp;2 associée.
       </>
     ),
   },
@@ -154,7 +170,7 @@ export const Precisions: Record<
     ),
   },
   EnregistrementNomsDeDomaine: {
-    titre: "Fournisseur de services d'enregistrement de noms de domaine",
+    titre: "Fournisseur de services d&apos;enregistrement de noms de domaine",
     texte: (
       <>
         D&apos;après les éléments que vous avez renseignés, la fourniture de

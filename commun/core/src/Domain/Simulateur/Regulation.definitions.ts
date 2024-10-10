@@ -91,6 +91,7 @@ export type ResumesPointsAttention =
 export const CodesPrecisionsPointsAttention = [
   "TelecomFranceEtAutresEMdelUE",
   "TelecomAutresEMdelUEUniquement",
+  "NumeriqueEtabliEMUEhorsFrance",
   "ResilienceEntiteCritique",
   "DORA",
   "EnregistrementNomsDeDomaine",
