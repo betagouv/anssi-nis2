@@ -24,7 +24,9 @@ export function AiguilleVersEtapeResultat(props: {
 
   const v2: ReactElement = (
     <AvecEvaluationEligibilitie reponses={props.reponses}>
-      {(r: ResultatEligibilite) => <EtapeResultatV2 resultat={r} />}
+      {(r: ResultatEligibilite) => (
+        <EtapeResultatV2 reponses={props.reponses} resultat={r} />
+      )}
     </AvecEvaluationEligibilitie>
   );
 
