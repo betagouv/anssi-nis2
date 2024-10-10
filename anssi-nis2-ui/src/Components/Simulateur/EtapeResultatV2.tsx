@@ -3,10 +3,22 @@ import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulate
 import { PointsAttention } from "./Resultats/PointsAttention.tsx";
 import { RowContainer } from "../General/RowContainer.tsx";
 import { CenteredContainer } from "../General/CenteredContainer.tsx";
-import { getModeFormulaireEmail } from "./SimulateurEtapeResult.aide.ts";
+import {
+  affichePdf,
+  getModeFormulaireEmail,
+} from "./SimulateurEtapeResult.aide.ts";
 import RestezInformes from "../RestezInformes.tsx";
+import { LigneEtMaintenant } from "./Resultats/LigneEtMaintenant.tsx";
+import { EnSavoirPlus } from "./Resultats/EnSavoirPlus.tsx";
+import { estRegule } from "anssi-nis2-core/src/Domain/Simulateur/Regulation.predicats.ts";
+import { LigneBienDebuter } from "./Resultats/LigneBienDebuter.tsx";
+import { LigneReseauxSociaux } from "./Resultats/LigneReseauxSociaux.tsx";
+import { EtatQuestionnaire } from "../../questionnaire/reducerQuestionnaire.ts";
 
-export function EtapeResultatV2(props: { resultat: ResultatEligibilite }) {
+export function EtapeResultatV2(props: {
+  reponses: EtatQuestionnaire;
+  resultat: ResultatEligibilite;
+}) {
   return (
     <>
       <RowContainer>
@@ -25,6 +37,12 @@ export function EtapeResultatV2(props: { resultat: ResultatEligibilite }) {
           />
         </CenteredContainer>
       </RowContainer>
+      {estRegule(props.resultat.regulation) && <LigneEtMaintenant />}
+      {estRegule(props.resultat.regulation) && <EnSavoirPlus />}
+      <LigneBienDebuter
+        avecPdf={affichePdf(props.resultat.regulation)(props.reponses)}
+      />
+      <LigneReseauxSociaux />
     </>
   );
 }

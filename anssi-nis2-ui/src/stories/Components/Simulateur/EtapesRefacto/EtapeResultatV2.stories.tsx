@@ -1,6 +1,7 @@
 import { Meta } from "@storybook/react";
 import { EtapeResultatV2 } from "../../../../Components/Simulateur/EtapeResultatV2.tsx";
 import { ResultatEligibilite } from "../../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
+import { donneesFormulaireSimulateurVide } from "anssi-nis2-core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes.ts";
 
 const meta: Meta<typeof EtapeResultatV2> = {
   component: EtapeResultatV2,
@@ -17,4 +18,6 @@ const resultat: ResultatEligibilite = {
   },
 };
 
-export const Resultat = { args: { resultat } };
+export const Resultat = {
+  args: { resultat, reponses: donneesFormulaireSimulateurVide },
+};
