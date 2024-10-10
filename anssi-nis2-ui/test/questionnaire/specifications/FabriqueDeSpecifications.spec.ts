@@ -852,6 +852,7 @@ describe("La fabrique de spécifications", () => {
       ["#DORA", "DORA"],
       ["#TelecomFranceEtAutresEMdelUE", "TelecomFranceEtAutresEMdelUE"],
       ["#TelecomAutresEMdelUEUniquement", "TelecomAutresEMdelUEUniquement"],
+      ["#NumeriqueEtabliEMUEhorsFrance", "NumeriqueEtabliEMUEhorsFrance"],
       ["#EnregistrementNomsDeDomaine", "EnregistrementNomsDeDomaine"],
       ["#CriteresDePossibleInclusion", "CriteresDePossibleInclusion"],
     ];
