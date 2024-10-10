@@ -79,7 +79,6 @@ export type ResultatEligibilite = {
 
 export const CodesResumesPointsAttention = [
   "MecanismeExemptionSecuriteNationale",
-  "TelecomFranceEtAutresEMdelUE",
   "TelecomAutresEMdelUEUniquement",
   "NumeriqueUE",
   "NumeriqueEtabliEMUEhorsFrance",
@@ -91,6 +90,7 @@ export type ResumesPointsAttention =
   (typeof CodesResumesPointsAttention)[number];
 
 export const CodesPrecisionsPointsAttention = [
+  "TelecomFranceEtAutresEMdelUE",
   "ResilienceEntiteCritique",
   "DORA",
   "EnregistrementNomsDeDomaine",
