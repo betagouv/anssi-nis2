@@ -166,10 +166,8 @@ export const Precisions: Record<
         gestion de risques, de notification d&apos;incidents et de supervision
         se substitueront aux obligations de même type de la directive
         NIS&nbsp;2. En revanche, les autres obligations de la directive
-        NIS&nbsp;2 (telles celles relatives à la désignation des CSIRT, au cadre
-        national de gestion des crises de cybersécurité, et au registre des
-        entités essentielles et importantes) demeureront pour les entités
-        susmentionnées.
+        NIS&nbsp;2 (telles celle au registre des entités essentielles et
+        importantes) demeureront pour les entités susmentionnées.
       </>
     ),
   },
