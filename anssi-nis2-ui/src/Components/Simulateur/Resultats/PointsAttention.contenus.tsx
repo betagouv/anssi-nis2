@@ -170,15 +170,15 @@ export const Precisions: Record<
     ),
   },
   EnregistrementNomsDeDomaine: {
-    titre: "Fournisseur de services d&apos;enregistrement de noms de domaine",
+    titre: "Fournisseur de services d'enregistrement de noms de domaine",
     texte: (
       <>
-        D&apos;après les éléments que vous avez renseignés, la fourniture de
-        services d&apos;enregistrement de noms de domaines est la seule activité
-        régulée par la directive NIS&nbsp;2 que votre entité exerce. Dans ce
+        Votre entité exerce l&apos;activité de fournisseur de services
+        d&apos;enregistrement de noms de domaine. Si votre entité n&apos;exerce
+        aucune autre activité régulée par la directive NIS&nbsp;2 alors, dans ce
         cas, vos seules obligations concerneront l&apos;enregistrement de votre
-        entité auprès de l&apos;autorité nationale désignée ainsi que la mise à
-        jour des données enregistrées, en cas de changement.
+        entité auprès de l&apos;autorité nationale désignée (ainsi que la mise à
+        jour des données enregistrées en cas de changement).
       </>
     ),
   },
