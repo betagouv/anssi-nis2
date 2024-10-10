@@ -24,17 +24,6 @@ export const TextesDesResumes: Record<ResumesPointsAttention, ReactElement> = {
       NIS&nbsp;2.
     </>
   ),
-  TelecomFranceEtAutresEMdelUE: (
-    <>
-      Au titre de votre activité de fournisseur de réseaux de communications
-      électroniques publics et/ou de fournisseur de services de communications
-      électroniques accessibles au public, votre entité relève, pour lesdites
-      activités, de l&apos;ensemble des Etats membres de l&apos;Union Européenne
-      (dont la France) dans lesquels vos services sont fournis et devra se
-      conformer aux réglementations NIS&nbsp;2 en vigueur dans ces Etats
-      membres-ci.
-    </>
-  ),
   NumeriqueUE: (
     <>
       En raison de certaines de vos activités liées aux infrastructures
@@ -100,6 +89,20 @@ export const Precisions: Record<
   PointsAttentionPrecis,
   { titre: string; texte: ReactElement }
 > = {
+  TelecomFranceEtAutresEMdelUE: {
+    titre: "Juridiction",
+    texte: (
+      <>
+        Au titre de votre activité de fournisseur de réseaux de communications
+        électroniques publics et/ou de fournisseur de services de communications
+        électroniques accessibles au public, votre entité relève, pour lesdites
+        activités, de l&apos;ensemble des Etats membres de l&apos;Union
+        Européenne (dont la France) dans lesquels vos services sont fournis et
+        devra se conformer aux réglementations NIS&nbsp;2 en vigueur dans ces
+        Etats membres-ci.
+      </>
+    ),
+  },
   ResilienceEntiteCritique: {
     titre: "Directive REC",
     texte: (

@@ -829,7 +829,6 @@ describe("La fabrique de spécifications", () => {
         "#MecanismeExemptionSecuriteNationale",
         "MecanismeExemptionSecuriteNationale",
       ],
-      ["#TelecomFranceEtAutresEMdelUE", "TelecomFranceEtAutresEMdelUE"],
       ["#TelecomAutresEMdelUEUniquement", "TelecomAutresEMdelUEUniquement"],
     ];
 
@@ -852,6 +851,7 @@ describe("La fabrique de spécifications", () => {
     const toutesLesPrecisions: [string, PointsAttentionPrecis][] = [
       ["#ResilienceEntiteCritique", "ResilienceEntiteCritique"],
       ["#DORA", "DORA"],
+      ["#TelecomFranceEtAutresEMdelUE", "TelecomFranceEtAutresEMdelUE"],
       ["#EnregistrementNomsDeDomaine", "EnregistrementNomsDeDomaine"],
       ["#CriteresDePossibleInclusion", "CriteresDePossibleInclusion"],
     ];
@@ -875,13 +875,13 @@ describe("La fabrique de spécifications", () => {
       const specs: Specifications = fabrique.transforme(
         uneSpecification({
           Resultat: "Régulée EE",
-          "Points d'attention": "#TelecomFranceEtAutresEMdelUE, #DORA",
+          "Points d'attention": "#NumeriqueUE, #DORA",
         }),
       );
 
       const { resumes, precisions } = specs.resultat().pointsAttention;
 
-      expect(resumes).toEqual(["TelecomFranceEtAutresEMdelUE"]);
+      expect(resumes).toEqual(["NumeriqueUE"]);
       expect(precisions).toEqual(["DORA"]);
     });
 
