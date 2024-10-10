@@ -829,7 +829,6 @@ describe("La fabrique de spécifications", () => {
         "#MecanismeExemptionSecuriteNationale",
         "MecanismeExemptionSecuriteNationale",
       ],
-      ["#TelecomAutresEMdelUEUniquement", "TelecomAutresEMdelUEUniquement"],
     ];
 
     it.each(tousLesResumes)(
@@ -852,6 +851,7 @@ describe("La fabrique de spécifications", () => {
       ["#ResilienceEntiteCritique", "ResilienceEntiteCritique"],
       ["#DORA", "DORA"],
       ["#TelecomFranceEtAutresEMdelUE", "TelecomFranceEtAutresEMdelUE"],
+      ["#TelecomAutresEMdelUEUniquement", "TelecomAutresEMdelUEUniquement"],
       ["#EnregistrementNomsDeDomaine", "EnregistrementNomsDeDomaine"],
       ["#CriteresDePossibleInclusion", "CriteresDePossibleInclusion"],
     ];
