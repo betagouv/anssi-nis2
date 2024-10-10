@@ -12,7 +12,7 @@ export function PointsAttention({
   resumes: ResumesPointsAttention[];
   precisions: PointsAttentionPrecis[];
 }) {
-  const [ouvert, setOuvert] = useState<boolean>(false);
+  const [ouvert, setOuvert] = useState<boolean>(true);
   return (
     <div className="fr-mt-1v fr-px-4w fr-py-3w fr-nis2-resultat-explications">
       <h4>Points d&apos;attention</h4>
