@@ -1,8 +1,5 @@
 import { Tag } from "../../../../../../utils/types/Tag";
-import {
-  RegulationEntite,
-  ResultatRegulationEntite,
-} from "../../Regulation.definitions";
+import { ResultatRegulationEntite } from "../../Regulation.definitions";
 import { UnionReponseEtatNonVide } from "./ReponseEtat.definitions";
 
 export type EtapeEvaluationActive =
@@ -10,7 +7,6 @@ export type EtapeEvaluationActive =
   | "AppartenancePaysUnionEuropeenne"
   | "Structure"
   | "InformationsSecteur";
-export type EtapeEvaluation = "NonEvalue" | EtapeEvaluationActive;
 export type EtatRegulationBase = {
   etapeEvaluee: EtapeEvaluationActive | "NonEvalue";
 };
@@ -21,9 +17,6 @@ export type EtatRegulationDefinitif = Tag<
 > &
   ResultatRegulationEntite &
   EtatRegulationBase;
-
-export type EtatRegulationDefinitivement<R extends RegulationEntite> =
-  EtatRegulationDefinitif & ResultatRegulationEntite<R>;
 
 export type EtatRegulationAvecReponses = EtatRegulationBase &
   UnionReponseEtatNonVide;
@@ -46,4 +39,3 @@ export type EtatRegulation =
   | EtatEvaluationEnSuspens
   | EtatRegulationInconnu;
 
-export type OperationEvalueEtat = (reponse: EtatRegulation) => EtatRegulation;
