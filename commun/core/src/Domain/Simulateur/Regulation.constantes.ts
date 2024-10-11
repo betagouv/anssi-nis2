@@ -1,8 +1,4 @@
-import {
-  CausesRegulation,
-  Regulation,
-  ResultatRegulationEntite,
-} from "./Regulation.definitions";
+import { CausesRegulation } from "./Regulation.definitions";
 
 export const causeReguleOSE: CausesRegulation = {
   DesignationOperateurServicesEssentiels: {
@@ -10,10 +6,4 @@ export const causeReguleOSE: CausesRegulation = {
   },
 };
 
-export const resultatIncertain: ResultatRegulationEntite = {
-  decision: Regulation.Incertain,
-};
 
-export const resultatNonRegule: ResultatRegulationEntite = {
-  decision: Regulation.NonRegule,
-};
