@@ -37,24 +37,3 @@ export type DonneesSectorielles = Pick<
   DonneesFormulaireSimulateur,
   "secteurActivite" | "sousSecteurActivite"
 >;
-
-type PredicatsSurChamp<C extends NomsChampsSimulateur> = {
-  contient: <T extends DonneesFormulaireSimulateur[C][number]>(
-    valeur: T
-  ) => (donnees: DonneesFormulaireSimulateur) => boolean;
-  contientUnParmi: <T extends DonneesFormulaireSimulateur[C][number]>(
-    ...listeValeur: T[]
-  ) => (donnees: DonneesFormulaireSimulateur) => boolean;
-  est: <T extends DonneesFormulaireSimulateur[C]>(
-    valeurs: T
-  ) => (d: DonneesFormulaireSimulateur) => boolean;
-  satisfait: (
-    f: <T extends DonneesFormulaireSimulateur[C]>(valeurs: T) => boolean
-  ) => (d: DonneesFormulaireSimulateur) => boolean;
-};
-export type FabriquePredicatChamp = <C extends NomsChampsSimulateur>(
-  champ: C
-) => PredicatsSurChamp<C>;
-export type ChampsAvecPredicats = {
-  [K in NomsChampsSimulateur]: PredicatsSurChamp<K>;
-};
