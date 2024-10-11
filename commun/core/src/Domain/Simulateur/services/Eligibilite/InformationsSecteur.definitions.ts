@@ -135,6 +135,3 @@ export type InformationSecteurSimpleAutre = {
 export type InformationsSecteurSansBesoinLocalisation =
   | InformationsSecteursCompositeListe
   | InformationsSecteurSimpleListe;
-export type InformationsSecteursComposite =
-  | InformationsSecteurCompositeAutre
-  | InformationsSecteursCompositeListe;
