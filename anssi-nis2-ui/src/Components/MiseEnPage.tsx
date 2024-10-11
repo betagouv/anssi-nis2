@@ -1,7 +1,7 @@
 import { DefaultComponent, DefaultProps } from "../Services/Props";
 import EnTete from "./EnTete.tsx";
 import PiedDePage from "./PiedDePage.tsx";
-import "../App.scss";
+import "../style/App.scss";
 import Matomo from "./Matomo/Matomo.tsx";
 import { Helmet } from "react-helmet";
 import { BOM } from "./BOM/BOM.tsx";

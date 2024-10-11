@@ -129,7 +129,7 @@
     }
   }
 
-  background-image: url(assets/marches.svg);
+  background-image: url(../assets/marches.svg);
   background-position: top right;
   background-repeat: no-repeat;
 
@@ -174,7 +174,7 @@
     text-align: center;
 
     & > div {
-      background-image: url(assets/EU-logo.svg);
+      background-image: url(../assets/EU-logo.svg);
       background-position: center;
       background-repeat: no-repeat;
       width: 486px;
@@ -245,8 +245,8 @@
   height: var(--icon-size);
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
-  -webkit-mask-image: url(@gouvfr/dsfr/dist/icons/logo/fr--dailymotion-line.svg);
-  mask-image: url(@gouvfr/dsfr/dist/icons/logo/fr--dailymotion-line.svg);
+  -webkit-mask-image: url(../../../node_modules/@gouvfr/dsfr/dist/icons/logo/fr--dailymotion-line.svg);
+  mask-image: url(../../../node_modules/@gouvfr/dsfr/dist/icons/logo/fr--dailymotion-line.svg);
   content: "";
 }
 
@@ -259,8 +259,8 @@
   height: var(--icon-size);
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
-  -webkit-mask-image: url(assets/logo-x.svg);
-  mask-image: url(assets/logo-x.svg);
+  -webkit-mask-image: url(../assets/logo-x.svg);
+  mask-image: url(../assets/logo-x.svg);
   content: "";
 }
 
@@ -273,8 +273,8 @@
   height: var(--icon-size);
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
-  -webkit-mask-image: url(@gouvfr/dsfr/dist/icons/logo/github-fill.svg);
-  mask-image: url(@gouvfr/dsfr/dist/icons/logo/github-fill.svg);
+  -webkit-mask-image: url(../../../node_modules/@gouvfr/dsfr/dist/icons/logo/github-fill.svg);
+  mask-image: url(../../../node_modules/@gouvfr/dsfr/dist/icons/logo/github-fill.svg);
   content: "";
 }
 
@@ -287,8 +287,8 @@
   height: var(--icon-size);
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
-  -webkit-mask-image: url(assets/in-progress.svg);
-  mask-image: url(assets/in-progress.svg);
+  -webkit-mask-image: url(../assets/in-progress.svg);
+  mask-image: url(../assets/in-progress.svg);
   content: "";
 }
 
@@ -476,7 +476,7 @@ legend.fr-text--medium {
     background-color: var(--orange-terre-battue-975-75, #fef4f2);
     background-repeat: no-repeat;
     background-position: top center;
-    background-image: url(assets/in-progress.svg);
+    background-image: url(../assets/in-progress.svg);
     background-position-y: 1rem;
 
     padding-top: 7.5rem !important;
@@ -806,7 +806,7 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
 
     &:after {
       content: "";
-      background: url(assets/icone-fermer.svg);
+      background: url(../assets/icone-fermer.svg);
       width: 16px;
       height: 16px;
       display: flex;
