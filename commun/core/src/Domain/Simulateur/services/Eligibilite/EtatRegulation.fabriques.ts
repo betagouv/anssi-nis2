@@ -1,4 +1,3 @@
-import { TypeStructure } from "../../ChampsSimulateur.definitions";
 import { fabriqueRegule } from "../../ResultatRegulation.fabrique";
 import { resultatIncertain } from "../../Regulation.constantes";
 import { ResultatRegulationEntite, TypeEntite } from "../../Regulation.definitions";
@@ -9,15 +8,8 @@ import {
   EtatRegulationAvecReponses,
   EtatRegulationDefinitif,
 } from "./EtatRegulation.definitions";
-import { ReponseAppartenancePaysUnionEuropeenne } from "./ReponseAppartenancePaysUnionEuropeenne.definition";
-import {
-  ReponseDesignationOperateurServicesEssentiels,
-} from "./ReponseDesignationOperateurServicesEssentiels.definitino";
 import { UnionReponseEtatNonVide } from "./ReponseEtat.definitions";
-import { FabriqueEtatDonneesSimulateur } from "./ReponseEtat.fabriques";
 import { propReponseEtat } from "./ReponseEtat.operations";
-import { ReponseInformationsSecteur } from "./ReponseInformationsSecteur.definitions";
-import { CategorieTaille, ReponseStructure } from "./ReponseStructure.definitions";
 
 export const fabriqueResultatEvaluationEnSuspens = (
   etapeEvaluee: EtapeEvaluationActive,
@@ -64,28 +56,4 @@ export const fabriqueResultatEvaluationDefinitifCarSecteur = (
       },
       typeEntite,
     ),
-  );
-export const fabriqueResultatEvaluationEnSuspensSecteur = <
-  S extends TypeStructure,
-  T extends CategorieTaille,
->([
-  designationOperateurServicesEssentiel,
-  appartenancePaysUnionEuropeenne,
-  structure,
-  informationsSecteur,
-]: [
-  ReponseDesignationOperateurServicesEssentiels,
-  ReponseAppartenancePaysUnionEuropeenne,
-  ReponseStructure<S, T>,
-  ReponseInformationsSecteur<T>,
-]) =>
-  fabriqueResultatEvaluationEnSuspens(
-    "Structure",
-    resultatIncertain,
-    FabriqueEtatDonneesSimulateur.informationsSecteurChaine<S, T>(
-      designationOperateurServicesEssentiel,
-      appartenancePaysUnionEuropeenne,
-      structure,
-      informationsSecteur,
-    ) as UnionReponseEtatNonVide,
   );
