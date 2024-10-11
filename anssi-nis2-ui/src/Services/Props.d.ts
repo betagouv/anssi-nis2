@@ -23,17 +23,21 @@ export type NativeInputProps = {
   checked: boolean;
   disabled?: boolean;
 };
+
 export type MatomoProps = DefaultProps & {
   SiteId: number;
   JavascriptContainerHash: string;
   GestionBalises?: boolean;
 };
+
 export type PageEditoProps = {
   titre?: string;
 } & DefaultProps;
+
 export type RestezInformesProps = DefaultProps & {
   mode?: "complet" | "simple";
 };
+
 export type FormulaireRestezInformesProps = RestezInformesProps & {
   setEmailEnregistre: React.Dispatch<boolean>;
 };
