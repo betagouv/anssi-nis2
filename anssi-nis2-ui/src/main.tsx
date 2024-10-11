@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom/client";
 import { startReactDsfr } from "@codegouvfr/react-dsfr/spa";
-import { App } from "./app.tsx";
+import { App } from "./App.tsx";
 
 startReactDsfr({ defaultColorScheme: "light" });
 
