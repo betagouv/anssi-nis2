@@ -10,6 +10,3 @@ export const match = (regexp: RegExp) => (texte: string) => texte.match(regexp);
 export const normalize =
   (form: "NFC" | "NFD" | "NFKC" | "NFKD") => (texte: string) =>
     texte.normalize(form);
-
-export const estChaineNonVide = <T extends string>(listeValeurs: T) =>
-  listeValeurs.length > 0;
