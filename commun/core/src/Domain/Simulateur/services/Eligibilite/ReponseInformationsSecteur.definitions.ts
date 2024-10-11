@@ -33,49 +33,23 @@ export type ReponseInformationsSecteurInfranumActiviteLocalEtabLot2<
       InformationsSecteurAvecActiviteInfranumLocalEtabLot2 &
       LocalisationEtablissementPrincipal;
 
-/**
- * Réponse informations serveur dans le cas des activités Infrastructure
- * Numérique sans les activités nécessitant une localisation de l'établissement
- * principal ni des services pour une Petite Entité
- */
 export type ReponseInformationsSecteurInfranumAutresActivitesListees_P =
   CategoriseTaille<"Petit"> &
     InformationsSecteurInfranumAutresActivitesListees_P;
 
-/**
- * Réponse informations serveur dans le cas des activités Infrastructure
- * Numérique sans les activités nécessitant une localisation de l'établissement
- * principal ni des services pour une Grande Entité
- */
 export type ReponseInformationsSecteurInfranumAutresActivitesListees_MG =
   CategoriseTaille<"Moyen" | "Grand"> &
     InformationsSecteurInfranumAutresActivitesListees_MG;
 
-/**
- * Réponse Informations Secteur dans le cas des activités Infrastructure
- * Numérique sans les activités nécessitant une localisation de l'établissement
- * principal ni des services par rapport à la taille de l'entité
- */
 export type ReponseInformationsSecteurInfranumAutresActivitesListees<
   Taille extends CategorieTaille,
 > = Taille extends "Petit"
   ? ReponseInformationsSecteurInfranumAutresActivitesListees_P
   : ReponseInformationsSecteurInfranumAutresActivitesListees_MG;
 
-/**
- * Réponse Informations Secteur pour :
- * - "gestionServicesTic" | "fournisseursNumeriques"
- * - Taille = "Petit"
- */
 export type ReponseInformationsSecteurLocalEtab_P = CategoriseTaille<"Petit"> &
   InformationsSecteurLocalEtab;
 
-/**
- * Réponse Informations Secteur pour :
- * - "gestionServicesTic" | "fournisseursNumeriques"
- * - Taille = "Moyen" | "Grand"
- * Contient une localisation de services
- */
 export type ReponseInformationsSecteurLocalEtab_MG = CategoriseTaille<
   "Moyen" | "Grand"
 > &
@@ -87,7 +61,6 @@ export type RepInfoSecteurLocalEtab<Taille extends CategorieTaille> =
     ? ReponseInformationsSecteurLocalEtab_P
     : ReponseInformationsSecteurLocalEtab_MG;
 
-// TODO : vérifier activités autres
 export type RepInfoSecteurInfranum<Taille extends CategorieTaille> =
   | ReponseInformationsSecteurInfranumActiviteLocalServices<Taille>
   | ReponseInformationsSecteurInfranumActiviteLocalEtabLot1<Taille>
@@ -101,9 +74,6 @@ export type RepInfoSecteur<Taille extends CategorieTaille> =
   | InformationsSecteurComposite
   | InformationsAutresSecteursListes
   | InformationSecteurSimpleAutre;
-export type RepInfoSecteurLocalises<Taille extends CategorieTaille> =
-  | RepInfoSecteurInfranum<Taille>
-  | RepInfoSecteurLocalEtab<Taille>;
 
 export type InformationsSecteurPossible<Taille extends CategorieTaille> =
   RepInfoSecteur<Taille>;
