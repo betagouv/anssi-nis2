@@ -36,11 +36,8 @@ export const assertion = {
     ]
   ): void => fc.assert(fc.property(...args), { verbose: true }),
 
-  // TODO : tester plus profondément
   exclusifs: <T>(arbA: fc.Arbitrary<T>, arbB: fc.Arbitrary<T>) =>
     assertion.propriete(arbA, arbB, (a, b) => a !== b),
-  // expect(a).not.toStrictEqual(b);
-  // ),
 
   nonVide: <T>(arb: fc.Arbitrary<T>) =>
     assertion.propriete(arb, (a) => {

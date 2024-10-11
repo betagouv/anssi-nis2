@@ -1,17 +1,10 @@
 import { fc } from "@fast-check/vitest";
 import { Activite } from "../../src/Domain/Simulateur/Activite.definitions";
-import {
-  SecteurActivite,
-  SecteurAvecBesoinLocalisationRepresentant,
-} from "../../src/Domain/Simulateur/SecteurActivite.definitions";
+import { SecteurActivite } from "../../src/Domain/Simulateur/SecteurActivite.definitions";
 import { getActivitesPour } from "../../src/Domain/Simulateur/Activite.operations";
-import {
-  estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
-  estActiviteListee,
-} from "../../src/Domain/Simulateur/Activite.predicats";
+import { estActiviteListee } from "../../src/Domain/Simulateur/Activite.predicats";
 import {
   RepInfoSecteur,
-  RepInfoSecteurLocalises,
 } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseInformationsSecteur.definitions";
 import { CategorieTaille } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseStructure.definitions";
 import { PeutEtreSousSecteurActivite } from "../../src/Domain/Simulateur/SousSecteurActivite.definitions";
@@ -51,34 +44,6 @@ export const fabriqueArb_EnsActivites_AvecFiltre_PourSecteur =
         )(secteur, sousSecteur),
     } as { [k in keyof Sortie]: fc.Arbitrary<Sortie[k]> });
 
-export const fabriqueArb_EnsActivites_PourSecteurInfraNumLocalisable_HorsUe = <
-  T extends SecteurAvecBesoinLocalisationRepresentant,
-  Sortie extends RepInfoSecteurLocalises<CategorieTaille>,
->(
-  secteur: T,
-): fc.Arbitrary<Sortie> =>
-  fc.record<Sortie>({
-    secteurActivite: fc.constant(secteur),
-    activites: fabriqueArb_EnsActivites_AvecFiltre_PourSecteurPeutEtreComposite(
-      estActiviteInfrastructureNumeriqueAvecBesoinLocalisation,
-    )(secteur, "PasDeSousSecteurActivite"),
-  } as {
-    [K in keyof Sortie]: fc.Arbitrary<Sortie[K]>;
-  });
-export const fabriqueArb_EnsActivites_PourSecteurEILocalisable_HorsUe = <
-  Secteur extends SecteurAvecBesoinLocalisationRepresentant,
-  Sortie extends RepInfoSecteurLocalises<CategorieTaille>,
->(
-  secteur: Secteur,
-): fc.Arbitrary<Sortie> =>
-  fc.record<Sortie>({
-    secteurActivite: fc.constant(secteur),
-    activites: fabriqueArb_EnsActivites_AvecFiltre_PourSecteurPeutEtreComposite(
-      estActiviteListee,
-    )(secteur, "PasDeSousSecteurActivite"),
-  } as {
-    [K in keyof Sortie]: fc.Arbitrary<Sortie[K]>;
-  }) as fc.Arbitrary<Sortie>;
 
 export const fabriqueArb_EnsActivites_Autres_PourSecteurSimple = <
   T extends SecteurActivite,
