@@ -32,8 +32,3 @@ export interface DonneesFormulaireSimulateur
   paysOperationsCyber: AppartenancePaysUnionEuropeenne[];
   paysPlusGrandNombreSalaries: AppartenancePaysUnionEuropeenne[];
 }
-
-export type DonneesSectorielles = Pick<
-  DonneesFormulaireSimulateur,
-  "secteurActivite" | "sousSecteurActivite"
->;
