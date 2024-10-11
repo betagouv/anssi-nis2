@@ -123,16 +123,6 @@ export type Activite =
   | ActivitesFournisseursNumeriques
   | ActivitesRecherche;
 
-export type ActiviteSecteursSimples = Exclude<
-  Activite,
-  ActivitesEnergie | ActivitesTransports | ActivitesFabrication
->;
-export type ExclusionAutreDe<Type extends string> =
-  Type extends `autre${string}` ? never : Type;
-
-export type ActiviteSecteursSimplesListe =
-  ExclusionAutreDe<ActiviteSecteursSimples>;
-
 export type DescriptionActivite = {
   titre: string;
   description: string;

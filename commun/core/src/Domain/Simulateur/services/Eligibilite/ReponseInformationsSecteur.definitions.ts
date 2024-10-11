@@ -75,9 +75,6 @@ export type RepInfoSecteur<Taille extends CategorieTaille> =
   | InformationsAutresSecteursListes
   | InformationSecteurSimpleAutre;
 
-export type InformationsSecteurPossible<Taille extends CategorieTaille> =
-  RepInfoSecteur<Taille>;
-
 export type DonneesInformationsSecteur<Taille extends CategorieTaille> = {
   secteurs: Set<RepInfoSecteur<Taille>>;
 };

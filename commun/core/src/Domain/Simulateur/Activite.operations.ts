@@ -30,9 +30,8 @@ import {
   ValeursActivitesTransportsParEau,
   ValeursActivitesTransportsRoutiers,
 } from "./Activite.valeurs";
-import { SecteurActivite, SecteurSimple } from "./SecteurActivite.definitions";
-import { PeutEtreSousSecteurActivite, SousSecteurActivite } from "./SousSecteurActivite.definitions";
-import { ValeurCleSectorielle } from "./ValeurCleSectorielle.definitions";
+import { SecteurSimple } from "./SecteurActivite.definitions";
+import { SousSecteurActivite } from "./SousSecteurActivite.definitions";
 
 export const activitesParSecteurEtSousSecteur: Record<
   SecteurSimple | SousSecteurActivite,
@@ -81,18 +80,3 @@ export const activitesParSecteurEtSousSecteur: Record<
   transportsParEau: ValeursActivitesTransportsParEau,
   transportsRoutiers: ValeursActivitesTransportsRoutiers,
 };
-const getValeurCleSectorielle = <T>(
-  secteur: T,
-  sousSecteur: PeutEtreSousSecteurActivite,
-): ValeurCleSectorielle =>
-  (sousSecteur !== "PasDeSousSecteurActivite"
-    ? sousSecteur
-    : secteur) as ValeurCleSectorielle;
-export const getActivitesPour = <T extends SecteurActivite>(
-  secteur: T,
-  sousSecteur: PeutEtreSousSecteurActivite,
-) => [
-  ...activitesParSecteurEtSousSecteur[
-    getValeurCleSectorielle(secteur, sousSecteur)
-  ],
-];
