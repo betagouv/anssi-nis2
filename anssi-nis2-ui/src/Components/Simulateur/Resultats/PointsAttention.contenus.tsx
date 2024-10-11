@@ -14,18 +14,6 @@ export const TextesDesResumes: Record<ResumesPointsAttention, ReactElement> = {
       lequel se trouve votre établissement principal.
     </>
   ),
-  NumeriqueEtabliEMUEhorsFrance: (
-    <>
-      Votre entité exerce des activités des secteurs «&nbsp;Infrastructure
-      numérique&nbsp;», «&nbsp;Gestion des services TIC&nbsp;» et/ou
-      «&nbsp;Fournisseurs numériques&nbsp;» pour lesquelles l&apos;établissement
-      principal au sens de la directive NIS&nbsp;2 est dans l&apos;Union
-      Européenne, hors de France. Pour ces activités-ci, votre entité dépend de
-      l&apos;Etat membre de l&apos;Union Européenne dans lequel se trouve votre
-      établissement principal, et, à ce titre, nous vous invitons à vous
-      rapprocher de l&apos;autorité nationale compétente NIS&nbsp;2 associée.
-    </>
-  ),
   EtabliUE: (
     <>
       Nous vous invitons à vous rapprocher de l&apos;autorité nationale

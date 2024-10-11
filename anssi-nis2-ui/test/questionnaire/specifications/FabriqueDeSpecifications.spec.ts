@@ -826,7 +826,6 @@ describe("La fabrique de spécifications", () => {
   describe("pour les « Points d'attention »", () => {
     const tousLesResumes: [string, ResumesPointsAttention][] = [
       ["#NumeriqueUE", "NumeriqueUE"],
-      ["#NumeriqueEtabliEMUEhorsFrance", "NumeriqueEtabliEMUEhorsFrance"],
       ["#EtabliUE", "EtabliUE"],
       ["#RepresentantUE", "RepresentantUE"],
     ];

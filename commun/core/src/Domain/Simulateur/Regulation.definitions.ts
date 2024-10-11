@@ -79,7 +79,6 @@ export type ResultatEligibilite = {
 
 export const CodesResumesPointsAttention = [
   "NumeriqueUE",
-  "NumeriqueEtabliEMUEhorsFrance",
   "EtabliUE",
   "RepresentantUE",
 ];
