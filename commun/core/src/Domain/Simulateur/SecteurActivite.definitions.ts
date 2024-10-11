@@ -2,7 +2,6 @@ import { UnionDe } from "../../../../utils/types/UnionDe";
 import {
   ValeurSecteurInfrastructureNumerique,
   ValeursSecteursActivites,
-  ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal,
   ValeursSecteursAvecBesoinLocalisationRepresentant,
   ValeursSecteursComposites,
 } from "./SecteurActivite.valeurs";
@@ -21,9 +20,6 @@ export type SecteursSansBesoinLocalisationRepresentant = Omit<
   SecteurSimple,
   SecteurAvecBesoinLocalisationRepresentant
 >;
-
-export type SecteurImportantsAvecBesoinLocalisationEtablissementPrincipal =
-  UnionDe<typeof ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal>;
 
 export type SecteurInfrastructureNumerique = UnionDe<
   typeof ValeurSecteurInfrastructureNumerique

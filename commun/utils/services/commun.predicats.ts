@@ -4,9 +4,7 @@ export const toujoursVrai = () => true;
 export const toujoursFaux = () => false;
 export const toujourNegatif = () => -1;
 
-export const estNonVide = <T>(tableau: T[]): tableau is T[] =>
-  tableau.length > 0;
-export const estSingleton = <T extends string>(a: T[]) => a.length === 1;
+
 /**
  * Fabrique un prédicat d'égalité sur une valeur
  * @param cherche
@@ -15,14 +13,6 @@ export const est: <T>(cherche: T) => (compare: T) => boolean =
   <T>(cherche: T) =>
   (compare: T) =>
     compare === cherche;
-/**
- * Fabrique un prédicat d'égalité sur une liste de valeurs
- * @param listeCherche
- */
-export const estParmi: <T>(...listeCherche: T[]) => (compare: T) => boolean =
-  <T>(...listeCherche: T[]) =>
-  (compare: T) =>
-    listeCherche.includes(compare);
 /**
  * Fabrique un prédicat d'égalité sur une liste de valeurs
  * @param listeCherche
