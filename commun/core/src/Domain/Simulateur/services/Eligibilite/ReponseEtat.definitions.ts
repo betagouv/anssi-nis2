@@ -8,7 +8,6 @@ import {
 } from "./CapsuleReponse.definitions";
 import { CategorieTaille } from "./ReponseStructure.definitions";
 
-export type ReponseEtatVide = Tag<"ReponseEtatVide">;
 export type ReponseEtatDesignationOperateurServicesEssentiels =
   Tag<"DesignationOperateurServicesEssentiels"> &
     CapsuleDesignationOperateurServicesEssentiels;
@@ -34,4 +33,3 @@ export type UnionReponseEtatNonVide =
   | ReponseEtatAppartenancePaysUnionEuropeenne
   | ReponseEtatStructure
   | ReponseEtatInformationsSecteur;
-export type UnionReponseEtat = ReponseEtatVide | UnionReponseEtatNonVide;

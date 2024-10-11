@@ -26,14 +26,6 @@ export const afficheDifferences = (
   ${JSON.stringify(resultatObtenu, null, 2)}
   `;
 
-export const assertionArbitraire =
-  (
-    arbitraire: fc.Arbitrary<EtatRegulation>,
-    verification: (args: EtatRegulation) => boolean | void,
-  ) =>
-  () =>
-    fc.assert(fc.property(arbitraire, verification), { verbose: true });
-
 export const assertion = {
   propriete: <Ts extends [unknown, ...unknown[]]>(
     ...args: [
@@ -77,39 +69,3 @@ export const verificationReponseNonRegule = (reponse: EtatRegulation) => {
     afficheDifferences(resultatAttendu, resultatObtenu),
   ).toStrictEqual(resultatAttendu);
 };
-export const verifieReponseDefinitivementIncertainAutrePaysUE = (
-  reponse: EtatRegulation,
-) => {
-  const resultatAttendu: EtatRegulationDefinitif = {
-    _resultatEvaluationRegulation: "Definitif",
-    etapeEvaluee: "InformationsSecteur",
-    decision: "Incertain",
-    causes: { _tag: "DefiniDansUnAutreEtatMembre" },
-  };
-
-  const resultatObtenu =
-    evalueRegulationEtatReponseInformationsSecteur(reponse);
-  expect(
-    resultatObtenu,
-    afficheDifferences(resultatAttendu, resultatObtenu),
-  ).toStrictEqual(resultatAttendu);
-};
-export const verifieReponseDefinitivementRegule =
-  (typeEntite: TypeEntite) => (reponse: EtatRegulation) => {
-    const causes: CausesRegulation = {
-      ...propReponseEtat(reponse)("Structure"),
-      ...propReponseEtat(reponse)("InformationsSecteur"),
-    };
-    const resultatAttendu: EtatRegulationDefinitif = {
-      _resultatEvaluationRegulation: "Definitif",
-      etapeEvaluee: "InformationsSecteur",
-      ...fabriqueRegule(causes, typeEntite),
-    };
-
-    const resultatObtenu =
-      evalueRegulationEtatReponseInformationsSecteur(reponse);
-    expect(
-      resultatObtenu,
-      afficheDifferences(resultatAttendu, resultatObtenu),
-    ).toStrictEqual(resultatAttendu);
-  };
