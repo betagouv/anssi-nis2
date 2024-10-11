@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { texteInfobulleBoutonFermer } from "../../References/LibellesQuestionsSimulateur.ts";
 
 export const Infobulle = ({
   id,
@@ -18,7 +17,7 @@ export const Infobulle = ({
       {contenu}
       <i
         className="fr-btn--close fr-btn fr-icon-hand"
-        title={texteInfobulleBoutonFermer}
+        title="Masquer le message"
         onClick={action}
       />
     </div>
