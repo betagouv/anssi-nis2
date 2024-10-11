@@ -1,7 +1,7 @@
 import { DefaultComponent } from "./Services/Props";
 
-import "./simulateur.scss";
-import "./simulateur.petit-desktop.scss";
+import "./style/simulateur.scss";
+import "./style/simulateur.petit-desktop.scss";
 import MiseEnPage from "./Components/MiseEnPage.tsx";
 import { ChargeurEtape } from "./Components/Simulateur/ChargeurEtape.tsx";
 import { BandeauConcerneSimulateur } from "./Components/Simulateur/BandeauConcerneSimulateur.tsx";

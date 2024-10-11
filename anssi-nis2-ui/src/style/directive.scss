@@ -120,7 +120,7 @@
 
       &:before {
         content: "";
-        background: url(assets/icone-menu.svg);
+        background: url(../assets/icone-menu.svg);
         width: 16px;
         height: 16px;
         display: block;
@@ -130,7 +130,7 @@
         content: "";
         width: 16px;
         height: 16px;
-        background: url(assets/icone-fleche-bas.svg);
+        background: url(../assets/icone-fleche-bas.svg);
         transform: translateY(1px) rotate(0deg);
         transition: transform 0.1s ease-in-out;
         margin-left: auto;
@@ -322,7 +322,7 @@
         content: "";
         width: 16px;
         height: 16px;
-        background: url(assets/icone-fleche-haut.svg);
+        background: url(../assets/icone-fleche-haut.svg);
         display: flex;
         transform: translateY(4px);
       }

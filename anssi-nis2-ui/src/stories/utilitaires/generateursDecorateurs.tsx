@@ -14,7 +14,7 @@ export const genereDecorateurPourContexte = (context: Contexte) =>
         <Helmet>
           <link rel="stylesheet" href="/dsfr/utility/icons/icons.min.css" />
           <link rel="stylesheet" href="/dsfr/dsfr.min.css" />
-          <link rel="stylesheet" href="../../App.scss" />
+          <link rel="stylesheet" href="../../style/App.scss" />
           <script>{scriptContenu}</script>
         </Helmet>
         <StoryADecorer />

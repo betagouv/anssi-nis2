@@ -1,10 +1,10 @@
 import "@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css";
 import "@gouvfr/dsfr/dist/utility/utility.css";
 
-import "./accueil.scss";
-import "./accueil.tablette.scss";
-import "./accueil.petit-desktop.scss";
-import "./accueil.desktop.scss";
+import "./style/accueil.scss";
+import "./style/accueil.tablette.scss";
+import "./style/accueil.petit-desktop.scss";
+import "./style/accueil.desktop.scss";
 
 import { DefaultComponent } from "./Services/Props";
 import { Link } from "react-router-dom";
