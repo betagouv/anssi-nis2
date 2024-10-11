@@ -1,7 +1,5 @@
 import { ConfigService } from "@nestjs/config";
 import { Test } from "@nestjs/testing";
-import { Provider } from "@nestjs/common";
-import { env } from "process";
 import { MockFactory } from "../mock.factory";
 import { Repository } from "typeorm";
 import { InformationsEmail } from "../../informations-emails/entities/informations-email.entity";
@@ -24,25 +22,21 @@ export const fabriqueModuleTestAvecFauxServiceConfig =
       providers: [fauxServiceConfiguration],
     }).compile();
   };
+
 export const fabriqueConfigService = async (valeursChaineConfiguration: {
   [p: string]: string;
 }) =>
   (
     await fabriqueModuleTestAvecFauxServiceConfig(valeursChaineConfiguration)
   ).get<ConfigService>(ConfigService);
-export const serviceConfigurationPourTests: Provider = {
-  provide: ConfigService,
-  useValue: {
-    get: (cleDeConfiguration: string, valeurParDefaut: string) =>
-      env[cleDeConfiguration] || valeurParDefaut,
-  },
-};
+
 export const fabriqueMockRepository = <DtoType, EntityType>(specifications: {
   [k: string]: (objet: DtoType) => Promise<EntityType>;
 }) => ({
   ...MockFactory.getMock(Repository<EntityType>),
   ...specifications,
 });
+
 export const espereEmailsInformationCorrespondASonDto = (
   reponse: InformationsEmail,
   informationsEmail: CreeInformationsEmailDto,
