@@ -45,13 +45,4 @@ export const fabriqueArb_EnsActivites_AvecFiltre_PourSecteur =
     } as { [k in keyof Sortie]: fc.Arbitrary<Sortie[k]> });
 
 
-export const fabriqueArb_EnsActivites_Autres_PourSecteurSimple = <
-  T extends SecteurActivite,
-  U extends RepInfoSecteur<CategorieTaille>,
->(
-  secteur: T,
-): fc.Arbitrary<U> =>
-  fabriqueArb_EnsActivites_AvecFiltre_PourSecteur(estActiviteListee)([
-    secteur,
-    "PasDeSousSecteurActivite",
-  ]);
+

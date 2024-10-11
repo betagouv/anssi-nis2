@@ -1,21 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { expect } from "vitest";
-import { EtatRegulation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 
-export const afficheDifferences = (
-  resultatAttendu: EtatRegulation,
-  resultatObtenu: EtatRegulation,
-) =>
-  `
-  Resultat Attendu: 
-  
-  ${JSON.stringify(resultatAttendu, null, 2)}
-  
-  
-  Resultat Obtenu: 
-  
-  ${JSON.stringify(resultatObtenu, null, 2)}
-  `;
 
 export const assertion = {
   propriete: <Ts extends [unknown, ...unknown[]]>(
