@@ -3,7 +3,6 @@ import {
   ActiviteInfranumLocalEtabLot1,
   ActiviteInfranumLocalEtabLot2,
   ActiviteInfranumLocalServices,
-  ActiviteSecteursSimplesListe,
   ActivitesEnergie,
   ActivitesFabrication,
   ActivitesPourSecteur,
@@ -12,7 +11,6 @@ import {
 import {
   SecteurActivite,
   SecteurComposite,
-  SecteursDefinitsSansBesoinLocalisationRepresentant,
   SecteurSimple,
   SecteursReqLocalEtap,
   SousSecteurAutrePour,
@@ -23,10 +21,6 @@ import {
   SousSecteurTransport,
 } from "../../SousSecteurActivite.definitions";
 
-export type InformationsSecteurSimpleListe = {
-  secteurActivite: SecteursDefinitsSansBesoinLocalisationRepresentant;
-  activites: Set<ActiviteSecteursSimplesListe>;
-};
 export type InformationsSecteurCompositeAutre<
   S extends SecteurComposite = SecteurComposite,
 > = {
@@ -132,6 +126,3 @@ export type InformationSecteurSimpleAutre = {
   secteurActivite: ExtraitAutre<SecteurActivite>;
 };
 
-export type InformationsSecteurSansBesoinLocalisation =
-  | InformationsSecteursCompositeListe
-  | InformationsSecteurSimpleListe;
