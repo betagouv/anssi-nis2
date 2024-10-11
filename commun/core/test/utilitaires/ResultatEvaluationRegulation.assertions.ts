@@ -1,15 +1,6 @@
 import { fc } from "@fast-check/vitest";
 import { expect } from "vitest";
-import { fabriqueRegule } from "../../src/Domain/Simulateur/ResultatRegulation.fabrique";
-import { resultatNonRegule } from "../../src/Domain/Simulateur/Regulation.constantes";
-import { CausesRegulation } from "../../src/Domain/Simulateur/Regulation.definitions";
-import type { TypeEntite } from "../../src/Domain/Simulateur/Regulation.definitions";
-import {
-  EtatRegulation,
-  EtatRegulationDefinitif,
-} from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
-import { evalueRegulationEtatReponseInformationsSecteur } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.operations";
-import { propReponseEtat } from "../../src/Domain/Simulateur/services/Eligibilite/ReponseEtat.operations";
+import { EtatRegulation } from "../../src/Domain/Simulateur/services/Eligibilite/EtatRegulation.definitions";
 
 export const afficheDifferences = (
   resultatAttendu: EtatRegulation,
@@ -51,18 +42,4 @@ export const assertion = {
       assertion.propriete(arb, (a) => {
         expect(a).not.toStrictEqual(valeur);
       }),
-};
-export const verificationReponseNonRegule = (reponse: EtatRegulation) => {
-  const resultatAttendu: EtatRegulationDefinitif = {
-    _resultatEvaluationRegulation: "Definitif",
-    etapeEvaluee: "InformationsSecteur",
-    ...resultatNonRegule,
-  };
-
-  const resultatObtenu =
-    evalueRegulationEtatReponseInformationsSecteur(reponse);
-  expect(
-    resultatObtenu,
-    afficheDifferences(resultatAttendu, resultatObtenu),
-  ).toStrictEqual(resultatAttendu);
 };
