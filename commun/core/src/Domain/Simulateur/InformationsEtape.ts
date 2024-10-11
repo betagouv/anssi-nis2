@@ -1,6 +1,5 @@
 import { PredicatDonneesSimulateurDefinitions } from "./PredicatDonneesSimulateur.definitions";
 import { DonneesFormulaireSimulateur } from "./services/DonneesFormulaire/DonneesFormulaire.definitions";
-import { P } from "ts-pattern";
 import { ValidationReponses } from "./services/ChampSimulateur/champs.domaine";
 
 const typeEtapes = [
@@ -37,9 +36,6 @@ export type CapaciteEtape = {
 
 export type EtapeExistante = InformationsEtape & CapaciteEtape;
 
-export type EtapePrealable = EtapeExistante;
-
-export type EtapeResultat = EtapeExistante;
 
 export type OptionsInformationEtapeForm = {
   readonly sousEtapeConditionnelle?: SousEtapeConditionnelle;
@@ -64,11 +60,6 @@ export type InformationEtapeForm = EtapeExistante &
   CapacitesEtapeFormulaire & {
     readonly options: OptionsInformationEtapeForm;
   };
-
-export type VariantesEtape<TypeEtape extends InformationEtapeForm> = {
-  conditions: P.Pattern<DonneesFormulaireSimulateur>;
-  etape: TypeEtape;
-};
 
 export type InformationsEtapesVariantes<
   TypeEtape extends InformationEtapeForm,

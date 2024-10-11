@@ -3,7 +3,6 @@ import { TypeStructure } from "../../ChampsSimulateur.definitions";
 import {
   CapsuleAppartenancePaysUnionEuropeenne,
   CapsuleDesignationOperateurServicesEssentiels,
-  CapsuleInformationsSecteur,
   CapsuleStructure,
 } from "./CapsuleReponse.definitions";
 import { CategorieTaille } from "./ReponseStructure.definitions";
@@ -22,14 +21,4 @@ export type ReponseEtatStructure<
   RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> &
   CapsuleStructure<Type, Taille>;
 
-export type ReponseEtatInformationsSecteur<
-  T extends CategorieTaille = CategorieTaille,
-> = Tag<"InformationsSecteur"> &
-  RemoveTag<ReponseEtatAppartenancePaysUnionEuropeenne> &
-  CapsuleInformationsSecteur<T>;
 
-export type UnionReponseEtatNonVide =
-  | ReponseEtatDesignationOperateurServicesEssentiels
-  | ReponseEtatAppartenancePaysUnionEuropeenne
-  | ReponseEtatStructure
-  | ReponseEtatInformationsSecteur;
