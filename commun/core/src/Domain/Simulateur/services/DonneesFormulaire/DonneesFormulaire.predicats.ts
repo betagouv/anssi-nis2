@@ -1,14 +1,6 @@
 import { isMatching } from "ts-pattern";
-import { SecteurAvecBesoinLocalisationRepresentant } from "../../SecteurActivite.definitions";
-import { ValeursSecteursAvecBesoinLocalisationRepresentant } from "../../SecteurActivite.valeurs";
-import {
-  auMoinsUneActiviteListee,
-  estActiviteAutre,
-} from "../../Activite.predicats";
-import {
-  estMoyenneEntreprise,
-  estPetiteEntreprise,
-} from "../TailleEntreprise/TailleEntite.predicats";
+import { auMoinsUneActiviteListee, estActiviteAutre } from "../../Activite.predicats";
+import { estMoyenneEntreprise, estPetiteEntreprise } from "../TailleEntreprise/TailleEntite.predicats";
 import {
   ChampsAvecPredicats,
   DonneesFormulaireSimulateur,
@@ -89,25 +81,4 @@ export const predicatDonneesFormulaire = {
   ),
 };
 
-export const contientSecteurNecessitantLocalisation = (
-  d: DonneesSectorielles
-) =>
-  ValeursSecteursAvecBesoinLocalisationRepresentant.some((s) =>
-    predicatDonneesFormulaire.secteurActivite.contient(s)(
-      d as DonneesFormulaireSimulateur
-    )
-  );
-export const contientUniquementSecteurNecessitantLocalisation = (
-  d: DonneesSectorielles
-) =>
-  d.secteurActivite.every((s) =>
-    ValeursSecteursAvecBesoinLocalisationRepresentant.includes(
-      s as SecteurAvecBesoinLocalisationRepresentant
-    )
-  );
 
-export const contientAutreSecteurActiviteUniquement = (
-  donneesFormulaire: DonneesFormulaireSimulateur
-) =>
-  donneesFormulaire.secteurActivite.length === 1 &&
-  donneesFormulaire.secteurActivite[0] === "autreSecteurActivite";
