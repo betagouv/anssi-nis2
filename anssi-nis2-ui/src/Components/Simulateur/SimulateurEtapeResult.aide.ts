@@ -8,6 +8,7 @@ import { estPetiteEntreprise } from "../../../../commun/core/src/Domain/Simulate
 
 export const getModeFormulaireEmail = (regulation: RegulationEntite) =>
   estRegule(regulation) ? "complet" : "simple";
+
 export const affichePdf =
   (regulation: RegulationEntite) => (d: DonneesFormulaireSimulateur) =>
     estIncertain(regulation) ||

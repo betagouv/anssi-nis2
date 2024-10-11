@@ -1,7 +1,7 @@
 import { RegisteredLinkProps } from "@codegouvfr/react-dsfr/link";
 
 const baseUrlCyberGouv = "https://cyber.gouv.fr/";
-const baseUrlAnssi = baseUrlCyberGouv; //"https://www.ssi.gouv.fr/";
+const baseUrlAnssi = baseUrlCyberGouv;
 
 export const liens: Record<string, Record<string, RegisteredLinkProps>> = {
   anssi: {
