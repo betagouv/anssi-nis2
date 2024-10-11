@@ -84,7 +84,3 @@ export type DonneesInformationsSecteur<Taille extends CategorieTaille> = {
 
 export type ReponseInformationsSecteur<Taille extends CategorieTaille> =
   CategoriseTaille<Taille> & DonneesInformationsSecteur<Taille>;
-
-export type PredicatInformationSecteurPossible = (
-  i: RepInfoSecteur<CategorieTaille>,
-) => boolean;
