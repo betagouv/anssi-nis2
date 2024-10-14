@@ -1,9 +1,6 @@
 import { ValeursRegulationEntite } from "./RegulationEntite.valeurs";
-import { CapsuleReponseDefinitions } from "./services/Eligibilite/CapsuleReponse.definitions";
 
 export type RegulationEntite = (typeof ValeursRegulationEntite)[number];
-
-export type CausesRegulation = CapsuleReponseDefinitions;
 
 export const Regulation: Record<RegulationEntite, RegulationEntite> = {
   Regule: "Regule",
@@ -23,10 +20,6 @@ export const TypeEntite: Record<TypeEntite, TypeEntite> = {
   AutreEtatMembreUE: "AutreEtatMembreUE",
   EnregistrementUniquement: "EnregistrementUniquement",
 };
-
-
-//------------------------------------
-// TYPES RÉÉCRITS
 
 export type ResultatEligibilite = {
   regulation: RegulationEntite;
