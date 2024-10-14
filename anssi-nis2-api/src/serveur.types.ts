@@ -9,11 +9,6 @@ export type ServeurMonEspaceNIS2 = {
   arrete: () => void;
 };
 
-export enum ImplementationDuServeur {
-  Nest,
-  Express,
-}
-
 export type DependanceServeur = {
   adaptateurCrm: AdaptateurCrm;
   adaptateurGestionErreur: AdaptateurGestionErreur;
