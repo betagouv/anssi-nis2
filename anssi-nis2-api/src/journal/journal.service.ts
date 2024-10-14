@@ -43,10 +43,6 @@ export class JournalService {
         sousSecteur: sousSecteur,
       };
       segments.push(segmentsCourants);
-      // const enregistrmentCourant = await this.concerneNis2Repository.save(
-      //   segmentsCourants,
-      // );
-      // resultat.push(enregistrmentCourant);
     }
     return this.concerneNis2Repository.save(segments);
   }

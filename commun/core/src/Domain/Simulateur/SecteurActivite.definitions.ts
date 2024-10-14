@@ -6,9 +6,3 @@ export type SecteurActivite = UnionDe<typeof ValeursSecteursActivites>;
 export type SecteurComposite = UnionDe<typeof ValeursSecteursComposites>;
 
 export type SecteurSimple = Exclude<SecteurActivite, SecteurComposite>;
-
-export type SousSecteurAutrePour<S extends SecteurComposite> =
-  `autreSousSecteur${Capitalize<S>}`;
-export type SecteursReqLocalEtap =
-  | "gestionServicesTic"
-  | "fournisseursNumeriques";

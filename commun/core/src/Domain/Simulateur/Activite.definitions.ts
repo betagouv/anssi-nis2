@@ -17,7 +17,6 @@ import {
   ValeursActivitesHydrogene,
   ValeursActivitesInfrastructureMarcheFinancier,
   ValeursActivitesInfrastructureNumerique,
-  ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau,
   ValeursActivitesPetrole,
   ValeursActivitesProductionTransformationDistributionDenreesAlimentaires,
   ValeursActivitesRecherche,
@@ -29,11 +28,7 @@ import {
   ValeursActivitesTransportsFerroviaires,
   ValeursActivitesTransportsParEau,
   ValeursActivitesTransportsRoutiers,
-  ValeursActivitesInfrastructureNumeriqueFournisseursServices,
-  ValeursActivitesInfrastructureNumeriqueFournisseursCommElecPublics,
 } from "./Activite.valeurs";
-import { SecteurSimple } from "./SecteurActivite.definitions";
-import { SousSecteurListes } from "./SousSecteurActivite.definitions";
 
 export type ActivitesElectricite = (typeof ValeursActivitesElectricite)[number];
 export type ActivitesReseauxChaleurFroid =
@@ -127,46 +122,3 @@ export type DescriptionActivite = {
   titre: string;
   description: string;
 };
-
-export type ActiviteInfranumLocalServices =
-  (typeof ValeursActivitesInfrastructureNumeriqueFournisseursCommElecPublics)[number];
-export type ActiviteInfranumLocalEtabLot1 =
-  (typeof ValeursActivitesInfrastructureNumeriqueDNSRegistreDomainePermierNiveau)[number];
-export type ActiviteInfranumLocalEtabLot2 =
-  (typeof ValeursActivitesInfrastructureNumeriqueFournisseursServices)[number];
-
-export interface ActivitesPourSecteur
-  extends Record<SecteurSimple | SousSecteurListes, Activite> {
-  gestionServicesTic: ActivitesGestionServicesTic;
-  fournisseursNumeriques: ActivitesFournisseursNumeriques;
-  energie: ActivitesEnergie;
-  transports: ActivitesTransports;
-  secteurBancaire: ActivitesSecteurBancaire;
-  infrastructureMarcheFinancier: ActivitesInfrastructureMarcheFinancier;
-  sante: ActivitesSante;
-  eauPotable: ActivitesEauPotable;
-  eauUsees: ActivitesEauUsees;
-  infrastructureNumerique: ActivitesInfrastructureNumerique;
-  espace: ActivitesEspace;
-  servicesPostauxExpedition: ActivitesServicesPostauxExpedition;
-  gestionDechets: ActivitesGestionDechets;
-  fabricationProductionDistributionProduitsChimiques: ActivitesFabricationProductionDistributionProduitsChimiques;
-  productionTransformationDistributionDenreesAlimentaires: ActivitesProductionTransformationDistributionDenreesAlimentaires;
-  fabrication: ActivitesFabrication;
-  recherche: ActivitesRecherche;
-  electricite: ActivitesElectricite;
-  gaz: ActivitesGaz;
-  hydrogene: ActivitesHydrogene;
-  petrole: ActivitesPetrole;
-  reseauxChaleurFroid: ActivitesReseauxChaleurFroid;
-  transportsAeriens: ActivitesTransportsAeriens;
-  transportsFerroviaires: ActivitesTransportsFerroviaires;
-  transportsParEau: ActivitesTransportsParEau;
-  transportsRoutiers: ActivitesTransportsRoutiers;
-  fabricationDispositifsMedicaux: ActivitesFabricationDispositifsMedicaux;
-  fabricationEquipementsElectroniques: ActivitesFabricationEquipementsElectroniques;
-  fabricationProduitsInformatiquesElectroniquesOptiques: ActivitesFabricationProduitsInformatiquesElectroniquesOptiques;
-  fabricationMachinesEquipements: ActivitesFabricationMachinesEquipements;
-  constructionVehiculesAutomobiles: ActivitesConstructionVehiculesAutomobiles;
-  fabricationAutresMaterielTransports: ActivitesFabricationAutresMaterielTransports;
-}

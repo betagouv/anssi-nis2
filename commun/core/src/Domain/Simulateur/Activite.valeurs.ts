@@ -30,13 +30,6 @@ export const ValeursActivitesHydrogene = [
   "exploitantsSystemeHydrogene",
   "autreActiviteHydrogene",
 ] as const;
-export const ValeursActivitesEnergie = [
-  ...ValeursActivitesElectricite,
-  ...ValeursActivitesReseauxChaleurFroid,
-  ...ValeursActivitesPetrole,
-  ...ValeursActivitesGaz,
-  ...ValeursActivitesHydrogene,
-] as const;
 export const ValeursActivitesTransportsAeriens = [
   "transporteursAeriensCommercial",
   "entiteGestionnaireAeroports",
@@ -58,12 +51,6 @@ export const ValeursActivitesTransportsRoutiers = [
   "autoritesRoutieresControleGestionCirculation",
   "exploitantsSystemeTransportIntelligents",
   "autreActiviteTransportsRoutiers",
-] as const;
-export const ValeursActivitesTransports = [
-  ...ValeursActivitesTransportsAeriens,
-  ...ValeursActivitesTransportsFerroviaires,
-  ...ValeursActivitesTransportsParEau,
-  ...ValeursActivitesTransportsRoutiers,
 ] as const;
 export const ValeursActivitesSecteurBancaire = [
   "etablissementCredit",
@@ -196,14 +183,6 @@ export const ValeursActivitesFabricationAutresMaterielTransports = [
   "fabricationMaterielTransportNCA",
   "autreActiviteConstructionVehiculesAutomobilesRemorquesSemi",
 ] as const;
-export const ValeursActivitesFabrication = [
-  ...ValeursActivitesFabricationDispositifsMedicaux,
-  ...ValeursActivitesFabricationProduitsInformatiquesElectroniquesOptiques,
-  ...ValeursActivitesFabricationEquipementsElectroniques,
-  ...ValeursActivitesFabricationMachinesEquipements,
-  ...ValeursActivitesConstructionVehiculesAutomobiles,
-  ...ValeursActivitesFabricationAutresMaterielTransports,
-] as const;
 export const ValeursActivitesFournisseursNumeriques = [
   "fournisseursPlaceMarcheEnLigne",
   "fournisseursMoteursRechercheEnLigne",
@@ -214,25 +193,3 @@ export const ValeursActivitesRecherche = [
   "organismeRecherche",
   "autreActiviteRecherche",
 ] as const;
-export const ValeursActivites =
-  // Annexe 1
-  [
-    ...ValeursActivitesEnergie,
-    ...ValeursActivitesTransports,
-    ...ValeursActivitesSecteurBancaire,
-    ...ValeursActivitesInfrastructureMarcheFinancier,
-    ...ValeursActivitesSante,
-    ...ValeursActivitesEauPotable,
-    ...ValeursActivitesEauUsees,
-    ...ValeursActivitesInfrastructureNumerique,
-    ...ValeursActivitesGestionServicesTic,
-    ...ValeursActivitesEspace,
-    // Annexe 2
-    ...ValeursActivitesServicesPostauxExpedition,
-    ...ValeursActivitesGestionDechets,
-    ...ValeursActivitesFabricationProductionDistributionProduitsChimiques,
-    ...ValeursActivitesProductionTransformationDistributionDenreesAlimentaires,
-    ...ValeursActivitesFabrication,
-    ...ValeursActivitesFournisseursNumeriques,
-    ...ValeursActivitesRecherche,
-  ];

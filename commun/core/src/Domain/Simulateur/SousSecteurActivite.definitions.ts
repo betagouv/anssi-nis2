@@ -19,12 +19,6 @@ export type SousSecteurAutre = Extract<
   | "autreSousSecteurFabrication"
   | "autreSousSecteurTransports"
 >;
-export type SousSecteurListes = Exclude<
-  SousSecteurActivite,
-  | "autreSousSecteurEnergie"
-  | "autreSousSecteurFabrication"
-  | "autreSousSecteurTransports"
->;
 export type DescriptionSecteur = readonly SousSecteurActivite[];
 export type DetailsSousSecteurUnique<
   T extends SousSecteurEnergie | SousSecteurFabrication | SousSecteurTransport,
