@@ -1,4 +1,3 @@
-import { SecteurActivite } from "./SecteurActivite.definitions";
 import {
   ValeursSousSecteurEnergie,
   ValeursSousSecteurFabrication,
@@ -13,10 +12,6 @@ export type SousSecteurActivite =
   | SousSecteurEnergie
   | SousSecteurTransport
   | SousSecteurFabrication;
-
-export type PeutEtreSousSecteurActivite =
-  | SousSecteurActivite
-  | "PasDeSousSecteurActivite";
 
 export type SousSecteurAutre = Extract<
   SousSecteurActivite,
@@ -34,7 +29,3 @@ export type DescriptionSecteur = readonly SousSecteurActivite[];
 export type DetailsSousSecteurUnique<
   T extends SousSecteurEnergie | SousSecteurFabrication | SousSecteurTransport,
 > = Record<T, string>;
-export type EnrSecteurSousSecteur = {
-  secteur: SecteurActivite;
-  sousSecteur?: SousSecteurActivite;
-};
