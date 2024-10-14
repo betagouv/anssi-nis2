@@ -8,7 +8,3 @@ export const fabriqueTupleSecteurSousSecteurs: (
   secteur,
   sousSecteursParSecteur[secteur],
 ];
-export const fabriqueTuplesSecteurSousSecteur: (
-  secteur: SecteurComposite,
-) => [SecteurComposite, SousSecteurActivite][] = (secteur) =>
-  sousSecteursParSecteur[secteur].map((sousSecteur) => [secteur, sousSecteur]);
