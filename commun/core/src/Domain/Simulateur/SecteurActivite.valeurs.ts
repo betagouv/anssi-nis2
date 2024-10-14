@@ -3,17 +3,6 @@ export const ValeursSecteursComposites = [
   "transports",
   "fabrication",
 ] as const;
-export const ValeurSecteurInfrastructureNumerique = [
-  "infrastructureNumerique",
-] as const;
-export const ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal = [
-  "gestionServicesTic",
-  "fournisseursNumeriques",
-] as const;
-export const ValeursSecteursAvecBesoinLocalisationRepresentant = [
-  ...ValeursSecteursAvecBesoinLocalisationEtablissementPrincipal,
-  ...ValeurSecteurInfrastructureNumerique,
-] as const;
 
 export const ValeursSecteursActivitesAnnexe1 = [
   "energie",
