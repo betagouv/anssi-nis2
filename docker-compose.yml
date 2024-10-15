@@ -29,6 +29,7 @@ services:
       - "4000:3000"
     volumes:
       - ./anssi-nis2-api:/usr/src/app/anssi-nis2-api
+      - ./commun:/usr/src/app/commun
       - ./anssi-nis2-ui/dist:/usr/src/app/anssi-nis2-ui/dist
     depends_on:
       db:
