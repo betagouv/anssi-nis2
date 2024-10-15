@@ -43,7 +43,6 @@
     "husky": "^8.0.0",
     "lint-staged": "^15.2.0",
     "sass": "^1.72.0",
-    "ts-node": "^10.9.2",
     "typescript": "^5.1.6"
   },
   "lint-staged": {
@@ -55,6 +54,7 @@
   "dependencies": {
     "@sentry/node": "^7.119.1",
     "@sentry/react": "^7.119.1",
-    "@sentry/types": "^7.99.0"
+    "@sentry/types": "^7.99.0",
+    "ts-node": "^10.9.2"
   }
 }
