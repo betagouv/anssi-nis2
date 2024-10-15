@@ -11,10 +11,7 @@
     "start:dev": "knex migrate:latest && concurrently \"tsc --watch\" \"nodemon dist/anssi-nis2-api/src/main\"",
     "start:prod": "node dist/anssi-nis2-api/src/main",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.config.ts --detectOpenHandles",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "axios": "^1.6.8",
