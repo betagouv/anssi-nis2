@@ -18,8 +18,6 @@
     "test": "npm run test --workspaces --if-present",
     "build": "npm run build --workspaces --if-present",
     "start": "npm run start:prod -w anssi-nis2-api",
-    "db:migrate": "npm run -w anssi-nis2-api typeorm migration:run -- --dataSource ./src/dataSource.ts",
-    "db:migrate:revert": "npm run -w anssi-nis2-api typeorm migration:revert -- --dataSource ./src/dataSource.ts",
     "prepare": "husky install"
   },
   "repository": {
