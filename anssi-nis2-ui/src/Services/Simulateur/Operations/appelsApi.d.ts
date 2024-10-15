@@ -1,5 +1,5 @@
 import { DonneesFormulaireSimulateur } from "../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions.ts";
-import { AggregatInformationsEmail } from "../../../Domaine/Contact/InformationsEmail.definitions.ts";
+import { AggregatInformationsEmail } from "../../../Domaine/Contact/InformationsEmail.ts";
 
 export type EnvoieDonneesFormulaire = (
   formData: DonneesFormulaireSimulateur,

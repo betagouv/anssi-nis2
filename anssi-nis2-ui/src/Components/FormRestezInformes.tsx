@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { InformationsEmail } from "../../../commun/core/src/Domain/Contact/InformationsEmail.definitions.ts";
+import { InformationsEmail } from "../InformationsEmail/InformationsEmail.ts";
 
 import {
   DefaultComponentExtensible,

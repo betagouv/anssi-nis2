@@ -1,6 +1,6 @@
 import { expect } from "@storybook/jest";
 import { Meta, StoryObj } from "@storybook/react";
-import { InformationsEmail } from "../../../../../commun/core/src/Domain/Contact/InformationsEmail.definitions.ts";
+import { InformationsEmail } from "../../../InformationsEmail/InformationsEmail.ts";
 import RestezInformes from "../../../Components/RestezInformes.tsx";
 import { genereDecorateurPourContexte } from "../../utilitaires/generateursDecorateurs.tsx";
 import { defaultContext } from "../../utilitaires/PageDecorator.tsx";
