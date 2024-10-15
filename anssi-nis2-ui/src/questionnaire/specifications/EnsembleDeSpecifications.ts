@@ -39,8 +39,8 @@ export class EnsembleDeSpecifications {
         ...resultatPlusStrict,
         pointsAttention: {
           ...resultatPlusStrict.pointsAttention,
-          resumes: tousLesResumes,
-          precisions: toutesPrecisions,
+          resumes: [...new Set(tousLesResumes)],
+          precisions: [...new Set(toutesPrecisions)],
         },
       },
       specificationsRetenues: passants.map((p) => p.code),
