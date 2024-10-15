@@ -2,7 +2,7 @@ import { jest } from "@storybook/jest";
 import {
   AggregatInformationsEmail,
   InformationsEmail,
-} from "../../../../commun/core/src/Domain/Contact/InformationsEmail.definitions.ts";
+} from "../../InformationsEmail/InformationsEmail.ts";
 
 export const mockEnregistreInformationsEmail = jest.fn(
   async (informations: InformationsEmail) => {

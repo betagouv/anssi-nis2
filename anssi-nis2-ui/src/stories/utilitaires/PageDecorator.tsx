@@ -1,4 +1,4 @@
-import { AggregatInformationsEmail } from "../../../../commun/core/src/Domain/Contact/InformationsEmail.definitions.ts";
+import { AggregatInformationsEmail } from "../../InformationsEmail/InformationsEmail.ts";
 
 import { Contexte } from "../../Services/contexte";
 
