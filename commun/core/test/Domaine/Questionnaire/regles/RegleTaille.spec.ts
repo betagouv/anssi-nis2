@@ -1,10 +1,10 @@
 import { describe, it, expect } from "vitest";
+import { RegleTaille } from "../../../../src/Domain/Questionnaire/regles/RegleTaille";
+import { UnionPetitMoyenGrand } from "../../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
 import {
-  etatParDefaut,
   EtatQuestionnaire,
-} from "../../../../src/questionnaire/reducerQuestionnaire";
-import { RegleTaille } from "../../../../src/questionnaire/specifications/regles/RegleTaille";
-import { UnionPetitMoyenGrand } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions";
+  EtatQuestionnaireVide,
+} from "../../../../src/Domain/Questionnaire/EtatQuestionnaire";
 
 describe("La règle de « Taille »", () => {
   const tailles: Record<string, UnionPetitMoyenGrand> = {
@@ -50,7 +50,7 @@ describe("La règle de « Taille »", () => {
       "Nombre de salariés : $salaries . Chiffre d'affaires : $ca . Taille : $tailleAttendue ",
       ({ tailleAttendue, salaries, ca }) => {
         const entite: EtatQuestionnaire = {
-          ...etatParDefaut,
+          ...EtatQuestionnaireVide,
           trancheNombreEmployes: [nbSalaries[salaries]],
           trancheChiffreAffaire: [tranchesCa[ca]],
         };
@@ -131,7 +131,7 @@ describe("La règle de « Taille »", () => {
       "Nombre de salariés : $salaries . Chiffre d'affaires : $ca . Bilan: $bilanFinancier . Taille : $tailleAttendue ",
       ({ tailleAttendue, salaries, ca, bilanFinancier }) => {
         const entite: EtatQuestionnaire = {
-          ...etatParDefaut,
+          ...EtatQuestionnaireVide,
           trancheNombreEmployes: [nbSalaries[salaries]],
           trancheChiffreAffaire: [tranchesCa[ca]],
           trancheBilanFinancier: [tranchesBilan[bilanFinancier]],

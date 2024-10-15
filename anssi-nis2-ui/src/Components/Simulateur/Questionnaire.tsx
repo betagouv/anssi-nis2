@@ -1,5 +1,4 @@
 import { Dispatch, PropsWithChildren } from "react";
-import { EtatQuestionnaire } from "../../questionnaire/reducerQuestionnaire.ts";
 import { EtapePrealable } from "./EtapesRefacto/EtapePrealable.tsx";
 import {
   ActionQuestionnaire,
@@ -33,6 +32,7 @@ import { EnvoieDonneesFormulaire } from "../../Services/Simulateur/Operations/ap
 import { centreSurHautFormulaire } from "./scroll.ts";
 import { PersisteReponsesDuQuestionnaire } from "./EtapesRefacto/PersisteReponsesDuQuestionnaire.tsx";
 import { AiguilleVersEtapeResultat } from "./AiguilleVersEtapeResultat.tsx";
+import { EtatQuestionnaire } from "anssi-nis2-core/src/Domain/Questionnaire/EtatQuestionnaire";
 
 export const Questionnaire = ({
   etat,

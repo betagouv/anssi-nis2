@@ -1,9 +1,9 @@
-import { estValeurVide, Regle } from "../Specifications.ts";
-import { EtatQuestionnaire } from "../../reducerQuestionnaire.ts";
-import { TypeStructure } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
-import { contientUnParmi } from "../../../../../commun/utils/services/commun.predicats.ts";
-import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle.ts";
-import { SpecificationTexte } from "../FormatDesSpecificationsCSV.ts";
+import { estValeurVide, Regle } from "../Specifications";
+import { TypeStructure } from "../../Simulateur/ChampsSimulateur.definitions";
+import { contientUnParmi } from "../../../../../utils/services/commun.predicats";
+import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle";
+import { EtatQuestionnaire } from "../EtatQuestionnaire";
+import { SpecificationTexte } from "../FormatDesSpecificationsCSV";
 
 export class RegleTypeDeStructure implements Regle {
   constructor(private readonly valeursAcceptees: TypeStructure) {}

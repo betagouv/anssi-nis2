@@ -1,22 +1,22 @@
-import { RegleEntiteOSE } from "./regles/RegleEntiteOSE.ts";
-import { estValeurVide, Regle, Specifications } from "./Specifications.ts";
-import { RegleLocalisation } from "./regles/RegleLocalisation.ts";
-import { SpecificationTexte } from "./FormatDesSpecificationsCSV.ts";
+import { RegleEntiteOSE } from "./regles/RegleEntiteOSE";
+import { estValeurVide, Regle, Specifications } from "./Specifications";
+import { RegleLocalisation } from "./regles/RegleLocalisation";
+import { SpecificationTexte } from "./FormatDesSpecificationsCSV";
 import {
   CodesPrecisionsPointsAttention,
   CodesResumesPointsAttention,
   PointsAttentionPrecis,
   ResultatEligibilite,
   ResumesPointsAttention,
-} from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
-import { RegleTypeDeStructure } from "./regles/RegleTypeDeStructure.ts";
-import { RegleTaille } from "./regles/RegleTaille.ts";
-import { ErreurLectureDeRegle } from "./regles/ErreurLectureDeRegle.ts";
-import { RegleSecteurs } from "./regles/RegleSecteurs.ts";
-import { RegleSousSecteurs } from "./regles/RegleSousSecteurs.ts";
-import { RegleActivites } from "./regles/RegleActivites.ts";
-import { RegleFournitureDeServicesNumerique } from "./regles/RegleFournitureDeServicesNumerique.ts";
-import { RegleEtablissementPrincipal } from "./regles/RegleEtablissementPrincipal.ts";
+} from "../Simulateur/Regulation.definitions";
+import { RegleTypeDeStructure } from "./regles/RegleTypeDeStructure";
+import { RegleTaille } from "./regles/RegleTaille";
+import { ErreurLectureDeRegle } from "./regles/ErreurLectureDeRegle";
+import { RegleSecteurs } from "./regles/RegleSecteurs";
+import { RegleSousSecteurs } from "./regles/RegleSousSecteurs";
+import { RegleActivites } from "./regles/RegleActivites";
+import { RegleFournitureDeServicesNumerique } from "./regles/RegleFournitureDeServicesNumerique";
+import { RegleEtablissementPrincipal } from "./regles/RegleEtablissementPrincipal";
 
 export class FabriqueDeSpecifications {
   transforme(texte: SpecificationTexte): Specifications {

@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import {
   etatParDefaut,
-  EtatQuestionnaire,
   reducerQuestionnaire,
 } from "../../src/questionnaire/reducerQuestionnaire";
 import {
@@ -19,6 +18,7 @@ import {
 } from "../../src/questionnaire/actions";
 import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions";
 import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions";
+import { EtatQuestionnaire } from "anssi-nis2-core/src/Domain/Questionnaire/EtatQuestionnaire";
 
 describe("Le reducer du Questionnaire", () => {
   it("indique l'étape « préalable » comme étape de départ", () => {

@@ -1,5 +1,5 @@
-import { EtatQuestionnaire } from "../reducerQuestionnaire.ts";
-import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
+import { ResultatEligibilite } from "../Simulateur/Regulation.definitions";
+import { EtatQuestionnaire } from "./EtatQuestionnaire";
 
 export interface Regle {
   evalue(reponses: EtatQuestionnaire): boolean;

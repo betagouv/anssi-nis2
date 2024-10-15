@@ -2,7 +2,7 @@ import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
 import BlocPrincipal from "../../BlocPrincipal.tsx";
 import { FormSimulateur } from "../Etapes";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
-import { libellesSecteursActivite } from "../../../References/LibellesSecteursActivite.ts";
+import { libellesSecteursActivite } from "../../../../../commun/core/src/Domain/Simulateur/LibellesSecteursActivite.ts";
 import { useState } from "react";
 import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { PrecedentSuivant } from "../PrecedentSuivant.tsx";

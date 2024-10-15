@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { Specifications } from "../../../src/questionnaire/specifications/Specifications";
+import { Specifications } from "../../../src/Domain/Questionnaire/Specifications";
+import { ResultatEligibilite } from "../../../src/Domain/Simulateur/Regulation.definitions";
+import { RegleEntiteOSE } from "../../../src/Domain/Questionnaire/regles/RegleEntiteOSE";
 import {
-  etatParDefaut,
   EtatQuestionnaire,
-} from "../../../src/questionnaire/reducerQuestionnaire";
-import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions";
-import { RegleEntiteOSE } from "../../../src/questionnaire/specifications/regles/RegleEntiteOSE";
+  EtatQuestionnaireVide,
+} from "../../../src/Domain/Questionnaire/EtatQuestionnaire";
 
 describe("Les spécifications", () => {
   const resultatDeLaSpec: ResultatEligibilite = {
@@ -26,7 +26,7 @@ describe("Les spécifications", () => {
 
   it("retourne le résultat spécifié si toutes les réponses du questionnaire sont conformes aux règles", () => {
     const entiteOui: EtatQuestionnaire = {
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       designationOperateurServicesEssentiels: ["oui"],
     };
 
@@ -37,7 +37,7 @@ describe("Les spécifications", () => {
 
   it("retourne `undefined` dès qu'une réponse du questionnaire n'est pas conforme à une règle", () => {
     const entiteNon: EtatQuestionnaire = {
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       designationOperateurServicesEssentiels: ["non"],
     };
 

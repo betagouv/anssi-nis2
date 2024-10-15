@@ -1,6 +1,6 @@
-import { Specifications } from "./Specifications.ts";
-import { EtatQuestionnaire } from "../reducerQuestionnaire.ts";
-import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
+import { Specifications } from "./Specifications";
+import { ResultatEligibilite } from "../Simulateur/Regulation.definitions";
+import { EtatQuestionnaire } from "./EtatQuestionnaire";
 
 export type ResultatAvecAnalyse = {
   resultat: ResultatEligibilite;

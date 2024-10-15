@@ -1,4 +1,4 @@
-import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
+import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions";
 
 export const libellesActivites: Record<Activite, string> = {
   acteurDuMarche:

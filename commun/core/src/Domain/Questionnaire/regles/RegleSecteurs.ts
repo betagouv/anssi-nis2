@@ -1,10 +1,10 @@
-import { EtatQuestionnaire } from "../../reducerQuestionnaire.ts";
-import { estValeurVide, Regle } from "../Specifications.ts";
-import { SpecificationTexte } from "../FormatDesSpecificationsCSV.ts";
-import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle.ts";
-import { contientUnParmi } from "../../../../../commun/utils/services/commun.predicats.ts";
-import { libellesSecteursActivite } from "../../../References/LibellesSecteursActivite.ts";
-import { SecteurActivite } from "../../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
+import { estValeurVide, Regle } from "../Specifications";
+import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle";
+import { contientUnParmi } from "../../../../../utils/services/commun.predicats";
+import { SecteurActivite } from "../../Simulateur/SecteurActivite.definitions";
+import { EtatQuestionnaire } from "../EtatQuestionnaire";
+import { SpecificationTexte } from "../FormatDesSpecificationsCSV";
+import { libellesSecteursActivite } from "../../Simulateur/LibellesSecteursActivite";
 
 export class RegleSecteurs implements Regle {
   constructor(private readonly secteurActivite: SecteurActivite) {}

@@ -1,10 +1,11 @@
-import { estValeurVide, Regle } from "../Specifications.ts";
-import { EtatQuestionnaire } from "../../reducerQuestionnaire.ts";
-import { SpecificationTexte } from "../FormatDesSpecificationsCSV.ts";
-import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle.ts";
-import { Activite } from "../../../../../commun/core/src/Domain/Simulateur/Activite.definitions.ts";
-import { contientUnParmi } from "../../../../../commun/utils/services/commun.predicats.ts";
-import { libellesActivites } from "../../../References/LibellesActivites.ts";
+import { estValeurVide, Regle } from "../Specifications";
+
+import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle";
+import { Activite } from "../../Simulateur/Activite.definitions";
+import { contientUnParmi } from "../../../../../utils/services/commun.predicats";
+import { libellesActivites } from "anssi-nis2-ui/src/References/LibellesActivites";
+import { EtatQuestionnaire } from "../EtatQuestionnaire";
+import { SpecificationTexte } from "../FormatDesSpecificationsCSV";
 
 export class RegleActivites implements Regle {
   constructor(private readonly activite: Activite) {}

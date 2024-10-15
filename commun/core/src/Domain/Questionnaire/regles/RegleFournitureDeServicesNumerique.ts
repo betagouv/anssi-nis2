@@ -1,8 +1,9 @@
-import { estValeurVide, Regle } from "../Specifications.ts";
-import { SpecificationTexte } from "../FormatDesSpecificationsCSV.ts";
-import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle.ts";
-import { AppartenancePaysUnionEuropeenne } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
-import { EtatQuestionnaire } from "../../reducerQuestionnaire.ts";
+import { estValeurVide, Regle } from "../Specifications";
+
+import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle";
+import { AppartenancePaysUnionEuropeenne } from "../../Simulateur/ChampsSimulateur.definitions";
+import { EtatQuestionnaire } from "../EtatQuestionnaire";
+import { SpecificationTexte } from "../FormatDesSpecificationsCSV";
 
 export class RegleFournitureDeServicesNumerique implements Regle {
   constructor(

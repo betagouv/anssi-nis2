@@ -1,10 +1,10 @@
 import { parse } from "papaparse";
-import { FabriqueDeSpecifications } from "./FabriqueDeSpecifications.ts";
+import { FabriqueDeSpecifications } from "./FabriqueDeSpecifications";
 import {
   SpecificationTexte,
   valideColonnesDuCSV,
-} from "./FormatDesSpecificationsCSV.ts";
-import { EnsembleDeSpecifications } from "./EnsembleDeSpecifications.ts";
+} from "./FormatDesSpecificationsCSV";
+import { EnsembleDeSpecifications } from "./EnsembleDeSpecifications";
 
 export class LecteurDeSpecifications {
   private readonly fabrique = new FabriqueDeSpecifications();
