@@ -2,10 +2,7 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "~core/*": [
-        "../commun/core/*",
-        "../commun/core/dist/*"
-      ]
+      "~core/*": ["../commun/core/*"]
     },
     "baseUrl": "./",
     "declaration": true,
