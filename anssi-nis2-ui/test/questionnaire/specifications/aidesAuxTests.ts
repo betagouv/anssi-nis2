@@ -1,5 +1,8 @@
 import { readFileSync } from "node:fs";
-import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions";
+import {
+  ResultatEligibilite,
+  ResumesPointsAttention,
+} from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions";
 
 export const leCSV = (nom: string) => {
   const chemin = "./test/questionnaire/specifications/csv/" + nom;
@@ -11,19 +14,23 @@ export const leCSVDeProd = (nom: string) => {
   return readFileSync(chemin).toString("utf-8");
 };
 
-export function reguleEE(): ResultatEligibilite {
+export function reguleEE(
+  resumes: ResumesPointsAttention[] = [],
+): ResultatEligibilite {
   return {
     regulation: "Regule",
     typeEntite: "EntiteEssentielle",
-    pointsAttention: { resumes: [], precisions: [] },
+    pointsAttention: { resumes: resumes, precisions: [] },
   };
 }
 
-export function reguleEI(): ResultatEligibilite {
+export function reguleEI(
+  resumes: ResumesPointsAttention[] = [],
+): ResultatEligibilite {
   return {
     regulation: "Regule",
     typeEntite: "EntiteImportante",
-    pointsAttention: { resumes: [], precisions: [] },
+    pointsAttention: { resumes: resumes, precisions: [] },
   };
 }
 
