@@ -22,27 +22,10 @@ export class EnsembleDeSpecifications {
       );
     }
 
-    passants.sort(prioriseLesSpecifications);
+    const resultat = choisisLeResultat(passants);
 
-    const tousLesResumes = passants.flatMap(
-      (p) => p.resultat().pointsAttention.resumes,
-    );
-    const toutesPrecisions = passants.flatMap(
-      (p) => p.resultat().pointsAttention.precisions,
-    );
-
-    const laPlusStricte = passants[0];
-
-    const resultatPlusStrict = laPlusStricte.resultat();
     return {
-      resultat: {
-        ...resultatPlusStrict,
-        pointsAttention: {
-          ...resultatPlusStrict.pointsAttention,
-          resumes: [...new Set(tousLesResumes)],
-          precisions: [...new Set(toutesPrecisions)],
-        },
-      },
+      resultat,
       specificationsRetenues: passants.map((p) => p.code),
     };
   }
@@ -50,6 +33,31 @@ export class EnsembleDeSpecifications {
   nombre() {
     return this.specifications.length;
   }
+}
+
+function choisisLeResultat(passants: Specifications[]) {
+  passants.sort(prioriseLesSpecifications);
+
+  const tousLesResumes = passants.flatMap(
+    (p) => p.resultat().pointsAttention.resumes,
+  );
+  const toutesPrecisions = passants.flatMap(
+    (p) => p.resultat().pointsAttention.precisions,
+  );
+
+  const resumesUniques = [...new Set(tousLesResumes)];
+  const precisionsUniques = [...new Set(toutesPrecisions)];
+
+  const laPlusStricte = passants[0];
+  const resultatPlusStrict = laPlusStricte.resultat();
+
+  return {
+    ...resultatPlusStrict,
+    pointsAttention: {
+      resumes: resumesUniques,
+      precisions: precisionsUniques,
+    },
+  };
 }
 
 function prioriseLesSpecifications(
