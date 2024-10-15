@@ -24,10 +24,21 @@ export class EnsembleDeSpecifications {
 
     passants.sort(prioriseLesSpecifications);
 
+    const tousLesResumes = passants.flatMap(
+      (p) => p.resultat().pointsAttention.resumes,
+    );
+
     const laPlusStricte = passants[0];
 
+    const resultatPlusStrict = laPlusStricte.resultat();
     return {
-      resultat: laPlusStricte.resultat(),
+      resultat: {
+        ...resultatPlusStrict,
+        pointsAttention: {
+          ...resultatPlusStrict.pointsAttention,
+          resumes: tousLesResumes,
+        },
+      },
       specificationsRetenues: passants.map((p) => p.code),
     };
   }

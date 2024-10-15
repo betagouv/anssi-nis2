@@ -124,5 +124,33 @@ describe("Un ensemble de spécifications", () => {
         "Ne sait pas (6)",
       ]);
     });
+
+    it("cumule les résumés de points d'attentions de toutes les spécifications retenues", () => {
+      const energie1 = new Specifications(
+        [new RegleSecteurs("energie")],
+        reguleEE(["NumeriqueUE"]),
+        "Regulee EE (1)",
+      );
+
+      const energie2 = new Specifications(
+        [new RegleSecteurs("energie")],
+        reguleEI(["RepresentantUE"]),
+        "Regulee EI (2)",
+      );
+
+      const toutes = new EnsembleDeSpecifications([energie2, energie1]);
+
+      const entiteEnergie: EtatQuestionnaire = {
+        ...etatParDefaut,
+        secteurActivite: ["energie"],
+      };
+
+      const resultat = toutes.evalue(entiteEnergie);
+
+      expect(resultat.resultat.pointsAttention.resumes).toEqual([
+        "NumeriqueUE",
+        "RepresentantUE",
+      ]);
+    });
   });
 });
