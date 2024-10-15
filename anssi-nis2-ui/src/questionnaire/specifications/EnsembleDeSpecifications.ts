@@ -27,6 +27,9 @@ export class EnsembleDeSpecifications {
     const tousLesResumes = passants.flatMap(
       (p) => p.resultat().pointsAttention.resumes,
     );
+    const toutesPrecisions = passants.flatMap(
+      (p) => p.resultat().pointsAttention.precisions,
+    );
 
     const laPlusStricte = passants[0];
 
@@ -37,6 +40,7 @@ export class EnsembleDeSpecifications {
         pointsAttention: {
           ...resultatPlusStrict.pointsAttention,
           resumes: tousLesResumes,
+          precisions: toutesPrecisions,
         },
       },
       specificationsRetenues: passants.map((p) => p.code),
