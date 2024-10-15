@@ -152,5 +152,33 @@ describe("Un ensemble de spécifications", () => {
         "RepresentantUE",
       ]);
     });
+
+    it("cumule les précisions de points d'attentions de toutes les spécifications retenues", () => {
+      const energie1 = new Specifications(
+        [new RegleSecteurs("energie")],
+        reguleEE([], ["OSE"]),
+        "Regulee EE (1)",
+      );
+
+      const energie2 = new Specifications(
+        [new RegleSecteurs("energie")],
+        reguleEI([], ["DORA"]),
+        "Regulee EI (2)",
+      );
+
+      const toutes = new EnsembleDeSpecifications([energie2, energie1]);
+
+      const entiteEnergie: EtatQuestionnaire = {
+        ...etatParDefaut,
+        secteurActivite: ["energie"],
+      };
+
+      const resultat = toutes.evalue(entiteEnergie);
+
+      expect(resultat.resultat.pointsAttention.precisions).toEqual([
+        "OSE",
+        "DORA",
+      ]);
+    });
   });
 });

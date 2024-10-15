@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import {
+  PointsAttentionPrecis,
   ResultatEligibilite,
   ResumesPointsAttention,
 } from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions";
@@ -16,21 +17,23 @@ export const leCSVDeProd = (nom: string) => {
 
 export function reguleEE(
   resumes: ResumesPointsAttention[] = [],
+  precisions: PointsAttentionPrecis[] = [],
 ): ResultatEligibilite {
   return {
     regulation: "Regule",
     typeEntite: "EntiteEssentielle",
-    pointsAttention: { resumes: resumes, precisions: [] },
+    pointsAttention: { resumes: resumes, precisions: precisions },
   };
 }
 
 export function reguleEI(
   resumes: ResumesPointsAttention[] = [],
+  precisions: PointsAttentionPrecis[] = [],
 ): ResultatEligibilite {
   return {
     regulation: "Regule",
     typeEntite: "EntiteImportante",
-    pointsAttention: { resumes: resumes, precisions: [] },
+    pointsAttention: { resumes: resumes, precisions: precisions },
   };
 }
 
