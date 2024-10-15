@@ -1,7 +1,4 @@
-import {
-  TrancheChiffreAffaire,
-  TrancheNombreEmployes,
-} from "../../ChampsSimulateur.definitions";
+import { TrancheChiffreAffaire, TrancheNombreEmployes } from "../../ChampsSimulateur.definitions";
 
 type PredicatTailleEntite = (
   nombreEmployes: TrancheNombreEmployes[],
@@ -16,14 +13,3 @@ export const estPetiteEntreprise: PredicatTailleEntite = (
   nombreEmployes.includes("petit") &&
   chiffreAffaire.includes("petit");
 
-export const estMoyenneEntreprise: PredicatTailleEntite = (
-  nombreEmployes,
-  chiffreAffaire,
-) =>
-  (nombreEmployes.includes("moyen") || chiffreAffaire.includes("moyen")) &&
-  !(nombreEmployes.includes("grand") || chiffreAffaire.includes("grand"));
-
-export const estGrandeEntreprise: PredicatTailleEntite = (
-  nombreEmployes,
-  chiffreAffaire,
-) => nombreEmployes.includes("grand") || chiffreAffaire.includes("grand");
