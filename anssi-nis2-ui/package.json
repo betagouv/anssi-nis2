@@ -5,19 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:test": "vitest",
     "build": "tsc && vite build",
-    "build:watch": "vite build --watch",
     "prettier": "npx prettier . --write",
-    "preview": "vite preview",
     "postinstall": "copy-dsfr-to-public",
     "predev": "only-include-used-icons",
     "prebuild": "only-include-used-icons",
     "test": "vitest run",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build  --test",
-    "storybook:test": "test-storybook",
-    "storybook:test:watch": "test-storybook --watch"
+    "storybook:test": "test-storybook"
   },
   "dependencies": {
     "@codegouvfr/react-dsfr": "^0.74.2",
