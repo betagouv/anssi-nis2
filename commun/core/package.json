@@ -16,7 +16,6 @@
   "scripts": {
     "test": "vitest run",
     "build": "tsc",
-    "dev:test": "vitest",
     "prettier": "npx prettier . --write"
   },
   "author": "",
