@@ -1,21 +1,11 @@
 import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
-import {
-  AppartenancePaysUnionEuropeenne,
-  DesignationOperateurServicesEssentiels,
-  TrancheBilanFinancier,
-  TrancheChiffreAffaire,
-  TrancheNombreEmployes,
-  TypeEntitePublique,
-  TypeStructure,
-} from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { TypeEtape } from "anssi-nis2-core/src/Domain/Simulateur/InformationsEtape.ts";
 import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
-import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import {
   estSecteurAutre,
   estUnSecteurAvecDesSousSecteurs,
-} from "../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
-import { estSousSecteurAutre } from "../../../commun/core/src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats.ts";
+} from "anssi-nis2-core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
+import { estSousSecteurAutre } from "anssi-nis2-core/src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats.ts";
 import {
   certains,
   tous,
@@ -24,44 +14,15 @@ import {
   contientUnParmi,
   ou,
 } from "../../../commun/utils/services/commun.predicats.ts";
+import {
+  EtatQuestionnaire,
+  EtatQuestionnaireVide,
+} from "anssi-nis2-core/src/Domain/Questionnaire/EtatQuestionnaire";
+
 import { ActionQuestionnaire } from "./actions.ts";
 import { ActionUndo } from "./quiSupporteUndo.ts";
 
-export type EtatQuestionnaire = {
-  etapeCourante: TypeEtape;
-  designationOperateurServicesEssentiels: DesignationOperateurServicesEssentiels[];
-  appartenancePaysUnionEuropeenne: AppartenancePaysUnionEuropeenne[];
-  typeStructure: TypeStructure[];
-  trancheNombreEmployes: TrancheNombreEmployes[];
-  trancheChiffreAffaire: TrancheChiffreAffaire[];
-  trancheBilanFinancier: TrancheBilanFinancier[];
-  secteurActivite: SecteurActivite[];
-  sousSecteurActivite: SousSecteurActivite[];
-  activites: Activite[];
-  typeEntitePublique: TypeEntitePublique[];
-  localisationFournitureServicesNumeriques: AppartenancePaysUnionEuropeenne[];
-  paysDecisionsCyber: AppartenancePaysUnionEuropeenne[];
-  paysOperationsCyber: AppartenancePaysUnionEuropeenne[];
-  paysPlusGrandNombreSalaries: AppartenancePaysUnionEuropeenne[];
-};
-
-export const etatParDefaut: EtatQuestionnaire = {
-  etapeCourante: "prealable",
-  designationOperateurServicesEssentiels: [],
-  appartenancePaysUnionEuropeenne: [],
-  typeStructure: [],
-  trancheNombreEmployes: [],
-  trancheChiffreAffaire: [],
-  trancheBilanFinancier: [],
-  secteurActivite: [],
-  sousSecteurActivite: [],
-  activites: [],
-  typeEntitePublique: [],
-  localisationFournitureServicesNumeriques: [],
-  paysDecisionsCyber: [],
-  paysOperationsCyber: [],
-  paysPlusGrandNombreSalaries: [],
-};
+export const etatParDefaut: EtatQuestionnaire = EtatQuestionnaireVide;
 
 const doitPasserParLocalisationFournitureServicesNumeriques = (
   activites: Activite[],

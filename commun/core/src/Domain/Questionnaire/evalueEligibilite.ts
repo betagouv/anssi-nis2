@@ -1,6 +1,6 @@
-import { EtatQuestionnaire } from "../reducerQuestionnaire.ts";
-import { LecteurDeSpecifications } from "./LecteurDeSpecifications.ts";
-import { ResultatAvecAnalyse } from "./EnsembleDeSpecifications.ts";
+import { LecteurDeSpecifications } from "./LecteurDeSpecifications";
+import { ResultatAvecAnalyse } from "./EnsembleDeSpecifications";
+import { EtatQuestionnaire } from "./EtatQuestionnaire";
 
 export function evalueEligibilite(
   reponses: EtatQuestionnaire,

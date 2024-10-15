@@ -4,7 +4,7 @@ import {
   SousSecteurEnergie,
   SousSecteurFabrication,
   SousSecteurTransport,
-} from "../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions";
+} from "./SousSecteurActivite.definitions";
 
 export const libellesSousSecteursEnergie: DetailsSousSecteurUnique<SousSecteurEnergie> =
   {

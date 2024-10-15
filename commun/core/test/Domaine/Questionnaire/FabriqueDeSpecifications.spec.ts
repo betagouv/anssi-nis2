@@ -1,20 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import {
-  etatParDefaut,
-  EtatQuestionnaire,
-} from "../../../src/questionnaire/reducerQuestionnaire";
-import { FabriqueDeSpecifications } from "../../../src/questionnaire/specifications/FabriqueDeSpecifications";
-import { SpecificationTexte } from "../../../src/questionnaire/specifications/FormatDesSpecificationsCSV";
-import { Specifications } from "../../../src/questionnaire/specifications/Specifications";
-import {
-  AppartenancePaysUnionEuropeenne,
-  UnionPetitMoyenGrand,
-} from "../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions";
-import { SecteurActivite } from "../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions";
-import { libellesSecteursActivite } from "../../../src/References/LibellesSecteursActivite";
-import { SousSecteurActivite } from "../../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions";
-import { libellesSousSecteursActivite } from "../../../src/References/LibellesSousSecteursActivite";
-import {
   autresActivites,
   CasDeTest,
   energie,
@@ -24,10 +9,25 @@ import {
   infrastructureNumerique,
 } from "./casDeTests.activites";
 import {
+  EtatQuestionnaire,
+  EtatQuestionnaireVide,
+} from "../../../src/Domain/Questionnaire/EtatQuestionnaire";
+import {
   PointsAttentionPrecis,
   ResultatEligibilite,
   ResumesPointsAttention,
-} from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions";
+} from "../../../src/Domain/Simulateur/Regulation.definitions";
+import { FabriqueDeSpecifications } from "../../../src/Domain/Questionnaire/FabriqueDeSpecifications";
+import { Specifications } from "../../../src/Domain/Questionnaire/Specifications";
+import {
+  AppartenancePaysUnionEuropeenne,
+  UnionPetitMoyenGrand,
+} from "../../../src/Domain/Simulateur/ChampsSimulateur.definitions";
+import { SecteurActivite } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
+import { SousSecteurActivite } from "../../../src/Domain/Simulateur/SousSecteurActivite.definitions";
+import { SpecificationTexte } from "../../../src/Domain/Questionnaire/FormatDesSpecificationsCSV";
+import { libellesSecteursActivite } from "../../../src/Domain/Simulateur/LibellesSecteursActivite";
+import { libellesSousSecteursActivite } from "../../../src/Domain/Simulateur/LibellesSousSecteursActivite";
 
 describe("La fabrique de spécifications", () => {
   let fabrique: FabriqueDeSpecifications;
@@ -49,15 +49,15 @@ describe("La fabrique de spécifications", () => {
 
   describe("pour la règle « d'entité OSE »", () => {
     const entiteOui: EtatQuestionnaire = {
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       designationOperateurServicesEssentiels: ["oui"],
     };
     const entiteNon: EtatQuestionnaire = {
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       designationOperateurServicesEssentiels: ["non"],
     };
     const entiteNeSaitPas: EtatQuestionnaire = {
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       designationOperateurServicesEssentiels: ["nsp"],
     };
 
@@ -130,11 +130,11 @@ describe("La fabrique de spécifications", () => {
 
   describe("pour la règle de « Localisation »", () => {
     const entiteFrance: EtatQuestionnaire = {
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       appartenancePaysUnionEuropeenne: ["france"],
     };
     const entiteAutre: EtatQuestionnaire = {
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       appartenancePaysUnionEuropeenne: ["autre"],
     };
 
@@ -165,11 +165,11 @@ describe("La fabrique de spécifications", () => {
 
   describe("pour la règle « Type de structure »", () => {
     const privee: EtatQuestionnaire = {
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       typeStructure: ["privee"],
     };
     const publique: EtatQuestionnaire = {
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       typeStructure: ["publique"],
     };
 
@@ -211,7 +211,7 @@ describe("La fabrique de spécifications", () => {
 
   describe("pour la règle « Taille »", () => {
     const entiteDeTaille = (taille: UnionPetitMoyenGrand) => ({
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       trancheNombreEmployes: [taille],
       trancheChiffreAffaire: [taille],
     });
@@ -272,13 +272,13 @@ describe("La fabrique de spécifications", () => {
 
   describe("pour la règle « Secteurs »", () => {
     const entiteDuSecteur = (secteur: SecteurActivite): EtatQuestionnaire => ({
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       secteurActivite: [secteur],
     });
     const entiteDesSecteurs = (
       secteurs: SecteurActivite[],
     ): EtatQuestionnaire => ({
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       secteurActivite: secteurs,
     });
 
@@ -288,8 +288,8 @@ describe("La fabrique de spécifications", () => {
 
     it.each(tousLesSecteurs)(
       "sait instancier une règle pour le secteur $libelle",
-      ({ id, libelle }: { id: SecteurActivite; libelle: string }) => {
-        const entite = entiteDuSecteur(id);
+      ({ id, libelle }: { id: string; libelle: string }) => {
+        const entite = entiteDuSecteur(id as SecteurActivite);
         const specs = fabrique.transforme(
           uneSpecification({ Secteurs: libelle, Resultat: "Régulée EE" }),
         );
@@ -345,14 +345,14 @@ describe("La fabrique de spécifications", () => {
     const entiteDuSousSecteur = (
       sousSecteur: SousSecteurActivite,
     ): EtatQuestionnaire => ({
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       sousSecteurActivite: [sousSecteur],
     });
 
     const entiteDesSousSecteur = (
       sousSecteurs: SousSecteurActivite[],
     ): EtatQuestionnaire => ({
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       sousSecteurActivite: sousSecteurs,
     });
 
@@ -362,8 +362,8 @@ describe("La fabrique de spécifications", () => {
 
     it.each(tousSaufAutres)(
       "sait instancier une règle pour le sous-secteur $libelle",
-      ({ id, libelle }: { id: SousSecteurActivite; libelle: string }) => {
-        const entite = entiteDuSousSecteur(id);
+      ({ id, libelle }: { id: string; libelle: string }) => {
+        const entite = entiteDuSousSecteur(id as SousSecteurActivite);
         const specs = fabrique.transforme(
           uneSpecification({
             "Sous-secteurs": libelle,
@@ -531,9 +531,9 @@ describe("La fabrique de spécifications", () => {
         );
 
         const reponse: EtatQuestionnaire = {
-          ...etatParDefaut,
+          ...EtatQuestionnaireVide,
           secteurActivite: [secteur],
-          sousSecteurActivite: [sousSecteur],
+          sousSecteurActivite: [sousSecteur!],
           activites: [activite],
         };
 
@@ -562,7 +562,7 @@ describe("La fabrique de spécifications", () => {
     const entiteQuiFournitEn = (
       localisations: AppartenancePaysUnionEuropeenne[],
     ): EtatQuestionnaire => ({
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       localisationFournitureServicesNumeriques: localisations,
     });
 
@@ -667,21 +667,21 @@ describe("La fabrique de spécifications", () => {
     const entiteAvecDecisionEn = (
       pays: AppartenancePaysUnionEuropeenne,
     ): EtatQuestionnaire => ({
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       paysDecisionsCyber: [pays],
     });
 
     const entiteQuiOpereEn = (
       pays: AppartenancePaysUnionEuropeenne,
     ): EtatQuestionnaire => ({
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       paysOperationsCyber: [pays],
     });
 
     const entiteAvecSalariesBasesEn = (
       pays: AppartenancePaysUnionEuropeenne,
     ): EtatQuestionnaire => ({
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       paysPlusGrandNombreSalaries: [pays],
     });
 

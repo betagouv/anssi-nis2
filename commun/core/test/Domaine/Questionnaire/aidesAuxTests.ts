@@ -3,15 +3,17 @@ import {
   PointsAttentionPrecis,
   ResultatEligibilite,
   ResumesPointsAttention,
-} from "../../../../commun/core/src/Domain/Simulateur/Regulation.definitions";
+} from "../../../src/Domain/Simulateur/Regulation.definitions";
 
 export const leCSV = (nom: string) => {
-  const chemin = "./test/questionnaire/specifications/csv/" + nom;
+  const chemin = __dirname + "/csv/" + nom;
   return readFileSync(chemin).toString("utf-8");
 };
 
-export const leCSVDeProd = (nom: string) => {
-  const chemin = "./src/" + nom;
+export const leCSVDeProd = () => {
+  const chemin =
+    __dirname +
+    "/../../../src/Domain/Questionnaire/specifications-completes.csv";
   return readFileSync(chemin).toString("utf-8");
 };
 

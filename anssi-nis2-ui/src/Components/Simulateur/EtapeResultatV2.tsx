@@ -13,7 +13,7 @@ import { EnSavoirPlus } from "./Resultats/EnSavoirPlus.tsx";
 import { estRegule } from "anssi-nis2-core/src/Domain/Simulateur/Regulation.predicats.ts";
 import { LigneBienDebuter } from "./Resultats/LigneBienDebuter.tsx";
 import { LigneReseauxSociaux } from "./Resultats/LigneReseauxSociaux.tsx";
-import { EtatQuestionnaire } from "../../questionnaire/reducerQuestionnaire.ts";
+import { EtatQuestionnaire } from "anssi-nis2-core/src/Domain/Questionnaire/EtatQuestionnaire";
 
 export function EtapeResultatV2(props: {
   reponses: EtatQuestionnaire;

@@ -1,9 +1,9 @@
-import { EtatQuestionnaire } from "../../reducerQuestionnaire.ts";
-import { AppartenancePaysUnionEuropeenne } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
-import { contientUnParmi } from "../../../../../commun/utils/services/commun.predicats.ts";
-import { estValeurVide, Regle } from "../Specifications.ts";
-import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle.ts";
-import { SpecificationTexte } from "../FormatDesSpecificationsCSV.ts";
+import { AppartenancePaysUnionEuropeenne } from "../../Simulateur/ChampsSimulateur.definitions";
+import { contientUnParmi } from "../../../../../utils/services/commun.predicats";
+import { estValeurVide, Regle } from "../Specifications";
+import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle";
+import { EtatQuestionnaire } from "../EtatQuestionnaire";
+import { SpecificationTexte } from "../FormatDesSpecificationsCSV";
 
 export class RegleLocalisation implements Regle {
   constructor(

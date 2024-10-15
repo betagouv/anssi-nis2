@@ -1,4 +1,4 @@
-import { SecteurActivite } from "../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions";
+import { SecteurActivite } from "./SecteurActivite.definitions";
 
 export const libellesSecteursActivite: Record<SecteurActivite, string> = {
   banqueSecteurBancaire: "Banques (secteur bancaire)",

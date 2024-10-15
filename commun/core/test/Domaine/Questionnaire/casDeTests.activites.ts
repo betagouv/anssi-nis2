@@ -1,6 +1,6 @@
-import { Activite } from "../../../../commun/core/src/Domain/Simulateur/Activite.definitions";
-import { SecteurActivite } from "../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions";
-import { SousSecteurActivite } from "../../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions";
+import { Activite } from "../../../src/Domain/Simulateur/Activite.definitions";
+import { SecteurActivite } from "../../../src/Domain/Simulateur/SecteurActivite.definitions";
+import { SousSecteurActivite } from "../../../src/Domain/Simulateur/SousSecteurActivite.definitions";
 
 export type CasDeTest = {
   libelleActivite: string;

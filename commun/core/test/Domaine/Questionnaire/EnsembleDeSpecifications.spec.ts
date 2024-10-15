@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { EnsembleDeSpecifications } from "../../../src/questionnaire/specifications/EnsembleDeSpecifications";
-import { RegleEntiteOSE } from "../../../src/questionnaire/specifications/regles/RegleEntiteOSE";
-import { Specifications } from "../../../src/questionnaire/specifications/Specifications";
+import { EnsembleDeSpecifications } from "../../../src/Domain/Questionnaire/EnsembleDeSpecifications";
+import { RegleEntiteOSE } from "../../../src/Domain/Questionnaire/regles/RegleEntiteOSE";
+import { Specifications } from "../../../src/Domain/Questionnaire/Specifications";
 import {
   neSaitPas,
   nonRegulee,
@@ -10,11 +10,11 @@ import {
   reguleEnregistrementSeul,
   reguleSansPrecision,
 } from "./aidesAuxTests";
+import { RegleSecteurs } from "../../../src/Domain/Questionnaire/regles/RegleSecteurs";
 import {
-  etatParDefaut,
   EtatQuestionnaire,
-} from "../../../src/questionnaire/reducerQuestionnaire";
-import { RegleSecteurs } from "../../../src/questionnaire/specifications/regles/RegleSecteurs";
+  EtatQuestionnaireVide,
+} from "../../../src/Domain/Questionnaire/EtatQuestionnaire";
 
 describe("Un ensemble de spécifications", () => {
   const oseEstReguleeEE = new Specifications(
@@ -33,7 +33,7 @@ describe("Un ensemble de spécifications", () => {
     it("ne retient que cette spécification", () => {
       const uneSeuleSpec = new EnsembleDeSpecifications([oseEstReguleeEE]);
       const reponseOSEOui: EtatQuestionnaire = {
-        ...etatParDefaut,
+        ...EtatQuestionnaireVide,
         designationOperateurServicesEssentiels: ["oui"],
       };
 
@@ -52,7 +52,7 @@ describe("Un ensemble de spécifications", () => {
       ]);
 
       const reponseQuiMatchLesDeux: EtatQuestionnaire = {
-        ...etatParDefaut,
+        ...EtatQuestionnaireVide,
         designationOperateurServicesEssentiels: ["oui"],
         secteurActivite: ["energie"],
       };
@@ -109,7 +109,7 @@ describe("Un ensemble de spécifications", () => {
       ]);
 
       const entiteEnergie: EtatQuestionnaire = {
-        ...etatParDefaut,
+        ...EtatQuestionnaireVide,
         secteurActivite: ["energie"],
       };
 
@@ -141,7 +141,7 @@ describe("Un ensemble de spécifications", () => {
       const toutes = new EnsembleDeSpecifications([energie2, energie1]);
 
       const entiteEnergie: EtatQuestionnaire = {
-        ...etatParDefaut,
+        ...EtatQuestionnaireVide,
         secteurActivite: ["energie"],
       };
 
@@ -169,7 +169,7 @@ describe("Un ensemble de spécifications", () => {
       const toutes = new EnsembleDeSpecifications([energie2, energie1]);
 
       const entiteEnergie: EtatQuestionnaire = {
-        ...etatParDefaut,
+        ...EtatQuestionnaireVide,
         secteurActivite: ["energie"],
       };
 
@@ -197,7 +197,7 @@ describe("Un ensemble de spécifications", () => {
       const toutes = new EnsembleDeSpecifications([energie2, energie1]);
 
       const entiteEnergie: EtatQuestionnaire = {
-        ...etatParDefaut,
+        ...EtatQuestionnaireVide,
         secteurActivite: ["energie"],
       };
 
@@ -224,7 +224,7 @@ describe("Un ensemble de spécifications", () => {
       const toutes = new EnsembleDeSpecifications([energie2, energie1]);
 
       const entiteEnergie: EtatQuestionnaire = {
-        ...etatParDefaut,
+        ...EtatQuestionnaireVide,
         secteurActivite: ["energie"],
       };
 

@@ -1,15 +1,15 @@
 import { describe, expect, it } from "vitest";
 import {
-  etatParDefaut,
   EtatQuestionnaire,
-} from "../../../src/questionnaire/reducerQuestionnaire";
+  EtatQuestionnaireVide,
+} from "../../../src/Domain/Questionnaire/EtatQuestionnaire";
+import { evalueEligibilite } from "../../../src/Domain/Questionnaire/evalueEligibilite";
 import { leCSV } from "./aidesAuxTests";
-import { evalueEligibilite } from "../../../src/questionnaire/specifications/evalueEligibilite";
 
 describe("L'évaluation complète de l'égibilité", () => {
   it("soumet un questionnaire à la spécification CSV, et retourne le résultat obtenu", () => {
     const reponseEntiteOse: EtatQuestionnaire = {
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       designationOperateurServicesEssentiels: ["oui"],
     };
 
@@ -24,7 +24,7 @@ describe("L'évaluation complète de l'égibilité", () => {
 
   it("lève une exception si le questionnaire ne correspond à aucune spécification", () => {
     const reponseNonOse: EtatQuestionnaire = {
-      ...etatParDefaut,
+      ...EtatQuestionnaireVide,
       designationOperateurServicesEssentiels: ["non"],
     };
 

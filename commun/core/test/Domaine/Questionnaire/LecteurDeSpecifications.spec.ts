@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { LecteurDeSpecifications } from "../../../src/questionnaire/specifications/LecteurDeSpecifications";
+import { LecteurDeSpecifications } from "../../../src/Domain/Questionnaire/LecteurDeSpecifications";
 import { leCSV } from "./aidesAuxTests";
 
 describe("Le lecteur de spécifications", () => {
