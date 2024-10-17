@@ -3,9 +3,9 @@ import { estValeurVide, Regle } from "../Specifications";
 import { ErreurLectureDeRegle } from "./ErreurLectureDeRegle";
 import { Activite } from "../../Simulateur/Activite.definitions";
 import { contientUnParmi } from "../../../../../utils/services/commun.predicats";
-import { libellesActivites } from "anssi-nis2-ui/src/References/LibellesActivites";
 import { EtatQuestionnaire } from "../EtatQuestionnaire";
 import { SpecificationTexte } from "../FormatDesSpecificationsCSV";
+import { libellesActivites } from "../../Simulateur/LibellesActivites";
 
 export class RegleActivites implements Regle {
   constructor(private readonly activite: Activite) {}

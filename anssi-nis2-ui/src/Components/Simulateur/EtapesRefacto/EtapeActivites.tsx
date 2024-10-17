@@ -9,7 +9,7 @@ import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousS
 import { libellesSousSecteursActivite } from "../../../../../commun/core/src/Domain/Simulateur/LibellesSousSecteursActivite.ts";
 import { secteurDe } from "anssi-nis2-core/src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.operations.ts";
 import { activitesParSecteurEtSousSecteur } from "anssi-nis2-core/src/Domain/Simulateur/Activite.operations.ts";
-import { libellesActivites } from "../../../References/LibellesActivites.ts";
+import { libellesActivites } from "../../../../../commun/core/src/Domain/Simulateur/LibellesActivites.ts";
 import { listeDescriptionsActivites } from "../../../References/ListeDescriptionsActivites.ts";
 import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
 import { PrecedentSuivant } from "../PrecedentSuivant.tsx";

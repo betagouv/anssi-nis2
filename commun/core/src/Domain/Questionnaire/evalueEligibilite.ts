@@ -4,9 +4,9 @@ import { ResultatAvecAnalyse } from "./ResultatAvecAnalyse";
 
 export function evalueEligibilite(
   reponses: EtatQuestionnaire,
-  cheminCsv: string,
+  contenuDuCsv: string,
 ): ResultatAvecAnalyse {
   const lecteur = new LecteurDeSpecifications();
-  const specifications = lecteur.lis(cheminCsv);
+  const specifications = lecteur.lis(contenuDuCsv);
   return specifications.evalue(reponses);
 }
