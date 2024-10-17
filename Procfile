@@ -1,2 +1,2 @@
 web: npm start
-postdeploy: npx knex migrate:latest --knexfile anssi-nis2-api/knexfile.ts && cp "commun/core/src/Domain/Questionnaire/specifications-completes.csv" "anssi-nis2-api/dist/anssi-nis2-api/src/adaptateurs"
+postdeploy: npx knex migrate:latest --knexfile anssi-nis2-api/knexfile.ts
