@@ -3,6 +3,7 @@ import { AdaptateurJournal } from "./adaptateurs/adaptateurJournal";
 import { AdaptateurCrm } from "./adaptateurs/adaptateurCrm";
 import { AdaptateurGestionErreur } from "./adaptateurs/adaptateurGestionErreur";
 import { AdaptateurProtection } from "./adaptateurs/adaptateurProtection";
+import { AdaptateurEligibilite } from "./adaptateurs/adaptateurEligibilite";
 
 export type ServeurMonEspaceNIS2 = {
   ecoute: (callbackSucces?: () => void) => void;
@@ -15,4 +16,5 @@ export type DependanceServeur = {
   adaptateurJournal: AdaptateurJournal;
   adaptateurPersistance: AdaptateurPersistance;
   adaptateurProtection: AdaptateurProtection;
+  adaptateurEligibilite: AdaptateurEligibilite;
 };

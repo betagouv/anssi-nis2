@@ -7,6 +7,7 @@ import { AdaptateurGestionErreurSentry } from "./adaptateurs/adaptateurGestionEr
 import { AdaptateurGestionErreurMemoire } from "./adaptateurs/adaptateurGestionErreur.memoire";
 import { AdaptateurProtectionRateLimit } from "./adaptateurs/adaptateurProtection.rateLimit";
 import { AdaptateurProtectionMemoire } from "./adaptateurs/adaptateurProtection.memoire";
+import { AdaptateurEligibiliteHardCode } from "./adaptateurs/adaptateurEligibilite.hardCode";
 
 const portEcoute = Number(process.env.PORT) || 3000;
 
@@ -28,6 +29,7 @@ const dependances: DependanceServeur = {
   adaptateurProtection: process.env.LIMITATION_REQUETES_COURTE_DUREE
     ? new AdaptateurProtectionRateLimit()
     : new AdaptateurProtectionMemoire(),
+  adaptateurEligibilite: new AdaptateurEligibiliteHardCode(),
 };
 
 creeServeur(portEcoute, dependances).then((serveur) =>

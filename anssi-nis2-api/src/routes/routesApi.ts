@@ -4,29 +4,29 @@ import {
   AdaptateurJournal,
   TypeEvenement,
 } from "../adaptateurs/adaptateurJournal";
-import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
 import { AdaptateurCrm } from "../adaptateurs/adaptateurCrm";
+import { AdaptateurEligibilite } from "../adaptateurs/adaptateurEligibilite";
 
 export const routesApi = ({
   adaptateurPersistance,
   adaptateurJournal,
   adaptateurCrm,
+  adaptateurEligibilite,
 }: {
   adaptateurPersistance: AdaptateurPersistance;
   adaptateurJournal: AdaptateurJournal;
   adaptateurCrm: AdaptateurCrm;
+  adaptateurEligibilite: AdaptateurEligibilite;
 }) => {
   const routes = express.Router();
 
   routes.post("/simulateur-reponse", async (requete, reponse) => {
     await adaptateurPersistance.sauvegardeReponseFormulaire(requete.body);
-    await adaptateurJournal.consigneEvenement<TypeEvenement.ReponseSimulateurRecue>(
-      {
-        type: TypeEvenement.ReponseSimulateurRecue,
-        donnees: requete.body as DonneesFormulaireSimulateur,
-        date: new Date(),
-      },
-    );
+    await adaptateurJournal.consigneEvenement({
+      type: TypeEvenement.ReponseSimulateurRecue,
+      donnees: adaptateurEligibilite.evalueEligibilite(requete.body),
+      date: new Date(),
+    });
 
     reponse.sendStatus(201);
   });

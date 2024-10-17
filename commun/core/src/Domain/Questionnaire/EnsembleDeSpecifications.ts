@@ -1,11 +1,6 @@
 import { Specifications } from "./Specifications";
-import { ResultatEligibilite } from "../Simulateur/Regulation.definitions";
 import { EtatQuestionnaire } from "./EtatQuestionnaire";
-
-export type ResultatAvecAnalyse = {
-  resultat: ResultatEligibilite;
-  specificationsRetenues: string[];
-};
+import { ResultatAvecAnalyse } from "./ResultatAvecAnalyse";
 
 export class EnsembleDeSpecifications {
   constructor(private readonly specifications: Specifications[]) {}
