@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tsc --build",
     "prettier": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start:dev": "knex migrate:latest && concurrently \"tsc --watch\" \"nodemon dist/anssi-nis2-api/src/main\"",
+    "start:dev": "knex migrate:latest && cp \"../commun/core/src/Domain/Questionnaire/specifications-completes.csv\" ./dist/anssi-nis2-api/src/adaptateurs && concurrently \"tsc --watch\" \"nodemon dist/anssi-nis2-api/src/main\"",
     "start:prod": "node dist/anssi-nis2-api/src/main",
     "test": "jest",
     "test:watch": "jest --watch"
@@ -20,6 +20,7 @@
     "express-ipfilter": "^1.3.2",
     "express-rate-limit": "^7.4.0",
     "knex": "^3.1.0",
+    "papaparse": "^5.4.1",
     "pg": "^8.11.3"
   },
   "devDependencies": {
