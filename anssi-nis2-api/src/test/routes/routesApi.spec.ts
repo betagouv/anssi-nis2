@@ -13,6 +13,7 @@ import { AdaptateurGestionErreurMemoire } from "../../adaptateurs/adaptateurGest
 import { AdaptateurProtectionMemoire } from "../../adaptateurs/adaptateurProtection.memoire";
 import { creeServeurExpress } from "../../serveur.express";
 import { Express } from "express";
+import { AdaptateurEligibiliteHardCode } from "../../adaptateurs/adaptateurEligibilite.hardCode";
 
 describe("Le routeur '/api/", () => {
   let serveur: { app: Express };
@@ -31,6 +32,7 @@ describe("Le routeur '/api/", () => {
       adaptateurCrm,
       adaptateurGestionErreur: new AdaptateurGestionErreurMemoire(),
       adaptateurProtection: new AdaptateurProtectionMemoire(),
+      adaptateurEligibilite: new AdaptateurEligibiliteHardCode(),
     });
   });
 
@@ -93,20 +95,30 @@ describe("Le routeur '/api/", () => {
       expect(evenementRecu.type).toBe("REPONSE_SIMULATEUR_RECUE");
       expect(evenementRecu.date).toEqual(aujourdhui);
       expect(evenementRecu.donnees).toStrictEqual({
-        designationOperateurServicesEssentiels: [],
-        appartenancePaysUnionEuropeenne: [],
-        secteurActivite: [],
-        sousSecteurActivite: [],
-        trancheChiffreAffaire: [],
-        trancheNombreEmployes: [],
-        trancheBilanFinancier: [],
-        typeStructure: [],
-        typeEntitePublique: [],
-        activites: [],
-        localisationFournitureServicesNumeriques: [],
-        paysDecisionsCyber: [],
-        paysOperationsCyber: [],
-        paysPlusGrandNombreSalaries: [],
+        reponses: {
+          designationOperateurServicesEssentiels: [],
+          appartenancePaysUnionEuropeenne: [],
+          secteurActivite: [],
+          sousSecteurActivite: [],
+          trancheChiffreAffaire: [],
+          trancheNombreEmployes: [],
+          trancheBilanFinancier: [],
+          typeStructure: [],
+          typeEntitePublique: [],
+          activites: [],
+          localisationFournitureServicesNumeriques: [],
+          paysDecisionsCyber: [],
+          paysOperationsCyber: [],
+          paysPlusGrandNombreSalaries: [],
+        },
+        eligibilite: {
+          resultat: {
+            pointsAttention: { precisions: [], resumes: [] },
+            regulation: "Regule",
+            typeEntite: "EntiteEssentielle",
+          },
+          specificationsRetenues: ["HARD-CODÉE"],
+        },
       });
     });
   });

@@ -1,6 +1,6 @@
 import { LecteurDeSpecifications } from "./LecteurDeSpecifications";
-import { ResultatAvecAnalyse } from "./EnsembleDeSpecifications";
 import { EtatQuestionnaire } from "./EtatQuestionnaire";
+import { ResultatAvecAnalyse } from "./ResultatAvecAnalyse";
 
 export function evalueEligibilite(
   reponses: EtatQuestionnaire,

@@ -1,11 +1,11 @@
-import { DonneesFormulaireSimulateur } from "~core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.definitions";
+import { ReponsesEtResultatAvecAnalyse } from "./adaptateurEligibilite";
 
 export enum TypeEvenement {
   ReponseSimulateurRecue = "REPONSE_SIMULATEUR_RECUE",
 }
 
 interface DictionnaireDesDonnees {
-  [TypeEvenement.ReponseSimulateurRecue]: DonneesFormulaireSimulateur;
+  [TypeEvenement.ReponseSimulateurRecue]: ReponsesEtResultatAvecAnalyse;
 }
 
 export type EvenementJournal<Type extends keyof DictionnaireDesDonnees> = {
