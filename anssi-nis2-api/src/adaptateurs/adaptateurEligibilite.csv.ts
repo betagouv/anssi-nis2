@@ -5,22 +5,25 @@ import {
   ReponsesEtResultatAvecAnalyse,
 } from "./adaptateurEligibilite";
 import { evalueEligibilite } from "../../../commun/core/src/Domain/Questionnaire/evalueEligibilite";
+import * as path from "node:path";
 
 export class AdaptateurEligibiliteCsv implements AdaptateurEligibilite {
   private readonly contenuDuCsv: string;
 
   constructor() {
-    // C'est le process de build copie le .csv dans le répertoire de cet adaptateur
-    const path = __dirname + "/specifications-completes.csv";
+    // On remonte 5 fois, car on navigue depuis `dist/…`
+    const csv = path.normalize(
+      `${__dirname}/../../../../../commun/core/src/Domain/Questionnaire/specifications-completes.csv`,
+    );
 
-    const csvIntrouvable = !fs.existsSync(path);
+    const csvIntrouvable = !fs.existsSync(csv);
     if (csvIntrouvable) {
       throw new Error(
-        `Impossible de trouver le CSV de spécifications. Chemin : "${path}".`,
+        `Impossible de trouver le CSV de spécifications. Chemin : "${csv}".`,
       );
     }
 
-    this.contenuDuCsv = fs.readFileSync(path).toString("utf-8");
+    this.contenuDuCsv = fs.readFileSync(csv).toString("utf-8");
   }
 
   evalueEligibilite(
