@@ -8,8 +8,7 @@
   "scripts": {
     "build": "tsc --build",
     "prettier": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start:dev": "knex migrate:latest && cp \"../commun/core/src/Domain/Questionnaire/specifications-completes.csv\" ./dist/anssi-nis2-api/src/adaptateurs && concurrently \"tsc --watch\" \"nodemon dist/anssi-nis2-api/src/main\"",
-    "prestart:prod": "cp \"../commun/core/src/Domain/Questionnaire/specifications-completes.csv\" ./dist/anssi-nis2-api/src/adaptateurs",
+    "start:dev": "knex migrate:latest && concurrently \"tsc --watch\" \"nodemon dist/anssi-nis2-api/src/main\"",
     "start:prod": "node dist/anssi-nis2-api/src/main",
     "test": "jest",
     "test:watch": "jest --watch"
