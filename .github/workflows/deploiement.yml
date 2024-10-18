@@ -1,0 +1,57 @@
+name: Déploiement
+run-name: Déploiement du commit "${{ github.event.head_commit.message }}"
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # Pour activer le déclenchement manuel
+
+jobs:
+  deploiement-demo:
+    name: Déploiement en DÉMO
+    environment: DEMO
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cloner le dépôt Git
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Cloner l'intégralité du dépôt, pour ne pas avoir de « shallow repo » rejeté par Clever
+
+      - name: Installer la CLI Clever Cloud
+        shell: bash
+        run: npm install -g clever-tools
+
+      - name: Déployer en DÉMO
+        env:
+          CLEVER_SECRET: ${{ secrets.CLEVER_CLOUD_SECRET }}
+          CLEVER_TOKEN: ${{ secrets.CLEVER_CLOUD_TOKEN }}
+          ID_APP: ${{ secrets.CLEVER_CLOUD_ID_APP }}
+          ID_ORGANISATION: ${{ secrets.CLEVER_CLOUD_ID_ORGANISATION }}
+        run: |
+          clever link -o="$ID_ORGANISATION" "$ID_APP"
+          clever deploy --force --same-commit-policy=rebuild
+
+  deploiement-prod:
+    needs: [deploiement-demo]
+    name: Déploiement en PROD
+    environment: PROD
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cloner le dépôt Git
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Cloner l'intégralité du dépôt, pour ne pas avoir de « shallow repo » rejeté par Clever
+
+      - name: Installer la CLI Clever Cloud
+        shell: bash
+        run: npm install -g clever-tools
+
+      - name: Déployer en PROD
+        env:
+          CLEVER_SECRET: ${{ secrets.CLEVER_CLOUD_SECRET }}
+          CLEVER_TOKEN: ${{ secrets.CLEVER_CLOUD_TOKEN }}
+          ID_APP: ${{ secrets.CLEVER_CLOUD_ID_APP }}
+          ID_ORGANISATION: ${{ secrets.CLEVER_CLOUD_ID_ORGANISATION }}
+        run: |
+          clever link -o="$ID_ORGANISATION" "$ID_APP"
+          clever deploy --force --same-commit-policy=rebuild
