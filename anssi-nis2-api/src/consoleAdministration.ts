@@ -3,7 +3,7 @@ import * as configurationKnex from "../knexfile";
 import { AdaptateurJournalPostgres } from "./adaptateurs/adaptateurJournal.postgres";
 import { AdaptateurEligibiliteCsv } from "./adaptateurs/adaptateurEligibilite.csv";
 
-export class ConsoleAdministration {
+export default class ConsoleAdministration {
   constructor(
     private readonly adaptateurJournal = new AdaptateurJournalPostgres(),
     private readonly adaptateurEligibilite = new AdaptateurEligibiliteCsv(),
