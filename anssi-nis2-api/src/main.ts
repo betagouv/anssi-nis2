@@ -1,13 +1,14 @@
 import { creeServeur } from "./serveur";
 import { DependanceServeur } from "./serveur.types";
 import { AdaptateurPersistancePostgres } from "./adaptateurs/adaptateurPersistance.postgres";
-import { AdaptateurJournalPostgres } from "./adaptateurs/adaptateurJournal.postgres";
 import { AdaptateurCrmBrevo } from "./adaptateurs/adaptateurCrm.brevo";
 import { AdaptateurGestionErreurSentry } from "./adaptateurs/adaptateurGestionErreur.sentry";
 import { AdaptateurGestionErreurMemoire } from "./adaptateurs/adaptateurGestionErreur.memoire";
 import { AdaptateurProtectionRateLimit } from "./adaptateurs/adaptateurProtection.rateLimit";
 import { AdaptateurProtectionMemoire } from "./adaptateurs/adaptateurProtection.memoire";
 import { AdaptateurEligibiliteCsv } from "./adaptateurs/adaptateurEligibilite.csv";
+import { AdaptateurJournalPostgres } from "./adaptateurs/adaptateurJournal.postgres";
+import { middleware } from "./middleware";
 
 const portEcoute = Number(process.env.PORT) || 3000;
 
@@ -30,6 +31,7 @@ const dependances: DependanceServeur = {
     ? new AdaptateurProtectionRateLimit()
     : new AdaptateurProtectionMemoire(),
   adaptateurEligibilite: new AdaptateurEligibiliteCsv(),
+  middleware: middleware(),
 };
 
 creeServeur(portEcoute, dependances).then((serveur) =>

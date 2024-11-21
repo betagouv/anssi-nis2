@@ -20,6 +20,8 @@ export async function creeServeurExpress(
   app.disable("x-powered-by");
   activeFiltrageIp(app);
 
+  app.use(dependances.middleware.modeMaintenance);
+
   app.use(express.static(appReact().cheminDuBuild()));
   app.use("/statique", express.static(join(__dirname, "../../../statique")));
   app.use(express.json());

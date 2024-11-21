@@ -1,3 +1,4 @@
+import { RequestHandler } from "express";
 import { AdaptateurPersistance } from "./adaptateurs/adaptateurPersistance";
 import { AdaptateurJournal } from "./adaptateurs/adaptateurJournal";
 import { AdaptateurCrm } from "./adaptateurs/adaptateurCrm";
@@ -10,6 +11,10 @@ export type ServeurMonEspaceNIS2 = {
   arrete: () => void;
 };
 
+export interface Middleware {
+  modeMaintenance: RequestHandler;
+}
+
 export type DependanceServeur = {
   adaptateurCrm: AdaptateurCrm;
   adaptateurGestionErreur: AdaptateurGestionErreur;
@@ -17,4 +22,5 @@ export type DependanceServeur = {
   adaptateurPersistance: AdaptateurPersistance;
   adaptateurProtection: AdaptateurProtection;
   adaptateurEligibilite: AdaptateurEligibilite;
+  middleware: Middleware;
 };
