@@ -14,6 +14,7 @@ import { AdaptateurProtectionMemoire } from "../../adaptateurs/adaptateurProtect
 import { creeServeurExpress } from "../../serveur.express";
 import { Express } from "express";
 import { AdaptateurEligibiliteHardCode } from "../../adaptateurs/adaptateurEligibilite.hardCode";
+import { middlewareFantaisie } from "../utilitaires/middlewareFantaisie";
 
 describe("Le routeur '/api/", () => {
   let serveur: { app: Express };
@@ -33,6 +34,7 @@ describe("Le routeur '/api/", () => {
       adaptateurGestionErreur: new AdaptateurGestionErreurMemoire(),
       adaptateurProtection: new AdaptateurProtectionMemoire(),
       adaptateurEligibilite: new AdaptateurEligibiliteHardCode(),
+      middleware: middlewareFantaisie(),
     });
   });
 
