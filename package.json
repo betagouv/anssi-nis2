@@ -16,6 +16,7 @@
     "lint": "eslint \"./anssi-nis2-*/{src,apps,libs,test}/**/*.ts\" --fix",
     "prettier": "npm run prettier --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
+    "install": "npm run build --workspaces --if-present",
     "build": "npm run build --workspaces --if-present",
     "start": "npm run start:prod -w anssi-nis2-api",
     "prepare": "husky install"
