@@ -9,7 +9,7 @@ import {
   valideSousSecteursActivite,
 } from "../../src/questionnaire/actions";
 import { selectSecteursPourSaisieActivites } from "../../src/questionnaire/selecteursQuestionnaire";
-import { EtatQuestionnaire } from "anssi-nis2-core/src/Domain/Questionnaire/EtatQuestionnaire";
+import { EtatQuestionnaire } from "../../../commun/core/src/Domain/Questionnaire/EtatQuestionnaire";
 
 describe("Les sélecteurs sur l'etat du questionnaire", () => {
   describe("le sélecteur qui retourne les secteurs/sous-secteurs dont on veut connaître les activités", () => {

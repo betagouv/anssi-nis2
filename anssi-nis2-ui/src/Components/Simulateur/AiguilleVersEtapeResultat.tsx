@@ -3,7 +3,7 @@ import { ResultatEligibilite } from "../../../../commun/core/src/Domain/Simulate
 import { ReactElement } from "react";
 import { evalueEligibilite } from "../../../../commun/core/src/Domain/Questionnaire/evalueEligibilite.ts";
 import SpecificationsCompletes from "../../../../commun/core/src/Domain/Questionnaire/specifications-completes.csv?raw";
-import { EtatQuestionnaire } from "anssi-nis2-core/src/Domain/Questionnaire/EtatQuestionnaire";
+import { EtatQuestionnaire } from "../../../../commun/core/src/Domain/Questionnaire/EtatQuestionnaire";
 
 export function AiguilleVersEtapeResultat(props: {
   reponses: EtatQuestionnaire;

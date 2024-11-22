@@ -4,7 +4,7 @@ import { FormSimulateur } from "../Etapes";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { libellesSecteursActivite } from "../../../../../commun/core/src/Domain/Simulateur/LibellesSecteursActivite.ts";
 import { useState } from "react";
-import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
+import { SecteurActivite } from "../../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 import { TitresEtapes } from "../TitresEtapes.ts";
 

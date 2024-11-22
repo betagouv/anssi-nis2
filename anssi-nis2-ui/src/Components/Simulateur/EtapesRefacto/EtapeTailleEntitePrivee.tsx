@@ -7,7 +7,7 @@ import {
   TrancheBilanFinancier,
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
-} from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+} from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 import { TitresEtapes } from "../TitresEtapes.ts";
 

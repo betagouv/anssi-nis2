@@ -3,7 +3,7 @@ import BlocPrincipal from "../../BlocPrincipal.tsx";
 import { FormSimulateur } from "../Etapes";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { useState } from "react";
-import { AppartenancePaysUnionEuropeenne } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import { AppartenancePaysUnionEuropeenne } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 import { TitresEtapes } from "../TitresEtapes.ts";
 

@@ -1,11 +1,11 @@
-import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
-import { TypeEtape } from "anssi-nis2-core/src/Domain/Simulateur/InformationsEtape.ts";
-import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
+import { Activite } from "../../../commun/core/src/Domain/Simulateur/Activite.definitions.ts";
+import { TypeEtape } from "../../../commun/core/src/Domain/Simulateur/InformationsEtape.ts";
+import { SecteurActivite } from "../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import {
   estSecteurAutre,
   estUnSecteurAvecDesSousSecteurs,
-} from "anssi-nis2-core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
-import { estSousSecteurAutre } from "anssi-nis2-core/src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats.ts";
+} from "../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
+import { estSousSecteurAutre } from "../../../commun/core/src/Domain/Simulateur/services/SousSecteurActivite/SousSecteurActivite.predicats.ts";
 import {
   certains,
   tous,
@@ -17,7 +17,7 @@ import {
 import {
   EtatQuestionnaire,
   EtatQuestionnaireVide,
-} from "anssi-nis2-core/src/Domain/Questionnaire/EtatQuestionnaire";
+} from "../../../commun/core/src/Domain/Questionnaire/EtatQuestionnaire";
 
 import { ActionQuestionnaire } from "./actions.ts";
 import { ActionUndo } from "./quiSupporteUndo.ts";

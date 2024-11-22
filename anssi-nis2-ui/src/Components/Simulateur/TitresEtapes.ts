@@ -1,4 +1,4 @@
-import { TypeEtape } from "anssi-nis2-core/src/Domain/Simulateur/InformationsEtape.ts";
+import { TypeEtape } from "../../../../commun/core/src/Domain/Simulateur/InformationsEtape.ts";
 
 export const TitresEtapes: Partial<Record<TypeEtape, string>> = {
   activites: "Activités pratiquées",

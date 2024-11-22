@@ -3,7 +3,7 @@ import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
 import { FormSimulateur } from "../Etapes";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
 import { useState } from "react";
-import { TypeStructure } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import { TypeStructure } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 import { TitresEtapes } from "../TitresEtapes.ts";
 

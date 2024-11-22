@@ -13,9 +13,9 @@ import {
   valideTailleEntitePrivee,
   valideTypeStructure,
 } from "../../questionnaire/actions.ts";
-import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
-import { estUnSecteurAvecDesSousSecteurs } from "anssi-nis2-core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
-import { SecteurComposite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
+import { SousSecteurActivite } from "../../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
+import { estUnSecteurAvecDesSousSecteurs } from "../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.predicats.ts";
+import { SecteurComposite } from "../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import { selectSecteursPourSaisieActivites } from "../../questionnaire/selecteursQuestionnaire.ts";
 import { ActionUndo, undo } from "../../questionnaire/quiSupporteUndo.ts";
 import { EtapeDesignation } from "./EtapesRefacto/EtapeDesignation.tsx";
@@ -32,7 +32,7 @@ import { EnvoieDonneesFormulaire } from "../../Services/Simulateur/Operations/ap
 import { centreSurHautFormulaire } from "./scroll.ts";
 import { PersisteReponsesDuQuestionnaire } from "./EtapesRefacto/PersisteReponsesDuQuestionnaire.tsx";
 import { AiguilleVersEtapeResultat } from "./AiguilleVersEtapeResultat.tsx";
-import { EtatQuestionnaire } from "anssi-nis2-core/src/Domain/Questionnaire/EtatQuestionnaire";
+import { EtatQuestionnaire } from "../../../../commun/core/src/Domain/Questionnaire/EtatQuestionnaire";
 
 export const Questionnaire = ({
   etat,

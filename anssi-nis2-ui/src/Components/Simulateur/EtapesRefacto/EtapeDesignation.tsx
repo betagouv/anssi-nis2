@@ -2,7 +2,7 @@ import BlocPrincipal from "../../BlocPrincipal.tsx";
 import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
 import { FormSimulateur } from "../Etapes";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
-import { DesignationOperateurServicesEssentiels } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import { DesignationOperateurServicesEssentiels } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { useState } from "react";
 import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 import { TitresEtapes } from "../TitresEtapes.ts";

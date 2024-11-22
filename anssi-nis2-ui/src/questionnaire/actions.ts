@@ -1,4 +1,4 @@
-import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions.ts";
+import { Activite } from "../../../commun/core/src/Domain/Simulateur/Activite.definitions.ts";
 import {
   AppartenancePaysUnionEuropeenne,
   DesignationOperateurServicesEssentiels,
@@ -6,9 +6,9 @@ import {
   TrancheChiffreAffaire,
   TrancheNombreEmployes,
   TypeStructure,
-} from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
-import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
-import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
+} from "../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import { SecteurActivite } from "../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
+import { SousSecteurActivite } from "../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 
 export type ActionQuestionnaire =
   | ActionVide

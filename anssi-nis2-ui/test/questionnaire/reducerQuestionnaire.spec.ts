@@ -16,9 +16,9 @@ import {
   valideTailleEntitePrivee,
   valideTypeStructure,
 } from "../../src/questionnaire/actions";
-import { SecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions";
-import { Activite } from "anssi-nis2-core/src/Domain/Simulateur/Activite.definitions";
-import { EtatQuestionnaire } from "anssi-nis2-core/src/Domain/Questionnaire/EtatQuestionnaire";
+import { SecteurActivite } from "../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions";
+import { Activite } from "../../../commun/core/src/Domain/Simulateur/Activite.definitions";
+import { EtatQuestionnaire } from "../../../commun/core/src/Domain/Questionnaire/EtatQuestionnaire";
 
 describe("Le reducer du Questionnaire", () => {
   it("indique l'étape « préalable » comme étape de départ", () => {
