@@ -1,6 +1,6 @@
 import { ReactNode, useEffect } from "react";
 import { EnvoieDonneesFormulaire } from "../../../Services/Simulateur/Operations/appelsApi";
-import { EtatQuestionnaire } from "anssi-nis2-core/src/Domain/Questionnaire/EtatQuestionnaire";
+import { EtatQuestionnaire } from "../../../../../commun/core/src/Domain/Questionnaire/EtatQuestionnaire";
 
 export function PersisteReponsesDuQuestionnaire(props: {
   persistance: EnvoieDonneesFormulaire;

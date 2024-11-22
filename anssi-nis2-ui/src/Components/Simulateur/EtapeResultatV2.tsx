@@ -10,10 +10,10 @@ import {
 import RestezInformes from "../RestezInformes.tsx";
 import { LigneEtMaintenant } from "./Resultats/LigneEtMaintenant.tsx";
 import { EnSavoirPlus } from "./Resultats/EnSavoirPlus.tsx";
-import { estRegule } from "anssi-nis2-core/src/Domain/Simulateur/Regulation.predicats.ts";
+import { estRegule } from "../../../../commun/core/src/Domain/Simulateur/Regulation.predicats.ts";
 import { LigneBienDebuter } from "./Resultats/LigneBienDebuter.tsx";
 import { LigneReseauxSociaux } from "./Resultats/LigneReseauxSociaux.tsx";
-import { EtatQuestionnaire } from "anssi-nis2-core/src/Domain/Questionnaire/EtatQuestionnaire";
+import { EtatQuestionnaire } from "../../../../commun/core/src/Domain/Questionnaire/EtatQuestionnaire";
 
 export function EtapeResultatV2(props: {
   reponses: EtatQuestionnaire;

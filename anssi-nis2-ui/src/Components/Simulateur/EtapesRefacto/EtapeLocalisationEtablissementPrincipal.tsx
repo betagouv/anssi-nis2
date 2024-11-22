@@ -3,7 +3,7 @@ import { Stepper } from "@codegouvfr/react-dsfr/Stepper";
 import BlocPrincipal from "../../BlocPrincipal.tsx";
 import { FormSimulateur } from "../Etapes";
 import RadioButtons from "@codegouvfr/react-dsfr/RadioButtons";
-import { AppartenancePaysUnionEuropeenne } from "anssi-nis2-core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
+import { AppartenancePaysUnionEuropeenne } from "../../../../../commun/core/src/Domain/Simulateur/ChampsSimulateur.definitions.ts";
 import { contientUnParmi } from "../../../../../commun/utils/services/commun.predicats.ts";
 import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 import { TitresEtapes } from "../TitresEtapes.ts";

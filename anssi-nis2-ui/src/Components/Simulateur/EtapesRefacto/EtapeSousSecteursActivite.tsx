@@ -4,13 +4,13 @@ import { FormSimulateur } from "../Etapes";
 import {
   SecteurActivite,
   SecteurComposite,
-} from "anssi-nis2-core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
+} from "../../../../../commun/core/src/Domain/Simulateur/SecteurActivite.definitions.ts";
 import Checkbox from "@codegouvfr/react-dsfr/Checkbox";
 import { libellesSecteursActivite } from "../../../../../commun/core/src/Domain/Simulateur/LibellesSecteursActivite.ts";
-import { fabriqueTupleSecteurSousSecteurs } from "anssi-nis2-core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.operations.ts";
+import { fabriqueTupleSecteurSousSecteurs } from "../../../../../commun/core/src/Domain/Simulateur/services/SecteurActivite/SecteurActivite.operations.ts";
 import { libellesSousSecteursActivite } from "../../../../../commun/core/src/Domain/Simulateur/LibellesSousSecteursActivite.ts";
 import { useState } from "react";
-import { SousSecteurActivite } from "anssi-nis2-core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
+import { SousSecteurActivite } from "../../../../../commun/core/src/Domain/Simulateur/SousSecteurActivite.definitions.ts";
 import { PrecedentSuivant } from "../PrecedentSuivant.tsx";
 import { TitresEtapes } from "../TitresEtapes.ts";
 

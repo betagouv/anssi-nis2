@@ -6,7 +6,7 @@ import {
   undo,
 } from "../../src/questionnaire/quiSupporteUndo";
 import { etatParDefaut } from "../../src/questionnaire/reducerQuestionnaire";
-import { EtatQuestionnaire } from "anssi-nis2-core/src/Domain/Questionnaire/EtatQuestionnaire";
+import { EtatQuestionnaire } from "../../../commun/core/src/Domain/Questionnaire/EtatQuestionnaire";
 
 const listeActions: Pick<ActionQuestionnaire | ActionUndo, "type">[] = [
   { type: "VIDE" },
