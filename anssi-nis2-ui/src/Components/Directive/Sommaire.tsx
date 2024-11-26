@@ -76,7 +76,7 @@ export const Sommaire: DefaultComponent = () => {
         />
         <LienRubrique
           id="secteurs-activite"
-          titre="+ de 10 000 entités concernées sur 18 secteurs d'activité"
+          titre="Plusieurs milliers d'entités concernées sur 18 secteurs d'activité"
         />
         <LienRubrique id="secteurs-concernes" titre="Les secteurs concernés" />
         <LienRubrique

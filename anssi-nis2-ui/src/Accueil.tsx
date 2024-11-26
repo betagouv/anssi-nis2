@@ -41,7 +41,7 @@ const Accueil: DefaultComponent = () => {
               ></Paragraphe>
               <Paragraphe
                 titre="18 secteurs d'activités"
-                contenu="Plus de 10 000 entités réparties sur 18 secteurs d'activité seront concernées. Pour l'essentiel, ces entités seront des collectivités territoriales, des administrations, ainsi que des moyennes et grandes entreprises."
+                contenu="Plusieurs milliers d'entités réparties sur 18 secteurs d'activité seront concernées. Pour l'essentiel, ces entités seront des collectivités territoriales, des administrations, ainsi que des moyennes et grandes entreprises."
               />
               <Paragraphe
                 titre="Entités essentielles et importantes"
