@@ -32,6 +32,11 @@ export function EtapeResultatV2(props: {
       </RowContainer>
       <RowContainer className="fr-background-alt--blue-france">
         <CenteredContainer>
+          <div className="fr-container">
+            <h2 className="fr-text-action-high--blue-france fr-h1">
+              Restez informés
+            </h2>
+          </div>
           <RestezInformes
             mode={getModeFormulaireEmail(props.resultat.regulation)}
           />

@@ -19,6 +19,9 @@ import Directive from "./Directive.tsx";
 import { DeclarationAccessibilite } from "./Components/PagesEdito/DeclarationAccessibilite.tsx";
 import Securite from "./Components/PagesEdito/Securite.tsx";
 import PolitiqueConfidentialite from "./Components/PagesEdito/PolitiqueConfidentialite.tsx";
+import { MenuMobile } from "./Components/MenuMobile.tsx";
+import MiseEnPage from "./Components/MiseEnPage.tsx";
+import { MenuDesktop } from "./Components/MenuDesktop.tsx";
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
@@ -86,9 +89,18 @@ export const router = sentryCreateBrowserRouter([
   {
     path: "/infolettre",
     element: (
-      <PageEdito>
-        <RestezInformes />
-      </PageEdito>
+      <>
+        <MiseEnPage page="Restez informés">
+          <MenuMobile />
+          <MenuDesktop />
+          <div className="fr-nis2-bloc-principal fond-primaire">
+            <h2 className="fr-container texte-blanc fr-h1">Restez informés</h2>
+          </div>
+          <div className="fr-py-3w">
+            <RestezInformes />
+          </div>
+        </MiseEnPage>
+      </>
     ),
   },
   { path: "/directive", element: <Directive /> },
