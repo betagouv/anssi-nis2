@@ -943,19 +943,22 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
     margin: 0 auto;
 
     a {
+      color: #282828;
       padding: 16px;
       background: none;
-      color: #272771;
       font-size: 14px;
-      font-weight: bold;
 
       &[target="_blank"]::after {
         display: none;
       }
 
       &.active {
-        color: #282828;
-        border-bottom: 4px solid #fdc82e;
+        color: #272771;
+        border-bottom: 3px solid #fdc82e;
+      }
+
+      &:hover {
+        background: #f1f5f9;
       }
     }
   }
