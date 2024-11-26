@@ -12,9 +12,6 @@ const RestezInformes: DefaultComponentExtensible<RestezInformesProps> = ({
 
   return (
     <div className="fr-container fr-nis2-page-restez-informe">
-      <h2 className="fr-text-action-high--blue-france fr-h1">
-        Restez informés
-      </h2>
       <p className="fr-text">
         Nous déploierons dans les mois à venir un panel d&apos;outils pour
         faciliter l&apos;accompagnement des organisations régulées, à commencer
