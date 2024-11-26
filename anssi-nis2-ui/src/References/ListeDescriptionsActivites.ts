@@ -564,7 +564,7 @@ export const listeDescriptionsActivites: Record<
       description:
         "Selon l'Article 6 point 41 de la directive NIS&nbsp;2, voici la définition d'un organisme de recherche : \"«organisme de recherche» : une entité dont l'objectif premier " +
         "est de mener des activités de recherche appliquée ou de développement expérimental en vue d'exploiter les résultats de cette recherche à des fins commerciales, à l'exclusion " +
-        'des établissements denseignement."',
+        "des établissements d'enseignement.\"",
     },
   ],
   prestataireServiceConfianceQualifie: [
