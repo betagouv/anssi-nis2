@@ -157,7 +157,8 @@ const Directive: DefaultComponent = () => {
                 className="fond-blanc aucune-marge-basse"
               >
                 <h3>
-                  + de 10 000 entités concernées sur 18 secteurs d&apos;activité
+                  Plusieurs milliers d&apos;entités concernées sur 18 secteurs
+                  d&apos;activité
                 </h3>
                 <div className="conteneur-secteurs-activites">
                   <SecteurActivite
