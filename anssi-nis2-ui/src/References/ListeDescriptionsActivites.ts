@@ -580,10 +580,10 @@ export const listeDescriptionsActivites: Record<
     {
       titre: "Service de confiance qualifié",
       description:
-        "Un service de confiance qui satisfait aux exigences du règlement n° 910/2014 " +
-        "du Parlement européen et du Conseil du 23 juillet 2014 sur " +
-        "l’identification électronique et les services de confiance pour " +
-        "les transactions électroniques au sein du marché intérieur.",
+        "Un service de confiance qui satisfait aux exigences du règlement n°910/2014 " +
+        "du Parlement européen et du Conseil du 23 juillet 2014 sur l’identification électronique " +
+        "et les services de confiance pour les transactions électroniques au sein du marché " +
+        "intérieur modifié par le règlement n°2024/1183 du Parlement européen et du Conseil du 11 avril 2024.",
     },
     {
       titre: "Prestataire de services de confiance qualifié",
