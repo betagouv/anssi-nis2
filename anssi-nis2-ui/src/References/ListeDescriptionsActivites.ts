@@ -571,11 +571,21 @@ export const listeDescriptionsActivites: Record<
     {
       titre: "Service de confiance",
       description:
-        "Un service électronique normalement fourni contre rémunération qui consiste :" +
-        "\n\n" +
-        "\n\na) en la création, en la vérification et en la validation de signatures électroniques, de cachets électroniques ou d’horodatages électroniques, de services d’envoi recommandé électronique et de certificats relatifs à ces services; ou" +
-        "\n\nb) en la création, en la vérification et en la validation de certificats pour l’authentification de site internet; ou" +
-        "\n\nc) en la conservation de signatures électroniques, de cachets électroniques ou des certificats relatifs à ces services.",
+        "Un service électronique normalement fourni contre rémunération qui consiste en l’une des activités suivantes :\n\n" +
+        "&nbsp;- la délivrance de certificats de signature électronique, de certificats de cachet électronique, de certificats pour l’authentification de site internet ou de certificats pour la fourniture d’autres services de confiance ;\n\n" +
+        "&nbsp;- la validation de certificats de signature électronique, de certificats de cachet électronique, de certificats pour l’authentification de site internet ou de certificats pour la fourniture d’autres services de confiance ;\n\n" +
+        "&nbsp;- la création de signatures électroniques ou de cachets électroniques ;\n\n" +
+        "&nbsp;- la validation de signatures électroniques ou de cachets électroniques ;\n\n" +
+        "&nbsp;- la préservation de signatures électroniques, de cachets électroniques, de certificats de signature électronique ou de certificats de cachet électronique ;\n\n" +
+        "&nbsp;- la gestion de dispositifs de création de signature électronique à distance ou de dispositifs de création de cachet électronique à distance ;\n\n" +
+        "&nbsp;- la délivrance d’attestations électroniques d’attributs ;\n\n" +
+        "&nbsp;- la validation d’attestations électroniques d’attributs ;\n\n" +
+        "&nbsp;- la création d’horodatages électroniques ;\n\n" +
+        "&nbsp;- la validation d’horodatages électroniques ;\n\n" +
+        "&nbsp;- la fourniture de services d’envoi recommandé électronique ;\n\n" +
+        "&nbsp;- la validation de données transmises au moyen de services d’envoi recommandé électronique, ainsi que de preuves connexes ;\n\n" +
+        "&nbsp;- l’archivage électronique de données électroniques et de documents électroniques ; \n\n" +
+        "&nbsp;- l’enregistrement de données électroniques dans un registre électronique.",
     },
     {
       titre: "Service de confiance qualifié",
@@ -597,11 +607,21 @@ export const listeDescriptionsActivites: Record<
     {
       titre: "Service de confiance",
       description:
-        "Un service électronique normalement fourni contre rémunération qui consiste :" +
-        "\n\n" +
-        "\n\na) en la création, en la vérification et en la validation de signatures électroniques, de cachets électroniques ou d’horodatages électroniques, de services d’envoi recommandé électronique et de certificats relatifs à ces services; ou" +
-        "\n\nb) en la création, en la vérification et en la validation de certificats pour l’authentification de site internet; ou" +
-        "\n\nc) en la conservation de signatures électroniques, de cachets électroniques ou des certificats relatifs à ces services.",
+        "Un service électronique normalement fourni contre rémunération qui consiste en l’une des activités suivantes :\n\n" +
+        "&nbsp;- la délivrance de certificats de signature électronique, de certificats de cachet électronique, de certificats pour l’authentification de site internet ou de certificats pour la fourniture d’autres services de confiance ;\n\n" +
+        "&nbsp;- la validation de certificats de signature électronique, de certificats de cachet électronique, de certificats pour l’authentification de site internet ou de certificats pour la fourniture d’autres services de confiance ;\n\n" +
+        "&nbsp;- la création de signatures électroniques ou de cachets électroniques ;\n\n" +
+        "&nbsp;- la validation de signatures électroniques ou de cachets électroniques ;\n\n" +
+        "&nbsp;- la préservation de signatures électroniques, de cachets électroniques, de certificats de signature électronique ou de certificats de cachet électronique ;\n\n" +
+        "&nbsp;- la gestion de dispositifs de création de signature électronique à distance ou de dispositifs de création de cachet électronique à distance ;\n\n" +
+        "&nbsp;- la délivrance d’attestations électroniques d’attributs ;\n\n" +
+        "&nbsp;- la validation d’attestations électroniques d’attributs ;\n\n" +
+        "&nbsp;- la création d’horodatages électroniques ;\n\n" +
+        "&nbsp;- la validation d’horodatages électroniques ;\n\n" +
+        "&nbsp;- la fourniture de services d’envoi recommandé électronique ;\n\n" +
+        "&nbsp;- la validation de données transmises au moyen de services d’envoi recommandé électronique, ainsi que de preuves connexes ;\n\n" +
+        "&nbsp;- l’archivage électronique de données électroniques et de documents électroniques ; \n\n" +
+        "&nbsp;- l’enregistrement de données électroniques dans un registre électronique.",
     },
     {
       titre: "Prestataire de services de confiance",
