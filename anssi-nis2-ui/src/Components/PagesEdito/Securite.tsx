@@ -14,14 +14,13 @@ const Securite: DefaultComponent = () => {
       <p>
         MonEspaceNIS2 est hébergé chez&nbsp;
         <a
-          href="https://scalingo.com/"
+          href="https://www.clever-cloud.com/fr/"
           rel="noopener noreferrer"
           target="_blank"
         >
-          Scalingo
+          Clever Cloud
         </a>
-        &nbsp;prenant appui sur le Cloud 3DS d&apos;Outscale qualifié
-        SecNumCloud.
+        &nbsp;prenant appui sur Cloud Temple qualifié SecNumCloud.
       </p>
       <img
         className="encart-homologation encart-desktop"
