@@ -26,11 +26,13 @@ const APropos: DefaultComponent = () => {
           </li>
           <li>
             hébergée chez{" "}
-            <a href="https://scalingo.com/" title="Site internet Scalingo">
-              Scalingo
+            <a
+              href="https://www.clever-cloud.com/fr/"
+              title="Site internet Clever Cloud"
+            >
+              Clever Cloud
             </a>{" "}
-            prenant appui sur le Cloud 3DS d&apos;Outscale qualifié
-            SecNumCloud&nbsp;;
+            prenant appui sur Cloud Temple qualifié SecNumCloud&nbsp;;
           </li>
           <li>
             sous licence{" "}
