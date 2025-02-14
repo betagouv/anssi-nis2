@@ -54,8 +54,8 @@
   },
   "dependencies": {
     "@sentry/node": "^7.119.1",
-    "@sentry/react": "^7.119.1",
-    "@sentry/types": "^7.99.0",
+    "@sentry/react": "^8.55.0",
+    "@sentry/types": "^8.55.0",
     "ts-node": "^10.9.2"
   }
 }
