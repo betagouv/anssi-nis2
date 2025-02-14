@@ -119,6 +119,32 @@ const Directive: DefaultComponent = () => {
                     en droit national de la directive et assure sa mise en
                     œuvre.
                   </p>
+                  <p>
+                    La transposition de la directive a démarré par une phase de
+                    préparation du projet de loi, qui a été présenté en Conseil
+                    des Ministres le 15 octobre 2024 et déposé au Parlement en
+                    vue de son adoption dans les prochains mois. Consulter le
+                    dossier législatif contenant le projet de loi sur le site
+                    Légifrance :{" "}
+                    <a
+                      href="https://www.legifrance.gouv.fr/dossierlegislatif/JORFDOLE000050349138/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Projet de Loi relatif à la résilience des infrastructures
+                      critiques et au renforcement de la cybersécurité
+                      (PRMD2412608L)
+                    </a>
+                    . Dans les mois suivants la promulgation de la loi, la
+                    transposition se poursuivra par la phase de production des
+                    décrets et arrêtés. NIS&nbsp;2 entrera en vigueur en France
+                    dès lors que l&apos;ensemble des textes de transposition
+                    (loi, décrets, arrêtés) auront été promulgués. Il est utile
+                    de préciser que la date d&apos;entrée en vigueur ne
+                    correspond pas à la date d&apos;application de
+                    l&apos;ensemble des exigences réglementaires qui seront
+                    imposées aux entités régulées.
+                  </p>
                 </div>
               </BlocPrincipal>
               <BlocPrincipal
