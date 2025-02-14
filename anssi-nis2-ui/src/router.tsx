@@ -14,7 +14,6 @@ import {
 import RestezInformes from "./Components/RestezInformes.tsx";
 
 import * as Sentry from "@sentry/react";
-import React from "react";
 import Directive from "./Directive.tsx";
 import { DeclarationAccessibilite } from "./Components/PagesEdito/DeclarationAccessibilite.tsx";
 import Securite from "./Components/PagesEdito/Securite.tsx";
@@ -22,26 +21,25 @@ import PolitiqueConfidentialite from "./Components/PagesEdito/PolitiqueConfident
 import { MenuMobile } from "./Components/MenuMobile.tsx";
 import MiseEnPage from "./Components/MiseEnPage.tsx";
 import { MenuDesktop } from "./Components/MenuDesktop.tsx";
+import { useEffect } from "react";
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
   environment: import.meta.env.VITE_SENTRY_ENVIRONNEMENT,
   integrations: [
-    new Sentry.BrowserTracing({
-      routingInstrumentation: Sentry.reactRouterV6Instrumentation(
-        React.useEffect,
-        useLocation,
-        useNavigationType,
-        createRoutesFromChildren,
-        matchRoutes,
-      ),
+    Sentry.reactRouterV6BrowserTracingIntegration({
+      useEffect,
+      useLocation,
+      useNavigationType,
+      createRoutesFromChildren,
+      matchRoutes,
     }),
   ],
   tracesSampleRate: 1.0,
 });
 
 const sentryCreateBrowserRouter =
-  Sentry.wrapCreateBrowserRouter(createBrowserRouter);
+  Sentry.wrapCreateBrowserRouterV6(createBrowserRouter);
 
 export const router = sentryCreateBrowserRouter([
   { path: "/", element: <Accueil /> },
