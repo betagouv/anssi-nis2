@@ -312,6 +312,11 @@ const Directive: DefaultComponent = () => {
                     titre="Download NIS&nbsp;2's information booklet"
                     lien="/statique/Plaquette_NIS2_2024_English.pdf"
                   />
+                  <CarteEnSavoirPlus
+                    image={DirectiveIntegrale}
+                    titre="Consulter le dossier législatif contenant le projet de loi transposant la directive NIS&nbsp;2"
+                    lien="https://www.legifrance.gouv.fr/dossierlegislatif/JORFDOLE000050349138/"
+                  />
                 </div>
               </BlocPrincipal>
             </div>
