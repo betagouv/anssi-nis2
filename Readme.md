@@ -18,7 +18,7 @@ réglementées par ce cadre de loi.
 
 - [Git](https://git-scm.com/)
 - [Docker](https://www.docker.com/)
-- [Node.js v18](https://nodejs.org/en/)
+- [Node.js v22](https://nodejs.org/en/)
 
 ### Installation
 
