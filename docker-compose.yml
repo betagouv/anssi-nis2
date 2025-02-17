@@ -1,7 +1,7 @@
 services:
 
   db:
-    image: postgres
+    image: postgres:14
     container_name: anssi-nis2-db
     restart: always
     networks:
