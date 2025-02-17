@@ -9,8 +9,8 @@
     "anssi-nis2-ui"
   ],
   "engines": {
-    "node": ">= 18",
-    "npm": ">= 9"
+    "node": "^22",
+    "npm": "^10"
   },
   "scripts": {
     "lint": "eslint \"./anssi-nis2-*/{src,apps,libs,test}/**/*.ts\" --fix",
