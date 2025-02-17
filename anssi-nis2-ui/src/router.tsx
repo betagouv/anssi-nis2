@@ -35,6 +35,7 @@ Sentry.init({
       matchRoutes,
     }),
   ],
+  denyUrls: [/\/matomo.js$/],
   tracesSampleRate: 1.0,
 });
 
