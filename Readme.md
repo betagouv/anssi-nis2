@@ -1,5 +1,4 @@
 [![Node.js CI](https://github.com/betagouv/anssi-nis2/actions/workflows/node.js.yml/badge.svg)](https://github.com/betagouv/anssi-nis2/actions/workflows/node.js.yml)
-[![Storybook Tests](https://github.com/betagouv/anssi-nis2/actions/workflows/storybook-build.yml/badge.svg)](https://github.com/betagouv/anssi-nis2/actions/workflows/storybook-build.yml)
 
 # Mon Espace NIS 2
 
