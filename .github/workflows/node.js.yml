@@ -28,3 +28,6 @@ jobs:
 
       - name: Lancement des tests unitaires
         run: npm test
+
+      - name: Construction des applications
+        run: npm run build --if-present
