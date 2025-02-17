@@ -73,46 +73,9 @@ npm test
 ## Structure du dépôt
 
 ```text
-+---anssi-nis2-api                  // Serveur d'API (NestJS)
-°   +---dist
-°   +---node_modules
-°   +---src
-°   °   +---database
-°   °   +---Domaine
-°   °   +---simulateur-reponse
-°   °   +---test
-°   +---test
-+---anssi-nis2-ui                   // SPA frontend (Vite + React)
-°   +---.storybook
-°   +---dist
-°   +---node_modules
-°   +---public
-°   +---src
-°   °   +---.storybook
-°   °   +---assets
-°   °   +---Components
-°   °   °   +---Accueil
-°   °   °   +---Echaffaudages
-°   °   °   +---Simulateur
-°   °   +---Domaine
-°   °   °   +---Simulateur
-°   °   +---Services
-°   °   °   +---Echaffaudages
-°   °   °   +---Simulateur
-°   °   +---stories
-°   °   °   +---assets
-°   °   °   +---Components
-°   °   °   °   +---Accueil
-°   °   °   °   +---Simulateur
-°   °   °   +---Pages
-°   °   °   +---utilitaires
-°   °   +---utilitaires
-°   +---test
-°       +---Services
-°       °   +---Simulateur
-°       +---utilitaires
-+---node_modules
-+---pgdata                          // Données container PostgreSQL (ignoré par git)
++---anssi-nis2-api  // Serveur d'API (NestJS)
++---anssi-nis2-ui   // SPA frontend (Vite + React)
++---pgdata          // Données container PostgreSQL (ignoré par git)
 ```
 
 ## Mais que se passe-t-il ? (Problèmes courants)
