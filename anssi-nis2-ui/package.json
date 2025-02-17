@@ -11,9 +11,7 @@
     "predev": "only-include-used-icons",
     "prebuild": "only-include-used-icons",
     "test": "vitest run",
-    "storybook": "storybook dev -p 6006",
-    "storybook:build": "storybook build  --test",
-    "storybook:test": "test-storybook"
+    "storybook": "storybook dev -p 6006"
   },
   "dependencies": {
     "@codegouvfr/react-dsfr": "^0.74.2",
@@ -44,11 +42,8 @@
     "@storybook/addon-links": "^7.6.5",
     "@storybook/addon-onboarding": "^1.0.10",
     "@storybook/blocks": "^7.6.5",
-    "@storybook/jest": "^0.2.3",
     "@storybook/react": "^7.5.0",
     "@storybook/react-vite": "^7.5.0",
-    "@storybook/test-runner": "^0.16.0",
-    "@storybook/testing-library": "^0.2.2",
     "@testing-library/jest-dom": "^6.1.2",
     "@testing-library/react": "^14.0.0",
     "@types/papaparse": "^5.3.14",
