@@ -20,8 +20,6 @@ import { MenuDesktop } from "./Components/MenuDesktop.tsx";
 import BlocPrincipal from "./Components/BlocPrincipal.tsx";
 import Paragraphe from "./Components/Accueil/Paragraphe.tsx";
 import BandeauSePreparer from "./Components/Accueil/BandeauSePreprarer.tsx";
-import JalonEtape from "./Components/Accueil/JalonEtape.tsx";
-import PisteEtape from "./assets/chemin-etape.svg";
 
 const Accueil: DefaultComponent = () => {
   return (
@@ -65,59 +63,6 @@ const Accueil: DefaultComponent = () => {
             </div>
           </BlocPrincipal>
           <BandeauSePreparer />
-          <BlocPrincipal id="etapes" className="fond-primaire">
-            <h2 className="texte-blanc">Les étapes de la transposition</h2>
-            <div className="conteneur-etapes">
-              <img
-                id="piste-etape"
-                src={PisteEtape}
-                alt="Piste des étapes de la transposition"
-              />
-              <JalonEtape
-                annee={2021}
-                jalons={[
-                  {
-                    contenu:
-                      "Négociations européennes autour de la révision de NIS 1",
-                  },
-                ]}
-              />
-              <JalonEtape
-                annee={2022}
-                jalons={[
-                  {
-                    date: "27 décembre 2022",
-                    contenu:
-                      "Publication de la directive NIS 2 au Journal Officiel de l'UE",
-                  },
-                ]}
-              />
-              <JalonEtape
-                annee={2024}
-                jalons={[
-                  {
-                    date: "17 octobre 2024",
-                    contenu:
-                      "Échéance de transposition nationale pour les États membres",
-                  },
-                ]}
-              />
-              <JalonEtape
-                annee={2025}
-                jalons={[
-                  {
-                    date: "17 janvier 2025",
-                    contenu:
-                      "Les États-membres informent la Commission Européenne des règles et mesures adoptées",
-                  },
-                  {
-                    date: "17 avril 2025",
-                    contenu: "Chaque État membre établit la liste des EE et EI",
-                  },
-                ]}
-              />
-            </div>
-          </BlocPrincipal>
           <BandeauQuiEstANSSI />
           <BandeauInformationRS />
         </div>
