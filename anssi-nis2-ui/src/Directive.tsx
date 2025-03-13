@@ -126,15 +126,17 @@ const Directive: DefaultComponent = () => {
                     vue de son adoption dans les prochains mois. Consulter le
                     dossier législatif contenant le projet de loi sur le site
                     Légifrance :{" "}
-                    <a
-                      href="https://www.legifrance.gouv.fr/dossierlegislatif/JORFDOLE000050349138/"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Projet de Loi relatif à la résilience des infrastructures
-                      critiques et au renforcement de la cybersécurité
-                      (PRMD2412608L)
-                    </a>
+                    <b>
+                      <a
+                        href="https://www.legifrance.gouv.fr/dossierlegislatif/JORFDOLE000050349138/"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Projet de Loi relatif à la résilience des
+                        infrastructures critiques et au renforcement de la
+                        cybersécurité (PRMD2412608L)
+                      </a>
+                    </b>
                     .
                   </p>
                   <p>
