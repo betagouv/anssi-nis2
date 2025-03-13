@@ -135,7 +135,10 @@ const Directive: DefaultComponent = () => {
                       critiques et au renforcement de la cybersécurité
                       (PRMD2412608L)
                     </a>
-                    . Dans les mois suivants la promulgation de la loi, la
+                    .
+                  </p>
+                  <p>
+                    Dans les mois suivants la promulgation de la loi, la
                     transposition se poursuivra par la phase de production des
                     décrets et arrêtés. NIS&nbsp;2 entrera en vigueur en France
                     dès lors que l&apos;ensemble des textes de transposition
