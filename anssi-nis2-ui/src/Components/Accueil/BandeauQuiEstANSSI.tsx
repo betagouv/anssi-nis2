@@ -3,7 +3,7 @@ import { liens } from "../../References/liens.tsx";
 import BlocPrincipal from "../BlocPrincipal.tsx";
 
 const BandeauQuiEstANSSI = () => (
-  <BlocPrincipal id="anssi" className="fond-blanc">
+  <BlocPrincipal id="anssi">
     <h2 className="texte-primaire">Qu&apos;est-ce que l&apos;ANSSI ?</h2>
     <div className="conteneur-logo">
       <img src={AnssiLogo} alt="Logo ANSSI" />

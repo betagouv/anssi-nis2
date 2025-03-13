@@ -2,7 +2,7 @@ import ReseauxSociaux from "../ReseauxSociaux.tsx";
 import BlocPrincipal from "../BlocPrincipal.tsx";
 
 export const BandeauInformationRS = () => (
-  <BlocPrincipal id="informations">
+  <BlocPrincipal id="informations" className="fond-blanc">
     <div className="restez-informe">
       <h2>Restez informé</h2>
       <p>
