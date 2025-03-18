@@ -20,7 +20,12 @@
     #hero {
       h1 {
         font-size: 56px;
-        margin-top: 24px;
+
+        img {
+          width: 160px;
+          margin: 0 0 0 7px;
+          top: 13px;
+        }
       }
 
       h2 {
