@@ -13,8 +13,14 @@
   #hero {
     h1 {
       font-size: 36px;
-      margin-top: 8px;
       margin-bottom: 16px;
+
+      img {
+        width: 116px;
+        margin: 0 0 0 4px;
+        position: relative;
+        top: 10px;
+      }
     }
 
     h2 {
