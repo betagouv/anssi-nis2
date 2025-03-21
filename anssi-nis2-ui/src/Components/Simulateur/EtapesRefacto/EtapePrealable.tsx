@@ -30,9 +30,11 @@ export const EtapePrealable = ({ onValider }: { onValider: () => void }) => (
     </div>
     <div className="conteneur-information">
       <p>
-        Les résultats du test sont strictement indicatifs, dans l&apos;attente
-        de l&apos;adoption définitive des textes législatifs et réglementaires
-        de transposition de la directive NIS 2.
+        Il est préférable d’associer des compétences juridiques à la démarche d’auto-évaluation du statut de l’entité afin de déterminer si celle-ci entre dans le périmètre des entités régulées par la directive NIS 2. 
+        En tout état de cause, recourir au simulateur, dont le résultat est dépendant de l’exactitude des données fournies en entrée, ne dispense pas d’une analyse au vu des textes en vigueur et des circonstances propres à chaque entité. 
+        Les résultats du test sont strictement indicatifs, dans l'attente de l'adoption définitive des textes législatifs et réglementaires de transposition de la directive NIS 2.
+        Cet outil est un simulateur qui permet d'obtenir une estimation du statut d'une entité, conformément aux textes actuellement en vigueur. 
+        Ce service ne permet pas de s'acquitter de la future obligation d'enregistrement qui incomberont aux entités concernées par la directive NIS 2 en France.
       </p>
     </div>
     <div className="conteneur-actions">
