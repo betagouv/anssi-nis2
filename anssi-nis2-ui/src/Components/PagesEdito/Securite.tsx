@@ -8,8 +8,8 @@ const Securite: DefaultComponent = () => {
     <>
       <p>
         L&apos;ANSSI soumet MonEspaceNIS2 à un rythme d&apos;homologation
-        soutenu (tous les 6 mois) dans le cadre d&apos;une démarche de
-        renforcement continue de la sécurité du service numérique.
+        soutenu (tous les ans) dans le cadre d&apos;une démarche de renforcement
+        continue de la sécurité du service numérique.
       </p>
       <p>
         MonEspaceNIS2 est hébergé chez&nbsp;
