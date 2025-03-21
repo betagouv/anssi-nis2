@@ -171,6 +171,15 @@ const Directive: DefaultComponent = () => {
                   Cette catégorisation s&apos;établit selon leur degré de
                   criticité, leur taille et leur chiffre d&apos;affaires (pour
                   les entreprises).
+                  Dans le cas général, si elles dépassent certains seuils, fixés par la directive et repris en l’état dans le projet de loi, 
+                  les entités qui appartiennent à l’un des secteurs d’activité critiques ou hautement critiques prévus par la directive et qui seront précisés par décret sont soit des :
+                  <ul>
+                    <li>Entités essentielles si elles emploient au moins 250 personnes ou ont un chiffre d’affaires annuel supérieur à 50 millions d’euros et un bilan annuel supérieur à 43 millions d’euros; </li>
+                    <li>Entités importantes si elles ne sont pas entités essentielles et emploient au moins 50 personnes ou ont un chiffre d’affaires et un bilan annuel supérieur à 10 millions d’euros.</li>
+                  Des exceptions au cas général existent pour plusieurs types d’entité, dont les prestataires de services de confiance, les fournisseurs de services DNS, les registres de noms de domaine de premier niveau, les fournisseurs de réseaux de communications électroniques publiques, les fournisseurs de services de communications électroniques accessibles au public et l’administration publique.
+                  Des précisions seront apportées au fur et à mesure de la transposition de la directive NIS 2 en droit national.
+                  </ul>
+
                 </p>
                 <p>
                   La règlementation s&apos;appuiera sur ces deux typologies
@@ -222,19 +231,40 @@ const Directive: DefaultComponent = () => {
                 className="fond-blanc aucune-marge-basse"
               >
                 <h3>Quelles obligations pour les entités ?</h3>
-                <h4>Le partage d&apos;informations</h4>
+                <h4>L&apos;enregistrement auprès de l’autorité nationale compétente
+                </h4>
                 <p>
-                  Les entités seront tenues de fournir un certain nombre
-                  d&apos;informations à l&apos;autorité nationale désignée et de
-                  les mettre à jour.
+                Les entités relevant du périmètre d’application seront tenues de s’enregistrer auprès de l’autorité nationale compétente et de lui transmettre certaines informations (en les tenant à jour le cas échéant). 
+                La liste de ces informations à transmettre (qui comprendra a minima celles définies par le paragraphe 4 de l’article 3 et par l’article 27 de la directive NIS 2) sera fixée par décret.
+                Pour faciliter cet enregistrement, l’ANSSI mettra à disposition une plateforme en ligne.
+                A noter : il revient à chaque entité d’évaluer si elle entre dans le périmètre d’application de la directive NIS 2, et peut utiliser le simulateur MonEspaceNIS2 pour l’accompagner en ce sens.
                 </p>
                 <h4>La gestion des risques cyber</h4>
                 <p>
-                  La mise en place de mesures adaptées : les entités devront
-                  mettre en place des mesures juridiques, techniques et
-                  organisationnelles pour gérer les risques qui menacent la
-                  sécurité de leurs réseaux et de leurs systèmes
-                  d&apos;information.
+                Les entités devront mettre en place des mesures juridiques, techniques et organisationnelles pour gérer les risques qui menacent la sécurité de leurs réseaux et de leurs systèmes d'information.
+                Ces mesures comprennent au moins :
+                <ul>
+                <li>les politiques relatives à l’analyse des risques et à la sécurité des systèmes d’information; </li>
+                <li>la gestion des incidents; </li>
+                <li>la continuité des activités, par exemple la gestion des sauvegardes et la reprise des activités, et la gestion des crises; </li>
+                <li>la sécurité de la chaîne d’approvisionnement, y compris les aspects liés à la sécurité concernant les relations entre chaque entité et ses fournisseurs ou prestataires de services directs; </li>
+                <li>la sécurité de l’acquisition, du développement et de la maintenance des réseaux et des systèmes d’information, y compris le traitement et la divulgation des vulnérabilités; </li>
+                <li>des politiques et des procédures pour évaluer l’efficacité des mesures de gestion des risques en matière de cybersécurité; </li>
+                <li>les pratiques de base en matière de cyberhygiène et la formation à la cybersécurité;</li>
+                <li>des politiques et des procédures relatives à l’utilisation de la cryptographie et, le cas échéant, du chiffrement; </li>
+                <li>la sécurité des ressources humaines, des politiques de contrôle d’accès et la gestion des actifs; </li>
+                <li>l’utilisation de solutions d’authentification à plusieurs facteurs ou d’authentification continue, de communications vocales, vidéo et textuelles sécurisées et de systèmes sécurisés de communication d’urgence au sein de l’entité, selon les besoins.</li>
+                </ul>
+                Ces mesures, issues des articles 20 et 21 de la directive NIS 2, seront déclinées au niveau réglementaire en vingt objectifs de sécurité, avec des niveaux d’exigence distincts et proportionnés entre entités essentielles et entités importantes.
+                Par ailleurs, en raison de la nature transfrontalière de leurs services, certaines entités du secteur des infrastructures numériques, de gestion des services des technologies de l'information et de la communication (TIC) et des fournisseurs numériques font l’objet d’un règlement d’exécution spécifique de la Commission européenne (accessible en français ici). Par conséquent, elles ne sont pas soumises au socle de mesures de sécurité NIS 2 définies pour les entités établies en France.
+                Les types d’entités concernés par ce règlement d’exécution sont les suivants :
+                Au titre de l’annexe I, secteur 8 « Infrastructure numérique » de la directive NIS 2 : 
+                les fournisseurs de services DNS, à l’exclusion des opérateurs de serveurs racines de noms de domaine;
+                <ul>les registres de noms de domaine de premier niveau ;
+                <li>les fournisseurs de services d’informatique en nuage (cloud); </li>
+                <li>les fournisseurs de services de centres de données; </li>
+                <li>les fournisseurs de réseaux de diffusion de contenu; </li>
+                <li>les prestataires de services de confiance.</li>
                 </p>
                 <h4>La déclaration d&apos;incidents</h4>
                 <p>
