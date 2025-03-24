@@ -5,6 +5,7 @@ import "../style/App.scss";
 import Matomo from "./Matomo/Matomo.tsx";
 import { Helmet } from "react-helmet";
 import { BOM } from "./BOM/BOM.tsx";
+import { BandeauDePromotionMSC } from "./BandeauDePromotionMSC.tsx";
 
 const MiseEnPage: DefaultComponent = ({ children, page }: DefaultProps) => {
   return (
@@ -18,6 +19,7 @@ const MiseEnPage: DefaultComponent = ({ children, page }: DefaultProps) => {
         GestionBalises={true}
       />
       <EnTete />
+      <BandeauDePromotionMSC />
       <main className={page} role="main">
         {children}
       </main>
