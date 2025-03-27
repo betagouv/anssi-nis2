@@ -297,51 +297,51 @@ const Directive: DefaultComponent = () => {
                   Ces mesures comprennent au moins :
                   <ul>
                     <li>
-                      a) les politiques relatives à l&apos;analyse des risques
-                      et à la sécurité des systèmes d&apos;information ;
+                      les politiques relatives à l&apos;analyse des risques et à
+                      la sécurité des systèmes d&apos;information ;
                     </li>
-                    <li>b) la gestion des incidents ;</li>
+                    <li>la gestion des incidents ;</li>
                     <li>
-                      c) la continuité des activités, par exemple la gestion des
+                      la continuité des activités, par exemple la gestion des
                       sauvegardes et la reprise des activités, et la gestion des
                       crises ;
                     </li>
                     <li>
-                      d) la sécurité de la chaîne d&apos;approvisionnement, y
+                      la sécurité de la chaîne d&apos;approvisionnement, y
                       compris les aspects liés à la sécurité concernant les
                       relations entre chaque entité et ses fournisseurs ou
                       prestataires de services directs ;
                     </li>
                     <li>
-                      e) la sécurité de l&apos;acquisition, du développement et
-                      de la maintenance des réseaux et des systèmes
+                      la sécurité de l&apos;acquisition, du développement et de
+                      la maintenance des réseaux et des systèmes
                       d&apos;information, y compris le traitement et la
                       divulgation des vulnérabilités ;
                     </li>
                     <li>
-                      f) des politiques et des procédures pour évaluer
+                      des politiques et des procédures pour évaluer
                       l&apos;efficacité des mesures de gestion des risques en
                       matière de cybersécurité ;
                     </li>
                     <li>
-                      g) les pratiques de base en matière de cyberhygiène et la
+                      les pratiques de base en matière de cyberhygiène et la
                       formation à la cybersécurité ;
                     </li>
                     <li>
-                      h) des politiques et des procédures relatives à
+                      des politiques et des procédures relatives à
                       l&apos;utilisation de la cryptographie et, le cas échéant,
                       du chiffrement ;
                     </li>
                     <li>
-                      i) la sécurité des ressources humaines, des politiques de
+                      la sécurité des ressources humaines, des politiques de
                       contrôle d&apos;accès et la gestion des actifs ;
                     </li>
                     <li>
-                      j) l&apos;utilisation de solutions d&apos;authentification
-                      à plusieurs facteurs ou d&apos;authentification continue,
-                      de communications vocales, vidéo et textuelles sécurisées
-                      et de systèmes sécurisés de communication d&apos;urgence
-                      au sein de l&apos;entité, selon les besoins.
+                      l&apos;utilisation de solutions d&apos;authentification à
+                      plusieurs facteurs ou d&apos;authentification continue, de
+                      communications vocales, vidéo et textuelles sécurisées et
+                      de systèmes sécurisés de communication d&apos;urgence au
+                      sein de l&apos;entité, selon les besoins.
                     </li>
                   </ul>
                 </p>
