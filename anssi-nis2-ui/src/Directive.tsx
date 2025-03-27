@@ -288,12 +288,148 @@ const Directive: DefaultComponent = () => {
 
                 <h4>La gestion des risques cyber</h4>
                 <p>
-                  La mise en place de mesures adaptées : les entités devront
-                  mettre en place des mesures juridiques, techniques et
-                  organisationnelles pour gérer les risques qui menacent la
-                  sécurité de leurs réseaux et de leurs systèmes
+                  Les entités devront mettre en place des mesures juridiques,
+                  techniques et organisationnelles pour gérer les risques qui
+                  menacent la sécurité de leurs réseaux et de leurs systèmes
                   d&apos;information.
                 </p>
+                <p>
+                  Ces mesures comprennent au moins :
+                  <ul>
+                    <li>
+                      a) les politiques relatives à l&apos;analyse des risques
+                      et à la sécurité des systèmes d&apos;information ;
+                    </li>
+                    <li>b) la gestion des incidents ;</li>
+                    <li>
+                      c) la continuité des activités, par exemple la gestion des
+                      sauvegardes et la reprise des activités, et la gestion des
+                      crises ;
+                    </li>
+                    <li>
+                      d) la sécurité de la chaîne d&apos;approvisionnement, y
+                      compris les aspects liés à la sécurité concernant les
+                      relations entre chaque entité et ses fournisseurs ou
+                      prestataires de services directs ;
+                    </li>
+                    <li>
+                      e) la sécurité de l&apos;acquisition, du développement et
+                      de la maintenance des réseaux et des systèmes
+                      d&apos;information, y compris le traitement et la
+                      divulgation des vulnérabilités ;
+                    </li>
+                    <li>
+                      f) des politiques et des procédures pour évaluer
+                      l&apos;efficacité des mesures de gestion des risques en
+                      matière de cybersécurité ;
+                    </li>
+                    <li>
+                      g) les pratiques de base en matière de cyberhygiène et la
+                      formation à la cybersécurité ;
+                    </li>
+                    <li>
+                      h) des politiques et des procédures relatives à
+                      l&apos;utilisation de la cryptographie et, le cas échéant,
+                      du chiffrement ;
+                    </li>
+                    <li>
+                      i) la sécurité des ressources humaines, des politiques de
+                      contrôle d&apos;accès et la gestion des actifs ;
+                    </li>
+                    <li>
+                      j) l&apos;utilisation de solutions d&apos;authentification
+                      à plusieurs facteurs ou d&apos;authentification continue,
+                      de communications vocales, vidéo et textuelles sécurisées
+                      et de systèmes sécurisés de communication d&apos;urgence
+                      au sein de l&apos;entité, selon les besoins.
+                    </li>
+                  </ul>
+                </p>
+                <p>
+                  Ces mesures, issues des articles 20 et 21 de la directive
+                  NIS&nbsp;2, seront déclinées au niveau réglementaire en vingt
+                  objectifs de sécurité, avec des niveaux d&apos;exigence
+                  distincts et proportionnés entre entités essentielles et
+                  entités importantes.
+                </p>
+                <p>
+                  Par ailleurs, en raison de la nature transfrontalière de leurs
+                  services, certaines entités du secteur des infrastructures
+                  numériques, de gestion des services des technologies de
+                  l&apos;information et de la communication (TIC) et des
+                  fournisseurs numériques font l&apos;objet d&apos;un règlement
+                  d&apos;exécution spécifique de la Commission européenne (
+                  <a
+                    href="https://eur-lex.europa.eu/legal-content/FR/TXT/PDF/?uri=OJ:L_202402690"
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    accessible en français ici
+                  </a>
+                  ). Par conséquent, elles ne sont pas soumises au socle de
+                  mesures de sécurité NIS&nbsp;2 définies pour les entités
+                  établies en France.
+                </p>
+                <p>
+                  Les types d&apos;entités concernés par ce règlement
+                  d&apos;exécution sont les suivants&nbsp;:
+                  <ul>
+                    <li>
+                      Au titre de l&apos;annexe I, secteur 8
+                      «&nbsp;Infrastructure numérique&nbsp;» de la directive
+                      NIS&nbsp;2&nbsp;:
+                    </li>
+                    <ul>
+                      <li>
+                        les fournisseurs de services DNS, à l&apos;exclusion des
+                        opérateurs de serveurs racines de noms de domaine&nbsp;;
+                      </li>
+                      <li>
+                        les registres de noms de domaine de premier
+                        niveau&nbsp;;
+                      </li>
+                      <li>
+                        les fournisseurs de services d&apos;informatique en
+                        nuage (cloud)&nbsp;;
+                      </li>
+                      <li>
+                        les fournisseurs de services de centres de
+                        données&nbsp;;
+                      </li>
+                      <li>
+                        les fournisseurs de réseaux de diffusion de
+                        contenu&nbsp;;
+                      </li>
+                      <li>les prestataires de services de confiance.</li>
+                    </ul>
+                    <li>
+                      Au titre de l&apos;annexe I, secteur 9 «&nbsp;Gestion des
+                      services TIC&nbsp;» de la directive NIS&nbsp;2&nbsp;:
+                    </li>
+                    <ul>
+                      <li>les fournisseurs de services gérés&nbsp;;</li>
+                      <li>les fournisseurs de services de sécurité gérés.</li>
+                    </ul>
+                    <li>
+                      Au titre de l&apos;annexe II, secteur 6
+                      «&nbsp;Fournisseurs numériques&nbsp;» de la directive
+                      NIS&nbsp;2&nbsp;:
+                    </li>
+                    <ul>
+                      <li>
+                        les fournisseurs de places de marché en ligne&nbsp;;
+                      </li>
+                      <li>
+                        les fournisseurs de moteurs de recherche en ligne&nbsp;;
+                      </li>
+                      <li>
+                        les fournisseurs de plateformes de services de réseaux
+                        sociaux.
+                      </li>
+                    </ul>
+                  </ul>
+                </p>
+
                 <h4>La déclaration d&apos;incidents</h4>
                 <p>
                   Les entités devront signaler à l&apos;autorité nationale
