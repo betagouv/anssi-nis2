@@ -18,7 +18,6 @@ import Directive from "./Directive.tsx";
 import { DeclarationAccessibilite } from "./Components/PagesEdito/DeclarationAccessibilite.tsx";
 import Securite from "./Components/PagesEdito/Securite.tsx";
 import PolitiqueConfidentialite from "./Components/PagesEdito/PolitiqueConfidentialite.tsx";
-import { MenuMobile } from "./Components/MenuMobile.tsx";
 import MiseEnPage from "./Components/MiseEnPage.tsx";
 import { MenuDesktop } from "./Components/MenuDesktop.tsx";
 import { useEffect } from "react";
@@ -90,7 +89,6 @@ export const router = sentryCreateBrowserRouter([
     element: (
       <>
         <MiseEnPage page="Restez informés">
-          <MenuMobile />
           <MenuDesktop />
           <div className="fr-nis2-bloc-principal fond-primaire">
             <h2 className="fr-container texte-blanc fr-h1">Restez informés</h2>
