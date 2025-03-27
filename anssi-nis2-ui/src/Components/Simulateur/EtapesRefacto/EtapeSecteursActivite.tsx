@@ -29,8 +29,37 @@ export const EtapeSecteursActivite = ({
 
       <FormSimulateur>
         <div className="fr-fieldset__element">
+          <legend className="fr-text--regular">
+            Dans quels secteurs d&apos;activités votre organisation produit-elle
+            des biens et/ou des services ?
+          </legend>
+
+          <div className="fr-notice fr-notice--info fr-mb-3w fr-mt-3w">
+            <div className="fr-container">
+              <div className="fr-notice__body">
+                <p>
+                  Il a été observé que certaines entités, lors de leur
+                  utilisation du simulateur, sélectionnent le secteur
+                  d&apos;activité d&apos;entités dont elles sont les
+                  fournisseurs ou les sous-traitants au lieu du secteur de
+                  réalisation de leurs propres activités. <br />
+                  À titre d&apos;exemple, un fournisseur de turbine
+                  d&apos;éolienne, pouvant se considérer comme étant du secteur
+                  «&nbsp;Énergie&nbsp;», sera en réalité associé au secteur
+                  «&nbsp;Fabrication&nbsp;» (correspondant à l&apos;industrie
+                  manufacturière) selon le prisme établi par la directive
+                  NIS&nbsp;2. <br />
+                  Une telle confusion fausse les résultats du test. Les entités
+                  utilisant le simulateur sont donc invitées à renseigner les
+                  différentes rubriques avec le plus grand soin, avec un focus
+                  particulier sur le secteur Fabrication qui regroupe plus de
+                  500 activités distinctes.
+                </p>
+              </div>
+            </div>
+          </div>
+
           <Checkbox
-            legend="Dans quels secteurs d'activités votre organisation produit-elle des biens et/ou des services ?"
             options={(
               Object.entries(libellesSecteursActivite) as [
                 SecteurActivite,
