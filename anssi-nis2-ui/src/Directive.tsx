@@ -254,12 +254,38 @@ const Directive: DefaultComponent = () => {
                 className="fond-blanc aucune-marge-basse"
               >
                 <h3>Quelles obligations pour les entités ?</h3>
-                <h4>Le partage d&apos;informations</h4>
+                <h4>
+                  L&apos;enregistrement auprès de l&apos;autorité nationale
+                  compétente
+                </h4>
                 <p>
-                  Les entités seront tenues de fournir un certain nombre
-                  d&apos;informations à l&apos;autorité nationale désignée et de
-                  les mettre à jour.
+                  Les entités relevant du périmètre d&apos;application seront
+                  tenues de s&apos;enregistrer auprès de l&apos;autorité
+                  nationale compétente et de lui transmettre certaines
+                  informations (en les tenant à jour le cas échéant). La liste
+                  de ces informations à transmettre (qui comprendra à minima
+                  celles définies par le paragraphe 4 de l&apos;article 3 et par
+                  l&apos;article 27 de la directive NIS&nbsp;2) sera fixée par
+                  décret.
                 </p>
+                <p>
+                  Pour faciliter cet enregistrement, l&apos;ANSSI mettra à
+                  disposition une plateforme en ligne.
+                </p>
+                <p>
+                  À noter : il revient à chaque entité d&apos;évaluer si elle
+                  entre dans le périmètre d&apos;application de la directive
+                  NIS&nbsp;2, et peut utiliser le simulateur MonEspaceNIS2 pour
+                  l&apos;accompagner en ce sens.
+                </p>
+
+                <a
+                  className="fr-nis2-bouton-principal fr-mb-5v"
+                  href="/simulateur"
+                >
+                  Accéder au simulateur MonEspaceNIS2
+                </a>
+
                 <h4>La gestion des risques cyber</h4>
                 <p>
                   La mise en place de mesures adaptées : les entités devront
