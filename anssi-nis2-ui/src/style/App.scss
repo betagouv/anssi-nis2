@@ -754,9 +754,6 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 25px;
-  right: 16px;
   z-index: calc(var(--ground) + 501);
 }
 
@@ -883,12 +880,36 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
   }
 }
 
-@media screen and (min-width: 768px) {
-  .fr-nis2-menu-burger {
-    top: 24px;
-    right: 24px;
-  }
+.fr-nis2-conteneur-entete {
+  box-shadow: var(--raised-shadow);
+}
 
+.fr-nis2-marges-entete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.fr-nis2-entete-service {
+  flex: 1;
+}
+
+.fr-header, .fr-header__brand {
+  filter: none !important;
+}
+
+.fr-nis2-entete-conteneur-menu {
+  position: absolute;
+  z-index: 1000;
+  top: 25px;
+  right: 16px;
+  display: flex;
+  gap: 8px;
+}
+
+@media screen and (min-width: 768px) {
   .fr-nis2-bloc-principal {
     padding: 40px 56px;
 
@@ -928,6 +949,18 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
         }
       }
     }
+  }
+
+  .fr-nis2-entete-conteneur-menu {
+    top: 24px;
+    right: 24px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .fr-nis2-entete-conteneur-menu {
+    position: unset;
+    margin-right: 16px;
   }
 }
 
@@ -980,6 +1013,10 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
         margin-right: 103px;
       }
     }
+  }
+
+  .fr-nis2-entete-conteneur-menu {
+    margin-right: 0;
   }
 }
 
