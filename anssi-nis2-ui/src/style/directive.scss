@@ -295,6 +295,15 @@
       font-size: 22px;
       margin-bottom: 8px;
     }
+
+    p ul ul li {
+      list-style-type: circle;
+    }
+
+    p ul + li,
+    p > ul:first-child {
+      margin-top: 18px;
+    }
   }
 
   #demarche {
