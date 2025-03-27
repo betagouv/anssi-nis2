@@ -173,6 +173,38 @@ const Directive: DefaultComponent = () => {
                   les entreprises).
                 </p>
                 <p>
+                  Dans le cas général, si elles dépassent certains seuils, fixés
+                  par la directive et repris en l&apos;état dans le projet de
+                  loi, les entités qui appartiennent à l&apos;un des secteurs
+                  d&apos;activité critiques ou hautement critiques prévus par la
+                  directive et qui seront précisés par décret sont soit des :
+                  <ul>
+                    <li>
+                      Entités essentielles si elles emploient au moins 250
+                      personnes ou ont un chiffre d&apos;affaires annuel
+                      supérieur à 50 millions d&apos;euros et un bilan annuel
+                      supérieur à 43 millions d&apos;euros ;
+                    </li>
+                    <li>
+                      Entités importantes si elles ne sont pas entités
+                      essentielles et emploient au moins 50 personnes ou ont un
+                      chiffre daffaires et un bilan annuel supérieur à 10
+                      millions d&apos;euros.
+                    </li>
+                  </ul>
+                  Des exceptions au cas général existent pour plusieurs types
+                  d&apos;entité, dont les prestataires de services de confiance,
+                  les fournisseurs de services DNS, les registres de noms de
+                  domaine de premier niveau, les fournisseurs de réseaux de
+                  communications électroniques publiques, les fournisseurs de
+                  services de communications électroniques accessibles au public
+                  et l&apos;administration publique.
+                </p>
+                <p>
+                  Des précisions seront apportées au fur et à mesure de la
+                  transposition de la directive NIS&nbsp;2 en droit national.
+                </p>
+                <p>
                   La règlementation s&apos;appuiera sur ces deux typologies
                   d&apos;entités (EE ou EI) pour définir des objectifs adaptés
                   et proportionnés aux enjeux de chacune de ces catégories.
