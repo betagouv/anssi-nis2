@@ -24,7 +24,6 @@ import { SecteurActivite } from "./Components/Directive/SecteurActivite.tsx";
 import { ListeSecteursConcernes } from "./Components/Directive/ListeSecteursConcernes.tsx";
 import { CarteInformation } from "./Components/Directive/CarteInformation.tsx";
 import { CarteEnSavoirPlus } from "./Components/Directive/CarteEnSavoirPlus.tsx";
-import { MenuMobile } from "./Components/MenuMobile.tsx";
 import { Sommaire } from "./Components/Directive/Sommaire.tsx";
 import { MenuDesktop } from "./Components/MenuDesktop.tsx";
 import BlocPrincipal from "./Components/BlocPrincipal.tsx";
@@ -33,7 +32,6 @@ const Directive: DefaultComponent = () => {
   return (
     <>
       <MiseEnPage page="Directive NIS 2">
-        <MenuMobile />
         <MenuDesktop />
         <div className="fr-nis2-directive">
           <BlocPrincipal className="fond-primaire" id="hero">

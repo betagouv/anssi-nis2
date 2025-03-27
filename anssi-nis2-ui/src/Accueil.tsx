@@ -15,7 +15,6 @@ import {
   BandeauInformationRS,
 } from "./Components/Accueil";
 import MiseEnPage from "./Components/MiseEnPage.tsx";
-import { MenuMobile } from "./Components/MenuMobile.tsx";
 import { MenuDesktop } from "./Components/MenuDesktop.tsx";
 import BlocPrincipal from "./Components/BlocPrincipal.tsx";
 import Paragraphe from "./Components/Accueil/Paragraphe.tsx";
@@ -25,7 +24,6 @@ const Accueil: DefaultComponent = () => {
   return (
     <>
       <MiseEnPage page="Accueil">
-        <MenuMobile />
         <MenuDesktop />
         <div className="fr-nis2-accueil">
           <BandeauAccueil />
