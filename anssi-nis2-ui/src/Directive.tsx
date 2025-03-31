@@ -205,6 +205,46 @@ const Directive: DefaultComponent = () => {
                   transposition de la directive NIS&nbsp;2 en droit national.
                 </p>
                 <p>
+                  Les tableaux ci-dessous (cliquez pour agrandir) récapitulent à
+                  titre strictement indicatif les différents cas de figure
+                  usuels, hors administration publique et collectivités
+                  territoriales, et hors désignation ou exclusion unitaire qui
+                  pourrait intervenir après la transposition de la directive
+                  NIS&nbsp;2. Ces tableaux s’appuient sur le contenu de la
+                  directive NIS&nbsp;2, sans se substituer à celle-ci, et seront
+                  mis à jour après la fin de la transposition de la directive
+                  NIS&nbsp;2 en droit national.
+                </p>
+
+                <div className="annexes">
+                  <a
+                    href="/public/directive/annexe-1.png"
+                    target="_blank"
+                    rel="noreferrer"
+                    title="Annexe 1 : secteurs de haute criticité"
+                  >
+                    <img
+                      width={250}
+                      src="/public/directive/annexe-1.png"
+                      alt="Annexe 1 : secteurs de haute criticité"
+                    />
+                  </a>
+
+                  <a
+                    href="/public/directive/annexe-2.png"
+                    target="_blank"
+                    rel="noreferrer"
+                    title="Annexe 2 : autres secteurs critiques"
+                  >
+                    <img
+                      width={250}
+                      src="/public/directive/annexe-2.png"
+                      alt="Annexe 2 : autres secteurs critiques"
+                    />
+                  </a>
+                </div>
+
+                <p>
                   La règlementation s&apos;appuiera sur ces deux typologies
                   d&apos;entités (EE ou EI) pour définir des objectifs adaptés
                   et proportionnés aux enjeux de chacune de ces catégories.
