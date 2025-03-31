@@ -43,6 +43,7 @@ const MePreparer: DefaultComponent = () => {
                   id: "identifier-un-responsable",
                   titre: "Identifier un responsable en charge de NIS 2",
                 },
+                { id: "se-pre-enregistrer", titre: "Se pré-enregistrer" },
               ]}
             />
             <div className="contenu-page">
@@ -210,6 +211,26 @@ const MePreparer: DefaultComponent = () => {
                   prendra en charge le projet de mise en œuvre des obligations
                   liées à la réglementation NIS&nbsp;2 et du maintien dans le
                   temps du niveau de sécurité numérique de votre entité.
+                </p>
+              </BlocPrincipal>
+              <BlocPrincipal
+                id="se-pre-enregistrer"
+                className="fond-blanc fr-pt-0"
+              >
+                <h2 className="texte-primaire">Se pré-enregistrer</h2>
+                <p>
+                  En attendant l&apos;entrée en vigueur de l&apos;obligation
+                  d&apos;enregistrement, qui interviendra avec la publication
+                  des textes réglementaires, l&apos;ANSSI mettra à disposition
+                  très prochainement une première version du service
+                  d&apos;enregistrement pour permettre aux entités
+                  d&apos;anticiper cette étape. Le service prévoit un parcours
+                  guidé pour répondre aux attentes de la directive et inclut des
+                  saisies automatiques dans la mesure du possible.
+                </p>
+                <p>
+                  Le lien vers le service de pré-enregistrement sera accessible
+                  depuis le site MonEspaceNIS2.
                 </p>
               </BlocPrincipal>
             </div>
