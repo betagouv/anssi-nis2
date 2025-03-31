@@ -63,7 +63,7 @@ const MePreparer: DefaultComponent = () => {
             />
             <div className="contenu-page">
               <BlocPrincipal id="introduction" className="fond-blanc">
-                <h2 className="texte-primaire">Introduction</h2>
+                <h3>Introduction</h3>
                 <p>
                   La transposition de la directive NIS&nbsp;2 en France est en
                   cours. En attendant la publication de l’ensemble des textes de
@@ -81,9 +81,7 @@ const MePreparer: DefaultComponent = () => {
               </BlocPrincipal>
 
               <BlocPrincipal id="s-informer" className="fond-blanc fr-pt-0">
-                <h2 className="texte-primaire">
-                  S’informer sur la directive NIS&nbsp;2
-                </h2>
+                <h3>S’informer sur la directive NIS&nbsp;2</h3>
                 <p>
                   MonEspaceNIS2 propose des contenus d’information sur la
                   directive NIS&nbsp;2&nbsp;:
@@ -119,7 +117,7 @@ const MePreparer: DefaultComponent = () => {
                 id="se-tenir-informes"
                 className="fond-blanc fr-pt-0"
               >
-                <h2 className="texte-primaire">Se tenir informés</h2>
+                <h3>Se tenir informés</h3>
                 <p>
                   Consciente de l’importance de pouvoir tenir informées les
                   entités concernées par la directive NIS&nbsp;2, l’ANSSI
@@ -150,10 +148,10 @@ const MePreparer: DefaultComponent = () => {
                 id="determiner-si-concernee-par-nis2"
                 className="fond-blanc fr-pt-0"
               >
-                <h2 className="texte-primaire">
+                <h3>
                   Déterminer si votre entité est concernée par la directive
                   NIS&nbsp;2
-                </h2>
+                </h3>
 
                 <p>
                   Le simulateur mis à disposition par l’ANSSI propose un
@@ -215,9 +213,7 @@ const MePreparer: DefaultComponent = () => {
                 id="identifier-un-responsable"
                 className="fond-blanc fr-pt-0"
               >
-                <h2 className="texte-primaire">
-                  Identifier un responsable en charge de NIS&nbsp;2
-                </h2>
+                <h3>Identifier un responsable en charge de NIS&nbsp;2</h3>
                 <p>
                   Une fois votre inclusion dans le périmètre déterminée, nous
                   conseillons aux entités d’identifier une personne qui prendra
@@ -230,7 +226,7 @@ const MePreparer: DefaultComponent = () => {
                 id="se-pre-enregistrer"
                 className="fond-blanc fr-pt-0"
               >
-                <h2 className="texte-primaire">Se pré-enregistrer</h2>
+                <h3>Se pré-enregistrer</h3>
                 <p>
                   En attendant l’entrée en vigueur de l’obligation
                   d’enregistrement, qui interviendra avec la publication des
@@ -250,9 +246,7 @@ const MePreparer: DefaultComponent = () => {
                 id="lister-les-systemes-d-information-de-votre-entite"
                 className="fond-blanc fr-pt-0"
               >
-                <h2 className="texte-primaire">
-                  Lister les systèmes d’information de votre entité
-                </h2>
+                <h3>Lister les systèmes d’information de votre entité</h3>
                 <p>
                   La directive NIS&nbsp;2 impose de maîtriser ses risques cyber
                   sur l’ensemble de ses systèmes d’information, y compris les
@@ -306,10 +300,10 @@ const MePreparer: DefaultComponent = () => {
               </BlocPrincipal>
 
               <BlocPrincipal id="s-organiser" className="fond-blanc fr-pt-0">
-                <h2 className="texte-primaire">
+                <h3>
                   S’organiser pour être en mesure de déclarer des incidents
                   importants
-                </h2>
+                </h3>
                 <p>
                   Les entités devront également être en mesure de remplir
                   l’obligation de déclaration d’incidents importants dès la
@@ -337,9 +331,7 @@ const MePreparer: DefaultComponent = () => {
               </BlocPrincipal>
 
               <BlocPrincipal id="demarrer" className="fond-blanc fr-pt-0">
-                <h2 className="texte-primaire">
-                  Démarrer des premières actions de sécurisation
-                </h2>
+                <h3>Démarrer des premières actions de sécurisation</h3>
                 <p>
                   En attendant de connaître l’ensemble des obligations
                   NIS&nbsp;2 qui s’appliqueront, l’ANSSI conseille aux entités
