@@ -2,6 +2,7 @@ import "@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css";
 import "@gouvfr/dsfr/dist/utility/utility.css";
 
 import "./style/me-preparer.scss";
+import "./style/me-preparer.tablette.scss";
 import Hero from "../src/assets/directive-hero.svg";
 
 import { DefaultComponent } from "./Services/Props";
@@ -84,7 +85,7 @@ const MePreparer: DefaultComponent = () => {
                 </h2>
                 <p>
                   MonEspaceNIS2 propose des contenus d’information sur la
-                  directive NIS&nbsp;2 :
+                  directive NIS&nbsp;2&nbsp;:
                   <ul>
                     <li>
                       <a href="/directive">
@@ -122,7 +123,7 @@ const MePreparer: DefaultComponent = () => {
                   Consciente de l’importance de pouvoir tenir informées les
                   entités concernées par la directive NIS&nbsp;2, l’ANSSI
                   propose la souscription à une lettre d’information dédiée à
-                  NIS&nbsp;2 qui a pour objectifs :
+                  NIS&nbsp;2 qui a pour objectifs&nbsp;:
                   <ul className="fr-mb-5v">
                     <li>
                       de partager régulièrement l’avancement du processus de
@@ -164,7 +165,7 @@ const MePreparer: DefaultComponent = () => {
                 </p>
                 <p>
                   Quelques conseils pour une meilleure utilisation de ce
-                  simulateur :
+                  simulateur&nbsp;:
                   <ul>
                     <li>
                       Il est préférable d’associer des compétences juridiques à
@@ -342,7 +343,7 @@ const MePreparer: DefaultComponent = () => {
                   En attendant de connaître l’ensemble des obligations
                   NIS&nbsp;2 qui s’appliqueront, l’ANSSI conseille aux entités
                   essentielles et importantes de se référer aux bonnes pratiques
-                  de sécurité numérique :
+                  de sécurité numérique&nbsp;:
                   <ul>
                     <li>
                       Pour les entités qui seront entités importantes, en
