@@ -33,6 +33,7 @@ const MePreparer: DefaultComponent = () => {
                   id: "s-informer",
                   titre: "S'informer sur la directive NIS 2",
                 },
+                { id: "se-tenir-informes", titre: "Se tenir informés" },
               ]}
             />
             <div className="contenu-page">
@@ -64,7 +65,7 @@ const MePreparer: DefaultComponent = () => {
                   <ul>
                     <li>
                       <a href="/directive">
-                        Une page d’information générale sur la directive
+                        Une page d&apos;information générale sur la directive
                         NIS&nbsp;2
                       </a>
                       , que les entités peuvent consulter pour en savoir plus
@@ -86,6 +87,37 @@ const MePreparer: DefaultComponent = () => {
                   L&apos;ensemble de ces contenus seront mis à jour au fur et à
                   mesure de l&apos;avancement de la transposition de la
                   directive NIS&nbsp;2 en droit français.
+                </p>
+              </BlocPrincipal>
+
+              <BlocPrincipal
+                id="se-tenir-informes"
+                className="fond-blanc fr-pt-0"
+              >
+                <h2 className="texte-primaire">Se tenir informés</h2>
+                <p>
+                  Consciente de l&apos;importance de pouvoir tenir informées les
+                  entités concernées par la directive NIS&nbsp;2, l&apos;ANSSI
+                  propose la souscription à une lettre d&apos;information dédiée
+                  à NIS&nbsp;2 qui a pour objectifs :
+                  <ul className="fr-mb-5v">
+                    <li>
+                      de partager régulièrement l&apos;avancement du processus
+                      de transposition nationale
+                    </li>
+                    <li>d&apos;aborder certaines thématiques métier </li>
+                    <li>
+                      de communiquer sur les évolutions apportées au site
+                      MonEspaceNIS2
+                    </li>
+                    <li>
+                      de faire connaître des évènements en lien avec la mise en
+                      œuvre de la directive NIS&nbsp;2
+                    </li>
+                  </ul>
+                  <a className="fr-nis2-bouton-principal" href="/infolettre">
+                    S&apos;inscrire à l&apos;infolettre
+                  </a>
                 </p>
               </BlocPrincipal>
             </div>
