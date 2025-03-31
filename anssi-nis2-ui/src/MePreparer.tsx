@@ -53,6 +53,10 @@ const MePreparer: DefaultComponent = () => {
                   titre:
                     "S’organiser pour être en mesure de déclarer des incidents importants",
                 },
+                {
+                  id: "demarrer",
+                  titre: "Démarrer des premières actions de sécurisation ",
+                },
               ]}
             />
             <div className="contenu-page">
@@ -327,6 +331,88 @@ const MePreparer: DefaultComponent = () => {
                   </a>
                   &nbsp;afin de bénéficier d’un accompagnement à la remédiation
                   le cas échéant.
+                </p>
+              </BlocPrincipal>
+
+              <BlocPrincipal id="demarrer" className="fond-blanc fr-pt-0">
+                <h2 className="texte-primaire">
+                  Démarrer des premières actions de sécurisation
+                </h2>
+                <p>
+                  En attendant de connaître l’ensemble des obligations
+                  NIS&nbsp;2 qui s’appliqueront, l’ANSSI conseille aux entités
+                  essentielles et importantes de se référer aux bonnes pratiques
+                  de sécurité numérique :
+                  <ul>
+                    <li>
+                      Pour les entités qui seront entités importantes, en
+                      particulier pour les moyennes entreprises, le &nbsp;
+                      <a
+                        href="https://cyber.gouv.fr/publications/la-cybersecurite-pour-les-tpepme-en-treize-questions"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Guide des TPE/PME
+                      </a>
+                      &nbsp; constitue une première base de travail pour mettre
+                      en œuvre des mesures concrètes et pérennes. <br />
+                      Par ailleurs, l’outil&nbsp;
+                      <a
+                        href="https://monaide.cyber.gouv.fr"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        MonAideCyber
+                      </a>
+                      &nbsp; peut d’ores et déjà être utilisé pour amorcer une
+                      première étape de sécurisation cyber.
+                    </li>
+                    <li>
+                      Pour les entités essentielles selon la directive
+                      NIS&nbsp;2, le&nbsp;
+                      <a
+                        href="https://cyber.gouv.fr/publications/guide-dhygiene-informatique"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Guide d’hygiène d’informatique
+                      </a>
+                      &nbsp; contient une liste de mesures dont il est possible
+                      de consulter les grandes thématiques, pour se les
+                      approprier et réfléchir à une organisation en lien avec
+                      ces dernières. Plus largement, le référentiel de mesures
+                      de sécurité prévu pour NIS&nbsp;1 reste une source
+                      d’informations significatives pour la sécurisation des
+                      systèmes d’information.
+                    </li>
+                  </ul>
+                </p>
+                <p>
+                  Enfin, pour les entités déjà désignées opérateurs de services
+                  essentiels au titre de NIS&nbsp;1, il est nécessaire de ne pas
+                  relâcher les efforts. D’ici à l’entrée en vigueur de
+                  NIS&nbsp;2, les exigences de NIS&nbsp;1 demeurent applicables.
+                  En outre, les futures exigences de la directive NIS&nbsp;2 une
+                  fois transposée dans le droit national, s’inscriront dans le
+                  prolongement naturel des efforts de NIS&nbsp;1. Tous les
+                  travaux d’ores et déjà entrepris par les opérateurs seront
+                  valorisables pour NIS&nbsp;2. L’ANSSI a en particulier
+                  identifié cette continuité comme une priorité de la
+                  transposition de la directive NIS&nbsp;2.
+                </p>
+                <p>
+                  Pour accompagner le renforcement de la cybersécurité des
+                  entités,&nbsp;
+                  <a
+                    href="https://messervices.cyber.gouv.fr"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    MesServicesCyber, la plateforme de l’offre de services de
+                    l’ANSSI
+                  </a>
+                  &nbsp;, permet d’accéder à l’ensemble des services et
+                  ressources proposés par l’Agence, en réponse à leurs besoins.
                 </p>
               </BlocPrincipal>
             </div>
