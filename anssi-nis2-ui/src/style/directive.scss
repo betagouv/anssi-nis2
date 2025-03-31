@@ -355,4 +355,15 @@
       }
     }
   }
+
+  .annexes {
+    display: flex;
+    justify-content: space-around;
+    a {
+      background: none;
+      &:after {
+        display: none;
+      }
+    }
+  }
 }
