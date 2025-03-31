@@ -14,6 +14,8 @@ import Demarche from "../src/assets/demarche.svg";
 import DirectiveIntegrale from "../src/assets/en-savoir-plus/directive.svg";
 import Presentation from "../src/assets/en-savoir-plus/presentation.svg";
 import FAQ from "../src/assets/en-savoir-plus/faq.svg";
+import Annexe1 from "../src/assets/directive/annexe-1.png";
+import Annexe2 from "../src/assets/directive/annexe-2.png";
 
 import { DefaultComponent } from "./Services/Props";
 import MiseEnPage from "./Components/MiseEnPage.tsx";
@@ -218,27 +220,27 @@ const Directive: DefaultComponent = () => {
 
                 <div className="annexes">
                   <a
-                    href="/public/directive/annexe-1.png"
+                    href="/directive/annexe-1.png"
                     target="_blank"
                     rel="noreferrer"
                     title="Annexe 1 : secteurs de haute criticité"
                   >
                     <img
                       width={250}
-                      src="/public/directive/annexe-1.png"
+                      src={Annexe1}
                       alt="Annexe 1 : secteurs de haute criticité"
                     />
                   </a>
 
                   <a
-                    href="/public/directive/annexe-2.png"
+                    href="/directive/annexe-2.png"
                     target="_blank"
                     rel="noreferrer"
                     title="Annexe 2 : autres secteurs critiques"
                   >
                     <img
                       width={250}
-                      src="/public/directive/annexe-2.png"
+                      src={Annexe2}
                       alt="Annexe 2 : autres secteurs critiques"
                     />
                   </a>
