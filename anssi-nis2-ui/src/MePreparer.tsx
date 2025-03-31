@@ -3,6 +3,7 @@ import "@gouvfr/dsfr/dist/utility/utility.css";
 
 import "./style/me-preparer.scss";
 import "./style/me-preparer.tablette.scss";
+import "./style/me-preparer.desktop.scss";
 import Hero from "../src/assets/directive-hero.svg";
 
 import { DefaultComponent } from "./Services/Props";
