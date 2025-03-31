@@ -39,6 +39,10 @@ const MePreparer: DefaultComponent = () => {
                   titre:
                     "Déterminer si votre entité est concernée par la directive NIS 2",
                 },
+                {
+                  id: "identifier-un-responsable",
+                  titre: "Identifier un responsable en charge de NIS 2",
+                },
               ]}
             />
             <div className="contenu-page">
@@ -191,6 +195,22 @@ const MePreparer: DefaultComponent = () => {
                 <a className="fr-nis2-bouton-principal" href="/simulateur">
                   Accéder au simulateur
                 </a>
+              </BlocPrincipal>
+
+              <BlocPrincipal
+                id="identifier-un-responsable"
+                className="fond-blanc fr-pt-0"
+              >
+                <h2 className="texte-primaire">
+                  Identifier un responsable en charge de NIS&nbsp;2
+                </h2>
+                <p>
+                  Une fois votre inclusion dans le périmètre déterminée, nous
+                  conseillons aux entités d&apos;identifier une personne qui
+                  prendra en charge le projet de mise en œuvre des obligations
+                  liées à la réglementation NIS&nbsp;2 et du maintien dans le
+                  temps du niveau de sécurité numérique de votre entité.
+                </p>
               </BlocPrincipal>
             </div>
           </div>
