@@ -27,7 +27,13 @@ const MePreparer: DefaultComponent = () => {
           </BlocPrincipal>
           <div className="page">
             <SommaireSynchroAvecScroll
-              liens={[{ id: "introduction", titre: "Introduction" }]}
+              liens={[
+                { id: "introduction", titre: "Introduction" },
+                {
+                  id: "s-informer",
+                  titre: "S'informer sur la directive NIS 2",
+                },
+              ]}
             />
             <div className="contenu-page">
               <BlocPrincipal id="introduction" className="fond-blanc">
@@ -45,6 +51,41 @@ const MePreparer: DefaultComponent = () => {
                   préparatoires à la bonne mise en œuvre des exigences découlant
                   de la directive européenne, en prévision de l&apos;entrée en
                   vigueur de la réglementation nationale.
+                </p>
+              </BlocPrincipal>
+
+              <BlocPrincipal id="s-informer" className="fond-blanc fr-pt-0">
+                <h2 className="texte-primaire">
+                  S&apos;informer sur la directive NIS&nbsp;2
+                </h2>
+                <p>
+                  MonEspaceNIS2 propose des contenus d&apos;information sur la
+                  directive NIS&nbsp;2 :
+                  <ul>
+                    <li>
+                      <a href="/directive">
+                        Une page d’information générale sur la directive
+                        NIS&nbsp;2
+                      </a>
+                      , que les entités peuvent consulter pour en savoir plus
+                      sur la directive NIS&nbsp;2 et sa transposition en droit
+                      français. Cette page traite notamment des entités
+                      essentielles et importantes, des secteurs concernés, des
+                      obligations, etc.
+                    </li>
+                    <li>
+                      <a
+                        href="https://aide.monespacenis2.cyber.gouv.fr/fr/"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Une FAQ, alimentée et enrichie régulièrement.
+                      </a>
+                    </li>
+                  </ul>
+                  L&apos;ensemble de ces contenus seront mis à jour au fur et à
+                  mesure de l&apos;avancement de la transposition de la
+                  directive NIS&nbsp;2 en droit français.
                 </p>
               </BlocPrincipal>
             </div>
