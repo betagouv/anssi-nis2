@@ -46,7 +46,12 @@ const MePreparer: DefaultComponent = () => {
                 { id: "se-pre-enregistrer", titre: "Se pré-enregistrer" },
                 {
                   id: "lister-les-systemes-d-information-de-votre-entite",
-                  titre: "Lister les systèmes d’information de votre entité ",
+                  titre: "Lister les systèmes d’information de votre entité",
+                },
+                {
+                  id: "s-organiser",
+                  titre:
+                    "S’organiser pour être en mesure de déclarer des incidents importants",
                 },
               ]}
             />
@@ -55,31 +60,31 @@ const MePreparer: DefaultComponent = () => {
                 <h2 className="texte-primaire">Introduction</h2>
                 <p>
                   La transposition de la directive NIS&nbsp;2 en France est en
-                  cours. En attendant la publication de l&apos;ensemble des
-                  textes de transposition, et compte tenu de la menace actuelle,
-                  les futures entités essentielles et importantes sont invitées
-                  à s&apos;engager dès à présent dans une démarche visant à
-                  renforcer leur niveau de sécurité.
+                  cours. En attendant la publication de l’ensemble des textes de
+                  transposition, et compte tenu de la menace actuelle, les
+                  futures entités essentielles et importantes sont invitées à
+                  s’engager dès à présent dans une démarche visant à renforcer
+                  leur niveau de sécurité.
                 </p>
                 <p>
                   Aussi, cette page a pour objectif de partager des conseils
                   préparatoires à la bonne mise en œuvre des exigences découlant
-                  de la directive européenne, en prévision de l&apos;entrée en
+                  de la directive européenne, en prévision de l’entrée en
                   vigueur de la réglementation nationale.
                 </p>
               </BlocPrincipal>
 
               <BlocPrincipal id="s-informer" className="fond-blanc fr-pt-0">
                 <h2 className="texte-primaire">
-                  S&apos;informer sur la directive NIS&nbsp;2
+                  S’informer sur la directive NIS&nbsp;2
                 </h2>
                 <p>
-                  MonEspaceNIS2 propose des contenus d&apos;information sur la
+                  MonEspaceNIS2 propose des contenus d’information sur la
                   directive NIS&nbsp;2 :
                   <ul>
                     <li>
                       <a href="/directive">
-                        Une page d&apos;information générale sur la directive
+                        Une page d’information générale sur la directive
                         NIS&nbsp;2
                       </a>
                       , que les entités peuvent consulter pour en savoir plus
@@ -98,9 +103,9 @@ const MePreparer: DefaultComponent = () => {
                       </a>
                     </li>
                   </ul>
-                  L&apos;ensemble de ces contenus seront mis à jour au fur et à
-                  mesure de l&apos;avancement de la transposition de la
-                  directive NIS&nbsp;2 en droit français.
+                  L’ensemble de ces contenus seront mis à jour au fur et à
+                  mesure de l’avancement de la transposition de la directive
+                  NIS&nbsp;2 en droit français.
                 </p>
               </BlocPrincipal>
 
@@ -110,16 +115,16 @@ const MePreparer: DefaultComponent = () => {
               >
                 <h2 className="texte-primaire">Se tenir informés</h2>
                 <p>
-                  Consciente de l&apos;importance de pouvoir tenir informées les
-                  entités concernées par la directive NIS&nbsp;2, l&apos;ANSSI
-                  propose la souscription à une lettre d&apos;information dédiée
-                  à NIS&nbsp;2 qui a pour objectifs :
+                  Consciente de l’importance de pouvoir tenir informées les
+                  entités concernées par la directive NIS&nbsp;2, l’ANSSI
+                  propose la souscription à une lettre d’information dédiée à
+                  NIS&nbsp;2 qui a pour objectifs :
                   <ul className="fr-mb-5v">
                     <li>
-                      de partager régulièrement l&apos;avancement du processus
-                      de transposition nationale
+                      de partager régulièrement l’avancement du processus de
+                      transposition nationale
                     </li>
-                    <li>d&apos;aborder certaines thématiques métier </li>
+                    <li>d’aborder certaines thématiques métier </li>
                     <li>
                       de communiquer sur les évolutions apportées au site
                       MonEspaceNIS2
@@ -130,7 +135,7 @@ const MePreparer: DefaultComponent = () => {
                     </li>
                   </ul>
                   <a className="fr-nis2-bouton-principal" href="/infolettre">
-                    S&apos;inscrire à l&apos;infolettre
+                    S’inscrire à l’infolettre
                   </a>
                 </p>
               </BlocPrincipal>
@@ -145,8 +150,8 @@ const MePreparer: DefaultComponent = () => {
                 </h2>
 
                 <p>
-                  Le simulateur mis à disposition par l&apos;ANSSI propose un
-                  parcours simple et rapide permettant d&apos;avoir une première
+                  Le simulateur mis à disposition par l’ANSSI propose un
+                  parcours simple et rapide permettant d’avoir une première
                   indication sur le potentiel statut essentiel ou important de
                   votre entité. Nous vous conseillons donc, dans le cas où le
                   statut de votre entité vis-à-vis de la directive NIS&nbsp;2 ne
@@ -158,44 +163,42 @@ const MePreparer: DefaultComponent = () => {
                   simulateur :
                   <ul>
                     <li>
-                      Il est préférable d&apos;associer des compétences
-                      juridiques à la démarche d&apos;auto-évaluation du statut
-                      de l&apos;entité afin de déterminer si celle-ci entre dans
-                      le périmètre des entités régulées par la directive
-                      NIS&nbsp;2.
+                      Il est préférable d’associer des compétences juridiques à
+                      la démarche d’auto-évaluation du statut de l’entité afin
+                      de déterminer si celle-ci entre dans le périmètre des
+                      entités régulées par la directive NIS&nbsp;2.
                     </li>
                     <li>
                       Il a été observé que certaines entités, lors de leur
                       utilisation du simulateur, confondent le secteur de
                       réalisation de leurs propres activités avec le secteur
-                      d&apos;activité des clients qu&apos;elles fournissent ou
-                      dont elles sont les sous-traitants. Une telle confusion
-                      fausse les résultats du test. Les entités utilisant le
-                      simulateur sont donc invitées à renseigner les différentes
-                      rubriques avec le plus grand soin.
+                      d’activité des clients qu’elles fournissent ou dont elles
+                      sont les sous-traitants. Une telle confusion fausse les
+                      résultats du test. Les entités utilisant le simulateur
+                      sont donc invitées à renseigner les différentes rubriques
+                      avec le plus grand soin.
                     </li>
                     <ul>
                       <li>
-                        À titre d&apos;exemple, un fournisseur de turbine
-                        d&apos;éolienne, pouvant se considérer comme étant du
-                        secteur «&nbsp;Énergie&nbsp;», sera en réalité associé
-                        au secteur «&nbsp;Fabrication&nbsp;» (correspondant à
-                        l&apos;industrie manufacturière) selon le prisme établi
-                        par la directive NIS&nbsp;2.
+                        À titre d’exemple, un fournisseur de turbine d’éolienne,
+                        pouvant se considérer comme étant du secteur
+                        «&nbsp;Énergie&nbsp;», sera en réalité associé au
+                        secteur «&nbsp;Fabrication&nbsp;» (correspondant à
+                        l’industrie manufacturière) selon le prisme établi par
+                        la directive NIS&nbsp;2.
                       </li>
                       <li>
-                        Les entités du secteur de l&apos;industrie
-                        manufacturière sont invitées à consulter avec attention
-                        le secteur «&nbsp;Fabrication&nbsp;» de ce simulateur,
-                        qui regroupe plus de 500 activités distinctes.
+                        Les entités du secteur de l’industrie manufacturière
+                        sont invitées à consulter avec attention le secteur
+                        «&nbsp;Fabrication&nbsp;» de ce simulateur, qui regroupe
+                        plus de 500 activités distinctes.
                       </li>
                     </ul>
                   </ul>
                   En tout état de cause, recourir au simulateur, dont le
-                  résultat est dépendant de l&apos;exactitude des données
-                  fournies en entrée, ne dispense pas d&apos;une analyse au vu
-                  des textes en vigueur et des circonstances propres à chaque
-                  entité.
+                  résultat est dépendant de l’exactitude des données fournies en
+                  entrée, ne dispense pas d’une analyse au vu des textes en
+                  vigueur et des circonstances propres à chaque entité.
                 </p>
                 <a className="fr-nis2-bouton-principal" href="/simulateur">
                   Accéder au simulateur
@@ -211,10 +214,10 @@ const MePreparer: DefaultComponent = () => {
                 </h2>
                 <p>
                   Une fois votre inclusion dans le périmètre déterminée, nous
-                  conseillons aux entités d&apos;identifier une personne qui
-                  prendra en charge le projet de mise en œuvre des obligations
-                  liées à la réglementation NIS&nbsp;2 et du maintien dans le
-                  temps du niveau de sécurité numérique de votre entité.
+                  conseillons aux entités d’identifier une personne qui prendra
+                  en charge le projet de mise en œuvre des obligations liées à
+                  la réglementation NIS&nbsp;2 et du maintien dans le temps du
+                  niveau de sécurité numérique de votre entité.
                 </p>
               </BlocPrincipal>
               <BlocPrincipal
@@ -223,14 +226,14 @@ const MePreparer: DefaultComponent = () => {
               >
                 <h2 className="texte-primaire">Se pré-enregistrer</h2>
                 <p>
-                  En attendant l&apos;entrée en vigueur de l&apos;obligation
-                  d&apos;enregistrement, qui interviendra avec la publication
-                  des textes réglementaires, l&apos;ANSSI mettra à disposition
-                  très prochainement une première version du service
-                  d&apos;enregistrement pour permettre aux entités
-                  d&apos;anticiper cette étape. Le service prévoit un parcours
-                  guidé pour répondre aux attentes de la directive et inclut des
-                  saisies automatiques dans la mesure du possible.
+                  En attendant l’entrée en vigueur de l’obligation
+                  d’enregistrement, qui interviendra avec la publication des
+                  textes réglementaires, l’ANSSI mettra à disposition très
+                  prochainement une première version du service d’enregistrement
+                  pour permettre aux entités d’anticiper cette étape. Le service
+                  prévoit un parcours guidé pour répondre aux attentes de la
+                  directive et inclut des saisies automatiques dans la mesure du
+                  possible.
                 </p>
                 <p>
                   Le lien vers le service de pré-enregistrement sera accessible
@@ -242,7 +245,7 @@ const MePreparer: DefaultComponent = () => {
                 className="fond-blanc fr-pt-0"
               >
                 <h2 className="texte-primaire">
-                  Lister les systèmes d&apos;information de votre entité
+                  Lister les systèmes d’information de votre entité
                 </h2>
                 <p>
                   La directive NIS&nbsp;2 impose de maîtriser ses risques cyber
@@ -293,6 +296,37 @@ const MePreparer: DefaultComponent = () => {
                     d’information
                   </a>
                   &nbsp; de l’ANSSI peuvent accompagner les entités à cette fin.
+                </p>
+              </BlocPrincipal>
+
+              <BlocPrincipal id="s-organiser" className="fond-blanc fr-pt-0">
+                <h2 className="texte-primaire">
+                  S’organiser pour être en mesure de déclarer des incidents
+                  importants
+                </h2>
+                <p>
+                  Les entités devront également être en mesure de remplir
+                  l’obligation de déclaration d’incidents importants dès la
+                  promulgation des textes législatifs et réglementaires. <br />
+                  La directive impose notamment que celle-ci soit effectuée
+                  auprès de l’autorité nationale compétente par l’entité
+                  essentielle ou importante victime de cet incident, sans retard
+                  injustifié ou dans les 24 heures après avoir eu connaissance
+                  de l’incident important (cf. partie 4.2.3 de ce document).{" "}
+                </p>
+                <p>
+                  Il n’est pas nécessaire d’attendre l’entrée en vigueur des
+                  obligations pour déclarer à l’ANSSI ses incidents. Les entités
+                  sont invitées à le faire dès à présent sur&nbsp;
+                  <a
+                    href="https://club.ssi.gouv.fr/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    ClubSSI
+                  </a>
+                  &nbsp;afin de bénéficier d’un accompagnement à la remédiation
+                  le cas échéant.
                 </p>
               </BlocPrincipal>
             </div>
