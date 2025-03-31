@@ -8,7 +8,6 @@ import Hero from "../src/assets/directive-hero.svg";
 
 import { DefaultComponent } from "./Services/Props";
 import MiseEnPage from "./Components/MiseEnPage.tsx";
-import { MenuMobile } from "./Components/MenuMobile.tsx";
 import { MenuDesktop } from "./Components/MenuDesktop.tsx";
 import BlocPrincipal from "./Components/BlocPrincipal.tsx";
 import { SommaireSynchroAvecScroll } from "./Components/General/SommaireSynchoAvecScroll.tsx";
@@ -17,12 +16,11 @@ const MePreparer: DefaultComponent = () => {
   return (
     <>
       <MiseEnPage page="Se préparer">
-        <MenuMobile />
         <MenuDesktop />
         <div className="fr-nis2-me-preparer fr-pb-0">
           <BlocPrincipal className="fond-primaire" id="hero">
             <h1 className="texte-blanc">
-              Se préparer à NIS&nbsp;2 en attendant la finalisation des textes
+              Me préparer à NIS&nbsp;2 en attendant la finalisation des textes
               de transposition
             </h1>
             <img src={Hero} alt="Illustration du Hero de la directive NIS 2" />
