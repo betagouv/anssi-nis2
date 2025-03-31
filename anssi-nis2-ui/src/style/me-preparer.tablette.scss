@@ -1,0 +1,29 @@
+@media screen and (min-width: 768px) {
+  .fr-nis2-me-preparer {
+    .aucune-marge-basse {
+      padding-bottom: 0;
+    }
+
+    h3 {
+      font-size: 32px;
+    }
+
+    .fr-nis2-bloc-principal#hero {
+      padding: 72px 56px;
+
+      h1 {
+        max-width: 62%;
+        margin: 0;
+      }
+
+      img {
+        width: 170px;
+        right: 56px;
+      }
+    }
+
+    p {
+      font-size: 20px;
+    }
+  }
+}
