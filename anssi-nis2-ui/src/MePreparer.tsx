@@ -44,6 +44,10 @@ const MePreparer: DefaultComponent = () => {
                   titre: "Identifier un responsable en charge de NIS 2",
                 },
                 { id: "se-pre-enregistrer", titre: "Se pré-enregistrer" },
+                {
+                  id: "lister-les-systemes-d-information-de-votre-entite",
+                  titre: "Lister les systèmes d’information de votre entité ",
+                },
               ]}
             />
             <div className="contenu-page">
@@ -231,6 +235,64 @@ const MePreparer: DefaultComponent = () => {
                 <p>
                   Le lien vers le service de pré-enregistrement sera accessible
                   depuis le site MonEspaceNIS2.
+                </p>
+              </BlocPrincipal>
+              <BlocPrincipal
+                id="lister-les-systemes-d-information-de-votre-entite"
+                className="fond-blanc fr-pt-0"
+              >
+                <h2 className="texte-primaire">
+                  Lister les systèmes d&apos;information de votre entité
+                </h2>
+                <p>
+                  La directive NIS&nbsp;2 impose de maîtriser ses risques cyber
+                  sur l’ensemble de ses systèmes d’information, y compris les
+                  systèmes d’information qui sont tout ou partie externalisés.
+                </p>
+                <p>
+                  Aussi, en attendant la publication des exigences de sécurité à
+                  atteindre, nous conseillons aux entités d’élaborer (ou de
+                  mettre à jour) la liste de leurs systèmes d’information. Cette
+                  liste, intitulée « cartographie des systèmes d’information »
+                  constituera un élément de base pour les travaux de mise en
+                  œuvre à venir.
+                </p>
+                <p>
+                  Elle permettra de&nbsp;:
+                  <ul>
+                    <li>
+                      délimiter le périmètre des travaux de mise en œuvre des
+                      exigences de sécurité
+                    </li>
+                    <li>
+                      identifier les systèmes les plus critiques pour l’entité
+                    </li>
+                    <li>
+                      identifier les systèmes les plus vulnérables (en fonction
+                      de leur exposition à Internet par exemple)
+                    </li>
+                  </ul>
+                </p>
+                <p>
+                  La question 1 du&nbsp;
+                  <a
+                    href="https://cyber.gouv.fr/publications/la-cybersecurite-pour-les-tpepme-en-treize-questions"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    guide «&nbsp;La cybersécurité pour les TPE/PME en treize
+                    questions&nbsp;»
+                  </a>
+                  &nbsp; et le&nbsp;
+                  <a
+                    href="https://cyber.gouv.fr/publications/cartographie-du-systeme-dinformation"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    guide pour réaliser la cartographie des systèmes
+                    d’information
+                  </a>
+                  &nbsp; de l’ANSSI peuvent accompagner les entités à cette fin.
                 </p>
               </BlocPrincipal>
             </div>
