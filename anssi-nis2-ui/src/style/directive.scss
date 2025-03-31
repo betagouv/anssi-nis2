@@ -359,6 +359,7 @@
   .annexes {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     a {
       background: none;
       &:after {
