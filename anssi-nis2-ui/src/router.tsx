@@ -22,6 +22,7 @@ import { MenuMobile } from "./Components/MenuMobile.tsx";
 import MiseEnPage from "./Components/MiseEnPage.tsx";
 import { MenuDesktop } from "./Components/MenuDesktop.tsx";
 import { useEffect } from "react";
+import MePreparer from "./MePreparer.tsx";
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
@@ -103,6 +104,7 @@ export const router = sentryCreateBrowserRouter([
     ),
   },
   { path: "/directive", element: <Directive /> },
+  { path: "/me-preparer", element: <MePreparer /> },
   {
     path: "/accessibilite",
     element: (

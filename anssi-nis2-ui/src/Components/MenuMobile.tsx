@@ -33,14 +33,8 @@ export const MenuMobile: DefaultComponent = () => {
               Me faire accompagner
             </NavLink>
           )}
+          <NavLink to="/me-preparer">Me préparer à NIS&nbsp;2</NavLink>
           <NavLink to="/infolettre">M&apos;abonner à la newsletter</NavLink>
-          <NavLink
-            to="https://aide.monespacenis2.cyber.gouv.fr"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Consulter la FAQ
-          </NavLink>
         </nav>
       )}
     </>
