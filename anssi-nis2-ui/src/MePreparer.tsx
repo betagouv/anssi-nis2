@@ -17,7 +17,7 @@ const MePreparer: DefaultComponent = () => {
       <MiseEnPage page="Se préparer">
         <MenuMobile />
         <MenuDesktop />
-        <div className="fr-nis2-me-preparer">
+        <div className="fr-nis2-me-preparer fr-pb-0">
           <BlocPrincipal className="fond-primaire" id="hero">
             <h1 className="texte-blanc">
               Se préparer à NIS&nbsp;2 en attendant la finalisation des textes
