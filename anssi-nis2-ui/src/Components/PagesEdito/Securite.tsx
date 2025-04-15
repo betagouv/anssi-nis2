@@ -6,22 +6,6 @@ import encartMobile from "../../assets/encart-homologation/encartHomologation.mo
 const Securite: DefaultComponent = () => {
   return (
     <>
-      <p>
-        L&apos;ANSSI soumet MonEspaceNIS2 à un rythme d&apos;homologation
-        soutenu (tous les ans) dans le cadre d&apos;une démarche de renforcement
-        continue de la sécurité du service numérique.
-      </p>
-      <p>
-        MonEspaceNIS2 est hébergé chez&nbsp;
-        <a
-          href="https://www.clever-cloud.com/fr/"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Clever Cloud
-        </a>
-        &nbsp;prenant appui sur Cloud Temple qualifié SecNumCloud.
-      </p>
       <img
         className="encart-homologation encart-desktop"
         src={encartDesktop}
@@ -37,6 +21,7 @@ const Securite: DefaultComponent = () => {
         src={encartMobile}
         alt="Encart d'homologation de MonEspaceNIS2"
       />
+      <lab-anssi-resume-pssi nomService="MonEspaceNIS2"></lab-anssi-resume-pssi>
     </>
   );
 };
