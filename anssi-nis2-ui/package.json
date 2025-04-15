@@ -22,7 +22,7 @@
     "@lab-anssi/ui-kit": "1.4.0",
     "@mui/material": "^5.14.7",
     "@types/mdast": "^4.0.3",
-    "axios": "^1.7.9",
+    "axios": "^1.8.2",
     "papaparse": "^5.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
