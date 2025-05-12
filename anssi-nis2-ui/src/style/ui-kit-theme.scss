@@ -1,0 +1,10 @@
+:root {
+  --centre-aide-background-entete: #272771;
+  --centre-aide-background-bouton: var(--centre-aide-background-entete);
+  --centre-aide-font-color-bouton: white;
+  --centre-aide-border-lien-secondaire: var(--centre-aide-background-entete);
+  --centre-aide-font-color-lien-secondaire: var(--centre-aide-background-entete);
+  --centre-aide-background-hover-lien: #41419F;
+  --centre-aide-background-hover-declencheur: var(--centre-aide-background-hover-lien);
+  --brique-background-primaire: var(--centre-aide-background-entete);
+}
