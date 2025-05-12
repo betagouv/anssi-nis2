@@ -1,10 +1,6 @@
-import { Fragment } from "react";
 import { DefaultComponent } from "../../Services/Props";
 
 export const BOM: DefaultComponent = () => {
-  const urlFAQ = import.meta.env.VITE_CRISP_URL_FAQ;
-  if (!urlFAQ) return <Fragment />;
-
   return (
     <lab-anssi-centre-aide
       nomService="MonEspaceNIS2"
@@ -15,7 +11,7 @@ export const BOM: DefaultComponent = () => {
         },
         {
           texte: "🙌 Consulter la FAQ",
-          href: urlFAQ,
+          href: "https://aide.monespacenis2.cyber.gouv.fr/",
         },
       ])}
     ></lab-anssi-centre-aide>
