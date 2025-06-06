@@ -1,4 +1,4 @@
-@import 'ui-kit-theme';
+@import "ui-kit-theme";
 
 html {
   scroll-behavior: smooth;
@@ -902,7 +902,8 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
   flex: 1;
 }
 
-.fr-header, .fr-header__brand {
+.fr-header,
+.fr-header__brand {
   filter: none !important;
 }
 
@@ -979,6 +980,7 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
     display: flex;
     width: 1200px;
     margin: 0 auto;
+    position: relative;
 
     a {
       color: #282828;
@@ -997,6 +999,18 @@ nav.fr-nis2-faq-menu.fr-sidemenu {
 
       &:hover {
         background: #f1f5f9;
+      }
+    }
+
+    ul ul a.active {
+      border-bottom: none;
+    }
+
+    li:has(button ~ .fr-menu ul a.active) {
+      border-bottom: 3px solid #fdc82e;
+
+      button {
+        color: #272771;
       }
     }
   }
