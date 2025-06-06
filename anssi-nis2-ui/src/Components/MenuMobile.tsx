@@ -22,7 +22,7 @@ export const MenuMobile: DefaultComponent = () => {
             Fermer
           </button>
           <NavLink to="/">Accueil</NavLink>
-          <NavLink to="/directive">M&apos;informer sur la directive</NavLink>
+          <NavLink to="/directive">M&apos;informer</NavLink>
           <NavLink to="/simulateur">Tester si mon entité est concernée</NavLink>
           {bandeauMscPasEncoreVisible() ? null : (
             <NavLink
