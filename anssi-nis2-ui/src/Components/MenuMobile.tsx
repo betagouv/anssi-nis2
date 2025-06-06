@@ -22,7 +22,19 @@ export const MenuMobile: DefaultComponent = () => {
             Fermer
           </button>
           <NavLink to="/">Accueil</NavLink>
-          <NavLink to="/directive">M&apos;informer</NavLink>
+          <details>
+            <summary>M&apos;informer</summary>
+            <NavLink className="fr-nav__link" to="/directive">
+              En synthèse
+            </NavLink>
+            <NavLink
+              className="fr-nav__link"
+              to="https://aide.monespacenis2.cyber.gouv.fr"
+            >
+              Pour aller plus loin
+            </NavLink>
+          </details>
+
           <NavLink to="/simulateur">Tester si mon entité est concernée</NavLink>
           {bandeauMscPasEncoreVisible() ? null : (
             <NavLink
