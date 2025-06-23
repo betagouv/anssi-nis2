@@ -31,7 +31,7 @@ const BandeauSePreparer: DefaultComponent = () => {
           prochainement={true}
           numero={3}
           titre="Se déclarer auprès de l’ANSSI"
-          contenu="Un service d’enregistrement en ligne permettra de communiquer simplement les informations demandées par la directive NIS&nbsp;2."
+          contenu="Un service de pré-enregistrement en ligne permettra de communiquer simplement les informations demandées par la directive NIS&nbsp;2."
         />
         <Link to={"/simulateur"} className="fr-nis2-bouton-principal">
           Débuter le test
