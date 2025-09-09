@@ -6,8 +6,8 @@ export const BOM: DefaultComponent = () => {
       nomService="MonEspaceNIS2"
       liens={JSON.stringify([
         {
-          texte: "💬 Nous contacter par chat",
-          href: "https://aide.monespacenis2.cyber.gouv.fr/",
+          texte: "💬 Nous contacter",
+          href: "https://aide.monespacenis2.cyber.gouv.fr/fr/article/nous-contacter-1mvyy9f/",
         },
         {
           texte: "🙌 Consulter la FAQ",
