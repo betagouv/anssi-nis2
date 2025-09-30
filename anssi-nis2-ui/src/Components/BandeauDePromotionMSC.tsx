@@ -1,5 +1,4 @@
 import { Fragment } from "react";
-import "@lab-anssi/ui-kit/dist/webcomponents";
 import { bandeauMscPasEncoreVisible } from "./bandeauMscPasEncoreVisible.tsx";
 
 export function BandeauDePromotionMSC() {

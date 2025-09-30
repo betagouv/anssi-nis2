@@ -238,28 +238,4 @@
       }
     }
   }
-
-  #anssi {
-    .conteneur-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 48px;
-    }
-
-    p:first-of-type {
-      margin-bottom: 8px;
-    }
-
-    a {
-      display: flex;
-      justify-content: center;
-
-      &:after {
-        width: 24px;
-        height: 24px;
-        margin-left: 12px;
-      }
-    }
-  }
 }
