@@ -407,10 +407,12 @@ export const listeDescriptionsActivites: Record<
     {
       titre: "Service de communications électroniques",
       description:
-        "Le service fourni normalement contre rémunération via des réseaux de communications électroniques " +
-        "qui, à l’exception des services consistant à fournir des contenus transmis à l’aide de réseaux " +
-        "et de services de communications électroniques ou à exercer une responsabilité éditoriale sur ces " +
-        "contenus, comprend les types de services suivants.",
+        "Le service fourni normalement contre rémunération via des réseaux de communications électroniques qui, à l’exception des services consistant à fournir des contenus " +
+        "transmis à l’aide de réseaux et de services de communications électroniques ou à exercer une responsabilité éditoriale sur ces contenus, comprend les types de services suivants : \n\n" +
+        "a) un « service d’accès à l'internet » défini à l’article 2, deuxième alinéa, point 2, du règlement (UE) 2015/2120 ;\n\n" +
+        "b) un service de communications interpersonnelles ; et\n\n" +
+        "c) des services consistant entièrement ou principalement en la transmission de signaux tels que les services de transmission utilisés pour la fourniture de services de machine à " +
+        "machine et pour la radiodiffusion",
     },
   ],
   fournisseurServicesDNS: [
