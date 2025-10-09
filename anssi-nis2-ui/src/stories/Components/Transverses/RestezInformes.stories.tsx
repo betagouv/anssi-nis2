@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RestezInformes from "../../../Components/RestezInformes.tsx";
 
 const meta: Meta<typeof RestezInformes> = {
