@@ -37,7 +37,6 @@
     "tss-react": "^4.8.8"
   },
   "devDependencies": {
-    "@storybook/blocks": "^7.6.5",
     "@storybook/react": "^7.5.0",
     "@storybook/react-vite": "^7.5.0",
     "@testing-library/jest-dom": "^6.1.2",
