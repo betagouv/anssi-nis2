@@ -37,7 +37,6 @@
     "tss-react": "^4.8.8"
   },
   "devDependencies": {
-    "@storybook/addon-coverage": "^1.0.0",
     "@storybook/addon-essentials": "^7.6.5",
     "@storybook/addon-interactions": "^7.6.5",
     "@storybook/addon-links": "^7.6.5",

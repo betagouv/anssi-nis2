@@ -20,7 +20,6 @@ const config: StorybookConfig = {
     getAbsolutePath("@storybook/addon-actions"),
     getAbsolutePath("@storybook/addon-essentials"),
     getAbsolutePath("@storybook/addon-links"),
-    getAbsolutePath("@storybook/addon-coverage"),
     getAbsolutePath("@storybook/addon-interactions"),
   ],
   docs: {
