@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/react";
+import { Meta } from "@storybook/react-vite";
 import GestionCookies from "../../../Components/PagesEdito/GestionCookies.tsx";
 
 const Index: Meta<typeof GestionCookies> = {

@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/react";
+import { Meta } from "@storybook/react-vite";
 import { TamponResultat } from "../../../../Components/Simulateur/Resultats/TamponResultat.tsx";
 import {
   Regulation,

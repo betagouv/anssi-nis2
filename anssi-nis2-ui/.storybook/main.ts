@@ -16,11 +16,7 @@ const config: StorybookConfig = {
     options: {},
   },
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
-  addons: [
-  ],
-  docs: {
-    autodocs: "tag",
-  },
+  addons: [],
 };
 // noinspection JSUnusedGlobalSymbols
 export default config;

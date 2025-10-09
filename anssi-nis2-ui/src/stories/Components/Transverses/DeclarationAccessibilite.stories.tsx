@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/react";
+import { Meta } from "@storybook/react-vite";
 import { DeclarationAccessibilite } from "../../../Components/PagesEdito/DeclarationAccessibilite.tsx";
 
 const Index: Meta<typeof DeclarationAccessibilite> = {

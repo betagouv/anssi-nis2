@@ -1,4 +1,4 @@
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-vite";
 
 import "@gouvfr/dsfr/dist/utility/icons/icons.min.css";
 import "@gouvfr/dsfr/dist/dsfr.min.css";

@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/react";
+import { Meta } from "@storybook/react-vite";
 import { EtapeResultatV2 } from "../../../../Components/Simulateur/EtapeResultatV2.tsx";
 import { ResultatEligibilite } from "../../../../../../commun/core/src/Domain/Simulateur/Regulation.definitions.ts";
 import { donneesFormulaireSimulateurVide } from "../../../../../../commun/core/src/Domain/Simulateur/services/DonneesFormulaire/DonneesFormulaire.constantes.ts";
