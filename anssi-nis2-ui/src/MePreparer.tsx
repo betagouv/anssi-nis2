@@ -228,17 +228,20 @@ const MePreparer: DefaultComponent = () => {
                 <p>
                   En attendant l’entrée en vigueur de l’obligation
                   d’enregistrement, qui interviendra avec la publication des
-                  textes réglementaires, l’ANSSI mettra à disposition très
-                  prochainement une première version du service d’enregistrement
-                  pour permettre aux entités d’anticiper cette étape. Le service
-                  prévoit un parcours guidé pour répondre aux attentes de la
-                  directive et inclut des saisies automatiques dans la mesure du
-                  possible.
+                  textes réglementaires, l’ANSSI met à disposition une première
+                  version du service d’enregistrement pour permettre aux entités
+                  d’anticiper cette étape. Le service prévoit un parcours guidé
+                  pour répondre aux attentes de la directive et inclut des
+                  saisies automatiques dans la mesure du possible.
                 </p>
-                <p>
-                  Le lien vers le service de pré-enregistrement sera accessible
-                  depuis le site MonEspaceNIS2.
-                </p>
+                <a
+                  className="fr-nis2-bouton-principal"
+                  target="_blank"
+                  rel="noreferrer"
+                  href="https://club.ssi.gouv.fr/index_nis2.html#/nis2/introduction"
+                >
+                  Se pré-enregistrer
+                </a>
               </BlocPrincipal>
               <BlocPrincipal
                 id="lister-les-systemes-d-information-de-votre-entite"
