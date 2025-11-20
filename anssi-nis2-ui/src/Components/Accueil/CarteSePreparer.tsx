@@ -26,7 +26,14 @@ const CarteSePreparer: DefaultComponentExtensible<CarteSePreparerProps> = ({
         <h3>{titre}</h3>
         <p>{contenu}</p>
         {prochainement && (
-          <p className="prochainement">À venir prochainement</p>
+          <a
+            href="https://club.ssi.gouv.fr/index_nis2.html#/nis2/introduction"
+            className=" fr-nis2-bouton-secondaire prochainement"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Se pré-enregistrer
+          </a>
         )}
       </div>
     </div>
