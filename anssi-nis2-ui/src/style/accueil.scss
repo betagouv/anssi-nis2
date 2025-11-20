@@ -137,9 +137,6 @@
           font-weight: bold;
           margin-bottom: 16px;
 
-          &.prochainement {
-            opacity: 20%;
-          }
         }
 
         h3 {
@@ -152,7 +149,6 @@
 
         :not(.numero).prochainement {
           margin-top: 16px;
-          background: #d6e3ff;
           padding: 2px 8px;
           font-weight: bold;
           width: fit-content;
