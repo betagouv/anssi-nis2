@@ -28,13 +28,17 @@ const BandeauSePreparer: DefaultComponent = () => {
         />
         <CarteSePreparer
           image={Declarer}
-          prochainement={true}
           numero={3}
           titre="Se déclarer auprès de l’ANSSI"
           contenu="Un service de pré-enregistrement en ligne permet de communiquer simplement les informations demandées par la directive NIS&nbsp;2."
         />
-        <Link to="/simulateur" className="fr-nis2-bouton-principal">
-          Débuter le test
+        <Link
+          to="https://club.ssi.gouv.fr/index_nis2.html#/nis2/introduction"
+          target="_blank"
+          rel="noreferrer"
+          className="fr-nis2-bouton-principal"
+        >
+          Se pré-enregistrer
         </Link>
       </div>
     </BlocPrincipal>
