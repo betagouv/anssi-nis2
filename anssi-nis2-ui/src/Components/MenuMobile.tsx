@@ -33,20 +33,29 @@ export const MenuMobile: DefaultComponent = () => {
             >
               Pour aller plus loin
             </NavLink>
+            <NavLink className="fr-nav__link" to="/infolettre">
+              M&apos;abonner à la newsletter
+            </NavLink>
           </details>
 
-          <NavLink to="/simulateur">Tester si mon entité est concernée</NavLink>
+          <NavLink to="/simulateur">Faire le test</NavLink>
+          <NavLink
+            target="_blank"
+            rel="noreferrer"
+            to="https://club.ssi.gouv.fr/index_nis2.html#/nis2/introduction"
+          >
+            Pré-enregistrer mon entité
+          </NavLink>
           {bandeauMscPasEncoreVisible() ? null : (
             <NavLink
               to="https://messervices.cyber.gouv.fr/nis2/"
               target="_blank"
               rel="noreferrer"
             >
-              Me faire accompagner
+              Être accompagné
             </NavLink>
           )}
           <NavLink to="/me-preparer">Me préparer à NIS&nbsp;2</NavLink>
-          <NavLink to="/infolettre">M&apos;abonner à la newsletter</NavLink>
         </nav>
       )}
     </>
