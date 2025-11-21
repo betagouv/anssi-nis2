@@ -32,11 +32,26 @@ export const MenuDesktop: DefaultComponent = () => {
                   Pour aller plus loin
                 </NavLink>
               </li>
+              <li>
+                <NavLink className="fr-nav__link" to="/infolettre">
+                  M&apos;abonner à la newsletter
+                </NavLink>
+              </li>
+              <li className="fr-nav__item"></li>
             </ul>
           </div>
         </li>
         <li className="fr-nav__item">
-          <NavLink to="/simulateur">Tester si mon entité est concernée</NavLink>
+          <NavLink to="/simulateur">Faire le test</NavLink>
+        </li>
+        <li className="fr-nav__item">
+          <NavLink
+            target="_blank"
+            rel="noreferrer"
+            to="https://club.ssi.gouv.fr/index_nis2.html#/nis2/introduction"
+          >
+            Pré-enregistrer mon entité
+          </NavLink>
         </li>
         {bandeauMscPasEncoreVisible() ? null : (
           <li className="fr-nav__item">
@@ -45,15 +60,12 @@ export const MenuDesktop: DefaultComponent = () => {
               target="_blank"
               rel="noreferrer"
             >
-              Me faire accompagner
+              Être accompagné
             </NavLink>
           </li>
         )}
         <li className="fr-nav__item">
           <NavLink to="/me-preparer">Me préparer à NIS&nbsp;2</NavLink>
-        </li>
-        <li className="fr-nav__item">
-          <NavLink to="/infolettre">M&apos;abonner à la newsletter</NavLink>
         </li>
       </ul>
     </nav>
