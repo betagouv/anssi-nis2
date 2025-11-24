@@ -42,7 +42,7 @@ export const MenuMobile: DefaultComponent = () => {
           <NavLink
             target="_blank"
             rel="noreferrer"
-            to="https://club.ssi.gouv.fr/index_nis2.html#/nis2/introduction"
+            to="https://club.ssi.gouv.fr/#/nis2/introduction"
           >
             Pré-enregistrer mon entité
           </NavLink>

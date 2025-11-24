@@ -33,7 +33,7 @@ const BandeauSePreparer: DefaultComponent = () => {
           contenu="Un service de pré-enregistrement en ligne permet de communiquer simplement les informations demandées par la directive NIS&nbsp;2."
         />
         <Link
-          to="https://club.ssi.gouv.fr/index_nis2.html#/nis2/introduction"
+          to="https://club.ssi.gouv.fr/#/nis2/introduction"
           target="_blank"
           rel="noreferrer"
           className="fr-nis2-bouton-principal"
