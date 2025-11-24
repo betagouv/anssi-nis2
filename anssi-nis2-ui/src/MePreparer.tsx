@@ -238,7 +238,7 @@ const MePreparer: DefaultComponent = () => {
                   className="fr-nis2-bouton-principal"
                   target="_blank"
                   rel="noreferrer"
-                  href="https://club.ssi.gouv.fr/index_nis2.html#/nis2/introduction"
+                  href="https://club.ssi.gouv.fr/#/nis2/introduction"
                 >
                   Se pré-enregistrer
                 </a>
