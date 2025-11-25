@@ -3,14 +3,14 @@ import { CenteredContainer } from "../../General/CenteredContainer.tsx";
 
 export const LigneEtMaintenant = () => (
   <>
-    <RowContainer className="fr-nis2-bordure-bas">
+    <RowContainer className="fr-background-alt--blue-france">
       <CenteredContainer>
         <h2 className="fr-text-action-high--blue-france fr-h1">
           Et Maintenant ?
         </h2>
         <p className="fr-text">
-          La prochaine étape sera de créer votre espace ANSSI et d’y enregistrer
-          votre entité&nbsp;: votre structure, vos contacts référents.
+          La prochaine étape est maintenant de vous déclarer auprès de
+          l&apos;ANSSI en pré-enregistrant votre organisation
         </p>
         <a
           className="fr-nis2-bouton-principal"

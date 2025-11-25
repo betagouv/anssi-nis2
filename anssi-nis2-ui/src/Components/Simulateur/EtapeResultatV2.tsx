@@ -30,7 +30,8 @@ export function EtapeResultatV2(props: {
           />
         </CenteredContainer>
       </RowContainer>
-      <RowContainer className="fr-background-alt--blue-france">
+      {estRegule(props.resultat.regulation) && <LigneEtMaintenant />}
+      <RowContainer>
         <CenteredContainer>
           <div className="fr-container">
             <h2 className="fr-text-action-high--blue-france fr-h1">
@@ -42,7 +43,6 @@ export function EtapeResultatV2(props: {
           />
         </CenteredContainer>
       </RowContainer>
-      {estRegule(props.resultat.regulation) && <LigneEtMaintenant />}
       {estRegule(props.resultat.regulation) && <EnSavoirPlus />}
       <LigneBienDebuter
         avecPdf={affichePdf(props.resultat.regulation)(props.reponses)}
