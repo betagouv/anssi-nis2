@@ -9,7 +9,7 @@ import imageFAQ from "../../../assets/faq.svg";
 
 export const EnSavoirPlus = () => {
   return (
-    <RowContainer className="fr-nis2-bordure-bas">
+    <RowContainer className="fr-background-alt--blue-france">
       <CenteredContainer>
         <h2 className="fr-text-action-high--blue-france fr-h1">
           En savoir plus
