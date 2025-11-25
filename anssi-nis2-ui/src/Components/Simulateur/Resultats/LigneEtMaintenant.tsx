@@ -6,11 +6,11 @@ export const LigneEtMaintenant = () => (
     <RowContainer className="fr-background-alt--blue-france">
       <CenteredContainer>
         <h2 className="fr-text-action-high--blue-france fr-h1">
-          Et Maintenant ?
+          Et maintenant ?
         </h2>
         <p className="fr-text">
-          La prochaine étape est maintenant de vous déclarer auprès de
-          l&apos;ANSSI en pré-enregistrant votre organisation
+          La prochaine étape est de vous déclarer auprès de l&apos;ANSSI en
+          pré-enregistrant votre organisation
         </p>
         <a
           className="fr-nis2-bouton-principal"
