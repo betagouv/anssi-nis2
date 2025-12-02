@@ -16,7 +16,7 @@
   "scripts": {
     "test": "vitest run",
     "build": "tsc",
-    "prettier": "npx prettier . --write"
+    "prettier": "prettier . --write"
   },
   "author": "",
   "license": "ISC"
