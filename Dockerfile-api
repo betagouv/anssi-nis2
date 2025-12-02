@@ -2,15 +2,12 @@ FROM node:22
 
 RUN apt-get update
 
-RUN npm install -g npm
-RUN npm install -g ts-node
-
 WORKDIR /usr/src/app
 
 COPY package*.json /usr/src/app/
 COPY anssi-nis2-api/package.json /usr/src/app/anssi-nis2-api/package.json
 
-RUN npm install
+RUN npm ci
 
 COPY anssi-nis2-api/ /usr/src/app/anssi-nis2-api/
 
