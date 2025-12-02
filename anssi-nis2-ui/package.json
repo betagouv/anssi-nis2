@@ -7,7 +7,7 @@
     "dev": "vite",
     "preview": "vite preview",
     "build": "tsc && vite build",
-    "prettier": "npx prettier . --write",
+    "prettier": "prettier . --write",
     "postinstall": "copy-dsfr-to-public",
     "predev": "only-include-used-icons",
     "prebuild": "only-include-used-icons",
