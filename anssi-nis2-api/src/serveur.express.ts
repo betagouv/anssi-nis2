@@ -16,7 +16,6 @@ export async function creeServeurExpress(
   dependances.adaptateurGestionErreur.initialise(app);
   dependances.adaptateurProtection.initialise(app);
 
-  app.set("trust proxy", 1);
   app.disable("x-powered-by");
   activeFiltrageIp(app);
 
