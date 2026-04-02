@@ -1,12 +1,2 @@
-node_modules
 /.idea/
 /.vscode/
-/pgdata/
-dist
-.env
-/anssi-nis2-ui/storybook-static/
-/anssi-nis2-ui/coverage/
-
-.eslintcache
-/commun/core/dist/
-/anssi-nis2.iml
