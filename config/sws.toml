@@ -1,0 +1,9 @@
+[[advanced.rewrites]]
+source = "/simulateur"
+destination = "https://messervices.cyber.gouv.fr/simulateur-nis2"
+redirect = 301
+
+[[advanced.rewrites]]
+source = "/**"
+destination = "https://messervices.cyber.gouv.fr/nis2"
+redirect = 301
